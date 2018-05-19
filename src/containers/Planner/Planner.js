@@ -74,7 +74,7 @@ class Planner extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr id="week_1"> {/* nested DnD! */}
+                    <tr id="week_1">
                       <PlannerDay  day="1"></PlannerDay>
                       <PlannerDay  day="2"></PlannerDay>
                       <PlannerDay  day="3"></PlannerDay>

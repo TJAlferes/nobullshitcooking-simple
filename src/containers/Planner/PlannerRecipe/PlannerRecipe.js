@@ -38,15 +38,21 @@ function collect(connect, monitor) {
 class PlannerRecipe extends Component {
   render() {
     const { name } = this.props;
-    const { isDragging, connectDragSource } = this.props;
+    const { isDragging, isDropped, connectDragSource } = this.props;
+    let toggleDisplay;
+    if (isDragging) {
+      toggleDisplay = <div>!!!</div>;
+    }
+    if (!isDropped) {
+      toggleDisplay = <Styles>{name}</Styles>;
+    }
     return connectDragSource(
       <div>
-        <Styles>
-          {name}
-          {isDragging && ' (and am now being dragged)'}
-        </Styles>
-      </div>
-    );
+        {
+          (isDragging && <p></p>) ||
+          (<Styles>{name}</Styles>)
+        }
+      </div>);
   }
 }
 
