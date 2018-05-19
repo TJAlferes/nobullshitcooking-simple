@@ -20,14 +20,7 @@ const plannerRecipeSource = {
     if (dropResult) {
       alert(`${item.name} on Day ${dropResult.day}, nice.`);
     }
-    /*
-    if (!monitor.didDrop()) {
-      return;
-    }
-    const item = monitor.getItem();
-    const dropResult = monitor.getDropResult();
-    CardActions.moveCardToList(item.id, dropResult.listId);
-    */
+    //CardActions.moveCardToList(item.id, dropResult.listId);
   }
 };
 

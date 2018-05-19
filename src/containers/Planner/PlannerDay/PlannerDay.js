@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 
-import { Styles } from './Styles';
+import { GreenColor, RedColor } from './Styles';
 
 // types
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 // spec
 const plannerDayTarget = {
-  drop(props) {
-    //const item = monitor.getItem();
+  drop(props, monitor) {
+    const item = monitor.getItem();
     return {day: props.day};
   }
 };
@@ -32,10 +32,8 @@ class PlannerDay extends Component {
     const { isOver, canDrop, connectDropTarget } = this.props;
     return connectDropTarget(
       <td className="planner_day">
-        <Styles>
-          {isOver && canDrop && <div className="green"></div>}
-          {isOver && !canDrop && <div className="red"></div>}
-        </Styles>
+        {isOver && canDrop && <GreenColor />}
+        {isOver && !canDrop && <RedColor />}
       </td>
     );
   }

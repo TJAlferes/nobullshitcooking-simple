@@ -94,12 +94,12 @@ class Planner extends Component {
                     </tr>
                     <tr id="week_3">
                       <PlannerDay day="15"></PlannerDay>
-                      <PlannerDay day="day_16"></PlannerDay>
-                      <PlannerDay day="day_17"></PlannerDay>
-                      <PlannerDay day="day_18"></PlannerDay>
-                      <PlannerDay day="day_19"></PlannerDay>
-                      <PlannerDay day="day_20"></PlannerDay>
-                      <PlannerDay day="day_21"></PlannerDay>
+                      <PlannerDay day="16"></PlannerDay>
+                      <PlannerDay day="17"></PlannerDay>
+                      <PlannerDay day="18"></PlannerDay>
+                      <PlannerDay day="19"></PlannerDay>
+                      <PlannerDay day="20"></PlannerDay>
+                      <PlannerDay day="21"></PlannerDay>
                     </tr>
                     <tr id="week_4">
                       <PlannerDay day="22"></PlannerDay>
