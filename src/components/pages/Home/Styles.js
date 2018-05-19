@@ -22,12 +22,14 @@ export const Styles = styled.div`
   }
   */
   #torso {
+    order: 2;
     width: 600px;
     margin: 10px;
     background-color: #fff;
   }
   #container {}
   #right_aside {
+    order: 3;
     width: 340px;
     margin-top: 10px;
     margin-left: 10px;
