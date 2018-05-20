@@ -8,33 +8,32 @@ class LeftNav extends Component {
   render() {
     return (
       <Styles>
-        <span>Username</span>
+        <LeftNavLink to="/"><span>Username</span></LeftNavLink>
         <LeftNavLink to="/planner"><span id="planner_span">Your Plan</span></LeftNavLink>
         <hr />
-        <LeftNavLink to="/"><span>New</span></LeftNavLink>
-        <span>Messages</span>
-        <span>Friends</span>
+        <LeftNavLink to="/"><span id="home_span">New</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Messages</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Friends</span></LeftNavLink>
         <hr />
-        <LeftNavLink to="/content/supplements"><span>Supplements</span></LeftNavLink>
-        <span>Equipment</span>
+        <LeftNavLink to="/content/supplements"><span id="supplements_span">Supplements</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Equipment</span></LeftNavLink>
         <hr />
-        <span>Water Filtration</span>
-        <span>Tea</span>
-        <span>Cofee</span>
-        <span>Alcohol</span>
-        <span>Tobacco</span>
+        <LeftNavLink to="/"><span>Water Filtration</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Tea</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Cofee</span></LeftNavLink>
         <hr />
-        <span>Outdoors</span>
-        <span>Garden</span>
-        <span>Weapons</span>
-        <span>Finances</span>
-        <span>Security</span>
+        <LeftNavLink to="/"><span>Outdoors</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Garden</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Tools</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Weapons</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Finances</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Security</span></LeftNavLink>
         <hr />
-        <span>Contest Winners</span>
-        <span>Food for Fall</span>
-        <span>Add a Recipe</span>
+        <LeftNavLink to="/"><span>Contest Winners</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Food for Fall</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Add a Recipe</span></LeftNavLink>
         <hr />
-        <span>Charity</span>
+        <LeftNavLink to="/"><span>Charity</span></LeftNavLink>
       </Styles>
     );
   }

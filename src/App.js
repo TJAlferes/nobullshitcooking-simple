@@ -14,6 +14,7 @@ import FooterGray from './components/FooterGray/FooterGray';
 //import Ingredients from './components/pages/Ingredients/Ingredients';
 import Register from './components/user/Register/Register';
 import Login from './components/user/Login/Login';
+import Supplements from './components/pages/Supplements/Supplements';
 import Planner from './containers/Planner/Planner'
 import Home from './components/pages/Home/Home';
 import NotFound from './components/NotFound/NotFound';
@@ -30,6 +31,7 @@ class App extends Component {
       <Switch>
         <Route path="/user/register" component={Register} />
         <Route path="/user/login" component={Login} />
+        <Route path="/content/supplements" component={Supplements} />
         <Route path="/planner" component={Planner} />
         <Route path="/home" component={Home} />
         <Route path="/" exact component={Home} />

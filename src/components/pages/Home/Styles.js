@@ -37,7 +37,7 @@ export const Styles = styled.div`
     background-color: #fff;
   }
 
-  #span_new {background-color: #ddd;}
+  #home_span {background-color: #ddd;}
 
   /*
   #left_aside span, #right_aside span {
