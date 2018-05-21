@@ -39,6 +39,8 @@
     "babel-plugin-universal-import": "^2.0.0",
     "dompurify": "^1.0.4",
     "final-form": "^4.6.1",
+    "immutability-helper": "^2.7.0",
+    "lodash": "^4.17.10",
     "query-string": "^6.1.0",
     "react": "^16.3.2",
     "react-dnd": "^2.6.0",

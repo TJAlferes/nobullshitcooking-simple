@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import update from 'immutability-helper';
 
-import { GreenColor, RedColor } from './Styles';
+import { Styles } from './Styles';
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
@@ -32,7 +32,7 @@ function collect(connect, monitor) {
 
 //
 
-class PlannerDay extends Component {
+class PlannerRecipesList extends Component {
   constructor(props) {
     super(props);
     this.state = {recipes: props.list};
@@ -66,7 +66,7 @@ class PlannerDay extends Component {
     const { canDrop, isOver, connectDropTarget } = this.props;
 
     return connectDropTarget(
-      <td className="planner_day">
+      <Styles className="planner_day">
         {isOver && canDrop && <GreenColor />}
         {isOver && !canDrop && <RedColor />}
         {recipes.map((card, i) => (
@@ -79,9 +79,9 @@ class PlannerDay extends Component {
           moveRecipe={this.moveRecipe}
           />
         ))}
-      </td>
+      </Styles>
     );
   }
 }
 
-export default DropTarget(Types.PLANNER_RECIPE, plannerDayTarget, collect)(PlannerDay);
+export default DropTarget(Types.PLANNER_RECIPE, plannerDayTarget, collect)(PlannerRecipesList);
