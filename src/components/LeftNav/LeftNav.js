@@ -20,7 +20,7 @@ class LeftNav extends Component {
         <hr />
         <LeftNavLink to="/"><span>Water Filtration</span></LeftNavLink>
         <LeftNavLink to="/"><span>Tea</span></LeftNavLink>
-        <LeftNavLink to="/"><span>Cofee</span></LeftNavLink>
+        <LeftNavLink to="/"><span>Coffee</span></LeftNavLink>
         <hr />
         <LeftNavLink to="/"><span>Outdoors</span></LeftNavLink>
         <LeftNavLink to="/"><span>Garden</span></LeftNavLink>
