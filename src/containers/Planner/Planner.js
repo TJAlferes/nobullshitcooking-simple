@@ -6,53 +6,10 @@ import { Styles } from './Styles';
 import PlannerRecipe from './PlannerRecipe/PlannerRecipe';
 import PlannerDay from './PlannerDay/PlannerDay';
 
-/*
-function plannerActionOne() {
-	var recipes = document.getElementsByClassName('recipe');
-	for (var i = 0; i < recipes.length; i++) {
-		recipes[i].addEventListener("dragstart", dragStart, false);
-		recipes[i].addEventListener("dragend", dragEnd, false);
-	}
-	
-	recipesList = document.getElementById('recipes_list');
-	recipesList.addEventListener("dragover", function(event) {
-		event.prevenPlannerDayefault();
-	});
-	recipesList.addEventListener("drop", drop, false);
-	
-	var days = document.querySelectorAll('PlannerDay');
-	for (var i = 0; i < days.length; i++) {
-		days[i].addEventListener("dragover", function(event) {
-			event.prevenPlannerDayefault();
-		});
-		days[i].addEventListener("drop", drop, false);
-	}
-}
-
-function dragStart(event) {
-	event.dataTransfer.sePlannerDayata("text", event.target.id);
-}
-function dragEnd(event) {
-	recipe = event.target;
-	recipe.style.visibility = 'visible';
-}
-function drop(event) {
-	event.prevenPlannerDayefault();
-    var data = event.dataTransfer.gePlannerDayata("text");
-    event.target.appendChild(document.getElementById(data));
-}
-
-window.addEventListener("load", plannerActionOne, false);
-*/
-
 class Planner extends Component {
-  constructor(props) {  // do you need the constructor???
-    super(props);
-    this.state = {};
-  }
   render() {
     // use objects instead of arrays? so you have key for db? there's gotta be a way to clean this up anyway
-    const list0 = []; // for the PlannerRecipesList
+    const list0 = [{id: 1, text: "Sheperd's Pie"}, {id: 2, text: "Split Pea Soup"}, {id: 3, text: "Steak Asparagus and Sweet Potato"}];
     const list1 = []; // and the rest of these are for the PlannerDays
     const list2 = [];
     const list3 = [];
@@ -91,6 +48,7 @@ class Planner extends Component {
             <p id="autosave_feedback">All changes saved.</p>
             <hr />
             <div id="calendar_container">
+
               <div id="monthly_plan">
                 <table>
                   <thead>
@@ -144,11 +102,17 @@ class Planner extends Component {
                   </tbody>
                 </table>
               </div>
-              <div id="recipes_list">
-                <PlannerRecipe id="1" text="Sheperd's Pie" />
-                <PlannerRecipe id="2" text="Split Pea Soup" />
-                <PlannerRecipe id="3" text="Steak Asparagus and Sweet Potato" />
+
+              <div>
+                <table>
+                  <tbody>
+                    <tr id="recipes_list">
+                      <PlannerDay day="0" list={list0}></PlannerDay>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+
             </div>
           </article>
         </div>

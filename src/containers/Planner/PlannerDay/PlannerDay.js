@@ -5,7 +5,7 @@ import update from 'immutability-helper';
 import { GreenColor, RedColor } from './Styles';
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 
-const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
+const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};  // is this definition necessary here since we imported?
 
 // should this be named plannerRecipeTarget?
 const plannerDayTarget = {
@@ -48,7 +48,7 @@ class PlannerDay extends Component {
 
   removeRecipe = index => {
     this.setState(update(this.state, {
-      recipes: {$splice: [index, 1]}
+      recipes: {$splice: [[index, 1]]}
     }));
   }
 
@@ -69,7 +69,7 @@ class PlannerDay extends Component {
       <td className="planner_day">
         {isOver && canDrop && <GreenColor />}
         {isOver && !canDrop && <RedColor />}
-        {recipes.map((card, i) => (
+        {recipes.map((recipe, i) => (
           <PlannerRecipe
           key={recipe.id}
           index={i}

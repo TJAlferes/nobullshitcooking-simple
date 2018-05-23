@@ -23,53 +23,32 @@ const plannerRecipeSource = {
       props.removeRecipe(item.index);
     }
   }
-  /*
-  beginDrag(props) {
-    return {
-      id: props.id,
-      name: props.name
-    };
-  },
-  endDrag(props, monitor) {
-    const item = monitor.getItem();
-    const dropResult = monitor.getDropResult();
-    if (dropResult) {
-      alert(`${item.name} on Day ${dropResult.day}, nice.`);
-    }
-    //CardActions.moveCardToList(item.id, dropResult.listId);
-  }
-  */
 };
 
-// where most of the magic happens
-// document/explain this well so people understand it easily
+// explain this well so people understand it easily
 const plannerRecipeTarget = {
   hover(props, monitor, component) {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     const sourceListId = monitor.getItem().listId;
 
-    if (dragIndex === hoverIndex) {
-      return;
-    }
-
-    // use ref instead?
-    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();  // use ref instead?
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
+    if (dragIndex === hoverIndex) {
+      return;
+    }
     if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) {
       return;
     }
-
     if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) {
       return;
     }
-
     if (props.listId === sourceListId) {
       props.moveRecipe(dragIndex, hoverIndex);
-      monitor.getItem().index = hoverIndex;
+      monitor.getItem().index = hoverIndex;  // mutation, but OK here(?)
     }
   }
 };
@@ -94,11 +73,6 @@ class PlannerRecipe extends Component {
     return connectDragSource(connectDropTarget(
       <div><Styles>{recipe.text}</Styles></div>
     ));
-    /*
-    return connectDragSource(connectDropTarget(
-      <div>{(isDragging && <p></p>) || (<Styles>{recipe.text}</Styles>)}</div>
-    ));
-    */
   }
 }
 
