@@ -5,6 +5,7 @@ import { Styles } from './Styles';
 
 import PlannerRecipe from './PlannerRecipe/PlannerRecipe';
 import PlannerDay from './PlannerDay/PlannerDay';
+import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 
 class Planner extends Component {
   render() {
@@ -103,15 +104,7 @@ class Planner extends Component {
                 </table>
               </div>
 
-              <div>
-                <table>
-                  <tbody>
-                    <tr id="recipes_list">
-                      <PlannerDay day="0" list={list0}></PlannerDay>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <PlannerRecipesList day="0" list={list0}></PlannerRecipesList>
 
             </div>
           </article>

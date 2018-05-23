@@ -5,10 +5,9 @@ import update from 'immutability-helper';
 import { Styles } from './Styles';
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 
-const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
+const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};  // is this definition necessary here since we imported?
 
-// should this be named plannerRecipeTarget?
-const plannerDayTarget = {
+const plannerRecipesListTarget = {
   drop(props, monitor, component) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
@@ -48,7 +47,7 @@ class PlannerRecipesList extends Component {
 
   removeRecipe = index => {
     this.setState(update(this.state, {
-      recipes: {$splice: [index, 1]}
+      recipes: {$splice: [[index, 1]]}
     }));
   }
 
@@ -63,13 +62,11 @@ class PlannerRecipesList extends Component {
 
   render() {
     const { recipes } = this.state;
-    const { canDrop, isOver, connectDropTarget } = this.props;
+    const { connectDropTarget } = this.props;
 
     return connectDropTarget(
-      <Styles className="planner_day">
-        {isOver && canDrop && <GreenColor />}
-        {isOver && !canDrop && <RedColor />}
-        {recipes.map((card, i) => (
+      <div id="planner_recipes_list">
+        {recipes.map((recipe, i) => (
           <PlannerRecipe
           key={recipe.id}
           index={i}
@@ -79,9 +76,9 @@ class PlannerRecipesList extends Component {
           moveRecipe={this.moveRecipe}
           />
         ))}
-      </Styles>
+      </div>
     );
   }
 }
 
-export default DropTarget(Types.PLANNER_RECIPE, plannerDayTarget, collect)(PlannerRecipesList);
+export default DropTarget(Types.PLANNER_RECIPE, plannerRecipesListTarget, collect)(PlannerRecipesList);
