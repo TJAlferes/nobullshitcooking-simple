@@ -36,15 +36,30 @@ class PlannerDay extends Component {
       recipes: props.list,
       expanded: false
     };
+    //this.dayRef = React.createRef();
   }
 
   //componentDidMount() {} ???
 
   handleClick = e => {
+    const testX = "10 px";
+    const testY = "30 px";
+    /*
+    const dayClicked = e.target.getBoundingClientRect();
+    //const dayClicked = this.dayRef.getBoundingClientRect();
+    const topCoords = dayClicked.top + pageYOffset;
+    const leftCoords = dayClicked.left + pageXOffset;
+
+    const { tableRef } = this.props; // or findDOMNode
+    const moveY = tableRef.top - topCoords;
+    const moveX = (tableRef.right + 10) - leftCoords;
+    */
     e.preventDefault();
     this.setState(prevState => ({
       expanded: !prevState.expanded
     }));
+
+    //this.style.transform = `translateX (${testX}) translateY(${testY})`;
   }
 
   pushRecipe = recipe => {
@@ -77,10 +92,11 @@ class PlannerDay extends Component {
     const { canDrop, isOver, connectDropTarget } = this.props;
 
     let size = expanded ? "planner_day_expanded" : "planner_day_collapsed";
-    let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white"
+    let location = expanded ? ({"transform": "translateX(200px)"}) : ({"transform": "none"});
+    let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     
     return connectDropTarget(
-      <td className={`${size} ${color}`} onClick={this.handleClick}>
+      <td className={`${size} ${color}`} onClick={this.handleClick} style={location}>
         <span className="the_date">{this.props.day}</span>
         {recipes.map((recipe, i) => (
           <PlannerRecipe

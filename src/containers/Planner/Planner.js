@@ -8,6 +8,12 @@ import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 
 class Planner extends Component {
+  constructor(props) {
+    super(props);
+    // create a ref to store the table DOM element
+    this.tableRef = React.createRef();
+  }
+
   render() {
     // use objects instead of arrays? so you have key for db? there's gotta be a way to clean this up anyway
     const list0 = [{id: 1, text: "Sheperd's Pie"}, {id: 2, text: "Split Pea Soup"}, {id: 3, text: "Steak Asparagus and Sweet Potato"}];
@@ -51,7 +57,7 @@ class Planner extends Component {
             <div id="calendar_container">
 
               <div id="monthly_plan">
-                <table>
+                <table ref={this.tableRef}>
                   <thead>
                     <tr>
                       <th>Sunday</th>
