@@ -10,7 +10,11 @@ import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 class Planner extends Component {
   constructor(props) {
     super(props);
+    
     this.tableRef = React.createRef();
+
+    // need to lift state up
+    this.state = {expanded: false};
   }
 
   render() {

@@ -5,7 +5,7 @@ import update from 'immutability-helper';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 
-const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};  // is this definition necessary here since we imported?
+const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 const plannerDayTarget = {
   drop(props, monitor, component) {
@@ -28,68 +28,46 @@ function collect(connect, monitor) {
   };
 }
 
-//
-
 class PlannerDay extends Component {
   constructor(props) {
     super(props);
+
     this.day = null;
+
     this.setSelfRef = element => {
       this.day = element;
     };
+
     this.state = {
       recipes: props.list,
-      expanded: false,
+      expanded: false,  // remove (lifted up)
       shiftX: 0,
       shiftY: 0
     };
   }
   
   componentDidUpdate() {
-    // if this works, see if there is somewhere else in the lifecycle or some other way so that it does not repeat needlessly
-    
-    //const { shiftX, shiftY } = this.state;
-    //style.setProperty('--shiftX', shiftX + 'px');
-    //style.setProperty('--shiftY', shiftY + 'px');
-    
     const dayClicked = this.day.getBoundingClientRect();
-    //const dayClicked = this.day;
-    const topCoords = dayClicked.top + pageYOffset;  // is the offset needed?
-    const leftCoords = dayClicked.left + pageXOffset;  // is the offset needed?
+    const topCoords = dayClicked.top + pageYOffset;
+    const leftCoords = dayClicked.left + pageXOffset;
 
     const { tRef } = this.props;
-    //console.log(tRef);
-    //console.log(findDOMNode(tRef.current));
     const tablePos = findDOMNode(tRef.current).getBoundingClientRect();
-    //const moveY = tRef.top - topCoords;
-    //const moveX = (tRef.right + 10) - leftCoords;
     const moveY = (tablePos.top + pageYOffset) - topCoords;
     const moveX = (tablePos.right + pageXOffset + 10) - leftCoords;
-    console.log(this.state.shiftX);
-    // CANT DO THIS HERE, LOOPS FOREVER AND EVER
-    // Wrong. Hold my beer...
+
+    // without this conditional, setState would be called endlessly
     if ((this.state.shiftX !== 0) || (this.state.shiftY !== 0)) {
       return;
     }
+
     this.setState({shiftX: moveX, shiftY: moveY});
   }
   
   handleClick = e => {
-    /*
-    MAYBE JUST USE PROMISES HERE!!!!!!!!!!!!!!!!!!
-    const dayClicked = e.target.getBoundingClientRect();
-    const topCoords = dayClicked.top + pageYOffset;  // is the offset needed?
-    const leftCoords = dayClicked.left + pageXOffset;  // is the offset needed?
-    const { tRef } = this.props; // or findDOMNode?
-    console.log(tRef);
-    console.log(findDOMNode(tRef.current));
-    const tablePos = findDOMNode(tRef.current).getBoundingClientRect();
-    //const moveY = tRef.top - topCoords;
-    //const moveX = (tRef.right + 10) - leftCoords;
-    const moveY = (tablePos.top + pageYOffset) - topCoords;
-    const moveX = (tablePos.right+ pageXOffset + 10) - leftCoords;
-    */
     e.preventDefault();
+
+    // lifted up, how do you handle this..?
     this.setState(prevState => ({
       expanded: !prevState.expanded
     }));
@@ -108,7 +86,7 @@ class PlannerDay extends Component {
   }
 
   moveRecipe = (dragIndex, hoverIndex) => {
-    const { recipes, expanded } = this.state;
+    const { recipes, expanded } = this.state;  // expanded would be in props instead of state
     const dragRecipe = recipes[dragIndex];
 
     if (expanded === false) {
@@ -122,18 +100,10 @@ class PlannerDay extends Component {
 
   render() {
     const { recipes, expanded, shiftX, shiftY } = this.state;
-    const { canDrop, isOver, connectDropTarget } = this.props;
+    const { canDrop, isOver, connectDropTarget } = this.props;  // expanded would be here in props, rather than in state
 
     let size = expanded ? "planner_day_expanded" : "planner_day_collapsed";
-    //let location = expanded ? ({"transform": "translateX(30px) translateY(90px)"}) : ({"transform": "none"});
     let location = {"--shiftX": `${shiftX}px`, "--shiftY": `${shiftY}px`};
-    //setProperty('--shiftX', shiftX + 'px') setProperty('--shiftX', shiftX + 'px')
-    /*
-    const setShift = (shiftX, shiftY) => {
-      style.setProperty('--shiftX', shiftX + 'px');
-      style.setProperty('--shiftY', shiftY + 'px');
-    };
-    */
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     
     return connectDropTarget(

@@ -25,7 +25,7 @@ const plannerRecipeSource = {
   }
 };
 
-// explain this well so people understand it easily
+// be sure to explain this well, so that others easily understand it
 const plannerRecipeTarget = {
   hover(props, monitor, component) {
     const dragIndex = monitor.getItem().index;
@@ -34,16 +34,16 @@ const plannerRecipeTarget = {
     // 1. conditional around here to determine if hovering over calendar or list to toggle vertical/horizontal
     // 2. and then, probably more challenging, solve the confusion between reordering within a day and moving between days
     // 3. and then, solve for dynamically created unique keys/ids
-    // https://github.com/react-dnd/react-dnd/issues/591
+    // ht tps://github.com/react-dnd/react-dnd/issues/591
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();  // use ref instead?
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-    /*
+    
     if (props.expanded === false) {
       return;
     }
-    */
+    
     if (dragIndex === hoverIndex) {
       return;
     }
@@ -76,6 +76,8 @@ function collectDragSource(connect, monitor) {
 class PlannerRecipe extends Component {
   render() {
     const { recipe, connectDragSource, connectDropTarget } = this.props;
+
+    //let size = expanded ? "planner_recipe_expanded" : "planner_recipe_collapsed";
 
     return connectDragSource(connectDropTarget(
       <div><Styles>{recipe.text}</Styles></div>
