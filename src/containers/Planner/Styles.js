@@ -47,17 +47,15 @@ export const Styles = styled.div`
   .planner_day_collapsed {
     width: 108px;
     height: 75px;
+    transform: none;
   }
   .planner_day_expanded {
     position: absolute;
-    /*
-    TO DO: prevent overlapping of expanded cells, solve covering of collapsed cells
-    SOLUTION: only 1 expanded at any given moment, and display to the right side of calendar, with nice animation
-    */
     width: 150px;
     height: 460px;
     background: #fff;
     box-shadow: 1px 1px 1px #555;
+    transform: translateX(var(--shiftX)) translateY(var(--shiftY));
     /*
     z-index: 1;
     transform: translateX(100%) translateX(-50px);

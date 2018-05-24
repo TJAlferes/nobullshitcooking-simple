@@ -34,6 +34,7 @@ const plannerRecipeTarget = {
     // 1. conditional around here to determine if hovering over calendar or list to toggle vertical/horizontal
     // 2. and then, probably more challenging, solve the confusion between reordering within a day and moving between days
     // 3. and then, solve for dynamically created unique keys/ids
+    // https://github.com/react-dnd/react-dnd/issues/591
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();  // use ref instead?
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();

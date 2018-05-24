@@ -10,7 +10,6 @@ import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 class Planner extends Component {
   constructor(props) {
     super(props);
-    // create a ref to store the table DOM element
     this.tableRef = React.createRef();
   }
 
@@ -71,40 +70,40 @@ class Planner extends Component {
                   </thead>
                   <tbody>
                     <tr id="week_1">
-                      <PlannerDay day="1" list={list1}></PlannerDay>
-                      <PlannerDay day="2" list={list2}></PlannerDay>
-                      <PlannerDay day="3" list={list3}></PlannerDay>
-                      <PlannerDay day="4" list={list4}></PlannerDay>
-                      <PlannerDay day="5" list={list5}></PlannerDay>
-                      <PlannerDay day="6" list={list6}></PlannerDay>
-                      <PlannerDay day="7" list={list7}></PlannerDay>
+                      <PlannerDay day="1" list={list1} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="2" list={list2} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="3" list={list3} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="4" list={list4} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="5" list={list5} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="6" list={list6} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="7" list={list7} tRef={this.tableRef}></PlannerDay>
                     </tr>
                     <tr id="week_2">
-                      <PlannerDay day="8" list={list8}></PlannerDay>
-                      <PlannerDay day="9" list={list9}></PlannerDay>
-                      <PlannerDay day="10" list={list10}></PlannerDay>
-                      <PlannerDay day="11" list={list11}></PlannerDay>
-                      <PlannerDay day="12" list={list12}></PlannerDay>
-                      <PlannerDay day="13" list={list13}></PlannerDay>
-                      <PlannerDay day="14" list={list14}></PlannerDay>
+                      <PlannerDay day="8" list={list8} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="9" list={list9} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="10" list={list10} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="11" list={list11} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="12" list={list12} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="13" list={list13} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="14" list={list14} tRef={this.tableRef}></PlannerDay>
                     </tr>
                     <tr id="week_3">
-                      <PlannerDay day="15" list={list15}></PlannerDay>
-                      <PlannerDay day="16" list={list16}></PlannerDay>
-                      <PlannerDay day="17" list={list17}></PlannerDay>
-                      <PlannerDay day="18" list={list18}></PlannerDay>
-                      <PlannerDay day="19" list={list19}></PlannerDay>
-                      <PlannerDay day="20" list={list20}></PlannerDay>
-                      <PlannerDay day="21" list={list21}></PlannerDay>
+                      <PlannerDay day="15" list={list15} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="16" list={list16} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="17" list={list17} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="18" list={list18} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="19" list={list19} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="20" list={list20} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="21" list={list21} tRef={this.tableRef}></PlannerDay>
                     </tr>
                     <tr id="week_4">
-                      <PlannerDay day="22" list={list22}></PlannerDay>
-                      <PlannerDay day="23" list={list23}></PlannerDay>
-                      <PlannerDay day="24" list={list24}></PlannerDay>
-                      <PlannerDay day="25" list={list25}></PlannerDay>
-                      <PlannerDay day="26" list={list26}></PlannerDay>
-                      <PlannerDay day="27" list={list27}></PlannerDay>
-                      <PlannerDay day="28" list={list28}></PlannerDay>
+                      <PlannerDay day="22" list={list22} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="23" list={list23} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="24" list={list24} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="25" list={list25} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="26" list={list26} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="27" list={list27} tRef={this.tableRef}></PlannerDay>
+                      <PlannerDay day="28" list={list28} tRef={this.tableRef}></PlannerDay>
                     </tr>
                   </tbody>
                 </table>
