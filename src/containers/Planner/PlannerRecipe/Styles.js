@@ -7,6 +7,8 @@ export const Styles = styled.div`
   max-width: 200px;
   height: 32px;
   padding: 3px auto 3px auto;
+  border: 1px solid #FFDEC3;
+  margin: 6px 1px;
   text-align: center;
   font-family: Arial, sans-serif;
   font-size: 11px;

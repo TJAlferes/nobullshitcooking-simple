@@ -57,15 +57,14 @@ export const Styles = styled.div`
         height: 20px;
         text-align: center;
       }
-      td {
+      /*td {
         position: relative;
         width: 108px;
         height: 75px;
         max-height: 75px;
-        padding-top: 18px;
         overflow: hidden;
         border: 1px solid #bfbfbf;
-      }
+      }*/
       .the_date {
         position: absolute;
         top: 0;
@@ -78,11 +77,14 @@ export const Styles = styled.div`
         color: #afafaf;
       }
       .planner_day_collapsed {
+        position: relative;
         width: 108px;
         height: 75px;
         max-height: 75px;
         padding-top: 18px;
+        padding-left: 3px;
         overflow: hidden;
+        border: 1px solid #bfbfbf;
         transform: none;
       }
       .planner_day_expanded {
@@ -90,7 +92,10 @@ export const Styles = styled.div`
         width: 150px;
         height: 460px;
         max-height: 460px;
+        padding-top: 18px;
+        padding-left: 6px;
         background: #fff;
+        border: 1px solid #bfbfbf;
         overflow: hidden;
         box-shadow: 1px 1px 1px #555;
         transform: translateX(var(--shiftX)) translateY(var(--shiftY));
@@ -107,12 +112,8 @@ export const Styles = styled.div`
   #planner_span {background-color: #ddd;}
 
   #planner_recipes_list {
-    width: 805px;
+    width: 757px;
     height: 125px;
     border: 1px solid #bfbfbf;
-    div {
-      display: inline-block;
-      margin: 6px 1px;
-    }
   }
 `;

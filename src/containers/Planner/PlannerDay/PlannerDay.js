@@ -118,6 +118,7 @@ class PlannerDay extends Component {
           removeRecipe={this.removeRecipe}
           moveRecipe={this.moveRecipe}
           expanded={expanded}
+          className="planner_recipe"
           />
         ))}
       </td>

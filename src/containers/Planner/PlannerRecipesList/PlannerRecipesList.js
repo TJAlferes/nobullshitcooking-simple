@@ -74,6 +74,7 @@ class PlannerRecipesList extends Component {
           recipe={recipe}
           removeRecipe={this.removeRecipe}
           moveRecipe={this.moveRecipe}
+          className="planner_recipe"
           />
         ))}
       </div>
