@@ -40,7 +40,6 @@ class PlannerDay extends Component {
 
     this.state = {
       recipes: props.list,
-      expanded: false,  // remove (lifted up)
       shiftX: 0,
       shiftY: 0
     };
@@ -57,22 +56,32 @@ class PlannerDay extends Component {
     const moveX = (tablePos.right + pageXOffset + 10) - leftCoords;
 
     // without this conditional, setState would be called endlessly
-    if ((this.state.shiftX !== 0) || (this.state.shiftY !== 0)) {
+    const { shiftX, shiftY } = this.state;
+    if ((shiftX !== 0) || (shiftY !== 0)) {
       return;
     }
 
     this.setState({shiftX: moveX, shiftY: moveY});
   }
   
-  handleClick = e => {
-    e.preventDefault();
+  handleClick = async (e) => {
+    const { day, expandedDay, onDayClick } = this.props;
 
-    // lifted up, how do you handle this..?
-    this.setState(prevState => ({
-      expanded: !prevState.expanded
-    }));
+    e.preventDefault(); // stoppropagation or none?
+
+    if (day === expandedDay) {
+      await onDayClick("none");
+      //collapse this one
+    } else {
+      await onDayClick(day);
+      //collapse expandedDay, then expand this one
+    }
+    console.log("---test2---");
+    console.log("Day clicked: " + this.props.day);
+    console.log("Expanded? " + this.props.expanded);
+    console.log("Expanded day: " + this.props.expandedDay);
   }
-
+  
   pushRecipe = recipe => {
     this.setState(update(this.state, {
       recipes: {$push: [recipe]}
@@ -86,7 +95,8 @@ class PlannerDay extends Component {
   }
 
   moveRecipe = (dragIndex, hoverIndex) => {
-    const { recipes, expanded } = this.state;  // expanded would be in props instead of state
+    const { recipes } = this.state;
+    const { expanded } = this.props;
     const dragRecipe = recipes[dragIndex];
 
     if (expanded === false) {
@@ -99,15 +109,20 @@ class PlannerDay extends Component {
   }
 
   render() {
-    const { recipes, expanded, shiftX, shiftY } = this.state;
-    const { canDrop, isOver, connectDropTarget } = this.props;  // expanded would be here in props, rather than in state
+    const { recipes, shiftX, shiftY } = this.state;
+    const { expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
 
-    let size = expanded ? "planner_day_expanded" : "planner_day_collapsed";
+    let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
     let location = {"--shiftX": `${shiftX}px`, "--shiftY": `${shiftY}px`};
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     
     return connectDropTarget(
-      <td className={`${size} ${color}`} ref={this.setSelfRef} onClick={this.handleClick} style={location}>
+      <td
+      style={location}
+      className={`${size} ${color}`}
+      ref={this.setSelfRef}
+      onClick={this.handleClick}
+      >
         <span className="the_date">{this.props.day}</span>
         {recipes.map((recipe, i) => (
           <PlannerRecipe
