@@ -41,6 +41,7 @@ export const Styles = styled.div`
     #monthly_plan {
       width: 756px;
       height: 328px;
+      background: #b1d7f9;
 
       table {
         height: 321px;
@@ -90,7 +91,7 @@ export const Styles = styled.div`
       .planner_day_expanded {
         position: absolute;
         width: 150px;
-        height: 460px;
+        height: 450px;
         max-height: 460px;
         padding-top: 18px;
         padding-left: 6px;

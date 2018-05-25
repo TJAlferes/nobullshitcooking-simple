@@ -96,10 +96,11 @@ class PlannerDay extends Component {
 
   moveRecipe = (dragIndex, hoverIndex) => {
     const { recipes } = this.state;
-    const { expanded } = this.props;
+    const { day, expandedDay } = this.props;
     const dragRecipe = recipes[dragIndex];
 
-    if (expanded === false) {
+    // only allow reordering/moving of recipes within currently expanded day
+    if (day !== expandedDay) {
       return;
     }
 

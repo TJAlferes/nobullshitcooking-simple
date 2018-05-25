@@ -17,17 +17,17 @@ class Planner extends Component {
   }
 
   handleClick = async (day) => {
-    //e.preventDefault();
-    
-    await this.setState(prevState => ({
-      expandedDay: day,
-      expanded: !prevState.expanded
-    }));
-    console.log("=======================");
-    console.log("---test1---");
-    console.log("Day clicked: " + day);
-    console.log("Expanded? " + this.state.expanded);
-    console.log("Expanded day: " + this.state.expandedDay);
+    const { expandedDay } = this.state;
+
+    if (day == expandedDay) {
+      await this.setState({expandedDay: day, expanded: false});
+    }
+
+    if (day != expandedDay) {
+      await this.setState(prevState => ({expandedDay: day, expanded: true}));
+    }
+
+    //prevState => ({expanded: !prevState.expanded})
   }
 
   render() {
