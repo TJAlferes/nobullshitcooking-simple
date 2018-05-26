@@ -39,7 +39,7 @@ export const Styles = styled.div`
     padding-top: 5px;
 
     #monthly_plan {
-      width: 756px;
+      width: 757px;
       height: 328px;
       background: #b1d7f9;
 
@@ -52,20 +52,21 @@ export const Styles = styled.div`
       tr {
         position: relative;
         max-height: 75px;
+        overflow: hidden;
       }
       th {
-        width: 108px;
+        width: 107px;
         height: 20px;
         text-align: center;
       }
-      /*td {
-        position: relative;
-        width: 108px;
+      td {
+        /*position: relative;*/
+        width: 107px;
         height: 75px;
         max-height: 75px;
         overflow: hidden;
-        border: 1px solid #bfbfbf;
-      }*/
+        border: 1px solid #b1d7f9;
+      }
       .the_date {
         position: absolute;
         top: 0;
@@ -79,13 +80,13 @@ export const Styles = styled.div`
       }
       .planner_day_collapsed {
         position: relative;
-        width: 108px;
+        width: 107px;
         height: 75px;
         max-height: 75px;
         padding-top: 18px;
         padding-left: 3px;
         overflow: hidden;
-        border: 1px solid #bfbfbf;
+        /*border: 1px solid #bfbfbf;*/
         transform: none;
       }
       .planner_day_expanded {
@@ -99,6 +100,7 @@ export const Styles = styled.div`
         border: 1px solid #bfbfbf;
         overflow: hidden;
         box-shadow: 1px 1px 1px #555;
+        z-index: 3;
         transform: translateX(var(--shiftX)) translateY(var(--shiftY));
       }
       .planner_day_green {

@@ -65,21 +65,11 @@ class PlannerDay extends Component {
   }
   
   handleClick = async (e) => {
-    const { day, expandedDay, onDayClick } = this.props;
+    const { day, expanded, expandedDay, onDayClick } = this.props;
 
     e.preventDefault(); // stoppropagation or none?
-
-    if (day === expandedDay) {
-      await onDayClick("none");
-      //collapse this one
-    } else {
-      await onDayClick(day);
-      //collapse expandedDay, then expand this one
-    }
-    console.log("---test2---");
-    console.log("Day clicked: " + this.props.day);
-    console.log("Expanded? " + this.props.expanded);
-    console.log("Expanded day: " + this.props.expandedDay);
+    
+    await onDayClick(day);
   }
   
   pushRecipe = recipe => {
@@ -118,13 +108,13 @@ class PlannerDay extends Component {
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     
     return connectDropTarget(
-      <td
+      <div
       style={location}
       className={`${size} ${color}`}
       ref={this.setSelfRef}
       onClick={this.handleClick}
       >
-        <span className="the_date">{this.props.day}</span>
+        <span className="the_date">{day}</span>
         {recipes.map((recipe, i) => (
           <PlannerRecipe
           key={recipe.id}
@@ -134,10 +124,12 @@ class PlannerDay extends Component {
           removeRecipe={this.removeRecipe}
           moveRecipe={this.moveRecipe}
           expanded={expanded}
+          day={day}
+          expandedDay={expandedDay}
           className="planner_recipe"
           />
         ))}
-      </td>
+      </div>
     );
   }
 }

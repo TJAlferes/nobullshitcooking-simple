@@ -16,18 +16,14 @@ class Planner extends Component {
     this.state = {expanded: false, expandedDay: "none"};
   }
 
-  handleClick = async (day) => {
-    const { expandedDay } = this.state;
+  handleClick = day => {
+    const { expanded, expandedDay } = this.state;
 
-    if (day == expandedDay) {
-      await this.setState({expandedDay: day, expanded: false});
+    if (day === expandedDay) {
+      this.setState({expandedDay: "none", expanded: false});
+    } else {
+      this.setState({expandedDay: day, expanded: true});
     }
-
-    if (day != expandedDay) {
-      await this.setState(prevState => ({expandedDay: day, expanded: true}));
-    }
-
-    //prevState => ({expanded: !prevState.expanded})
   }
 
   render() {
@@ -89,40 +85,40 @@ class Planner extends Component {
                   </thead>
                   <tbody>
                     <tr id="week_1">
-                      <PlannerDay day="1" list={list1} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="2" list={list2} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="3" list={list3} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="4" list={list4} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="5" list={list5} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="6" list={list6} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="7" list={list7} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
+                      <td><PlannerDay day="1" list={list1} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                      <td><PlannerDay day="2" list={list2} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                      <td><PlannerDay day="3" list={list3} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                      <td><PlannerDay day="4" list={list4} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                      <td><PlannerDay day="5" list={list5} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                      <td><PlannerDay day="6" list={list6} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                      <td><PlannerDay day="7" list={list7} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
                     </tr>
                     <tr id="week_2">
-                      <PlannerDay day="8" list={list8} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="9" list={list9} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="10" list={list10} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="11" list={list11} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="12" list={list12} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="13" list={list13} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="14" list={list14} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
+                    <td><PlannerDay day="8" list={list8} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="9" list={list9} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="10" list={list10} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="11" list={list11} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="12" list={list12} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="13" list={list13} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="14" list={list14} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
                     </tr>
                     <tr id="week_3">
-                      <PlannerDay day="15" list={list15} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="16" list={list16} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="17" list={list17} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="18" list={list18} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="19" list={list19} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="20" list={list20} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="21" list={list21} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
+                    <td><PlannerDay day="15" list={list15} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="16" list={list16} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="17" list={list17} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="18" list={list18} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="19" list={list19} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="20" list={list20} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="21" list={list21} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
                     </tr>
                     <tr id="week_4">
-                      <PlannerDay day="22" list={list22} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="23" list={list23} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="24" list={list24} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="25" list={list25} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="26" list={list26} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="27" list={list27} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
-                      <PlannerDay day="28" list={list28} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay>
+                    <td><PlannerDay day="22" list={list22} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="23" list={list23} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="24" list={list24} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="25" list={list25} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="26" list={list26} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="27" list={list27} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
+                    <td><PlannerDay day="28" list={list28} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay}></PlannerDay></td>
                     </tr>
                   </tbody>
                 </table>
