@@ -45,7 +45,7 @@ class PlannerDay extends Component {
     };
   }
   
-  componentDidUpdate() {
+  componentDidUpdate() { // get better at lifecycle methods
     const dayClicked = this.day.getBoundingClientRect();
     const topCoords = dayClicked.top + pageYOffset;
     const leftCoords = dayClicked.left + pageXOffset;
@@ -57,7 +57,7 @@ class PlannerDay extends Component {
 
     // without this conditional, setState would be called endlessly
     const { shiftX, shiftY } = this.state;
-    if ((shiftX !== 0) || (shiftY !== 0)) {
+    if ((shiftX !== 0) || (shiftY !== 0)) {  // issue is here I think... but maybe not... remember, it wasn't doing this before...
       return;
     }
 

@@ -34,21 +34,17 @@ const plannerRecipeTarget = {
 
     // 1. conditional around here to determine if hovering over calendar or list to toggle vertical/horizontal
 
-    // 2. and then, probably more challenging, solve the confusion between reordering within a day and moving between days
+    // 2. all but the first expanded day are off by some px y-axis
 
     // 3. and then, solve for dynamically created unique keys/ids
 
     // 4. clones and wrong deletions
 
-    // 5. tds height expanding from dragged in divs (use grid? change style of DnD wrapper?)
-
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();  // just use ref instead?  ht tps://github.com/react-dnd/react-dnd/issues/591
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-    //console.log("day: " + props.day);
-    //console.log("expandedDay: " + props.expandedDay);
-    //console.log("hoverIndex: " + hoverIndex);
+    
     if (props.day !== props.expandedDay) {
       return;
     }

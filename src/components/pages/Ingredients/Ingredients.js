@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import queryString from 'query-string';
 
 import { getIngredientsStart } from '../../actions/ingredients';
@@ -8,13 +7,15 @@ import { Styles } from './Styles';
 
 // remember you can place logic up here before the class too, as well as import it from elsewhere
 
-// remember to properly separate component and container!
+// remember to properly separate component and container! (you can mix them at start, especially when app is small)
 
-// which state should be local and which redux???
+// which state should be local, which context, and which redux???
 
 // for most of the old PHP $_GET['blah'] sessions, you'll use state(?)
 
-//require 'starter.php';
+//require 'starter.php';  // this will be cognito user session now (aws amplify)
+
+/*
 
 // >>>>>>>>>>>>>>>>>>>> start pagination logic
 // set number of ingredients to list per page
@@ -70,10 +71,14 @@ if (isset($_GET['s']) && is_numeric($_GET['s'])) {
 }
 // >>>>>>>>>>>>>>>>>>>> end pagination logic
 
-
+*/
 
 class Ingredients extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
 
   componentDidMount() {
     //this.props.getIngredientsStart();
@@ -263,7 +268,4 @@ class Ingredients extends Component {
   }
 }
 
-const mapStateToProps = () => {};
-const mapDispatchToProps = () => {};
-
-export default connect(Ingredients);
+export default Ingredients;

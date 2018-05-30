@@ -60,7 +60,6 @@ export const Styles = styled.div`
         text-align: center;
       }
       td {
-        /*position: relative;*/
         width: 107px;
         height: 75px;
         max-height: 75px;
@@ -86,7 +85,8 @@ export const Styles = styled.div`
         padding-top: 18px;
         padding-left: 3px;
         overflow: hidden;
-        /*border: 1px solid #bfbfbf;*/
+        cursor: hand;
+        cursor: pointer;
         transform: none;
       }
       .planner_day_expanded {
@@ -99,6 +99,8 @@ export const Styles = styled.div`
         background: #fff;
         border: 1px solid #bfbfbf;
         overflow: hidden;
+        cursor: hand;
+        cursor: pointer;
         box-shadow: 1px 1px 1px #555;
         z-index: 3;
         transform: translateX(var(--shiftX)) translateY(var(--shiftY));
