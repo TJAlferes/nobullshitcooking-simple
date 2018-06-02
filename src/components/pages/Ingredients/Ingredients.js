@@ -78,11 +78,13 @@ class Ingredients extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      ingredients: []
+    };
   }
 
   componentDidMount() {
-    //this.getIngredients(162);
+    this.getIngredients();
   }
   
   getIngredients = async (id) => {
@@ -90,8 +92,12 @@ class Ingredients extends Component {
       const endpoint = id
                        ? `http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients/${id}`
                        : 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
+      
       const res = await axios.get(endpoint);
+      const ingredients = res.data;
 
+      this.setState({ingredients});
+      /*
       console.log(res.data);
       console.log(res.data[0]);
       console.log("----------------");
@@ -99,19 +105,7 @@ class Ingredients extends Component {
       console.log(res.data[0].ingredient_type_id);
       console.log(res.data[0].ingredient_name);
       console.log(res.data[0].ingredient_image);
-      
-      return (
-        <div>
-          {res.data.map((i) => (
-            <div key={i} value={i.ingredient_id}>
-              <div>{i.ingredient_type_id}</div>
-              <div>{i.ingredient_name}</div>
-              <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${i.ingredient_image}.jpg`} />
-            </div>
-          ))}
-        </div>
-      );
-  
+      */
     } catch (err) {
       console.error(err);
     }
@@ -133,22 +127,28 @@ class Ingredients extends Component {
 
 
   render() {
-    const stuff = this.getIngredients(1);
     return(
       <Styles>
-
-        <div id="page_col_left">
-          <div id="list_header">
-            <h1>No Bullshit Cooking Ingredients</h1>
+        <div id="page">
+          <div id="page_col_left">
+            <div id="list_header">
+              <h1>No Bullshit Cooking Ingredients</h1>
+            </div>
+            <div>
+            {this.state.ingredients.map((ingredient, index) => (
+              <div key={index}>
+                <div>{ingredient.ingredient_id}</div>
+                <div>{ingredient.ingredient_type_id}</div>
+                <div>{ingredient.ingredient_name}</div>
+                <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`} />
+              </div>
+            ))}
           </div>
-          <div>
-            {stuff}
+          </div>
+
+          <div id="page_col_right">
           </div>
         </div>
-
-        <div id="page_col_right">
-        </div>
-
       </Styles>
     );
   }
