@@ -79,12 +79,19 @@ class Ingredients extends Component {
     super(props);
 
     this.state = {
-      ingredients: []
+      ingredients: [],
+      ingredientTypes: []
     };
   }
 
   componentDidMount() {
-    this.getIngredients();
+    const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredient-types';
+
+    axios.get(endpoint).then(response => {
+      const ingredientTypes = response.data;
+
+      this.setState({ingredientTypes});
+    });
   }
   
   getIngredients = async (id) => {
@@ -93,19 +100,10 @@ class Ingredients extends Component {
                        ? `http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients/${id}`
                        : 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
       
-      const res = await axios.get(endpoint);
-      const ingredients = res.data;
+      const response = await axios.get(endpoint);
+      const ingredients = response.data;
 
       this.setState({ingredients});
-      /*
-      console.log(res.data);
-      console.log(res.data[0]);
-      console.log("----------------");
-      console.log(res.data[0].ingredient_id);
-      console.log(res.data[0].ingredient_type_id);
-      console.log(res.data[0].ingredient_name);
-      console.log(res.data[0].ingredient_image);
-      */
     } catch (err) {
       console.error(err);
     }
@@ -133,14 +131,95 @@ class Ingredients extends Component {
           <div id="page_col_left">
             <div id="list_header">
               <h1>No Bullshit Cooking Ingredients</h1>
+              <button onClick={() => this.getIngredients()}>Get Ingredients</button>
             </div>
+
+            <div id="filters">
+              <form id="itid" name="itid">
+                <span id="filter_title"><b>Filter by:</b></span>
+                <div>
+
+                  {/*SELECT ingredient_type_id, ingredient_type_name FROM nobsc_ingredient_types*/}
+                  
+                  {/* create ingredient type filter UI */}
+                  <p className="filter_type"><b>Ingredient type</b></p>
+                  {this.state.ingredientTypes}
+                  {/*
+                  while (($row = $stmt->fetch()) !== false) {
+                    let optionHtml = '<span className="filter_span"><input type="checkbox" ';
+                    if (isset($_GET['itid' . $row['ingredient_type_id']]) && ($_GET['itid' . $row['ingredient_type_id']] == $row['ingredient_type_id'])) {
+                      optionHtml += 'checked ';
+                    }
+                    optionHtml += 'value="' + row['ingredient_type_id'] + '" name="itid' + row['ingredient_type_id'] + '">';
+                    optionHtml += '<label className="filter_label" for="' + row['ingredient_type_id'] + '">' + row['ingredient_type_name'] + '</label></span>';
+                    return optionHtml;
+                  }
+                  */}
+                  
+                  
+                  {/* >>>>>>>>>>>>>>>>>>>> start filter logic */}
+                  {/*
+                  if (count(checkedTypes) > 1) {  // return multiple checked ingredient types (filter)
+                    $inNamed = "";
+                    $parameters = [];
+                    foreach ($checkedTypes as $j => $chTy) {
+                      $key = ":id" . $j;
+                      $inNamed .= "$key, ";
+                      $parameters[$key] = $chTy;
+                    }
+                    $inNamedSet = rtrim($inNamed, ", ");
+                    
+                    const sql = `SELECT ingredient_id, ingredient_name, ingredient_type_id, ingredient_image
+                    FROM nobsc_ingredients
+                    WHERE ingredient_type_id IN (" . $inNamedSet . ")
+                    ORDER BY ingredient_name ASC
+                    LIMIT :start, :display`;
+                    
+                    foreach ($parameters as $k => $chType) {
+                      $stmt->bindValue($k, $chType);
+                    }
+                    $stmt->bindValue(':start', $start, PDO::PARAM_INT);
+                    $stmt->bindValue(':display', $display, PDO::PARAM_INT);
+                    $stmt->execute();
+                    
+                    
+                  } elseif (count(checkedTypes) == 1) {  // return single checked ingredient type (filter)
+                    let ingredientTypeID = checkedTypesList;
+
+                    const sql = `SELECT ingredient_id, ingredient_name, ingredient_type_id, ingredient_image
+                    FROM nobsc_ingredients
+                    WHERE ingredient_type_id = :ingredientTypeID
+                    ORDER BY ingredient_name ASC
+                    LIMIT :start, :display`;
+
+                    $stmt->execute([':ingredientTypeID' => $ingredientTypeID, ':start' => $start, ':display' => $display]);
+                    
+                    
+                  } elseif (count(checkedTypes) == 0) {  // return all ingredient types (no filter)
+
+                    const sql = `SELECT ingredient_id, ingredient_name, ingredient_type_id, ingredient_image
+                    FROM nobsc_ingredients
+                    ORDER BY ingredient_name ASC
+                    LIMIT :start, :display`;
+
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute([':start' => $start, ':display' => $display]);
+                  }
+                  */}
+                  {/* >>>>>>>>>>>>>>>>>>>> end filter logic */}
+                  
+                </div>
+                {/* <button type="submit" style="display: none;"> */}
+              </form>
+            </div>
+
             <div>
             {this.state.ingredients.map((ingredient, index) => (
               <div key={index}>
-                <div>{ingredient.ingredient_id}</div>
-                <div>{ingredient.ingredient_type_id}</div>
-                <div>{ingredient.ingredient_name}</div>
                 <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`} />
+                <div className="ingredient_name">{ingredient.ingredient_name}</div>
+                <div className="ingredient_id">{ingredient.ingredient_id}</div>
+                <div className="ingredient_type_id">{ingredient.ingredient_type_id}</div>
               </div>
             ))}
           </div>
