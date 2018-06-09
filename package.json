@@ -4,15 +4,16 @@
   "description": "",
   "main": "index.js",
   "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js",
     "transform": {
       "^.+\\.js$": "babel-jest",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/assetsTransformer.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js"
     }
   },
   "scripts": {
     "build": "rimraf dist && webpack --config webpack.production.config.js --progress --profile --color",
     "start": "webpack-dev-server --config webpack.development.config.js",
-    "test": "jest App.test.js --coverage"
+    "test": "jest FooterGray.test.js --coverage"
   },
   "author": "",
   "license": "ISC",

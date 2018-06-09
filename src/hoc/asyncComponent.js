@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+// is this needed any more with webpack 4?
 const asyncComponent = importComponent => {
   return class extends Component {
     state = {component: null};
