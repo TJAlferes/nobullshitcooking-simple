@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { StaticRouter } from 'react-router-dom';
 
+import { shallow } from 'enzyme';
+
 import App from './App';
 
 it('displays a HeadRed component', () => {
@@ -11,6 +13,7 @@ it('displays a HeadRed component', () => {
 
   console.log(div.innerHTML);
   //expect(div).toEqual;
+
 
   ReactDOM.unmountComponentAtNode(div);
 });

@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 
-export const getIngredientsStart = () => ({
-  type: actionTypes.GET_INGREDIENTS_START
+export const getIngredientsRequest = () => ({
+  type: actionTypes.GET_INGREDIENTS_REQUEST
 });
 
 export const getIngredientsSuccess = () => ({
