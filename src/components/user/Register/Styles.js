@@ -48,7 +48,7 @@ export const Styles = styled.div`
     border-color: #aaa;
     padding: 3px 7px 3px 7px;
   }
-  input:focus {background-color: #fdfdd5;}
+  /*input:focus {background-color: #fdfdd5;}*/
 
   a:link {color: #68abe6;}
   a:visited {color: #68abe6;}
@@ -61,13 +61,49 @@ export const Styles = styled.div`
     text-decoration: underline;
   }
 
-  #footer {display: block; border-top-style: solid; border-top-width: 1px; border-top-color: #bfbfbf; padding-top: 18px;}
-  p {margin-top: 12px; margin-bottom: 18px; text-align: center; font-family: Arial, sans-serif; font-size: 11px;}
-  ul {display: table; margin: 18px auto 0 auto; list-style-type: none; overflow: hidden; text-align: centered;}
-  li {display: inline; margin-top: 2px; margin-right: 6px; margin-bottom: 2px; margin-left: 6px;}
-  #footer a {text-decoration: none; font-family: Arial, sans-serif; font-size: 12px;}
+  #footer {
+    display: block;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #bfbfbf;
+    padding-top: 18px;
+  }
+  p {
+    margin-top: 12px;
+    margin-bottom: 18px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+  }
+  ul {
+    display: table;
+    margin: 18px auto 0 auto;
+    list-style-type: none;
+    overflow: hidden;
+    text-align: centered;
+  }
+  li {
+    display: inline;
+    margin-top: 2px;
+    margin-right: 6px;
+    margin-bottom: 2px;
+    margin-left: 6px;
+  }
+  #footer a {
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+  }
 
-  #centered_logo {display: block; margin-top: 10px; margin-right:	auto; margin-bottom: 0; margin-left: auto; width: 900px; height: 100px;}
+  #centered_logo {
+    display: block;
+    margin-top: 10px;
+    margin-right:	auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    width: 900px;
+    height: 100px;
+  }
 
   #create_account_button {
     width: 100%;

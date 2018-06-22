@@ -12,7 +12,7 @@ class LeftNav extends Component {
         <LeftNavLink to="/planner"><span id="planner_span">Your Plan</span></LeftNavLink>
         <hr />
         <LeftNavLink to="/"><span id="home_span">New</span></LeftNavLink>
-        <LeftNavLink to="/"><span>Messages</span></LeftNavLink>
+        <LeftNavLink to="/messenger"><span id="messenger_span">Messages</span></LeftNavLink>
         <LeftNavLink to="/"><span>Friends</span></LeftNavLink>
         <hr />
         <LeftNavLink to="/content/supplements"><span id="supplements_span">Supplements</span></LeftNavLink>

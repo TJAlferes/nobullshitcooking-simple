@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import axios from 'axios';
 
-import Amplify from 'aws-amplify';
+import Amplify, { Auth, Storage } from 'aws-amplify';
 
 import { BrowserRouter } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 
-import amplifyConfig from './amplify.config';
+import amplifyConfig from '../amplify.config';
 
 import rootReducer from './store/reducers/index';
 //import { watchIngredients } from './store/sagas/index';
@@ -32,7 +32,8 @@ Amplify.configure({
   },
   Storage: {
     bucket: amplifyConfig.s3.bucket,
-    region: amplifyConfig.s3.region
+    region: amplifyConfig.s3.region,
+    identityPoolId: amplifyConfig.cognito.identity_pool_id
   }
 });
 
