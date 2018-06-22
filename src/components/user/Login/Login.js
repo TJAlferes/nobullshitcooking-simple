@@ -8,7 +8,11 @@ import LogoLargeWhite from '../../../assets/images/authentication/logo-large-whi
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: '', password: ''};
+    this.state = {
+      isLoading: false,
+      email: '',
+      password: ''
+    };
   }
 
   handleChange = e => {
@@ -17,14 +21,15 @@ class Login extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
+    this.setState({isLoading: true});
     try {
-      await this.validate();
-      await Auth.signIn(this.state.username, this.state.password);
-      this.props.userDidAuthenticate(true);
+      await Auth.signIn(this.state.email, this.state.password);
+      this.props.userDidAuthenticate(true);  // callback?
       console.log("sign in success");
     } catch (err) {
       console.log(err.message);
     }
+    this.setState({isLoading: false});
     /*
     // `user` : Return object from Auth.signIn()
     // `code` : Confirmation code
@@ -36,7 +41,7 @@ class Login extends Component {
 
   // use this
   validate = () => {
-    return ((this.state.username.length > 0) && (this.state.password.length > 0));
+    return ((this.state.email.length > 0) && (this.state.password.length > 0));
   }
 
   render() {
@@ -49,10 +54,10 @@ class Login extends Component {
 
             <h1>Sign In</h1>
 
-            <label>Username</label>
+            <label>Email</label>
             <input
-              type="text" name="username" id="username" size="20" maxLength="20" autoFocus
-              value={this.state.username} onChange={this.handleChange}
+              type="text" name="email" id="email" size="20" maxLength="20" autoFocus
+              value={this.state.email} onChange={this.handleChange}
             />
 
             <label>Password</label>
@@ -61,8 +66,12 @@ class Login extends Component {
               value={this.state.password} onChange={this.handleChange}
             />
 
-            <button type="submit" name="submit" id="sign_in_button">
-              Sign In
+            <button
+              type="submit" name="submit" id="sign_in_button"
+              text="Sign In" loadingText="Signing In..."
+              isLoading={this.state.isLoading} disabled={!this.validate()}
+            >
+              {!isLoading ? text : loadingText}
             </button>
 
             <div className="distinction-line">

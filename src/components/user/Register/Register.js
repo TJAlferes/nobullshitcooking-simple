@@ -11,6 +11,7 @@ class Register extends Component {
     this.state = {
       isLoading: false,
       newUser: null,
+      confirmationCode: '',
       username: '',
       email: '',
       password: '',
@@ -24,22 +25,31 @@ class Register extends Component {
 
   handleRegistrationSubmit = async e => {
     e.preventDefault();
+    this.setState({isLoading: true});
     try {
-      const { username, password, email } = this.state;
-      await this.validate();
-      await Auth.signUp({username, password, attributes: {email}});
-      //await Auth.confirmSignUp(username, code);
-      //this.props.userDidAuthenticate(true);
-      console.log("registration success");
+      const { username, email, password } = this.state;
+      const newUser = await Auth.signUp({username, password, attributes: {email}});
+      this.setState({newUser});
+      console.log('registration success');
     } catch (err) {
       console.log(err.message);
     }
+    this.setState({isLoading: false});
   }
 
   handleConfirmationSubmit =  async e => {
     e.preventDefault();
-
-
+    this.setState({isLoading: true});
+    try {
+      const { confirmationCode, email, password } = this.state;
+      await Auth.confirmSignUp(email, confirmationCode);
+      await Auth.signIn({email, password});
+      this.props.userDidAuthenticate(true);
+      this.props.history.push('/');
+    } catch (err) {
+      console.log(err.message);
+    }
+    this.setState({isLoading: false});
   }
 
   validateRegistration = () => {
@@ -83,8 +93,16 @@ class Register extends Component {
         size="20" maxLength="20" onChange={this.handleChange}
       />
 
-      <button type="submit" name="submit" id="create_account_button">
-        Create Account
+      <button
+        type="submit"
+        name="submit"
+        id="create_account_button"
+        text="Create Account"
+        loadingText="Creating Account..."
+        isLoading={this.state.isLoading}
+        disabled={!this.validateRegistration()}
+      >
+        {!isLoading ? text : loadingText}
       </button>
 
     </form>
@@ -92,23 +110,29 @@ class Register extends Component {
 
   confirmationForm = () => (
     <form onSubmit={this.handleConfirmationSubmit}>
-        <ControlLabel>Confirmation Code</ControlLabel>
-        <FormControl
-          autoFocus
-          type="tel"
-          value={this.state.confirmationCode}
-          onChange={this.handleChange}
-        />
-        <HelpBlock>Please check your email for the code.</HelpBlock>
-      <LoaderButton
-        block
-        bsSize="large"
-        disabled={!this.validateConfirmationForm()}
-        type="submit"
-        isLoading={this.state.isLoading}
-        text="Verify"
-        loadingText="Verifying…"
+
+      <label>Confirmation Code</label>
+      <input 
+        type="tel"
+        autoFocus
+        value={this.state.confirmationCode}
+        onChange={this.handleChange}
       />
+
+      <p>Please check your email for the code.</p>
+
+      <button
+        type="submit"
+        name="submit"
+        id="verify_confirmation_code_button"
+        text="Verify"
+        loadingText="Verifying..."
+        isLoading={this.state.isLoading}
+        disabled={!this.validateConfirmation()}
+      >
+        {!isLoading ? text : loadingText}
+      </button>
+
     </form>
   );
 
