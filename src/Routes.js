@@ -2,6 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import AppliedRoute from './AppliedRoute';
+import AuthenticatedRoute from './AuthenticatedRoute';
+import UnauthenticatedRoute from './UnauthenticatedRoute';
 
 import Register from './components/user/Register/Register';
 import Login from './components/user/Login/Login';
@@ -19,9 +21,9 @@ import NotFound from './components/NotFound/NotFound';
 
 const RoutesList = ({ childProps }) => (
   <Switch>
-    <AppliedRoute path="/user/register" exact component={Register} props={childProps} />
-    <AppliedRoute path="/user/login" exact component={Login} props={childProps} />
-    <AppliedRoute path="/user/logout" exact component={Logout} props={childProps} />
+    <UnauthenticatedRoute path="/user/register" exact component={Register} props={childProps} />
+    <UnauthenticatedRoute path="/user/login" exact component={Login} props={childProps} />
+    <AuthenticatedRoute path="/user/logout" exact component={Logout} props={childProps} />
     {/*<AppliedRoute path="/content/food/equipment" exact component={Equipment} props={childProps} />*/}
     <AppliedRoute path="/content/food/ingredients" exact component={Ingredients} props={childProps} />
     {/*<AppliedRoute path="/content/food/recipes" exact component={Recipes} props={childProps} />*/}

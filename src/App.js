@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContextProvider } from 'react-dnd';
+import { Auth } from 'aws-amplify';
 
 import { GridContainer } from './Styles'
 import HeaderRed from './containers/HeaderRed/HeaderRed';
@@ -63,11 +64,18 @@ class App extends Component {
     this.setState({isAuthenticated: authenticated});
   }
 
+  handleLogout = async () => {
+    await Auth.signOut();
+    this.userDidAuthenticate(false);
+    this.props.history.push('/user/login');
+  }
+
   render() {
     // Pass auth info:
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userDidAuthenticate: this.userDidAuthenticate
+      userDidAuthenticate: this.userDidAuthenticate,
+      handleLogout: this.handleLogout
     };
 
     // Decide visual layout style:
@@ -90,7 +98,7 @@ class App extends Component {
       // 2b. Otherwise, render the normal layout
       layout = (
         <GridContainer {...this.props}>
-          <HeaderRed />
+          <HeaderRed childProps={childProps} />
           <MainWhite>{routes}</MainWhite>
           <FooterGray />
         </GridContainer>

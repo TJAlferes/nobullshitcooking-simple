@@ -34,7 +34,10 @@ const headerRed = props => (
       <div id="header_row_2_col_2">
       </div>
       <div id="header_row_2_col_3">
-        <UserNav isAuthenticated={props.isAuthenticated} />
+        <UserNav
+          isAuthenticated={props.childProps.isAuthenticated}
+          handleLogout={props.childProps.handleLogout}
+        />
       </div>
     </div>
 

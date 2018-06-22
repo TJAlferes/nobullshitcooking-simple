@@ -4,6 +4,7 @@ import { Auth } from 'aws-amplify';
 
 import { StyledNavLink, Styles } from './Styles';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
+import LoaderButton from '../../LoaderButton/LoaderButton';
 
 class Register extends Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class Register extends Component {
       isLoading: false,
       newUser: null,
       confirmationCode: '',
-      username: '',
       email: '',
       password: '',
       password2: ''
@@ -27,14 +27,14 @@ class Register extends Component {
     e.preventDefault();
     this.setState({isLoading: true});
     try {
-      const { username, email, password } = this.state;
-      const newUser = await Auth.signUp({username, password, attributes: {email}});
+      const newUser = await Auth.signUp({email: this.state.email, password: this.state.password});
       this.setState({newUser});
+      this.setState({isLoading: false});
       console.log('registration success');
     } catch (err) {
+      this.setState({isLoading: false});
       console.log(err.message);
     }
-    this.setState({isLoading: false});
   }
 
   handleConfirmationSubmit =  async e => {
@@ -44,17 +44,19 @@ class Register extends Component {
       const { confirmationCode, email, password } = this.state;
       await Auth.confirmSignUp(email, confirmationCode);
       await Auth.signIn({email, password});
+      this.setState({isLoading: false});
+      console.log('verified');
       this.props.userDidAuthenticate(true);
       this.props.history.push('/');
     } catch (err) {
+      this.setState({isLoading: false});
       console.log(err.message);
     }
-    this.setState({isLoading: false});
   }
 
   validateRegistration = () => {
     return (
-      (this.state.username.length > 0) &&
+      (this.state.email.length > 0) &&
       (this.state.password.length > 0) &&
       (this.state.password === this.state.password2)
     );
@@ -69,16 +71,16 @@ class Register extends Component {
 
       <h1>Create Account</h1>
 
-      <label>Username</label>
+      {/*<label>Username</label>
       <input
         type="text" name="username" id="username"
         size="20" maxLength="20" autoFocus onChange={this.handleChange}
-      />
+      />*/}
 
       <label>Email</label>
       <input
         type="email" name="email" id="email"
-        size="20" maxLength="50" onChange={this.handleChange}
+        size="20" maxLength="50" autoFocus onChange={this.handleChange}
       />
 
       <label>Password</label>
@@ -93,7 +95,7 @@ class Register extends Component {
         size="20" maxLength="20" onChange={this.handleChange}
       />
 
-      <button
+      <LoaderButton
         type="submit"
         name="submit"
         id="create_account_button"
@@ -101,9 +103,7 @@ class Register extends Component {
         loadingText="Creating Account..."
         isLoading={this.state.isLoading}
         disabled={!this.validateRegistration()}
-      >
-        {!isLoading ? text : loadingText}
-      </button>
+      />
 
     </form>
   );
@@ -121,7 +121,7 @@ class Register extends Component {
 
       <p>Please check your email for the code.</p>
 
-      <button
+      <LoaderButton
         type="submit"
         name="submit"
         id="verify_confirmation_code_button"
@@ -129,9 +129,7 @@ class Register extends Component {
         loadingText="Verifying..."
         isLoading={this.state.isLoading}
         disabled={!this.validateConfirmation()}
-      >
-        {!isLoading ? text : loadingText}
-      </button>
+      />
 
     </form>
   );

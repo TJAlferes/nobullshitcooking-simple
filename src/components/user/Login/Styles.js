@@ -43,6 +43,15 @@ export const Styles = styled.div`
   a:hover {color: #c10006; text-decoration: underline;}
   a:active {color: #c10006; text-decoration: underline;}
 
+  #error_message {
+    width: 100%;
+    height: 31px;
+    color: #c10006;
+    text-align: center;
+    font-weight: 900;
+    font-size: 14px;
+  }
+
   .distinction-line {border-top: 1px solid #ccc;}
 
   #centered_logo {display: block; margin-top: 10px; margin-right:	auto; margin-bottom: 0; margin-left: auto; width: 900px; height: 100px;}

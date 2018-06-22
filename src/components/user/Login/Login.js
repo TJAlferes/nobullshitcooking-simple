@@ -4,12 +4,14 @@ import { Redirect } from 'react-router-dom';
 
 import { StyledNavLink, Styles } from './Styles';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
+import LoaderButton from '../../LoaderButton/LoaderButton';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: false,
+      error: null,
       email: '',
       password: ''
     };
@@ -24,12 +26,14 @@ class Login extends Component {
     this.setState({isLoading: true});
     try {
       await Auth.signIn(this.state.email, this.state.password);
-      this.props.userDidAuthenticate(true);  // callback?
+      this.setState({isLoading: false, error: null});
       console.log("sign in success");
+      this.props.userDidAuthenticate(true);  // callback...
     } catch (err) {
+      this.setState({isLoading: false});
+      this.setState({error: err.message});
       console.log(err.message);
     }
-    this.setState({isLoading: false});
     /*
     // `user` : Return object from Auth.signIn()
     // `code` : Confirmation code
@@ -54,9 +58,11 @@ class Login extends Component {
 
             <h1>Sign In</h1>
 
+            {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
+
             <label>Email</label>
             <input
-              type="text" name="email" id="email" size="20" maxLength="20" autoFocus
+              type="text" name="email" id="email" size="20" maxLength="50" autoFocus
               value={this.state.email} onChange={this.handleChange}
             />
 
@@ -66,13 +72,11 @@ class Login extends Component {
               value={this.state.password} onChange={this.handleChange}
             />
 
-            <button
+            <LoaderButton
               type="submit" name="submit" id="sign_in_button"
               text="Sign In" loadingText="Signing In..."
               isLoading={this.state.isLoading} disabled={!this.validate()}
-            >
-              {!isLoading ? text : loadingText}
-            </button>
+            />
 
             <div className="distinction-line">
               <button type="submit" name="facebook_federation_button" id="facebook_federation_button">
