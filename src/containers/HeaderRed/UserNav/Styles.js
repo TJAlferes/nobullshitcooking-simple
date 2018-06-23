@@ -26,3 +26,15 @@ export const StyledNavLink = styled(NavLink)`
 
   :hover {text-decoration: underline;}
 `;
+
+export const SignedInNavSpan = styled.span`
+  display: block;
+  font-size: 14px;
+  font-weight: 900;
+  color: #fff;
+  text-decoration: none;
+  height: 24px;
+
+  :hover {text-decoration: underline; cursor: pointer;}
+  :active {cursor: pointer;}
+`;

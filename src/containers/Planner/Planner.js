@@ -63,7 +63,7 @@ class Planner extends Component {
     return (
       <Styles>
         <div id="page">
-          <LeftNav />
+          <LeftNav isAuthenticated={this.props.isAuthenticated} getUser={this.props.getUser} />
           <article>
             <h1>Planner</h1>
             <p id="autosave_feedback">All changes saved.</p>

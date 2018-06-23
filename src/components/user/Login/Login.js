@@ -30,8 +30,7 @@ class Login extends Component {
       console.log("sign in success");
       this.props.userDidAuthenticate(true);  // callback...
     } catch (err) {
-      this.setState({isLoading: false});
-      this.setState({error: err.message});
+      this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
     /*

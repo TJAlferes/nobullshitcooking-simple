@@ -70,12 +70,24 @@ class App extends Component {
     this.props.history.push('/user/login');
   }
 
+  getUser = async () => {
+    try {
+      let user = await Auth.currentAuthenticatedUser();
+      console.log(user.attributes.email);
+      return user.attributes.email;
+    } catch (err) {
+      this.handleLogout();
+      console.log(err.message);
+    }
+  }
+
   render() {
-    // Pass auth info:
+    // Pass down auth info as props (into HeaderRed and into RoutesList):
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
       userDidAuthenticate: this.userDidAuthenticate,
-      handleLogout: this.handleLogout
+      handleLogout: this.handleLogout,
+      getUser: this.getUser
     };
 
     // Decide visual layout style:

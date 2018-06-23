@@ -11,6 +11,7 @@ class Register extends Component {
     super(props);
     this.state = {
       isLoading: false,
+      error: null,
       newUser: null,
       confirmationCode: '',
       email: '',
@@ -27,12 +28,12 @@ class Register extends Component {
     e.preventDefault();
     this.setState({isLoading: true});
     try {
-      const newUser = await Auth.signUp({email: this.state.email, password: this.state.password});
-      this.setState({newUser});
-      this.setState({isLoading: false});
+      const newUser = await Auth.signUp({username: this.state.email, password: this.state.password});
+      this.setState({newUser: newUser});
+      this.setState({isLoading: false, error: null});
       console.log('registration success');
     } catch (err) {
-      this.setState({isLoading: false});
+      this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
   }
@@ -44,12 +45,12 @@ class Register extends Component {
       const { confirmationCode, email, password } = this.state;
       await Auth.confirmSignUp(email, confirmationCode);
       await Auth.signIn({email, password});
-      this.setState({isLoading: false});
+      this.setState({isLoading: false, error: null});
       console.log('verified');
       this.props.userDidAuthenticate(true);
       this.props.history.push('/');
     } catch (err) {
-      this.setState({isLoading: false});
+      this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
   }
@@ -70,6 +71,8 @@ class Register extends Component {
     <form onSubmit={this.handleRegistrationSubmit}>
 
       <h1>Create Account</h1>
+
+      {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
 
       {/*<label>Username</label>
       <input
@@ -111,15 +114,19 @@ class Register extends Component {
   confirmationForm = () => (
     <form onSubmit={this.handleConfirmationSubmit}>
 
-      <label>Confirmation Code</label>
+      <h1>Verify</h1>
+
+      {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
+
+      <label>Code</label>
       <input 
-        type="tel"
+        type="input"
         autoFocus
         value={this.state.confirmationCode}
         onChange={this.handleChange}
       />
 
-      <p>Please check your email for the code.</p>
+      <p>Please check your email for the verification code.</p>
 
       <LoaderButton
         type="submit"
@@ -140,11 +147,7 @@ class Register extends Component {
         <StyledNavLink to="/"><img src={LogoLargeWhite} /></StyledNavLink>
         <Styles>
 
-          {
-            this.state.newUser === null
-            ? this.registrationForm()
-            : this.confirmationForm()
-          }
+          {this.state.newUser === null ? this.registrationForm() : this.confirmationForm()}
 
           <ul>
             <li><NavLink to="/">Terms of Use</NavLink></li>

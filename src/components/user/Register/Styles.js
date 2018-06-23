@@ -105,7 +105,16 @@ export const Styles = styled.div`
     height: 100px;
   }
 
-  #create_account_button {
+  #error_message {
+    width: 100%;
+    height: 31px;
+    color: #c10006;
+    text-align: center;
+    font-family: Arial;
+    font-size: 14px;
+  }
+
+  #create_account_button, #verify_confirmation_code_button {
     width: 100%;
     height: 31px;
     margin: 18px auto 24px auto;
@@ -124,6 +133,6 @@ export const Styles = styled.div`
     cursor: pointer;
     cursor: hand;
   }
-  #create_account_button:hover {background-image: linear-gradient(to bottom, #8cbeec, #4493d8);}
-  #create_account_button:active {background-image: linear-gradient(to bottom, #8cbeec, #4493d8);}
+  #create_account_button:hover, #verify_confirmation_code_button:hover {background-image: linear-gradient(to bottom, #8cbeec, #4493d8);}
+  #create_account_button:active, #verify_confirmation_code_button:active {background-image: linear-gradient(to bottom, #8cbeec, #4493d8);}
 `;

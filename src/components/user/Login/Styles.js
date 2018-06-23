@@ -48,7 +48,7 @@ export const Styles = styled.div`
     height: 31px;
     color: #c10006;
     text-align: center;
-    font-weight: 900;
+    font-family: Arial;
     font-size: 14px;
   }
 

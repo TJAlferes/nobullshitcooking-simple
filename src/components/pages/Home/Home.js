@@ -3,42 +3,12 @@ import React from 'react';
 import LeftNav from '../../LeftNav/LeftNav';
 import { Styles } from './Styles';
 
-/*
-<aside id="left_aside">
-  <span>Username</span>
-  <a href="planner"><span>Your Plan</span></a>
-  <hr />
-  <a href="#"><span id="span_new">New</span></a>
-  <span>Messages</span>
-  <span>Friends</span>
-  <hr />
-  <a href="content/supplements"><span>Supplements</span></a>
-  <span>Equipment</span>
-  <hr />
-  <span>Water Filtration</span>
-  <span>Tea</span>
-  <span>Coffee</span>
-  <hr />
-  <span>Outdoors</span>
-  <span>Garden</span>
-  <span>Weapons</span>
-  <span>Finances</span>
-  <span>Security</span>
-  <hr />
-  <span>Contest Winners</span>
-  <span>Food for Fall</span>
-  <span>Add a Recipe</span>
-  <hr />
-  <span>Charity</span>
-</aside>
-*/
-
 const home = props => (
   <Styles>
     <main>
       <div id="page">
 
-        <LeftNav />
+        <LeftNav isAuthenticated={props.isAuthenticated} getUser={props.getUser} />
 
         <article id="torso">
           <div id="container">

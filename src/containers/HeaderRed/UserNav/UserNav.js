@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 //import { Auth } from 'aws-amplify';
 
-import { StyledUserNav, StyledNavLink } from './Styles';
+import { StyledUserNav, StyledNavLink, SignedInNavSpan } from './Styles';
 
 class UserNav extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class UserNav extends Component {
   }
 
   render() {
-    const { isAuthenticated, handleLogout } = this.props;
+    const { isAuthenticated, handleLogout, getUser } = this.props;
     return (
       <StyledUserNav>
         <li><StyledNavLink to="/content/help">Help</StyledNavLink></li>
@@ -23,8 +23,8 @@ class UserNav extends Component {
           )
           : (
             <Fragment>
-              <li><span>Hello, Username</span></li>
-              <li><span onClick={handleLogout}>Sign Out</span></li>
+              <li><SignedInNavSpan>{`Hello, ${getUser()}`}</SignedInNavSpan></li>
+              <li><SignedInNavSpan onClick={handleLogout}>Sign Out</SignedInNavSpan></li>
             </Fragment>
           )
         }

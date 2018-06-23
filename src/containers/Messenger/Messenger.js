@@ -21,7 +21,7 @@ class Messenger extends Component {
       <Styles>
         <div id="page">
 
-          <LeftNav />
+          <LeftNav isAuthenticated={this.props.isAuthenticated} getUser={this.props.getUser} />
 
           <article>
             <h1>Messenger</h1>

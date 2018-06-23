@@ -7,11 +7,6 @@ import Promo from './Promo/Promo';
 import SiteNav from './SiteNav/SiteNav';
 import UserNav from './UserNav/UserNav';
 
-// MAYBE CHANGE THIS INTO A CLASS?
-// OR USE CHILDPROPS?
-// HOW ABOUT REDUX?
-// HOW ABOUT CONTEXT API?
-
 const headerRed = props => (
   <StyledHeaderRed>
 
@@ -29,7 +24,7 @@ const headerRed = props => (
 
     <div id="header_row_2">
       <div id="header_row_2_col_1">
-        <SiteNav />
+        <SiteNav isAuthenticated={props.childProps.isAuthenticated} />
       </div>
       <div id="header_row_2_col_2">
       </div>
@@ -37,6 +32,7 @@ const headerRed = props => (
         <UserNav
           isAuthenticated={props.childProps.isAuthenticated}
           handleLogout={props.childProps.handleLogout}
+          getUser={props.childProps.getUser}
         />
       </div>
     </div>
