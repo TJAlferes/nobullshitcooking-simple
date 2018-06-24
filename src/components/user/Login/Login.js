@@ -28,7 +28,7 @@ class Login extends Component {
       await Auth.signIn(this.state.email, this.state.password);
       this.setState({isLoading: false, error: null});
       console.log("sign in success");
-      this.props.userDidAuthenticate(true);  // callback...
+      this.props.userDidAuthenticate(true);
     } catch (err) {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
@@ -41,8 +41,33 @@ class Login extends Component {
     .catch(err => console.log(err));
     */
   }
+  /*
+  handleFacebookLogin = async () => {
+    this.setState({isLoading: true});
+    try {
+      await Auth.signIn();
+      this.setState({isLoading: false, error: null});
+      console.log("sign in success");
+      this.props.userDidAuthenticate(true);
+    } catch (err) {
+      this.setState({isLoading: false, error: err.message});
+      console.log(err.message);
+    }
+  }
 
-  // use this
+  handleGoogleLogin = async () => {
+    this.setState({isLoading: true});
+    try {
+      await Auth.signIn();
+      this.setState({isLoading: false, error: null});
+      console.log("sign in success");
+      this.props.userDidAuthenticate(true);
+    } catch (err) {
+      this.setState({isLoading: false, error: err.message});
+      console.log(err.message);
+    }
+  }
+  */
   validate = () => {
     return ((this.state.email.length > 0) && (this.state.password.length > 0));
   }
@@ -78,13 +103,19 @@ class Login extends Component {
             />
 
             <div className="distinction-line">
-              <button type="submit" name="facebook_federation_button" id="facebook_federation_button">
+              <button
+                type="submit" name="facebook_federation_button" id="facebook_federation_button"
+                onClick={this.handleFacebookLogin}
+              >
                 Continue With <b>Facebook</b>
               </button>
             </div>
 
             <div className="distinction-line">
-              <button type="submit" name="google_federation_button" id="google_federation_button">
+              <button 
+                type="submit" name="google_federation_button" id="google_federation_button"
+                onClick={this.handleGoogleLogin}
+              >
                 Continue With <b>Google</b>
               </button>
             </div>

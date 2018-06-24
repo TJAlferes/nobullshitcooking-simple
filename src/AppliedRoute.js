@@ -7,9 +7,9 @@ whose rendered child component
 contains the passed-in props.
 */
 
-export default ({ component: C, props: cProps, ...rest }) => (
+export default ({ component: Component, props: childProps, ...rest }) => (
   <Route
     {...rest}
-    render={props => (<C {...props} {...cProps} />)} 
+    render={props => (<Component {...props} {...childProps} />)} 
   />
 );

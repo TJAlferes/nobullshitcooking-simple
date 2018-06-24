@@ -1,12 +1,12 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-export default ({ component: C, props: cProps, ...rest }) => (
+export default ({ component: Component, props: childProps, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      cProps.isAuthenticated
-      ? <C {...props} {...cProps} />
+      childProps.isAuthenticated
+      ? <Component {...props} {...childProps} />
       : <Redirect to='/' />
     } 
   />
