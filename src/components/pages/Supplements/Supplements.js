@@ -24,13 +24,6 @@ const supplements = props => (
 			<article>
 
 				<h1>Supplements</h1>
-				<p><i>
-          Recommended for your vitality.
-          <br />
-          Five daily, five weekly.
-          <br />
-          Simple, affordable, worth taking.
-        </i></p>
 
 				<h2>Daily</h2>
 				<table>

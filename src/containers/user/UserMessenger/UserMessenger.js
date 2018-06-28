@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 
-import LeftNav from '../../components/LeftNav/LeftNav';
+import LeftNav from '../../../components/LeftNav/LeftNav';
 //import Styles from './Styles';
 import LightTheme from './LightTheme';
 
 // this would be from the user's s3 bucket:
-import ChatAvatarExample from '../../assets/images/chat-avatar-example.png';
-import ChatAvatarExample2 from '../../assets/images/chat-avatar-example-2.png';
-import ChatAvatarExample3 from '../../assets/images/chat-avatar-example-3.png';
-import ChatAvatarExample4 from '../../assets/images/chat-avatar-example-4.png';
+import ChatAvatarExample from '../../../assets/images/chat-avatar-example.png';
+import ChatAvatarExample2 from '../../../assets/images/chat-avatar-example-2.png';
+import ChatAvatarExample3 from '../../../assets/images/chat-avatar-example-3.png';
+import ChatAvatarExample4 from '../../../assets/images/chat-avatar-example-4.png';
 
 class Messenger extends Component {
   constructor(props) {
     super(props);
+
     this.state = {};
   }
 
@@ -24,7 +25,7 @@ class Messenger extends Component {
           <LeftNav isAuthenticated={this.props.isAuthenticated} getUser={this.props.getUser} />
 
           <article>
-            <h1>Messenger (Preview)</h1>
+            <h1>Messenger</h1>
             <div id="room">
               <button>Room</button><span>5067 (4)</span>
             </div>

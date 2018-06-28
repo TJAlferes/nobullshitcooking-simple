@@ -56,6 +56,16 @@ export const Styles = styled.div`
     padding-right: 2px;
     padding-bottom: 2px;
     padding-left: 2px;
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+    }
   }
   tbody tr:nth-child(even) {background: #eee;}
 
