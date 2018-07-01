@@ -8,7 +8,7 @@ import { GridContainer } from './Styles'
 import HeaderRed from './containers/HeaderRed/HeaderRed';
 import MainWhite from './components/MainWhite/MainWhite';
 import FooterGray from './components/FooterGray/FooterGray';
-import RoutesList from './Routes';
+import RoutesList from './routing/Routes';
 
 
 /*
@@ -57,7 +57,7 @@ FB.getLoginStatus(function(response) {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isAuthenticated: false};
+    this.state = {isAuthenticated: false, userEmail: ''};
   }
 
   userDidAuthenticate = authenticated => {
@@ -67,6 +67,7 @@ class App extends Component {
   handleLogout = async () => {
     await Auth.signOut();
     this.userDidAuthenticate(false);
+    this.setState({userEmail: ''});
     this.props.history.push('/user/login');
   }
 
@@ -74,7 +75,7 @@ class App extends Component {
     try {
       let user = await Auth.currentAuthenticatedUser();
       console.log(user.attributes.email);
-      return user.attributes.email;
+      this.setState({userEmail: user.attributes.email});
     } catch (err) {
       this.handleLogout();
       console.log(err.message);
@@ -85,6 +86,7 @@ class App extends Component {
     // Pass down auth info as props (into HeaderRed and into RoutesList):
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
+      userEmail: this.state.userEmail,
       userDidAuthenticate: this.userDidAuthenticate,
       handleLogout: this.handleLogout,
       getUser: this.getUser
@@ -111,7 +113,7 @@ class App extends Component {
       layout = (
         <GridContainer {...this.props}>
           <HeaderRed childProps={childProps} />
-          <MainWhite>{routes}</MainWhite>
+          <MainWhite location={location}>{routes}</MainWhite>
           <FooterGray />
         </GridContainer>
       );

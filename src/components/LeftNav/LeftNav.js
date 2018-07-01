@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import { Styles, LeftNavLink } from './Styles';
 
 const LeftNav = props => {
-  const { isAuthenticated, getUser } = props;
+  const { isAuthenticated, getUser, userEmail } = props;
   return (
     <Styles>
       {
         !isAuthenticated
         ? <LeftNavLink to="/user/login"><span>Dashboard</span></LeftNavLink>
-        : <LeftNavLink to="/user/dashboard"><span>{`${getUser()}`}</span></LeftNavLink>
+        : <LeftNavLink to="/user/dashboard"><span>{userEmail}</span></LeftNavLink>
       }
       {
         !isAuthenticated
@@ -31,7 +31,7 @@ const LeftNav = props => {
       }
       <hr />
 
-      <LeftNavLink to="/content/supplements"><span id="supplements_span">Supplements</span></LeftNavLink>
+      <LeftNavLink to="/supplements"><span id="supplements_span">Supplements</span></LeftNavLink>
       <LeftNavLink to="/"><span>Equipment</span></LeftNavLink>
       <hr />
 

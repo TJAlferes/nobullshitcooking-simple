@@ -61,7 +61,7 @@ class UserPlanner extends Component {
       <Styles>
         <div id="page">
 
-          <LeftNav isAuthenticated={this.props.isAuthenticated} getUser={this.props.getUser} />
+          <LeftNav isAuthenticated={this.props.isAuthenticated} getUser={this.props.getUser} userEmail={props.userEmail} />
 
           <article>
 

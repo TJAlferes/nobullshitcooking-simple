@@ -19,7 +19,7 @@ const supplements = props => (
   <Styles>
 		<div id="page">
 			
-      <LeftNav isAuthenticated={props.isAuthenticated} getUser={props.getUser} />
+      <LeftNav isAuthenticated={props.isAuthenticated} getUser={props.getUser} userEmail={props.userEmail} />
 
 			<article>
 

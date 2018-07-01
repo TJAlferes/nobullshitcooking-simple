@@ -22,7 +22,7 @@ class Messenger extends Component {
       <LightTheme>
         <div id="page">
 
-          <LeftNav isAuthenticated={this.props.isAuthenticated} getUser={this.props.getUser} />
+          <LeftNav isAuthenticated={this.props.isAuthenticated} getUser={this.props.getUser} userEmail={props.userEmail} />
 
           <article>
             <h1>Messenger</h1>

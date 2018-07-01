@@ -11,8 +11,7 @@ const disclaimer = props => (
     <p>The authors of this website are not doctors, nutritionists, or dieticians.</p>
 
     <p>The content of this website, be it text, graphic, image, audio, video, or otherwise,
-    is intended for informational purposes only and does not constitute medical advice.
-    The content of this website is not a replacement for
+    is intended for informational purposes only and does not constitute or replace
     professional medical advice, diagnosis, or treatment.</p>
 
     <p><b>nobullshitcooking.net</b> does not recommend or endorse any specific

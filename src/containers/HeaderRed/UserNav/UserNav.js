@@ -9,10 +9,10 @@ class UserNav extends Component {
   }
 
   render() {
-    const { isAuthenticated, handleLogout, getUser } = this.props;
+    const { isAuthenticated, handleLogout, getUser, userEmail } = this.props;
     return (
       <StyledUserNav>
-        <li><StyledNavLink to="/content/help">Help</StyledNavLink></li>
+        <li><StyledNavLink to="/help">Help</StyledNavLink></li>
         {
           !isAuthenticated
           ? (
@@ -23,7 +23,7 @@ class UserNav extends Component {
           )
           : (
             <Fragment>
-              <li><SignedInNavSpan>{`Hello, ${getUser()}`}</SignedInNavSpan></li>
+              <li><SignedInNavSpan>{`Hello, ${userEmail}`}</SignedInNavSpan></li>
               <li><SignedInNavSpan onClick={handleLogout}>Sign Out</SignedInNavSpan></li>
             </Fragment>
           )

@@ -12,22 +12,19 @@ import AmericaFlag from '../../../assets/images/content/america-flag.png';
 const food = () => (
   <Styles id="page">
 
-    {/* make this a reusable component, breadcrumbs and history, see tyler mcginnis and react router docs */}
-    <span id="current_location"><Link to="/">Home</Link> > <Link to="/content/food">Food</Link></span>
-
     <div id="container">
 
       <h1>Food</h1>
 
       {/* restructure / simplify this */}
       <div className="ingredients_sections">
-        <Link to="/content/food/nutrition">
+        <Link to="/food/nutrition">
           <div className="single_section">
             <span>Nutrition</span>
             <img width="100" title="Nutrition" src={PlusSign} />
           </div>
         </Link>
-        <Link to="/content/food/methods">
+        <Link to="/food/methods">
           <div className="single_section">
             <span>Methods</span>
             <img width="150" title="Methods" src={Grill} />
@@ -36,13 +33,13 @@ const food = () => (
       </div>
 
       <div className="ingredients_sections">	
-        <Link to="/content/food/ingredients">
+        <Link to="/food/ingredients">
           <div className="single_section">
             <span>Ingredients</span>
             <img width="150" title="Ingredients" src={Ribs} />
           </div>
         </Link>
-        <Link to="/content/food/nations">
+        <Link to="/food/nations">
           <div className="single_section">
             <span>Cuisines</span>
             <img width="150" title="Cuisines" src={AmericaFlag} />
