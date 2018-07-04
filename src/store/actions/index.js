@@ -1,8 +1,10 @@
 export {
-  sample
-} from './sample';
+  openModal,
+  closeModal
+} from './modalsActions';
+
 export {
   getIngredientsStart,
   getIngredientsSuccess,
   getIngredientsFail
-} from './ingredients';
+} from './ingredientsActions';

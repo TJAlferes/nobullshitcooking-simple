@@ -60,6 +60,8 @@ class App extends Component {
     this.state = {isAuthenticated: false, userEmail: ''};
   }
 
+  // auth functionality
+  
   userDidAuthenticate = authenticated => {
     this.setState({isAuthenticated: authenticated});
   }
@@ -81,6 +83,10 @@ class App extends Component {
       console.log(err.message);
     }
   }
+
+  // modals functionality
+
+
 
   render() {
     // Pass down auth info as props (into HeaderRed and into RoutesList):

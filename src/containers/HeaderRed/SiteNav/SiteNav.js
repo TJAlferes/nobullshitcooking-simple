@@ -1,17 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { StyledSiteNav, StyledNavLink } from './Styles';
 
-const openModal = e => {
-  e.stopPropagation();
-  console.log('working');
-}
-
 const siteNav = props => {
   const { isAuthenticated } = props;
+
+  const displayDropdown = e => {
+    e.stopPropagation();
+    console.log('working');
+    props.dispatch(
+      openModal({
+        id: uuid.v4(),
+        type: 'custom',
+        content: <CustomModalContent />
+      })
+    );
+  }
+
   return (
     <StyledSiteNav>
-      <li onMouseEnter={openModal}><StyledNavLink to="/food">Food</StyledNavLink></li>
+      <li onMouseEnter={displayDropdown}><StyledNavLink to="/food">Food</StyledNavLink></li>
       <li><StyledNavLink to="/fitness">Fitness</StyledNavLink></li>
       <li><StyledNavLink to="/store/storefront">Supply</StyledNavLink></li>
       <li><StyledNavLink to="/welcome">New? Start Here</StyledNavLink></li>
@@ -20,4 +29,8 @@ const siteNav = props => {
   );
 }
 
-export default siteNav;
+const mapDispatchToProps = dispatch => ({
+  dispatch
+});
+
+export default connect(null, mapDispatchToProps)(siteNav);

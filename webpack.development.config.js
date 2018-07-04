@@ -7,9 +7,17 @@ module.exports = {
   devServer: {
     //contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
-    overlay: {warnings: true, errors: true}
+    overlay: {warnings: true, errors: true},
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3003',
+        pathRewrite: {'^/api' : ''},
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-eval-source-map', // or cheap-module-source-map ?
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
