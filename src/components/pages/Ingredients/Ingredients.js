@@ -54,7 +54,7 @@ class Ingredients extends Component {
       ingredients: [],
       ingredientTypes: [],
       pages: 1,
-      starting: 5,
+      starting: 1,
       checkedFilters: {
         1: false,
         2: false,
@@ -95,14 +95,14 @@ class Ingredients extends Component {
     }
   }
 
-  getIngredients = async ({ checkedIngredientTypes = [11, 12], startingAtt = '1' } = {}) => {
+  getIngredients = async ({ checkedIngredientTypes = [16], startingAtt = '0' } = {}) => {
     try {
       const url = `${endpoint}`;
       console.log('--------------');
       console.log(startingAtt);
       const response = await axios.post(url, {types: checkedIngredientTypes, start: startingAtt});
       let { rows, pages, starting } = response.data;
-      console.log(rows);
+      console.log(...rows);
       console.log(pages);
       console.log(starting);
       this.setState({ingredients: rows, pages, starting});
