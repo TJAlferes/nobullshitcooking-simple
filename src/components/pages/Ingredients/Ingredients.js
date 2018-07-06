@@ -3,19 +3,49 @@ import axios from 'axios';
 //import queryString from 'query-string';
 
 //import { getIngredientsStart } from '../../actions/ingredients';
-
 import { Styles } from './Styles';
+import { getIn } from 'final-form';
 
-// remember you can place logic up here before the class too, as well as import it from elsewhere
-// remember to properly separate component and container! (you can mix them at start, especially when app is small)
-// which state should be local, which context, and which redux???
-// for most of the old PHP $_GET['blah'] sessions, you'll use state(?)
-//require 'starter.php';  // this will be cognito user session now (aws amplify)
-
-// Location of our Backend API
+// Location of our backend API
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
-const endpoint = 'http://localhost:3003/ingredients';  // CORS
+const endpoint = 'http://localhost:3003/ingredients';
 
+/*
+  Ingredients Component
+
+  Purpose
+
+    The Ingredients page/component lists thumbnail preview links to individual Ingredient pages/components.
+
+  Features
+
+    Filter
+
+      It includes filter options. Multiple filters may be applied simultaneously.
+
+    Pagination
+
+      It also includes pagination, performed on the backend.
+
+      If more than 25 ingredients are returned from the database,
+      then the backend API only returns the first 25 rows,
+      but also returns a notification to the frontend that it should render page links,
+      as well as instructions on how to do so.
+
+      Those page links, when clicked, will then call the appropriate next or previous 25 ingredients.
+
+  Props
+
+  State (Local)
+
+    The local state holds 5 first-level properties:
+
+      ingredients -- Array -- Holds data for ingredients to be currently rendered
+      ingredientTypes -- Array -- Holds data to send along on call to backend API
+      pages -- Number -- 
+      starting -- Number --
+      checkedFilters -- Object -- Keeps track of which filters are currently unchecked/checked
+*/
 class Ingredients extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +53,8 @@ class Ingredients extends Component {
     this.state = {
       ingredients: [],
       ingredientTypes: [],
+      pages: 1,
+      starting: 5,
       checkedFilters: {
         1: false,
         2: false,
@@ -47,45 +79,33 @@ class Ingredients extends Component {
   }
 
   componentDidMount() {
-    const url = `${endpoint}/types/all`;
-    axios.get(url)
-    .then(response => {
-      const ingredientTypes = response.data;
-      this.setState({ingredientTypes});
-    })
-    .catch(err => console.log(err));
+    this.getAllIngredientTypes();  // used in filter
+    this.getIngredients();  // initial/default ingredients load
   }
 
-  /*componentDidUpdate() {
-    let checkedIngredientTypes = [];
-    let { checkedFilters } = this.state;
-
-    Object.entries(checkedFilters).forEach(([key, value]) => {
-      if (value === true) {
-        checkedIngredientTypes.push(key);
-      }
-    });
-
-    this.getIngredientsOfTypes(checkedIngredientTypes);
-  }*/
-  
-  getIngredients = async (id) => {
+  getAllIngredientTypes = async () => {
+    // TO DO: on backend API, make types like ingredients
     try {
-      const url = id ? `${endpoint}/${id}` : `${endpoint}`;
+      const url = `${endpoint}/types/all`;
       const response = await axios.get(url);
-      const ingredients = response.data;
-      this.setState({ingredients});
+      const ingredientTypes = response.data;
+      this.setState({ingredientTypes});
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   }
 
-  getIngredientsOfTypes = async (checkedIngredientTypes) => {
+  getIngredients = async ({ checkedIngredientTypes = [11, 12], startingAtt = '1' } = {}) => {
     try {
-      const url = `${endpoint}/of-types`;
-      const response = await axios.post(url, {types: checkedIngredientTypes});
-      const ingredients = response.data;
-      this.setState({ingredients});
+      const url = `${endpoint}`;
+      console.log('--------------');
+      console.log(startingAtt);
+      const response = await axios.post(url, {types: checkedIngredientTypes, start: startingAtt});
+      let { rows, pages, starting } = response.data;
+      console.log(rows);
+      console.log(pages);
+      console.log(starting);
+      this.setState({ingredients: rows, pages, starting});
     } catch (err) {
       console.error(err);
     }
@@ -93,15 +113,16 @@ class Ingredients extends Component {
 
   handleFilterChange = async (e) => {
     const id = e.target.id;
-    // (remember to use 'immutability-helper' for state nested much deeper than this)
+    // use 'immutability-helper' for state nested much deeper than this
     await this.setState(prevState => ({
       ...prevState, checkedFilters: {
         ...prevState.checkedFilters, [id]: !prevState.checkedFilters[[id]]
       }
     }));
 
+    // 1 -- you're repeating this, see if you can cut it
     let checkedIngredientTypes = [];
-    let { checkedFilters } = this.state;
+    let { checkedFilters, starting } = this.state;
 
     await Object.entries(checkedFilters).forEach(([key, value]) => {
       if (value === true) {
@@ -109,82 +130,111 @@ class Ingredients extends Component {
       }
     });
 
-    this.getIngredientsOfTypes(checkedIngredientTypes);
+    this.getIngredients(checkedIngredientTypes, starting);
   }
 
+  //paginationLocation
 
-  /*
-  // functions to automatically apply filter changes
-  function ingredientsActionOne() {
-    var iTID = document.getElementById('itid');
-    iTID.addEventListener("change", niceFilter, false);
-  }
-  function niceFilter() {
-    this.submit();
-  }
-  
-  window.addEventListener("load", ingredientsActionOne, false);
-  */
+  paginationNumbers = () => {
+    const display = 25;
+    const { pages, starting, checkedFilters } = this.state;
+    let currentPage = (starting / display) + 1;
 
+    let numbers = [];
+    let startingAt;
+
+    // 2 -- you're repeating this, see if you can cut it
+    let checkedIngredientTypes = [];
+    Object.entries(checkedFilters).forEach(([key, value]) => {
+      if (value === true) {
+        checkedIngredientTypes.push(key);
+      }
+    });
+
+    for (let i = 1; i <= pages; i++) {
+      if (i != currentPage) {
+        startingAt = `${display * (i - 1)}`;
+        numbers.push(<span className="page_number" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)} key={i}>{i}</span>);
+      } else {
+        numbers.push(<span className="current_page_number" key={i}>{i}</span>);
+      }
+    }
+    return numbers;
+  }
 
   render() {
+    const display = 25;
+    const { pages, starting, checkedFilters } = this.state;
+    let currentPage = (starting / display) + 1;
+    const startingAt = `${starting - display}`;
+
+    // 3 -- you're repeating this, see if you can cut it
+    let checkedIngredientTypes = [];
+    Object.entries(checkedFilters).forEach(([key, value]) => {
+      if (value === true) {
+        checkedIngredientTypes.push(key);
+      }
+    });
+
+    let paginationLinks = (
+      <div className="page_links">
+        {
+          (pages > 1) &&
+          <span className="page_numbers">
+            {(currentPage != 1) && <span className="page_nav" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)}>Prev</span>}
+            {this.paginationNumbers()}
+            {(currentPage != 1) && <span className="page_nav" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)}>Next</span>}
+          </span>
+        }
+      </div>
+    );
+
     return(
       <Styles>
         <div id="page">
+
           <div id="page_col_left">
+
             <div id="list_header">
               <h1>Ingredients</h1>
-              <button onClick={() => this.getIngredients()}>Get Ingredients</button>
             </div>
-
 
             <div id="filters">
               <form id="itid" name="itid" onChange={e => this.handleFilterChange(e)}>
                 <span id="filter_title"><b>Filter by:</b></span>
                 <div>
-
-                  {/*SELECT ingredient_type_id, ingredient_type_name FROM nobsc_ingredient_types*/}
-                  
-                  {/* create ingredient type filter UI */}
                   <p className="filter_type"><b>Ingredient type</b></p>
                   {this.state.ingredientTypes.map((ingredientType, index) => (
                     <span className="filter_span" key={index}>
-                      <input
-                        type="checkbox"
-                        id={ingredientType.ingredient_type_id}
-                        //onClick={() => this.handleFilterClick(ingredientType.ingredient_type_id)}
-                      />
+                      <input type="checkbox" id={ingredientType.ingredient_type_id} />
                       <label className="filter_label">{ingredientType.ingredient_type_name}</label>
                     </span>
                   ))}
-                  {/*
-                    if (
-                      isset($_GET['itid' . $row['ingredient_type_id']]) &&
-                      ($_GET['itid' . $row['ingredient_type_id']] == $row['ingredient_type_id'])) {
-                      optionHtml += 'checked ';
-                    }
-                  */}
-                  
                 </div>
-                {/* <button type="submit" style="display: none;"> */}
               </form>
             </div>
 
+            {paginationLinks}
 
             <div>
-            {this.state.ingredients.map((ingredient, index) => (
-              <div key={index}>
-                <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`} />
-                <div className="ingredient_name">{ingredient.ingredient_name}</div>
-                <div className="ingredient_id">{ingredient.ingredient_id}</div>
-                <div className="ingredient_type_id">{ingredient.ingredient_type_id}</div>
-              </div>
-            ))}
-          </div>
+              {this.state.ingredients.map((ingredient, index) => (
+                <div key={index}>
+                  {/* TO DO: change to thumbnail image */}
+                  <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`} />
+                  <div className="ingredient_name">{ingredient.ingredient_name}</div>
+                  <div className="ingredient_id">{ingredient.ingredient_id}</div>
+                  <div className="ingredient_type_id">{ingredient.ingredient_type_id}</div>
+                </div>
+              ))}
+            </div>
+
+            {paginationLinks}
+
           </div>
 
           <div id="page_col_right">
           </div>
+
         </div>
       </Styles>
     );
