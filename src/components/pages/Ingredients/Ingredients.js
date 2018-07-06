@@ -95,16 +95,25 @@ class Ingredients extends Component {
     }
   }
 
-  getIngredients = async ({ checkedIngredientTypes = [16], startingAtt = '0' } = {}) => {
+  getIngredients = async (checkedIngredientTypes, startingAtt) => {
     try {
+      const checkedIngredientTypes = (typeof checkedIngredientTypes === 'undefined')
+        ? []
+        : checkedIngredientTypes;
+      const startingAtt = (typeof startingAtt === 'undefined')
+        ? '0'
+        : startingAtt;
+      console.log('-------------- (in getIngredients()) --------------');
+      console.log('checkedIngredientTypes: ' + checkedIngredientTypes)
+      console.log('startingAtt: ' + startingAtt);
+
       const url = `${endpoint}`;
-      console.log('--------------');
-      console.log(startingAtt);
       const response = await axios.post(url, {types: checkedIngredientTypes, start: startingAtt});
       let { rows, pages, starting } = response.data;
       console.log(...rows);
-      console.log(pages);
-      console.log(starting);
+      console.log('pages: ' + pages);
+      console.log('starting: ' + starting);
+
       this.setState({ingredients: rows, pages, starting});
     } catch (err) {
       console.error(err);
@@ -138,10 +147,11 @@ class Ingredients extends Component {
   paginationNumbers = () => {
     const display = 25;
     const { pages, starting, checkedFilters } = this.state;
-    let currentPage = (starting / display) + 1;
+    let currentPage = Math.floor((starting / display) + 1);
+    console.log('(in paginationNumbers()) currentPage: ' + currentPage);
 
     let numbers = [];
-    let startingAt;
+    let startingAt;  // ???
 
     // 2 -- you're repeating this, see if you can cut it
     let checkedIngredientTypes = [];
@@ -154,8 +164,10 @@ class Ingredients extends Component {
     for (let i = 1; i <= pages; i++) {
       if (i != currentPage) {
         startingAt = `${display * (i - 1)}`;
+        console.log('(in for loop iteration ' + i + ') startingAt: ' + startingAt);
         numbers.push(<span className="page_number" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)} key={i}>{i}</span>);
       } else {
+        console.log('(in for loop iteration ' + i + ')');
         numbers.push(<span className="current_page_number" key={i}>{i}</span>);
       }
     }
@@ -165,7 +177,8 @@ class Ingredients extends Component {
   render() {
     const display = 25;
     const { pages, starting, checkedFilters } = this.state;
-    let currentPage = (starting / display) + 1;
+    let currentPage = Math.floor((starting / display) + 1);
+    console.log('(in render()) currentPage: ' + currentPage);
     const startingAt = `${starting - display}`;
 
     // 3 -- you're repeating this, see if you can cut it
@@ -183,7 +196,7 @@ class Ingredients extends Component {
           <span className="page_numbers">
             {(currentPage != 1) && <span className="page_nav" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)}>Prev</span>}
             {this.paginationNumbers()}
-            {(currentPage != 1) && <span className="page_nav" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)}>Next</span>}
+            {(currentPage != pages) && <span className="page_nav" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)}>Next</span>}
           </span>
         }
       </div>
