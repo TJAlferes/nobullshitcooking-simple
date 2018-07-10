@@ -53,12 +53,6 @@ module.exports = {
       {
         test: /\.(ico|png|svg|jpe?g|gif)$/,
         loader: 'url-loader'
-        /*use: [
-          {
-            loader: 'url-loader',
-            options: {limit: 8000, fallback: 'file-loader'}
-          }
-        ]*/
       }
     ]
   },

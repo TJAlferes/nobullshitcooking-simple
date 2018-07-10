@@ -6,6 +6,33 @@ import { StyledNavLink, Styles } from './Styles';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
+/*
+  Register component
+
+  Purpose
+    Register a new account with provided email and password
+
+  Methods
+    handleChange(e)                   --
+    async handleRegistrationSubmit(e) --
+    async handleConfirmationSubmit(e) --
+    validateRegistration()            --
+    validateConfirmation()            --
+    registrationForm()                --
+    confirmationForm()                --
+
+  Props
+
+
+  State
+    isLoading        -- Boolean --
+    error            --
+    newUser          --
+    confirmationCode -- String --
+    email            -- String --
+    password         -- String --
+    password2        -- String --
+*/
 class Register extends Component {
   constructor(props) {
     super(props);
