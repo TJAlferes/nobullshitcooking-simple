@@ -18,7 +18,7 @@ export default class Modal extends Component {
   }
 
   render() {
-    const { type } = this.props.item;
+    /*const { type } = this.props.item;
 
     if (type === 'confirmation') {
       const { text } = this.props.item;
@@ -47,7 +47,7 @@ export default class Modal extends Component {
           </div>
         </div>
       );
-    }
+    }*/
 
     return <div />;
   }

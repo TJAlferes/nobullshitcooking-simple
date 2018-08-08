@@ -1,3 +1,5 @@
+import React from 'react';
+
 const equipmentRow = () => (
   <div className="equipment_row">
     <label>Amount:</label>

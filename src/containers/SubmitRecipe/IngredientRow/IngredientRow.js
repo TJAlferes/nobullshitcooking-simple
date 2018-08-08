@@ -1,3 +1,5 @@
+import React from 'react';
+
 const ingredientRow = () => (
   <div className="ingredient_row">
     <label>Amount:</label><input className="manual_amount" type="number" step="any" min="0.125" max="9999" required />

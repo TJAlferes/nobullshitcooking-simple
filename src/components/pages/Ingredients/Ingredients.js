@@ -78,6 +78,7 @@ class Ingredients extends Component {
     };
   }
 
+  // use SSR here...
   componentDidMount() {
     this.getAllIngredientTypes();  // used in filter
     this.getIngredients();  // initial/default ingredients load

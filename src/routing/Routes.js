@@ -1,12 +1,24 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-// helpers
+/*
+
+---------- helpers ----------
+
+*/
 import AppliedRoute from './AppliedRoute';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import UnauthenticatedRoute from './UnauthenticatedRoute';
 
-// routes
+
+
+/*
+
+---------- routes ----------
+
+*/
+import SubmitRecipe from '../containers/SubmitRecipe/SubmitRecipe';
+
 import Register from '../components/user/Register/Register';
 import Login from '../components/user/Login/Login';
 import Logout from '../components/user/Logout/Logout';
@@ -62,8 +74,17 @@ import Home from '../components/pages/Home/Home';
 
 import NotFound from '../components/NotFound/NotFound';
 
+
+
 const RoutesList = ({ childProps }) => (
   <Switch>
+
+    {/* staff routes */}
+
+    <AppliedRoute path="/staff/recipes/submit" exact component={SubmitRecipe} props={childProps} />
+    {/*<AuthenticatedRoute path="/user/dashboard" exact component={SubmitRecipe} props={childProps} />*/}
+
+
 
     {/* auth routes */}
 

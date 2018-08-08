@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { StyledSiteNav, StyledNavLink } from './Styles';
 
 const siteNav = props => {
-  const { isAuthenticated } = props;
+  //const { isAuthenticated } = props;
 
   const displayDropdown = e => {
     e.stopPropagation();
@@ -20,7 +20,7 @@ const siteNav = props => {
 
   return (
     <StyledSiteNav>
-      <li onMouseEnter={displayDropdown}><StyledNavLink to="/food">Food</StyledNavLink></li>
+      <li><StyledNavLink to="/food">Food</StyledNavLink></li>
       <li><StyledNavLink to="/fitness">Fitness</StyledNavLink></li>
       <li><StyledNavLink to="/store/storefront">Supply</StyledNavLink></li>
       <li><StyledNavLink to="/welcome">New? Start Here</StyledNavLink></li>

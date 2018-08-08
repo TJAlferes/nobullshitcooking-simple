@@ -45,7 +45,8 @@ class PlannerDay extends Component {
     };
   }
   
-  componentDidUpdate() { // get better at lifecycle methods
+  componentDidUpdate() {
+    // ********* JUST USE PORTALS INSTEAD??? **********
     const dayClicked = this.day.getBoundingClientRect();
     const topCoords = dayClicked.top + pageYOffset;
     const leftCoords = dayClicked.left + pageXOffset;
