@@ -4,7 +4,6 @@ import axios from 'axios';
 
 //import { getIngredientsStart } from '../../actions/ingredients';
 import { Styles } from './Styles';
-import { getIn } from 'final-form';
 
 // Location of our backend API
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
@@ -98,27 +97,33 @@ class Ingredients extends Component {
 
   getIngredients = async (checkedIngredientTypes, startingAtt) => {
     try {
-      const checkedIngredientTypes = (typeof checkedIngredientTypes === 'undefined')
-        ? []
-        : checkedIngredientTypes;
-      const startingAtt = (typeof startingAtt === 'undefined')
-        ? '0'
-        : startingAtt;
-      console.log('-------------- (in getIngredients()) --------------');
+      const checkedIngredientTypes = (typeof checkedIngredientTypes === 'undefined') ? [] : checkedIngredientTypes;
+      const startingAtt = (typeof startingAtt === 'undefined') ? '0' : startingAtt;
+      /*console.log('-------------- (in getIngredients()) --------------');
       console.log('checkedIngredientTypes: ' + checkedIngredientTypes)
-      console.log('startingAtt: ' + startingAtt);
+      console.log('startingAtt: ' + startingAtt);*/
 
       const url = `${endpoint}`;
       const response = await axios.post(url, {types: checkedIngredientTypes, start: startingAtt});
       let { rows, pages, starting } = response.data;
-      console.log(...rows);
+      /*console.log(...rows);
       console.log('pages: ' + pages);
-      console.log('starting: ' + starting);
+      console.log('starting: ' + starting);*/
 
       this.setState({ingredients: rows, pages, starting});
     } catch (err) {
       console.error(err);
     }
+  }
+
+  getCheckedIngredientTypes = () => {
+    let checkedIngredientTypes = [];
+    Object.entries(this.state.checkedFilters).forEach(([key, value]) => {
+      if (value === true) {
+        checkedIngredientTypes.push(key);
+      }
+    });
+    return checkedIngredientTypes;
   }
 
   handleFilterChange = async (e) => {
@@ -130,45 +135,27 @@ class Ingredients extends Component {
       }
     }));
 
-    // 1 -- you're repeating this, see if you can cut it
-    let checkedIngredientTypes = [];
-    let { checkedFilters, starting } = this.state;
-
-    await Object.entries(checkedFilters).forEach(([key, value]) => {
-      if (value === true) {
-        checkedIngredientTypes.push(key);
-      }
-    });
-
-    this.getIngredients(checkedIngredientTypes, starting);
+    this.getIngredients(this.getCheckedIngredientTypes(), this.state.starting);
   }
 
   //paginationLocation
 
   paginationNumbers = () => {
     const display = 25;
-    const { pages, starting, checkedFilters } = this.state;
+    const { pages, starting } = this.state;
     let currentPage = Math.floor((starting / display) + 1);
-    console.log('(in paginationNumbers()) currentPage: ' + currentPage);
+    //console.log('(in paginationNumbers()) currentPage: ' + currentPage);
 
     let numbers = [];
     let startingAt;  // ???
 
-    // 2 -- you're repeating this, see if you can cut it
-    let checkedIngredientTypes = [];
-    Object.entries(checkedFilters).forEach(([key, value]) => {
-      if (value === true) {
-        checkedIngredientTypes.push(key);
-      }
-    });
-
     for (let i = 1; i <= pages; i++) {
       if (i != currentPage) {
         startingAt = `${display * (i - 1)}`;
-        console.log('(in for loop iteration ' + i + ') startingAt: ' + startingAt);
-        numbers.push(<span className="page_number" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)} key={i}>{i}</span>);
+        //console.log('(in for loop iteration ' + i + ') startingAt: ' + startingAt);
+        numbers.push(<span className="page_number" onClick={() => this.getIngredients(this.getCheckedIngredientTypes(), startingAt)} key={i}>{i}</span>);
       } else {
-        console.log('(in for loop iteration ' + i + ')');
+        //console.log('(in for loop iteration ' + i + ')');
         numbers.push(<span className="current_page_number" key={i}>{i}</span>);
       }
     }
@@ -177,27 +164,19 @@ class Ingredients extends Component {
 
   render() {
     const display = 25;
-    const { pages, starting, checkedFilters } = this.state;
+    const { pages, starting } = this.state;
     let currentPage = Math.floor((starting / display) + 1);
-    console.log('(in render()) currentPage: ' + currentPage);
+    //console.log('(in render()) currentPage: ' + currentPage);
     const startingAt = `${starting - display}`;
-
-    // 3 -- you're repeating this, see if you can cut it
-    let checkedIngredientTypes = [];
-    Object.entries(checkedFilters).forEach(([key, value]) => {
-      if (value === true) {
-        checkedIngredientTypes.push(key);
-      }
-    });
 
     let paginationLinks = (
       <div className="page_links">
         {
           (pages > 1) &&
           <span className="page_numbers">
-            {(currentPage != 1) && <span className="page_nav" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)}>Prev</span>}
+            {(currentPage != 1) && <span className="page_nav" onClick={() => this.getIngredients(this.getCheckedIngredientTypes(), startingAt)}>Prev</span>}
             {this.paginationNumbers()}
-            {(currentPage != pages) && <span className="page_nav" onClick={() => this.getIngredients(checkedIngredientTypes, startingAt)}>Next</span>}
+            {(currentPage != pages) && <span className="page_nav" onClick={() => this.getIngredients(this.getCheckedIngredientTypes(), startingAt)}>Next</span>}
           </span>
         }
       </div>

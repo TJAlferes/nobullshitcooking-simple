@@ -14,7 +14,29 @@ class SubmitRecipe extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {edit: false};
+    this.state = {
+      edit: false,
+      recipeTypes: []
+    };
+  }
+
+  // use SSR here...
+  componentDidMount() {
+    this.getAllRecipeTypes();  // used in filter
+    //this.getRecipes();  // initial/default ingredients load
+  }
+
+  getAllRecipeTypes = async () => {
+    // TO DO: on backend API, make types like ingredients
+    try {
+      const url = `${endpoint}/types/all`;
+      const response = await axios.get(url);
+      const recipeTypes = response.data;
+      this.setState({recipeTypes: recipeTypes});
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   submitRecipe = async () => {
@@ -61,14 +83,9 @@ class SubmitRecipe extends Component {
               <label className="red_style">Type of Recipe</label>
               <select name="recipe_type_id" id="recipe_type_id" required>
                 <option></option>
-                {/* <?php
-                $sql = 'SELECT recipe_type_id, recipe_type_name FROM nobsc_recipe_types';
-                $stmt = $conn->prepare($sql);
-                $stmt->execute();
-                while (($row = $stmt->fetch()) !== false) {
-                  echo '<option value="' . $row['recipe_type_id'] . '">' . $row['recipe_type_name'] . '</option>';
-                }
-                ?> */}
+                {this.state.recipeTypes.map((recipeType, index) => (
+                  <option key={index} value={recipeType.recipe_type_id}>{recipeType.recipe_type_name}</option>
+                ))}
               </select>
             </div>
             <div>
