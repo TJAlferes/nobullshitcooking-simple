@@ -23,7 +23,7 @@ export const Styles = styled.div`
 
   .page_links {display: block; height: 75px; border-bottom: 1px solid white;}
   .page_numbers {display: block; max-width: min-content; height: 25px; margin: 0 auto; position: relative; top: 50%; transform: translateY(-50%);}
-  .page_number, .current_page_number, .page_nav {font-size: 1.6rem; margin-right: 6px; margin-left: 6px; color: #c10006;}
+  .page_number, .current_page_number, .page_nav {font-size: 1.6rem; margin-right: 6px; margin-left: 6px; color: #c10006; cursor: pointer; cursor: hand;}
   .page_number:visited, .current_page_number:visited {color: #c10006;}
   .current_page_number {color: black;}
 

@@ -95,21 +95,12 @@ class Ingredients extends Component {
     }
   }
 
-  getIngredients = async (checkedIngredientTypes, startingAtt) => {
+  getIngredients = async ({ startingAt } = { }) => {
     try {
-      const checkedIngredientTypes = (typeof checkedIngredientTypes === 'undefined') ? [] : checkedIngredientTypes;
-      const startingAtt = (typeof startingAtt === 'undefined') ? '0' : startingAtt;
-      /*console.log('-------------- (in getIngredients()) --------------');
-      console.log('checkedIngredientTypes: ' + checkedIngredientTypes)
-      console.log('startingAtt: ' + startingAtt);*/
-
+      const startAt = (startingAt === 'undefined') ? this.state.starting : startingAt;
       const url = `${endpoint}`;
-      const response = await axios.post(url, {types: checkedIngredientTypes, start: startingAtt});
-      let { rows, pages, starting } = response.data;
-      /*console.log(...rows);
-      console.log('pages: ' + pages);
-      console.log('starting: ' + starting);*/
-
+      const response = await axios.post(url, {types: this.getCheckedIngredientTypes(), start: startAt});
+      const { rows, pages, starting } = response.data;
       this.setState({ingredients: rows, pages, starting});
     } catch (err) {
       console.error(err);
@@ -120,22 +111,26 @@ class Ingredients extends Component {
     let checkedIngredientTypes = [];
     Object.entries(this.state.checkedFilters).forEach(([key, value]) => {
       if (value === true) {
-        checkedIngredientTypes.push(key);
+        checkedIngredientTypes.push(Number(key));
       }
     });
     return checkedIngredientTypes;
   }
 
   handleFilterChange = async (e) => {
-    const id = e.target.id;
-    // use 'immutability-helper' for state nested much deeper than this
-    await this.setState(prevState => ({
-      ...prevState, checkedFilters: {
-        ...prevState.checkedFilters, [id]: !prevState.checkedFilters[[id]]
-      }
-    }));
+    try {
+      const id = e.target.id;
+      // use 'immutability-helper' for state nested much deeper than this
+      await this.setState(prevState => ({
+        ...prevState, checkedFilters: {
+          ...prevState.checkedFilters, [id]: !prevState.checkedFilters[[id]]
+        }
+      }));
 
-    this.getIngredients(this.getCheckedIngredientTypes(), this.state.starting);
+      await this.getIngredients();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   //paginationLocation
@@ -153,7 +148,11 @@ class Ingredients extends Component {
       if (i != currentPage) {
         startingAt = `${display * (i - 1)}`;
         //console.log('(in for loop iteration ' + i + ') startingAt: ' + startingAt);
-        numbers.push(<span className="page_number" onClick={() => this.getIngredients(this.getCheckedIngredientTypes(), startingAt)} key={i}>{i}</span>);
+        numbers.push(
+          <span className="page_number" onClick={() => this.getIngredients({startingAt})} key={i}>
+            {i}
+          </span>
+        );
       } else {
         //console.log('(in for loop iteration ' + i + ')');
         numbers.push(<span className="current_page_number" key={i}>{i}</span>);
@@ -174,9 +173,19 @@ class Ingredients extends Component {
         {
           (pages > 1) &&
           <span className="page_numbers">
-            {(currentPage != 1) && <span className="page_nav" onClick={() => this.getIngredients(this.getCheckedIngredientTypes(), startingAt)}>Prev</span>}
+            {
+              (currentPage != 1) &&
+              <span className="page_nav" onClick={() => this.getIngredients({startingAt})}>
+                Prev
+              </span>
+            }
             {this.paginationNumbers()}
-            {(currentPage != pages) && <span className="page_nav" onClick={() => this.getIngredients(this.getCheckedIngredientTypes(), startingAt)}>Next</span>}
+            {
+              (currentPage != pages) &&
+              <span className="page_nav" onClick={() => this.getIngredients({startingAt})}>
+                Next
+              </span>
+          }
           </span>
         }
       </div>
