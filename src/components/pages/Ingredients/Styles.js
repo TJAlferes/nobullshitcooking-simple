@@ -33,7 +33,8 @@ export const Styles = styled.div`
   .filter_span {display: inline-block; width: 80px; min-width: 80px; max-width: 80px; height: 32px; min-height: 32px; max-height: 32px;}
   .filter_label {font-size: 1.3rem; margin-left: 2px;}
 
-  .ingredient_name {font-size: 1.6rem;}
-  .ingredient_id {font-size: 1.2rem;}
-  .ingredient_type_id {font-size: 1.2rem;}
+  .ingredient {}
+  .ingredient_link {display: flex; justify-content: space-between; flex-direction: row; width: 100%; height: 100%;}
+  .ingredient_name {padding-top: 50%; padding-bottom: 50%; font-size: 1.6rem; color: #000;}
+  .ingredient_image {}
 `;
