@@ -48,12 +48,11 @@ const endpoint = 'http://localhost:3003/ingredients';
 class Ingredients extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       ingredients: [],
       ingredientTypes: [],
       pages: 1,
-      starting: 1,
+      starting: 0,
       checkedFilters: {
         1: false,
         2: false,
@@ -81,6 +80,7 @@ class Ingredients extends Component {
   componentDidMount() {
     this.getAllIngredientTypes();  // used in filter
     this.getIngredients();  // initial/default ingredients load
+    // 1. lift state up, get initial ingredients load as props
   }
 
   getAllIngredientTypes = async () => {
@@ -95,13 +95,23 @@ class Ingredients extends Component {
     }
   }
 
-  getIngredients = async ({ startingAt } = { }) => {
+  getIngredients = async ({ startingAt } = {}) => {
     try {
-      const startAt = (startingAt === 'undefined') ? this.state.starting : startingAt;
+      const startAt = (startingAt) ? startingAt : this.state.starting;
+
+      console.log('-----start getIngredients-----');
+      console.log('startAt: ' + startAt);
+      console.log('startingAt: ' + startingAt);
+      console.log('before setState -- this.state.starting: ' + this.state.starting);
+
       const url = `${endpoint}`;
       const response = await axios.post(url, {types: this.getCheckedIngredientTypes(), start: startAt});
       const { rows, pages, starting } = response.data;
       this.setState({ingredients: rows, pages, starting});
+
+      console.log('after setState -- this.state.starting: ' + this.state.starting);
+      console.log('-----end getIngredients-----');
+
     } catch (err) {
       console.error(err);
     }
@@ -126,7 +136,6 @@ class Ingredients extends Component {
           ...prevState.checkedFilters, [id]: !prevState.checkedFilters[[id]]
         }
       }));
-
       await this.getIngredients();
     } catch (err) {
       console.error(err);
@@ -138,36 +147,34 @@ class Ingredients extends Component {
   paginationNumbers = () => {
     const display = 25;
     const { pages, starting } = this.state;
-    let currentPage = Math.floor((starting / display) + 1);
-    //console.log('(in paginationNumbers()) currentPage: ' + currentPage);
-
+    const currentPage = Math.floor((starting / display) + 1);
+    console.log('(in paginationNumbers()) currentPage: ' + currentPage);
     let numbers = [];
     let startingAt;  // ???
-
     for (let i = 1; i <= pages; i++) {
       if (i != currentPage) {
-        startingAt = `${display * (i - 1)}`;
-        //console.log('(in for loop iteration ' + i + ') startingAt: ' + startingAt);
+        startingAt = display * (i - 1);
         numbers.push(
           <span className="page_number" onClick={() => this.getIngredients({startingAt})} key={i}>
             {i}
           </span>
         );
       } else {
-        //console.log('(in for loop iteration ' + i + ')');
         numbers.push(<span className="current_page_number" key={i}>{i}</span>);
       }
     }
     return numbers;
   }
 
-  render() {
+  // the issue must be with the startingAt variable
+  paginate = () => {
     const display = 25;
     const { pages, starting } = this.state;
+    console.log('(in paginate()) starting: ' + starting);  // 275 instead of 25 or 50 or w/e (0 - 24, 25 - 49, etc.)
     let currentPage = Math.floor((starting / display) + 1);
-    //console.log('(in render()) currentPage: ' + currentPage);
-    const startingAt = `${starting - display}`;
-
+    console.log('(in paginate()) currentPage: ' + currentPage);  // 12 instead of 2 or 3 or w/e
+    const startingAt = (starting == 0) ? starting : (starting - display);
+    console.log('in paginate(), const startingAt = ' + startingAt);  // 250 instead of 25 or 50 or w/e (0 - 24, 25 - 49, etc.)
     let paginationLinks = (
       <div className="page_links">
         {
@@ -190,7 +197,11 @@ class Ingredients extends Component {
         }
       </div>
     );
+    return paginationLinks;
+  }
 
+  render() {
+    console.log('RENDERED');
     return(
       <Styles>
         <div id="page">
@@ -216,7 +227,7 @@ class Ingredients extends Component {
               </form>
             </div>
 
-            {paginationLinks}
+            {this.paginate()}
 
             <div>
               {this.state.ingredients.map((ingredient, index) => (
@@ -230,7 +241,7 @@ class Ingredients extends Component {
               ))}
             </div>
 
-            {paginationLinks}
+            {this.paginate()}
 
           </div>
 
