@@ -76,13 +76,6 @@ class Ingredients extends Component {
     };
   }
 
-  // use SSR here...
-  componentDidMount() {
-    this.getAllIngredientTypes();  // used in filter
-    this.getIngredients();  // initial/default ingredients load
-    // 1. lift state up, get initial ingredients load as props
-  }
-
   getAllIngredientTypes = async () => {
     // TO DO: on backend API, make types like ingredients
     try {
@@ -95,13 +88,13 @@ class Ingredients extends Component {
     }
   }
 
-  getIngredients = async ({ startingAt } = {}) => {
+  getIngredients = async (startingAtt = 0) => {
     try {
-      const startAt = (startingAt) ? startingAt : this.state.starting;
+      const startAt = (startingAtt) ? startingAtt : this.state.starting;
 
       console.log('-----start getIngredients-----');
-      console.log('startAt: ' + startAt);
-      console.log('startingAt: ' + startingAt);
+      console.log('before setState -- startAt: ' + startAt);  // >>>>>>>>>>>>>>>>>>>>> THIS. WHY IS THIS CHANGING? <<<<<<<<<<<<<<<<<<<<<<
+      console.log('before setState -- startingAt: ' + startingAtt);
       console.log('before setState -- this.state.starting: ' + this.state.starting);
 
       const url = `${endpoint}`;
@@ -109,6 +102,8 @@ class Ingredients extends Component {
       const { rows, pages, starting } = response.data;
       this.setState({ingredients: rows, pages, starting});
 
+      console.log('after setState -- startAt: ' + startAt);
+      console.log('after setState -- startingAt: ' + startingAtt);
       console.log('after setState -- this.state.starting: ' + this.state.starting);
       console.log('-----end getIngredients-----');
 
@@ -136,7 +131,7 @@ class Ingredients extends Component {
           ...prevState.checkedFilters, [id]: !prevState.checkedFilters[[id]]
         }
       }));
-      await this.getIngredients();
+      this.getIngredients();
     } catch (err) {
       console.error(err);
     }
@@ -155,10 +150,12 @@ class Ingredients extends Component {
       if (i != currentPage) {
         startingAt = display * (i - 1);
         numbers.push(
-          <span className="page_number" onClick={() => this.getIngredients({startingAt})} key={i}>
+          <span className="page_number" onClick={() => this.getIngredients(startingAt)} key={i}>
             {i}
           </span>
         );
+        console.log('in paginationNumbers for loop iteration ' + i + ', starting: ' + starting);
+        console.log('in paginationNumbers for loop iteration ' + i + ', startingAt: ' + startingAt);
       } else {
         numbers.push(<span className="current_page_number" key={i}>{i}</span>);
       }
@@ -166,15 +163,14 @@ class Ingredients extends Component {
     return numbers;
   }
 
-  // the issue must be with the startingAt variable
   paginate = () => {
     const display = 25;
     const { pages, starting } = this.state;
-    console.log('(in paginate()) starting: ' + starting);  // 275 instead of 25 or 50 or w/e (0 - 24, 25 - 49, etc.)
+    console.log('(in paginate()) starting: ' + starting);  // 275 instead of 25 or 50 or w/e (0 - 24, 25 - 49, etc.) (or 100 -- it's taking last/highest value of starting)
     let currentPage = Math.floor((starting / display) + 1);
     console.log('(in paginate()) currentPage: ' + currentPage);  // 12 instead of 2 or 3 or w/e
     const startingAt = (starting == 0) ? starting : (starting - display);
-    console.log('in paginate(), const startingAt = ' + startingAt);  // 250 instead of 25 or 50 or w/e (0 - 24, 25 - 49, etc.)
+    console.log('(in paginate()) const startingAt = ' + startingAt);  // 250 instead of 25 or 50 or w/e (0 - 24, 25 - 49, etc.)
     let paginationLinks = (
       <div className="page_links">
         {
@@ -182,14 +178,14 @@ class Ingredients extends Component {
           <span className="page_numbers">
             {
               (currentPage != 1) &&
-              <span className="page_nav" onClick={() => this.getIngredients({startingAt})}>
+              <span className="page_nav" onClick={() => this.getIngredients(startingAt)}>
                 Prev
               </span>
             }
             {this.paginationNumbers()}
             {
               (currentPage != pages) &&
-              <span className="page_nav" onClick={() => this.getIngredients({startingAt})}>
+              <span className="page_nav" onClick={() => this.getIngredients(startingAt)}>
                 Next
               </span>
           }
@@ -200,8 +196,16 @@ class Ingredients extends Component {
     return paginationLinks;
   }
 
+  // use SSR here...
+  componentDidMount() {
+    this.getAllIngredientTypes();  // used in filter
+    this.getIngredients();  // initial/default ingredients load
+    // 1. lift state up, get initial ingredients load as props ???
+  }
+
   render() {
     console.log('RENDERED');
+    console.log('inside render, this.state.starting: ' + this.state.starting);
     return(
       <Styles>
         <div id="page">
