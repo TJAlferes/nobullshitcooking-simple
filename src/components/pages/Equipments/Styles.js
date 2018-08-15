@@ -33,10 +33,10 @@ const Styles = styled.div`
   .filter_span {display: inline-block; width: 80px; min-width: 80px; max-width: 80px; height: 32px; min-height: 32px; max-height: 32px;}
   .filter_label {font-size: 1.3rem; margin-left: 2px;}
 
-  .ingredient {}
-  .ingredient_link {display: flex; justify-content: space-between; flex-direction: row; width: 100%; height: 100%;}
-  .ingredient_name {font-size: 1.6rem; color: #000;}
-  .ingredient_image {}
+  .equipment {}
+  .equipment_link {display: flex; justify-content: space-between; flex-direction: row; width: 100%; height: 100%;}
+  .equipment_name {font-size: 1.6rem; color: #000;}
+  .equipment_image {}
 `;
 
 export default Styles;

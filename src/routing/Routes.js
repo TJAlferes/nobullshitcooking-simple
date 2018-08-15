@@ -44,9 +44,12 @@ import Disclaimer from '../components/pages/site/Disclaimer/Disclaimer';
 // then finish everything
 // go go go
 
-//import Equipment from '../components/pages/Equipment/Equipment';
+import Equipments from '../components/pages/Equipments/Equipments';
+import Equipment from '../components/pages/Equipment/Equipment';
 import Ingredients from '../components/pages/Ingredients/Ingredients';
+import Ingredient from '../components/pages/Ingredient/Ingredient';
 //import Recipes from '../components/pages/Recipes/Recipes';
+//import Recipe from '../components/pages/Recipes/Recipe';
 import Food from '../components/pages/Food/Food';
 import Fitness from '../components/pages/Fitness/Fitness';
 
@@ -125,9 +128,12 @@ const RoutesList = ({ childProps }) => (
     {/*<AppliedRoute path="/privacy" exact component={PrivacyPolicy} props={childProps} />*/}
     {/*<AppliedRoute path="/help" exact component={Help} props={childProps} />*/}
     
-    {/*<AppliedRoute path="/food/equipment" exact component={Equipment} props={childProps} />*/}
+    <AppliedRoute path="/food/equipments" exact component={Equipments} props={childProps} />
+    <AppliedRoute path="/food/equipment/:id" exact component={Equipment} props={childProps} />
     <AppliedRoute path="/food/ingredients" exact component={Ingredients} props={childProps} />
+    <AppliedRoute path="/food/ingredient/:id" exact component={Ingredient} props={childProps} />
     {/*<AppliedRoute path="/food/recipes" exact component={Recipes} props={childProps} />*/}
+    {/*<AppliedRoute path="/food/recipe/:id" exact component={Recipe} props={childProps} />*/}
     <AppliedRoute path="/food" exact component={Food} props={childProps} />
     <AppliedRoute path="/fitness" exact component={Fitness} props={childProps} />
     <AppliedRoute path="/supplements" exact component={Supplements} props={childProps} />

@@ -21,4 +21,6 @@ const modalsReducer = (state = initialState, action) => {
     case actionTypes.CLOSE_MODAL: return closeModal(state, action);
     default: return state;
   }
-};
+}
+
+export default modalsReducer;

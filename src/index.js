@@ -1,9 +1,9 @@
 import 'babel-polyfill';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
-import axios from 'axios';
+//import axios from 'axios';
 
 import Amplify, { Auth, Storage } from 'aws-amplify';
 
@@ -79,4 +79,4 @@ const app = (
   </Provider>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+render(app, document.getElementById('root'));

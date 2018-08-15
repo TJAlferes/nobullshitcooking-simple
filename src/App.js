@@ -4,7 +4,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContextProvider } from 'react-dnd';
 import { Auth } from 'aws-amplify';
 
-import { GridContainer } from './Styles'
+import Styles from './Styles'
 import HeaderRed from './containers/HeaderRed/HeaderRed';
 import MainWhite from './components/MainWhite/MainWhite';
 import FooterGray from './components/FooterGray/FooterGray';
@@ -117,11 +117,11 @@ class App extends Component {
     } else {
       // 2b. Otherwise, render the normal layout
       layout = (
-        <GridContainer {...this.props}>
+        <Styles {...this.props}>
           <HeaderRed childProps={childProps} />
           <MainWhite location={location}>{routes}</MainWhite>
           <FooterGray />
-        </GridContainer>
+        </Styles>
       );
     }
 

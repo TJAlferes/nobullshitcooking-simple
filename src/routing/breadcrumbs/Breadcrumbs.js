@@ -18,8 +18,11 @@ const routes = [
   {path: '/site/privacy', breadcrumb: 'Privacy'},
   {path: '/site/help', breadcrumb: 'Help'},
   
-  {path: '/content/food/equipment', breadcrumb: },
+  {path: '/content/food/equipment/X', breadcrumb: },
+  {path: '/content/food/equipments', breadcrumb: },
+  {path: '/content/food/ingredient/X', breadcrumb: },
   {path: '/content/food/ingredients', breadcrumb: },
+  {path: '/content/food/recipe/X', breadcrumb: },
   {path: '/content/food/recipes', breadcrumb: },
   {path: '/content/food', breadcrumb: },
   {path: '/content/fitness', breadcrumb: },
