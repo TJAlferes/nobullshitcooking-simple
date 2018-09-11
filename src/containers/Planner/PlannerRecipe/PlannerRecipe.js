@@ -76,6 +76,7 @@ function collectDragSource(connect, monitor) {
   };
 }
 
+// umm, why do you need a class?
 class PlannerRecipe extends Component {
   render() {
     const { recipe, isDragging, connectDragSource, connectDropTarget } = this.props;
