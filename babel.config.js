@@ -1,3 +1,7 @@
+/*
+For now, we are using the @babel/polyfill package rather than the
+@babel/runtime and @babel/plugin-transform-runtime packages.
+*/
 module.exports = function() {
   const presets = [
     [
@@ -10,7 +14,6 @@ module.exports = function() {
     "@babel/preset-react"
   ];
   const plugins = [
-    "@babel/plugin-transform-runtime",
     "@babel/plugin-syntax-dynamic-import"
   ];
   return {presets, plugins};
