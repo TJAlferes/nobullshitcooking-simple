@@ -1,0 +1,21 @@
+/*
+If not using css-in-js (emotion, linaria, etc.)
+*/
+@import './global.css';
+
+@import './components/App/app.css';
+
+@import './components/header/header.css';
+@import './components/main/main.css';
+@import './components/footer/footer.css';
+
+@import './components/login/login.css';
+@import './components/register/register.css';
+
+@import './components/';
+
+@import './components/';
+
+@import './components/';
+
+@import './components/';

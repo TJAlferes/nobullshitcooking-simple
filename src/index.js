@@ -20,7 +20,8 @@ import rootReducer from './store/reducers/index';
 //import { watchIngredients } from './store/sagas/index';
 
 import App from './App';
-import './index.css';
+import './global.css';
+import './main.css';
 //import registerServiceWorker from "./registerServiceWorker";
 
 Amplify.configure({
