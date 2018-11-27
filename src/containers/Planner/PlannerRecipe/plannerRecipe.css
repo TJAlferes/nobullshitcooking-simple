@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-export const Styles = styled.div`
+.planner_recipe {
   background-color: #FFF3CC;
   width: 90%;
   min-width: 100px;
@@ -15,4 +13,4 @@ export const Styles = styled.div`
   overflow: hidden;
   box-shadow: 1px 1px 1px #999;
   cursor: move;
-`;
+}
