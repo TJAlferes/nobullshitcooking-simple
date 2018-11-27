@@ -12,8 +12,8 @@
     }
   },
   "scripts": {
-    "build": "rimraf dist && webpack --config webpack.production.config.js --progress --profile --color",
-    "start": "webpack-dev-server --config webpack.development.config.js",
+    "build": "rimraf dist && webpack --config webpack.prod.js --progress --profile --color",
+    "start": "webpack-dev-server --config webpack.dev.js",
     "test": "jest FooterGray.test.js --coverage"
   },
   "author": "",

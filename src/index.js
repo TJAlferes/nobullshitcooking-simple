@@ -1,30 +1,23 @@
 import 'babel-polyfill';
-
 import React from 'react';
 import { render } from 'react-dom';
-
 //import axios from 'axios';
-
-import Amplify, { Auth, Storage } from 'aws-amplify';
-
+//import Amplify, { Auth, Storage } from 'aws-amplify';
 import { BrowserRouter } from 'react-router-dom';
-
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 
-import amplifyConfig from '../amplify.config';
-
+//import amplifyConfig from '../amplify.config';
 import rootReducer from './store/reducers/index';
 //import { watchIngredients } from './store/sagas/index';
-
 import App from './App';
 import './global.css';
 import './main.css';
 //import registerServiceWorker from "./registerServiceWorker";
 
-Amplify.configure({
+/*Amplify.configure({
   Auth: {
     identityPoolId: amplifyConfig.cognito.identity_pool_id,
     region: amplifyConfig.cognito.region,
@@ -36,11 +29,11 @@ Amplify.configure({
     region: amplifyConfig.s3.region,
     identityPoolId: amplifyConfig.cognito.identity_pool_id
   }
-});
+});*/
 
 const composeEnhancers = process.env.NODE_ENV === "development"
-  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-  : null || compose;
+? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+: null || compose;
 
 const sagaMiddleware = createSagaMiddleware();
 

@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContextProvider } from 'react-dnd';
 import { Auth } from 'aws-amplify';
 
-import Styles from './Styles'
 import HeaderRed from './containers/HeaderRed/HeaderRed';
 import MainWhite from './components/MainWhite/MainWhite';
 import FooterGray from './components/FooterGray/FooterGray';
 import RoutesList from './routing/Routes';
+import './app.css';
 
+// OAuth 2.0 Google
+/*
 
+*/
+
+// OAuth 2.0 Facebook
 /*
 // 1.
 <script>
@@ -57,7 +62,10 @@ FB.getLoginStatus(function(response) {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {isAuthenticated: false, userEmail: ''};
+    this.state = {
+      isAuthenticated: false,
+      userEmail: ''
+    };
   }
 
   // auth functionality
@@ -86,7 +94,7 @@ class App extends Component {
 
   // modals functionality
 
-
+  // ...
 
   render() {
     // Pass down auth info as props (into HeaderRed and into RoutesList):
@@ -101,9 +109,11 @@ class App extends Component {
     // Decide visual layout style:
     // 1. Determine if the user is located at an authentication page
     let location = this.props.location;
-    let isAccessing = location.pathname 
-                      && (location.pathname.match(/^\/user\/register/) 
-                          || location.pathname.match(/^\/user\/login/));
+    let isAccessing = location.pathname &&
+    (
+      location.pathname.match(/^\/user\/register/) ||
+      location.pathname.match(/^\/user\/login/)
+    );
     
     const routes = <RoutesList childProps={childProps} />;
 
@@ -111,17 +121,15 @@ class App extends Component {
 
     if (isAccessing) {
       // 2a. If they are, then render authentication pages layout
-      layout = (
-        <div>{routes}</div>
-      );
+      layout = <div>{routes}</div>;
     } else {
       // 2b. Otherwise, render the normal layout
       layout = (
-        <Styles {...this.props}>
+        <div id="app" {...this.props}>
           <HeaderRed childProps={childProps} />
           <MainWhite location={location}>{routes}</MainWhite>
           <FooterGray />
-        </Styles>
+        </div>
       );
     }
 
