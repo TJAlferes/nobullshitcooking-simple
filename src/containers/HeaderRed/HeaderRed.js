@@ -1,15 +1,14 @@
 import React from 'react';
 
-import { StyledHeaderRed } from './Styles';
+import './headerRed.css';
 import Logo from './Logo/Logo';
 import Search from './Search/Search';
 import Promo from './Promo/Promo';
 import SiteNav from './SiteNav/SiteNav';
 import UserNav from './UserNav/UserNav';
 
-const headerRed = props => (
-  <StyledHeaderRed>
-
+const HeaderRed = props => (
+  <div className="header_red">
     <div id="header_row_1">
       <div id="header_row_1_col_1">
         <Logo />
@@ -21,7 +20,6 @@ const headerRed = props => (
         <Promo />
       </div>
     </div>
-
     <div id="header_row_2">
       <div id="header_row_2_col_1">
         <SiteNav isAuthenticated={props.childProps.isAuthenticated} />
@@ -37,8 +35,7 @@ const headerRed = props => (
         />
       </div>
     </div>
-
-  </StyledHeaderRed>
+  </div>
 );
 
-export default headerRed;
+export default HeaderRed;

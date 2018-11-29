@@ -1,6 +1,6 @@
 import React from 'react';
 
-const equipmentRow = () => (
+const EquipmentRow = () => (
   <div className="equipment_row">
     <label>Amount:</label>
     <select className="select_amount" required>
@@ -25,4 +25,4 @@ const equipmentRow = () => (
   </div>
 );
 
-export default equipmentRow;
+export default EquipmentRow;

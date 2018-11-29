@@ -1,9 +1,10 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { StyledSiteNav, StyledNavLink } from './Styles';
+import './siteNav.css';
 
-const siteNav = props => {
+const SiteNav = props => {
   //const { isAuthenticated } = props;
 
   const displayDropdown = e => {
@@ -19,13 +20,32 @@ const siteNav = props => {
   }
 
   return (
-    <StyledSiteNav>
-      <li><StyledNavLink to="/food">Food</StyledNavLink></li>
-      <li><StyledNavLink to="/fitness">Fitness</StyledNavLink></li>
-      <li><StyledNavLink to="/store/storefront">Supply</StyledNavLink></li>
-      <li><StyledNavLink to="/welcome">New? Start Here</StyledNavLink></li>
-      {/*!isAuthenticated && <li><StyledNavLink to="/user/dashboard">Member Area</StyledNavLink></li>*/}
-    </StyledSiteNav>
+    <div className="site_nav">
+      <li>
+        <NavLink className="styled_nav_link" to="/food">Food</NavLink>
+      </li>
+      <li>
+        <NavLink className="styled_nav_link" to="/fitness">Fitness</NavLink>
+      </li>
+      <li>
+        <NavLink className="styled_nav_link" to="/store/storefront">
+          Supply
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="styled_nav_link" to="/welcome">
+          New? Start Here
+        </NavLink>
+      </li>
+      {/*
+        !isAuthenticated &&
+        <li>
+          <NavLink className="styled_nav_link" to="/user/dashboard">
+            Member Area
+          </NavLink>
+        </li>
+      */}
+    </div>
   );
 }
 
@@ -33,4 +53,4 @@ const mapDispatchToProps = dispatch => ({
   dispatch
 });
 
-export default connect(null, mapDispatchToProps)(siteNav);
+export default connect(null, mapDispatchToProps)(SiteNav);

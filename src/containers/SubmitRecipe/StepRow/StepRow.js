@@ -1,6 +1,6 @@
 import React from 'react';
 
-const stepRow = () => (
+const StepRow = () => (
   <div className="step_row">
     <label>Step:</label>
     <input type="text" maxLength="250" className="manual_step" required />
@@ -8,4 +8,4 @@ const stepRow = () => (
   </div>
 );
 
-export default stepRow;
+export default StepRow;

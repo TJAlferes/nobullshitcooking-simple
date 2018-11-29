@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 import CurrentPromo from '../../../assets/images/header/announcements/announcement-05-03-17.png';
 
-const promo = () => (
+const Promo = () => (
   <NavLink to="/">
     <img src={CurrentPromo} />
   </NavLink>
 );
 
-export default promo;
+export default Promo;

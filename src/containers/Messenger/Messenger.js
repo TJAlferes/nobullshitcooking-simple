@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 import LeftNav from '../../components/LeftNav/LeftNav';
-//import Styles from './Styles';
-import LightTheme from './LightTheme';
+import './lightTheme.css'
 
 // this would be from the user's s3 bucket:
 import ChatAvatarExample from '../../assets/images/chat-avatar-example.png';
@@ -18,11 +17,12 @@ class Messenger extends Component {
 
   render() {
     return (
-      <LightTheme>
+      <div class="light_theme">
         <div id="page">
-
-          <LeftNav isAuthenticated={this.props.isAuthenticated} getUser={this.props.getUser} />
-
+          <LeftNav
+            isAuthenticated={this.props.isAuthenticated}
+            getUser={this.props.getUser}
+          />
           <article>
             <h1>Messenger (Preview)</h1>
             <div id="room">
@@ -58,9 +58,8 @@ class Messenger extends Component {
               </div>
             </div>
           </article>
-
         </div>
-      </LightTheme>
+      </div>
     );
   }
 }

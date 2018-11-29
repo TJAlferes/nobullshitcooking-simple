@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 //import { Auth } from 'aws-amplify';
 
-import { StyledUserNav, StyledNavLink, SignedInNavSpan } from './Styles';
+//import { StyledUserNav, StyledNavLink, SignedInNavSpan } from './Styles';
+import './userNav.css';
 
 class UserNav extends Component {
   constructor(props) {
@@ -11,25 +13,49 @@ class UserNav extends Component {
   render() {
     const { isAuthenticated, handleLogout, getUser, userEmail } = this.props;
     return (
-      <StyledUserNav>
-        <li><StyledNavLink to="/help">Help</StyledNavLink></li>
+      <div className="user_nav">
+        <li>
+          <NavLink class="styled_nav_link" to="/help">
+            Help
+          </NavLink>
+        </li>
         {
           !isAuthenticated
           ? (
             <Fragment>
-              <li><StyledNavLink to="/user/register">Create Account</StyledNavLink></li>
-              <li><StyledNavLink to="/user/login">Sign In</StyledNavLink></li>
+              <li>
+                <NavLink class="styled_nav_link" to="/user/register">
+                  Create Account
+                </NavLink>
+              </li>
+              <li>
+                <NavLink class="styled_nav_link" to="/user/login">
+                  Sign In
+                </NavLink>
+              </li>
             </Fragment>
           )
           : (
             <Fragment>
-              <li><SignedInNavSpan>{`Hello, ${userEmail}`}</SignedInNavSpan></li>
-              <li><SignedInNavSpan onClick={handleLogout}>Sign Out</SignedInNavSpan></li>
+              <li>
+                <span className="signed_in_nav_span">
+                  {`Hello, ${userEmail}`}
+                </span>
+              </li>
+              <li>
+                <span className="signed_in_nav_span" onClick={handleLogout}>
+                  Sign Out
+                </span>
+              </li>
             </Fragment>
           )
         }
-        <li><StyledNavLink to="/store/view_cart">View Cart</StyledNavLink></li>
-      </StyledUserNav>
+        <li>
+          <NavLink class="styled_nav_link" to="/store/view_cart">
+            View Cart
+          </NavLink>
+        </li>
+      </div>
     );
   }
 }

@@ -1,0 +1,9 @@
+.logo_area #logo_link {
+  display: block;
+  width: 450px;
+  margin-left: 29px;
+}
+
+.logo_area #logo_link #logo_img {
+  display: block;
+}

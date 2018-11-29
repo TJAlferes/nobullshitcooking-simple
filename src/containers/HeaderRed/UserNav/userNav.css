@@ -1,0 +1,45 @@
+.user_nav {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  float: right;
+  list-style-type: none;
+}
+
+.user_nav  li {
+  margin-left: 9px;
+  margin-right: 9px;
+}
+
+.styled_nav_link {
+  display: block;
+  font-size: 14px;
+  font-weight: 900;
+  color: #fff;
+  text-decoration: none;
+  height: 24px;
+}
+
+.styled_nav_link:hover {
+  text-decoration: underline;
+}
+
+.signed_in_nav_span {
+  display: block;
+  font-size: 14px;
+  font-weight: 900;
+  color: #fff;
+  text-decoration: none;
+  height: 24px;
+}
+
+.signed_in_nav_span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.signed_in_nav_span:active {
+  cursor: pointer;
+}

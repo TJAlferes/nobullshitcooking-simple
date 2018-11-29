@@ -1,8 +1,15 @@
 import React from 'react';
 
-const ingredientRow = () => (
+const IngredientRow = () => (
   <div className="ingredient_row">
-    <label>Amount:</label><input className="manual_amount" type="number" step="any" min="0.125" max="9999" required />
+    <label>Amount:</label>
+    <input
+      className="manual_amount"
+      type="number" step="any"
+      min="0.125"
+      max="9999"
+      required
+    />
     <label>Unit:</label>
     <select className="select_unit" required>
       <option></option>
@@ -19,4 +26,4 @@ const ingredientRow = () => (
   </div>
 );
 
-export default ingredientRow;
+export default IngredientRow;
