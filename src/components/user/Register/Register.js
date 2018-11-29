@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+//import { Auth } from 'aws-amplify';
 
-import { StyledNavLink, Styles } from './Styles';
+//import { StyledNavLink, Styles } from './Styles';
+import './register.css';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
@@ -50,7 +51,7 @@ class Register extends Component {
   handleChange = e => {
     this.setState({[e.target.name]: e.target.value});
   }
-
+  /*
   handleRegistrationSubmit = async e => {
     e.preventDefault();
     this.setState({isLoading: true});
@@ -93,7 +94,7 @@ class Register extends Component {
   validateConfirmation = () => {
     return this.state.confirmationCode.length > 0;
   }
-
+  */
   registrationForm = () => (
     <form onSubmit={this.handleRegistrationSubmit}>
 
@@ -171,19 +172,22 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <StyledNavLink to="/"><img src={LogoLargeWhite} /></StyledNavLink>
-        <Styles>
-
-          {this.state.newUser === null ? this.registrationForm() : this.confirmationForm()}
-
+        <NavLink className="styled_nav_link" to="/">
+          <img src={LogoLargeWhite} />
+        </NavLink>
+        <div className="register">
+          {
+            this.state.newUser === null
+            ? this.registrationForm()
+            : this.confirmationForm()
+          }
           <ul>
             <li><NavLink to="/">Terms of Use</NavLink></li>
             <li><NavLink to="/">Privacy Policy</NavLink></li>
             <li><NavLink to="/">Help</NavLink></li>
           </ul>
           <p>Copyright 2015-2018 NoBullshitCooking. All Rights Reserved.</p>
-
-        </Styles>
+        </div>
       </div>
     );
   }

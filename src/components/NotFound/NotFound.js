@@ -1,14 +1,14 @@
 import React from 'react';
 
-import AngryFace from '../../assets/images/not-found-error/angry-face-404.png';
-import NotFoundDiv from './Styles';
+//import AngryFace from '../../assets/images/not-found-error/angry-face-404.png';
+import './notFound.css';
 
-const notFound = () => {
+const NotFound = () => {
   return (
-    <NotFoundDiv>
+    <div className="not_found">
       <h1>404 Not Found</h1>
-    </NotFoundDiv>
+    </div>
   );
 };
 
-export default notFound;
+export default NotFound;

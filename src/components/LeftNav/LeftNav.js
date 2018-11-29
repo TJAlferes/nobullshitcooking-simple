@@ -1,60 +1,61 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import { Styles, LeftNavLink } from './Styles';
+import './leftNav.css';
 
 const LeftNav = props => {
   const { isAuthenticated, getUser, userEmail } = props;
   return (
-    <Styles>
+    <div className="left_nav">
       {
         !isAuthenticated
-        ? <LeftNavLink to="/user/login"><span>Dashboard</span></LeftNavLink>
-        : <LeftNavLink to="/user/dashboard"><span>{userEmail}</span></LeftNavLink>
+        ? <NavLink className="styled_nav_link" to="/user/login"><span>Dashboard</span></NavLink>
+        : <NavLink className="styled_nav_link" to="/user/dashboard"><span>{userEmail}</span></NavLink>
       }
       {
         !isAuthenticated
-        ? <LeftNavLink to="/planner"><span id="planner_span">Planner</span></LeftNavLink>
-        : <LeftNavLink to="/user/planner"><span id="planner_span">Planner</span></LeftNavLink>
+        ? <NavLink className="styled_nav_link" to="/planner"><span id="planner_span">Planner</span></NavLink>
+        : <NavLink className="styled_nav_link" to="/user/planner"><span id="planner_span">Planner</span></NavLink>
       }
       <hr />
 
-      <LeftNavLink to="/"><span id="home_span">News</span></LeftNavLink>
+      <NavLink className="styled_nav_link" to="/"><span id="home_span">News</span></NavLink>
       {
         !isAuthenticated
-        ? <LeftNavLink to="/user/login"><span>Messenger</span></LeftNavLink>
-        : <LeftNavLink to="/messenger"><span id="messenger_span">Messenger</span></LeftNavLink>
+        ? <NavLink className="styled_nav_link" to="/user/login"><span>Messenger</span></NavLink>
+        : <NavLink className="styled_nav_link" to="/messenger"><span id="messenger_span">Messenger</span></NavLink>
       }
       {
         !isAuthenticated
-        ? <LeftNavLink to="/user/login"><span>Friends</span></LeftNavLink>
-        : <LeftNavLink to="/user/friends"><span>Friends</span></LeftNavLink>
+        ? <NavLink className="styled_nav_link" to="/user/login"><span>Friends</span></NavLink>
+        : <NavLink className="styled_nav_link" to="/user/friends"><span>Friends</span></NavLink>
       }
       <hr />
 
-      <LeftNavLink to="/supplements"><span id="supplements_span">Supplements</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Equipment</span></LeftNavLink>
+      <NavLink className="styled_nav_link" to="/supplements"><span id="supplements_span">Supplements</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Equipment</span></NavLink>
       <hr />
 
-      <LeftNavLink to="/"><span>Water Filtration</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Tea</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Coffee</span></LeftNavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Water Filtration</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Tea</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Coffee</span></NavLink>
       <hr />
 
-      <LeftNavLink to="/"><span>Outdoors</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Garden</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Tools</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Weapons</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Finances</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Security</span></LeftNavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Outdoors</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Garden</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Tools</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Weapons</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Finances</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Security</span></NavLink>
       <hr />
 
-      <LeftNavLink to="/"><span>Contest Winners</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Food for Summer</span></LeftNavLink>
-      <LeftNavLink to="/"><span>Add a Recipe</span></LeftNavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Contest Winners</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Food for Summer</span></NavLink>
+      <NavLink className="styled_nav_link" to="/"><span>Add a Recipe</span></NavLink>
       <hr />
 
-      <LeftNavLink to="/"><span>Charity</span></LeftNavLink>
-    </Styles>
+      <NavLink className="styled_nav_link" to="/"><span>Charity</span></NavLink>
+    </div>
   );
 }
 

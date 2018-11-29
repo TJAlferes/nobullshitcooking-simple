@@ -1,3 +1,4 @@
+'use strict';
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -5,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   devServer: {
+    contentBase: path.join(__dirname, 'dist'),
     //contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
     overlay: {warnings: true, errors: true},
@@ -19,6 +21,7 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map', // or cheap-module-source-map ?
   entry: './src/index.js',
+  //entry: './src/devServer/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -29,13 +32,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
         use: [
           {loader: 'style-loader'},
           {loader: 'css-loader', options: {importLoaders: 1}},

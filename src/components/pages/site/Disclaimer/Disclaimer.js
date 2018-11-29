@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Styles from './Styles';
+import './disclaimer.css';
 
-const disclaimer = props => (
-  <Styles>
+const Disclaimer = props => (
+  <div className="disclaimer">
     <h1>Disclaimer</h1>
 
     <p>The <b>nobullshitcooking.net</b> website does not contain any medical advice.</p>
@@ -32,7 +32,7 @@ const disclaimer = props => (
     as well as understand that by using this website you are agreeing to abide by this contract.</p>
 
     <p id="final"><b>NO LIABILITY WILL BE ASSUMED FOR THE USE OF THIS WEBSITE'S CONTENT.</b></p>
-  </Styles>
+  </div>
 );
 
-export default disclaimer;
+export default Disclaimer;

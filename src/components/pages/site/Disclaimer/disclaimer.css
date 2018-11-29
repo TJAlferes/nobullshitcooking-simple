@@ -1,0 +1,18 @@
+.disclaimer {
+  width: 900px;
+  margin: 12px auto 18px auto;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.disclaimer h1,
+.disclaimer #final {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.disclaimer p {
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}

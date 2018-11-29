@@ -1,18 +1,19 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-import { StyledFooterGray, StyledNavLink } from './Styles';
+import './footerGray.css';
 
 const footerGray = () => (
-  <StyledFooterGray>
+  <div className="footer_gray">
     <ul>
-      <li><StyledNavLink to="/sitemap">Sitemap</StyledNavLink></li>
-      <li><StyledNavLink to="/disclaimer">Disclaimer</StyledNavLink></li>
-      <li><StyledNavLink to="/terms">Terms of Use</StyledNavLink></li>
-      <li><StyledNavLink to="/privacy">Privacy Policy</StyledNavLink></li>
-      <li><StyledNavLink to="/help">Help</StyledNavLink></li>
+      <li><NavLink to="/sitemap">Sitemap</NavLink></li>
+      <li><NavLink to="/disclaimer">Disclaimer</NavLink></li>
+      <li><NavLink to="/terms">Terms of Use</NavLink></li>
+      <li><NavLink to="/privacy">Privacy Policy</NavLink></li>
+      <li><NavLink to="/help">Help</NavLink></li>
     </ul>
     <p>Copyright 2015-2018 NoBullshitCooking. All rights reserved.</p>
-  </StyledFooterGray>
+  </div>
 );
 
 export default footerGray;

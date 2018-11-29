@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContextProvider } from 'react-dnd';
-import { Auth } from 'aws-amplify';
+//import { Auth } from 'aws-amplify';
 
 import HeaderRed from './containers/HeaderRed/HeaderRed';
 import MainWhite from './components/MainWhite/MainWhite';
@@ -69,7 +69,7 @@ class App extends Component {
   }
 
   // auth functionality
-  
+  /*
   userDidAuthenticate = authenticated => {
     this.setState({isAuthenticated: authenticated});
   }
@@ -91,6 +91,7 @@ class App extends Component {
       console.log(err.message);
     }
   }
+  */
 
   // modals functionality
 
@@ -98,6 +99,7 @@ class App extends Component {
 
   render() {
     // Pass down auth info as props (into HeaderRed and into RoutesList):
+    /*
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
       userEmail: this.state.userEmail,
@@ -105,7 +107,7 @@ class App extends Component {
       handleLogout: this.handleLogout,
       getUser: this.getUser
     };
-
+    */
     // Decide visual layout style:
     // 1. Determine if the user is located at an authentication page
     let location = this.props.location;
@@ -124,9 +126,10 @@ class App extends Component {
       layout = <div>{routes}</div>;
     } else {
       // 2b. Otherwise, render the normal layout
+      // <HeaderRed childProps={childProps} />
       layout = (
         <div id="app" {...this.props}>
-          <HeaderRed childProps={childProps} />
+          <HeaderRed />
           <MainWhite location={location}>{routes}</MainWhite>
           <FooterGray />
         </div>

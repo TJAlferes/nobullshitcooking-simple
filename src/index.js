@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+//require('@babel/polyfill');
 import React from 'react';
 import { render } from 'react-dom';
 //import axios from 'axios';
@@ -13,8 +13,8 @@ import thunk from 'redux-thunk';
 import rootReducer from './store/reducers/index';
 //import { watchIngredients } from './store/sagas/index';
 import App from './App';
-import './global.css';
-import './main.css';
+//import './global.css';
+//import './main.css';
 //import registerServiceWorker from "./registerServiceWorker";
 
 /*Amplify.configure({
@@ -73,4 +73,7 @@ const app = (
   </Provider>
 );
 
-render(app, document.getElementById('root'));
+render(
+  app, 
+  document.getElementById('root')
+);

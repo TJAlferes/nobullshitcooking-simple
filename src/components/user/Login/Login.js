@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Auth } from 'aws-amplify';
+//import { Auth } from 'aws-amplify';
 import { Redirect } from 'react-router-dom';
 
-import { StyledNavLink, Styles } from './Styles';
+//import { StyledNavLink, Styles } from './Styles';
+import './login.css';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
@@ -20,7 +21,7 @@ class Login extends Component {
   handleChange = e => {
     this.setState({[e.target.name]: e.target.value});
   }
-
+  /*
   handleSubmit = async e => {
     e.preventDefault();
     this.setState({isLoading: true});
@@ -33,14 +34,14 @@ class Login extends Component {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
-    /*
     // `user` : Return object from Auth.signIn()
     // `code` : Confirmation code
-    Auth.confirmSignIn(user, code)
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-    */
+    //Auth.confirmSignIn(user, code)
+    //.then(data => console.log(data))
+    //.catch(err => console.log(err));
   }
+  */
+
   /*
   handleFacebookLogin = async () => {
     this.setState({isLoading: true});

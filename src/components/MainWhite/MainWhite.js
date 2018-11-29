@@ -1,17 +1,17 @@
 import React from 'react';
 
 import Breadcrumbs from '../../routing/breadcrumbs/Breadcrumbs';
-import { Styles } from './Styles';
+import './mainWhite.css';
 
-const mainWhite = props => {
+const MainWhite = props => {
   // regex so that breadcrumbs aren't displayed on the home page
   let isHome = props.location.pathname.match(/^\/$/);
   return (
-    <Styles>
+    <div className="main_white">
       {!isHome && <div id="breadcrumbs"><Breadcrumbs /></div>}
       {props.children}
-    </Styles>
+    </div>
   );
 }
 
-export default mainWhite;
+export default MainWhite;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Styles } from './Styles';
+import './supplements.css';
 import LeftNav from '../../LeftNav/LeftNav';
 import vitaminC from '../../../assets/images/content/supplements/vitamin-c-500-mg-75px.jpg';
 import vitaminD3 from '../../../assets/images/content/supplements/vitamin-d3-2000-iu-75px.jpg';
@@ -15,16 +15,16 @@ import b50Complex from '../../../assets/images/content/supplements/vitamin-b-com
 
 // TO DO: change the <a> to <NavLink> or <Link> that open a new browser tab
 
-const supplements = props => (
-  <Styles>
+const Supplements = props => (
+  <div className = "supplements">
 		<div id="page">
-			
-      <LeftNav isAuthenticated={props.isAuthenticated} getUser={props.getUser} userEmail={props.userEmail} />
-
+      <LeftNav 
+        isAuthenticated={props.isAuthenticated}
+        getUser={props.getUser}
+        userEmail={props.userEmail}
+      />
 			<article>
-
 				<h1>Supplements</h1>
-
 				<h2>Daily</h2>
 				<table>
 					<thead>
@@ -68,7 +68,6 @@ const supplements = props => (
             </tr>
 					</tbody>
 				</table>
-
 				<h2>Weekly</h2>
 				<table>
 					<thead>
@@ -112,11 +111,9 @@ const supplements = props => (
             </tr>
 					</tbody>
 				</table>
-
 			</article>
-
 		</div>
-	</Styles>
+	</div>
 );
 
-export default supplements;
+export default Supplements;
