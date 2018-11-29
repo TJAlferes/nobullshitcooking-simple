@@ -1,15 +1,17 @@
 import React from 'react';
 
 import LeftNav from '../../LeftNav/LeftNav';
-import { Styles } from './Styles';
+import './home.css';
 
-const home = props => (
-  <Styles>
+const Home = props => (
+  <div>
     <main>
       <div id="page">
-
-        <LeftNav isAuthenticated={props.isAuthenticated} getUser={props.getUser} userEmail={props.userEmail} />
-
+        <LeftNav
+          isAuthenticated={props.isAuthenticated}
+          getUser={props.getUser}
+          userEmail={props.userEmail}
+        />
         <article id="torso">
           <div id="container">
             <div className="news_item">
@@ -17,25 +19,21 @@ const home = props => (
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
             </div>
-            
             <div className="news_item">
               <h1>Here Is a Sample News Article Title Text</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
             </div>
-            
             <div className="news_item">
               <h1>Here Is a Sample News Article Title Text</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
             </div>
-            
             <div className="news_item">
               <h1>Here Is a Sample News Article Title Text</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...</p>
             </div>
-					
             {/*
             <h1>Vitamins, Minerals, and Micronutrients</h1>
             <p>Learn about: <select>
@@ -112,7 +110,6 @@ const home = props => (
 					
 				  </div>
 			  </article>
-
         <aside id="right_aside">
           <span>Growers &amp; Ranchers</span>
           <hr />
@@ -122,10 +119,9 @@ const home = props => (
           <hr />
           <span>Suggested for You</span>
         </aside>
-
       </div>
     </main>
-  </Styles>
+  </div>
 );
 
-export default home;
+export default Home;

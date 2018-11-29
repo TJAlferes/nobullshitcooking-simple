@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import Styles from './Styles';
+import './equipments.css';
 
 // Location of our backend API
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/equipment';
@@ -107,7 +107,10 @@ class Equipments extends Component {
   getEquipments = async (startingAt = 0) => {
     try {
       const url = `${endpoint}`;
-      const response = await axios.post(url, {types: this.getCheckedEquipmentTypes(), start: startingAt});
+      const response = await axios.post(
+        url,
+        {types: this.getCheckedEquipmentTypes(), start: startingAt}
+      );
       const { rows, pages, starting } = response.data;
       this.setState({equipment: rows, pages, starting});
     } catch (err) {
@@ -118,9 +121,7 @@ class Equipments extends Component {
   getCheckedEquipmentTypes = () => {
     let checkedEquipmentTypes = [];
     Object.entries(this.state.checkedFilters).forEach(([key, value]) => {
-      if (value === true) {
-        checkedEquipmentTypes.push(Number(key));
-      }
+      if (value === true) checkedEquipmentTypes.push(Number(key));
     });
     return checkedEquipmentTypes;
   }
@@ -150,7 +151,11 @@ class Equipments extends Component {
       let startingAt = (display * (i - 1));
       if (i != currentPage) {
         numbers.push(
-          <span className="page_number" onClick={() => this.getEquipments(startingAt)} key={i}>
+          <span 
+            className="page_number"
+            onClick={() => this.getEquipments(startingAt)}
+            key={i}
+          >
             {i}
           </span>
         );
@@ -173,14 +178,20 @@ class Equipments extends Component {
           <span className="page_numbers">
             {
               (currentPage != 1) &&
-              <span className="page_nav" onClick={() => this.getEquipments(startingAtPrev)}>
+              <span
+                className="page_nav"
+                onClick={() => this.getEquipments(startingAtPrev)}
+              >
                 Prev
               </span>
             }
             {this.paginationNumbers()}
             {
               (currentPage != pages) &&
-              <span className="page_nav" onClick={() => this.getEquipments(startingAtNext)}>
+              <span
+                className="page_nav"
+                onClick={() => this.getEquipments(startingAtNext)}
+              >
                 Next
               </span>
           }
@@ -200,53 +211,67 @@ class Equipments extends Component {
   render() {
     const { pages } = this.state;
     return(
-      <Styles>
+      <div>
         <div id="page">
-
           <div id="page_col_left">
-
             <div id="list_header">
               <h1>Equipment</h1>
             </div>
-
             <div id="filters">
-              <form id="itid" name="itid" onChange={e => this.handleFilterChange(e)}>
+              <form
+                id="itid"
+                name="itid"
+                onChange={e => this.handleFilterChange(e)}
+              >
                 <span id="filter_title"><b>Filter by:</b></span>
                 <div>
                   <p className="filter_type"><b>Equipment type</b></p>
-                  {this.state.equipmentTypes.map((equipmentType, index) => (
-                    <span className="filter_span" key={index}>
-                      <input type="checkbox" id={equipmentType.equipment_type_id} />
-                      <label className="filter_label">{equipmentType.equipment_type_name}</label>
-                    </span>
-                  ))}
+                  {
+                    this.state.equipmentTypes.map((equipmentType, index) => (
+                      <span className="filter_span" key={index}>
+                        <input
+                          type="checkbox"
+                          id={equipmentType.equipment_type_id}
+                        />
+                        <label className="filter_label">
+                          {equipmentType.equipment_type_name}
+                        </label>
+                      </span>
+                    ))
+                  }
                 </div>
               </form>
             </div>
-
             {(pages > 1) && this.paginate()}
-
             <div>
               {this.state.equipment.map(equipment => (
                 <div className="equipment" key={equipment.equipment_id}>
-                  <Link className="equipment_link" to={`/food/equipment/${equipment.equipment_id}`}>
+                  <Link
+                    className="equipment_link"
+                    to={`/food/equipment/${equipment.equipment_id}`}
+                  >
                     {/* TO DO: change to thumbnail image */}
-                    <div className="equipment_name">{equipment.equipment_name}</div>
-                    <img className="equipment_thumbnail" src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.equipment_image}.jpg`} />
+                    <div className="equipment_name">
+                      {equipment.equipment_name}
+                    </div>
+                    <img
+                      className="equipment_thumbnail"
+                      src={`
+                        https://s3.amazonaws.com/nobsc-images-01/equipment/
+                        ${equipment.equipment_image}
+                        .jpg
+                      `}
+                    />
                   </Link>
                 </div>
               ))}
             </div>
-
             {(pages > 1) && this.paginate()}
-
           </div>
-
           <div id="page_col_right">
           </div>
-
         </div>
-      </Styles>
+      </div>
     );
   }
 }

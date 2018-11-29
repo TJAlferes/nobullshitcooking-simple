@@ -1,21 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Styles from './Styles';
-
+import './food.css';
 import PlusSign from '../../../assets/images/content/plus-sign.png';
 import Grill from '../../../assets/images/content/grill.jpg';
 import Ribs from '../../../assets/images/content/ribs.jpg';
 import AmericaFlag from '../../../assets/images/content/america-flag.png';
 
 // pass react router prop(s) here?
-const food = () => (
-  <Styles id="page">
-
+const Food = () => (
+  <div id="page">
     <div id="container">
-
       <h1>Food</h1>
-
       {/* restructure / simplify this */}
       <div className="ingredients_sections">
         <Link to="/food/nutrition">
@@ -31,7 +27,6 @@ const food = () => (
           </div>
         </Link>
       </div>
-
       <div className="ingredients_sections">	
         <Link to="/food/ingredients">
           <div className="single_section">
@@ -46,10 +41,8 @@ const food = () => (
           </div>
         </Link>
       </div>
-
     </div>
-
-  </Styles>
+  </div>
 );
 
-export default food;
+export default Food;

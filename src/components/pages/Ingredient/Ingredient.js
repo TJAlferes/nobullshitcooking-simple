@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Styles from './Styles';
+import './ingredient.css';
 
 // Location of our backend API
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
@@ -54,20 +54,33 @@ class Ingredient extends Component {
   render() {
     const { ingredient } = this.state;
     return (
-        <Styles>
-          <div id="page">
+      <div>
+        <div id="page">
           {
             (ingredient) &&
             <div className="ingredient">
-              <div className="ingredient_name">{ingredient.ingredient_name}</div>
-              <img className="ingredient_image" src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`} />
-              <div className="ingredient_name">Ingredient ID: {ingredient.ingredient_id}</div>
-              <div className="ingredient_name">Ingredient Type: {ingredient.ingredient_type_name}</div>
+              <div className="ingredient_name">
+                {ingredient.ingredient_name}
+              </div>
+              <img
+                className="ingredient_image"
+                src={`
+                  https://s3.amazonaws.com/nobsc-images-01/ingredients/
+                  ${ingredient.ingredient_image}
+                  .jpg
+                `}
+              />
+              <div className="ingredient_name">
+                Ingredient ID: {ingredient.ingredient_id}
+              </div>
+              <div className="ingredient_name">
+                Ingredient Type: {ingredient.ingredient_type_name}
+              </div>
               <p>Nutrition: Coming soon.</p>
             </div>
           }
-          </div>
-        </Styles>
+        </div>
+      </div>
     );
   }
 }

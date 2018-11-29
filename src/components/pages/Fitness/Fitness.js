@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Styles from './Styles';
+import './fitness.css';
 import VitruvianMan from '../../../assets/images/content/vitruvian-man.png';
 
-const fitness = () => (
-  <Styles>
+const Fitness = () => (
+  <div className="fitness">
     <img src={VitruvianMan} />
-  </Styles>
+  </div>
 );
 
-export default fitness;
+export default Fitness;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Styles from './Styles';
+import './equipment.css';
 
 // Location of our backend API
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/equipment';
@@ -53,20 +53,31 @@ class Equipment extends Component {
   render() {
     const { equipment } = this.state;
     return (
-        <Styles>
-          <div id="page">
-          {
-            (equipment) &&
-            <div className="equipment">
-              <div className="equipment_name">{equipment.equipment_name}</div>
-              <img className="equipment_image" src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.equipment_image}.jpg`} />
-              <div className="equipment_name">Equipment ID: {equipment.equipment_id}</div>
-              <div className="equipment_name">Equipment Type: {equipment.equipment_type_name}</div>
-              <p>Specs: Coming soon.</p>
+      <div>
+        <div id="page">
+        {
+          (equipment) &&
+          <div className="equipment">
+            <div className="equipment_name">{equipment.equipment_name}</div>
+            <img
+              className="equipment_image"
+              src={`
+                https://s3.amazonaws.com/nobsc-images-01/equipment/
+                ${equipment.equipment_image}
+                .jpg
+              `}
+            />
+            <div className="equipment_name">
+              Equipment ID: {equipment.equipment_id}
             </div>
-          }
+            <div className="equipment_name">
+              Equipment Type: {equipment.equipment_type_name}
+            </div>
+            <p>Specs: Coming soon.</p>
           </div>
-        </Styles>
+        }
+        </div>
+      </div>
     );
   }
 }

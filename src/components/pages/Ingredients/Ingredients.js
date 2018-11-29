@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import Styles from './Styles';
+import './ingredients.css';
 
 // Location of our backend API
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
@@ -107,7 +107,10 @@ class Ingredients extends Component {
   getIngredients = async (startingAt = 0) => {
     try {
       const url = `${endpoint}`;
-      const response = await axios.post(url, {types: this.getCheckedIngredientTypes(), start: startingAt});
+      const response = await axios.post(
+        url,
+        {types: this.getCheckedIngredientTypes(), start: startingAt}
+      );
       const { rows, pages, starting } = response.data;
       this.setState({ingredients: rows, pages, starting});
     } catch (err) {
@@ -118,9 +121,7 @@ class Ingredients extends Component {
   getCheckedIngredientTypes = () => {
     let checkedIngredientTypes = [];
     Object.entries(this.state.checkedFilters).forEach(([key, value]) => {
-      if (value === true) {
-        checkedIngredientTypes.push(Number(key));
-      }
+      if (value === true) checkedIngredientTypes.push(Number(key));
     });
     return checkedIngredientTypes;
   }
@@ -150,7 +151,11 @@ class Ingredients extends Component {
       let startingAt = (display * (i - 1));
       if (i != currentPage) {
         numbers.push(
-          <span className="page_number" onClick={() => this.getIngredients(startingAt)} key={i}>
+          <span
+            className="page_number"
+            onClick={() => this.getIngredients(startingAt)}
+            key={i}
+          >
             {i}
           </span>
         );
@@ -173,14 +178,20 @@ class Ingredients extends Component {
           <span className="page_numbers">
             {
               (currentPage != 1) &&
-              <span className="page_nav" onClick={() => this.getIngredients(startingAtPrev)}>
+              <span
+                className="page_nav"
+                onClick={() => this.getIngredients(startingAtPrev)}
+              >
                 Prev
               </span>
             }
             {this.paginationNumbers()}
             {
               (currentPage != pages) &&
-              <span className="page_nav" onClick={() => this.getIngredients(startingAtNext)}>
+              <span
+                className="page_nav"
+                onClick={() => this.getIngredients(startingAtNext)}
+              >
                 Next
               </span>
           }
@@ -200,53 +211,67 @@ class Ingredients extends Component {
   render() {
     const { pages } = this.state;
     return(
-      <Styles>
+      <div>
         <div id="page">
-
           <div id="page_col_left">
-
             <div id="list_header">
               <h1>Ingredients</h1>
             </div>
-
             <div id="filters">
-              <form id="itid" name="itid" onChange={e => this.handleFilterChange(e)}>
+              <form
+                id="itid"
+                name="itid"
+                onChange={e => this.handleFilterChange(e)}
+              >
                 <span id="filter_title"><b>Filter by:</b></span>
                 <div>
                   <p className="filter_type"><b>Ingredient type</b></p>
-                  {this.state.ingredientTypes.map((ingredientType, index) => (
-                    <span className="filter_span" key={index}>
-                      <input type="checkbox" id={ingredientType.ingredient_type_id} />
-                      <label className="filter_label">{ingredientType.ingredient_type_name}</label>
-                    </span>
-                  ))}
+                  {
+                    this.state.ingredientTypes.map((ingredientType, index) => (
+                      <span className="filter_span" key={index}>
+                        <input
+                          type="checkbox"
+                          id={ingredientType.ingredient_type_id}
+                        />
+                        <label className="filter_label">
+                          {ingredientType.ingredient_type_name}
+                        </label>
+                      </span>
+                    ))
+                  }
                 </div>
               </form>
             </div>
-
             {(pages > 1) && this.paginate()}
-
             <div>
               {this.state.ingredients.map((ingredient) => (
                 <div className="ingredient" key={ingredient.ingredient_id}>
-                  <Link className="ingredient_link" to={`/food/ingredient/${ingredient.ingredient_id}`}>
+                  <Link
+                    className="ingredient_link"
+                    to={`/food/ingredient/${ingredient.ingredient_id}`}
+                  >
                     {/* TO DO: change to thumbnail image */}
-                    <div className="ingredient_name">{ingredient.ingredient_name}</div>
-                    <img className="ingredient_thumbnail" src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`} />
+                    <div className="ingredient_name">
+                      {ingredient.ingredient_name}
+                    </div>
+                    <img
+                      className="ingredient_thumbnail"
+                      src={`
+                        https://s3.amazonaws.com/nobsc-images-01/ingredients/
+                        ${ingredient.ingredient_image}
+                        .jpg
+                      `}
+                    />
                   </Link>
                 </div>
               ))}
             </div>
-
             {(pages > 1) && this.paginate()}
-
           </div>
-
           <div id="page_col_right">
           </div>
-
         </div>
-      </Styles>
+      </div>
     );
   }
 }
