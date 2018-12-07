@@ -15,7 +15,7 @@ class UserNav extends Component {
     return (
       <div className="user_nav">
         <li>
-          <NavLink class="styled_nav_link" to="/help">
+          <NavLink className="styled_nav_link" to="/help">
             Help
           </NavLink>
         </li>
@@ -24,12 +24,12 @@ class UserNav extends Component {
           ? (
             <Fragment>
               <li>
-                <NavLink class="styled_nav_link" to="/user/register">
+                <NavLink className="styled_nav_link" to="/user/register">
                   Create Account
                 </NavLink>
               </li>
               <li>
-                <NavLink class="styled_nav_link" to="/user/login">
+                <NavLink className="styled_nav_link" to="/user/login">
                   Sign In
                 </NavLink>
               </li>
@@ -51,7 +51,7 @@ class UserNav extends Component {
           )
         }
         <li>
-          <NavLink class="styled_nav_link" to="/store/view_cart">
+          <NavLink className="styled_nav_link" to="/store/view_cart">
             View Cart
           </NavLink>
         </li>

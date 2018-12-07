@@ -117,7 +117,8 @@ class App extends Component {
       location.pathname.match(/^\/user\/login/)
     );
     
-    const routes = <RoutesList childProps={childProps} />;
+    //const routes = <RoutesList childProps={childProps} />;
+    const routes = <RoutesList />;
 
     let layout = null;
 

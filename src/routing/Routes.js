@@ -26,9 +26,9 @@ import Logout from '../components/user/Logout/Logout';
 //import Dashboard from '../components/Dashboard/Dashboard';
 //import UserDashboard from '../containers/user/UserDashboard/UserDashboard';
 import Planner from '../containers/Planner/Planner';
-import UserPlanner from '../containers/user/UserPlanner/UserPlanner';
+//import UserPlanner from '../containers/user/UserPlanner/UserPlanner';
 import Messenger from '../containers/Messenger/Messenger';
-import UserMessenger from '../containers/user/UserMessenger/UserMessenger';
+//import UserMessenger from '../containers/user/UserMessenger/UserMessenger';
 //import Friends from '../components/Friends/Friends';
 //import UserFriends from '../containers/user/UserFriends/UserFriends';
 
@@ -103,10 +103,10 @@ const RoutesList = ({ childProps }) => (
     {/*<AuthenticatedRoute path="/user/dashboard" exact component={UserDashboard} props={childProps} />*/}
 
     <AppliedRoute path="/planner" exact component={Planner} props={childProps} />
-    <AuthenticatedRoute path="/user/planner" exact component={UserPlanner} props={childProps} />
+    {/*<AuthenticatedRoute path="/user/planner" exact component={UserPlanner} props={childProps} />*/}
 
     <AppliedRoute path="/messenger" exact component={Messenger} props={childProps} />
-    <AuthenticatedRoute path="/user/messenger" exact component={UserMessenger} props={childProps} />
+    {/*<AuthenticatedRoute path="/user/messenger" exact component={UserMessenger} props={childProps} />*/}
 
     {/*<AppliedRoute path="/friends" exact component={Friends} props={childProps} />*/}
     {/*<AuthenticatedRoute path="/user/friends" exact component={UserFriends} props={childProps} />*/}

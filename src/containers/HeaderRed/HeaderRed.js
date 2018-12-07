@@ -22,16 +22,16 @@ const HeaderRed = props => (
     </div>
     <div id="header_row_2">
       <div id="header_row_2_col_1">
-        <SiteNav isAuthenticated={props.childProps.isAuthenticated} />
+        <SiteNav /*isAuthenticated={props.childProps.isAuthenticated}*/ />
       </div>
       <div id="header_row_2_col_2">
       </div>
       <div id="header_row_2_col_3">
         <UserNav
-          isAuthenticated={props.childProps.isAuthenticated}
+          /*isAuthenticated={props.childProps.isAuthenticated}
           userEmail={props.childProps.userEmail}
           handleLogout={props.childProps.handleLogout}
-          getUser={props.childProps.getUser}
+          getUser={props.childProps.getUser}*/
         />
       </div>
     </div>
