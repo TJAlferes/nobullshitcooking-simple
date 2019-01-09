@@ -1,0 +1,10 @@
+version: "3.6"
+services:
+
+  # NOBSC Client
+  nobsc-client:
+    container_name: nobsc-client
+    build:
+      dockerfile: Dockerfile.dev
+      context: .
+    restart: always

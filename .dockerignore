@@ -1,0 +1,10 @@
+.env
+.git
+node_modules/
+generate*
+README.md
+postcss.*.js
+webpack.*.js
+Dockerfile
+docker-compose.yml
+/**/__tests__/
