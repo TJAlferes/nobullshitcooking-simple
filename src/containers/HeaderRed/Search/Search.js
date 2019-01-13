@@ -85,37 +85,37 @@ class Search extends Component {
   */
   render() {
     return (
-      <div>
-        <form name="search_form" id="search_form">
-          <div id="search_left">
-            <div id="search_category">
-              <div id="search_facade">
-                <span id="facade_text">All</span>
-                <img id="facade_arrow" src={DownArrowGray} />
-              </div>
-              {/* change to react or react-select or react-final-form or some combination */}
-              <select name="search_prefilter" id="search_prefilter" type="select-one" onChange={this.swapFacadeText}>
-                <option id="search_all" value="search-filter-none">All</option>
-                <option id="search_recipes" value="search-filter-recipes">Recipes</option>
-                <option id="search_ingredients" value="search-filter-ingredients">Ingredients</option>
-                <option id="search_nutrients" value="search-filter-nutrients">Nutrients</option>
-                <option id="search_kitchen_equipment" value="search-filter-kitchen-equipment">Kitchen Equipment</option>
-                <option id="search_fitness_gear" value="search-filter-fitness-gear">Fitness Gear</option>
-                <option id="search_exercises" value="search-filter-exercises">Exercises</option>
-              </select>
+      <form name="search_form" id="search_form">
+
+          <div id="search_category">
+            <div id="search_facade">
+              <span id="facade_text">All</span>
+              <img id="facade_arrow" src={DownArrowGray} />
             </div>
+            {/* change to react or react-select or react-final-form or some combination */}
+            <select name="search_prefilter" id="search_prefilter" type="select-one" onChange={this.swapFacadeText}>
+              <option id="search_all" value="search-filter-none">All</option>
+              <option id="search_recipes" value="search-filter-recipes">Recipes</option>
+              <option id="search_ingredients" value="search-filter-ingredients">Ingredients</option>
+              <option id="search_nutrients" value="search-filter-nutrients">Nutrients</option>
+              <option id="search_kitchen_equipment" value="search-filter-kitchen-equipment">Kitchen Equipment</option>
+              <option id="search_fitness_gear" value="search-filter-fitness-gear">Fitness Gear</option>
+              <option id="search_exercises" value="search-filter-exercises">Exercises</option>
+            </select>
           </div>
+
           <div id="search_insert">
             <input id="search_insert_input" type="text" autoComplete="off" />
             <div id="search_auto_suggestions">
               {/* live from the database table column */}
             </div>
           </div>
+
           <div id="search_execute">
             <input id="search_execute_input" type="submit" value="Search" />
           </div>
-        </form>
-      </div>
+          
+      </form>
     );
   }
 }
