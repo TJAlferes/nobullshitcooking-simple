@@ -31,33 +31,20 @@ const plannerRecipeTarget = {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     const sourceListId = monitor.getItem().listId;
-
-    // 1. conditional around here to determine if hovering over calendar or list to toggle vertical/horizontal
-
+    // 1. conditional around here to determine if hovering over calendar or
+    //    list to toggle vertical/horizontal
     // 2. all but the first expanded day are off by some px y-axis
-
     // 3. and then, solve for dynamically created unique keys/ids
-
     // 4. clones and wrong deletions
-
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();  // just use ref instead?  ht tps://github.com/react-dnd/react-dnd/issues/591
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    if (props.day !== props.expandedDay) return;
     
-    if (props.day !== props.expandedDay) {
-      return;
-    }
-    
-    if (dragIndex === hoverIndex) {
-      return;
-    }
-    if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) {
-      return;
-    }
-    if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) {
-      return;
-    }
+    if (dragIndex === hoverIndex) return;
+    if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
+    if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
     if (props.listId === sourceListId) {
       props.moveRecipe(dragIndex, hoverIndex);
       monitor.getItem().index = hoverIndex;  // mutation, but OK here(?)
@@ -80,7 +67,6 @@ class UserPlannerRecipe extends Component {
   render() {
     const { recipe, isDragging, connectDragSource, connectDropTarget } = this.props;
     const opacity = isDragging ? 0 : 1;
-
     return connectDragSource(connectDropTarget(
       <div style={{ opacity }}><Styles>{recipe.text}</Styles></div>
     ));

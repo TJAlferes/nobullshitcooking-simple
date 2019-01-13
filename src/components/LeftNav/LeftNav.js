@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 import './leftNav.css';
 
+// TO DO: make higher order of NavLink to reduce repetitious attributes below
+
 const LeftNav = props => {
   const { isAuthenticated, getUser, userEmail } = props;
   return (
@@ -14,12 +16,12 @@ const LeftNav = props => {
       }
       {
         !isAuthenticated
-        ? <NavLink className="styled_nav_link" to="/planner"><span id="planner_span">Planner</span></NavLink>
+        ? <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/planner"><span id="planner_span">Planner</span></NavLink>
         : <NavLink className="styled_nav_link" to="/user/planner"><span id="planner_span">Planner</span></NavLink>
       }
       <hr />
 
-      <NavLink className="styled_nav_link" to="/"><span id="home_span">News</span></NavLink>
+      <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/" exact><span id="home_span">News</span></NavLink>
       {
         !isAuthenticated
         ? <NavLink className="styled_nav_link" to="/user/login"><span>Messenger</span></NavLink>
@@ -32,7 +34,7 @@ const LeftNav = props => {
       }
       <hr />
 
-      <NavLink className="styled_nav_link" to="/supplements"><span id="supplements_span">Supplements</span></NavLink>
+      <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/supplements"><span id="supplements_span">Supplements</span></NavLink>
       <NavLink className="styled_nav_link" to="/"><span>Equipment</span></NavLink>
       <hr />
 

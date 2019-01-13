@@ -1,4 +1,4 @@
-#page {
+#home {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -18,14 +18,14 @@
   background-color: #fff;
 }
 */
-#torso {
+#feed {
   order: 2;
   width: 600px;
   margin: 10px;
   background-color: #fff;
 }
 /*#container {}*/
-#right_aside {
+#suggestions {
   order: 3;
   width: 340px;
   margin-top: 10px;
@@ -34,9 +34,9 @@
   background-color: #fff;
 }
 
-#home_span {
+/*#home_span {
   background-color: #ddd;
-}
+}*/
 
 /*
 #left_aside span, #right_aside span {

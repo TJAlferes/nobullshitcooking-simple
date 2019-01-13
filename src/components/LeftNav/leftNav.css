@@ -17,12 +17,6 @@ span,
   margin-bottom: 5px;
 }
 
-span:hover {
-  background-color: #ddd;
-  cursor: pointer;
-  cursor: hand;
-}
-
 hr {
   height: 1px;
   border: 0 none;
@@ -30,7 +24,12 @@ hr {
   background-color: #bfbfbf;
 }
 
-.styled_nav_link {
+.left_nav .styled_nav_link {
   text-decoration: none;
   color: #000;
+}
+.left_nav .styled_nav_link:hover {
+  background-color: #ddd;
+  cursor: pointer;
+  cursor: hand;
 }

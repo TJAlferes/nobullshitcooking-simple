@@ -11,11 +11,9 @@ const plannerRecipesListTarget = {
   drop(props, monitor, component) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
-
     if (day !== draggedRecipe.listId) {
       component.pushRecipe(draggedRecipe.recipe);
     }
-
     return {listId: day};
     //return {day: props.day};
   }

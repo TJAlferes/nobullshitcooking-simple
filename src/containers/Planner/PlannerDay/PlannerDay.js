@@ -82,9 +82,11 @@ class PlannerDay extends Component {
   render() {
     const { recipes, shiftX, shiftY } = this.state;
     const { expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
+
     let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
     let location = {"--shiftX": `${shiftX}px`, "--shiftY": `${shiftY}px`};
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
+    
     return connectDropTarget(
       <div
         style={location}
