@@ -106,7 +106,14 @@ class Planner extends Component {
                 </tbody>
               </table>
             </div>
-            <PlannerRecipesList day="0" list={recipeLists} />
+            <PlannerRecipesList
+              day="0"
+              list={[
+                {id: 1, text: "Sheperd's Pie"},
+                {id: 2, text: "Split Pea Soup"},
+                {id: 3, text: "Steak Asparagus and Sweet Potato"}
+              ]}
+            />
           </div>
         </article>
       </div>

@@ -12,7 +12,7 @@ const footerGray = () => (
       <li><NavLink to="/privacy">Privacy Policy</NavLink></li>
       <li><NavLink to="/help">Help</NavLink></li>
     </ul>
-    <p>Copyright 2015-2018 NoBullshitCooking. All rights reserved.</p>
+    <p>Copyright 2015-2019 NoBullshitCooking. All rights reserved.</p>
   </div>
 );
 

@@ -18,7 +18,6 @@ article {
   margin-top: 10px;
   margin-left: 10px;
   padding: 10px 10px;
-  overflow: auto;
   background-color: #fff;
 }
 
@@ -32,42 +31,44 @@ article {
 
 #calendar_container {
   width: 99%;
-  height: 580px;
+  height: 480px;
   margin: 0 auto 0 auto;
   padding-top: 5px;
 }
 
 #monthly_plan {
-  width: 757px;
-  height: 328px;
+  width: 756px;
+  /*height: 328px;*/
   background: #b1d7f9;
 }
 
-table {
+#monthly_plan table {
   height: 321px;
   max-height: 321px;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-tr {
+#monthly_plan tr {
   position: relative;
   max-height: 75px;
   overflow: hidden;
+  background: #b1d7f9;
 }
 
-th {
+#monthly_plan th {
   width: 107px;
   height: 20px;
   text-align: center;
 }
 
-td {
+#monthly_plan td {
   width: 107px;
   height: 75px;
   max-height: 75px;
   overflow: hidden;
   border: 1px solid #b1d7f9;
+  padding: 0;
 }
 
 .the_date {
@@ -123,9 +124,3 @@ td {
 /*#planner_span {
   background-color: #ddd;
 }*/
-
-#planner_recipes_list {
-  width: 757px;
-  height: 125px;
-  border: 1px solid #bfbfbf;
-}

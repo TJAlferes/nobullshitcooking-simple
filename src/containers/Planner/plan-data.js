@@ -1,17 +1,11 @@
 export default [
   {
     day: 1,
-    list: [
-      {id: 1, text: "Sheperd's Pie"},
-      {id: 2, text: "Split Pea Soup"},
-      {id: 3, text: "Steak Asparagus and Sweet Potato"}
-    ]
+    list: []
   },
   {
     day: 2,
-    list: [
-      {id: 1, text: "Sheperd's Pie"}
-    ]
+    list: []
   },
   {
     day: 3,
@@ -65,7 +59,7 @@ export default [
 
   {
     day: 15,
-    list: [{id: 1, text: "Sheperd's Pie"}]
+    list: []
   },
   {
     day: 16,

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
+
+import './breadcrumbs.css';
 /*
 const routes = [
   {path: '/dashboard', breadcrumb: 'Dashboard'},
@@ -48,12 +50,12 @@ const routes = [
 ];
 */
 const Breadcrumbs = ({ breadcrumbs }) => (
-  <div>
+  <div className="crumbs">
     {
       breadcrumbs.map((breadcrumb, index) => (
-        <span key={breadcrumb.key}>
-          <Link to={breadcrumb.props.match.url}>{breadcrumb}</Link>
-          {(index < breadcrumbs.length - 1) && <i> > </i>}
+        <span className="crumb" key={breadcrumb.key}>
+          <Link className="crumb_link" to={breadcrumb.props.match.url}>{breadcrumb}</Link>
+          {(index < breadcrumbs.length - 1) && <i className="crumb_pointer"> > </i>}
         </span>
       ))
     }

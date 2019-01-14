@@ -17,7 +17,8 @@ li {
   margin: 2px 10px 2px 10px;
 }
 
-p {display: block;
+.footer_gray p {
+  display: block;
   margin-top: 12px;
   margin-bottom: 18px;
   text-align: center;

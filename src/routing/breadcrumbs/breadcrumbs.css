@@ -1,0 +1,27 @@
+.crumbs,
+.crumb {
+  display: flex;
+  flex-direction: row;
+}
+
+.crumbs {
+  width: max-content;
+  margin: 0 auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.crumbs a {
+  color: #68abe6;
+}
+
+.crumbs a:visited {
+  color: #68abe6;
+}
+
+.crumbs a:hover {
+  color: #c10006;
+}
+
+.crumb_pointer {
+  padding-left: 12px;
+}

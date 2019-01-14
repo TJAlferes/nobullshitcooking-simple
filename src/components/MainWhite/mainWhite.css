@@ -3,21 +3,3 @@
   padding-bottom: 25px;
   background: #eee;
 }
-
-#breadcrumbs {
-  width: max-content;
-  margin: 0 auto;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-#breadcrumbs a {
-  color: #68abe6;
-}
-
-#breadcrumbs a:visited {
-  color: #68abe6;
-}
-
-#breadcrumbs a:hover {
-  color: #c10006;
-}
