@@ -2,27 +2,35 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { openModal, closeModal } from '../../../store/actions/modalsActions';
 import './siteNav.css';
 
 const SiteNav = props => {
   //const { isAuthenticated } = props;
 
-  const displayDropdown = e => {
+  const displayDropdown = (type, e) => {
     e.stopPropagation();
     console.log('working');
-    props.dispatch(
+    openModal(type);
+    /*props.dispatch(
       openModal({
         id: uuid.v4(),
         type: 'custom',
         content: <CustomModalContent />
       })
-    );
+    );*/
   }
 
   return (
     <div className="site_nav">
       <li>
-        <NavLink className="styled_nav_link" to="/food">Food</NavLink>
+        <NavLink
+          className="styled_nav_link"
+          onMouseOver={displayDropdown(food)}
+          to="/food"
+        >
+          Food
+        </NavLink>
       </li>
       <li>
         <NavLink className="styled_nav_link" to="/fitness">Fitness</NavLink>
@@ -45,12 +53,17 @@ const SiteNav = props => {
           </NavLink>
         </li>
       */}
+      <div id="food-dropdown"></div>
     </div>
   );
 }
 
 const mapDispatchToProps = dispatch => ({
-  dispatch
+  //dispatch
+  closeModal: () => dispatch(closeModal()),
+  openModal: (modalProps, modalType) => {
+    dispatch(openModal({ modalProps, modalType }));
+  }
 });
 
 export default connect(null, mapDispatchToProps)(SiteNav);
