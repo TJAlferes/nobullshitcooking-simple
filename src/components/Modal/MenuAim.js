@@ -12,42 +12,22 @@ const MOUSE_LOCS_TRACKED = 3;   // number of past mouse locations to trackv
 const DELAY = 300;              // ms delay when user appears to be entering submenu
 const TOLERANCE = 75;           // bigger = more forgivey when entering submenu
 
-
-
 /**
  *
  * DOM helpers
  *
  */
 function on(el, eventName, callback) {
-  if (el.addEventListener) {
-    el.addEventListener(eventName, callback, false);
-  }
-  else if (el.attachEvent) {
-    el.attachEvent('on'+eventName, function(e) {
-      callback.call(el, e || window.event);
-    });
-  }
+  if (el.addEventListener) el.addEventListener(eventName, callback, false);
 }
 
 function off(el, eventName, callback) {
-  if (el.removeEventListener) {
-    el.removeEventListener(eventName, callback);
-  }
-  else if (el.detachEvent) {
-    el.detachEvent('on'+eventName, callback);
-  }
+  if (el.removeEventListener) el.removeEventListener(eventName, callback);
 }
 
 function offset(el) {
-  if (!el) {
-    return {
-      left: 0,
-      top: 0
-    };
-  }
-
-  var rect = el.getBoundingClientRect();
+  if (!el) return {left: 0, top: 0};
+  let rect = el.getBoundingClientRect();
   return {
     top: rect.top + document.body.scrollTop,
     left: rect.left + document.body.scrollLeft
@@ -55,17 +35,15 @@ function offset(el) {
 }
 
 function outerWidth(el) {
-  var _width = el.offsetWidth;
-  var style = el.currentStyle || getComputedStyle(el);
-
+  let _width = el.offsetWidth;
+  let style = el.currentStyle || getComputedStyle(el);
   _width += (parseInt(style.marginLeft, 10) || 0);
   return _width;
 }
 
 function outerHeight(el) {
-  var _height = el.offsetHeight;
-  var style = el.currentStyle || getComputedStyle(el);
-
+  let _height = el.offsetHeight;
+  let style = el.currentStyle || getComputedStyle(el);
   _height += (parseInt(style.marginLeft, 10) || 0);
   return _height;
 }

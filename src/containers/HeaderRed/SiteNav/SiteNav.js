@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 //import { connect } from 'react-redux';
 
 //import { openModal, closeModal } from '../../../store/actions/modalsActions';
-import FoodDropdown from './FoodDropdown/FoodDropdown';
-//import Dropdown from './Dropdown/Dropdown';
+//import FoodDropdown from './FoodDropdown/FoodDropdown';
+import Dropdown from './Dropdown/Dropdown';
 import './siteNav.css';
 
 class SiteNav extends Component {
@@ -34,7 +34,7 @@ class SiteNav extends Component {
       <div className="site_nav">
         <li>
           <NavLink className="styled_nav_link" to="/food">Food</NavLink>
-          <FoodDropdown />
+          {/*<FoodDropdown />*/}
           {/*<Dropdown
             onNavMouseOver={this.handleMouseOver}
             dropdown={'food'}
@@ -42,6 +42,7 @@ class SiteNav extends Component {
             expandedDropdown={expandedDropdown}
             content={'hello'}
           />*/}
+          <DropDown menuData={menuData} submenuDirection="right" />
         </li>
         <li>
           <NavLink className="styled_nav_link" to="/fitness">Fitness</NavLink>
