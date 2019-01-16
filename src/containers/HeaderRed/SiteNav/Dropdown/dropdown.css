@@ -1,0 +1,14 @@
+.dropdown {
+  position: absolute;
+  background-color: #fff;
+  width: 100px;
+  height: 180px;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}

@@ -7,37 +7,35 @@ class Dropdown extends Component {
     this.setSelfRef = element => {
       this.day = element;
     };
-    this.state = {content: props.content, shiftX: 0, shiftY: 0};
   }
   
-  componentDidUpdate() {
-    // ********* JUST USE PORTALS INSTEAD??? **********
-    // (would need to copy data / state over though)
-    const dayClicked = this.day.getBoundingClientRect();
-    const topCoords = dayClicked.top + pageYOffset;
-    const leftCoords = dayClicked.left + pageXOffset;
-    const { tRef } = this.props;
-    const tablePos = findDOMNode(tRef.current).getBoundingClientRect();
-    const moveY = (tablePos.top + pageYOffset) - topCoords;
-    const moveX = (tablePos.right + pageXOffset + 10) - leftCoords;
+  /*componentDidUpdate() {
+    const { display } = this.state;
     // without this conditional, setState would be called endlessly
-    const { shiftX, shiftY } = this.state;
-    if ((shiftX !== 0) || (shiftY !== 0)) return;  // issue is here I think... but maybe not... remember, it wasn't doing this before...
+    if (display === "hide") return;
     this.setState({shiftX: moveX, shiftY: moveY});
-  }
+  }*/
   
-  handleMouse = async (e) => {
+  handleMouseOver = async (e) => {
     // or use onMouseEnter
     const { dropdown, expanded, expandedDropdown, onNavMouseOver } = this.props;
     e.preventDefault(); // stoppropagation or none?
-    await onDayClick(day);
+    await onNavMouseOver(dropdown);
   }
 
   render() {
-    const { expanded, day, expandedDropdown } = this.props;
-    let display = (expanded && (day === expandedDay))
+    const { expanded, dropdown, expandedDropdown } = this.props;
+    let display = (expanded && (dropdown === expandedDropdown)) ? 'show' : 'hide';
     return (
-      <div />
+      <div
+        className={`dropdown ${display}`}
+        expanded={expanded}
+        expandedDropdown={expandedDropdown}
+      >
+        {this.props.content}
+      </div>
     );
   }
 }
+
+export default Dropdown;
