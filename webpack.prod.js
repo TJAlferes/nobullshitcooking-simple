@@ -5,7 +5,6 @@ const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  devtool: 'cheap-module-source-map',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
