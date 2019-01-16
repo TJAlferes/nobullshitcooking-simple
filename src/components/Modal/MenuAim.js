@@ -184,7 +184,7 @@ function possiblyActivate(rowIdentifier, handler, config) {
   }
 }
 
-const menuAim = data = WrappedComponent => {
+const menuAim = data => WrappedComponent => {
   class MenuAim extends Component {
     constructor(...args) {
       super(...args)
