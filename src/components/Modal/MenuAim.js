@@ -6,17 +6,17 @@
  * https://github.com/kamens/jQuery-menu-aim
 */
 
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 const MOUSE_LOCS_TRACKED = 3;   // number of past mouse locations to trackv
 const DELAY = 300;              // ms delay when user appears to be entering submenu
 const TOLERANCE = 75;           // bigger = more forgivey when entering submenu
 
-/**
- *
- * DOM helpers
- *
- */
+
+
+// DOM helpers
+
 function on(el, eventName, callback) {
   if (el.addEventListener) el.addEventListener(eventName, callback, false);
 }
@@ -50,11 +50,7 @@ function outerHeight(el) {
 
 
 
-/**
- *
- * Util helpers
- *
- */
+// Util helpers
 
 // Consider multiple instance using ReactMenuAim, we just listen mousemove once
 var mousemoveListener = 0;
@@ -62,27 +58,16 @@ var mouseLocs = [];
 
 // Mousemove handler on document
 function handleMouseMoveDocument(e) {
-  mouseLocs.push({
-    x: e.pageX,
-    y: e.pageY
-  });
-
-  if (mouseLocs.length > MOUSE_LOCS_TRACKED) {
-    mouseLocs.shift();
-  }
+  mouseLocs.push({x: e.pageX, y: e.pageY});
+  if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
 }
 
 function getActivateDelay(config) {
   config = config || {};
   var menu = ReactDOM.findDOMNode(this);
-
-  // If can't find any DOM node
-  if (!menu || !menu.querySelector) {
-    return 0;
-  }
+  if (!menu || !menu.querySelector) return 0; // If can't find any DOM node
   menu = config.menuSelector ? menu.querySelector(config.menuSelector) : menu;
   var menuOffset = offset(menu);
-
   var upperLeft = {
     x: menuOffset.left,
     y: menuOffset.top - (config.tolerance || TOLERANCE)
@@ -99,33 +84,29 @@ function getActivateDelay(config) {
     x: menuOffset.left + outerWidth(menu),
     y: lowerLeft.y
   };
-
   var loc = mouseLocs[mouseLocs.length - 1];
   var prevLoc = mouseLocs[0];
-
-  if (!loc) {
-    return 0;
-  }
-
-  if (!prevLoc) {
-    prevLoc = loc;
-  }
-
+  if (!loc) return 0;
+  if (!prevLoc) prevLoc = loc;
   // If the previous mouse location was outside of the entire
   // menu's bounds, immediately activate.
-  if (prevLoc.x < menuOffset.left || prevLoc.x > lowerRight.x ||
-      prevLoc.y < menuOffset.top || prevLoc.y > lowerRight.y
-    ) {
+  if (
+    prevLoc.x < menuOffset.left ||
+    prevLoc.x > lowerRight.x ||
+    prevLoc.y < menuOffset.top ||
+    prevLoc.y > lowerRight.y
+  ) {
     return 0;
   }
-
   // If the mouse hasn't moved since the last time we checked
   // for activation status, immediately activate.
-  if (this._lastDelayDoc &&
-        loc.x === this._lastDelayDoc.x && loc.y === this._lastDelayDoc.y) {
+  if (
+    this._lastDelayDoc &&
+    loc.x === this._lastDelayDoc.x &&
+    loc.y === this._lastDelayDoc.y
+  ) {
     return 0;
   }
-
   // Detect if the user is moving towards the currently activated
   // submenu.
   //
@@ -148,10 +129,8 @@ function getActivateDelay(config) {
   function slope(a, b) {
     return (b.y - a.y) / (b.x - a.x);
   }
-
   var decreasingCorner = upperRight;
   var increasingCorner = lowerRight;
-
   // Our expectations for decreasing or increasing slope values
   // depends on which direction the submenu opens relative to the
   // main menu. By default, if the menu opens on the right, we
@@ -168,25 +147,23 @@ function getActivateDelay(config) {
   } else if (config.submenuDirection === 'above') {
     decreasingCorner = upperLeft;
   }
-
-
   var decreasingSlope = slope(loc, decreasingCorner);
   var increasingSlope = slope(loc, increasingCorner);
   var prevDecreasingSlope = slope(prevLoc, decreasingCorner);
   var prevIncreasingSlope = slope(prevLoc, increasingCorner);
-
   // Mouse is moving from previous location towards the
   // currently activated submenu. Delay before activating a
   // new menu row, because user may be moving into submenu.
-  if (decreasingSlope < prevDecreasingSlope && increasingSlope > prevIncreasingSlope) {
+  if (
+    decreasingSlope < prevDecreasingSlope &&
+    increasingSlope > prevIncreasingSlope
+  ) {
     this._lastDelayLoc = loc;
     return config.delay || DELAY;
   }
-
   this._lastDelayLoc = null;
   return 0;
 }
-
 
 // For the concern of further changes might happen when activeRowIndex changes,
 // this mixin doesn't setState directly, instead it calls the callback provided
@@ -195,84 +172,73 @@ function activate(rowIdentifier, handler) {
   handler.call(this, rowIdentifier);
 }
 
-
 function possiblyActivate(rowIdentifier, handler, config) {
   var delay = getActivateDelay.call(this, config);
-
   if (delay) {
     var self = this;
-    this.__reactMenuAimTimer = setTimeout(function(){
+    this.__reactMenuAimTimer = setTimeout(function() {
       possiblyActivate.call(self, rowIdentifier, handler, config);
     }, delay);
-  }
-  else {
+  } else {
     activate.call(this, rowIdentifier, handler);
   }
 }
 
-
-
-/**
- * @export
- */
-module.exports = exports = {
-  initMenuAim: function(options) {
-    this.__reactMenuAimConfig = options;
-  },
-
-  __getMouseMoveDocumentHandler: function() {
-    if (!this.__mouseMoveDocumentHandler) {
-      this.__mouseMoveDocumentHandler = handleMouseMoveDocument.bind(this);
+const menuAim = data = WrappedComponent => {
+  class MenuAim extends Component {
+    constructor(...args) {
+      super(...args)
     }
 
-    return this.__mouseMoveDocumentHandler;
-  },
-
-  componentDidMount: function() {
-    if (mousemoveListener === 0) {
-      on(document, 'mousemove', this.__getMouseMoveDocumentHandler());
+    initMenuAim = options => {
+      this.__reactMenuAimConfig = options;
     }
 
-    mousemoveListener += 1;
-  },
-
-  componentWillUnmount: function() {
-    mousemoveListener -= 1;
-
-    if (mousemoveListener === 0) {
-      off(document, 'mousemove', this.__getMouseMoveDocumentHandler());
-      mouseLocs = [];
+    __getMouseMoveDocumentHandler = () => {
+      if (!this.__mouseMoveDocumentHandler) {
+        this.__mouseMoveDocumentHandler = handleMouseMoveDocument.bind(this);
+      }
+      return this.__mouseMoveDocumentHandler;
     }
 
-    clearTimeout(this.__reactMenuAimTimer);
-    this.__reactMenuAimTimer = null;
-    this.__mouseMoveDocumentHandler = null;
-  },
+    componentDidMount() {
+      if (mousemoveListener === 0) {
+        on(document, 'mousemove', this.__getMouseMoveDocumentHandler());
+      }
+      mousemoveListener += 1;
+    }
 
-  /**
-   * @param  {function} handler The true event handler for your app
-   * @param  {object}   e       React's synthetic event object
-   */
-  handleMouseLeaveMenu: function(handler, e) {
-    if (this.__reactMenuAimTimer) {
+    componentWillUnmount() {
+      mousemoveListener -= 1;
+      if (mousemoveListener === 0) {
+        off(document, 'mousemove', this.__getMouseMoveDocumentHandler());
+        mouseLocs = [];
+      }
       clearTimeout(this.__reactMenuAimTimer);
+      this.__reactMenuAimTimer = null;
+      this.__mouseMoveDocumentHandler = null;
     }
 
-    if (typeof handler === 'function') {
-      handler.call(this, e);
-    }
-  },
-
-  /**
-   * @param  {number}   rowIdentifier  The identifier of current row, ie. index or name
-   * @param  {function} handler        The true event handler for your app
-   * @param  {object}   e              React's synthetic event object
-   */
-  handleMouseEnterRow: function(rowIdentifier, handler) {
-    if (this.__reactMenuAimTimer) {
-      clearTimeout(this.__reactMenuAimTimer);
+    /*param  {function} handler The true event handler for your app
+      param  {object}   e       React's synthetic event object*/
+    handleMouseLeaveMenu = (handler, e) => {
+      if (this.__reactMenuAimTimer) clearTimeout(this.__reactMenuAimTimer);
+      if (typeof handler === 'function') handler.call(this, e);
     }
 
-    possiblyActivate.call(this, rowIdentifier, handler, this.__reactMenuAimConfig);
+    /*param  {number}   rowIdentifier  The identifier of current row, ie. index or name
+      param  {function} handler        The true event handler for your app
+      param  {object}   e              React's synthetic event object*/
+    handleMouseEnterRow = (rowIdentifier, handler, e) => {
+      if (this.__reactMenuAimTimer) clearTimeout(this.__reactMenuAimTimer);
+      possiblyActivate.call(this, rowIdentifier, handler, this.__reactMenuAimConfig);
+    }
+
+    render() {
+      return <div></div>
+    }
   }
-};
+  return 
+}
+
+export default menuAim;

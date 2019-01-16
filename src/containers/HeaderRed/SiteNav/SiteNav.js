@@ -42,7 +42,7 @@ class SiteNav extends Component {
             expandedDropdown={expandedDropdown}
             content={'hello'}
           />*/}
-          <DropDown menuData={menuData} submenuDirection="right" />
+          {/*<DropDown menuData={menuData} submenuDirection="right" />*/}
         </li>
         <li>
           <NavLink className="styled_nav_link" to="/fitness">Fitness</NavLink>

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import MenuAim from '../../../../components/Modal/MenuAim';
+import menuAim from '../../../../components/Modal/MenuAim';
 
 class Dropdown extends Component {
   constructor(props) {
     super(props);
-    this.day = null;
+    /*this.day = null;
     this.setSelfRef = element => {
       this.day = element;
-    };
+    };*/
     this.state = {
       activeMenuIndex: 0
     };
@@ -19,23 +19,20 @@ class Dropdown extends Component {
     // without this conditional, setState would be called endlessly
     if (display === "hide") return;
     this.setState({shiftX: moveX, shiftY: moveY});
-  }*/
+  }
   
   handleMouseOver = async (e) => {
     // or use onMouseEnter
     const { dropdown, expanded, expandedDropdown, onNavMouseOver } = this.props;
     e.preventDefault(); // stoppropagation or none?
     await onNavMouseOver(dropdown);
-  }
+  }*/
 
-  // update
-  getDefaultProps = () => ({submenuDirection: 'right'});
+  getDefaultProps = () => ({submenuDirection: 'right'});  // update?
 
-  // update
-  getInitialState = () => ({activeMenuIndex: 0});
+  getInitialState = () => ({activeMenuIndex: 0});  // update?
 
-  // do not use, update
-  componentWillMount() {
+  UNSAFE_componentWillMount() {  // update
     this.initMenuAim({
       submenuDirection: this.props.submenuDirection,
       menuSelector: '.menu',
@@ -49,18 +46,9 @@ class Dropdown extends Component {
   }
 
   render() {
-    const { expanded, dropdown, expandedDropdown } = this.props;
+    /*const { expanded, dropdown, expandedDropdown } = this.props;
     let display = (expanded && (dropdown === expandedDropdown)) ? 'show' : 'hide';
-    
-    let self = this;
-    let containerClassName = 'menu-container ' + this.props.submenuDirection;
-
-    let subMenuStyle = {};
-    if (this.props.submenuDirection === 'below') {
-      subMenuStyle.left = this.state.activeMenuIndex * 140;
-    }
-    
-    /*return (
+    return (
       <div
         className={`dropdown ${display}`}
         expanded={expanded}
@@ -69,7 +57,11 @@ class Dropdown extends Component {
         {this.props.content}
       </div>
     );*/
-
+    let self = this;  // ?
+    let containerClassName = 'menu-container ' + this.props.submenuDirection;
+    let subMenuStyle = {};
+    //if (this.props.submenuDirection === 'below') subMenuStyle.left = this.state.activeMenuIndex * 140;
+    
     return (
       <div className={containerClassName}>
         <ul className="menu" onMouseLeave={this.handleMouseLeaveMenu}>
@@ -105,4 +97,4 @@ class Dropdown extends Component {
   }
 }
 
-export default Dropdown;
+export default menuAim(Dropdown);
