@@ -4,8 +4,8 @@ import axios from 'axios';
 import './ingredient.css';
 
 // Location of our backend API
-//const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
-const endpoint = 'http://localhost:3003/ingredients';
+const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
+//const endpoint = 'http://localhost:3003/ingredients';
 
 /*
   Ingredients Component

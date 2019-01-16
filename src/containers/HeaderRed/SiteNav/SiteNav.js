@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 //import { openModal, closeModal } from '../../../store/actions/modalsActions';
 //import FoodDropdown from './FoodDropdown/FoodDropdown';
-import Dropdown from './Dropdown/Dropdown';
+//import Dropdown from './Dropdown/Dropdown';
 import './siteNav.css';
 
 class SiteNav extends Component {
