@@ -62,7 +62,6 @@
     "react-dom": "^16.7.0",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.6.3",
-    "react-menu-aim": "^2.0.0",
     "react-redux": "^5.1.1",
     "react-refetch": "^1.0.4",
     "react-router-breadcrumbs-hoc": "^2.3.1",
