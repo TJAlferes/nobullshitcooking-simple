@@ -17,8 +17,9 @@
 /* mobile */
 @media (max-width: 599px) {
   #planner_page {
-    width: 100%;
     min-width: 300px;
+    width: 320px;
+    max-width: 100%;
   }
 
   .mobile_display {

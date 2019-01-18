@@ -4,3 +4,12 @@
   grid-template-areas: none;
   min-height: 100vh;
 }
+
+
+
+/* mobile */
+@media (max-width: 599px) {
+  #app {
+    grid-template-rows: 92px auto 237px;
+  }
+}

@@ -97,8 +97,10 @@
 @media (max-width: 599px) {
   .header_red {
     min-width: 300px;
+    width: 320px;
     max-width: 100%;
     height: 92px;
+
   }
 
   #header_row_1 {
@@ -112,12 +114,30 @@
 
   #header_row_1_col_1 {
     display: flex;
+    min-width: 300px;
+    width: 320px;
+    max-width: 100%;
+  }
+
+  #header_row_1_col_2 {
+    min-width: 300px;
+    padding: 0;
   }
 
   #header_row_1_col_3,
   #header_row_2_col_2,
   #header_row_2_col_3 {
     display: none;
+  }
+
+  #header_row_2 {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  #header_row_2_col_1 {
+    min-width: 300px;
   }
 
   #mobile_menu_icon {

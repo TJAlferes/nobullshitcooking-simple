@@ -6,15 +6,15 @@
   font-family: 'Arial', sans-serif;
 }
 
-ul {
+.footer_gray ul {
   display: table;
   margin: 35px auto 0 auto;
   list-style-type: none;
 }
 
-li {
+.footer_gray li {
   display: inline;
-  margin: 2px 10px 2px 10px;
+  margin: 2px 10px;
 }
 
 .footer_gray p {
@@ -25,15 +25,32 @@ li {
   font-size: 11px;
 }
 
-.styled_nav_link {
+.footer_gray .styled_nav_link {
   text-decoration: none;
   font-size: 12px;
   color: #68abe6;
 }
 
+
+
 /* mobile */
 @media (max-width: 599px) {
   .footer_gray {
     min-width: 300px;
+    width: 320px;
+    max-width: 100%;
+    min-height: fit-content;
+    background-color: #444;
+  }
+
+  .footer_gray ul {
+    display: block;
+    margin: 0 auto;
+    padding-left: 10px;
+  }
+
+  .footer_gray li {
+    display: block;
+    margin: 20px 2px;
   }
 }
