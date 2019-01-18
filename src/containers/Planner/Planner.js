@@ -46,7 +46,7 @@ class Planner extends Component {
           getUser={this.props.getUser}
         />
 
-        <article className="desktop_display">
+        <article>
           <h1>Planner</h1>
           <p id="autosave_feedback">
             {/*isSaving ? 'Saving changes...' : 'All changes saved.'*/}

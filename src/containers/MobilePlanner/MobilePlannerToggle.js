@@ -37,12 +37,12 @@ class MobilePlannerToggle extends Component {
     : false;
 
     return (
-      <button
-        className="mobile_planner_toggle"
-        onClick={this.activateModal}
-      >
+      <div className="mobile_display">
+        <button className="mobile_planner_toggle" onClick={this.activateModal}>
+          Open Planner
+        </button>
         {modal}
-      </button>
+      </div>
     );
   }
 }

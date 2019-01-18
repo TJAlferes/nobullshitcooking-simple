@@ -1,8 +1,10 @@
 #planner_page {
   width: 1200px;
+  min-height: fit-content;
 }
 
 .mobile_display {
+  /* ??? */
   display: none;
 }
 

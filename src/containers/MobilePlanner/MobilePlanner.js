@@ -39,14 +39,14 @@ class MobilePlanner extends Component {
   render() {
     const { recipeLists, expanded, expandedDay } = this.state;
     return (
-      <article className="mobile_planner">
+      <article id="mobile_planner">
         <h1>Planner</h1>
-        <p id="autosave_feedback">
+        <p id="mobile_autosave_feedback">
           {/*isSaving ? 'Saving changes...' : 'All changes saved.'*/}
         </p>
         <hr />
-        <div id="calendar_container">
-          <div id="monthly_plan">
+        <div id="mobile_calendar_container">
+          <div id="mobile_monthly_plan">
             <table ref={this.tableRef}>
               <thead>
                 <tr>
