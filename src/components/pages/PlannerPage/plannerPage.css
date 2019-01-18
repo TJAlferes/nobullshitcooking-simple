@@ -1,0 +1,29 @@
+#planner_page {
+  width: 1200px;
+}
+
+.mobile_display {
+  display: none;
+}
+
+.desktop_display {
+  display: block;
+}
+
+
+
+/* mobile */
+@media (max-width: 599px) {
+  #planner_page {
+    width: 100%;
+    min-width: 300px;
+  }
+
+  .mobile_display {
+    display: block;
+  }
+  
+  .desktop_display {
+    display: none;
+  }
+}

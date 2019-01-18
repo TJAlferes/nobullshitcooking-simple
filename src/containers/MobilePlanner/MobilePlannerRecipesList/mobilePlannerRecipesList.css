@@ -1,0 +1,14 @@
+#mobile_planner_recipes_list {
+  width: 300px;
+  height: 125px;
+  margin-top: 12px;
+  border: 1px solid #bfbfbf;
+  padding: 6px;
+}
+
+/* move? */
+#mobile_planner_recipes_list #mobile_planner_recipe {
+  width: 50px;
+  max-width: 50px;
+  height: 100px;
+}
