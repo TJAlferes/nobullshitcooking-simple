@@ -7,3 +7,29 @@
 .logo_area #logo_link #logo_img {
   display: block;
 }
+
+.logo_area #mobile_logo_link #mobile_logo_img {
+  display: none;
+}
+
+
+
+/* mobile */
+@media (max-width: 599px) {
+  .logo_area {
+    display: block;
+  }
+  
+  .logo_area #logo_link {
+    width: 70px;
+  }
+  
+  .logo_area #logo_link #logo_img {
+    display: none;
+  }
+
+  .logo_area #mobile_logo_link #mobile_logo_img {
+    display: block;
+    margin-top: 2px;
+  }
+}

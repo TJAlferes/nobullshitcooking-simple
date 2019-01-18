@@ -30,3 +30,10 @@ li {
   font-size: 12px;
   color: #68abe6;
 }
+
+/* mobile */
+@media (max-width: 599px) {
+  .footer_gray {
+    min-width: 300px;
+  }
+}

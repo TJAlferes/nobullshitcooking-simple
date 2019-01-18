@@ -14,3 +14,25 @@
   box-shadow: 1px 1px 1px #999;
   cursor: move;
 }
+
+
+
+/* mobile */
+@media (max-width: 599px) {
+
+}
+
+/* tablet (portrait) */
+@media (min-width: 600px) {
+
+}
+
+/* tablet (landscape)*/
+@media (min-width: 900px) {
+
+}
+
+/* desktop */
+@media (min-width: 1200px) {
+
+}

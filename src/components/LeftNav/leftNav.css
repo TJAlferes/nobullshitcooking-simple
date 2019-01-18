@@ -28,8 +28,18 @@ hr {
   text-decoration: none;
   color: #000;
 }
+
 .left_nav .styled_nav_link:hover {
   background-color: #ddd;
   cursor: pointer;
   cursor: hand;
+}
+
+
+
+/* mobile */
+@media (max-width: 599px) {
+  .left_nav {
+    display: none;
+  }
 }

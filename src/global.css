@@ -34,3 +34,33 @@ a {font-size: 1.3rem;}
 span {font-size: 1.3rem;}
 li {font-size: 1.3rem;}
 th, td {font-size: 1.3rem;}
+
+
+
+/* mobile */
+@media (max-width: 599px) {
+  html,
+  body {
+    min-width: 300px;
+  }
+
+  h1 {font-size: 2rem;}
+  h2 {font-size: 1.7rem;}
+  h3 {font-size: 1.5rem;}
+  h4 {font-size: 1.4rem;}
+}
+
+/* tablet (portrait) */
+@media (min-width: 600px) {
+
+}
+
+/* tablet (landscape)*/
+@media (min-width: 900px) {
+
+}
+
+/* desktop */
+@media (min-width: 1200px) {
+
+}

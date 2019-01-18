@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import HTML5Backend from 'react-dnd-html5-backend';
+//import HTML5Backend from 'react-dnd-html5-backend';
+import MultiBackend from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 import { DragDropContextProvider } from 'react-dnd';
 //import { Auth } from 'aws-amplify';
 
@@ -9,6 +11,8 @@ import MainWhite from './components/MainWhite/MainWhite';
 import FooterGray from './components/FooterGray/FooterGray';
 import RoutesList from './routing/Routes';
 import './app.css';
+
+const dragAndDropBackend = MultiBackend(HTML5toTouch);
 
 // OAuth 2.0 Google
 /*
@@ -138,7 +142,7 @@ class App extends Component {
     }
 
     return (
-      <DragDropContextProvider backend={HTML5Backend}>
+      <DragDropContextProvider backend={dragAndDropBackend}>
         {layout}
       </DragDropContextProvider>
     );
