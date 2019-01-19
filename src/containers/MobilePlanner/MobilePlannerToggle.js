@@ -26,11 +26,16 @@ class MobilePlannerToggle extends Component {
     let modal = this.state.modalActive
     ? (
       <AriaModal
-          titleText="Planner"
-          onExit={this.deactivateModal}
-          getApplicationNode={this.getApplicationNode}
-          underlayStyle={{paddingTop: '2em'}}
+        id="planner_modal"
+        titleText="Planner"
+        onExit={this.deactivateModal}
+        focusDialog="true"
+        getApplicationNode={this.getApplicationNode}
+        focusTrapOptions={{returnFocusOnDeactivate: false}}
       >
+        <button id="close_planner" onClick={this.deactivateModal}>
+          Close Planner
+        </button>
         <MobilePlanner />
       </AriaModal>
     )

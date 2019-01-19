@@ -13,13 +13,17 @@ const MobileSiteNav = props => {
   return (
     <div className="mobile_site_nav">
       <li>
-        <NavLink className="styled_nav_link" to="/food">Food</NavLink>
+        <NavLink className="styled_nav_link mobile_text" to="/food">
+          Food
+        </NavLink>
       </li>
       <li>
-        <NavLink className="styled_nav_link" to="/fitness">Fitness</NavLink>
+        <NavLink className="styled_nav_link mobile_text" to="/fitness">
+          Fitness
+        </NavLink>
       </li>
       <li>
-        <NavLink className="styled_nav_link" to="/store/storefront">
+        <NavLink className="styled_nav_link mobile_text" to="/store/storefront">
           Supply
         </NavLink>
       </li>

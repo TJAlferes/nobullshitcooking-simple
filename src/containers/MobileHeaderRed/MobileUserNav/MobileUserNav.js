@@ -18,7 +18,7 @@ class MobileUserNav extends Component {
           !isAuthenticated
           ? (
             <li>
-              <NavLink className="styled_nav_link" to="/user/login">
+              <NavLink className="styled_nav_link mobile_text" to="/user/login">
                 Sign In
               </NavLink>
             </li>
@@ -26,12 +26,12 @@ class MobileUserNav extends Component {
           : (
             <Fragment>
               <li>
-                <span className="signed_in_nav_span">
+                <span className="signed_in_nav_span mobile_text">
                   {`Hello, ${userEmail}`}
                 </span>
               </li>
               <li>
-                <span className="signed_in_nav_span" onClick={handleLogout}>
+                <span className="signed_in_nav_span mobile_text" onClick={handleLogout}>
                   Sign Out
                 </span>
               </li>

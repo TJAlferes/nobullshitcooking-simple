@@ -26,3 +26,7 @@
 .mobile_site_nav li .styled_nav_link:hover {
   text-decoration: underline;
 }
+
+.mobile_text {
+  padding-top: 3px;
+}

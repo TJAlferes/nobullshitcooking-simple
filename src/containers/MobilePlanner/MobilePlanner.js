@@ -40,10 +40,12 @@ class MobilePlanner extends Component {
     const { recipeLists, expanded, expandedDay } = this.state;
     return (
       <article id="mobile_planner">
-        <h1>Planner</h1>
-        <p id="mobile_autosave_feedback">
-          {/*isSaving ? 'Saving changes...' : 'All changes saved.'*/}
-        </p>
+        <div id="mobile_planner_header">
+          <h1>Planner</h1>
+          <p id="mobile_autosave_feedback">
+            {/*isSaving ? 'Saving changes...' : 'All changes saved.'*/}
+          </p>
+        </div>
         <hr />
         <div id="mobile_calendar_container">
           <div id="mobile_monthly_plan">

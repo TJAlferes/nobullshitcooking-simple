@@ -43,3 +43,7 @@
 .signed_in_nav_span:active {
   cursor: pointer;
 }
+
+.mobile_text {
+  padding-top: 3px;
+}
