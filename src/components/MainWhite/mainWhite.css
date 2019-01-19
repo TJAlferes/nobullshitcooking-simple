@@ -10,7 +10,6 @@
 @media (max-width: 599px) {
   .main_white {
     min-width: 300px;
-    width: 320px;
     max-width: 100%;
   }
 }

@@ -18,6 +18,8 @@ class SiteNav extends Component {
     //const { isAuthenticated } = props;
   }
 
+  // TO DO: separate out dropdown, disable on mobile/tablets
+
   // be sure this is called only once!
   handleMouseOver = dropdown => {
     const { expandedDropdown } = this.state;

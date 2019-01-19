@@ -18,7 +18,6 @@
 @media (max-width: 599px) {
   #planner_page {
     min-width: 300px;
-    width: 320px;
     max-width: 100%;
   }
 

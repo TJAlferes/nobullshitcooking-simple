@@ -1,0 +1,122 @@
+/*
+#search_auto_suggestions {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 175px;
+  z-index: 4;
+  background: white;
+  padding: 5px;
+  border-top: 1px solid black;
+}
+
+#search_auto_suggestions_shadow {
+  position: absolute;
+  top: 92px;
+  left: 0;
+  display: none;
+  width: 0px;
+  height: 0px;
+  z-index: 2;
+  box-shadow: 0 0 0 2000px rgba(0, 0, 0, .5);
+}
+
+.search_suggestion_row {
+  display: block;
+  width: inherit;
+  padding: 8px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.search_suggestion_row:hover {
+  background: #ddd;
+}
+
+.search_suggestion_row a {
+  width: inherit;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: black;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.search_suggestion_row mark {
+  background-color: inherit;
+  font-weight: 100;
+}
+*/
+
+/*#search_execute_input:hover {
+  background-image: linear-gradient(to bottom, #98c6f1, #509fe4);
+}*/
+
+#mobile_search_form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-width: 320px;
+  max-width: 100%;
+  height: 28px;
+  max-height: 28px;
+  margin: 0 auto;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  border-top-color: #777;
+  border-right-color: #aaa;
+  border-bottom-color: #aaa;
+  border-left-color: #777;
+  padding: 0;
+}
+
+#mobile_search_insert {
+  position: relative;
+  order: 1;
+  flex: 1;
+  width: 100%;
+  height: 26px;
+}
+
+#mobile_search_insert_input {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 3px 10px 3px 0;
+  height: 26px;
+  -webkit-appearance: none;
+  box-shadow: none;
+  text-indent: 5px;
+}
+
+#mobile_search_execute {
+  order: 2;
+  height: 26px;
+}
+
+#mobile_search_execute_input {
+  width: auto;
+  max-width: 100%;
+  height: 26px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  border-top-color: #ddd;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #ddd;
+  background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
+  line-height: 21px;
+  font-family: Arial, sans-serif;
+  font-size: 1.3rem;
+  color: #333;
+  cursor: pointer;
+}

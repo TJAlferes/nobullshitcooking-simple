@@ -6,6 +6,7 @@ import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 import { DragDropContextProvider } from 'react-dnd';
 //import { Auth } from 'aws-amplify';
 
+import MobileHeaderRed from './containers/MobileHeaderRed/MobileHeaderRed';
 import HeaderRed from './containers/HeaderRed/HeaderRed';
 import MainWhite from './components/MainWhite/MainWhite';
 import FooterGray from './components/FooterGray/FooterGray';
@@ -134,7 +135,10 @@ class App extends Component {
       // <HeaderRed childProps={childProps} />
       layout = (
         <div id="app" {...this.props}>
-          <HeaderRed />
+          <div>
+            <div className="mobile_display"><MobileHeaderRed /></div>
+            <div className="desktop_display"><HeaderRed /></div>
+          </div>
           <MainWhite location={location}>{routes}</MainWhite>
           <FooterGray />
         </div>

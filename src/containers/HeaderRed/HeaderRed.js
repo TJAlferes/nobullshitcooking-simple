@@ -12,11 +12,6 @@ const HeaderRed = props => (
 
     <div id="header_row_1">
       <div id="header_row_1_col_1">
-        <div id="mobile_menu_icon">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
         <Logo />
       </div>
       <div id="header_row_1_col_2">

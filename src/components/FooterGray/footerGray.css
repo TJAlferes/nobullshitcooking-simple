@@ -37,9 +37,8 @@
 @media (max-width: 599px) {
   .footer_gray {
     min-width: 300px;
-    width: 320px;
     max-width: 100%;
-    min-height: fit-content;
+    min-height: 237px;
     background-color: #444;
   }
 

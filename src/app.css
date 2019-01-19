@@ -5,11 +5,27 @@
   min-height: 100vh;
 }
 
+.mobile_display {
+  display: none;
+}
+
+.desktop_display {
+  display: block;
+}
+
 
 
 /* mobile */
 @media (max-width: 599px) {
   #app {
     grid-template-rows: 92px auto 237px;
+  }
+
+  .mobile_display {
+    display: block;
+  }
+
+  .desktop_display {
+    display: none;
   }
 }
