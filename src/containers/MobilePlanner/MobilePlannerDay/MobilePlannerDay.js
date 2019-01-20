@@ -31,25 +31,34 @@ class MobilePlannerDay extends Component {
     this.setSelfRef = element => {
       this.day = element;
     };
-    this.state = {recipes: props.list, shiftX: 0, shiftY: 0};
+    //this.state = {recipes: props.list, shiftX: 0, shiftY: 0};
+    this.state = {recipes: props.list};
   }
   
-  componentDidUpdate() {
+  /*componentDidUpdate() {
     // hooks now? and fix movement error
     // ********* JUST USE PORTALS INSTEAD??? **********
-    // (would need to copy data / state over though)
-    const dayClicked = this.day.getBoundingClientRect();
-    const topCoords = dayClicked.top + pageYOffset;
-    const leftCoords = dayClicked.left + pageXOffset;
+    // (would need to copy data / state over though) (and be sure of no memory leaks(?))
     const { tRef } = this.props;
+    const dayClicked = this.day.getBoundingClientRect();
     const tablePos = findDOMNode(tRef.current).getBoundingClientRect();
-    const moveY = (tablePos.top + pageYOffset) - topCoords;  // change for mobile, to now go beneath table instead of to the right
-    const moveX = (tablePos.right + pageXOffset + 10) - leftCoords;  // change for mobile, to now go beneath table instead of to the right
+
+    const moveY = tablePos.top - dayClicked.top;  // change for mobile, to now go beneath table instead of to the right
+    const moveX = (tablePos.right + 10) - dayClicked.left;  // change for mobile, to now go beneath table instead of to the right
+
+    console.log("===== update =====");
+    console.log(tablePos.top);
+    console.log(dayClicked.top);
+    console.log(tablePos.right + 10);
+    console.log(dayClicked.left);
+    console.log(moveY);
+    console.log(moveX);
+
     // without this conditional, setState would be called endlessly
     const { shiftX, shiftY } = this.state;
     if ((shiftX !== 0) || (shiftY !== 0)) return;  // issue is here I think... but maybe not... remember, it wasn't doing this before...
     this.setState({shiftX: moveX, shiftY: moveY});
-  }
+  }*/
   
   handleClick = async (e) => {
     const { day, expanded, expandedDay, onDayClick } = this.props;
@@ -81,16 +90,17 @@ class MobilePlannerDay extends Component {
   }
 
   render() {
-    const { recipes, shiftX, shiftY } = this.state;
+    //const { recipes, shiftX, shiftY } = this.state;
+    const { recipes } = this.state;
     const { expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
 
     let size = (expanded && (day === expandedDay)) ? "mobile_planner_day_expanded" : "mobile_planner_day_collapsed";
-    let location = {"--shiftX": `${shiftX}px`, "--shiftY": `${shiftY}px`};
+    //let location = {"--shiftX": `${shiftX}px`, "--shiftY": `${shiftY}px`};
     let color = (isOver && canDrop) ? "mobile_planner_day_green" : "mobile_planner_day_white";
     
     return connectDropTarget(
       <div
-        style={location}
+        style={{/*location*/}}
         className={`${size} ${color}`}
         ref={this.setSelfRef}
         onClick={this.handleClick}

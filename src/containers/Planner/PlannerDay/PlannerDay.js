@@ -38,12 +38,25 @@ class PlannerDay extends Component {
     // ********* JUST USE PORTALS INSTEAD??? **********
     // (would need to copy data / state over though)
     const dayClicked = this.day.getBoundingClientRect();
-    const topCoords = dayClicked.top + pageYOffset;
-    const leftCoords = dayClicked.left + pageXOffset;
+    //const topCoords = dayClicked.top + pageYOffset;
+    //const leftCoords = dayClicked.left + pageXOffset;
+    const topCoords = dayClicked.top;
+    const leftCoords = dayClicked.left;
     const { tRef } = this.props;
     const tablePos = findDOMNode(tRef.current).getBoundingClientRect();
-    const moveY = (tablePos.top + pageYOffset) - topCoords;
-    const moveX = (tablePos.right + pageXOffset + 10) - leftCoords;
+    //const moveY = (tablePos.top + pageYOffset) - topCoords;
+    //const moveX = (tablePos.right + pageXOffset + 10) - leftCoords;
+    const moveY = (tablePos.top) - topCoords;
+    const moveX = (tablePos.right + 10) - leftCoords;
+
+    console.log("===== update =====");
+    console.log(tablePos.top);
+    console.log(dayClicked.top);
+    console.log(tablePos.right + 10);
+    console.log(dayClicked.left);
+    console.log(moveY);
+    console.log(moveX);
+
     // without this conditional, setState would be called endlessly
     const { shiftX, shiftY } = this.state;
     if ((shiftX !== 0) || (shiftY !== 0)) return;  // issue is here I think... but maybe not... remember, it wasn't doing this before...

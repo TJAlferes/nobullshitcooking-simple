@@ -174,11 +174,12 @@
   transform: none;
 }
 
+/* @@@@@@@@@@@ CHANGE ME @@@@@@@@@@@ */
 .mobile_planner_day_expanded {
   position: absolute;
   width: 150px;
-  height: 450px;
-  max-height: 460px;
+  height: 180px;
+  max-height: 180px;
   padding-top: 18px;
   padding-left: 6px;
   background: #fff;
@@ -187,6 +188,22 @@
   cursor: hand;
   cursor: pointer;
   box-shadow: 1px 1px 1px #555;
-  z-index: 3;
-  transform: translateX(var(--shiftX)) translateY(var(--shiftY));
+  z-index: 1055;
+  /*transform: translateX(var(--shiftX)) translateY(var(--shiftY));*/
+}
+
+#mobile_work_area {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+#mobile_expanded_day_area {
+  min-width: 100px;
+  max-width: 30%;
+  height: 180px;
+  margin-top: 12px;
+  border: 1px solid #bfbfbf;
+  padding: 6px;
 }
