@@ -154,7 +154,7 @@
   color: #bfbfbf;
 }
 
-.mobile_planner_day_collapsed {
+.mobile_planner_day {
   position: relative;
   /*min-width: 40px;
   min-height: 32px;
@@ -190,6 +190,14 @@
   box-shadow: 1px 1px 1px #555;
   z-index: 1055;
   /*transform: translateX(var(--shiftX)) translateY(var(--shiftY));*/
+}
+
+.mobile_planner_day_green {
+  background: #d6ffd6;
+}
+
+.mobile_planner_day_white {
+  background: #fff;
 }
 
 #mobile_work_area {

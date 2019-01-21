@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-//import { createPortal } from 'react-dom';
-import AriaModal from 'react-aria-modal';
+import { createPortal } from 'react-dom';
+//import AriaModal from 'react-aria-modal';
 
+//const 
 class MobileDayToggle extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {modalActive: false};
+    //this.state = {modalActive: false};
+    //this.el = document.createElement('div')
   }
 
-  activateModal = () => {
+  /*activateModal = () => {
     this.setState({ modalActive: true });
   };
 
@@ -17,14 +19,14 @@ class MobileDayToggle extends React.Component {
   };
 
   getApplicationNode = () => {
-    return document.getElementById('application');
-  };
+    return document.getElementById('root');
+  };*/
 
   render() {
     // perhaps just use a plain portal instead
-    const RenderLocation = AriaModal.renderTo('#mobile_expanded_day_area');
+    //const RenderLocation = AriaModal.renderTo('#mobile_expanded_day_area');
     //const RenderLocation = createPortal(c)
-    const modal = this.state.modalActive
+    /*const modal = this.state.modalActive
     ? (
       <RenderLocation
         id="the_expanded_day"
@@ -37,14 +39,18 @@ class MobileDayToggle extends React.Component {
         {this.props.children}
       </RenderLocation>
     )
-    : false;
-    return (
-      <div
+    : false;*/
+    /*<div
         className="content"
         onClick={this.activateModal}
       >
         {modal}
-      </div>
+      </div>*/
+    return (
+      createPortal(
+        this.props.children,
+        document.getElementById('mobile_expanded_day_area')
+      )
     );
   }
 }
