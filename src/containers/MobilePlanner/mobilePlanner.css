@@ -174,6 +174,26 @@
   transform: none;
 }
 
+.mobile_planner_expanded_day {
+  position: relative;
+  /*min-width: 40px;
+  min-height: 32px;
+  max-height: 100%;*/
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  /*padding-top: 18px;
+  padding-left: 3px;*/
+  padding-top: 26px;
+  padding-left: 13px;
+  background: #fff;
+  overflow: hidden;
+  cursor: hand;
+  cursor: pointer;
+  transform: none;
+}
+
 /* @@@@@@@@@@@ CHANGE ME @@@@@@@@@@@ */
 .mobile_planner_day_expanded {
   position: absolute;
@@ -208,6 +228,7 @@
 }
 
 #mobile_expanded_day_area {
+  position: relative;
   min-width: 100px;
   max-width: 30%;
   height: 180px;

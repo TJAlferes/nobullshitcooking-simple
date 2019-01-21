@@ -69,7 +69,7 @@ class MobilePlannerExpandedDay extends Component {
     return expanded
     ? connectDropTarget(
       <div
-        className={`${color}`}
+        className={`mobile_planner_expanded_day ${color}`}
         ref={this.setSelfRef}
         onClick={this.handleClick}
       >
