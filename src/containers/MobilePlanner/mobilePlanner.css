@@ -46,15 +46,6 @@
   background: #b1d7f9;
 }
 
-#mobile_monthly_plan #table {
-  /*min-height: 170px;*/
-  /*max-height: 180px;*/
-  /*border-collapse: collapse;*/
-  /*table-layout: fixed;*/
-  display: grid;
-
-}
-
 /*#mobile_monthly_plan tr {
   position: relative;
   min-width: 100%;
@@ -183,15 +174,14 @@
   min-height: 100%;
   max-height: 100%;
   max-width: 100%;
+  border: 1px solid #bfbfbf;
   /*padding-top: 18px;
   padding-left: 3px;*/
   padding-top: 26px;
   padding-left: 13px;
   background: #fff;
+  box-shadow: 1px 1px 1px #555;
   overflow: hidden;
-  cursor: hand;
-  cursor: pointer;
-  transform: none;
 }
 
 /* @@@@@@@@@@@ CHANGE ME @@@@@@@@@@@ */
@@ -221,18 +211,19 @@
 }
 
 #mobile_work_area {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  /*flex-direction: row;
+  flex-wrap: nowrap;*/
 }
 
 #mobile_expanded_day_area {
   position: relative;
-  min-width: 100px;
-  max-width: 30%;
+  /*min-width: 35%;
+  max-width: 35%;*/
   height: 180px;
   margin-top: 12px;
-  border: 1px solid #bfbfbf;
-  padding: 6px;
+  margin-left: 10px;
+  border: 1px solid #fff;
 }

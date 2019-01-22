@@ -47,66 +47,88 @@ class MobilePlannerDay extends Component {
     const moveX = (tablePos.right + 10) - dayClicked.left;  // change for mobile, to now go beneath table instead of to the right
 
     // Another reason to abdandon this client rectangle measurement tactic is phone tilt to/from portrait/landscape ?
-    console.log("===== update =====");
-    console.log(tablePos.top);
-    console.log(dayClicked.top);
-    console.log(tablePos.right + 10);
-    console.log(dayClicked.left);
-    console.log(moveY);
-    console.log(moveX);
+    //console.log("===== update =====");
+    //console.log(tablePos.top);
+    //console.log(dayClicked.top);
+    //console.log(tablePos.right + 10);
+    //console.log(dayClicked.left);
+    //console.log(moveY);
+    //console.log(moveX);
 
     // without this conditional, setState would be called endlessly
     const { shiftX, shiftY } = this.state;
     if ((shiftX !== 0) || (shiftY !== 0)) return;  // issue is here I think... but maybe not... remember, it wasn't doing this before...
     this.setState({shiftX: moveX, shiftY: moveY});
   }*/
+
+  /*componentDidUpdate() {
+    const { list } = this.props;
+    this.setState({recipes: list});
+  }*/
   
   handleClick = async (e) => {
-    const { day, expanded, expandedDay, onDayClick } = this.props;
+    const { day, onDayClick } = this.props;
     e.preventDefault(); // stoppropagation or none?
     await onDayClick(day);
   }
   
-  pushRecipe = recipe => {
-    this.setState(update(this.state, {
+  pushRecipe = async (recipe) => {
+    const { day, onPushRecipe } = this.props;
+    await onPushRecipe(day, recipe);
+    //console.log(`${day} ${this.state.recipes}`);
+    // ^ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ update the parent state
+    /*this.setState(update(this.state, {
       recipes: {$push: [recipe]}
-    }));
+    }));*/
+    //const { list } = this.props;
+    //this.setState({recipes: list});
+    //console.log(`${day}` + this.state.recipes);
   }
 
-  removeRecipe = index => {
-    this.setState(update(this.state, {
+  removeRecipe = async (index) => {
+    const { day, onRemoveRecipe } = this.props;
+    await onRemoveRecipe(day, index);
+    // ^ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ update the parent state
+    /*this.setState(update(this.state, {
       recipes: {$splice: [[index, 1]]}
-    }));
+    }));*/
+    //const { list } = this.props;
+    //this.setState({recipes: list});
   }
 
+  /*
   moveRecipe = (dragIndex, hoverIndex) => {
-    const { recipes } = this.state;
-    const { day, expandedDay } = this.props;
+    const { recipes } = this.state; // !!!!!!! or list from props?
+    const { day, expandedDay, onReorderRecipe } = this.props;
     const dragRecipe = recipes[dragIndex];
     // only allow reordering/moving of recipes within currently expanded day
     if (day !== expandedDay) return;
+    await onReorderRecipe(day, dragIndex, hoverIndex, dragRecipe);
+    // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ update the parent state
     this.setState(update(this.state, {
       recipes: {$splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]}
     }));
   }
+  */
 
   render() {
     //const { recipes, shiftX, shiftY } = this.state;
-    const { recipes } = this.state;
-    const { expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
+    //const { recipes } = this.state;
+    const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
 
     //let size = (expanded && (day === expandedDay)) ? "mobile_planner_day_expanded" : "mobile_planner_day_collapsed";
     //let location = {"--shiftX": `${shiftX}px`, "--shiftY": `${shiftY}px`};
     let color = (isOver && canDrop) ? "mobile_planner_day_green" : "mobile_planner_day_white";
     
-    return connectDropTarget(
+    return (!expanded || (day !== expandedDay))
+    ? connectDropTarget(
       <div
         className={`mobile_planner_day ${color}`}
         ref={this.setSelfRef}
         onClick={this.handleClick}
       >
         <span className="mobile_the_date">{day}</span>
-        {recipes.map((recipe, i) => (
+        {list.map((recipe, i) => (
           <MobilePlannerRecipe
             key={recipe.id}
             index={i}
@@ -121,7 +143,8 @@ class MobilePlannerDay extends Component {
           />
         ))}
       </div>
-    );
+    )
+    : false;
   }
 }
 

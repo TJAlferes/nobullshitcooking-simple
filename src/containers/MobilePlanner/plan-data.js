@@ -1,7 +1,7 @@
 export default [
   {
     day: 1,
-    list: []
+    list: [{id: 3, text: "Steak Asparagus and Sweet Potato"}]
   },
   {
     day: 2,

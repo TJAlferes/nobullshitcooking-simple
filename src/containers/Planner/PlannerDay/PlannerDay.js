@@ -49,13 +49,13 @@ class PlannerDay extends Component {
     const moveY = (tablePos.top) - topCoords;
     const moveX = (tablePos.right + 10) - leftCoords;
 
-    console.log("===== update =====");
+    /*console.log("===== update =====");
     console.log(tablePos.top);
     console.log(dayClicked.top);
     console.log(tablePos.right + 10);
     console.log(dayClicked.left);
     console.log(moveY);
-    console.log(moveX);
+    console.log(moveX);*/
 
     // without this conditional, setState would be called endlessly
     const { shiftX, shiftY } = this.state;

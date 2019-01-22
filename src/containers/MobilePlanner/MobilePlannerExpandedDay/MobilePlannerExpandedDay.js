@@ -32,11 +32,13 @@ class MobilePlannerExpandedDay extends Component {
 
   // send child back to its usual div
   handleClick = async (e) => {
-    const { day, expanded, expandedDay, onDayClick } = this.props;
+    const { day, onDayClick } = this.props;
     e.preventDefault(); // stoppropagation or none?
     await onDayClick(day);
+    //this.setState({recipes: []});
   }
   
+  /*
   pushRecipe = recipe => {
     this.setState(update(this.state, {
       recipes: {$push: [recipe]}
@@ -59,10 +61,47 @@ class MobilePlannerExpandedDay extends Component {
       recipes: {$splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]}
     }));
   }
+  */
+
+  pushRecipe = async (recipe) => {
+    const { day, onPushRecipe } = this.props;
+    await onPushRecipe(day, recipe);
+    // ^ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ update the parent state
+    /*this.setState(update(this.state, {
+      recipes: {$push: [recipe]}
+    }));*/
+    //const { list } = this.props;
+    //this.setState({recipes: list});
+  }
+
+  removeRecipe = async (index) => {
+    const { day, onRemoveRecipe } = this.props;
+    await onRemoveRecipe(day, index);
+    // ^ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ update the parent state
+    /*this.setState(update(this.state, {
+      recipes: {$splice: [[index, 1]]}
+    }));*/
+    //const { list } = this.props;
+    //this.setState({recipes: list});
+  }
+
+  moveRecipe = async (dragIndex, hoverIndex) => {
+    const { recipes } = this.state; // !!!!!!! or list from props?
+    const { day, expandedDay, onReorderRecipe } = this.props;
+    const dragRecipe = recipes[dragIndex];
+    // only allow reordering/moving of recipes within currently expanded day
+    if (day !== expandedDay) return;
+    await onReorderRecipe(day, dragIndex, hoverIndex, dragRecipe);
+    // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ update the parent state
+    /*this.setState(update(this.state, {
+      recipes: {$splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]}
+    }));*/
+  }
+
 
   render() {
-    const { recipes } = this.state;
-    const { expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
+    //const { recipes } = this.state;
+    const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
 
     let color = (isOver && canDrop) ? "mobile_planner_day_green" : "mobile_planner_day_white";
 
@@ -74,7 +113,7 @@ class MobilePlannerExpandedDay extends Component {
         onClick={this.handleClick}
       >
         <span className="mobile_the_date">{day}</span>
-        {recipes.map((recipe, i) => (
+        {list.map((recipe, i) => (
           <MobilePlannerRecipe
             key={recipe.id}
             index={i}
