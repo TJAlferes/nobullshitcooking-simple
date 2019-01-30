@@ -28,6 +28,49 @@ class Planner extends Component {
     }
   }
 
+  /*
+  In the 3 methods below, we're not using standard JavaScript syntax
+  We're using a syntax provided by the 'immutability-helper' npm package
+
+  move to redux? for undo at least?
+  */
+
+ handlePushRecipe = (day, recipe) => {
+  this.setState(update(this.state, {
+    recipeLists: {
+      [day - 1]: {
+        list: {
+          $push: [recipe]
+        }
+      }
+    }
+  }));
+}
+
+handleRemoveRecipe = (day, index) => {
+  this.setState(update(this.state, {
+    recipeLists: {
+      [day - 1]: {
+        list: {
+          $splice: [[index, 1]]
+        }
+      }
+    }
+  }));
+}
+
+handleReorderRecipe = (day, dragIndex, hoverIndex, dragRecipe) => {
+  this.setState(update(this.state, {
+    recipeLists: {
+      [day - 1]: {
+        list: {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]
+        }
+      }
+    }
+  }));
+}
+
   handleSave = async () => {  // put in componentDidUpdate? throttle every 5 seconds
     const { isSaving, recipeLists } = this.state;
     // fetch or axios PUT on the already created record
@@ -47,65 +90,68 @@ class Planner extends Component {
         />
 
         <article>
-          <h1>Planner</h1>
-          <p id="autosave_feedback">
-            {/*isSaving ? 'Saving changes...' : 'All changes saved.'*/}
-          </p>
+
+          <div id="planner_header">
+            <h1>Planner</h1>
+            <p id="autosave_feedback">
+              {/*isSaving ? 'Saving changes...' : 'All changes saved.'*/}
+            </p>
+          </div>
+
           <hr />
+
           <div id="calendar_container">
+
             <div id="monthly_plan">
-              <table ref={this.tableRef}>
-                <thead>
-                  <tr>
-                    <th>Sunday</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr id="week_1">
-                    <td><PlannerDay day="1" list={recipeLists[0].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="2" list={recipeLists[1].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="3" list={recipeLists[2].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="4" list={recipeLists[3].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="5" list={recipeLists[4].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="6" list={recipeLists[5].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="7" list={recipeLists[6].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                  </tr>
-                  <tr id="week_2">
-                    <td><PlannerDay day="8" list={recipeLists[7].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="9" list={recipeLists[8].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="10" list={recipeLists[9].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="11" list={recipeLists[10].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="12" list={recipeLists[11].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="13" list={recipeLists[12].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="14" list={recipeLists[13].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                  </tr>
-                  <tr id="week_3">
-                    <td><PlannerDay day="15" list={recipeLists[14].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="16" list={recipeLists[15].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="17" list={recipeLists[16].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="18" list={recipeLists[17].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="19" list={recipeLists[18].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="20" list={recipeLists[19].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="21" list={recipeLists[20].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                  </tr>
-                  <tr id="week_4">
-                    <td><PlannerDay day="22" list={recipeLists[21].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="23" list={recipeLists[22].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="24" list={recipeLists[23].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="25" list={recipeLists[24].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="26" list={recipeLists[25].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="27" list={recipeLists[26].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                    <td><PlannerDay day="28" list={recipeLists[27].list} tRef={this.tableRef} onDayClick={this.handleClick} expanded={expanded} expandedDay={expandedDay} /></td>
-                  </tr>
-                </tbody>
-              </table>
+
+              <div id="table">
+                <div id="thead">
+                  <span className="th">Sunday</span>
+                  <span className="th">Monday</span>
+                  <span className="th">Tuesday</span>
+                  <span className="th">Wednesday</span>
+                  <span className="th">Thursday</span>
+                  <span className="th">Friday</span>
+                  <span className="th">Saturday</span>
+                </div>
+                <div id="tbody">
+                  {/* 
+                  This may be the WRONG way to handle keys in React! find that lecture!
+                  okay, here it's fine, the issue in in the recipes
+                  */}
+                  {recipeLists.map((recipeList, i) => (
+                    <div key={i} className="td">
+                      <div className="content">
+                        <MobilePlannerDay
+                          day={recipeList.day}
+                          list={recipeList.list}
+                          onDayClick={this.handleClick}
+                          onPushRecipe={this.handlePushRecipe}
+                          onRemoveRecipe={this.handleRemoveRecipe}
+                          expanded={expanded}
+                          expandedDay={expandedDay}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div id="expanded_day_area">
+                <MobilePlannerExpandedDay
+                  day={expandedDay}
+                  list={(expanded) ? recipeLists[expandedDay - 1].list : []}
+                  onDayClick={this.handleClick}
+                  onPushRecipe={this.handlePushRecipe}
+                  onRemoveRecipe={this.handleRemoveRecipe}
+                  onReorderRecipe={this.handleReorderRecipe}
+                  expanded={expanded}
+                  expandedDay={expandedDay}
+                />
+              </div>
+
             </div>
+
             <PlannerRecipesList
               day="0"
               list={[
@@ -114,7 +160,9 @@ class Planner extends Component {
                 {id: 3, text: "Steak Asparagus and Sweet Potato"}
               ]}
             />
+
           </div>
+          
         </article>
 
       </div>

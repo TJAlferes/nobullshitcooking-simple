@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 
-import MobilePlannerRecipe from '../MobilePlannerRecipe/MobilePlannerRecipe';
+import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
@@ -22,14 +22,14 @@ function collect(connect, monitor) {
   };
 }
 
-class MobilePlannerExpandedDay extends Component {
+class PlannerExpandedDay extends Component {
   constructor(props) {
     super(props);
     /*this.day = null;
     this.setSelfRef = element => {
       this.day = element;
     };*/
-    this.state = {recipes: props.list};
+    this.state = {recipes: props.list};  // remove, use redux?
   }
 
   // send child back to its usual div
@@ -60,15 +60,15 @@ class MobilePlannerExpandedDay extends Component {
 
   render() {
     const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
-    let color = (isOver && canDrop) ? "mobile_planner_day_green" : "mobile_planner_day_white";
+    let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     return expanded
     ? connectDropTarget(
       <div
-        className={`mobile_planner_expanded_day ${color}`}
+        className={`planner_expanded_day ${color}`}
         ref={this.setSelfRef}
         onClick={this.handleClick}
       >
-        <span className="mobile_the_date">{day}</span>
+        <span className="the_date">{day}</span>
         {/*
         careful,
         there's both key and index here,
@@ -76,7 +76,7 @@ class MobilePlannerExpandedDay extends Component {
         instances of a recipe, so you need a dynamic instance id too
         */}
         {list.map((recipe, i) => (
-          <MobilePlannerRecipe
+          <PlannerRecipe
             key={recipe.id}
             index={i}
             listId={this.props.id}
@@ -86,7 +86,7 @@ class MobilePlannerExpandedDay extends Component {
             expanded={expanded}
             day={day}
             expandedDay={expandedDay}
-            className="mobile_planner_recipe"
+            className="planner_recipe"
           />
         ))}
       </div>
@@ -99,4 +99,4 @@ export default DropTarget(
   Types.PLANNER_RECIPE,
   plannerExpandedDayTarget,
   collect
-)(MobilePlannerExpandedDay);
+)(PlannerExpandedDay);

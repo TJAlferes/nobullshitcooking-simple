@@ -63,9 +63,11 @@ function collectDropTarget(connect) {
 
 const PlannerRecipe = props => {
   const { recipe, isDragging, connectDragSource, connectDropTarget } = props;
-  const opacity = isDragging ? 0 : 1;
+  //const borderColor = isDragging ? "#ffc3c3" : "#ffdec3";
+  //const backgroundColor = isDragging ? "#666" : "#fff3cc";
+  //const opacity = isDragging ? 0 : 1;
   return connectDragSource(connectDropTarget(
-    <div className="planner_recipe" style={{opacity}}>
+    <div className="planner_recipe">
       {recipe.text}
     </div>
   ));

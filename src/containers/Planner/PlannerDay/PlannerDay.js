@@ -108,6 +108,12 @@ class PlannerDay extends Component {
         onClick={this.handleClick}
       >
         <span className="the_date">{day}</span>
+        {/*
+        careful,
+        there's both key and index here,
+        and recipe.id can't be key because they should be able to have multiple
+        instances of a recipe, so you need a dynamic instance id too
+        */}
         {recipes.map((recipe, i) => (
           <PlannerRecipe
             key={recipe.id}

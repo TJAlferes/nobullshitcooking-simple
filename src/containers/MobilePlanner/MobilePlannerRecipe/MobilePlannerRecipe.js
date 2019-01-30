@@ -32,9 +32,9 @@ const plannerRecipeTarget = {
     const sourceListId = monitor.getItem().listId;
     // 1. conditional around here to determine if hovering over calendar or list
     //    to toggle vertical/horizontal
-    // 2. all but the first expanded day are off by some px y-axis
     // 3. and then, solve for dynamically created unique keys/ids
     // 4. clones and wrong deletions
+    // says "cannot getBoundingClientRect of null"
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();  // just use ref instead?  ht tps://github.com/react-dnd/react-dnd/issues/591
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
@@ -63,9 +63,14 @@ function collectDropTarget(connect) {
 
 const MobilePlannerRecipe = props => {
   const { recipe, isDragging, connectDragSource, connectDropTarget } = props;
-  const opacity = isDragging ? 0 : 1;
+  
+  // TO DO: Insted of opacity change border color to orange
+  // isDragging not affecting style? try class? to avoid possible conflict?
+  //const borderColor = isDragging ? "#ffc3c3" : "#ffdec3";
+  //const backgroundColor = isDragging ? "#666" : "#fff3cc";
+  //const opacity = isDragging ? 0 : 1;
   return connectDragSource(connectDropTarget(
-    <div className="mobile_planner_recipe" style={{opacity}}>
+    <div className="mobile_planner_recipe">
       {recipe.text}
     </div>
   ));

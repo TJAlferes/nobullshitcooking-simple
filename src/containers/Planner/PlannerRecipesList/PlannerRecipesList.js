@@ -30,7 +30,7 @@ function collect(connect, monitor) {
 class PlannerRecipesList extends Component {
   constructor(props) {
     super(props);
-    this.state = {recipes: props.list};
+    this.state = {recipes: props.list};  // props instead (redux?)
   }
 
   //componentDidMount() {} ???
@@ -48,7 +48,7 @@ class PlannerRecipesList extends Component {
   }
 
   moveRecipe = (dragIndex, hoverIndex) => {
-    const { recipes } = this.state;
+    const { recipes } = this.state;  // props instead (redux?)
     const dragRecipe = recipes[dragIndex];
     this.setState(update(this.state, {
       recipes: {$splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]}
@@ -60,6 +60,12 @@ class PlannerRecipesList extends Component {
     const { connectDropTarget } = this.props;
     return connectDropTarget(
       <div id="planner_recipes_list">
+        {/*
+        careful,
+        there's both key and index here,
+        and recipe.id can't be key because they should be able to have multiple
+        instances of a recipe, so you need a dynamic instance id too
+        */}
         {recipes.map((recipe, i) => (
           <PlannerRecipe
             key={recipe.id}
