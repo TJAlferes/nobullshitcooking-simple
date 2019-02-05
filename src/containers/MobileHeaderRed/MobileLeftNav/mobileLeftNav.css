@@ -1,0 +1,33 @@
+#mobile-left-nav {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+  padding: 10px 10px;
+  background-color: #fff;
+}
+
+#mobile-left-nav span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#mobile-left-nav hr {
+  height: 1px;
+  border: 0 none;
+  margin-bottom: 5px;
+  background-color: #bfbfbf;
+}
+
+#mobile-left-nav .styled_nav_link {
+  text-decoration: none;
+  color: #000;
+}
+
+
+
+/* tablet (portrait) WHAT ABOUT MOBILE LANDSCAPE??? */
+@media (min-width: 600px) {
+  #mobile-left-nav {
+    display: none;
+  }
+}

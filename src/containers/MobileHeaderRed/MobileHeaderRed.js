@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './mobileHeaderRed.css';
+import MobileLeftNavToggle from './MobileLeftNavToggle/MobileLeftNavToggle';
 import MobileLogo from './MobileLogo/MobileLogo';
 import MobileSearch from './MobileSearch/MobileSearch';
 //import Promo from './Promo/Promo';
@@ -14,11 +15,7 @@ const MobileHeaderRed = props => (
 
     <div id="mobile_header_row_1">
       <div id="mobile_header_row_1_col_1">
-        <div id="mobile_menu_icon">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <MobileLeftNavToggle />
         <MobileLogo />
       </div>
       <div id="mobile_header_row_1_col_2">

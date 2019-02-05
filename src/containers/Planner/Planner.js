@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import LeftNav from '../../components/LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav?
+import LeftNav from '../../components/LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
+import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
 import './planner.css';  // use BEM
 
 import planData from './plan-data'; // just dummy data for dev
@@ -35,41 +36,41 @@ class Planner extends Component {
   move to redux? for undo at least?
   */
 
- handlePushRecipe = (day, recipe) => {
-  this.setState(update(this.state, {
-    recipeLists: {
-      [day - 1]: {
-        list: {
-          $push: [recipe]
+  handlePushRecipe = (day, recipe) => {
+    this.setState(update(this.state, {
+      recipeLists: {
+        [day - 1]: {
+          list: {
+            $push: [recipe]
+          }
         }
       }
-    }
-  }));
-}
+    }));
+  }
 
-handleRemoveRecipe = (day, index) => {
-  this.setState(update(this.state, {
-    recipeLists: {
-      [day - 1]: {
-        list: {
-          $splice: [[index, 1]]
+  handleRemoveRecipe = (day, index) => {
+    this.setState(update(this.state, {
+      recipeLists: {
+        [day - 1]: {
+          list: {
+            $splice: [[index, 1]]
+          }
         }
       }
-    }
-  }));
-}
+    }));
+  }
 
-handleReorderRecipe = (day, dragIndex, hoverIndex, dragRecipe) => {
-  this.setState(update(this.state, {
-    recipeLists: {
-      [day - 1]: {
-        list: {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]
+  handleReorderRecipe = (day, dragIndex, hoverIndex, dragRecipe) => {
+    this.setState(update(this.state, {
+      recipeLists: {
+        [day - 1]: {
+          list: {
+            $splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]
+          }
         }
       }
-    }
-  }));
-}
+    }));
+  }
 
   handleSave = async () => {  // put in componentDidUpdate? throttle every 5 seconds
     const { isSaving, recipeLists } = this.state;
@@ -122,7 +123,7 @@ handleReorderRecipe = (day, dragIndex, hoverIndex, dragRecipe) => {
                   {recipeLists.map((recipeList, i) => (
                     <div key={i} className="td">
                       <div className="content">
-                        <MobilePlannerDay
+                        <PlannerDay
                           day={recipeList.day}
                           list={recipeList.list}
                           onDayClick={this.handleClick}
@@ -138,7 +139,7 @@ handleReorderRecipe = (day, dragIndex, hoverIndex, dragRecipe) => {
               </div>
 
               <div id="expanded_day_area">
-                <MobilePlannerExpandedDay
+                <PlannerExpandedDay
                   day={expandedDay}
                   list={(expanded) ? recipeLists[expandedDay - 1].list : []}
                   onDayClick={this.handleClick}
