@@ -1,17 +1,31 @@
 import * as actionTypes from './actionTypes';
 
-export const clickDay = () => ({
-  type: actionTypes.CLICK_DAY
+export const plannerClickDay = day => ({
+  type: actionTypes.PLANNER_CLICK_DAY,
+  day
 });
 
-export const addRecipeToDay = () => ({
-  type: actionTypes.ADD_RECIPE_TO_DAY
+export const plannerAddRecipeToDay = (day, recipe) => ({
+  type: actionTypes.PLANNER_ADD_RECIPE_TO_DAY,
+  day,
+  recipe
 });
 
-export const removeRecipeFromDay = () => ({
-  type: actionTypes.REMOVE_RECIPE_FROM_DAY
+export const plannerRemoveRecipeFromDay = (day, index) => ({
+  type: actionTypes.PLANNER_REMOVE_RECIPE_FROM_DAY,
+  day,
+  index
 });
 
-export const reorderRecipeInDay = () => ({
-  type: actionTypes.REORDER_RECIPE_IN_DAY
+export const plannerReorderRecipeInDay = (
+  day,
+  dragIndex,
+  hoverIndex,
+  dragRecipe
+) => ({
+  type: actionTypes.PLANNER_REORDER_RECIPE_IN_DAY,
+  day,
+  dragIndex,
+  hoverIndex,
+  dragRecipe
 });

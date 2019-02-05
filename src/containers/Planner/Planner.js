@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import LeftNav from '../../components/LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
@@ -6,20 +7,21 @@ import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
 import './planner.css';  // use BEM
 
-import planData from './plan-data'; // just dummy data for dev
+//import planData from './plan-data'; // just dummy data for dev
 
 class Planner extends Component {
   constructor(props) {
     super(props);
     this.tableRef = React.createRef();
-    this.state = {
+    /*this.state = {
       isSaving: false,
       expanded: false,
       expandedDay: "none",
       recipeLists: planData
-    };
+    };*/
   }
 
+  // TO DO: finish delegating these methods to reducers
   handleClick = day => {
     const { expanded, expandedDay } = this.state;
     if (day === expandedDay) {
@@ -171,4 +173,4 @@ class Planner extends Component {
   }
 }
 
-export default Planner;
+export default connect(mapStateToProps, mapDispatchToProps)(Planner);

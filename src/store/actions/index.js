@@ -8,3 +8,10 @@ export {
   getIngredientsSuccess,
   getIngredientsFail
 } from './ingredientsActions';
+
+export {
+  plannerClickDay,
+  plannerAddRecipeToDay,
+  plannerRemoveRecipeFromDay,
+  plannerReorderRecipeInDay
+} from './planner';

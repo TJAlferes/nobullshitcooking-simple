@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import modalsReducer from './modals/modals';
 import ingredientsReducer from './ingredients/ingredients';
 //import recipesReducer from "./recipes/recipes";
+import plannerReducer from './planner';
 
 /*
   import all reducers,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   modals: modalsReducer,
   ingredients: ingredientsReducer,
   //recipes: recipesReducer,
+  planner: plannerReducer
 });
 
 export default rootReducer;
