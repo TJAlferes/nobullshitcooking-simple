@@ -1,5 +1,12 @@
+import {
+  plannerClickDay,
+  plannerAddRecipeToDay,
+  plannerRemoveRecipeFromDay,
+  plannerReorderRecipeInDay
+} from '../actions/'
 import * as actionTypes from '../actions/actionTypes';
 import updateObject from '../../utils/updateObject';
+import update from 'immutability-helper';
 
 // TO DO ASAP: normalize this!
 const initialState = {
@@ -125,20 +132,74 @@ const initialState = {
   ]
 };
 
+
+
+handleReorderRecipe = (day, dragIndex, hoverIndex, dragRecipe) => {
+  this.setState(update(this.state, {
+    recipeLists: {
+      [day - 1]: {
+        list: {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]
+        }
+      }
+    }
+  }));
+}
+
 const plannerClickDay = (state, action) => {
-  return updateObject(state, {day: action.day});
+  const { expandedDay } = state;
+  if (day === expandedDay) {
+    return updateObject(state, {
+      expanded: false,
+      expandedDay: "none"
+    });
+  } else {
+    return updateObject(state, {
+      expanded: true,
+      expandedDay: action.day
+    });
+  }
 };
 
 const plannerAddRecipeToDay = (state, action) => {
-  return updateObject(state, {});
+  return update(state, {
+    recipeLists: {
+      [action.day - 1]: {
+        list: {
+          $push: [action.recipe]
+        }
+      }
+    }
+  });
 };
 
 const plannerRemoveRecipeFromDay = (state, action) => {
-  return updateObject(state, {});
+  return update(state, {
+    recipeLists: {
+      [action.day - 1]: {
+        list: {
+          $splice: [
+            [action.index, 1]
+          ]
+        }
+      }
+    }
+  });
 };
 
 const plannerReorderRecipeInDay = (state, action) => {
-  return updateObject(state, {});
+  return update(state, {
+    recipeLists: {
+      [action.day - 1]: {
+        list: {
+          $splice: [
+            [action.dragIndex, 1],
+            [action.hoverIndex, 0, action.dragRecipe]
+          ]
+        }
+      }
+    }
+  });
 };
 
 // remember Nir Kofman's actions patterns

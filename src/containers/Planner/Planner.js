@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import update from 'immutability-helper';
 
 import LeftNav from '../../components/LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
+import {
+  plannerClickDay,
+  plannerAddRecipeToDay,
+  plannerRemoveRecipeFromDay,
+  plannerReorderRecipeInDay
+} from '../../store/actions/index';
 import './planner.css';  // use BEM
 
 //import planData from './plan-data'; // just dummy data for dev
@@ -21,59 +28,23 @@ class Planner extends Component {
     };*/
   }
 
-  // TO DO: finish delegating these methods to reducers
   handleClick = day => {
-    const { expanded, expandedDay } = this.state;
-    if (day === expandedDay) {
-      this.setState({expanded: false, expandedDay: "none"});
-    } else {
-      this.setState({expanded: true, expandedDay: day});
-    }
+    this.props.plannerClickDay(day);
   }
-
-  /*
-  In the 3 methods below, we're not using standard JavaScript syntax
-  We're using a syntax provided by the 'immutability-helper' npm package
-
-  move to redux? for undo at least?
-  */
-
+  
   handlePushRecipe = (day, recipe) => {
-    this.setState(update(this.state, {
-      recipeLists: {
-        [day - 1]: {
-          list: {
-            $push: [recipe]
-          }
-        }
-      }
-    }));
+    this.props.plannerAddRecipeToDay(day, recipe);
   }
 
   handleRemoveRecipe = (day, index) => {
-    this.setState(update(this.state, {
-      recipeLists: {
-        [day - 1]: {
-          list: {
-            $splice: [[index, 1]]
-          }
-        }
-      }
-    }));
+    this.props.plannerRemoveRecipeFromDay(day, index);
   }
 
   handleReorderRecipe = (day, dragIndex, hoverIndex, dragRecipe) => {
-    this.setState(update(this.state, {
-      recipeLists: {
-        [day - 1]: {
-          list: {
-            $splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]
-          }
-        }
-      }
-    }));
+    this.props.plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
   }
-
+  
+  // also move to redux:
   handleSave = async () => {  // put in componentDidUpdate? throttle every 5 seconds
     const { isSaving, recipeLists } = this.state;
     // fetch or axios PUT on the already created record
@@ -173,4 +144,20 @@ class Planner extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Planner);
+// = ({ blah blah blah }) => WATCH REDUX EGGHEAD IO
+const mapStateToProps = state => ({
+
+});
+
+/*const mapDispatchToProps = dispatch => ({
+
+});*/
+
+const actionCreators = {
+  plannerClickDay,
+  plannerAddRecipeToDay,
+  plannerRemoveRecipeFromDay,
+  plannerReorderRecipeInDay
+};
+
+export default connect(mapStateToProps, actionCreators)(Planner);
