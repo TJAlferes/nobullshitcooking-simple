@@ -10,6 +10,8 @@ export {
 } from './ingredientsActions';
 
 export {
+  plannerAddRecipeToPlan,
+  plannerRemoveRecipeFromPlan,
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,

@@ -7,6 +7,8 @@ import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
 import {
+  plannerAddRecipeToPlan,
+  plannerRemoveRecipeFromPlan,
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,
@@ -20,31 +22,34 @@ class Planner extends Component {
   constructor(props) {
     super(props);
     this.tableRef = React.createRef();
-    /*this.state = {
-      isSaving: false,
-      expanded: false,
-      expandedDay: "none",
-      recipeLists: planData
-    };*/
   }
 
-  handleClick = day => {
+  handleAddRecipeToPlan = recipeInstance => {
+    this.props.plannerAddRecipeToPlan(recipeInstance);
+  }
+
+  handleRemoveRecipeFromPlan = recipeInstance => {
+    this.props.plannerRemoveRecipeFromPlan(recipeInstance);
+  }
+
+  handleClickDay = day => {
     this.props.plannerClickDay(day);
   }
   
-  handlePushRecipe = (day, recipe) => {
+  handleAddRecipeToDay = (day, recipe) => {
     this.props.plannerAddRecipeToDay(day, recipe);
   }
 
-  handleRemoveRecipe = (day, index) => {
+  handleRemoveRecipeFromDay = (day, index) => {
     this.props.plannerRemoveRecipeFromDay(day, index);
   }
 
-  handleReorderRecipe = (day, dragIndex, hoverIndex, dragRecipe) => {
+  handleReorderRecipeInDay = (day, dragIndex, hoverIndex, dragRecipe) => {
     this.props.plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
   }
   
   // also move to redux:
+  /*
   handleSave = async () => {  // put in componentDidUpdate? throttle every 5 seconds
     const { isSaving, recipeLists } = this.state;
     // fetch or axios PUT on the already created record
@@ -53,6 +58,7 @@ class Planner extends Component {
 
     // or this should go in redux-thunk / redux-saga
   }
+  */
 
   render() {
     const { recipeLists, expanded, expandedDay } = this.state;
@@ -99,9 +105,9 @@ class Planner extends Component {
                         <PlannerDay
                           day={recipeList.day}
                           list={recipeList.list}
-                          onDayClick={this.handleClick}
-                          onPushRecipe={this.handlePushRecipe}
-                          onRemoveRecipe={this.handleRemoveRecipe}
+                          onClickDay={this.handleClickDay}
+                          onAddRecipeToDay={this.handleAddRecipeToDay}
+                          onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
                           expanded={expanded}
                           expandedDay={expandedDay}
                         />
@@ -115,10 +121,10 @@ class Planner extends Component {
                 <PlannerExpandedDay
                   day={expandedDay}
                   list={(expanded) ? recipeLists[expandedDay - 1].list : []}
-                  onDayClick={this.handleClick}
-                  onPushRecipe={this.handlePushRecipe}
-                  onRemoveRecipe={this.handleRemoveRecipe}
-                  onReorderRecipe={this.handleReorderRecipe}
+                  onClickDay={this.handleClickDay}
+                  onAddRecipeToDay={this.handleAddRecipeToDay}
+                  onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
+                  onReorderRecipeInDay={this.handleReorderRecipeInDay}
                   expanded={expanded}
                   expandedDay={expandedDay}
                 />
@@ -146,7 +152,10 @@ class Planner extends Component {
 
 // = ({ blah blah blah }) => WATCH REDUX EGGHEAD IO
 const mapStateToProps = state => ({
-
+  isSaving: state.planner.isSaving,
+  expanded: state.planner.expanded,
+  expandedDay: state.planner.expandedDay,
+  recipeLists: state.planner.recipeLists
 });
 
 /*const mapDispatchToProps = dispatch => ({
@@ -154,6 +163,8 @@ const mapStateToProps = state => ({
 });*/
 
 const actionCreators = {
+  plannerAddRecipeToPlan,
+  plannerRemoveRecipeFromPlan,
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,
