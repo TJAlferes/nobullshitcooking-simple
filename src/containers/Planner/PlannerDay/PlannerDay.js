@@ -9,7 +9,7 @@ const plannerDayTarget = {
   drop(props, monitor, component) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
-    if (day !== draggedRecipe.listId) component.pushRecipe(draggedRecipe.recipe);
+    if (day !== draggedRecipe.listId) component.props.onAddRecipeToDay(draggedRecipe.recipe);
     return {listId: day};
   }
 };
@@ -100,15 +100,14 @@ class PlannerDay extends Component {
   render() {
     const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
 
-    //let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
+    let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
     //let location = {"--shiftX": `${shiftX}px`, "--shiftY": `${shiftY}px`};
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     
     return connectDropTarget(
       <div
-        className={color}
+        className={`${color} ${size}`}
         ref={this.setSelfRef}
-        onClick={this.handleClick}
       >
         <span className="the_date">{day}</span>
         {/*

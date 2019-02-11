@@ -1,6 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import update from 'immutability-helper';
 
+// FLATTEN
 const initialState = {
   isSaving: false,
   expanded: false,
@@ -67,13 +68,24 @@ const clickDay = (state, action) => {
 };
 
 const addRecipeToDay = (state, action) => {
+  const { day } = action;
+  console.log(day);
+  console.log(state.recipeListsInsideDays[day]);
   return update(state, {
     recipeListsInsideDays: {
-      [action.day - 1]: {
-        $push: [action.recipe]
-      }
+      [action.day]: {$push: [action.recipe]}
     }
   });
+  /*return {
+    ...state,
+    recipeListsInsideDays: {
+      ...state.recipeListsInsideDays,
+      [action.day - 1]: {
+        ...state.recipeListsInsideDays[action.day - 1]
+        [action.recipe]
+      }
+    }
+  };*/
 };
 
 const removeRecipeFromDay = (state, action) => {
