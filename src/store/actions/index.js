@@ -1,4 +1,4 @@
-export {
+/*export {
   openModal,
   closeModal
 } from './modalsActions';
@@ -7,7 +7,7 @@ export {
   getIngredientsStart,
   getIngredientsSuccess,
   getIngredientsFail
-} from './ingredientsActions';
+} from './ingredientsActions';*/
 
 export {
   plannerAddRecipeToPlan,

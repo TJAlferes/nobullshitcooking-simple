@@ -1,7 +1,7 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';  // just use ref instead?  ht tps://github.com/react-dnd/react-dnd/issues/591
+import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
-import flow from 'lodash/fp/flow';
+//import flow from 'lodash/fp/flow';  // do you need this?
 
 import './plannerRecipe.css';  // use BEM 
 
@@ -30,12 +30,10 @@ const plannerRecipeTarget = {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     const sourceListId = monitor.getItem().listId;
-    // 1. conditional around here to determine if hovering over calendar or list
-    //    to toggle vertical/horizontal
-    // 2. all but the first expanded day are off by some px y-axis
+    // 1. conditional around here to determine if hovering over calendar or list???
     // 3. and then, solve for dynamically created unique keys/ids
     // 4. clones and wrong deletions
-    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();  // just use ref instead?  ht tps://github.com/react-dnd/react-dnd/issues/591
+    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
@@ -73,7 +71,19 @@ const PlannerRecipe = props => {
   ));
 }
 
-export default flow(
+/*export default flow(
   DropTarget(Types.PLANNER_RECIPE, plannerRecipeTarget, collectDropTarget),
   DragSource(Types.PLANNER_RECIPE, plannerRecipeSource, collectDragSource)
-)(PlannerRecipe);
+)(PlannerRecipe);*/
+
+export default DropTarget(
+  Types.PLANNER_RECIPE,
+  plannerRecipeTarget,
+  collectDropTarget)
+(
+  DragSource(
+    Types.PLANNER_RECIPE,
+    plannerRecipeSource,
+    collectDragSource
+  )(PlannerRecipe)
+);

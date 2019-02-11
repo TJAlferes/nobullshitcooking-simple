@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import update from 'immutability-helper';
+//import update from 'immutability-helper';
 
 import LeftNav from '../../components/LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
+import CustomDragLayer from './CustomDragLayer';
 import {
   plannerAddRecipeToPlan,
   plannerRemoveRecipeFromPlan,
@@ -61,29 +62,34 @@ class Planner extends Component {
   */
 
   render() {
-    const { recipeLists, expanded, expandedDay } = this.state;
+    const { isSaving, expanded, expandedDay, recipeListsInsideDays } = this.props;
+
+    /*function objectMap(obj, fn) {
+      return Object.keys(obj).reduce((acc, key) => {
+        acc[key] = fn(obj[key]);
+        return acc;
+      }, {});
+    }
+
+    Object.assign({}, ...Object.keys(obj).map(k => ({[k]: obj[k] * obj[k]})));*/
+
     return (
       <div id="desktop_planner">
         <LeftNav
           isAuthenticated={this.props.isAuthenticated}
           getUser={this.props.getUser}
         />
-
         <article>
-
+          <CustomDragLayer />
           <div id="planner_header">
             <h1>Planner</h1>
             <p id="autosave_feedback">
               {/*isSaving ? 'Saving changes...' : 'All changes saved.'*/}
             </p>
           </div>
-
           <hr />
-
           <div id="calendar_container">
-
             <div id="monthly_plan">
-
               <div id="table">
                 <div id="thead">
                   <span className="th">Sunday</span>
@@ -95,16 +101,12 @@ class Planner extends Component {
                   <span className="th">Saturday</span>
                 </div>
                 <div id="tbody">
-                  {/* 
-                  This may be the WRONG way to handle keys in React! find that lecture!
-                  okay, here it's fine, the issue in in the recipes
-                  */}
-                  {recipeLists.map((recipeList, i) => (
+                  {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
                     <div key={i} className="td">
                       <div className="content">
                         <PlannerDay
-                          day={recipeList.day}
-                          list={recipeList.list}
+                          day={i + 1}
+                          list={recipeListsInsideDays[recipeList]}
                           onClickDay={this.handleClickDay}
                           onAddRecipeToDay={this.handleAddRecipeToDay}
                           onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
@@ -116,11 +118,10 @@ class Planner extends Component {
                   ))}
                 </div>
               </div>
-
               <div id="expanded_day_area">
                 <PlannerExpandedDay
                   day={expandedDay}
-                  list={(expanded) ? recipeLists[expandedDay - 1].list : []}
+                  list={(expanded) ? recipeListsInsideDays[expandedDay - 1] : []}
                   onClickDay={this.handleClickDay}
                   onAddRecipeToDay={this.handleAddRecipeToDay}
                   onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
@@ -129,9 +130,7 @@ class Planner extends Component {
                   expandedDay={expandedDay}
                 />
               </div>
-
             </div>
-
             <PlannerRecipesList
               day="0"
               list={[
@@ -140,11 +139,8 @@ class Planner extends Component {
                 {id: 3, text: "Steak Asparagus and Sweet Potato"}
               ]}
             />
-
           </div>
-          
         </article>
-
       </div>
     );
   }
@@ -155,20 +151,27 @@ const mapStateToProps = state => ({
   isSaving: state.planner.isSaving,
   expanded: state.planner.expanded,
   expandedDay: state.planner.expandedDay,
-  recipeLists: state.planner.recipeLists
+  recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
-/*const mapDispatchToProps = dispatch => ({
-
-});*/
-
-const actionCreators = {
+/*const actionCreators = {
   plannerAddRecipeToPlan,
   plannerRemoveRecipeFromPlan,
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
+};*/
+
+const mapDispatchToProps = dispatch => {
+  return {
+    plannerAddRecipeToPlan: (recipeInstance) => dispatch(plannerAddRecipeToPlan(recipeInstance)),
+    plannerRemoveRecipeFromPlan: (recipeInstance) => dispatch(plannerRemoveRecipeFromPlan(recipeInstance)),
+    plannerClickDay: (day) => dispatch(plannerClickDay(day)),
+    plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
+    plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
+    plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
+  }
 };
 
-export default connect(mapStateToProps, actionCreators)(Planner);
+export default connect(mapStateToProps, mapDispatchToProps)(Planner);

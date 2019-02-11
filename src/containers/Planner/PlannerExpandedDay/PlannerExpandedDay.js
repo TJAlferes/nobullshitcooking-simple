@@ -23,15 +23,17 @@ function collect(connect, monitor) {
 }
 
 class PlannerExpandedDay extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
-    /*this.day = null;
+    this.day = null;
     this.setSelfRef = element => {
       this.day = element;
-    };*/
+    };
     this.state = {recipes: props.list};  // remove, use redux?
-  }
+  }*/
 
+  /*
+  // we're moving all these to redux
   // send child back to its usual div
   handleClick = async (e) => {
     const { day, onDayClick } = this.props;
@@ -57,6 +59,7 @@ class PlannerExpandedDay extends Component {
     if (day !== expandedDay) return;
     await onReorderRecipe(day, dragIndex, hoverIndex, dragRecipe);
   }
+  */
 
   render() {
     const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;

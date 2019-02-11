@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
-import update from 'immutability-helper';
+//import update from 'immutability-helper';
 
 import MobilePlannerRecipe from '../MobilePlannerRecipe/MobilePlannerRecipe';
 import './mobilePlannerRecipesList.css';  // use BEM
@@ -28,13 +28,14 @@ function collect(connect, monitor) {
 //
 
 class MobilePlannerRecipesList extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     this.state = {recipes: props.list};  // props instead (redux?)
-  }
+  }*/
 
   //componentDidMount() {} ???
 
+  /*
   pushRecipe = recipe => {
     this.setState(update(this.state, {
       recipes: {$push: [recipe]}
@@ -54,10 +55,10 @@ class MobilePlannerRecipesList extends Component {
       recipes: {$splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]}
     }));
   }
+  */
 
   render() {
-    const { recipes } = this.state;  // props instead
-    const { connectDropTarget } = this.props;
+    const { list, connectDropTarget } = this.props;
     return connectDropTarget(
       <div id="mobile_planner_recipes_list">
         {/*
@@ -66,14 +67,13 @@ class MobilePlannerRecipesList extends Component {
         and recipe.id can't be key because they should be able to have multiple
         instances of a recipe, so you need a dynamic instance id too
         */}
-        {recipes.map((recipe, i) => (
+        {list.map((recipe, i) => (
           <MobilePlannerRecipe
             key={recipe.id}
             index={i}
             listId={this.props.id}
             recipe={recipe}
             removeRecipe={this.removeRecipe}
-            moveRecipe={this.moveRecipe}
             className="mobile_planner_recipe"
           />
         ))}

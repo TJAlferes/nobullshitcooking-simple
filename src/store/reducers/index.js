@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import modalsReducer from './modals/modals';
-import ingredientsReducer from './ingredients/ingredients';
+//import modalsReducer from './modals/modals';
+//import ingredientsReducer from './ingredients/ingredients';
 //import recipesReducer from "./recipes/recipes";
 import plannerReducer from './planner';
 
@@ -11,8 +11,8 @@ import plannerReducer from './planner';
   and export it (to be used in src/index.js)
 */
 const rootReducer = combineReducers({
-  modals: modalsReducer,
-  ingredients: ingredientsReducer,
+  //modals: modalsReducer,
+  //ingredients: ingredientsReducer,
   //recipes: recipesReducer,
   planner: plannerReducer
 });

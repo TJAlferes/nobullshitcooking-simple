@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import { DropTarget } from 'react-dnd';
-import update from 'immutability-helper';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 
@@ -25,15 +23,17 @@ function collect(connect, monitor) {
 }
 
 class PlannerDay extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     this.day = null;
     this.setSelfRef = element => {
       this.day = element;
     };
-    this.state = {recipes: props.list, shiftX: 0, shiftY: 0};
-  }
+  }*/
   
+  /*
+  we no longer need this, as we're using react-aria-modal instead of css transform
+  ( //import { findDOMNode } from 'react-dom'; )
   componentDidUpdate() {
     // ********* JUST USE PORTALS INSTEAD??? **********
     // (would need to copy data / state over though)
@@ -49,20 +49,24 @@ class PlannerDay extends Component {
     const moveY = (tablePos.top) - topCoords;
     const moveX = (tablePos.right + 10) - leftCoords;
 
-    /*console.log("===== update =====");
+    console.log("===== update =====");
     console.log(tablePos.top);
     console.log(dayClicked.top);
     console.log(tablePos.right + 10);
     console.log(dayClicked.left);
     console.log(moveY);
-    console.log(moveX);*/
+    console.log(moveX);
 
     // without this conditional, setState would be called endlessly
     const { shiftX, shiftY } = this.state;
     if ((shiftX !== 0) || (shiftY !== 0)) return;  // issue is here I think... but maybe not... remember, it wasn't doing this before...
     this.setState({shiftX: moveX, shiftY: moveY});
   }
+  */
   
+  /*
+  // 
+  // we're moving all these to redux
   handleClick = async (e) => {
     const { day, expanded, expandedDay, onDayClick } = this.props;
     e.preventDefault(); // stoppropagation or none?
@@ -91,10 +95,10 @@ class PlannerDay extends Component {
       recipes: {$splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]}
     }));
   }
+  */
 
   render() {
-    const { recipes, shiftX, shiftY } = this.state;
-    const { expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
+    const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
 
     //let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
     //let location = {"--shiftX": `${shiftX}px`, "--shiftY": `${shiftY}px`};
@@ -102,8 +106,7 @@ class PlannerDay extends Component {
     
     return connectDropTarget(
       <div
-        style={location}
-        className={`${size} ${color}`}
+        className={color}
         ref={this.setSelfRef}
         onClick={this.handleClick}
       >
@@ -114,7 +117,7 @@ class PlannerDay extends Component {
         and recipe.id can't be key because they should be able to have multiple
         instances of a recipe, so you need a dynamic instance id too
         */}
-        {recipes.map((recipe, i) => (
+        {list.map((recipe, i) => (
           <PlannerRecipe
             key={recipe.id}
             index={i}
