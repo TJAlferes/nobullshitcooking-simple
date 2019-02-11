@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
+import { plannerClickDay } from '../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
@@ -23,6 +25,11 @@ function collect(connect, monitor) {
 }
 
 class PlannerExpandedDay extends Component {
+  handleClickDay = () => {
+    const { day } = this.props;
+    console.log(day + ' clicked.');
+    this.props.plannerClickDay(day);
+  }
   /*constructor(props) {
     super(props);
     this.day = null;
@@ -63,7 +70,7 @@ class PlannerExpandedDay extends Component {
 
   render() {
     const { list, expanded, day, expandedDay } = this.props;
-    const { onClickDay, onAddRecipeToDay, onRemoveRecipeFromDay, onReorderRecipeInDay } = this.props;
+    const { onAddRecipeToDay, onRemoveRecipeFromDay, onReorderRecipeInDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     return expanded
@@ -71,7 +78,7 @@ class PlannerExpandedDay extends Component {
       <div
         className={`planner_expanded_day ${color}`}
         ref={this.setSelfRef}
-        onClick={this.handleClick}
+        onClick={this.handleClickDay}
       >
         <span className="the_date">{day}</span>
         {/*
@@ -100,8 +107,17 @@ class PlannerExpandedDay extends Component {
   }
 }
 
-export default DropTarget(
-  Types.PLANNER_RECIPE,
-  plannerExpandedDayTarget,
-  collect
-)(PlannerExpandedDay);
+const mapDispatchToProps = dispatch => ({
+  plannerClickDay: (day) => dispatch(plannerClickDay(day))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(
+  DropTarget(
+    Types.PLANNER_RECIPE,
+    plannerExpandedDayTarget,
+    collect
+  )(PlannerExpandedDay)
+);

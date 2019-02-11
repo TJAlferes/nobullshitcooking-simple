@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
+import { plannerClickDay } from '../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
@@ -23,79 +25,12 @@ function collect(connect, monitor) {
 }
 
 class PlannerDay extends Component {
-  /*constructor(props) {
-    super(props);
-    this.day = null;
-    this.setSelfRef = element => {
-      this.day = element;
-    };
-  }*/
-  
-  /*
-  we no longer need this, as we're using react-aria-modal instead of css transform
-  ( //import { findDOMNode } from 'react-dom'; )
-  componentDidUpdate() {
-    // ********* JUST USE PORTALS INSTEAD??? **********
-    // (would need to copy data / state over though)
-    const dayClicked = this.day.getBoundingClientRect();
-    //const topCoords = dayClicked.top + pageYOffset;
-    //const leftCoords = dayClicked.left + pageXOffset;
-    const topCoords = dayClicked.top;
-    const leftCoords = dayClicked.left;
-    const { tRef } = this.props;
-    const tablePos = findDOMNode(tRef.current).getBoundingClientRect();
-    //const moveY = (tablePos.top + pageYOffset) - topCoords;
-    //const moveX = (tablePos.right + pageXOffset + 10) - leftCoords;
-    const moveY = (tablePos.top) - topCoords;
-    const moveX = (tablePos.right + 10) - leftCoords;
 
-    console.log("===== update =====");
-    console.log(tablePos.top);
-    console.log(dayClicked.top);
-    console.log(tablePos.right + 10);
-    console.log(dayClicked.left);
-    console.log(moveY);
-    console.log(moveX);
-
-    // without this conditional, setState would be called endlessly
-    const { shiftX, shiftY } = this.state;
-    if ((shiftX !== 0) || (shiftY !== 0)) return;  // issue is here I think... but maybe not... remember, it wasn't doing this before...
-    this.setState({shiftX: moveX, shiftY: moveY});
+  handleClickDay = () => {
+    const { day } = this.props;
+    console.log(day + ' clicked.');
+    this.props.plannerClickDay(day);
   }
-  */
-  
-  /*
-  // 
-  // we're moving all these to redux
-  handleClick = async (e) => {
-    const { day, expanded, expandedDay, onDayClick } = this.props;
-    e.preventDefault(); // stoppropagation or none?
-    await onDayClick(day);
-  }
-  
-  pushRecipe = recipe => {
-    this.setState(update(this.state, {
-      recipes: {$push: [recipe]}
-    }));
-  }
-
-  removeRecipe = index => {
-    this.setState(update(this.state, {
-      recipes: {$splice: [[index, 1]]}
-    }));
-  }
-
-  moveRecipe = (dragIndex, hoverIndex) => {
-    const { recipes } = this.state;
-    const { day, expandedDay } = this.props;
-    const dragRecipe = recipes[dragIndex];
-    // only allow reordering/moving of recipes within currently expanded day
-    if (day !== expandedDay) return;
-    this.setState(update(this.state, {
-      recipes: {$splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]}
-    }));
-  }
-  */
 
   render() {
     const { list, expanded, day, expandedDay, } = this.props;
@@ -105,14 +40,14 @@ class PlannerDay extends Component {
     should PlannerDay (and PlannerRecipe?)
     use connect() also?
     */
-    const { onClickDay, onAddRecipeToDay, onRemoveRecipeFromDay } = this.props;
+    const { onAddRecipeToDay, onRemoveRecipeFromDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
 
     let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     /*ref={this.setSelfRef}*/
     return connectDropTarget(
-      <div className={`${color} ${size}`}>
+      <div className={`${color} ${size}`} onClick={this.handleClickDay}>
         <span className="the_date">{day}</span>
         {/*
         careful,
@@ -126,6 +61,7 @@ class PlannerDay extends Component {
             index={i}
             listId={this.props.id}
             recipe={recipe}
+            pushRecipe={onAddRecipeToDay}
             removeRecipe={onRemoveRecipeFromDay}
             moveRecipe={this.moveRecipe}
             expanded={expanded}
@@ -139,10 +75,20 @@ class PlannerDay extends Component {
   }
 }
 
+
+const mapDispatchToProps = dispatch => ({
+  plannerClickDay: (day) => dispatch(plannerClickDay(day))
+});
+
 // move to separate wrapper file in this same folder,
 // like you would with react-redux's connect()
-export default DropTarget(
-  Types.PLANNER_RECIPE,
-  plannerDayTarget,
-  collect
-)(PlannerDay);
+export default connect(
+  null,
+  mapDispatchToProps
+)(
+  DropTarget(
+    Types.PLANNER_RECIPE,
+    plannerDayTarget,
+    collect
+  )(PlannerDay)
+);

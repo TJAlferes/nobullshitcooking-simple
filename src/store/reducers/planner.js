@@ -53,17 +53,18 @@ const removeRecipeFromPlan = (state, action) => {
 };
 
 const clickDay = (state, action) => {
-  const { expandedDay } = state;
+  //const { expandedDay } = state;
+  const { day, expandedDay } = action;
   if (day === expandedDay) {
-    return update(state, {
+    return {...state, ...{
       expanded: false,
       expandedDay: "none"
-    });
+    }};
   } else {
-    return update(state, {
+    return {...state, ...{
       expanded: true,
       expandedDay: action.day
-    });
+    }};
   }
 };
 
@@ -100,12 +101,17 @@ const removeRecipeFromDay = (state, action) => {
 };
 
 const reorderRecipeInDay = (state, action) => {
+  const { recipeListsInsideDays } = state;
+  const { day, expandedDay } = action;
+  const dragRecipe = recipeListsInsideDays[action.dragIndex];
+  // only allow reordering/moving of recipes within currently expanded day
+  if (day !== expandedDay) return;
   return update(state, {
     recipeListsInsideDays: {
       [action.day - 1]: {
         $splice: [
           [action.dragIndex, 1],
-          [action.hoverIndex, 0, action.dragRecipe]
+          [action.hoverIndex, 0, dragRecipe]
         ]
       }
     }

@@ -33,9 +33,10 @@ class Planner extends Component {
     this.props.plannerRemoveRecipeFromPlan(recipeInstance);
   }
 
-  handleClickDay = day => {
+  /*handleClickDay = day => {
+    console.log(day + ' clicked.');
     this.props.plannerClickDay(day);
-  }
+  }*/
   
   handleAddRecipeToDay = (day, recipe) => {
     this.props.plannerAddRecipeToDay(day, recipe);
@@ -63,16 +64,6 @@ class Planner extends Component {
 
   render() {
     const { isSaving, expanded, expandedDay, recipeListsInsideDays } = this.props;
-
-    /*function objectMap(obj, fn) {
-      return Object.keys(obj).reduce((acc, key) => {
-        acc[key] = fn(obj[key]);
-        return acc;
-      }, {});
-    }
-
-    Object.assign({}, ...Object.keys(obj).map(k => ({[k]: obj[k] * obj[k]})));*/
-
     return (
       <div id="desktop_planner">
         <LeftNav
@@ -101,13 +92,13 @@ class Planner extends Component {
                   <span className="th">Saturday</span>
                 </div>
                 <div id="tbody">
+                  {/* do you need Object.assign({}, ...Object.keys--) here? */}
                   {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
                     <div key={i} className="td">
                       <div className="content">
                         <PlannerDay
                           day={i + 1}
                           list={recipeListsInsideDays[recipeList]}
-                          onClickDay={this.handleClickDay}
                           onAddRecipeToDay={this.handleAddRecipeToDay}
                           onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
                           expanded={expanded}
@@ -121,7 +112,7 @@ class Planner extends Component {
               <div id="expanded_day_area">
                 <PlannerExpandedDay
                   day={expandedDay}
-                  list={(expanded) ? recipeListsInsideDays[expandedDay - 1] : []}
+                  list={(expanded) ? recipeListsInsideDays[expandedDay] : []}
                   onClickDay={this.handleClickDay}
                   onAddRecipeToDay={this.handleAddRecipeToDay}
                   onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
@@ -163,15 +154,12 @@ const mapStateToProps = state => ({
   plannerReorderRecipeInDay
 };*/
 
-const mapDispatchToProps = dispatch => {
-  return {
-    plannerAddRecipeToPlan: (recipeInstance) => dispatch(plannerAddRecipeToPlan(recipeInstance)),
-    plannerRemoveRecipeFromPlan: (recipeInstance) => dispatch(plannerRemoveRecipeFromPlan(recipeInstance)),
-    plannerClickDay: (day) => dispatch(plannerClickDay(day)),
-    plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
-    plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
-    plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
-  }
-};
+const mapDispatchToProps = dispatch => ({
+  plannerAddRecipeToPlan: (recipeInstance) => dispatch(plannerAddRecipeToPlan(recipeInstance)),
+  plannerRemoveRecipeFromPlan: (recipeInstance) => dispatch(plannerRemoveRecipeFromPlan(recipeInstance)),
+  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
+  plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
+  plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Planner);
