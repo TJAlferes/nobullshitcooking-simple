@@ -70,7 +70,6 @@ const clickDay = (state, action) => {
 const addRecipeToDay = (state, action) => {
   const { day } = action;
   console.log(day);
-  console.log(state.recipeListsInsideDays[day]);
   return update(state, {
     recipeListsInsideDays: {
       [action.day]: {$push: [action.recipe]}

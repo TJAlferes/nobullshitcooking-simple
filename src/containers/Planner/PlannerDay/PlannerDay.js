@@ -98,17 +98,21 @@ class PlannerDay extends Component {
   */
 
   render() {
-    const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
+    const { list, expanded, day, expandedDay, } = this.props;
+    /*
+    should these be passed down as props
+    or
+    should PlannerDay (and PlannerRecipe?)
+    use connect() also?
+    */
+    const { onClickDay, onAddRecipeToDay, onRemoveRecipeFromDay } = this.props;
+    const { canDrop, isOver, connectDropTarget } = this.props;
 
     let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
-    //let location = {"--shiftX": `${shiftX}px`, "--shiftY": `${shiftY}px`};
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
-    
+    /*ref={this.setSelfRef}*/
     return connectDropTarget(
-      <div
-        className={`${color} ${size}`}
-        ref={this.setSelfRef}
-      >
+      <div className={`${color} ${size}`}>
         <span className="the_date">{day}</span>
         {/*
         careful,
@@ -122,7 +126,7 @@ class PlannerDay extends Component {
             index={i}
             listId={this.props.id}
             recipe={recipe}
-            removeRecipe={this.removeRecipe}
+            removeRecipe={onRemoveRecipeFromDay}
             moveRecipe={this.moveRecipe}
             expanded={expanded}
             day={day}

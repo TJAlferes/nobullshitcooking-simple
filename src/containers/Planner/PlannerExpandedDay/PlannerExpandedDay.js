@@ -62,7 +62,9 @@ class PlannerExpandedDay extends Component {
   */
 
   render() {
-    const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
+    const { list, expanded, day, expandedDay } = this.props;
+    const { onClickDay, onAddRecipeToDay, onRemoveRecipeFromDay, onReorderRecipeInDay } = this.props;
+    const { canDrop, isOver, connectDropTarget } = this.props;
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     return expanded
     ? connectDropTarget(
@@ -84,8 +86,8 @@ class PlannerExpandedDay extends Component {
             index={i}
             listId={this.props.id}
             recipe={recipe}
-            removeRecipe={this.removeRecipe}
-            moveRecipe={this.moveRecipe}
+            removeRecipe={onRemoveRecipeFromDay}
+            moveRecipe={onReorderRecipeInDay}
             expanded={expanded}
             day={day}
             expandedDay={expandedDay}
