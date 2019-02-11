@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
-import { plannerClickDay } from '../../../store/actions/index';
+import {
+  plannerClickDay,
+  plannerAddRecipeToDay,
+  plannerRemoveRecipeFromDay,
+  plannerReorderRecipeInDay
+} from '../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
@@ -11,7 +16,9 @@ const plannerDayTarget = {
   drop(props, monitor, component) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
-    if (day !== draggedRecipe.listId) component.props.onAddRecipeToDay(draggedRecipe.recipe);
+    //if (day !== draggedRecipe.listId) component.pushRecipe(draggedRecipe.recipe);
+    //if (day !== draggedRecipe.listId) component.props.onAddRecipeToDay(draggedRecipe.recipe);
+    if (day !== draggedRecipe.listId) component.props.plannerAddRecipeToDay(day, draggedRecipe.recipe)
     return {listId: day};
   }
 };
@@ -32,6 +39,21 @@ class PlannerDay extends Component {
     this.props.plannerClickDay(day);
   }
 
+  handleAddRecipeToDay = () => {
+    const { day, recipe, plannerAddRecipeToDay } = this.props;
+    plannerAddRecipeToDay(day, recipe);
+  }
+
+  handleRemoveRecipeFromDay = () => {
+    const { day, index, plannerRemoveRecipeFromDay } = this.props;
+    plannerRemoveRecipeFromDay(day, index);
+  }
+
+  handleReorderRecipeInDay = () => {
+    const { day, dragIndex, hoverIndex, dragRecipe, plannerReorderRecipeInDay } = this.props;
+    plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
+  }
+
   render() {
     const { list, expanded, day, expandedDay, } = this.props;
     /*
@@ -40,7 +62,6 @@ class PlannerDay extends Component {
     should PlannerDay (and PlannerRecipe?)
     use connect() also?
     */
-    const { onAddRecipeToDay, onRemoveRecipeFromDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
 
     let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
@@ -61,13 +82,11 @@ class PlannerDay extends Component {
             index={i}
             listId={this.props.id}
             recipe={recipe}
-            pushRecipe={onAddRecipeToDay}
-            removeRecipe={onRemoveRecipeFromDay}
-            moveRecipe={this.moveRecipe}
             expanded={expanded}
             day={day}
             expandedDay={expandedDay}
             className="planner_recipe"
+            onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
           />
         ))}
       </div>
@@ -75,9 +94,11 @@ class PlannerDay extends Component {
   }
 }
 
-
 const mapDispatchToProps = dispatch => ({
-  plannerClickDay: (day) => dispatch(plannerClickDay(day))
+  plannerClickDay: (day) => dispatch(plannerClickDay(day)),
+  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
+  plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
+  plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
 });
 
 // move to separate wrapper file in this same folder,

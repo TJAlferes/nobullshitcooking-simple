@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
+import { connect } from 'react-redux';
 import { DragSource, DropTarget } from 'react-dnd';
 //import flow from 'lodash/fp/flow';  // do you need this?
 
+import {
+  plannerRemoveRecipeFromDay
+} from '../../../store/actions/index';
 import './plannerRecipe.css';  // use BEM 
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
@@ -12,14 +16,16 @@ const plannerRecipeSource = {
     return {
       index: props.index,
       listId: props.listId,
-      recipe: props.recipe
+      recipe: props.recipe,
+      day: props.day
     };
   },
   endDrag(props, monitor) {
     const item = monitor.getItem();
+    console.log(item.day);
     const dropResult = monitor.getDropResult();
     if (dropResult && (dropResult.listId !== item.listId)) {
-      props.removeRecipe(item.index);
+      props.plannerRemoveRecipeFromDay(item.day, item.index);
     }
   }
 };
@@ -42,7 +48,7 @@ const plannerRecipeTarget = {
     if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
     if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
     if (props.listId === sourceListId) {
-      props.moveRecipe(dragIndex, hoverIndex);
+      props.moveRecipe(dragIndex, hoverIndex);  // ?????
       monitor.getItem().index = hoverIndex;  // mutation, but OK here(?)
     }
   }
@@ -71,19 +77,31 @@ const PlannerRecipe = props => {
   ));
 }
 
+const mapDispatchToProps = dispatch => ({
+  //plannerClickDay: (day) => dispatch(plannerClickDay(day)),
+  //plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
+  plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
+  //plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
+});
+
 /*export default flow(
   DropTarget(Types.PLANNER_RECIPE, plannerRecipeTarget, collectDropTarget),
   DragSource(Types.PLANNER_RECIPE, plannerRecipeSource, collectDragSource)
 )(PlannerRecipe);*/
 
-export default DropTarget(
-  Types.PLANNER_RECIPE,
-  plannerRecipeTarget,
-  collectDropTarget)
-(
-  DragSource(
+export default connect(
+  null,
+  mapDispatchToProps
+)(
+  DropTarget(
     Types.PLANNER_RECIPE,
-    plannerRecipeSource,
-    collectDragSource
-  )(PlannerRecipe)
+    plannerRecipeTarget,
+    collectDropTarget
+  )(
+    DragSource(
+      Types.PLANNER_RECIPE,
+      plannerRecipeSource,
+      collectDragSource
+    )(PlannerRecipe)
+  )
 );

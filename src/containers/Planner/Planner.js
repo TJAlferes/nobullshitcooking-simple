@@ -7,14 +7,14 @@ import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
 import CustomDragLayer from './CustomDragLayer';
-import {
+/*import {
   plannerAddRecipeToPlan,
   plannerRemoveRecipeFromPlan,
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
-} from '../../store/actions/index';
+} from '../../store/actions/index';*/
 import './planner.css';  // use BEM
 
 //import planData from './plan-data'; // just dummy data for dev
@@ -24,7 +24,7 @@ class Planner extends Component {
     super(props);
     this.tableRef = React.createRef();
   }
-
+  /*
   handleAddRecipeToPlan = recipeInstance => {
     this.props.plannerAddRecipeToPlan(recipeInstance);
   }
@@ -32,12 +32,12 @@ class Planner extends Component {
   handleRemoveRecipeFromPlan = recipeInstance => {
     this.props.plannerRemoveRecipeFromPlan(recipeInstance);
   }
-
+  */
   /*handleClickDay = day => {
     console.log(day + ' clicked.');
     this.props.plannerClickDay(day);
   }*/
-  
+  /*
   handleAddRecipeToDay = (day, recipe) => {
     this.props.plannerAddRecipeToDay(day, recipe);
   }
@@ -49,7 +49,7 @@ class Planner extends Component {
   handleReorderRecipeInDay = (day, dragIndex, hoverIndex, dragRecipe) => {
     this.props.plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
   }
-  
+  */
   // also move to redux:
   /*
   handleSave = async () => {  // put in componentDidUpdate? throttle every 5 seconds
@@ -99,8 +99,6 @@ class Planner extends Component {
                         <PlannerDay
                           day={i + 1}
                           list={recipeListsInsideDays[recipeList]}
-                          onAddRecipeToDay={this.handleAddRecipeToDay}
-                          onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
                           expanded={expanded}
                           expandedDay={expandedDay}
                         />
@@ -113,10 +111,6 @@ class Planner extends Component {
                 <PlannerExpandedDay
                   day={expandedDay}
                   list={(expanded) ? recipeListsInsideDays[expandedDay] : []}
-                  onClickDay={this.handleClickDay}
-                  onAddRecipeToDay={this.handleAddRecipeToDay}
-                  onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
-                  onReorderRecipeInDay={this.handleReorderRecipeInDay}
                   expanded={expanded}
                   expandedDay={expandedDay}
                 />
@@ -154,12 +148,12 @@ const mapStateToProps = state => ({
   plannerReorderRecipeInDay
 };*/
 
-const mapDispatchToProps = dispatch => ({
+/*const mapDispatchToProps = dispatch => ({
   plannerAddRecipeToPlan: (recipeInstance) => dispatch(plannerAddRecipeToPlan(recipeInstance)),
   plannerRemoveRecipeFromPlan: (recipeInstance) => dispatch(plannerRemoveRecipeFromPlan(recipeInstance)),
   plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
   plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
   plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
-});
+});*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(Planner);
+export default connect(mapStateToProps)(Planner);

@@ -92,6 +92,7 @@ class PlannerRecipesList extends Component {
             index={i}
             listId={this.props.id}
             recipe={recipe}
+            day={this.props.day}
             removeRecipe={this.removeRecipe}
             className="planner_recipe"
           />

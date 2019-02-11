@@ -93,8 +93,6 @@ class PlannerExpandedDay extends Component {
             index={i}
             listId={this.props.id}
             recipe={recipe}
-            removeRecipe={onRemoveRecipeFromDay}
-            moveRecipe={onReorderRecipeInDay}
             expanded={expanded}
             day={day}
             expandedDay={expandedDay}

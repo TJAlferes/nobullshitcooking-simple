@@ -70,7 +70,7 @@ const clickDay = (state, action) => {
 
 const addRecipeToDay = (state, action) => {
   const { day } = action;
-  console.log(day);
+  console.log('Day ' + day);
   return update(state, {
     recipeListsInsideDays: {
       [action.day]: {$push: [action.recipe]}
@@ -89,9 +89,11 @@ const addRecipeToDay = (state, action) => {
 };
 
 const removeRecipeFromDay = (state, action) => {
+  const { day } = action;
+  console.log('Day ' + day);
   return update(state, {
     recipeListsInsideDays: {
-      [action.day - 1]: {
+      [action.day]: {
         $splice: [
           [action.index, 1]
         ]
