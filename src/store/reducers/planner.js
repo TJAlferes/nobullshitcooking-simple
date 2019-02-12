@@ -103,17 +103,18 @@ const removeRecipeFromDay = (state, action) => {
 };
 
 const reorderRecipeInDay = (state, action) => {
-  const { recipeListsInsideDays } = state;
-  const { day, expandedDay, dragIndex, hoverIndex } = action;
-  const dragRecipe = recipeListsInsideDays[action.dragIndex];
+  const { expandedDay, recipeListsInsideDays } = state;
+  const { day, dragIndex, hoverIndex, dragRecipe } = action;
+  //const dragRecipe = recipeListsInsideDays[action.dragIndex];
   // only allow reordering/moving of recipes within currently expanded day
-  if (day !== expandedDay) return;
+  // should this conditional be back in the spec???
+  if (day !== expandedDay) return undefined;
   return update(state, {
     recipeListsInsideDays: {
-      [action.day]: {
+      [day]: {
         $splice: [
-          [action.dragIndex, 1],
-          [action.hoverIndex, 0, dragRecipe]
+          [dragIndex, 1],
+          [hoverIndex, 0, dragRecipe]
         ]
       }
     }

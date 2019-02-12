@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// CHANGE ASAP: this should be a DragSource, NOT DropTarget
-// actually, I think it should be neither
-
+import { connect } from 'react-redux';
 /*
   I think you need TWO item types
   one for the initial drag from this list into the plan
@@ -9,19 +7,28 @@ import React, { Component } from 'react';
   each time you drag from this list it creates a new "copy"
 
 */
-//import { DropTarget } from 'react-dnd';
+import { DropTarget } from 'react-dnd';
 //import update from 'immutability-helper';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
+import {
+  plannerAddRecipeToDay,
+  plannerRemoveRecipeFromDay
+} from '../../../store/actions/index';
 import './plannerRecipesList.css';  // use BEM
 
-//const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};  // is this definition necessary here since we imported?
-/*
+const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};  // is this definition necessary here since we imported?
+
 const plannerRecipesListTarget = {
-  drop(props, monitor, component) {
+  drop(props, monitor) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
-    if (day !== draggedRecipe.listId) component.pushRecipe(draggedRecipe.recipe);
+    const dropResult = monitor.getDropResult();
+    if (dropResult === null) {
+      props.plannerRemoveRecipeFromDay(draggedRecipe.day, draggedRecipe.index);
+      return {listId: day};
+    }
+    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
     return {listId: day};
     //return {day: props.day};
   }
@@ -34,46 +41,19 @@ function collect(connect, monitor) {
     canDrop: monitor.canDrop()
   };
 }
-*/
-//
 
 class PlannerRecipesList extends Component {
-  /*constructor(props) {
-    super(props);
-    this.state = {recipes: props.list};  // props instead (redux?)
-  }*/
-
-  //componentDidMount() {} ???
-
-  /*
-  // you shouldn't be able to push a recipe because you shouldn't be able to remove one in the list
-  pushRecipe = recipe => {
-    this.setState(update(this.state, {
-      recipes: {$push: [recipe]}
-    }));
-  }
-
-  // you shouldn't be able to remove a recipe because you shouldn't be able to push one in the list
-  removeRecipe = index => {
-    this.setState(update(this.state, {
-      recipes: {$splice: [[index, 1]]}
-    }));
-  }
-
-  // you shouldn't be able to reorder any recipe in the list
+  /*  you shouldn't be able to reorder any recipe in the list
   moveRecipe = (dragIndex, hoverIndex) => {
     const { recipes } = this.state;  // props instead (redux?)
     const dragRecipe = recipes[dragIndex];
     this.setState(update(this.state, {
       recipes: {$splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]}
     }));
-  }
-  */
+  }  */
 
   render() {
-    //const { recipes } = this.state;
     const { day, list, connectDropTarget } = this.props;
-    // umm, shouldn't this be drag source, not drop target? or both?
     /*
       careful,
       there's both key and index here,
@@ -83,17 +63,16 @@ class PlannerRecipesList extends Component {
       you're technically not "removing" a recipe from here,
       you're making a new instance of it and adding that instance to the plan
     */
-    //return connectDropTarget();
-    return (
+    return connectDropTarget(
       <div id="planner_recipes_list">
         {list.map((recipe, i) => (
           <PlannerRecipe
+            className="planner_recipe"
             key={recipe.id}
             index={i}
             listId={day}
             recipe={recipe}
             day={day}
-            className="planner_recipe"
           />
         ))}
       </div>
@@ -101,13 +80,18 @@ class PlannerRecipesList extends Component {
   }
 }
 
-// move to separate wrapper file in this same folder,
-// like you would with react-redux's connect()
-/*
-export default DropTarget(
-  Types.PLANNER_RECIPE,
-  plannerRecipesListTarget,
-  collect
-)(PlannerRecipesList);
-*/
-export default PlannerRecipesList;
+const mapDispatchToProps = dispatch => ({
+  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
+  plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(
+  DropTarget(
+    Types.PLANNER_RECIPE,
+    plannerRecipesListTarget,
+    collect
+  )(PlannerRecipesList)
+);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
-import { plannerClickDay } from '../../../store/actions/index';
+import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
@@ -11,7 +11,8 @@ const plannerExpandedDayTarget = {
   drop(props, monitor, component) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
-    if (day !== draggedRecipe.listId) component.pushRecipe(draggedRecipe.recipe);
+    //if (day !== draggedRecipe.listId) component.pushRecipe(draggedRecipe.recipe);
+    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe)
     return {listId: day};
   }
 };
@@ -27,35 +28,14 @@ function collect(connect, monitor) {
 class PlannerExpandedDay extends Component {
   handleClickDay = () => {
     const { day } = this.props;
-    console.log(day + ' clicked.');
     this.props.plannerClickDay(day);
   }
-  /*constructor(props) {
-    super(props);
-    this.day = null;
-    this.setSelfRef = element => {
-      this.day = element;
-    };
-    this.state = {recipes: props.list};  // remove, use redux?
-  }*/
 
+  // move to dnd spec (but only for expandedday?)
   /*
-  // we're moving all these to redux
-  // send child back to its usual div
-  handleClick = async (e) => {
-    const { day, onDayClick } = this.props;
-    e.preventDefault(); // stoppropagation or none?
-    await onDayClick(day);
-  }
-
-  pushRecipe = async (recipe) => {
-    const { day, onPushRecipe } = this.props;
-    await onPushRecipe(day, recipe);
-  }
-
-  removeRecipe = async (index) => {
-    const { day, onRemoveRecipe } = this.props;
-    await onRemoveRecipe(day, index);
+  handleReorderRecipeInDay = () => {
+    const { day, dragIndex, hoverIndex, dragRecipe, plannerReorderRecipeInDay } = this.props;
+    plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
   }
 
   moveRecipe = async (dragIndex, hoverIndex) => {
@@ -71,6 +51,7 @@ class PlannerExpandedDay extends Component {
   render() {
     const { list, expanded, day, expandedDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
+    //let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     return expanded
     ? connectDropTarget(
@@ -88,6 +69,7 @@ class PlannerExpandedDay extends Component {
         */}
         {list.map((recipe, i) => (
           <PlannerRecipe
+            className="planner_recipe"
             key={recipe.id}
             index={i}
             listId={this.props.id}
@@ -95,7 +77,6 @@ class PlannerExpandedDay extends Component {
             expanded={expanded}
             day={day}
             expandedDay={expandedDay}
-            className="planner_recipe"
           />
         ))}
       </div>
@@ -105,7 +86,8 @@ class PlannerExpandedDay extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  plannerClickDay: (day) => dispatch(plannerClickDay(day))
+  plannerClickDay: (day) => dispatch(plannerClickDay(day)),
+  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe))
 });
 
 export default connect(

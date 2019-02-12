@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import update from 'immutability-helper';
 
 import LeftNav from '../../components/LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
 //import CustomDragLayer from './CustomDragLayer';
-/*import {
-  plannerAddRecipeToPlan,
-  plannerRemoveRecipeFromPlan,
-  plannerClickDay,
-  plannerAddRecipeToDay,
-  plannerRemoveRecipeFromDay,
-  plannerReorderRecipeInDay
-} from '../../store/actions/index';*/
 import './planner.css';  // use BEM
 
 //import planData from './plan-data'; // just dummy data for dev
@@ -22,34 +13,9 @@ import './planner.css';  // use BEM
 class Planner extends Component {
   constructor(props) {
     super(props);
-    this.tableRef = React.createRef();
-  }
-  /*
-  handleAddRecipeToPlan = recipeInstance => {
-    this.props.plannerAddRecipeToPlan(recipeInstance);
+    this.tableRef = React.createRef();  // needed?
   }
 
-  handleRemoveRecipeFromPlan = recipeInstance => {
-    this.props.plannerRemoveRecipeFromPlan(recipeInstance);
-  }
-  */
-  /*handleClickDay = day => {
-    console.log(day + ' clicked.');
-    this.props.plannerClickDay(day);
-  }*/
-  /*
-  handleAddRecipeToDay = (day, recipe) => {
-    this.props.plannerAddRecipeToDay(day, recipe);
-  }
-
-  handleRemoveRecipeFromDay = (day, index) => {
-    this.props.plannerRemoveRecipeFromDay(day, index);
-  }
-
-  handleReorderRecipeInDay = (day, dragIndex, hoverIndex, dragRecipe) => {
-    this.props.plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
-  }
-  */
   // also move to redux:
   /*
   handleSave = async () => {  // put in componentDidUpdate? throttle every 5 seconds
@@ -137,22 +103,5 @@ const mapStateToProps = state => ({
   expandedDay: state.planner.expandedDay,
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
-
-/*const actionCreators = {
-  plannerAddRecipeToPlan,
-  plannerRemoveRecipeFromPlan,
-  plannerClickDay,
-  plannerAddRecipeToDay,
-  plannerRemoveRecipeFromDay,
-  plannerReorderRecipeInDay
-};*/
-
-/*const mapDispatchToProps = dispatch => ({
-  plannerAddRecipeToPlan: (recipeInstance) => dispatch(plannerAddRecipeToPlan(recipeInstance)),
-  plannerRemoveRecipeFromPlan: (recipeInstance) => dispatch(plannerRemoveRecipeFromPlan(recipeInstance)),
-  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
-  plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
-  plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
-});*/
 
 export default connect(mapStateToProps)(Planner);

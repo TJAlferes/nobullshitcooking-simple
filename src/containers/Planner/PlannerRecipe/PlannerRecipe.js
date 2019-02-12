@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { DragSource, DropTarget } from 'react-dnd';
-//import flow from 'lodash/fp/flow';  // do you need this?
+//import flow from 'lodash/fp/flow';
 
 import {
-  plannerRemoveRecipeFromDay
+  plannerRemoveRecipeFromDay,
+  plannerReorderRecipeInDay
 } from '../../../store/actions/index';
 import './plannerRecipe.css';  // use BEM 
 
@@ -36,6 +37,13 @@ const plannerRecipeTarget = {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     const sourceListId = monitor.getItem().listId;
+    const day = props.day;
+    // or
+    //const day = monitor.getItem().day;
+    // CHECK THAT THESE ARE CORRECT!
+    //const dragRecipe = props.recipe;
+    // or
+    const dragRecipe = monitor.getItem().recipe;
     // 1. conditional around here to determine if hovering over calendar or list???
     // 3. and then, solve for dynamically created unique keys/ids
     // 4. clones and wrong deletions
@@ -48,7 +56,9 @@ const plannerRecipeTarget = {
     if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
     if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
     if (props.listId === sourceListId) {
-      props.moveRecipe(dragIndex, hoverIndex);  // ?????
+      //console.log('dragRecipe: ', dragRecipe);
+      //console.log(`${day}, ${dragIndex}, ${hoverIndex}`, dragRecipe);
+      props.plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
       monitor.getItem().index = hoverIndex;  // mutation, but OK here(?)
     }
   }
@@ -78,10 +88,8 @@ const PlannerRecipe = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  //plannerClickDay: (day) => dispatch(plannerClickDay(day)),
-  //plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
   plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
-  //plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
+  plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
 });
 
 /*export default flow(

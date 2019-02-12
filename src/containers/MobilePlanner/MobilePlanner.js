@@ -4,14 +4,6 @@ import { connect } from 'react-redux';
 import MobilePlannerRecipesList from './MobilePlannerRecipesList/MobilePlannerRecipesList';
 import MobilePlannerDay from './MobilePlannerDay/MobilePlannerDay';
 import MobilePlannerExpandedDay from './MobilePlannerExpandedDay/MobilePlannerExpandedDay';
-import {
-  plannerAddRecipeToPlan,
-  plannerRemoveRecipeFromPlan,
-  plannerClickDay,
-  plannerAddRecipeToDay,
-  plannerRemoveRecipeFromDay,
-  plannerReorderRecipeInDay
-} from '../../store/actions/index';
 import './mobilePlanner.css';  // use BEM
 
 //import planData from './plan-data'; // just dummy data for dev
@@ -24,98 +16,15 @@ import './mobilePlanner.css';  // use BEM
 // Prevent duplicate adds
 
 class MobilePlanner extends Component {
-  /*constructor(props) {
-    super(props);
-    this.state = {
-      isSaving: false,
-      expanded: false,
-      expandedDay: "none",
-      recipeLists: planData
-    };
-  }*/
-
-  handleAddRecipeToPlan = recipeInstance => {
-    this.props.plannerAddRecipeToPlan(recipeInstance);
-  }
-
-  handleRemoveRecipeFromPlan = recipeInstance => {
-    this.props.plannerRemoveRecipeFromPlan(recipeInstance);
-  }
-
-  handleClickDay = day => {
-    this.props.plannerClickDay(day);
-  }
-  
-  handleAddRecipeToDay = (day, recipe) => {
-    this.props.plannerAddRecipeToDay(day, recipe);
-  }
-
-  handleRemoveRecipeFromDay = (day, index) => {
-    this.props.plannerRemoveRecipeFromDay(day, index);
-  }
-
-  handleReorderRecipeInDay = (day, dragIndex, hoverIndex, dragRecipe) => {
-    this.props.plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
-  }
-
-  /*
-  handleClick = day => {
-    const { expandedDay } = this.state;
-    if (day === expandedDay) {
-      this.setState({expanded: false, expandedDay: "none"});
-    } else {
-      this.setState({expanded: true, expandedDay: day});
-    }
-  }
-
-  handlePushRecipe = (day, recipe) => {
-    this.setState(update(this.state, {
-      recipeLists: {
-        [day - 1]: {
-          list: {
-            $push: [recipe]
-          }
-        }
-      }
-    }));
-  }
-
-  handleRemoveRecipe = (day, index) => {
-    this.setState(update(this.state, {
-      recipeLists: {
-        [day - 1]: {
-          list: {
-            $splice: [[index, 1]]
-          }
-        }
-      }
-    }));
-  }
-
-  handleReorderRecipe = (day, dragIndex, hoverIndex, dragRecipe) => {
-    this.setState(update(this.state, {
-      recipeLists: {
-        [day - 1]: {
-          list: {
-            $splice: [[dragIndex, 1], [hoverIndex, 0, dragRecipe]]
-          }
-        }
-      }
-    }));
-  }
-  
-  handleSave = async () => {  // put in componentDidUpdate? throttle every 5 seconds
+  /*handleSave = async () => {  // put in redux-saga, perform 5 seconds after no mouse or keyboard activity
     const { isSaving, recipeLists } = this.state;
     // fetch or axios PUT on the already created record
     // setState({isSaving: true});
     // setState({isSaving: false});
-
-    // or this should go in redux-thunk / redux-saga
-  }
-  */
+  }*/
 
   render() {
-    const { recipeListsInsideDays, expanded, expandedDay } = this.props;
+    const { isSaving, expanded, expandedDay, recipeListsInsideDays } = this.props;
     return (
       <article id="mobile_planner">
         <div id="mobile_planner_header">
@@ -138,19 +47,13 @@ class MobilePlanner extends Component {
                 <span className="th">Sat</span>
               </div>
               <div id="tbody">
-                {/*
-                This may be the WRONG way to handle keys in React! find that lecture!
-                okay, here it's fine, the issue in in the recipes
-                */}
-                {recipeListsInsideDays.map((recipeList, i) => (
+                {/* do you need Object.assign({}, ...Object.keys--) here? */}
+                {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
                   <div key={i} className="td">
                     <div className="content">
                       <MobilePlannerDay
                         day={i + 1}
-                        list={recipeList}
-                        onClickDay={this.handleClickDay}
-                        onAddRecipeToDay={this.handleAddRecipeToDay}
-                        onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
+                        list={recipeListsInsideDays[recipeList]}
                         expanded={expanded}
                         expandedDay={expandedDay}
                       />
@@ -171,11 +74,7 @@ class MobilePlanner extends Component {
             <div id="mobile_expanded_day_area">
               <MobilePlannerExpandedDay
                 day={expandedDay}
-                list={(expanded) ? recipeListsInsideDays[expandedDay - 1] : []}
-                onClickDay={this.handleClickDay}
-                onAddRecipeToDay={this.handleAddRecipeToDay}
-                onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
-                onReorderRecipeInDay={this.handleReorderRecipeInDay}
+                list={(expanded) ? recipeListsInsideDays[expandedDay] : []}
                 expanded={expanded}
                 expandedDay={expandedDay}
               />
@@ -195,17 +94,4 @@ const mapStateToProps = state => ({
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
-/*const mapDispatchToProps = dispatch => ({
-
-});*/
-
-const actionCreators = {
-  plannerAddRecipeToPlan,
-  plannerRemoveRecipeFromPlan,
-  plannerClickDay,
-  plannerAddRecipeToDay,
-  plannerRemoveRecipeFromDay,
-  plannerReorderRecipeInDay
-};
-
-export default connect(mapStateToProps, actionCreators)(MobilePlanner);
+export default connect(mapStateToProps)(MobilePlanner);
