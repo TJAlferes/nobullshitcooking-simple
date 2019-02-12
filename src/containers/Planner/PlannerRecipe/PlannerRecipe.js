@@ -22,7 +22,7 @@ const plannerRecipeSource = {
   },
   endDrag(props, monitor) {
     const item = monitor.getItem();
-    console.log(item.day);
+    if (item.day === "0") return; // to copy rather than remove from plannerrecipeslist
     const dropResult = monitor.getDropResult();
     if (dropResult && (dropResult.listId !== item.listId)) {
       props.plannerRemoveRecipeFromDay(item.day, item.index);

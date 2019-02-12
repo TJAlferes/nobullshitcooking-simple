@@ -69,11 +69,11 @@ const clickDay = (state, action) => {
 };
 
 const addRecipeToDay = (state, action) => {
-  const { day } = action;
+  const { day, recipe } = action;
   console.log('Day ' + day);
   return update(state, {
     recipeListsInsideDays: {
-      [action.day]: {$push: [action.recipe]}
+      [day]: {$push: [recipe]}
     }
   });
   /*return {
@@ -89,14 +89,14 @@ const addRecipeToDay = (state, action) => {
 };
 
 const removeRecipeFromDay = (state, action) => {
-  const { day } = action;
+  console.log('ran');
+  const { day, index } = action;
   console.log('Day ' + day);
+  console.log('Index ' + index);
   return update(state, {
     recipeListsInsideDays: {
-      [action.day]: {
-        $splice: [
-          [action.index, 1]
-        ]
+      [day]: {
+        $splice: [[index, 1]]
       }
     }
   });
@@ -104,13 +104,13 @@ const removeRecipeFromDay = (state, action) => {
 
 const reorderRecipeInDay = (state, action) => {
   const { recipeListsInsideDays } = state;
-  const { day, expandedDay } = action;
+  const { day, expandedDay, dragIndex, hoverIndex } = action;
   const dragRecipe = recipeListsInsideDays[action.dragIndex];
   // only allow reordering/moving of recipes within currently expanded day
   if (day !== expandedDay) return;
   return update(state, {
     recipeListsInsideDays: {
-      [action.day - 1]: {
+      [action.day]: {
         $splice: [
           [action.dragIndex, 1],
           [action.hoverIndex, 0, dragRecipe]

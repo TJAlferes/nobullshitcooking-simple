@@ -72,7 +72,7 @@ class PlannerRecipesList extends Component {
 
   render() {
     //const { recipes } = this.state;
-    const { list, connectDropTarget } = this.props;
+    const { day, list, connectDropTarget } = this.props;
     // umm, shouldn't this be drag source, not drop target? or both?
     /*
       careful,
@@ -90,10 +90,9 @@ class PlannerRecipesList extends Component {
           <PlannerRecipe
             key={recipe.id}
             index={i}
-            listId={this.props.id}
+            listId={day}
             recipe={recipe}
-            day={this.props.day}
-            removeRecipe={this.removeRecipe}
+            day={day}
             className="planner_recipe"
           />
         ))}

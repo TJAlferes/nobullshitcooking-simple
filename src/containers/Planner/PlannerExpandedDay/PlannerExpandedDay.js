@@ -70,7 +70,6 @@ class PlannerExpandedDay extends Component {
 
   render() {
     const { list, expanded, day, expandedDay } = this.props;
-    const { onAddRecipeToDay, onRemoveRecipeFromDay, onReorderRecipeInDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     return expanded

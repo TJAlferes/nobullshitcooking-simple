@@ -6,7 +6,7 @@ import LeftNav from '../../components/LeftNav/LeftNav';  // instead of doing it 
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
-import CustomDragLayer from './CustomDragLayer';
+//import CustomDragLayer from './CustomDragLayer';
 /*import {
   plannerAddRecipeToPlan,
   plannerRemoveRecipeFromPlan,
@@ -71,7 +71,6 @@ class Planner extends Component {
           getUser={this.props.getUser}
         />
         <article>
-          <CustomDragLayer />
           <div id="planner_header">
             <h1>Planner</h1>
             <p id="autosave_feedback">

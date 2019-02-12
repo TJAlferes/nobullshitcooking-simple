@@ -18,7 +18,7 @@ const plannerDayTarget = {
     const draggedRecipe = monitor.getItem();
     //if (day !== draggedRecipe.listId) component.pushRecipe(draggedRecipe.recipe);
     //if (day !== draggedRecipe.listId) component.props.onAddRecipeToDay(draggedRecipe.recipe);
-    if (day !== draggedRecipe.listId) component.props.plannerAddRecipeToDay(day, draggedRecipe.recipe)
+    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe)
     return {listId: day};
   }
 };
@@ -86,7 +86,6 @@ class PlannerDay extends Component {
             day={day}
             expandedDay={expandedDay}
             className="planner_recipe"
-            onRemoveRecipeFromDay={this.handleRemoveRecipeFromDay}
           />
         ))}
       </div>
@@ -97,8 +96,8 @@ class PlannerDay extends Component {
 const mapDispatchToProps = dispatch => ({
   plannerClickDay: (day) => dispatch(plannerClickDay(day)),
   plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
-  plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
-  plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
+  //plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
+  //plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
 });
 
 // move to separate wrapper file in this same folder,
