@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+const uuidv4 = require('uuid/v4');
 
 import LeftNav from '../../components/LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
@@ -84,9 +85,9 @@ class Planner extends Component {
             <PlannerRecipesList
               day="0"
               list={[
-                {id: 1, text: "Sheperd's Pie"},
-                {id: 2, text: "Split Pea Soup"},
-                {id: 3, text: "Steak Asparagus and Sweet Potato"}
+                {key: uuidv4(), id: 1, text: "Sheperd's Pie"},
+                {key: uuidv4(), id: 2, text: "Split Pea Soup"},
+                {key: uuidv4(), id: 3, text: "Steak Asparagus and Sweet Potato"}
               ]}
             />
           </div>

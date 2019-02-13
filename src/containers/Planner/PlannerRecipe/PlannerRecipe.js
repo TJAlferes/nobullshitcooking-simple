@@ -22,6 +22,7 @@ const plannerRecipeSource = {
     };
   },
   endDrag(props, monitor) {
+    // or should we remove old here?
     const item = monitor.getItem();
     if (item.day === "0") return; // to copy rather than remove from plannerrecipeslist
     const dropResult = monitor.getDropResult();
@@ -34,6 +35,7 @@ const plannerRecipeSource = {
 // be sure to explain this well, so that others easily understand it
 const plannerRecipeTarget = {
   hover(props, monitor, component) {
+    if (props.day !== props.expandedDay) return;
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     const sourceListId = monitor.getItem().listId;
@@ -51,7 +53,7 @@ const plannerRecipeTarget = {
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-    if (props.day !== props.expandedDay) return;
+    //if (props.day !== props.expandedDay) return;
     if (dragIndex === hoverIndex) return;
     if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
     if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;

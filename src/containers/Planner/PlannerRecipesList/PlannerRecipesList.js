@@ -62,13 +62,15 @@ class PlannerRecipesList extends Component {
 
       you're technically not "removing" a recipe from here,
       you're making a new instance of it and adding that instance to the plan
+
+      key={recipe.id}
     */
     return connectDropTarget(
       <div id="planner_recipes_list">
         {list.map((recipe, i) => (
           <PlannerRecipe
             className="planner_recipe"
-            key={recipe.id}
+            key={recipe.key}
             index={i}
             listId={day}
             recipe={recipe}

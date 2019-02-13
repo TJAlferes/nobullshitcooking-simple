@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
+const uuidv4 = require('uuid/v4');
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/index';
@@ -11,8 +12,10 @@ const plannerExpandedDayTarget = {
   drop(props, monitor, component) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
-    //if (day !== draggedRecipe.listId) component.pushRecipe(draggedRecipe.recipe);
-    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe)
+    const dropResult = monitor.getDropResult();
+    //console.log('in plannerExpandedDayTarget', draggedRecipe);
+    //if (day === draggedRecipe.day) props.plannerRemoveRecipeFromDay(day, dropResult.index);
+    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
     return {listId: day};
   }
 };
@@ -66,11 +69,13 @@ class PlannerExpandedDay extends Component {
         there's both key and index here,
         and recipe.id can't be key because they should be able to have multiple
         instances of a recipe, so you need a dynamic instance id too
+
+        key={recipe.id}
         */}
         {list.map((recipe, i) => (
           <PlannerRecipe
             className="planner_recipe"
-            key={recipe.id}
+            key={recipe.key}
             index={i}
             listId={this.props.id}
             recipe={recipe}
@@ -88,6 +93,7 @@ class PlannerExpandedDay extends Component {
 const mapDispatchToProps = dispatch => ({
   plannerClickDay: (day) => dispatch(plannerClickDay(day)),
   plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe))
+  //plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index))
 });
 
 export default connect(

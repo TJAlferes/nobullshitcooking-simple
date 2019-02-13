@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
+const uuidv4 = require('uuid/v4');
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/index';
@@ -43,11 +44,14 @@ class PlannerDay extends Component {
         there's both key and index here,
         and recipe.id can't be key because they should be able to have multiple
         instances of a recipe, so you need a dynamic instance id too
+
+        key={recipe.id}
+        key={recipe.key}
         */}
         {list.map((recipe, i) => (
           <PlannerRecipe
             className="planner_recipe"
-            key={recipe.id}
+            key={recipe.key}
             index={i}
             listId={this.props.id}
             recipe={recipe}
