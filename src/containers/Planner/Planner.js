@@ -16,9 +16,7 @@ class Planner extends Component {
     super(props);
     this.tableRef = React.createRef();  // needed?
   }
-
-  // also move to redux:
-  /*
+  /*  also move to redux:
   handleSave = async () => {  // put in componentDidUpdate? throttle every 5 seconds
     const { isSaving, recipeLists } = this.state;
     // fetch or axios PUT on the already created record
@@ -28,7 +26,6 @@ class Planner extends Component {
     // or this should go in redux-thunk / redux-saga
   }
   */
-
   render() {
     const { isSaving, expanded, expandedDay, recipeListsInsideDays } = this.props;
     return (

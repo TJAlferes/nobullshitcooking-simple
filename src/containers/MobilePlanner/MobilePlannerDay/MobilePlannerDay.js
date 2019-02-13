@@ -48,7 +48,8 @@ class MobilePlannerDay extends Component {
   }
 
   render() {
-    const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
+    const { list, expanded, day, expandedDay } = this.props;
+    const { canDrop, isOver, connectDropTarget } = this.props;
     let color = (isOver && canDrop) ? "mobile_planner_day_green" : "mobile_planner_day_white";
     return (!expanded || (day !== expandedDay))
     ? connectDropTarget(

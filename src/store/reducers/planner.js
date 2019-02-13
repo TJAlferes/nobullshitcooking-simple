@@ -1,7 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 import update from 'immutability-helper';
 
-// FLATTEN
+// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
+
+// FLATTEN!!!
 const initialState = {
   isSaving: false,
   expanded: false,
@@ -38,23 +40,9 @@ const initialState = {
   }
 };
 
-const addRecipeToPlan = (state, action) => {
-  /*return update(state, {
-
-  });*/
-  return state;
-};
-
-const removeRecipeFromPlan = (state, action) => {
-  /*return update(state, {
-
-  });*/
-  return state;
-};
-
 const clickDay = (state, action) => {
-  //const { expandedDay } = state;
-  const { day, expandedDay } = action;
+  const { expandedDay } = state;
+  const { day } = action;
   if (day === expandedDay) {
     return {...state, ...{
       expanded: false,
@@ -73,19 +61,11 @@ const addRecipeToDay = (state, action) => {
   console.log('Day ' + day);
   return update(state, {
     recipeListsInsideDays: {
-      [day]: {$push: [recipe]}
-    }
-  });
-  /*return {
-    ...state,
-    recipeListsInsideDays: {
-      ...state.recipeListsInsideDays,
-      [action.day - 1]: {
-        ...state.recipeListsInsideDays[action.day - 1]
-        [action.recipe]
+      [day]: {
+        $push: [recipe]
       }
     }
-  };*/
+  });
 };
 
 const removeRecipeFromDay = (state, action) => {
@@ -104,18 +84,18 @@ const removeRecipeFromDay = (state, action) => {
 
 const reorderRecipeInDay = (state, action) => {
   const { expandedDay, recipeListsInsideDays } = state;
-  const { day, dragIndex, hoverIndex, dragRecipe } = action;
-  //const dragRecipe = recipeListsInsideDays[action.dragIndex];
+  const { dragIndex, hoverIndex } = action;
+  //const { day, dragIndex, hoverIndex, dragRecipe } = action;
+  // V that?
+  const draggedRecipe = recipeListsInsideDays[dragIndex];
+  console.log(draggedRecipe);
   // only allow reordering/moving of recipes within currently expanded day
   // should this conditional be back in the spec???
-  if (day !== expandedDay) return undefined;
+  //if (day !== expandedDay) return undefined;
   return update(state, {
     recipeListsInsideDays: {
-      [day]: {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragRecipe]
-        ]
+      [expandedDay]: {
+        $splice: [[dragIndex, 1], [hoverIndex, 0, draggedRecipe]]
       }
     }
   });
@@ -124,8 +104,6 @@ const reorderRecipeInDay = (state, action) => {
 // remember Nir Kofman's actions patterns
 const plannerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.PLANNER_ADD_RECIPE_TO_PLAN: return addRecipeToPlan(state, action);
-    case actionTypes.PLANNER_REMOVE_RECIPE_FROM_PLAN: return removeRecipeFromPlan(state, action);
     case actionTypes.PLANNER_CLICK_DAY: return clickDay(state, action);
     case actionTypes.PLANNER_ADD_RECIPE_TO_DAY: return addRecipeToDay(state, action);
     case actionTypes.PLANNER_REMOVE_RECIPE_FROM_DAY: return removeRecipeFromDay(state, action);

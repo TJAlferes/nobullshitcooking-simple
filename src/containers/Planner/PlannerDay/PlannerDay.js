@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
-const uuidv4 = require('uuid/v4');
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/index';
@@ -34,10 +33,11 @@ class PlannerDay extends Component {
   render() {
     const { list, expanded, day, expandedDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
-    let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
+    //let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
-    return connectDropTarget(
-      <div className={`${color} ${size}`} onClick={this.handleClickDay}>
+    return (!expanded || (day !== expandedDay))
+    ? connectDropTarget(
+      <div className={`planner_day_collapsed ${color}`} onClick={this.handleClickDay}>
         <span className="the_date">{day}</span>
         {/*
         careful,
@@ -49,19 +49,24 @@ class PlannerDay extends Component {
         key={recipe.key}
         */}
         {list.map((recipe, i) => (
-          <PlannerRecipe
-            className="planner_recipe"
-            key={recipe.key}
-            index={i}
-            listId={this.props.id}
-            recipe={recipe}
-            expanded={expanded}
-            day={day}
-            expandedDay={expandedDay}
-          />
+          recipe 
+          ? (
+            <PlannerRecipe
+              className="planner_recipe"
+              key={recipe.key}
+              index={i}
+              listId={this.props.id}
+              recipe={recipe}
+              expanded={expanded}
+              day={day}
+              expandedDay={expandedDay}
+            />
+          )
+          : false
         ))}
       </div>
-    );
+    )
+    : false;
   }
 }
 

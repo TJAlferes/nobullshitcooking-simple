@@ -35,19 +35,12 @@ const plannerRecipeSource = {
 // be sure to explain this well, so that others easily understand it
 const plannerRecipeTarget = {
   hover(props, monitor, component) {
-    if (props.day !== props.expandedDay) return;
-    const dragIndex = monitor.getItem().index;
+    const { day, expandedDay } = props;
+    if (day !== expandedDay) return;
     const hoverIndex = props.index;
+    const dragIndex = monitor.getItem().index;
     const sourceListId = monitor.getItem().listId;
-    const day = props.day;
-    // or
-    //const day = monitor.getItem().day;
-    // CHECK THAT THESE ARE CORRECT!
-    //const dragRecipe = props.recipe;
-    // or
-    const dragRecipe = monitor.getItem().recipe;
-    // 1. conditional around here to determine if hovering over calendar or list???
-    // 3. and then, solve for dynamically created unique keys/ids
+    //const dragRecipe = monitor.getItem().recipe;
     // 4. clones and wrong deletions
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -60,7 +53,9 @@ const plannerRecipeTarget = {
     if (props.listId === sourceListId) {
       //console.log('dragRecipe: ', dragRecipe);
       //console.log(`${day}, ${dragIndex}, ${hoverIndex}`, dragRecipe);
-      props.plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
+      //props.plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
+      props.plannerReorderRecipeInDay(dragIndex, hoverIndex);
+      // swap or move this?
       monitor.getItem().index = hoverIndex;  // mutation, but OK here(?)
     }
   }
@@ -83,15 +78,20 @@ const PlannerRecipe = props => {
   //const backgroundColor = isDragging ? "#666" : "#fff3cc";
   //const opacity = isDragging ? 0 : 1;
   return connectDragSource(connectDropTarget(
-    <div className="planner_recipe">
-      {recipe.text}
-    </div>
+    recipe
+    ? (
+      <div className="planner_recipe">
+        {recipe.text}
+      </div>
+    )
+    : false
   ));
 }
 
 const mapDispatchToProps = dispatch => ({
   plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
-  plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
+  plannerReorderRecipeInDay: (dragIndex, hoverIndex) => dispatch(plannerReorderRecipeInDay(dragIndex, hoverIndex))
+  //plannerReorderRecipeInDay: (day, dragIndex, hoverIndex, dragRecipe) => dispatch(plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe))
 });
 
 /*export default flow(

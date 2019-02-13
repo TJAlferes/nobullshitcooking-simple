@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-/*
-  I think you need TWO item types
-  one for the initial drag from this list into the plan
-  and one for the "copy" that can then be dragged between days
-  each time you drag from this list it creates a new "copy"
-
-*/
 import { DropTarget } from 'react-dnd';
-//import update from 'immutability-helper';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
-const uuidv4 = require('uuid/v4');
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/index';
@@ -73,16 +72,20 @@ class PlannerExpandedDay extends Component {
         key={recipe.id}
         */}
         {list.map((recipe, i) => (
-          <PlannerRecipe
-            className="planner_recipe"
-            key={recipe.key}
-            index={i}
-            listId={this.props.id}
-            recipe={recipe}
-            expanded={expanded}
-            day={day}
-            expandedDay={expandedDay}
-          />
+          recipe 
+          ? (
+            <PlannerRecipe
+              className="planner_recipe"
+              key={recipe && recipe.key}
+              index={i}
+              listId={this.props.id}
+              recipe={recipe}
+              expanded={expanded}
+              day={day}
+              expandedDay={expandedDay}
+            />
+          )
+          : false
         ))}
       </div>
     )
