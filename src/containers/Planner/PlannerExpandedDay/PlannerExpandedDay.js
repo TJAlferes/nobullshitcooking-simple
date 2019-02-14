@@ -9,12 +9,22 @@ const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 const plannerExpandedDayTarget = {
   drop(props, monitor, component) {
-    const { day } = props;
+    const { day, expandedDay } = props;
     const draggedRecipe = monitor.getItem();
+    console.log(draggedRecipe);
     const dropResult = monitor.getDropResult();
     //console.log('in plannerExpandedDayTarget', draggedRecipe);
     //if (day === draggedRecipe.day) props.plannerRemoveRecipeFromDay(day, dropResult.index);
-    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
+    // okay, the conditional to fix is right here!!!
+    // you need to make it so that it
+
+    // this is allowing drags into expandedDay (good), but is copying on reorder (bad)
+    //if ((draggedRecipe.listId !== expandedDay) && (day !== draggedRecipe.listId)) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
+
+    // this is not allowing drags into expandedDay (bad), but is not copying on reorder (good)
+    //day !== draggedRecipe.listId
+    if (expandedDay !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
+
     return {listId: day};
   }
 };
@@ -70,22 +80,21 @@ class PlannerExpandedDay extends Component {
         instances of a recipe, so you need a dynamic instance id too
 
         key={recipe.id}
+        THE ISSUE MAY BE THE LISTID
+        listId={this.props.id}
+        listId={day}
+        there is no listId in Dan's example
         */}
         {list.map((recipe, i) => (
-          recipe 
-          ? (
-            <PlannerRecipe
-              className="planner_recipe"
-              key={recipe && recipe.key}
-              index={i}
-              listId={this.props.id}
-              recipe={recipe}
-              expanded={expanded}
-              day={day}
-              expandedDay={expandedDay}
-            />
-          )
-          : false
+          <PlannerRecipe
+            className="planner_recipe"
+            key={recipe.key}
+            index={i}
+            recipe={recipe}
+            expanded={expanded}
+            day={day}
+            expandedDay={expandedDay}
+          />
         ))}
       </div>
     )

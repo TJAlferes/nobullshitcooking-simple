@@ -11,7 +11,7 @@ const plannerDayTarget = {
   drop(props, monitor) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
-    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe)
+    if (day !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe)
     return {listId: day};
   }
 };
@@ -47,22 +47,18 @@ class PlannerDay extends Component {
 
         key={recipe.id}
         key={recipe.key}
+        listId={this.props.id}
         */}
         {list.map((recipe, i) => (
-          recipe 
-          ? (
-            <PlannerRecipe
-              className="planner_recipe"
-              key={recipe.key}
-              index={i}
-              listId={this.props.id}
-              recipe={recipe}
-              expanded={expanded}
-              day={day}
-              expandedDay={expandedDay}
-            />
-          )
-          : false
+          <PlannerRecipe
+            className="planner_recipe"
+            key={recipe.key}
+            index={i}
+            recipe={recipe}
+            expanded={expanded}
+            day={day}
+            expandedDay={expandedDay}
+          />
         ))}
       </div>
     )

@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { DragSource, DropTarget } from 'react-dnd';
 //import flow from 'lodash/fp/flow';
-
+// why is the add in the days? shouldn't it be here also?
 import {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
@@ -11,14 +11,15 @@ import {
 import './plannerRecipe.css';  // use BEM 
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
-
+// return id: props(.recipe).id and/or key: props(.recipe).key here also?
 const plannerRecipeSource = {
   beginDrag(props) {
     return {
       index: props.index,
-      listId: props.listId,
+      //listId: props.listId,
       recipe: props.recipe,
-      day: props.day
+      day: props.day,
+      key: props.recipe.key
     };
   },
   endDrag(props, monitor) {
@@ -26,7 +27,15 @@ const plannerRecipeSource = {
     const item = monitor.getItem();
     if (item.day === "0") return; // to copy rather than remove from plannerrecipeslist
     const dropResult = monitor.getDropResult();
-    if (dropResult && (dropResult.listId !== item.listId)) {
+    //console.log(item.listId);
+    console.log(item.day);
+    //console.log(props.listId);
+    //console.log(dropResult.listId);
+    console.log(dropResult);
+    console.log(dropResult.listId);
+    //if (dropResult && (dropResult.listId !== item.listId)) {
+    // problem of lingering recipe might be here?
+    if (dropResult && (dropResult.listId !== item.day)) {
       props.plannerRemoveRecipeFromDay(item.day, item.index);
     }
   }
@@ -35,11 +44,13 @@ const plannerRecipeSource = {
 // be sure to explain this well, so that others easily understand it
 const plannerRecipeTarget = {
   hover(props, monitor, component) {
+    if (!component) return null;
     const { day, expandedDay } = props;
     if (day !== expandedDay) return;
-    const hoverIndex = props.index;
     const dragIndex = monitor.getItem().index;
-    const sourceListId = monitor.getItem().listId;
+    const hoverIndex = props.index;
+    if (dragIndex === hoverIndex) return;
+    //const sourceListId = monitor.getItem().listId;
     //const dragRecipe = monitor.getItem().recipe;
     // 4. clones and wrong deletions
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
@@ -47,17 +58,19 @@ const plannerRecipeTarget = {
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
     //if (props.day !== props.expandedDay) return;
-    if (dragIndex === hoverIndex) return;
+    //if (dragIndex === hoverIndex) return;
     if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
     if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
-    if (props.listId === sourceListId) {
+    props.plannerReorderRecipeInDay(dragIndex, hoverIndex);
+    monitor.getItem().index = hoverIndex;
+    /*if (props.listId === sourceListId) {
       //console.log('dragRecipe: ', dragRecipe);
       //console.log(`${day}, ${dragIndex}, ${hoverIndex}`, dragRecipe);
       //props.plannerReorderRecipeInDay(day, dragIndex, hoverIndex, dragRecipe);
       props.plannerReorderRecipeInDay(dragIndex, hoverIndex);
       // swap or move this?
       monitor.getItem().index = hoverIndex;  // mutation, but OK here(?)
-    }
+    }*/
   }
 };
 
@@ -78,13 +91,9 @@ const PlannerRecipe = props => {
   //const backgroundColor = isDragging ? "#666" : "#fff3cc";
   //const opacity = isDragging ? 0 : 1;
   return connectDragSource(connectDropTarget(
-    recipe
-    ? (
-      <div className="planner_recipe">
-        {recipe.text}
-      </div>
-    )
-    : false
+    <div className="planner_recipe">
+      {recipe.text}
+    </div>
   ));
 }
 
