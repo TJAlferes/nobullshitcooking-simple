@@ -12,6 +12,7 @@ const plannerDayTarget = {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
     if (day !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe)
+    // are we using this? also, is this necessary? if neither, remove please
     return {listId: day};
   }
 };
@@ -33,22 +34,11 @@ class PlannerDay extends Component {
   render() {
     const { list, expanded, day, expandedDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
-    //let size = (expanded && (day === expandedDay)) ? "planner_day_expanded" : "planner_day_collapsed";
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
     return (!expanded || (day !== expandedDay))
     ? connectDropTarget(
       <div className={`planner_day_collapsed ${color}`} onClick={this.handleClickDay}>
         <span className="the_date">{day}</span>
-        {/*
-        careful,
-        there's both key and index here,
-        and recipe.id can't be key because they should be able to have multiple
-        instances of a recipe, so you need a dynamic instance id too
-
-        key={recipe.id}
-        key={recipe.key}
-        listId={this.props.id}
-        */}
         {list.map((recipe, i) => (
           <PlannerRecipe
             className="planner_recipe"
