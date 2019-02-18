@@ -8,7 +8,7 @@ import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/i
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 const plannerExpandedDayTarget = {
-  drop(props, monitor, component) {
+  drop(props, monitor) {
     const { day, expandedDay } = props;
     const draggedRecipe = monitor.getItem();
     if (expandedDay !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
@@ -34,13 +34,10 @@ class PlannerExpandedDay extends Component {
     const { list, expanded, day, expandedDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
+    //<div ref={this.setSelfRef}
     return expanded
     ? connectDropTarget(
-      <div
-        className={`planner_expanded_day ${color}`}
-        ref={this.setSelfRef}
-        onClick={this.handleClickDay}
-      >
+      <div className={`planner_expanded_day ${color}`} onClick={this.handleClickDay}>
         <span className="the_date">{day}</span>
         {list.map((recipe, i) => (
           <PlannerRecipe

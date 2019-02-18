@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
 import MobilePlannerRecipe from '../MobilePlannerRecipe/MobilePlannerRecipe';
+import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 const plannerDayTarget = {
-  drop(props, monitor, component) {
+  drop(props, monitor) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
-    if (day !== draggedRecipe.listId) component.pushRecipe(draggedRecipe.recipe);
-    return {listId: day};
+    if (day !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
+    return {listId: day};  // are we using this? also, is this necessary? if neither, remove
   }
 };
 
@@ -23,7 +25,7 @@ function collect(connect, monitor) {
 }
 
 class MobilePlannerDay extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     this.day = null;
     this.setSelfRef = element => {
@@ -45,38 +47,31 @@ class MobilePlannerDay extends Component {
   removeRecipe = async (index) => {
     const { day, onRemoveRecipe } = this.props;
     await onRemoveRecipe(day, index);
+  }*/
+
+  handleClickDay = () => {
+    const { day } = this.props;
+    this.props.plannerClickDay(day);
   }
 
   render() {
     const { list, expanded, day, expandedDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
     let color = (isOver && canDrop) ? "mobile_planner_day_green" : "mobile_planner_day_white";
+    // <div ref={this.setSelfRef}
     return (!expanded || (day !== expandedDay))
     ? connectDropTarget(
-      <div
-        className={`mobile_planner_day ${color}`}
-        ref={this.setSelfRef}
-        onClick={this.handleClick}
-      >
+      <div className={`mobile_planner_day ${color}`} onClick={this.handleClickDay}>
         <span className="mobile_the_date">{day}</span>
-        {/*
-        careful,
-        there's both key and index here,
-        and recipe.id can't be key because they should be able to have multiple
-        instances of a recipe, so you need a dynamic instance id too
-        */}
         {list.map((recipe, i) => (
           <MobilePlannerRecipe
-            key={recipe.id}
+            className="mobile_planner_recipe"
+            key={recipe.key}
             index={i}
-            listId={this.props.id}
             recipe={recipe}
-            removeRecipe={this.removeRecipe}
-            moveRecipe={this.moveRecipe}
             expanded={expanded}
             day={day}
             expandedDay={expandedDay}
-            className="mobile_planner_recipe"
           />
         ))}
       </div>
@@ -85,10 +80,18 @@ class MobilePlannerDay extends Component {
   }
 }
 
-// move to separate wrapper file in this same folder,
-// like you would with react-redux's connect()
-export default DropTarget(
-  Types.PLANNER_RECIPE,
-  plannerDayTarget,
-  collect
-)(MobilePlannerDay);
+const mapDispatchToProps = dispatch => ({
+  plannerClickDay: (day) => dispatch(plannerClickDay(day)),
+  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(
+  DropTarget(
+    Types.PLANNER_RECIPE,
+    plannerDayTarget,
+    collect
+  )(MobilePlannerDay)
+);

@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
 import MobilePlannerRecipe from '../MobilePlannerRecipe/MobilePlannerRecipe';
+import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 const plannerExpandedDayTarget = {
-  drop(props, monitor, component) {
-    const { day } = props;
+  drop(props, monitor) {
+    const { day, expandedDay } = props;
     const draggedRecipe = monitor.getItem();
-    if (day !== draggedRecipe.listId) component.pushRecipe(draggedRecipe.recipe);
+    if (expandedDay !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
     return {listId: day};
   }
 };
@@ -23,12 +25,12 @@ function collect(connect, monitor) {
 }
 
 class MobilePlannerExpandedDay extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
-    /*this.day = null;
+    this.day = null;
     this.setSelfRef = element => {
       this.day = element;
-    };*/
+    };
     this.state = {recipes: props.list};
   }
 
@@ -56,37 +58,31 @@ class MobilePlannerExpandedDay extends Component {
     // only allow reordering/moving of recipes within currently expanded day
     if (day !== expandedDay) return;
     await onReorderRecipe(day, dragIndex, hoverIndex, dragRecipe);
+  }*/
+
+  handleClickDay = () => {
+    const { day } = this.props;
+    this.props.plannerClickDay(day);
   }
 
   render() {
-    const { list, expanded, day, expandedDay, canDrop, isOver, connectDropTarget } = this.props;
+    const { list, expanded, day, expandedDay } = this.props;
+    const { canDrop, isOver, connectDropTarget } = this.props;
     let color = (isOver && canDrop) ? "mobile_planner_day_green" : "mobile_planner_day_white";
+    //<div ref={this.setSelfRef}
     return expanded
     ? connectDropTarget(
-      <div
-        className={`mobile_planner_expanded_day ${color}`}
-        ref={this.setSelfRef}
-        onClick={this.handleClick}
-      >
+      <div className={`mobile_planner_expanded_day ${color}`} onClick={this.handleClickDay}>
         <span className="mobile_the_date">{day}</span>
-        {/*
-        careful,
-        there's both key and index here,
-        and recipe.id can't be key because they should be able to have multiple
-        instances of a recipe, so you need a dynamic instance id too
-        */}
         {list.map((recipe, i) => (
           <MobilePlannerRecipe
-            key={recipe.id}
+            className="mobile_planner_recipe"
+            key={recipe.key}
             index={i}
-            listId={this.props.id}
             recipe={recipe}
-            removeRecipe={this.removeRecipe}
-            moveRecipe={this.moveRecipe}
             expanded={expanded}
             day={day}
             expandedDay={expandedDay}
-            className="mobile_planner_recipe"
           />
         ))}
       </div>
@@ -95,8 +91,18 @@ class MobilePlannerExpandedDay extends Component {
   }
 }
 
-export default DropTarget(
-  Types.PLANNER_RECIPE,
-  plannerExpandedDayTarget,
-  collect
-)(MobilePlannerExpandedDay);
+const mapDispatchToProps = dispatch => ({
+  plannerClickDay: (day) => dispatch(plannerClickDay(day)),
+  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(
+  DropTarget(
+    Types.PLANNER_RECIPE,
+    plannerExpandedDayTarget,
+    collect
+  )(MobilePlannerExpandedDay)
+);

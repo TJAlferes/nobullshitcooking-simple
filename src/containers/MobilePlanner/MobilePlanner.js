@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+const uuidv4 = require('uuid/v4');
 
 import MobilePlannerRecipesList from './MobilePlannerRecipesList/MobilePlannerRecipesList';
 import MobilePlannerDay from './MobilePlannerDay/MobilePlannerDay';
 import MobilePlannerExpandedDay from './MobilePlannerExpandedDay/MobilePlannerExpandedDay';
+//import CustomDragLayer from './CustomDragLayer';
 import './mobilePlanner.css';  // use BEM
-
-//import planData from './plan-data'; // just dummy data for dev
 
 // TO DO: on page refresh, preserve state (localStorage? indexedDB? webSQL?)
 // TO DO: clear/delete plan button
 // TO DO: 1 week and 1 day views
 // TO DO: plannerExpandedRecipe
 // TO DO: button on recipe page to add to plan
-// Prevent duplicate adds
 
 class MobilePlanner extends Component {
   /*handleSave = async () => {  // put in redux-saga, perform 5 seconds after no mouse or keyboard activity
@@ -67,8 +66,9 @@ class MobilePlanner extends Component {
             <MobilePlannerRecipesList
               day="0"
               list={[
-                {id: 1, text: "Sheperd's Pie"},
-                {id: 2, text: "Split Pea Soup"}
+                {key: uuidv4(), id: 1, text: "Sheperd's Pie"},
+                {key: uuidv4(), id: 2, text: "Split Pea Soup"},
+                {key: uuidv4(), id: 3, text: "Steak Asparagus and Sweet Potato"}
               ]}
             />
             <div id="mobile_expanded_day_area">
