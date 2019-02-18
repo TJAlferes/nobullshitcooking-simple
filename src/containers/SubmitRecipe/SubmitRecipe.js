@@ -7,6 +7,7 @@ import StepRow from './StepRow/StepRow';
 import './submitRecipe.css';
 
 // Location of our backend API
+// set up if (dev) here
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/recipes';
 const endpoint = 'http://localhost:3003/recipes';
 

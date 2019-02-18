@@ -1,13 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-/*
-
----------- experiments ----------
-
-*/
-import PortalRoom from '../components/pages/PortalRoom/PortalRoom';
-
 
 
 /*
@@ -90,10 +83,6 @@ import NotFound from '../components/NotFound/NotFound';
 
 const RoutesList = ({ childProps }) => (
   <Switch>
-
-    {/* experiment routes */}
-
-    <AppliedRoute path="/portal-room" exact component={PortalRoom} props={childProps} />
 
 
 

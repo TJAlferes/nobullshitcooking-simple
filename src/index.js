@@ -1,4 +1,5 @@
 //require('@babel/polyfill');
+require("regenerator-runtime/runtime");
 import React from 'react';
 import { render } from 'react-dom';
 //import axios from 'axios';
@@ -6,7 +7,7 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+//import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 
 //import amplifyConfig from '../amplify.config';
@@ -35,14 +36,13 @@ const composeEnhancers = process.env.NODE_ENV === "development"
 ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 : null || compose;
 
-const sagaMiddleware = createSagaMiddleware();
+//const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
   composeEnhancers(
     applyMiddleware(
-      thunk,
-      sagaMiddleware
+      thunk
     )
   )
 );
