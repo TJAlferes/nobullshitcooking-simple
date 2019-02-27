@@ -34,11 +34,15 @@ class SiteNav extends Component {
     }*/
   }
 
+  handleMouseLeave = () => {
+    this.setState({expanded: false, expandedDropdown: "none"});
+  }
+
   render() {
     const { expanded, expandedDropdown } = this.state;
     return (
       <div className="site_nav">
-        <li onMouseEnter={() => this.handleMouseEnter('Food')}>
+        <li onMouseEnter={() => this.handleMouseEnter('Food')} onMouseLeave={this.handleMouseLeave}>
           <NavLink className="styled_nav_link" to="/food">Food</NavLink>
           {
             (expanded && expandedDropdown === 'Food')
@@ -46,7 +50,7 @@ class SiteNav extends Component {
             : false
           }
         </li>
-        <li onMouseEnter={() => this.handleMouseEnter('Fitness')}>
+        <li onMouseEnter={() => this.handleMouseEnter('Fitness')} onMouseLeave={this.handleMouseLeave}>
           <NavLink className="styled_nav_link" to="/fitness">Fitness</NavLink>
           {
             (expanded && expandedDropdown === 'Fitness')
@@ -54,7 +58,7 @@ class SiteNav extends Component {
             : false
           }
         </li>
-        <li onMouseEnter={() => this.handleMouseEnter('Supply')}>
+        <li onMouseEnter={() => this.handleMouseEnter('Supply')} onMouseLeave={this.handleMouseLeave}>
           <NavLink className="styled_nav_link" to="/store/storefront">Supply</NavLink>
           {
             (expanded && expandedDropdown === 'Supply')
