@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // react aria modal OR just css OR css and react?
 
 //import { openModal, closeModal } from '../../../store/actions/modalsActions';
@@ -11,6 +11,7 @@ import Menu from './Menu/Menu';
 import foodMenuData from './FoodDropdown/foodMenuData';
 import fitnessMenuData from './FoodDropdown/fitnessMenuData';
 import supplyMenuData from './FoodDropdown/supplyMenuData';
+import { menuShadowShow, menuShadowHide } from '../../../store/actions/index';
 import './siteNav.css';
 
 class SiteNav extends Component {
@@ -27,6 +28,7 @@ class SiteNav extends Component {
     const { expandedDropdown } = this.state;
     if (dropdown === expandedDropdown) return;
     this.setState({expanded: true, expandedDropdown: dropdown});
+    this.props.menuShadowShow();
     /*if (dropdown === expandedDropdown) {
       this.setState({expanded: false, expandedDropdown: "none"});
     } else {
@@ -36,6 +38,7 @@ class SiteNav extends Component {
 
   handleMouseLeave = () => {
     this.setState({expanded: false, expandedDropdown: "none"});
+    this.props.menuShadowHide();
   }
 
   render() {
@@ -82,4 +85,9 @@ class SiteNav extends Component {
   }
 }
 
-export default SiteNav;
+const mapDispatchToProps = dispatch => ({
+  menuShadowShow: () => dispatch(menuShadowShow()),
+  menuShadowHide: () => dispatch(menuShadowHide())
+});
+
+export default connect(null, mapDispatchToProps)(SiteNav);

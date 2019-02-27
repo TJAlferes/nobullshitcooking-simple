@@ -4,6 +4,32 @@
   background: #eee;
 }
 
+.show-shadow {
+  position: absolute;
+  bottom: 1;
+  top: 92px;
+  left: -42px;
+  display: block;
+  width: 3000px;
+  height: 3000px;
+  background: rgba(0, 0, 0, .5);
+  z-index: 2;
+}
+
+.hide-shadow {
+  position: absolute;
+  bottom: 1;
+  top: 92px;
+  left: -42px;
+  display: none;
+  width: 3000px;
+  height: 3000px;
+  background: rgba(0, 0, 0, .5);
+  z-index: 2;
+}
+
+
+
 
 
 /* mobile */

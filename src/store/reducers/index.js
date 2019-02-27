@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 //import modalsReducer from './modals/modals';
+import menuReducer from './menu';
 //import ingredientsReducer from './ingredients/ingredients';
 //import recipesReducer from "./recipes/recipes";
 import plannerReducer from './planner';
@@ -12,6 +13,7 @@ import plannerReducer from './planner';
 */
 const rootReducer = combineReducers({
   //modals: modalsReducer,
+  menu: menuReducer,
   //ingredients: ingredientsReducer,
   //recipes: recipesReducer,
   planner: plannerReducer

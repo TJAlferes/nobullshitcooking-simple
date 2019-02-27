@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
@@ -192,21 +192,23 @@ const Menu = props => {
 
   return (
     <div className={containerClassName}>
-      <ul className="menu" onMouseLeave={handleMouseLeaveMenu}>
-        {props.menuData.map((menu, index) => {
-          let className = 'menu-item';
-          if (index === activeMenuIndex) className += ' active';
-          return (
-            <li
-              className={className}
-              key={index}
-              onMouseEnter={() => { handleMouseEnterRow.call(this, index, handleSwitchMenuIndex) }}
-            >
-              {menu.name}
-            </li>
-          );
-        })}
-      </ul>
+      <div className="menu" onMouseLeave={handleMouseLeaveMenu}>
+        <ul>
+          {props.menuData.map((menu, index) => {
+            let className = 'menu-item';
+            if (index === activeMenuIndex) className += ' active';
+            return (
+              <li
+                className={className}
+                key={index}
+                onMouseEnter={() => { handleMouseEnterRow.call(this, index, handleSwitchMenuIndex) }}
+              >
+                {menu.name}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       <ul className="sub-menu" style={subMenuStyle}>
         <h3>{props.menuData[activeMenuIndex].name}</h3>
         {props.menuData[activeMenuIndex].subMenu.map((subMenu, index) => 

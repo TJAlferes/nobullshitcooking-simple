@@ -1,48 +1,80 @@
 .menu-container {
   position: absolute;
-	top: -6px;
-	left: 29px;
-	display: block;
+	top: 18px;
+	left: -12px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 	height: 306px;
-	width: 250px;
+	/*width: 550px;*/
 	background-color: #fff;
-	padding-top: 12px;
-	padding-right: 6px;
-	padding-bottom: 9px;
-	padding-left: 9px;
+	padding: 0;
 	border-style: solid;
 	border-radius: 3px;
 	border-width: 1px;
-	border-color: #bfbfbf;
+  border-color: #bfbfbf;
 	cursor: pointer;
-	z-index: 4;
+  z-index: 4;
 }
 
-.menu-item {
+.menu {
+  order: 1;
+  width: 250px;
+  margin: 0;
+  border-right: 1px solid #eee;
+  padding-top: 12px;
+	padding-right: 6px;
+	padding-bottom: 9px;
+	padding-left: 9px;
+}
+
+.menu ul,
+.menu ul .menu-item {
   display: block;
+  margin: 0 0 6px 0;
+  font-size: 13px;
 }
 
 .sub-menu {
+  order: 2;
+  width: 400px;
+  margin: 0;
+  padding-top: 12px;
+	padding-right: 6px;
+	padding-bottom: 9px;
+	padding-left: 9px;
+}
 
+.sub-menu h3 {
+  color: #c10006;
 }
 
 .sub-menu-item {
-
+  display: block;
+}
+.sub-menu-item:hover {
+  color: #c10006;
+  text-decoration: underline;
 }
 
 #nutrition_slide span, #methods_slide span, #ingredients_slide span, #cuisines_slide span {display: block;}
+
 .slider {position: relative;}
+
 .slide {display: none; position: absolute; left: 237px; width: 400px; height: 306px; padding-top: 12px; padding-left: 9px;
 	border-radius: 3px; border: 1px solid #bfbfbf; border-left-color: #eee; background-color: #fff;}
 .slide h3 {color: #c10006; margin-bottom: 6px;}
 .slide span {display: block; height: 16px; margin-bottom: 6px;}
 .slide span:hover {color: #c10006; text-decoration: underline;}
+
 #nutrition_slide {top: -13px;}
 #methods_slide {top: -35px;}
 #ingredients_slide {top: -57px;}
 #cuisines_slide {top: -79px;}
+
 .maintain {display: block; height: 16px; margin-bottom: 6px;}
 .maintainHover {color: #c10006; font-size: 1.4rem; font-weight: bold;}
+
 #nutrition_slide_image_container {position: relative;}
 #nutrition_slide_image {position: absolute; top: 2px; right: 0px;}
 #cuisines_slide_image_container {position: relative;}

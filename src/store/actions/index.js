@@ -10,6 +10,11 @@ export {
 } from './ingredientsActions';*/
 
 export {
+  menuShadowShow,
+  menuShadowHide
+} from './menu';
+
+export {
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,
