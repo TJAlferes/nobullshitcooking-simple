@@ -1,4 +1,7 @@
 .mobile_planner_recipe {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   background-color: #FFF3CC;
   width: 90%;
   min-width: 100px;
@@ -13,4 +16,15 @@
   overflow: hidden;
   box-shadow: 1px 1px 1px #999;
   cursor: move;
+}
+
+.mobile_planner_recipe image {
+
+}
+
+.mobile_planner_recipe_text {
+  width: 100%;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
 }

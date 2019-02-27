@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import menuAim from '../../../../components/Modal/MenuAim';
-
+//react menu aim
 class Dropdown extends Component {
   constructor(props) {
     super(props);

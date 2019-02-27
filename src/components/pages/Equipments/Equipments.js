@@ -66,7 +66,7 @@ const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elastic
 
 */
 class Equipments extends Component {
-  state = {
+  state = {  // remember to not initialize state from props, use useState() hook
     equipment: [],
     equipmentTypes: [],
     pages: 1,
@@ -204,7 +204,7 @@ class Equipments extends Component {
   }
 
   // use SSR here...
-  componentDidMount() {
+  componentDidMount() {  // use useEffect() hook
     this.getAllEquipmentTypes();
     this.getEquipments();
   }

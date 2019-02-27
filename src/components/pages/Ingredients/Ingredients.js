@@ -66,7 +66,7 @@ const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elastic
 
 */
 class Ingredients extends Component {
-  state = {
+  state = {  // remember to not initialize state from props, use useState() hook
     ingredients: [],
     ingredientTypes: [],
     pages: 1,
@@ -204,7 +204,7 @@ class Ingredients extends Component {
   }
 
   // use SSR here...
-  componentDidMount() {
+  componentDidMount() {  // use useEffect() hook
     this.getAllIngredientTypes();
     this.getIngredients();
   }

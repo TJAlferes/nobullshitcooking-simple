@@ -7,7 +7,10 @@ import {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
 } from '../../../store/actions/index';
-import './plannerRecipe.css';  // use BEM 
+import './plannerRecipe.css';  // use BEM
+import sp32 from '../../../assets/images/content/planner/sp32.png';
+import sas32 from '../../../assets/images/content/planner/sas32.png';
+import sps32 from '../../../assets/images/content/planner/sps32.png';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
@@ -64,8 +67,15 @@ function collectDropTarget(connect) {
 
 const PlannerRecipe = props => {
   const { recipe, connectDragSource, connectDropTarget } = props;
+  let miniSrc;
+  if (recipe.id === 1) miniSrc = sp32;
+  if (recipe.id === 2) miniSrc = sps32;
+  if (recipe.id === 3) miniSrc = sas32;
   return connectDragSource(connectDropTarget(
-    <div className="planner_recipe">{recipe.text}</div>
+    <div className="planner_recipe">
+      <div className="planner_recipe_image"><img src={miniSrc} /></div>
+      <div className="planner_recipe_text">{recipe.text}</div>
+    </div>
   ));
 }
 

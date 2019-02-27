@@ -31,7 +31,7 @@ const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elastic
 
 */
 class Equipment extends Component {
-  state = {equipment: null};
+  state = {equipment: null};  // remember to not initialize state from props, use useState() hook
 
   // TODO: Redirect them to equipments if they only navigate to /equipment (if there is no /:id)
 
@@ -46,7 +46,7 @@ class Equipment extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount() {  // use useEffect() hook
     const { id } = this.props.match.params;
     this.getEquipment(id);
   }
