@@ -6,7 +6,8 @@ export default [
     ],
     links: [
 
-    ]
+    ],
+    image: 'nutrition'
   },
   {
     name: 'Cooking Methods',
@@ -15,7 +16,8 @@ export default [
     ],
     links: [
       
-    ]
+    ],
+    image: 'methods'
   },
   {
     name: 'Ingredients',
@@ -31,7 +33,8 @@ export default [
     ],
     links: [
       
-    ]
+    ],
+    image: 'ingredients'
   },
   {
     name: 'National and Regional Cuisines',
@@ -51,6 +54,7 @@ export default [
     ],
     links: [
       '/food/cuisines/irish'
-    ]
+    ],
+    image: 'cuisines'
   }
 ];

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
@@ -6,6 +6,13 @@ import './menu.css';
 import NutritionSlideImage from '../../../../assets/images/header/dropdowns/steve-reeves-nutrition-slide.png';
 import CuisinesSlideImage from '../../../../assets/images/header/dropdowns/world-map-cuisines-slide.png';
 
+/*
+FancyMenu is heavily inspired by react-menu-aim
+which is a React Mixin heavily inspired by jQuery-menu-aim
+All rights reserved by the original authors.
+https://github.com/jasonslyvia/react-menu-aim
+https://github.com/kamens/jQuery-menu-aim
+*/
 const MOUSE_LOCS_TRACKED = 3;   // number of past mouse locations to track
 const DELAY = 300;              // ms delay when user appears to be entering submenu
 const TOLERANCE = 75;           // bigger = more forgivey when entering submenu
@@ -40,7 +47,7 @@ function outerHeight(el) {
 // Util helpers
 
 // Consider multiple instance using ReactMenuAim, we just listen mousemove once
-let mousemoveListener = 0;
+//let mousemoveListener = 0;  // ?
 let mouseLocs = [];
 
 // Mousemove handler on document
@@ -49,10 +56,11 @@ function handleMouseMoveDocument(e) {
   if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
 }
 
-function getActivateDelay(config = {}) {
-  let menu = ReactDOM.findDOMNode(this);
-  if (!menu || !menu.querySelector) return 0;  // If can't find any DOM node
-  menu = config.menuSelector ? menu.querySelector(config.menuSelector) : menu;
+function getActivateDelay(config) {
+  //let menu = ReactDOM.findDOMNode(this);
+  //console.log(menu);
+  //if (!menu || !menu.querySelector) return 0;  // If can't find any DOM node
+  let menu = config.menuSelector && document.querySelector(config.menuSelector);
   let menuOffset = offset(menu);
   let upperLeft = {x: menuOffset.left, y: menuOffset.top - (config.tolerance || TOLERANCE)};
   let upperRight = {x: menuOffset.left + outerWidth(menu), y: upperLeft.y};
@@ -72,9 +80,9 @@ function getActivateDelay(config = {}) {
     return 0;
   }
   if (
-    this._lastDelayDoc &&
-    loc.x === this._lastDelayDoc.x &&
-    loc.y === this._lastDelayDoc.y
+    menu._lastDelayDoc &&
+    loc.x === menu._lastDelayDoc.x &&
+    loc.y === menu._lastDelayDoc.y
   ) {
     return 0;
   }
@@ -100,10 +108,10 @@ function getActivateDelay(config = {}) {
   let prevIncreasingSlope = slope(prevLoc, increasingCorner);
 
   if (decreasingSlope < prevDecreasingSlope && increasingSlope > prevIncreasingSlope) {
-    this._lastDelayLoc = loc;
+    menu._lastDelayLoc = loc;
     return config.delay || DELAY;
   }
-  this._lastDelayLoc = null;
+  menu._lastDelayLoc = null;
   return 0;
 }
 
@@ -127,7 +135,7 @@ function possiblyActivate(rowIdentifier, handler, config) {
 
 
 const Menu = props => {
-  const [activeMenuIndex, setActiveMenuIndex] = useState(0);  // 0?
+  const [activeMenuIndex, setActiveMenuIndex] = useState();  // 0?
   //useFancyMenu ?
   //const getDefaultProps = () => ({submenuDirection: 'right'});
   //const getInitialState = () => ({activeMenuIndex: 0});
@@ -152,18 +160,19 @@ const Menu = props => {
   }
   
   function handleMouseEnterRow(rowIdentifier, handler) {
+    console.log('called');
     if (__reactMenuAimTimer) clearTimeout(__reactMenuAimTimer);
     possiblyActivate.call(this, rowIdentifier, handler, __reactMenuAimConfig);
   }
 
-  useEffect(() => {  // useLayoutEffect() ???
+  useLayoutEffect(() => {  // useEffect() ???
     // config (optional?)
-    /*initMenuAim({
+    initMenuAim({
       submenuDirection: props.submenuDirection,
       menuSelector: '.menu',
       delay: 300,
       tolerance: 75
-    });*/
+    });
     // setup
     let mousemoveListener = 0;  // ?
     if (mousemoveListener === 0) document.addEventListener('mousemove', __getMouseMoveDocumentHandler(), false);
@@ -179,7 +188,7 @@ const Menu = props => {
       __reactMenuAimTimer = null;
       __mouseMoveDocumentHandler = null;
     };
-  }/* array for improved perf here */);
+  });
 
   const handleSwitchMenuIndex = index => {
     setActiveMenuIndex(index);
@@ -187,8 +196,8 @@ const Menu = props => {
   }
 
   let containerClassName = 'menu-container ' + props.submenuDirection;
-  let subMenuStyle = {};
-  if (props.submenuDirection === 'below') subMenuStyle.left = activeMenuIndex * 140;
+  //let subMenuStyle = {};
+  //if (props.submenuDirection === 'below') subMenuStyle.left = activeMenuIndex * 140;
 
   return (
     <div className={containerClassName}>
@@ -196,7 +205,7 @@ const Menu = props => {
         <ul>
           {props.menuData.map((menu, index) => {
             let className = 'menu-item';
-            if (index === activeMenuIndex) className += ' active';
+            if (activeMenuIndex && index === activeMenuIndex) className += ' active';
             return (
               <li
                 className={className}
@@ -209,12 +218,18 @@ const Menu = props => {
           })}
         </ul>
       </div>
-      <ul className="sub-menu" style={subMenuStyle}>
-        <h3>{props.menuData[activeMenuIndex].name}</h3>
-        {props.menuData[activeMenuIndex].subMenu.map((subMenu, index) => 
-          <li className="sub-menu-item" key={index}>{subMenu}</li>
-        )}
-      </ul>
+      <div className="sub-menu">
+        <h3>{activeMenuIndex && props.menuData[activeMenuIndex].name}</h3>
+        <ul>
+          {activeMenuIndex && props.menuData[activeMenuIndex].subMenu.map((subMenu, index) => 
+            <li className="sub-menu-item" key={index}>{subMenu}</li>
+          )}
+        </ul>
+        {(activeMenuIndex && props.menuData[activeMenuIndex].image === 'nutrition') && <img src={NutritionSlideImage} />}
+        {(activeMenuIndex && props.menuData[activeMenuIndex].image === 'methods') && <img src={CuisinesSlideImage} />}
+        {(activeMenuIndex && props.menuData[activeMenuIndex].image === 'ingredients') && <img src={NutritionSlideImage} />}
+        {(activeMenuIndex && props.menuData[activeMenuIndex].image === 'cuisines') && <img src={CuisinesSlideImage} />}
+      </div>
     </div>
   );
 };
