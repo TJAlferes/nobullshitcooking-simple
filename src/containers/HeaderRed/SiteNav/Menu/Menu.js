@@ -18,6 +18,7 @@ const DELAY = 300;              // ms delay when user appears to be entering sub
 const TOLERANCE = 75;           // bigger = more forgivey when entering submenu
 
 
+
 // DOM helpers
 
 function offset(el) {
@@ -44,95 +45,6 @@ function outerHeight(el) {
 }
 
 
-// Util helpers
-
-// Consider multiple instance using ReactMenuAim, we just listen mousemove once
-//let mousemoveListener = 0;  // ?
-let mouseLocs = [];
-
-// Mousemove handler on document
-function handleMouseMoveDocument(e) {
-  mouseLocs.push({x: e.pageX, y: e.pageY});
-  if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
-}
-
-function getActivateDelay(config) {
-  //let menu = ReactDOM.findDOMNode(this);
-  //console.log(menu);
-  //if (!menu || !menu.querySelector) return 0;  // If can't find any DOM node
-  let menu = config.menuSelector && document.querySelector(config.menuSelector);
-  let menuOffset = offset(menu);
-  let upperLeft = {x: menuOffset.left, y: menuOffset.top - (config.tolerance || TOLERANCE)};
-  let upperRight = {x: menuOffset.left + outerWidth(menu), y: upperLeft.y};
-  let lowerLeft = {x: menuOffset.left, y: menuOffset.top + outerHeight(menu) + (config.tolerance || TOLERANCE)};
-  let lowerRight = {x: menuOffset.left + outerWidth(menu), y: lowerLeft.y};
-  let loc = mouseLocs[mouseLocs.length - 1];
-  let prevLoc = mouseLocs[0];
-
-  if (!loc) return 0;
-  if (!prevLoc) prevLoc = loc;
-  if (
-    prevLoc.x < menuOffset.left ||
-    prevLoc.x > lowerRight.x ||
-    prevLoc.y < menuOffset.top ||
-    prevLoc.y > lowerRight.y
-  ) {
-    return 0;
-  }
-  if (
-    menu._lastDelayDoc &&
-    loc.x === menu._lastDelayDoc.x &&
-    loc.y === menu._lastDelayDoc.y
-  ) {
-    return 0;
-  }
-
-  function slope(a, b) {
-    return (b.y - a.y) / (b.x - a.x);
-  }
-
-  let decreasingCorner = upperRight;
-  let increasingCorner = lowerRight;
-  if (config.submenuDirection === 'left') {
-    decreasingCorner = lowerLeft;
-    increasingCorner = upperLeft;
-  } else if (config.submenuDirection === 'below') {
-    decreasingCorner = lowerRight;
-    increasingCorner = lowerLeft;
-  } else if (config.submenuDirection === 'above') {
-    decreasingCorner = upperLeft;
-  }
-  let decreasingSlope = slope(loc, decreasingCorner);
-  let increasingSlope = slope(loc, increasingCorner);
-  let prevDecreasingSlope = slope(prevLoc, decreasingCorner);
-  let prevIncreasingSlope = slope(prevLoc, increasingCorner);
-
-  if (decreasingSlope < prevDecreasingSlope && increasingSlope > prevIncreasingSlope) {
-    menu._lastDelayLoc = loc;
-    return config.delay || DELAY;
-  }
-  menu._lastDelayLoc = null;
-  return 0;
-}
-
-function activate(rowIdentifier, handler) {
-  handler.call(this, rowIdentifier);
-}
-
-function possiblyActivate(rowIdentifier, handler, config) {
-  let delay = getActivateDelay.call(this, config);
-  if (delay) {
-    this.__reactMenuAimTimer = setTimeout(() => {
-      possiblyActivate.call(this, rowIdentifier, handler, config);
-    }, delay);
-  } else {
-    activate.call(this, rowIdentifier, handler);
-  }
-}
-
-
-
-
 
 const Menu = props => {
   const [activeMenuIndex, setActiveMenuIndex] = useState();  // 0?
@@ -142,6 +54,72 @@ const Menu = props => {
   let __reactMenuAimConfig;
   let __mouseMoveDocumentHandler;
   let __reactMenuAimTimer;
+  let _lastDelayLoc;
+
+
+  let mouseLocs = [];
+
+  // Mousemove handler on document
+  function handleMouseMoveDocument(e) {
+    mouseLocs.push({x: e.pageX, y: e.pageY});
+    if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
+  }
+  
+  function getActivateDelay(config) {
+    /*let menu = ReactDOM.findDOMNode(this);
+    if (!menu || !menu.querySelector) return 0;  // If can't find any DOM node
+    menu = config.menuSelector ? menu.querySelector(config.menuSelector) : menu;*/
+    let menu = config.menuSelector && document.querySelector(config.menuSelector);  // do you need findDOMNode? or a ref?
+    let menuOffset = offset(menu);
+    let upperLeft = {x: menuOffset.left, y: menuOffset.top - (config.tolerance || TOLERANCE)};
+    let upperRight = {x: menuOffset.left + outerWidth(menu), y: upperLeft.y};
+    let lowerLeft = {x: menuOffset.left, y: menuOffset.top + outerHeight(menu) + (config.tolerance || TOLERANCE)};
+    let lowerRight = {x: menuOffset.left + outerWidth(menu), y: lowerLeft.y};
+    let loc = mouseLocs[mouseLocs.length - 1];
+    let prevLoc = mouseLocs[0];
+  
+    if (!loc) return 0;
+    if (!prevLoc) prevLoc = loc;
+    if (prevLoc.x < menuOffset.left || prevLoc.x > lowerRight.x || prevLoc.y < menuOffset.top || prevLoc.y > lowerRight.y) return 0;
+    if (_lastDelayLoc && loc.x === _lastDelayLoc.x && loc.y === _lastDelayLoc.y) return 0;
+  
+    function slope(a, b) {
+      return (b.y - a.y) / (b.x - a.x);
+    }
+  
+    let decreasingCorner = upperRight;
+    let increasingCorner = lowerRight;
+    let decreasingSlope = slope(loc, decreasingCorner);
+    let increasingSlope = slope(loc, increasingCorner);
+    let prevDecreasingSlope = slope(prevLoc, decreasingCorner);
+    let prevIncreasingSlope = slope(prevLoc, increasingCorner);
+  
+    if (decreasingSlope < prevDecreasingSlope && increasingSlope > prevIncreasingSlope) {
+      _lastDelayLoc = loc;
+      return config.delay || DELAY;
+    }
+    _lastDelayLoc = null;
+    return 0;
+  }
+  
+  function activate(rowIdentifier, handler) {
+    handler.call(this, rowIdentifier);
+  }
+  
+  function possiblyActivate(rowIdentifier, handler, config) {
+    let delay = getActivateDelay.call(this, config);
+    //let delay = getActivateDelay(config);
+    if (delay) {
+      __reactMenuAimTimer = setTimeout(() => {
+        possiblyActivate.call(this, rowIdentifier, handler, config);
+      }, delay);
+      console.log(__reactMenuAimTimer);
+    } else {
+      activate.call(this, rowIdentifier, handler);
+    }
+  }
+
+
 
   function initMenuAim(options) {
     __reactMenuAimConfig = options;
@@ -149,7 +127,7 @@ const Menu = props => {
   
   function __getMouseMoveDocumentHandler() {
     if (!__mouseMoveDocumentHandler) {
-      __mouseMoveDocumentHandler = handleMouseMoveDocument.bind(this);
+      __mouseMoveDocumentHandler = handleMouseMoveDocument.bind(this);  // ???
     }
     return __mouseMoveDocumentHandler;
   }
@@ -159,14 +137,20 @@ const Menu = props => {
     if (typeof handler === 'function') handler.call(this, e);
   }
   
-  function handleMouseEnterRow(rowIdentifier, handler) {
+  const handleMouseEnterRow = (rowIdentifier, handler) => {
     console.log('called');
+    console.log(__reactMenuAimTimer);
     if (__reactMenuAimTimer) clearTimeout(__reactMenuAimTimer);
-    possiblyActivate.call(this, rowIdentifier, handler, __reactMenuAimConfig);
+    console.log(__reactMenuAimTimer);
+    //console.log(this); // undefined
+    //possiblyActivate.call(this, rowIdentifier, handler, __reactMenuAimConfig);
+    console.log(__reactMenuAimConfig);
+    possiblyActivate(rowIdentifier, handler, __reactMenuAimConfig);
+    console.log(__reactMenuAimConfig);
   }
 
   useLayoutEffect(() => {  // useEffect() ???
-    // config (optional?)
+    // config
     initMenuAim({
       submenuDirection: props.submenuDirection,
       menuSelector: '.menu',
@@ -196,8 +180,6 @@ const Menu = props => {
   }
 
   let containerClassName = 'menu-container ' + props.submenuDirection;
-  //let subMenuStyle = {};
-  //if (props.submenuDirection === 'below') subMenuStyle.left = activeMenuIndex * 140;
 
   return (
     <div className={containerClassName}>
@@ -210,7 +192,7 @@ const Menu = props => {
               <li
                 className={className}
                 key={index}
-                onMouseEnter={() => { handleMouseEnterRow.call(this, index, handleSwitchMenuIndex) }}
+                onMouseEnter={() => { handleMouseEnterRow(index, handleSwitchMenuIndex) }}
               >
                 {menu.name}
               </li>
