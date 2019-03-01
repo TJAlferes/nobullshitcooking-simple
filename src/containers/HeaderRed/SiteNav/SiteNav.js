@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-// react aria modal OR just css OR css and react?
 
-//import { openModal, closeModal } from '../../../store/actions/modalsActions';
-//import FoodDropdown from './FoodDropdown/FoodDropdown';
-
-//import Dropdown from './Dropdown/Dropdown';
 import Menu from './Menu/Menu';
-import foodMenuData from './FoodDropdown/foodMenuData';
-import fitnessMenuData from './FoodDropdown/fitnessMenuData';
-import supplyMenuData from './FoodDropdown/supplyMenuData';
+import foodMenuData from './Menu/foodMenuData';
+import fitnessMenuData from './Menu/fitnessMenuData';
+import supplyMenuData from './Menu/supplyMenuData';
 import { menuShadowShow, menuShadowHide } from '../../../store/actions/index';
 import './siteNav.css';
 
@@ -29,11 +24,6 @@ class SiteNav extends Component {
     if (dropdown === expandedDropdown) return;
     this.setState({expanded: true, expandedDropdown: dropdown});
     this.props.menuShadowShow();
-    /*if (dropdown === expandedDropdown) {
-      this.setState({expanded: false, expandedDropdown: "none"});
-    } else {
-      this.setState({expanded: true, expandedDropdown: dropdown});
-    }*/
   }
 
   handleMouseLeave = () => {

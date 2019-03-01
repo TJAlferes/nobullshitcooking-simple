@@ -7,6 +7,9 @@ import NutritionSlideImage from '../../../../assets/images/header/dropdowns/stev
 import MethodsSlideImage from '../../../../assets/images/header/dropdowns/fire-methods-slide.png';
 import IngredientsSlideImage from '../../../../assets/images/header/dropdowns/abundance-ingredients-slide.png';
 import CuisinesSlideImage from '../../../../assets/images/header/dropdowns/world-map-cuisines-slide.png';
+import PrinciplesSlideImage from '../../../../assets/images/header/dropdowns/vitruvian-man-principles-slide.png';
+import ExercisesSlideImage from '../../../../assets/images/header/dropdowns/pushups-exercises-slide.png';
+import KitchenEquipmentSlideImage from '../../../../assets/images/header/dropdowns/kitchen-equipment-slide.png';
 
 /*
 FancyMenu is heavily inspired by react-menu-aim
@@ -177,23 +180,26 @@ const Menu = props => {
                 key={index}
                 onMouseEnter={() => { handleMouseEnterRow(index, handleSwitchMenuIndex) }}
               >
-                {menu.name}
+                <Link to={menu.link}>{menu.name}</Link>
               </li>
             );
           })}
         </ul>
       </div>
       <div className="sub-menu">
-        <h3>{activeMenuIndex !== undefined && props.menuData[activeMenuIndex].name}</h3>
+        {activeMenuIndex !== undefined && <h3><Link to={props.menuData[activeMenuIndex].link}>{props.menuData[activeMenuIndex].name}</Link></h3>}
         <ul>
           {activeMenuIndex !== undefined && props.menuData[activeMenuIndex].subMenu.map((subMenu, index) => 
-            <li className="sub-menu-item" key={index}>{subMenu}</li>
+            <li className="sub-menu-item" key={index}><Link to={props.menuData[activeMenuIndex].subMenuLinks[index]}>{subMenu}</Link></li>
           )}
         </ul>
         {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'nutrition') && <img src={NutritionSlideImage} />}
         {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'methods') && <img src={MethodsSlideImage} />}
         {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'ingredients') && <img src={IngredientsSlideImage} />}
         {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'cuisines') && <img src={CuisinesSlideImage} />}
+        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'principles') && <img src={PrinciplesSlideImage} />}
+        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'exercises') && <img src={ExercisesSlideImage} />}
+        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'kitchen-equipment') && <img src={KitchenEquipmentSlideImage} />}
       </div>
     </div>
   );

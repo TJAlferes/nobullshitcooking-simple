@@ -29,12 +29,20 @@
 }
 
 .menu ul,
-.menu ul .menu-item {
+.menu ul .menu-item,
+.menu ul .menu-item a {
   display: block;
   margin: 0 0 6px 0;
+  color: #000;
+  text-decoration: none;
 }
 
-.active {color: #c10006; font-size: 1.4rem; font-weight: bold;}
+.menu ul .active a {
+  color: #c10006;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none;
+}
 
 .sub-menu {
   order: 2;
@@ -46,10 +54,13 @@
 	padding-left: 9px;
 }
 
-.sub-menu h3 {
+.sub-menu h3,
+.sub-menu h3 a {
   display: block;
   margin-bottom: 6px;
+  font-size: 1.6rem;
   color: #c10006;
+  text-decoration: none;
 }
 
 .sub-menu ul {
@@ -65,7 +76,11 @@
   margin: 0 0 6px 0;
 }
 
-.sub-menu ul .sub-menu-item:hover {
+.sub-menu ul .sub-menu-item a {
+  color: #000;
+}
+
+.sub-menu ul .sub-menu-item a:hover {
   color: #c10006;
   text-decoration: underline;
 }
