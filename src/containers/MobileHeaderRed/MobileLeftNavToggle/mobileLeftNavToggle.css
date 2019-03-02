@@ -1,3 +1,12 @@
+#close_mobile_left_nav {
+  position: absolute;
+  left: 250px;
+  height: 30px;
+  width: 48px;
+  border: 1px solid #aaa; border-radius: 2px;
+  background-color: #ffd6d6;
+}
+
 #mobile_menu_icon {
   display: block;
   width: 18px;

@@ -1,14 +1,16 @@
 #mobile-left-nav {
-  width: 200px;
-  min-width: 200px;
-  max-width: 200px;
+  position: absolute;
+  left: 0px;
+  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
   padding: 10px 10px;
   background-color: #fff;
 }
 
 #mobile-left-nav span {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 12px;
 }
 
 #mobile-left-nav hr {

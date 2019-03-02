@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AriaModal from 'react-aria-modal';
+import { withRouter } from 'react-router';
 
 import './mobileLeftNavToggle.css'
 import MobileLeftNav from '../MobileLeftNav/MobileLeftNav';
@@ -14,7 +15,8 @@ class MobileLeftNavToggle extends Component {
     this.setState({modalActive: true});
   };
 
-  deactivateModal = () => {
+  deactivateModal = (page) => {
+    if (page) this.props.history.push(page);
     this.setState({modalActive: false});
   };
 
@@ -32,11 +34,12 @@ class MobileLeftNavToggle extends Component {
         focusDialog="true"
         getApplicationNode={this.getApplicationNode}
         focusTrapOptions={{returnFocusOnDeactivate: false}}
+        underlayColor="rgba(0, 0, 0, 0.8)"
       >
-        <button id="close_planner" onClick={this.deactivateModal}>
+        <button id="close_mobile_left_nav" onClick={this.deactivateModal}>
           X
         </button>
-        <MobileLeftNav />
+        <MobileLeftNav closeNav={this.deactivateModal} />
       </AriaModal>
     )
     : false;
@@ -58,4 +61,4 @@ class MobileLeftNavToggle extends Component {
   }
 }
 
-export default MobileLeftNavToggle;
+export default withRouter(MobileLeftNavToggle);
