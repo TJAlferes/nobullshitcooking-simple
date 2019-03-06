@@ -1,6 +1,6 @@
 /*
 If not using css-in-js (emotion, linaria, etc.)
-*/
+
 @import './global.css';
 
 @import './components/App/app.css';
@@ -19,3 +19,4 @@ If not using css-in-js (emotion, linaria, etc.)
 @import './components/';
 
 @import './components/';
+*/

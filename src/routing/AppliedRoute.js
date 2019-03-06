@@ -10,6 +10,6 @@ contains the passed-in props.
 export default ({ component: Component, props: childProps, ...rest }) => (
   <Route
     {...rest}
-    render={props => (<Component {...props} {...childProps} />)} 
+    render={props => <Component {...props} {...childProps} />} 
   />
 );

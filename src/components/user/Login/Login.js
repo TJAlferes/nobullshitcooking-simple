@@ -1,6 +1,7 @@
+//require('regenerator-runtime/runtime');
 import React, { Component } from 'react';
 //import { Auth } from 'aws-amplify';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 //import { StyledNavLink, Styles } from './Styles';
 import './login.css';
@@ -21,11 +22,14 @@ class Login extends Component {
   handleChange = e => {
     this.setState({[e.target.name]: e.target.value});
   }
-  /*
+  
   handleSubmit = async e => {
     e.preventDefault();
-    this.setState({isLoading: true});
+    await this.setState({isLoading: true});
+    console.log(this.state.email);
+    /*
     try {
+      console.log(this.state.email, this.state.password);
       await Auth.signIn(this.state.email, this.state.password);
       this.setState({isLoading: false, error: null});
       console.log("sign in success");
@@ -39,8 +43,9 @@ class Login extends Component {
     //Auth.confirmSignIn(user, code)
     //.then(data => console.log(data))
     //.catch(err => console.log(err));
+    */
   }
-  */
+  
 
   /*
   handleFacebookLogin = async () => {
@@ -76,8 +81,8 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <StyledNavLink to="/"><img src={LogoLargeWhite} /></StyledNavLink>
-        <Styles>
+        <Link className="styled_nav_link" to="/"><img src={LogoLargeWhite} /></Link>
+        <div className="login">
           {this.props.isAuthenticated && <Redirect to="/" />}
           <form onSubmit={this.handleSubmit}>
 
@@ -122,7 +127,7 @@ class Login extends Component {
             </div>
             
           </form>
-        </Styles>
+        </div>
       </div>
     );
   }

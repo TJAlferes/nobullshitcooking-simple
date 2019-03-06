@@ -11,14 +11,23 @@ module.exports = function(api) {
     [
       "@babel/preset-env",
       {
-        targets: {"browsers": ["> 1%", "last 2 versions"]},
+        targets: {
+          //node: "10",
+          "browsers": ["> 1%", "last 2 versions"]
+        },
         useBuiltIns: "usage"
       }
     ],
     "@babel/preset-react"
   ];
   const plugins = [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ],
     "@babel/plugin-proposal-class-properties"
   ];
-  return {presets: presets, plugins: plugins};
+  return {presets, plugins};
 };

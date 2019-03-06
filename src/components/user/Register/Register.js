@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 //import { Auth } from 'aws-amplify';
 
 //import { StyledNavLink, Styles } from './Styles';
@@ -82,7 +82,7 @@ class Register extends Component {
       console.log(err.message);
     }
   }
-
+  */
   validateRegistration = () => {
     return (
       (this.state.email.length > 0) &&
@@ -94,38 +94,31 @@ class Register extends Component {
   validateConfirmation = () => {
     return this.state.confirmationCode.length > 0;
   }
-  */
+  
   registrationForm = () => (
     <form onSubmit={this.handleRegistrationSubmit}>
-
       <h1>Create Account</h1>
-
       {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
-
       {/*<label>Username</label>
       <input
         type="text" name="username" id="username"
         size="20" maxLength="20" autoFocus onChange={this.handleChange}
       />*/}
-
       <label>Email</label>
       <input
         type="email" name="email" id="email"
         size="20" maxLength="50" autoFocus onChange={this.handleChange}
       />
-
       <label>Password</label>
       <input
         type="password" name="password" id="password"
         size="20" maxLength="20" onChange={this.handleChange}
       />
-
       <label>Password Again</label>
       <input
         type="password" name="password2" id="password2"
         size="20" maxLength="20" onChange={this.handleChange}
       />
-
       <LoaderButton
         type="submit"
         name="submit"
@@ -135,17 +128,13 @@ class Register extends Component {
         isLoading={this.state.isLoading}
         disabled={!this.validateRegistration()}
       />
-
     </form>
   );
 
   confirmationForm = () => (
     <form onSubmit={this.handleConfirmationSubmit}>
-
       <h1>Verify</h1>
-
       {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
-
       <label>Code</label>
       <input 
         type="input"
@@ -153,9 +142,7 @@ class Register extends Component {
         value={this.state.confirmationCode}
         onChange={this.handleChange}
       />
-
       <p>Please check your email for the verification code.</p>
-
       <LoaderButton
         type="submit"
         name="submit"
@@ -165,28 +152,21 @@ class Register extends Component {
         isLoading={this.state.isLoading}
         disabled={!this.validateConfirmation()}
       />
-
     </form>
   );
 
   render() {
     return (
       <div>
-        <NavLink className="styled_nav_link" to="/">
-          <img src={LogoLargeWhite} />
-        </NavLink>
+        <Link className="styled_nav_link" to="/"><img src={LogoLargeWhite} /></Link>
         <div className="register">
-          {
-            this.state.newUser === null
-            ? this.registrationForm()
-            : this.confirmationForm()
-          }
+          {this.state.newUser === null ? this.registrationForm() : this.confirmationForm()}
           <ul>
-            <li><NavLink to="/">Terms of Use</NavLink></li>
-            <li><NavLink to="/">Privacy Policy</NavLink></li>
-            <li><NavLink to="/">Help</NavLink></li>
+            <li><Link to="/">Terms of Use</Link></li>
+            <li><Link to="/">Privacy Policy</Link></li>
+            <li><Link to="/">Help</Link></li>
           </ul>
-          <p>Copyright 2015-2018 NoBullshitCooking. All Rights Reserved.</p>
+          <p>Copyright 2015-2019 NoBullshitCooking. All Rights Reserved.</p>
         </div>
       </div>
     );
