@@ -8,6 +8,12 @@ import './login.css';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
+// Location of our backend API
+
+const endpoint = process.env.NODE_ENV === 'production'
+? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/auth'
+: 'http://localhost:3003/auth';
+
 class Login extends Component {
   constructor(props) {
     super(props);
