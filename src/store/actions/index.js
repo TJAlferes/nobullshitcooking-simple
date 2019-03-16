@@ -15,6 +15,12 @@ export {
 } from './menu';
 
 export {
+  authFacebookCheckState,
+  authFacebookLogin,
+  authFacebookLogout
+} from './auth';
+
+export {
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,

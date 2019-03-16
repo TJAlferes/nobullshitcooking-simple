@@ -1,60 +1,57 @@
-//require('regenerator-runtime/runtime');
 import React, { Component } from 'react';
-//import { Auth } from 'aws-amplify';
 import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-//import { StyledNavLink, Styles } from './Styles';
 import './login.css';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
+//import authEndpoint from '../blah';  (move this to thunk or saga)
+import { authFacebookCheckState, authFacebookLogin } from '../../../store/actions/index';
 
-// Location of our backend API
-
+// Location of our backend API (move this to endpoint util)
 const endpoint = process.env.NODE_ENV === 'production'
 ? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/auth'
 : 'http://localhost:3003/auth';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      error: null,
-      email: '',
-      password: ''
-    };
+  state = {
+    isLoading: false,
+    error: null,
+    email: '',
+    password: ''
   }
 
   handleChange = e => {
     this.setState({[e.target.name]: e.target.value});
   }
   
-  handleSubmit = async e => {
+  /*handleLogin = async (e) => {
     e.preventDefault();
-    await this.setState({isLoading: true});
-    console.log(this.state.email);
-    /*
+    this.setState({isLoading: true});
     try {
-      console.log(this.state.email, this.state.password);
-      await Auth.signIn(this.state.email, this.state.password);
-      this.setState({isLoading: false, error: null});
-      console.log("sign in success");
-      this.props.userDidAuthenticate(true);
-    } catch (err) {
+      await this.props.authLogin({email: this.state.email, password: this.state.password});
+    } catch(err) {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
-    // `user` : Return object from Auth.signIn()
-    // `code` : Confirmation code
-    //Auth.confirmSignIn(user, code)
-    //.then(data => console.log(data))
-    //.catch(err => console.log(err));
-    */
-  }
+  }*/
   
+  handleFacebookLogin = async (e) => {
+    e.preventDefault();
+    this.setState({isLoading: true});
+    try {
+      await this.props.authFacebookLogin();
+      this.setState({isLoading: false, error: null});
+      console.log("sign in success");
+      await this.props.authFacebookCheckState();  // explicit check
+    } catch (err) {
+      this.setState({isLoading: false, error: err.message});
+      console.log(err.message);
+    }
+  }
 
-  /*
-  handleFacebookLogin = async () => {
+  /*handleGoogleLogin = async (e) => {
+    e.preventDefault();
     this.setState({isLoading: true});
     try {
       await Auth.signIn();
@@ -65,21 +62,8 @@ class Login extends Component {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
-  }
+  }*/
 
-  handleGoogleLogin = async () => {
-    this.setState({isLoading: true});
-    try {
-      await Auth.signIn();
-      this.setState({isLoading: false, error: null});
-      console.log("sign in success");
-      this.props.userDidAuthenticate(true);
-    } catch (err) {
-      this.setState({isLoading: false, error: err.message});
-      console.log(err.message);
-    }
-  }
-  */
   validate = () => {
     return ((this.state.email.length > 0) && (this.state.password.length > 0));
   }
@@ -115,6 +99,7 @@ class Login extends Component {
             />
 
             <div className="distinction-line">
+              {/*<div class="fb-login-button" data-size="medium" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>*/}
               <button
                 type="submit" name="facebook_federation_button" id="facebook_federation_button"
                 onClick={this.handleFacebookLogin}
@@ -139,4 +124,9 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => ({
+  authFacebookCheckState: () => dispatch(authFacebookCheckState),
+  authFacebookLogin: () => dispatch(authFacebookLogin)
+});
+
+export default connect(null, mapDispatchToProps)(Login);

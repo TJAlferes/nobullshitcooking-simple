@@ -58,7 +58,6 @@ const clickDay = (state, action) => {
 
 const addRecipeToDay = (state, action) => {
   const { day, recipe } = action;
-  console.log('Day ' + day);
   return update(state, {
     recipeListsInsideDays: {
       [day]: {
@@ -69,10 +68,7 @@ const addRecipeToDay = (state, action) => {
 };
 
 const removeRecipeFromDay = (state, action) => {
-  console.log('ran');
   const { day, index } = action;
-  console.log('Day ' + day);
-  console.log('Index ' + index);
   return update(state, {
     recipeListsInsideDays: {
       [day]: {
@@ -85,12 +81,7 @@ const removeRecipeFromDay = (state, action) => {
 const reorderRecipeInDay = (state, action) => {
   const { expandedDay, recipeListsInsideDays } = state;
   const { dragIndex, hoverIndex } = action;
-  //const { day, dragIndex, hoverIndex, dragRecipe } = action;
-  // V that?
   const draggedRecipe = recipeListsInsideDays[expandedDay][dragIndex];
-  // only allow reordering/moving of recipes within currently expanded day
-  // should this conditional be back in the spec???
-  //if (day !== expandedDay) return undefined;
   return update(state, {
     recipeListsInsideDays: {
       [expandedDay]: {

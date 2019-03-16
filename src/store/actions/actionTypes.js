@@ -1,15 +1,48 @@
+// modal
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 
+
+
+// desktop sitenav dropdown menu
 export const MENU_SHADOW_SHOW = 'MENU_SHADOW_SHOW';
 export const MENU_SHADOW_HIDE = 'MENU_SHADOW_HIDE';
 
+
+
+// auth (remember to actually check on the backend)
+export const AUTH_CHECK_STATE = "AUTH_CHECK_STATE";
+export const AUTH_LOGIN = "AUTH_LOGIN";
+export const AUTH_LOGOUT = "AUTH_LOGOUT";
+//export const AUTH_USER = "AUTH_USER";
+//export const AUTH_START = "AUTH_START";
+//export const AUTH_SUCCESS = "AUTH_SUCCESS";
+//export const AUTH_FAIL = "AUTH_FAIL";
+//export const AUTH_CHECK_TIMEOUT = "AUTH_CHECK_TIMEOUT";
+//export const AUTH_INITIATE_LOGOUT = "AUTH_INITIATE_LOGOUT";
+//export const AUTH_LOGOUT_SUCCESS = "AUTH_LOGOUT_SUCCESS";
+//export const SET_AUTH_REDIRECT_PATH = "SET_AUTH_REDIRECT_PATH";
+
+export const AUTH_FACEBOOK_CHECK_STATE = "AUTH_FACEBOOK_CHECK_STATE";
+export const AUTH_FACEBOOK_LOGIN = "AUTH_FACEBOOK_LOGIN";
+export const AUTH_FACEBOOK_LOGOUT = "AUTH_FACEBOOK_LOGOUT";
+
+export const AUTH_GOOGLE_CHECK_STATE = "AUTH_GOOGLE_CHECK_STATE";
+export const AUTH_GOOGLE_LOGIN = "AUTH_GOOGLE_LOGIN";
+export const AUTH_GOOGLE_LOGOUT = "AUTH_GOOGLE_LOGOUT";
+
+
+
+// (REMOVE, NOT NEEDED) (... or maybe it is?)
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAIL = 'GET_INGREDIENTS_FAIL';
 
+
+
+// planner
 export const PLANNER_CLICK_DAY = 'PLANNER_CLICK_DAY';
 export const PLANNER_ADD_RECIPE_TO_DAY = 'PLANNER_ADD_RECIPE_TO_DAY';
 export const PLANNER_REMOVE_RECIPE_FROM_DAY = 'PLANNER_REMOVE_RECIPE_FROM_DAY';
 export const PLANNER_REORDER_RECIPE_IN_DAY = 'PLANNER_REORDER_RECIPE_IN_DAY';
-//export const PLANNER_ = 'PLANNER_';
+//export const PLANNER_ = 'PLANNER_';  // save to user planner table in db

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 import { DragDropContextProvider } from 'react-dnd';
-//import { Auth } from 'aws-amplify';
+import { connect } from 'react-redux';
 
 import MobileHeaderRed from './containers/MobileHeaderRed/MobileHeaderRed';
 import HeaderRed from './containers/HeaderRed/HeaderRed';
@@ -15,63 +15,11 @@ import './app.css';
 
 const dragAndDropBackend = MultiBackend(HTML5toTouch);
 
-// OAuth 2.0 Google
-/*
-
-*/
-
-// OAuth 2.0 Facebook
-/*
-// 1.
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '{your-app-id}',
-      cookie     : true,
-      xfbml      : true,
-      version    : '{latest-api-version}'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
-// 2.
-FB.getLoginStatus(function(response) {
-  statusChangeCallback(response);
-});
-
-
-// 3.
-{
-  status: 'connected',
-  authResponse: {
-      accessToken: '...',
-      expiresIn:'...',
-      signedRequest:'...',
-      userID:'...'
-  }
-}
-*/
-
-
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isAuthenticated: false,
-      userEmail: ''
-    };
-  }
+  state = {
+    isAuthenticated: false,
+    userEmail: ''
+  };  // gets passed to all routes...
 
   // auth functionality
   /*
