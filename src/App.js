@@ -16,11 +16,6 @@ import './app.css';
 const dragAndDropBackend = MultiBackend(HTML5toTouch);
 
 class App extends Component {
-  state = {
-    isAuthenticated: false,
-    userEmail: ''
-  };  // gets passed to all routes...
-
   // auth functionality
   /*
   userDidAuthenticate = authenticated => {
@@ -45,49 +40,47 @@ class App extends Component {
     }
   }
   */
-
-  // modals functionality
-
-  // ...
-
+  
   render() {
     // Pass down auth info as props (into HeaderRed and into RoutesList):
-    /*
     const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userEmail: this.state.userEmail,
-      userDidAuthenticate: this.userDidAuthenticate,
-      handleLogout: this.handleLogout,
-      getUser: this.getUser
+      isAuthenticated: this.props.isAuthenticated,
+      //userEmail: this.props.userEmail,
+      //userDidAuthenticate: this.userDidAuthenticate,
+      //handleLogout: this.handleLogout,
+      //getUser: this.getUser
     };
-    */
+    
     // Decide visual layout style:
-    // 1. Determine if the user is located at an authentication page
+    // 1. Determine if the user is currently at an authentication page
     let location = this.props.location;
     let isAccessing = location.pathname &&
     (
+      location.pathname.match(/^\/staff\/register/) ||
+      location.pathname.match(/^\/staff\/login/) ||
       location.pathname.match(/^\/user\/register/) ||
       location.pathname.match(/^\/user\/login/)
     );
     
-    //const routes = <RoutesList childProps={childProps} />;
-    const routes = <RoutesList />;
-
     let layout = null;
-
     if (isAccessing) {
       // 2a. If they are, then render authentication pages layout
-      layout = <div>{routes}</div>;
+      layout = <div><RoutesList childProps={childProps} /></div>;
     } else {
       // 2b. Otherwise, render the normal layout
-      // <HeaderRed childProps={childProps} />
       layout = (
         <div id="app" {...this.props}>
           <div>
-            <div className="mobile_display"><MobileHeaderRed /></div>
-            <div className="desktop_display"><HeaderRed /></div>
+            <div className="mobile_display">
+              <MobileHeaderRed childProps={childProps} />
+            </div>
+            <div className="desktop_display">
+              <HeaderRed childProps={childProps} />
+            </div>
           </div>
-          <MainWhite location={location}>{routes}</MainWhite>
+          <MainWhite location={location}>
+            <RoutesList childProps={childProps} />
+          </MainWhite>
           <FooterGray />
         </div>
       );
@@ -101,4 +94,8 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = state = ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default withRouter(connect(mapStateToProps)(App));

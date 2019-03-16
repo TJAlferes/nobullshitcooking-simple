@@ -11,8 +11,6 @@ import './planner.css';  // use BEM
 
 // TO DO: on page refresh, preserve state (localStorage? indexedDB? webSQL?)
 // TO DO: clear/delete plan button
-// TO DO: 1 week and 1 day views
-// TO DO: plannerExpandedRecipe
 // TO DO: button on recipe page to add to plan
 
 class Planner extends Component {
