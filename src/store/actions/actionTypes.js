@@ -45,4 +45,5 @@ export const PLANNER_CLICK_DAY = 'PLANNER_CLICK_DAY';
 export const PLANNER_ADD_RECIPE_TO_DAY = 'PLANNER_ADD_RECIPE_TO_DAY';
 export const PLANNER_REMOVE_RECIPE_FROM_DAY = 'PLANNER_REMOVE_RECIPE_FROM_DAY';
 export const PLANNER_REORDER_RECIPE_IN_DAY = 'PLANNER_REORDER_RECIPE_IN_DAY';
-//export const PLANNER_ = 'PLANNER_';  // save to user planner table in db
+export const PLANNER_SAVE = 'PLANNER_SAVE';
+//export const PLANNER_ = 'PLANNER_';

@@ -34,3 +34,7 @@ export const plannerReorderRecipeInDay = (dragIndex, hoverIndex) => ({
   hoverIndex,
   dragRecipe
 });*/
+
+export const plannerSave = () => ({
+  type: actionTypes.PLANNER_SAVE
+});
