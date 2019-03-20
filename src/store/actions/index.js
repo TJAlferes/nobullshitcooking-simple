@@ -15,9 +15,17 @@ export {
 } from './menu';
 
 export {
+  authCheckState,
+  authLogin,
+  authLogout,
   authFacebookCheckState,
   authFacebookLogin,
-  authFacebookLogout
+  authFacebookLogout,
+  authGoogleCheckState,
+  authGoogleLogin,
+  authGoogleLogout,
+  authLoginSuccess,
+  authLogoutSuccess
 } from './auth';
 
 export {

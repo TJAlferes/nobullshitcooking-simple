@@ -38,3 +38,8 @@ export const plannerReorderRecipeInDay = (dragIndex, hoverIndex) => ({
 export const plannerSave = () => ({
   type: actionTypes.PLANNER_SAVE
 });
+
+export const plannerLoad = () => ({
+  type: actionTypes.PLANNER_LOAD
+});
+

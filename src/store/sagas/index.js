@@ -9,6 +9,7 @@ import {
   authFacebookLoginSaga,
   authFacebookLogoutSaga
 } from './auth';
+import { plannerSaveSaga, plannerLoadSaga } from './planner';
 
 export function* watchAuth() {
   yield all([
@@ -18,5 +19,12 @@ export function* watchAuth() {
     takeEvery(actionTypes.AUTH_FACEBOOK_CHECK_STATE, authFacebookCheckStateSaga),
     takeEvery(actionTypes.AUTH_FACEBOOK_LOGIN, authFacebookLoginSaga),
     takeEvery(actionTypes.AUTH_FACEBOOK_LOGOUT, authFacebookLogoutSaga),
+  ]);
+}
+
+export function* watchPlanner() {
+  yield all([
+    takeEvery(actionTypes.PLANNER_SAVE, plannerSaveSaga),
+    takeEvery(actionTypes.PLANNER_LOAD, plannerLoadSaga)
   ]);
 }

@@ -30,6 +30,20 @@ export const authFacebookLogout = () => ({
 
 
 
+export const authGoogleCheckState = () => ({
+  type: actionTypes.AUTH_GOOGLE_CHECK_STATE
+});
+
+export const authGoogleLogin = () => ({
+  type: actionTypes.AUTH_GOOGLE_LOGIN
+});
+
+export const authGoogleLogout = () => ({
+  type: actionTypes.AUTH_GOOGLE_LOGOUT
+});
+
+
+
 export const authLoginSuccess = () => ({
   type: actionTypes.AUTH_LOGIN_SUCCESS
 });
