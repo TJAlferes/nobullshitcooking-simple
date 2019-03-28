@@ -1,26 +1,36 @@
-// modal
+/*
+modal
+*/
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 
 
 
-// desktop sitenav dropdown menu
+/*
+SiteNav component dropdown menu box shadow (on desktop display only, not on mobile)
+*/
 export const MENU_SHADOW_SHOW = 'MENU_SHADOW_SHOW';
 export const MENU_SHADOW_HIDE = 'MENU_SHADOW_HIDE';
 
 
 
-// auth (remember to actually check on the backend)
+/*
+user
+*/
 export const AUTH_CHECK_STATE = "AUTH_CHECK_STATE";
+
 export const AUTH_LOGIN = "AUTH_LOGIN";
+export const AUTH_LOGIN_SUCCEEDED = "AUTH_LOGIN_SUCCEEDED";
+export const AUTH_LOGIN_FAILED = "AUTH_LOGIN_FAILED";
+
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
+export const AUTH_LOGOUT_SUCCEEDED = "AUTH_LOGOUT_SUCCEEDED";
+export const AUTH_LOGOUT_FAILED = "AUTH_LOGOUT_FAILED";
+
 //export const AUTH_USER = "AUTH_USER";
-//export const AUTH_START = "AUTH_START";
-//export const AUTH_SUCCESS = "AUTH_SUCCESS";
-//export const AUTH_FAIL = "AUTH_FAIL";
+
 //export const AUTH_CHECK_TIMEOUT = "AUTH_CHECK_TIMEOUT";
-//export const AUTH_INITIATE_LOGOUT = "AUTH_INITIATE_LOGOUT";
-//export const AUTH_LOGOUT_SUCCESS = "AUTH_LOGOUT_SUCCESS";
+
 //export const SET_AUTH_REDIRECT_PATH = "SET_AUTH_REDIRECT_PATH";
 
 export const AUTH_FACEBOOK_CHECK_STATE = "AUTH_FACEBOOK_CHECK_STATE";
@@ -31,24 +41,49 @@ export const AUTH_GOOGLE_CHECK_STATE = "AUTH_GOOGLE_CHECK_STATE";
 export const AUTH_GOOGLE_LOGIN = "AUTH_GOOGLE_LOGIN";
 export const AUTH_GOOGLE_LOGOUT = "AUTH_GOOGLE_LOGOUT";
 
+export const PLANNER_SAVE = 'PLANNER_SAVE';
+export const PLANNER_SAVE_SUCCEEDED = 'PLANNER_SAVE_SUCCEEDED';
+export const PLANNER_SAVE_FAILED = 'PLANNER_SAVE_FAILED';
+
+export const PLANNER_LOAD = 'PLANNER_LOAD';
+export const PLANNER_LOAD_SUCCEEDED = 'PLANNER_LOAD_SUCCEEDED';
+export const PLANNER_LOAD_FAILED = 'PLANNER_LOAD_FAILED';
 
 
-// (REMOVE, NOT NEEDED) (... or maybe it is?)
-export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
-export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
-export const GET_INGREDIENTS_FAIL = 'GET_INGREDIENTS_FAIL';
 
-
-
-// planner
+/*
+planner
+*/
 export const PLANNER_CLICK_DAY = 'PLANNER_CLICK_DAY';
 export const PLANNER_ADD_RECIPE_TO_DAY = 'PLANNER_ADD_RECIPE_TO_DAY';
 export const PLANNER_REMOVE_RECIPE_FROM_DAY = 'PLANNER_REMOVE_RECIPE_FROM_DAY';
 export const PLANNER_REORDER_RECIPE_IN_DAY = 'PLANNER_REORDER_RECIPE_IN_DAY';
-export const PLANNER_SAVE = 'PLANNER_SAVE';
-export const PLANNER_SAVE = 'PLANNER_SAVE_SUCCEEDED';
-export const PLANNER_SAVE = 'PLANNER_SAVE_FAILED';
-export const PLANNER_LOAD = 'PLANNER_LOAD';
-export const PLANNER_LOAD = 'PLANNER_LOAD_SUCCEEDED';
-export const PLANNER_LOAD = 'PLANNER_LOAD_FAILED';
-//export const PLANNER_ = 'PLANNER_';
+
+/*
+chat
+*/
+//
+
+
+
+/*
+discovery
+*/
+//
+
+
+
+/*
+dynamic content
+*/
+export const GET_EQUIPMENT_REQUEST = 'GET_EQUIPMENT_REQUEST';
+export const GET_EQUIPMENT_SUCCEEDED = 'GET_EQUIPMENT_SUCCEEDED';
+export const GET_EQUIPMENT_FAILED = 'GET_EQUIPMENT_FAILED';
+
+export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
+export const GET_INGREDIENTS_SUCCEEDED = 'GET_INGREDIENTS_SUCCEEDED';
+export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
+
+export const GET_RECIPES_REQUEST = 'GET_RECIPES_REQUEST';
+export const GET_RECIPES_SUCCEEDED = 'GET_RECIPES_SUCCEEDED';
+export const GET_RECIPES_FAILED = 'GET_RECIPES_FAILED';

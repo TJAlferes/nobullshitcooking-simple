@@ -44,10 +44,10 @@ export const authGoogleLogout = () => ({
 
 
 
-export const authLoginSuccess = () => ({
-  type: actionTypes.AUTH_LOGIN_SUCCESS
+export const authLoginSucceeded = () => ({
+  type: actionTypes.AUTH_LOGIN_SUCCEEDED
 });
 
-export const authLogoutSuccess = () => ({
-  type: actionTypes.AUTH_LOGOUT_SUCCESS
+export const authLogoutSucceeded = () => ({
+  type: actionTypes.AUTH_LOGOUT_SUCCEEDED
 });
