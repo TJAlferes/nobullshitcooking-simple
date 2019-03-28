@@ -1,5 +1,9 @@
 import * as actionTypes from './actionTypes';
 
+/*
+Planner -- core functionality
+*/
+
 export const plannerClickDay = day => ({
   type: actionTypes.PLANNER_CLICK_DAY,
   day
@@ -22,24 +26,37 @@ export const plannerReorderRecipeInDay = (dragIndex, hoverIndex) => ({
   dragIndex,
   hoverIndex
 });
-/*export const plannerReorderRecipeInDay = (
-  day,
-  dragIndex,
-  hoverIndex,
-  dragRecipe
-) => ({
-  type: actionTypes.PLANNER_REORDER_RECIPE_IN_DAY,
-  day,
-  dragIndex,
-  hoverIndex,
-  dragRecipe
-});*/
 
-export const plannerSave = () => ({
-  type: actionTypes.PLANNER_SAVE
-});
+
+
+/*
+Planner -- save and load the user's plan to and from MySQL database
+*/
 
 export const plannerLoad = () => ({
   type: actionTypes.PLANNER_LOAD
 });
 
+export const plannerSave = () => ({
+  type: actionTypes.PLANNER_SAVE
+});
+
+
+
+export const plannerLoadSucceeded = () => ({
+  type: actionTypes.PLANNER_LOAD_SUCCEEDED
+});
+
+export const plannerLoadFailed = error => ({
+  type: actionTypes.PLANNER_LOAD_FAILED,
+  error
+});
+
+export const plannerSaveSucceeded = () => ({
+  type: actionTypes.PLANNER_SAVE_SUCCEEDED
+});
+
+export const plannerSaveFailed = error => ({
+  type: actionTypes.PLANNER_SAVE_FAILED,
+  error
+});

@@ -1,13 +1,7 @@
 /*export {
   openModal,
   closeModal
-} from './modalsActions';
-
-export {
-  getIngredientsStart,
-  getIngredientsSuccess,
-  getIngredientsFail
-} from './ingredientsActions';*/
+} from './modals';*/
 
 export {
   menuShadowShow,
@@ -18,19 +12,50 @@ export {
   authCheckState,
   authLogin,
   authLogout,
+
   authFacebookCheckState,
   authFacebookLogin,
   authFacebookLogout,
+
   authGoogleCheckState,
   authGoogleLogin,
   authGoogleLogout,
-  authLoginSuccess,
-  authLogoutSuccess
+
+  authLoginSucceeded,
+  authLoginFailed,
+  authLogoutSucceeded,
+  authLogoutFailed,
 } from './auth';
 
 export {
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,
-  plannerReorderRecipeInDay
+  plannerReorderRecipeInDay,
+
+  plannerLoad,
+  plannerSave,
+
+  plannerLoadSucceeded,
+  plannerLoadFailed,
+  plannerSaveSucceeded,
+  plannerSaveFailed,
 } from './planner';
+
+export {
+  getEquipmentRequest,
+  getEquipmentSucceeded,
+  getEquipmentFailed
+} from './equipment';
+
+export {
+  getIngredientsRequest,
+  getIngredientsSucceeded,
+  getIngredientsFailed
+} from './ingredients';
+
+export {
+  getRecipesRequest,
+  getRecipesSucceeded,
+  getRecipesFailed
+} from './recipes';

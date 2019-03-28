@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
+// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS AND SELECTORS AND SAGAS
 
 export const authCheckState = () => ({
   type: actionTypes.AUTH_CHECK_STATE
@@ -48,6 +48,14 @@ export const authLoginSucceeded = () => ({
   type: actionTypes.AUTH_LOGIN_SUCCEEDED
 });
 
+export const authLoginFailed = () => ({
+  type: actionTypes.AUTH_LOGIN_FAILED
+});
+
 export const authLogoutSucceeded = () => ({
   type: actionTypes.AUTH_LOGOUT_SUCCEEDED
+});
+
+export const authLogoutFailed = () => ({
+  type: actionTypes.AUTH_LOGOUT_FAILED
 });

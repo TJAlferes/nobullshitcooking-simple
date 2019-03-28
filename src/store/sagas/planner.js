@@ -3,28 +3,18 @@ import axios from 'axios';
 
 import {
   authCheckState,
+  plannerLoad,
   plannerSave,
-  plannerLoad
+  plannerLoadSucceeded,
+  plannerLoadFailed,
+  plannerSaveSucceeded,
+  plannerSaveFailed
 } from '../actions/index';
 
 // our backend API 
 const endpoint = process.env.NODE_ENV === 'production'
 ? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com'
 : 'http://localhost:3003';
-
-export function* plannerSaveSaga() {
-  try {
-    yield put(authCheckState());
-    const user = yield call(axios.post, `${endpoint}/user/auth`, {});
-    if (user) {
-      yield put(plannerSave());
-      yield call(axios.post, `${endpoint}/user/plan`, {});
-      yield put({type: actionTypes.PLANNER_SAVE_SUCCEEDED});
-    }
-  } catch (error) {
-    yield put({type: actionTypes.PLANNER_SAVE_FAILED, error});
-  }
-};
 
 export function* plannerLoadSaga() {
   try {
@@ -33,9 +23,23 @@ export function* plannerLoadSaga() {
     if (user) {
       yield put(plannerLoad());
       axios.post(`${endpoint}/user/plan`, {});
-      yield put({type: actionTypes.PLANNER_LOAD_SUCCEEDED});
+      yield put(plannerLoadSucceeded());
     }
   } catch (error) {
-    yield put({type: actionTypes.PLANNER_LOAD_FAILED, error});
+    yield put(plannerLoadFailed(error));
+  }
+};
+
+export function* plannerSaveSaga() {
+  try {
+    yield put(authCheckState());
+    const user = yield call(axios.post, `${endpoint}/user/auth`, {});
+    if (user) {
+      yield put(plannerSave());
+      yield call(axios.post, `${endpoint}/user/plan`, {});
+      yield put(plannerSaveSucceeded());
+    }
+  } catch (error) {
+    yield put(plannerSaveFailed(error));
   }
 };

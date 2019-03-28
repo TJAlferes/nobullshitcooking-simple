@@ -3,13 +3,17 @@ import axios from 'axios';
 
 import {
   authCheckState,
-  //authLogin,
-  //authLogout,
+  authLogin,
+  authLogout,
+
   authFacebookCheckState,
   authFacebookLogin,
   authFacebookLogout,
-  authLoginSuccess,
-  authLogoutSuccess,
+
+  authLoginSucceeded,
+  authLoginFailed,
+  authLogoutSucceeded,
+  authLogoutFailed
 } from '../actions/index';
 
 // our backend API 
@@ -27,13 +31,13 @@ export function* authLoginSaga() {
   // axios over to authEndpoint
   // eh??? just put? yield call ([authLogin]);  // check syntax on redux-saga docs
   axios.post({email, password});
-  yield put(authLoginSuccess());
+  yield put(authLoginSucceeded());
 }
 
 export function* authLogoutSaga() {
   // axios over to authEndpoint
   // eh??? just put? yield call ([authLogout]);  // check syntax on redux-saga docs
-  yield put(authLogoutSuccess());
+  yield put(authLogoutSucceeded());
 }
 
 
@@ -65,12 +69,12 @@ export function* authFacebookLoginSaga() {
     },
     {scope: 'email'}
   );
-  yield put(authLoginSuccess());
+  yield put(authLoginSucceeded());
 }
 
 export function* authFacebookLogoutSaga() {
   yield put(authFacebookLogout());
   window.FB && window.FB.logout();
   // just logged out, deny access
-  yield put(authLogoutSuccess());
+  yield put(authLogoutSucceeded());
 }

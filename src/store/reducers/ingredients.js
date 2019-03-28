@@ -9,25 +9,25 @@ const getIngredientsRequest = (state, action) => {
   });
 };
 
-const getIngredientsSuccess = (state, action) => {
+const getIngredientsSucceeded = (state, action) => {
   return updateObject(state, {
     //
   });
 };
 
-const getIngredientsFail = (state, action) => {
+const getIngredientsFailed = (state, action) => {
   return updateObject(state, {
     //
   });
 };
 
-const getIngredientsReducer = (state = initialState, action) => {
+const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_INGREDIENTS_REQUEST: return getIngredientsRequest(state, action);
-    case actionTypes.GET_INGREDIENTS_SUCCESS: return getIngredientsSuccess(state, action);
-    case actionTypes.GET_INGREDIENTS_FAIL: return getIngredientsFail(state, action);
+    case actionTypes.GET_INGREDIENTS_SUCCEEDED: return getIngredientsSucceeded(state, action);
+    case actionTypes.GET_INGREDIENTS_FAILED: return getIngredientsFailed(state, action);
     default: return state;
   }
 };
 
-export default getIngredientsReducer;
+export default ingredientsReducer;

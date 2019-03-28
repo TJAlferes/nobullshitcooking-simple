@@ -3,7 +3,9 @@ import * as actionTypes from '../actions/actionTypes';
 
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
 
-const initialState = {};
+const initialState = {
+  isAuthenticated: false
+};
 
 
 function facebookCheckLoginState() {
@@ -18,13 +20,13 @@ function facebookLogout() {
 
 }
 
-/*const authReducer = (state = initialState, action) => {
-  switch (action.type) {
+const authReducer = (state = initialState, action) => {
+  /*switch (action.type) {
     case actionTypes.AUTH_
     case actionTypes.AUTH_
     case actionTypes.AUTH_
-  }
+  }*/
   return state;
 };
 
-export default authReducer;*/
+export default authReducer;

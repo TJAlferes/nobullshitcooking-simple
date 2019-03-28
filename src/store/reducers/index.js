@@ -1,22 +1,29 @@
 import { combineReducers } from 'redux';
 
-//import modalsReducer from './modals/modals';
+//import modalsReducer from './modals';
 import menuReducer from './menu';
-//import ingredientsReducer from './ingredients/ingredients';
-//import recipesReducer from "./recipes/recipes";
+import authReducer from './auth';
 import plannerReducer from './planner';
+//import equipmentReducer from './equipment';
+//import ingredientsReducer from './ingredients';
+//import recipesReducer from "./recipes";
+
+
 
 /*
-  import all reducers,
-  combine them into a single "root" reducer,
-  and export it (to be used in src/index.js)
+import all reducers,
+combine them into a single "root" reducer,
+and export it (to be used in src/index.js)
 */
+
 const rootReducer = combineReducers({
   //modals: modalsReducer,
   menu: menuReducer,
+  auth: authReducer,
+  planner: plannerReducer,
+  //equipment: equipmentReducer,
   //ingredients: ingredientsReducer,
   //recipes: recipesReducer,
-  planner: plannerReducer
 });
 
 export default rootReducer;
