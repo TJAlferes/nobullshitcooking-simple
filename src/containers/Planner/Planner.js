@@ -57,7 +57,7 @@ class Planner extends Component {
                   <span className="th">Saturday</span>
                 </div>
                 <div id="tbody">
-                  {/* do you need Object.assign({}, ...Object.keys--) here? */}
+                  {/* do you need Object.assign({}, ...Object.keys etc.) here? */}
                   {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
                     <div key={i} className="td">
                       <div className="content">

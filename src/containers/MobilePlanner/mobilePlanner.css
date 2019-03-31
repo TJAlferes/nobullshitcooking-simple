@@ -169,6 +169,7 @@
   order: 2;
   display: grid;
   width: 100%;
+  height: 100%;
   /*flex-direction: row;
   flex-wrap: nowrap;*/
 }
@@ -185,8 +186,10 @@
 
 /*
 maybe do combined media queries for both orientation and width
-*/
-@media (max-width: 499px) {
+no
+just use flexbox and percentages
+
+@media (max-width: 899px) {
   #mobile_calendar_container {
     flex-direction: column;
   }
@@ -195,6 +198,15 @@ maybe do combined media queries for both orientation and width
     grid-template-columns: 1fr 1fr;
     grid-template-rows: none;
   }
+}
+*/
+#mobile_calendar_container {
+  flex-direction: column;
+}
+
+#mobile_work_area {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: none;
 }
 
 @media (min-width: 500px) {

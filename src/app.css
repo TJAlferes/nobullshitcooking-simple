@@ -16,7 +16,7 @@
 
 
 /* mobile */
-@media (max-width: 599px) {
+@media (max-width: 899px) {
   #app {
     grid-template-rows: 92px auto 237px;
   }

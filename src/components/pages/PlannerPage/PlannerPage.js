@@ -11,10 +11,10 @@ import Planner from '../../../containers/Planner/Planner';
 const PlannerPage = props => (
   <div id="planner_page">
     <div className="mobile_display">
-      <MobilePlannerToggle />
+      <MobilePlannerToggle className="mobile_display" />
     </div>
     <div className="desktop_display">
-      <Planner />
+      <Planner className="desktop_display" />
     </div>
   </div>
 );
