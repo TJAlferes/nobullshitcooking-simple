@@ -25,30 +25,6 @@ function collect(connect, monitor) {
 }
 
 class MobilePlannerDay extends Component {
-  /*constructor(props) {
-    super(props);
-    this.day = null;
-    this.setSelfRef = element => {
-      this.day = element;
-    };
-  }
-  
-  handleClick = async (e) => {
-    const { day, onDayClick } = this.props;
-    e.preventDefault(); // stoppropagation or none?
-    await onDayClick(day);
-  }
-  
-  pushRecipe = async (recipe) => {
-    const { day, onPushRecipe } = this.props;
-    await onPushRecipe(day, recipe);
-  }
-
-  removeRecipe = async (index) => {
-    const { day, onRemoveRecipe } = this.props;
-    await onRemoveRecipe(day, index);
-  }*/
-
   handleClickDay = () => {
     const { day } = this.props;
     this.props.plannerClickDay(day);
@@ -58,7 +34,6 @@ class MobilePlannerDay extends Component {
     const { list, expanded, day, expandedDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
     let color = (isOver && canDrop) ? "mobile_planner_day_green" : "mobile_planner_day_white";
-    // <div ref={this.setSelfRef}
     return (!expanded || (day !== expandedDay))
     ? connectDropTarget(
       <div className={`mobile_planner_day ${color}`} onClick={this.handleClickDay}>

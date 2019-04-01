@@ -34,10 +34,10 @@
 
 
 /* mobile */
-@media (max-width: 599px) {
+@media (max-width: 899px) {
   .footer_gray {
     min-width: 300px;
-    max-width: 100%;
+    max-width: 100vw;
     min-height: 237px;
     background-color: #444;
   }

@@ -17,6 +17,8 @@ const MainWhite = props => {
   );
 }
 
-const mapStateToProps = state => ({shadow: state.menu.shadow});
+const mapStateToProps = state => ({
+  shadow: state.menu.shadow
+});
 
 export default connect(mapStateToProps)(MainWhite);

@@ -10,8 +10,6 @@ import './mobilePlanner.css';  // use BEM
 
 // TO DO: on page refresh, preserve state (localStorage? indexedDB? webSQL?)
 // TO DO: clear/delete plan button
-// TO DO: 1 week and 1 day views
-// TO DO: plannerExpandedRecipe
 // TO DO: button on recipe page to add to plan
 
 class MobilePlanner extends Component {
@@ -46,7 +44,7 @@ class MobilePlanner extends Component {
                 <span className="th">Sat</span>
               </div>
               <div id="tbody">
-                {/* do you need Object.assign({}, ...Object.keys--) here? */}
+                {/* do you need Object.assign({}, ...Object.keys etc.) here? */}
                 {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
                   <div key={i} className="td">
                     <div className="content">
@@ -86,7 +84,6 @@ class MobilePlanner extends Component {
   }
 }
 
-// = ({ blah blah blah }) => WATCH REDUX EGGHEAD IO
 const mapStateToProps = state => ({
   isSaving: state.planner.isSaving,
   expanded: state.planner.expanded,

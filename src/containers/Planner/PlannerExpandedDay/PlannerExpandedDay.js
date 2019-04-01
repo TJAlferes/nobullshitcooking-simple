@@ -34,7 +34,6 @@ class PlannerExpandedDay extends Component {
     const { list, expanded, day, expandedDay } = this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
     let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
-    //<div ref={this.setSelfRef}
     return expanded
     ? connectDropTarget(
       <div className={`planner_expanded_day ${color}`} onClick={this.handleClickDay}>

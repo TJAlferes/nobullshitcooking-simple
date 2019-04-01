@@ -14,20 +14,13 @@ import './planner.css';  // use BEM
 // TO DO: button on recipe page to add to plan
 
 class Planner extends Component {
-  constructor(props) {
-    super(props);
-    this.tableRef = React.createRef();  // needed?
-  }
-  /*  also move to redux:
-  handleSave = async () => {  // put in componentDidUpdate? throttle every 5 seconds
+  /*handleSave = async () => {  // put in redux-saga, perform 5 seconds after no mouse or keyboard activity
     const { isSaving, recipeLists } = this.state;
     // fetch or axios PUT on the already created record
     // setState({isSaving: true});
     // setState({isSaving: false});
+  }*/
 
-    // or this should go in redux-thunk / redux-saga
-  }
-  */
   render() {
     const { isSaving, expanded, expandedDay, recipeListsInsideDays } = this.props;
     return (
@@ -96,7 +89,6 @@ class Planner extends Component {
   }
 }
 
-// = ({ blah blah blah }) => WATCH REDUX EGGHEAD IO
 const mapStateToProps = state => ({
   isSaving: state.planner.isSaving,
   expanded: state.planner.expanded,

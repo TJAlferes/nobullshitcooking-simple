@@ -8,11 +8,9 @@ import {
   plannerReorderRecipeInDay
 } from '../../../store/actions/index';
 import './plannerRecipe.css';  // use BEM
-
 /*
-these 3 inlined images are just for quick sample viewing during dev for now
-
-in prod we would load external recipe images from a designated AWS S3 bucket
+These 3 inlined images are just for quick sample viewing during dev for now.
+In prod we would load external recipe images from a designated AWS S3 bucket.
 */
 import sp32 from '../../../assets/images/content/planner/sp32.png';
 import sas32 from '../../../assets/images/content/planner/sas32.png';
@@ -74,10 +72,9 @@ function collectDropTarget(connect) {
 const PlannerRecipe = props => {
   const { recipe, connectDragSource, connectDropTarget } = props;
   /*
-  again, this is just for quick sample image viewing during dev for now
-
-  in prod we will load external recipe images from a designated AWS S3 bucket
-  and will set the src={} to the appropriate AWS S3 bucket image file URL
+  Again, this is just for quick sample image viewing during dev for now.
+  In prod we will load external recipe images from a designated AWS S3 bucket
+  and will set the src={} to the appropriate AWS S3 bucket image file URL.
   */
   let miniSrc;
   if (recipe.id === 1) miniSrc = sp32;

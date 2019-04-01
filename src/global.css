@@ -38,11 +38,12 @@ th, td {font-size: 1.3rem;}
 
 
 /* mobile */
-@media (max-width: 599px) {
+@media (max-width: 899px) {
   html,
-  body {
+  body,
+  #root {
     min-width: 300px;
-    max-width: 100%;
+    max-width: 100vw;
   }
 
   h1 {font-size: 2rem;}
