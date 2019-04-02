@@ -27,8 +27,7 @@
 
 
 
-/* tablet (portrait) WHAT ABOUT MOBILE LANDSCAPE??? */
-@media (min-width: 600px) {
+@media (min-width: 900px) {
   #mobile-left-nav {
     display: none;
   }

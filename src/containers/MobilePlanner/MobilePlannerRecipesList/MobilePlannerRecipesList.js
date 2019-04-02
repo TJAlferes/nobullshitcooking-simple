@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
@@ -17,10 +17,10 @@ const plannerRecipesListTarget = {
     const draggedRecipe = monitor.getItem();
     const dropResult = monitor.getDropResult();
     if (dropResult === null) {
-      props.plannerRemoveRecipeFromDay(draggedRecipe.day, draggedRecipe.index);
+      props.plannerRemoveRecipeFromDay(draggedRecipe.day, draggedRecipe.index);  // this?
       return {listId: day};
     }
-    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
+    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);  // this?
     return {listId: day};
   }
 };
@@ -33,25 +33,21 @@ function collect(connect, monitor) {
   };
 }
 
-class MobilePlannerRecipesList extends Component {
-  render() {
-    const { day, list, connectDropTarget } = this.props;
-    return connectDropTarget(
-      <div id="mobile_planner_recipes_list">
-        {list.map((recipe, i) => (
-          <MobilePlannerRecipe
-            className="mobile_planner_recipe"
-            key={recipe.key}
-            index={i}
-            listId={day}
-            recipe={recipe}
-            day={day}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+const MobilePlannerRecipesList = ({ day, list, connectDropTarget }) => (
+  <div id="mobile_planner_recipes_list" ref={connectDropTarget}>
+    {list.map((recipe, i) => (
+      <MobilePlannerRecipe
+        className="mobile_planner_recipe"
+        key={recipe.key}
+        id={recipe.key}
+        index={i}
+        listId={day}
+        recipe={recipe}
+        day={day}
+      />
+    ))}
+  </div>
+);
 
 const mapDispatchToProps = dispatch => ({
   plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),

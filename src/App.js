@@ -68,8 +68,9 @@ class App extends Component {
       layout = <div><RoutesList childProps={childProps} /></div>;
     } else {
       // 2b. Otherwise, render the normal layout
+      //<div id="app" {...this.props}>
       layout = (
-        <div id="app" {...this.props}>
+        <div id="app">
           <div>
             <div className="mobile_display">
               <MobileHeaderRed childProps={childProps} />

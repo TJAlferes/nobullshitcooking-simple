@@ -21,8 +21,9 @@ export const plannerRemoveRecipeFromDay = (day, index) => ({
   index
 });
 
-export const plannerReorderRecipeInDay = (dragIndex, hoverIndex) => ({
+export const plannerReorderRecipeInDay = (day, dragIndex, hoverIndex) => ({
   type: actionTypes.PLANNER_REORDER_RECIPE_IN_DAY,
+  day,
   dragIndex,
   hoverIndex
 });
