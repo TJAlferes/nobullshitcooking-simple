@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-//import HTML5Backend from 'react-dnd-html5-backend';
 import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
-import { DragDropContextProvider } from 'react-dnd';
+import { DragDropContext } from 'react-dnd';
 import { connect } from 'react-redux';
 
 import MobileHeaderRed from './containers/MobileHeaderRed/MobileHeaderRed';
@@ -13,7 +12,7 @@ import FooterGray from './components/FooterGray/FooterGray';
 import RoutesList from './routing/Routes';
 import './app.css';
 
-const dragAndDropBackend = MultiBackend(HTML5toTouch);
+const withDragDropContext = DragDropContext(MultiBackend(HTML5toTouch));
 
 class App extends Component {
   // auth functionality
@@ -87,11 +86,7 @@ class App extends Component {
       );
     }
 
-    return (
-      <DragDropContextProvider backend={dragAndDropBackend}>
-        {layout}
-      </DragDropContextProvider>
-    );
+    return layout;
   }
 }
 
@@ -99,4 +94,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps)(withDragDropContext(App)));

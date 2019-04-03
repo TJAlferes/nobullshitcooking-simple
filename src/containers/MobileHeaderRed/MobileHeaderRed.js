@@ -8,8 +8,6 @@ import MobileSearch from './MobileSearch/MobileSearch';
 import MobileSiteNav from './MobileSiteNav/MobileSiteNav';
 import MobileUserNav from './MobileUserNav/MobileUserNav';
 
-// TO DO: make separate mobile nav
-
 const MobileHeaderRed = props => (
   <div id="mobile_header_red">
 
