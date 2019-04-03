@@ -17,10 +17,10 @@ const plannerRecipesListTarget = {
     const draggedRecipe = monitor.getItem();
     const dropResult = monitor.getDropResult();
     if (dropResult === null) {
-      props.plannerRemoveRecipeFromDay(draggedRecipe.day, draggedRecipe.index);  // this?
+      props.plannerRemoveRecipeFromDay(draggedRecipe.day, draggedRecipe.index);
       return {listId: day};
     }
-    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);  // this?
+    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
     return {listId: day};
   }
 };

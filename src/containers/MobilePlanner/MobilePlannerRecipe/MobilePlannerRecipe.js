@@ -7,10 +7,9 @@ import {
   plannerReorderRecipeInDay
 } from '../../../store/actions/index';
 import './mobilePlannerRecipe.css';  // use BEM
-/*
-These 3 inlined images are just for quick sample viewing during dev for now.
-In prod we would load external recipe images from a designated AWS S3 bucket.
-*/
+
+/*These 3 inlined images are just for quick sample viewing during dev for now.
+In prod we would load external recipe images from a designated AWS S3 bucket.*/
 import sp32 from '../../../assets/images/content/planner/sp32.png';
 import sas32 from '../../../assets/images/content/planner/sas32.png';
 import sps32 from '../../../assets/images/content/planner/sps32.png';
@@ -22,7 +21,7 @@ const plannerRecipeSource = {
     return {
       id: props.id,
       index: props.index,
-      //listId: props.listId,
+      listId: props.listId,
       recipe: props.recipe,
       day: props.day,
       key: props.recipe.key
@@ -30,9 +29,9 @@ const plannerRecipeSource = {
   },
   endDrag(props, monitor) {
     const item = monitor.getItem();
-    if (item.day === "0") return; // to copy rather than remove from mobileplannerrecipeslist
+    if (item.day === "0") return;  // to copy rather than remove from mobileplannerrecipeslist
     const dropResult = monitor.getDropResult();
-    if (dropResult && (dropResult.listId !== item.day)) {  // HERE
+    if (dropResult && (dropResult.listId !== item.day)) {
       props.plannerRemoveRecipeFromDay(item.day, item.index);
     }
   }
@@ -46,6 +45,8 @@ const plannerRecipeTarget = {
     if (!node) return null;
     const { day, expandedDay } = props;
     if (day !== expandedDay) return;
+    const sourceDay = monitor.getItem().day;
+    if (sourceDay !== expandedDay) return;
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     if (dragIndex === hoverIndex) return;
@@ -57,11 +58,6 @@ const plannerRecipeTarget = {
     if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
     props.plannerReorderRecipeInDay(dragIndex, hoverIndex);
     monitor.getItem().index = hoverIndex;
-    /*const sourceListId = monitor.getItem().listId;
-    if (listId === sourceListId) {  // ?
-      props.plannerReorderRecipeInDay(dragIndex, hoverIndex);  // use the other two args in action instead of state?
-      monitor.getItem().index = hoverIndex;
-    }*/
   }
 };
 
@@ -82,10 +78,15 @@ const MobilePlannerRecipe = forwardRef(
     connectDragSource(elementRef);
     connectDropTarget(elementRef);
     useImperativeHandle(ref, () => ({getNode: () => elementRef.current}));
+
+    /*Again, this is just for quick sample image viewing during dev for now.
+    In prod we will load external recipe images from a designated AWS S3 bucket
+    and will set the src={} to the appropriate AWS S3 bucket image file URL.*/
     let miniSrc;
     if (recipe.id === 1) miniSrc = sp32;
     if (recipe.id === 2) miniSrc = sps32;
     if (recipe.id === 3) miniSrc = sas32;
+
     return (
       <div className="mobile_planner_recipe" ref={elementRef}>
         <div className="mobile_planner_recipe_image"><img src={miniSrc} /></div>
@@ -94,22 +95,6 @@ const MobilePlannerRecipe = forwardRef(
     );
   }
 );
-/*const MobilePlannerRecipe = props => {
-  const { recipe, connectDragSource, connectDropTarget } = props;
-  Again, this is just for quick sample image viewing during dev for now.
-  In prod we will load external recipe images from a designated AWS S3 bucket
-  and will set the src={} to the appropriate AWS S3 bucket image file URL.
-  let miniSrc;
-  if (recipe.id === 1) miniSrc = sp32;
-  if (recipe.id === 2) miniSrc = sps32;
-  if (recipe.id === 3) miniSrc = sas32;
-  return connectDragSource(connectDropTarget(
-    <div className="mobile_planner_recipe">
-      <div className="mobile_planner_recipe_image"><img src={miniSrc} /></div>
-      <div className="mobile_planner_recipe_text">{recipe.text}</div>
-    </div>
-  ));
-}*/
 
 const mapDispatchToProps = dispatch => ({
   plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),

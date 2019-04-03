@@ -12,7 +12,7 @@ const plannerExpandedDayTarget = {
     const { day, expandedDay } = props;
     const draggedRecipe = monitor.getItem();
     if (expandedDay !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
-    return {listId: day};  // ?
+    return {listId: day};
   }
 };
 

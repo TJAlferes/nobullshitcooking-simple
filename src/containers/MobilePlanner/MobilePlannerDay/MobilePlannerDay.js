@@ -12,7 +12,7 @@ const plannerDayTarget = {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
     if (day !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
-    return {listId: day};  // are we using this? also, is this necessary? if neither, remove
+    return {listId: day};
   }
 };
 
