@@ -53,8 +53,7 @@
 
 /*
 This is the calendar proper,
-though this should be improved,
-as there is currently a bit of wasted/unused screen space.
+though this should be improved, as there is currently a bit of wasted/unused screen space.
 */
 #mobile_monthly_plan {
   min-width: 300px;
@@ -151,7 +150,7 @@ as there is currently a bit of wasted/unused screen space.
 
 
 
-/* The area for MobilePlannerRecipesList and MobilePlannerExpandedDay */
+/* This is the area for MobilePlannerRecipesList and MobilePlannerExpandedDay */
 #mobile_work_area {
   order: 2;
   display: grid;
@@ -162,7 +161,7 @@ as there is currently a bit of wasted/unused screen space.
   height: 50%;
 }
 
-/* The container around MobilePlannerExpandedDay */
+/* This is the container around MobilePlannerExpandedDay */
 #mobile_expanded_day_area {
   position: relative;
   margin-top: 12px;
@@ -200,8 +199,9 @@ as there is currently a bit of wasted/unused screen space.
 
 /*
 This is NOT a perfect solution, but for now,
-for many (not all) mobile devices, this will reorient our areas to also look good
-when their mobile device is in the landscape orientation.
+for many (not all) mobile devices,
+this will reorient our areas to also look good
+when their mobile device is being held in the landscape orientation.
 */
 @media (min-width: 500px) {
   #mobile_calendar_container {

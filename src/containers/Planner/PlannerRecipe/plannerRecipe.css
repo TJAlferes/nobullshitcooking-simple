@@ -18,30 +18,13 @@
   cursor: move;
 }
 
-.planner_recipe image {
+/*.planner_recipe image {
 
-}
+}*/
 
 .planner_recipe_text {
   width: 100%;
   text-align: center;
   font-family: Arial, sans-serif;
   font-size: 11px;
-}
-
-
-
-/* tablet (portrait) */
-@media (min-width: 600px) {
-
-}
-
-/* tablet (landscape)*/
-@media (min-width: 900px) {
-
-}
-
-/* desktop */
-@media (min-width: 1200px) {
-
 }

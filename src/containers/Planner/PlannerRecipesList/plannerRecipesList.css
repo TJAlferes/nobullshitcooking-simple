@@ -10,20 +10,3 @@
   display: inline-block;
   margin: 6px 1px;
 }
-
-
-
-/* tablet (portrait) */
-@media (min-width: 600px) {
-
-}
-
-/* tablet (landscape)*/
-@media (min-width: 900px) {
-
-}
-
-/* desktop */
-@media (min-width: 1200px) {
-
-}
