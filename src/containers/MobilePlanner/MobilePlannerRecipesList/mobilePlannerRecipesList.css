@@ -1,15 +1,19 @@
 #mobile_planner_recipes_list {
   /*min-width: 180px;
   max-width: 60%;*/
-  height: 180px;
+  /*height: 180px;*/
+  min-height: 117px;
   margin-top: 12px;
   border: 1px solid #bfbfbf;
   padding: 6px;
+  overflow: scroll;
 }
 
-/* move? */
-#mobile_planner_recipes_list #mobile_planner_recipe {
-  width: 50px;
-  max-width: 50px;
-  height: 100px;
+
+
+@media (min-width: 500px) {
+  #mobile_planner_recipes_list {
+    margin-top: 0;
+    margin-left: 2px;
+  }
 }

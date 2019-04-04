@@ -7,7 +7,13 @@
   background-color:  #d5fdd5;
 }
 
+.planner_modal {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
 #close_planner {
+  display: block;
   width: 196px;
   height: 30px;
   border: 1px solid #aaa; border-radius: 2px;

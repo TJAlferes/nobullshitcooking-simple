@@ -12,15 +12,8 @@ import './mobilePlannerRecipesList.css';  // use BEM
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};  // is this definition necessary here since we imported?
 
 const plannerRecipesListTarget = {
-  drop(props, monitor) {
+  drop(props) {
     const { day } = props;
-    const draggedRecipe = monitor.getItem();
-    const dropResult = monitor.getDropResult();
-    if (dropResult === null) {
-      props.plannerRemoveRecipeFromDay(draggedRecipe.day, draggedRecipe.index);
-      return {listId: day};
-    }
-    if (day !== draggedRecipe.listId) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
     return {listId: day};
   }
 };

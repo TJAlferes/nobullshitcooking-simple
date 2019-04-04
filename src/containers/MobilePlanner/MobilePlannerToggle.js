@@ -26,7 +26,7 @@ class MobilePlannerToggle extends Component {
     let modal = this.state.modalActive
     ? (
       <AriaModal
-        id="planner_modal"
+        dialogClass="planner_modal"
         titleText="Planner"
         onExit={this.deactivateModal}
         focusDialog="true"

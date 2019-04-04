@@ -1,8 +1,10 @@
+/* This is everything underneath the "Close Planner" button up top. */
 #mobile_planner {
   display: block;
   min-width: 300px;
   width: 100vw;
-  height: 100vh;
+  min-height: 290px;
+  height: calc(100vh - 32px);
   margin: 0;
   padding: 0 7px;
   background-color: #fff;
@@ -35,21 +37,30 @@
 
 
 
+/* This is everything underneath the heading and autosave feedback. */
 #mobile_calendar_container {
   display: flex;
-  max-width: 100%;
+  flex-direction: column;
   min-width: 300px;
-  height: 99%;
+  max-width: 100%;
+  min-height: 235px;
+  height: calc(100vh - 73px);
   margin: 0 auto 0 auto;
   padding-top: 5px;
 }
 
 
 
+/*
+This is the calendar proper,
+though this should be improved,
+as there is currently a bit of wasted/unused screen space.
+*/
 #mobile_monthly_plan {
-  max-width: 100%;
   min-width: 300px;
-  /*height: 328px;*/
+  max-width: 100%;
+  min-height: 235px;
+  height: 50%;
   background: #b1d7f9;
 }
 
@@ -62,7 +73,6 @@
 }
 
 #mobile_monthly_plan .th {
-  /*width: 14%;*/
   height: 20px;
   text-align: center;
 }
@@ -114,8 +124,6 @@
   padding: 5%;*/
 /*}*/
 
-
-
 .mobile_the_date {
   position: absolute;
   top: 0;
@@ -123,7 +131,7 @@
   width: content;
   height: content;
   user-select: none;
-  color: #bfbfbf;
+  color: #afafaf;
 }
 
 .mobile_planner_day {
@@ -141,20 +149,45 @@
   transform: none;
 }
 
+
+
+/* The area for MobilePlannerRecipesList and MobilePlannerExpandedDay */
+#mobile_work_area {
+  order: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: none;
+  width: 100%;
+  min-height: 235px;
+  height: 50%;
+}
+
+/* The container around MobilePlannerExpandedDay */
+#mobile_expanded_day_area {
+  position: relative;
+  margin-top: 12px;
+  margin-left: 10px;
+  border: 1px solid #fff;
+}
+
+/* This is the MobilePlannerExpandedDay (outside the calendar proper). */
 .mobile_planner_expanded_day {
   position: relative;
-  min-width: 100%;
-  min-height: 100%;
-  max-height: 100%;
-  max-width: 100%;
+  min-width: 98%;
+  min-height: 98%;
+  max-height: 98%;
+  max-width: 98%;
   border: 1px solid #bfbfbf;
-  padding-top: 26px;
-  padding-left: 13px;
+  padding-top: 20px;
+  padding-left: 6px;
   background: #fff;
   box-shadow: 1px 1px 1px #555;
   overflow: hidden;
 }
 
+
+
+/* These are temporary highlight colors for when dragging/hovering a recipe over a day */
 .mobile_planner_day_green {
   background: #d6ffd6;
 }
@@ -165,57 +198,33 @@
 
 
 
-#mobile_work_area {
-  order: 2;
-  display: grid;
-  width: 100%;
-  height: 100%;
-  /*flex-direction: row;
-  flex-wrap: nowrap;*/
-}
-
-#mobile_expanded_day_area {
-  position: relative;
-  /*min-width: 35%;
-  max-width: 35%;*/
-  height: 180px;
-  margin-top: 12px;
-  margin-left: 10px;
-  border: 1px solid #fff;
-}
-
 /*
-maybe do combined media queries for both orientation and width
-no
-just use flexbox and percentages
-
-@media (max-width: 899px) {
-  #mobile_calendar_container {
-    flex-direction: column;
-  }
-
-  #mobile_work_area {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: none;
-  }
-}
+This is NOT a perfect solution, but for now,
+for many (not all) mobile devices, this will reorient our areas to also look good
+when their mobile device is in the landscape orientation.
 */
-#mobile_calendar_container {
-  flex-direction: column;
-}
-
-#mobile_work_area {
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: none;
-}
-
 @media (min-width: 500px) {
   #mobile_calendar_container {
     flex-direction: row;
+    min-height: 235px;
+    height: calc(100vh - 73px);
+  }
+
+  #mobile_monthly_plan {
+    min-height: 235px;
+    height: 100%;
   }
 
   #mobile_work_area {
     grid-template-columns: none;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 48% 52%;
+    min-height: 235px;
+    height: 100%;
+  }
+
+  #mobile_expanded_day_area {
+    min-height: 117px;
+    margin-top: 2px;
+    margin-left: 1px;
   }
 }
