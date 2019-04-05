@@ -4,8 +4,11 @@ import axios from 'axios';
 
 import './ingredients.css';
 
+// For dev only. Real data is in our MySQL DB, gotten with an HTTP request to our Node.js API.
+//import devData from './dev-ingredients-data';
 // Location of our backend API
 // set up if (dev) here
+// get this AWS EB back up online
 const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
 //const endpoint = 'http://localhost:3003/ingredients';
 

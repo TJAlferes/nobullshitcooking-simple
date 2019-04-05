@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 //import axios from 'axios';
 import uuid from 'uuid/v4';
 
@@ -18,10 +18,10 @@ import devData from './dev-submit-recipe-data';
 const SubmitRecipe = () => {
   const [ isLoading, setIsLoading ] = useState(false);
 
-  const [ recipeType, setRecipeType ] = useState(null);
-  const [ cuisine, setCuisine ] = useState(null);
-  const [ title, setTitle ] = useState(null);
-  const [ description, setDescription ] = useState(null);
+  const [ recipeType, setRecipeType ] = useState("");
+  const [ cuisine, setCuisine ] = useState("");
+  const [ title, setTitle ] = useState("");
+  const [ description, setDescription ] = useState("");
 
   const [ equipmentRows, setEquipmentRows ] = useState([
     {key: uuid(), amount: "", type: "", equipment: ""},
@@ -41,12 +41,10 @@ const SubmitRecipe = () => {
 
   const handleRecipeTypeChange = e => {
     setRecipeType(e.target.value);
-    console.log(recipeType);
   };
 
   const handleCuisineChange = e => {
     setCuisine(e.target.value);
-    console.log(cuisine);
   };
 
   const handleTitleChange = e => {
@@ -181,6 +179,7 @@ const SubmitRecipe = () => {
               id="recipe_type_id"
               required
               onChange={handleRecipeTypeChange}
+              value={recipeType}
             >
               <option value=""></option>
               {devData.recipeTypes.map(recipeType => (
@@ -202,6 +201,7 @@ const SubmitRecipe = () => {
               id="cuisine_id"
               required
               onChange={handleCuisineChange}
+              value={cuisine}
             >
               <option value=""></option>
               {devData.cuisines.map(cuisine => (
@@ -223,6 +223,7 @@ const SubmitRecipe = () => {
               name="recipe_title"
               id="recipe_title"
               onChange={handleTitleChange}
+              value={title}
             />
           </div>
 
@@ -234,6 +235,7 @@ const SubmitRecipe = () => {
               name="recipe_description"
               id="recipe_description"
               onChange={handleDescriptionChange}
+              value={description}
             />
           </div>
 
