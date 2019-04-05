@@ -1,6 +1,14 @@
 import React from 'react';
 
-const IngredientRow = () => (
+import devData from '../dev-submit-recipe-data';
+
+/*
+TO DO:
+give this a uuid key, put it in state,
+give it types 1 through 18 substate, (no, just give it a single type substate, and set/update it as they select)
+and filter equipment substate based on equipment type substate
+*/
+const IngredientRow = ({ rowKey, removeIngredientRow }) => (
   <div className="ingredient_row">
     <label>Amount:</label>
     <input
@@ -22,7 +30,7 @@ const IngredientRow = () => (
     <select className="select_ingredient" required>
       <option></option>
     </select>
-    <button className="remove_ingredient_row_button">Remove</button>
+    <button className="remove_ingredient_row_button" onClick={() => removeIngredientRow(rowKey)}>Remove</button>
   </div>
 );
 

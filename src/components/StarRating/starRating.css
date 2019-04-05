@@ -1,0 +1,9 @@
+.star_rating .star {
+  padding: .15em;
+  cursor: pointer;
+}
+
+.star_rating .star.read_only {
+  cursor: default;
+  pointer-events: none;
+}
