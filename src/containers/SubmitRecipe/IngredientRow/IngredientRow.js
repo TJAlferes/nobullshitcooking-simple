@@ -2,12 +2,6 @@ import React from 'react';
 
 import devData from '../dev-submit-recipe-data';
 
-/*
-TO DO:
-give this a uuid key, put it in state,
-give it types 1 through 18 substate, (no, just give it a single type substate, and set/update it as they select)
-and filter equipment substate based on equipment type substate
-*/
 const IngredientRow = ({
   rowKey,
   amount,

@@ -41,10 +41,12 @@ const SubmitRecipe = () => {
 
   const handleRecipeTypeChange = e => {
     setRecipeType(e.target.value);
+    console.log(recipeType);
   };
 
   const handleCuisineChange = e => {
     setCuisine(e.target.value);
+    console.log(cuisine);
   };
 
   const handleTitleChange = e => {
@@ -66,7 +68,6 @@ const SubmitRecipe = () => {
       newEquipmentRows[elToUpdate].equipment = e.target.value;
     }
     setEquipmentRows(newEquipmentRows);
-    console.log(equipmentRows);
   }
 
   const handleIngredientRowChange = (e, rowKey) => {
@@ -82,7 +83,6 @@ const SubmitRecipe = () => {
       newIngredientRows[elToUpdate].ingredient = e.target.value;
     }
     setIngredientRows(newIngredientRows);
-    console.log(ingredientRows);
   }
 
   const handleStepRowChange = (e, rowKey) => {
@@ -173,41 +173,69 @@ const SubmitRecipe = () => {
 
           <h1>Submit New Recipe</h1>
 
-
-
-          {/* type, cuisine, title, & description */}
+          {/* type */}
           <div>
             <label className="red_style">Type of Recipe</label>
-            <select name="recipe_type_id" id="recipe_type_id" required onChange={handleRecipeTypeChange}>
+            <select
+              name="recipe_type_id"
+              id="recipe_type_id"
+              required
+              onChange={handleRecipeTypeChange}
+            >
               <option value=""></option>
               {devData.recipeTypes.map(recipeType => (
-                <option key={recipeType.recipe_type_id} value={recipeType.recipe_type_id}>
+                <option
+                  key={recipeType.recipe_type_id}
+                  value={recipeType.recipe_type_id}
+                >
                   {recipeType.recipe_type_name}
                 </option>
               ))}
             </select>
           </div>
+
+          {/* cuisine */}
           <div>
             <label className="red_style">Cuisine</label>
-            <select name="cuisine_id" id="cuisine_id" required onChange={handleCuisineChange}>
+            <select
+              name="cuisine_id"
+              id="cuisine_id"
+              required
+              onChange={handleCuisineChange}
+            >
               <option value=""></option>
               {devData.cuisines.map(cuisine => (
-                <option key={cuisine.cuisine_id} value={cuisine.cuisine_id}>
+                <option
+                  key={cuisine.cuisine_id}
+                  value={cuisine.cuisine_id}
+                >
                   {cuisine.cuisine_name}
                 </option>
               ))}
             </select>
           </div>
+
+          {/* title */}
           <div>
             <label className="red_style">Title</label>
-            <input type="text" name="recipe_title" id="recipe_title" onChange={handleTitleChange} />
+            <input
+              type="text"
+              name="recipe_title"
+              id="recipe_title"
+              onChange={handleTitleChange}
+            />
           </div>
+
+          {/* description */}
           <div>
             <label className="red_style">Description / Author Note</label>
-            <input type="text" name="recipe_description" id="recipe_description" onChange={handleDescriptionChange} />
+            <input
+              type="text"
+              name="recipe_description"
+              id="recipe_description"
+              onChange={handleDescriptionChange}
+            />
           </div>
-
-
 
           {/* equipment */}
           <div className="recipe_additions" id="equipment_div">
@@ -224,10 +252,10 @@ const SubmitRecipe = () => {
                   removeEquipmentRow={removeEquipmentRow} />
               ))}
             </div>
-            <button id="add_equipment_button" onClick={addEquipmentRow}>Add Equipment</button>
+            <button id="add_equipment_button" onClick={addEquipmentRow}>
+              Add Equipment
+            </button>
           </div>
-
-
 
           {/* ingredients */}
           <div className="recipe_additions" id="ingredients_div">
@@ -246,10 +274,10 @@ const SubmitRecipe = () => {
                 />
               ))}
             </div>
-            <button id="add_ingredient_button" onClick={addIngredientRow}>Add Ingredient</button>
+            <button id="add_ingredient_button" onClick={addIngredientRow}>
+              Add Ingredient
+            </button>
           </div>
-
-
 
           {/* subrecipes
           <div className="recipe_additions" id="subrecipes_div">
@@ -259,22 +287,25 @@ const SubmitRecipe = () => {
             <button id="add_subrecipe_button">Add Subrecipe</button>
           </div>*/}
 
-
-
           {/* steps */}
           <div className="recipe_additions" id="steps_div">
             <label className="red_style">Directions</label>
             {/* no step_rows_container div? */}
             {stepRows.map(stepRow => (
-              <StepRow key={stepRow.key} rowKey={stepRow.key} value={stepRow.value} handleStepRowChange={handleStepRowChange} removeStepRow={removeStepRow} />
+              <StepRow
+                key={stepRow.key}
+                rowKey={stepRow.key}
+                value={stepRow.value}
+                handleStepRowChange={handleStepRowChange}
+                removeStepRow={removeStepRow}
+              />
             ))}
             <button id="add_step_button" onClick={addStepRow}>Add Step</button>
           </div>
 
-
-
           {/* images */}
           <div>
+
             <div className="image_div">
               <label className="red_style">Image of Finished Recipe</label>
               <div id="preview">
@@ -283,9 +314,14 @@ const SubmitRecipe = () => {
               {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
                 onChange={() => handleImageChange("submitted_image")}
-                type="file" name="submitted_image" className="submitted_image" id="submitted_image" required
+                type="file"
+                name="submitted_image"
+                className="submitted_image"
+                id="submitted_image"
+                required
               />
             </div>
+
             <div className="image_div">
               <label className="red_style">Image of All Equipment</label>
               <div id="preview_e">
@@ -294,9 +330,14 @@ const SubmitRecipe = () => {
               {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
                 onChange={() => handleImageChange("submitted_equipment_image")}
-                type="file" name="submitted_equipment_image" className="submitted_image" id="submitted_equipment_image" required
+                type="file"
+                name="submitted_equipment_image"
+                className="submitted_image"
+                id="submitted_equipment_image"
+                required
               />
             </div>
+
             <div className="image_div">
               <label className="red_style">Image of All Ingredients</label>
               <div id="preview_i">
@@ -305,9 +346,14 @@ const SubmitRecipe = () => {
               {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
                 onChange={() => handleImageChange("submitted_ingredients_image")}
-                type="file" name="submitted_ingredients_image" className="submitted_image" id="submitted_ingredients_image" required
+                type="file"
+                name="submitted_ingredients_image"
+                className="submitted_image"
+                id="submitted_ingredients_image"
+                required
               />
             </div>
+
             <div className="image_div">
               <label className="red_style">Image of Cooking Action</label>
               <div id="preview_c">
@@ -316,18 +362,18 @@ const SubmitRecipe = () => {
               {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
                 onChange={() => handleImageChange("submitted_cooking_image")}
-                type="file" name="submitted_cooking_image" className="submitted_image" id="submitted_cooking_image" required
+                type="file"
+                name="submitted_cooking_image"
+                className="submitted_image"
+                id="submitted_cooking_image"
+                required
               />
             </div>
+
           </div>
-
-
 
           {/* status/feedback */}
-          <div id="status">
-          </div>
-
-
+          <div id="status"></div>
 
           {/* submit */}
           <div>
