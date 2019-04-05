@@ -24,14 +24,14 @@ const SubmitRecipe = () => {
   const [ description, setDescription ] = useState(null);
 
   const [ equipmentRows, setEquipmentRows ] = useState([
-    {key: uuid(),},
-    {key: uuid(),},
-    {key: uuid(),},
+    {key: uuid(), amount: "", type: "", equipment: ""},
+    {key: uuid(), amount: "", type: "", equipment: ""},
+    {key: uuid(), amount: "", type: "", equipment: ""},
   ]);
   const [ ingredientRows, setIngredientRows ] = useState([
-    {key: uuid(),},
-    {key: uuid(),},
-    {key: uuid(),},
+    {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
+    {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
+    {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
   ]);
   const [ stepRows, setStepRows ] = useState([
     {key: uuid(), step: ""},
@@ -54,6 +54,36 @@ const SubmitRecipe = () => {
   const handleDescriptionChange = e => {
     setDescription(e.target.value);
   };
+
+  const handleEquipmentRowChange = (e, rowKey) => {
+    const newEquipmentRows = Array.from(equipmentRows);
+    const elToUpdate = newEquipmentRows.findIndex(el => el.key === rowKey);
+    if (e.target.name === 'amount') {
+      newEquipmentRows[elToUpdate].amount = e.target.value;
+    } else if (e.target.name === 'type') {
+      newEquipmentRows[elToUpdate].type = e.target.value;
+    } else if (e.target.name === 'equipment') {
+      newEquipmentRows[elToUpdate].equipment = e.target.value;
+    }
+    setEquipmentRows(newEquipmentRows);
+    console.log(equipmentRows);
+  }
+
+  const handleIngredientRowChange = (e, rowKey) => {
+    const newIngredientRows = Array.from(ingredientRows);
+    const elToUpdate = newIngredientRows.findIndex(el => el.key === rowKey);
+    if (e.target.name === 'amount') {
+      newIngredientRows[elToUpdate].amount = e.target.value;
+    } else if (e.target.name === 'unit') {
+      newIngredientRows[elToUpdate].unit = e.target.value;
+    } else if (e.target.name === 'type') {
+      newIngredientRows[elToUpdate].type = e.target.value;
+    } else if (e.target.name === 'ingredient') {
+      newIngredientRows[elToUpdate].ingredient = e.target.value;
+    }
+    setIngredientRows(newIngredientRows);
+    console.log(ingredientRows);
+  }
 
   const handleStepRowChange = (e, rowKey) => {
     const newStepRows = Array.from(stepRows);
@@ -184,7 +214,14 @@ const SubmitRecipe = () => {
             <label className="red_style">Equipment</label>
             <div id="equipment_rows_container">
               {equipmentRows.map(equipmentRow => (
-                <EquipmentRow key={equipmentRow.key} rowKey={equipmentRow.key} removeEquipmentRow={removeEquipmentRow} />
+                <EquipmentRow
+                  key={equipmentRow.key}
+                  rowKey={equipmentRow.key}
+                  amount={equipmentRow.amount}
+                  type={equipmentRow.type}
+                  equipment={equipmentRow.equipment}
+                  handleEquipmentRowChange={handleEquipmentRowChange}
+                  removeEquipmentRow={removeEquipmentRow} />
               ))}
             </div>
             <button id="add_equipment_button" onClick={addEquipmentRow}>Add Equipment</button>
@@ -197,7 +234,16 @@ const SubmitRecipe = () => {
             <label className="red_style">Ingredients</label>
             <div id="ingredient_rows_container">
               {ingredientRows.map(ingredientRow => (
-                <IngredientRow key={ingredientRow.key} rowKey={ingredientRow.key} removeIngredientRow={removeIngredientRow} />
+                <IngredientRow
+                  key={ingredientRow.key}
+                  rowKey={ingredientRow.key}
+                  amount={ingredientRow.amount}
+                  unit={ingredientRow.unit}
+                  type={ingredientRow.type}
+                  ingredient={ingredientRow.ingredient}
+                  handleIngredientRowChange={handleIngredientRowChange}
+                  removeIngredientRow={removeIngredientRow}
+                />
               ))}
             </div>
             <button id="add_ingredient_button" onClick={addIngredientRow}>Add Ingredient</button>
