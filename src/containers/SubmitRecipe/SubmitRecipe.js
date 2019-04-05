@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import uuid from 'uuid/v4';
 
 import EquipmentRow from './EquipmentRow/EquipmentRow';
@@ -11,6 +11,7 @@ import './submitRecipe.css';
 import devData from './dev-submit-recipe-data';
 // Location of our backend API
 // set up if (dev) here
+// get this AWS EB back up online
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/recipes';
 //const endpoint = 'http://localhost:3003/recipes';
 
@@ -33,9 +34,9 @@ const SubmitRecipe = () => {
     {key: uuid(),},
   ]);
   const [ stepRows, setStepRows ] = useState([
-    {key: uuid(),},
-    {key: uuid(),},
-    {key: uuid(),},
+    {key: uuid(), step: ""},
+    {key: uuid(), step: ""},
+    {key: uuid(), step: ""},
   ]);
 
   const handleRecipeTypeChange = e => {
@@ -53,6 +54,13 @@ const SubmitRecipe = () => {
   const handleDescriptionChange = e => {
     setDescription(e.target.value);
   };
+
+  const handleStepRowChange = (e, rowKey) => {
+    const newStepRows = Array.from(stepRows);
+    const elToUpdate = newStepRows.findIndex(el => el.key === rowKey);
+    newStepRows[elToUpdate].step = e.target.value;
+    setStepRows(newStepRows);
+  }
 
   const addEquipmentRow = () => {
     const newEquipmentRows = equipmentRows.concat({key: uuid(),});
@@ -212,7 +220,7 @@ const SubmitRecipe = () => {
             <label className="red_style">Directions</label>
             {/* no step_rows_container div? */}
             {stepRows.map(stepRow => (
-              <StepRow key={stepRow.key} rowKey={stepRow.key} removeStepRow={removeStepRow} />
+              <StepRow key={stepRow.key} rowKey={stepRow.key} value={stepRow.value} handleStepRowChange={handleStepRowChange} removeStepRow={removeStepRow} />
             ))}
             <button id="add_step_button" onClick={addStepRow}>Add Step</button>
           </div>
