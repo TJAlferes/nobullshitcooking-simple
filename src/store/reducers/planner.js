@@ -3,7 +3,7 @@ import update from 'immutability-helper';
 
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
 
-// FLATTEN!!!
+// flatten this (?)
 const initialState = {
   isSaving: false,
   expanded: false,
