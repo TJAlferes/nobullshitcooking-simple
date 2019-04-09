@@ -10,7 +10,7 @@ import createSagaMiddleware from 'redux-saga';
 
 //import amplifyConfig from '../amplify.config';
 import rootReducer from './store/reducers/index';
-import { watchAuth } from './store/sagas/index';
+import { watchAuth, watchPlanner } from './store/sagas/index';
 import App from './App';
 import './global.css';
 //import './main.css';
@@ -36,6 +36,7 @@ const store = createStore(
 );
 
 sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchPlanner);
 // instead of thunk with extra argument, if needed
 //sagaMiddleware.run(watchIngredients, axiosInstance);
 

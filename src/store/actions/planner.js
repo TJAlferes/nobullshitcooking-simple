@@ -30,6 +30,24 @@ export const plannerReorderRecipeInDay = (dragIndex, hoverIndex) => ({
 
 
 /*
+Planner -- publicly save and load to and from the URL
+(DEV NOTE: Be careful that these two don't trigger an unterminating loop.)
+*/
+export const plannerPublicLoadFromUrl = (history, plan) => ({
+  type: actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL,
+  history,
+  plan
+});
+
+export const plannerPublicSaveToUrl = (history, plan) => ({
+  type: actionTypes.PLANNER_PUBLIC_SAVE_TO_URL,
+  history,
+  plan
+});
+
+
+
+/*
 Planner -- save and load the user's plan to and from MySQL database
 */
 

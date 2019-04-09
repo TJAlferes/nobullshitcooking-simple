@@ -33,6 +33,9 @@ export {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay,
 
+  plannerPublicLoadFromUrl,
+  plannerPublicSaveToUrl,
+
   plannerLoad,
   plannerSave,
 

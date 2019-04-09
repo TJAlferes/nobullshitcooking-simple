@@ -1,7 +1,11 @@
 import { call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
+import convertPlannerToUrl from '../../utils/publicPlanner/convertPlannerToUrl';
+import convertUrlToPlanner from '../../utils/publicPlanner/convertUrlToPlanner';
 import {
+  plannerPublicLoadFromUrl,
+  plannerPublicSaveToUrl,
   authCheckState,
   plannerLoad,
   plannerSave,
@@ -10,6 +14,26 @@ import {
   plannerSaveSucceeded,
   plannerSaveFailed
 } from '../actions/index';
+
+/*
+Planner -- public/unauthenticated load/save to/from browser URL
+*/
+
+export function* plannerPublicLoadFromUrlSaga(history, plan) {
+  convertUrlToPlanner(url);
+  yield put(plannerPublicLoadFromUrl(history, plan));
+}
+
+export function* plannerPublicSaveToUrlSaga(history, plan) {
+  convertPlannerToUrl(plan);
+  yield put(plannerPublicSaveToUrl(history, plan));
+}
+
+
+
+/*
+Planner -- private/authenticated load/save to/from MySQL DB
+*/
 
 // our backend API 
 const endpoint = process.env.NODE_ENV === 'production'

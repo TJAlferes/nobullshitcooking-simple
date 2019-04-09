@@ -6,9 +6,10 @@ in combination with some string splitting.
 The urlString is split up into its parts,
 and those parts are tested against the respective regex.
 */
-const convertUrlToPlanner = urlString => {
+const convertUrlToPlannerv1 = urlString => {
 
   // Part 1: sanitize/validate the urlString
+  // (DEV NOTE: Error for invalids)
 
   if (typeof urlString !== 'string') return;
 
@@ -26,7 +27,7 @@ const convertUrlToPlanner = urlString => {
   .            (period)
   If any character other than those is present, we don't continue and exit out.
   */
-  const allowedCharactersInUrl = /^[d][0-9_\-\.]+$/;  // test
+  const allowedCharactersInUrl = /^([d][0-9_\-\.])+$/;  // test
   if (!allowedCharactersInUrl.test(urlString)) return;
 
   /*
@@ -82,8 +83,99 @@ const convertUrlToPlanner = urlString => {
   let recipeListsInsideDays = {};
   
   // TO DO: FINISH
+  console.log(dayStrings);
+  console.log(recipesStrings);
 
-  return recipeListsInsideDays
+  return recipeListsInsideDays;
+};
+
+const convertUrlToPlannerv2 = urlString => {
+  if (typeof urlString !== 'string') return 'not a string';
+
+  if (urlString.length < 4 || urlString.length > 1502) return 'invalid length';
+
+  const allowedCharactersInUrl = /[d][0-9_\-\.]/;
+  if (!allowedCharactersInUrl.test(urlString)) return 'invalid character(s)';
+
+  const urlStringSplitOnDay = urlString.split('.', 28);
+  if (!urlStringSplitOnDay) return 'not splittable on .s';
+
+  const allowedCharactersInDay = /^[d]([1-9]|1[0-9]|2[0-8])$/;
+  const allowedCharactersInRecipes = /[0-9\-]/;
+  let dayStrings = [];
+  let recipesStrings = [];
+  let notOkay = false;
+  urlStringSplitOnDay.map(substring => {
+    let toAdd = substring.split('_');
+    dayStrings.push(toAdd[0]);
+    recipesStrings.push(toAdd[1]);
+  });
+  dayStrings.map(dayString => {
+    if (!allowedCharactersInDay.test(dayString)) notOkay = true;
+  });
+  recipesStrings.map(recipesString => {
+    if (!allowedCharactersInRecipes.test(recipesString)) notOkay = true;
+  });
+  if (notOkay) return 'not okay';
+
+  let toMerge = {};
+  let recipeListsInsideDays = {
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+    7: [],
+    8: [],
+    9: [],
+    10: [],
+    11: [],
+    12: [],
+    13: [],
+    14: [],
+    15: [],
+    16: [],
+    17: [],
+    18: [],
+    19: [],
+    20: [],
+    21: [],
+    22: [],
+    23: [],
+    24: [],
+    25: [],
+    26: [],
+    27: [],
+    28: []
+  };
+
+  let dayStringsCleaned = [];
+  dayStrings.map(str => {
+    dayStringsCleaned.push(Number(str.substring(1)));
+  });
+  dayStringsCleaned.map(str => {
+    toMerge[[str]] = [];
+  });
+
+  //  ['2-44-345', '33', '543-1-10']  -->  [[2, 44, 345], [33], [543, 1, 10]]
+  let recipesStringsSplitToNum = [];
+  recipesStrings.map(str => {
+    let split = str.split('-');
+    let toNum = [];
+    split.map(str => {
+      toNum.push(Number(str));
+    });
+    recipesStringsSplitToNum.push(toNum);
+  });
+
+  // ...
+
+  return {
+    "dayStrings": dayStrings,
+    "recipesStrings": recipesStrings,
+    "recipeListsInsideDays": recipeListsInsideDays
+  };
 };
 
 export default convertUrlToPlanner;

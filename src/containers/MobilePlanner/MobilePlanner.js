@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 const uuidv4 = require('uuid/v4');
 
@@ -8,7 +9,7 @@ import MobilePlannerExpandedDay from './MobilePlannerExpandedDay/MobilePlannerEx
 //import CustomDragLayer from './CustomDragLayer';
 import './mobilePlanner.css';  // use BEM
 
-// TO DO: on page refresh, preserve state (localStorage? indexedDB? webSQL?)
+// TO DO: on page refresh, preserve state (localStorage? indexedDB? webSQL?) (... localForage.)
 // TO DO: clear/delete plan button
 // TO DO: button on recipe page to add to plan
 
@@ -91,4 +92,4 @@ const mapStateToProps = state => ({
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
-export default connect(mapStateToProps)(MobilePlanner);
+export default withRouter(connect(mapStateToProps)(MobilePlanner));

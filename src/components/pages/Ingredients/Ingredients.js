@@ -134,7 +134,7 @@ class Ingredients extends Component {
     try {
       const id = e.target.id;
       // use 'immutability-helper' for state nested much deeper than this
-      // no, use 'flat' or your own utility function to keep state flat!!!
+      // better yet, use 'flat' or your own utility function to keep state flat
       await this.setState(prevState => ({
         ...prevState, checkedFilters: {
           ...prevState.checkedFilters, [id]: !prevState.checkedFilters[[id]]
@@ -146,11 +146,15 @@ class Ingredients extends Component {
     }
   }
 
+  // TO DO: move paginationNumbers and paginate to utils
+
   paginationNumbers = () => {
-    const display = 25;
     const { pages, starting } = this.state;
+    const display = 25;
     const currentPage = Math.floor((starting / display) + 1);
+
     let numbers = [];
+    
     for (let i = 1; i <= pages; i++) {
       let startingAt = (display * (i - 1));
       if (i != currentPage) {
@@ -167,15 +171,17 @@ class Ingredients extends Component {
         numbers.push(<span className="current_page_number" key={i}>{i}</span>);
       }
     }
+
     return numbers;
   }
 
   paginate = () => {
-    const display = 25;
     const { pages, starting } = this.state;
+    const display = 25;
     const currentPage = Math.floor((starting / display) + 1);
     const startingAtPrev = (starting == 0) ? starting : (starting - display);
     const startingAtNext = (starting + display);
+
     const paginationLinks = (
       <div className="page_links">
         {
@@ -198,29 +204,31 @@ class Ingredients extends Component {
               >
                 Next
               </span>
-          }
+            }
           </span>
         }
       </div>
     );
+
     return paginationLinks;
   }
 
   // use SSR here...
-  componentDidMount() {  // use useEffect() hook
+  componentDidMount() {  // use useEffect() hook (?)
     this.getAllIngredientTypes();
     this.getIngredients();
   }
 
   render() {
-    const { pages } = this.state;
+    const { ingredients, ingredientTypes, pages } = this.state;
     return(
       <div>
         <div id="page">
+
           <div id="page_col_left">
-            <div id="list_header">
-              <h1>Ingredients</h1>
-            </div>
+
+            <div id="list_header"><h1>Ingredients</h1></div>
+
             <div id="filters">
               <form
                 id="itid"
@@ -230,25 +238,28 @@ class Ingredients extends Component {
                 <span id="filter_title"><b>Filter by:</b></span>
                 <div>
                   <p className="filter_type"><b>Ingredient type</b></p>
-                  {
-                    this.state.ingredientTypes.map((ingredientType, index) => (
-                      <span className="filter_span" key={index}>
-                        <input
-                          type="checkbox"
-                          id={ingredientType.ingredient_type_id}
-                        />
-                        <label className="filter_label">
-                          {ingredientType.ingredient_type_name}
-                        </label>
-                      </span>
-                    ))
-                  }
+                  {ingredientTypes.map(ingredientType => (
+                    <span
+                      className="filter_span"
+                      key={ingredientType.ingredient_type_id}
+                    >
+                      <input
+                        type="checkbox"
+                        id={ingredientType.ingredient_type_id}
+                      />
+                      <label className="filter_label">
+                        {ingredientType.ingredient_type_name}
+                      </label>
+                    </span>
+                  ))}
                 </div>
               </form>
             </div>
+
             {(pages > 1) && this.paginate()}
+
             <div>
-              {this.state.ingredients.map((ingredient) => (
+              {ingredients.map(ingredient => (
                 <div className="ingredient" key={ingredient.ingredient_id}>
                   <Link
                     className="ingredient_link"
@@ -270,10 +281,14 @@ class Ingredients extends Component {
                 </div>
               ))}
             </div>
+
             {(pages > 1) && this.paginate()}
+
           </div>
+
           <div id="page_col_right">
           </div>
+
         </div>
       </div>
     );

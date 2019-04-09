@@ -1,15 +1,16 @@
 const convertPlannerToUrl = recipeListsInsideDays => {
   let plannerString = '';
-  recipeListsInsideDays.map(list => {
-    let plannerSubString = `d${list.day}_`;
-    list.map(recipe => {
-      plannerSubString.push(`${recipe.recipeId}-`);
+  // Object.assign({}, etc.) here?
+  Object.keys(recipeListsInsideDays).map(list => {
+    let plannerSubString = `d${list}_`;
+    recipeListsInsideDays[[list]].map(recipe => {
+      plannerSubString += `${recipe.id}-`;
     });
-    plannerSubString.slice(0, -1);  // This removes the last '-'
-    plannerSubString.push('.');
-    plannerString.push(plannerSubString);
+    plannerSubString = plannerSubString.slice(0, -1);  // This removes the last '-'
+    plannerSubString += '.';
+    plannerString += plannerSubString;
   });
-  plannerString.slice(0, -1);  // This removes the last '.'
+  plannerString = plannerString.slice(0, -1);  // This removes the last '.'
   return plannerString;
 };
 

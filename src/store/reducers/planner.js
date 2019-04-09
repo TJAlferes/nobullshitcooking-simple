@@ -91,6 +91,22 @@ const reorderRecipeInDay = (state, action) => {
   });
 };
 
+
+
+// convert URL to plan
+const publicLoadFromUrl = (state, action) => {
+
+};
+
+// convert plan to URL
+// > this would go in routing / sagas
+// *** this would not be needed here since it's not returning a new state? ***
+const publicSaveToUrl = (state, action) => {
+
+};
+
+
+
 // remember Nir Kofman's actions patterns
 const plannerReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -98,6 +114,8 @@ const plannerReducer = (state = initialState, action) => {
     case actionTypes.PLANNER_ADD_RECIPE_TO_DAY: return addRecipeToDay(state, action);
     case actionTypes.PLANNER_REMOVE_RECIPE_FROM_DAY: return removeRecipeFromDay(state, action);
     case actionTypes.PLANNER_REORDER_RECIPE_IN_DAY: return reorderRecipeInDay(state, action);
+    case actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL: return publicLoadFromUrl(state, action);
+    case actionTypes.PLANNER_PUBLIC_SAVE_TO_URL: return publicSaveToUrl(state, action);
   }
   return state;
 };
