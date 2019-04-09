@@ -1,3 +1,5 @@
+const uuidv4 = require('uuid/v4');
+
 /*
 We could have done the following with one large regex,
 but have for now decided to use a few smaller regexes
@@ -89,6 +91,8 @@ const convertUrlToPlannerv1 = urlString => {
   return recipeListsInsideDays;
 };
 
+
+
 const convertUrlToPlannerv2 = urlString => {
   if (typeof urlString !== 'string') return 'not a string';
 
@@ -169,13 +173,29 @@ const convertUrlToPlannerv2 = urlString => {
     recipesStringsSplitToNum.push(toNum);
   });
 
-  // ...
+  // TO DO:
+  // flatten recipesStringsSplitToNum 
+  // axios to backend api to get recipe titles/names from MySQL by those ids
+  // iterate through results for the value for text key below
+  // use async await function or * yield function to make sure it is executed in the right order
+
+  Object.keys(toMerge).map((key, i) => {
+    toMerge[key] = recipesStringsSplitToNum[i].map(num => ({
+      key: uuidv4(),
+      id: num,
+      text:
+    }));
+  });
 
   return {
     "dayStrings": dayStrings,
     "recipesStrings": recipesStrings,
-    "recipeListsInsideDays": recipeListsInsideDays
+    "recipeListsInsideDays": recipeListsInsideDays,
+    "recipesStringsSplitToNum": recipesStringsSplitToNum,
+    "toMerge": toMerge
   };
 };
+
+
 
 export default convertUrlToPlanner;

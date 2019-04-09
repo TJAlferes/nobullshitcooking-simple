@@ -1,6 +1,7 @@
 const convertPlannerToUrl = recipeListsInsideDays => {
+  // TO DO: validate here too
   let plannerString = '';
-  // Object.assign({}, etc.) here?
+  // DEV NOTE: Should Object.assign({}, etc.) be used here?
   Object.keys(recipeListsInsideDays).map(list => {
     let plannerSubString = `d${list}_`;
     recipeListsInsideDays[[list]].map(recipe => {
