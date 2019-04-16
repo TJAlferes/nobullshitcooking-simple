@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 import convertPlannerToUrl from '../../utils/publicPlanner/convertPlannerToUrl';
-import convertUrlToPlanner from '../../utils/publicPlanner/convertUrlToPlanner';
+//import convertUrlToPlanner from '../../utils/publicPlanner/convertUrlToPlanner';
 import {
   plannerPublicLoadFromUrl,
   plannerPublicSaveToUrl,
@@ -19,10 +19,10 @@ import {
 Planner -- public/unauthenticated load/save to/from browser URL
 */
 
-export function* plannerPublicLoadFromUrlSaga(history, plan) {
+/*export function* plannerPublicLoadFromUrlSaga(history, plan) {
   convertUrlToPlanner(url);
   yield put(plannerPublicLoadFromUrl(history, plan));
-}
+}*/
 
 export function* plannerPublicSaveToUrlSaga(history, plan) {
   convertPlannerToUrl(plan);

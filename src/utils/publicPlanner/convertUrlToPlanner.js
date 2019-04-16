@@ -175,17 +175,25 @@ const convertUrlToPlannerv2 = urlString => {
 
   // TO DO:
   // flatten recipesStringsSplitToNum 
+  // put some recipes in MySQL
+  // get backend api EB back online (and get ready to get redis online)
   // axios to backend api to get recipe titles/names from MySQL by those ids
   // iterate through results for the value for text key below
   // use async await function or * yield function to make sure it is executed in the right order
+  // fix, test, and double check those regexes
+  //let dbResults = await axios.get();
 
   Object.keys(toMerge).map((key, i) => {
     toMerge[key] = recipesStringsSplitToNum[i].map(num => ({
       key: uuidv4(),
       id: num,
-      text:
+      //text: dbResults[i]
     }));
   });
+
+  // merge and return
+
+  //return recipeListsInsideDays;
 
   return {
     "dayStrings": dayStrings,
@@ -198,4 +206,4 @@ const convertUrlToPlannerv2 = urlString => {
 
 
 
-export default convertUrlToPlanner;
+//export default convertUrlToPlanner;
