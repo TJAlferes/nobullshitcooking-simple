@@ -5,8 +5,8 @@ import './ingredient.css';
 
 // Location of our backend API
 // set up if (dev) here
-const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
-//const endpoint = 'http://localhost:3003/ingredients';
+//const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
+const endpoint = 'http://localhost:3003';
 
 /*
   Ingredients Component
@@ -37,7 +37,7 @@ class Ingredient extends Component {
 
   getIngredient = async (id) => {  // move id into Ingredient.js?
     try {
-      const url = `${endpoint}/${id}`;
+      const url = `${endpoint}/ingredient/${id}`;
       const response = await axios.get(url);
       const [ row ] = response.data;
       this.setState({ingredient: row});
@@ -48,7 +48,6 @@ class Ingredient extends Component {
 
   componentDidMount() {  // use useEffect() hook
     const { id } = this.props.match.params;
-    console.log(id);
     this.getIngredient(id);
   }
 
@@ -65,11 +64,7 @@ class Ingredient extends Component {
               </div>
               <img
                 className="ingredient_image"
-                src={`
-                  https://s3.amazonaws.com/nobsc-images-01/ingredients/
-                  ${ingredient.ingredient_image}
-                  .jpg
-                `}
+                src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`}
               />
               <div className="ingredient_name">
                 Ingredient ID: {ingredient.ingredient_id}

@@ -20,17 +20,20 @@ a {text-decoration: none;}
 
 .page_links {display: block; height: 75px; border-bottom: 1px solid white;}
 .page_numbers {display: block; max-width: min-content; height: 25px; margin: 0 auto; position: relative; top: 50%; transform: translateY(-50%);}
-.page_number, .current_page_number, .page_nav {font-size: 1.6rem; margin-right: 6px; margin-left: 6px; color: #c10006; cursor: pointer; cursor: hand;}
+.page_number, .current_page_number, .page_nav {display: inline; font-size: 1.6rem; margin-right: 6px; margin-left: 6px; color: #c10006; cursor: pointer; cursor: hand;}
 .page_number:visited, .current_page_number:visited {color: #c10006;}
 .current_page_number {color: black;}
 
-#filter_title, #sort_title {display: block; font-size: 1.6rem; margin-bottom: 12px; margin-left: 5px;}
+#filter_title, #sort_title {display: block; font-size: 1.6rem; margin-bottom: 12px; margin-left: 5px; color: #444;}
 #sorters a {margin-left: 5px;}
-.filter_type {margin-left: 5px; padding-top: 3px; padding-bottom: 8px;}
+#itid {width: 100%; margin: 0; border: none; padding: 12px;}
+.filter_type {margin-left: 5px; padding-top: 3px; padding-bottom: 8px; text-align: left; font-size: 1.4rem; font-family: 'Play', sans-serif; color: #444;}
 .filter_span {display: inline-block; width: 80px; min-width: 80px; max-width: 80px; height: 32px; min-height: 32px; max-height: 32px;}
-.filter_label {font-size: 1.3rem; margin-left: 2px;}
+.filter_span input {display: inline; width: 13px; height: 13px;}
+.filter_label {display: inline; font-size: 1.3rem; margin-left: 2px;}
 
 /*.ingredient {}*/
 .ingredient_link {display: flex; justify-content: space-between; flex-direction: row; width: 100%; height: 100%;}
 .ingredient_name {font-size: 1.6rem; color: #000;}
+.ingredient_link:hover .ingredient_name {color: #c10006;}
 /*.ingredient_image {}*/

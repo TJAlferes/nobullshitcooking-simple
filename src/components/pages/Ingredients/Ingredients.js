@@ -9,8 +9,8 @@ import './ingredients.css';
 // Location of our backend API
 // set up if (dev) here
 // get this AWS EB back up online
-const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
-//const endpoint = 'http://localhost:3003/ingredients';
+//const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
+const endpoint = 'http://localhost:3003';
 
 /*
   Ingredients Component
@@ -99,7 +99,7 @@ class Ingredients extends Component {
   getAllIngredientTypes = async () => {
     // TO DO: on backend API, make types like ingredients
     try {
-      const url = `${endpoint}/types/all`;
+      const url = `${endpoint}/ingredient-type`;
       const response = await axios.get(url);
       const ingredientTypes = response.data;
       this.setState({ingredientTypes});
@@ -110,7 +110,7 @@ class Ingredients extends Component {
 
   getIngredients = async (startingAt = 0) => {
     try {
-      const url = `${endpoint}`;
+      const url = `${endpoint}/ingredient`;
       const response = await axios.post(
         url,
         {types: this.getCheckedIngredientTypes(), start: startingAt}
@@ -184,29 +184,27 @@ class Ingredients extends Component {
 
     const paginationLinks = (
       <div className="page_links">
-        {
-          <span className="page_numbers">
-            {
-              (currentPage != 1) &&
-              <span
-                className="page_nav"
-                onClick={() => this.getIngredients(startingAtPrev)}
-              >
-                Prev
-              </span>
-            }
-            {this.paginationNumbers()}
-            {
-              (currentPage != pages) &&
-              <span
-                className="page_nav"
-                onClick={() => this.getIngredients(startingAtNext)}
-              >
-                Next
-              </span>
-            }
-          </span>
-        }
+        <span className="page_numbers">
+          {
+            (currentPage != 1) &&
+            <span
+              className="page_nav"
+              onClick={() => this.getIngredients(startingAtPrev)}
+            >
+              Prev
+            </span>
+          }
+          {this.paginationNumbers()}
+          {
+            (currentPage != pages) &&
+            <span
+              className="page_nav"
+              onClick={() => this.getIngredients(startingAtNext)}
+            >
+              Next
+            </span>
+          }
+        </span>
       </div>
     );
 
@@ -271,11 +269,7 @@ class Ingredients extends Component {
                     </div>
                     <img
                       className="ingredient_thumbnail"
-                      src={`
-                        https://s3.amazonaws.com/nobsc-images-01/ingredients/
-                        ${ingredient.ingredient_image}
-                        .jpg
-                      `}
+                      src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`}
                     />
                   </Link>
                 </div>
