@@ -5,13 +5,12 @@ import { connect } from 'react-redux';
 import './login.css';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
-//import authEndpoint from '../blah';  (move this to thunk or saga)
-import { authFacebookCheckState, authFacebookLogin } from '../../../store/actions/index';
-
-// Location of our backend API (move this to endpoint util)
-const endpoint = process.env.NODE_ENV === 'production'
-? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/auth'
-: 'http://localhost:3003/auth';
+import {
+  authLogin,
+  authFacebookCheckState,
+  authFacebookLogin,
+  //authGoogleLogin
+} from '../../../store/actions/index';
 
 class Login extends Component {
   state = {
@@ -19,22 +18,24 @@ class Login extends Component {
     error: null,
     email: '',
     password: ''
-  }
+  };
 
   handleChange = e => {
     this.setState({[e.target.name]: e.target.value});
   }
   
-  /*handleLogin = async (e) => {
+  handleLogin = async (e) => {
+    console.log('handleLogin called');
     e.preventDefault();
     this.setState({isLoading: true});
     try {
       await this.props.authLogin({email: this.state.email, password: this.state.password});
+      //return <Redirect to="/user/dashboard" />;  // different if programmatic?
     } catch(err) {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
-  }*/
+  }
   
   handleFacebookLogin = async (e) => {
     e.preventDefault();
@@ -82,26 +83,53 @@ class Login extends Component {
 
             <label>Email</label>
             <input
-              type="text" name="email" id="email" size="20" maxLength="50" autoFocus
-              value={this.state.email} onChange={this.handleChange}
+              type="text"
+              name="email"
+              id="email"
+              size="20"
+              maxLength="50"
+              autoFocus
+              value={this.state.email}
+              onChange={this.handleChange}
             />
 
             <label>Password</label>
             <input
-              type="password" name="password" id="password" size="20" maxLength="20"
-              value={this.state.password} onChange={this.handleChange}
+              type="password"
+              name="password"
+              id="password"
+              size="20"
+              maxLength="20"
+              value={this.state.password}
+              onChange={this.handleChange}
             />
 
             <LoaderButton
-              type="submit" name="submit" id="sign_in_button"
-              text="Sign In" loadingText="Signing In..."
-              isLoading={this.state.isLoading} disabled={!this.validate()}
+              type="button"
+              name="submit"
+              id="sign_in_button"
+              text="Sign In"
+              loadingText="Signing In..."
+              isLoading={this.state.isLoading}
+              disabled={!this.validate()}
+              onClick={this.handleLogin}
             />
 
             <div className="distinction-line">
-              {/*<div class="fb-login-button" data-size="medium" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>*/}
+              {/*
+              <div
+                class="fb-login-button"
+                data-size="medium"
+                data-button-type="continue_with"
+                data-auto-logout-link="false"
+                data-use-continue-as="false"
+              >
+              </div>
+              */}
               <button
-                type="submit" name="facebook_federation_button" id="facebook_federation_button"
+                type="submit"
+                name="facebook_federation_button"
+                id="facebook_federation_button"
                 onClick={this.handleFacebookLogin}
               >
                 Continue With <b>Facebook</b>
@@ -110,7 +138,9 @@ class Login extends Component {
 
             <div className="distinction-line">
               <button 
-                type="submit" name="google_federation_button" id="google_federation_button"
+                type="submit"
+                name="google_federation_button"
+                id="google_federation_button"
                 onClick={this.handleGoogleLogin}
               >
                 Continue With <b>Google</b>
@@ -125,8 +155,10 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
+  authLogin: (email, password) => dispatch(authLogin(email, password)),
   authFacebookCheckState: () => dispatch(authFacebookCheckState),
-  authFacebookLogin: () => dispatch(authFacebookLogin)
+  authFacebookLogin: () => dispatch(authFacebookLogin),
+  authGoogleLogin: () => dispatch(authGoogleLogin)
 });
 
 export default connect(null, mapDispatchToProps)(Login);

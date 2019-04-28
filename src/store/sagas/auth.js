@@ -17,9 +17,9 @@ import {
 } from '../actions/index';
 
 // our backend API 
-const authEndpoint = process.env.NODE_ENV === 'production'
-? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/auth'
-: 'http://localhost:3003/auth';
+const endpoint = process.env.NODE_ENV === 'production'
+? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com'
+: 'http://localhost:3003';
 
 export function* authCheckStateSaga() {
   yield put(authCheckState());
@@ -27,17 +27,34 @@ export function* authCheckStateSaga() {
   // eh??? just put? yield call ([authCheckState]);  // check syntax on redux-saga docs
 }
 
-export function* authLoginSaga() {
-  // axios over to authEndpoint
-  // eh??? just put? yield call ([authLogin]);  // check syntax on redux-saga docs
-  axios.post({email, password});
-  yield put(authLoginSucceeded());
+export function* authLoginSaga(action) {
+  console.log('triggered');
+  try {
+    // do in App useEffect only once?
+    // change / move
+    // make own actionType?
+    const res = yield axios.get(`${endpoint}/auth/get-csrf-token`);
+    yield console.log(res);
+    yield axios.defaults.headers.common['X-CSRF-TOKEN'] = res.data.csrfToken;
+    
+    // axios over to authEndpoint
+    // eh??? just put? yield call ([authLogin]);  // check syntax on redux-saga docs
+    yield axios.post(`${endpoint}/staff/auth/login`, {email: action.email, password: action.password}/*, {withCredentials: true}*/);
+    yield put(authLoginSucceeded());
+  } catch(err) {
+    yield put(authLoginFailed());
+  }
 }
 
 export function* authLogoutSaga() {
-  // axios over to authEndpoint
-  // eh??? just put? yield call ([authLogout]);  // check syntax on redux-saga docs
-  yield put(authLogoutSucceeded());
+  try {
+    // axios over to authEndpoint
+    // eh??? just put? yield call ([authLogout]);  // check syntax on redux-saga docs
+    yield axios.get(`${endpoint}/staff/auth/logout`);  // change from .get() to .delete()?
+    yield put(authLogoutSucceeded());
+  } catch(err) {
+    yield put(authLogoutFailed());
+  }
 }
 
 

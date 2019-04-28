@@ -8,6 +8,7 @@ export default ({
   text,
   loadingText,
   isLoading,
+  onClick,
   disabled = false
 }) => (
   <button
@@ -16,6 +17,7 @@ export default ({
     id={id}
     className={`LoaderButton ${className}`}
     text={text}
+    onClick={(e) => onClick(e)}
     disabled={disabled || isLoading}
   >
     {!isLoading ? text : loadingText}

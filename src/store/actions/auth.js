@@ -6,8 +6,10 @@ export const authCheckState = () => ({
   type: actionTypes.AUTH_CHECK_STATE
 });
 
-export const authLogin = () => ({
-  type: actionTypes.AUTH_LOGIN
+export const authLogin = (email, password) => ({
+  type: actionTypes.AUTH_LOGIN,
+  email,
+  password
 });
 
 export const authLogout = () => ({
