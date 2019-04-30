@@ -1,6 +1,7 @@
 /*
 modal
 */
+
 //export const OPEN_MODAL = 'OPEN_MODAL';
 //export const CLOSE_MODAL = 'CLOSE_MODAL';
 
@@ -9,29 +10,27 @@ modal
 /*
 SiteNav component dropdown menu box shadow (on desktop display only, not on mobile)
 */
+
 export const MENU_SHADOW_SHOW = 'MENU_SHADOW_SHOW';
 export const MENU_SHADOW_HIDE = 'MENU_SHADOW_HIDE';
 
 
 
 /*
-user
+auth
 */
+
+// auth -- general
+export const AUTH_DISPLAY = 'AUTH_DISPLAY';
+export const AUTH_RESET = 'AUTH_RESET';
 export const AUTH_CHECK_STATE = "AUTH_CHECK_STATE";
-
-export const AUTH_LOGIN = "AUTH_LOGIN";
-export const AUTH_LOGIN_SUCCEEDED = "AUTH_LOGIN_SUCCEEDED";
-export const AUTH_LOGIN_FAILED = "AUTH_LOGIN_FAILED";
-
-export const AUTH_LOGOUT = "AUTH_LOGOUT";
-export const AUTH_LOGOUT_SUCCEEDED = "AUTH_LOGOUT_SUCCEEDED";
-export const AUTH_LOGOUT_FAILED = "AUTH_LOGOUT_FAILED";
-
-//export const AUTH_USER = "AUTH_USER";
-
 //export const AUTH_CHECK_TIMEOUT = "AUTH_CHECK_TIMEOUT";
-
 //export const SET_AUTH_REDIRECT_PATH = "SET_AUTH_REDIRECT_PATH";
+
+// auth -- users
+export const AUTH_USER_REGISTER = 'AUTH_USER_REGISTER';
+export const AUTH_USER_REGISTER_SUCCEEDED = 'AUTH_USER_REGISTER_SUCCEEDED';
+export const AUTH_USER_REGISTER_FAILED = 'AUTH_USER_REGISTER_FAILED';
 
 export const AUTH_FACEBOOK_CHECK_STATE = "AUTH_FACEBOOK_CHECK_STATE";
 export const AUTH_FACEBOOK_LOGIN = "AUTH_FACEBOOK_LOGIN";
@@ -41,11 +40,29 @@ export const AUTH_GOOGLE_CHECK_STATE = "AUTH_GOOGLE_CHECK_STATE";
 export const AUTH_GOOGLE_LOGIN = "AUTH_GOOGLE_LOGIN";
 export const AUTH_GOOGLE_LOGOUT = "AUTH_GOOGLE_LOGOUT";
 
+export const AUTH_USER_LOGIN = "AUTH_USER_LOGIN";
+export const AUTH_USER_LOGIN_SUCCEEDED = "AUTH_USER_LOGIN_SUCCEEDED";
+export const AUTH_USER_LOGIN_FAILED = "AUTH_USER_LOGIN_FAILED";
+
+export const AUTH_USER_LOGOUT = "AUTH_USER_LOGOUT";
+export const AUTH_USER_LOGOUT_SUCCEEDED = "AUTH_USER_LOGOUT_SUCCEEDED";
+export const AUTH_USER_LOGOUT_FAILED = "AUTH_USER_LOGOUT_FAILED";
+
+// auth -- staff
+export const AUTH_STAFF_LOGIN = "AUTH_STAFF_LOGIN";
+export const AUTH_STAFF_LOGIN_SUCCEEDED = "AUTH_STAFF_LOGIN_SUCCEEDED";
+export const AUTH_STAFF_LOGIN_FAILED = "AUTH_STAFF_LOGIN_FAILED";
+
+export const AUTH_STAFF_LOGOUT = "AUTH_STAFF_LOGOUT";
+export const AUTH_STAFF_LOGOUT_SUCCEEDED = "AUTH_STAFF_LOGOUT_SUCCEEDED";
+export const AUTH_STAFF_LOGOUT_FAILED = "AUTH_STAFF_LOGOUT_FAILED";
+
 
 
 /*
 planner
 */
+
 export const PLANNER_CLICK_DAY = 'PLANNER_CLICK_DAY';
 export const PLANNER_ADD_RECIPE_TO_DAY = 'PLANNER_ADD_RECIPE_TO_DAY';
 export const PLANNER_REMOVE_RECIPE_FROM_DAY = 'PLANNER_REMOVE_RECIPE_FROM_DAY';
@@ -68,6 +85,7 @@ export const PLANNER_LOAD_FAILED = 'PLANNER_LOAD_FAILED';
 /*
 chat
 */
+
 //
 
 
@@ -75,6 +93,7 @@ chat
 /*
 discovery
 */
+
 //
 
 
@@ -82,6 +101,7 @@ discovery
 /*
 dynamic content
 */
+
 export const GET_EQUIPMENT_REQUEST = 'GET_EQUIPMENT_REQUEST';
 export const GET_EQUIPMENT_SUCCEEDED = 'GET_EQUIPMENT_SUCCEEDED';
 export const GET_EQUIPMENT_FAILED = 'GET_EQUIPMENT_FAILED';

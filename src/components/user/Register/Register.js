@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 //import { Auth } from 'aws-amplify';
 
 //import { StyledNavLink, Styles } from './Styles';
 import './register.css';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
+import {
+  authUserRegister
+} from '../../../store/actions/index';
 
 /*
   Register component
@@ -42,6 +45,7 @@ class Register extends Component {
       error: null,
       newUser: null,
       confirmationCode: '',
+      username: '',
       email: '',
       password: '',
       password2: ''
@@ -50,6 +54,18 @@ class Register extends Component {
 
   handleChange = e => {
     this.setState({[e.target.name]: e.target.value});
+  }
+
+  handleRegistration = async (e) => {
+    e.preventDefault();
+    this.setState({isLoading: true});
+    try {
+      await this.props.authUserRegister(this.state.email, this.state.password, this.state.username);
+      this.props.history.push('/user/login');
+    } catch(err) {
+      this.setState({isLoading: false, error: err.message});
+      console.log(err.message);
+    }
   }
   /*
   handleRegistrationSubmit = async e => {
@@ -99,26 +115,49 @@ class Register extends Component {
     <form onSubmit={this.handleRegistrationSubmit}>
       <h1>Create Account</h1>
       {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
-      {/*<label>Username</label>
+
+      <label>Username</label>
       <input
-        type="text" name="username" id="username"
-        size="20" maxLength="20" autoFocus onChange={this.handleChange}
-      />*/}
+        type="text"
+        name="username"
+        id="username"
+        size="20"
+        maxLength="20"
+        autoFocus
+        onChange={this.handleChange}
+      />
+
       <label>Email</label>
       <input
-        type="email" name="email" id="email"
-        size="20" maxLength="50" autoFocus onChange={this.handleChange}
+        type="email"
+        name="email"
+        id="email"
+        size="20"
+        maxLength="60"
+        autoFocus
+        onChange={this.handleChange}
       />
+
       <label>Password</label>
       <input
-        type="password" name="password" id="password"
-        size="20" maxLength="20" onChange={this.handleChange}
+        type="password"
+        name="password"
+        id="password"
+        size="20"
+        maxLength="20"
+        onChange={this.handleChange}
       />
+
       <label>Password Again</label>
       <input
-        type="password" name="password2" id="password2"
-        size="20" maxLength="20" onChange={this.handleChange}
+        type="password"
+        name="password2"
+        id="password2"
+        size="20"
+        maxLength="20"
+        onChange={this.handleChange}
       />
+
       <LoaderButton
         type="submit"
         name="submit"
@@ -135,6 +174,7 @@ class Register extends Component {
     <form onSubmit={this.handleConfirmationSubmit}>
       <h1>Verify</h1>
       {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
+
       <label>Code</label>
       <input 
         type="input"
@@ -142,7 +182,9 @@ class Register extends Component {
         value={this.state.confirmationCode}
         onChange={this.handleChange}
       />
+
       <p>Please check your email for the verification code.</p>
+
       <LoaderButton
         type="submit"
         name="submit"
@@ -173,4 +215,8 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapDispatchToProps = dispatch => ({
+  authUserRegister: (email, password, username) => dispatch(authUserRegister(email, password, username))
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(Register));

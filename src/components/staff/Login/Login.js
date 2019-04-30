@@ -6,10 +6,7 @@ import './login.css';
 import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import {
-  authUserLogin,
-  authFacebookCheckState,
-  authFacebookLogin,
-  //authGoogleLogin
+  authStaffLogin
 } from '../../../store/actions/index';
 
 // TO DO: make inputs uneditable/unselectable while isLoading, make Sign In button css not change color on hover while in Signing In... AKA isloading state
@@ -38,34 +35,6 @@ class Login extends Component {
     }
   }
   
-  handleFacebookLogin = async (e) => {
-    e.preventDefault();
-    this.setState({isLoading: true});
-    try {
-      await this.props.authFacebookLogin();
-      this.setState({isLoading: false, error: null});
-      console.log("sign in success");
-      await this.props.authFacebookCheckState();  // explicit check
-    } catch (err) {
-      this.setState({isLoading: false, error: err.message});
-      console.log(err.message);
-    }
-  }
-
-  /*handleGoogleLogin = async (e) => {
-    e.preventDefault();
-    this.setState({isLoading: true});
-    try {
-      await Auth.signIn();
-      this.setState({isLoading: false, error: null});
-      console.log("sign in success");
-      this.props.userDidAuthenticate(true);
-    } catch (err) {
-      this.setState({isLoading: false, error: err.message});
-      console.log(err.message);
-    }
-  }*/
-
   validate = () => {
     return ((this.state.email.length > 0) && (this.state.password.length > 0));
   }
@@ -116,38 +85,6 @@ class Login extends Component {
               onClick={this.handleLogin}
             />
 
-            <div className="distinction-line">
-              {/*
-              <div
-                class="fb-login-button"
-                data-size="medium"
-                data-button-type="continue_with"
-                data-auto-logout-link="false"
-                data-use-continue-as="false"
-              >
-              </div>
-              */}
-              <button
-                type="submit"
-                name="facebook_federation_button"
-                id="facebook_federation_button"
-                onClick={this.handleFacebookLogin}
-              >
-                Continue With <b>Facebook</b>
-              </button>
-            </div>
-
-            <div className="distinction-line">
-              <button 
-                type="submit"
-                name="google_federation_button"
-                id="google_federation_button"
-                onClick={this.handleGoogleLogin}
-              >
-                Continue With <b>Google</b>
-              </button>
-            </div>
-            
           </form>
         </div>
       </div>
@@ -156,10 +93,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  authUserLogin: (email, password) => dispatch(authLogin(email, password)),
-  authFacebookCheckState: () => dispatch(authFacebookCheckState),
-  authFacebookLogin: () => dispatch(authFacebookLogin),
-  authGoogleLogin: () => dispatch(authGoogleLogin)
+  authStaffLogin: (email, password) => dispatch(authStaffLogin(email, password))
 });
 
 export default connect(null, mapDispatchToProps)(Login);

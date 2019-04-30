@@ -4,9 +4,15 @@ import * as actionTypes from '../actions/actionTypes';
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
 
 const initialState = {
-  isAuthenticated: false
+  isAuthenticated: false,
+  authname: '',
+  avatar: ''
 };
 
+const authDisplay = (state, action) => ({
+  ...state,
+  ...{isAuthenticated: true, authname: action.authname, avatar: action.avatar}
+});
 
 function facebookCheckLoginState() {
 
@@ -21,11 +27,11 @@ function facebookLogout() {
 }
 
 const authReducer = (state = initialState, action) => {
-  /*switch (action.type) {
-    case actionTypes.AUTH_
-    case actionTypes.AUTH_
-    case actionTypes.AUTH_
-  }*/
+  switch (action.type) {
+    case actionTypes.AUTH_DISPLAY: return authDisplay(state, action);
+    case actionTypes.AUTH_RESET: return state;
+    //case actionTypes.AUTH_
+  }
   return state;
 };
 

@@ -6,14 +6,21 @@ import {
   authLogin,
   authLogout,
 
+  authDisplay,
+
+  authStaffLoginSucceeded,
+  authStaffLoginFailed,
+  authStaffLogoutSucceeded,
+  authStaffLogoutFailed,
+
+  authUserLoginSucceeded,
+  authUserLoginFailed,
+  authUserLogoutSucceeded,
+  authUserLogoutFailed,
+
   authFacebookCheckState,
   authFacebookLogin,
-  authFacebookLogout,
-
-  authLoginSucceeded,
-  authLoginFailed,
-  authLogoutSucceeded,
-  authLogoutFailed
+  authFacebookLogout
 } from '../actions/index';
 
 // our backend API 
@@ -21,37 +28,25 @@ const endpoint = process.env.NODE_ENV === 'production'
 ? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com'
 : 'http://localhost:3003';
 
+
+
+/*
+Shared
+*/
 export function* authCheckStateSaga() {
   yield put(authCheckState());
   // axios over to authEndpoint
   // eh??? just put? yield call ([authCheckState]);  // check syntax on redux-saga docs
 }
 
-export function* authLoginSaga(action) {
+
+
+/*
+Staff
+*/
+export function* authStaffLoginSaga(action) {
   try {
-    // do in App useEffect only once?
-    // change / move
-    // make own actionType?
-
-
-    //https://github.com/pillarjs/understanding-csrf
-    // ask someone
-
-    //const res = yield axios.get(`${endpoint}/auth/get-csrf-token`);
-    //yield console.log(res);
-    //yield console.log(res.data.csrfToken);
-    //yield axios.defaults.headers.common['X-CSRF-TOKEN'] = res.data.csrfToken;
-    //yield console.log(axios.defaults.headers.common['X-CSRF-TOKEN']);
-    // axios over to authEndpoint
-    // eh??? just put? yield call ([authLogin]);  // check syntax on redux-saga docs
-
-    //const st = yield axios.get(`${endpoint}/auth/simple-test`);
-    //yield console.log(st.data.ast);
-
-    console.log(action);
-    console.log(action.email);
-    console.log(action.password);
-    const trial = yield axios.post(
+    const response = yield axios.post(
       `${endpoint}/staff/auth/login`,
       {
         staffInfo: {
@@ -60,31 +55,83 @@ export function* authLoginSaga(action) {
         }
       }/*, {withCredentials: true}*/
     );
-    yield console.log(trial);
-    //yield axios.defaults.headers.common['X-CSRF-TOKEN'] = res.data.csrfToken;
-    //yield console.log(axios.defaults.headers.common['X-CSRF-TOKEN']);
-
-
-
-    yield put(authLoginSucceeded());
+    //make a reducer (??? see maxs code and reduxsaga docs) to update state with:
+    //isAuthenticated: true
+    //authName: response.data.staffname (?)
+    const { redirectPath, staffId, staffname, avatar } = response.data;
+    yield put(authDisplay(staffname, avatar));  // ?
+    history.push(redirectPath);
+    yield put(authStaffLoginSucceeded());
   } catch(err) {
-    yield put(authLoginFailed());
+    yield put(authStaffLoginFailed());
   }
 }
 
-export function* authLogoutSaga() {
+export function* authStaffLogoutSaga() {
   try {
     // axios over to authEndpoint
     // eh??? just put? yield call ([authLogout]);  // check syntax on redux-saga docs
     yield axios.get(`${endpoint}/staff/auth/logout`);  // change from .get() to .delete()?
-    yield put(authLogoutSucceeded());
+    yield put(authStaffLogoutSucceeded());
   } catch(err) {
-    yield put(authLogoutFailed());
+    yield put(authStaffLogoutFailed());
   }
 }
 
 
 
+/*
+User
+*/
+export function* authUserLoginSaga(action) {
+  try {
+    //csrf, if even needed anymore?
+    //https://github.com/pillarjs/understanding-csrf
+    // ask someone
+    // do in App useEffect only once?
+    // change / move
+    // make own actionType?
+    //const res = yield axios.get(`${endpoint}/auth/get-csrf-token`);
+    //yield console.log(res);
+    //yield console.log(res.data.csrfToken);
+    //yield axios.defaults.headers.common['X-CSRF-TOKEN'] = res.data.csrfToken;
+    //yield console.log(axios.defaults.headers.common['X-CSRF-TOKEN']);
+    // axios over to authEndpoint
+    // eh??? just put? yield call ([authLogin]);  // check syntax on redux-saga docs
+    const response = yield axios.post(
+      `${endpoint}/user/auth/login`,
+      {
+        userInfo: {
+          email: action.email,
+          password: action.password
+        }
+      }/*, {withCredentials: true}*/
+    );
+    //make a reducer (??? see maxs code and reduxsaga docs) to update state with:
+    //isAuthenticated: true
+    //authName: response.data.username (?)
+    yield put(authUserLoginSucceeded());
+  } catch(err) {
+    yield put(authUserLoginFailed());
+  }
+}
+
+export function* authUserLogoutSaga() {
+  try {
+    // axios over to authEndpoint
+    // eh??? just put? yield call ([authLogout]);  // check syntax on redux-saga docs
+    yield axios.get(`${endpoint}/user/auth/logout`);  // change from .get() to .delete()?
+    yield put(authUserLogoutSucceeded());
+  } catch(err) {
+    yield put(authUserLogoutFailed());
+  }
+}
+
+
+
+/*
+Facebook
+*/
 export function* authFacebookCheckStateSaga() {  // before authFacebookLoginSaga
   yield put(authFacebookCheckState());
   window.FB && window.FB.getLoginStatus(
@@ -121,3 +168,9 @@ export function* authFacebookLogoutSaga() {
   // just logged out, deny access
   yield put(authLogoutSucceeded());
 }
+
+
+
+/*
+Google
+*/
