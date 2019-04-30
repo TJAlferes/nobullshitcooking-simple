@@ -12,6 +12,8 @@ import {
   //authGoogleLogin
 } from '../../../store/actions/index';
 
+// TO DO: make inputs uneditable/unselectable while isLoading, make Sign In button css not change color on hover while in Signing In... AKA isloading state
+
 class Login extends Component {
   state = {
     isLoading: false,
@@ -25,11 +27,10 @@ class Login extends Component {
   }
   
   handleLogin = async (e) => {
-    console.log('handleLogin called');
     e.preventDefault();
     this.setState({isLoading: true});
     try {
-      await this.props.authLogin({email: this.state.email, password: this.state.password});
+      await this.props.authLogin(this.state.email, this.state.password);
       //return <Redirect to="/user/dashboard" />;  // different if programmatic?
     } catch(err) {
       this.setState({isLoading: false, error: err.message});

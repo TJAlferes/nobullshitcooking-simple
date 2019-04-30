@@ -28,18 +28,44 @@ export function* authCheckStateSaga() {
 }
 
 export function* authLoginSaga(action) {
-  console.log('triggered');
   try {
     // do in App useEffect only once?
     // change / move
     // make own actionType?
-    const res = yield axios.get(`${endpoint}/auth/get-csrf-token`);
-    yield console.log(res);
-    yield axios.defaults.headers.common['X-CSRF-TOKEN'] = res.data.csrfToken;
-    
+
+
+    //https://github.com/pillarjs/understanding-csrf
+    // ask someone
+
+    //const res = yield axios.get(`${endpoint}/auth/get-csrf-token`);
+    //yield console.log(res);
+    //yield console.log(res.data.csrfToken);
+    //yield axios.defaults.headers.common['X-CSRF-TOKEN'] = res.data.csrfToken;
+    //yield console.log(axios.defaults.headers.common['X-CSRF-TOKEN']);
     // axios over to authEndpoint
     // eh??? just put? yield call ([authLogin]);  // check syntax on redux-saga docs
-    yield axios.post(`${endpoint}/staff/auth/login`, {email: action.email, password: action.password}/*, {withCredentials: true}*/);
+
+    //const st = yield axios.get(`${endpoint}/auth/simple-test`);
+    //yield console.log(st.data.ast);
+
+    console.log(action);
+    console.log(action.email);
+    console.log(action.password);
+    const trial = yield axios.post(
+      `${endpoint}/staff/auth/login`,
+      {
+        staffInfo: {
+          email: action.email,
+          password: action.password
+        }
+      }/*, {withCredentials: true}*/
+    );
+    yield console.log(trial);
+    //yield axios.defaults.headers.common['X-CSRF-TOKEN'] = res.data.csrfToken;
+    //yield console.log(axios.defaults.headers.common['X-CSRF-TOKEN']);
+
+
+
     yield put(authLoginSucceeded());
   } catch(err) {
     yield put(authLoginFailed());
