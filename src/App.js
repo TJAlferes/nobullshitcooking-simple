@@ -42,13 +42,14 @@ class App extends Component {
   
   render() {
     // Pass down auth info as props (into HeaderRed and into RoutesList):
-    const childProps = {
+    // ........... Just use redux..............?
+    /*const childProps = {
       isAuthenticated: this.props.isAuthenticated,
       //userEmail: this.props.userEmail,
       //userDidAuthenticate: this.userDidAuthenticate,
       //handleLogout: this.handleLogout,
       //getUser: this.getUser
-    };
+    };*/
     
     // Decide visual layout style:
     // 1. Determine if the user is currently at an authentication page
@@ -64,22 +65,24 @@ class App extends Component {
     let layout = null;
     if (isAccessing) {
       // 2a. If they are, then render authentication pages layout
-      layout = <div><RoutesList childProps={childProps} /></div>;
+      //layout = <div><RoutesList childProps={childProps} /></div>;
+      layout = <div><RoutesList /></div>;
     } else {
       // 2b. Otherwise, render the normal layout
       //<div id="app" {...this.props}>
+      //<RoutesList childProps={childProps} />
       layout = (
         <div id="app">
           <div>
             <div className="mobile_display">
-              <MobileHeaderRed childProps={childProps} />
+              <MobileHeaderRed />
             </div>
             <div className="desktop_display">
-              <HeaderRed childProps={childProps} />
+              <HeaderRed />
             </div>
           </div>
           <MainWhite location={location}>
-            <RoutesList childProps={childProps} />
+            <RoutesList />
           </MainWhite>
           <FooterGray />
         </div>

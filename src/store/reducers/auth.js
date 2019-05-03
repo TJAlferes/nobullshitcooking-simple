@@ -14,22 +14,18 @@ const authDisplay = (state, action) => ({
   ...{isAuthenticated: true, authname: action.authname, avatar: action.avatar}
 });
 
-function facebookCheckLoginState() {
+//function facebookCheckLoginState() {}
 
-}
+//function facebookLogin() {}
 
-function facebookLogin() {
-
-}
-
-function facebookLogout() {
-
-}
+//function facebookLogout() {}
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_DISPLAY: return authDisplay(state, action);
-    case actionTypes.AUTH_RESET: return state;
+    case actionTypes.AUTH_RESET: return initialState;
+    case actionTypes.AUTH_USER_LOGOUT: return initialState;
+    case actionTypes.AUTH_STAFF_LOGOUT: return initialState;
     //case actionTypes.AUTH_
   }
   return state;

@@ -30,8 +30,8 @@ class Login extends Component {
     e.preventDefault();
     this.setState({isLoading: true});
     try {
-      await this.props.authStaffLogin(this.state.email, this.state.password);
-      this.props.history.push('/staff/dashboard');
+      const userIn = await this.props.authUserLogin(this.state.email, this.state.password);
+      if (userIn) this.props.history.push('/user/dashboard');
     } catch(err) {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
@@ -156,7 +156,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  authUserLogin: (email, password) => dispatch(authLogin(email, password)),
+  authUserLogin: (email, password) => dispatch(authUserLogin(email, password)),
   authFacebookCheckState: () => dispatch(authFacebookCheckState),
   authFacebookLogin: () => dispatch(authFacebookLogin),
   authGoogleLogin: () => dispatch(authGoogleLogin)

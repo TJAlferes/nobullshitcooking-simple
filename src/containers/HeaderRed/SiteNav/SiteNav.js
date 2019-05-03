@@ -10,14 +10,7 @@ import { menuShadowShow, menuShadowHide } from '../../../store/actions/index';
 import './siteNav.css';
 
 class SiteNav extends Component {
-  constructor(props) {
-    super(props);
-    this.tableRef = React.createRef();  // ...what?
-    this.state = {
-      expanded: false,
-      expandedDropdown: "none"
-    };
-  }
+  state = {expanded: false, expandedDropdown: "none"};
 
   handleMouseEnter = dropdown => {
     const { expandedDropdown } = this.state;

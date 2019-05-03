@@ -3,16 +3,21 @@ import * as actionTypes from '../actions/actionTypes';
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS AND SELECTORS AND SAGAS
 
 // auth -- general
-export const authDisplay = (name, avatar) => ({
+export const authDisplay = (authname, avatar) => ({
   type: actionTypes.AUTH_DISPLAY,
-  name,
+  authname,
   avatar
 });
 export const authReset = () => ({type: actionTypes.AUTH_RESET});
 export const authCheckState = () => ({type: actionTypes.AUTH_CHECK_STATE});
 
 // auth -- users
-export const authUserRegister = () => ({type: actionTypes.AUTH_USER_REGISTER});
+export const authUserRegister = (email, password, username) => ({
+  type: actionTypes.AUTH_USER_REGISTER,
+  email,
+  password,
+  username
+});
 export const authUserRegisterSucceeded = () => ({type: actionTypes.AUTH_USER_REGISTER_SUCCEEDED});
 export const authUserRegisterFailed = () => ({type: actionTypes.AUTH_USER_REGISTER_FAILED});
 
@@ -37,7 +42,7 @@ export const authUserLogoutSucceeded = () => ({type: actionTypes.AUTH_USER_LOGOU
 export const authUserLogoutFailed = () => ({type: actionTypes.AUTH_USER_LOGOUT_FAILED});
 
 // auth -- staff
-export const authStaffLogin = () => ({
+export const authStaffLogin = (email, password) => ({
   type: actionTypes.AUTH_STAFF_LOGIN,
   email,
   password

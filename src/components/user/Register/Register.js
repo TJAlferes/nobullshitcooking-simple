@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 //import { Auth } from 'aws-amplify';
 
 //import { StyledNavLink, Styles } from './Styles';
@@ -61,6 +62,7 @@ class Register extends Component {
     this.setState({isLoading: true});
     try {
       await this.props.authUserRegister(this.state.email, this.state.password, this.state.username);
+      console.log('yay');
       this.props.history.push('/user/login');
     } catch(err) {
       this.setState({isLoading: false, error: err.message});
@@ -159,13 +161,14 @@ class Register extends Component {
       />
 
       <LoaderButton
-        type="submit"
+        type="button"
         name="submit"
         id="create_account_button"
         text="Create Account"
         loadingText="Creating Account..."
         isLoading={this.state.isLoading}
         disabled={!this.validateRegistration()}
+        onClick={this.handleRegistration}
       />
     </form>
   );

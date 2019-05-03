@@ -1,16 +1,18 @@
 import React, { Component, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
-//import { Auth } from 'aws-amplify';
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './userNav.css';
+import { authUserLogout } from '../../../store/actions/index';
 
 class UserNav extends Component {
-  constructor(props) {
-    super(props);
+  handleLogout = async () => {
+    await this.props.authUserLogout();
+    this.props.history.push('/');  // move these to the sagas!
   }
 
   render() {
-    const { isAuthenticated, handleLogout, getUser, userEmail } = this.props;
+    const { isAuthenticated, authname } = this.props;
     return (
       <div className="user_nav">
         <li>
@@ -37,12 +39,12 @@ class UserNav extends Component {
           : (
             <Fragment>
               <li>
-                <span className="signed_in_nav_span">
-                  {`Hello, ${userEmail}`}
-                </span>
+                <NavLink className="signed_in_nav_span" to="/user/dashboard">
+                  {`Hello, ${authname}`}
+                </NavLink>
               </li>
               <li>
-                <span className="signed_in_nav_span" onClick={handleLogout}>
+                <span className="signed_in_nav_span" onClick={this.handleLogout}>
                   Sign Out
                 </span>
               </li>
@@ -59,4 +61,13 @@ class UserNav extends Component {
   }
 }
 
-export default UserNav;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  authname: state.auth.authname
+});
+
+const mapDispatchToProps = dispatch => ({
+  authUserLogout: () => dispatch(authUserLogout())
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserNav));

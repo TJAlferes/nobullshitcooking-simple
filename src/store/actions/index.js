@@ -9,22 +9,30 @@ export {
 } from './menu';
 
 export {
+  authDisplay,
+  authReset,
   authCheckState,
-  authLogin,
-  authLogout,
-
+  authUserRegister,
+  authUserRegisterSucceeded,
+  authUserRegisterFailed,
   authFacebookCheckState,
   authFacebookLogin,
   authFacebookLogout,
-
   authGoogleCheckState,
   authGoogleLogin,
   authGoogleLogout,
-
-  authLoginSucceeded,
-  authLoginFailed,
-  authLogoutSucceeded,
-  authLogoutFailed,
+  authUserLogin,
+  authUserLoginSucceeded,
+  authUserLoginFailed,
+  authUserLogout,
+  authUserLogoutSucceeded,
+  authUserLogoutFailed,
+  authStaffLogin,
+  authStaffLoginSucceeded,
+  authStaffLoginFailed,
+  authStaffLogout,
+  authStaffLogoutSucceeded,
+  authStaffLogoutFailed
 } from './auth';
 
 export {

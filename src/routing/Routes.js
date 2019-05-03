@@ -26,7 +26,7 @@ import Login from '../components/user/Login/Login';
 import Logout from '../components/user/Logout/Logout';
 
 //import Dashboard from '../components/Dashboard/Dashboard';
-//import UserDashboard from '../containers/user/UserDashboard/UserDashboard';
+import UserDashboard from '../components/user/UserDashboard/UserDashboard';
 import PlannerPage from '../components/pages/PlannerPage/PlannerPage';
 //import UserPlanner from '../containers/user/UserPlanner/UserPlanner';
 import Messenger from '../containers/Messenger/Messenger';
@@ -81,35 +81,35 @@ import NotFound from '../components/NotFound/NotFound';
 
 
 
-const RoutesList = ({ childProps }) => (
+const RoutesList = () => (
   <Switch>
 
 
 
     {/* staff routes */}
 
-    <AppliedRoute path="/staff/recipes/submit" exact component={SubmitRecipe} props={childProps} />
+    <AppliedRoute path="/staff/recipes/submit" exact component={SubmitRecipe} />
     {/*<AuthenticatedRoute path="/user/dashboard" exact component={SubmitRecipe} props={childProps} />*/}
 
 
 
     {/* auth routes */}
 
-    <UnauthenticatedRoute path="/user/register" exact component={Register} props={childProps} />
-    <UnauthenticatedRoute path="/user/login" exact component={Login} props={childProps} />
-    <AuthenticatedRoute path="/user/logout" exact component={Logout} props={childProps} />
+    <UnauthenticatedRoute path="/user/register" exact component={Register} />
+    <UnauthenticatedRoute path="/user/login" exact component={Login} />
+    <AuthenticatedRoute path="/user/logout" exact component={Logout} />
 
 
 
     {/* primary app feature routes */}
 
     {/*<AppliedRoute path="/dashboard" exact component={Dashboard} props={childProps} />*/}
-    {/*<AuthenticatedRoute path="/user/dashboard" exact component={UserDashboard} props={childProps} />*/}
+    <AuthenticatedRoute path="/user/dashboard" exact component={UserDashboard} />
 
-    <AppliedRoute path="/planner" exact component={PlannerPage} props={childProps} />
+    <AppliedRoute path="/planner" exact component={PlannerPage} />
     {/*<AuthenticatedRoute path="/user/planner" exact component={UserPlanner} props={childProps} />*/}
 
-    <AppliedRoute path="/messenger" exact component={Messenger} props={childProps} />
+    <AppliedRoute path="/messenger" exact component={Messenger} />
     {/*<AuthenticatedRoute path="/user/messenger" exact component={UserMessenger} props={childProps} />*/}
 
     {/*<AppliedRoute path="/friends" exact component={Friends} props={childProps} />*/}
@@ -127,20 +127,20 @@ const RoutesList = ({ childProps }) => (
     */}
     
     {/*<AppliedRoute path="/sitemap" exact component={Sitemap} props={childProps} />*/}
-    <AppliedRoute path="/disclaimer" exact component={Disclaimer} props={childProps} />
+    <AppliedRoute path="/disclaimer" exact component={Disclaimer} />
     {/*<AppliedRoute path="/terms" exact component={TermsOfUse} props={childProps} />*/}
     {/*<AppliedRoute path="/privacy" exact component={PrivacyPolicy} props={childProps} />*/}
     {/*<AppliedRoute path="/help" exact component={Help} props={childProps} />*/}
     
-    <AppliedRoute path="/food/equipments" exact component={Equipments} props={childProps} />
-    <AppliedRoute path="/food/equipment/:id" exact component={Equipment} props={childProps} />
-    <AppliedRoute path="/food/ingredients" exact component={Ingredients} props={childProps} />
-    <AppliedRoute path="/food/ingredient/:id" exact component={Ingredient} props={childProps} />
+    <AppliedRoute path="/food/equipments" exact component={Equipments} />
+    <AppliedRoute path="/food/equipment/:id" exact component={Equipment} />
+    <AppliedRoute path="/food/ingredients" exact component={Ingredients} />
+    <AppliedRoute path="/food/ingredient/:id" exact component={Ingredient} />
     {/*<AppliedRoute path="/food/recipes" exact component={Recipes} props={childProps} />*/}
     {/*<AppliedRoute path="/food/recipe/:id" exact component={Recipe} props={childProps} />*/}
-    <AppliedRoute path="/food" exact component={Food} props={childProps} />
-    <AppliedRoute path="/fitness" exact component={Fitness} props={childProps} />
-    <AppliedRoute path="/supplements" exact component={Supplements} props={childProps} />
+    <AppliedRoute path="/food" exact component={Food} />
+    <AppliedRoute path="/fitness" exact component={Fitness} />
+    <AppliedRoute path="/supplements" exact component={Supplements} />
     
     {/*<AppliedRoute path="/water-filtration" exact component={WaterFiltration} props={childProps} />*/}
     {/*<AppliedRoute path="/tea" exact component={Tea} props={childProps} />*/}
@@ -164,8 +164,8 @@ const RoutesList = ({ childProps }) => (
 
     {/* news AKA home AKA index AKA default route */}
 
-    <AppliedRoute path="/home" exact component={Home} props={childProps} />
-    <AppliedRoute path="/" exact component={Home} props={childProps} />
+    <AppliedRoute path="/home" exact component={Home} />
+    <AppliedRoute path="/" exact component={Home} />
 
     {/* 404 not found error route */}
 
