@@ -1,0 +1,34 @@
+/* desktop */
+@media (min-width: 900px) {
+  #planner_page {
+    width: 1200px;
+    min-height: fit-content;
+  }
+
+  .mobile_display {
+    /* ??? */
+    display: none;
+  }
+
+  .desktop_display {
+    display: block;
+  }
+}
+
+
+
+/* mobile */
+@media (max-width: 899px) {
+  #planner_page {
+    min-width: 300px;
+    max-width: 100%;
+  }
+
+  .mobile_display {
+    display: block;
+  }
+  
+  .desktop_display {
+    display: none;
+  }
+}

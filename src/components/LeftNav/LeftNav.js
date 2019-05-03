@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './leftNav.css';
 
 // TO DO: make higher order of NavLink to reduce repetitious attributes below
+// TO DO: code split / lazy load
 
 const LeftNav = props => {
-  const { isAuthenticated, getUser, userEmail } = props;
+  const { authname, isAuthenticated } = props;
   return (
     <div className="left_nav">
       {
         !isAuthenticated
         ? <NavLink className="styled_nav_link" to="/user/login"><span>Dashboard</span></NavLink>
-        : <NavLink className="styled_nav_link" to="/user/dashboard"><span>{userEmail}</span></NavLink>
+        : <NavLink className="styled_nav_link" to="/user/dashboard"><span>{authname}</span></NavLink>
       }
       {
         !isAuthenticated
@@ -25,7 +27,7 @@ const LeftNav = props => {
       {
         !isAuthenticated
         ? <NavLink className="styled_nav_link" to="/user/login"><span>Messenger</span></NavLink>
-        : <NavLink className="styled_nav_link" to="/messenger"><span id="messenger_span">Messenger</span></NavLink>
+        : <NavLink className="styled_nav_link" to="/user/messenger"><span id="messenger_span">Messenger</span></NavLink>
       }
       {
         !isAuthenticated
@@ -34,7 +36,7 @@ const LeftNav = props => {
       }
       <hr />
 
-      <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/supplements"><span id="supplements_span">Supplements</span></NavLink>
+      <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/food/nutrition/supplements"><span id="supplements_span">Supplements</span></NavLink>
       <NavLink className="styled_nav_link" to="/"><span>Equipment</span></NavLink>
       <hr />
 
@@ -61,4 +63,9 @@ const LeftNav = props => {
   );
 }
 
-export default LeftNav;
+const mapStateToProps = state => ({
+  authname: state.auth.authname,
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(LeftNav);
