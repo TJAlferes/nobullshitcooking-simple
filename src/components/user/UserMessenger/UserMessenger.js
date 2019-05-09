@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 
 import LeftNav from '../../../components/LeftNav/LeftNav';
-//import Styles from './Styles';
-import LightTheme from './LightTheme';
-
-// this would be from the user's s3 bucket:
+import './userMessenger.css';
+import './lightTheme.css';
+// These will be from the users' respective AWS S3 buckets:
 import ChatAvatarExample from '../../../assets/images/chat-avatar-example.png';
 import ChatAvatarExample2 from '../../../assets/images/chat-avatar-example-2.png';
 import ChatAvatarExample3 from '../../../assets/images/chat-avatar-example-3.png';
 import ChatAvatarExample4 from '../../../assets/images/chat-avatar-example-4.png';
 
-class Messenger extends Component {
+class UserMessenger extends Component {
   constructor(props) {
     super(props);
 
@@ -19,7 +18,7 @@ class Messenger extends Component {
 
   render() {
     return (
-      <LightTheme>
+      <div className="light_theme">
         <div id="page">
 
           <LeftNav isAuthenticated={this.props.isAuthenticated} getUser={this.props.getUser} userEmail={props.userEmail} />
@@ -61,9 +60,9 @@ class Messenger extends Component {
           </article>
 
         </div>
-      </LightTheme>
+      </div>
     );
   }
 }
 
-export default Messenger;
+export default UserMessenger;

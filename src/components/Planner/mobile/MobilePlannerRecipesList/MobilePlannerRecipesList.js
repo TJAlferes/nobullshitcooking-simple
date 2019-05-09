@@ -6,7 +6,7 @@ import MobilePlannerRecipe from '../MobilePlannerRecipe/MobilePlannerRecipe';
 import {
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay
-} from '../../../store/actions/index';
+} from '../../../../store/actions/index';
 import './mobilePlannerRecipesList.css';  // use BEM
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};  // is this definition necessary here since we imported?

@@ -6,7 +6,7 @@ import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import {
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay
-} from '../../../store/actions/index';
+} from '../../../../store/actions/index';
 import './plannerRecipesList.css';  // use BEM
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};

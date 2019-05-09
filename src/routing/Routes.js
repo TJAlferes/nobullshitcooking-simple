@@ -20,10 +20,8 @@ import UnauthenticatedRoute from './UnauthenticatedRoute';
 
 */
 import Register from '../components/user/Register/Register';
-import Login from '../components/staff/StaffLogin/StaffLogin';  // eventually break out into separate React app
+import StaffLogin from '../components/staff/StaffLogin/StaffLogin';  // eventually break out into separate React app
 import Login from '../components/user/Login/Login';
-
-import Search from '../components/Search/Search';
 
 import Dashboard from '../components/Dashboard/Dashboard';  // for demo purposes
 import StaffDashboard from '../components/staff/StaffDashboard/StaffDashboard';
@@ -51,13 +49,12 @@ import Equipment from '../components/pages/Equipment/Equipment';
 import Ingredients from '../components/pages/Ingredients/Ingredients';
 import Ingredient from '../components/pages/Ingredient/Ingredient';
 import Recipes from '../components/pages/Recipes/Recipes';
-import Recipe from '../components/pages/Recipes/Recipe';
+import Recipe from '../components/pages/Recipe/Recipe';
 
 import Food from '../components/pages/Food/Food';
 import Fitness from '../components/pages/Fitness/Fitness';
-import Supply from '../components/shop/Supply/Supply';
-
-// shop pages here
+import StoreFront from '../components/shop/StoreFront/StoreFront';
+//import KitchenEquipment from TO DO: Pass filter/sort/search data as prop to '../components/shop/ProductsList/ProductsList';
 
 import Supplements from '../components/pages/Supplements/Supplements';
 //import WaterFiltration from '../components/pages/WaterFiltration/WaterFiltration';
@@ -103,7 +100,6 @@ const RoutesList = () => (
     {/* 
       primary app feature routes
     */}
-    <AppliedRoute path="/search" exact component={Search} />
 
     <AppliedRoute path="/dashboard" exact component={Dashboard} />  {/* for demo purposes */}
     <AuthenticatedRoute path="/staff/dashboard" exact component={StaffDashboard} />
@@ -140,17 +136,17 @@ const RoutesList = () => (
     <AppliedRoute path="/food/recipes" exact component={Recipes} />
     <AppliedRoute path="/food/recipe/:id" exact component={Recipe} />
     <AppliedRoute path="/food" exact component={Food} />
-    <AppliedRoute path="/food/nutrition" exact component={Nutrition} />
+    {/*<AppliedRoute path="/food/nutrition" exact component={Nutrition} />*/}
     <AppliedRoute path="/food/nutrition/supplements" exact component={Supplements} />
-    <AppliedRoute path="/food/methods" exact component={Methods} />
-    <AppliedRoute path="/food/cuisines" exact component={Cuisines} />
+    {/*<AppliedRoute path="/food/methods" exact component={Methods} />*/}
+    {/*<AppliedRoute path="/food/cuisines" exact component={Cuisines} />*/}
 
     <AppliedRoute path="/fitness" exact component={Fitness} />
-    <AppliedRoute path="/fitness/principles" exact component={Principles} />
-    <AppliedRoute path="/fitness/exercises" exact component={Exercises} />
+    {/*<AppliedRoute path="/fitness/principles" exact component={Principles} />*/}
+    {/*<AppliedRoute path="/fitness/exercises" exact component={Exercises} />*/}
 
-    <AppliedRoute path="/supply" exact component={Supply} />
-    <AppliedRoute path="/supply/kitchen-equipment" exact component={KitchenEquipment} />
+    <AppliedRoute path="/supply" exact component={StoreFront} />
+    {/*<AppliedRoute path="/supply/kitchen-equipment" exact component={KitchenEquipment} />*/}
     
     {/*<AppliedRoute path="/water-filtration" exact component={WaterFiltration} />*/}
     {/*<AppliedRoute path="/tea" exact component={Tea} />*/}

@@ -5,14 +5,14 @@ import { DragSource, DropTarget } from 'react-dnd';
 import {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
-} from '../../../store/actions/index';
+} from '../../../../../store/actions/index';
 import './mobilePlannerRecipe.css';  // use BEM
 
 /*These 3 inlined images are just for quick sample viewing during dev for now.
 In prod we would load external recipe images from a designated AWS S3 bucket.*/
-import sp32 from '../../../assets/images/content/planner/sp32.png';
-import sas32 from '../../../assets/images/content/planner/sas32.png';
-import sps32 from '../../../assets/images/content/planner/sps32.png';
+import sp32 from '../../../../../assets/images/content/planner/sp32.png';
+import sas32 from '../../../../../assets/images/content/planner/sas32.png';
+import sps32 from '../../../../../assets/images/content/planner/sps32.png';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 

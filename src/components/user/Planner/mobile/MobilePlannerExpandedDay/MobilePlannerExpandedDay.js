@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
 import MobilePlannerRecipe from '../MobilePlannerRecipe/MobilePlannerRecipe';
-import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/index';
+import { plannerClickDay, plannerAddRecipeToDay } from '../../../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 

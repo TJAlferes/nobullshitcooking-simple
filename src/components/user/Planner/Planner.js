@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 const uuidv4 = require('uuid/v4');
 
-import LeftNav from '../../components/LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav
+import LeftNav from '../../LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';

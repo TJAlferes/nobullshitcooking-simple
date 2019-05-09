@@ -27,7 +27,8 @@ module.exports = function(api) {
         "regenerator": true
       }
     ],
-    "@babel/plugin-proposal-class-properties"
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-syntax-dynamic-import"
   ];
   return {presets, plugins};
 };

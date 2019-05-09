@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LeftNav from '../components/LeftNav/LeftNav';
+import LeftNav from '../LeftNav/LeftNav';
 import './messenger.css';
 import './lightTheme.css';
 

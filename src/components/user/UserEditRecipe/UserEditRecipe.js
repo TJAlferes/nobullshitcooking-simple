@@ -5,7 +5,7 @@ import uuid from 'uuid/v4';
 import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import StepRow from './StepRow/StepRow';
-import './submitRecipe.css';
+import './editRecipe.css';
 
 // For dev only. Real data is in our MySQL DB, gotten with an HTTP request to our Node.js API.
 import devData from './dev-submit-recipe-data';
@@ -15,7 +15,7 @@ import devData from './dev-submit-recipe-data';
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/recipes';
 //const endpoint = 'http://localhost:3003/recipes';
 
-const UserSubmitRecipe = () => {
+const UserEditRecipe = () => {
   const [ isLoading, setIsLoading ] = useState(false);
 
   const [ recipeType, setRecipeType ] = useState("");
@@ -389,4 +389,4 @@ const UserSubmitRecipe = () => {
   );
 };
 
-export default UserSubmitRecipe;
+export default UserEditRecipe;

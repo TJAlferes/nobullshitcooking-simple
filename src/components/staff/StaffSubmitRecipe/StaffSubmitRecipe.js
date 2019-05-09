@@ -15,7 +15,7 @@ import devData from './dev-submit-recipe-data';
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/recipes';
 //const endpoint = 'http://localhost:3003/recipes';
 
-const UserSubmitRecipe = () => {
+const StaffSubmitRecipe = () => {
   const [ isLoading, setIsLoading ] = useState(false);
 
   const [ recipeType, setRecipeType ] = useState("");
@@ -389,4 +389,4 @@ const UserSubmitRecipe = () => {
   );
 };
 
-export default UserSubmitRecipe;
+export default StaffSubmitRecipe;
