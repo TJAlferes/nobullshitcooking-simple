@@ -15,7 +15,7 @@ import devData from './dev-submit-recipe-data';
 //const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/recipes';
 //const endpoint = 'http://localhost:3003/recipes';
 
-const SubmitRecipe = () => {
+const UserSubmitRecipe = () => {
   const [ isLoading, setIsLoading ] = useState(false);
 
   const [ recipeType, setRecipeType ] = useState("");
@@ -168,7 +168,10 @@ const SubmitRecipe = () => {
     <div className="submit_recipe">
       <div id="page">
         <div id="form">
-
+          <span className="demo-only-notice">
+            This page is for demonstration purposes only.
+            To actually submit a recipe, please create an account.
+          </span>
           <h1>Submit New Recipe</h1>
 
           {/* type */}
@@ -389,4 +392,4 @@ const SubmitRecipe = () => {
   );
 };
 
-export default SubmitRecipe;
+export default UserSubmitRecipe;

@@ -1,29 +1,19 @@
 import React from 'react';
 
-import Styles from './Styles';
-import LeftNav from '../../LeftNav/LeftNav';
+import './dashboard.css';
+import LeftNav from '../LeftNav/LeftNav';
 
-const Dashboard = props => {
-  <Styles>
-    <div id="page">
-			
-      <LeftNav />
-
-			<article>
-
-				<h1>Dashboard (Preview)</h1>
-
-        <p id="preview_note">This is an example. Create an account or sign in to view your own dashboard.</p>
-
-        <div>
-          <Profile />
-
-        </div>
-
-      </article>
-
-    </div>
-  </Styles>
-}
+const Dashboard = props => (
+  <div id="page">
+    <LeftNav />
+    <article>
+      <span className="demo-only-notice">
+        This page is for demonstration purposes only.
+        To view an actual dashboard, please create an account.
+      </span>
+      <h1>Dashboard</h1>
+    </article>
+  </div>
+);
 
 export default Dashboard;

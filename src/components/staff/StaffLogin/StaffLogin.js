@@ -11,7 +11,7 @@ import {
 
 // TO DO: make inputs uneditable/unselectable while isLoading, make Sign In button css not change color on hover while in Signing In... AKA isloading state
 
-class Login extends Component {
+class StaffLogin extends Component {
   state = {
     isLoading: false,
     error: null,
@@ -96,4 +96,4 @@ const mapDispatchToProps = dispatch => ({
   authStaffLogin: (email, password) => dispatch(authStaffLogin(email, password))
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(StaffLogin);
