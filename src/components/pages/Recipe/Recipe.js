@@ -11,7 +11,7 @@ const endpoint = 'http://localhost:3003';
 class Recipe extends Component {
   state = {recipe: null};
 
-  // TODO: Redirect them to Recipes if they only navigate to /ingredient (if there is no /:id)
+  // TODO: Redirect them to Recipes if they only navigate to /recipe (if there is no /:id)
 
   getRecipe = async (id) => {
     try {

@@ -1,4 +1,4 @@
-.light_theme #page {
+.light_theme {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -35,6 +35,7 @@
 }
 
 .light_theme #room button {
+  display: inline-block;
   height: 30px;
   padding-left: 8px;
   padding-right: 8px;
@@ -50,6 +51,7 @@
 }
 
 .light_theme #room span {
+  display: inline;
   line-height: 30px;
   padding: 5px;
   color: #292929;
@@ -58,6 +60,10 @@
 
 .light_theme #container {
   display: flex;
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 0;
 }
 
 .light_theme #chat,

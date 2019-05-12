@@ -136,7 +136,6 @@ class Register extends Component {
         id="email"
         size="20"
         maxLength="60"
-        autoFocus
         onChange={this.handleChange}
       />
 

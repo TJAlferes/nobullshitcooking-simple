@@ -16,13 +16,11 @@ import b50Complex from '../../../assets/images/content/supplements/vitamin-b-com
 // TO DO: change the <a> to <NavLink> or <Link> that open a new browser tab
 
 const Supplements = props => (
-  <div className = "supplements">
+  <div className="supplements">
 		<div id="page">
-      <LeftNav 
-        isAuthenticated={props.isAuthenticated}
-        getUser={props.getUser}
-        userEmail={props.userEmail}
-      />
+
+      <LeftNav />
+
 			<article>
 				<h1>Supplements</h1>
 				<h2>Daily</h2>
@@ -112,6 +110,7 @@ const Supplements = props => (
 					</tbody>
 				</table>
 			</article>
+      
 		</div>
 	</div>
 );

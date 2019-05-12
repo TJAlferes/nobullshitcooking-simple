@@ -2,22 +2,11 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-/*export default ({ component: Component, props: childProps, ...rest }) => (
+const UnauthenticatedRoute = ({ component: Component, isAuthenticated, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      !childProps.isAuthenticated
-      ? <Component {...props} {...childProps} />
-      : <Redirect to='/' />
-    }
-  />
-);*/
-
-const UnauthenticatedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      !props.isAuthenticated
+      !isAuthenticated
       ? <Component {...props} />
       : <Redirect to='/' />
     }

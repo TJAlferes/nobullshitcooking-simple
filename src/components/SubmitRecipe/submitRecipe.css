@@ -46,6 +46,10 @@ select:required {
   box-shadow: none;
 }
 
+.demo-only-notice {
+  background-color: #d5fdd5;
+}
+
 
 
 /*

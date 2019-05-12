@@ -8,21 +8,13 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-//import amplifyConfig from '../amplify.config';
+// TO DO: code split redux store
 import rootReducer from './store/reducers/index';
 import { watchAuth, watchPlanner } from './store/sagas/index';
 import App from './App';
 import './global.css';
 //import './main.css';
 //import registerServiceWorker from "./registerServiceWorker";
-
-/*Amplify.configure({
-  Storage: {
-    bucket: amplifyConfig.s3.bucket,
-    region: amplifyConfig.s3.region,
-    identityPoolId: amplifyConfig.cognito.identity_pool_id
-  }
-});*/
 
 const composeEnhancers = process.env.NODE_ENV === "development"
 ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
