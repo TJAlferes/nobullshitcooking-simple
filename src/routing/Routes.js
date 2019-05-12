@@ -24,33 +24,33 @@ import StaffLogin from '../components/staff/StaffLogin/StaffLogin';  // eventual
 import Login from '../components/user/Login/Login';
 
 
-import Dashboard from '../components/Dashboard/Dashboard';  // for demo purposes
+import Dashboard from '../components/demos/Dashboard/Dashboard';  // for demo purposes
 import StaffDashboard from '../components/staff/StaffDashboard/StaffDashboard';
 import UserDashboard from '../components/user/UserDashboard/UserDashboard';
 
-import PlannerPage from '../components/PlannerPage/PlannerPage';  // for demo purposes
+import PlannerPage from '../components/PlannerPage/PlannerPage';  // for public, url-based
 import UserPlannerPage from '../components/user/UserPlannerPage/UserPlannerPage';
 
-import SubmitRecipe from '../components/SubmitRecipe/SubmitRecipe';  // for demo purposes
+import SubmitRecipe from '../components/demos/SubmitRecipe/SubmitRecipe';  // for demo purposes
 import StaffSubmitRecipe from '../components/staff/StaffSubmitRecipe/StaffSubmitRecipe';
 import UserSubmitRecipe from '../components/user/UserSubmitRecipe/UserSubmitRecipe';
-import EditRecipe from '../components/EditRecipe/EditRecipe';  // for demo purposes
+import EditRecipe from '../components/demos/EditRecipe/EditRecipe';  // for demo purposes
 import StaffEditRecipe from '../components/staff/StaffEditRecipe/StaffEditRecipe';
 import UserEditRecipe from '../components/user/UserEditRecipe/UserEditRecipe';
 
-import Messenger from '../components/Messenger/Messenger';  // for demo purposes
+import Messenger from '../components/demos/Messenger/Messenger';  // for demo purposes
 import UserMessenger from '../components/user/UserMessenger/UserMessenger';
 
-import Friends from '../components/Friends/Friends';  // for demo purposes
+import Friends from '../components/demos/Friends/Friends';  // for demo purposes
 import UserFriends from '../components/user/UserFriends/UserFriends';
 
 
-import Equipments from '../components/pages/Equipments/Equipments';
-import Equipment from '../components/pages/Equipment/Equipment';
-import Ingredients from '../components/pages/Ingredients/Ingredients';
-import Ingredient from '../components/pages/Ingredient/Ingredient';
-import Recipes from '../components/pages/Recipes/Recipes';
-import Recipe from '../components/pages/Recipe/Recipe';
+import Equipments from '../components/pages/main/Equipments/Equipments';
+import Equipment from '../components/pages/main/Equipment/Equipment';
+import Ingredients from '../components/pages/main/Ingredients/Ingredients';
+import Ingredient from '../components/pages/main/Ingredient/Ingredient';
+import Recipes from '../components/pages/main/Recipes/Recipes';
+import Recipe from '../components/pages/main/Recipe/Recipe';
 
 
 import Food from '../components/pages/Food/Food';
@@ -239,6 +239,10 @@ const RoutesList = () => (
     <AppliedRoute path="/fitness/principles/flexibility" exact component={Flexibility} />
 
     <AppliedRoute path="/fitness/exercises" exact component={Exercises} />
+    <AppliedRoute path="/fitness/exercises/walk" exact component={Walk} />
+    <AppliedRoute path="/fitness/exercises/squat" exact component={Squat} />
+    <AppliedRoute path="/fitness/exercises/pushup" exact component={Pushup} />
+    <AppliedRoute path="/fitness/exercises/pullup" exact component={Pullup} />
 
     <AppliedRoute path="/supply" exact component={StoreFront} />
     <AppliedRoute path="/supply/kitchen-equipment" exact component={KitchenEquipment} />
