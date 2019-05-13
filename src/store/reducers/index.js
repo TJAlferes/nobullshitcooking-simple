@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 //import modalsReducer from './modals';
+import themeReducer from './theme';
 import menuReducer from './menu';
 import authReducer from './auth';
 import plannerReducer from './planner';
@@ -18,6 +19,7 @@ and export it (to be used in src/index.js)
 
 const rootReducer = combineReducers({
   //modals: modalsReducer,
+  theme: themeReducer,
   menu: menuReducer,
   auth: authReducer,
   planner: plannerReducer,

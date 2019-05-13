@@ -1,5 +1,4 @@
 import * as actionTypes from '../actions/actionTypes';
-import update from 'immutability-helper';
 
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
 
@@ -13,7 +12,7 @@ const shadowHide = (state, action) => {
   return Object.assign({}, state, {shadow: false});
 };
 
-const plannerReducer = (state = initialState, action) => {
+const menuReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.MENU_SHADOW_SHOW: return shadowShow(state, action);
     case actionTypes.MENU_SHADOW_HIDE: return shadowHide(state, action);
@@ -21,4 +20,4 @@ const plannerReducer = (state = initialState, action) => {
   return state;
 };
 
-export default plannerReducer;
+export default menuReducer;

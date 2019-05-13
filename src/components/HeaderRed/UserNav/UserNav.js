@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './userNav.css';
-import { authUserLogout } from '../../../store/actions/index';
+import { authUserLogout, themeDarkTrigger, themeLightTrigger } from '../../../store/actions/index';
 
 class UserNav extends Component {
   handleLogout = async () => {
@@ -12,7 +12,7 @@ class UserNav extends Component {
   }
 
   render() {
-    const { isAuthenticated, authname } = this.props;
+    const { isAuthenticated, authname, theme } = this.props;
     return (
       <div className="user_nav">
         <li>
@@ -56,6 +56,9 @@ class UserNav extends Component {
             View Cart
           </NavLink>
         </li>
+        <li>
+          {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+        </li>
       </div>
     );
   }
@@ -63,11 +66,14 @@ class UserNav extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  authname: state.auth.authname
+  authname: state.auth.authname,
+  theme: state.theme.theme
 });
 
 const mapDispatchToProps = dispatch => ({
-  authUserLogout: () => dispatch(authUserLogout())
-})
+  authUserLogout: () => dispatch(authUserLogout()),
+  themeDarkTrigger: () => dispatch(themeDarkTrigger()),
+  themeLightTrigger: () => dispatch(themeLightTrigger())
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserNav));

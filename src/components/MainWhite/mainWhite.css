@@ -1,6 +1,13 @@
 .main_white {
   padding-top: 25px;
   padding-bottom: 25px;
+}
+
+.dark {
+  background: #666;
+}
+
+.light {
   background: #eee;
 }
 

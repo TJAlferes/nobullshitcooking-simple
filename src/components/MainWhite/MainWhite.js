@@ -8,8 +8,9 @@ const MainWhite = props => {
   // regex so that breadcrumbs aren't displayed on the home page
   let isHome = props.location.pathname.match(/^\/$/);
   let className = props.shadow ? "show-shadow" : "hide-shadow";
+  let theme = props.theme;
   return (
-    <div className="main_white">
+    <div className={`mainwhite ${theme}`}>
       <div className={className}></div>
       {!isHome && <div id="breadcrumbs"><Breadcrumbs /></div>}
       {props.children}
@@ -18,7 +19,8 @@ const MainWhite = props => {
 }
 
 const mapStateToProps = state => ({
-  shadow: state.menu.shadow
+  shadow: state.menu.shadow,
+  theme: state.theme.theme
 });
 
 export default connect(mapStateToProps)(MainWhite);

@@ -4,6 +4,11 @@
 } from './modals';*/
 
 export {
+  themeDarkTrigger,
+  themeLightTrigger
+} from './theme';
+
+export {
   menuShadowShow,
   menuShadowHide
 } from './menu';
