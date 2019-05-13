@@ -1,6 +1,4 @@
 node_modules
-.DS_Store
-/coverage
 /dist
 bundle.js
-amplify.config.js
+/coverage
