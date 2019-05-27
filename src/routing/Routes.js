@@ -105,28 +105,28 @@ import Pullup from '../components/pages/Fitness/Exercises/Pullup/Pullup';
 import StoreFront from '../components/shop/StoreFront/StoreFront';
 
 
-import KitchenEquipment from '../components/pages/promo/KitchenEquipment';
+//import KitchenEquipment from '../components/pages/promo/KitchenEquipment';
 // was from '../components/shop/ProductsList/ProductsList';
 // TO DO: Pass filter/sort/search data as prop to '../components/shop/ProductsList/ProductsList'; (!!! beware initializing component state from props)
-import WaterFiltration from '../components/pages/promo/WaterFiltration/WaterFiltration';
-import Tea from '../components/pages/promo/Tea/Tea';
-import Coffee from '../components/pages/promo/Coffee/Coffee';
-import Outdoors from '../components/pages/promo/Outdoors/Outdoors';
-import Garden from '../components/pages/promo/Garden/Garden';
-import Tools from '../components/pages/promo/Tools/Tools';
-import Weapons from '../components/pages/promo/Weapons/Weapons';
-import FoodInSeason from '../components/pages/promo/FoodInSeason/FoodInSeason';
+//import WaterFiltration from '../components/pages/promo/WaterFiltration/WaterFiltration';
+//import Tea from '../components/pages/promo/Tea/Tea';
+//import Coffee from '../components/pages/promo/Coffee/Coffee';
+//import Outdoors from '../components/pages/promo/Outdoors/Outdoors';
+//import Garden from '../components/pages/promo/Garden/Garden';
+//import Tools from '../components/pages/promo/Tools/Tools';
+//import Weapons from '../components/pages/promo/Weapons/Weapons';
+//import FoodInSeason from '../components/pages/promo/FoodInSeason/FoodInSeason';
 
-import Finances from '../components/pages/info/Finances/Finances';  // fed from blog
-import Security from '../components/pages/info/Security/Security';  // fed from blog
+//import Finances from '../components/pages/info/Finances/Finances';  // fed from blog
+//import Security from '../components/pages/info/Security/Security';  // fed from blog
 
-import Contests from '../components/pages/site/Contests/Contests';
-import Charity from '../components/pages/site/Charity/Charity';
-import Sitemap from '../components/pages/site/Sitemap/Sitemap';
+//import Contests from '../components/pages/site/Contests/Contests';
+//import Charity from '../components/pages/site/Charity/Charity';
+//import Sitemap from '../components/pages/site/Sitemap/Sitemap';
 import Disclaimer from '../components/pages/site/Disclaimer/Disclaimer';
-import TermsOfUse from '../components/pages/site/TermsOfUse/TermsOfUse';
-import PrivacyPolicy from '../components/pages/site/PrivacyPolicy/PrivacyPolicy';
-import Help from '../components/pages/site/Help/Help';
+//import TermsOfUse from '../components/pages/site/TermsOfUse/TermsOfUse';
+//import PrivacyPolicy from '../components/pages/site/PrivacyPolicy/PrivacyPolicy';
+//import Help from '../components/pages/site/Help/Help';
 
 import Home from '../components/pages/Home/Home';
 
@@ -246,28 +246,28 @@ const RoutesList = () => (
       <AppliedRoute path="/fitness/exercises/pullup" exact component={Pullup} />
 
       <AppliedRoute path="/supply" exact component={StoreFront} />
-      <AppliedRoute path="/supply/kitchen-equipment" exact component={KitchenEquipment} />
+      {/*<AppliedRoute path="/promo/kitchen-equipment" exact component={KitchenEquipment} />
       
-      <AppliedRoute path="/supply/water-filtration" exact component={WaterFiltration} />
-      <AppliedRoute path="/supply/tea" exact component={Tea} />
-      <AppliedRoute path="/supply/coffee" exact component={Coffee} />
+      <AppliedRoute path="/promo/water-filtration" exact component={WaterFiltration} />
+      <AppliedRoute path="/promo/tea" exact component={Tea} />
+      <AppliedRoute path="/promo/coffee" exact component={Coffee} />
 
-      <AppliedRoute path="/supply/outdoors" exact component={Outdoors} />
-      <AppliedRoute path="/supply/garden" exact component={Garden} />
-      <AppliedRoute path="/supply/tools" exact component={Tools} />
-      <AppliedRoute path="/supply/weapons" exact component={Weapons} />
-      <AppliedRoute path="/supply/finances" exact component={Finances} />
-      <AppliedRoute path="/supply/security" exact component={Security} />
+      <AppliedRoute path="/promo/outdoors" exact component={Outdoors} />
+      <AppliedRoute path="/promo/garden" exact component={Garden} />
+      <AppliedRoute path="/promo/tools" exact component={Tools} />
+      <AppliedRoute path="/promo/weapons" exact component={Weapons} />
+      <AppliedRoute path="/info/finances" exact component={Finances} />
+      <AppliedRoute path="/info/security" exact component={Security} />
 
-      <AppliedRoute path="/contests" exact component={Contests} />
-      <AppliedRoute path="/seasonal" exact component={FoodInSeason} />
-      <AppliedRoute path="/charity" exact component={Charity} />
+      <AppliedRoute path="/site/contests" exact component={Contests} />
+      <AppliedRoute path="/site/seasonal" exact component={FoodInSeason} />
+      <AppliedRoute path="/site/charity" exact component={Charity} />
 
-      <AppliedRoute path="/sitemap" exact component={Sitemap} />
-      <AppliedRoute path="/disclaimer" exact component={Disclaimer} />
-      <AppliedRoute path="/terms" exact component={TermsOfUse} />
-      <AppliedRoute path="/privacy" exact component={PrivacyPolicy} />
-      <AppliedRoute path="/help" exact component={Help} />
+      <AppliedRoute path="/site/sitemap" exact component={Sitemap} />
+      <AppliedRoute path="/site/disclaimer" exact component={Disclaimer} />
+      <AppliedRoute path="/site/terms" exact component={TermsOfUse} />
+      <AppliedRoute path="/site/privacy" exact component={PrivacyPolicy} />
+      <AppliedRoute path="/site/help" exact component={Help} />*/}
 
 
 

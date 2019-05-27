@@ -34,7 +34,7 @@ const Food = () => (
             <img width="150" title="Ingredients" src={Ribs} />
           </div>
         </Link>
-        <Link to="/food/nations">
+        <Link to="/food/cuisines">
           <div className="single_section">
             <span>Cuisines</span>
             <img width="150" title="Cuisines" src={AmericaFlag} />

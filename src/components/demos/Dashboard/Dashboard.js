@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './dashboard.css';
-import LeftNav from '../LeftNav/LeftNav';
+import LeftNav from '../../LeftNav/LeftNav';
 
 const Dashboard = props => (
   <div id="page">

@@ -5,8 +5,7 @@ import Breadcrumbs from '../../routing/breadcrumbs/Breadcrumbs';
 import './mainWhite.css';
 
 const MainWhite = props => {
-  // regex so that breadcrumbs aren't displayed on the home page
-  let isHome = props.location.pathname.match(/^\/$/);
+  let isHome = props.location.pathname.match(/^\/$/);  // regex so that breadcrumbs aren't displayed on the home page
   let className = props.shadow ? "show-shadow" : "hide-shadow";
   let theme = props.theme;
   return (

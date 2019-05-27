@@ -1,14 +1,14 @@
 import React from 'react';
 
-import LeftNav from '../LeftNav/LeftNav';
+import LeftNav from '../../LeftNav/LeftNav';
 import './messenger.css';
 import './lightTheme.css';
 
 // this would be from the user's s3 bucket:
-import ChatAvatarExample from '../../assets/images/chat-avatar-example.png';
-import ChatAvatarExample2 from '../../assets/images/chat-avatar-example-2.png';
-import ChatAvatarExample3 from '../../assets/images/chat-avatar-example-3.png';
-import ChatAvatarExample4 from '../../assets/images/chat-avatar-example-4.png';
+import ChatAvatarExample from '../../../assets/images/chat-avatar-example.png';
+import ChatAvatarExample2 from '../../../assets/images/chat-avatar-example-2.png';
+import ChatAvatarExample3 from '../../../assets/images/chat-avatar-example-3.png';
+import ChatAvatarExample4 from '../../../assets/images/chat-avatar-example-4.png';
 
 const Messenger = props => (
   <div className="messenger light_theme">

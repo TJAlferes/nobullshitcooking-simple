@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './nutrition.css';
-import LeftNav from '../../LeftNav/LeftNav';
+import LeftNav from '../../../LeftNav/LeftNav';
 
 const Nutrition = props => (
   <div className="nutrition">

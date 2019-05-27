@@ -3,8 +3,11 @@ import update from 'immutability-helper';
 
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
 
+// TO DO ASAP: IMPLEMENT AS KIND OF "FINITE STATE MACHINE"
+
 // flatten this (?)
 const initialState = {
+  isLoading: false,
   isSaving: false,
   expanded: false,
   expandedDay: "none",
@@ -91,8 +94,6 @@ const reorderRecipeInDay = (state, action) => {
   });
 };
 
-
-
 // convert URL to plan
 const publicLoadFromUrl = (state, action) => {
 
@@ -105,7 +106,15 @@ const publicSaveToUrl = (state, action) => {
 
 };
 
+const loadPlan = (state, action) => {
+  //
+  return {...state, ...{payload: action.payload}};
+};
 
+const savePlan = (state, action) => {
+  //
+  return {...state, ...{payload: action.payload}};
+};
 
 // remember Nir Kofman's actions patterns
 const plannerReducer = (state = initialState, action) => {
