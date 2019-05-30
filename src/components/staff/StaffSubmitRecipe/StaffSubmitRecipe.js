@@ -120,31 +120,6 @@ const StaffSubmitRecipe = () => {
     setStepRows(newStepRows);
   };
 
-  /*// use SSR here...
-  componentDidMount() {
-    this.getAllRecipeTypes();  // used in filter
-    //this.getRecipes();  // initial/default ingredients load
-  }
-
-  getAllRecipeTypes = async () => {
-    // TO DO: on backend API, make types like ingredients
-    try {
-      const url = `${endpoint}/types/all`;
-      const response = await axios.get(url);
-      const recipeTypes = response.data;
-      this.setState({recipeTypes: recipeTypes});
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  submitRecipe = async () => {
-    const url = `${endpoint}`;
-    const response = await axios.post(url, {types: checkedIngredientTypes, start: startingAtt});
-    console.log(response.data);
-  }*/
-
   const handleImageChange = imageId => {
     let reader = new FileReader();
     reader.onload = function(e) {
@@ -313,7 +288,6 @@ const StaffSubmitRecipe = () => {
               <div id="preview">
                 <img src="" className="preview_frame" id="preview_image" />
               </div>
-              {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
                 onChange={() => handleImageChange("submitted_image")}
                 type="file"
@@ -329,7 +303,6 @@ const StaffSubmitRecipe = () => {
               <div id="preview_e">
                 <img src="" className="preview_frame" id="preview_equipment_image" />
               </div>
-              {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
                 onChange={() => handleImageChange("submitted_equipment_image")}
                 type="file"
@@ -345,7 +318,6 @@ const StaffSubmitRecipe = () => {
               <div id="preview_i">
                 <img src="" className="preview_frame" id="preview_ingredients_image" />
               </div>
-              {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
                 onChange={() => handleImageChange("submitted_ingredients_image")}
                 type="file"
@@ -361,7 +333,6 @@ const StaffSubmitRecipe = () => {
               <div id="preview_c">
                 <img src="" className="preview_frame" id="preview_cooking_image" />
               </div>
-              {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
                 onChange={() => handleImageChange("submitted_cooking_image")}
                 type="file"

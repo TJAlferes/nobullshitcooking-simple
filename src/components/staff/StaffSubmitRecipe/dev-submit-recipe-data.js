@@ -27,6 +27,34 @@ export default {
     {"cuisine_id": 11, "cuisine_name": "Japanese"},
     {"cuisine_id": 12, "cuisine_name": "Iranian"}
   ],
+  "recipes": [
+    {
+      "recipe_id": 62,
+      "recipe_type_id": 3,
+      "recipe_cuisine_id": 6,
+      "recipe_title": "Swiss Chard and Chicken Tacos",
+      "recipe_description": "Tastes good.",
+      "required_equipment": [
+        {"amount": 1, "equipment_id": 1},
+        {"amount": 1, "equipment_id": 2}
+      ],
+      "required_ingredients": [
+        {"amount": 2, "measurement_id": 3, "ingredient_id": 242},
+        {"amount": 0.5, "measurement_id": 5, "ingredient_id": 278}
+      ],
+      "required_subrecipes": [
+        {"amount": 6, "measurement_id": null, "recipe_id": 1},
+        {"amount": 2, "measurement_id": 3, "recipe_id": 13}
+      ],
+      "recipe_directions": "Preheat oven 350 F. On roasting pan, coat chicken with olive oil and salt, roast 50 minutes.",
+      "recipe_image": "aws-s3-bucket-url",
+      "equipment_image": "aws-s3-bucket-url",
+      "ingredients_image": "aws-s3-bucket-url",
+      "cooking_image": "aws-s3-bucket-url"
+    },
+    {"recipe_id": 13, "recipe_title": "Salsa Verde"},
+    {"recipe_id": 1, "recipe_title": "Corn Tortillas"}
+  ],
   "equipment": [
     {"equipment_id": 1, "equipment_name": "Chef's Knife", "equipment_type_id": 2},
     {"equipment_id": 2, "equipment_name": "Cutting Board", "equipment_type_id": 2},
