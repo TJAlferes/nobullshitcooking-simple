@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-//import axios from 'axios';
+import axios from 'axios';
 import uuid from 'uuid/v4';
 
 import EquipmentRow from './EquipmentRow/EquipmentRow';
@@ -7,16 +7,24 @@ import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
 import './submitRecipe.css';
 
-// For dev only. Real data is in our MySQL DB, gotten with an HTTP request to our Node.js API.
-import devData from './dev-submit-recipe-data';
-// Location of our backend API
-// set up if (dev) here
-// get this AWS EB back up online
-//const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/recipes';
-//const endpoint = 'http://localhost:3003/recipes';
+let endpoint;
+if (process.env.NODE_ENV === "production") {
+  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
+} else {
+  endpoint = 'http://localhost:3003';
+}
 
 const UserSubmitRecipe = () => {
+  const [ dataRecipeTypes, setDataRecipeTypes ] = useState([]);
+  const [ dataCuisines, setDataCuisines ] = useState([]);
+  const [ dataRecipes, setDataRecipes ] = useState([]);
+  const [ dataEquipment, setDataEquipment ] = useState([]);
+  const [ dataMeasurements, setDataMeasurements ] = useState([]);
+  const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
+  const [ dataIngredients, setDataIngredients ] = useState([]);
+
   const [ isLoading, setIsLoading ] = useState(false);
+
   const [ recipeType, setRecipeType ] = useState("");
   const [ cuisine, setCuisine ] = useState("");
   const [ title, setTitle ] = useState("");
@@ -37,6 +45,44 @@ const UserSubmitRecipe = () => {
     {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
     {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
   ]);
+
+  useEffect(() => {
+    const fetchDataCuisines = async () => {
+      const res = await axios.get(`${endpoint}/cuisine/`);
+      setDataCuisines(res.data);
+    };
+    const fetchDataRecipeTypes = async () => {
+      const res = await axios.get(`${endpoint}/recipe-type/`);
+      setDataRecipeTypes(res.data);
+    };
+    const fetchDataRecipes = async () => {
+      const res = await axios.get(`${endpoint}/recipe/`);
+      setDataRecipes(res.data);
+    };
+    const fetchDataEquipment = async () => {
+      const res = await axios.get(`${endpoint}/equipment/`);
+      setDataEquipment(res.data);
+    };
+    const fetchDataMeasurements = async () => {
+      const res = await axios.get(`${endpoint}/measurement/`);
+      setDataMeasurements(res.data);
+    };
+    const fetchDataIngredientTypes = async () => {
+      const res = await axios.get(`${endpoint}/ingredient-type/`);
+      setDataIngredientTypes(res.data);
+    };
+    const fetchDataIngredients = async () => {
+      const res = await axios.get(`${endpoint}/ingredient/`);
+      setDataIngredients(res.data);
+    };
+    fetchDataRecipeTypes();
+    fetchDataCuisines();
+    fetchDataRecipes();
+    fetchDataEquipment();
+    fetchDataMeasurements();
+    fetchDataIngredientTypes();
+    fetchDataIngredients();
+  }, []);
 
   const handleRecipeTypeChange = e => setRecipeType(e.target.value);
 
@@ -158,7 +204,7 @@ const UserSubmitRecipe = () => {
               value={recipeType}
             >
               <option value=""></option>
-              {devData.recipeTypes.map(recipeType => (
+              {dataRecipeTypes.map(recipeType => (
                 <option
                   key={recipeType.recipe_type_id}
                   value={recipeType.recipe_type_id}
@@ -180,7 +226,7 @@ const UserSubmitRecipe = () => {
               value={cuisine}
             >
               <option value=""></option>
-              {devData.cuisines.map(cuisine => (
+              {dataCuisines.map(cuisine => (
                 <option
                   key={cuisine.cuisine_id}
                   value={cuisine.cuisine_id}
@@ -226,6 +272,7 @@ const UserSubmitRecipe = () => {
                   amount={equipmentRow.amount}
                   type={equipmentRow.type}
                   equipment={equipmentRow.equipment}
+                  dataEquipment={dataEquipment}
                   handleEquipmentRowChange={handleEquipmentRowChange}
                   removeEquipmentRow={removeEquipmentRow} />
               ))}
@@ -247,6 +294,9 @@ const UserSubmitRecipe = () => {
                   unit={ingredientRow.unit}
                   type={ingredientRow.type}
                   ingredient={ingredientRow.ingredient}
+                  dataMeasurements={dataMeasurements}
+                  dataIngredientTypes={dataIngredientTypes}
+                  dataIngredients={dataIngredients}
                   handleIngredientRowChange={handleIngredientRowChange}
                   removeIngredientRow={removeIngredientRow}
                 />
@@ -269,6 +319,9 @@ const UserSubmitRecipe = () => {
                   unit={subrecipeRow.unit}
                   type={subrecipeRow.type}
                   subrecipe={subrecipeRow.subrecipe}
+                  dataMeasurements={dataMeasurements}
+                  dataRecipeTypes={dataRecipeTypes}
+                  dataRecipes={dataRecipes}
                   handleSubrecipeRowChange={handleSubrecipeRowChange}
                   removeSubrecipeRow={removeSubrecipeRow}
                 />

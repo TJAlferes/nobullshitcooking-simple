@@ -1,13 +1,14 @@
 import React from 'react';
 
-import devData from '../dev-submit-recipe-data';
-
 const IngredientRow = ({
   rowKey,
   amount,
   unit,
   type,
   ingredient,
+  dataMeasurements,
+  dataIngredientTypes,
+  dataIngredients,
   handleIngredientRowChange,
   removeIngredientRow
 }) => (
@@ -35,7 +36,7 @@ const IngredientRow = ({
       onChange={(e) => handleIngredientRowChange(e, rowKey)}
     >
       <option value=""></option>
-      {devData.measurements.map((measurement, index) => (
+      {dataMeasurements.map((measurement, index) => (
         <option key={index} value={measurement.measurement_id}>
           {measurement.measurement_name}
         </option>
@@ -51,7 +52,7 @@ const IngredientRow = ({
       onChange={(e) => handleIngredientRowChange(e, rowKey)}
     >
       <option value=""></option>
-      {devData.ingredientTypes.map((ingredientType, index) => (
+      {dataIngredientTypes.map((ingredientType, index) => (
         <option key={index} value={ingredientType.ingredient_type_id}>
           {ingredientType.ingredient_type_name}
         </option>
@@ -68,7 +69,7 @@ const IngredientRow = ({
     >
       <option value=""></option>
       {
-        devData.ingredients
+        dataIngredients
         .filter((ing) => ing.ingredient_type_id == type)
         .map((ingredient, index) => (
           <option key={index} value={ingredient.ingredient_id}>

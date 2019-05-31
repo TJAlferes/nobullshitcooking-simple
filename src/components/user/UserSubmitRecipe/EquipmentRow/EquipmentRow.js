@@ -1,12 +1,11 @@
 import React from 'react';
 
-import devData from '../dev-submit-recipe-data';
-
 const EquipmentRow = ({
   rowKey,
   amount,
   type,
   equipment,
+  dataEquipment,
   handleEquipmentRowChange,
   removeEquipmentRow
 }) => (
@@ -51,7 +50,7 @@ const EquipmentRow = ({
     >
       <option value=""></option>
       {
-        devData.equipment
+        dataEquipment
         .filter((equ) => equ.equipment_type_id == type)
         .map((equipment, index) => (
           <option key={index} value={equipment.equipment_id}>
