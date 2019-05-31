@@ -5,9 +5,11 @@ const SubrecipeRow = ({
   amount,
   unit,
   type,
+  cuisine,
   subrecipe,
   dataMeasurements,
   dataRecipeTypes,
+  dataCuisines,
   dataRecipes,
   handleSubrecipeRowChange,
   removeSubrecipeRow
@@ -59,6 +61,22 @@ const SubrecipeRow = ({
       ))}
     </select>
 
+    <label>Cuisine:</label>
+    <select
+      className="select_subrecipe_cuisine"
+      name="cuisine"
+      required
+      value={cuisine}
+      onChange={(e) => handleSubrecipeRowChange(e, rowKey)}
+    >
+      <option value=""></option>
+      {dataCuisines.map((cuisine, index) => (
+        <option key={index} value={cuisine.cuisine_id}>
+          {cuisine.cuisine_name}
+        </option>
+      ))}
+    </select>
+
     <label>Subrecipe:</label>
     <select
       className="select_subrecipe"
@@ -71,6 +89,7 @@ const SubrecipeRow = ({
       {
         dataRecipes
         .filter((rec) => rec.recipe_type_id == type)
+        .filter((cui) => cui.cuisine_id == cuisine)
         .map((recipe, index) => (
           <option key={index} value={recipe.recipe_id}>
             {recipe.recipe_name}

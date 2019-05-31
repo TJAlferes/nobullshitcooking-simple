@@ -41,9 +41,9 @@ const UserEditRecipe = () => {
     {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
   ]);
   const [ subrecipeRows, setSubrecipeRows ] = useState([
-    {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
-    {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
-    {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
+    {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
+    {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
+    {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
   ]);
 
   useEffect(() => {
@@ -131,6 +131,8 @@ const UserEditRecipe = () => {
       newSubrecipeRows[elToUpdate].unit = e.target.value;
     } else if (e.target.name === 'type') {
       newSubrecipeRows[elToUpdate].type = e.target.value;
+    } else if (e.target.name === 'cuisine') {
+      newSubrecipeRows[elToUpdate].cuisine = e.target.value;
     } else if (e.target.name === 'subrecipe') {
       newSubrecipeRows[elToUpdate].subrecipe = e.target.value;
     }
@@ -318,9 +320,11 @@ const UserEditRecipe = () => {
                   amount={subrecipeRow.amount}
                   unit={subrecipeRow.unit}
                   type={subrecipeRow.type}
+                  cuisine={subrecipeRow.cuisine}
                   subrecipe={subrecipeRow.subrecipe}
                   dataMeasurements={dataMeasurements}
                   dataRecipeTypes={dataRecipeTypes}
+                  dataCuisines={dataCuisines}
                   dataRecipes={dataRecipes}
                   handleSubrecipeRowChange={handleSubrecipeRowChange}
                   removeSubrecipeRow={removeSubrecipeRow}
