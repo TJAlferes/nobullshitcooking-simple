@@ -16,12 +16,17 @@ import devData from './dev-submit-recipe-data';
 //const endpoint = 'http://localhost:3003/recipes';
 
 const StaffSubmitRecipe = () => {
+  /*
+  state
+  */
+
   const [ isLoading, setIsLoading ] = useState(false);
 
   const [ recipeType, setRecipeType ] = useState("");
   const [ cuisine, setCuisine ] = useState("");
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
+  const [ directions, setDirections ] = useState("");
 
   const [ equipmentRows, setEquipmentRows ] = useState([
     {key: uuid(), amount: "", type: "", equipment: ""},
@@ -33,11 +38,15 @@ const StaffSubmitRecipe = () => {
     {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
     {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
   ]);
-  const [ stepRows, setStepRows ] = useState([
-    {key: uuid(), step: ""},
-    {key: uuid(), step: ""},
-    {key: uuid(), step: ""},
+  const [ subrecipeRows, setSubrecipeRows ] = useState([
+    {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
+    {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
+    {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
   ]);
+
+  /*
+  handlers
+  */
 
   const handleRecipeTypeChange = e => {
     setRecipeType(e.target.value);
@@ -53,6 +62,10 @@ const StaffSubmitRecipe = () => {
 
   const handleDescriptionChange = e => {
     setDescription(e.target.value);
+  };
+
+  const handleDirectionsChange = e => {
+    setDirections(e.target.value);
   };
 
   const handleEquipmentRowChange = (e, rowKey) => {
@@ -83,11 +96,19 @@ const StaffSubmitRecipe = () => {
     setIngredientRows(newIngredientRows);
   }
 
-  const handleStepRowChange = (e, rowKey) => {
-    const newStepRows = Array.from(stepRows);
-    const elToUpdate = newStepRows.findIndex(el => el.key === rowKey);
-    newStepRows[elToUpdate].step = e.target.value;
-    setStepRows(newStepRows);
+  const handleSubrecipeRowChange = (e, rowKey) => {
+    const newSubrecipeRows = Array.from(subrecipeRows);
+    const elToUpdate = newSubrecipeRows.findIndex(el => el.key === rowKey);
+    if (e.target.name === 'amount') {
+      newSubrecipeRows[elToUpdate].amount = e.target.value;
+    } else if (e.target.name === 'unit') {
+      newSubrecipeRows[elToUpdate].unit = e.target.value;
+    } else if (e.target.name === 'type') {
+      newSubrecipeRows[elToUpdate].type = e.target.value;
+    } else if (e.target.name === 'subrecipe') {
+      newSubrecipeRows[elToUpdate].subrecipe = e.target.value;
+    }
+    setSubrecipeRows(newSubrecipeRows);
   }
 
   const addEquipmentRow = () => {
@@ -110,14 +131,14 @@ const StaffSubmitRecipe = () => {
     setIngredientRows(newIngredientRows);
   };
 
-  const addStepRow = () => {
-    const newStepRows = stepRows.concat({key: uuid(),});
-    setStepRows(newStepRows);
+  const addSubrecipeRow = () => {
+    const newSubrecipeRows = subrecipeRows.concat({key: uuid(),});
+    setSubrecipeRows(newSubrecipeRows);
   };
 
-  const removeStepRow = rowKey => {
-    const newStepRows = stepRows.filter(row => row.key !== rowKey);
-    setStepRows(newStepRows);
+  const removeSubrecipeRow = rowKey => {
+    const newSubrecipeRows = subrecipeRows.filter(row => row.key !== rowKey);
+    setSubrecipeRows(newSubrecipeRows);
   };
 
   const handleImageChange = imageId => {
@@ -138,6 +159,10 @@ const StaffSubmitRecipe = () => {
     }
     reader.readAsDataURL(this.files[0]);
   }
+
+  /*
+  JSX
+  */
 
   return (
     <div className="submit_recipe">
@@ -256,28 +281,37 @@ const StaffSubmitRecipe = () => {
             </button>
           </div>
 
-          {/* subrecipes
+          {/* subrecipes */}
           <div className="recipe_additions" id="subrecipes_div">
             <label className="red_style">Subrecipes</label>
             <div id="subrecipe_rows_container">
+              {subrecipeRows.map(subrecipeRow => (
+                <SubrecipeRow
+                  key={subrecipeRow.key}
+                  rowKey={subrecipeRow.key}
+                  amount={subrecipeRow.amount}
+                  unit={subrecipeRow.unit}
+                  type={subrecipeRow.type}
+                  subrecipe={subrecipeRow.subrecipe}
+                  handleSubrecipeRowChange={handleSubrecipeRowChange}
+                  removeSubrecipeRow={removeSubrecipeRow}
+                />
+              ))}
             </div>
-            <button id="add_subrecipe_button">Add Subrecipe</button>
-          </div>*/}
+            <button id="add_subrecipe_button" onClick={addSubrecipeRow}>
+              Add Subrecipe
+            </button>
+          </div>
 
-          {/* steps */}
-          <div className="recipe_additions" id="steps_div">
+          {/* directions */}
+          <div className="recipe_additions" id="directions_div">
             <label className="red_style">Directions</label>
-            {/* no step_rows_container div? */}
-            {stepRows.map(stepRow => (
-              <StepRow
-                key={stepRow.key}
-                rowKey={stepRow.key}
-                value={stepRow.value}
-                handleStepRowChange={handleStepRowChange}
-                removeStepRow={removeStepRow}
-              />
-            ))}
-            <button id="add_step_button" onClick={addStepRow}>Add Step</button>
+            <textarea
+              name="recipe_directions"
+              id="recipe_directions"
+              onChange={handleDirectionsChange}
+              value={directions}
+            />
           </div>
 
           {/* images */}

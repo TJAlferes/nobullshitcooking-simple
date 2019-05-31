@@ -35,16 +35,16 @@ export default {
       "recipe_title": "Swiss Chard and Chicken Tacos",
       "recipe_description": "Tastes good.",
       "required_equipment": [
-        {"amount": 1, "equipment_id": 1},
-        {"amount": 1, "equipment_id": 2}
+        {"amount": 1, "equipment_type_id": 1, "equipment_id": 1},
+        {"amount": 1, "equipment_type_id": 1, "equipment_id": 2}
       ],
       "required_ingredients": [
-        {"amount": 2, "measurement_id": 3, "ingredient_id": 242},
-        {"amount": 0.5, "measurement_id": 5, "ingredient_id": 278}
+        {"amount": 2, "measurement_id": 3, "ingredient_type_id": 16, "ingredient_id": 242},
+        {"amount": 0.5, "measurement_id": 5, "ingredient_type_id": 5, "ingredient_id": 278}
       ],
       "required_subrecipes": [
-        {"amount": 6, "measurement_id": null, "recipe_id": 1},
-        {"amount": 2, "measurement_id": 3, "recipe_id": 13}
+        {"amount": 6, "measurement_id": null, "recipe_type_id": 4, "recipe_id": 1},
+        {"amount": 2, "measurement_id": 3, "recipe_type_id": 12, "recipe_id": 13}
       ],
       "recipe_directions": "Preheat oven 350 F. On roasting pan, coat chicken with olive oil and salt, roast 50 minutes.",
       "recipe_image": "aws-s3-bucket-url",
@@ -52,8 +52,41 @@ export default {
       "ingredients_image": "aws-s3-bucket-url",
       "cooking_image": "aws-s3-bucket-url"
     },
-    {"recipe_id": 13, "recipe_title": "Salsa Verde"},
-    {"recipe_id": 1, "recipe_title": "Corn Tortillas"}
+    {
+      "recipe_id": 13,
+      "recipe_type_id": 12,
+      "recipe_cuisine_id": 6,
+      "recipe_title": "Salsa Verde",
+      "recipe_description": "Tastes good.",
+      "required_equipment": [
+        {"amount": 1, "equipment_type_id": 1, "equipment_id": 1},
+        {"amount": 1, "equipment_type_id": 1, "equipment_id": 2}
+      ],
+      "required_ingredients": [],
+      "required_subrecipes": [],
+      "recipe_directions": "Put all ingredients in medium sauce pan, fill with only enough water to cover ingredients, boil 7 minutes.",
+      "recipe_image": "aws-s3-bucket-url",
+      "equipment_image": "aws-s3-bucket-url",
+      "ingredients_image": "aws-s3-bucket-url",
+      "cooking_image": "aws-s3-bucket-url"
+    },
+    {
+      "recipe_id": 1,
+      "recipe_type_id": 4,
+      "recipe_cuisine_id": 6,
+      "recipe_title": "Corn Tortillas",
+      "recipe_description": "Tastes good.",
+      "required_equipment": [
+        {"amount": 1, "equipment_type_id": 3, "equipment_id": 53},
+      ],
+      "required_ingredients": [{"amount": 1, "measurement_id": 3, "ingredient_type_id": 5, "ingredient_id": 278}],
+      "required_subrecipes": [],
+      "recipe_directions": "In large mixing bowl, using sturdy spoon, combine 1 cup nixtamalized corn flour with warm water.",
+      "recipe_image": "aws-s3-bucket-url",
+      "equipment_image": "aws-s3-bucket-url",
+      "ingredients_image": "aws-s3-bucket-url",
+      "cooking_image": "aws-s3-bucket-url"
+    }
   ],
   "equipment": [
     {"equipment_id": 1, "equipment_name": "Chef's Knife", "equipment_type_id": 2},
