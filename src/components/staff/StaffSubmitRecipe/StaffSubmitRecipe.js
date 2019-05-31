@@ -4,7 +4,7 @@ import uuid from 'uuid/v4';
 
 import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
-import StepRow from './StepRow/StepRow';
+import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
 import './submitRecipe.css';
 
 // For dev only. Real data is in our MySQL DB, gotten with an HTTP request to our Node.js API.
@@ -16,18 +16,12 @@ import devData from './dev-submit-recipe-data';
 //const endpoint = 'http://localhost:3003/recipes';
 
 const StaffSubmitRecipe = () => {
-  /*
-  state
-  */
-
   const [ isLoading, setIsLoading ] = useState(false);
-
   const [ recipeType, setRecipeType ] = useState("");
   const [ cuisine, setCuisine ] = useState("");
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
   const [ directions, setDirections ] = useState("");
-
   const [ equipmentRows, setEquipmentRows ] = useState([
     {key: uuid(), amount: "", type: "", equipment: ""},
     {key: uuid(), amount: "", type: "", equipment: ""},
@@ -44,29 +38,15 @@ const StaffSubmitRecipe = () => {
     {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
   ]);
 
-  /*
-  handlers
-  */
+  const handleRecipeTypeChange = e => setRecipeType(e.target.value);
 
-  const handleRecipeTypeChange = e => {
-    setRecipeType(e.target.value);
-  };
+  const handleCuisineChange = e => setCuisine(e.target.value);
 
-  const handleCuisineChange = e => {
-    setCuisine(e.target.value);
-  };
+  const handleTitleChange = e => setTitle(e.target.value);
 
-  const handleTitleChange = e => {
-    setTitle(e.target.value);
-  };
+  const handleDescriptionChange = e => setDescription(e.target.value);
 
-  const handleDescriptionChange = e => {
-    setDescription(e.target.value);
-  };
-
-  const handleDirectionsChange = e => {
-    setDirections(e.target.value);
-  };
+  const handleDirectionsChange = e => setDirections(e.target.value);
 
   const handleEquipmentRowChange = (e, rowKey) => {
     const newEquipmentRows = Array.from(equipmentRows);
@@ -159,10 +139,6 @@ const StaffSubmitRecipe = () => {
     }
     reader.readAsDataURL(this.files[0]);
   }
-
-  /*
-  JSX
-  */
 
   return (
     <div className="submit_recipe">
