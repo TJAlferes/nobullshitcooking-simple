@@ -20,12 +20,12 @@ export default [
       'Poach and Simmer', 'Steam', 'Saute', 'Roast', 'Grill', 'Stew and Braise'
     ],
     subMenuLinks: [
-      '/food/methods/poach-simmer',
+      '/food/methods/poach-and-simmer',
       '/food/methods/steam',
       '/food/methods/saute',
       '/food/methods/roast',
       '/food/methods/grill',
-      '/food/methods/stew-braise'
+      '/food/methods/stew-and-braise'
     ],
     image: 'methods'
   },
