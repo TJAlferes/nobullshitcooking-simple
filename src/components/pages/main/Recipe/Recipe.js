@@ -3,10 +3,12 @@ import axios from 'axios';
 
 import './recipe.css';
 
-// Location of our backend API
-// set up if (dev) here
-//const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
-const endpoint = 'http://localhost:3003';
+let endpoint;
+if (process.env.NODE_ENV === "production") {
+  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
+} else {
+  endpoint = 'http://localhost:3003';
+}
 
 class Recipe extends Component {
   state = {recipe: null};
@@ -42,7 +44,7 @@ class Recipe extends Component {
               </div>
               <img
                 className="recipe_image"
-                src={`https://s3.amazonaws.com/nobsc-images-01/recipes/${recipe.recipe_image}.jpg`}
+                src={`https://s3.amazonaws.com/nobsc-images-01/recipes/recipe/${recipe.recipe_image}.jpg`}
               />
               <div className="recipe_name">
                 Recipe ID: {recipe.recipe_id}

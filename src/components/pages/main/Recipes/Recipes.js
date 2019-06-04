@@ -4,21 +4,35 @@ import axios from 'axios';
 
 import './recipes.css';
 
-// For dev only. Real data is in our MySQL DB, gotten with an HTTP request to our Node.js API.
-//import devData from './dev-ingredients-data';
-// Location of our backend API
-// set up if (dev) here
-// get this AWS EB back up online
-//const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
-const endpoint = 'http://localhost:3003';
+let endpoint;
+if (process.env.NODE_ENV === "production") {
+  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
+} else {
+  endpoint = 'http://localhost:3003';
+}
 
 class Recipes extends Component {
-  state = {  // remember to not initialize state from props, use useState() hook
+  state = {  // remember to not initialize state from props
     recipes: [],
     recipeTypes: [],
+    cuisines: [],
     pages: 1,
     starting: 0,
-    checkedFilters: {
+    checkedRecipeTypesFilters: {
+      1: false,
+      2: false,
+      3: false,
+      4: false,
+      5: false,
+      6: false,
+      7: false,
+      8: false,
+      9: false,
+      10: false,
+      11: false,
+      12: false
+    },
+    checkedCuisinesFilters: {
       1: false,
       2: false,
       3: false,
@@ -37,44 +51,75 @@ class Recipes extends Component {
   getAllRecipeTypes = async () => {
     try {
       const url = `${endpoint}/recipe-type`;
-      const response = await axios.get(url);
-      const recipeTypes = response.data;
+      const res = await axios.get(url);
+      const recipeTypes = res.data;
       this.setState({recipeTypes});
     } catch (err) {
-      console.log(err);
+      console.log(err);  // change me
+    }
+  }
+
+  getAllCuisines = async () => {
+    try {
+      const url = `${endpoint}/cuisine`;
+      const res = await axios.get(url);
+      const cuisines = res.data;
+      this.setState({cuisines});
+    } catch (err) {
+      console.log(err);  // change me
     }
   }
 
   getRecipes = async (startingAt = 0) => {
     try {
       const url = `${endpoint}/recipe`;
-      const response = await axios.post(
+      const res = await axios.post(
         url,
-        {types: this.getCheckedRecipeTypes(), start: startingAt}
+        {types: this.getCheckedRecipeTypes(), cuisines: this.getCheckedCuisines(), start: startingAt}
       );
-      const { rows, pages, starting } = response.data;
+      const { rows, pages, starting } = res.data;
       this.setState({recipes: rows, pages, starting});
     } catch (err) {
-      console.error(err);
+      console.error(err);  // change me
     }
   }
 
   getCheckedRecipesTypes = () => {
     let checkedRecipesTypes = [];
-    Object.entries(this.state.checkedFilters).forEach(([key, value]) => {
+    Object.entries(this.state.checkedRecipeTypesFilters).forEach(([key, value]) => {
       if (value === true) checkedRecipesTypes.push(Number(key));
     });
     return checkedRecipesTypes;
   }
 
-  handleFilterChange = async (e) => {
+  getCheckedCuisines = () => {
+    let checkedCuisines = [];
+    Object.entries(this.state.checkedCuisinesFilters).forEach(([key, value]) => {
+      if (value === true) checkedCuisines.push(Number(key));
+    });
+    return checkedCuisines;
+  }
+
+  handleRecipeTypesFilterChange = async (e) => {
     try {
       const id = e.target.id;
-      // use 'immutability-helper' for state nested much deeper than this
-      // better yet, use 'flat' or your own utility function to keep state flat
       await this.setState(prevState => ({
-        ...prevState, checkedFilters: {
-          ...prevState.checkedFilters, [id]: !prevState.checkedFilters[[id]]
+        ...prevState, checkedRecipeTypesFilters: {
+          ...prevState.checkedRecipeTypesFilters, [id]: !prevState.checkedRecipeTypesFilters[[id]]
+        }
+      }));
+      this.getRecipes();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  handleCuisinesFilterChange = async (e) => {
+    try {
+      const id = e.target.id;
+      await this.setState(prevState => ({
+        ...prevState, checkedCuisinesFilters: {
+          ...prevState.checkedCuisinesFilters, [id]: !prevState.checkedCuisinesFilters[[id]]
         }
       }));
       this.getRecipes();
@@ -151,11 +196,12 @@ class Recipes extends Component {
   // use SSR here...
   componentDidMount() {  // use useEffect() hook (?)
     this.getAllRecipeTypes();
+    this.getAllCuisines();
     this.getRecipes();
   }
 
   render() {
-    const { recipes, recipeTypes, pages } = this.state;
+    const { recipes, recipeTypes, cuisines, pages } = this.state;
     return(
       <div>
         <div id="page">
@@ -165,30 +211,41 @@ class Recipes extends Component {
             <div id="list_header"><h1>Recipes</h1></div>
 
             <div id="filters">
+
               <form
-                id="itid"
-                name="itid"
+                id="rtid"
+                name="rtid"
                 onChange={e => this.handleFilterChange(e)}
               >
                 <span id="filter_title"><b>Filter by:</b></span>
                 <div>
                   <p className="filter_type"><b>Recipe type</b></p>
                   {recipeTypes.map(recipeType => (
-                    <span
-                      className="filter_span"
-                      key={recipeType.recipe_type_id}
-                    >
-                      <input
-                        type="checkbox"
-                        id={recipeType.recipe_type_id}
-                      />
-                      <label className="filter_label">
-                        {recipeType.recipe_type_name}
-                      </label>
+                    <span className="filter_span" key={recipeType.recipe_type_id}>
+                      <input type="checkbox" id={recipeType.recipe_type_id} />
+                      <label className="filter_label">{recipeType.recipe_type_name}</label>
                     </span>
                   ))}
                 </div>
               </form>
+
+              <form
+                id="cid"
+                name="cid"
+                onChange={e => this.handleFilterChange(e)}
+              >
+                <span id="filter_title"><b>Filter by:</b></span>
+                <div>
+                  <p className="filter_type"><b>Cuisine</b></p>
+                  {cuisines.map(cuisine => (
+                    <span className="filter_span" key={cuisine.cuisine_id}>
+                      <input type="checkbox" id={cuisine.cuisine_id}/>
+                      <label className="filter_label">{cuisine.cuisine_name}</label>
+                    </span>
+                  ))}
+                </div>
+              </form>
+
             </div>
 
             {(pages > 1) && this.paginate()}
@@ -206,7 +263,7 @@ class Recipes extends Component {
                     </div>
                     <img
                       className="recipe_thumbnail"
-                      src={`https://s3.amazonaws.com/nobsc-images-01/recipes/${recipe.recipe_image}.jpg`}
+                      src={`https://s3.amazonaws.com/nobsc-images-01/recipes/recipe/${recipe.recipe_image}.jpg`}
                     />
                   </Link>
                 </div>
