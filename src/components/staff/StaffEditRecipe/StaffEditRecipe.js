@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import uuid from 'uuid/v4';
 
 import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
+import LoaderButton from '../../LoaderButton/LoaderButton';
 import './editRecipe.css';
 
 let endpoint;
@@ -14,7 +15,7 @@ if (process.env.NODE_ENV === "production") {
   endpoint = 'http://localhost:3003';
 }
 
-const StaffEditRecipe = () => {
+const StaffEditRecipe = props => {
   const [ dataRecipeTypes, setDataRecipeTypes ] = useState([]);
   const [ dataCuisines, setDataCuisines ] = useState([]);
   const [ dataRecipes, setDataRecipes ] = useState([]);
@@ -45,6 +46,14 @@ const StaffEditRecipe = () => {
     {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
     {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
   ]);
+  const [ recipeImage, setRecipeImage ] = useState("");
+  const [ recipeImageName, setRecipeImageName ] = useState("Choose File");
+  const [ equipmentImage, setEquipmentImage ] = useState("");
+  const [ equipmentImageName, setEquipmentImageName ] = useState("Choose File");
+  const [ ingredientsImage, setIngredientsImage ] = useState("");
+  const [ ingredientsImageName, setIngredientsImageName ] = useState("Choose File");
+  const [ cookingImage, setCookingImage ] = useState("");
+  const [ cookingImageName, setCookingImageName ] = useState("Choose File");
 
   useEffect(() => {
     const fetchDataCuisines = async () => {
@@ -75,6 +84,18 @@ const StaffEditRecipe = () => {
       const res = await axios.get(`${endpoint}/ingredient/`);
       setDataIngredients(res.data);
     };
+    const fetchDataRecipeInfo = async () => {
+      const res = await axios.get(`${endpoint}/recipe/${props.editRecipeId}`);
+      set(res.data.recipeType);
+      set(res.data.cuisine);
+      set(res.data.title);
+      set(res.data.description);
+      set(res.data.directions);
+      set(res.data.equipmentRows);
+      set(res.data.ingredientRows);
+      set(res.data.subRecipeRows);
+      // TO DO: finish for images
+    };
     fetchDataRecipeTypes();
     fetchDataCuisines();
     fetchDataRecipes();
@@ -82,6 +103,7 @@ const StaffEditRecipe = () => {
     fetchDataMeasurements();
     fetchDataIngredientTypes();
     fetchDataIngredients();
+    fetchDataRecipeInfo();
   }, []);
 
   const handleRecipeTypeChange = e => setRecipeType(e.target.value);
@@ -169,7 +191,19 @@ const StaffEditRecipe = () => {
     setSubrecipeRows(newSubrecipeRows);
   };
 
-  const handleImageChange = imageId => {
+  const handleImageChange = e => {
+    if (e.target.name === 'submitted_recipe_image') {
+      setRecipeImage(e.target.files[0]);
+    } else if (e.target.name === 'submitted_equipment_image') {
+      setEquipmentImage(e.target.files[0]);
+    } else if (e.target.name === 'submitted_ingredients_image') {
+      setIngredientsImage(e.target.files[0]);
+    } else if (e.target.name === 'submitted_cooking_image') {
+      setCookingImage(e.target.files[0]);
+    }
+  }
+
+  /*const validateImage = imageId => {
     let reader = new FileReader();
     reader.onload = function(e) {
       let image = new Image();
@@ -186,6 +220,39 @@ const StaffEditRecipe = () => {
       }
     }
     reader.readAsDataURL(this.files[0]);
+  }*/
+
+  const validate = () => {
+    // TO DO: FINISH, also, messages
+    return (
+      (recipeType !== "") &&
+      (cuisine !== "") &&
+      (title !== "") &&
+      (description !== "") &&
+      (directions !== "")
+    );
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('recipeType', recipeType);
+    formData.append('cuisine', cuisine);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('directions', directions);
+    formData.append('equipmentRows', equipmentRows);
+    formData.append('ingredientRows', ingredientRows);
+    formData.append('subrecipeRows', subrecipeRows);
+    formData.append('recipeImage', recipeImage);
+    formData.append('equipmentImage', equipmentImage);
+    formData.append('ingredientsImage', ingredientsImage);
+    formData.append('cookingImage', cookingImage);
+    try {
+      const res = await axios.put(`${endpoint}/staff/recipe/edit/${recipeId}`);
+    } catch (err) {
+
+    }
   }
 
   return (
@@ -353,16 +420,15 @@ const StaffEditRecipe = () => {
             <div className="image_div">
               <label className="red_style">Image of Finished Recipe</label>
               <div id="preview">
-                <img src="" className="preview_frame" id="preview_image" />
+                <img src="" className="preview_frame" id="preview_recipe_image" />
               </div>
-              {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
-                onChange={() => handleImageChange("submitted_image")}
-                type="file"
-                name="submitted_image"
                 className="submitted_image"
-                id="submitted_image"
+                id="submitted_recipe_image"
+                type="file"
+                name="submitted_recipe_image"
                 required
+                onChange={handleImageChange}
               />
             </div>
 
@@ -371,14 +437,13 @@ const StaffEditRecipe = () => {
               <div id="preview_e">
                 <img src="" className="preview_frame" id="preview_equipment_image" />
               </div>
-              {/* <?php if (isset($feedback)) { echo $feedback; } ?> */}
               <input
-                onChange={() => handleImageChange("submitted_equipment_image")}
-                type="file"
-                name="submitted_equipment_image"
                 className="submitted_image"
                 id="submitted_equipment_image"
+                type="file"
+                name="submitted_equipment_image"
                 required
+                onChange={handleImageChange}
               />
             </div>
 
@@ -388,12 +453,12 @@ const StaffEditRecipe = () => {
                 <img src="" className="preview_frame" id="preview_ingredients_image" />
               </div>
               <input
-                onChange={() => handleImageChange("submitted_ingredients_image")}
-                type="file"
-                name="submitted_ingredients_image"
                 className="submitted_image"
                 id="submitted_ingredients_image"
+                type="file"
+                name="submitted_ingredients_image"
                 required
+                onChange={handleImageChange}
               />
             </div>
 
@@ -403,12 +468,12 @@ const StaffEditRecipe = () => {
                 <img src="" className="preview_frame" id="preview_cooking_image" />
               </div>
               <input
-                onChange={() => handleImageChange("submitted_cooking_image")}
-                type="file"
-                name="submitted_cooking_image"
                 className="submitted_image"
                 id="submitted_cooking_image"
+                type="file"
+                name="submitted_cooking_image"
                 required
+                onChange={handleImageChange}
               />
             </div>
 
@@ -419,8 +484,16 @@ const StaffEditRecipe = () => {
 
           {/* submit */}
           <div>
-            <button id="submit_button">Submit Recipe</button>
-            {/* <input type="submit" name="submit" id="submit_button" value="Submit Recipe"> --> <!-- maybe change this */}
+            <LoaderButton
+              id="staff_edit_recipe_button"
+              type="button"
+              name="submit"
+              text="Edit Recipe"
+              loadingText="Editing Recipe..."
+              isLoading={isLoading}
+              disabled={!validate()}
+              onClick={handleSubmit}
+            />
           </div>
 
         </div>

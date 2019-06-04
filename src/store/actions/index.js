@@ -59,6 +59,11 @@ export {
 } from './planner';
 
 export {
+  cartItemAdd,
+  cartItemRemove
+} from './cart';
+
+export {
   getEquipmentRequest,
   getEquipmentSucceeded,
   getEquipmentFailed

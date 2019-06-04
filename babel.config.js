@@ -11,10 +11,7 @@ module.exports = function(api) {
     [
       "@babel/preset-env",
       {
-        targets: {
-          //node: "10",
-          "browsers": ["> 1%", "last 2 versions"]
-        },
+        targets: {"browsers": ["> 1%", "last 2 versions"]},
         useBuiltIns: "usage"
       }
     ],
@@ -23,9 +20,7 @@ module.exports = function(api) {
   const plugins = [
     [
       "@babel/plugin-transform-runtime",
-      {
-        "regenerator": true
-      }
+      {"regenerator": true}
     ],
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-syntax-dynamic-import"

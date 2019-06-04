@@ -43,14 +43,14 @@ export default [
       'Acids, Herbs, and Spices'
     ],
     subMenuLinks: [
-      '/food/ingredients/fish-shellfish',
-      '/food/ingredients/meat-poultry',
-      '/food/ingredients/eggs-dairy',
-      '/food/ingredients/beans-vegetables',
+      '/food/ingredients/fish-and-shellfish',
+      '/food/ingredients/meat-and-poultry',
+      '/food/ingredients/eggs-and-dairy',
+      '/food/ingredients/beans-and-vegetables',
       '/food/ingredients/fruit',
-      '/food/ingredients/seeds-grains',
-      '/food/ingredients/fats-oils',
-      '/food/ingredients/acids-herbs-spices'
+      '/food/ingredients/seeds-and-grains',
+      '/food/ingredients/fats-and-oils',
+      '/food/ingredients/acids-herbs-and-spices'
     ],
     image: 'ingredients'
   },

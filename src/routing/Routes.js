@@ -69,6 +69,16 @@ import Roast from '../components/pages/Food/Methods/Roast/Roast';
 import Grill from '../components/pages/Food/Methods/Grill/Grill';
 import StewAndBraise from '../components/pages/Food/Methods/StewAndBraise/StewAndBraise';
 
+import SiteNavIngredients from '../components/pages/Food/SiteNavIngredients/SiteNavIngredients';
+import FishAndShellfish from '../components/pages/Food/Ingredients/FishAndShellfish/FishAndShellfish';
+import MeatAndPoultry from '../components/pages/Food/Ingredients/MeatAndPoultry/MeatAndPoultry';
+import EggsAndDairy from '../components/pages/Food/Ingredients/EggsAndDairy/EggsAndDairy';
+import BeansAndVegetables from '../components/pages/Food/Ingredients/BeansAndVegetables/BeansAndVegetables';
+import Fruit from '../components/pages/Food/Ingredients/Fruit/Fruit';
+import SeedsAndGrains from '../components/pages/Food/Ingredients/SeedsAndGrains/SeedsAndGrains/';
+import FatsAndOils from '../components/pages/Food/Ingredients/FatsAndOils/FatsAndOils';
+import AcidsHerbsAndSpices from '../components/pages/Food/Ingredients/AcidsHerbsAndSpices/AcidsHerbsAndSpices';
+
 import Cuisines from '../components/pages/Food/Cuisines/Cuisines';
 import Russian from '../components/pages/Food/Cuisines/Russian/Russian';
 import German from '../components/pages/Food/Cuisines/German/German';
@@ -211,6 +221,16 @@ const RoutesList = () => (
       <AppliedRoute path="/food/methods/roast" exact component={Roast} />
       <AppliedRoute path="/food/methods/grill" exact component={Grill} />
       <AppliedRoute path="/food/methods/stew-and-braise" exact component={StewAndBraise} />
+
+      <AppliedRoute path="/food/site-nav-ingredients" exact component={SiteNavIngredients} />
+      <AppliedRoute path="/food/ingredients/fish-and-shellfish" exact component={FishAndShellfish} />
+      <AppliedRoute path="/food/ingredients/meat-and-poultry" exact component={MeatAndPoultry} />
+      <AppliedRoute path="/food/ingredients/eggs-and-dairy" exact component={EggsAndDairy} />
+      <AppliedRoute path="/food/ingredients/beans-and-vegetables" exact component={BeansAndVegetables} />
+      <AppliedRoute path="/food/ingredients/fruit" exact component={Fruit} />
+      <AppliedRoute path="/food/ingredients/seeds-and-grains" exact component={SeedsAndGrains} />
+      <AppliedRoute path="/food/ingredients/fats-and-oils" exact component={FatsAndOils} />
+      <AppliedRoute path="/food/ingredients/acids-herbs-and-spices" exact component={AcidsHerbsAndSpices} />
 
       <AppliedRoute path="/food/cuisines" exact component={Cuisines} />
       <AppliedRoute path="/food/cuisines/russian" exact component={Russian} />

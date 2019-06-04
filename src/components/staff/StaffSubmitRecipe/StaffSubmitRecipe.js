@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import uuid from 'uuid/v4';
 
 import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
+import LoaderButton from '../../LoaderButton/LoaderButton';
 import './submitRecipe.css';
 
 let endpoint;
@@ -22,6 +23,8 @@ const StaffSubmitRecipe = () => {
   const [ dataMeasurements, setDataMeasurements ] = useState([]);
   const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
   const [ dataIngredients, setDataIngredients ] = useState([]);
+
+  const [ s3BucketUrl, setS3BucketUrl ] = useState("");  // needed?
 
   const [ isLoading, setIsLoading ] = useState(false);
 
@@ -45,6 +48,14 @@ const StaffSubmitRecipe = () => {
     {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
     {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
   ]);
+  const [ recipeImage, setRecipeImage ] = useState("");
+  const [ recipeImageName, setRecipeImageName ] = useState("Choose File");
+  const [ equipmentImage, setEquipmentImage ] = useState("");
+  const [ equipmentImageName, setEquipmentImageName ] = useState("Choose File");
+  const [ ingredientsImage, setIngredientsImage ] = useState("");
+  const [ ingredientsImageName, setIngredientsImageName ] = useState("Choose File");
+  const [ cookingImage, setCookingImage ] = useState("");
+  const [ cookingImageName, setCookingImageName ] = useState("Choose File");
 
   useEffect(() => {
     const fetchDataCuisines = async () => {
@@ -169,7 +180,19 @@ const StaffSubmitRecipe = () => {
     setSubrecipeRows(newSubrecipeRows);
   };
 
-  const handleImageChange = imageId => {
+  const handleImageChange = e => {
+    if (e.target.name === 'submitted_recipe_image') {
+      setRecipeImage(e.target.files[0]);
+    } else if (e.target.name === 'submitted_equipment_image') {
+      setEquipmentImage(e.target.files[0]);
+    } else if (e.target.name === 'submitted_ingredients_image') {
+      setIngredientsImage(e.target.files[0]);
+    } else if (e.target.name === 'submitted_cooking_image') {
+      setCookingImage(e.target.files[0]);
+    }
+  }
+
+  /*const validateImage = imageId => {
     let reader = new FileReader();
     reader.onload = function(e) {
       let image = new Image();
@@ -186,6 +209,54 @@ const StaffSubmitRecipe = () => {
       }
     }
     reader.readAsDataURL(this.files[0]);
+  }*/
+
+  const validate = () => {
+    // TO DO: FINISH, also, messages
+    return (
+      (recipeType !== "") &&
+      (cuisine !== "") &&
+      (title !== "") &&
+      (description !== "") &&
+      (directions !== "")
+    );
+  }
+
+  const tryImageUpload = async (image) => {
+    let file = image;
+    let fileParts = image.name.split('.');
+    let fileName = fileParts[0];  // important: rename the file to nobsc-${title}- ... just do uuid here instead of in express?
+    let fileType = fileParts[1];  // png
+    try {
+      const res1 = await axios.post(`${endpoint}/sign-s3-images-1`, {fileName, fileType});
+      const { signedRequest, url } = res1.data.data;
+      setS3BucketUrl(url);
+      const res2 = await axios.put(signedRequest, file, {headers: {'Content-Type': fileType}});
+    } catch (err) {
+
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await tryImageUpload(recipeImage);
+    await tryImageUpload(equipmentImage);
+    await tryImageUpload(ingredientsImage);
+    await tryImageUpload(cookingImage);
+    try {
+      const res = await axios.post(`${endpoint}/staff/recipe/create`, {
+        recipeType,
+        cuisine,
+        title,
+        description,
+        directions,
+        equipmentRows,
+        ingredientRows,
+        subrecipeRows
+      });
+    } catch (err) {
+
+    }
   }
 
   return (
@@ -353,15 +424,15 @@ const StaffSubmitRecipe = () => {
             <div className="image_div">
               <label className="red_style">Image of Finished Recipe</label>
               <div id="preview">
-                <img src="" className="preview_frame" id="preview_image" />
+                <img src="" className="preview_frame" id="preview_recipe_image" />
               </div>
               <input
-                onChange={() => handleImageChange("submitted_image")}
-                type="file"
-                name="submitted_image"
                 className="submitted_image"
-                id="submitted_image"
+                id="submitted_recipe_image"
+                type="file"
+                name="submitted_recipe_image"
                 required
+                onChange={handleImageChange}
               />
             </div>
 
@@ -371,12 +442,12 @@ const StaffSubmitRecipe = () => {
                 <img src="" className="preview_frame" id="preview_equipment_image" />
               </div>
               <input
-                onChange={() => handleImageChange("submitted_equipment_image")}
-                type="file"
-                name="submitted_equipment_image"
                 className="submitted_image"
                 id="submitted_equipment_image"
+                type="file"
+                name="submitted_equipment_image"
                 required
+                onChange={handleImageChange}
               />
             </div>
 
@@ -386,12 +457,12 @@ const StaffSubmitRecipe = () => {
                 <img src="" className="preview_frame" id="preview_ingredients_image" />
               </div>
               <input
-                onChange={() => handleImageChange("submitted_ingredients_image")}
-                type="file"
-                name="submitted_ingredients_image"
                 className="submitted_image"
                 id="submitted_ingredients_image"
+                type="file"
+                name="submitted_ingredients_image"
                 required
+                onChange={handleImageChange}
               />
             </div>
 
@@ -401,12 +472,12 @@ const StaffSubmitRecipe = () => {
                 <img src="" className="preview_frame" id="preview_cooking_image" />
               </div>
               <input
-                onChange={() => handleImageChange("submitted_cooking_image")}
-                type="file"
-                name="submitted_cooking_image"
                 className="submitted_image"
                 id="submitted_cooking_image"
+                type="file"
+                name="submitted_cooking_image"
                 required
+                onChange={handleImageChange}
               />
             </div>
 
@@ -417,8 +488,16 @@ const StaffSubmitRecipe = () => {
 
           {/* submit */}
           <div>
-            <button id="submit_button">Submit Recipe</button>
-            {/* <input type="submit" name="submit" id="submit_button" value="Submit Recipe"> --> <!-- maybe change this */}
+            <LoaderButton
+              id="staff_submit_recipe_button"
+              type="button"
+              name="submit"
+              text="Submit Recipe"
+              loadingText="Submitting Recipe..."
+              isLoading={isLoading}
+              disabled={!validate()}
+              onClick={handleSubmit}
+            />
           </div>
 
         </div>
