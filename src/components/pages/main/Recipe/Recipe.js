@@ -26,7 +26,7 @@ class Recipe extends Component {
     }
   }
 
-  componentDidMount() {  // use useEffect() hook?
+  componentDidMount() {
     const { id } = this.props.match.params;
     this.getRecipe(id);
   }
@@ -38,21 +38,46 @@ class Recipe extends Component {
         <div id="page">
           {
             (recipe) &&
-            <div className="recipe">
-              <div className="recipe_name">
-                {recipe.recipe_name}
+            <div className="view-recipe">
+
+              <div className="view-recipe-title"><h1>{recipe.title}</h1></div>
+
+              <div className="view-recipe-recipe-image">
+                <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/recipe/${recipe.recipe_image}.png`} />
               </div>
-              <img
-                className="recipe_image"
-                src={`https://s3.amazonaws.com/nobsc-images-01/recipes/recipe/${recipe.recipe_image}.jpg`}
-              />
-              <div className="recipe_name">
-                Recipe ID: {recipe.recipe_id}
+
+              <div className="view-recipe-type">{recipe.recipe_type_name}</div>
+              <div className="view-recipe-cuisine">{recipe.cuisine}</div>
+              <div className="view-recipe-">{recipe.description}</div>
+
+              <div className="view-recipe-">
+                {recipe.required_equipment.map(equ => (
+                  <div>{equ.amount}{' '}{equ.equipment}</div>
+                ))}
               </div>
-              <div className="recipe_name">
-                Recipe Type: {recipe.recipe_type_name}
+              <div className="view-recipe-">
+                {recipe.required_ingredients.map(ing => (
+                  <div>{ing.amount}{ing.unit}{' '}{ing.ingredient}</div>
+                ))}
               </div>
-              <p>Nutrition: Coming soon.</p>
+              <div className="view-recipe-">
+                {recipe.required_subrecipes.map(rec => (
+                  <div>{rec.amount}{rec.unit}{' '}{rec.subrecipe}</div>
+                ))}
+              </div>
+              
+              <div className="view-recipe-">{recipe.directions}</div>
+
+              <div className="view-recipe-equipment-image">
+                <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/equipment/${recipe.equipment_image}.png`} />
+              </div>
+              <div className="view-recipe-ingredients-image">
+                <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/ingredients/${recipe.ingredients_image}.png`} />
+              </div>
+              <div className="view-recipe-cooking-image">
+                <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/cooking/${recipe.cooking_image}.png`} />
+              </div>
+
             </div>
           }
         </div>

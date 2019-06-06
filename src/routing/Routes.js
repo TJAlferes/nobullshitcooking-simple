@@ -70,14 +70,14 @@ import Grill from '../components/pages/Food/Methods/Grill/Grill';
 import StewAndBraise from '../components/pages/Food/Methods/StewAndBraise/StewAndBraise';
 
 import SiteNavIngredients from '../components/pages/Food/SiteNavIngredients/SiteNavIngredients';
-import FishAndShellfish from '../components/pages/Food/Ingredients/FishAndShellfish/FishAndShellfish';
-import MeatAndPoultry from '../components/pages/Food/Ingredients/MeatAndPoultry/MeatAndPoultry';
-import EggsAndDairy from '../components/pages/Food/Ingredients/EggsAndDairy/EggsAndDairy';
-import BeansAndVegetables from '../components/pages/Food/Ingredients/BeansAndVegetables/BeansAndVegetables';
-import Fruit from '../components/pages/Food/Ingredients/Fruit/Fruit';
-import SeedsAndGrains from '../components/pages/Food/Ingredients/SeedsAndGrains/SeedsAndGrains/';
-import FatsAndOils from '../components/pages/Food/Ingredients/FatsAndOils/FatsAndOils';
-import AcidsHerbsAndSpices from '../components/pages/Food/Ingredients/AcidsHerbsAndSpices/AcidsHerbsAndSpices';
+import FishAndShellfish from '../components/pages/Food/SiteNavIngredients/FishAndShellfish/FishAndShellfish';
+import MeatAndPoultry from '../components/pages/Food/SiteNavIngredients/MeatAndPoultry/MeatAndPoultry';
+import EggsAndDairy from '../components/pages/Food/SiteNavIngredients/EggsAndDairy/EggsAndDairy';
+import BeansAndVegetables from '../components/pages/Food/SiteNavIngredients/BeansAndVegetables/BeansAndVegetables';
+import Fruit from '../components/pages/Food/SiteNavIngredients/Fruit/Fruit';
+import SeedsAndGrains from '../components/pages/Food/SiteNavIngredients/SeedsAndGrains/SeedsAndGrains';
+import FatsAndOils from '../components/pages/Food/SiteNavIngredients/FatsAndOils/FatsAndOils';
+import AcidsHerbsAndSpices from '../components/pages/Food/SiteNavIngredients/AcidsHerbsAndSpices/AcidsHerbsAndSpices';
 
 import Cuisines from '../components/pages/Food/Cuisines/Cuisines';
 import Russian from '../components/pages/Food/Cuisines/Russian/Russian';
@@ -174,7 +174,8 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/user/planner" exact component={UserPlannerPage} />
 
       <AppliedRoute path="/food/recipes/submit" exact component={SubmitRecipe} />  {/* for demo purposes */}
-      <AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
+      <AppliedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
+      {/*<AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />*/}
       <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
       <AppliedRoute path="/food/recipes/edit" exact component={EditRecipe} />  {/* for demo purposes */}
       <AuthenticatedRoute path="/staff/recipes/edit" exact component={StaffEditRecipe} />

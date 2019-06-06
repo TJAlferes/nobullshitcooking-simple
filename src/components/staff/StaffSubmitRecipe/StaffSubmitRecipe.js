@@ -24,29 +24,29 @@ const StaffSubmitRecipe = () => {
   const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
   const [ dataIngredients, setDataIngredients ] = useState([]);
 
-  const [ s3BucketUrl, setS3BucketUrl ] = useState("");  // needed?
+  //const [ s3BucketUrl, setS3BucketUrl ] = useState("");  // needed?
 
   const [ isLoading, setIsLoading ] = useState(false);
 
-  const [ recipeType, setRecipeType ] = useState("");
-  const [ cuisine, setCuisine ] = useState("");
+  const [ recipeTypeId, setRecipeTypeId ] = useState("");
+  const [ cuisineId, setCuisineId ] = useState("");
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
   const [ directions, setDirections ] = useState("");
-  const [ equipmentRows, setEquipmentRows ] = useState([
-    {key: uuid(), amount: "", type: "", equipment: ""},
-    {key: uuid(), amount: "", type: "", equipment: ""},
-    {key: uuid(), amount: "", type: "", equipment: ""},
+  const [ requiredEquipment, setRequiredEquipment ] = useState([
+    {"key": uuid(), "amount": "", "type": "", "equipment": ""},
+    {"key": uuid(), "amount": "", "type": "", "equipment": ""},
+    {"key": uuid(), "amount": "", "type": "", "equipment": ""},
   ]);
-  const [ ingredientRows, setIngredientRows ] = useState([
-    {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
-    {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
-    {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
+  const [ requiredIngredients, setRequiredIngredients ] = useState([
+    {"key": uuid(), "amount": 1, "unit": "", "type": "", "ingredient": ""},
+    {"key": uuid(), "amount": 1, "unit": "", "type": "", "ingredient": ""},
+    {"key": uuid(), "amount": 1, "unit": "", "type": "", "ingredient": ""},
   ]);
-  const [ subrecipeRows, setSubrecipeRows ] = useState([
-    {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
-    {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
-    {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
+  const [ requiredSubrecipes, setRequiredSubrecipes ] = useState([
+    {"key": uuid(), "amount": 1, "unit": "", "type": "", "cuisine": "", "subrecipe": ""},
+    {"key": uuid(), "amount": 1, "unit": "", "type": "", "cuisine": "", "subrecipe": ""},
+    {"key": uuid(), "amount": 1, "unit": "", "type": "", "cuisine": "", "subrecipe": ""},
   ]);
   const [ recipeImage, setRecipeImage ] = useState("");
   const [ recipeImageName, setRecipeImageName ] = useState("Choose File");
@@ -59,31 +59,31 @@ const StaffSubmitRecipe = () => {
 
   useEffect(() => {
     const fetchDataCuisines = async () => {
-      const res = await axios.get(`${endpoint}/cuisine/`);
+      const res = await axios.get(`${endpoint}/cuisine`);
       setDataCuisines(res.data);
     };
     const fetchDataRecipeTypes = async () => {
-      const res = await axios.get(`${endpoint}/recipe-type/`);
+      const res = await axios.get(`${endpoint}/recipe-type`);
       setDataRecipeTypes(res.data);
     };
     const fetchDataRecipes = async () => {
-      const res = await axios.get(`${endpoint}/recipe/`);
+      const res = await axios.get(`${endpoint}/recipe`);
       setDataRecipes(res.data);
     };
     const fetchDataEquipment = async () => {
-      const res = await axios.get(`${endpoint}/equipment/`);
+      const res = await axios.get(`${endpoint}/equipment`);
       setDataEquipment(res.data);
     };
     const fetchDataMeasurements = async () => {
-      const res = await axios.get(`${endpoint}/measurement/`);
+      const res = await axios.get(`${endpoint}/measurement`);
       setDataMeasurements(res.data);
     };
     const fetchDataIngredientTypes = async () => {
-      const res = await axios.get(`${endpoint}/ingredient-type/`);
+      const res = await axios.get(`${endpoint}/ingredient-type`);
       setDataIngredientTypes(res.data);
     };
     const fetchDataIngredients = async () => {
-      const res = await axios.get(`${endpoint}/ingredient/`);
+      const res = await axios.get(`${endpoint}/ingredient`);
       setDataIngredients(res.data);
     };
     fetchDataRecipeTypes();
@@ -95,9 +95,9 @@ const StaffSubmitRecipe = () => {
     fetchDataIngredients();
   }, []);
 
-  const handleRecipeTypeChange = e => setRecipeType(e.target.value);
+  const handleRecipeTypeChange = e => setRecipeTypeId(e.target.value);
 
-  const handleCuisineChange = e => setCuisine(e.target.value);
+  const handleCuisineChange = e => setCuisineId(e.target.value);
 
   const handleTitleChange = e => setTitle(e.target.value);
 
@@ -115,7 +115,7 @@ const StaffSubmitRecipe = () => {
     } else if (e.target.name === 'equipment') {
       newEquipmentRows[elToUpdate].equipment = e.target.value;
     }
-    setEquipmentRows(newEquipmentRows);
+    setRequiredEquipment(newEquipmentRows);
   }
 
   const handleIngredientRowChange = (e, rowKey) => {
@@ -130,7 +130,7 @@ const StaffSubmitRecipe = () => {
     } else if (e.target.name === 'ingredient') {
       newIngredientRows[elToUpdate].ingredient = e.target.value;
     }
-    setIngredientRows(newIngredientRows);
+    setRequiredIngredients(newIngredientRows);
   }
 
   const handleSubrecipeRowChange = (e, rowKey) => {
@@ -147,37 +147,37 @@ const StaffSubmitRecipe = () => {
     } else if (e.target.name === 'subrecipe') {
       newSubrecipeRows[elToUpdate].subrecipe = e.target.value;
     }
-    setSubrecipeRows(newSubrecipeRows);
+    setRequiredSubrecipes(newSubrecipeRows);
   }
 
   const addEquipmentRow = () => {
     const newEquipmentRows = equipmentRows.concat({key: uuid(),});
-    setEquipmentRows(newEquipmentRows);
+    setRequiredEquipment(newEquipmentRows);
   };
 
   const removeEquipmentRow = rowKey => {
     const newEquipmentRows = equipmentRows.filter(row => row.key !== rowKey);
-    setEquipmentRows(newEquipmentRows);
+    setRequiredEquipment(newEquipmentRows);
   };
 
   const addIngredientRow = () => {
     const newIngredientRows = ingredientRows.concat({key: uuid(),});
-    setIngredientRows(newIngredientRows);
+    setRequiredIngredients(newIngredientRows);
   };
 
   const removeIngredientRow = rowKey => {
     const newIngredientRows = ingredientRows.filter(row => row.key !== rowKey);
-    setIngredientRows(newIngredientRows);
+    setRequiredIngredients(newIngredientRows);
   };
 
   const addSubrecipeRow = () => {
     const newSubrecipeRows = subrecipeRows.concat({key: uuid(),});
-    setSubrecipeRows(newSubrecipeRows);
+    setRequiredSubrecipes(newSubrecipeRows);
   };
 
   const removeSubrecipeRow = rowKey => {
     const newSubrecipeRows = subrecipeRows.filter(row => row.key !== rowKey);
-    setSubrecipeRows(newSubrecipeRows);
+    setRequiredSubrecipes(newSubrecipeRows);
   };
 
   const handleImageChange = e => {
@@ -214,15 +214,15 @@ const StaffSubmitRecipe = () => {
   const validate = () => {
     // TO DO: FINISH, also, messages
     return (
-      (recipeType !== "") &&
-      (cuisine !== "") &&
+      (recipeTypeId !== "") &&
+      (cuisineId !== "") &&
       (title !== "") &&
       (description !== "") &&
       (directions !== "")
     );
   }
 
-  const tryImageUpload = async (image) => {
+  /*const tryImageUpload = async (image) => {
     let file = image;
     let fileParts = image.name.split('.');
     let fileName = fileParts[0];  // important: rename the file to nobsc-${title}- ... just do uuid here instead of in express?
@@ -235,24 +235,28 @@ const StaffSubmitRecipe = () => {
     } catch (err) {
 
     }
-  }
+  }*/
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await tryImageUpload(recipeImage);
-    await tryImageUpload(equipmentImage);
-    await tryImageUpload(ingredientsImage);
-    await tryImageUpload(cookingImage);
+    //const ri = await tryImageUpload(recipeImage); //
+    //await tryImageUpload(equipmentImage); //
+    //await tryImageUpload(ingredientsImage); //
+    //await tryImageUpload(cookingImage); //
     try {
       const res = await axios.post(`${endpoint}/staff/recipe/create`, {
-        recipeType,
-        cuisine,
+        recipeTypeId,
+        cuisineId,
         title,
         description,
         directions,
-        equipmentRows,
-        ingredientRows,
-        subrecipeRows
+        requiredEquipment,
+        requiredIngredients,
+        requiredSubrecipes,
+        //recipeImage,
+        //equipmentImage,
+        //ingredientsImage,
+        //cookingImage
       });
     } catch (err) {
 
@@ -274,7 +278,7 @@ const StaffSubmitRecipe = () => {
               id="recipe_type_id"
               required
               onChange={handleRecipeTypeChange}
-              value={recipeType}
+              value={recipeTypeId}
             >
               <option value=""></option>
               {dataRecipeTypes.map(recipeType => (
@@ -296,7 +300,7 @@ const StaffSubmitRecipe = () => {
               id="cuisine_id"
               required
               onChange={handleCuisineChange}
-              value={cuisine}
+              value={cuisineId}
             >
               <option value=""></option>
               {dataCuisines.map(cuisine => (
@@ -338,7 +342,7 @@ const StaffSubmitRecipe = () => {
           <div className="recipe_additions" id="equipment_div">
             <label className="red_style">Equipment</label>
             <div id="equipment_rows_container">
-              {equipmentRows.map(equipmentRow => (
+              {requiredEquipment.map(equipmentRow => (
                 <EquipmentRow
                   key={equipmentRow.key}
                   rowKey={equipmentRow.key}
@@ -347,7 +351,8 @@ const StaffSubmitRecipe = () => {
                   equipment={equipmentRow.equipment}
                   dataEquipment={dataEquipment}
                   handleEquipmentRowChange={handleEquipmentRowChange}
-                  removeEquipmentRow={removeEquipmentRow} />
+                  removeEquipmentRow={removeEquipmentRow}
+                />
               ))}
             </div>
             <button id="add_equipment_button" onClick={addEquipmentRow}>
@@ -359,7 +364,7 @@ const StaffSubmitRecipe = () => {
           <div className="recipe_additions" id="ingredients_div">
             <label className="red_style">Ingredients</label>
             <div id="ingredient_rows_container">
-              {ingredientRows.map(ingredientRow => (
+              {requiredIngredients.map(ingredientRow => (
                 <IngredientRow
                   key={ingredientRow.key}
                   rowKey={ingredientRow.key}
@@ -384,7 +389,7 @@ const StaffSubmitRecipe = () => {
           <div className="recipe_additions" id="subrecipes_div">
             <label className="red_style">Subrecipes</label>
             <div id="subrecipe_rows_container">
-              {subrecipeRows.map(subrecipeRow => (
+              {requiredSubrecipes.map(subrecipeRow => (
                 <SubrecipeRow
                   key={subrecipeRow.key}
                   rowKey={subrecipeRow.key}
