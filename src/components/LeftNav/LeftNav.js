@@ -50,9 +50,6 @@ const LeftNav = props => {
       <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/supply/outdoors"><span>Outdoors</span></NavLink>
       <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/supply/garden"><span>Garden</span></NavLink>
       <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/supply/tools"><span>Tools</span></NavLink>
-      <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/supply/weapons"><span>Weapons</span></NavLink>
-      <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/supply/finances"><span>Finances</span></NavLink>
-      <NavLink className="styled_nav_link" activeStyle={{backgroundColor: "#ddd"}} to="/supply/security"><span>Security</span></NavLink>
 
       <hr />
 

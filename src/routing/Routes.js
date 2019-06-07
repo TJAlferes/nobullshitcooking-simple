@@ -124,11 +124,7 @@ import StoreFront from '../components/shop/StoreFront/StoreFront';
 //import Outdoors from '../components/pages/promo/Outdoors/Outdoors';
 //import Garden from '../components/pages/promo/Garden/Garden';
 //import Tools from '../components/pages/promo/Tools/Tools';
-//import Weapons from '../components/pages/promo/Weapons/Weapons';
 //import FoodInSeason from '../components/pages/promo/FoodInSeason/FoodInSeason';
-
-//import Finances from '../components/pages/info/Finances/Finances';  // fed from blog
-//import Security from '../components/pages/info/Security/Security';  // fed from blog
 
 //import Contests from '../components/pages/site/Contests/Contests';
 //import Charity from '../components/pages/site/Charity/Charity';
@@ -276,9 +272,6 @@ const RoutesList = () => (
       <AppliedRoute path="/promo/outdoors" exact component={Outdoors} />
       <AppliedRoute path="/promo/garden" exact component={Garden} />
       <AppliedRoute path="/promo/tools" exact component={Tools} />
-      <AppliedRoute path="/promo/weapons" exact component={Weapons} />
-      <AppliedRoute path="/info/finances" exact component={Finances} />
-      <AppliedRoute path="/info/security" exact component={Security} />
 
       <AppliedRoute path="/site/contests" exact component={Contests} />
       <AppliedRoute path="/site/seasonal" exact component={FoodInSeason} />

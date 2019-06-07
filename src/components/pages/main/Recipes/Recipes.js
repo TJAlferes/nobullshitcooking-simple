@@ -69,7 +69,7 @@ const Recipes = props => {
   const getRecipes = async (startingAt = 0) => {
     try {
       const url = `${endpoint}/recipe`;
-      const res = await axios.post(url, {
+      const res = await axios.post(`${endpoint}/recipe`, {
         types: getCheckedRecipeTypesFilters(),
         cuisines: getCheckedCuisinesFilters(),
         start: startingAt
@@ -103,8 +103,10 @@ const Recipes = props => {
     try {
       const id = e.target.id;
       await setCheckedRecipeTypesFilters(prevState => ({
-        ...prevState, checkedRecipeTypesFilters: {
-          ...prevState.checkedRecipeTypesFilters, [id]: !prevState.checkedRecipeTypesFilters[[id]]
+        ...prevState,
+        checkedRecipeTypesFilters: {
+          ...prevState.checkedRecipeTypesFilters,
+          [id]: !prevState.checkedRecipeTypesFilters[[id]]
         }
       }));
       getRecipes();
@@ -117,8 +119,10 @@ const Recipes = props => {
     try {
       const id = e.target.id;
       await setCheckedCuisinesFilters(prevState => ({
-        ...prevState, checkedCuisinesFilters: {
-          ...prevState.checkedCuisinesFilters, [id]: !prevState.checkedCuisinesFilters[[id]]
+        ...prevState,
+        checkedCuisinesFilters: {
+          ...prevState.checkedCuisinesFilters,
+          [id]: !prevState.checkedCuisinesFilters[[id]]
         }
       }));
       getRecipes();
@@ -126,8 +130,6 @@ const Recipes = props => {
       console.error(err);
     }
   }
-
-  // TO DO: move paginationNumbers and paginate to utils
 
   const paginationNumbers = () => {
     const display = 25;
@@ -245,9 +247,7 @@ const Recipes = props => {
                   className="recipe_link"
                   to={`/food/recipe/${recipe.recipe_id}`}
                 >
-                  <div className="recipe_name">
-                    {recipe.recipe_name}
-                  </div>
+                  <div className="recipe_name">{recipe.recipe_name}</div>
                   {/* TO DO: change to thumbnail image */}
                   <img
                     className="recipe_thumbnail"
