@@ -4,20 +4,22 @@ import axios from 'axios';
 
 import './ingredients.css';
 
-// For dev only. Real data is in our MySQL DB, gotten with an HTTP request to our Node.js API.
-//import devData from './dev-ingredients-data';
-// Location of our backend API
-// set up if (dev) here
-// get this AWS EB back up online
-//const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
-const endpoint = 'http://localhost:3003';
+let endpoint;
+if (process.env.NODE_ENV === "production") {
+  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
+} else {
+  endpoint = 'http://localhost:3003';
+}
 
 const Ingredients = props => {
   const [ ingredients, setIngredients ] = useState([]);
   const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
   const [ pages, setPages ] = useState(1);
   const [ starting, setStarting ] = useState(0);
-  const [ checkedIngredientTypesFilters, setCheckedIngredientTypesFilters ] = useState({
+  const [
+    checkedIngredientTypesFilters,
+    setCheckedIngredientTypesFilters
+  ] = useState({
     1: false,
     2: false,
     3: false,
@@ -44,8 +46,11 @@ const Ingredients = props => {
       setDataIngredientTypes(res.data);
     };
     fetchDataIngredientTypes();
-    getIngredients();
-    //if (props.ingredientTypesPreFilter) setCheckedIngredientTypesFilters()
+    if (props.ingredientTypesPreFilter) {
+      //setCheckedIngredientTypesFilters();
+    } else {
+      getIngredients();
+    }
   }, []);
 
   useEffect(() => {
@@ -54,11 +59,11 @@ const Ingredients = props => {
 
   const getIngredients = async (startingAt = 0) => {
     try {
-      const response = await axios.post(`${endpoint}/ingredient`, {
+      const res = await axios.post(`${endpoint}/ingredient`, {
         types: getCheckedIngredientTypesFilters(),
         start: startingAt
       });
-      const { rows, pages, starting } = response.data;
+      const { rows, pages, starting } = res.data;
       setIngredients(rows);
       setPages(pages);
       setStarting(starting);
@@ -76,31 +81,17 @@ const Ingredients = props => {
   }
 
   const handleIngredientTypesFilterChange = async (e) => {
-    try {
-      const id = e.target.id;
-      /*await setCheckedIngredientTypesFilters(prevState => ({
-        ...prevState,
-        checkedIngredientTypesFilters: {
-          ...prevState.checkedIngredientTypesFilters,
-          [id]: !prevState.checkedIngredientTypesFilters[[id]]
-        }
-      }));*/
-      await setCheckedIngredientTypesFilters(prevState => ({
-        ...prevState,
-        [id]: !prevState[[id]]
-      }));
-      //getIngredients();
-    } catch (err) {
-      console.error(err);
-    }
+    const id = e.target.id;
+    await setCheckedIngredientTypesFilters(prevState => ({
+      ...prevState,
+      [id]: !prevState[[id]]
+    }));
   }
 
   const paginationNumbers = () => {
     const display = 25;
     const currentPage = Math.floor((starting / display) + 1);
-
     let numbers = [];
-    
     for (let i = 1; i <= pages; i++) {
       let startingAt = (display * (i - 1));
       if (i != currentPage) {
@@ -117,7 +108,6 @@ const Ingredients = props => {
         numbers.push(<span className="current_page_number" key={i}>{i}</span>);
       }
     }
-
     return numbers;
   }
 
@@ -126,7 +116,6 @@ const Ingredients = props => {
     const currentPage = Math.floor((starting / display) + 1);
     const startingAtPrev = (starting == 0) ? starting : (starting - display);
     const startingAtNext = (starting + display);
-
     const paginationLinks = (
       <div className="page_links">
         <span className="page_numbers">
@@ -152,12 +141,12 @@ const Ingredients = props => {
         </span>
       </div>
     );
-
     return paginationLinks;
   }
 
   return (
     <div>
+
       <div id="page">
 
         <div id="page_col_left">
@@ -221,6 +210,7 @@ const Ingredients = props => {
         </div>
 
       </div>
+
     </div>
   );
 }

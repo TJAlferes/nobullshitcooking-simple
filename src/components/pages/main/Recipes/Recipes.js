@@ -57,18 +57,26 @@ const Recipes = props => {
     };
     fetchDataRecipeTypes();
     fetchDataCuisines();
-    //getRecipes();
-    //if (props.recipeTypesPreFilter) setCheckedRecipeTypesFilters()
-    //if (props.cuisinesPreFilter) setCheckedCuisinesFilters
+    getRecipes();
+    // fix
+    /*if (props.recipeTypesPreFilter) {
+      //setCheckedRecipeTypesFilters()
+      if (props.cuisinesPreFilter) {
+        //setCheckedCuisinesFilters
+      } else {
+        getRecipes();
+      }
+    } else {
+      getRecipes();
+    }*/
   }, []);
 
   useEffect(() => {
     getRecipes();
-  });
+  }, [checkedRecipeTypesFilters, checkedCuisinesFilters]);
 
   const getRecipes = async (startingAt = 0) => {
     try {
-      const url = `${endpoint}/recipe`;
       const res = await axios.post(`${endpoint}/recipe`, {
         types: getCheckedRecipeTypesFilters(),
         cuisines: getCheckedCuisinesFilters(),
@@ -100,43 +108,25 @@ const Recipes = props => {
   }
 
   const handleRecipeTypesFilterChange = async (e) => {
-    try {
-      const id = e.target.id;
-      await setCheckedRecipeTypesFilters(prevState => ({
-        ...prevState,
-        checkedRecipeTypesFilters: {
-          ...prevState.checkedRecipeTypesFilters,
-          [id]: !prevState.checkedRecipeTypesFilters[[id]]
-        }
-      }));
-      getRecipes();
-    } catch (err) {
-      console.error(err);
-    }
+    const id = e.target.id;
+    await setCheckedRecipeTypesFilters(prevState => ({
+      ...prevState,
+      [id]: !prevState[[id]]
+    }));
   }
 
   const handleCuisinesFilterChange = async (e) => {
-    try {
-      const id = e.target.id;
-      await setCheckedCuisinesFilters(prevState => ({
-        ...prevState,
-        checkedCuisinesFilters: {
-          ...prevState.checkedCuisinesFilters,
-          [id]: !prevState.checkedCuisinesFilters[[id]]
-        }
-      }));
-      getRecipes();
-    } catch (err) {
-      console.error(err);
-    }
+    const id = e.target.id;
+    await setCheckedCuisinesFilters(prevState => ({
+      ...prevState,
+      [id]: !prevState[[id]]
+    }));
   }
 
   const paginationNumbers = () => {
     const display = 25;
     const currentPage = Math.floor((starting / display) + 1);
-
     let numbers = [];
-    
     for (let i = 1; i <= pages; i++) {
       let startingAt = (display * (i - 1));
       if (i != currentPage) {
@@ -153,7 +143,6 @@ const Recipes = props => {
         numbers.push(<span className="current_page_number" key={i}>{i}</span>);
       }
     }
-
     return numbers;
   }
 
@@ -162,7 +151,6 @@ const Recipes = props => {
     const currentPage = Math.floor((starting / display) + 1);
     const startingAtPrev = (starting == 0) ? starting : (starting - display);
     const startingAtNext = (starting + display);
-
     const paginationLinks = (
       <div className="page_links">
         <span className="page_numbers">
@@ -188,12 +176,12 @@ const Recipes = props => {
         </span>
       </div>
     );
-
     return paginationLinks;
   }
 
   return(
     <div>
+
       <div id="page">
 
         <div id="page_col_left">
@@ -224,7 +212,6 @@ const Recipes = props => {
               name="cid"
               onChange={e => handleCuisinesFilterChange(e)}
             >
-              <span id="filter_title"><b>Filter by:</b></span>
               <div>
                 <p className="filter_type"><b>Cuisine</b></p>
                 {dataCuisines.map(cuisine => (
@@ -266,6 +253,7 @@ const Recipes = props => {
         </div>
 
       </div>
+
     </div>
   );
 }
