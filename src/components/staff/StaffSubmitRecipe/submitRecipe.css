@@ -176,8 +176,8 @@ Images Area
 #preview_i,
 #preview_c {
   display: block;
-  width: 482px;
-  height: 322px;
+  width: 302px;
+  height: 188px;
   border: 1px solid #aaa;
   overflow: hidden;
 }

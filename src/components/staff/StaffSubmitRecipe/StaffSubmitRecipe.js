@@ -264,7 +264,7 @@ const StaffSubmitRecipe = () => {
   }
 
   return (
-    <div className="submit_recipe">
+    <div className="submit-recipe">
       <div id="page">
         <div id="form">
 

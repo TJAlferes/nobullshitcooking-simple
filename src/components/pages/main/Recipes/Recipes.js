@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -11,118 +11,117 @@ if (process.env.NODE_ENV === "production") {
   endpoint = 'http://localhost:3003';
 }
 
-class Recipes extends Component {
-  state = {  // remember to not initialize state from props
-    recipes: [],
-    recipeTypes: [],
-    cuisines: [],
-    pages: 1,
-    starting: 0,
-    checkedRecipeTypesFilters: {
-      1: false,
-      2: false,
-      3: false,
-      4: false,
-      5: false,
-      6: false,
-      7: false,
-      8: false,
-      9: false,
-      10: false,
-      11: false,
-      12: false
-    },
-    checkedCuisinesFilters: {
-      1: false,
-      2: false,
-      3: false,
-      4: false,
-      5: false,
-      6: false,
-      7: false,
-      8: false,
-      9: false,
-      10: false,
-      11: false,
-      12: false
-    }
-  };
+const Recipes = props => {
+  const [ recipes, setRecipes ] = useState([]);
+  const [ dataRecipeTypes, setDataRecipeTypes ] = useState([]);
+  const [ dataCuisines, setDataCuisines ] = useState([]);
+  const [ pages, setPages ] = useState(1);
+  const [ starting, setStarting ] = useState(0);
+  const [ checkedRecipeTypesFilters, setCheckedRecipeTypesFilters ] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false
+  });
+  const [ checkedCuisinesFilters, setCheckedCuisinesFilters ] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false
+  });
 
-  getAllRecipeTypes = async () => {
-    try {
-      const url = `${endpoint}/recipe-type`;
-      const res = await axios.get(url);
-      const recipeTypes = res.data;
-      this.setState({recipeTypes});
-    } catch (err) {
-      console.log(err);  // change me
-    }
-  }
+  useEffect(() => {
+    const fetchDataRecipeTypes = async () => {
+      const res = await axios.get(`${endpoint}/recipe-type`);
+      setDataRecipeTypes(res.data);
+    };
+    const fetchDataCuisines = async () => {
+      const res = await axios.get(`${endpoint}/cuisine`);
+      setDataCuisines(res.data);
+    };
+    fetchDataRecipeTypes();
+    fetchDataCuisines();
+    //getRecipes();
+    //if (props.recipeTypesPreFilter) setCheckedRecipeTypesFilters()
+    //if (props.cuisinesPreFilter) setCheckedCuisinesFilters
+  }, []);
 
-  getAllCuisines = async () => {
-    try {
-      const url = `${endpoint}/cuisine`;
-      const res = await axios.get(url);
-      const cuisines = res.data;
-      this.setState({cuisines});
-    } catch (err) {
-      console.log(err);  // change me
-    }
-  }
+  useEffect(() => {
+    getRecipes();
+  });
 
-  getRecipes = async (startingAt = 0) => {
+  const getRecipes = async (startingAt = 0) => {
     try {
       const url = `${endpoint}/recipe`;
-      const res = await axios.post(
-        url,
-        {types: this.getCheckedRecipeTypes(), cuisines: this.getCheckedCuisines(), start: startingAt}
-      );
+      const res = await axios.post(url, {
+        types: getCheckedRecipeTypesFilters(),
+        cuisines: getCheckedCuisinesFilters(),
+        start: startingAt
+      });
       const { rows, pages, starting } = res.data;
-      this.setState({recipes: rows, pages, starting});
+      setRecipes(rows);
+      setPages(pages);
+      setStarting(starting);
     } catch (err) {
       console.error(err);  // change me
     }
   }
 
-  getCheckedRecipesTypes = () => {
+  const getCheckedRecipeTypesFilters = () => {
     let checkedRecipesTypes = [];
-    Object.entries(this.state.checkedRecipeTypesFilters).forEach(([key, value]) => {
+    Object.entries(checkedRecipeTypesFilters).forEach(([key, value]) => {
       if (value === true) checkedRecipesTypes.push(Number(key));
     });
     return checkedRecipesTypes;
   }
 
-  getCheckedCuisines = () => {
+  const getCheckedCuisinesFilters = () => {
     let checkedCuisines = [];
-    Object.entries(this.state.checkedCuisinesFilters).forEach(([key, value]) => {
+    Object.entries(checkedCuisinesFilters).forEach(([key, value]) => {
       if (value === true) checkedCuisines.push(Number(key));
     });
     return checkedCuisines;
   }
 
-  handleRecipeTypesFilterChange = async (e) => {
+  const handleRecipeTypesFilterChange = async (e) => {
     try {
       const id = e.target.id;
-      await this.setState(prevState => ({
+      await setCheckedRecipeTypesFilters(prevState => ({
         ...prevState, checkedRecipeTypesFilters: {
           ...prevState.checkedRecipeTypesFilters, [id]: !prevState.checkedRecipeTypesFilters[[id]]
         }
       }));
-      this.getRecipes();
+      getRecipes();
     } catch (err) {
       console.error(err);
     }
   }
 
-  handleCuisinesFilterChange = async (e) => {
+  const handleCuisinesFilterChange = async (e) => {
     try {
       const id = e.target.id;
-      await this.setState(prevState => ({
+      await setCheckedCuisinesFilters(prevState => ({
         ...prevState, checkedCuisinesFilters: {
           ...prevState.checkedCuisinesFilters, [id]: !prevState.checkedCuisinesFilters[[id]]
         }
       }));
-      this.getRecipes();
+      getRecipes();
     } catch (err) {
       console.error(err);
     }
@@ -130,8 +129,7 @@ class Recipes extends Component {
 
   // TO DO: move paginationNumbers and paginate to utils
 
-  paginationNumbers = () => {
-    const { pages, starting } = this.state;
+  const paginationNumbers = () => {
     const display = 25;
     const currentPage = Math.floor((starting / display) + 1);
 
@@ -143,7 +141,7 @@ class Recipes extends Component {
         numbers.push(
           <span
             className="page_number"
-            onClick={() => this.getRecipes(startingAt)}
+            onClick={() => getRecipes(startingAt)}
             key={i}
           >
             {i}
@@ -157,8 +155,7 @@ class Recipes extends Component {
     return numbers;
   }
 
-  paginate = () => {
-    const { pages, starting } = this.state;
+  const paginate = () => {
     const display = 25;
     const currentPage = Math.floor((starting / display) + 1);
     const startingAtPrev = (starting == 0) ? starting : (starting - display);
@@ -171,17 +168,17 @@ class Recipes extends Component {
             (currentPage != 1) &&
             <span
               className="page_nav"
-              onClick={() => this.getRecipes(startingAtPrev)}
+              onClick={() => getRecipes(startingAtPrev)}
             >
               Prev
             </span>
           }
-          {this.paginationNumbers()}
+          {paginationNumbers()}
           {
             (currentPage != pages) &&
             <span
               className="page_nav"
-              onClick={() => this.getRecipes(startingAtNext)}
+              onClick={() => getRecipes(startingAtNext)}
             >
               Next
             </span>
@@ -193,94 +190,84 @@ class Recipes extends Component {
     return paginationLinks;
   }
 
-  // use SSR here...
-  componentDidMount() {  // use useEffect() hook (?)
-    this.getAllRecipeTypes();
-    this.getAllCuisines();
-    this.getRecipes();
-  }
+  return(
+    <div>
+      <div id="page">
 
-  render() {
-    const { recipes, recipeTypes, cuisines, pages } = this.state;
-    return(
-      <div>
-        <div id="page">
+        <div id="page_col_left">
 
-          <div id="page_col_left">
+          <div id="list_header"><h1>Recipes</h1></div>
 
-            <div id="list_header"><h1>Recipes</h1></div>
+          <div id="filters">
 
-            <div id="filters">
+            <form
+              id="rtid"
+              name="rtid"
+              onChange={e => handleRecipeTypesFilterChange(e)}
+            >
+              <span id="filter_title"><b>Filter by:</b></span>
+              <div>
+                <p className="filter_type"><b>Recipe type</b></p>
+                {dataRecipeTypes.map(recipeType => (
+                  <span className="filter_span" key={recipeType.recipe_type_id}>
+                    <input type="checkbox" id={recipeType.recipe_type_id} />
+                    <label className="filter_label">{recipeType.recipe_type_name}</label>
+                  </span>
+                ))}
+              </div>
+            </form>
 
-              <form
-                id="rtid"
-                name="rtid"
-                onChange={e => this.handleFilterChange(e)}
-              >
-                <span id="filter_title"><b>Filter by:</b></span>
-                <div>
-                  <p className="filter_type"><b>Recipe type</b></p>
-                  {recipeTypes.map(recipeType => (
-                    <span className="filter_span" key={recipeType.recipe_type_id}>
-                      <input type="checkbox" id={recipeType.recipe_type_id} />
-                      <label className="filter_label">{recipeType.recipe_type_name}</label>
-                    </span>
-                  ))}
-                </div>
-              </form>
-
-              <form
-                id="cid"
-                name="cid"
-                onChange={e => this.handleFilterChange(e)}
-              >
-                <span id="filter_title"><b>Filter by:</b></span>
-                <div>
-                  <p className="filter_type"><b>Cuisine</b></p>
-                  {cuisines.map(cuisine => (
-                    <span className="filter_span" key={cuisine.cuisine_id}>
-                      <input type="checkbox" id={cuisine.cuisine_id}/>
-                      <label className="filter_label">{cuisine.cuisine_name}</label>
-                    </span>
-                  ))}
-                </div>
-              </form>
-
-            </div>
-
-            {(pages > 1) && this.paginate()}
-
-            <div>
-              {recipes.map(recipe => (
-                <div className="recipe" key={recipe.recipe_id}>
-                  <Link
-                    className="recipe_link"
-                    to={`/food/recipe/${recipe.recipe_id}`}
-                  >
-                    {/* TO DO: change to thumbnail image */}
-                    <div className="recipe_name">
-                      {recipe.recipe_name}
-                    </div>
-                    <img
-                      className="recipe_thumbnail"
-                      src={`https://s3.amazonaws.com/nobsc-images-01/recipes/recipe/${recipe.recipe_image}.jpg`}
-                    />
-                  </Link>
-                </div>
-              ))}
-            </div>
-
-            {(pages > 1) && this.paginate()}
+            <form
+              id="cid"
+              name="cid"
+              onChange={e => handleCuisinesFilterChange(e)}
+            >
+              <span id="filter_title"><b>Filter by:</b></span>
+              <div>
+                <p className="filter_type"><b>Cuisine</b></p>
+                {dataCuisines.map(cuisine => (
+                  <span className="filter_span" key={cuisine.cuisine_id}>
+                    <input type="checkbox" id={cuisine.cuisine_id}/>
+                    <label className="filter_label">{cuisine.cuisine_name}</label>
+                  </span>
+                ))}
+              </div>
+            </form>
 
           </div>
 
-          <div id="page_col_right">
+          {(pages > 1) && paginate()}
+
+          <div>
+            {recipes.map(recipe => (
+              <div className="recipe" key={recipe.recipe_id}>
+                <Link
+                  className="recipe_link"
+                  to={`/food/recipe/${recipe.recipe_id}`}
+                >
+                  <div className="recipe_name">
+                    {recipe.recipe_name}
+                  </div>
+                  {/* TO DO: change to thumbnail image */}
+                  <img
+                    className="recipe_thumbnail"
+                    src={`https://s3.amazonaws.com/nobsc-images-01/recipes/recipe/${recipe.recipe_image}.jpg`}
+                  />
+                </Link>
+              </div>
+            ))}
           </div>
+
+          {(pages > 1) && paginate()}
 
         </div>
+
+        <div id="page_col_right">
+        </div>
+
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Recipes;
