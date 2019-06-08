@@ -49,7 +49,7 @@ const routes = [
   
 ];
 */
-const Breadcrumbs = ({ breadcrumbs }) => (
+export const Breadcrumbs = withBreadcrumbs()(({ breadcrumbs }) => (
   <div className="crumbs">
     {
       breadcrumbs.map((breadcrumb, index) => (
@@ -60,6 +60,23 @@ const Breadcrumbs = ({ breadcrumbs }) => (
       ))
     }
   </div>
-);
+));
 
-export default withBreadcrumbs()(Breadcrumbs);
+// exclude these paths, and use this in Recipe rather than in MainWhite
+export const RecipeBreadcrumbs = withBreadcrumbs()(({ breadcrumbs, recipe }) => {
+  breadcrumbs.pop();
+  return (
+    <div className="crumbs">
+      {console.log(breadcrumbs)}
+      {
+        breadcrumbs.map((breadcrumb, index) => (
+          <span className="crumb" key={breadcrumb.key}>
+            <Link className="crumb_link" to={breadcrumb.props.match.url}>{breadcrumb}</Link>
+            {(index < breadcrumbs.length - 1) && <i className="crumb_pointer"> > </i>}
+          </span>
+        ))
+      }
+      <Link className="crumb_link" to={`/food/recipe/${recipe && recipe.recipe_id}`}>{recipe && recipe.title}</Link>
+    </div>
+  );
+});

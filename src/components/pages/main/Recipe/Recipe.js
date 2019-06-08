@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { RecipeBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './recipe.css';
 
 let endpoint;
@@ -32,6 +33,7 @@ const Recipe = props => {
 
   return (
     <div>
+      <div>{(Object.keys(recipe).length > 1) && <RecipeBreadcrumbs recipe={recipe} />}</div>
       <div id="page">
         {
           <div className="view-recipe">
