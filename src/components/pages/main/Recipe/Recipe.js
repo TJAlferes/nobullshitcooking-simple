@@ -33,51 +33,47 @@ const Recipe = props => {
 
   return (
     <div>
-      <div>{(Object.keys(recipe).length > 1) && <RecipeBreadcrumbs recipe={recipe} />}</div>
-      <div id="page">
+      <div>
         {
-          <div className="view-recipe">
-
-            <div className="view-recipe-title"><h1>{recipe.title}</h1></div>
-
-            <div className="view-recipe-recipe-image">
-              <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/recipe/${recipe.recipe_image}.png`} />
-            </div>
-
-            <div className="view-recipe-type">{recipe.recipe_type_name}</div>
-            <div className="view-recipe-cuisine">{recipe.cuisine_name}</div>
-            <div className="view-recipe-">{recipe.description}</div>
-
-            <div className="view-recipe-">
-              {recipe.required_equipment && recipe.required_equipment.map(equ => (
-                <div>{equ.amount}{' '}{equ.equipment}</div>
-              ))}
-            </div>
-            <div className="view-recipe-">
-              {recipe.required_ingredients && recipe.required_ingredients.map(ing => (
-                <div>{ing.amount}{ing.unit}{' '}{ing.ingredient}</div>
-              ))}
-            </div>
-            <div className="view-recipe-">
-              {recipe.required_subrecipes && recipe.required_subrecipes.map(rec => (
-                <div>{rec.amount}{rec.unit}{' '}{rec.subrecipe}</div>
-              ))}
-            </div>
-            
-            <div className="view-recipe-">{recipe.directions}</div>
-
-            <div className="view-recipe-equipment-image">
-              <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/equipment/${recipe.equipment_image}.png`} />
-            </div>
-            <div className="view-recipe-ingredients-image">
-              <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/ingredients/${recipe.ingredients_image}.png`} />
-            </div>
-            <div className="view-recipe-cooking-image">
-              <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/cooking/${recipe.cooking_image}.png`} />
-            </div>
-
-          </div>
+          (Object.keys(recipe).length > 1) &&
+          <RecipeBreadcrumbs recipe={recipe} />
         }
+      </div>
+      <div id="page">
+        <div className="view-recipe">
+          <div className="title"><h1>{recipe.title}</h1></div>
+          <div className="recipe-image">
+            <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/recipe/${recipe.recipe_image}.png`} />
+          </div>
+          <div className="recipe-type-name">{recipe.recipe_type_name}</div>
+          <div className="cuisine-name">{recipe.cuisine_name}</div>
+          <div className="description">{recipe.description}</div>
+          <div className="required-equipment">
+            {recipe.required_equipment && recipe.required_equipment.map(equ => (
+              <div key={equ.key}>{equ.amount}{' '}{equ.equipment}</div>
+            ))}
+          </div>
+          <div className="required-ingredients">
+            {recipe.required_ingredients && recipe.required_ingredients.map(ing => (
+              <div key={ing.key}>{ing.amount}{ing.unit}{' '}{ing.ingredient}</div>
+            ))}
+          </div>
+          <div className="required-subrecipes">
+            {recipe.required_subrecipes && recipe.required_subrecipes.map(rec => (
+              <div key={rec.key}>{rec.amount}{rec.unit}{' '}{rec.subrecipe}</div>
+            ))}
+          </div>
+          <div className="directions">{recipe.directions}</div>
+          <div className="equipment-image">
+            <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/equipment/${recipe.equipment_image}.png`} />
+          </div>
+          <div className="ingredients-image">
+            <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/ingredients/${recipe.ingredients_image}.png`} />
+          </div>
+          <div className="cooking-image">
+            <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/cooking/${recipe.cooking_image}.png`} />
+          </div>
+        </div>
       </div>
     </div>
   );

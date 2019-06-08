@@ -26,6 +26,7 @@ class SiteNav extends Component {
 
   render() {
     const { expanded, expandedDropdown } = this.state;
+    let { theme } = this.props;
     return (
       <div className="site_nav">
         <li onMouseEnter={() => this.handleMouseEnter('Food')} onMouseLeave={this.handleMouseLeave}>

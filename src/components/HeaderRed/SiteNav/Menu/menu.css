@@ -1,3 +1,11 @@
+.drop-down-menu-light {
+  background-color: #fff;
+}
+
+.drop-down-menu-dark {
+  background-color: #222;
+}
+
 .menu-container {
   position: absolute;
 	top: 18px;
@@ -7,7 +15,6 @@
   flex-wrap: nowrap;
 	height: 306px;
 	/*width: 550px;*/
-	background-color: #fff;
 	padding: 0;
 	border-style: solid;
 	border-radius: 3px;

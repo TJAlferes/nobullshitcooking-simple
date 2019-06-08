@@ -1,84 +1,58 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { IngredientBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './ingredient.css';
 
-// Location of our backend API
-// set up if (dev) here
-//const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/ingredients';
-const endpoint = 'http://localhost:3003';
+let endpoint;
+if (process.env.NODE_ENV === "production") {
+  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
+} else {
+  endpoint = 'http://localhost:3003';
+}
 
-/*
-  Ingredients Component
-
-  Purpose
-
-    The Ingredient page/component displays detailed information about an individual ingredient.
-
-  State (Local)
-
-    The local state holds 1 first-level property:
-
-      ingredient -- ? -- Holds data for ingredient to be currently rendered
-  
-  Methods (1)
-
-    async getIngredient(id) -- Fetches data from backend API
-  
-  Explicit Lifecycle Methods (1)
-
-    componentDidMount()
-
-*/
-class Ingredient extends Component {
-  state = {ingredient: null};  // remember to not initialize state from props, use useState() hook
+const Ingredient = props => {
+  const [ ingredient, setIngredient ] = useState({});
 
   // TODO: Redirect them to Ingredients if they only navigate to /ingredient (if there is no /:id)
 
-  getIngredient = async (id) => {  // move id into Ingredient.js?
+  const getIngredient = async (id) => {
     try {
-      const url = `${endpoint}/ingredient/${id}`;
-      const response = await axios.get(url);
-      const [ row ] = response.data;
-      this.setState({ingredient: row});
+      const res = await axios.get(`${endpoint}/ingredient/${id}`);
+      const row = res.data;
+      setIngredient(row);
     } catch (err) {
       console.error(err);
     }
   }
 
-  componentDidMount() {  // use useEffect() hook
-    const { id } = this.props.match.params;
-    this.getIngredient(id);
-  }
+  useEffect(() => {
+    const { id } = props.match.params;
+    getIngredient(id);
+  }, []);
 
-  render() {
-    const { ingredient } = this.state;
-    return (
+  return (
+    <div>
       <div>
-        <div id="page">
-          {
-            (ingredient) &&
-            <div className="ingredient">
-              <div className="ingredient_name">
-                {ingredient.ingredient_name}
-              </div>
-              <img
-                className="ingredient_image"
-                src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`}
-              />
-              <div className="ingredient_name">
-                Ingredient ID: {ingredient.ingredient_id}
-              </div>
-              <div className="ingredient_name">
-                Ingredient Type: {ingredient.ingredient_type_name}
-              </div>
-              <p>Nutrition: Coming soon.</p>
-            </div>
-          }
+        {
+          (Object.keys(ingredient).length > 1) &&
+          <IngredientBreadcrumbs ingredient={ingredient} />
+        }
+      </div>
+      <div id="page">
+        <div className="view-ingredient">
+          <div className="ingredient-name">{ingredient.ingredient_name}</div>
+          <div className="ingredient-image">
+            <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`} />
+          </div>
+          <div className="ingredient-type-name">
+            Ingredient Type: {ingredient.ingredient_type_name}
+          </div>
+          <p>Nutrition: Coming soon.</p>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Ingredient;

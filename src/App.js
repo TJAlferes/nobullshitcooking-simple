@@ -15,7 +15,8 @@ const withDragDropContext = DragDropContext(MultiBackend(HTML5toTouch));
 
 const App = props => {
   // Decide visual layout style:
-  // 1. Determine if the user is currently at an authentication page
+
+  // Determine if the user is currently at an authentication page...
   let location = props.location;
   let isAccessing = location.pathname &&
   (
@@ -25,12 +26,12 @@ const App = props => {
     location.pathname.match(/^\/user\/login/)
   );
   let layout = null;
+
   if (isAccessing) {
-    // 2a. If they are, then render authentication pages layout
+    // ... If they are, then render authentication pages layout
     layout = <div><RoutesList /></div>;
   } else {
-    // 2b. Otherwise, render the normal layout
-    //<div id="app" {...props}>
+    // ... Otherwise, render the normal layout
     layout = (
       <div id="app">
         <div>
@@ -48,6 +49,7 @@ const App = props => {
       </div>
     );
   }
+
   return layout;
 }
 

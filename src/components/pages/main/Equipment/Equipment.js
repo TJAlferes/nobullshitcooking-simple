@@ -1,86 +1,58 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { EquipmentBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './equipment.css';
 
-// Location of our backend API
-// set up if (dev) here
-const endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com/equipment';
-//const endpoint = 'http://localhost:3003/equipment';
+let endpoint;
+if (process.env.NODE_ENV === "production") {
+  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
+} else {
+  endpoint = 'http://localhost:3003';
+}
 
-/*
-  Equipment Component
-
-  Purpose
-
-    The Equipment page/component displays detailed information about an individual kitchen equipment item.
-
-  State (Local)
-
-    The local state holds 1 first-level property:
-
-      equipment -- ? -- Holds data for equipment to be currently rendered
-  
-  Methods (1)
-
-    async getEquipment(id) -- Fetches data from backend API
-  
-  Explicit Lifecycle Methods (1)
-
-    componentDidMount()
-
-*/
-class Equipment extends Component {
-  state = {equipment: null};  // remember to not initialize state from props, use useState() hook
+const Equipment = props => {
+  const [ equipment, setEquipment ] = useState({});
 
   // TODO: Redirect them to equipments if they only navigate to /equipment (if there is no /:id)
 
-  getEquipment = async (id) => {  // move id into equipment.js?
+  const getEquipment = async (id) => {
     try {
-      const url = `${endpoint}/${id}`;
-      const response = await axios.get(url);
-      const [ row ] = response.data;
-      this.setState({equipment: row});
+      const res = await axios.get(`${endpoint}/equipment/${id}`);
+      const row = res.data;
+      setEquipment(row);
     } catch (err) {
       console.error(err);
     }
   }
 
-  componentDidMount() {  // use useEffect() hook
-    const { id } = this.props.match.params;
-    this.getEquipment(id);
-  }
+  useEffect(() => {
+    const { id } = props.match.params;
+    getEquipment(id);
+  }, []);
 
-  render() {
-    const { equipment } = this.state;
-    return (
+  return (
+    <div>
       <div>
-        <div id="page">
         {
-          (equipment) &&
-          <div className="equipment">
-            <div className="equipment_name">{equipment.equipment_name}</div>
-            <img
-              className="equipment_image"
-              src={`
-                https://s3.amazonaws.com/nobsc-images-01/equipment/
-                ${equipment.equipment_image}
-                .jpg
-              `}
-            />
-            <div className="equipment_name">
-              Equipment ID: {equipment.equipment_id}
-            </div>
-            <div className="equipment_name">
-              Equipment Type: {equipment.equipment_type_name}
-            </div>
-            <p>Specs: Coming soon.</p>
-          </div>
+          (Object.keys(equipment).length > 1) &&
+          <EquipmentBreadcrumbs equipment={equipment} />
         }
+      </div>
+      <div id="page">
+        <div className="view-equipment">
+          <div className="equipment-name">{equipment.equipment_name}</div>
+          <div className="equipment-image">
+            <img src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.equipment_image}.jpg`} />
+          </div>
+          <div className="equipment-type-name">
+            Equipment Type: {equipment.equipment_type_name}
+          </div>
+          <p>Specs: Coming soon.</p>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Equipment;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './headerRed.css';
 import Logo from './Logo/Logo';
@@ -8,7 +9,7 @@ import SiteNav from './SiteNav/SiteNav';
 import UserNav from './UserNav/UserNav';
 
 const HeaderRed = props => (
-  <div className="header_red">
+  <div className={`header_red ${props.theme}`}>
 
     <div id="header_row_1">
       <div id="header_row_1_col_1">
@@ -36,4 +37,8 @@ const HeaderRed = props => (
   </div>
 );
 
-export default HeaderRed;
+const mapStateToProps = state => ({
+  theme: state.theme.headerTheme
+});
+
+export default connect(mapStateToProps)(HeaderRed);

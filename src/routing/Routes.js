@@ -277,9 +277,9 @@ const RoutesList = () => (
       <AppliedRoute path="/site/seasonal" exact component={FoodInSeason} />
       <AppliedRoute path="/site/charity" exact component={Charity} />
 
-      <AppliedRoute path="/site/sitemap" exact component={Sitemap} />
+      <AppliedRoute path="/site/sitemap" exact component={Sitemap} />*/}
       <AppliedRoute path="/site/disclaimer" exact component={Disclaimer} />
-      <AppliedRoute path="/site/terms" exact component={TermsOfUse} />
+      {/*<AppliedRoute path="/site/terms" exact component={TermsOfUse} />
       <AppliedRoute path="/site/privacy" exact component={PrivacyPolicy} />
       <AppliedRoute path="/site/help" exact component={Help} />*/}
 

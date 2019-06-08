@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react';
-//import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import './menu.css';
@@ -12,15 +12,16 @@ import ExercisesSlideImage from '../../../../assets/images/header/dropdowns/push
 import KitchenEquipmentSlideImage from '../../../../assets/images/header/dropdowns/kitchen-equipment-slide.png';
 
 /*
-FancyMenu is heavily inspired by react-menu-aim
-which is a React Mixin heavily inspired by jQuery-menu-aim
+This Menu component heavily borrows from react-menu-aim
+which is a React mixin heavily inspired by jQuery-menu-aim
 All rights reserved by the original authors.
 https://github.com/jasonslyvia/react-menu-aim
 https://github.com/kamens/jQuery-menu-aim
 */
-const MOUSE_LOCS_TRACKED = 3;   // number of past mouse locations to track
-const DELAY = 200;              // ms delay when user appears to be entering submenu
-const TOLERANCE = 50;           // bigger = more forgivey when entering submenu
+
+const MOUSE_LOCS_TRACKED = 3;  // number of past mouse locations to track
+const DELAY = 200;             // ms delay when user appears to be entering submenu
+const TOLERANCE = 50;          // bigger = more forgivey when entering submenu
 
 function offset(el) {
   if (!el) return {left: 0, top: 0};
@@ -47,9 +48,7 @@ function outerHeight(el) {
 
 const Menu = props => {
   const [activeMenuIndex, setActiveMenuIndex] = useState();
-  //useFancyMenu ?
-  //const getDefaultProps = () => ({submenuDirection: 'right'});
-  //const getInitialState = () => ({activeMenuIndex: 0});
+
   let __reactMenuAimConfig;
   let __mouseMoveDocumentHandler;
   let __reactMenuAimTimer;
@@ -62,9 +61,6 @@ const Menu = props => {
   }
   
   function getActivateDelay(config) {
-    /*let menu = ReactDOM.findDOMNode(this);
-    if (!menu || !menu.querySelector) return 0;  // If can't find any DOM node
-    menu = config.menuSelector ? menu.querySelector(config.menuSelector) : menu;*/
     let menu = config.menuSelector && document.querySelector(config.menuSelector);  // do you need findDOMNode? or a ref?
     let menuOffset = offset(menu);
     let upperLeft = {x: menuOffset.left, y: menuOffset.top - (config.tolerance || TOLERANCE)};
@@ -104,7 +100,6 @@ const Menu = props => {
   
   function possiblyActivate(rowIdentifier, handler, config) {
     let delay = getActivateDelay.call(this, config);
-    //let delay = getActivateDelay(config);
     if (delay) {
       __reactMenuAimTimer = setTimeout(() => {
         possiblyActivate.call(this, rowIdentifier, handler, config);
@@ -120,7 +115,7 @@ const Menu = props => {
   
   function __getMouseMoveDocumentHandler() {
     if (!__mouseMoveDocumentHandler) {
-      __mouseMoveDocumentHandler = handleMouseMoveDocument.bind(this);  // ???
+      __mouseMoveDocumentHandler = handleMouseMoveDocument.bind(this);
     }
     return __mouseMoveDocumentHandler;
   }
@@ -132,11 +127,10 @@ const Menu = props => {
   
   const handleMouseEnterRow = (rowIdentifier, handler) => {
     if (__reactMenuAimTimer) clearTimeout(__reactMenuAimTimer);
-    //possiblyActivate.call(this, rowIdentifier, handler, __reactMenuAimConfig);
     possiblyActivate(rowIdentifier, handler, __reactMenuAimConfig);
   }
 
-  useLayoutEffect(() => {  // useEffect() ???
+  useLayoutEffect(() => {
     // config
     initMenuAim({
       submenuDirection: props.submenuDirection,
@@ -145,7 +139,7 @@ const Menu = props => {
       tolerance: 75
     });
     // setup
-    let mousemoveListener = 0;  // ?
+    let mousemoveListener = 0;
     if (mousemoveListener === 0) document.addEventListener('mousemove', __getMouseMoveDocumentHandler(), false);
     mousemoveListener += 1;
     // cleanup
@@ -165,11 +159,11 @@ const Menu = props => {
     setActiveMenuIndex(index);
   }
 
-  let containerClassName = 'menu-container ' + props.submenuDirection;
+  let containerClassName = 'menu-container ' + props.submenuDirection + props.theme;
 
   return (
     <div className={containerClassName}>
-      <div className="menu" onMouseLeave={handleMouseLeaveMenu}>
+      <div className={`menu ${props.theme}`} onMouseLeave={handleMouseLeaveMenu}>
         <ul>
           {props.menuData.map((menu, index) => {
             let className = 'menu-item';
@@ -186,7 +180,7 @@ const Menu = props => {
           })}
         </ul>
       </div>
-      <div className="sub-menu">
+      <div className={`sub-menu ${props.theme}`}>
         {activeMenuIndex !== undefined && <h3><Link to={props.menuData[activeMenuIndex].link}>{props.menuData[activeMenuIndex].name}</Link></h3>}
         <ul>
           {activeMenuIndex !== undefined && props.menuData[activeMenuIndex].subMenu.map((subMenu, index) => 
@@ -205,4 +199,8 @@ const Menu = props => {
   );
 };
 
-export default Menu;
+const mapStateToProps = state => ({
+  theme: state.theme.dropDownMenuTheme
+});
+
+export default connect(mapStateToProps)(Menu);

@@ -1,3 +1,11 @@
+.header-light {
+  background-color: #c10006;
+}
+
+.header-dark {
+  background-color: #690004;
+}
+
 .header_red {
   z-index: 3;
   display: block;
@@ -5,7 +13,6 @@
   min-width: 1280px;
   height: 92px;
   font-family: 'Play', sans-serif;
-  background-color: #c10006;
 }
 
 #header_row_1 {

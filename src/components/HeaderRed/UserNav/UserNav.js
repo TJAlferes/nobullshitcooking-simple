@@ -16,6 +16,27 @@ class UserNav extends Component {
     return (
       <div className="user_nav">
         <li>
+          {
+            theme === 'header-light'
+            ? (
+              <span
+                className="signed_in_nav_span"
+                onClick={() => this.props.themeDarkTrigger()}
+              >
+                Dark Mode
+              </span>
+            )
+            : (
+              <span
+                className="signed_in_nav_span"
+                onClick={() => this.props.themeLightTrigger()}
+              >
+                Light Mode
+              </span>
+            )
+          }
+        </li>
+        <li>
           <NavLink className="styled_nav_link" to="/help">
             Help
           </NavLink>
@@ -56,9 +77,6 @@ class UserNav extends Component {
             View Cart
           </NavLink>
         </li>
-        <li>
-          {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-        </li>
       </div>
     );
   }
@@ -67,7 +85,7 @@ class UserNav extends Component {
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   authname: state.auth.authname,
-  theme: state.theme.theme
+  theme: state.theme.headerTheme
 });
 
 const mapDispatchToProps = dispatch => ({
