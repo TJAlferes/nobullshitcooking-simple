@@ -1,0 +1,31 @@
+.suggestions-light {
+  background-color: #fff;
+}
+
+.suggestions-light span {
+  color: #000;
+}
+
+.suggestions-light hr {
+  background-color: #bfbfbf;
+}
+
+.suggestions-dark {
+  background-color: #222;
+}
+
+.suggestions-dark span {
+  color: #aaa;
+}
+
+.suggestions-dark hr {
+  background-color: #444;
+}
+
+.suggestions {
+  order: 3;
+  width: 340px;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px;
+}

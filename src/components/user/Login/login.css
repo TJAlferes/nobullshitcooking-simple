@@ -9,12 +9,12 @@
   margin: 0 auto;
 }
 
-.login_form {
+.login {
   font-family: 'Play', sans-serif;
   font-size: 13px;
 }
 
-form {
+.login form {
   display: block;
   width: 320px;
   margin: 20px auto 20px auto;
@@ -25,7 +25,7 @@ form {
   padding: 14px 18px;
 }
 
-h1 {
+.login h1 {
   display: block;
   margin-bottom: 14px;
   font-size: 28px;
@@ -33,14 +33,14 @@ h1 {
   line-height: 1.2;
 }
 
-label {
+.login label {
   display: block;
   margin: 14px auto 4px auto;
   font-size: 13px;
   font-weight: 700;
 }
 
-input {
+.login input {
   display: block;
   width: 100%;
   height: 31px;
@@ -53,62 +53,6 @@ input {
 }
 /*input:focus {background-color: #fdfdd5;}*/
 
-footer {
-  display: block;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #bfbfbf;
-  padding-top: 18px;
-}
-
-footer ul {
-  display: table;
-  margin: 18px auto 0 auto;
-  list-style-type: none;
-  overflow: hidden;
-  text-align: centered;
-}
-
-footer li {
-  display: inline;
-  margin-top: 2px;
-  margin-right: 6px;
-  margin-bottom: 2px;
-  margin-left: 6px;
-}
-
-footer a {
-  text-decoration: none;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-}
-
-footer p {
-  margin-top: 12px;
-  margin-bottom: 18px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-}
-
-a:link {
-  color: #68abe6;
-}
-
-a:visited {
-  color: #68abe6;
-}
-
-a:hover {
-  color: #c10006;
-  text-decoration: underline;
-}
-
-a:active {
-  color: #c10006;
-  text-decoration: underline;
-}
-
 #error_message {
   width: 100%;
   height: 31px;
@@ -118,7 +62,7 @@ a:active {
   font-size: 14px;
 }
 
-.distinction-line {
+.login .distinction-line {
   border-top: 1px solid #ccc;
 }
 
@@ -186,7 +130,7 @@ a:active {
   background: #bd453b;
 }
 
-.validation_messages {
+.login .validation_messages {
   display: block;
   width: 320px;
   margin: 20px auto 20px auto;

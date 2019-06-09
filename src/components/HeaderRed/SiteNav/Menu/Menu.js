@@ -4,12 +4,19 @@ import { Link } from 'react-router-dom';
 
 import './menu.css';
 import NutritionSlideImage from '../../../../assets/images/header/dropdowns/steve-reeves-nutrition-slide.png';
+import NutritionSlideImageDark from '../../../../assets/images/header/dropdowns/steve-reeves-nutrition-slide-dark.png';
 import MethodsSlideImage from '../../../../assets/images/header/dropdowns/fire-methods-slide.png';
+import MethodsSlideImageDark from '../../../../assets/images/header/dropdowns/fire-methods-slide-dark.png';
 import IngredientsSlideImage from '../../../../assets/images/header/dropdowns/abundance-ingredients-slide.png';
+import IngredientsSlideImageDark from '../../../../assets/images/header/dropdowns/abundance-ingredients-slide-dark.png';
 import CuisinesSlideImage from '../../../../assets/images/header/dropdowns/world-map-cuisines-slide.png';
+import CuisinesSlideImageDark from '../../../../assets/images/header/dropdowns/world-map-cuisines-slide-dark.png';
 import PrinciplesSlideImage from '../../../../assets/images/header/dropdowns/vitruvian-man-principles-slide.png';
+import PrinciplesSlideImageDark from '../../../../assets/images/header/dropdowns/vitruvian-man-principles-slide-dark.png';
 import ExercisesSlideImage from '../../../../assets/images/header/dropdowns/pushups-exercises-slide.png';
+import ExercisesSlideImageDark from '../../../../assets/images/header/dropdowns/pushups-exercises-slide-dark.png';
 import KitchenEquipmentSlideImage from '../../../../assets/images/header/dropdowns/kitchen-equipment-slide.png';
+import KitchenEquipmentSlideImageDark from '../../../../assets/images/header/dropdowns/kitchen-equipment-slide-dark.png';
 
 /*
 This Menu component heavily borrows from react-menu-aim
@@ -159,42 +166,131 @@ const Menu = props => {
     setActiveMenuIndex(index);
   }
 
-  let containerClassName = 'menu-container ' + props.submenuDirection + props.theme;
+  const { menuData, submenuDirection, theme } = props;
 
   return (
-    <div className={containerClassName}>
-      <div className={`menu ${props.theme}`} onMouseLeave={handleMouseLeaveMenu}>
+    <div className={`menu-container ${submenuDirection} ${theme}`}>
+
+      <div className={`menu ${theme}`} onMouseLeave={handleMouseLeaveMenu}>
         <ul>
-          {props.menuData.map((menu, index) => {
+          {menuData.map((menu, index) => {
             let className = 'menu-item';
-            if (activeMenuIndex !== undefined && index === activeMenuIndex) className += ' active';
+            if (activeMenuIndex !== undefined && index === activeMenuIndex) {
+              className += ' active';
+            }
             return (
               <li
                 className={className}
                 key={index}
                 onMouseEnter={() => { handleMouseEnterRow(index, handleSwitchMenuIndex) }}
               >
-                <Link to={menu.link}>{menu.name}</Link>
+                <Link className={theme} to={menu.link}>{menu.name}</Link>
               </li>
             );
           })}
         </ul>
       </div>
-      <div className={`sub-menu ${props.theme}`}>
-        {activeMenuIndex !== undefined && <h3><Link to={props.menuData[activeMenuIndex].link}>{props.menuData[activeMenuIndex].name}</Link></h3>}
+
+      <div className={`sub-menu ${theme}`}>
+        {
+          activeMenuIndex !== undefined &&
+          <h3>
+            <Link className={theme} to={menuData[activeMenuIndex].link}>
+              {menuData[activeMenuIndex].name}
+            </Link>
+          </h3>
+        }
         <ul>
-          {activeMenuIndex !== undefined && props.menuData[activeMenuIndex].subMenu.map((subMenu, index) => 
-            <li className="sub-menu-item" key={index}><Link to={props.menuData[activeMenuIndex].subMenuLinks[index]}>{subMenu}</Link></li>
-          )}
+          {
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].subMenu.map((subMenu, index) => 
+              <li className="sub-menu-item" key={index}>
+                <Link className={theme} to={menuData[activeMenuIndex].subMenuLinks[index]}>
+                  {subMenu}
+                </Link>
+              </li>
+            )
+          }
         </ul>
-        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'nutrition') && <img src={NutritionSlideImage} />}
-        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'methods') && <img src={MethodsSlideImage} />}
-        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'ingredients') && <img src={IngredientsSlideImage} />}
-        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'cuisines') && <img src={CuisinesSlideImage} />}
-        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'principles') && <img src={PrinciplesSlideImage} />}
-        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'exercises') && <img src={ExercisesSlideImage} />}
-        {(activeMenuIndex !== undefined && props.menuData[activeMenuIndex].image === 'kitchen-equipment') && <img src={KitchenEquipmentSlideImage} />}
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'nutrition'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={NutritionSlideImage} />
+            : <img src={NutritionSlideImageDark} />
+          )
+        }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'methods'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={MethodsSlideImage} />
+            : <img src={MethodsSlideImageDark} />
+          )
+        }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'ingredients'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={IngredientsSlideImage} />
+            : <img src={IngredientsSlideImageDark} />
+          )
+        }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'cuisines'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={CuisinesSlideImage} />
+            : <img src={CuisinesSlideImageDark} />
+          )
+        }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'principles'
+          ) && 
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={PrinciplesSlideImage} />
+            : <img src={PrinciplesSlideImageDark} />
+          )
+        }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'exercises'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={ExercisesSlideImage} />
+            : <img src={ExercisesSlideImageDark} />
+          )
+        }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'kitchen-equipment'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={KitchenEquipmentSlideImage} />
+            : <img src={KitchenEquipmentSlideImageDark} />
+          )
+        }
       </div>
+
     </div>
   );
 };

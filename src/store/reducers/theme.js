@@ -6,7 +6,10 @@ const initialState = {
   headerTheme: "header-light",
   mainTheme: "main-light",
   footerTheme: "footer-light",
-  dropDownMenuTheme: "drop-down-menu-light"
+  dropDownMenuTheme: "drop-down-menu-light",
+  leftNavTheme: "left-nav-light",
+  suggestionsTheme: "suggestions-light",
+  feedTheme: "feed-light"
 };
 
 const themeReducer = (state = initialState, action) => {
@@ -16,7 +19,10 @@ const themeReducer = (state = initialState, action) => {
         headerTheme: "header-dark",
         mainTheme: "main-dark",
         footerTheme: "footer-dark",
-        dropDownMenuTheme: "drop-down-menu-dark"
+        dropDownMenuTheme: "drop-down-menu-dark",
+        leftNavTheme: "left-nav-dark",
+        suggestionsTheme: "suggestions-dark",
+        feedTheme: "feed-dark"
       }};
     case actionTypes.THEME_LIGHT_TRIGGER:
       return {...state, ...initialState};

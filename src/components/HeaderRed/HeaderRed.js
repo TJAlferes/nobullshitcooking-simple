@@ -13,7 +13,7 @@ const HeaderRed = props => (
 
     <div id="header_row_1">
       <div id="header_row_1_col_1">
-        <Logo />
+        <Logo theme={props.theme} />
       </div>
       <div id="header_row_1_col_2">
         <Search />
