@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// use react-final-form here  meh?
-// elasticsearch not meant for public facing high traffic search???
 
 import './search.css';
 import DownArrowGray from '../../../assets/images/header/down-arrow-gray.png';
@@ -85,14 +83,13 @@ class Search extends Component {
   */
   render() {
     return (
-      <form name="search_form" id="search_form">
+      <form className={`${this.props.theme}`} id="search_form" name="search_form">
 
           <div id="search_category">
             <div id="search_facade">
               <span id="facade_text">All</span>
               <img id="facade_arrow" src={DownArrowGray} />
             </div>
-            {/* change to react or react-select or react-final-form or some combination */}
             <select name="search_prefilter" id="search_prefilter" type="select-one" onChange={this.swapFacadeText}>
               <option id="search_all" value="search-filter-none">All</option>
               <option id="search_recipes" value="search-filter-recipes">Recipes</option>
