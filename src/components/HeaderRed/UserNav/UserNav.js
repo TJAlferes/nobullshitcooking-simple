@@ -20,18 +20,18 @@ class UserNav extends Component {
             theme === 'header-light'
             ? (
               <span
-                className="signed_in_nav_span"
+                className="mode_button"
                 onClick={() => this.props.themeDarkTrigger()}
               >
-                Dark Mode
+                <i className="moon-symbol">☾</i> Dark Mode
               </span>
             )
             : (
               <span
-                className="signed_in_nav_span"
+                className="mode_button"
                 onClick={() => this.props.themeLightTrigger()}
               >
-                Light Mode
+                <i className="sun-symbol">☀︎</i> Light Mode
               </span>
             )
           }

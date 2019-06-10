@@ -4,7 +4,7 @@ import './dashboard.css';
 import LeftNav from '../../LeftNav/LeftNav';
 
 const Dashboard = props => (
-  <div id="page">
+  <div className={`dashboard two-column-a ${props.twoColumnATheme}`}>
     <LeftNav />
     <article>
       <span className="demo-only-notice">

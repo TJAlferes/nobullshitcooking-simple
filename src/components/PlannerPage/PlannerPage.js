@@ -8,12 +8,12 @@ const PlannerPage = props => (
   <div id="planner_page">
     <div className="mobile_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <MobilePlannerToggle className="mobile_display" />
+        <MobilePlannerToggle />
       </Suspense>
     </div>
     <div className="desktop_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <Planner className="desktop_display" />
+        <Planner twoColumnATheme={props.twoColumnATheme} />
       </Suspense>
     </div>
   </div>

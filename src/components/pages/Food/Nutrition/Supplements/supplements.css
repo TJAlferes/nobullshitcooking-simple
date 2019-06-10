@@ -1,32 +1,6 @@
-.supplements {
-  display: block;
-}
+/*.supplements {
 
-#page {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  justify-content: center;
-  width: 1200px;
-  margin: 0 auto;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-article {
-  order: 2;
-  flex: 1 1 auto;
-  width: 960px;
-  min-width: 960px;
-  max-width: 960px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  padding: 10px 10px;
-  overflow: auto;
-  background-color: #fff;
-}
+}*/
 
 h1 {
   font-weight: bold;

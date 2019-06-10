@@ -7,14 +7,15 @@ const UnauthenticatedRoute = ({ component: Component, isAuthenticated, ...rest }
     {...rest}
     render={props =>
       !isAuthenticated
-      ? <Component {...props} />
+      ? <Component {...props} {...rest} />
       : <Redirect to='/' />
     }
   />
 );
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  twoColumnATheme: state.theme.twoColumnATheme
 });
 
 export default connect(mapStateToProps)(UnauthenticatedRoute);

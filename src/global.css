@@ -35,6 +35,49 @@ span {font-size: 1.3rem;}
 li {font-size: 1.3rem;}
 th, td {font-size: 1.3rem;}
 
+/* Layouts */
+.two-column-a {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  width: 1200px;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.two-column-a article {
+  order: 2;
+  flex: 1 1 auto;
+  width: 960px;
+  min-width: 960px;
+  max-width: 960px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  padding: 10px 10px;
+  overflow: auto;
+  background-color: #fff;
+}
+
+.two-column-a-light article {
+  background-color: #fff;
+  color: #000;
+}
+
+.two-column-a-dark article {
+  background-color: #222;
+  color: #aaa;
+}
+
+.two-column-a-dark .demo-only-notice {
+  /*background-color: #5a7d5a;*/
+  background-color: #507ea7;
+  color: #000;
+}
+
 
 
 /* mobile */

@@ -7,6 +7,7 @@ const initialState = {
   mainTheme: "main-light",
   footerTheme: "footer-light",
   dropDownMenuTheme: "drop-down-menu-light",
+  twoColumnATheme: "two-column-a-light",
   leftNavTheme: "left-nav-light",
   suggestionsTheme: "suggestions-light",
   feedTheme: "feed-light"
@@ -20,6 +21,7 @@ const themeReducer = (state = initialState, action) => {
         mainTheme: "main-dark",
         footerTheme: "footer-dark",
         dropDownMenuTheme: "drop-down-menu-dark",
+        twoColumnATheme: "two-column-a-dark",
         leftNavTheme: "left-nav-dark",
         suggestionsTheme: "suggestions-dark",
         feedTheme: "feed-dark"

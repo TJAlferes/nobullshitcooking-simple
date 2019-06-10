@@ -11,7 +11,7 @@ import ChatAvatarExample3 from '../../../assets/images/chat-avatar-example-3.png
 import ChatAvatarExample4 from '../../../assets/images/chat-avatar-example-4.png';
 
 const Messenger = props => (
-  <div className="messenger light_theme">
+  <div className={`messenger light_theme ${props.twoColumnATheme}`}>
 
     <LeftNav />
 

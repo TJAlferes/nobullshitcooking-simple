@@ -8,12 +8,12 @@
   list-style-type: none;
 }
 
-.user_nav  li {
+.user_nav li {
   margin-left: 9px;
   margin-right: 9px;
 }
 
-.user_nav  li .styled_nav_link {
+.user_nav li .styled_nav_link {
   display: block;
   font-size: 14px;
   font-weight: 900;
@@ -22,11 +22,13 @@
   height: 24px;
 }
 
-.styled_nav_link:hover {
+.user_nav li .styled_nav_link:hover,
+.user_nav li .styled_nav_link:active {
   text-decoration: underline;
 }
 
-.signed_in_nav_span {
+.signed_in_nav_span,
+.mode_button {
   display: block;
   font-size: 14px;
   font-weight: 900;
@@ -40,6 +42,25 @@
   cursor: pointer;
 }
 
-.signed_in_nav_span:active {
+.mode_button:hover {
+  text-decoration: none;
   cursor: pointer;
+}
+
+.signed_in_nav_span:active,
+.mode_button:active {
+  cursor: pointer;
+}
+
+.sun-symbol,
+.moon-symbol {
+  font-style: normal;
+}
+
+.sun-symbol {
+  color: #fffdb1;
+}
+
+.moon-symbol {
+  color: #183a39;
 }

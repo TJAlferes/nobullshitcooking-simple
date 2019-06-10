@@ -23,13 +23,10 @@ class Planner extends Component {  // convert to functional w/ hooks
   }*/
 
   render() {
-    const { isSaving, expanded, expandedDay, recipeListsInsideDays } = this.props;
+    const { isSaving, expanded, expandedDay, recipeListsInsideDays, twoColumnATheme } = this.props;
     return (
-      <div id="desktop_planner">
-        <LeftNav
-          isAuthenticated={this.props.isAuthenticated}
-          getUser={this.props.getUser}
-        />
+      <div className={`two-column-a ${twoColumnATheme}`}>
+        <LeftNav />
         <article>
           <div id="planner_header">
             <h1>Planner</h1>

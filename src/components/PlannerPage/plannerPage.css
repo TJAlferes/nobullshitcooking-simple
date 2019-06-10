@@ -3,6 +3,7 @@
   #planner_page {
     width: 1200px;
     min-height: fit-content;
+    margin: 0 auto 0 auto;
   }
 
   .mobile_display {
@@ -12,6 +13,7 @@
 
   .desktop_display {
     display: block;
+    margin: 0 auto 0 auto;
   }
 }
 
