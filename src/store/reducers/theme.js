@@ -7,8 +7,10 @@ const initialState = {
   mainTheme: "main-light",
   footerTheme: "footer-light",
   dropDownMenuTheme: "drop-down-menu-light",
-  twoColumnATheme: "two-column-a-light",
   navGridATheme: "nav-grid-a-light",
+  oneColumnATheme: "one-column-a-light",
+  twoColumnATheme: "two-column-a-light",
+  twoColumnBTheme: "two-column-b-light",
   leftNavTheme: "left-nav-light",
   suggestionsTheme: "suggestions-light",
   feedTheme: "feed-light"
@@ -22,8 +24,10 @@ const themeReducer = (state = initialState, action) => {
         mainTheme: "main-dark",
         footerTheme: "footer-dark",
         dropDownMenuTheme: "drop-down-menu-dark",
-        twoColumnATheme: "two-column-a-dark",
         navGridATheme: "nav-grid-a-dark",
+        oneColumnATheme: "one-column-a-dark",
+        twoColumnATheme: "two-column-a-dark",
+        twoColumnBTheme: "two-column-b-dark",
         leftNavTheme: "left-nav-dark",
         suggestionsTheme: "suggestions-dark",
         feedTheme: "feed-dark"

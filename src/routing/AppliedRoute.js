@@ -16,7 +16,10 @@ const AppliedRoute = ({ component: Component, props: childProps, ...rest }) => (
 );
 
 const mapStateToProps = state => ({
-  twoColumnATheme: state.theme.twoColumnATheme
+  navGridATheme: state.theme.navGridATheme,
+  oneColumnATheme: state.theme.oneColumnATheme,
+  twoColumnATheme: state.theme.twoColumnATheme,
+  twoColumnBTheme: state.theme.twoColumnBTheme
 });
 
 export default connect(mapStateToProps)(AppliedRoute);

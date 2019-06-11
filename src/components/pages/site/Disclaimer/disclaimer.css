@@ -1,8 +1,6 @@
 .disclaimer {
-  width: 900px;
-  margin: 12px auto 18px auto;
-  padding: 10px;
-  background-color: #fff;
+  min-width: 300px;
+  max-width: 1000px;
 }
 
 .disclaimer h1,

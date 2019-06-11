@@ -1,0 +1,15 @@
+.one-column-a {
+  display: block;
+  margin: 20px auto 0px auto;
+  padding: 10px 10px;
+}
+
+.one-column-a-light {
+  background-color: #fff;
+  color: #000;
+}
+
+.one-column-a-dark {
+  background-color: #222;
+  color: #aaa;
+}

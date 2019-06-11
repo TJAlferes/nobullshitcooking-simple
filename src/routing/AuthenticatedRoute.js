@@ -14,8 +14,10 @@ const AuthenticatedRoute = ({ component: Component, isAuthenticated, ...rest }) 
 );
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  twoColumnATheme: state.theme.twoColumnATheme
+  navGridATheme: state.theme.navGridATheme,
+  oneColumnATheme: state.theme.oneColumnATheme,
+  twoColumnATheme: state.theme.twoColumnATheme,
+  twoColumnBTheme: state.theme.twoColumnBTheme
 });
 
 export default connect(mapStateToProps)(AuthenticatedRoute);

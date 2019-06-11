@@ -3,7 +3,7 @@ import React from 'react';
 import './disclaimer.css';
 
 const Disclaimer = props => (
-  <div className="disclaimer">
+  <div className={`disclaimer one-column-a ${props.oneColumnATheme}`}>
     <h1>Disclaimer</h1>
 
     <p>The <b>nobullshitcooking.net</b> website does not contain any medical advice.</p>

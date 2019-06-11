@@ -215,29 +215,7 @@ const Menu = props => {
         {
           (
             activeMenuIndex !== undefined &&
-            menuData[activeMenuIndex].image === 'nutrition'
-          ) &&
-          (
-            theme === "drop-down-menu-light"
-            ? <img src={NutritionSlideImage} />
-            : <img src={NutritionSlideImageDark} />
-          )
-        }
-        {
-          (
-            activeMenuIndex !== undefined &&
-            menuData[activeMenuIndex].image === 'methods'
-          ) &&
-          (
-            theme === "drop-down-menu-light"
-            ? <img src={MethodsSlideImage} />
-            : <img src={MethodsSlideImageDark} />
-          )
-        }
-        {
-          (
-            activeMenuIndex !== undefined &&
-            menuData[activeMenuIndex].image === 'ingredients'
+            menuData[activeMenuIndex].image === 'recipes'
           ) &&
           (
             theme === "drop-down-menu-light"
@@ -256,6 +234,51 @@ const Menu = props => {
             : <img src={CuisinesSlideImageDark} />
           )
         }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'ingredients'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={IngredientsSlideImage} />
+            : <img src={IngredientsSlideImageDark} />
+          )
+        }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'nutrition'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={NutritionSlideImage} />
+            : <img src={NutritionSlideImageDark} />
+          )
+        }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'equipment'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={IngredientsSlideImage} />
+            : <img src={IngredientsSlideImageDark} />
+          )
+        }
+        {
+          (
+            activeMenuIndex !== undefined &&
+            menuData[activeMenuIndex].image === 'methods'
+          ) &&
+          (
+            theme === "drop-down-menu-light"
+            ? <img src={MethodsSlideImage} />
+            : <img src={MethodsSlideImageDark} />
+          )
+        }
+
         {
           (
             activeMenuIndex !== undefined &&

@@ -14,6 +14,10 @@ import { watchAuth, watchPlanner } from './store/sagas/index';
 import App from './App';
 import './global.css';
 //import './main.css';
+import './themes/navGridA.css';
+import './themes/oneColumnA.css';
+import './themes/twoColumnA.css';
+import './themes/twoColumnB.css';
 //import registerServiceWorker from "./registerServiceWorker";
 
 const composeEnhancers = process.env.NODE_ENV === "development"

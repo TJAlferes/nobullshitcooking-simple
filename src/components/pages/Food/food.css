@@ -1,9 +1,6 @@
 .food {
-  display: block;
   min-width: 300px;
   max-width: 600px;
-  margin: 0 auto;
-  padding: 10px 10px;
 }
 
 /*h1 {
