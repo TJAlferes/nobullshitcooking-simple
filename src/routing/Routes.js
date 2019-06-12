@@ -56,7 +56,18 @@ const Recipe = lazy(() => import('../components/pages/main/Recipe/Recipe'));
 import Food from '../components/pages/Food/Food';
 
 import SiteNavRecipes from '../components/pages/Food/SiteNavRecipes/SiteNavRecipes';
-
+import Drinks from '../components/pages/Food/SiteNavRecipes/Drinks/Drinks';
+import Appetizers from '../components/pages/Food/SiteNavRecipes/Appetizers/Appetizers';
+import Mains from '../components/pages/Food/SiteNavRecipes/Mains/Mains';
+import Sides from '../components/pages/Food/SiteNavRecipes/Sides/Sides';
+import Desserts from '../components/pages/Food/SiteNavRecipes/Desserts/Desserts';
+import Soups from '../components/pages/Food/SiteNavRecipes/Soups/Soups';
+import Salads from '../components/pages/Food/SiteNavRecipes/Salads/Salads';
+import Stews from '../components/pages/Food/SiteNavRecipes/Stews/Stews';
+import Casseroles from '../components/pages/Food/SiteNavRecipes/Casseroles/Casseroles';
+import Sauces from '../components/pages/Food/SiteNavRecipes/Sauces/Sauces';
+import Dressings from '../components/pages/Food/SiteNavRecipes/Dressings/Dressings';
+import Condiments from '../components/pages/Food/SiteNavRecipes/Condiments/Condiments';
 
 import Cuisines from '../components/pages/Food/Cuisines/Cuisines';
 import Russian from '../components/pages/Food/Cuisines/Russian/Russian';
@@ -78,7 +89,7 @@ import MeatAndPoultry from '../components/pages/Food/SiteNavIngredients/MeatAndP
 import EggsAndDairy from '../components/pages/Food/SiteNavIngredients/EggsAndDairy/EggsAndDairy';
 import BeansAndVegetables from '../components/pages/Food/SiteNavIngredients/BeansAndVegetables/BeansAndVegetables';
 import Fruit from '../components/pages/Food/SiteNavIngredients/Fruit/Fruit';
-import SeedsAndGrains from '../components/pages/Food/SiteNavIngredients/SeedsAndGrains/SeedsAndGrains';
+import SeedsAndGrains from '../components/pages/Food/SiteNavIngredients/SeedsAndGrains/SeedsAndGrains';  // Nuts?
 import FatsAndOils from '../components/pages/Food/SiteNavIngredients/FatsAndOils/FatsAndOils';
 import AcidsHerbsAndSpices from '../components/pages/Food/SiteNavIngredients/AcidsHerbsAndSpices/AcidsHerbsAndSpices';
 
@@ -89,7 +100,11 @@ import Micronutrients from '../components/pages/Food/Nutrition/Micronutrients/Mi
 import Supplements from '../components/pages/Food/Nutrition/Supplements/Supplements';
 
 import SiteNavEquipment from '../components/pages/Food/SiteNavEquipment/SiteNavEquipment';
-
+import Cleaning from '../components/pages/Food/SiteNavEquipment/Cleaning/Cleaning';
+import Preparing from '../components/pages/Food/SiteNavEquipment/Preparing/Preparing';
+import Cooking from '../components/pages/Food/SiteNavEquipment/Cooking/Cooking';
+import Dining from '../components/pages/Food/SiteNavEquipment/Dining/Dining';
+import Storage from '../components/pages/Food/SiteNavEquipment/Storage/Storage';
 
 import Methods from '../components/pages/Food/Methods/Methods';
 import PoachAndSimmer from '../components/pages/Food/Methods/PoachAndSimmer/PoachAndSimmer';
