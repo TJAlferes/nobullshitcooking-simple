@@ -5,6 +5,8 @@ import uuid from 'uuid/v4';
 import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
+import LoaderButton from '../../LoaderButton/LoaderButton';
+import Uploader from '../../Uploader/Uploader';
 import './editRecipe.css';
 
 let endpoint;
@@ -352,7 +354,8 @@ const UserEditRecipe = () => {
 
             <div className="image_div">
               <label className="red_style">Image of Finished Recipe</label>
-              <div id="preview">
+              <Uploader />
+              {/*<div id="preview">
                 <img src="" className="preview_frame" id="preview_image" />
               </div>
               <input
@@ -362,12 +365,13 @@ const UserEditRecipe = () => {
                 className="submitted_image"
                 id="submitted_image"
                 required
-              />
+              />*/}
             </div>
 
             <div className="image_div">
               <label className="red_style">Image of All Equipment</label>
-              <div id="preview_e">
+              <Uploader />
+              {/*<div id="preview_e">
                 <img src="" className="preview_frame" id="preview_equipment_image" />
               </div>
               <input
@@ -377,12 +381,13 @@ const UserEditRecipe = () => {
                 className="submitted_image"
                 id="submitted_equipment_image"
                 required
-              />
+              />*/}
             </div>
 
             <div className="image_div">
               <label className="red_style">Image of All Ingredients</label>
-              <div id="preview_i">
+              <Uploader />
+              {/*<div id="preview_i">
                 <img src="" className="preview_frame" id="preview_ingredients_image" />
               </div>
               <input
@@ -392,12 +397,13 @@ const UserEditRecipe = () => {
                 className="submitted_image"
                 id="submitted_ingredients_image"
                 required
-              />
+              />*/}
             </div>
 
             <div className="image_div">
               <label className="red_style">Image of Cooking Action</label>
-              <div id="preview_c">
+              <Uploader />
+              {/*<div id="preview_c">
                 <img src="" className="preview_frame" id="preview_cooking_image" />
               </div>
               <input
@@ -407,7 +413,7 @@ const UserEditRecipe = () => {
                 className="submitted_image"
                 id="submitted_cooking_image"
                 required
-              />
+              />*/}
             </div>
 
           </div>
@@ -417,8 +423,16 @@ const UserEditRecipe = () => {
 
           {/* submit */}
           <div>
-            <button id="submit_button">Submit Recipe</button>
-            {/* <input type="submit" name="submit" id="submit_button" value="Submit Recipe"> --> <!-- maybe change this */}
+            <LoaderButton
+              id="user_edit_recipe_button"
+              type="button"
+              name="submit"
+              text="Edit Recipe"
+              loadingText="Editing Recipe..."
+              isLoading={isLoading}
+              disabled={!validate()}
+              onClick={handleSubmit}
+            />
           </div>
 
         </div>

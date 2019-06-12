@@ -6,6 +6,7 @@ import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
 import LoaderButton from '../../LoaderButton/LoaderButton';
+import Uploader from '../../Uploader/Uploader';
 import './submitRecipe.css';
 
 let endpoint;
@@ -428,7 +429,8 @@ const StaffSubmitRecipe = () => {
 
             <div className="image_div">
               <label className="red_style">Image of Finished Recipe</label>
-              <div id="preview">
+              <Uploader />
+              {/*<div id="preview">
                 <img src="" className="preview_frame" id="preview_recipe_image" />
               </div>
               <input
@@ -438,12 +440,13 @@ const StaffSubmitRecipe = () => {
                 name="submitted_recipe_image"
                 required
                 onChange={handleImageChange}
-              />
+              />*/}
             </div>
 
             <div className="image_div">
               <label className="red_style">Image of All Equipment</label>
-              <div id="preview_e">
+              <Uploader />
+              {/*<div id="preview_e">
                 <img src="" className="preview_frame" id="preview_equipment_image" />
               </div>
               <input
@@ -453,12 +456,13 @@ const StaffSubmitRecipe = () => {
                 name="submitted_equipment_image"
                 required
                 onChange={handleImageChange}
-              />
+              />*/}
             </div>
 
             <div className="image_div">
               <label className="red_style">Image of All Ingredients</label>
-              <div id="preview_i">
+              <Uploader />
+              {/*<div id="preview_i">
                 <img src="" className="preview_frame" id="preview_ingredients_image" />
               </div>
               <input
@@ -468,12 +472,13 @@ const StaffSubmitRecipe = () => {
                 name="submitted_ingredients_image"
                 required
                 onChange={handleImageChange}
-              />
+              />*/}
             </div>
 
             <div className="image_div">
               <label className="red_style">Image of Cooking Action</label>
-              <div id="preview_c">
+              <Uploader />
+              {/*<div id="preview_c">
                 <img src="" className="preview_frame" id="preview_cooking_image" />
               </div>
               <input
@@ -483,7 +488,7 @@ const StaffSubmitRecipe = () => {
                 name="submitted_cooking_image"
                 required
                 onChange={handleImageChange}
-              />
+              />*/}
             </div>
 
           </div>

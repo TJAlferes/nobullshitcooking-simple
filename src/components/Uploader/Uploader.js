@@ -18,11 +18,18 @@ class Uploader extends Component {
         minNumberOfFiles: 1,
         allowedFileTypes: ['.jpg', '.jpeg', '.png']
       },
-      /*meta: {},
-      onBeforeFileAdded: (currentFile, files) => currentFile,
-      onBeforeUpload: (files) => {},
-      locale: {},
-      store: new DefaultStore()*/
+      //meta: {},
+      onBeforeFileAdded: function(currentFile, files) {
+        const modifiedFile = Object.assign(
+          {},
+          currentFile,
+          { name: currentFile + Date.now()}
+        );
+        return modifiedFile;
+      },
+      //onBeforeUpload: (files) => {},
+      //locale: {},
+      //store: new DefaultStore()
     });
     //.use();
   }
