@@ -6,7 +6,7 @@ import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
 import LoaderButton from '../../LoaderButton/LoaderButton';
-import Uploader from '../../Uploader/Uploader';
+import RecipeImagesUploader from '../../uploaders/RecipeImagesUploader/RecipeImagesUploader';
 import './editRecipe.css';
 
 let endpoint;
@@ -171,25 +171,6 @@ const UserEditRecipe = () => {
     setSubrecipeRows(newSubrecipeRows);
   };
 
-  const handleImageChange = imageId => {
-    let reader = new FileReader();
-    reader.onload = function(e) {
-      let image = new Image();
-      image.src = e.target.result;
-      image.onload = function() {
-        let width = this.width;
-        let height = this.height;
-        if ((width != 480) || (height != 320)) {
-          alert("Image dimensions must be 480 pixels wide and 320 pixels high.");
-          document.getElementById(imageId).src = "";  // how to do in React? ref?
-        } else {
-          document.getElementById(imageId).src = e.target.result;  // how to do in React? ref?
-        }
-      }
-    }
-    reader.readAsDataURL(this.files[0]);
-  }
-
   return (
     <div className="submit_recipe">
       <div id="page">
@@ -351,71 +332,22 @@ const UserEditRecipe = () => {
 
           {/* images */}
           <div>
-
             <div className="image_div">
               <label className="red_style">Image of Finished Recipe</label>
-              <Uploader />
-              {/*<div id="preview">
-                <img src="" className="preview_frame" id="preview_image" />
-              </div>
-              <input
-                onChange={() => handleImageChange("submitted_image")}
-                type="file"
-                name="submitted_image"
-                className="submitted_image"
-                id="submitted_image"
-                required
-              />*/}
+              <RecipeImagesUploader />
             </div>
-
             <div className="image_div">
               <label className="red_style">Image of All Equipment</label>
-              <Uploader />
-              {/*<div id="preview_e">
-                <img src="" className="preview_frame" id="preview_equipment_image" />
-              </div>
-              <input
-                onChange={() => handleImageChange("submitted_equipment_image")}
-                type="file"
-                name="submitted_equipment_image"
-                className="submitted_image"
-                id="submitted_equipment_image"
-                required
-              />*/}
+              <RecipeImagesUploader />
             </div>
-
             <div className="image_div">
               <label className="red_style">Image of All Ingredients</label>
-              <Uploader />
-              {/*<div id="preview_i">
-                <img src="" className="preview_frame" id="preview_ingredients_image" />
-              </div>
-              <input
-                onChange={() => handleImageChange("submitted_ingredients_image")}
-                type="file"
-                name="submitted_ingredients_image"
-                className="submitted_image"
-                id="submitted_ingredients_image"
-                required
-              />*/}
+              <RecipeImagesUploader />
             </div>
-
             <div className="image_div">
-              <label className="red_style">Image of Cooking Action</label>
-              <Uploader />
-              {/*<div id="preview_c">
-                <img src="" className="preview_frame" id="preview_cooking_image" />
-              </div>
-              <input
-                onChange={() => handleImageChange("submitted_cooking_image")}
-                type="file"
-                name="submitted_cooking_image"
-                className="submitted_image"
-                id="submitted_cooking_image"
-                required
-              />*/}
+              <label className="red_style">Image of Cooking In Action</label>
+              <RecipeImagesUploader />
             </div>
-
           </div>
 
           {/* status/feedback */}
