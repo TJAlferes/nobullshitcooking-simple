@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './cuisines.css';
-import AmericaFlag from '../../../../assets/images/content/america-flag.png';
+import ComingSoon from '../../../../assets/images/content/coming-soon-120-120.png';
 import RussianThumb from '../../../../assets/images/content/cuisines/russian/nobsc-russian-thumb.png';
 import GermanThumb from '../../../../assets/images/content/cuisines/german/nobsc-german-thumb.png';
 //import TurkishThumb from '../../../../assets/images/content/cuisines/turkish/nobsc-turkish-thumb.png';
@@ -35,7 +35,7 @@ const Cuisines = props => (
       <div className="nav-grid-a-item">
         <Link to="/food/cuisines/turkish">
           <span className="nav-grid-a-item-text">Turkish</span>
-          <img className="nav-grid-a-item-image" src={AmericaFlag} />
+          <img className="nav-grid-a-item-image" src={ComingSoon} />
         </Link>
       </div>
       <div className="nav-grid-a-item">
@@ -71,7 +71,7 @@ const Cuisines = props => (
       <div className="nav-grid-a-item">
         <Link to="/food/cuisines/chinese">
           <span className="nav-grid-a-item-text">Chinese</span>
-          <img className="nav-grid-a-item-image" src={AmericaFlag} />
+          <img className="nav-grid-a-item-image" src={ComingSoon} />
         </Link>
       </div>
       <div className="nav-grid-a-item">
@@ -83,7 +83,7 @@ const Cuisines = props => (
       <div className="nav-grid-a-item">
         <Link to="/food/cuisines/japanese">
           <span className="nav-grid-a-item-text">Japanese</span>
-          <img className="nav-grid-a-item-image" src={AmericaFlag} />
+          <img className="nav-grid-a-item-image" src={ComingSoon} />
         </Link>
       </div>
       <div className="nav-grid-a-item">

@@ -18,6 +18,7 @@ import './themes/navGridA.css';
 import './themes/oneColumnA.css';
 import './themes/twoColumnA.css';
 import './themes/twoColumnB.css';
+import './themes/tableA.css';
 //import registerServiceWorker from "./registerServiceWorker";
 
 const composeEnhancers = process.env.NODE_ENV === "development"

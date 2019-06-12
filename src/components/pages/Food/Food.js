@@ -14,7 +14,7 @@ const Food = props => (
     <h1>Food</h1>
     <div className={`nav-grid-a ${props.navGridATheme}`}>
       <div className="nav-grid-a-item">
-        <Link to="/food/nav-recipes">
+        <Link to="/food/recipes">
           <span className="nav-grid-a-item-text">Recipes</span>
           <img className="nav-grid-a-item-image" src={Meal} />
         </Link>
@@ -26,7 +26,7 @@ const Food = props => (
         </Link>
       </div>
       <div className="nav-grid-a-item">
-        <Link to="/food/nav-ingredients">
+        <Link to="/food/ingredients">
           <span className="nav-grid-a-item-text">Ingredients</span>
           <img className="nav-grid-a-item-image" src={Ribs} />
         </Link>
@@ -38,7 +38,7 @@ const Food = props => (
         </Link>
       </div>
       <div className="nav-grid-a-item">
-        <Link to="/food/nav-equipment">
+        <Link to="/food/equipment">
           <span className="nav-grid-a-item-text">Equipment</span>
           <img className="nav-grid-a-item-image" src={CuttingBoard} />
         </Link>

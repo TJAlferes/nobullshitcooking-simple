@@ -35,6 +35,17 @@
   margin: auto;
 }
 
+.nav-grid-a a:link,
+.nav-grid-a a:visited {
+  color: #68abe6;
+  text-decoration: none;    
+}
+
+.nav-grid-a a:hover,
+.nav-grid-a a:active {
+  text-decoration: underline;
+}
+
 .nav-grid-a-light {
   background-color: #fff;
   color: #000;
@@ -44,6 +55,10 @@
   border-color: #ddd;
 }
 
+.nav-grid-a-light a:hover {
+  color: #c10006;
+}
+
 .nav-grid-a-dark {
   background-color: #222;
   color: #aaa;
@@ -51,4 +66,8 @@
 
 .nav-grid-a-dark .nav-grid-a-item {
   border-color: #333;
+}
+
+.nav-grid-a-dark a:hover {
+  color: #690004;
 }

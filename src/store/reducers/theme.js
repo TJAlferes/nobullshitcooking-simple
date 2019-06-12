@@ -11,6 +11,8 @@ const initialState = {
   oneColumnATheme: "one-column-a-light",
   twoColumnATheme: "two-column-a-light",
   twoColumnBTheme: "two-column-b-light",
+  tableATheme: "table-a-light",
+  breadCrumbsTheme: "bread-crumbs-light",
   leftNavTheme: "left-nav-light",
   suggestionsTheme: "suggestions-light",
   feedTheme: "feed-light"
@@ -28,6 +30,8 @@ const themeReducer = (state = initialState, action) => {
         oneColumnATheme: "one-column-a-dark",
         twoColumnATheme: "two-column-a-dark",
         twoColumnBTheme: "two-column-b-dark",
+        tableATheme: "table-a-dark",
+        breadCrumbsTheme: "bread-crumbs-dark",
         leftNavTheme: "left-nav-dark",
         suggestionsTheme: "suggestions-dark",
         feedTheme: "feed-dark"

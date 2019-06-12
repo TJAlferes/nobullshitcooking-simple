@@ -21,7 +21,7 @@ const Supplements = props => (
     <article>
       <h1>Supplements</h1>
       <h2>Daily</h2>
-      <table>
+      <table className={`table-a ${props.tableATheme}`}>
         <thead>
           <tr><th>Supplement</th><th>Amount</th><th>Function</th><th>Price per day</th><th>Buy on Amazon</th></tr>
         </thead>
@@ -64,7 +64,7 @@ const Supplements = props => (
         </tbody>
       </table>
       <h2>Weekly</h2>
-      <table>
+      <table className={`table-a ${props.tableATheme}`}>
         <thead>
           <tr><th>Supplement</th><th>Amount</th><th>Function</th><th>Price per week</th><th>Buy on Amazon</th></tr>
         </thead>

@@ -2,27 +2,3 @@
   min-width: 300px;
   max-width: 600px;
 }
-
-/*h1 {
-  margin-top: 18px;
-  margin-bottom: 12px;
-  margin-left: 6px;
-}*/
-
-a:link {
-  color: #68abe6;       
-}
-
-a:visited {
-  color: #68abe6;
-}
-
-a:hover {
-  color: #c10006;
-  text-decoration: underline;
-}
-
-a:active {
-  color: #c10006;
-  text-decoration: underline;
-}

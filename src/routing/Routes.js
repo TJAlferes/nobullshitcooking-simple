@@ -55,29 +55,8 @@ const Recipe = lazy(() => import('../components/pages/main/Recipe/Recipe'));
 
 import Food from '../components/pages/Food/Food';
 
-import Nutrition from '../components/pages/Food/Nutrition/Nutrition';
-import Calories from '../components/pages/Food/Nutrition/Calories/Calories';
-import Macronutrients from '../components/pages/Food/Nutrition/Macronutrients/Macronutrients';
-import Micronutrients from '../components/pages/Food/Nutrition/Micronutrients/Micronutrients';
-import Supplements from '../components/pages/Food/Nutrition/Supplements/Supplements';
+import SiteNavRecipes from '../components/pages/Food/SiteNavRecipes/SiteNavRecipes';
 
-import Methods from '../components/pages/Food/Methods/Methods';
-import PoachAndSimmer from '../components/pages/Food/Methods/PoachAndSimmer/PoachAndSimmer';
-import Steam from '../components/pages/Food/Methods/Steam/Steam';
-import Saute from '../components/pages/Food/Methods/Saute/Saute';
-import Roast from '../components/pages/Food/Methods/Roast/Roast';
-import Grill from '../components/pages/Food/Methods/Grill/Grill';
-import StewAndBraise from '../components/pages/Food/Methods/StewAndBraise/StewAndBraise';
-
-import SiteNavIngredients from '../components/pages/Food/SiteNavIngredients/SiteNavIngredients';
-import FishAndShellfish from '../components/pages/Food/SiteNavIngredients/FishAndShellfish/FishAndShellfish';
-import MeatAndPoultry from '../components/pages/Food/SiteNavIngredients/MeatAndPoultry/MeatAndPoultry';
-import EggsAndDairy from '../components/pages/Food/SiteNavIngredients/EggsAndDairy/EggsAndDairy';
-import BeansAndVegetables from '../components/pages/Food/SiteNavIngredients/BeansAndVegetables/BeansAndVegetables';
-import Fruit from '../components/pages/Food/SiteNavIngredients/Fruit/Fruit';
-import SeedsAndGrains from '../components/pages/Food/SiteNavIngredients/SeedsAndGrains/SeedsAndGrains';
-import FatsAndOils from '../components/pages/Food/SiteNavIngredients/FatsAndOils/FatsAndOils';
-import AcidsHerbsAndSpices from '../components/pages/Food/SiteNavIngredients/AcidsHerbsAndSpices/AcidsHerbsAndSpices';
 
 import Cuisines from '../components/pages/Food/Cuisines/Cuisines';
 import Russian from '../components/pages/Food/Cuisines/Russian/Russian';
@@ -92,6 +71,34 @@ import Chinese from '../components/pages/Food/Cuisines/Chinese/Chinese';
 import Indian from '../components/pages/Food/Cuisines/Indian/Indian';
 import Japanese from '../components/pages/Food/Cuisines/Japanese/Japanese';
 import Iranian from '../components/pages/Food/Cuisines/Iranian/Iranian';
+
+import SiteNavIngredients from '../components/pages/Food/SiteNavIngredients/SiteNavIngredients';
+import FishAndShellfish from '../components/pages/Food/SiteNavIngredients/FishAndShellfish/FishAndShellfish';
+import MeatAndPoultry from '../components/pages/Food/SiteNavIngredients/MeatAndPoultry/MeatAndPoultry';
+import EggsAndDairy from '../components/pages/Food/SiteNavIngredients/EggsAndDairy/EggsAndDairy';
+import BeansAndVegetables from '../components/pages/Food/SiteNavIngredients/BeansAndVegetables/BeansAndVegetables';
+import Fruit from '../components/pages/Food/SiteNavIngredients/Fruit/Fruit';
+import SeedsAndGrains from '../components/pages/Food/SiteNavIngredients/SeedsAndGrains/SeedsAndGrains';
+import FatsAndOils from '../components/pages/Food/SiteNavIngredients/FatsAndOils/FatsAndOils';
+import AcidsHerbsAndSpices from '../components/pages/Food/SiteNavIngredients/AcidsHerbsAndSpices/AcidsHerbsAndSpices';
+
+import Nutrition from '../components/pages/Food/Nutrition/Nutrition';
+import Calories from '../components/pages/Food/Nutrition/Calories/Calories';
+import Macronutrients from '../components/pages/Food/Nutrition/Macronutrients/Macronutrients';
+import Micronutrients from '../components/pages/Food/Nutrition/Micronutrients/Micronutrients';
+import Supplements from '../components/pages/Food/Nutrition/Supplements/Supplements';
+
+import SiteNavEquipment from '../components/pages/Food/SiteNavEquipment/SiteNavEquipment';
+
+
+import Methods from '../components/pages/Food/Methods/Methods';
+import PoachAndSimmer from '../components/pages/Food/Methods/PoachAndSimmer/PoachAndSimmer';
+import Steam from '../components/pages/Food/Methods/Steam/Steam';
+import Saute from '../components/pages/Food/Methods/Saute/Saute';
+import Roast from '../components/pages/Food/Methods/Roast/Roast';
+import Grill from '../components/pages/Food/Methods/Grill/Grill';
+import StewAndBraise from '../components/pages/Food/Methods/StewAndBraise/StewAndBraise';
+
 
 
 import Fitness from '../components/pages/Fitness/Fitness';  // fitness is NOT the same as health
@@ -194,40 +201,30 @@ const RoutesList = () => (
         routes
       */}
       
-      <AppliedRoute path="/food/equipments" exact component={Equipments} />
-      <AppliedRoute path="/food/equipment/:id" exact component={Equipment} />
-      <AppliedRoute path="/food/ingredients" exact component={Ingredients} />
-      <AppliedRoute path="/food/ingredient/:id" exact component={Ingredient} />
-      <AppliedRoute path="/food/recipes" exact component={Recipes} />
-      <AppliedRoute path="/food/recipe/:id" exact component={Recipe} />
+      <AppliedRoute path="/equipments" exact component={Equipments} />
+      <AppliedRoute path="/equipment/:id" exact component={Equipment} />
+      <AppliedRoute path="/ingredients" exact component={Ingredients} />
+      <AppliedRoute path="/ingredient/:id" exact component={Ingredient} />
+      <AppliedRoute path="/recipes" exact component={Recipes} />
+      <AppliedRoute path="/recipe/:id" exact component={Recipe} />
 
 
 
       <AppliedRoute path="/food" exact component={Food} />
 
-      <AppliedRoute path="/food/nutrition" exact component={Nutrition} />
-      <AppliedRoute path="/food/nutrition/calories" exact component={Calories} />
-      <AppliedRoute path="/food/nutrition/macronutrients" exact component={Macronutrients} />
-      <AppliedRoute path="/food/nutrition/micronutrients" exact component={Micronutrients} />
-      <AppliedRoute path="/food/nutrition/supplements" exact component={Supplements} />
-
-      <AppliedRoute path="/food/methods" exact component={Methods} />
-      <AppliedRoute path="/food/methods/poach-and-simmer" exact component={PoachAndSimmer} />
-      <AppliedRoute path="/food/methods/steam" exact component={Steam} />
-      <AppliedRoute path="/food/methods/saute" exact component={Saute} />
-      <AppliedRoute path="/food/methods/roast" exact component={Roast} />
-      <AppliedRoute path="/food/methods/grill" exact component={Grill} />
-      <AppliedRoute path="/food/methods/stew-and-braise" exact component={StewAndBraise} />
-
-      <AppliedRoute path="/food/site-nav-ingredients" exact component={SiteNavIngredients} />
-      <AppliedRoute path="/food/ingredients/fish-and-shellfish" exact component={FishAndShellfish} />
-      <AppliedRoute path="/food/ingredients/meat-and-poultry" exact component={MeatAndPoultry} />
-      <AppliedRoute path="/food/ingredients/eggs-and-dairy" exact component={EggsAndDairy} />
-      <AppliedRoute path="/food/ingredients/beans-and-vegetables" exact component={BeansAndVegetables} />
-      <AppliedRoute path="/food/ingredients/fruit" exact component={Fruit} />
-      <AppliedRoute path="/food/ingredients/seeds-and-grains" exact component={SeedsAndGrains} />
-      <AppliedRoute path="/food/ingredients/fats-and-oils" exact component={FatsAndOils} />
-      <AppliedRoute path="/food/ingredients/acids-herbs-and-spices" exact component={AcidsHerbsAndSpices} />
+      <AppliedRoute path="/food/recipes" exact component={SiteNavRecipes} />
+      <AppliedRoute path="/food/recipes/drinks" exact component={Drinks} />
+      <AppliedRoute path="/food/recipes/appetizers" exact component={Appetizers} />
+      <AppliedRoute path="/food/recipes/main" exact component={Mains} />
+      <AppliedRoute path="/food/recipes/sides" exact component={Sides} />
+      <AppliedRoute path="/food/recipes/desserts" exact component={Desserts} />
+      <AppliedRoute path="/food/recipes/soups" exact component={Soups} />
+      <AppliedRoute path="/food/recipes/salads" exact component={Salads} />
+      <AppliedRoute path="/food/recipes/stews" exact component={Stews} />
+      <AppliedRoute path="/food/recipes/casseroles" exact component={Casseroles} />
+      <AppliedRoute path="/food/recipes/sauces" exact component={Sauces} />
+      <AppliedRoute path="/food/recipes/dressings" exact component={Dressings} />
+      <AppliedRoute path="/food/recipes/condiments" exact component={Condiments} />
 
       <AppliedRoute path="/food/cuisines" exact component={Cuisines} />
       <AppliedRoute path="/food/cuisines/russian" exact component={Russian} />
@@ -242,6 +239,37 @@ const RoutesList = () => (
       <AppliedRoute path="/food/cuisines/indian" exact component={Indian} />
       <AppliedRoute path="/food/cuisines/japanese" exact component={Japanese} />
       <AppliedRoute path="/food/cuisines/iranian" exact component={Iranian} />
+
+      <AppliedRoute path="/food/ingredients" exact component={SiteNavIngredients} />
+      <AppliedRoute path="/food/ingredients/fish-and-shellfish" exact component={FishAndShellfish} />
+      <AppliedRoute path="/food/ingredients/meat-and-poultry" exact component={MeatAndPoultry} />
+      <AppliedRoute path="/food/ingredients/eggs-and-dairy" exact component={EggsAndDairy} />
+      <AppliedRoute path="/food/ingredients/beans-and-vegetables" exact component={BeansAndVegetables} />
+      <AppliedRoute path="/food/ingredients/fruit" exact component={Fruit} />
+      <AppliedRoute path="/food/ingredients/seeds-and-grains" exact component={SeedsAndGrains} />
+      <AppliedRoute path="/food/ingredients/fats-and-oils" exact component={FatsAndOils} />
+      <AppliedRoute path="/food/ingredients/acids-herbs-and-spices" exact component={AcidsHerbsAndSpices} />
+
+      <AppliedRoute path="/food/nutrition" exact component={Nutrition} />
+      <AppliedRoute path="/food/nutrition/calories" exact component={Calories} />
+      <AppliedRoute path="/food/nutrition/macronutrients" exact component={Macronutrients} />
+      <AppliedRoute path="/food/nutrition/micronutrients" exact component={Micronutrients} />
+      <AppliedRoute path="/food/nutrition/supplements" exact component={Supplements} />
+
+      <AppliedRoute path="/food/equipment" exact component={SiteNavEquipment} />
+      <AppliedRoute path="/food/equipment/cleaning" exact component={Cleaning} />
+      <AppliedRoute path="/food/equipment/preparing" exact component={Preparing} />
+      <AppliedRoute path="/food/equipment/cooking" exact component={Cooking} />
+      <AppliedRoute path="/food/equipment/dining" exact component={Dining} />
+      <AppliedRoute path="/food/equipment/storage" exact component={Storage} />
+
+      <AppliedRoute path="/food/methods" exact component={Methods} />
+      <AppliedRoute path="/food/methods/poach-and-simmer" exact component={PoachAndSimmer} />
+      <AppliedRoute path="/food/methods/steam" exact component={Steam} />
+      <AppliedRoute path="/food/methods/saute" exact component={Saute} />
+      <AppliedRoute path="/food/methods/roast" exact component={Roast} />
+      <AppliedRoute path="/food/methods/grill" exact component={Grill} />
+      <AppliedRoute path="/food/methods/stew-and-braise" exact component={StewAndBraise} />
 
 
 

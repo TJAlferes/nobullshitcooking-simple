@@ -1,7 +1,7 @@
 export default [
   {
     name: 'Recipes',
-    link: '/food/nav-recipes',
+    link: '/food/recipes',
     subMenu: [
       'Drinks',
       'Appetizers',
@@ -17,18 +17,18 @@ export default [
       'Condiments',
     ],
     subMenuLinks: [
-      '/food/nav-recipes/drinks',
-      '/food/nav-recipes/appetizers',
-      '/food/nav-recipes/mains',
-      '/food/nav-recipes/sides',
-      '/food/nav-recipes/desserts',
-      '/food/nav-recipes/soups',
-      '/food/nav-recipes/salads',
-      '/food/nav-recipes/stews',
-      '/food/nav-recipes/casseroles',
-      '/food/nav-recipes/sauces',
-      '/food/nav-recipes/dressings',
-      '/food/nav-recipes/condiments',
+      '/food/recipes/drinks',
+      '/food/recipes/appetizers',
+      '/food/recipes/mains',
+      '/food/recipes/sides',
+      '/food/recipes/desserts',
+      '/food/recipes/soups',
+      '/food/recipes/salads',
+      '/food/recipes/stews',
+      '/food/recipes/casseroles',
+      '/food/recipes/sauces',
+      '/food/recipes/dressings',
+      '/food/recipes/condiments',
     ],
     image: 'recipes'
   },
@@ -69,7 +69,7 @@ export default [
 
   {
     name: 'Ingredients',
-    link: '/food/nav-ingredients',
+    link: '/food/ingredients',
     subMenu: [
       'Fish and Shellfish',
       'Meat and Poultry',
@@ -81,14 +81,14 @@ export default [
       'Acids, Herbs, and Spices'
     ],
     subMenuLinks: [
-      '/food/nav-ingredients/fish-and-shellfish',
-      '/food/nav-ingredients/meat-and-poultry',
-      '/food/nav-ingredients/eggs-and-dairy',
-      '/food/nav-ingredients/beans-and-vegetables',
-      '/food/nav-ingredients/fruit',
-      '/food/nav-ingredients/seeds-and-grains',
-      '/food/nav-ingredients/fats-and-oils',
-      '/food/nav-ingredients/acids-herbs-and-spices'
+      '/food/ingredients/fish-and-shellfish',
+      '/food/ingredients/meat-and-poultry',
+      '/food/ingredients/eggs-and-dairy',
+      '/food/ingredients/beans-and-vegetables',
+      '/food/ingredients/fruit',
+      '/food/ingredients/seeds-and-grains',
+      '/food/ingredients/fats-and-oils',
+      '/food/ingredients/acids-herbs-and-spices'
     ],
     image: 'ingredients'
   },
@@ -101,7 +101,7 @@ export default [
     ],
     subMenuLinks: [
       '/food/nutrition/calories',
-      '/food/nutrition/macronutients',
+      '/food/nutrition/macronutrients',
       '/food/nutrition/micronutrients',
       '/food/nutrition/supplements'
     ],
@@ -110,14 +110,14 @@ export default [
 
   {
     name: 'Equipment',
-    link: '/food/nav-equipment',
+    link: '/food/equipment',
     subMenu: ['Cleaning', 'Preparing', 'Cooking', 'Dining', 'Storage'],
     subMenuLinks: [
-      '/food/nav-equipment/cleaning',
-      '/food/nav-equipment/preparing',
-      '/food/nav-equipment/cooking',
-      '/food/nav-equipment/dining',
-      '/food/nav-equipment/storage',
+      '/food/equipment/cleaning',
+      '/food/equipment/preparing',
+      '/food/equipment/cooking',
+      '/food/equipment/dining',
+      '/food/equipment/storage',
     ],
     image: 'equipment'
   },
