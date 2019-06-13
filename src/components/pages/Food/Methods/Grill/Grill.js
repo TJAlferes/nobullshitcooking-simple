@@ -2,8 +2,8 @@ import React from 'react';
 
 import '../method.css';
 
-const Grill = () => (
-  <div className="method">
+const Grill = props => (
+  <div className={`method one-column-a ${props.oneColumnATheme}`}>
     <h1>Grill</h1>
   </div>
 );

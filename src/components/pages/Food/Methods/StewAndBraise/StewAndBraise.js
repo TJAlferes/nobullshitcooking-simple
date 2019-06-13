@@ -2,8 +2,8 @@ import React from 'react';
 
 import '../method.css';
 
-const StewAndBraise = () => (
-  <div className="method">
+const StewAndBraise = props => (
+  <div className={`method one-column-a ${props.oneColumnATheme}`}>
     <h1>Stew and Braise</h1>
   </div>
 );

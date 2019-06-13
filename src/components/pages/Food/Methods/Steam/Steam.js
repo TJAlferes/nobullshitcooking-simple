@@ -2,8 +2,8 @@ import React from 'react';
 
 import '../method.css';
 
-const Steam = () => (
-  <div className="method">
+const Steam = props => (
+  <div className={`method one-column-a ${props.oneColumnATheme}`}>
     <h1>Steam</h1>
   </div>
 );

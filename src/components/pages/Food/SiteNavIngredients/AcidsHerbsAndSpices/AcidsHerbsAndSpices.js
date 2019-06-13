@@ -2,8 +2,8 @@ import React from 'react';
 
 import '../siteNavIngredients.css';
 
-const AcidsHerbsAndSpices = () => (
-  <div className="site-nav-ingredients">
+const AcidsHerbsAndSpices = props => (
+  <div className={`site-nav-ingredients one-column-a ${props.oneColumnATheme}`}>
     <h1>Acids, Herbs, and Spices</h1>
   </div>
 );

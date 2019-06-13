@@ -2,8 +2,8 @@ import React from 'react';
 
 import '../method.css';
 
-const PoachAndSimmer = () => (
-  <div className="method">
+const PoachAndSimmer = props => (
+  <div className={`method one-column-a ${props.oneColumnATheme}`}>
     <h1>Poach and Simmer</h1>
   </div>
 );
