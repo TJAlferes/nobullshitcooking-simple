@@ -14,14 +14,7 @@ import './planner.css';  // use BEM
 // TO DO: clear/delete plan button
 // TO DO: button on recipe page to add to plan
 
-class Planner extends Component {  // convert to functional w/ hooks
-  /*handleSave = async () => {  // put in redux-saga, perform 5 seconds after no mouse or keyboard activity
-    const { isSaving, recipeLists } = this.state;
-    // fetch or axios PUT on the already created record
-    // setState({isSaving: true});
-    // setState({isSaving: false});
-  }*/
-
+class Planner extends Component {
   render() {
     const { isSaving, expanded, expandedDay, publicUrl, recipeListsInsideDays, twoColumnATheme } = this.props;
     return (
@@ -29,8 +22,12 @@ class Planner extends Component {  // convert to functional w/ hooks
         <LeftNav />
         <article>
           <div id="planner_header">
-            <span className="demo-only-notice">
-              Link to share: {`https://nobullshitcooking.com/${publicUrl}`}
+            <span className="demo-only-notice" style={{wordWrap: 'break-word'}}>
+              {
+                (publicUrl === ("" || "d1.d2.d3.d4.d5.d6.d7.d8.d9.d10.d11.d12.d13.d14.d15.d16.d17.d18.d19.d20.d21.d22.d23.d24.d25.d26.d27.d28"))
+                ? `Drag recipes to days`
+                : `Link to share: https://nobullshitcooking.com/${publicUrl}`
+              }
             </span>
             <h1>Planner</h1>
             <p id="autosave_feedback">
