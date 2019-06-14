@@ -3,15 +3,20 @@ import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
-import { plannerClickDay, plannerAddRecipeToDay } from '../../../store/actions/index';
+import { plannerClickDay, plannerAddRecipeToDay, plannerUpdatePublicUrl } from '../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
+
+async function addThenUpdate(props, day, draggedRecipe) {
+  await props.plannerAddRecipeToDay(day, draggedRecipe.recipe);  // or make thunk/saga
+  props.plannerUpdatePublicUrl();  // or make thunk/saga
+}
 
 const plannerDayTarget = {
   drop(props, monitor) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
-    if (day !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
+    if (day !== draggedRecipe.day) addThenUpdate(props, day, draggedRecipe);
     return {listId: day};
   }
 };
@@ -54,7 +59,8 @@ const PlannerDay = ({
 
 const mapDispatchToProps = dispatch => ({
   plannerClickDay: (day) => dispatch(plannerClickDay(day)),
-  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe))
+  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
+  plannerUpdatePublicUrl: () => dispatch(plannerUpdatePublicUrl())
 });
 
 export default connect(

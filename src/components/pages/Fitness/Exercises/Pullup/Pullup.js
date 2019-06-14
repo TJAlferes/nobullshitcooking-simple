@@ -2,8 +2,8 @@ import React from 'react';
 
 import '../exercise.css'
 
-const Pullup = () => (
-  <div className="exercise">
+const Pullup = props => (
+  <div className={`exercise one-column-a ${props.oneColumnATheme}`}>
     <h1>Pullup</h1>
   </div>
 );

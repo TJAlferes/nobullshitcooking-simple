@@ -48,6 +48,7 @@ export {
 
   plannerPublicLoadFromUrl,
   plannerPublicSaveToUrl,
+  plannerUpdatePublicUrl,
 
   plannerLoad,
   plannerSave,

@@ -1,5 +1,8 @@
-import * as actionTypes from '../actions/actionTypes';
 import update from 'immutability-helper';
+
+import * as actionTypes from '../actions/actionTypes';
+import convertPlannerToUrl from '../../utils/publicPlanner/convertPlannerToUrl';
+import { plannerUpdatePublicUrl } from '../actions/planner';
 
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
 
@@ -11,6 +14,7 @@ const initialState = {
   isSaving: false,
   expanded: false,
   expandedDay: "none",
+  publicUrl: "",
   recipeListsInsideDays: {
     1: [],
     2: [],
@@ -106,6 +110,13 @@ const publicSaveToUrl = (state, action) => {
 
 };
 
+const updatePublicUrl = (state, action) => {
+  const { recipeListsInsideDays } = state;
+  const newPublicUrl = convertPlannerToUrl(recipeListsInsideDays);
+  console.log(newPublicUrl);
+  return {...state, ...{publicUrl: newPublicUrl}}
+};
+
 const loadPlan = (state, action) => {
   //
   return {...state, ...{payload: action.payload}};
@@ -125,6 +136,7 @@ const plannerReducer = (state = initialState, action) => {
     case actionTypes.PLANNER_REORDER_RECIPE_IN_DAY: return reorderRecipeInDay(state, action);
     case actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL: return publicLoadFromUrl(state, action);
     case actionTypes.PLANNER_PUBLIC_SAVE_TO_URL: return publicSaveToUrl(state, action);
+    case actionTypes.PLANNER_UPDATE_PUBLIC_URL: return updatePublicUrl(state, action);
   }
   return state;
 };

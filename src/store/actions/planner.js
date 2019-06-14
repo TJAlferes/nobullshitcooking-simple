@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+//import '../../utils/publicPlanner/convertPlannerToUrl';
 
 /*
 Planner -- core functionality
@@ -43,6 +44,10 @@ export const plannerPublicSaveToUrl = (history, plan) => ({
   type: actionTypes.PLANNER_PUBLIC_SAVE_TO_URL,
   history,
   plan
+});
+
+export const plannerUpdatePublicUrl = () => ({
+  type: actionTypes.PLANNER_UPDATE_PUBLIC_URL
 });
 
 

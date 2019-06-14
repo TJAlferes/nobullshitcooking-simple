@@ -23,12 +23,15 @@ class Planner extends Component {  // convert to functional w/ hooks
   }*/
 
   render() {
-    const { isSaving, expanded, expandedDay, recipeListsInsideDays, twoColumnATheme } = this.props;
+    const { isSaving, expanded, expandedDay, publicUrl, recipeListsInsideDays, twoColumnATheme } = this.props;
     return (
       <div className={`two-column-a ${twoColumnATheme}`}>
         <LeftNav />
         <article>
           <div id="planner_header">
+            <span className="demo-only-notice">
+              Link to share: {`https://nobullshitcooking.com/${publicUrl}`}
+            </span>
             <h1>Planner</h1>
             <p id="autosave_feedback">
               {/*isSaving ? 'Saving changes...' : 'All changes saved.'*/}
@@ -91,6 +94,7 @@ const mapStateToProps = state => ({
   isSaving: state.planner.isSaving,
   expanded: state.planner.expanded,
   expandedDay: state.planner.expandedDay,
+  publicUrl: state.planner.publicUrl,
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
