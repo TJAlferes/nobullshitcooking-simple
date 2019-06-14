@@ -13,14 +13,7 @@ import './mobilePlanner.css';  // use BEM
 // TO DO: clear/delete plan button
 // TO DO: button on recipe page to add to plan
 
-class MobilePlanner extends Component {  // convert to functional w/ hooks
-  /*handleSave = async () => {  // put in redux-saga, perform 5 seconds after no mouse or keyboard activity
-    const { isSaving, recipeLists } = this.state;
-    // fetch or axios PUT on the already created record
-    // setState({isSaving: true});
-    // setState({isSaving: false});
-  }*/
-
+class MobilePlanner extends Component {
   render() {
     const { isSaving, expanded, expandedDay, recipeListsInsideDays } = this.props;
     return (

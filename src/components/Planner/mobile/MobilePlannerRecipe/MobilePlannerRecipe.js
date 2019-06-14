@@ -4,7 +4,8 @@ import { DragSource, DropTarget } from 'react-dnd';
 
 import {
   plannerRemoveRecipeFromDay,
-  plannerReorderRecipeInDay
+  plannerReorderRecipeInDay,
+  plannerUpdatePublicUrl
 } from '../../../../store/actions/index';
 import './mobilePlannerRecipe.css';  // use BEM
 
@@ -15,6 +16,16 @@ import sas32 from '../../../../assets/images/content/planner/sas32.png';
 import sps32 from '../../../../assets/images/content/planner/sps32.png';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
+
+async function removeThenUpdate(props, item) {
+  await props.plannerRemoveRecipeFromDay(item.day, item.index);
+  props.plannerUpdatePublicUrl();  // or make thunk/saga
+}
+
+async function reorderThenUpdate(props, dragIndex, hoverIndex) {
+  await props.plannerReorderRecipeInDay(dragIndex, hoverIndex);
+  props.plannerUpdatePublicUrl();  // or make thunk/saga
+}
 
 const plannerRecipeSource = {
   beginDrag(props) {
@@ -31,9 +42,7 @@ const plannerRecipeSource = {
     const item = monitor.getItem();
     if (item.day === "0") return;  // to copy rather than remove from mobileplannerrecipeslist
     const dropResult = monitor.getDropResult();
-    if (dropResult && (dropResult.listId !== item.day)) {
-      props.plannerRemoveRecipeFromDay(item.day, item.index);
-    }
+    if (dropResult && (dropResult.listId !== item.day)) removeThenUpdate(props, item);
   }
 };
 
@@ -56,7 +65,7 @@ const plannerRecipeTarget = {
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
     if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
     if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
-    props.plannerReorderRecipeInDay(dragIndex, hoverIndex);
+    reorderThenUpdate(props, dragIndex, hoverIndex);
     monitor.getItem().index = hoverIndex;
   }
 };
@@ -98,7 +107,8 @@ const MobilePlannerRecipe = forwardRef(
 
 const mapDispatchToProps = dispatch => ({
   plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
-  plannerReorderRecipeInDay: (dragIndex, hoverIndex) => dispatch(plannerReorderRecipeInDay(dragIndex, hoverIndex))
+  plannerReorderRecipeInDay: (dragIndex, hoverIndex) => dispatch(plannerReorderRecipeInDay(dragIndex, hoverIndex)),
+  plannerUpdatePublicUrl: () => dispatch(plannerUpdatePublicUrl())
 });
 
 export default connect(

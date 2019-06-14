@@ -3,15 +3,24 @@ import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
 import MobilePlannerRecipe from '../MobilePlannerRecipe/MobilePlannerRecipe';
-import { plannerClickDay, plannerAddRecipeToDay } from '../../../../store/actions/index';
+import {
+  plannerClickDay,
+  plannerAddRecipeToDay,
+  plannerUpdatePublicUrl
+} from '../../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
+
+async function addThenUpdate(props, day, draggedRecipe) {
+  await props.plannerAddRecipeToDay(day, draggedRecipe.recipe);  // or make thunk/saga
+  props.plannerUpdatePublicUrl();  // or make thunk/saga
+}
 
 const plannerExpandedDayTarget = {
   drop(props, monitor) {
     const { day, expandedDay } = props;
     const draggedRecipe = monitor.getItem();
-    if (expandedDay !== draggedRecipe.day) props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
+    if (expandedDay !== draggedRecipe.day) addThenUpdate(props, day, draggedRecipe);
     return {listId: day};
   }
 };
@@ -54,7 +63,8 @@ const MobilePlannerExpandedDay = ({
 
 const mapDispatchToProps = dispatch => ({
   plannerClickDay: (day) => dispatch(plannerClickDay(day)),
-  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe))
+  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
+  plannerUpdatePublicUrl: () => dispatch(plannerUpdatePublicUrl())
 });
 
 export default connect(
