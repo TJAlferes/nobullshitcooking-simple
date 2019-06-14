@@ -189,6 +189,7 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/user" exact component={UserDashboard} />
 
       <AppliedRoute path="/planner" exact component={PlannerPage} />  {/* for demo/public purposes */}
+      <AppliedRoute path="/planner/:plan" exact component={PlannerPage} />
       <AuthenticatedRoute path="/user/planner" exact component={UserPlannerPage} />
 
       <AppliedRoute path="/food/recipes/submit" exact component={SubmitRecipe} />  {/* for demo purposes */}

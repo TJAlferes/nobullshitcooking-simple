@@ -3,20 +3,30 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 const uuidv4 = require('uuid/v4');
 
-import LeftNav from '../LeftNav/LeftNav';  // instead of doing it this way, just set up a component for pages that use leftnav
+import LeftNav from '../LeftNav/LeftNav';
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
 //import CustomDragLayer from './CustomDragLayer';
+import { plannerFillFromUrl } from '../../store/actions/index';
 import './planner.css';  // use BEM
 
+// TO DO: MAKE SPECIAL PLANNER BREADCRUMBS
+// TO DO: LIMIT THE RECIPES PER DAY (including expanded day) TO SEVEN
 // TO DO: on page refresh, preserve state (localStorage? indexedDB? webSQL?) (... localForage.)
 // TO DO: clear/delete plan button
 // TO DO: button on recipe page to add to plan
 
 class Planner extends Component {
+  componentDidMount() {
+    const urlString = this.props.match.params.plan;
+    console.log('urlString ', urlString);
+    // VALIDATE HERE TOO, have fallback to just /planner
+    if (urlString !== '') this.props.plannerFillFromUrl(urlString);
+  }
+
   render() {
-    const { isSaving, expanded, expandedDay, publicUrl, recipeListsInsideDays, twoColumnATheme } = this.props;
+    const { expanded, expandedDay, publicUrl, recipeListsInsideDays, twoColumnATheme } = this.props;
     return (
       <div className={`two-column-a ${twoColumnATheme}`}>
         <LeftNav />
@@ -24,15 +34,15 @@ class Planner extends Component {
           <div id="planner_header">
             <span className="demo-only-notice" style={{wordWrap: 'break-word'}}>
               {
-                (publicUrl === ("" || "d1.d2.d3.d4.d5.d6.d7.d8.d9.d10.d11.d12.d13.d14.d15.d16.d17.d18.d19.d20.d21.d22.d23.d24.d25.d26.d27.d28"))
+                (
+                  publicUrl == '' ||
+                  publicUrl == "d1.d2.d3.d4.d5.d6.d7.d8.d9.d10.d11.d12.d13.d14.d15.d16.d17.d18.d19.d20.d21.d22.d23.d24.d25.d26.d27.d28"
+                )
                 ? `Drag recipes to days`
-                : `Link to share: https://nobullshitcooking.com/${publicUrl}`
+                : `Link to share: https://nobullshitcooking.com/planner/${publicUrl}`
               }
             </span>
             <h1>Planner</h1>
-            <p id="autosave_feedback">
-              {/*isSaving ? 'Saving changes...' : 'All changes saved.'*/}
-            </p>
           </div>
           <hr />
           <div id="calendar_container">
@@ -95,4 +105,8 @@ const mapStateToProps = state => ({
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
-export default withRouter(connect(mapStateToProps)(Planner));
+const mapDispatchToProps = dispatch => ({
+  plannerFillFromUrl: (urlString) => dispatch(plannerFillFromUrl(urlString)) 
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Planner));

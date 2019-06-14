@@ -93,16 +93,16 @@ const convertUrlToPlannerv1 = urlString => {
 
 
 
-const convertUrlToPlannerv2 = urlString => {
+export const convertUrlToPlannerv2 = urlString => {
   if (typeof urlString !== 'string') return 'not a string';
 
   if (urlString.length < 4 || urlString.length > 1502) return 'invalid length';
 
-  const allowedCharactersInUrl = /[d][0-9_\-\.]/;
+  const allowedCharactersInUrl = /[d][0-9_\-\!]/;
   if (!allowedCharactersInUrl.test(urlString)) return 'invalid character(s)';
 
-  const urlStringSplitOnDay = urlString.split('.', 28);
-  if (!urlStringSplitOnDay) return 'not splittable on .s';
+  const urlStringSplitOnDay = urlString.split('!', 28);
+  if (!urlStringSplitOnDay) return 'not splittable on !s';
 
   const allowedCharactersInDay = /^[d]([1-9]|1[0-9]|2[0-8])$/;
   const allowedCharactersInRecipes = /[0-9\-]/;
@@ -112,13 +112,23 @@ const convertUrlToPlannerv2 = urlString => {
   urlStringSplitOnDay.map(substring => {
     let toAdd = substring.split('_');
     dayStrings.push(toAdd[0]);
-    recipesStrings.push(toAdd[1]);
+    recipesStrings.push(toAdd[1]);  // WRITE CONDITIONAL HERE TO HAVE FALLBACK FOR UNDEFINED
   });
+  console.log('dayStrings: ', dayStrings);
+  console.log('recipesStrings: ', recipesStrings);  // GETTING UNDEFINIED FOR DAYS WITH NO RECIPES
   dayStrings.map(dayString => {
-    if (!allowedCharactersInDay.test(dayString)) notOkay = true;
+    if (!allowedCharactersInDay.test(dayString)) {
+      console.log('dayString that wasnt okay: ', dayString);
+      notOkay = true;
+    }
+    //continue;
   });
   recipesStrings.map(recipesString => {
-    if (!allowedCharactersInRecipes.test(recipesString)) notOkay = true;
+    if (!allowedCharactersInRecipes.test(recipesString)) {
+      console.log('recipesString that wasnt okay: ', recipesString);
+      notOkay = true;
+    }
+    //continue;
   });
   if (notOkay) return 'not okay';
 
