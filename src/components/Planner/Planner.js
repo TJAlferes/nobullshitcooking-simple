@@ -9,7 +9,7 @@ import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
 //import CustomDragLayer from './CustomDragLayer';
 import { plannerFillFromUrl } from '../../store/actions/index';
-import { convertUrlToPlannerv2 } from '../../utils/publicPlanner/convertUrlToPlanner';
+import convertUrlToPlanner from '../../utils/publicPlanner/convertUrlToPlanner';
 import './planner.css';  // use BEM
 
 // TO DO: MAKE SPECIAL PLANNER BREADCRUMBS
@@ -19,14 +19,11 @@ import './planner.css';  // use BEM
 // TO DO: button on recipe page to add to plan
 
 class Planner extends Component {
-  async componentDidMount() {  // hooks? this needs to only run ONCE
+  async componentDidMount() {
     const urlString = this.props.match.params.plan;
-    console.log('urlString ', urlString);
     // VALIDATE HERE TOO, have fallback to just /planner
     if (urlString !== '' && typeof urlString !== "undefined") {
-      const preLoadedPlan = await convertUrlToPlannerv2(urlString);
-      console.log('in Planner componentDidMount(): ', preLoadedPlan);
-      //console.log(this.props.recipeListsInsideDays);
+      const preLoadedPlan = await convertUrlToPlanner(urlString);
       this.props.plannerFillFromUrl(preLoadedPlan);
     }
   }
@@ -64,7 +61,6 @@ class Planner extends Component {
                   <span className="th">Saturday</span>
                 </div>
                 <div id="tbody">
-                  {/* do you need Object.assign({}, ...Object.keys etc.) here? */}
                   {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
                     <div key={i} className="td">
                       <div className="content">
