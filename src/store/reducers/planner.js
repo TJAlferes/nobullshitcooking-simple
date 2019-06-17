@@ -98,38 +98,15 @@ const reorderRecipeInDay = (state, action) => {
   });
 };
 
-/*const publicLoadFromUrl = (state, action) => {
-
-};
-
-// > this would go in routing / sagas
-// *** this would not be needed here since it's not returning a new state? ***
-const publicSaveToUrl = (state, action) => {
-
-};*/
-
-const fillFromUrl = (state, action) => {
+const publicLoadFromUrl = (state, action) => {
   const { preLoadedPlan } = action;
-  return {
-    ...state,
-    ...{recipeListsInsideDays: preLoadedPlan}
-  };
+  return {...state, ...{recipeListsInsideDays: preLoadedPlan}};
 };
 
-const updatePublicUrl = (state, action) => {
+const publicSaveToUrl = (state, action) => {
   const { recipeListsInsideDays } = state;
   const newPublicUrl = convertPlannerToUrl(recipeListsInsideDays);
   return {...state, ...{publicUrl: newPublicUrl}}
-};
-
-const loadPlan = (state, action) => {
-  //
-  return {...state, ...{payload: action.payload}};
-};
-
-const savePlan = (state, action) => {
-  //
-  return {...state, ...{payload: action.payload}};
 };
 
 // remember Nir Kofman's actions patterns
@@ -139,10 +116,8 @@ const plannerReducer = (state = initialState, action) => {
     case actionTypes.PLANNER_ADD_RECIPE_TO_DAY: return addRecipeToDay(state, action);
     case actionTypes.PLANNER_REMOVE_RECIPE_FROM_DAY: return removeRecipeFromDay(state, action);
     case actionTypes.PLANNER_REORDER_RECIPE_IN_DAY: return reorderRecipeInDay(state, action);
-    //case actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL: return publicLoadFromUrl(state, action);
-    //case actionTypes.PLANNER_PUBLIC_SAVE_TO_URL: return publicSaveToUrl(state, action);
-    case actionTypes.PLANNER_FILL_FROM_URL: return fillFromUrl(state, action);
-    case actionTypes.PLANNER_UPDATE_PUBLIC_URL: return updatePublicUrl(state, action);
+    case actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL: return publicLoadFromUrl(state, action);
+    case actionTypes.PLANNER_PUBLIC_SAVE_TO_URL: return publicSaveToUrl(state, action);
   }
   return state;
 };

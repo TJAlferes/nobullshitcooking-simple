@@ -8,7 +8,7 @@ import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
 //import CustomDragLayer from './CustomDragLayer';
-import { plannerFillFromUrl } from '../../store/actions/index';
+import { plannerPublicLoadFromUrl } from '../../store/actions/index';
 import convertUrlToPlanner from '../../utils/publicPlanner/convertUrlToPlanner';
 import './planner.css';  // use BEM
 
@@ -24,7 +24,7 @@ class Planner extends Component {
     // VALIDATE HERE TOO, have fallback to just /planner
     if (urlString !== '' && typeof urlString !== "undefined") {
       const preLoadedPlan = await convertUrlToPlanner(urlString);
-      this.props.plannerFillFromUrl(preLoadedPlan);
+      this.props.plannerPublicLoadFromUrl(preLoadedPlan);
     }
   }
 
@@ -108,7 +108,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  plannerFillFromUrl: (urlString) => dispatch(plannerFillFromUrl(urlString)) 
+  plannerPublicLoadFromUrl: (preLoadedPlan) => dispatch(plannerPublicLoadFromUrl(preLoadedPlan)) 
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Planner));

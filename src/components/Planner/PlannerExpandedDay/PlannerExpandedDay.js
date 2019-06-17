@@ -6,14 +6,14 @@ import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import {
   plannerClickDay,
   plannerAddRecipeToDay,
-  plannerUpdatePublicUrl
+  plannerPublicSaveToUrl
 } from '../../../store/actions/index';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 async function addThenUpdate(props, day, draggedRecipe) {
-  await props.plannerAddRecipeToDay(day, draggedRecipe.recipe);  // or make thunk/saga
-  props.plannerUpdatePublicUrl();  // or make thunk/saga
+  await props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
+  props.plannerPublicSaveToUrl();
 }
 
 const plannerExpandedDayTarget = {
@@ -64,7 +64,7 @@ const PlannerExpandedDay = ({
 const mapDispatchToProps = dispatch => ({
   plannerClickDay: (day) => dispatch(plannerClickDay(day)),
   plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe)),
-  plannerUpdatePublicUrl: () => dispatch(plannerUpdatePublicUrl())
+  plannerPublicSaveToUrl: () => dispatch(plannerPublicSaveToUrl())
 });
 
 export default connect(

@@ -5,7 +5,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay,
-  plannerUpdatePublicUrl
+  plannerPublicSaveToUrl
 } from '../../../store/actions/index';
 import './plannerRecipe.css';  // use BEM
 
@@ -19,12 +19,12 @@ const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 async function removeThenUpdate(props, item) {
   await props.plannerRemoveRecipeFromDay(item.day, item.index);
-  props.plannerUpdatePublicUrl();  // or make thunk/saga
+  props.plannerPublicSaveToUrl();
 }
 
 async function reorderThenUpdate(props, dragIndex, hoverIndex) {
   await props.plannerReorderRecipeInDay(dragIndex, hoverIndex);
-  props.plannerUpdatePublicUrl();  // or make thunk/saga
+  props.plannerPublicSaveToUrl();
 }
 
 const plannerRecipeSource = {
@@ -108,7 +108,7 @@ const PlannerRecipe = forwardRef(
 const mapDispatchToProps = dispatch => ({
   plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
   plannerReorderRecipeInDay: (dragIndex, hoverIndex) => dispatch(plannerReorderRecipeInDay(dragIndex, hoverIndex)),
-  plannerUpdatePublicUrl: () => dispatch(plannerUpdatePublicUrl())
+  plannerPublicSaveToUrl: () => dispatch(plannerPublicSaveToUrl())
 });
 
 export default connect(
