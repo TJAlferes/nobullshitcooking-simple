@@ -45,6 +45,7 @@ const EquipmentRow = ({
       className="select_equipment"
       name="equipment"
       required
+      disabled={type === ""}
       value={equipment}
       onChange={(e) => handleEquipmentRowChange(e, rowKey)}
     >

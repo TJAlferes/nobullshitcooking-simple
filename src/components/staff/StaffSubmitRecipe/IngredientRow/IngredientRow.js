@@ -64,6 +64,7 @@ const IngredientRow = ({
       className="select_ingredient"
       name="ingredient"
       required
+      disabled={type === ""}
       value={ingredient}
       onChange={(e) => handleIngredientRowChange(e, rowKey)}
     >

@@ -82,6 +82,7 @@ const SubrecipeRow = ({
       className="select_subrecipe"
       name="subrecipe"
       required
+      disabled={type === "" || cuisine === ""}
       value={subrecipe}
       onChange={(e) => handleSubrecipeRowChange(e, rowKey)}
     >
@@ -92,7 +93,7 @@ const SubrecipeRow = ({
         .filter((cui) => cui.cuisine_id == cuisine)
         .map((recipe, index) => (
           <option key={index} value={recipe.recipe_id}>
-            {recipe.recipe_name}
+            {recipe.title}
           </option>
         ))
       }

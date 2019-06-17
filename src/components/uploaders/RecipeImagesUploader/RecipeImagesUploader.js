@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/react/lib/Dashboard';
+import AwsS3 from '@uppy/aws-s3';
 import '@uppy/core/dist/style.css';
 import '@uppy/dashboard/dist/style.css';
+
+let endpoint;
+if (process.env.NODE_ENV === "production") {
+  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
+} else {
+  endpoint = 'http://localhost:3003';
+}
 
 class RecipeImagesUploader extends Component {
   constructor(props) {
     super(props);
-    this.uppy = Uppy({
+    this.uppy = new Uppy({
       id: 'uppy',
       autoProceed: false,
       allowMultipleUploads: true,
@@ -28,14 +36,10 @@ class RecipeImagesUploader extends Component {
         return modifiedFile;
       }
     })
-    .use(Dashboard, {
-      width: 840,
-      height: 520,
-      thumbnailWidth: 280
-    })
     .use(AwsS3, {
+      id: "AwsS3",
       getUploadParameters(file) {
-        return axios.post('/sign-s3-images-1', {
+        return axios.post(`${endpoint}/sign-s3-images-1`, {
           filename: file.name,
           contentType: file.type
         })
@@ -46,6 +50,12 @@ class RecipeImagesUploader extends Component {
         }));
       }
     });
+    /*.use(Dashboard, {
+      id: "Dashboard",
+      width: 840,
+      height: 520,
+      thumbnailWidth: 280
+    });*/
   }
 
   componentWillUnmount() {
@@ -53,7 +63,7 @@ class RecipeImagesUploader extends Component {
   }
 
   render() {
-    return <Dashboard uppy={this.uppy} />;
+    return <Dashboard uppy={this.uppy} plugins={['AwsS3']} />;
   }
 }
 

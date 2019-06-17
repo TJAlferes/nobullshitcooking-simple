@@ -1,23 +1,30 @@
 /*
 General
 */
+/*
 main {
   position: relative;
   flex: 1;
   order: 2;
   min-width: 1200px;
   background-color: #eee;
-} /* TO DO: move */
+}
 
 #page {
-  width: 900px;
+  width: 1200px;
   margin: 12px auto 18px auto;
   padding: 10px;
   background-color: #fff;
 }
 
 #form {
-  width: 880px;
+  width: 1180px;
+}
+*/
+
+.submit-recipe {
+  min-width: 1200px;
+  max-width: 1200px;
 }
 
 label {
@@ -46,6 +53,10 @@ select:required {
   box-shadow: none;
 }
 
+select:disabled {
+  border-color: #ddd;
+}
+
 
 
 /*
@@ -54,7 +65,6 @@ Labels, Inputs, and Selects
 #equipment_div,
 #ingredients_div,
 #subrecipes_div,
-#steps_div,
 .image_div {
   padding-top: 18px;
 }
@@ -66,7 +76,7 @@ Labels, Inputs, and Selects
 
 .manual_amount,
 .manual_amount_sub {
-  display: inline;
+  display: inline-block;
   width: 70px;
   min-width: 70px;
   max-width: 70px;
@@ -80,11 +90,6 @@ Labels, Inputs, and Selects
   min-width: 233px;
   max-width: 233px;
   margin-right: 18px;
-}
-
-.manual_step {
-  margin-right: 18px;
-  margin-left: 4px;
 }
 
 .recipe_additions p {
@@ -116,8 +121,7 @@ Add & Remove Buttons
 */
 .remove_equipment_row_button,
 .remove_ingredient_row_button,
-.remove_subrecipe_row_button,
-.remove_step_row_button {
+.remove_subrecipe_row_button {
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
   border: 1px solid #aaa;
   border-radius: 2px;
@@ -126,8 +130,7 @@ Add & Remove Buttons
 
 #add_equipment_button,
 #add_ingredient_button,
-#add_subrecipe_button,
-#add_step_button {
+#add_subrecipe_button {
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
   border: 1px solid #aaa;
   border-radius: 2px;
@@ -139,14 +142,10 @@ Add & Remove Buttons
   margin-top: 8px;
 }
 
-#add_ingredient_button,
-#add_step_button {
+#add_ingredient_button {
   margin-top: 10px;
 }
 
-#add_step_button {
-  display: block;
-}
 
 
 
