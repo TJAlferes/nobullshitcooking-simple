@@ -46,9 +46,9 @@ export const plannerPublicSaveToUrl = (history, plan) => ({
   plan
 });
 
-export const plannerFillFromUrl = urlString => ({
+export const plannerFillFromUrl = preLoadedPlan => ({
   type: actionTypes.PLANNER_FILL_FROM_URL,
-  urlString
+  preLoadedPlan
 });
 
 export const plannerUpdatePublicUrl = () => ({

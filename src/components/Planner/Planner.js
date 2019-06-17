@@ -9,6 +9,7 @@ import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
 //import CustomDragLayer from './CustomDragLayer';
 import { plannerFillFromUrl } from '../../store/actions/index';
+import { convertUrlToPlannerv2 } from '../../utils/publicPlanner/convertUrlToPlanner';
 import './planner.css';  // use BEM
 
 // TO DO: MAKE SPECIAL PLANNER BREADCRUMBS
@@ -18,11 +19,16 @@ import './planner.css';  // use BEM
 // TO DO: button on recipe page to add to plan
 
 class Planner extends Component {
-  componentDidMount() {
+  async componentDidMount() {  // hooks? this needs to only run ONCE
     const urlString = this.props.match.params.plan;
     console.log('urlString ', urlString);
     // VALIDATE HERE TOO, have fallback to just /planner
-    if (urlString !== '') this.props.plannerFillFromUrl(urlString);
+    if (urlString !== '' && typeof urlString !== "undefined") {
+      const preLoadedPlan = await convertUrlToPlannerv2(urlString);
+      console.log('in Planner componentDidMount(): ', preLoadedPlan);
+      //console.log(this.props.recipeListsInsideDays);
+      this.props.plannerFillFromUrl(preLoadedPlan);
+    }
   }
 
   render() {
@@ -36,7 +42,7 @@ class Planner extends Component {
               {
                 (
                   publicUrl == '' ||
-                  publicUrl == "d1.d2.d3.d4.d5.d6.d7.d8.d9.d10.d11.d12.d13.d14.d15.d16.d17.d18.d19.d20.d21.d22.d23.d24.d25.d26.d27.d28"
+                  publicUrl == "d1!d2!d3!d4!d5!d6!d7!d8!d9!d10!d11!d12!d13!d14!d15!d16!d17!d18!d19!d20!d21!d22!d23!d24!d25!d26!d27!d28"
                 )
                 ? `Drag recipes to days`
                 : `Link to share: https://nobullshitcooking.com/planner/${publicUrl}`

@@ -1,4 +1,13 @@
+import axios from 'axios';
 const uuidv4 = require('uuid/v4');
+
+// TO DO: move all these to util
+let endpoint;
+if (process.env.NODE_ENV === "production") {
+  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
+} else {
+  endpoint = 'http://localhost:3003';
+}
 
 /*
 We could have done the following with one large regex,
@@ -93,7 +102,7 @@ const convertUrlToPlannerv1 = urlString => {
 
 
 
-export const convertUrlToPlannerv2 = urlString => {
+export async function convertUrlToPlannerv2(urlString) {
   if (typeof urlString !== 'string') return 'not a string';
 
   if (urlString.length < 4 || urlString.length > 1502) return 'invalid length';
@@ -112,7 +121,8 @@ export const convertUrlToPlannerv2 = urlString => {
   urlStringSplitOnDay.map(substring => {
     let toAdd = substring.split('_');
     dayStrings.push(toAdd[0]);
-    recipesStrings.push(toAdd[1]);  // WRITE CONDITIONAL HERE TO HAVE FALLBACK FOR UNDEFINED
+    if (typeof toAdd[1] !== "undefined") recipesStrings.push(toAdd[1]);
+    else recipesStrings.push("none");
   });
   console.log('dayStrings: ', dayStrings);
   console.log('recipesStrings: ', recipesStrings);  // GETTING UNDEFINIED FOR DAYS WITH NO RECIPES
@@ -124,9 +134,11 @@ export const convertUrlToPlannerv2 = urlString => {
     //continue;
   });
   recipesStrings.map(recipesString => {
-    if (!allowedCharactersInRecipes.test(recipesString)) {
-      console.log('recipesString that wasnt okay: ', recipesString);
-      notOkay = true;
+    if (recipesString !== "none") {
+      if (!allowedCharactersInRecipes.test(recipesString)) {
+        console.log('recipesString that wasnt okay: ', recipesString);
+        notOkay = true;
+      }
     }
     //continue;
   });
@@ -175,11 +187,18 @@ export const convertUrlToPlannerv2 = urlString => {
   //  ['2-44-345', '33', '543-1-10']  -->  [[2, 44, 345], [33], [543, 1, 10]]
   let recipesStringsSplitToNum = [];
   recipesStrings.map(str => {
-    let split = str.split('-');
     let toNum = [];
-    split.map(str => {
-      toNum.push(Number(str));
-    });
+    if (str !== "none") {
+      if (str.includes('-')) {
+        let split = str.split('-');
+        //let toNum = [];
+        split.map(str => {
+          toNum.push(Number(str));
+        });
+      } else {
+        toNum.push(Number(str));
+      }
+    }
     recipesStringsSplitToNum.push(toNum);
   });
 
@@ -187,31 +206,59 @@ export const convertUrlToPlannerv2 = urlString => {
   // flatten recipesStringsSplitToNum 
   // put some recipes in MySQL
   // get backend api EB back online (and get ready to get redis online)
-  // axios to backend api to get recipe titles/names from MySQL by those ids
+  // axios to backend api to get recipe titles from MySQL by those ids
   // iterate through results for the value for text key below
   // use async await function or * yield function to make sure it is executed in the right order
   // fix, test, and double check those regexes
-  //let dbResults = await axios.get();
+
+  // you have to actually put at least the 3 dummy recipes in there,
+  // and you have to then get REAL recipes going ASAP...
+
+  recipesStringsSplitToNum.flat();
+  const theValues = recipesStringsSplitToNum.values();
+  //console.log("recipesStringsSplitToNum: ", recipesStringsSplitToNum);
+  //console.log("theValues: ", theValues);
+  const res = await axios.post(`${endpoint}/recipe/titles`, {recipeIds: [1, 2, 3]});
+  //const { recipeTitles } = res.data;
+  //console.log('res.data in convertUrlToPlannerv2: ', res.data);
+
+  /*
+  res.data.recipe_id
+  res.data.title
+
+  */
 
   Object.keys(toMerge).map((key, i) => {
-    toMerge[key] = recipesStringsSplitToNum[i].map(num => ({
-      key: uuidv4(),
-      id: num,
-      //text: dbResults[i]
-    }));
+    if (recipesStrings[i] === "none") {
+      console.log('in if, recipesStrings[i]: ', recipesStrings[i]);
+      toMerge[key] = [];
+    } else {
+      console.log('in else, recipeStringsSplitToNum[i]: ', recipesStringsSplitToNum[i]);
+      toMerge[key] = recipesStringsSplitToNum[i].map(num => {
+        console.log(num);
+        console.log(res.data.filter(data => data.recipe_id === num));
+        return {
+          key: uuidv4(),
+          id: num,
+          text: res.data.filter(data => data.recipe_id === num)[0].title
+        };
+      });
+    }
   });
 
   // merge and return
 
   //return recipeListsInsideDays;
 
-  return {
+  /*return {
     "dayStrings": dayStrings,
     "recipesStrings": recipesStrings,
     "recipeListsInsideDays": recipeListsInsideDays,
     "recipesStringsSplitToNum": recipesStringsSplitToNum,
     "toMerge": toMerge
-  };
+  };*/
+  console.log('toMerge: ', toMerge);
+  return toMerge;
 };
 
 

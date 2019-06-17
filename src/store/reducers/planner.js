@@ -2,7 +2,7 @@ import update from 'immutability-helper';
 
 import * as actionTypes from '../actions/actionTypes';
 import convertPlannerToUrl from '../../utils/publicPlanner/convertPlannerToUrl';
-import { convertUrlToPlannerv2 } from '../../utils/publicPlanner/convertUrlToPlanner';
+//import { convertUrlToPlannerv2 } from '../../utils/publicPlanner/convertUrlToPlanner';
 
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
 
@@ -109,13 +109,11 @@ const publicSaveToUrl = (state, action) => {
 };*/
 
 const fillFromUrl = (state, action) => {
-  const { recipeListsInsideDays } = state;
-  const { urlString } = action;
-  console.log('in reducer, urlString: ', urlString);
-  const toFill = convertUrlToPlannerv2(urlString);
-  console.log('in reducer, toFill: ', toFill);
-  //return {...state, ...{recipeListsInsideDays: toFill}};
-  return state;
+  const { preLoadedPlan } = action;
+  return {
+    ...state,
+    ...{recipeListsInsideDays: preLoadedPlan}
+  };
 };
 
 const updatePublicUrl = (state, action) => {
