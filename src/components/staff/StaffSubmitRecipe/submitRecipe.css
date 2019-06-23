@@ -1,33 +1,9 @@
-/*
-General
-*/
-/*
-main {
-  position: relative;
-  flex: 1;
-  order: 2;
-  min-width: 1200px;
-  background-color: #eee;
-}
-
-#page {
-  width: 1200px;
-  margin: 12px auto 18px auto;
-  padding: 10px;
-  background-color: #fff;
-}
-
-#form {
-  width: 1180px;
-}
-*/
-
 .submit-recipe {
   min-width: 1200px;
   max-width: 1200px;
 }
 
-label {
+.submit-recipe label {
   display: block;
   margin: 14px auto 4px auto;
   font-size: 1.3rem;
@@ -35,7 +11,7 @@ label {
   color: #777;
 }
 
-input {
+.submit-recipe input {
   display: block;
   width: 100%;
   height: 31px;
@@ -45,37 +21,32 @@ input {
   padding: 3px 7px 3px 7px;
 }
 
-input:focus {
+.submit-recipe input:focus {
   background-color: #fdfdd5;
 }
 
-select:required {
+.submit-recipe select:required {
   box-shadow: none;
 }
 
-select:disabled {
+.submit-recipe select:disabled {
   border-color: #ddd;
 }
 
-
-
-/*
-Labels, Inputs, and Selects
-*/
-#equipment_div,
-#ingredients_div,
-#subrecipes_div,
-.image_div {
+.submit-recipe #equipment_div,
+.submit-recipe #ingredients_div,
+.submit-recipe #subrecipes_div,
+.submit-recipe .image_div {
   padding-top: 18px;
 }
 
-.red_style {
+.submit-recipe .red_style {
   font-size: 1.7rem;
   color: #333;
 }
 
-.manual_amount,
-.manual_amount_sub {
+.submit-recipe .manual_amount,
+.submit-recipe .manual_amount_sub {
   display: inline-block;
   width: 70px;
   min-width: 70px;
@@ -85,14 +56,14 @@ Labels, Inputs, and Selects
   margin-left: 4px;
 }
 
-.select_subrecipe {
+.submit-recipe .select_subrecipe {
   width: 233px;
   min-width: 233px;
   max-width: 233px;
   margin-right: 18px;
 }
 
-.recipe_additions p {
+.submit-recipe .recipe_additions p {
   display: block;
   width: 100%;
   margin: 14px auto 4px auto;
@@ -100,101 +71,48 @@ Labels, Inputs, and Selects
   font-weight: 700;
 }
 
-.recipe_additions label {
+.submit-recipe .recipe_additions label {
   display: inline-block;
 }
 
-.recipe_additions input {
+.submit-recipe .recipe_additions input {
   display: inline-block;
   width: 75%;
 }
 
-.recipe_additions div select {
+.submit-recipe .recipe_additions div select {
   margin-right: 17px;
   margin-left: 3px;
 }
 
-
-
-/*
-Add & Remove Buttons
-*/
-.remove_equipment_row_button,
-.remove_ingredient_row_button,
-.remove_subrecipe_row_button {
+.submit-recipe .remove_equipment_row_button,
+.submit-recipe .remove_ingredient_row_button,
+.submit-recipe .remove_subrecipe_row_button {
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
   border: 1px solid #aaa;
   border-radius: 2px;
   padding: 1px 2px;
 }
 
-#add_equipment_button,
-#add_ingredient_button,
-#add_subrecipe_button {
+.submit-recipe #add_equipment_button,
+.submit-recipe #add_ingredient_button,
+.submit-recipe #add_subrecipe_button {
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
   border: 1px solid #aaa;
   border-radius: 2px;
   padding: 1px 2px;
 }
 
-#add_equipment_button,
-#add_subrecipe_button {
+.submit-recipe #add_equipment_button,
+.submit-recipe #add_subrecipe_button {
   margin-top: 8px;
 }
 
-#add_ingredient_button {
+.submit-recipe #add_ingredient_button {
   margin-top: 10px;
 }
 
-
-
-
-/*
-Images Area
-*/
-.submitted_image {
-  width: 190px;
-  margin: 0;
-}
-
-.image_feedback {
-  display: block;
-  width: 320px;
-  margin: 20px auto 20px auto;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px;
-  font-family: Arial, sans-serif;
-  font-size: 1.4rem;
-  color: black;
-  background-color: #eee;
-}
-
-#preview,
-#preview_e,
-#preview_i,
-#preview_c {
-  display: block;
-  width: 302px;
-  height: 188px;
-  border: 1px solid #aaa;
-  overflow: hidden;
-}
-
-#submitted_image,
-#submitted_equipment_image,
-#submitted_ingredients_image,
-#submitted_cooking_image {
-  border: 0;
-  border-radius: 0;
-}
-
-
-
-/*
-Submit Button
-*/
-#submit_button {
+.submit-recipe #submit_button {
   display: block;
   width: 100%;
   height: 31px;
@@ -215,10 +133,10 @@ Submit Button
   cursor: hand;
 }
 
-#submit_button:hover {
+.submit-recipe #submit_button:hover {
   background-image: linear-gradient(to bottom, #8cbeec, #4493d8);
 }
 
-#submit_button:active {
+.submit-recipe #submit_button:active {
   background-image: linear-gradient(to bottom, #8cbeec, #4493d8);
 }

@@ -39,7 +39,7 @@
     "jest-cucumber": "^2.0.11",
     "moxios": "^0.4.0",
     "postcss-loader": "^2.1.6",
-    "react-dnd-test-backend": "^7.6.0",
+    "react-dnd-test-backend": "^7.7.0",
     "react-hot-loader": "^4.11.1",
     "react-test-renderer": "^16.8.6",
     "redux-observable": "^1.1.0",
@@ -52,7 +52,7 @@
     "url-loader": "^1.1.2",
     "webpack": "4.28.4",
     "webpack-dev-middleware": "^3.7.0",
-    "webpack-dev-server": "^3.7.1",
+    "webpack-dev-server": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0"
   },
   "dependencies": {
@@ -62,14 +62,14 @@
     "@uppy/core": "^1.1.0",
     "@uppy/react": "^1.1.0",
     "axios": "^0.18.1",
-    "dompurify": "^1.0.10",
+    "dompurify": "^1.0.11",
     "focus-trap-react": "^4.0.1",
     "immutability-helper": "^2.9.1",
-    "query-string": "^6.7.0",
+    "query-string": "^6.8.1",
     "react": "^16.8.6",
     "react-aria-modal": "^3.1.0",
-    "react-dnd": "^7.6.1",
-    "react-dnd-html5-backend": "^7.6.2",
+    "react-dnd": "^7.7.0",
+    "react-dnd-html5-backend": "^7.7.0",
     "react-dnd-multi-backend": "^3.2.1",
     "react-dnd-touch-backend": "^0.8.3",
     "react-dom": "^16.8.6",
@@ -85,6 +85,6 @@
     "reselect": "^3.0.1",
     "superstruct": "^0.5.4",
     "uuid": "^3.3.2",
-    "webpack-cli": "^3.3.4"
+    "webpack-cli": "^3.3.5"
   }
 }
