@@ -9,29 +9,37 @@ import SiteNav from './SiteNav/SiteNav';
 import UserNav from './UserNav/UserNav';
 
 const HeaderRed = props => (
-  <div className={`header_red ${props.theme}`}>
+  <div className={`headerred ${props.theme}`}>
 
-    <div id="header_row_1">
-      <div id="header_row_1_col_1">
+    <div className="header-row-1">
+
+      <div className="header-row-1-col-1">
         <Logo theme={props.theme} />
       </div>
-      <div id="header_row_1_col_2">
+
+      <div className="header-row-1-col-2">
         <Search theme={props.theme} />
       </div>
-      <div id="header_row_1_col_3">
+
+      <div className="header-row-1-col-3">
         <Promo />
       </div>
+
     </div>
 
-    <div id="header_row_2">
-      <div id="header_row_2_col_1">
+    <div className="header-row-2">
+
+      <div className="header-row-2-col-1">
         <SiteNav />
       </div>
-      <div id="header_row_2_col_2">
+      
+      <div className="header-row-2-col-2">
       </div>
-      <div id="header_row_2_col_3">
+
+      <div className="header-row-2-col-3">
         <UserNav />
       </div>
+
     </div>
     
   </div>

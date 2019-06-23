@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 
 import './footerGray.css';
 
-const footerGray = props => (
-  <div className={`footer_gray ${props.theme}`}>
+const FooterGray = props => (
+  <div className={`footergray ${props.theme}`}>
     <ul>
       <li><NavLink to="/site/sitemap">Sitemap</NavLink></li>
       <li><NavLink to="/site/disclaimer">Disclaimer</NavLink></li>
@@ -21,4 +21,4 @@ const mapStateToProps = state => ({
   theme: state.theme.footerTheme
 });
 
-export default connect(mapStateToProps)(footerGray);
+export default connect(mapStateToProps)(FooterGray);
