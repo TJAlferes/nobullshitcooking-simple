@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Menu from './Menu/Menu';
@@ -10,7 +10,10 @@ import { menuShadowShow, menuShadowHide } from '../../../store/actions/index';
 import './siteNav.css';
 
 class SiteNav extends Component {
-  state = {expanded: false, expandedDropdown: "none"};
+  state = {
+    expanded: false,
+    expandedDropdown: "none"
+  };
 
   handleMouseEnter = dropdown => {
     const { expandedDropdown } = this.state;
@@ -26,11 +29,10 @@ class SiteNav extends Component {
 
   render() {
     const { expanded, expandedDropdown } = this.state;
-    let { theme } = this.props;
     return (
-      <div className="site_nav">
+      <div className="site-nav">
         <li onMouseEnter={() => this.handleMouseEnter('Food')} onMouseLeave={this.handleMouseLeave}>
-          <NavLink className="styled_nav_link" to="/food">Food</NavLink>
+          <Link className="site-nav-link" to="/food">Food</Link>
           {
             (expanded && expandedDropdown === 'Food')
             ? <Menu menuData={foodMenuData} submenuDirection="right" />
@@ -38,7 +40,7 @@ class SiteNav extends Component {
           }
         </li>
         <li onMouseEnter={() => this.handleMouseEnter('Fitness')} onMouseLeave={this.handleMouseLeave}>
-          <NavLink className="styled_nav_link" to="/fitness">Fitness</NavLink>
+          <Link className="site-nav-link" to="/fitness">Fitness</Link>
           {
             (expanded && expandedDropdown === 'Fitness')
             ? <Menu menuData={fitnessMenuData} submenuDirection="right" />
@@ -46,7 +48,7 @@ class SiteNav extends Component {
           }
         </li>
         <li onMouseEnter={() => this.handleMouseEnter('Supply')} onMouseLeave={this.handleMouseLeave}>
-          <NavLink className="styled_nav_link" to="/store/storefront">Supply</NavLink>
+          <Link className="site-nav-link" to="/store/storefront">Supply</Link>
           {
             (expanded && expandedDropdown === 'Supply')
             ? <Menu menuData={supplyMenuData} submenuDirection="right" />
@@ -54,16 +56,8 @@ class SiteNav extends Component {
           }
         </li>
         <li>
-          <NavLink className="styled_nav_link" to="/welcome">New? Start Here</NavLink>
+          <Link className="site-nav-link" to="/welcome">New? Start Here</Link>
         </li>
-        {/*
-          !isAuthenticated &&
-          <li>
-            <NavLink className="styled_nav_link" to="/user/dashboard">
-              Member Area
-            </NavLink>
-          </li>
-        */}
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './userNav.css';
@@ -8,19 +8,19 @@ import { authUserLogout, themeDarkTrigger, themeLightTrigger } from '../../../st
 class UserNav extends Component {
   handleLogout = async () => {
     await this.props.authUserLogout();
-    this.props.history.push('/');  // move these to the sagas!
+    this.props.history.push('/');  // decide: move these to the sagas! (?)
   }
 
   render() {
     const { isAuthenticated, authname, theme } = this.props;
     return (
-      <div className="user_nav">
+      <div className="user-nav">
         <li>
           {
             theme === 'header-light'
             ? (
               <span
-                className="mode_button"
+                className="mode-button"
                 onClick={() => this.props.themeDarkTrigger()}
               >
                 <i className="moon-symbol">☾</i> Dark Mode
@@ -28,7 +28,7 @@ class UserNav extends Component {
             )
             : (
               <span
-                className="mode_button"
+                className="mode-button"
                 onClick={() => this.props.themeLightTrigger()}
               >
                 <i className="sun-symbol">☀︎</i> Light Mode
@@ -37,35 +37,35 @@ class UserNav extends Component {
           }
         </li>
         <li>
-          <NavLink className="styled_nav_link" to="/help">
+          <Link className="user-nav-link" to="/help">
             Help
-          </NavLink>
+          </Link>
         </li>
         {
           !isAuthenticated
           ? (
             <Fragment>
               <li>
-                <NavLink className="styled_nav_link" to="/user/register">
+                <Link className="user-nav-link" to="/user/register">
                   Create Account
-                </NavLink>
+                </Link>
               </li>
               <li>
-                <NavLink className="styled_nav_link" to="/user/login">
+                <Link className="user-nav-link" to="/user/login">
                   Sign In
-                </NavLink>
+                </Link>
               </li>
             </Fragment>
           )
           : (
             <Fragment>
               <li>
-                <NavLink className="signed_in_nav_span" to="/user/dashboard">
+                <Link className="signed-in-nav-span" to="/user/dashboard">
                   {`Hello, ${authname}`}
-                </NavLink>
+                </Link>
               </li>
               <li>
-                <span className="signed_in_nav_span" onClick={this.handleLogout}>
+                <span className="signed-in-nav-span" onClick={this.handleLogout}>
                   Sign Out
                 </span>
               </li>
@@ -73,9 +73,9 @@ class UserNav extends Component {
           )
         }
         <li>
-          <NavLink className="styled_nav_link" to="/store/view_cart">
+          <Link className="user-nav-link" to="/store/view_cart">
             View Cart
-          </NavLink>
+          </Link>
         </li>
       </div>
     );

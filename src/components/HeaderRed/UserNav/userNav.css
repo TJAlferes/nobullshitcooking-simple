@@ -1,4 +1,4 @@
-.user_nav {
+.user-nav {
   display: flex;
   flex-flow: row;
   justify-content: center;
@@ -8,12 +8,12 @@
   list-style-type: none;
 }
 
-.user_nav li {
+.user-nav li {
   margin-left: 9px;
   margin-right: 9px;
 }
 
-.user_nav li .styled_nav_link {
+.user-nav-link {
   display: block;
   font-size: 14px;
   font-weight: 900;
@@ -22,13 +22,13 @@
   height: 24px;
 }
 
-.user_nav li .styled_nav_link:hover,
-.user_nav li .styled_nav_link:active {
+.user-nav-link:hover,
+.user-nav-link:active {
   text-decoration: underline;
 }
 
-.signed_in_nav_span,
-.mode_button {
+.signed-in-nav-span,
+.mode-button {
   display: block;
   font-size: 14px;
   font-weight: 900;
@@ -37,18 +37,18 @@
   height: 24px;
 }
 
-.signed_in_nav_span:hover {
+.signed-in-nav-span:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.mode_button:hover {
+.mode-button:hover {
   text-decoration: none;
   cursor: pointer;
 }
 
-.signed_in_nav_span:active,
-.mode_button:active {
+.signed-in-nav-span:active,
+.mode-button:active {
   cursor: pointer;
 }
 
