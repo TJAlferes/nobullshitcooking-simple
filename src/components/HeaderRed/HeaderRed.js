@@ -9,7 +9,7 @@ import SiteNav from './SiteNav/SiteNav';
 import UserNav from './UserNav/UserNav';
 
 const HeaderRed = props => (
-  <div className={`headerred ${props.theme}`}>
+  <header className={`headerred ${props.theme}`}>
 
     <div className="header-row-1">
 
@@ -42,11 +42,9 @@ const HeaderRed = props => (
 
     </div>
     
-  </div>
+  </header>
 );
 
-const mapStateToProps = state => ({
-  theme: state.theme.headerTheme
-});
+const mapStateToProps = state => ({theme: state.theme.headerTheme});
 
 export default connect(mapStateToProps)(HeaderRed);

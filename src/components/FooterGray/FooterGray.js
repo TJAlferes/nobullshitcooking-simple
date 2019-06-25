@@ -1,24 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './footerGray.css';
 
 const FooterGray = props => (
-  <div className={`footergray ${props.theme}`}>
+  <footer className={`footergray ${props.theme}`}>
     <ul>
-      <li><NavLink to="/site/sitemap">Sitemap</NavLink></li>
-      <li><NavLink to="/site/disclaimer">Disclaimer</NavLink></li>
-      <li><NavLink to="/site/terms">Terms of Use</NavLink></li>
-      <li><NavLink to="/site/privacy">Privacy Policy</NavLink></li>
-      <li><NavLink to="/site/help">Help</NavLink></li>
+      <li><Link to="/site/sitemap">Sitemap</Link></li>
+      <li><Link to="/site/disclaimer">Disclaimer</Link></li>
+      <li><Link to="/site/terms">Terms of Use</Link></li>
+      <li><Link to="/site/privacy">Privacy Policy</Link></li>
+      <li><Link to="/site/help">Help</Link></li>
     </ul>
     <p>Copyright 2015-2019 NoBullshitCooking. All rights reserved.</p>
-  </div>
+  </footer>
 );
 
-const mapStateToProps = state => ({
-  theme: state.theme.footerTheme
-});
+const mapStateToProps = state => ({theme: state.theme.footerTheme});
 
 export default connect(mapStateToProps)(FooterGray);

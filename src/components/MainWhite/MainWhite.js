@@ -12,7 +12,7 @@ const MainWhite = props => {
   let isIngredient = props.location.pathname.match(/^(\/ingredient\/([1-9][0-9]*))$/);
   let isEquipment = props.location.pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
   return (
-    <div className={`mainwhite ${props.theme}`}>
+    <main className={`mainwhite ${props.theme}`}>
       <div className={props.shadow ? 'show-shadow' : 'hide-shadow'}>
       </div>
       {
@@ -20,7 +20,7 @@ const MainWhite = props => {
         <div id="breadcrumbs"><Breadcrumbs /></div>
       }
       {props.children}
-    </div>
+    </main>
   );
 }
 

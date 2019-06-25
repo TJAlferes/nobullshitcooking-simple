@@ -33,7 +33,7 @@ class Planner extends Component {
     return (
       <div className={`two-column-a ${twoColumnATheme}`}>
         <LeftNav />
-        <article>
+        <section>
           <div id="planner_header">
             <span className="demo-only-notice" style={{wordWrap: 'break-word'}}>
               {
@@ -93,7 +93,7 @@ class Planner extends Component {
               ]}
             />
           </div>
-        </article>
+        </section>
       </div>
     );
   }
