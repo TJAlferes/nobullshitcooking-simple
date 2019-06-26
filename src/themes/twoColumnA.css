@@ -10,7 +10,7 @@
   padding-bottom: 10px;
 }
 
-.two-column-a article {
+.two-column-a section {
   order: 2;
   flex: 1 1 auto;
   width: 960px;
@@ -24,7 +24,7 @@
   background-color: #fff;
 }
 
-.two-column-a-light article {
+.two-column-a-light section {
   background-color: #fff;
   color: #000;
 }
@@ -73,7 +73,7 @@
   color: #000;
 }
 
-.two-column-a-dark article {
+.two-column-a-dark section {
   background-color: #222;
   color: #aaa;
 }

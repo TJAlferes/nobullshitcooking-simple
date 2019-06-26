@@ -18,7 +18,7 @@ import b50Complex from '../../../../../assets/images/content/supplements/vitamin
 const Supplements = props => (
   <div className={`supplements two-column-a ${props.twoColumnATheme}`}>
     <LeftNav />
-    <article>
+    <section>
       <h1>Supplements</h1>
       <h2>Daily</h2>
       <table className={`table-a ${props.tableATheme}`}>
@@ -106,7 +106,7 @@ const Supplements = props => (
           </tr>
         </tbody>
       </table>
-    </article>
+    </section>
 	</div>
 );
 

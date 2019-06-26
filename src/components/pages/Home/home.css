@@ -5,7 +5,6 @@
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  min-width: 1280px; /*change to responsive*/
+  min-width: 1280px;  /* TO DO ASAP: change to responsive */
   margin: 31px auto 0px auto;
-  padding-top: 10px;
 }

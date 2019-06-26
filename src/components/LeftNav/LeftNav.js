@@ -12,8 +12,8 @@ const LeftNav = props => {
 
       {
         !isAuthenticated
-        ? <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/dashboard"><span>Dashboard</span></NavLink>
-        : <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/dashboard"><span>{authname}</span></NavLink>
+        ? <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/dashboard">Dashboard</NavLink>
+        : <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/dashboard">{authname}</NavLink>
       }
       {
         !isAuthenticated
@@ -31,35 +31,35 @@ const LeftNav = props => {
       }
       {
         !isAuthenticated
-        ? <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/friends"><span>Friends</span></NavLink>
-        : <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/friends"><span>Friends</span></NavLink>
+        ? <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/friends">Friends</NavLink>
+        : <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/friends">Friends</NavLink>
       }
 
       <hr />
 
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/food/nutrition/supplements"><span id="supplements_span">Supplements</span></NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/kitchen-equipment"><span>Equipment</span></NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/food/nutrition/supplements">Supplements</NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/kitchen-equipment">Equipment</NavLink>
 
       <hr />
 
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/"><span>Water Filtration</span></NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/tea"><span>Tea</span></NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/coffee"><span>Coffee</span></NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/">Water Filtration</NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/tea">Tea</NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/coffee">Coffee</NavLink>
 
       <hr />
 
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/outdoors"><span>Outdoors</span></NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/garden"><span>Garden</span></NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/tools"><span>Tools</span></NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/outdoors">Outdoors</NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/garden">Garden</NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/tools">Tools</NavLink>
 
       <hr />
 
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/contests"><span>Contest Winners</span></NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/seasonal"><span>Food for Summer</span></NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/contests">Contest Winners</NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/seasonal">Food for Summer</NavLink>
 
       <hr />
 
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/charity"><span>Charity</span></NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/charity">Charity</NavLink>
 
     </nav>
   );

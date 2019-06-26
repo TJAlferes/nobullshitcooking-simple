@@ -18,7 +18,7 @@
   color: #000;
 }
 
-.left-nav-light .left-nav-link span {
+.left-nav-light .left-nav-link {
   background-color: inherit;
 }
 
@@ -34,7 +34,7 @@
   color: #aaa;
 }
 
-.left-nav-dark .left-nav-link span {
+.left-nav-dark .left-nav-link {
   background-color: inherit;
 }
 
@@ -42,7 +42,7 @@
   background-color: #444;
 }
 
-.left-nav-link span {
+.left-nav-link {
   display: block;
   margin-bottom: 5px;
 }
