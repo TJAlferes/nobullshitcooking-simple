@@ -4,7 +4,9 @@
   flex-wrap: nowrap;
   align-items: flex-start;
   justify-content: center;
-  width: 1200px;
+  /*width: 1200px;*/
+  min-width: 300px;
+  max-width: 1200px;
   margin: 0 auto;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -13,9 +15,8 @@
 .two-column-a section {
   order: 2;
   flex: 1 1 auto;
-  width: 960px;
-  min-width: 960px;
-  max-width: 960px;
+  min-width: 300px;
+  max-width: 960px;  /*980? 970?*/
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 10px;

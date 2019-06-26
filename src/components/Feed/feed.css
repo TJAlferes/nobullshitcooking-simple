@@ -1,3 +1,10 @@
+.feed {
+  order: 2;
+  min-width: 280px;
+  max-width: 620px;
+  margin: 10px;
+}
+
 .feed-light {
   background-color: #fff;
   color: #000;
@@ -6,12 +13,6 @@
 .feed-dark {
   background-color: #222;
   color: #aaa;
-}
-
-.feed {
-  order: 2;
-  width: 600px;
-  margin: 10px;
 }
 
 .news_item {

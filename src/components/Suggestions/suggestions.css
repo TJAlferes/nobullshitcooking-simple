@@ -1,3 +1,12 @@
+.suggestions {
+  order: 3;
+  min-width: 280px;
+  max-width: 340px;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px;
+}
+
 .suggestions-light {
   background-color: #fff;
 }
@@ -20,12 +29,4 @@
 
 .suggestions-dark hr {
   background-color: #444;
-}
-
-.suggestions {
-  order: 3;
-  width: 340px;
-  margin-top: 10px;
-  margin-left: 10px;
-  padding: 10px;
 }

@@ -1,0 +1,27 @@
+.promo {
+  display: block;
+  width: 240px;
+}
+
+.promo-img-desktop {
+  display: block;
+}
+
+.promo-img-tablet {
+  display: none;
+}
+
+@media (max-width: 1279px) {
+  .promo {
+    display: block;
+    width: 180px;
+  }
+
+  .promo-img-desktop {
+    display: none;
+  }
+
+  .promo-img-tablet {
+    display: block;
+  }
+}

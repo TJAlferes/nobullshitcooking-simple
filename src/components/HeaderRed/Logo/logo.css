@@ -7,3 +7,27 @@
 .logo-img {
   display: block;
 }
+
+.logo-img-desktop {
+  display: block;
+}
+
+.logo-img-tablet {
+  display: none;
+}
+
+@media (max-width: 1279px) {
+  .logo-link {
+    display: block;
+    width: 110px;
+    margin-left: 29px;
+  }
+
+  .logo-img-desktop {
+    display: none;
+  }
+
+  .logo-img-tablet {
+    display: block;
+  }
+}

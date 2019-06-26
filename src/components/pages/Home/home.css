@@ -4,7 +4,9 @@
   flex-wrap: nowrap;
   align-items: flex-start;
   justify-content: center;
-  width: 100%;
-  min-width: 1280px;  /* TO DO ASAP: change to responsive */
+  /*width: 100%;
+  min-width: 1280px;*/
+  min-width: 300px;
+  max-width: 1200px;
   margin: 31px auto 0px auto;
 }

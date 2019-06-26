@@ -1,6 +1,6 @@
 .mainwhite {
   min-width: 300px;
-  max-width: 100%;
+  max-width: 100vw;
   /*padding-top: 25px;*/
   padding-bottom: 25px;
 }
