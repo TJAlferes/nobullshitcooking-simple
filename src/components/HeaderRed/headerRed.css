@@ -50,13 +50,8 @@
   width: 270px;
   min-width: 270px;
   max-width: 270px;
-  /*
-  width: 320px;
-  min-width: 210px;
-  max-width: 290px;
-  */
-  padding-right: 30px;
   height: inherit;
+  padding-right: 30px;
 }
 
 .header-row-2 {

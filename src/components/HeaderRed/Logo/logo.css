@@ -29,5 +29,7 @@
 
   .logo-img-tablet {
     display: block;
+    padding-top: 5px;
+    padding-left: 8px;
   }
 }
