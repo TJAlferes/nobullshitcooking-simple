@@ -42,7 +42,7 @@ const LeftNav = props => {
 
       <hr />
 
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/">Water Filtration</NavLink>
+      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/water-filtration">Water Filtration</NavLink>
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/tea">Tea</NavLink>
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/coffee">Coffee</NavLink>
 

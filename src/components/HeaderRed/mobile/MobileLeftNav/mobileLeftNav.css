@@ -1,6 +1,7 @@
-#mobile-left-nav {
+.mobile-left-nav {
   position: absolute;
   left: 0px;
+  display: block;
   width: 250px;
   min-width: 250px;
   max-width: 250px;
@@ -8,21 +9,18 @@
   background-color: #fff;
 }
 
-#mobile-left-nav span {
+.mobile-left-nav-link {
   display: block;
   margin-bottom: 12px;
+  text-decoration: none;
+  color: #000;
 }
 
-#mobile-left-nav hr {
+.mobile-left-nav hr {
   height: 1px;
   border: 0 none;
   margin-bottom: 5px;
   background-color: #bfbfbf;
-}
-
-#mobile-left-nav .styled_nav_link {
-  text-decoration: none;
-  color: #000;
 }
 
 

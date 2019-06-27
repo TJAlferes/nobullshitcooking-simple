@@ -14,7 +14,7 @@
 
 .two-column-a section {
   order: 2;
-  flex: 1 1 auto;
+  /*flex: 1 1 auto;*/
   min-width: 300px;
   max-width: 960px;  /*980? 970?*/
   margin-top: 10px;

@@ -1,4 +1,5 @@
 .left-nav {
+  display: block;
   order: 1;
   /*flex: 1 1 auto;  /* ??? */
   width: 200px;
