@@ -1,4 +1,5 @@
-.promo {
+.promo,
+.promo-link {
   display: block;
   width: 240px;
 }
@@ -12,7 +13,8 @@
 }
 
 @media (max-width: 1279px) {
-  .promo {
+  .promo,
+  .promo-link {
     display: block;
     width: 180px;
   }

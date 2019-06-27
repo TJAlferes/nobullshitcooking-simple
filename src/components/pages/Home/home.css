@@ -1,12 +1,28 @@
-.home {
+.home-desktop-tablet {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: flex-start;
   justify-content: center;
-  /*width: 100%;
-  min-width: 1280px;*/
   min-width: 300px;
-  max-width: 1200px;
+  max-width: 1200px;  /* 100vw */
   margin: 31px auto 0px auto;
+}
+
+.home-mobile {
+  display: none;
+}
+
+@media (max-width: 1279px) {
+
+}
+
+@media (max-width: 899px) {
+  .home-desktop-tablet {
+    display: none;
+  }
+  
+  .home-mobile {
+    display: block;
+  }
 }

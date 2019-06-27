@@ -1,7 +1,7 @@
+.logo,
 .logo-link {
   display: block;
   width: 450px;
-  margin-left: 29px;
 }
 
 .logo-img {
@@ -17,10 +17,10 @@
 }
 
 @media (max-width: 1279px) {
+  .logo,
   .logo-link {
     display: block;
     width: 110px;
-    margin-left: 29px;
   }
 
   .logo-img-desktop {

@@ -1,4 +1,5 @@
 .feed {
+  display: block;
   order: 2;
   min-width: 280px;
   max-width: 620px;
@@ -25,4 +26,16 @@
 
 .feed-dark .news_item {
   border-bottom: 20px solid #111;
+}
+
+@media (max-width: 899px) {
+  .feed {
+    max-width: calc(90% - 10px);
+  }
+}
+
+@media (max-width: 599px) {
+  .feed {
+    max-width: 90%;
+  }
 }

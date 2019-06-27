@@ -7,9 +7,15 @@ import './home.css';
 
 const Home = () => (
   <div className="home">
-    <LeftNav />
-    <Feed />
-    <Suggestions />
+    <div className="home-desktop-tablet">
+      <LeftNav />
+      <Feed />
+      <Suggestions />
+    </div>
+    <div className="home-mobile">
+      <Feed />
+      <Suggestions />
+    </div>
   </div>
 );
 

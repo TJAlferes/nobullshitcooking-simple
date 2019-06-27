@@ -7,13 +7,8 @@ import DarkWebsiteLogo from '../../../assets/images/header/logo-slim-dark-red.pn
 import LightTabletLogo from '../../../assets/images/header/logo-mobile-red.png';
 import DarkTabletLogo from '../../../assets/images/header/logo-mobile-dark-red.png';
 
-//const responsiveImage = require('myImage.jpg?sizes[]=100,sizes[]=200,sizes[]=300');
-//<img srcSet={responsiveImage.srcSet} src={responsiveImage.src} />
-//448
-//108
-
 const Logo = props => (
-  <div className={`logo-area ${props.theme}`}>
+  <div className={`logo ${props.theme}`}>
     <Link className="logo-link" to="/">
       <img
         className="logo-img-desktop"

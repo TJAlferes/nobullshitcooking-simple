@@ -72,8 +72,8 @@
 
 
 
-/* mobile */
-@media (max-width: 599px) {
+/* mobile */ /* 599px */
+@media (max-width: 899px) {
   .left-nav {
     display: none;
   }
