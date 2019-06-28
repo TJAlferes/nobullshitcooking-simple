@@ -1,40 +1,27 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-//import { connect } from 'react-redux';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-//import { openModal, closeModal } from '../../../store/actions/modalsActions';
-//import FoodDropdown from './FoodDropdown/FoodDropdown';
-//import Dropdown from './Dropdown/Dropdown';
 import './mobileSiteNav.css';
 
-const MobileSiteNav = props => {
-  //const { isAuthenticated } = props;
-
+const MobileSiteNav = () => {
   return (
-    <div className="mobile_site_nav">
+    <div className="mobile-site-nav">
       <li>
-        <NavLink className="styled_nav_link mobile_text" to="/food">
+        <Link className="mobile-site-nav-link mobile_text" to="/food">
           Food
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink className="styled_nav_link mobile_text" to="/fitness">
+        <Link className="mobile-site-nav-link mobile_text" to="/fitness">
           Fitness
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink className="styled_nav_link mobile_text" to="/store/storefront">
+        <Link className="mobile-site-nav-link mobile_text" to="/store/storefront">
           Supply
-        </NavLink>
+        </Link>
       </li>
-      {/*
-        !isAuthenticated &&
-        <li>
-          <NavLink className="styled_nav_link" to="/user/dashboard">
-            Member Area
-          </NavLink>
-        </li>
-      */}
+
     </div>
   );
 }

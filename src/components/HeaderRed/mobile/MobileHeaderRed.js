@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './mobileHeaderRed.css';
 import MobileLeftNavToggle from './MobileLeftNavToggle/MobileLeftNavToggle';
@@ -9,34 +10,35 @@ import MobileSiteNav from './MobileSiteNav/MobileSiteNav';
 import MobileUserNav from './MobileUserNav/MobileUserNav';
 
 const MobileHeaderRed = props => (
-  <div id="mobile_header_red">
+  <div className={`mobile-header-red ${props.theme}`}>
 
-    <div id="mobile_header_row_1">
-      <div id="mobile_header_row_1_col_1">
+    <div className="mobile-header-row-1">
+
+      <div className="mobile-header-row-1-col-1">
         <MobileLeftNavToggle />
-        <MobileLogo />
+        <MobileLogo theme={props.theme} />
       </div>
-      <div id="mobile_header_row_1_col_2">
+
+      <div className="mobile-header-row-1-col-2">
       </div>
-      <div id="mobile_header_row_1_col_3">
-        <MobileUserNav
-          /*isAuthenticated={props.childProps.isAuthenticated}
-          userEmail={props.childProps.userEmail}
-          handleLogout={props.childProps.handleLogout}
-          getUser={props.childProps.getUser}*/
-        />
+
+      <div className="mobile-header-row-1-col-3">
+        <MobileUserNav />
       </div>
+
     </div>
 
-    <div id="mobile_header_row_2">
-      <MobileSearch />
+    <div className="mobile-header-row-2">
+      <MobileSearch theme={props.theme} />
     </div>
 
-    <div id="mobile_header_row_3">
-      <MobileSiteNav /*isAuthenticated={props.childProps.isAuthenticated}*/ />
+    <div className="mobile-header-row-3">
+      <MobileSiteNav />
     </div>
 
   </div>
 );
 
-export default MobileHeaderRed;
+const mapStateToProps = state => ({theme: state.theme.headerTheme});
+
+export default connect(mapStateToProps)(MobileHeaderRed);

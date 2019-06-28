@@ -1,4 +1,4 @@
-.mobile_site_nav {
+.mobile-site-nav {
   display: flex;
   flex-flow: row;
   justify-content: center;
@@ -9,21 +9,18 @@
   height: 25px;
 }
 
-.mobile_site_nav li {
+.mobile-site-nav-link {
+  display: block;
+  height: 24px;
   margin-left: 10px;
   margin-right: 10px;
-}
-
-.mobile_site_nav li .styled_nav_link {
-  display: block;
   font-size: 14px;
   font-weight: 900;
-  color: #fff;
   text-decoration: none;
-  height: 24px;
+  color: #fff;
 }
 
-.mobile_site_nav li .styled_nav_link:hover {
+.mobile-site-nav-link:hover {
   text-decoration: underline;
 }
 

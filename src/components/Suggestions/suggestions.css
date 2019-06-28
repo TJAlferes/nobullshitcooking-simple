@@ -30,3 +30,15 @@
 .suggestions-dark hr {
   background-color: #444;
 }
+
+@media (max-width: 899px) {
+  .suggestions {
+    max-width: calc(90% - 10px);
+  }
+}
+
+@media (max-width: 599px) {
+  .suggestions {
+    max-width: 90%;
+  }
+}

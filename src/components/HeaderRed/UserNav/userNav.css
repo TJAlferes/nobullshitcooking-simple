@@ -27,14 +27,23 @@
   text-decoration: underline;
 }
 
-.signed-in-nav-span,
-.mode-button {
+.user-nav .signed-in-nav-span {
   display: block;
   font-size: 14px;
   font-weight: 900;
   color: #fff;
   text-decoration: none;
   height: 24px;
+}
+
+.user-nav .mode-button {
+  display: block;
+  height: 24px;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 16px;
+  text-decoration: none;
+  color: #fff;
 }
 
 .signed-in-nav-span:hover {

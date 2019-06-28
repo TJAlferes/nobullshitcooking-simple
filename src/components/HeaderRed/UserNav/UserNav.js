@@ -12,25 +12,19 @@ class UserNav extends Component {
   }
 
   render() {
-    const { isAuthenticated, authname, theme } = this.props;
+    const { isAuthenticated, authname, themeDarkTrigger, themeLightTrigger, theme } = this.props;
     return (
       <div className="user-nav">
         <li>
           {
             theme === 'header-light'
             ? (
-              <span
-                className="mode-button"
-                onClick={() => this.props.themeDarkTrigger()}
-              >
+              <span className="mode-button" onClick={() => themeDarkTrigger()}>
                 <i className="moon-symbol">☾</i> Dark Mode
               </span>
             )
             : (
-              <span
-                className="mode-button"
-                onClick={() => this.props.themeLightTrigger()}
-              >
+              <span className="mode-button" onClick={() => themeLightTrigger()}>
                 <i className="sun-symbol">☀︎</i> Light Mode
               </span>
             )
