@@ -1,43 +1,16 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-//import { Auth } from 'aws-amplify';
 
-//import { StyledNavLink, Styles } from './Styles';
 import './register.css';
-import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
+import DesktopLogo from '../../../assets/images/authentication/logo-large-white.png';
+import MobileLogo from '../../../assets/images/authentication/logo-small-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
-import {
-  authUserRegister
-} from '../../../store/actions/index';
+import { authUserRegister } from '../../../store/actions/index';
 
-/*
-  Register component
+// TO DO: error messages
+// TO DO: confirmation code
 
-  Purpose
-    Register a new account with provided email and password
-
-  Methods
-    handleChange(e)                   --
-    async handleRegistrationSubmit(e) --
-    async handleConfirmationSubmit(e) --
-    validateRegistration()            --
-    validateConfirmation()            --
-    registrationForm()                --
-    confirmationForm()                --
-
-  Props
-
-
-  State
-    isLoading        -- Boolean --
-    error            --
-    newUser          --
-    confirmationCode -- String --
-    email            -- String --
-    password         -- String --
-    password2        -- String --
-*/
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -70,7 +43,7 @@ class Register extends Component {
     }
   }
   /*
-  handleRegistrationSubmit = async e => {
+  handleRegisterSubmit = async e => {
     e.preventDefault();
     this.setState({isLoading: true});
     try {
@@ -84,7 +57,7 @@ class Register extends Component {
     }
   }
 
-  handleConfirmationSubmit =  async e => {
+  handleConfirmSubmit =  async e => {
     e.preventDefault();
     this.setState({isLoading: true});
     try {
@@ -113,8 +86,8 @@ class Register extends Component {
     return this.state.confirmationCode.length > 0;
   }
   
-  registrationForm = () => (
-    <form onSubmit={this.handleRegistrationSubmit}>
+  registerForm = () => (
+    <form className="register-form" onSubmit={this.handleRegisterSubmit}>
       <h1>Create Account</h1>
       {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
 
@@ -162,6 +135,7 @@ class Register extends Component {
       <LoaderButton
         type="button"
         name="submit"
+        className="create-account-button"
         id="create_account_button"
         text="Create Account"
         loadingText="Creating Account..."
@@ -172,8 +146,8 @@ class Register extends Component {
     </form>
   );
 
-  confirmationForm = () => (
-    <form onSubmit={this.handleConfirmationSubmit}>
+  registerConfirmForm = () => (
+    <form className="register-confirm-form" onSubmit={this.handleConfirmSubmit}>
       <h1>Verify</h1>
       {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
 
@@ -190,6 +164,7 @@ class Register extends Component {
       <LoaderButton
         type="submit"
         name="submit"
+        className="verify-confirmation-code-button"
         id="verify_confirmation_code_button"
         text="Verify"
         loadingText="Verifying..."
@@ -201,17 +176,30 @@ class Register extends Component {
 
   render() {
     return (
-      <div>
-        <Link className="styled_nav_link" to="/"><img src={LogoLargeWhite} /></Link>
-        <div className="register">
-          {this.state.newUser === null ? this.registrationForm() : this.confirmationForm()}
-          <ul>
-            <li><Link to="/">Terms of Use</Link></li>
-            <li><Link to="/">Privacy Policy</Link></li>
-            <li><Link to="/">Help</Link></li>
-          </ul>
-          <p>Copyright 2015-2019 NoBullshitCooking. All Rights Reserved.</p>
-        </div>
+      <div className="register">
+        <Link className="auth-img-link" to="/">
+          <img className="auth-img-desktop" src={DesktopLogo} />
+          <img className="auth-img-mobile" src={MobileLogo} />
+        </Link>
+        {
+          this.state.newUser === null
+          ? this.registerForm()
+          : this.registerConfirmForm()
+        }
+        <ul className="register-links">
+          <li className="register-link">
+            <Link to="/site/terms-of-use">Terms of Use</Link>
+          </li>
+          <li className="register-link">
+            <Link to="/site/privacy-policy">Privacy Policy</Link>
+          </li>
+          <li className="register-link">
+            <Link to="/site/help">Help</Link>
+          </li>
+        </ul>
+        <p className="register-copyright">
+          Copyright 2015-2019 NoBullshitCooking. All Rights Reserved.
+        </p>
       </div>
     );
   }
