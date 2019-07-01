@@ -6,75 +6,55 @@ import './register.css';
 import DesktopLogo from '../../../assets/images/authentication/logo-large-white.png';
 import MobileLogo from '../../../assets/images/authentication/logo-small-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
-import { authUserRegister } from '../../../store/actions/index';
+import { authUserRegister, authUserVerify } from '../../../store/actions/index';
 
 // TO DO: error messages
 // TO DO: confirmation code
 
 class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      error: null,
-      newUser: null,
-      confirmationCode: '',
-      username: '',
-      email: '',
-      password: '',
-      password2: ''
-    };
-  }
+  state = {
+    isLoading: false,
+    error: null,
+    newUser: false,
+    confirmationCode: '',
+    username: '',
+    email: '',
+    pass: '',
+    passagain: ''
+  };
 
   handleChange = e => {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  handleRegistration = async (e) => {
+  handleRegisterSubmit = async (e) => {
     e.preventDefault();
     this.setState({isLoading: true});
     try {
-      await this.props.authUserRegister(this.state.email, this.state.password, this.state.username);
-      console.log('yay');
-      this.props.history.push('/user/login');
+      await this.props.authUserRegister(this.state.email, this.state.pass, this.state.username);
+      this.setState({newUser: true, isLoading: false, error: null});
+      console.log('registered');
     } catch(err) {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
   }
-  /*
-  handleRegisterSubmit = async e => {
-    e.preventDefault();
-    this.setState({isLoading: true});
-    try {
-      const newUser = await Auth.signUp({username: this.state.email, password: this.state.password});
-      this.setState({newUser: newUser});
-      this.setState({isLoading: false, error: null});
-      console.log('registration success');
-    } catch (err) {
-      this.setState({isLoading: false, error: err.message});
-      console.log(err.message);
-    }
-  }
 
-  handleConfirmSubmit =  async e => {
+  handleVerifySubmit =  async e => {
     e.preventDefault();
     this.setState({isLoading: true});
     try {
-      const { confirmationCode, email, password } = this.state;
-      await Auth.confirmSignUp(email, confirmationCode);
-      await Auth.signIn({email, password});
-      this.setState({isLoading: false, error: null});
+      await this.props.authUserVerify(this.state.email, this.state.pass, this.state.confirmationCode)
+      this.setState({newUser: false, isLoading: false, error: null});
       console.log('verified');
-      this.props.userDidAuthenticate(true);
-      this.props.history.push('/');
+      this.props.history.push('/user/login');
     } catch (err) {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
   }
-  */
-  validateRegistration = () => {
+  
+  validateRegistrationInfo = () => {
     return (
       (this.state.email.length > 0) &&
       (this.state.password.length > 0) &&
@@ -82,14 +62,20 @@ class Register extends Component {
     );
   }
 
-  validateConfirmation = () => {
+  validateConfirmationCode = () => {
     return this.state.confirmationCode.length > 0;
   }
   
   registerForm = () => (
-    <form className="register-form" onSubmit={this.handleRegisterSubmit}>
+    <form className="register-form">
+
       <h1>Create Account</h1>
-      {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
+
+      {
+        this.state.error !== null
+        ? <p className="error-message">{this.state.error}</p>
+        : null
+      }
 
       <label>Username</label>
       <input
@@ -115,8 +101,8 @@ class Register extends Component {
       <label>Password</label>
       <input
         type="password"
-        name="password"
-        id="password"
+        name="pass"
+        id="pass"
         size="20"
         maxLength="20"
         onChange={this.handleChange}
@@ -125,8 +111,8 @@ class Register extends Component {
       <label>Password Again</label>
       <input
         type="password"
-        name="password2"
-        id="password2"
+        name="passagain"
+        id="passagain"
         size="20"
         maxLength="20"
         onChange={this.handleChange}
@@ -140,16 +126,23 @@ class Register extends Component {
         text="Create Account"
         loadingText="Creating Account..."
         isLoading={this.state.isLoading}
-        disabled={!this.validateRegistration()}
-        onClick={this.handleRegistration}
+        disabled={!this.validateRegistrationInfo()}
+        onClick={this.handleRegisterSubmit}
       />
+
     </form>
   );
 
-  registerConfirmForm = () => (
-    <form className="register-confirm-form" onSubmit={this.handleConfirmSubmit}>
+  verifyForm = () => (
+    <form className="register-confirm-form">
+
       <h1>Verify</h1>
-      {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
+
+      {
+        this.state.error !== null
+        ? <p className="error-message">{this.state.error}</p>
+        : null
+      }
 
       <label>Code</label>
       <input 
@@ -159,7 +152,7 @@ class Register extends Component {
         onChange={this.handleChange}
       />
 
-      <p>Please check your email for the verification code.</p>
+      <p>Please check your email for the confirmation code.</p>
 
       <LoaderButton
         type="submit"
@@ -169,23 +162,24 @@ class Register extends Component {
         text="Verify"
         loadingText="Verifying..."
         isLoading={this.state.isLoading}
-        disabled={!this.validateConfirmation()}
+        disabled={!this.validateConfirmationCode()}
+        onClick={this.handleVerifySubmit}
       />
+
     </form>
   );
 
   render() {
     return (
       <div className="register">
+
         <Link className="auth-img-link" to="/">
           <img className="auth-img-desktop" src={DesktopLogo} />
           <img className="auth-img-mobile" src={MobileLogo} />
         </Link>
-        {
-          this.state.newUser === null
-          ? this.registerForm()
-          : this.registerConfirmForm()
-        }
+
+        {this.state.newUser === false ? this.registerForm() : this.verifyForm()}
+
         <ul className="register-links">
           <li className="register-link">
             <Link to="/site/terms-of-use">Terms of Use</Link>
@@ -200,13 +194,15 @@ class Register extends Component {
         <p className="register-copyright">
           Copyright 2015-2019 NoBullshitCooking. All Rights Reserved.
         </p>
+
       </div>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  authUserRegister: (email, password, username) => dispatch(authUserRegister(email, password, username))
+  authUserRegister: (email, pass, username) => dispatch(authUserRegister(email, pass, username)),
+  authUserVerify: (email, pass, confirmationCode) => dispatch(authUserVerify(email, pass, confirmationCode))
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(Register));

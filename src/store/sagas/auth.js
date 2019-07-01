@@ -6,6 +6,8 @@ import {
   authCheckState,
   authUserRegisterSucceeded,
   authUserRegisterFailed,
+  authUserVerifySucceeded,
+  authUserVerifyFailed,
   authFacebookCheckState,
   authFacebookLogin,
   authFacebookLogout,
@@ -31,8 +33,11 @@ const endpoint = process.env.NODE_ENV === 'production'
 
 
 /*
+
 Shared
+
 */
+
 export function* authCheckStateSaga() {
   yield put(authCheckState());
   // axios over to authEndpoint
@@ -42,8 +47,11 @@ export function* authCheckStateSaga() {
 
 
 /*
+
 Staff
+
 */
+
 export function* authStaffLoginSaga(action) {
   try {
     const response = yield axios.post(
@@ -75,8 +83,11 @@ export function* authStaffLogoutSaga() {
 
 
 /*
+
 User
+
 */
+
 export function* authUserLoginSaga(action) {
   try {
     const response = yield axios.post(
@@ -108,10 +119,11 @@ export function* authUserLogoutSaga() {
 
 export function* authUserRegisterSaga(action) {
   try {
-    const response = yield axios.post(
+    const res = yield axios.post(
       `${endpoint}/user/auth/register`,
-      {userInfo: {email: action.email, password: action.password, username: action.username}}
+      {userInfo: {email: action.email, pass: action.pass, username: action.username}}
     );
+    //const confirmationCode = res.data.confirmationCode;
     //history.push(redirectPath);
     yield put(authUserRegisterSucceeded());
   } catch(err) {
@@ -119,11 +131,27 @@ export function* authUserRegisterSaga(action) {
   }
 }
 
+export function* authUserVerifySaga(action) {
+  try {
+    const res = yield axios.post(
+      `${endpoint}/user/auth/verify`,
+      {userInfo: {email: action.email, pass: action.pass, confirmationCode: action.confirmationCode}}
+    );
+    //history.push(redirectPath);
+    yield put(authUserVerifySucceeded());
+  } catch(err) {
+    yield put(authUserVerifyFailed());
+  }
+}
+
 
 
 /*
+
 Facebook
+
 */
+
 export function* authFacebookCheckStateSaga() {  // before authFacebookLoginSaga
   yield put(authFacebookCheckState());
   window.FB && window.FB.getLoginStatus(
@@ -164,5 +192,7 @@ export function* authFacebookLogoutSaga() {
 
 
 /*
+
 Google
+
 */

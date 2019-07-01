@@ -12,14 +12,23 @@ export const authReset = () => ({type: actionTypes.AUTH_RESET});
 export const authCheckState = () => ({type: actionTypes.AUTH_CHECK_STATE});
 
 // auth -- users
-export const authUserRegister = (email, password, username) => ({
+export const authUserRegister = (email, pass, username) => ({
   type: actionTypes.AUTH_USER_REGISTER,
   email,
-  password,
+  pass,
   username
 });
 export const authUserRegisterSucceeded = () => ({type: actionTypes.AUTH_USER_REGISTER_SUCCEEDED});
 export const authUserRegisterFailed = () => ({type: actionTypes.AUTH_USER_REGISTER_FAILED});
+
+export const authUserVerify = (email, pass, confirmationCode) => ({
+  type: actionTypes.AUTH_USER_VERIFY,
+  email,
+  pass,
+  confirmationCode
+});
+export const authUserVerifySucceeded = () => ({type: actionTypes.AUTH_USER_VERIFY_SUCCEEDED});
+export const authUserVerifyFailed = () => ({type: actionTypes.AUTH_USER_VERIFY_FAILED});
 
 export const authFacebookCheckState = () => ({type: actionTypes.AUTH_FACEBOOK_CHECK_STATE});
 export const authFacebookLogin = () => ({type: actionTypes.AUTH_FACEBOOK_LOGIN});
