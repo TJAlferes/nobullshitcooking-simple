@@ -62,6 +62,12 @@ export {
 } from './planner';
 
 export {
+  messengerChangeChannel,
+  messengerAddToMessages,
+  messengerSendMessage
+} from './messenger';
+
+export {
   cartItemAdd,
   cartItemRemove
 } from './cart';

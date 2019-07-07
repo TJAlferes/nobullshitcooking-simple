@@ -96,10 +96,12 @@ export const PLANNER_LOAD_FAILED = 'PLANNER_LOAD_FAILED';
 
 
 /*
-chat
+messenger
 */
 
-//
+export const CHANGE_CHANNEL = 'CHANGE_CHANNEL';
+export const ADD_TO_MESSAGES = 'ADD_TO_MESSAGES';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
 
 
 
