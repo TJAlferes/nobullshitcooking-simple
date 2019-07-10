@@ -13,9 +13,6 @@ import './app.css';
 
 const withDragDropContext = DragDropContext(MultiBackend(HTML5toTouch));
 
-// move to UserMessenger?
-//const socket = io.connect('http://localhost:3003');
-
 const App = props => {
   // Decide visual layout style:
 

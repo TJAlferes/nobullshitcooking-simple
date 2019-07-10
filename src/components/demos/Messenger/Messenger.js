@@ -3,7 +3,7 @@ import React from 'react';
 import LeftNav from '../../LeftNav/LeftNav';
 import './messenger.css';
 
-// this would be from the user's s3 bucket:
+// These will be from the users' respective AWS S3 buckets:
 import ChatAvatarExample from '../../../assets/images/chat-avatar-example.png';
 import ChatAvatarExample2 from '../../../assets/images/chat-avatar-example-2.png';
 import ChatAvatarExample3 from '../../../assets/images/chat-avatar-example-3.png';

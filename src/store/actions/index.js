@@ -63,8 +63,13 @@ export {
 
 export {
   messengerChangeChannel,
-  messengerAddToMessages,
-  messengerSendMessage
+  messengerChangedChannel,
+  messengerSendMessage,
+  messengerSentMessage,
+  messengerJoinUser,
+  messengerJoinedUser,
+  messengerLeaveUser,
+  messengerLeftUser
 } from './messenger';
 
 export {
