@@ -1,10 +1,14 @@
 import { call, put } from 'redux-saga/effects';
 import io from 'socket.io-client';
 
-import * as actionTypes from '../actions/actionTypes';
+//import * as actionTypes from '../actions/actionTypes';
 import {
+  messengerConnected,
+  messengerDisconnected,
   messengerChangedChannel,
-  messengerSentMessage
+  messengerSentMessage,
+  messengerJoinedUser,
+  messengerLeftUser
 } from '../actions/index';
 
 // our backend API 
@@ -12,7 +16,40 @@ const endpoint = process.env.NODE_ENV === 'production'
 ? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com'
 : 'http://localhost:3003';
 
-const socket = io.connect(endpoint);
+const socket = io.connect(endpoint, {autoConnect: false});  // move? pass?
+
+export function* messengerConnectSaga(action) {
+  // const { connection } = 
+  //const connection = yield call([socket, socket.on], 'connect', )
+
+  // MAKE YIELD CALLS ?
+
+  let tokenInput;
+  let error = null;
+
+  socket.on('connect', () => {
+    console.log('Connected');
+    socket.emit('authenticate', {token: tokenInput.value});  // instead of token, do authname? (username)
+    socket.on('authenticated', () => {
+      // use as normal
+    });
+  });
+
+  socket.on('unauthorized', (reason) => {
+    console.log('Unauthorized:', reason);
+    error = reason.message;
+    socket.disconnect();
+  });
+
+  socket.on('disconnect', (reason) => {
+    console.log(`Disconnected: ${error || reason}`);
+    //statusInput.value = `Disconnected: ${error || reason}`;
+    error = null;
+  });
+
+  socket.connect();
+  yield put(messengerConnected());
+}
 
 export function* messengerChangeChannelSaga(action) {
   //const { channel } =

@@ -62,6 +62,10 @@ export {
 } from './planner';
 
 export {
+  messengerConnect,
+  messengerConnected,
+  messengerDisconnect,
+  messengerDisconnected,
   messengerChangeChannel,
   messengerChangedChannel,
   messengerSendMessage,

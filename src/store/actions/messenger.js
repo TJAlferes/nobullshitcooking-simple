@@ -1,11 +1,27 @@
 import * as actionTypes from './actionTypes';
 
+export const messengerConnect = () => ({
+  type: actionTypes.MESSENGER_CONNECT
+});
+
+export const messengerConnected = () => ({
+  type: actionTypes.MESSENGER_CONNECTED
+});
+
+export const messengerDisconnect = () => ({
+  type: actionTypes.MESSENGER_DISCONNECT
+});
+
+export const messengerDisconnected = () => ({
+  type: actionTypes.MESSENGER_DISCONNECTED
+});
+
 export const messengerChangeChannel = channel => ({
   type: actionTypes.MESSENGER_CHANGE_CHANNEL,
   channel
 });
 
-export const messengerChangeChannel = channel => ({
+export const messengerChangedChannel = channel => ({
   type: actionTypes.MESSENGER_CHANGED_CHANNEL,
   channel
 });

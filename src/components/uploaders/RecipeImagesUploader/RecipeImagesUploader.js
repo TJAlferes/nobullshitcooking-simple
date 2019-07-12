@@ -6,12 +6,7 @@ import AwsS3 from '@uppy/aws-s3';
 import '@uppy/core/dist/style.css';
 import '@uppy/dashboard/dist/style.css';
 
-let endpoint;
-if (process.env.NODE_ENV === "production") {
-  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
-} else {
-  endpoint = 'http://localhost:3003';
-}
+import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 class RecipeImagesUploader extends Component {
   constructor(props) {
@@ -39,7 +34,7 @@ class RecipeImagesUploader extends Component {
     .use(AwsS3, {
       id: "AwsS3",
       getUploadParameters(file) {
-        return axios.post(`${endpoint}/sign-s3-images-1`, {
+        return axios.post(`${NOBSCBackendAPIEndpointOne}/sign-s3-images-1`, {
           filename: file.name,
           contentType: file.type
         })

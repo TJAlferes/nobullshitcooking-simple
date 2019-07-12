@@ -7,8 +7,16 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   channel: "",
   messages: [],
-  users: []
+  users: [],
+  status: "Disconnected",
+  connectButtonDisabled: false,
+  disconnectButtonDisabled: true,
 };
+
+const connected = (state, action) => ({
+  ...state,
+  ...{status: "Connected", connectButtonDisabled: true, disconnectButtonDisabled: false}
+});
 
 const changedChannel = (state, action) => ({
   ...state,
@@ -30,12 +38,15 @@ const leftUser = (state, action) => ({
   ...{users: state.users.filter(user => user.username !== action.user.username)}
 });
 
+// remember Nir Kofman's actions patterns
 const messengerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.MESSENGER_CHANGED_CHANNEL: return changedChannel(state, action);
     case actionTypes.MESSENGER_SENT_MESSAGE: return sentMessage(state, action);
     case actionTypes.MESSENGER_JOINED_USER_JOINED: return joinedUser(state, action);
     case actionTypes.MESSENGER_LEFT_USER: return leftUser(state, action);
+    case actionTypes.MESSENGER_CONNECTED: return connected(state, action);
+    case actionTypes.MESSENGER_DISCONNECTED: return state;
   }
   return state;
 };
