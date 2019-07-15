@@ -5,18 +5,9 @@ import './userFriends.css';
 
 import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
 
-const Flash = (timeout = 3000, message) => {
-  if (message !== "") {
-    setTimeout(() => {
-      setFlashMessage("");
-    }, timeout);
-    return <span className="flash">{message}</span>
-  }
-  return false;
-};
-
 const UserFriends = props => {
   const [ flashMessage, setFlashMessage ] = useState("");
+  const [ isLoading, setIsLoading ] = useState(false);
   const [ userToFind, setUsertoFind ] = useState("");
   const [ friends, setFriends ] = useState([]);
   const [ tab, setTab ] = useState("accepted");
@@ -36,14 +27,18 @@ const UserFriends = props => {
 
   const handleFriendRequestClick = async () => {
     const friendName = userToFind;
+    setIsLoading(true);
     const res = await axios.post(`${NOBSCBackendAPIEndpointOne}/friendship/create`, {friendName});
     setFlashMessage(res.data);
+    setIsLoading(false);
   };
 
   const handleUserBlockClick = async () => {
     const friendName = userToFind;
+    setIsLoading(true);
     const res = await axios.post(`${NOBSCBackendAPIEndpointOne}/friendship/block`, {friendName});
     setFlashMessage(res.data);
+    setIsLoading(false);
   };
 
   const handleCurrentTabClick = () => {
@@ -60,14 +55,28 @@ const UserFriends = props => {
 
   const handleFriendAcceptClick = async (e) => {
     const friendName = e.target.value;
+    setIsLoading(true);
     const res = await axios.post(`${NOBSCBackendAPIEndpointOne}/friendship/accept`, {friendName});
     setFlashMessage(res.data);
+    setIsLoading(false);
   };
 
   const handleFriendDeleteClick = async (e) => {
     const friendName = e.target.value;
+    setIsLoading(true);
     const res = await axios.post(`${NOBSCBackendAPIEndpointOne}/friendship/delete`, {friendName});
     setFlashMessage(res.data);
+    setIsLoading(false);
+  };
+
+  const Flash = (timeout = 3000, message) => {
+    if (message !== "") {
+      setTimeout(() => {
+        setFlashMessage("");
+      }, timeout);
+      return <span className="flash">{message}</span>
+    }
+    return false;
   };
 
   return (
@@ -83,18 +92,20 @@ const UserFriends = props => {
         <div className="friends-find">
           <label htmlFor="friends-find-user">Username:</label>
           <input name="friends-find-user" value={userToFind} onChange={handleFindUserInputChange} />
-          <span
+          <button
             className="friends-find-action"
+            disabled={isLoading}
             onClick={handleFriendRequestClick}
           >
             Send Friend Request
-          </span>
-          <span
+          </button>
+          <button
             className="friends-find-action"
+            disabled={isLoading}
             onClick={handleUserBlockClick}
           >
             Block User
-          </span>
+          </button>
         </div>
 
         <div className="friends-list-menu-tabs">
@@ -132,39 +143,43 @@ const UserFriends = props => {
                 </span>
                 {
                   (friend.status === "pending") &&
-                  <span
+                  <button
                     className="friends-list-item-action"
+                    disabled={isLoading}
                     onClick={handleFriendAcceptClick}
                   >
                     Accept
-                  </span>
+                  </button>
                 }
                 {
                   (friend.status === "pending") &&
-                  <span
+                  <button
                     className="friends-list-item-action"
+                    disabled={isLoading}
                     onClick={handleFriendDeleteClick}
                   >
                     Reject
-                  </span>
+                  </button>
                 }
                 {
                   (friend.status === "accepted") &&
-                  <span
+                  <button
                     className="friends-list-item-action"
+                    disabled={isLoading}
                     onClick={handleFriendDeleteClick}
                   >
                     Unfriend
-                  </span>
+                  </button>
                 }
                 {
                   (friend.status === "blocked") &&
-                  <span
+                  <button
                     className="friends-list-item-action"
+                    disabled={isLoading}
                     onClick={handleFriendDeleteClick}
                   >
                     Unblock
-                  </span>
+                  </button>
                 }
               </div>
             ))
