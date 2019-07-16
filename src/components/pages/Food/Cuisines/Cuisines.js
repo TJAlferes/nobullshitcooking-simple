@@ -2,19 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './cuisines.css';
-import ComingSoon from '../../../../assets/images/content/coming-soon-120-120.png';
-import RussianThumb from '../../../../assets/images/content/cuisines/russian/nobsc-russian-thumb.png';
-import GermanThumb from '../../../../assets/images/content/cuisines/german/nobsc-german-thumb.png';
-//import TurkishThumb from '../../../../assets/images/content/cuisines/turkish/nobsc-turkish-thumb.png';
-import FrenchThumb from '../../../../assets/images/content/cuisines/french/nobsc-french-thumb.png';
-import ItalianThumb from '../../../../assets/images/content/cuisines/italian/nobsc-italian-thumb.png';
-import MexicanThumb from '../../../../assets/images/content/cuisines/mexican/nobsc-mexican-thumb.png';
-import GreekThumb from '../../../../assets/images/content/cuisines/greek/nobsc-greek-thumb.png';
-import IrishThumb from '../../../../assets/images/content/cuisines/irish/nobsc-irish-thumb.png';
-//import ChineseThumb from '../../../../assets/images/content/cuisines/chinese/nobsc-chinese-thumb.png';
-import IndianThumb from '../../../../assets/images/content/cuisines/indian/nobsc-indian-thumb.png';
-//import JapaneseThumb from '../../../../assets/images/content/cuisines/japanese/nobsc-japanese-thumb.png';
-import IranianThumb from '../../../../assets/images/content/cuisines/iranian/nobsc-iranian-thumb.png';
+
+const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/cuisines/';
+
+import ComingSoon from '../../../../assets/images/content/coming-soon-120-120.png';  // move to S3 also
+
+const RussianThumb = `${s3Path}russian/nobsc-russian-thumb.png`;
+const GermanThumb = `${s3Path}german/nobsc-german-thumb.png`;
+//const TurkishThumb = `${s3Path}turkish/nobsc-turkish-thumb.png`;
+const FrenchThumb = `${s3Path}french/nobsc-french-thumb.png`;
+const ItalianThumb = `${s3Path}italian/nobsc-italian-thumb.png`;
+const MexicanThumb = `${s3Path}mexican/nobsc-mexican-thumb.png`;
+const GreekThumb = `${s3Path}greek/nobsc-greek-thumb.png`;
+const IrishThumb = `${s3Path}irish/nobsc-irish-thumb.png`;
+//const ChineseThumb = `${s3Path}chinese/nobsc-chinese-thumb.png`;
+const IndianThumb = `${s3Path}indian/nobsc-indian-thumb.png`;
+//const JapaneseThumb = `${s3Path}japanese/nobsc-japanese-thumb.png`;
+const IranianThumb = `${s3Path}iranian/nobsc-iranian-thumb.png`;
 
 const Cuisines = props => (
   <div className={`cuisines one-column-a ${props.oneColumnATheme}`}>

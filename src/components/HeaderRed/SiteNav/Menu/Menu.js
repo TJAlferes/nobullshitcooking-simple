@@ -3,20 +3,23 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import './menu.css';
-import NutritionSlideImage from '../../../../assets/images/header/dropdowns/steve-reeves-nutrition-slide.png';
-import NutritionSlideImageDark from '../../../../assets/images/header/dropdowns/steve-reeves-nutrition-slide-dark.png';
-import MethodsSlideImage from '../../../../assets/images/header/dropdowns/fire-methods-slide.png';
-import MethodsSlideImageDark from '../../../../assets/images/header/dropdowns/fire-methods-slide-dark.png';
-import IngredientsSlideImage from '../../../../assets/images/header/dropdowns/abundance-ingredients-slide.png';
-import IngredientsSlideImageDark from '../../../../assets/images/header/dropdowns/abundance-ingredients-slide-dark.png';
-import CuisinesSlideImage from '../../../../assets/images/header/dropdowns/world-map-cuisines-slide.png';
-import CuisinesSlideImageDark from '../../../../assets/images/header/dropdowns/world-map-cuisines-slide-dark.png';
-import PrinciplesSlideImage from '../../../../assets/images/header/dropdowns/vitruvian-man-principles-slide.png';
-import PrinciplesSlideImageDark from '../../../../assets/images/header/dropdowns/vitruvian-man-principles-slide-dark.png';
-import ExercisesSlideImage from '../../../../assets/images/header/dropdowns/pushups-exercises-slide.png';
-import ExercisesSlideImageDark from '../../../../assets/images/header/dropdowns/pushups-exercises-slide-dark.png';
-import KitchenEquipmentSlideImage from '../../../../assets/images/header/dropdowns/kitchen-equipment-slide.png';
-import KitchenEquipmentSlideImageDark from '../../../../assets/images/header/dropdowns/kitchen-equipment-slide-dark.png';
+
+const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/header/dropdowns/';
+
+const NutritionSlideImage = `${s3Path}steve-reeves-nutrition-slide.png`;
+const NutritionSlideImageDark = `${s3Path}steve-reeves-nutrition-slide-dark.png`;
+const MethodsSlideImage = `${s3Path}fire-methods-slide.png`;
+const MethodsSlideImageDark = `${s3Path}fire-methods-slide-dark.png`;
+const IngredientsSlideImage = `${s3Path}abundance-ingredients-slide.png`;
+const IngredientsSlideImageDark = `${s3Path}abundance-ingredients-slide-dark.png`;
+const CuisinesSlideImage = `${s3Path}world-map-cuisines-slide.png`;
+const CuisinesSlideImageDark = `${s3Path}world-map-cuisines-slide-dark.png`;
+const PrinciplesSlideImage = `${s3Path}vitruvian-man-principles-slide.png`;
+const PrinciplesSlideImageDark = `${s3Path}vitruvian-man-principles-slide-dark.png`;
+const ExercisesSlideImage = `${s3Path}pushups-exercises-slide.png`;
+const ExercisesSlideImageDark = `${s3Path}pushups-exercises-slide-dark.png`;
+const KitchenEquipmentSlideImage = `${s3Path}kitchen-equipment-slide.png`;
+const KitchenEquipmentSlideImageDark = `${s3Path}kitchen-equipment-slide-dark.png`;
 
 /*
 This Menu component heavily borrows from react-menu-aim

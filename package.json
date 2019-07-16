@@ -41,7 +41,7 @@
     "moxios": "^0.4.0",
     "postcss-loader": "^2.1.6",
     "react-dnd-test-backend": "^7.7.0",
-    "react-hot-loader": "^4.12.6",
+    "react-hot-loader": "^4.12.7",
     "react-test-renderer": "^16.8.6",
     "redux-observable": "^1.1.0",
     "redux-saga-test-plan": "^3.7.0",
@@ -89,6 +89,6 @@
     "socket.io-client": "^2.2.0",
     "superstruct": "^0.5.4",
     "uuid": "^3.3.2",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.6"
   }
 }

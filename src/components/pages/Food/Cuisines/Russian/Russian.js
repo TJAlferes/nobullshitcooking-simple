@@ -1,12 +1,12 @@
 import React from 'react';
 
 import '../cuisine.css';
-import RussianBanner from '../../../../../assets/images/content/cuisines/russian/nobsc-russian-banner.png';
 
 const Russian = props => (
   <div className={`cuisine one-column-a ${props.oneColumnATheme}`}>
     <h1>Russian</h1>
-    <img src={RussianBanner} />
+    <img className="mobile_display" src="https://s3.amazonaws.com/nobsc-images-01/content/cuisines/russian/nobsc-russian-thumb.png" />
+    <img className="desktop_display" src="https://s3.amazonaws.com/nobsc-images-01/content/cuisines/russian/nobsc-russian-banner.png" />
   </div>
 );
 

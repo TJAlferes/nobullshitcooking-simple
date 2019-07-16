@@ -1,17 +1,20 @@
 import React from 'react';
 
-import './supplements.css';
 import LeftNav from '../../../../LeftNav/LeftNav';
-import vitaminC from '../../../../../assets/images/content/supplements/vitamin-c-500-mg-75px.jpg';
-import vitaminD3 from '../../../../../assets/images/content/supplements/vitamin-d3-2000-iu-75px.jpg';
-import vitaminK2 from '../../../../../assets/images/content/supplements/vitamin-k2-90-mcg-75px.jpg';
-import iodine from '../../../../../assets/images/content/supplements/potassium-iodide-225-mcg-75px.jpg';
-import magnesium from '../../../../../assets/images/content/supplements/magnesium-200-mg-75px.jpg';
-import boron from '../../../../../assets/images/content/supplements/boron-3-mg-75px.jpg';
-import zinc from '../../../../../assets/images/content/supplements/zinc-30-mg-75px.jpg';
-import taurine from '../../../../../assets/images/content/supplements/taurine-1000-mg-75px.jpg';
-import pantothenicAcid from '../../../../../assets/images/content/supplements/vitamin-b5-500-mg-75px.jpg';
-import b50Complex from '../../../../../assets/images/content/supplements/vitamin-b-complex-75px.jpg';
+import './supplements.css';
+
+const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/supplements/';
+
+const vitaminC = `${s3Path}vitamin-c-500-mg-75px.jpg`;
+const vitaminD3 = `${s3Path}vitamin-d3-2000-iu-75px.jpg`;
+const vitaminK2 = `${s3Path}vitamin-k2-90-mcg-75px.jpg`;
+const iodine = `${s3Path}potassium-iodide-225-mcg-75px.jpg`;
+const magnesium = `${s3Path}magnesium-200-mg-75px.jpg`;
+const boron = `${s3Path}boron-3-mg-75px.jpg`;
+const zinc = `${s3Path}zinc-30-mg-75px.jpg`;
+const taurine = `${s3Path}taurine-1000-mg-75px.jpg`;
+const pantothenicAcid = `${s3Path}vitamin-b5-500-mg-75px.jpg`;
+const b50Complex = `${s3Path}vitamin-b-complex-75px.jpg`;
 
 // TO DO: change the <a> to <NavLink> or <Link> that open a new browser tab
 
