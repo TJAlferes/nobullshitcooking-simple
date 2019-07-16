@@ -23,7 +23,7 @@ const UserFriends = props => {
   const handleFindUserInputChange = e => {
     const username = e.target.value;
     setUsertoFind(username);
-  }
+  };
 
   const handleFriendRequestClick = async () => {
     const friendName = userToFind;
@@ -43,15 +43,15 @@ const UserFriends = props => {
 
   const handleCurrentTabClick = () => {
     setTab("accepted");
-  }
+  };
 
   const handlePendingTabClick = () => {
     setTab("pending");
-  }
+  };
 
   const handleBlockedTabClick = () => {
     setTab("blocked");
-  }
+  };
 
   const handleFriendAcceptClick = async (e) => {
     const friendName = e.target.value;

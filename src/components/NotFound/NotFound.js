@@ -1,6 +1,5 @@
 import React from 'react';
 
-//import AngryFace from '../../assets/images/not-found-error/angry-face-404.png';
 import './notFound.css';
 
 const NotFound = () => {

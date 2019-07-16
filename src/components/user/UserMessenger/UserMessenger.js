@@ -10,6 +10,7 @@ import './userMessenger.css';
 
 const UserMessenger = props => {
   const messagesRef = useRef(null);
+  //const [ tab, setTab ] = useState("room");
 
   useEffect(() => {
     const autoScroll = () => {

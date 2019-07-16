@@ -1,7 +1,9 @@
 'use strict';
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'development',
@@ -63,6 +65,8 @@ module.exports = {
       template: __dirname + '/public/index.html',
       filename: 'index.html',
       inject: 'body'
-    })
+    }),
+    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 7}),
+    //new BundleAnalyzerPlugin({generateStatsFile: true})
   ]
 };

@@ -1,6 +1,7 @@
 'use strict';
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 
@@ -56,6 +57,7 @@ module.exports = {
       filename: 'index.html',
       inject: 'body'
     }),
-    new UglifyJsWebpackPlugin()
+    new UglifyJsWebpackPlugin(),
+    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 7})
   ]
 };

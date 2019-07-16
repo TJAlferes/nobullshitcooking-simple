@@ -12,13 +12,6 @@ import AppliedRoute from './AppliedRoute';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import UnauthenticatedRoute from './UnauthenticatedRoute';
 
-/*import FlamesLoader from '../assets/images/content/loading/flames-loader.png';
-const SuspenseFallback = (
-  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-    <img style={{alignSelf: 'center'}} src={FlamesLoader} />
-  </div>
-);*/
-
 
 
 /*
@@ -169,7 +162,6 @@ import Disclaimer from '../components/pages/site/Disclaimer/Disclaimer';
 import Home from '../components/pages/Home/Home';
 
 import NotFound from '../components/NotFound/NotFound';
-import { resolve } from 'path';
 
 
 

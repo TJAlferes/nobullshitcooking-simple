@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 
 import './plannerPage.css'
 const MobilePlannerToggle = lazy(() => import('../Planner/mobile/MobilePlannerToggle'));
-const Planner = lazy(async () => import('../Planner/Planner'));
+const Planner = lazy(() => import('../Planner/Planner'));
 
 const PlannerPage = props => (
   <div id="planner_page">
