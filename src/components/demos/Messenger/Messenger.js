@@ -4,10 +4,7 @@ import LeftNav from '../../LeftNav/LeftNav';
 import './messenger.css';
 
 // These will be from the users' respective AWS S3 buckets:
-import ChatAvatarExample from '../../../assets/images/chat-avatar-example.png';
-import ChatAvatarExample2 from '../../../assets/images/chat-avatar-example-2.png';
-import ChatAvatarExample3 from '../../../assets/images/chat-avatar-example-3.png';
-import ChatAvatarExample4 from '../../../assets/images/chat-avatar-example-4.png';
+const s3Path = "https://s3.amazonaws.com/nobsc-images-01/content/demos/messenger/";
 
 const Messenger = props => (
   <div className={`messenger two-column-a ${props.twoColumnATheme}`}>
@@ -43,15 +40,10 @@ const Messenger = props => (
         <div className="messenger-friends">
           <div className="chat-nav"><span className="chat-nav-current">Room</span><span>Friends</span></div>
           <ul>
-            {/*{
-              room.users.map(user => {
-                <li><img src={ChatAvatarExample} /><span>TJAlferes</span></li>
-              })
-            }*/}
-            <li><img src={ChatAvatarExample3} /><span>KennyBoy93</span></li>
-            <li><img src={ChatAvatarExample2} /><span>Thomas</span></li>
-            <li><img src={ChatAvatarExample} /><span>TJAlferes</span></li>
-            <li><img src={ChatAvatarExample4} /><span>Ozleo</span></li>
+            <li><img src={`${s3Path}chat-avatar-example.png`} /><span>KennyBoy93</span></li>
+            <li><img src={`${s3Path}chat-avatar-example-2.png`} /><span>Thomas</span></li>
+            <li><img src={`${s3Path}chat-avatar-example-3.png`} /><span>TJAlferes</span></li>
+            <li><img src={`${s3Path}chat-avatar-example-4.png`} /><span>Ozleo</span></li>
           </ul>
         </div>
 

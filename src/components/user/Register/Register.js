@@ -3,8 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './register.css';
-import DesktopLogo from '../../../assets/images/authentication/logo-large-white.png';
-import MobileLogo from '../../../assets/images/authentication/logo-small-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import { authUserRegister, authUserVerify } from '../../../store/actions/index';
 
@@ -174,8 +172,8 @@ class Register extends Component {
       <div className="register">
 
         <Link className="auth-img-link" to="/">
-          <img className="auth-img-desktop" src={DesktopLogo} />
-          <img className="auth-img-mobile" src={MobileLogo} />
+          <img className="auth-img-desktop" src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-large-white.png" />
+          <img className="auth-img-mobile" src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-small-white.png" />
         </Link>
 
         {this.state.newUser === false ? this.registerForm() : this.verifyForm()}

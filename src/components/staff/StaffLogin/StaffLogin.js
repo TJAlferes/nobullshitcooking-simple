@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './login.css';
-import LogoLargeWhite from '../../../assets/images/authentication/logo-large-white.png';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import {
   authStaffLogin
@@ -42,7 +41,10 @@ class StaffLogin extends Component {
   render() {
     return (
       <div>
-        <Link className="styled_nav_link" to="/"><img src={LogoLargeWhite} /></Link>
+        <Link className="auth-img-link" to="/">
+          <img className="auth-img-desktop" src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-large-white.png" />
+          <img className="auth-img-mobile" src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-small-white.png" />
+        </Link>
         <div className="login">
           {this.props.isAuthenticated && <Redirect to="/" />}
           <form onSubmit={this.handleSubmit}>
