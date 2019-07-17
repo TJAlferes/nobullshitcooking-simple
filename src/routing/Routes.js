@@ -156,6 +156,7 @@ import Disclaimer from '../components/pages/site/Disclaimer/Disclaimer';
 //import TermsOfUse from '../components/pages/site/TermsOfUse/TermsOfUse';
 //import PrivacyPolicy from '../components/pages/site/PrivacyPolicy/PrivacyPolicy';
 //import Help from '../components/pages/site/Help/Help';
+import Welcome from '../components/pages/site/Welcome/Welcome';
 
 import Home from '../components/pages/Home/Home';
 
@@ -327,6 +328,7 @@ const RoutesList = () => (
       {/*<AppliedRoute path="/site/terms" exact component={TermsOfUse} />
       <AppliedRoute path="/site/privacy" exact component={PrivacyPolicy} />
       <AppliedRoute path="/site/help" exact component={Help} />*/}
+      <AppliedRoute path="/site/welcome" exact component={Welcome} />
 
 
 
