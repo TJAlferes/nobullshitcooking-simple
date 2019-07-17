@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './cuisines.css';
 
-const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/cuisines/';
+const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/food/cuisines/';
 
 import ComingSoon from '../../../../assets/images/content/coming-soon-120-120.png';  // move to S3 also
 

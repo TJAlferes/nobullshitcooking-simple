@@ -3,7 +3,7 @@ import React from 'react';
 import LeftNav from '../../../../LeftNav/LeftNav';
 import './supplements.css';
 
-const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/supplements/';
+const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/food/nutrition/supplements/';
 
 const vitaminC = `${s3Path}vitamin-c-500-mg-75px.jpg`;
 const vitaminD3 = `${s3Path}vitamin-d3-2000-iu-75px.jpg`;
