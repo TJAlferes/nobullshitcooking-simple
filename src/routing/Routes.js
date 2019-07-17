@@ -12,6 +12,7 @@ import AppliedRoute from './AppliedRoute';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import UnauthenticatedRoute from './UnauthenticatedRoute';
 
+import LoaderSpinner from '../components/LoaderSpinner/LoaderSpinner';
 
 
 /*
@@ -28,10 +29,7 @@ import Dashboard from '../components/demos/Dashboard/Dashboard';  // for demo pu
 const StaffDashboard = lazy(() => import('../components/staff/StaffDashboard/StaffDashboard'));
 const UserDashboard = lazy(() => import('../components/user/UserDashboard/UserDashboard'));
 
-const PlannerPage = lazy(async () => {
-  await new Promise(resolve => setTimeout(resolve, 3000));
-  return import('../components/PlannerPage/PlannerPage');
-});  // for public, url-based
+const PlannerPage = lazy(() => import('../components/PlannerPage/PlannerPage'));  // for public, url-based
 const UserPlannerPage = lazy(() => import('../components/user/UserPlannerPage/UserPlannerPage'));
 
 const SubmitRecipe = lazy(() => import('../components/demos/SubmitRecipe/SubmitRecipe'));  // for demo purposes
@@ -166,7 +164,7 @@ import NotFound from '../components/NotFound/NotFound';
 
 
 const RoutesList = () => (
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<LoaderSpinner />}>
     <Switch>
 
 

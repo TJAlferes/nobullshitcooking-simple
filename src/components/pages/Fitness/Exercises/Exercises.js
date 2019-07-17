@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './exercises.css';
-import WalkThumb from '../../../../assets/images/content/exercises/walk-120-120.png'
+
+const WalkThumb = "https://s3.amazonaws.com/nobsc-images-01/content/fitness/exercises/walk/walk-120-120.png";
 
 const Exercises = props => (
   <div className={`exercises one-column-a ${props.oneColumnATheme}`}>
