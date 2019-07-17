@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './siteNavIngredients.css';
-import ComingSoon from '../../../../assets/images/content/coming-soon-120-120.png';
+const ComingSoon = "https://s3.amazonaws.com/nobsc-images-01/content/misc/coming-soon-120-120.png";
 
 const SiteNavIngredients = props => (
   <div className={`site-nav-ingredients one-column-a ${props.oneColumnATheme}`}>

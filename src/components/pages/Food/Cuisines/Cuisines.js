@@ -5,7 +5,7 @@ import './cuisines.css';
 
 const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/food/cuisines/';
 
-import ComingSoon from '../../../../assets/images/content/coming-soon-120-120.png';  // move to S3 also
+const ComingSoon = 'https://s3.amazonaws.com/nobsc-images-01/content/misc/coming-soon-120-120.png';
 
 const RussianThumb = `${s3Path}russian/nobsc-russian-thumb.png`;
 const GermanThumb = `${s3Path}german/nobsc-german-thumb.png`;
