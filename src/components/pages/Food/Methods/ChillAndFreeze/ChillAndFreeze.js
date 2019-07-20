@@ -2,10 +2,10 @@ import React from 'react';
 
 import '../method.css';
 
-const Saute = props => (
+const ChillAndFreeze = props => (
   <div className={`method one-column-a ${props.oneColumnATheme}`}>
-    <h1>Saute</h1>
+    <h1>Chill and Freeze</h1>
   </div>
 );
 
-export default Saute;
+export default ChillAndFreeze;

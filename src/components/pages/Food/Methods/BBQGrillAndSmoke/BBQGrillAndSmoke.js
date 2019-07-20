@@ -2,10 +2,10 @@ import React from 'react';
 
 import '../method.css';
 
-const Grill = props => (
+const BBQGrillAndSmoke = props => (
   <div className={`method one-column-a ${props.oneColumnATheme}`}>
-    <h1>Grill</h1>
+    <h1>BBQ, Grill, and Smoke</h1>
   </div>
 );
 
-export default Grill;
+export default BBQGrillAndSmoke;

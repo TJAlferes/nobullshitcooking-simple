@@ -2,10 +2,10 @@ import React from 'react';
 
 import '../method.css';
 
-const Steam = props => (
+const BakeRoastToastAndBroil = props => (
   <div className={`method one-column-a ${props.oneColumnATheme}`}>
-    <h1>Steam</h1>
+    <h1>Bake, Roast, Toast, and Broil</h1>
   </div>
 );
 
-export default Steam;
+export default BakeRoastToastAndBroil;

@@ -126,15 +126,20 @@ export default [
     name: 'Cooking Methods',
     link: '/food/methods',
     subMenu: [
-      'Poach and Simmer', 'Steam', 'Saute', 'Roast', 'Grill', 'Stew and Braise'
+      'Chill and Freeze',
+      'Steam, Poach, Simmer, Boil, and Blanch',
+      'Stew and Braise',
+      'Bake, Roast, Toast, and Broil',
+      'Saute, Fry, and Glaze',
+      'BBQ, Grill, and Smoke'
     ],
     subMenuLinks: [
-      '/food/methods/poach-and-simmer',
-      '/food/methods/steam',
-      '/food/methods/saute',
-      '/food/methods/roast',
-      '/food/methods/grill',
-      '/food/methods/stew-and-braise'
+      '/food/methods/chill-and-freeze',
+      '/food/methods/steam-poach-simmer-boil-and-blanch',
+      '/food/methods/stew-and-braise',
+      '/food/methods/bake-roast-toast-and-broil',
+      '/food/methods/saute-fry-and-glaze',
+      '/food/methods/bbq-grill-and-smoke'
     ],
     image: 'methods'
   }

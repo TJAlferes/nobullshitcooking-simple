@@ -108,12 +108,12 @@ import Dining from '../components/pages/Food/SiteNavEquipment/Dining/Dining';
 import Storage from '../components/pages/Food/SiteNavEquipment/Storage/Storage';
 
 import Methods from '../components/pages/Food/Methods/Methods';
-import PoachAndSimmer from '../components/pages/Food/Methods/PoachAndSimmer/PoachAndSimmer';
-import Steam from '../components/pages/Food/Methods/Steam/Steam';
-import Saute from '../components/pages/Food/Methods/Saute/Saute';
-import Roast from '../components/pages/Food/Methods/Roast/Roast';
-import Grill from '../components/pages/Food/Methods/Grill/Grill';
+import ChillAndFreeze from '../components/pages/Food/Methods/ChillAndFreeze/ChillAndFreeze';
+import SteamPoachSimmerBoilAndBlanch from '../components/pages/Food/Methods/SteamPoachSimmerBoilAndBlanch/SteamPoachSimmerBoilAndBlanch';
 import StewAndBraise from '../components/pages/Food/Methods/StewAndBraise/StewAndBraise';
+import BakeRoastToastAndBroil from '../components/pages/Food/Methods/BakeRoastToastAndBroil/BakeRoastToastAndBroil';
+import SauteFryAndGlaze from '../components/pages/Food/Methods/SauteFryAndGlaze/SauteFryAndGlaze';
+import BBQGrillAndSmoke from '../components/pages/Food/Methods/BBQGrillAndSmoke/BBQGrillAndSmoke';
 
 
 
@@ -282,12 +282,12 @@ const RoutesList = () => (
       <AppliedRoute path="/food/equipment/storage" exact component={Storage} />
 
       <AppliedRoute path="/food/methods" exact component={Methods} />
-      <AppliedRoute path="/food/methods/poach-and-simmer" exact component={PoachAndSimmer} />
-      <AppliedRoute path="/food/methods/steam" exact component={Steam} />
-      <AppliedRoute path="/food/methods/saute" exact component={Saute} />
-      <AppliedRoute path="/food/methods/roast" exact component={Roast} />
-      <AppliedRoute path="/food/methods/grill" exact component={Grill} />
+      <AppliedRoute path="/food/methods/chill-and-freeze" exact component={ChillAndFreeze} />
+      <AppliedRoute path="/food/methods/steam-poach-simmer-boil-and-blanch" exact component={SteamPoachSimmerBoilAndBlanch} />
       <AppliedRoute path="/food/methods/stew-and-braise" exact component={StewAndBraise} />
+      <AppliedRoute path="/food/methods/bake-roast-toast-and-broil" exact component={BakeRoastToastAndBroil} />
+      <AppliedRoute path="/food/methods/saute-fry-and-glaze" exact component={SauteFryAndGlaze} />
+      <AppliedRoute path="/food/methods/bbq-grill-and-smoke" exact component={BBQGrillAndSmoke} />
 
 
 
