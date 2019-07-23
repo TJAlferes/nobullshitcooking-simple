@@ -6,7 +6,7 @@ import Dropzone from 'react-dropzone-uploader'
 import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 const RecipeImagesUploader = props => {
-  const getUploadParams = async ({ meta: { name } }) => {
+  const getUploadParams = async ({ meta: { type } }) => {
     const {
       signedRequest,
       fileUrl,
@@ -15,7 +15,8 @@ const RecipeImagesUploader = props => {
       `${NOBSCBackendAPIEndpointOne}/sign-s3-images-1`,
       {
         imageDir: props.imageDir,
-        fileName: name
+        fileName: props.imageName,
+        fileType: type
       }
     );
     return {
@@ -42,10 +43,10 @@ const RecipeImagesUploader = props => {
       validate
       styles={{
         dropzone: {
-          width: 280,
-          height: 174,
+          width: "280px",
+          height: "174px",
           border: "1px solid #aaa",
-          borderRadius: 0,
+          borderRadius: "2px",
           overflow: "hidden"
         },
         inputLabel: {

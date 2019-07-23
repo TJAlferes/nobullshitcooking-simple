@@ -103,7 +103,8 @@ Labels, Inputs, and Selects
 
 .submit-recipe .recipe-directions {
   width: 100%;
-  height: 155px;
+  height: 174px;
+  border-radius: 2px;
 }
 
 

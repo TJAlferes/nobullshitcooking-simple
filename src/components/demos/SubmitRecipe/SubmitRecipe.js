@@ -289,27 +289,27 @@ const SubmitRecipe = props => {
         />
       </div>
 
-      {/* images */}
+      {/* images (YOU NEED TO MAKE SURE THE imageName AND title ARE PROPERLY SYNCED, THEREFORE, UPLOAD ALL AT ONCE) */}
       <div className="images-area">
         <div className="image-area">
           <label className="red_style">Image of Finished Recipe</label>
-          <RecipeImagesUploader imageDir="recipe" />
-          {/* also do thumb and tiny */}
+          <RecipeImagesUploader imageDir="recipe" imageName={title} />
+          {/* also do thumb (150px w) and tiny (32px w) */}
         </div>
         <div className="image-area">
           <label className="red_style">Image of All Equipment</label>
-          <RecipeImagesUploader imageDir="equipment" />
-          {/* also do thumb */}
+          <RecipeImagesUploader imageDir="equipment" imageName={title} />
+          {/* also do thumb (150px w) */}
         </div>
         <div className="image-area">
           <label className="red_style">Image of All Ingredients</label>
-          <RecipeImagesUploader imageDir="ingredients" />
-          {/* also do thumb */}
+          <RecipeImagesUploader imageDir="ingredients" imageName={title} />
+          {/* also do thumb (150px w) */}
         </div>
         <div className="image-area">
           <label className="red_style">Image of Cooking In Action</label>
-          <RecipeImagesUploader imageDir="cooking" />
-          {/* also do thumb */}
+          <RecipeImagesUploader imageDir="cooking" imageName={title} />
+          {/* also do thumb (150px w) */}
         </div>
       </div>
 
