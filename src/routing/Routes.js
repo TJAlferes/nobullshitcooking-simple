@@ -149,6 +149,7 @@ import StoreFront from '../components/shop/StoreFront/StoreFront';
 //import Tools from '../components/pages/promo/Tools/Tools';
 //import FoodInSeason from '../components/pages/promo/FoodInSeason/FoodInSeason';
 
+import Site from '../components/pages/site/Site';
 //import Contests from '../components/pages/site/Contests/Contests';
 //import Charity from '../components/pages/site/Charity/Charity';
 //import Sitemap from '../components/pages/site/Sitemap/Sitemap';
@@ -317,12 +318,12 @@ const RoutesList = () => (
 
       <AppliedRoute path="/promo/outdoors" exact component={Outdoors} />
       <AppliedRoute path="/promo/garden" exact component={Garden} />
-      <AppliedRoute path="/promo/tools" exact component={Tools} />
+      <AppliedRoute path="/promo/tools" exact component={Tools} />*/}
 
-      <AppliedRoute path="/site/contests" exact component={Contests} />
+      <AppliedRoute path="/site" exact component={Site} />
+      {/*<AppliedRoute path="/site/contests" exact component={Contests} />
       <AppliedRoute path="/site/seasonal" exact component={FoodInSeason} />
       <AppliedRoute path="/site/charity" exact component={Charity} />
-
       <AppliedRoute path="/site/sitemap" exact component={Sitemap} />*/}
       <AppliedRoute path="/site/disclaimer" exact component={Disclaimer} />
       {/*<AppliedRoute path="/site/terms" exact component={TermsOfUse} />

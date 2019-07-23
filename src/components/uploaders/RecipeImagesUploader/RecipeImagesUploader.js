@@ -1,65 +1,64 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
-import Uppy from '@uppy/core';
-import Dashboard from '@uppy/react/lib/Dashboard';
-import AwsS3 from '@uppy/aws-s3';
-import '@uppy/core/dist/style.css';
-import '@uppy/dashboard/dist/style.css';
+import 'react-dropzone-uploader/dist/styles.css'
+import Dropzone from 'react-dropzone-uploader'
 
 import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
 
-class RecipeImagesUploader extends Component {
-  constructor(props) {
-    super(props);
-    this.uppy = new Uppy({
-      id: 'uppy',
-      autoProceed: false,
-      allowMultipleUploads: true,
-      debug: false,
-      restrictions: {
-        maxFileSize: 999000,
-        maxNumberOfFiles: 1,
-        minNumberOfFiles: 1,
-        allowedFileTypes: ['.jpg', '.jpeg', '.png']
+const RecipeImagesUploader = props => {
+  const getUploadParams = async ({ meta: { name } }) => {
+    const {
+      signedRequest,
+      fileUrl,
+      uploadUrl
+    } = await axios.post(
+      `${NOBSCBackendAPIEndpointOne}/sign-s3-images-1`,
+      {
+        imageDir: props.imageDir,
+        fileName: name
+      }
+    );
+    return {
+      signedRequest,
+      meta: {
+        fileUrl
       },
-      onBeforeFileAdded(currentFile, files) {
-        const modifiedFile = Object.assign(
-          {},
-          currentFile,
-          {name: currentFile + Date.now()}
-        );
-        return modifiedFile;
-      }
-    })
-    .use(AwsS3, {
-      id: "AwsS3",
-      getUploadParameters(file) {
-        return axios.post(`${NOBSCBackendAPIEndpointOne}/sign-s3-images-1`, {
-          filename: file.name,
-          contentType: file.type
-        })
-        .then(res => ({
-          method: res.data.method,
-          url: res.data.url,
-          fields: res.data.fields
-        }));
-      }
-    });
-    /*.use(Dashboard, {
-      id: "Dashboard",
-      width: 840,
-      height: 520,
-      thumbnailWidth: 280
-    });*/
+      url: uploadUrl
+    };
   }
 
-  componentWillUnmount() {
-    this.uppy.close();
+  const handleSubmit = (files, allFiles) => {
+    console.log(files.map(f => f.meta))
+    allFiles.forEach(f => f.remove())
   }
 
-  render() {
-    return <Dashboard uppy={this.uppy} plugins={['AwsS3']} />;
-  }
+  return (
+    <Dropzone
+      getUploadParams={getUploadParams}
+      onSubmit={handleSubmit}
+      accept="image/jpg, image/jpeg, image/png"
+      maxSizeBytes={200000}
+      maxFiles={1}
+      validate
+      styles={{
+        dropzone: {
+          width: 280,
+          height: 174,
+          border: "1px solid #aaa",
+          borderRadius: 0,
+          overflow: "hidden"
+        },
+        inputLabel: {
+          color: "#68abe6",
+          fontFamily: "'Play', sans-serif"
+        },
+        submitButton: {
+          fontFamily: "'Play', sans-serif"
+        }
+      }}
+    />
+  );
+
 }
 
 export default RecipeImagesUploader;

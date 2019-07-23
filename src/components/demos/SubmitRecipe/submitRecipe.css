@@ -1,24 +1,11 @@
-/*
-General
-*/
-main {
-  position: relative;
-  flex: 1;
-  order: 2;
-  min-width: 1200px;
-  background-color: #eee;
-} /* TO DO: move */
-
-#page {
-  width: 900px;
-  margin: 12px auto 18px auto;
-  padding: 10px;
-  background-color: #fff;
+.submit-recipe {
+  min-width: 300px;
+  max-width: 900px;
 }
 
-#form {
+/*#form {
   width: 880px;
-}
+}*/
 
 label {
   display: block;
@@ -38,7 +25,8 @@ input {
   padding: 3px 7px 3px 7px;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   background-color: #fdfdd5;
 }
 
@@ -70,7 +58,7 @@ Labels, Inputs, and Selects
 
 .manual_amount,
 .manual_amount_sub {
-  display: inline;
+  display: inline-block;
   width: 70px;
   min-width: 70px;
   max-width: 70px;
@@ -111,6 +99,11 @@ Labels, Inputs, and Selects
 .recipe_additions div select {
   margin-right: 17px;
   margin-left: 3px;
+}
+
+.submit-recipe .recipe-directions {
+  width: 100%;
+  height: 155px;
 }
 
 
@@ -156,8 +149,18 @@ Add & Remove Buttons
 
 /*
 Images Area
-*/
-.submitted_image {
+
+.submit-recipe .images-area {
+  width: 280px;
+}*/
+
+.submit-recipe .image-area {
+  width: 280px;
+  height: 218px;
+}
+
+
+/*.submitted_image {
   width: 190px;
   margin: 0;
 }
@@ -192,7 +195,7 @@ Images Area
 #submitted_cooking_image {
   border: 0;
   border-radius: 0;
-}
+}*/
 
 
 
