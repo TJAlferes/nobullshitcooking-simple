@@ -8,10 +8,6 @@ const ComingSoon = "https://nobsc-images-01.s3.amazonaws.com/content/misc/coming
 const Methods = props => (
   <div className={`methods one-column-a ${props.oneColumnATheme}`}>
     <h1>Methods</h1>
-    <h3>Conduction, Convection, Radiation</h3>
-    <p>blah</p>
-    <h3>Dry, Wet, Low, High, Fast, Slow</h3>
-    <p>blah</p>
     <div className={`nav-grid-a ${props.navGridATheme}`}>
       <div className="nav-grid-a-item">
         <Link to="/food/methods/chill-and-freeze">
