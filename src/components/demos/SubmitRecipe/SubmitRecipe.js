@@ -293,7 +293,7 @@ const SubmitRecipe = props => {
       <div className="images-area">
         <div className="image-area">
           <label className="red_style">Image of Finished Recipe</label>
-          <RecipeImagesUploader imageDir="recipe" imageName={title} />
+          <RecipeImagesUploader imageDir="recipe" imageName={title} handleSubmit={} />
           {/* also do thumb (150px w) and tiny (32px w) */}
         </div>
         <div className="image-area">
