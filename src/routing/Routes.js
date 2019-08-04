@@ -35,7 +35,6 @@ const UserPlannerPage = lazy(() => import('../components/user/UserPlannerPage/Us
 const SubmitRecipe = lazy(() => import('../components/demos/SubmitRecipe/SubmitRecipe'));  // for demo purposes
 const StaffSubmitRecipe = lazy(() => import('../components/staff/StaffSubmitRecipe/StaffSubmitRecipe'));
 const UserSubmitRecipe = lazy(() => import('../components/user/UserSubmitRecipe/UserSubmitRecipe'));
-const EditRecipe = lazy(() => import('../components/demos/EditRecipe/EditRecipe'));  // for demo purposes
 const StaffEditRecipe = lazy(() => import('../components/staff/StaffEditRecipe/StaffEditRecipe'));
 const UserEditRecipe = lazy(() => import('../components/user/UserEditRecipe/UserEditRecipe'));
 
@@ -199,7 +198,6 @@ const RoutesList = () => (
       <AppliedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
       {/*<AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />*/}
       <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
-      <AppliedRoute path="/food/recipes/edit" exact component={EditRecipe} />  {/* for demo purposes */}
       <AuthenticatedRoute path="/staff/recipes/edit" exact component={StaffEditRecipe} />
       <AuthenticatedRoute path="/user/recipes/edit" exact component={UserEditRecipe} />
 

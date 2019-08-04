@@ -6,15 +6,10 @@ import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
 import LoaderButton from '../../LoaderButton/LoaderButton';
-import RecipeImagesUploader from '../../uploaders/RecipeImagesUploader/RecipeImagesUploader';
 import './submitRecipe.css';
 
-let endpoint;
-if (process.env.NODE_ENV === "production") {
-  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
-} else {
-  endpoint = 'http://localhost:3003';
-}
+import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
+const endpoint = NOBSCBackendAPIEndpointOne;
 
 const UserSubmitRecipe = () => {
   const [ dataRecipeTypes, setDataRecipeTypes ] = useState([]);
@@ -334,19 +329,23 @@ const UserSubmitRecipe = () => {
           <div>
             <div className="image_div">
               <label className="red_style">Image of Finished Recipe</label>
-              <RecipeImagesUploader />
+              <div className="recipe-image-preview"></div>
+              <input name="setRecipeImage" type="file" onChange={handleImageChange} />
             </div>
             <div className="image_div">
               <label className="red_style">Image of All Equipment</label>
-              <RecipeImagesUploader />
+              <div className="recipe-image-preview"></div>
+              <input name="setEquipmentImage" type="file" onChange={handleImageChange} />
             </div>
             <div className="image_div">
               <label className="red_style">Image of All Ingredients</label>
-              <RecipeImagesUploader />
+              <div className="recipe-image-preview"></div>
+              <input name="setIngredientsImage" type="file" onChange={handleImageChange} />
             </div>
             <div className="image_div">
               <label className="red_style">Image of Cooking In Action</label>
-              <RecipeImagesUploader />
+              <div className="recipe-image-preview"></div>
+              <input name="setCookingImage" type="file" onChange={handleImageChange} />
             </div>
           </div>
 

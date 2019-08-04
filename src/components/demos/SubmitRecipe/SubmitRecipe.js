@@ -5,7 +5,6 @@ import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
 import LoaderButton from '../../LoaderButton/LoaderButton';
-import RecipeImagesUploader from '../../uploaders/RecipeImagesUploader/RecipeImagesUploader';
 import './submitRecipe.css';
 
 import devData from './dev-submit-recipe-data';
@@ -34,6 +33,14 @@ const SubmitRecipe = props => {
     {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
     {key: uuid(), amount: 1, unit: "", type: "", subrecipe: ""},
   ]);
+  const [ recipeImage, setRecipeImage ] = useState("");
+  const [ recipeImageName, setRecipeImageName ] = useState("Choose File");
+  const [ equipmentImage, setEquipmentImage ] = useState("");
+  const [ equipmentImageName, setEquipmentImageName ] = useState("Choose File");
+  const [ ingredientsImage, setIngredientsImage ] = useState("");
+  const [ ingredientsImageName, setIngredientsImageName ] = useState("Choose File");
+  const [ cookingImage, setCookingImage ] = useState("");
+  const [ cookingImageName, setCookingImageName ] = useState("Choose File");
 
   const handleRecipeTypeChange = e => setRecipeType(e.target.value);
 
@@ -119,6 +126,10 @@ const SubmitRecipe = props => {
     const newSubrecipeRows = subrecipeRows.filter(row => row.key !== rowKey);
     setSubrecipeRows(newSubrecipeRows);
   };
+
+  const handleImageChange = e => {
+    [e.target.name](e.target.files[0]);
+  }
 
   return (
     <div className={`submit-recipe one-column-a ${props.oneColumnATheme}`}>
@@ -289,27 +300,27 @@ const SubmitRecipe = props => {
         />
       </div>
 
-      {/* images (YOU NEED TO MAKE SURE THE imageName AND title ARE PROPERLY SYNCED, THEREFORE, UPLOAD ALL AT ONCE) */}
-      <div className="images-area">
-        <div className="image-area">
+      {/* images */}
+      <div>
+        <div className="image_div">
           <label className="red_style">Image of Finished Recipe</label>
-          <RecipeImagesUploader imageDir="recipe" imageName={title} handleSubmit={} />
-          {/* also do thumb (150px w) and tiny (32px w) */}
+          <div className="recipe-image-preview"></div>
+          <input name="setRecipeImage" type="file" onChange={handleImageChange} />
         </div>
-        <div className="image-area">
+        <div className="image_div">
           <label className="red_style">Image of All Equipment</label>
-          <RecipeImagesUploader imageDir="equipment" imageName={title} />
-          {/* also do thumb (150px w) */}
+          <div className="recipe-image-preview"></div>
+          <input name="setEquipmentImage" type="file" onChange={handleImageChange} />
         </div>
-        <div className="image-area">
+        <div className="image_div">
           <label className="red_style">Image of All Ingredients</label>
-          <RecipeImagesUploader imageDir="ingredients" imageName={title} />
-          {/* also do thumb (150px w) */}
+          <div className="recipe-image-preview"></div>
+          <input name="setIngredientsImage" type="file" onChange={handleImageChange} />
         </div>
-        <div className="image-area">
+        <div className="image_div">
           <label className="red_style">Image of Cooking In Action</label>
-          <RecipeImagesUploader imageDir="cooking" imageName={title} />
-          {/* also do thumb (150px w) */}
+          <div className="recipe-image-preview"></div>
+          <input name="setCookingImage" type="file" onChange={handleImageChange} />
         </div>
       </div>
 
