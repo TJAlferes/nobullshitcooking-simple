@@ -2,18 +2,19 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-const AuthenticatedRoute = ({ component: Component, isAuthenticated, ...rest }) => (
+const AuthenticatedRoute = ({ component: Component, isAuthenticated, props: childProps, ...rest }) => (
   <Route
     {...rest}
     render={props =>
       isAuthenticated
-      ? <Component {...props} {...rest} />
+      ? <Component {...props} {...childProps} {...rest} />
       : <Redirect to='/' />
     }
   />
 );
 
 const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
   navGridATheme: state.theme.navGridATheme,
   oneColumnATheme: state.theme.oneColumnATheme,
   twoColumnATheme: state.theme.twoColumnATheme,

@@ -1,8 +1,8 @@
 //require('@babel/polyfill');
 require("regenerator-runtime/runtime");
+
 import React from 'react';
 import { render } from 'react-dom';
-//import Amplify, { Storage } from 'aws-amplify';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';

@@ -8,9 +8,9 @@ import {
   authUserRegisterSaga,
   authUserLoginSaga,
   authUserLogoutSaga,
-  authFacebookCheckStateSaga,
-  authFacebookLoginSaga,
-  authFacebookLogoutSaga
+  //authFacebookCheckStateSaga,
+  //authFacebookLoginSaga,
+  //authFacebookLogoutSaga
 } from './auth';
 import {
   messengerChangeChannelSaga,
@@ -31,9 +31,9 @@ export function* watchAuth() {
     takeEvery(actionTypes.AUTH_USER_REGISTER, authUserRegisterSaga),
     takeEvery(actionTypes.AUTH_USER_LOGIN, authUserLoginSaga),
     takeEvery(actionTypes.AUTH_USER_LOGOUT, authUserLogoutSaga),
-    takeEvery(actionTypes.AUTH_FACEBOOK_CHECK_STATE, authFacebookCheckStateSaga),
-    takeEvery(actionTypes.AUTH_FACEBOOK_LOGIN, authFacebookLoginSaga),
-    takeEvery(actionTypes.AUTH_FACEBOOK_LOGOUT, authFacebookLogoutSaga),
+    //takeEvery(actionTypes.AUTH_FACEBOOK_CHECK_STATE, authFacebookCheckStateSaga),
+    //takeEvery(actionTypes.AUTH_FACEBOOK_LOGIN, authFacebookLoginSaga),
+    //takeEvery(actionTypes.AUTH_FACEBOOK_LOGOUT, authFacebookLogoutSaga),
   ]);
 }
 

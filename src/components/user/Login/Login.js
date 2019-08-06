@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './login.css';
@@ -25,19 +25,17 @@ class Login extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
   
-  handleLogin = async (e) => {
-    e.preventDefault();
+  handleLogin = () => {
     this.setState({isLoading: true});
     try {
-      const userIn = await this.props.authUserLogin(this.state.email, this.state.password);
-      if (userIn) this.props.history.push('/user/dashboard');
+      this.props.authUserLogin(this.state.email, this.state.password);
     } catch(err) {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
   }
   
-  handleFacebookLogin = async (e) => {
+  /*handleFacebookLogin = async (e) => {
     e.preventDefault();
     this.setState({isLoading: true});
     try {
@@ -49,7 +47,7 @@ class Login extends Component {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
     }
-  }
+  }*/
 
   /*handleGoogleLogin = async (e) => {
     e.preventDefault();
@@ -78,11 +76,12 @@ class Login extends Component {
         </Link>
         <div className="login">
           {this.props.isAuthenticated && <Redirect to="/" />}
-          <form onSubmit={this.handleSubmit}>
+          <form>
 
             <h1>Sign In</h1>
 
             {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
+            {this.props.message !== '' ? <p id="error_message">{this.props.message}</p> : null}
 
             <label>Email</label>
             <input
@@ -118,8 +117,7 @@ class Login extends Component {
               onClick={this.handleLogin}
             />
 
-            <div className="distinction-line">
-              {/*
+            {/*<div className="distinction-line">
               <div
                 class="fb-login-button"
                 data-size="medium"
@@ -128,7 +126,6 @@ class Login extends Component {
                 data-use-continue-as="false"
               >
               </div>
-              */}
               <button
                 type="submit"
                 name="facebook_federation_button"
@@ -148,7 +145,7 @@ class Login extends Component {
               >
                 Continue With <b>Google</b>
               </button>
-            </div>
+            </div>*/}
             
           </form>
         </div>
@@ -157,11 +154,16 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  authUserLogin: (email, password) => dispatch(authUserLogin(email, password)),
-  authFacebookCheckState: () => dispatch(authFacebookCheckState),
-  authFacebookLogin: () => dispatch(authFacebookLogin),
-  authGoogleLogin: () => dispatch(authGoogleLogin)
+const mapStateToProps = state => ({
+  message: state.auth.message,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapDispatchToProps = dispatch => ({
+  authUserLogin: (email, password) => dispatch(authUserLogin(email, password)),
+  //authFacebookCheckState: () => dispatch(authFacebookCheckState),
+  //authFacebookLogin: () => dispatch(authFacebookLogin),
+  //authGoogleLogin: () => dispatch(authGoogleLogin)
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

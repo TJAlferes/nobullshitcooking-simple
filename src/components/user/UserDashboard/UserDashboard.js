@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
+import LeftNav from '../../LeftNav/LeftNav';
 //import './userDashboard.css';
 
 const UserDashboard = props => {
@@ -28,11 +29,6 @@ const UserDashboard = props => {
       <LeftNav />
 
       <section>
-
-        <span className="demo-only-notice">
-          This page is for demonstration purposes only.
-          To view an actual dashboard, please create an account.
-        </span>
 
         <h1>{props.authname}</h1>
 
@@ -64,7 +60,7 @@ const UserDashboard = props => {
         </div>
 
         <div className="dashboard-content">
-          
+          {tab}
         </div>
 
       </section>

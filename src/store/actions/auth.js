@@ -2,7 +2,12 @@ import * as actionTypes from './actionTypes';
 
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS AND SELECTORS AND SAGAS
 
-// auth -- general
+/*
+
+auth -- general
+
+*/
+
 export const authDisplay = (authname, avatar) => ({
   type: actionTypes.AUTH_DISPLAY,
   authname,
@@ -11,20 +16,33 @@ export const authDisplay = (authname, avatar) => ({
 export const authReset = () => ({type: actionTypes.AUTH_RESET});
 export const authCheckState = () => ({type: actionTypes.AUTH_CHECK_STATE});
 
-// auth -- users
-export const authUserRegister = (email, pass, username) => ({
+
+
+/*
+
+auth -- users
+
+*/
+
+export const authUserRegister = (email, password, username) => ({
   type: actionTypes.AUTH_USER_REGISTER,
   email,
-  pass,
+  password,
   username
 });
-export const authUserRegisterSucceeded = () => ({type: actionTypes.AUTH_USER_REGISTER_SUCCEEDED});
-export const authUserRegisterFailed = () => ({type: actionTypes.AUTH_USER_REGISTER_FAILED});
+export const authUserRegisterSucceeded = message => ({
+  type: actionTypes.AUTH_USER_REGISTER_SUCCEEDED,
+  message
+});
+export const authUserRegisterFailed = message => ({
+  type: actionTypes.AUTH_USER_REGISTER_FAILED,
+  message
+});
 
-export const authUserVerify = (email, pass, confirmationCode) => ({
+export const authUserVerify = (email, password, confirmationCode) => ({
   type: actionTypes.AUTH_USER_VERIFY,
   email,
-  pass,
+  password,
   confirmationCode
 });
 export const authUserVerifySucceeded = () => ({type: actionTypes.AUTH_USER_VERIFY_SUCCEEDED});
@@ -43,22 +61,53 @@ export const authUserLogin = (email, password) => ({
   email,
   password
 });
-export const authUserLoginSucceeded = () => ({type: actionTypes.AUTH_USER_LOGIN_SUCCEEDED});
-export const authUserLoginFailed = () => ({type: actionTypes.AUTH_USER_LOGIN_FAILED});
+export const authUserLoginSucceeded = message => ({
+  type: actionTypes.AUTH_USER_LOGIN_SUCCEEDED,
+  message
+});
+export const authUserLoginFailed = message => ({
+  type: actionTypes.AUTH_USER_LOGIN_FAILED,
+  message
+});
 
 export const authUserLogout = () => ({type: actionTypes.AUTH_USER_LOGOUT});
-export const authUserLogoutSucceeded = () => ({type: actionTypes.AUTH_USER_LOGOUT_SUCCEEDED});
-export const authUserLogoutFailed = () => ({type: actionTypes.AUTH_USER_LOGOUT_FAILED});
+export const authUserLogoutSucceeded = message => ({
+  type: actionTypes.AUTH_USER_LOGOUT_SUCCEEDED,
+  message
+});
+export const authUserLogoutFailed = message => ({
+  type: actionTypes.AUTH_USER_LOGOUT_FAILED,
+  message
+});
 
-// auth -- staff
+
+
+/*
+
+auth -- staff
+
+*/
+
 export const authStaffLogin = (email, password) => ({
   type: actionTypes.AUTH_STAFF_LOGIN,
   email,
   password
 });
-export const authStaffLoginSucceeded = () => ({type: actionTypes.AUTH_STAFF_LOGIN_SUCCEEDED});
-export const authStaffLoginFailed = () => ({type: actionTypes.AUTH_STAFF_LOGIN_FAILED});
+export const authStaffLoginSucceeded = message => ({
+  type: actionTypes.AUTH_STAFF_LOGIN_SUCCEEDED,
+  message
+});
+export const authStaffLoginFailed = message => ({
+  type: actionTypes.AUTH_STAFF_LOGIN_FAILED,
+  message
+});
 
 export const authStaffLogout = () => ({type: actionTypes.AUTH_STAFF_LOGOUT});
-export const authStaffLogoutSucceeded = () => ({type: actionTypes.AUTH_STAFF_LOGOUT_SUCCEEDED});
-export const authStaffLogoutFailed = () => ({type: actionTypes.AUTH_STAFF_LOGOUT_FAILED});
+export const authStaffLogoutSucceeded = message => ({
+  type: actionTypes.AUTH_STAFF_LOGOUT_SUCCEEDED,
+  message
+});
+export const authStaffLogoutFailed = message => ({
+  type: actionTypes.AUTH_STAFF_LOGOUT_FAILED,
+  message
+});

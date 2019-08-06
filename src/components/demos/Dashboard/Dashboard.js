@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
 import './dashboard.css';
 import LeftNav from '../../LeftNav/LeftNav';
 
-import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
+//import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 const Dashboard = props => {
   const [ tab, setTab ] = useState("notifications");
 
-  useEffect(() => {
+  /*useEffect(() => {
     const getNotifications = async () => {
       const res = await axios.post(`${NOBSCBackendAPIEndpointOne}`);
     };
@@ -30,7 +29,7 @@ const Dashboard = props => {
     getSavedRecipes();
     getFavoritedRecipes();
     getUserRecipes();
-  }, []);
+  }, []);*/
 
   const handleNotificationsTabClick = () => {
     setTab("notifications");

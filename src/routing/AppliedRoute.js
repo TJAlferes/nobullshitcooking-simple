@@ -11,7 +11,7 @@ contains the passed-in props.
 const AppliedRoute = ({ component: Component, props: childProps, ...rest }) => (
   <Route
     {...rest}
-    render={props => <Component {...props} {...rest} {...childProps} />} 
+    render={props => <Component {...props} {...childProps} {...rest} />} 
   />
 );
 

@@ -43,7 +43,7 @@ const messengerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.MESSENGER_CHANGED_CHANNEL: return changedChannel(state, action);
     case actionTypes.MESSENGER_SENT_MESSAGE: return sentMessage(state, action);
-    case actionTypes.MESSENGER_JOINED_USER_JOINED: return joinedUser(state, action);
+    case actionTypes.MESSENGER_JOINED_USER: return joinedUser(state, action);
     case actionTypes.MESSENGER_LEFT_USER: return leftUser(state, action);
     case actionTypes.MESSENGER_CONNECTED: return connected(state, action);
     case actionTypes.MESSENGER_DISCONNECTED: return state;

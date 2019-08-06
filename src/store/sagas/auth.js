@@ -25,11 +25,8 @@ import {
   authReset
 } from '../actions/index';
 
-// our backend API 
-const endpoint = process.env.NODE_ENV === 'production'
-? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com'
-: 'http://localhost:3003';
-
+import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
+const endpoint = NOBSCBackendAPIEndpointOne;
 
 
 /*
@@ -54,29 +51,36 @@ Staff
 
 export function* authStaffLoginSaga(action) {
   try {
-    const response = yield axios.post(
+    const res = yield axios.post(
       `${endpoint}/staff/auth/login`,
-      {staffInfo: {email: action.email, password: action.password}}
+      {staffInfo: {email: action.email, password: action.password}},
+      {withCredentials: true}
     );
-    const { staffname, avatar } = response.data;
-    yield put(authDisplay(staffname, avatar));
-    //history.push(redirectPath);
-    yield put(authStaffLoginSucceeded());
+    if (res.data.message == 'Signed in.') {
+      yield put(authDisplay(res.data.staffname, res.data.avatar));
+      yield put(authStaffLoginSucceeded(res.data.message));
+    } else {
+      yield put(authStaffLoginFailed(res.data.message));
+    }
   } catch(err) {
-    yield put(authStaffLoginFailed());
+    yield put(authStaffLoginFailed('An error occurred. Please try again.'));
   }
 }
 
 export function* authStaffLogoutSaga() {
   try {
-    const loggedOut = yield axios.post(
+    const res = yield axios.post(
       `${endpoint}/staff/auth/logout`,
       {},
       {withCredentials: true}
-    );  // change to .delete()?
-    if (loggedOut) yield put(authStaffLogoutSucceeded());
+    );
+    if (res.data.message == 'Signed out.') {
+      yield put(authStaffLogoutSucceeded(res.data.message));
+    } else {
+      yield put(authStaffLogoutFailed(res.data.message));
+    }
   } catch(err) {
-    yield put(authStaffLogoutFailed());
+    yield put(authStaffLogoutFailed('An error occurred. Please try again.'));
   }
 }
 
@@ -90,30 +94,36 @@ User
 
 export function* authUserLoginSaga(action) {
   try {
-    const response = yield axios.post(
+    const res = yield axios.post(
       `${endpoint}/user/auth/login`,
       {userInfo: {email: action.email, password: action.password}},
       {withCredentials: true}
     );
-    const { username, avatar } = response.data;
-    console.log(username);
-    yield put(authDisplay(username, avatar));
-    yield put(authUserLoginSucceeded());
+    if (res.data.message == 'Signed in.') {
+      yield put(authDisplay(res.data.username, res.data.avatar));
+      yield put(authUserLoginSucceeded(res.data.message));
+    } else {
+      yield put(authUserLoginFailed(res.data.message));
+    }
   } catch(err) {
-    yield put(authUserLoginFailed());
+    yield put(authUserLoginFailed('An error occurred. Please try again.'));
   }
 }
 
 export function* authUserLogoutSaga() {
   try {
-    const loggedOut = yield axios.post(
+    const res = yield axios.post(
       `${endpoint}/user/auth/logout`,
       {},
       {withCredentials: true}
-      );  // change to .delete()?
-    if (loggedOut) yield put(authUserLogoutSucceeded());
+      );
+    if (res.data.message == 'Signed out.') {
+      yield put(authUserLogoutSucceeded(res.data.message));
+    } else {
+      yield put(authUserLogoutFailed(res.data.message));
+    }
   } catch(err) {
-    yield put(authUserLogoutFailed());
+    yield put(authUserLogoutFailed('An error occurred. Please try again.'));
   }
 }
 
@@ -121,17 +131,19 @@ export function* authUserRegisterSaga(action) {
   try {
     const res = yield axios.post(
       `${endpoint}/user/auth/register`,
-      {userInfo: {email: action.email, pass: action.pass, username: action.username}}
+      {userInfo: {email: action.email, password: action.password, username: action.username}}
     );
-    //const confirmationCode = res.data.confirmationCode;
-    //history.push(redirectPath);
-    yield put(authUserRegisterSucceeded());
+    if (res.data.message == 'User account created.') {
+      yield put(authUserRegisterSucceeded(res.data.message));
+    } else {
+      yield put(authUserRegisterFailed(res.data.message));
+    }
   } catch(err) {
-    yield put(authUserRegisterFailed());
+    yield put(authUserRegisterFailed('An error occurred. Please try again.'));
   }
 }
 
-export function* authUserVerifySaga(action) {
+/*export function* authUserVerifySaga(action) {
   try {
     const res = yield axios.post(
       `${endpoint}/user/auth/verify`,
@@ -142,7 +154,7 @@ export function* authUserVerifySaga(action) {
   } catch(err) {
     yield put(authUserVerifyFailed());
   }
-}
+}*/
 
 
 
@@ -151,7 +163,7 @@ export function* authUserVerifySaga(action) {
 Facebook
 
 */
-
+/*
 export function* authFacebookCheckStateSaga() {  // before authFacebookLoginSaga
   yield put(authFacebookCheckState());
   window.FB && window.FB.getLoginStatus(
@@ -188,7 +200,7 @@ export function* authFacebookLogoutSaga() {
   // just logged out, deny access
   yield put(authLogoutSucceeded());
 }
-
+*/
 
 
 /*
