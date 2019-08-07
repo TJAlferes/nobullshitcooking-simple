@@ -6,8 +6,8 @@ import './login.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import {
   authUserLogin,
-  authFacebookCheckState,
-  authFacebookLogin,
+  //authFacebookCheckState,
+  //authFacebookLogin,
   //authGoogleLogin
 } from '../../../store/actions/index';
 
@@ -15,6 +15,7 @@ import {
 
 class Login extends Component {
   state = {
+    flash: '',
     isLoading: false,
     error: null,
     email: '',
@@ -32,6 +33,8 @@ class Login extends Component {
     } catch(err) {
       this.setState({isLoading: false, error: err.message});
       console.log(err.message);
+    } finally {
+      this.setState({isLoading: false});
     }
   }
   
@@ -64,8 +67,18 @@ class Login extends Component {
   }*/
 
   validate = () => {
-    return ((this.state.email.length > 0) && (this.state.password.length > 0));
+    return ((this.state.email.length > 1) && (this.state.password.length > 1));
   }
+
+  flash = (timeout = 5000, message) => {
+    if (this.state.flash !== '') {
+      setTimeout(() => {
+        this.setState({flash: ''});
+      }, timeout);
+      return <p id="error_message">{message}</p>;
+    }
+    return false;
+  };
 
   render() {
     return (
@@ -80,8 +93,9 @@ class Login extends Component {
 
             <h1>Sign In</h1>
 
-            {this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null}
-            {this.props.message !== '' ? <p id="error_message">{this.props.message}</p> : null}
+            {/*this.state.error !== null ? <p id="error_message">{this.state.error}</p> : null*/}
+            {/*this.props.message !== '' ? <p id="error_message">{this.props.message}</p> : null*/}
+            {this.flash(this.props.message)}
 
             <label>Email</label>
             <input
