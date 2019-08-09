@@ -1,3 +1,47 @@
 .two-column-b {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  /*width: 1200px;*/
+  min-width: 300px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 
+.two-column-b .left-column {
+  order: 1;
+  min-width: 300px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-right: 1px solid #bfbfbf;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.two-column-b .right-column {
+  order: 2;
+  min-width: 300px;
+  max-width: 300px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.two-column-b-light .left-column,
+.two-column-b-light .right-column {
+  background-color: #fff;
+  color: #000;
+}
+
+.two-column-b-dark .left-column,
+.two-column-b-dark .right-column {
+  background-color: #222;
+  color: #aaa;
 }

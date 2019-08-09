@@ -4,12 +4,8 @@ import axios from 'axios';
 
 import './equipments.css';
 
-let endpoint;
-if (process.env.NODE_ENV === "production") {
-  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
-} else {
-  endpoint = 'http://localhost:3003';
-}
+import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEndpointOne';
+const endpoint = NOBSCBackendAPIEndpointOne;
 
 const Equipments = props => {
   const [ equipment, setEquipment ] = useState([]);
@@ -59,7 +55,7 @@ const Equipments = props => {
 
   const getEquipment = async (startingAt = 0) => {
     try {
-      const res = await axios.post(`${endpoint}/ingredient`, {
+      const res = await axios.post(`${endpoint}/equipment`, {
         types: getCheckedEquipmentTypesFilters(),
         start: startingAt
       });
@@ -111,7 +107,7 @@ const Equipments = props => {
     return numbers;
   }
 
-  paginate = () => {
+  const paginate = () => {
     const display = 25;
     const currentPage = Math.floor((starting / display) + 1);
     const startingAtPrev = (starting == 0) ? starting : (starting - display);
@@ -147,13 +143,11 @@ const Equipments = props => {
   }
 
   return (
-    <div>
+    <div className={`equipments two-column-b ${props.twoColumnBTheme}`}>
 
-      <div id="page">
+        <div className="left-column">
 
-        <div id="page_col_left">
-
-          <div id="list_header"><h1>Equipment</h1></div>
+          <div><h1>Equipment</h1></div>
 
           <div id="filters">
             <form
@@ -161,19 +155,19 @@ const Equipments = props => {
               name="itid"
               onChange={e => handleEquipmentTypesFilterChange(e)}
             >
-              <span id="filter_title"><b>Filter by:</b></span>
+              <span className="filter-title"><b>Filter by:</b></span>
               <div>
-                <p className="filter_type"><b>Equipment type</b></p>
+                <p className="filter-type"><b>Equipment type</b></p>
                 {dataEquipmentTypes.map(equipmentType => (
                   <span
-                    className="filter_span"
+                    className="filter-span"
                     key={equipmentType.equipment_type_id}
                   >
                     <input
                       type="checkbox"
                       id={equipmentType.equipment_type_id}
                     />
-                    <label className="filter_label">
+                    <label className="filter-label">
                       {equipmentType.equipment_type_name}
                     </label>
                   </span>
@@ -184,19 +178,19 @@ const Equipments = props => {
 
           {(pages > 1) && paginate()}
 
-          <div>
+          <div className="equipments-list">
             {equipment.map(equipment => (
-              <div className="equipment" key={equipment.equipment_id}>
+              <div className="equipments-list-item" key={equipment.equipment_id}>
                 <Link
-                  className="equipment_link"
+                  className="equipment-link"
                   to={`/food/equipment/${equipment.equipment_id}`}
                 >
-                  <div className="equipment_name">
+                  <div className="equipment-name">
                     {equipment.equipment_name}
                   </div>
                   {/* TO DO: change to thumbnail image */}
                   <img
-                    className="equipment_thumbnail"
+                    className="equipment-thumbnail"
                     src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.equipment_image}.jpg`}
                   />
                 </Link>
@@ -208,10 +202,9 @@ const Equipments = props => {
 
         </div>
 
-        <div id="page_col_right">
+        <div className="right-column">
+          <div>test</div>
         </div>
-
-      </div>
 
     </div>
   );

@@ -4,12 +4,8 @@ import axios from 'axios';
 
 import './recipes.css';
 
-let endpoint;
-if (process.env.NODE_ENV === "production") {
-  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
-} else {
-  endpoint = 'http://localhost:3003';
-}
+import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEndpointOne';
+const endpoint = NOBSCBackendAPIEndpointOne;
 
 const Recipes = props => {
   const [ recipes, setRecipes ] = useState([]);

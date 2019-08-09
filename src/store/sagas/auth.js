@@ -69,16 +69,12 @@ export function* authStaffLoginSaga(action) {
 
 export function* authStaffLogoutSaga() {
   try {
-    const res = yield axios.post(
+    yield axios.post(
       `${endpoint}/staff/auth/logout`,
       {},
       {withCredentials: true}
     );
-    if (res.data.message == 'Signed out.') {
-      yield put(authStaffLogoutSucceeded(res.data.message));
-    } else {
-      yield put(authStaffLogoutFailed(res.data.message));
-    }
+    yield put(authStaffLogoutSucceeded('Signed out.'));
   } catch(err) {
     yield put(authStaffLogoutFailed('An error occurred. Please try again.'));
   }
@@ -129,15 +125,11 @@ export function* authUserLogoutSaga() {
 
 export function* authUserRegisterSaga(action) {
   try {
-    const res = yield axios.post(
+    yield axios.post(
       `${endpoint}/user/auth/register`,
       {userInfo: {email: action.email, password: action.password, username: action.username}}
     );
-    if (res.data.message == 'User account created.') {
-      yield put(authUserRegisterSucceeded(res.data.message));
-    } else {
-      yield put(authUserRegisterFailed(res.data.message));
-    }
+    yield put(authUserRegisterSucceeded('Signed out.'));
   } catch(err) {
     yield put(authUserRegisterFailed('An error occurred. Please try again.'));
   }
