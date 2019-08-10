@@ -11,7 +11,19 @@ import './submitRecipe.css';
 import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const UserSubmitRecipe = () => {
+const UserSubmitRecipe = props => {
+  const [ message, setMessage ] = useState("");
+  const [ isLoading, setIsLoading ] = useState(false);
+  //const [ s3BucketUrl, setS3BucketUrl ] = useState("");  // needed?
+
+
+
+  /*
+
+  initial data fetched to assist the user
+
+  */
+
   const [ dataRecipeTypes, setDataRecipeTypes ] = useState([]);
   const [ dataCuisines, setDataCuisines ] = useState([]);
   const [ dataRecipes, setDataRecipes ] = useState([]);
@@ -21,11 +33,16 @@ const UserSubmitRecipe = () => {
   const [ dataIngredients, setDataIngredients ] = useState([]);
   const [ dataMethods, setDataMethods ] = useState([]);
 
-  const [ message, setMessage ] = useState("");
-  const [ isLoading, setIsLoading ] = useState(false);
 
-  const [ recipeType, setRecipeType ] = useState("");
-  const [ cuisine, setCuisine ] = useState("");
+
+  /*
+
+  selections/inputs made by the user
+
+  */
+
+  const [ recipeTypeId, setRecipeTypeId ] = useState("");
+  const [ cuisineId, setCuisineId ] = useState("");
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
   const [ directions, setDirections ] = useState("");
@@ -70,6 +87,22 @@ const UserSubmitRecipe = () => {
     {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
     {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
   ]);
+  const [ recipeImage, setRecipeImage ] = useState("");
+  const [ recipeImageName, setRecipeImageName ] = useState("Choose File");
+  const [ equipmentImage, setEquipmentImage ] = useState("");
+  const [ equipmentImageName, setEquipmentImageName ] = useState("Choose File");
+  const [ ingredientsImage, setIngredientsImage ] = useState("");
+  const [ ingredientsImageName, setIngredientsImageName ] = useState("Choose File");
+  const [ cookingImage, setCookingImage ] = useState("");
+  const [ cookingImageName, setCookingImageName ] = useState("Choose File");
+
+
+
+  /*
+
+  fetch initial data to assist the user
+
+  */
 
   useEffect(() => {
     const fetchDataCuisines = async () => {
@@ -114,9 +147,17 @@ const UserSubmitRecipe = () => {
     fetchDataMethods();
   }, []);
 
-  const handleRecipeTypeChange = e => setRecipeType(e.target.value);
 
-  const handleCuisineChange = e => setCuisine(e.target.value);
+
+  /*
+
+  handle changes
+
+  */
+
+  const handleRecipeTypeChange = e => setRecipeTypeId(e.target.value);
+
+  const handleCuisineChange = e => setCuisineId(e.target.value);
 
   const handleTitleChange = e => setTitle(e.target.value);
 
@@ -215,6 +256,14 @@ const UserSubmitRecipe = () => {
     setSubrecipeRows(newSubrecipeRows);
   };
 
+
+
+  /*
+
+  handle submit
+
+  */
+
   const handleSubmit = async () => {
     const recipeInfo = {
       ownership,
@@ -234,221 +283,225 @@ const UserSubmitRecipe = () => {
     };
   }
 
+
+
+  /*
+
+  JSX
+
+  */
+
   return (
-    <div className="submit_recipe">
-      <div id="page">
-        <div id="form">
+    <div className={`submit-recipe one-column-a ${props.oneColumnATheme}`}>
 
-          <h1>Submit New Recipe</h1>
+      <h1>Submit New Recipe</h1>
 
-          {/* type */}
-          <div>
-            <label className="red_style">Type of Recipe</label>
-            <select
-              name="recipe_type_id"
-              id="recipe_type_id"
-              required
-              onChange={handleRecipeTypeChange}
-              value={recipeType}
+      {/* SCROLL TO TOP pageY: 0 */}
+      <div id="status">{message}</div>
+
+      {/* type */}
+      <div>
+        <label className="red_style">Type of Recipe</label>
+        <select
+          name="recipe_type_id"
+          id="recipe_type_id"
+          required
+          onChange={handleRecipeTypeChange}
+          value={recipeTypeId}
+        >
+          <option value=""></option>
+          {dataRecipeTypes.map(recipeType => (
+            <option
+              key={recipeType.recipe_type_id}
+              value={recipeType.recipe_type_id}
             >
-              <option value=""></option>
-              {dataRecipeTypes.map(recipeType => (
-                <option
-                  key={recipeType.recipe_type_id}
-                  value={recipeType.recipe_type_id}
-                >
-                  {recipeType.recipe_type_name}
-                </option>
-              ))}
-            </select>
-          </div>
+              {recipeType.recipe_type_name}
+            </option>
+          ))}
+        </select>
+      </div>
 
-          {/* cuisine */}
-          <div>
-            <label className="red_style">Cuisine</label>
-            <select
-              name="cuisine_id"
-              id="cuisine_id"
-              required
-              onChange={handleCuisineChange}
-              value={cuisine}
+      {/* cuisine */}
+      <div>
+        <label className="red_style">Cuisine</label>
+        <select
+          name="cuisine_id"
+          id="cuisine_id"
+          required
+          onChange={handleCuisineChange}
+          value={cuisineId}
+        >
+          <option value=""></option>
+          {dataCuisines.map(cuisine => (
+            <option
+              key={cuisine.cuisine_id}
+              value={cuisine.cuisine_id}
             >
-              <option value=""></option>
-              {dataCuisines.map(cuisine => (
-                <option
-                  key={cuisine.cuisine_id}
-                  value={cuisine.cuisine_id}
-                >
-                  {cuisine.cuisine_name}
-                </option>
-              ))}
-            </select>
-          </div>
+              {cuisine.cuisine_name}
+            </option>
+          ))}
+        </select>
+      </div>
 
-          {/* title */}
-          <div>
-            <label className="red_style">Title</label>
-            <input
-              type="text"
-              name="recipe_title"
-              id="recipe_title"
-              onChange={handleTitleChange}
-              value={title}
-            />
-          </div>
+      {/* title */}
+      <div>
+        <label className="red_style">Title</label>
+        <input
+          type="text"
+          name="recipe_title"
+          id="recipe_title"
+          onChange={handleTitleChange}
+          value={title}
+        />
+      </div>
 
-          {/* description */}
-          <div>
-            <label className="red_style">Description / Author Note</label>
-            <input
-              type="text"
-              name="recipe_description"
-              id="recipe_description"
-              onChange={handleDescriptionChange}
-              value={description}
-            />
-          </div>
+      {/* description */}
+      <div>
+        <label className="red_style">Description / Author Note</label>
+        <input
+          type="text"
+          name="recipe_description"
+          id="recipe_description"
+          onChange={handleDescriptionChange}
+          value={description}
+        />
+      </div>
 
-          {/* methods */}
-          <div className="recipe_additions" id="methods_div">
-            <label className="red_style">Methods</label>
-            <div onChange={e => handleMethodsChange(e)}>
-              {dataMethods.map(method => (
-                <span className="filter_span" key={method.method_id}>
-                  <input type="checkbox" id={method.method_id} />
-                  <label className="filter_label">{method.method_name}</label>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* equipment */}
-          <div className="recipe_additions" id="equipment_div">
-            <label className="red_style">Equipment</label>
-            <div id="equipment_rows_container">
-              {equipmentRows.map(equipmentRow => (
-                <EquipmentRow
-                  key={equipmentRow.key}
-                  rowKey={equipmentRow.key}
-                  amount={equipmentRow.amount}
-                  type={equipmentRow.type}
-                  equipment={equipmentRow.equipment}
-                  dataEquipment={dataEquipment}
-                  handleEquipmentRowChange={handleEquipmentRowChange}
-                  removeEquipmentRow={removeEquipmentRow} />
-              ))}
-            </div>
-            <button id="add_equipment_button" onClick={addEquipmentRow}>
-              Add Equipment
-            </button>
-          </div>
-
-          {/* ingredients */}
-          <div className="recipe_additions" id="ingredients_div">
-            <label className="red_style">Ingredients</label>
-            <div id="ingredient_rows_container">
-              {ingredientRows.map(ingredientRow => (
-                <IngredientRow
-                  key={ingredientRow.key}
-                  rowKey={ingredientRow.key}
-                  amount={ingredientRow.amount}
-                  unit={ingredientRow.unit}
-                  type={ingredientRow.type}
-                  ingredient={ingredientRow.ingredient}
-                  dataMeasurements={dataMeasurements}
-                  dataIngredientTypes={dataIngredientTypes}
-                  dataIngredients={dataIngredients}
-                  handleIngredientRowChange={handleIngredientRowChange}
-                  removeIngredientRow={removeIngredientRow}
-                />
-              ))}
-            </div>
-            <button id="add_ingredient_button" onClick={addIngredientRow}>
-              Add Ingredient
-            </button>
-          </div>
-
-          {/* subrecipes */}
-          <div className="recipe_additions" id="subrecipes_div">
-            <label className="red_style">Subrecipes</label>
-            <div id="subrecipe_rows_container">
-              {subrecipeRows.map(subrecipeRow => (
-                <SubrecipeRow
-                  key={subrecipeRow.key}
-                  rowKey={subrecipeRow.key}
-                  amount={subrecipeRow.amount}
-                  unit={subrecipeRow.unit}
-                  type={subrecipeRow.type}
-                  cuisine={subrecipeRow.cuisine}
-                  subrecipe={subrecipeRow.subrecipe}
-                  dataMeasurements={dataMeasurements}
-                  dataRecipeTypes={dataRecipeTypes}
-                  dataCuisines={dataCuisines}
-                  dataRecipes={dataRecipes}
-                  handleSubrecipeRowChange={handleSubrecipeRowChange}
-                  removeSubrecipeRow={removeSubrecipeRow}
-                />
-              ))}
-            </div>
-            <button id="add_subrecipe_button" onClick={addSubrecipeRow}>
-              Add Subrecipe
-            </button>
-          </div>
-
-          {/* directions */}
-          <div className="recipe_additions" id="directions_div">
-            <label className="red_style">Directions</label>
-            <textarea
-              name="recipe_directions"
-              id="recipe_directions"
-              onChange={handleDirectionsChange}
-              value={directions}
-            />
-          </div>
-
-          {/* images */}
-          <div>
-            <div className="image_div">
-              <label className="red_style">Image of Finished Recipe</label>
-              <div className="recipe-image-preview"></div>
-              <input name="setRecipeImage" type="file" onChange={handleImageChange} />
-            </div>
-            <div className="image_div">
-              <label className="red_style">Image of All Equipment</label>
-              <div className="recipe-image-preview"></div>
-              <input name="setEquipmentImage" type="file" onChange={handleImageChange} />
-            </div>
-            <div className="image_div">
-              <label className="red_style">Image of All Ingredients</label>
-              <div className="recipe-image-preview"></div>
-              <input name="setIngredientsImage" type="file" onChange={handleImageChange} />
-            </div>
-            <div className="image_div">
-              <label className="red_style">Image of Cooking In Action</label>
-              <div className="recipe-image-preview"></div>
-              <input name="setCookingImage" type="file" onChange={handleImageChange} />
-            </div>
-          </div>
-
-          {/* status/feedback */}
-          <div id="status"></div>
-
-          {/* submit */}
-          <div>
-            <LoaderButton
-              id="user_submit_recipe_button"
-              type="button"
-              name="submit"
-              text="Submit Recipe"
-              loadingText="Submitting Recipe..."
-              isLoading={isLoading}
-              disabled={!validate()}
-              onClick={handleSubmit}
-            />
-          </div>
-
+      {/* methods */}
+      <div className="recipe_additions" id="methods_div">
+        <label className="red_style">Methods</label>
+        <div onChange={e => handleMethodsChange(e)}>
+          {dataMethods.map(method => (
+            <span className="filter_span" key={method.method_id}>
+              <input type="checkbox" id={method.method_id} />
+              <label className="filter_label">{method.method_name}</label>
+            </span>
+          ))}
         </div>
       </div>
+
+      {/* equipment */}
+      <div className="recipe_additions" id="equipment_div">
+        <label className="red_style">Equipment</label>
+        <div id="equipment_rows_container">
+          {equipmentRows.map(equipmentRow => (
+            <EquipmentRow
+              key={equipmentRow.key}
+              rowKey={equipmentRow.key}
+              amount={equipmentRow.amount}
+              type={equipmentRow.type}
+              equipment={equipmentRow.equipment}
+              dataEquipment={dataEquipment}
+              handleEquipmentRowChange={handleEquipmentRowChange}
+              removeEquipmentRow={removeEquipmentRow} />
+          ))}
+        </div>
+        <button id="add_equipment_button" onClick={addEquipmentRow}>
+          Add Equipment
+        </button>
+      </div>
+
+      {/* ingredients */}
+      <div className="recipe_additions" id="ingredients_div">
+        <label className="red_style">Ingredients</label>
+        <div id="ingredient_rows_container">
+          {ingredientRows.map(ingredientRow => (
+            <IngredientRow
+              key={ingredientRow.key}
+              rowKey={ingredientRow.key}
+              amount={ingredientRow.amount}
+              unit={ingredientRow.unit}
+              type={ingredientRow.type}
+              ingredient={ingredientRow.ingredient}
+              dataMeasurements={dataMeasurements}
+              dataIngredientTypes={dataIngredientTypes}
+              dataIngredients={dataIngredients}
+              handleIngredientRowChange={handleIngredientRowChange}
+              removeIngredientRow={removeIngredientRow}
+            />
+          ))}
+        </div>
+        <button id="add_ingredient_button" onClick={addIngredientRow}>
+          Add Ingredient
+        </button>
+      </div>
+
+      {/* subrecipes */}
+      <div className="recipe_additions" id="subrecipes_div">
+        <label className="red_style">Subrecipes</label>
+        <div id="subrecipe_rows_container">
+          {subrecipeRows.map(subrecipeRow => (
+            <SubrecipeRow
+              key={subrecipeRow.key}
+              rowKey={subrecipeRow.key}
+              amount={subrecipeRow.amount}
+              unit={subrecipeRow.unit}
+              type={subrecipeRow.type}
+              cuisine={subrecipeRow.cuisine}
+              subrecipe={subrecipeRow.subrecipe}
+              dataMeasurements={dataMeasurements}
+              dataRecipeTypes={dataRecipeTypes}
+              dataCuisines={dataCuisines}
+              dataRecipes={dataRecipes}
+              handleSubrecipeRowChange={handleSubrecipeRowChange}
+              removeSubrecipeRow={removeSubrecipeRow}
+            />
+          ))}
+        </div>
+        <button id="add_subrecipe_button" onClick={addSubrecipeRow}>
+          Add Subrecipe
+        </button>
+      </div>
+
+      {/* directions */}
+      <div className="recipe_additions" id="directions_div">
+        <label className="red_style">Directions</label>
+        <textarea
+          name="recipe_directions"
+          id="recipe_directions"
+          onChange={handleDirectionsChange}
+          value={directions}
+        />
+      </div>
+
+      {/* images */}
+      <div>
+        <div className="image_div">
+          <label className="red_style">Image of Finished Recipe</label>
+          <div className="recipe-image-preview"></div>
+          <input name="setRecipeImage" type="file" onChange={handleImageChange} />
+        </div>
+        <div className="image_div">
+          <label className="red_style">Image of All Equipment</label>
+          <div className="recipe-image-preview"></div>
+          <input name="setEquipmentImage" type="file" onChange={handleImageChange} />
+        </div>
+        <div className="image_div">
+          <label className="red_style">Image of All Ingredients</label>
+          <div className="recipe-image-preview"></div>
+          <input name="setIngredientsImage" type="file" onChange={handleImageChange} />
+        </div>
+        <div className="image_div">
+          <label className="red_style">Image of Cooking In Action</label>
+          <div className="recipe-image-preview"></div>
+          <input name="setCookingImage" type="file" onChange={handleImageChange} />
+        </div>
+      </div>
+
+      {/* submit */}
+      <div>
+        <LoaderButton
+          id="user_submit_recipe_button"
+          type="button"
+          name="submit"
+          text="Submit Recipe"
+          loadingText="Submitting Recipe..."
+          isLoading={isLoading}
+          disabled={!validate()}
+          onClick={handleSubmit}
+        />
+      </div>
+
     </div>
   );
 };

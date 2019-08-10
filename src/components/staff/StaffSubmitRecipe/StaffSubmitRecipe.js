@@ -12,6 +12,18 @@ import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpo
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 const StaffSubmitRecipe = props => {
+  const [ message, setMessage ] = useState("");
+  const [ isLoading, setIsLoading ] = useState(false);
+  //const [ s3BucketUrl, setS3BucketUrl ] = useState("");  // needed?
+
+
+
+  /*
+
+  initial data fetched to assist the user
+
+  */
+
   const [ dataRecipeTypes, setDataRecipeTypes ] = useState([]);
   const [ dataCuisines, setDataCuisines ] = useState([]);
   const [ dataRecipes, setDataRecipes ] = useState([]);
@@ -19,16 +31,47 @@ const StaffSubmitRecipe = props => {
   const [ dataMeasurements, setDataMeasurements ] = useState([]);
   const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
   const [ dataIngredients, setDataIngredients ] = useState([]);
+  const [ dataMethods, setDataMethods ] = useState([]);
 
-  //const [ s3BucketUrl, setS3BucketUrl ] = useState("");  // needed?
+  
 
-  const [ isLoading, setIsLoading ] = useState(false);
+  /*
+
+  selections/inputs made by the user
+
+  */
 
   const [ recipeTypeId, setRecipeTypeId ] = useState("");
   const [ cuisineId, setCuisineId ] = useState("");
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
   const [ directions, setDirections ] = useState("");
+  const [ methods, setMethods ] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+    19: false,
+    20: false,
+    21: false,
+    22: false,
+    23: false,
+    24: false
+  });
   const [ requiredEquipment, setRequiredEquipment ] = useState([
     {"key": uuid(), "amount": "", "type": "", "equipment": ""},
     {"key": uuid(), "amount": "", "type": "", "equipment": ""},
@@ -52,6 +95,14 @@ const StaffSubmitRecipe = props => {
   const [ ingredientsImageName, setIngredientsImageName ] = useState("Choose File");
   const [ cookingImage, setCookingImage ] = useState("");
   const [ cookingImageName, setCookingImageName ] = useState("Choose File");
+
+
+
+  /*
+
+  fetch initial data to assist the user
+
+  */
 
   useEffect(() => {
     const fetchDataCuisines = async () => {
@@ -82,6 +133,10 @@ const StaffSubmitRecipe = props => {
       const res = await axios.get(`${endpoint}/ingredient/submit-edit-form`);
       setDataIngredients(res.data);
     };
+    const fetchDataMethods = async () => {
+      const res = await axios.get(`${endpoint}/method`);
+      setDataMethods(res.data);
+    }
     fetchDataRecipeTypes();
     fetchDataCuisines();
     fetchDataRecipes();
@@ -89,7 +144,16 @@ const StaffSubmitRecipe = props => {
     fetchDataMeasurements();
     fetchDataIngredientTypes();
     fetchDataIngredients();
+    fetchDataMethods();
   }, []);
+
+
+
+  /*
+
+  handle changes
+
+  */
 
   const handleRecipeTypeChange = e => setRecipeTypeId(e.target.value);
 
@@ -100,6 +164,22 @@ const StaffSubmitRecipe = props => {
   const handleDescriptionChange = e => setDescription(e.target.value);
 
   const handleDirectionsChange = e => setDirections(e.target.value);
+
+  const getCheckedMethods = () => {
+    let checkedMethods = [];
+    Object.entries(methods).forEach(([key, value]) => {
+      if (value === true) checkedMethods.push(Number(key));
+    });
+    return checkedMethods;
+  }
+
+  const handleMethodsChange = async (e) => {
+    const id = e.target.id;
+    await setMethods(prevState => ({
+      ...prevState,
+      [id]: !prevState[[id]]
+    }));
+  }
 
   const handleEquipmentRowChange = (e, rowKey) => {
     const newEquipmentRows = Array.from(requiredEquipment);
@@ -303,6 +383,19 @@ const StaffSubmitRecipe = props => {
           onChange={handleDescriptionChange}
           value={description}
         />
+      </div>
+
+      {/* methods */}
+      <div className="recipe_additions" id="methods_div">
+        <label className="red_style">Methods</label>
+        <div onChange={e => handleMethodsChange(e)}>
+          {dataMethods.map(method => (
+            <span className="filter_span" key={method.method_id}>
+              <input type="checkbox" id={method.method_id} />
+              <label className="filter_label">{method.method_name}</label>
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* equipment */}
