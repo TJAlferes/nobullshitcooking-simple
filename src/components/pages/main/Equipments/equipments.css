@@ -1,19 +1,38 @@
+span {margin-right: 6px; margin-left: 6px;} /* ? */
 
+a {text-decoration: none;} /* ? */
 
-span {margin-right: 6px; margin-left: 6px;}
+.page_links {
+  display: block;
+  height: 75px;
+  border-bottom: 1px solid;
+}
 
-#list div a {display: flex; justify-content: space-between; flex-direction: row; flex-wrap: nowrap; border-bottom: 1px solid #777; padding: 10px; cursor: pointer; cursor: hand;}
-#list div a div {display: flex; justify-content: center; flex-direction: column; flex-wrap: nowrap; border: none; padding-left: 10px;}
-#list div a div span {border: none; font-size: 1.6rem; font-weight: 700; text-decoration: none; color: #000;}
-.list_image {margin-right: 20px;}
+.page_numbers {
+  display: block;
+  max-width: min-content;
+  height: 25px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
-a {text-decoration: none;}
+.page_number,
+.current_page_number,
+.page_nav {
+  font-size: 1.6rem;
+  margin-right: 6px;
+  margin-left: 6px;
+  color: #c10006;
+  cursor: pointer;
+  cursor: hand;
+}
 
-.page_links {display: block; height: 75px; border-bottom: 1px solid white;}
-.page_numbers {display: block; max-width: min-content; height: 25px; margin: 0 auto; position: relative; top: 50%; transform: translateY(-50%);}
-.page_number, .current_page_number, .page_nav {font-size: 1.6rem; margin-right: 6px; margin-left: 6px; color: #c10006; cursor: pointer; cursor: hand;}
-.page_number:visited, .current_page_number:visited {color: #c10006;}
-.current_page_number {color: black;}
+.page_number:visited,
+.current_page_number:visited {
+  color: #c10006;
+}
 
 .equipments .filter-title,
 .equipments .sort-title {
@@ -22,8 +41,6 @@ a {text-decoration: none;}
   margin-left: 5px;
   font-size: 1.6rem;
 }
-
-#sorters a {margin-left: 5px;} /* ? */
 
 .equipments .filter-type {
   margin-left: 5px;
@@ -46,7 +63,11 @@ a {text-decoration: none;}
   font-size: 1.3rem;
 }
 
-/*.equipment {}*/
+.equipments .equipments-list-item {
+  margin-top: 10px;
+  padding: 10px;
+}
+
 .equipments .equipment-link {
   display: flex;
   justify-content: space-between;
@@ -60,5 +81,6 @@ a {text-decoration: none;}
 }
 
 .equipments .equipment-thumbnail {
-  width: 150px;
+  /*width: 150px;*/
+  height: 92px;
 }

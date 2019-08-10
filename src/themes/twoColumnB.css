@@ -34,14 +34,48 @@
   background-color: #fff;
 }
 
+/* light */
+
 .two-column-b-light .left-column,
 .two-column-b-light .right-column {
   background-color: #fff;
   color: #000;
 }
 
+.two-column-b-light .page_links {
+  border-color: #fff;
+}
+
+.two-column-b-light .current_page_number {
+  color: #000;
+}
+
+.two-column-b-light .equipments-list-item a,
+.two-column-b-light .ingredients-list-item a,
+.two-column-b-light .recipes-list-item a {
+  background-color: #fff;
+  color: #000;
+}
+
+/* dark */
+
 .two-column-b-dark .left-column,
 .two-column-b-dark .right-column {
+  background-color: #222;
+  color: #aaa;
+}
+
+.two-column-b-dark .page_links {
+  border-color: #222;
+}
+
+.two-column-b-dark .current_page_number {
+  color: #aaa;
+}
+
+.two-column-b-dark .equipments-list-item a,
+.two-column-b-dark .equipments-list-item a,
+.two-column-b-dark .equipments-list-item a {
   background-color: #222;
   color: #aaa;
 }

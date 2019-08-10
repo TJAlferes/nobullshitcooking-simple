@@ -203,7 +203,6 @@ const Equipments = props => {
         </div>
 
         <div className="right-column">
-          <div>test</div>
         </div>
 
     </div>

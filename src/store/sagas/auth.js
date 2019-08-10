@@ -1,7 +1,8 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
+  authMessageClear,
   authDisplay,
   authCheckState,
   authUserRegisterSucceeded,
@@ -37,8 +38,6 @@ Shared
 
 export function* authCheckStateSaga() {
   yield put(authCheckState());
-  // axios over to authEndpoint
-  // eh??? just put? yield call ([authCheckState]);  // check syntax on redux-saga docs
 }
 
 
@@ -62,8 +61,12 @@ export function* authStaffLoginSaga(action) {
     } else {
       yield put(authStaffLoginFailed(res.data.message));
     }
+    yield delay(4000);
+    yield put(authMessageClear());
   } catch(err) {
     yield put(authStaffLoginFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
   }
 }
 
@@ -75,8 +78,12 @@ export function* authStaffLogoutSaga() {
       {withCredentials: true}
     );
     yield put(authStaffLogoutSucceeded('Signed out.'));
+    yield delay(4000);
+    yield put(authMessageClear());
   } catch(err) {
     yield put(authStaffLogoutFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
   }
 }
 
@@ -101,8 +108,12 @@ export function* authUserLoginSaga(action) {
     } else {
       yield put(authUserLoginFailed(res.data.message));
     }
+    yield delay(4000);
+    yield put(authMessageClear());
   } catch(err) {
     yield put(authUserLoginFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
   }
 }
 
@@ -112,26 +123,38 @@ export function* authUserLogoutSaga() {
       `${endpoint}/user/auth/logout`,
       {},
       {withCredentials: true}
-      );
+    );
     if (res.data.message == 'Signed out.') {
       yield put(authUserLogoutSucceeded(res.data.message));
     } else {
       yield put(authUserLogoutFailed(res.data.message));
     }
+    yield delay(4000);
+    yield put(authMessageClear());
   } catch(err) {
     yield put(authUserLogoutFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
   }
 }
 
 export function* authUserRegisterSaga(action) {
   try {
-    yield axios.post(
+    const res = yield axios.post(
       `${endpoint}/user/auth/register`,
       {userInfo: {email: action.email, password: action.password, username: action.username}}
     );
-    yield put(authUserRegisterSucceeded('Signed out.'));
+    if (res.data.message == 'User account created.') {
+      yield put(authUserLoginSucceeded(res.data.message));
+    } else {
+      yield put(authUserLoginFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(authMessageClear());
   } catch(err) {
     yield put(authUserRegisterFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
   }
 }
 
@@ -155,8 +178,8 @@ export function* authUserRegisterSaga(action) {
 Facebook
 
 */
-/*
-export function* authFacebookCheckStateSaga() {  // before authFacebookLoginSaga
+
+/*export function* authFacebookCheckStateSaga() {  // before authFacebookLoginSaga
   yield put(authFacebookCheckState());
   window.FB && window.FB.getLoginStatus(
     function(response) {
@@ -191,8 +214,7 @@ export function* authFacebookLogoutSaga() {
   window.FB && window.FB.logout();
   // just logged out, deny access
   yield put(authLogoutSucceeded());
-}
-*/
+}*/
 
 
 /*

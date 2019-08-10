@@ -17,6 +17,7 @@ export {
   authDisplay,
   authReset,
   authCheckState,
+  authMessageClear,
   authUserRegister,
   authUserRegisterSucceeded,
   authUserRegisterFailed,
