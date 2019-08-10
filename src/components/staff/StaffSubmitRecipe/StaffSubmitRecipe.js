@@ -212,6 +212,7 @@ const StaffSubmitRecipe = props => {
   const handleSubrecipeRowChange = (e, rowKey) => {
     const newSubrecipeRows = Array.from(requiredSubrecipes);
     const elToUpdate = newSubrecipeRows.findIndex(el => el.key === rowKey);
+    //newSubrecipeRows[elToUpdate].[e.target.name]
     if (e.target.name === 'amount') {
       newSubrecipeRows[elToUpdate].amount = e.target.value;
     } else if (e.target.name === 'unit') {

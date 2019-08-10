@@ -41,6 +41,7 @@ const UserSubmitRecipe = props => {
 
   */
 
+  const [ ownership, setOwnership ] = useState("");
   const [ recipeTypeId, setRecipeTypeId ] = useState("");
   const [ cuisineId, setCuisineId ] = useState("");
   const [ title, setTitle ] = useState("");
@@ -106,11 +107,11 @@ const UserSubmitRecipe = props => {
 
   useEffect(() => {
     const fetchDataCuisines = async () => {
-      const res = await axios.get(`${endpoint}/cuisine/`);
+      const res = await axios.get(`${endpoint}/cuisine`);
       setDataCuisines(res.data);
     };
     const fetchDataRecipeTypes = async () => {
-      const res = await axios.get(`${endpoint}/recipe-type/`);
+      const res = await axios.get(`${endpoint}/recipe-type`);
       setDataRecipeTypes(res.data);
     };
     const fetchDataRecipes = async () => {
@@ -122,7 +123,7 @@ const UserSubmitRecipe = props => {
       setDataEquipment(res.data);
     };
     const fetchDataMeasurements = async () => {
-      const res = await axios.get(`${endpoint}/measurement/`);
+      const res = await axios.get(`${endpoint}/measurement`);
       setDataMeasurements(res.data);
     };
     const fetchDataIngredientTypes = async () => {
@@ -155,6 +156,12 @@ const UserSubmitRecipe = props => {
 
   */
 
+  const handleOwnershipChange = e => {
+    setOwnership(e.target.value);
+    //if (e.target.value === "private") fetchNeededPrivateData();
+    //fetchNeededPublicData();
+  }
+
   const handleRecipeTypeChange = e => setRecipeTypeId(e.target.value);
 
   const handleCuisineChange = e => setCuisineId(e.target.value);
@@ -164,14 +171,6 @@ const UserSubmitRecipe = props => {
   const handleDescriptionChange = e => setDescription(e.target.value);
 
   const handleDirectionsChange = e => setDirections(e.target.value);
-
-  const getCheckedMethods = () => {
-    let checkedMethods = [];
-    Object.entries(methods).forEach(([key, value]) => {
-      if (value === true) checkedMethods.push(Number(key));
-    });
-    return checkedMethods;
-  }
 
   const handleMethodsChange = async (e) => {
     const id = e.target.id;
@@ -212,6 +211,7 @@ const UserSubmitRecipe = props => {
   const handleSubrecipeRowChange = (e, rowKey) => {
     const newSubrecipeRows = Array.from(subrecipeRows);
     const elToUpdate = newSubrecipeRows.findIndex(el => el.key === rowKey);
+    //newSubrecipeRows[elToUpdate].[e.target.name]
     if (e.target.name === 'amount') {
       newSubrecipeRows[elToUpdate].amount = e.target.value;
     } else if (e.target.name === 'unit') {
@@ -264,11 +264,19 @@ const UserSubmitRecipe = props => {
 
   */
 
+  const getCheckedMethods = () => {
+    let checkedMethods = [];
+    Object.entries(methods).forEach(([key, value]) => {
+      if (value === true) checkedMethods.push(Number(key));
+    });
+    return checkedMethods;
+  }
+
   const handleSubmit = async () => {
     const recipeInfo = {
       ownership,
-      recipeTypeId: recipeType,
-      cuisineId: cuisine,
+      recipeTypeId,
+      cuisineId,
       title,
       description,
       directions,
@@ -281,6 +289,7 @@ const UserSubmitRecipe = props => {
       ingredientsImage,
       cookingImage
     };
+    // look to Login/Register for pattern here
   }
 
 
@@ -298,6 +307,31 @@ const UserSubmitRecipe = props => {
 
       {/* SCROLL TO TOP pageY: 0 */}
       <div id="status">{message}</div>
+
+      {/* ownership */}
+      <div>
+        <label className="red_style">Ownership</label>
+        <p>Public recipes can be viewed by others, but may only use official NOBSC equipment, ingredients, and subrecipes.</p>
+        <p>Private recipes can be viewed only by you, but may also use your own uploaded private equipment, ingredients, and subrecipes.</p>
+        <input
+          name="ownership"
+          type="radio"
+          checked={ownership === "public"}
+          disabled={ownership !== ""}
+          onChange={handleOwnershipChange}
+          value="public"
+        />
+        <span>Public</span>
+        <input
+          name="ownership"
+          type="radio"
+          checked={ownership === "private"}
+          disabled={ownership !== ""}
+          onChange={handleOwnershipChange}
+          value="private"
+        />
+        <span>Private</span>
+      </div>
 
       {/* type */}
       <div>
