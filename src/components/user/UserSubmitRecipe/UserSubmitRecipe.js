@@ -19,7 +19,9 @@ const UserSubmitRecipe = () => {
   const [ dataMeasurements, setDataMeasurements ] = useState([]);
   const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
   const [ dataIngredients, setDataIngredients ] = useState([]);
+  const [ dataMethods, setDataMethods ] = useState([]);
 
+  const [ message, setMessage ] = useState("");
   const [ isLoading, setIsLoading ] = useState(false);
 
   const [ recipeType, setRecipeType ] = useState("");
@@ -27,6 +29,32 @@ const UserSubmitRecipe = () => {
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
   const [ directions, setDirections ] = useState("");
+  const [ methods, setMethods ] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+    19: false,
+    20: false,
+    21: false,
+    22: false,
+    23: false,
+    24: false
+  });
   const [ equipmentRows, setEquipmentRows ] = useState([
     {key: uuid(), amount: "", type: "", equipment: ""},
     {key: uuid(), amount: "", type: "", equipment: ""},
@@ -72,6 +100,10 @@ const UserSubmitRecipe = () => {
       const res = await axios.get(`${endpoint}/ingredient/`);
       setDataIngredients(res.data);
     };
+    const fetchDataMethods = async () => {
+      const res = await axios.get(`${endpoint}/method`);
+      setDataMethods(res.data);
+    }
     fetchDataRecipeTypes();
     fetchDataCuisines();
     fetchDataRecipes();
@@ -79,6 +111,7 @@ const UserSubmitRecipe = () => {
     fetchDataMeasurements();
     fetchDataIngredientTypes();
     fetchDataIngredients();
+    fetchDataMethods();
   }, []);
 
   const handleRecipeTypeChange = e => setRecipeType(e.target.value);
@@ -90,6 +123,22 @@ const UserSubmitRecipe = () => {
   const handleDescriptionChange = e => setDescription(e.target.value);
 
   const handleDirectionsChange = e => setDirections(e.target.value);
+
+  const getCheckedMethods = () => {
+    let checkedMethods = [];
+    Object.entries(methods).forEach(([key, value]) => {
+      if (value === true) checkedMethods.push(Number(key));
+    });
+    return checkedMethods;
+  }
+
+  const handleMethodsChange = async (e) => {
+    const id = e.target.id;
+    await setMethods(prevState => ({
+      ...prevState,
+      [id]: !prevState[[id]]
+    }));
+  }
 
   const handleEquipmentRowChange = (e, rowKey) => {
     const newEquipmentRows = Array.from(equipmentRows);
@@ -166,6 +215,25 @@ const UserSubmitRecipe = () => {
     setSubrecipeRows(newSubrecipeRows);
   };
 
+  const handleSubmit = async () => {
+    const recipeInfo = {
+      ownership,
+      recipeTypeId: recipeType,
+      cuisineId: cuisine,
+      title,
+      description,
+      directions,
+      requiredMethods: getCheckedMethods(),
+      requiredEquipment: equipmentRows,
+      requiredIngredients: ingredientRows,
+      requiredSubrecipes: subrecipeRows,
+      recipeImage,
+      equipmentImage,
+      ingredientsImage,
+      cookingImage
+    };
+  }
+
   return (
     <div className="submit_recipe">
       <div id="page">
@@ -239,6 +307,19 @@ const UserSubmitRecipe = () => {
               onChange={handleDescriptionChange}
               value={description}
             />
+          </div>
+
+          {/* methods */}
+          <div className="recipe_additions" id="methods_div">
+            <label className="red_style">Methods</label>
+            <div onChange={e => handleMethodsChange(e)}>
+              {dataMethods.map(method => (
+                <span className="filter_span" key={method.method_id}>
+                  <input type="checkbox" id={method.method_id} />
+                  <label className="filter_label">{method.method_name}</label>
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* equipment */}
