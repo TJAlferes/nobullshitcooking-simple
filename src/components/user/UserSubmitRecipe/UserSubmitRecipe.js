@@ -106,6 +106,10 @@ const UserSubmitRecipe = props => {
   */
 
   useEffect(() => {
+    const fetchDataMethods = async () => {
+      const res = await axios.get(`${endpoint}/method`);
+      setDataMethods(res.data);
+    }
     const fetchDataCuisines = async () => {
       const res = await axios.get(`${endpoint}/cuisine`);
       setDataCuisines(res.data);
@@ -114,39 +118,64 @@ const UserSubmitRecipe = props => {
       const res = await axios.get(`${endpoint}/recipe-type`);
       setDataRecipeTypes(res.data);
     };
-    const fetchDataRecipes = async () => {
-      const res = await axios.get(`${endpoint}/recipe/`);
-      setDataRecipes(res.data);
-    };
-    const fetchDataEquipment = async () => {
-      const res = await axios.get(`${endpoint}/equipment/`);
-      setDataEquipment(res.data);
+    const fetchDataIngredientTypes = async () => {
+      const res = await axios.get(`${endpoint}/ingredient-type/`);
+      setDataIngredientTypes(res.data);
     };
     const fetchDataMeasurements = async () => {
       const res = await axios.get(`${endpoint}/measurement`);
       setDataMeasurements(res.data);
     };
-    const fetchDataIngredientTypes = async () => {
-      const res = await axios.get(`${endpoint}/ingredient-type/`);
-      setDataIngredientTypes(res.data);
+
+    const fetchPublicDataEquipment = async () => {
+      const res = await axios.get(`${endpoint}/equipment`);
+      setDataEquipment(res.data);
     };
-    const fetchDataIngredients = async () => {
-      const res = await axios.get(`${endpoint}/ingredient/`);
+    const fetchPublicDataIngredients = async () => {
+      const res = await axios.get(`${endpoint}/ingredient`);
       setDataIngredients(res.data);
     };
-    const fetchDataMethods = async () => {
-      const res = await axios.get(`${endpoint}/method`);
-      setDataMethods(res.data);
-    }
-    fetchDataRecipeTypes();
-    fetchDataCuisines();
-    fetchDataRecipes();
-    fetchDataEquipment();
-    fetchDataMeasurements();
-    fetchDataIngredientTypes();
-    fetchDataIngredients();
+    const fetchPublicDataRecipes = async () => {
+      const res = await axios.get(`${endpoint}/recipe`);  // differentiate between NOBSC and public user; for public user recipes, you'll soon need elasticsearch here, and favorited/saved
+      setDataRecipes(res.data);
+    };
+
     fetchDataMethods();
+    fetchDataCuisines();
+    fetchDataRecipeTypes();
+    fetchDataIngredientTypes();
+    fetchDataMeasurements();
+
+    fetchPublicDataEquipment();
+    fetchPublicDataIngredients();
+    fetchPublicDataRecipes();
   }, []);
+
+
+
+  /*
+
+  if needed, fetch private user data to assist the user
+
+  */
+
+  const fetchNeededPrivateData = () => {
+    const fetchPrivateDataEquipment = async () => {
+      const res = await axios.post(`${endpoint}/user/equipment/all`);
+      setDataEquipment(res.data);
+    };
+    const fetchPrivateDataIngredients = async () => {
+      const res = await axios.post(`${endpoint}/user/ingredient/all`);
+      setDataIngredients(res.data);
+    };
+    const fetchPrivateDataRecipes = async () => {
+      const res = await axios.post(`${endpoint}/user/recipe/all`);
+      setDataRecipes(res.data);
+    };
+    fetchPrivateDataEquipment();
+    fetchPrivateDataIngredients();
+    fetchPrivateDataRecipes();
+  };
 
 
 
@@ -156,11 +185,17 @@ const UserSubmitRecipe = props => {
 
   */
 
-  const handleOwnershipChange = e => {
+  const handleOwnershipChange = async (e) => {
+    if (ownership === "private" && e.target.value === "public") {
+      // show prompt "Switching to from private to public. Any references to your private equipment, ingredients, or subrecipes will be removed. Continue Cancel"
+      // if cancel return
+      // filter existing equipment, ingredients, subrecipes for ownerId = 1
+      // also, no longer show private data
+    }
+    //setOwnership(e.target.value);
+    if (e.target.value === "private") await fetchNeededPrivateData();
     setOwnership(e.target.value);
-    //if (e.target.value === "private") fetchNeededPrivateData();
-    //fetchNeededPublicData();
-  }
+  };
 
   const handleRecipeTypeChange = e => setRecipeTypeId(e.target.value);
 
@@ -305,14 +340,23 @@ const UserSubmitRecipe = props => {
 
       <h1>Submit New Recipe</h1>
 
-      {/* SCROLL TO TOP pageY: 0 */}
+      {/* TO DO: SCROLL TO TOP pageY: 0 */}
       <div id="status">{message}</div>
 
       {/* ownership */}
       <div>
         <label className="red_style">Ownership</label>
-        <p>Public recipes can be viewed by others, but may only use official NOBSC equipment, ingredients, and subrecipes.</p>
-        <p>Private recipes can be viewed only by you, but may also use your own uploaded private equipment, ingredients, and subrecipes.</p>
+        {/* TO DO: make component or hook */}
+        <div className="expand-collapse">
+          <div className="collapse">{(expanded) ? "^ OK, got it" : "V More Info"}</div>
+          <div className="expand">
+            <p>Public recipes can be viewed by others, but may only use official NOBSC equipment, ingredients, and recipes, and public recipes submitted by other users.</p>
+            <p>Private recipes can be viewed only by you, but may also use private equipment, ingredients, and recipes submitted by you.</p>
+            <p>Once submitted, a recipe's ownership cannot be changed.</p>
+            <p>Private recipes can be deleted.</p>
+            <p>Public recipes can not be deleted, but they can be disowned (author will be changed from "{authname}" to "Unknown")</p>
+          </div>
+        </div>
         <input
           name="ownership"
           type="radio"
