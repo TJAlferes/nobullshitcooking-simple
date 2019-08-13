@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import LeftNav from '../../LeftNav/LeftNav';
 //import './userDashboard.css';
@@ -56,6 +57,7 @@ const UserDashboard = props => {
             onClick={handleUploadedTabClick}
           >
             Uploaded Recipes
+            <Link to="/user/recipes/submit">Create Recipe</Link>
           </span>
         </div>
 

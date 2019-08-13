@@ -5,6 +5,7 @@ import uuid from 'uuid/v4';
 import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
+import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import './submitRecipe.css';
 
@@ -346,17 +347,15 @@ const UserSubmitRecipe = props => {
       {/* ownership */}
       <div>
         <label className="red_style">Ownership</label>
-        {/* TO DO: make component or hook */}
-        <div className="expand-collapse">
-          <div className="collapse">{(expanded) ? "^ OK, got it" : "V More Info"}</div>
-          <div className="expand">
+        <ExpandCollapse>
+          <div>
             <p>Public recipes can be viewed by others, but may only use official NOBSC equipment, ingredients, and recipes, and public recipes submitted by other users.</p>
             <p>Private recipes can be viewed only by you, but may also use private equipment, ingredients, and recipes submitted by you.</p>
             <p>Once submitted, a recipe's ownership cannot be changed.</p>
             <p>Private recipes can be deleted.</p>
             <p>Public recipes can not be deleted, but they can be disowned (author will be changed from "{authname}" to "Unknown")</p>
           </div>
-        </div>
+        </ExpandCollapse>
         <input
           name="ownership"
           type="radio"
