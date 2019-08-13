@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 
-//import './expandCollapse.css';
+import './expandCollapse.css';
 
 const ExpandCollapse = ({ children }) => {
-  const [ currentClass, setCurrentClass ] = useState("collapsed");
+  const [ expanded, setExpanded ] = useState(false);
 
-  const expand = () => setCurrentClass("expanded");
-
-  const collapse = () => setCurrentClass("collapsed");
+  const toggle = () => setExpanded(prevState => !prevState);
 
   return (
-    <div className="expand-collapse">
+    <div className="expand-collapse" onClick={toggle}>
       {
-        currentClass == "collapsed"
-        ? <div onClick={expand}>More info</div>
+        !expanded
+        ? <div className="expand-collapse-heading">More info (Click to expand)</div>
         : (
-          <div className="expanded" onClick={collapse}>
-            <div>OK, got it</div>
+          <div>
+            <div className="expand-collapse-heading">(Click to collapse)</div>
+            <br />
             {children}
           </div>
         )

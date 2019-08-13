@@ -194,7 +194,7 @@ const UserSubmitRecipe = props => {
       // also, no longer show private data
     }
     //setOwnership(e.target.value);
-    if (e.target.value === "private") await fetchNeededPrivateData();
+    //if (e.target.value === "private") await fetchNeededPrivateData();
     setOwnership(e.target.value);
   };
 
@@ -292,6 +292,21 @@ const UserSubmitRecipe = props => {
     setSubrecipeRows(newSubrecipeRows);
   };
 
+  const handleImageChange = e => {
+    [e.target.name](e.target.files[0]);
+  };
+
+  const validate = () => {
+    // TO DO: FINISH, also, messages
+    return (
+      (recipeTypeId !== "") &&
+      (cuisineId !== "") &&
+      (title !== "") &&
+      (description !== "") &&
+      (directions !== "")
+    );
+  };
+
 
 
   /*
@@ -345,35 +360,50 @@ const UserSubmitRecipe = props => {
       <div id="status">{message}</div>
 
       {/* ownership */}
-      <div>
+      <div className="ownership">
         <label className="red_style">Ownership</label>
         <ExpandCollapse>
           <div>
-            <p>Public recipes can be viewed by others, but may only use official NOBSC equipment, ingredients, and recipes, and public recipes submitted by other users.</p>
-            <p>Private recipes can be viewed only by you, but may also use private equipment, ingredients, and recipes submitted by you.</p>
             <p>Once submitted, a recipe's ownership cannot be changed.</p>
-            <p>Private recipes can be deleted.</p>
-            <p>Public recipes can not be deleted, but they can be disowned (author will be changed from "{authname}" to "Unknown")</p>
+            <br />
+            <p>Public:</p>
+            <p>- Anyone can view</p>
+            <p>- May only use official NOBSC equipment, ingredients, and recipes, and public recipes submitted by other users</p>
+            <p>- Can't be deleted, but can be disowned (author will be changed from "authname{/*authname*/}" to "Unknown")</p>
+            <br />
+            <p>Private:</p>
+            <p>- Only you can view</p>
+            <p>- May also use private equipment, ingredients, and recipes submitted by you</p>
+            <p>- Can be deleted</p>
+            <br />
+            <p>Tip: If you're still improving your recipe, make it private for now, then make a public version later</p>
+            <br />
           </div>
         </ExpandCollapse>
-        <input
-          name="ownership"
-          type="radio"
-          checked={ownership === "public"}
-          disabled={ownership !== ""}
-          onChange={handleOwnershipChange}
-          value="public"
-        />
-        <span>Public</span>
-        <input
-          name="ownership"
-          type="radio"
-          checked={ownership === "private"}
-          disabled={ownership !== ""}
-          onChange={handleOwnershipChange}
-          value="private"
-        />
-        <span>Private</span>
+        <div className="ownership-spans">
+          <span className="ownership-span">
+            <input
+              className="ownership-span-input"
+              name="ownership"
+              type="radio"
+              checked={ownership === "public"}
+              onChange={handleOwnershipChange}
+              value="public"
+            />
+            <label className="ownership-span-label">Public</label>
+          </span>
+          <span className="ownership-span">
+            <input
+              className="ownership-span-input"
+              name="ownership"
+              type="radio"
+              checked={ownership === "private"}
+              onChange={handleOwnershipChange}
+              value="private"
+            />
+            <label className="ownership-span-label">Private</label>
+          </span>
+        </div>
       </div>
 
       {/* type */}
@@ -447,11 +477,11 @@ const UserSubmitRecipe = props => {
       {/* methods */}
       <div className="recipe_additions" id="methods_div">
         <label className="red_style">Methods</label>
-        <div onChange={e => handleMethodsChange(e)}>
+        <div className="method-spans" onChange={e => handleMethodsChange(e)}>
           {dataMethods.map(method => (
-            <span className="filter_span" key={method.method_id}>
-              <input type="checkbox" id={method.method_id} />
-              <label className="filter_label">{method.method_name}</label>
+            <span className="method-span" key={method.method_id}>
+              <input className="method-span-input" type="checkbox" id={method.method_id} />
+              <label className="method-span-label">{method.method_name}</label>
             </span>
           ))}
         </div>

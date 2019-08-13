@@ -12,7 +12,7 @@ const MobileLeftNav = props => {
   return (
     <div className="mobile-left-nav">
 
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/welcome')}} to="/welcome">New? Start Here</NavLink>
+      {/*<NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/welcome')}} to="/welcome">New? Start Here</NavLink>*/}
       <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/site/help')}} to="/site/help">Help</NavLink>
       {
         !isAuthenticated &&

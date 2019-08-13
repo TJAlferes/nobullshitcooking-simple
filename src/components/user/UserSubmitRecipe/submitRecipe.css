@@ -1,22 +1,4 @@
-/*
-General
-*/
-main {
-  position: relative;
-  flex: 1;
-  order: 2;
-  min-width: 1200px;
-  background-color: #eee;
-} /* TO DO: move */
-
-#page {
-  width: 900px;
-  margin: 12px auto 18px auto;
-  padding: 10px;
-  background-color: #fff;
-}
-
-#form {
+.submit-recipe {
   width: 880px;
 }
 
@@ -46,7 +28,54 @@ select:required {
   box-shadow: none;
 }
 
+.ownership-spans {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  max-height: 32px;
+}
 
+.method-spans {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 540px;
+}
+
+.ownership-span,
+.method-span {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+}
+
+.ownership-span-input,
+.method-span-input {
+  order: 1;
+  display: block;
+  width: 13px;
+  min-width: 13px;
+  max-width: 13px;
+  height: 13px;
+  min-height: 13px;
+  max-height: 13px;
+  margin: 0;
+}
+
+.ownership-span-label,
+.method-span-label {
+  order: 2;
+  display: block;
+  min-width: fit-content;
+  margin-left: 2px;
+  font-size: 1.3rem;
+}
 
 /*
 Labels, Inputs, and Selects

@@ -55,9 +55,9 @@ class SiteNav extends Component {
             : false
           }
         </li>
-        <li>
+        {/*<li>
           <Link className="site-nav-link" to="/site/welcome">New? Start Here</Link>
-        </li>
+        </li>*/}
       </div>
     );
   }

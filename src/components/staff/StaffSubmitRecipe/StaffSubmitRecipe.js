@@ -259,7 +259,7 @@ const StaffSubmitRecipe = props => {
 
   const handleImageChange = e => {
     [e.target.name](e.target.files[0]);
-  }
+  };
 
   const validate = () => {
     // TO DO: FINISH, also, messages
@@ -270,7 +270,7 @@ const StaffSubmitRecipe = props => {
       (description !== "") &&
       (directions !== "")
     );
-  }
+  };
 
   /*const tryImageUpload = async (image) => {
     let file = image;
@@ -311,7 +311,7 @@ const StaffSubmitRecipe = props => {
     } catch (err) {
 
     }
-  }
+  };
 
   return (
     <div className={`submit-recipe one-column-a ${props.oneColumnATheme}`}>

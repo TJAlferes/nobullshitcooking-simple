@@ -156,7 +156,7 @@ import Disclaimer from '../components/pages/site/Disclaimer/Disclaimer';
 //import TermsOfUse from '../components/pages/site/TermsOfUse/TermsOfUse';
 //import PrivacyPolicy from '../components/pages/site/PrivacyPolicy/PrivacyPolicy';
 //import Help from '../components/pages/site/Help/Help';
-import Welcome from '../components/pages/site/Welcome/Welcome';
+//import Welcome from '../components/pages/site/Welcome/Welcome';
 
 import Home from '../components/pages/Home/Home';
 
@@ -197,7 +197,8 @@ const RoutesList = () => (
       <AppliedRoute path="/food/recipes/submit" exact component={SubmitRecipe} />  {/* for demo purposes */}
       <AppliedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
       {/*<AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />*/}
-      <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
+      <AppliedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
+      {/*<AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />*/}
       <AuthenticatedRoute path="/staff/recipes/edit" exact component={StaffEditRecipe} />
       <AuthenticatedRoute path="/user/recipes/edit" exact component={UserEditRecipe} />
 
@@ -326,8 +327,8 @@ const RoutesList = () => (
       <AppliedRoute path="/site/disclaimer" exact component={Disclaimer} />
       {/*<AppliedRoute path="/site/terms" exact component={TermsOfUse} />
       <AppliedRoute path="/site/privacy" exact component={PrivacyPolicy} />
-      <AppliedRoute path="/site/help" exact component={Help} />*/}
-      <AppliedRoute path="/site/welcome" exact component={Welcome} />
+      <AppliedRoute path="/site/help" exact component={Help} />
+      <AppliedRoute path="/site/welcome" exact component={Welcome} />*/}
 
 
 

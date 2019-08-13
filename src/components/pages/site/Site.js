@@ -5,11 +5,11 @@ const Site = props => (
   <div className={`cuisines one-column-a ${props.oneColumnATheme}`}>
     <h1>Site</h1>
     <div className={`nav-grid-a ${props.navGridATheme}`}>
-      <div className="nav-grid-a-item">
+      {/*<div className="nav-grid-a-item">
         <Link to="/site/welcome">
           <span className="nav-grid-a-item-text">Welcome</span>
         </Link>
-      </div>
+      </div>*/}
       <div className="nav-grid-a-item">
         <Link to="/site/help">
           <span className="nav-grid-a-item-text">Help</span>
