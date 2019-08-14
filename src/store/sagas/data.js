@@ -1,6 +1,51 @@
 import { call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
+import {
+  dataGetMeasurements,
+  dataGetMeasurementsSucceeded,
+  dataGetMeasurementsFailed,
+  dataGetEquipments,
+  dataGetEquipmentsSucceeded,
+  dataGetEquipmentsFailed,
+  dataGetEquipmentTypes,
+  dataGetEquipmentTypesSucceeded,
+  dataGetEquipmentTypesFailed,
+  dataGetIngredients,
+  dataGetIngredientsSucceeded,
+  dataGetIngredientsFailed,
+  dataGetIngredientTypes,
+  dataGetIngredientTypesSucceeded,
+  dataGetIngredientTypesFailed,
+  dataGetRecipes,
+  dataGetRecipesSucceeded,
+  dataGetRecipesFailed,
+  dataGetRecipeTypes,
+  dataGetRecipeTypesSucceeded,
+  dataGetRecipeTypesFailed,
+  dataGetCuisines,
+  dataGetCuisinesSucceeded,
+  dataGetCuisinesFailed,
+  dataGetMethods,
+  dataGetMethodsSucceeded,
+  dataGetMethodsFailed,
+  dataGetPublicRecipes,
+  dataGetPublicRecipesSucceeded,
+  dataGetPublicRecipesFailed,
+  dataGetMyPublicRecipes,
+  dataGetMyPublicRecipesSucceeded,
+  dataGetMyPublicRecipesFailed,
+  dataGetMyPrivateEquipments,
+  dataGetMyPrivateEquipmentsSucceeded,
+  dataGetMyPrivateEquipmentsFailed,
+  dataGetMyPrivateIngredients,
+  dataGetMyPrivateIngredientsSucceeded,
+  dataGetMyPrivateIngredientsFailed,
+  dataGetMyPrivateRecipes,
+  dataGetMyPrivateRecipesSucceeded,
+  dataGetMyPrivateRecipesFailed
+} from '../actions/index';
+
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
@@ -20,7 +65,7 @@ export function* dataGetEquipmentsSaga() {
   try {
     const res = yield axios.get(`${endpoint}/equipment`);
     yield put(dataGetEquipments(res.data));
-    yield put(dataGetEquipmentSucceeded());
+    yield put(dataGetEquipmentsSucceeded());
   } catch (err) {
     yield put(dataGetEquipmentsFailed());
   }
@@ -132,15 +177,27 @@ export function* dataGetRecipeSubrecipesSaga() {
   }
 }*/
 
+export function* dataGetPublicRecipesSaga() {
+  try {
+    const res = yield axios.post(`${endpoint}/recipe/public//all`);  // make in API, SELECT FROM nobsc_recipes WHERE author_id != 1 AND owner_id = 1
+    yield put(dataGetPublicRecipes(res.data));
+    yield put(dataGetPublicRecipesSucceeded());
+  } catch (err) {
+    yield put(dataGetPublicRecipesFailed());
+  }
+}
+
 export function* dataGetMyPublicRecipesSaga() {
   try {
     const res = yield axios.post(`${endpoint}/user/recipe/public/all`);
-    yield put(dataMyGetPublicRecipes(res.data));
-    yield put(dataMyGetPublicRecipesSucceeded());
+    yield put(dataGetMyPublicRecipes(res.data));
+    yield put(dataGetMyPublicRecipesSucceeded());
   } catch (err) {
-    yield put(dataMyGetPublicRecipesFailed());
+    yield put(dataGetMyPublicRecipesFailed());
   }
 }
+
+
 
 export function* dataGetMyPrivateEquipmentsSaga() {
   try {

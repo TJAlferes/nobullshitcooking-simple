@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   measurements: [],
@@ -21,13 +21,20 @@ const initialState = {
   //publicRecipeIngredients: [],
   //publicRecipeSubrecipes: [],
 
-  privateEquipment: [],
-  privateIngredients: [],
-  privateRecipes: [],
-  //privateRecipeMethods: [],
-  //privateRecipeEquipment: [],
-  //privateRecipeIngredients: [],
-  //privateRecipeSubrecipes: []
+  myPublicRecipes: [],
+  //myPublicRecipeMethods: [],
+  //myPublicRecipeEquipment: [],
+  //myPublicRecipeIngredients: [],
+  //myPublicRecipeSubrecipes: [],
+
+
+  myPrivateEquipment: [],
+  myPrivateIngredients: [],
+  myPrivateRecipes: [],
+  //myPrivateRecipeMethods: [],
+  //myPrivateRecipeEquipment: [],
+  //myPrivateRecipeIngredients: [],
+  //myPrivateRecipeSubrecipes: []
 };
 
 const dataReducer = (state = initialState, action) => {
@@ -42,10 +49,13 @@ const dataReducer = (state = initialState, action) => {
     case actionTypes.DATA_GET_CUISINES: return {...state, ...{cuisines: action.cuisines}};
     case actionTypes.DATA_GET_METHODS: return {...state, ...{methods: action.methods}};
 
-    case actionTypes.DATA_PUBLIC_GET_RECIPES: return {...state, ...{publicRecipes: action.publicRecipes}};
-    case actionTypes.DATA_PRIVATE_GET_EQUIPMENTS: return {...state, ...{privateEquipment: action.privateEquipment}};
-    case actionTypes.DATA_PRIVATE_GET_INGREDIENTS: return {...state, ...{privateIngredients: action.privateIngredients}};
-    case actionTypes.DATA_PRIVATE_GET_RECIPES: return {...state, ...{privateRecipes: action.privateRecipes}};
+    case actionTypes.DATA_GET_PUBLIC_RECIPES: return {...state, ...{publicRecipes: action.publicRecipes}};
+
+    case actionTypes.DATA_GET_MY_PUBLIC_RECIPES: return {...state, ...{myPublicRecipes: action.myPublicRecipes}};
+    
+    case actionTypes.DATA_GET_MY_PRIVATE_EQUIPMENTS: return {...state, ...{myPrivateEquipment: action.myPrivateEquipment}};
+    case actionTypes.DATA_GET_MY_PRIVATE_INGREDIENTS: return {...state, ...{myPrivateIngredients: action.myPrivateIngredients}};
+    case actionTypes.DATA_GET_MY_PRIVATE_RECIPES: return {...state, ...{myPrivateRecipes: action.myPrivateRecipes}};
   }
   return state;
 };

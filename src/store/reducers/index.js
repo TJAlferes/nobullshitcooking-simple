@@ -4,11 +4,9 @@ import { combineReducers } from 'redux';
 import themeReducer from './theme';
 import menuReducer from './menu';
 import authReducer from './auth';
+import dataReducer from './data';
 import plannerReducer from './planner';
 import messengerReducer from './messenger';
-//import equipmentReducer from './equipment';
-//import ingredientsReducer from './ingredients';
-//import recipesReducer from "./recipes";
 
 
 
@@ -23,11 +21,9 @@ const rootReducer = combineReducers({
   theme: themeReducer,
   menu: menuReducer,
   auth: authReducer,
+  data: dataReducer,
   planner: plannerReducer,
   messenger: messengerReducer,
-  //equipment: equipmentReducer,
-  //ingredients: ingredientsReducer,
-  //recipes: recipesReducer,
 });
 
 export default rootReducer;

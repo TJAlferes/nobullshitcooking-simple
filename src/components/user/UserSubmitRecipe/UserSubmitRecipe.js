@@ -361,10 +361,10 @@ const UserSubmitRecipe = props => {
 
       {/* ownership */}
       <div className="ownership">
-        <label className="red_style">Ownership</label>
+        <h2 className="red_style">Ownership</h2>
         <ExpandCollapse>
           <div>
-            <p>Once submitted, a recipe's ownership cannot be changed.</p>
+            <p>Once submitted, a recipe's ownership can't be changed.</p>
             <br />
             <p>Public:</p>
             <p>- Anyone can view</p>
@@ -376,7 +376,7 @@ const UserSubmitRecipe = props => {
             <p>- May also use private equipment, ingredients, and recipes submitted by you</p>
             <p>- Can be deleted</p>
             <br />
-            <p>Tip: If you're still improving your recipe, make it private for now, then make a public version later</p>
+            <p>Tip: If you're still improving your recipe, make it private for now, then make a public version later.</p>
             <br />
           </div>
         </ExpandCollapse>
@@ -406,9 +406,9 @@ const UserSubmitRecipe = props => {
         </div>
       </div>
 
-      {/* type */}
-      <div>
-        <label className="red_style">Type of Recipe</label>
+      {/* recipe type */}
+      <div className="recipe-type">
+        <h2 className="red_style">Type of Recipe</h2>
         <select
           name="recipe_type_id"
           id="recipe_type_id"
@@ -429,8 +429,8 @@ const UserSubmitRecipe = props => {
       </div>
 
       {/* cuisine */}
-      <div>
-        <label className="red_style">Cuisine</label>
+      <div className="cuisine">
+        <h2 className="red_style">Cuisine</h2>
         <select
           name="cuisine_id"
           id="cuisine_id"
@@ -451,8 +451,8 @@ const UserSubmitRecipe = props => {
       </div>
 
       {/* title */}
-      <div>
-        <label className="red_style">Title</label>
+      <div className="title">
+        <h2 className="red_style">Title</h2>
         <input
           type="text"
           name="recipe_title"
@@ -463,8 +463,8 @@ const UserSubmitRecipe = props => {
       </div>
 
       {/* description */}
-      <div>
-        <label className="red_style">Description / Author Note</label>
+      <div className="description">
+        <h2 className="red_style">Description / Author Note</h2>
         <input
           type="text"
           name="recipe_description"
@@ -475,8 +475,8 @@ const UserSubmitRecipe = props => {
       </div>
 
       {/* methods */}
-      <div className="recipe_additions" id="methods_div">
-        <label className="red_style">Methods</label>
+      <div className="methods">
+        <h2 className="red_style">Methods</h2>
         <div className="method-spans" onChange={e => handleMethodsChange(e)}>
           {dataMethods.map(method => (
             <span className="method-span" key={method.method_id}>
@@ -489,7 +489,7 @@ const UserSubmitRecipe = props => {
 
       {/* equipment */}
       <div className="recipe_additions" id="equipment_div">
-        <label className="red_style">Equipment</label>
+        <h2 className="red_style">Equipment</h2>
         <div id="equipment_rows_container">
           {equipmentRows.map(equipmentRow => (
             <EquipmentRow
@@ -510,7 +510,7 @@ const UserSubmitRecipe = props => {
 
       {/* ingredients */}
       <div className="recipe_additions" id="ingredients_div">
-        <label className="red_style">Ingredients</label>
+        <h2 className="red_style">Ingredients</h2>
         <div id="ingredient_rows_container">
           {ingredientRows.map(ingredientRow => (
             <IngredientRow
@@ -535,7 +535,7 @@ const UserSubmitRecipe = props => {
 
       {/* subrecipes */}
       <div className="recipe_additions" id="subrecipes_div">
-        <label className="red_style">Subrecipes</label>
+        <h2 className="red_style">Subrecipes</h2>
         <div id="subrecipe_rows_container">
           {subrecipeRows.map(subrecipeRow => (
             <SubrecipeRow
@@ -561,8 +561,8 @@ const UserSubmitRecipe = props => {
       </div>
 
       {/* directions */}
-      <div className="recipe_additions" id="directions_div">
-        <label className="red_style">Directions</label>
+      <div className="directions">
+        <h2 className="red_style">Directions</h2>
         <textarea
           name="recipe_directions"
           id="recipe_directions"
@@ -572,24 +572,24 @@ const UserSubmitRecipe = props => {
       </div>
 
       {/* images */}
-      <div>
+      <div className="images">
         <div className="image_div">
-          <label className="red_style">Image of Finished Recipe</label>
+          <h2 className="red_style">Image of Finished Recipe</h2>
           <div className="recipe-image-preview"></div>
           <input name="setRecipeImage" type="file" onChange={handleImageChange} />
         </div>
         <div className="image_div">
-          <label className="red_style">Image of All Equipment</label>
+          <h2 className="red_style">Image of All Equipment</h2>
           <div className="recipe-image-preview"></div>
           <input name="setEquipmentImage" type="file" onChange={handleImageChange} />
         </div>
         <div className="image_div">
-          <label className="red_style">Image of All Ingredients</label>
+          <h2 className="red_style">Image of All Ingredients</h2>
           <div className="recipe-image-preview"></div>
           <input name="setIngredientsImage" type="file" onChange={handleImageChange} />
         </div>
         <div className="image_div">
-          <label className="red_style">Image of Cooking In Action</label>
+          <h2 className="red_style">Image of Cooking In Action</h2>
           <div className="recipe-image-preview"></div>
           <input name="setCookingImage" type="file" onChange={handleImageChange} />
         </div>

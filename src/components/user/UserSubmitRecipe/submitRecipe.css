@@ -1,49 +1,20 @@
 .submit-recipe {
-  width: 880px;
+  width: 1000px;
 }
 
-label {
-  display: block;
-  margin: 14px auto 4px auto;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #777;
-}
-
-input {
-  display: block;
-  width: 100%;
-  height: 31px;
-  margin: 0 auto 0 auto;
-  border: 1px solid #aaa;
-  border-radius: 2px;
-  padding: 3px 7px 3px 7px;
-}
-
-input:focus {
-  background-color: #fdfdd5;
-}
-
-select:required {
+.submit-recipe select:required {
   box-shadow: none;
 }
+
+
 
 .ownership-spans {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  max-height: 32px;
 }
 
-.method-spans {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 540px;
-}
-
-.ownership-span,
-.method-span {
+.ownership-span {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -55,7 +26,58 @@ select:required {
   max-height: 32px;
 }
 
-.ownership-span-input,
+.ownership-span-input {
+  order: 1;
+  display: block;
+  width: 13px;
+  min-width: 13px;
+  max-width: 13px;
+  height: 13px;
+  min-height: 13px;
+  max-height: 13px;
+  margin-top: 9px;
+  margin-right: 0;
+  margin-bottom: 10px;
+  margin-left: 0;
+}
+
+.ownership-span-label {
+  order: 2;
+  display: block;
+  width: fit-content;
+  height: 13px;
+  min-height: 13px;
+  max-height: 13px;
+  margin-top: 9px;
+  margin-right: 0;
+  margin-bottom: 10px;
+  margin-left: 4px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+
+
+.method-spans {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 540px;
+}
+
+.method-span {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  /*align-items: center;*/
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+}
+
 .method-span-input {
   order: 1;
   display: block;
@@ -65,21 +87,41 @@ select:required {
   height: 13px;
   min-height: 13px;
   max-height: 13px;
-  margin: 0;
+  margin-top: 9px;
+  margin-right: 0;
+  margin-bottom: 10px;
+  margin-left: 0;
 }
 
-.ownership-span-label,
 .method-span-label {
   order: 2;
   display: block;
-  min-width: fit-content;
-  margin-left: 2px;
+  width: fit-content;
+  height: 13px;
+  min-height: 13px;
+  max-height: 13px;
+  margin-top: 9px;
+  margin-right: 0;
+  margin-bottom: 10px;
+  margin-left: 4px;
   font-size: 1.3rem;
+  font-weight: 700;
+  /*line-height: 13px;*/
 }
 
-/*
-Labels, Inputs, and Selects
-*/
+
+
+.submit-recipe .title input,
+.submit-recipe .description input {
+  display: block;
+  width: 100%;
+  height: 31px;
+  margin: 0 auto 0 auto;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 3px 7px 3px 7px;
+}
+
 #equipment_div,
 #ingredients_div,
 #subrecipes_div,
@@ -126,6 +168,9 @@ Labels, Inputs, and Selects
 
 .recipe_additions label {
   display: inline-block;
+  margin: 14px auto 4px auto;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .recipe_additions input {
@@ -137,6 +182,17 @@ Labels, Inputs, and Selects
   margin-right: 17px;
   margin-left: 3px;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -176,6 +232,32 @@ Add & Remove Buttons
 #add_step_button {
   display: block;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

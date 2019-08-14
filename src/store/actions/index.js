@@ -83,19 +83,46 @@ export {
 } from './cart';
 
 export {
-  getEquipmentRequest,
-  getEquipmentSucceeded,
-  getEquipmentFailed
-} from './equipment';
-
-export {
-  getIngredientsRequest,
-  getIngredientsSucceeded,
-  getIngredientsFailed
-} from './ingredients';
-
-export {
-  getRecipesRequest,
-  getRecipesSucceeded,
-  getRecipesFailed
-} from './recipes';
+  dataGetMeasurements,
+  dataGetMeasurementsSucceeded,
+  dataGetMeasurementsFailed,
+  dataGetEquipments,
+  dataGetEquipmentsSucceeded,
+  dataGetEquipmentsFailed,
+  dataGetEquipmentTypes,
+  dataGetEquipmentTypesSucceeded,
+  dataGetEquipmentTypesFailed,
+  dataGetIngredients,
+  dataGetIngredientsSucceeded,
+  dataGetIngredientsFailed,
+  dataGetIngredientTypes,
+  dataGetIngredientTypesSucceeded,
+  dataGetIngredientTypesFailed,
+  dataGetRecipes,
+  dataGetRecipesSucceeded,
+  dataGetRecipesFailed,
+  dataGetRecipeTypes,
+  dataGetRecipeTypesSucceeded,
+  dataGetRecipeTypesFailed,
+  dataGetCuisines,
+  dataGetCuisinesSucceeded,
+  dataGetCuisinesFailed,
+  dataGetMethods,
+  dataGetMethodsSucceeded,
+  dataGetMethodsFailed,
+  dataGetPublicRecipes,
+  dataGetPublicRecipesSucceeded,
+  dataGetPublicRecipesFailed,
+  dataGetMyPublicRecipes,
+  dataGetMyPublicRecipesSucceeded,
+  dataGetMyPublicRecipesFailed,
+  dataGetMyPrivateEquipments,
+  dataGetMyPrivateEquipmentsSucceeded,
+  dataGetMyPrivateEquipmentsFailed,
+  dataGetMyPrivateIngredients,
+  dataGetMyPrivateIngredientsSucceeded,
+  dataGetMyPrivateIngredientsFailed,
+  dataGetMyPrivateRecipes,
+  dataGetMyPrivateRecipesSucceeded,
+  dataGetMyPrivateRecipesFailed
+} from './data';

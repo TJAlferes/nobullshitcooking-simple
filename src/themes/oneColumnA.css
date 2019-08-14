@@ -11,8 +11,16 @@
   color: #000;
 }
 
+.one-column-a-light label {
+  color: #777;
+}
+
 .one-column-a-light .expand-collapse {
   background-color: #d5fdd5;
+}
+
+.one-column-a-light .expand-collapse-heading {
+  color: #777;
 }
 
 
@@ -22,7 +30,30 @@
   color: #aaa;
 }
 
+.one-column-a-dark input {
+  background-color: #333;
+  color: #eee;
+}
+
+.one-column-a-dark label {
+  color: #777;
+}
+
+.one-column-a-dark select {
+  background-color: #333;
+  color: #eee;
+}
+
+.one-column-a-dark option {
+  background-color: #333;
+  color: #eee;
+}
+
 .one-column-a-dark .expand-collapse {
   background-color: #507ea7;
   color: #000;
+}
+
+.one-column-a-dark .expand-collapse-heading {
+  color: #ccc;
 }

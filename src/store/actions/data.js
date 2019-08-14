@@ -7,8 +7,8 @@ export const dataGetMeasurements = measurements => ({
   type: actionTypes.DATA_GET_MEASUREMENTS,
   measurements
 });
-export const dataGetSucceeded = () => ({type: actionTypes.DATA_GET_MEASUREMENTS_SUCCEEDED});
-export const dataGetFailed = () => ({type: actionTypes.DATA_GET_MEASUREMENTS_FAILED});
+export const dataGetMeasurementsSucceeded = () => ({type: actionTypes.DATA_GET_MEASUREMENTS_SUCCEEDED});
+export const dataGetMeasurementsFailed = () => ({type: actionTypes.DATA_GET_MEASUREMENTS_FAILED});
 
 // equipment
 export const dataGetEquipments = equipment => ({
@@ -78,44 +78,44 @@ export const dataGetMethodsFailed = () => ({type: actionTypes.DATA_GET_METHODS_F
 
 // others' public recipes (Note to self: HERE you will need retrieval and caching strategy)
 export const dataGetPublicRecipes = publicRecipes => ({
-  type: actionTypes.DATA_PUBLIC_GET_RECIPES,
+  type: actionTypes.DATA_GET_PUBLIC_RECIPES,
   publicRecipes
 });
-export const dataGetPublicRecipesSucceeded = () => ({type: actionTypes.DATA_PUBLIC_GET_RECIPES_SUCCEEDED});
-export const dataGetPublicRecipesFailed = () => ({type: actionTypes.DATA_PUBLIC_GET_RECIPES_FAILED});
+export const dataGetPublicRecipesSucceeded = () => ({type: actionTypes.DATA_GET_PUBLIC_RECIPES_SUCCEEDED});
+export const dataGetPublicRecipesFailed = () => ({type: actionTypes.DATA_GET_PUBLIC_RECIPES_FAILED});
 
 
 
 // my public recipes
 export const dataGetMyPublicRecipes = myPublicRecipes => ({
-  type: actionTypes.DATA_MY_PUBLIC_GET_RECIPES,
+  type: actionTypes.DATA_GET_MY_PUBLIC_RECIPES,
   myPublicRecipes
 });
-export const dataGetMyPublicRecipesSucceeded = () => ({type: actionTypes.DATA_MY_PUBLIC_GET_RECIPES_SUCCEEDED});
-export const dataGetMyPublicRecipesFailed = () => ({type: actionTypes.DATA_MY_PUBLIC_GET_RECIPES_FAILED});
+export const dataGetMyPublicRecipesSucceeded = () => ({type: actionTypes.DATA_GET_MY_PUBLIC_RECIPES_SUCCEEDED});
+export const dataGetMyPublicRecipesFailed = () => ({type: actionTypes.DATA_GET_MY_PUBLIC_RECIPES_FAILED});
 
 
 
 // my private equipment
 export const dataGetMyPrivateEquipments = myPrivateEquipment => ({
-  type: actionTypes.DATA_MY_PRIVATE_GET_EQUIPMENTS,
+  type: actionTypes.DATA_GET_MY_PRIVATE_EQUIPMENTS,
   myPrivateEquipment
 });
-export const dataGetMyPrivateEquipmentsSucceeded = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_EQUIPMENTS_SUCCEEDED});
-export const dataGetMyPrivateEquipmentsFailed = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_EQUIPMENTS_FAILED});
+export const dataGetMyPrivateEquipmentsSucceeded = () => ({type: actionTypes.DATA_GET_MY_PRIVATE_EQUIPMENTS_SUCCEEDED});
+export const dataGetMyPrivateEquipmentsFailed = () => ({type: actionTypes.DATA_GET_MY_PRIVATE_EQUIPMENTS_FAILED});
 
 // my private ingredients
 export const dataGetMyPrivateIngredients = myPrivateIngredients => ({
-  type: actionTypes.DATA_MY_PRIVATE_GET_INGREDIENTS,
+  type: actionTypes.DATA_GET_MY_PRIVATE_INGREDIENTS,
   myPrivateIngredients
 });
-export const dataGetMyPrivateIngredientsSucceeded = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_INGREDIENTS_SUCCEEDED});
-export const dataGetMyPrivateIngredientsFailed = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_INGREDIENTS_FAILED});
+export const dataGetMyPrivateIngredientsSucceeded = () => ({type: actionTypes.DATA_GET_MY_PRIVATE_INGREDIENTS_SUCCEEDED});
+export const dataGetMyPrivateIngredientsFailed = () => ({type: actionTypes.DATA_GET_MY_PRIVATE_INGREDIENTS_FAILED});
 
 // my private recipes
 export const dataGetMyPrivateRecipes = myPrivateRecipes => ({
-  type: actionTypes.DATA_MY_PRIVATE_GET_RECIPES,
+  type: actionTypes.DATA_GET_MY_PRIVATE_RECIPES,
   myPrivateRecipes
 });
-export const dataGetMyPrivateRecipesSucceeded = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_RECIPES_SUCCEEDED});
-export const dataGetMyPrivateRecipesFailed = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_RECIPES_FAILED});
+export const dataGetMyPrivateRecipesSucceeded = () => ({type: actionTypes.DATA_GET_MY_PRIVATE_RECIPES_SUCCEEDED});
+export const dataGetMyPrivateRecipesFailed = () => ({type: actionTypes.DATA_GET_MY_PRIVATE_RECIPES_FAILED});
