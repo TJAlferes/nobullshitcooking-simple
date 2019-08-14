@@ -90,7 +90,7 @@ Labels, Inputs, and Selects
 
 .red_style {
   font-size: 1.7rem;
-  color: #333;
+  /*color: #333;*/
 }
 
 .manual_amount,
