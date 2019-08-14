@@ -4,13 +4,15 @@ import axios from 'axios';
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
+// IMPLEMENT RETRY LOGIC
+
 export function* dataGetMeasurementsSaga() {
   try {
     const res = yield axios.get(`${endpoint}/measurements`);
     yield put(dataGetMeasurements(res.data));
-    yield put(dataGetMeasurementsSucceeded('Measurements loaded.'));
+    yield put(dataGetMeasurementsSucceeded());
   } catch (err) {
-    yield put(dataGetMeasurementsFailed('An error occurred while requesting measurements.'));
+    yield put(dataGetMeasurementsFailed());
   }
 }
 
@@ -18,9 +20,9 @@ export function* dataGetEquipmentsSaga() {
   try {
     const res = yield axios.get(`${endpoint}/equipment`);
     yield put(dataGetEquipments(res.data));
-    yield put(dataGetEquipmentSucceeded('Equipments loaded.'));
+    yield put(dataGetEquipmentSucceeded());
   } catch (err) {
-    yield put(dataGetEquipmentsFailed('An error occurred while requesting equipments.'));
+    yield put(dataGetEquipmentsFailed());
   }
 }
 
@@ -28,9 +30,9 @@ export function* dataGetEquipmentTypesSaga() {
   try {
     const res = yield axios.get(`${endpoint}/equipment-type`);
     yield put(dataGetEquipmentTypes(res.data));
-    yield put(dataGetEquipmentTypesSucceeded('Equipment types loaded.'));
+    yield put(dataGetEquipmentTypesSucceeded());
   } catch (err) {
-    yield put(dataGetEquipmentTypesFailed('An error occurred while requesting equipment types.'));
+    yield put(dataGetEquipmentTypesFailed());
   }
 }
 
@@ -38,9 +40,9 @@ export function* dataGetIngredientsSaga() {
   try {
     const res = yield axios.get(`${endpoint}/ingredient`);
     yield put(dataGetIngredients(res.data));
-    yield put(dataGetIngredientsSucceeded('Ingredients loaded.'));
+    yield put(dataGetIngredientsSucceeded());
   } catch (err) {
-    yield put(dataGetIngredientsFailed('An error occurred while requesting ingredients.'));
+    yield put(dataGetIngredientsFailed());
   }
 }
 
@@ -48,9 +50,9 @@ export function* dataGetIngredientTypesSaga() {
   try {
     const res = yield axios.get(`${endpoint}/ingredient-type`);
     yield put(dataGetIngredientTypes(res.data));
-    yield put(dataGetIngredientTypesSucceeded('Ingredient types loaded.'));
+    yield put(dataGetIngredientTypesSucceeded());
   } catch (err) {
-    yield put(dataGetIngredientTypesFailed('An error occurred while requesting ingredient types.'));
+    yield put(dataGetIngredientTypesFailed());
   }
 }
 
@@ -58,9 +60,9 @@ export function* dataGetRecipesSaga() {
   try {
     const res = yield axios.get(`${endpoint}/recipe`);
     yield put(dataGetRecipes(res.data));
-    yield put(dataGetRecipesSucceeded('Recipes loaded.'));
+    yield put(dataGetRecipesSucceeded());
   } catch (err) {
-    yield put(dataGetRecipesFailed('An error occurred while requesting recipes.'));
+    yield put(dataGetRecipesFailed());
   }
 }
 
@@ -68,9 +70,9 @@ export function* dataGetRecipeTypesSaga() {
   try {
     const res = yield axios.get(`${endpoint}/recipe-type`);
     yield put(dataGetRecipeTypes(res.data));
-    yield put(dataGetRecipeTypesSucceeded('Recipe types loaded.'));
+    yield put(dataGetRecipeTypesSucceeded());
   } catch (err) {
-    yield put(dataGetRecipeTypesFailed('An error occurred while requesting recipe types.'));
+    yield put(dataGetRecipeTypesFailed());
   }
 }
 
@@ -80,7 +82,7 @@ export function* dataGetCuisinesSaga() {
     yield put(dataGetCuisines(res.data));
     yield put(dataGetCuisinesSucceeded('Cuisines loaded.'));
   } catch (err) {
-    yield put(dataGetCuisinesFailed('An error occurred while requesting cuisines.'));
+    yield put(dataGetCuisinesFailed());
   }
 }
 
@@ -88,9 +90,9 @@ export function* dataGetMethodsSaga() {
   try {
     const res = yield axios.get(`${endpoint}/method`);
     yield put(dataGetMethods(res.data));
-    yield put(dataGetMethodsSucceeded('Methods loaded.'));
+    yield put(dataGetMethodsSucceeded());
   } catch (err) {
-    yield put(dataGetMethodsFailed('An error occurred while requesting methods.'));
+    yield put(dataGetMethodsFailed());
   }
 }
 
@@ -129,3 +131,43 @@ export function* dataGetRecipeSubrecipesSaga() {
     yield put(dataGetFailed());
   }
 }*/
+
+export function* dataGetMyPublicRecipesSaga() {
+  try {
+    const res = yield axios.post(`${endpoint}/user/recipe/public/all`);
+    yield put(dataMyGetPublicRecipes(res.data));
+    yield put(dataMyGetPublicRecipesSucceeded());
+  } catch (err) {
+    yield put(dataMyGetPublicRecipesFailed());
+  }
+}
+
+export function* dataGetMyPrivateEquipmentsSaga() {
+  try {
+    const res = yield axios.post(`${endpoint}/user/equipment/private/all`);
+    yield put(dataGetMyPrivateEquipments(res.data));
+    yield put(dataGetMyPrivateEquipmentsSucceeded());
+  } catch (err) {
+    yield put(dataGetMyPrivateEquipmentsFailed());
+  }
+}
+
+export function* dataGetMyPrivateIngredientsSaga() {
+  try {
+    const res = yield axios.post(`${endpoint}/user/ingredient/private/all`);
+    yield put(dataGetMyPrivateIngredients(res.data));
+    yield put(dataGetMyPrivateIngredientsSucceeded());
+  } catch (err) {
+    yield put(dataGetMyPrivateIngredientsFailed());
+  }
+}
+
+export function* dataGetMyPrivateRecipesSaga() {
+  try {
+    const res = yield axios.post(`${endpoint}/user/recipe/private/all`);
+    yield put(dataGetMyPrivateRecipes(res.data));
+    yield put(dataGetMyPrivateRecipesSucceeded());
+  } catch (err) {
+    yield put(dataGetMyPrivateRecipesFailed());
+  }
+}

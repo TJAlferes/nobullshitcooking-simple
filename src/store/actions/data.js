@@ -73,3 +73,49 @@ export const dataGetMethods = methods => ({
 });
 export const dataGetMethodsSucceeded = () => ({type: actionTypes.DATA_GET_METHODS_SUCCEEDED});
 export const dataGetMethodsFailed = () => ({type: actionTypes.DATA_GET_METHODS_FAILED});
+
+
+
+// others' public recipes (Note to self: HERE you will need retrieval and caching strategy)
+export const dataGetPublicRecipes = publicRecipes => ({
+  type: actionTypes.DATA_PUBLIC_GET_RECIPES,
+  publicRecipes
+});
+export const dataGetPublicRecipesSucceeded = () => ({type: actionTypes.DATA_PUBLIC_GET_RECIPES_SUCCEEDED});
+export const dataGetPublicRecipesFailed = () => ({type: actionTypes.DATA_PUBLIC_GET_RECIPES_FAILED});
+
+
+
+// my public recipes
+export const dataGetMyPublicRecipes = myPublicRecipes => ({
+  type: actionTypes.DATA_MY_PUBLIC_GET_RECIPES,
+  myPublicRecipes
+});
+export const dataGetMyPublicRecipesSucceeded = () => ({type: actionTypes.DATA_MY_PUBLIC_GET_RECIPES_SUCCEEDED});
+export const dataGetMyPublicRecipesFailed = () => ({type: actionTypes.DATA_MY_PUBLIC_GET_RECIPES_FAILED});
+
+
+
+// my private equipment
+export const dataGetMyPrivateEquipments = myPrivateEquipment => ({
+  type: actionTypes.DATA_MY_PRIVATE_GET_EQUIPMENTS,
+  myPrivateEquipment
+});
+export const dataGetMyPrivateEquipmentsSucceeded = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_EQUIPMENTS_SUCCEEDED});
+export const dataGetMyPrivateEquipmentsFailed = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_EQUIPMENTS_FAILED});
+
+// my private ingredients
+export const dataGetMyPrivateIngredients = myPrivateIngredients => ({
+  type: actionTypes.DATA_MY_PRIVATE_GET_INGREDIENTS,
+  myPrivateIngredients
+});
+export const dataGetMyPrivateIngredientsSucceeded = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_INGREDIENTS_SUCCEEDED});
+export const dataGetMyPrivateIngredientsFailed = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_INGREDIENTS_FAILED});
+
+// my private recipes
+export const dataGetMyPrivateRecipes = myPrivateRecipes => ({
+  type: actionTypes.DATA_MY_PRIVATE_GET_RECIPES,
+  myPrivateRecipes
+});
+export const dataGetMyPrivateRecipesSucceeded = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_RECIPES_SUCCEEDED});
+export const dataGetMyPrivateRecipesFailed = () => ({type: actionTypes.DATA_MY_PRIVATE_GET_RECIPES_FAILED});
