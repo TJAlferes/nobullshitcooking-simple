@@ -27,14 +27,16 @@ const initialState = {
   //myPublicRecipeIngredients: [],
   //myPublicRecipeSubrecipes: [],
 
-
   myPrivateEquipment: [],
   myPrivateIngredients: [],
   myPrivateRecipes: [],
   //myPrivateRecipeMethods: [],
   //myPrivateRecipeEquipment: [],
   //myPrivateRecipeIngredients: [],
-  //myPrivateRecipeSubrecipes: []
+  //myPrivateRecipeSubrecipes: [],
+
+  myFavoriteRecipes: [],
+  mySavedRecipes: []
 };
 
 const dataReducer = (state = initialState, action) => {
@@ -56,6 +58,9 @@ const dataReducer = (state = initialState, action) => {
     case actionTypes.DATA_GET_MY_PRIVATE_EQUIPMENTS: return {...state, ...{myPrivateEquipment: action.myPrivateEquipment}};
     case actionTypes.DATA_GET_MY_PRIVATE_INGREDIENTS: return {...state, ...{myPrivateIngredients: action.myPrivateIngredients}};
     case actionTypes.DATA_GET_MY_PRIVATE_RECIPES: return {...state, ...{myPrivateRecipes: action.myPrivateRecipes}};
+
+    case actionTypes.DATA_GET_MY_FAVORITE_RECIPES: return {...state, ...{myFavoriteRecipes: action.myFavoriteRecipes}};
+    case actionTypes.DATA_GET_MY_SAVED_RECIPES: return {...state, ...{mySavedRecipes: action.mySavedRecipes}};
   }
   return state;
 };

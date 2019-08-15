@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
+import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
 import EquipmentRow from './EquipmentRow/EquipmentRow';
@@ -25,14 +26,14 @@ const UserSubmitRecipe = props => {
 
   */
 
-  const [ dataRecipeTypes, setDataRecipeTypes ] = useState([]);
+  /*const [ dataRecipeTypes, setDataRecipeTypes ] = useState([]);
   const [ dataCuisines, setDataCuisines ] = useState([]);
   const [ dataRecipes, setDataRecipes ] = useState([]);
   const [ dataEquipment, setDataEquipment ] = useState([]);
   const [ dataMeasurements, setDataMeasurements ] = useState([]);
   const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
   const [ dataIngredients, setDataIngredients ] = useState([]);
-  const [ dataMethods, setDataMethods ] = useState([]);
+  const [ dataMethods, setDataMethods ] = useState([]);*/
 
 
 
@@ -106,7 +107,7 @@ const UserSubmitRecipe = props => {
 
   */
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchDataMethods = async () => {
       const res = await axios.get(`${endpoint}/method`);
       setDataMethods(res.data);
@@ -150,7 +151,7 @@ const UserSubmitRecipe = props => {
     fetchPublicDataEquipment();
     fetchPublicDataIngredients();
     fetchPublicDataRecipes();
-  }, []);
+  }, []);*/
 
 
 
@@ -160,7 +161,7 @@ const UserSubmitRecipe = props => {
 
   */
 
-  const fetchNeededPrivateData = () => {
+  /*const fetchNeededPrivateData = () => {
     const fetchPrivateDataEquipment = async () => {
       const res = await axios.post(`${endpoint}/user/equipment/all`);
       setDataEquipment(res.data);
@@ -176,7 +177,7 @@ const UserSubmitRecipe = props => {
     fetchPrivateDataEquipment();
     fetchPrivateDataIngredients();
     fetchPrivateDataRecipes();
-  };
+  };*/
 
 
 
@@ -417,7 +418,7 @@ const UserSubmitRecipe = props => {
           value={recipeTypeId}
         >
           <option value=""></option>
-          {dataRecipeTypes.map(recipeType => (
+          {props.dataRecipeTypes.map(recipeType => (
             <option
               key={recipeType.recipe_type_id}
               value={recipeType.recipe_type_id}
@@ -439,7 +440,7 @@ const UserSubmitRecipe = props => {
           value={cuisineId}
         >
           <option value=""></option>
-          {dataCuisines.map(cuisine => (
+          {props.dataCuisines.map(cuisine => (
             <option
               key={cuisine.cuisine_id}
               value={cuisine.cuisine_id}
@@ -478,7 +479,7 @@ const UserSubmitRecipe = props => {
       <div className="methods">
         <h2 className="red_style">Methods</h2>
         <div className="method-spans" onChange={e => handleMethodsChange(e)}>
-          {dataMethods.map(method => (
+          {props.dataMethods.map(method => (
             <span className="method-span" key={method.method_id}>
               <input className="method-span-input" type="checkbox" id={method.method_id} />
               <label className="method-span-label">{method.method_name}</label>
@@ -498,7 +499,7 @@ const UserSubmitRecipe = props => {
               amount={equipmentRow.amount}
               type={equipmentRow.type}
               equipment={equipmentRow.equipment}
-              dataEquipment={dataEquipment}
+              dataEquipment={props.dataEquipment}
               handleEquipmentRowChange={handleEquipmentRowChange}
               removeEquipmentRow={removeEquipmentRow} />
           ))}
@@ -520,9 +521,9 @@ const UserSubmitRecipe = props => {
               unit={ingredientRow.unit}
               type={ingredientRow.type}
               ingredient={ingredientRow.ingredient}
-              dataMeasurements={dataMeasurements}
-              dataIngredientTypes={dataIngredientTypes}
-              dataIngredients={dataIngredients}
+              dataMeasurements={props.dataMeasurements}
+              dataIngredientTypes={props.dataIngredientTypes}
+              dataIngredients={props.dataIngredients}
               handleIngredientRowChange={handleIngredientRowChange}
               removeIngredientRow={removeIngredientRow}
             />
@@ -546,10 +547,10 @@ const UserSubmitRecipe = props => {
               type={subrecipeRow.type}
               cuisine={subrecipeRow.cuisine}
               subrecipe={subrecipeRow.subrecipe}
-              dataMeasurements={dataMeasurements}
-              dataRecipeTypes={dataRecipeTypes}
-              dataCuisines={dataCuisines}
-              dataRecipes={dataRecipes}
+              dataMeasurements={props.dataMeasurements}
+              dataRecipeTypes={props.dataRecipeTypes}
+              dataCuisines={props.dataCuisines}
+              dataRecipes={props.dataRecipes}
               handleSubrecipeRowChange={handleSubrecipeRowChange}
               removeSubrecipeRow={removeSubrecipeRow}
             />
@@ -613,4 +614,21 @@ const UserSubmitRecipe = props => {
   );
 };
 
-export default UserSubmitRecipe;
+const mapStateToProps = state => ({
+  dataMeasurements: state.data.measurements,
+  dataEquipment: state.data.equipment,
+  dataEquipmentTypes: state.data.equipmentTypes,
+  dataIngredients: state.data.ingredients,
+  dataIngredientTypes: state.data.ingredientTypes,
+  dataRecipes: state.data.recipes,
+  dataRecipeTypes: state.data.recipeTypes,
+  dataCuisines: state.data.cuisines,
+  dataMethods: state.data.methods,
+  dataPublicRecipes: state.data.publicRecipes,
+  dataMyPublicRecipes: state.data.myPublicRecipes,
+  dataMyPrivateEquipment: state.data.myPrivateEquipment,
+  dataMyPrivateIngredients: state.data.myPrivateIngredients,
+  dataMyPrivateRecipes: state.data.myPrivateRecipes
+});
+
+export default connect(mapStateToProps)(UserSubmitRecipe);

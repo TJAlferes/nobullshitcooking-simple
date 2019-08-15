@@ -14,7 +14,11 @@ import './app.css';
 const withDragDropContext = DragDropContext(MultiBackend(HTML5toTouch));
 
 const App = props => {
-  // Decide visual layout style:
+  /*
+
+  Decide visual layout style
+
+  */
 
   // Determine if the user is currently at an authentication page...
   let location = props.location;

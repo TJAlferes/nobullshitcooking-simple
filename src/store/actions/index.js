@@ -124,5 +124,11 @@ export {
   dataGetMyPrivateIngredientsFailed,
   dataGetMyPrivateRecipes,
   dataGetMyPrivateRecipesSucceeded,
-  dataGetMyPrivateRecipesFailed
+  dataGetMyPrivateRecipesFailed,
+  dataGetMyFavoriteRecipes,
+  dataGetMyFavoriteRecipesSucceeded,
+  dataGetMyFavoriteRecipesFailed,
+  dataGetMySavedRecipes,
+  dataGetMySavedRecipesSucceeded,
+  dataGetMySavedRecipesFailed
 } from './data';

@@ -43,7 +43,13 @@ import {
   dataGetMyPrivateIngredientsFailed,
   dataGetMyPrivateRecipes,
   dataGetMyPrivateRecipesSucceeded,
-  dataGetMyPrivateRecipesFailed
+  dataGetMyPrivateRecipesFailed,
+  dataGetMyFavoriteRecipes,
+  dataGetMyFavoriteRecipesSucceeded,
+  dataGetMyFavoriteRecipesFailed,
+  dataGetMySavedRecipes,
+  dataGetMySavedRecipesSucceeded,
+  dataGetMySavedRecipesFailed
 } from '../actions/index';
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
@@ -53,7 +59,7 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function* dataGetMeasurementsSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/measurements`);
+    const res = yield axios.get(`${endpoint}/measurement`);
     yield put(dataGetMeasurements(res.data));
     yield put(dataGetMeasurementsSucceeded());
   } catch (err) {
@@ -63,7 +69,7 @@ export function* dataGetMeasurementsSaga() {
 
 export function* dataGetEquipmentsSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/equipment`);
+    const res = yield axios.post(`${endpoint}/equipment`);
     yield put(dataGetEquipments(res.data));
     yield put(dataGetEquipmentsSucceeded());
   } catch (err) {
@@ -83,7 +89,7 @@ export function* dataGetEquipmentTypesSaga() {
 
 export function* dataGetIngredientsSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/ingredient`);
+    const res = yield axios.post(`${endpoint}/ingredient`);
     yield put(dataGetIngredients(res.data));
     yield put(dataGetIngredientsSucceeded());
   } catch (err) {
@@ -103,7 +109,7 @@ export function* dataGetIngredientTypesSaga() {
 
 export function* dataGetRecipesSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/recipe`);
+    const res = yield axios.post(`${endpoint}/recipe`);
     yield put(dataGetRecipes(res.data));
     yield put(dataGetRecipesSucceeded());
   } catch (err) {
@@ -179,7 +185,7 @@ export function* dataGetRecipeSubrecipesSaga() {
 
 export function* dataGetPublicRecipesSaga() {
   try {
-    const res = yield axios.post(`${endpoint}/recipe/public//all`);  // make in API, SELECT FROM nobsc_recipes WHERE author_id != 1 AND owner_id = 1
+    const res = yield axios.post(`${endpoint}/recipe/public/all`);
     yield put(dataGetPublicRecipes(res.data));
     yield put(dataGetPublicRecipesSucceeded());
   } catch (err) {
@@ -189,7 +195,11 @@ export function* dataGetPublicRecipesSaga() {
 
 export function* dataGetMyPublicRecipesSaga() {
   try {
-    const res = yield axios.post(`${endpoint}/user/recipe/public/all`);
+    const res = yield axios.post(
+      `${endpoint}/user/recipe/public/all`,
+      {},
+      {withCredentials: true}
+    );
     yield put(dataGetMyPublicRecipes(res.data));
     yield put(dataGetMyPublicRecipesSucceeded());
   } catch (err) {
@@ -201,7 +211,11 @@ export function* dataGetMyPublicRecipesSaga() {
 
 export function* dataGetMyPrivateEquipmentsSaga() {
   try {
-    const res = yield axios.post(`${endpoint}/user/equipment/private/all`);
+    const res = yield axios.post(
+      `${endpoint}/user/equipment/private/all`,
+      {},
+      {withCredentials: true}
+    );
     yield put(dataGetMyPrivateEquipments(res.data));
     yield put(dataGetMyPrivateEquipmentsSucceeded());
   } catch (err) {
@@ -211,7 +225,11 @@ export function* dataGetMyPrivateEquipmentsSaga() {
 
 export function* dataGetMyPrivateIngredientsSaga() {
   try {
-    const res = yield axios.post(`${endpoint}/user/ingredient/private/all`);
+    const res = yield axios.post(
+      `${endpoint}/user/ingredient/private/all`,
+      {},
+      {withCredentials: true}
+    );
     yield put(dataGetMyPrivateIngredients(res.data));
     yield put(dataGetMyPrivateIngredientsSucceeded());
   } catch (err) {
@@ -221,10 +239,44 @@ export function* dataGetMyPrivateIngredientsSaga() {
 
 export function* dataGetMyPrivateRecipesSaga() {
   try {
-    const res = yield axios.post(`${endpoint}/user/recipe/private/all`);
+    const res = yield axios.post(
+      `${endpoint}/user/recipe/private/all`,
+      {},
+      {withCredentials: true}
+    );
     yield put(dataGetMyPrivateRecipes(res.data));
     yield put(dataGetMyPrivateRecipesSucceeded());
   } catch (err) {
     yield put(dataGetMyPrivateRecipesFailed());
+  }
+}
+
+
+
+export function* dataGetMyFavoriteRecipesSaga() {
+  try {
+    const res = yield axios.post(
+      `${endpoint}/user/favorite-recipe`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetMyFavoriteRecipes(res.data));
+    yield put(dataGetMyFavoriteRecipesSucceeded());
+  } catch (err) {
+    yield put(dataGetMyFavoriteRecipesFailed());
+  }
+}
+
+export function* dataGetMySavedRecipesSaga() {
+  try {
+    const res = yield axios.post(
+      `${endpoint}/user/saved-recipe`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetMySavedRecipes(res.data));
+    yield put(dataGetMySavedRecipesSucceeded());
+  } catch (err) {
+    yield put(dataGetMySavedRecipesFailed());
   }
 }

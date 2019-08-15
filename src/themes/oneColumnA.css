@@ -6,6 +6,12 @@
 
 
 
+/*
+
+light
+
+*/
+
 .one-column-a-light {
   background-color: #fff;
   color: #000;
@@ -13,6 +19,23 @@
 
 .one-column-a-light label {
   color: #777;
+}
+
+.one-column-a-light input {
+  border-color: #bbb;
+  background-color: #fff;
+  color: #000;
+}
+
+.one-column-a-light select {
+  border-color: #bbb;
+  background-color: #fff;
+  color: #000;
+}
+
+.one-column-a-light option {
+  background-color: #fff;
+  color: #000;
 }
 
 .one-column-a-light .expand-collapse {
@@ -25,28 +48,38 @@
 
 
 
+/*
+
+dark
+
+*/
+
 .one-column-a-dark {
   background-color: #222;
   color: #aaa;
-}
-
-.one-column-a-dark input {
-  background-color: #333;
-  color: #eee;
 }
 
 .one-column-a-dark label {
   color: #777;
 }
 
+.one-column-a-dark input {
+  border-top-color: #666;
+  border-right-color: #888;
+  border-bottom-color: #888;
+  border-left-color: #666;
+  background-color: #1e1e1e;
+  color: #bbb;
+}
+
 .one-column-a-dark select {
   background-color: #333;
-  color: #eee;
+  color: #bbb;
 }
 
 .one-column-a-dark option {
   background-color: #333;
-  color: #eee;
+  color: #bbb;
 }
 
 .one-column-a-dark .expand-collapse {

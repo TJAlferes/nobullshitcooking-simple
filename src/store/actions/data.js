@@ -119,3 +119,21 @@ export const dataGetMyPrivateRecipes = myPrivateRecipes => ({
 });
 export const dataGetMyPrivateRecipesSucceeded = () => ({type: actionTypes.DATA_GET_MY_PRIVATE_RECIPES_SUCCEEDED});
 export const dataGetMyPrivateRecipesFailed = () => ({type: actionTypes.DATA_GET_MY_PRIVATE_RECIPES_FAILED});
+
+
+
+// my favorite recipes
+export const dataGetMyFavoriteRecipes = myFavoriteRecipes => ({
+  type: actionTypes.DATA_GET_MY_FAVORITE_RECIPES,
+  myFavoriteRecipes
+});
+export const dataGetMyFavoriteRecipesSucceeded = () => ({type: actionTypes.DATA_GET_MY_FAVORITE_RECIPES_SUCCEEDED});
+export const dataGetMyFavoriteRecipesFailed = () => ({type: actionTypes.DATA_GET_MY_FAVORITE_RECIPES_FAILED});
+
+// my saved recipes
+export const dataGetMySavedRecipes = mySavedRecipes => ({
+  type: actionTypes.DATA_GET_MY_SAVED_RECIPES,
+  mySavedRecipes
+});
+export const dataGetMySavedRecipesSucceeded = () => ({type: actionTypes.DATA_GET_MY_SAVED_RECIPES_SUCCEEDED});
+export const dataGetMySavedRecipesFailed = () => ({type: actionTypes.DATA_GET_MY_SAVED_RECIPES_FAILED});
