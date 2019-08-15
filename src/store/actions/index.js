@@ -83,6 +83,7 @@ export {
 } from './cart';
 
 export {
+  dataInit,
   dataGetMeasurements,
   dataGetMeasurementsSucceeded,
   dataGetMeasurementsFailed,

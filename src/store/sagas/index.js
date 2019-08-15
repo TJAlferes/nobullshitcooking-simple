@@ -63,16 +63,16 @@ export function* watchAuth() {
 
 export function* watchData() {
   yield all([
-    takeEvery(actionTypes.DATA_GET_MEASUREMENTS, dataGetMeasurementsSaga),
-    takeEvery(actionTypes.DATA_GET_EQUIPMENTS, dataGetEquipmentsSaga),
-    takeEvery(actionTypes.DATA_GET_EQUIPMENT_TYPES, dataGetEquipmentTypesSaga),
-    takeEvery(actionTypes.DATA_GET_INGREDIENTS, dataGetIngredientsSaga),
-    takeEvery(actionTypes.DATA_GET_INGREDIENT_TYPES, dataGetIngredientTypesSaga),
-    takeEvery(actionTypes.DATA_GET_RECIPES, dataGetRecipesSaga),
-    takeEvery(actionTypes.DATA_GET_RECIPE_TYPES, dataGetRecipeTypesSaga),
-    takeEvery(actionTypes.DATA_GET_CUISINES, dataGetCuisinesSaga),
-    takeEvery(actionTypes.DATA_GET_METHODS, dataGetMethodsSaga),
-    takeEvery(actionTypes.DATA_GET_PUBLIC_RECIPES, dataGetPublicRecipesSaga)
+    takeEvery(actionTypes.DATA_INIT, dataGetMeasurementsSaga),
+    takeEvery(actionTypes.DATA_INIT, dataGetEquipmentsSaga),
+    takeEvery(actionTypes.DATA_INIT, dataGetEquipmentTypesSaga),
+    takeEvery(actionTypes.DATA_INIT, dataGetIngredientsSaga),
+    takeEvery(actionTypes.DATA_INIT, dataGetIngredientTypesSaga),
+    takeEvery(actionTypes.DATA_INIT, dataGetRecipesSaga),
+    takeEvery(actionTypes.DATA_INIT, dataGetRecipeTypesSaga),
+    takeEvery(actionTypes.DATA_INIT, dataGetCuisinesSaga),
+    takeEvery(actionTypes.DATA_INIT, dataGetMethodsSaga),
+    takeEvery(actionTypes.DATA_INIT, dataGetPublicRecipesSaga)
   ]);
 }
 

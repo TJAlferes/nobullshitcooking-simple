@@ -69,7 +69,7 @@ export function* dataGetMeasurementsSaga() {
 
 export function* dataGetEquipmentsSaga() {
   try {
-    const res = yield axios.post(`${endpoint}/equipment`);
+    const res = yield axios.get(`${endpoint}/equipment/official/all`);
     yield put(dataGetEquipments(res.data));
     yield put(dataGetEquipmentsSucceeded());
   } catch (err) {
@@ -89,7 +89,7 @@ export function* dataGetEquipmentTypesSaga() {
 
 export function* dataGetIngredientsSaga() {
   try {
-    const res = yield axios.post(`${endpoint}/ingredient`);
+    const res = yield axios.get(`${endpoint}/ingredient/official/all`);
     yield put(dataGetIngredients(res.data));
     yield put(dataGetIngredientsSucceeded());
   } catch (err) {
@@ -109,7 +109,7 @@ export function* dataGetIngredientTypesSaga() {
 
 export function* dataGetRecipesSaga() {
   try {
-    const res = yield axios.post(`${endpoint}/recipe`);
+    const res = yield axios.get(`${endpoint}/recipe/official/all`);
     yield put(dataGetRecipes(res.data));
     yield put(dataGetRecipesSucceeded());
   } catch (err) {
@@ -185,7 +185,7 @@ export function* dataGetRecipeSubrecipesSaga() {
 
 export function* dataGetPublicRecipesSaga() {
   try {
-    const res = yield axios.post(`${endpoint}/recipe/public/all`);
+    const res = yield axios.get(`${endpoint}/recipe/public/all`);
     yield put(dataGetPublicRecipes(res.data));
     yield put(dataGetPublicRecipesSucceeded());
   } catch (err) {
