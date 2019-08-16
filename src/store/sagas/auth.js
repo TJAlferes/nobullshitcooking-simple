@@ -100,7 +100,7 @@ export function* authUserLoginSaga(action) {
     const res = yield axios.post(
       `${endpoint}/user/auth/login`,
       {userInfo: {email: action.email, password: action.password}},
-      {withCredentials: true}
+      //{withCredentials: true}
     );
     if (res.data.message == 'Signed in.') {
       yield put(authDisplay(res.data.username, res.data.avatar));

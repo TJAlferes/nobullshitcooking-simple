@@ -193,6 +193,8 @@ export function* dataGetPublicRecipesSaga() {
   }
 }
 
+
+
 export function* dataGetMyPublicRecipesSaga() {
   try {
     const res = yield axios.post(
@@ -212,7 +214,7 @@ export function* dataGetMyPublicRecipesSaga() {
 export function* dataGetMyPrivateEquipmentsSaga() {
   try {
     const res = yield axios.post(
-      `${endpoint}/user/equipment/private/all`,
+      `${endpoint}/user/equipment/all`,
       {},
       {withCredentials: true}
     );
@@ -226,7 +228,7 @@ export function* dataGetMyPrivateEquipmentsSaga() {
 export function* dataGetMyPrivateIngredientsSaga() {
   try {
     const res = yield axios.post(
-      `${endpoint}/user/ingredient/private/all`,
+      `${endpoint}/user/ingredient/all`,
       {},
       {withCredentials: true}
     );
