@@ -6,7 +6,7 @@ import LeftNav from '../../LeftNav/LeftNav';
 //import './userDashboard.css';
 
 const UserDashboard = props => {
-  const [ tab, setTab ] = useState("ingredients");
+  const [ tab, setTab ] = useState("recipes");
   const [ subTab, setSubTab ] = useState("private");
 
   const handleTabClick = e => {
@@ -29,22 +29,22 @@ const UserDashboard = props => {
         {/* tabs */}
 
         <div className="dashboard-menu-tabs">
-          {/*<span className="dashboard-menu-tab" name="notifications" onClick={handleTabClick}>Notifications</span>*/}
-          <span className="dashboard-menu-tab" name="plans" onClick={handleTabClick}>Plans</span>
-          <span className="dashboard-menu-tab" name="recipes" onClick={handleTabClick}>Recipes</span>
-          <span className="dashboard-menu-tab" name="ingredients" onClick={handleTabClick}>Ingredients</span>
-          <span className="dashboard-menu-tab" name="equipment" onClick={handleTabClick}>Equipment</span>
+          {/*<button className="dashboard-menu-tab" name="notifications" onClick={handleTabClick}>Notifications</button>*/}
+          <button className="dashboard-menu-tab" name="plans" onClick={e => handleTabClick(e)}>Plans</button>
+          <button className="dashboard-menu-tab" name="recipes" onClick={e => handleTabClick(e)}>Recipes</button>
+          <button className="dashboard-menu-tab" name="ingredients" onClick={e => handleTabClick(e)}>Ingredients</button>
+          <button className="dashboard-menu-tab" name="equipment" onClick={e => handleTabClick(e)}>Equipment</button>
         </div>
 
         {/* subTabs */}
 
         {
-          tab == "recipes" && (
+          (tab == "recipes") && (
             <div className="dashboard-menu-subtabs">
-              <span className="dashboard-menu-subtab" name="private" onClick={handleSubTabClick}>Private</span>
-              <span className="dashboard-menu-subtab" name="public" onClick={handleSubTabClick}>Public</span>
-              <span className="dashboard-menu-subtab" name="favorite" onClick={handleSubTabClick}>Favorite</span>
-              <span className="dashboard-menu-subtab" name="saved" onClick={handleSubTabClick}>Saved</span>
+              <button className="dashboard-menu-subtab" name="private" onClick={e => handleSubTabClick(e)}>Private</button>
+              <button className="dashboard-menu-subtab" name="public" onClick={e => handleSubTabClick(e)}>Public</button>
+              <button className="dashboard-menu-subtab" name="favorite" onClick={e => handleSubTabClick(e)}>Favorite</button>
+              <button className="dashboard-menu-subtab" name="saved" onClick={e => handleSubTabClick(e)}>Saved</button>
             </div>
           )
         }
@@ -59,14 +59,14 @@ const UserDashboard = props => {
         */}
 
         {
-          tab == "plans" && (
+          (tab == "plans") && (
             <div className="dashboard-content">
               <h2>My Plans</h2>
               <Link to="/user/planner/new">Create New Plan</Link>
               {
                 props.myPlans.length
                 ? props.myPlans.map(plan => (
-                  <div>
+                  <div key={plan.plan_id}>
                     <span>{plan.plan_name}</span>
                     <span>View/Edit</span>
                     <span>Delete</span>
@@ -86,7 +86,7 @@ const UserDashboard = props => {
               {
                 props.myPrivateRecipes.length
                 ? props.myPrivateRecipes.map(recipe => (
-                  <div>
+                  <div key={recipe.recipe_id}>
                     <span>{recipe.recipe_image}</span>
                     <span>{recipe.title}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
@@ -108,7 +108,7 @@ const UserDashboard = props => {
               {
                 props.myPublicRecipes.length
                 ? props.myPublicRecipes.map(recipe => (
-                  <div>
+                  <div key={recipe.recipe_id}>
                     <span>{recipe.recipe_image}</span>
                     <span>{recipe.title}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
@@ -129,7 +129,7 @@ const UserDashboard = props => {
               {
                 props.myFavoriteRecipes.length
                 ? props.myFavoriteRecipes.map(recipe => (
-                  <div>
+                  <div key={recipe.recipe_id}>
                     <span>{recipe.recipe_image}</span>
                     <span>{recipe.title}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
@@ -150,7 +150,7 @@ const UserDashboard = props => {
               {
                 props.mySavedRecipes.length
                 ? props.mySavedRecipes.map(recipe => (
-                  <div>
+                  <div key={recipe.recipe_id}>
                     <span>{recipe.recipe_image}</span>
                     <span>{recipe.title}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
@@ -172,7 +172,7 @@ const UserDashboard = props => {
               {
                 props.myPrivateIngredients.length
                 ? props.myPrivateIngredients.map(ingredient => (
-                  <div>
+                  <div key={ingredient.ingredient_id}>
                     <span>{ingredient.ingredient_image}</span>
                     <span>{ingredient.ingredient_name}</span>
                     <span><Link to={`user/ingredients/${ingredient.ingredient_id}`}>View</Link></span>
@@ -194,7 +194,7 @@ const UserDashboard = props => {
               {
                 props.myPrivateEquipment.length
                 ? props.myPrivateEquipment.map(equipment => (
-                  <div>
+                  <div key={equipment.equipment_id}>
                     <span>{equipment.equipment_image}</span>
                     <span>{equipment.equipment_name}</span>
                     <span><Link to={`user/equipment/${equipment.equipment_id}`}>View</Link></span>
