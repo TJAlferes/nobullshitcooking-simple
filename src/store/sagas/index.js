@@ -28,7 +28,8 @@ import {
   dataGetMyPrivateIngredientsSaga,
   dataGetMyPrivateRecipesSaga,
   dataGetMyFavoriteRecipesSaga,
-  dataGetMySavedRecipesSaga
+  dataGetMySavedRecipesSaga,
+  dataGetMyPlansSaga
 } from './data';
 import {
   messengerChangeChannelSaga,
@@ -54,6 +55,7 @@ export function* watchAuth() {
     takeEvery(actionTypes.AUTH_USER_LOGIN_SUCCEEDED, dataGetMyPrivateRecipesSaga),
     takeEvery(actionTypes.AUTH_USER_LOGIN_SUCCEEDED, dataGetMyFavoriteRecipesSaga),
     takeEvery(actionTypes.AUTH_USER_LOGIN_SUCCEEDED, dataGetMySavedRecipesSaga),
+    takeEvery(actionTypes.AUTH_USER_LOGIN_SUCCEEDED, dataGetMyPlansSaga),
     takeEvery(actionTypes.AUTH_USER_LOGOUT, authUserLogoutSaga),
     //takeEvery(actionTypes.AUTH_FACEBOOK_CHECK_STATE, authFacebookCheckStateSaga),
     //takeEvery(actionTypes.AUTH_FACEBOOK_LOGIN, authFacebookLoginSaga),

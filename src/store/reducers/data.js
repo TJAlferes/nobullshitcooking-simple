@@ -36,7 +36,9 @@ const initialState = {
   //myPrivateRecipeSubrecipes: [],
 
   myFavoriteRecipes: [],
-  mySavedRecipes: []
+  mySavedRecipes: [],
+
+  myPlans: []
 };
 
 const dataReducer = (state = initialState, action) => {
@@ -61,6 +63,8 @@ const dataReducer = (state = initialState, action) => {
 
     case actionTypes.DATA_GET_MY_FAVORITE_RECIPES: return {...state, ...{myFavoriteRecipes: action.myFavoriteRecipes}};
     case actionTypes.DATA_GET_MY_SAVED_RECIPES: return {...state, ...{mySavedRecipes: action.mySavedRecipes}};
+
+    case actionTypes.DATA_GET_MY_PLANS: return {...state, ...{myPlans: action.myPlans}};
   }
   return state;
 };

@@ -6,8 +6,8 @@ import LeftNav from '../../LeftNav/LeftNav';
 //import './userDashboard.css';
 
 const UserDashboard = props => {
-  const [ tab, setTab ] = useState("plans");
-  const [ subTab, setSubTab ] = useState("");
+  const [ tab, setTab ] = useState("ingredients");
+  const [ subTab, setSubTab ] = useState("private");
 
   const handleTabClick = e => {
     setTab(e.target.name);
@@ -39,8 +39,7 @@ const UserDashboard = props => {
         {/* subTabs */}
 
         {
-          tab == "recipes"
-          ? (
+          tab == "recipes" && (
             <div className="dashboard-menu-subtabs">
               <span className="dashboard-menu-subtab" name="private" onClick={handleSubTabClick}>Private</span>
               <span className="dashboard-menu-subtab" name="public" onClick={handleSubTabClick}>Public</span>
@@ -48,7 +47,6 @@ const UserDashboard = props => {
               <span className="dashboard-menu-subtab" name="saved" onClick={handleSubTabClick}>Saved</span>
             </div>
           )
-          : false
         }
 
         {/* content */}
@@ -218,6 +216,7 @@ const UserDashboard = props => {
 
 const mapStateToProps = state => ({
   authname: state.auth.authname,
+  myPlans: state.data.myPlans,
   myPublicRecipes: state.data.myPublicRecipes,
   myPrivateEquipment: state.data.myPrivateEquipment,
   myPrivateIngredients: state.data.myPrivateIngredients,

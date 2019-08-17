@@ -140,3 +140,13 @@ export const dataGetMySavedRecipes = mySavedRecipes => ({
 });
 export const dataGetMySavedRecipesSucceeded = () => ({type: actionTypes.DATA_GET_MY_SAVED_RECIPES_SUCCEEDED});
 export const dataGetMySavedRecipesFailed = () => ({type: actionTypes.DATA_GET_MY_SAVED_RECIPES_FAILED});
+
+
+
+// my plans
+export const dataGetMyPlans = myPlans => ({
+  type: actionTypes.DATA_GET_MY_PLANS,
+  myPlans
+});
+export const dataGetMyPlansSucceeded = () => ({type: actionTypes.DATA_GET_MY_PLANS_SUCCEEDED});
+export const dataGetMyPlansFailed = () => ({type: actionTypes.DATA_GET_MY_PLANS_FAILED});

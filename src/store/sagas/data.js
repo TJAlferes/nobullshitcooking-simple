@@ -49,7 +49,10 @@ import {
   dataGetMyFavoriteRecipesFailed,
   dataGetMySavedRecipes,
   dataGetMySavedRecipesSucceeded,
-  dataGetMySavedRecipesFailed
+  dataGetMySavedRecipesFailed,
+  dataGetMyPlans,
+  dataGetMyPlansSucceeded,
+  dataGetMyPlansFailed
 } from '../actions/index';
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
@@ -280,5 +283,21 @@ export function* dataGetMySavedRecipesSaga() {
     yield put(dataGetMySavedRecipesSucceeded());
   } catch (err) {
     yield put(dataGetMySavedRecipesFailed());
+  }
+}
+
+
+
+export function* dataGetMyPlansSaga() {
+  try {
+    const res = yield axios.post(
+      `${endpoint}/user/plan/all`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetMyPlans(res.data));
+    yield put(dataGetMyPlansSucceeded());
+  } catch (err) {
+    yield put(dataGetMyPlansFailed());
   }
 }

@@ -131,5 +131,8 @@ export {
   dataGetMyFavoriteRecipesFailed,
   dataGetMySavedRecipes,
   dataGetMySavedRecipesSucceeded,
-  dataGetMySavedRecipesFailed
+  dataGetMySavedRecipesFailed,
+  dataGetMyPlans,
+  dataGetMyPlansSucceeded,
+  dataGetMyPlansFailed
 } from './data';
