@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import LeftNav from '../../LeftNav/LeftNav';
-//import './userDashboard.css';
+import './userDashboard.css';
 
 const UserDashboard = props => {
   const [ tab, setTab ] = useState("recipes");
@@ -68,7 +68,7 @@ const UserDashboard = props => {
                 ? props.myPlans.map(plan => (
                   <div key={plan.plan_id}>
                     <span>{plan.plan_name}</span>
-                    <span>View/Edit</span>
+                    <span><Link to={`user/recipes/${recipe.recipe_id}`}>View/Edit</Link></span>
                     <span>Delete</span>
                   </div>
                 ))
