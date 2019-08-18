@@ -32,6 +32,10 @@ import {
   dataGetMyPlansSaga
 } from './data';
 import {
+  userCreateNewPrivateEquipmentSaga,
+
+} from './user';
+import {
   messengerChangeChannelSaga,
   messengerSendMessageSaga
 } from './messenger';
@@ -75,6 +79,30 @@ export function* watchData() {
     takeEvery(actionTypes.DATA_INIT, dataGetCuisinesSaga),
     takeEvery(actionTypes.DATA_INIT, dataGetMethodsSaga),
     takeEvery(actionTypes.DATA_INIT, dataGetPublicRecipesSaga)
+  ]);
+}
+
+export function* watchUser() {
+  yield all([
+    takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT, userCreateNewPrivateEquipmentSaga),
+    takeEvery(actionTypes.USER_EDIT_PRIVATE_EQUIPMENT),
+    takeEvery(actionTypes.USER_DELETE_PRIVATE_EQUIPMENT),
+    takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT),
+    takeEvery(actionTypes.USER_EDIT_PRIVATE_INGREDIENT),
+    takeEvery(actionTypes.USER_DELETE_PRIVATE_INGREDIENT),
+    takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE),
+    takeEvery(actionTypes.USER_EDIT_PRIVATE_RECIPE),
+    takeEvery(actionTypes.USER_DELETE_PRIVATE_RECIPE),
+    takeEvery(actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE),
+    takeEvery(actionTypes.USER_EDIT_PUBLIC_RECIPE),
+    takeEvery(actionTypes.USER_DISOWN_PUBLIC_RECIPE),
+    takeEvery(actionTypes.USER_CREATE_NEW_PLAN),
+    takeEvery(actionTypes.USER_EDIT_PLAN),
+    takeEvery(actionTypes.USER_DELETE_PLAN),
+    takeEvery(actionTypes.USER_FAVORITE_RECIPE),
+    takeEvery(actionTypes.USER_UNFAVORITE_RECIPE),
+    takeEvery(actionTypes.USER_SAVE_RECIPE),
+    takeEvery(actionTypes.USER_UNSAVE_RECIPE)
   ]);
 }
 
