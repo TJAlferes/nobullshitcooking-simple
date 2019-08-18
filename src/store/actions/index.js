@@ -134,7 +134,10 @@ export {
   dataGetMySavedRecipesFailed,
   dataGetMyPlans,
   dataGetMyPlansSucceeded,
-  dataGetMyPlansFailed
+  dataGetMyPlansFailed,
+  dataGetMyFriendships,
+  dataGetMyFriendshipsSucceeded,
+  dataGetMyFriendshipsFailed
 } from './data';
 
 export {
@@ -195,5 +198,23 @@ export {
   userSaveRecipeFailed,
   userUnsaveRecipe,
   userUnsaveRecipeSucceeded,
-  userUnsaveRecipeFailed
+  userUnsaveRecipeFailed,
+  userRequestFriendship,
+  userRequestFriendshipSucceeded,
+  userRequestFriendshipFailed,
+  userAcceptFriendship,
+  userAcceptFriendshipSucceeded,
+  userAcceptFriendshipFailed,
+  userRejectFriendship,
+  userRejectFriendshipSucceeded,
+  userRejectFriendshipFailed,
+  userDeleteFriendship,
+  userDeleteFriendshipSucceeded,
+  userDeleteFriendshipFailed,
+  userBlockUser,
+  userBlockUserSucceeded,
+  userBlockUserFailed,
+  userUnblockUser,
+  userUnblockUserSucceeded,
+  userUnblockUserFailed
 } from './user';

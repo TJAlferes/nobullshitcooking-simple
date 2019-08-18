@@ -150,3 +150,13 @@ export const dataGetMyPlans = myPlans => ({
 });
 export const dataGetMyPlansSucceeded = () => ({type: actionTypes.DATA_GET_MY_PLANS_SUCCEEDED});
 export const dataGetMyPlansFailed = () => ({type: actionTypes.DATA_GET_MY_PLANS_FAILED});
+
+
+
+// my friendships
+export const dataGetMyFriendships = myFriendships => ({
+  type: actionTypes.DATA_GET_MY_FRIENDSHIPS,
+  myFriendships
+});
+export const dataGetMyFriendshipsSucceeded = () => ({type: actionTypes.DATA_GET_MY_FRIENDSHIPS_SUCCEEDED});
+export const dataGetMyFriendshipsFailed = () => ({type: actionTypes.DATA_GET_MY_FRIENDSHIPS_FAILED});

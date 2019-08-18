@@ -281,3 +281,89 @@ export const userUnsaveRecipeFailed = message => ({
   type: actionTypes.USER_UNSAVE_RECIPE_FAILED,
   message
 });
+
+
+
+// request friendship
+export const userRequestFriendship = friendName => ({
+  type: actionTypes.USER_REQUEST_FRIENDSHIP,
+  friendName
+});
+export const userRequestFriendshipSucceeded = message => ({
+  type: actionTypes.USER_REQUEST_FRIENDSHIP_SUCCEEDED,
+  message
+});
+export const userRequestFriendshipFailed = message => ({
+  type: actionTypes.USER_REQUEST_FRIENDSHIP_FAILED,
+  message
+});
+
+// accept friendship
+export const userAcceptFriendship = friendName => ({
+  type: actionTypes.USER_ACCEPT_FRIENDSHIP,
+  friendName
+});
+export const userAcceptFriendshipSucceeded = message => ({
+  type: actionTypes.USER_ACCEPT_FRIENDSHIP_SUCCEEDED,
+  message
+});
+export const userAcceptFriendshipFailed = message => ({
+  type: actionTypes.USER_ACCEPT_FRIENDSHIP_FAILED,
+  message
+});
+
+// reject friendship
+export const userRejectFriendship = friendName => ({
+  type: actionTypes.USER_REJECT_FRIENDSHIP,
+  friendName
+});
+export const userRejectFriendshipSucceeded = message => ({
+  type: actionTypes.USER_REJECT_FRIENDSHIP_SUCCEEDED,
+  message
+});
+export const userRejectFriendshipFailed = message => ({
+  type: actionTypes.USER_REJECT_FRIENDSHIP_FAILED,
+  message
+});
+
+// delete friendship
+export const userDeleteFriendship = friendName => ({
+  type: actionTypes.USER_DELETE_FRIENDSHIP,
+  friendName
+});
+export const userDeleteFriendshipSucceeded = message => ({
+  type: actionTypes.USER_DELETE_FRIENDSHIP_SUCCEEDED,
+  message
+});
+export const userDeleteFriendshipFailed = message => ({
+  type: actionTypes.USER_DELETE_FRIENDSHIP_FAILED,
+  message
+});
+
+// block user
+export const userBlockUser = friendName => ({
+  type: actionTypes.USER_BLOCK_USER,
+  friendName
+});
+export const userBlockUserSucceeded = message => ({
+  type: actionTypes.USER_BLOCK_USER_SUCCEEDED,
+  message
+});
+export const userBlockUserFailed = message => ({
+  type: actionTypes.USER_BLOCK_USER_FAILED,
+  message
+});
+
+// unblock user
+export const userUnblockUser = friendName => ({
+  type: actionTypes.USER_UNBLOCK_USER,
+  friendName
+});
+export const userUnblockUserSucceeded = message => ({
+  type: actionTypes.USER_UNBLOCK_USER_SUCCEEDED,
+  message
+});
+export const userUnblockUserFailed = message => ({
+  type: actionTypes.USER_UNBLOCK_USER_FAILED,
+  message
+});
