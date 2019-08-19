@@ -14,7 +14,7 @@ const Ingredient = props => {
 
   const getIngredient = async (id) => {
     try {
-      const res = await axios.get(`${endpoint}/ingredient/${id}`);
+      const res = await axios.get(`${endpoint}/ingredient/${id}`);  // ALREADY LOADED, GRAB FROM REDUX
       const row = res.data;
       setIngredient(row);
     } catch (err) {

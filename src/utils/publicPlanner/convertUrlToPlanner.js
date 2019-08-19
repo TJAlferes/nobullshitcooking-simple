@@ -1,13 +1,8 @@
 import axios from 'axios';
 const uuidv4 = require('uuid/v4');
 
-// TO DO: move all these to util
-let endpoint;
-if (process.env.NODE_ENV === "production") {
-  endpoint = 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com';
-} else {
-  endpoint = 'http://localhost:3003';
-}
+import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
+const endpoint = NOBSCBackendAPIEndpointOne;
 
 /*
 We could have done the following with one large regex,
