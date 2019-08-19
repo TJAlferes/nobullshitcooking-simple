@@ -107,33 +107,64 @@ export function* watchData() {
   ]);
 }
 
-export function* watchUser() {
+export function* watchUser() {  // please break this down
   yield all([
     takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT, userCreateNewPrivateEquipmentSaga),
+    takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED, dataGetMyPrivateEquipmentsSaga),
     takeEvery(actionTypes.USER_EDIT_PRIVATE_EQUIPMENT, userEditPrivateEquipmentSaga),
+    takeEvery(actionTypes.USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED, dataGetMyPrivateEquipmentsSaga),
     takeEvery(actionTypes.USER_DELETE_PRIVATE_EQUIPMENT, userDeletePrivateEquipmentSaga),
+    takeEvery(actionTypes.USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED, dataGetMyPrivateEquipmentsSaga),
+
     takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT, userCreateNewPrivateIngredientSaga),
+    takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED, dataGetMyPrivateIngredientsSaga),
     takeEvery(actionTypes.USER_EDIT_PRIVATE_INGREDIENT, userEditPrivateIngredientSaga),
+    takeEvery(actionTypes.USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED, dataGetMyPrivateIngredientsSaga),
     takeEvery(actionTypes.USER_DELETE_PRIVATE_INGREDIENT, userDeletePrivateIngredientSaga),
+    takeEvery(actionTypes.USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED, dataGetMyPrivateIngredientsSaga),
+
     takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE, userCreateNewPrivateRecipeSaga),
+    takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED, dataGetMyPrivateRecipesSaga),
     takeEvery(actionTypes.USER_EDIT_PRIVATE_RECIPE, userEditPrivateRecipeSaga),
+    takeEvery(actionTypes.USER_EDIT_PRIVATE_RECIPE_SUCCEEDED, dataGetMyPrivateRecipesSaga),
     takeEvery(actionTypes.USER_DELETE_PRIVATE_RECIPE, userDeletePrivateRecipeSaga),
+    takeEvery(actionTypes.USER_DELETE_PRIVATE_RECIPE_SUCCEEDED, dataGetMyPrivateRecipesSaga),
+
     takeEvery(actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE, userCreateNewPublicRecipeSaga),
+    takeEvery(actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED, dataGetMyPublicRecipesSaga),
     takeEvery(actionTypes.USER_EDIT_PUBLIC_RECIPE, userEditPublicRecipeSaga),
+    takeEvery(actionTypes.USER_EDIT_PUBLIC_RECIPE_SUCCEEDED, dataGetMyPublicRecipesSaga),
     takeEvery(actionTypes.USER_DISOWN_PUBLIC_RECIPE, userDisownPublicRecipeSaga),
+    takeEvery(actionTypes.USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED, dataGetMyPublicRecipesSaga),
+
     takeEvery(actionTypes.USER_CREATE_NEW_PLAN, userCreateNewPlanSaga),
+    takeEvery(actionTypes.USER_CREATE_NEW_PLAN_SUCCEEDED, dataGetMyPlansSaga),
     takeEvery(actionTypes.USER_EDIT_PLAN, userEditPlanSaga),
+    takeEvery(actionTypes.USER_EDIT_PLAN_SUCCEEDED, dataGetMyPlansSaga),
     takeEvery(actionTypes.USER_DELETE_PLAN, userDeletePlanSaga),
+    takeEvery(actionTypes.USER_DELETE_PLAN_SUCCEEDED, dataGetMyPlansSaga),
+
     takeEvery(actionTypes.USER_FAVORITE_RECIPE, userFavoriteRecipeSaga),
+    takeEvery(actionTypes.USER_FAVORITE_RECIPE_SUCCEEDED, dataGetMyFavoriteRecipesSaga),
     takeEvery(actionTypes.USER_UNFAVORITE_RECIPE, userUnfavoriteRecipeSaga),
+    takeEvery(actionTypes.USER_UNFAVORITE_RECIPE_SUCCEEDED, dataGetMyFavoriteRecipesSaga),
+
     takeEvery(actionTypes.USER_SAVE_RECIPE, userSaveRecipeSaga),
+    takeEvery(actionTypes.USER_SAVE_RECIPE_SUCCEEDED, dataGetMySavedRecipesSaga),
     takeEvery(actionTypes.USER_UNSAVE_RECIPE, userUnsaveRecipeSaga),
+    takeEvery(actionTypes.USER_UNSAVE_RECIPE_SUCCEEDED, dataGetMySavedRecipesSaga),
+
     takeEvery(actionTypes.USER_REQUEST_FRIENDSHIP, userRequestFriendshipSaga),
     takeEvery(actionTypes.USER_ACCEPT_FRIENDSHIP, userAcceptFriendshipSaga),
+    takeEvery(actionTypes.USER_ACCEPT_FRIENDSHIP_SUCCEEDED, dataGetMyFriendshipsSaga),
     takeEvery(actionTypes.USER_REJECT_FRIENDSHIP, userRejectFriendshipSaga),
+    takeEvery(actionTypes.USER_REJECT_FRIENDSHIP_SUCCEEDED, dataGetMyFriendshipsSaga),
     takeEvery(actionTypes.USER_DELETE_FRIENDSHIP, userDeleteFriendshipSaga),
+    takeEvery(actionTypes.USER_DELETE_FRIENDSHIP_SUCCEEDED, dataGetMyFriendshipsSaga),
     takeEvery(actionTypes.USER_BLOCK_USER, userBlockUserSaga),
-    takeEvery(actionTypes.USER_UNBLOCK_USER, userUnblockUserSaga)
+    takeEvery(actionTypes.USER_BLOCK_USER_SUCCEEDED, dataGetMyFriendshipsSaga),
+    takeEvery(actionTypes.USER_UNBLOCK_USER, userUnblockUserSaga),
+    takeEvery(actionTypes.USER_UNBLOCK_USER_SUCCEEDED, dataGetMyFriendshipsSaga)
   ]);
 }
 
