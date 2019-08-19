@@ -12,7 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import { dataInit } from './store/actions/index';
 import rootReducer from './store/reducers/index';
-import { watchAuth, watchData, watchMessenger, watchPlanner } from './store/sagas/index';
+import { watchAuth, watchData, watchUser, watchMessenger, watchPlanner } from './store/sagas/index';
 import App from './App';
 import './global.css';
 //import './main.css';
@@ -36,6 +36,7 @@ const store = createStore(
 
 sagaMiddleware.run(watchAuth);
 sagaMiddleware.run(watchData);
+sagaMiddleware.run(watchUser);
 //sagaMiddleware.run(watchMessenger);
 sagaMiddleware.run(watchPlanner);
 

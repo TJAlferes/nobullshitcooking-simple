@@ -1,82 +1,109 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
+import {
+  userRequestFriendship,
+  userAcceptFriendship,
+  userRejectFriendship,
+  userDeleteFriendship,
+  userBlockUser,
+  userUnblockUser
+} from '../../../store/actions/index';
 import LeftNav from '../../LeftNav/LeftNav';
 import './userFriends.css';
 
-import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
-
 const UserFriends = props => {
-  const [ flashMessage, setFlashMessage ] = useState("");
-  const [ isLoading, setIsLoading ] = useState(false);
-  const [ userToFind, setUsertoFind ] = useState("");
-  const [ friends, setFriends ] = useState([]);
+  const [ loading, setLoading ] = useState(false);
   const [ tab, setTab ] = useState("accepted");
+  const [ userToFind, setUsertoFind ] = useState("");
 
-  useEffect(() => {
-    const getFriends = async () => {
-      const res = await axios.post(`${NOBSCBackendAPIEndpointOne}/friendship`);
-      setFriends(res.data);
-    };
-    getFriends();
-  }, []);
+  const handleCurrentTabClick = () => setTab("accepted");
+
+  const handlePendingTabClick = () => setTab("pending");
+
+  const handleBlockedTabClick = () => setTab("blocked");
 
   const handleFindUserInputChange = e => {
     const username = e.target.value;
     setUsertoFind(username);
   };
 
-  const handleFriendRequestClick = async () => {
+  const handleFriendRequestClick = () => {
     const friendName = userToFind;
-    setIsLoading(true);
-    const res = await axios.post(`${NOBSCBackendAPIEndpointOne}/friendship/create`, {friendName});
-    setFlashMessage(res.data);
-    setIsLoading(false);
-  };
-
-  const handleUserBlockClick = async () => {
-    const friendName = userToFind;
-    setIsLoading(true);
-    const res = await axios.post(`${NOBSCBackendAPIEndpointOne}/friendship/block`, {friendName});
-    setFlashMessage(res.data);
-    setIsLoading(false);
-  };
-
-  const handleCurrentTabClick = () => {
-    setTab("accepted");
-  };
-
-  const handlePendingTabClick = () => {
-    setTab("pending");
-  };
-
-  const handleBlockedTabClick = () => {
-    setTab("blocked");
-  };
-
-  const handleFriendAcceptClick = async (e) => {
-    const friendName = e.target.value;
-    setIsLoading(true);
-    const res = await axios.post(`${NOBSCBackendAPIEndpointOne}/friendship/accept`, {friendName});
-    setFlashMessage(res.data);
-    setIsLoading(false);
-  };
-
-  const handleFriendDeleteClick = async (e) => {
-    const friendName = e.target.value;
-    setIsLoading(true);
-    const res = await axios.post(`${NOBSCBackendAPIEndpointOne}/friendship/delete`, {friendName});
-    setFlashMessage(res.data);
-    setIsLoading(false);
-  };
-
-  const Flash = (timeout = 3000, message) => {
-    if (message !== "") {
-      setTimeout(() => {
-        setFlashMessage("");
-      }, timeout);
-      return <span className="flash">{message}</span>
+    setLoading(true);
+    try {
+      props.userRequestFriendship(friendName);
+    } catch(err) {
+      setLoading(false);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
     }
-    return false;
+  };
+
+  const handleFriendAcceptClick = e => {
+    const friendName = e.target.value;
+    setLoading(true);
+    try {
+      props.userAcceptFriendship(friendName);
+    } catch(err) {
+      setLoading(false);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleFriendRejectClick = e => {
+    const friendName = e.target.value;
+    setLoading(true);
+    try {
+      props.userRejectFriendship(friendName);
+    } catch(err) {
+      setLoading(false);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleFriendDeleteClick = e => {
+    const friendName = e.target.value;
+    setLoading(true);
+    try {
+      props.userBlockUser(friendName);
+    } catch(err) {
+      setLoading(false);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUserBlockClick = () => {
+    const friendName = userToFind;
+    setLoading(true);
+    try {
+      props.userBlockUser(friendName);
+    } catch(err) {
+      setLoading(false);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUserUnblockClick = () => {
+    const friendName = e.target.value;
+    setLoading(true);
+    try {
+      props.userUnblockUser(friendName);
+    } catch(err) {
+      setLoading(false);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -85,23 +112,24 @@ const UserFriends = props => {
       <LeftNav />
 
       <section>
-        <Flash message={flashMessage} />
 
         <h1>Friends</h1>
+
+        <p className="error-message">{props.userMessage}</p>
 
         <div className="friends-find">
           <label htmlFor="friends-find-user">Username:</label>
           <input name="friends-find-user" value={userToFind} onChange={handleFindUserInputChange} />
           <button
             className="friends-find-action"
-            disabled={isLoading}
+            disabled={loading}
             onClick={handleFriendRequestClick}
           >
             Send Friend Request
           </button>
           <button
             className="friends-find-action"
-            disabled={isLoading}
+            disabled={loading}
             onClick={handleUserBlockClick}
           >
             Block User
@@ -131,7 +159,7 @@ const UserFriends = props => {
 
         <div className="friends-list">
           {
-            friends
+            props.dataMyFriendships
             .filter(friend => friend.status === tab)
             .map(friend => (
               <div className="friends-list-item">
@@ -145,7 +173,8 @@ const UserFriends = props => {
                   (friend.status === "pending") &&
                   <button
                     className="friends-list-item-action"
-                    disabled={isLoading}
+                    disabled={loading}
+                    value={friend.username}
                     onClick={handleFriendAcceptClick}
                   >
                     Accept
@@ -155,8 +184,9 @@ const UserFriends = props => {
                   (friend.status === "pending") &&
                   <button
                     className="friends-list-item-action"
-                    disabled={isLoading}
-                    onClick={handleFriendDeleteClick}
+                    disabled={loading}
+                    value={friend.username}
+                    onClick={handleFriendRejectClick}
                   >
                     Reject
                   </button>
@@ -165,7 +195,8 @@ const UserFriends = props => {
                   (friend.status === "accepted") &&
                   <button
                     className="friends-list-item-action"
-                    disabled={isLoading}
+                    disabled={loading}
+                    value={friend.username}
                     onClick={handleFriendDeleteClick}
                   >
                     Unfriend
@@ -175,8 +206,9 @@ const UserFriends = props => {
                   (friend.status === "blocked") &&
                   <button
                     className="friends-list-item-action"
-                    disabled={isLoading}
-                    onClick={handleFriendDeleteClick}
+                    disabled={loading}
+                    value={friend.username}
+                    onClick={handleUserUnblockClick}
                   >
                     Unblock
                   </button>
@@ -191,4 +223,18 @@ const UserFriends = props => {
   );
 };
 
-export default UserFriends;
+const mapStateToProps = state => ({
+  dataMyFriendships: state.data.myFriendships,
+  userMessage: state.user.message
+});
+
+const mapDispatchToProps = dispatch => ({
+  userRequestFriendship: friendName => dispatch(userRequestFriendship(friendName)),
+  userAcceptFriendship: friendName => dispatch(userAcceptFriendship(friendName)),
+  userRejectFriendship: friendName => dispatch(userRejectFriendship(friendName)),
+  userDeleteFriendship: friendName => dispatch(userDeleteFriendship(friendName)),
+  userBlockUser: friendName => dispatch(userBlockUser(friendName)),
+  userUnblockUser: friendName => dispatch(userUnblockUser(friendName))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserFriends);

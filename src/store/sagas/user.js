@@ -540,7 +540,7 @@ friendship
 
 */
 
-export function* userRequestFriendshipSaga() {
+export function* userRequestFriendshipSaga(action) {
   try {
     const res = yield axios.post(
       `${endpoint}/user/friendship/create`,
@@ -562,7 +562,7 @@ export function* userRequestFriendshipSaga() {
   }
 }
 
-export function* userAcceptFriendshipSaga() {
+export function* userAcceptFriendshipSaga(action) {
   try {
     const res = yield axios.put(
       `${endpoint}/user/friendship/accept`,
@@ -584,7 +584,7 @@ export function* userAcceptFriendshipSaga() {
   }
 }
 
-export function* userRejectFriendshipSaga() {
+export function* userRejectFriendshipSaga(action) {
   try {
     const res = yield axios.put(
       `${endpoint}/user/friendship/reject`,
@@ -606,7 +606,7 @@ export function* userRejectFriendshipSaga() {
   }
 }
 
-export function* userDeleteFriendshipSaga() {
+export function* userDeleteFriendshipSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/friendship/delete`,
@@ -628,7 +628,7 @@ export function* userDeleteFriendshipSaga() {
   }
 }
 
-export function* userBlockUserSaga() {
+export function* userBlockUserSaga(action) {
   try {
     const res = yield axios.post(
       `${endpoint}/user/friendship/block`,
@@ -650,7 +650,7 @@ export function* userBlockUserSaga() {
   }
 }
 
-export function* userUnblockUserSaga() {
+export function* userUnblockUserSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/friendship/unblock`,

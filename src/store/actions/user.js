@@ -106,7 +106,7 @@ export const userCreateNewPrivateRecipeFailed = message => ({
   message
 });
 
-// edit recipe
+// edit (private) recipe
 export const userEditPrivateRecipe = recipeInfo => ({
   type: actionTypes.USER_EDIT_PRIVATE_RECIPE,
   recipeInfo
@@ -120,7 +120,7 @@ export const userEditPrivateRecipeFailed = message => ({
   message
 });
 
-// delete recipe
+// delete (private) recipe
 export const userDeletePrivateRecipe = recipeId => ({
   type: actionTypes.USER_DELETE_PRIVATE_RECIPE,
   recipeId
@@ -150,21 +150,21 @@ export const userCreateNewPublicRecipeFailed = message => ({
   message
 });
 
-// edit recipe
-export const userEditPubicRecipe = recipeInfo => ({
+// edit (public) recipe
+export const userEditPublicRecipe = recipeInfo => ({
   type: actionTypes.USER_EDIT_PUBLIC_RECIPE,
   recipeInfo
 });
-export const userEditPubicRecipeSucceeded = message => ({
+export const userEditPublicRecipeSucceeded = message => ({
   type: actionTypes.USER_EDIT_PUBLIC_RECIPE_SUCCEEDED,
   message
 });
-export const userEditPubicRecipeFailed = message => ({
+export const userEditPublicRecipeFailed = message => ({
   type: actionTypes.USER_EDIT_PUBLIC_RECIPE_FAILED,
   message
 });
 
-// disown recipe
+// disown (public) recipe
 export const userDisownPublicRecipe = recipeId => ({
   type: actionTypes.USER_DISOWN_PUBLIC_RECIPE,
   recipeId

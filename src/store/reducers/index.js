@@ -5,6 +5,7 @@ import themeReducer from './theme';
 import menuReducer from './menu';
 import authReducer from './auth';
 import dataReducer from './data';
+import userReducer from './user';
 import plannerReducer from './planner';
 import messengerReducer from './messenger';
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   menu: menuReducer,
   auth: authReducer,
   data: dataReducer,
+  user: userReducer,
   planner: plannerReducer,
   messenger: messengerReducer,
 });
