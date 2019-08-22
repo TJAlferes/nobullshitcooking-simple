@@ -221,47 +221,92 @@ recipe (private)
 
 export function* userCreateNewPrivateRecipeSaga(action) {
   try {
+    let recipeImageUrl;
+    let recipeEquipmentImageUrl;
+    let recipeIngredientsImageUrl;
+    let recipeCookingImageUrl;
+    let useDefaultImage = {
+      recipe: false,
+      recipeEquipment: false,
+      recipeIngredients: false,
+      recipeCooking: false
+    };
+
     if (action.recipeInfo.recipeImage !== "") {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe`,
         {recipeInfo: action.recipeInfo.recipeImage},
         {withCredentials: true}
       );
+
+    } else {
+      useDefaultImage.recipe = true;
     }
+
     if (action.recipeInfo.recipeEquipmentImage !== "") {
       const res2 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-equipment`,
         {recipeInfo: action.recipeInfo.recipeEquipmentImage},
         {withCredentials: true}
       );
+
+    } else {
+      useDefaultImage.recipeEquipment = true;
     }
+
     if (action.recipeInfo.recipeIngredientsImage !== "") {
       const res3 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
         {recipeInfo: action.recipeInfo.recipeIngredientsImage},
         {withCredentials: true}
       );
+
+    } else {
+      useDefaultImage.recipeIngredients = true;
     }
+
     if (action.recipeInfo.recipeCookingImage !== "") {
       const res4 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-cooking`,
         {recipeInfo: action.recipeInfo.recipeCookingImage},
         {withCredentials: true}
       );
-    }
-    const res = yield axios.post(
-      `${endpoint}/user/recipe/create`,
-      {recipeInfo: action.recipeInfo},
-      {withCredentials: true}
-    );
-    if (res.data.message == 'Recipe created.') {
-      //yield put();  refresh/update respective list
-      yield put(userCreateNewPrivateRecipeSucceeded(res.data.message));
+      
     } else {
-      yield put(userCreateNewPrivateRecipeFailed(res.data.message));
+      useDefaultImage.recipeCooking = true;
     }
-    yield delay(4000);
-    yield put(userMessageClear());
+
+    if (
+      res1.data.success === true || &&
+      res2.data.success === true  &&
+      res3.data.success === true  &&
+      res4.data.success === true
+    ) {
+      const finalRecipeInfo = {
+        ...action.recipeInfo,
+        recipeImageUrl,
+        recipeEquipmentImageUrl,
+        recipeIngredientsImageUrl,
+        recipeCookingImageUrl
+      };
+
+      const res = yield axios.post(
+        `${endpoint}/user/recipe/create`,
+        {recipeInfo: finalRecipeInfo},
+        {withCredentials: true}
+      );
+
+      if (res.data.message == 'Recipe created.') {
+        //yield put();  refresh/update respective list
+        yield put(userCreateNewPrivateRecipeSucceeded(res.data.message));
+      } else {
+        yield put(userCreateNewPrivateRecipeFailed(res.data.message));
+      }
+      yield delay(4000);
+      yield put(userMessageClear());
+    } else {
+      yield put(userCreateNewPrivateRecipeFailed('An error occurred. Please try again.'));
+    }
   } catch(err) {
     yield put(userCreateNewPrivateRecipeFailed('An error occurred. Please try again.'));
     yield delay(4000);

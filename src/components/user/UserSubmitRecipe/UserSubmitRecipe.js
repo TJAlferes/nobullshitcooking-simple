@@ -194,9 +194,7 @@ const UserSubmitRecipe = props => {
       (directions !== "")
     );
   };
-
-
-
+  
   const getCheckedMethods = () => {
     let checkedMethods = [];
     Object.entries(methods).forEach(([key, value]) => {
