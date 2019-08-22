@@ -216,5 +216,8 @@ export {
   userBlockUserFailed,
   userUnblockUser,
   userUnblockUserSucceeded,
-  userUnblockUserFailed
+  userUnblockUserFailed,
+  userSubmitAvatar,
+  userSubmitAvatarSucceeded,
+  userSubmitAvatarFailed
 } from './user';

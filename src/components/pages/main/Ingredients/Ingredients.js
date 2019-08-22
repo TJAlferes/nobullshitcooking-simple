@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 import './ingredients.css';
-
-import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEndpointOne';
-const endpoint = NOBSCBackendAPIEndpointOne;
 
 const Ingredients = props => {
   const [ ingredients, setIngredients ] = useState([]);
@@ -211,4 +208,10 @@ const Ingredients = props => {
   );
 }
 
-export default Ingredients;
+
+const mapStateToProps = state => ({
+  dataIngredients: state.data.ingredients,
+  dataIngredientTypes: state.data.ingredientTypes
+});
+
+export default connect(mapStateToProps)(Ingredients);

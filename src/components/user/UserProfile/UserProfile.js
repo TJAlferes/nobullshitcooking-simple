@@ -10,6 +10,7 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 const UserProfile = props => {
   const [ loading, setLoading ] = useState(false);
+  const [ clicked, setClicked ] = useState(false);
   const [ tab, setTab ] = useState("favorite");
   const [ userProfile, setUserProfile ] = useState({});
 
@@ -50,7 +51,10 @@ const UserProfile = props => {
         props.isAuthenticated &&
         props.dataMyFriendships.filter(friend => friend.username === props.match.params.username)
         ? <span>Friends</span>
-        : <button onClick={handleFriendRequestClick}>Send Friend Request</button>
+        : (
+          !clicked ? <button onClick={handleFriendRequestClick}>Send Friend Request</button>
+          : <span>Friend Request Sent</span>
+        )
       }
 
       <div className="profile-list-menu-tabs">

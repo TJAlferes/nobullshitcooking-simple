@@ -57,7 +57,8 @@ import {
   userRejectFriendshipSaga,
   userDeleteFriendshipSaga,
   userBlockUserSaga,
-  userUnblockUserSaga
+  userUnblockUserSaga,
+  userSubmitAvatarSaga
 } from './user';
 import {
   messengerChangeChannelSaga,
@@ -164,7 +165,9 @@ export function* watchUser() {  // please break this down
     takeEvery(actionTypes.USER_BLOCK_USER, userBlockUserSaga),
     takeEvery(actionTypes.USER_BLOCK_USER_SUCCEEDED, dataGetMyFriendshipsSaga),
     takeEvery(actionTypes.USER_UNBLOCK_USER, userUnblockUserSaga),
-    takeEvery(actionTypes.USER_UNBLOCK_USER_SUCCEEDED, dataGetMyFriendshipsSaga)
+    takeEvery(actionTypes.USER_UNBLOCK_USER_SUCCEEDED, dataGetMyFriendshipsSaga),
+
+    takeEvery(actionTypes.USER_SUBMIT_AVATAR, userSubmitAvatarSaga),
   ]);
 }
 

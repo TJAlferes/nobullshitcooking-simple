@@ -2,12 +2,34 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import LeftNav from '../../LeftNav/LeftNav';
 import './userDashboard.css';
+import LeftNav from '../../LeftNav/LeftNav';
+import { userSubmitAvatar } from '../../../store/actions/index';
 
 const UserDashboard = props => {
+  const [ message, setMessage ] = useState("");
+  const [ loading, setLoading ] = useState(false);
+  const [ avatar, setAvatar ] = useState("");
+  const [ avatarName, setAvatarName ] = useState("Choose File");
   const [ tab, setTab ] = useState("recipes");
   const [ subTab, setSubTab ] = useState("private");
+
+  const handleAvatarEditChange = e => {
+    setAvatar = e.target.files[0];
+  };
+
+  const submitAvatar = () => {
+    setLoading(true);
+    try {
+      props.userSubmitAvatar(avatar);
+    } catch(err) {
+      setLoading(false);
+      setMessage(err.message);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleTabClick = e => {
     setTab(e.target.name);
@@ -25,6 +47,13 @@ const UserDashboard = props => {
       <section>
 
         <h1>{props.authname}</h1>
+
+        {/* avatar*/}
+        <div className="dashboard-avatar">
+          <label>Profile Picture</label>
+          <input name="set-avatar" type="file" accept="image/*" onChange={handleAvatarChange} />
+          <button name="submit-avatar" disabled={loading} onClick={submitAvatar}>Upload</button>
+        </div>
 
         {/* tabs */}
 

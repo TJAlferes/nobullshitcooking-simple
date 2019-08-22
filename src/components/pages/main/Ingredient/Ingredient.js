@@ -1,31 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import { IngredientBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './ingredient.css';
 
-import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEndpointOne';
-const endpoint = NOBSCBackendAPIEndpointOne;
-
 const Ingredient = props => {
-  const [ ingredient, setIngredient ] = useState({});
 
   // TODO: Redirect them to Ingredients if they only navigate to /ingredient (if there is no /:id)
 
-  const getIngredient = async (id) => {
-    try {
-      const res = await axios.get(`${endpoint}/ingredient/${id}`);  // ALREADY LOADED, GRAB FROM REDUX
-      const row = res.data;
-      setIngredient(row);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  useEffect(() => {
-    const { id } = props.match.params;
-    getIngredient(id);
-  }, []);
+  const { id } = props.match.params;
+  const ingredient = props.dataIngredients.find(ing => ing.ingredient_id === id);
 
   return (
     <div>
@@ -51,4 +35,8 @@ const Ingredient = props => {
   );
 }
 
-export default Ingredient;
+const mapStateToProps = state => ({
+  dataIngredients: state.data.ingredients
+});
+
+export default connect(mapStateToProps)(Ingredient);

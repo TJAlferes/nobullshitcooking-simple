@@ -52,7 +52,9 @@ import {
   userBlockUserSucceeded,
   userBlockUserFailed,
   userUnblockUserSucceeded,
-  userUnblockUserFailed
+  userUnblockUserFailed,
+  userSubmitAvatarSucceeded,
+  userSubmitAvatarFailed
 } from '../actions/index';
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
@@ -667,6 +669,35 @@ export function* userUnblockUserSaga(action) {
     yield put(userMessageClear());
   } catch(err) {
     yield put(userUnblockUserFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(userMessageClear());
+  }
+}
+
+
+
+/*
+
+avatar
+
+*/
+
+export function userSubmitAvatarSaga(action) {
+  try {
+    // 1. get signed url
+    const res1 = yield axios.post(
+      `${endpoint}/user/get-signed-url/avatar`,
+      {friendName: action.friendName},
+      {withCredentials: true}
+    );
+
+    // 2. upload image to s3
+    //const res2 = yield s3.putObject();
+
+    yield delay(4000);
+    yield put(userMessageClear());
+  } catch (err) {
+    yield put(userSubmitAvatarFailed('An error occurred. Please try again.'));
     yield delay(4000);
     yield put(userMessageClear());
   }

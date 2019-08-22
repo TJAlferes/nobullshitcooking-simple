@@ -367,3 +367,17 @@ export const userUnblockUserFailed = message => ({
   type: actionTypes.USER_UNBLOCK_USER_FAILED,
   message
 });
+
+// submit avatar
+export const userSubmitAvatar = avatar => ({
+  type: actionTypes.USER_SUBMIT_AVATAR,
+  avatar
+});
+export const userSubmitAvatarSucceeded = message => ({
+  type: actionTypes.USER_SUBMIT_AVATAR_SUCCEEDED,
+  message
+});
+export const userSubmitAvatarFailed = message => ({
+  type: actionTypes.USER_SUBMIT_AVATAR_FAILED,
+  message
+});
