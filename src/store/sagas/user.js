@@ -144,6 +144,9 @@ ingredient
 
 export function* userCreateNewPrivateIngredientSaga(action) {
   try {
+    if (action.needsRecipe)
+    const res1 = yield axios.post();
+
     const res = yield axios.post(
       `${endpoint}/user/ingredient/create`,
       {ingredientInfo: action.ingredientInfo},
@@ -218,6 +221,34 @@ recipe (private)
 
 export function* userCreateNewPrivateRecipeSaga(action) {
   try {
+    if (action.recipeInfo.recipeImage !== "") {
+      const res1 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe`,
+        {recipeInfo: action.recipeInfo.recipeImage},
+        {withCredentials: true}
+      );
+    }
+    if (action.recipeInfo.recipeEquipmentImage !== "") {
+      const res2 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-equipment`,
+        {recipeInfo: action.recipeInfo.recipeEquipmentImage},
+        {withCredentials: true}
+      );
+    }
+    if (action.recipeInfo.recipeIngredientsImage !== "") {
+      const res3 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-ingredients`,
+        {recipeInfo: action.recipeInfo.recipeIngredientsImage},
+        {withCredentials: true}
+      );
+    }
+    if (action.recipeInfo.recipeCookingImage !== "") {
+      const res4 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-cooking`,
+        {recipeInfo: action.recipeInfo.recipeCookingImage},
+        {withCredentials: true}
+      );
+    }
     const res = yield axios.post(
       `${endpoint}/user/recipe/create`,
       {recipeInfo: action.recipeInfo},
@@ -687,9 +718,10 @@ export function userSubmitAvatarSaga(action) {
     // 1. get signed url
     const res1 = yield axios.post(
       `${endpoint}/user/get-signed-url/avatar`,
-      {friendName: action.friendName},
+      {fileType: action.fileType},
       {withCredentials: true}
     );
+    const {  } = res1;
 
     // 2. upload image to s3
     //const res2 = yield s3.putObject();

@@ -1,48 +1,21 @@
-import React, { useEffect, useState } from 'react';
-//import axios from 'axios';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
+import './submitRecipe.css';
 import EquipmentRow from './EquipmentRow/EquipmentRow';
 import IngredientRow from './IngredientRow/IngredientRow';
 import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
 import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
 import LoaderButton from '../../LoaderButton/LoaderButton';
-import './submitRecipe.css';
-
-import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
-const endpoint = NOBSCBackendAPIEndpointOne;
+import {
+  userCreateNewPrivateRecipe,
+  userCreateNewPublicRecipe
+} from '../../../store/actions/index';
 
 const UserSubmitRecipe = props => {
   const [ message, setMessage ] = useState("");
-  const [ isLoading, setIsLoading ] = useState(false);
-  //const [ s3BucketUrl, setS3BucketUrl ] = useState("");  // needed?
-
-
-
-  /*
-
-  initial data fetched to assist the user
-
-  */
-
-  /*const [ dataRecipeTypes, setDataRecipeTypes ] = useState([]);
-  const [ dataCuisines, setDataCuisines ] = useState([]);
-  const [ dataRecipes, setDataRecipes ] = useState([]);
-  const [ dataEquipment, setDataEquipment ] = useState([]);
-  const [ dataMeasurements, setDataMeasurements ] = useState([]);
-  const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
-  const [ dataIngredients, setDataIngredients ] = useState([]);
-  const [ dataMethods, setDataMethods ] = useState([]);*/
-
-
-
-  /*
-
-  selections/inputs made by the user
-
-  */
-
+  const [ loading, setLoading ] = useState(false);
   const [ ownership, setOwnership ] = useState("");
   const [ recipeTypeId, setRecipeTypeId ] = useState("");
   const [ cuisineId, setCuisineId ] = useState("");
@@ -92,100 +65,14 @@ const UserSubmitRecipe = props => {
   ]);
   const [ recipeImage, setRecipeImage ] = useState("");
   const [ recipeImageName, setRecipeImageName ] = useState("Choose File");
-  const [ equipmentImage, setEquipmentImage ] = useState("");
+  const [ recipeEquipmentImage, setRecipeEquipmentImage ] = useState("");
   const [ equipmentImageName, setEquipmentImageName ] = useState("Choose File");
-  const [ ingredientsImage, setIngredientsImage ] = useState("");
+  const [ recipeIngredientsImage, setRecipeIngredientsImage ] = useState("");
   const [ ingredientsImageName, setIngredientsImageName ] = useState("Choose File");
-  const [ cookingImage, setCookingImage ] = useState("");
+  const [ recipeCookingImage, setRecipeCookingImage ] = useState("");
   const [ cookingImageName, setCookingImageName ] = useState("Choose File");
 
 
-
-  /*
-
-  fetch initial data to assist the user
-
-  */
-
-  /*useEffect(() => {
-    const fetchDataMethods = async () => {
-      const res = await axios.get(`${endpoint}/method`);
-      setDataMethods(res.data);
-    }
-    const fetchDataCuisines = async () => {
-      const res = await axios.get(`${endpoint}/cuisine`);
-      setDataCuisines(res.data);
-    };
-    const fetchDataRecipeTypes = async () => {
-      const res = await axios.get(`${endpoint}/recipe-type`);
-      setDataRecipeTypes(res.data);
-    };
-    const fetchDataIngredientTypes = async () => {
-      const res = await axios.get(`${endpoint}/ingredient-type/`);
-      setDataIngredientTypes(res.data);
-    };
-    const fetchDataMeasurements = async () => {
-      const res = await axios.get(`${endpoint}/measurement`);
-      setDataMeasurements(res.data);
-    };
-
-    const fetchPublicDataEquipment = async () => {
-      const res = await axios.get(`${endpoint}/equipment`);
-      setDataEquipment(res.data);
-    };
-    const fetchPublicDataIngredients = async () => {
-      const res = await axios.get(`${endpoint}/ingredient`);
-      setDataIngredients(res.data);
-    };
-    const fetchPublicDataRecipes = async () => {
-      const res = await axios.get(`${endpoint}/recipe`);  // differentiate between NOBSC and public user; for public user recipes, you'll soon need elasticsearch here, and favorited/saved
-      setDataRecipes(res.data);
-    };
-
-    fetchDataMethods();
-    fetchDataCuisines();
-    fetchDataRecipeTypes();
-    fetchDataIngredientTypes();
-    fetchDataMeasurements();
-
-    fetchPublicDataEquipment();
-    fetchPublicDataIngredients();
-    fetchPublicDataRecipes();
-  }, []);*/
-
-
-
-  /*
-
-  if needed, fetch private user data to assist the user
-
-  */
-
-  /*const fetchNeededPrivateData = () => {
-    const fetchPrivateDataEquipment = async () => {
-      const res = await axios.post(`${endpoint}/user/equipment/all`);
-      setDataEquipment(res.data);
-    };
-    const fetchPrivateDataIngredients = async () => {
-      const res = await axios.post(`${endpoint}/user/ingredient/all`);
-      setDataIngredients(res.data);
-    };
-    const fetchPrivateDataRecipes = async () => {
-      const res = await axios.post(`${endpoint}/user/recipe/all`);
-      setDataRecipes(res.data);
-    };
-    fetchPrivateDataEquipment();
-    fetchPrivateDataIngredients();
-    fetchPrivateDataRecipes();
-  };*/
-
-
-
-  /*
-
-  handle changes
-
-  */
 
   const handleOwnershipChange = async (e) => {
     if (ownership === "private" && e.target.value === "public") {
@@ -310,12 +197,6 @@ const UserSubmitRecipe = props => {
 
 
 
-  /*
-
-  handle submit
-
-  */
-
   const getCheckedMethods = () => {
     let checkedMethods = [];
     Object.entries(methods).forEach(([key, value]) => {
@@ -324,7 +205,7 @@ const UserSubmitRecipe = props => {
     return checkedMethods;
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const recipeInfo = {
       ownership,
       recipeTypeId,
@@ -337,20 +218,24 @@ const UserSubmitRecipe = props => {
       requiredIngredients: ingredientRows,
       requiredSubrecipes: subrecipeRows,
       recipeImage,
-      equipmentImage,
-      ingredientsImage,
-      cookingImage
+      recipeEquipmentImage,
+      recipeIngredientsImage,
+      recipeCookingImage
     };
-    // look to Login/Register for pattern here
+    setLoading(true);
+    try {
+      if (ownership === "private") props.userCreateNewPrivateRecipe(recipeInfo);
+      else if (ownership === "public") props.userCreateNewPublicRecipe(recipeInfo);
+    } catch(err) {
+      setLoading(false);
+      setMessage(err.message);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
 
-
-  /*
-
-  JSX
-
-  */
 
   return (
     <div className={`submit-recipe one-column-a ${props.oneColumnATheme}`}>
@@ -577,22 +462,22 @@ const UserSubmitRecipe = props => {
         <div className="image_div">
           <h2 className="red_style">Image of Finished Recipe</h2>
           <div className="recipe-image-preview"></div>
-          <input name="setRecipeImage" type="file" onChange={handleImageChange} />
+          <input name="setRecipeImage" type="file" accept="image/*" onChange={handleImageChange} />
         </div>
         <div className="image_div">
           <h2 className="red_style">Image of All Equipment</h2>
           <div className="recipe-image-preview"></div>
-          <input name="setEquipmentImage" type="file" onChange={handleImageChange} />
+          <input name="setRecipeEquipmentImage" type="file" accept="image/*" onChange={handleImageChange} />
         </div>
         <div className="image_div">
           <h2 className="red_style">Image of All Ingredients</h2>
           <div className="recipe-image-preview"></div>
-          <input name="setIngredientsImage" type="file" onChange={handleImageChange} />
+          <input name="setRecipeIngredientsImage" type="file" accept="image/*" onChange={handleImageChange} />
         </div>
         <div className="image_div">
           <h2 className="red_style">Image of Cooking In Action</h2>
           <div className="recipe-image-preview"></div>
-          <input name="setCookingImage" type="file" onChange={handleImageChange} />
+          <input name="setRecipeCookingImage" type="file" accept="image/*" onChange={handleImageChange} />
         </div>
       </div>
 
@@ -604,7 +489,7 @@ const UserSubmitRecipe = props => {
           name="submit"
           text="Submit Recipe"
           loadingText="Submitting Recipe..."
-          isLoading={isLoading}
+          isLoading={loading}
           disabled={!validate()}
           onClick={handleSubmit}
         />
@@ -631,4 +516,9 @@ const mapStateToProps = state => ({
   dataMyPrivateRecipes: state.data.myPrivateRecipes
 });
 
-export default connect(mapStateToProps)(UserSubmitRecipe);
+const mapDispatchToProps = dispatch => ({
+  userCreateNewPrivateRecipe: (recipeInfo) => dispatch(userCreateNewPrivateRecipe(recipeInfo)),
+  userCreateNewPublicRecipe: (recipeInfo) => dispatch(userCreateNewPublicRecipe(recipeInfo))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserSubmitRecipe);
