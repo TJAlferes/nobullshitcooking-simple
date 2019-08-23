@@ -70,11 +70,28 @@ equipment
 
 export function* userCreateNewPrivateEquipmentSaga(action) {
   try {
+    if (action.equipmentInfo.equipmentImage !== "") {
+      const res1 = yield axios.post(
+        `${endpoint}/user/get-signed-url/equipment`,
+        {fileType: action.equipmentInfo.equipmentImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.equipmentInfo.equipmentImage,
+        {headers: {'Content-Type': action.equipmentInfo.equipmentImage.type}}
+      );
+      action.equipmentInfo.equipmentImage = res1.data.url;
+    } else {
+      action.equipmentInfo.equipmentImage = 'nobsc-equipment-default';
+    }
+
     const res = yield axios.post(
       `${endpoint}/user/equipment/create`,
       {equipmentInfo: action.equipmentInfo},
       {withCredentials: true}
     );
+
     if (res.data.message == 'Equipment created.') {
       //yield put();  refresh/update respective list
       yield put(userCreateNewPrivateEquipmentSucceeded(res.data.message));
@@ -92,11 +109,27 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
 
 export function* userEditPrivateEquipmentSaga(action) {
   try {
+    // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
+    if (action.equipmentInfo.equipmentImage !== "") {
+      const res1 = yield axios.post(
+        `${endpoint}/user/get-signed-url/equipment`,
+        {fileType: action.equipmentInfo.equipmentImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.equipmentInfo.equipmentImage,
+        {headers: {'Content-Type': action.equipmentInfo.equipmentImage.type}}
+      );
+      action.equipmentInfo.equipmentImage = res1.data.url;
+    }
+
     const res = yield axios.put(
       `${endpoint}/user/equipment/update`,
       {equipmentInfo: action.equipmentInfo},
       {withCredentials: true}
     );
+
     if (res.data.message == 'Equipment updated.') {
       //yield put();  refresh/update respective list
       yield put(userEditPrivateEquipmentSucceeded(res.data.message));
@@ -144,14 +177,28 @@ ingredient
 
 export function* userCreateNewPrivateIngredientSaga(action) {
   try {
-    if (action.needsRecipe)
-    const res1 = yield axios.post();
+    if (action.ingredientInfo.ingredientImage !== "") {
+      const res1 = yield axios.post(
+        `${endpoint}/user/get-signed-url/ingredient`,
+        {fileType: action.ingredientInfo.ingredientImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.ingredientInfo.ingredientImage,
+        {headers: {'Content-Type': action.ingredientInfo.ingredientImage.type}}
+      );
+      action.ingredientInfo.ingredientImage = res1.data.url;
+    } else {
+      action.ingredientInfo.ingredientImage = 'nobsc-ingredient-default';
+    }
 
     const res = yield axios.post(
       `${endpoint}/user/ingredient/create`,
       {ingredientInfo: action.ingredientInfo},
       {withCredentials: true}
     );
+
     if (res.data.message == 'Ingredient created.') {
       //yield put();  refresh/update respective list
       yield put(userCreateNewPrivateIngredientSucceeded(res.data.message));
@@ -169,11 +216,27 @@ export function* userCreateNewPrivateIngredientSaga(action) {
 
 export function* userEditPrivateIngredientSaga(action) {
   try {
+    // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
+    if (action.ingredientInfo.ingredientImage !== "") {
+      const res1 = yield axios.post(
+        `${endpoint}/user/get-signed-url/ingredient`,
+        {fileType: action.ingredientInfo.ingredientImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.ingredientInfo.ingredientImage,
+        {headers: {'Content-Type': action.ingredientInfo.ingredientImage.type}}
+      );
+      action.ingredientInfo.ingredientImage = res1.data.url;
+    }
+
     const res = yield axios.put(
       `${endpoint}/user/ingredient/update`,
       {ingredientInfo: action.ingredientInfo},
       {withCredentials: true}
     );
+
     if (res.data.message == 'Ingredient updated.') {
       //yield put();  refresh/update respective list
       yield put(userEditPrivateIngredientSucceeded(res.data.message));
@@ -221,92 +284,84 @@ recipe (private)
 
 export function* userCreateNewPrivateRecipeSaga(action) {
   try {
-    let recipeImageUrl;
-    let recipeEquipmentImageUrl;
-    let recipeIngredientsImageUrl;
-    let recipeCookingImageUrl;
-    let useDefaultImage = {
-      recipe: false,
-      recipeEquipment: false,
-      recipeIngredients: false,
-      recipeCooking: false
-    };
-
     if (action.recipeInfo.recipeImage !== "") {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe`,
-        {recipeInfo: action.recipeInfo.recipeImage},
+        {fileType: action.recipeInfo.recipeImage.type},
         {withCredentials: true}
       );
-
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeImage.type}}
+      );
+      action.recipeInfo.recipeImage = res1.data.url;
     } else {
-      useDefaultImage.recipe = true;
+      action.recipeInfo.recipeImage = "nobsc-recipe-default";
     }
 
     if (action.recipeInfo.recipeEquipmentImage !== "") {
       const res2 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-equipment`,
-        {recipeInfo: action.recipeInfo.recipeEquipmentImage},
+        {fileType: action.recipeInfo.recipeEquipmentImage.type},
         {withCredentials: true}
       );
-
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeEquipmentImage.type}}
+      );
+      action.recipeInfo.recipeEquipmentImage = res2.data.url;
     } else {
-      useDefaultImage.recipeEquipment = true;
+      action.recipeInfo.recipeEquipmentImage = "nobsc-recipe-equipment-default";
     }
 
     if (action.recipeInfo.recipeIngredientsImage !== "") {
       const res3 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
-        {recipeInfo: action.recipeInfo.recipeIngredientsImage},
+        {fileType: action.recipeInfo.recipeIngredientsImage.type},
         {withCredentials: true}
       );
-
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeIngredientsImage.type}}
+      );
+      action.recipeInfo.recipeIngredientsImage = res3.data.url;
     } else {
-      useDefaultImage.recipeIngredients = true;
+      action.recipeInfo.recipeIngredientsImage = "nobsc-recipe-ingredients-default";
     }
 
     if (action.recipeInfo.recipeCookingImage !== "") {
       const res4 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-cooking`,
-        {recipeInfo: action.recipeInfo.recipeCookingImage},
+        {fileType: action.recipeInfo.recipeCookingImage.type},
         {withCredentials: true}
       );
-      
-    } else {
-      useDefaultImage.recipeCooking = true;
-    }
-
-    if (
-      res1.data.success === true || &&
-      res2.data.success === true  &&
-      res3.data.success === true  &&
-      res4.data.success === true
-    ) {
-      const finalRecipeInfo = {
-        ...action.recipeInfo,
-        recipeImageUrl,
-        recipeEquipmentImageUrl,
-        recipeIngredientsImageUrl,
-        recipeCookingImageUrl
-      };
-
-      const res = yield axios.post(
-        `${endpoint}/user/recipe/create`,
-        {recipeInfo: finalRecipeInfo},
-        {withCredentials: true}
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeCookingImage.type}}
       );
-
-      if (res.data.message == 'Recipe created.') {
-        //yield put();  refresh/update respective list
-        yield put(userCreateNewPrivateRecipeSucceeded(res.data.message));
-      } else {
-        yield put(userCreateNewPrivateRecipeFailed(res.data.message));
-      }
-      yield delay(4000);
-      yield put(userMessageClear());
+      action.recipeInfo.recipeCookingImage = res4.data.url;
     } else {
-      yield put(userCreateNewPrivateRecipeFailed('An error occurred. Please try again.'));
+      action.recipeInfo.recipeCookingImage = "nobsc-recipe-cooking-default";
     }
+
+    const res = yield axios.post(
+      `${endpoint}/user/recipe/create`,
+      {recipeInfo: action.recipeInfo},
+      {withCredentials: true}
+    );
+
+    if (res.data.message == 'Recipe created.') {
+      //yield put();  refresh/update respective list
+      yield put(userCreateNewPrivateRecipeSucceeded(res.data.message));
+    } else {
+      yield put(userCreateNewPrivateRecipeFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userCreateNewPrivateRecipeFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -314,13 +369,73 @@ export function* userCreateNewPrivateRecipeSaga(action) {
   }
 }
 
+
+
 export function* userEditPrivateRecipeSaga(action) {
   try {
+    // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
+    if (action.recipeInfo.recipeImage !== "") {
+      const res1 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe`,
+        {fileType: action.recipeInfo.recipeImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeImage.type}}
+      );
+      action.recipeInfo.recipeImage = res1.data.url;
+    }
+
+    if (action.recipeInfo.recipeEquipmentImage !== "") {
+      const res2 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-equipment`,
+        {fileType: action.recipeInfo.recipeEquipmentImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeEquipmentImage.type}}
+      );
+      action.recipeInfo.recipeEquipmentImage = res2.data.url;
+    }
+
+    if (action.recipeInfo.recipeIngredientsImage !== "") {
+      const res3 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-ingredients`,
+        {fileType: action.recipeInfo.recipeIngredientsImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeIngredientsImage.type}}
+      );
+      action.recipeInfo.recipeIngredientsImage = res3.data.url;
+    }
+
+    if (action.recipeInfo.recipeCookingImage !== "") {
+      const res4 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-cooking`,
+        {fileType: action.recipeInfo.recipeCookingImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeCookingImage.type}}
+      );
+      action.recipeInfo.recipeCookingImage = res4.data.url;
+    }
+
     const res = yield axios.put(
       `${endpoint}/user/recipe/update/private`,
       {recipeInfo: action.recipeInfo},
       {withCredentials: true}
     );
+
     if (res.data.message == 'Recipe updated.') {
       //yield put();  refresh/update respective list
       yield put(userEditPrivateRecipeSucceeded(res.data.message));
@@ -335,6 +450,8 @@ export function* userEditPrivateRecipeSaga(action) {
     yield put(userMessageClear());
   }
 }
+
+
 
 export function* userDeletePrivateRecipeSaga(action) {
   try {
@@ -368,11 +485,76 @@ recipe (public)
 
 export function* userCreateNewPublicRecipeSaga(action) {
   try {
+    if (action.recipeInfo.recipeImage !== "") {
+      const res1 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe`,
+        {fileType: action.recipeInfo.recipeImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeImage.type}}
+      );
+      action.recipeInfo.recipeImage = res1.data.url;
+    } else {
+      action.recipeInfo.recipeImage = "nobsc-recipe-default";
+    }
+
+    if (action.recipeInfo.recipeEquipmentImage !== "") {
+      const res2 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-equipment`,
+        {fileType: action.recipeInfo.recipeEquipmentImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeEquipmentImage.type}}
+      );
+      action.recipeInfo.recipeEquipmentImage = res2.data.url;
+    } else {
+      action.recipeInfo.recipeEquipmentImage = "nobsc-recipe-equipment-default";
+    }
+
+    if (action.recipeInfo.recipeIngredientsImage !== "") {
+      const res3 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-ingredients`,
+        {fileType: action.recipeInfo.recipeIngredientsImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeIngredientsImage.type}}
+      );
+      action.recipeInfo.recipeIngredientsImage = res3.data.url;
+    } else {
+      action.recipeInfo.recipeIngredientsImage = "nobsc-recipe-ingredients-default";
+    }
+
+    if (action.recipeInfo.recipeCookingImage !== "") {
+      const res4 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-cooking`,
+        {fileType: action.recipeInfo.recipeCookingImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeCookingImage.type}}
+      );
+      action.recipeInfo.recipeCookingImage = res4.data.url;
+    } else {
+      action.recipeInfo.recipeCookingImage = "nobsc-recipe-cooking-default";
+    }
+
     const res = yield axios.post(
       `${endpoint}/user/recipe/create`,
       {recipeInfo: action.recipeInfo},
       {withCredentials: true}
     );
+    
     if (res.data.message == 'Recipe created.') {
       //yield put();  refresh/update respective list
       yield put(userCreateNewPublicRecipeSucceeded(res.data.message));
@@ -388,13 +570,73 @@ export function* userCreateNewPublicRecipeSaga(action) {
   }
 }
 
+
+
 export function* userEditPublicRecipeSaga(action) {
   try {
+    // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
+    if (action.recipeInfo.recipeImage !== "") {
+      const res1 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe`,
+        {fileType: action.recipeInfo.recipeImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeImage.type}}
+      );
+      action.recipeInfo.recipeImage = res1.data.url;
+    }
+
+    if (action.recipeInfo.recipeEquipmentImage !== "") {
+      const res2 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-equipment`,
+        {fileType: action.recipeInfo.recipeEquipmentImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeEquipmentImage.type}}
+      );
+      action.recipeInfo.recipeEquipmentImage = res2.data.url;
+    }
+
+    if (action.recipeInfo.recipeIngredientsImage !== "") {
+      const res3 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-ingredients`,
+        {fileType: action.recipeInfo.recipeIngredientsImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeIngredientsImage.type}}
+      );
+      action.recipeInfo.recipeIngredientsImage = res3.data.url;
+    }
+
+    if (action.recipeInfo.recipeCookingImage !== "") {
+      const res4 = yield axios.post(
+        `${endpoint}/user/get-signed-url/recipe-cooking`,
+        {fileType: action.recipeInfo.recipeCookingImage.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.recipeInfo.recipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.recipeCookingImage.type}}
+      );
+      action.recipeInfo.recipeCookingImage = res4.data.url;
+    }
+
     const res = yield axios.put(
       `${endpoint}/user/recipe/update/public`,
       {recipeInfo: action.recipeInfo},
       {withCredentials: true}
     );
+    
     if (res.data.message == 'Recipe updated.') {
       //yield put();  refresh/update respective list
       yield put(userEditPublicRecipeSucceeded(res.data.message));
@@ -409,6 +651,8 @@ export function* userEditPublicRecipeSaga(action) {
     yield put(userMessageClear());
   }
 }
+
+
 
 export function* userDisownPublicRecipeSaga(action) {
   try {
@@ -760,16 +1004,36 @@ avatar
 
 export function userSubmitAvatarSaga(action) {
   try {
-    // 1. get signed url
-    const res1 = yield axios.post(
-      `${endpoint}/user/get-signed-url/avatar`,
-      {fileType: action.fileType},
+    let avatarUrl;
+
+    if (action.avatar !== "") {
+      const res1 = yield axios.post(
+        `${endpoint}/user/get-signed-url/avatar`,
+        {fileType: action.avatar.type},
+        {withCredentials: true}
+      );
+      yield axios.put(
+        res1.data.url,
+        action.avatar,
+        {headers: {'Content-Type': action.avatar.type}}
+      );
+      avatarUrl = res1.data.url;
+    } else {
+      avatarUrl = "nobsc-user-default";
+    }
+
+    const res = yield axios.post(
+      `${endpoint}/user/auth/set-avatar`,
+      {avatarUrl: avatarUrl},
       {withCredentials: true}
     );
-    const {  } = res1;
 
-    // 2. upload image to s3
-    //const res2 = yield s3.putObject();
+    if (res.data.message == 'Avatar set.') {
+      //yield put();  refresh/update respective list
+      yield put(userSubmitAvatarSucceeded(res.data.message));
+    } else {
+      yield put(userSubmitAvatarFailed(res.data.message));
+    }
 
     yield delay(4000);
     yield put(userMessageClear());
