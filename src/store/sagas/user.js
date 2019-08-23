@@ -1004,8 +1004,6 @@ avatar
 
 export function userSubmitAvatarSaga(action) {
   try {
-    let avatarUrl;
-
     if (action.avatar !== "") {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/avatar`,
@@ -1017,14 +1015,14 @@ export function userSubmitAvatarSaga(action) {
         action.avatar,
         {headers: {'Content-Type': action.avatar.type}}
       );
-      avatarUrl = res1.data.url;
+      action.avatar = res1.data.url;
     } else {
-      avatarUrl = "nobsc-user-default";
+      action.avatar = "nobsc-user-default";
     }
 
     const res = yield axios.post(
       `${endpoint}/user/auth/set-avatar`,
-      {avatarUrl: avatarUrl},
+      {avatar: action.avatar},
       {withCredentials: true}
     );
 
