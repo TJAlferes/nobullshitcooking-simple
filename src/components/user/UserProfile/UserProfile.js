@@ -12,7 +12,9 @@ const UserProfile = props => {
   const [ loading, setLoading ] = useState(false);
   const [ clicked, setClicked ] = useState(false);
   const [ tab, setTab ] = useState("favorite");
-  const [ userProfile, setUserProfile ] = useState({});
+  const [ userAvatar, setUserAvatar ] = useState("nobsc-user-default.png");
+  const [ userPublicRecipes, setUserPublicRecipes ]= useState([]);
+  const [ userFavoriteRecipes, setUserFavoriteRecipes ]= useState([]);
 
   // TODO: Redirect them to Home if they only navigate to /profile (if there is no /:username)
 
@@ -20,7 +22,9 @@ const UserProfile = props => {
     const { username } = props.match.params;
     const getUserProfile = async (username) => {
       const res = await axios.get(`${endpoint}/user/profile/${username}`);
-      setUserProfile(res.data);
+      setUserAvatar(res.data.avatar);
+      setUserPublicRecipes(res.data.publicRecipes);
+      setUserFavoriteRecipes(res.data.favoriteRecipes);
     }
     getUserProfile(username);
   }, []);
@@ -35,9 +39,11 @@ const UserProfile = props => {
     try {
       props.userRequestFriendship(username);
     } catch(err) {
+      setClicked(false);
       setLoading(false);
       console.log(err.message);
     } finally {
+      setClicked(true);
       setLoading(false);
     }
   };
@@ -45,16 +51,19 @@ const UserProfile = props => {
   return (
     <div className={`profile one-column-a ${props.oneColumnATheme}`}>
       <h1>{props.match.params.username}</h1>
-      <img src={`https://s3.amazonaws.com/nobsc-images-01/user/${props.match.params.username}/avatar.jpg`} />
+      <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${userAvatar}`} />
       
       {
-        props.isAuthenticated &&
-        props.dataMyFriendships.filter(friend => friend.username === props.match.params.username)
-        ? <span>Friends</span>
-        : (
-          !clicked ? <button onClick={handleFriendRequestClick}>Send Friend Request</button>
-          : <span>Friend Request Sent</span>
+        props.isAuthenticated
+        ? (
+          props.dataMyFriendships.filter(friend => friend.username === props.match.params.username)
+          ? <span>Friends</span>
+          : (
+            !clicked ? <button onClick={handleFriendRequestClick} disabled={loading}>Send Friend Request</button>
+            : <span>Friend Request Sent</span>
+          )
         )
+        : false
       }
 
       <div className="profile-list-menu-tabs">
@@ -73,26 +82,40 @@ const UserProfile = props => {
       </div>
 
       <div className="profile-list">
-        {tab === "favorite" && userProfile.favoriteRecipes.map(recipe => (
-          <div className="profile-list-item">
-            <span className="profile-list-item-image">
-              <img src={`https://s3.amazonaws.com/nobsc-images-01/user/${props.match.params.username}/avatar.jpg}`} />
-            </span>
-            <span className="profile-list-item-title">
-              {recipe.title}
-            </span>
-          </div>
-        ))}
-        {tab === "public" && userProfile.publicRecipes.map(recipe => (
-          <div className="profile-list-item">
-            <span className="profile-list-item-image">
-              <img src={`https://s3.amazonaws.com/nobsc-images-01/user/${props.match.params.username}/avatar.jpg}`} />
-            </span>
-            <span className="profile-list-item-title">
-              {recipe.title}
-            </span>
-          </div>
-        ))}
+        {
+          tab === "favorite" &&
+          userFavoriteRecipes.length
+          ? (
+            userFavoriteRecipes.map(recipe => (
+              <div className="profile-list-item">
+                <span className="profile-list-item-image">
+                  <img src={recipe.recipe_image} />
+                </span>
+                <span className="profile-list-item-title">
+                  {recipe.title}
+                </span>
+              </div>
+            ))
+          )
+          : <div>{props.match.params.username} hasn't favorited any recipes yet.</div>
+        }
+        {
+          tab === "public" &&
+          userPublicRecipes.length
+          ? (
+              userPublicRecipes.map(recipe => (
+              <div className="profile-list-item">
+                <span className="profile-list-item-image">
+                  <img src={recipe.recipe_image} />
+                </span>
+                <span className="profile-list-item-title">
+                  {recipe.title}
+                </span>
+              </div>
+            ))
+          )
+          : <div>{props.match.params.username} hasn't published any recipes yet.</div>
+        }
       </div>
     </div>
   );

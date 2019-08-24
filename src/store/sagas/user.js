@@ -1002,7 +1002,7 @@ avatar
 
 */
 
-export function userSubmitAvatarSaga(action) {
+export function* userSubmitAvatarSaga(action) {
   try {
     if (action.avatar !== "") {
       const res1 = yield axios.post(
@@ -1010,8 +1010,9 @@ export function userSubmitAvatarSaga(action) {
         {fileType: action.avatar.type},
         {withCredentials: true}
       );
+      console.log('signedRequest ', res1.data.signedRequest);
       yield axios.put(
-        res1.data.url,
+        res1.data.signedRequest,
         action.avatar,
         {headers: {'Content-Type': action.avatar.type}}
       );

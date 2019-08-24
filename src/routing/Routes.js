@@ -29,6 +29,8 @@ import Dashboard from '../components/demos/Dashboard/Dashboard';  // for demo pu
 const StaffDashboard = lazy(() => import('../components/staff/StaffDashboard/StaffDashboard'));
 const UserDashboard = lazy(() => import('../components/user/UserDashboard/UserDashboard'));
 
+const UserProfile = lazy(() => import('../components/user/UserProfile/UserProfile'));
+
 const PlannerPage = lazy(() => import('../components/PlannerPage/PlannerPage'));  // for public, url-based
 const UserPlannerPage = lazy(() => import('../components/user/UserPlannerPage/UserPlannerPage'));
 
@@ -189,6 +191,8 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/staff" exact component={StaffDashboard} />
       <AuthenticatedRoute path="/user/dashboard" exact component={UserDashboard} />
       <AuthenticatedRoute path="/user" exact component={UserDashboard} />
+
+      <AppliedRoute path="/user/profile/:username" exact component={UserProfile} />
 
       <AppliedRoute path="/planner" exact component={PlannerPage} />  {/* for demo/public purposes */}
       <AppliedRoute path="/planner/:plan" exact component={PlannerPage} />

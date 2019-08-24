@@ -14,8 +14,8 @@ const UserDashboard = props => {
   const [ tab, setTab ] = useState("recipes");
   const [ subTab, setSubTab ] = useState("private");
 
-  const handleAvatarEditChange = e => {
-    setAvatar = e.target.files[0];
+  const handleAvatarChange = e => {
+    setAvatar(e.target.files[0]);
   };
 
   const submitAvatar = () => {
@@ -254,4 +254,8 @@ const mapStateToProps = state => ({
   mySavedRecipes: state.data.mySavedRecipes
 })
 
-export default connect(mapStateToProps)(UserDashboard);
+const mapDispatchToProps = dispatch => ({
+  userSubmitAvatar: (avatar) => dispatch(userSubmitAvatar(avatar))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDashboard);
