@@ -11,14 +11,12 @@ import {
   messengerLeftUser
 } from '../actions/index';
 
-// our backend API 
-const endpoint = process.env.NODE_ENV === 'production'
-? 'http://nobullshitcookingapi-env-1.kjumrgwpyc.us-east-1.elasticbeanstalk.com'
-: 'http://localhost:3003';
+import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
+const endpoint = NOBSCBackendAPIEndpointOne;
 
 const socket = io.connect(endpoint, {autoConnect: false});  // move? pass?
 
-export function* messengerConnectSaga(action) {
+export function* messengerConnectSaga() {
   // const { connection } = 
   //const connection = yield call([socket, socket.on], 'connect', )
 

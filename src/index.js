@@ -37,7 +37,7 @@ const store = createStore(
 sagaMiddleware.run(watchAuth);
 sagaMiddleware.run(watchData);
 sagaMiddleware.run(watchUser);
-//sagaMiddleware.run(watchMessenger);
+sagaMiddleware.run(watchMessenger);
 sagaMiddleware.run(watchPlanner);
 
 store.dispatch(dataInit());  // get initial data

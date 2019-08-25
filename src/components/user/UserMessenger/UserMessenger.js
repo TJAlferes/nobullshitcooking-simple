@@ -2,6 +2,8 @@ import React, { createRef, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import {
+  messengerConnect,
+  messengerDisconnect,
   messengerChangeChannel,
   messengerSendMessage
 } from '../../../store/actions/index';
@@ -32,6 +34,10 @@ const UserMessenger = props => {
     autoScroll();
   });
 
+  const handleConnect = () => props.messengerConnect();
+
+  const handleDisconnect = () => props.messengerDisconnect();
+
   const handleChannelChange = e => {
     e.preventDefault();
     if (e.key === "Enter") props.messengerChangeChannel(e.target.value);
@@ -60,7 +66,10 @@ const UserMessenger = props => {
           <h1>Messenger</h1>
 
           <div className="messenger-room">
-            <button className="messenger-connect-disconnect">
+            <button
+              className="messenger-connect-disconnect"
+              onClick={props.status === "Connected" ? handleDisconnect : handleConnect}
+            >
               {(props.status == "Connected") ? "Disconnect" : "Connect"}
             </button>
             <label className="messenger-channel-switch" htmlFor="channel-input">Room</label>
@@ -164,6 +173,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  messengerConnect: () => dispatch(messengerConnect()),
+  messengerDisconnect: () => dispatch(messengerDisconnect()),
   messengerChangeChannel: (channel) => dispatch(messengerChangeChannel(channel)),
   messengerSendMessage: (message) => dispatch(messengerSendMessage(message))
 });
