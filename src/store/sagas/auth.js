@@ -26,6 +26,8 @@ import {
   authReset
 } from '../actions/index';
 
+import { getStorageItem, setStorageItem, removeStorageItem, clearStorage } from '../../utils/storageHelpers';
+
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
@@ -95,6 +97,8 @@ User
 
 */
 
+
+
 export function* authUserLoginSaga(action) {
   try {
     const res = yield axios.post(
@@ -125,8 +129,10 @@ export function* authUserLogoutSaga() {
       {withCredentials: true}
     );
     if (res.data.message == 'Signed out.') {
+      yield call(removeStorageItem, 'appState');
       yield put(authUserLogoutSucceeded(res.data.message));
     } else {
+      yield call(removeStorageItem, 'appState');  // clear their browser anyway
       yield put(authUserLogoutFailed(res.data.message));
     }
     yield delay(4000);

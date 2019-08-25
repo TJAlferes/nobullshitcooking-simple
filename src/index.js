@@ -29,8 +29,29 @@ const composeEnhancers = process.env.NODE_ENV === "development"
 
 const sagaMiddleware = createSagaMiddleware();
 
+function saveToLocalStorage(state) {
+  try {
+    localStorage.setItem('appState', JSON.stringify(state));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function loadFromLocalStorage() {
+  try {
+    if (localStorage.getItem('appState') === null) return undefined;
+    return JSON.parse(localStorage.getItem('appState'));
+  } catch (err) {
+    console.log(err);
+    return undefined;
+  }
+}
+
+const persistedState = loadFromLocalStorage();
+
 const store = createStore(
   rootReducer,
+  persistedState,
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
@@ -40,7 +61,9 @@ sagaMiddleware.run(watchUser);
 sagaMiddleware.run(watchMessenger);
 sagaMiddleware.run(watchPlanner);
 
-store.dispatch(dataInit());  // get initial data
+store.dispatch(dataInit());  // get initial data (Note: this needs to be optimized)
+
+store.subscribe(() => saveToLocalStorage(store.getState()));
 
 const app = (
   <Provider store={store}>
