@@ -369,9 +369,10 @@ export const userUnblockUserFailed = message => ({
 });
 
 // submit avatar
-export const userSubmitAvatar = avatar => ({
+export const userSubmitAvatar = (avatarFullSize, avatarTinySize) => ({
   type: actionTypes.USER_SUBMIT_AVATAR,
-  avatar
+  avatarFullSize,
+  avatarTinySize
 });
 export const userSubmitAvatarSucceeded = message => ({
   type: actionTypes.USER_SUBMIT_AVATAR_SUCCEEDED,

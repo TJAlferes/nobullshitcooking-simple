@@ -1,26 +1,117 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 import './userDashboard.css';
 import LeftNav from '../../LeftNav/LeftNav';
 import { userSubmitAvatar } from '../../../store/actions/index';
 
 const UserDashboard = props => {
+  const imageRef = useRef(null);
+
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ avatar, setAvatar ] = useState("");
-  const [ avatarName, setAvatarName ] = useState("Choose File");
+
+  const [ avatar, setAvatar ] = useState(null);
+  const [ crop, setCrop ] = useState({
+    //disabled: true,
+    locked: true,
+    width: 250,
+    maxWidth: 250,
+    aspect: 1 / 1
+  });
+  const [ cropTinySize, setCropTinySize ] = useState(null);
+
   const [ tab, setTab ] = useState("recipes");
   const [ subTab, setSubTab ] = useState("private");
 
-  const handleAvatarChange = e => {
-    setAvatar(e.target.files[0]);
+  /*useEffect(() => {
+    imageRef.current =
+  });*/
+
+  const onSelectFile = e => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => setAvatar(reader.result));
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const onImageLoaded = image => {
+    console.log('onImageLoaded called');
+    console.log('image ', image);
+    imageRef.current = image;
+    console.log('imageRef.current.getAttribute("src") ', imageRef.current.getAttribute("src"));
+  };
+
+  const onCropChange = crop => {
+    console.log('onCropChange called');
+    setCrop(crop);
+  };
+
+  const onCropComplete = crop => {
+    console.log('onCropComplete called');
+    makeClientCrop(crop);
+  };
+
+  const makeClientCrop = async (crop) => {
+    console.log('makeClientCrop called');
+    //console.log('crop.width: ', crop.width);
+    //console.log('crop.height: ', crop.height);
+    if (imageRef && crop.width) {
+      const resized = await getCroppedImage(imageRef.current, crop, "newFile.jpeg");
+      console.log(crop);
+      console.log(resized);
+      setCropTinySize(resized);
+    }
+  };
+
+  const getCroppedImage = (image, crop, fileName) => {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    return new Promise((resolve, reject) => {
+      /*canvas.toBlob(blob => {
+        if (!blob) {
+          //reject(new Error('Canvas is empty'));
+          console.error("Canvas is empty");
+          return;
+        }
+        blob.name = fileName;
+        window.URL.revokeObjectURL(this.fileUrl);
+        fileUrl = window.URL.createObjectURL(blob);
+        resolve(fileUrl);
+      }, "image/jpeg");*/
+      canvas.toBlob(blob => {
+        blob.name = fileName;
+        const fileUrl = window.URL.createObjectURL(blob);
+        resolve(fileUrl);
+      }, 'image/jpeg', 1);
+    });
   };
 
   const submitAvatar = () => {
     setLoading(true);
     try {
+      // create 250pxX250px and 32pxX32px, avatarFull, avatarTiny
       props.userSubmitAvatar(avatar);
     } catch(err) {
       setLoading(false);
@@ -48,11 +139,28 @@ const UserDashboard = props => {
 
         <h1>{props.authname}</h1>
 
+        <p>{message}</p>
+
         {/* avatar*/}
         <div className="dashboard-avatar">
           <label>Profile Picture</label>
-          <input name="set-avatar" type="file" accept="image/*" onChange={handleAvatarChange} />
-          <button name="submit-avatar" disabled={loading} onClick={submitAvatar}>Upload</button>
+          <input className="avatar-input" name="set-avatar" type="file" accept="image/*" onChange={onSelectFile} />
+          {avatar !== null && (
+            <ReactCrop
+              className="avatar-crop-tool"
+              style={{minHeight: "300px"}}
+              imageStyle={{minHeight: "300px"}}
+              src={avatar}
+              crop={crop}
+              onImageLoaded={onImageLoaded}
+              onChange={onCropChange}
+              onComplete={onCropComplete}
+            />
+          )}
+          {cropTinySize !== null && (
+            <img className="avatar-crop-preview" src={cropTinySize} />
+          )}
+          <button className="avatar-submit-button" name="submit-avatar" disabled={loading} onClick={submitAvatar}>Upload</button>
         </div>
 
         {/* tabs */}

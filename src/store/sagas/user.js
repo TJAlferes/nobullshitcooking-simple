@@ -1010,10 +1010,14 @@ export function* userSubmitAvatarSaga(action) {
         {fileType: action.avatar.type},
         {withCredentials: true}
       );
-      console.log('signedRequest ', res1.data.signedRequest);
       yield axios.put(
-        res1.data.signedRequest,
-        action.avatar,
+        res1.data.signedRequestFullSize,
+        action.avatarFullSize,
+        {headers: {'Content-Type': action.avatar.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.avatarTinySize,
         {headers: {'Content-Type': action.avatar.type}}
       );
       action.avatar = res1.data.url;
