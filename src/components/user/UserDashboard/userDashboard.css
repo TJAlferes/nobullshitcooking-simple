@@ -24,6 +24,12 @@
   max-height: 250px;
 }
 
+.avatar-crop-tiny-preview {
+  display: block;
+  min-height: 25px;
+  max-height: 25px;
+}
+
 .avatar-submit-button {
   display: block;
 }

@@ -9,12 +9,8 @@ import LeftNav from '../../LeftNav/LeftNav';
 import { userSubmitAvatar } from '../../../store/actions/index';
 
 const UserDashboard = props => {
-  const imageRef = useRef(null);
-
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
-
-  const [ avatar, setAvatar ] = useState(null);
   const [ crop, setCrop ] = useState({
     //disabled: true,
     locked: true,
@@ -22,14 +18,21 @@ const UserDashboard = props => {
     maxWidth: 250,
     aspect: 1 / 1
   });
-  const [ cropTinySize, setCropTinySize ] = useState(null);
-
+  const [ cropFullSizePreview, setCropFullSizePreview ] = useState(null);
+  const [ cropTinySizePreview, setCropTinySizePreview ] = useState(null);
+  const [ avatar, setAvatar ] = useState(null);
+  const [ fullAvatar, setFullAvatar ] = useState(null);
+  const [ tinyAvatar, setTinyAvatar ] = useState(null);
   const [ tab, setTab ] = useState("recipes");
   const [ subTab, setSubTab ] = useState("private");
 
-  /*useEffect(() => {
-    imageRef.current =
-  });*/
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+    let isSubscribed = true;
+    if (isSubscribed) setMessage(props.message);
+    return () => isSubscribed = false;
+  });
 
   const onSelectFile = e => {
     if (e.target.files && e.target.files.length > 0) {
@@ -39,36 +42,24 @@ const UserDashboard = props => {
     }
   };
 
-  const onImageLoaded = image => {
-    console.log('onImageLoaded called');
-    console.log('image ', image);
-    imageRef.current = image;
-    console.log('imageRef.current.getAttribute("src") ', imageRef.current.getAttribute("src"));
-  };
+  const onImageLoaded = image => imageRef.current = image;
 
-  const onCropChange = crop => {
-    console.log('onCropChange called');
-    setCrop(crop);
-  };
+  const onCropChange = crop => setCrop(crop);
 
-  const onCropComplete = crop => {
-    console.log('onCropComplete called');
-    makeClientCrop(crop);
-  };
+  const onCropComplete = crop => makeClientCrops(crop);
 
-  const makeClientCrop = async (crop) => {
-    console.log('makeClientCrop called');
-    //console.log('crop.width: ', crop.width);
-    //console.log('crop.height: ', crop.height);
+  const makeClientCrops = async (crop) => {
     if (imageRef && crop.width) {
-      const resized = await getCroppedImage(imageRef.current, crop, "newFile.jpeg");
-      console.log(crop);
-      console.log(resized);
-      setCropTinySize(resized);
+      const { resizedFullPreview, resizedFullFinal } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
+      const { resizedTinyPreview, resizedTinyFinal } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
+      setCropFullSizePreview(resizedFullPreview);
+      setCropTinySizePreview(resizedTinyPreview);
+      setFullAvatar(resizedFullFinal);
+      setTinyAvatar(resizedTinyFinal);
     }
   };
 
-  const getCroppedImage = (image, crop, fileName) => {
+  const getCroppedFullImage = async (image, crop, fileName) => {
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
@@ -88,31 +79,72 @@ const UserDashboard = props => {
       crop.height
     );
 
-    return new Promise((resolve, reject) => {
-      /*canvas.toBlob(blob => {
-        if (!blob) {
-          //reject(new Error('Canvas is empty'));
-          console.error("Canvas is empty");
-          return;
-        }
-        blob.name = fileName;
-        window.URL.revokeObjectURL(this.fileUrl);
-        fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, "image/jpeg");*/
+    const resizedFullPreview = await new Promise((resolve, reject) => {
       canvas.toBlob(blob => {
+        if (!blob) return;
         blob.name = fileName;
         const fileUrl = window.URL.createObjectURL(blob);
         resolve(fileUrl);
       }, 'image/jpeg', 1);
     });
+
+    const resizedFullFinal = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        blob.name = fileName;
+        const image = new File([blob], "fullFinal", {type: "image/jpeg"});
+        resolve(image);
+      }, 'image/jpeg', 1);
+    });
+
+    return {resizedFullPreview, resizedFullFinal};
+  };
+
+  const getCroppedTinyImage = async (image, crop, fileName) => {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = 25;
+    canvas.height = 25;
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      25,
+      25
+    );
+
+    const resizedTinyPreview = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        blob.name = fileName;
+        const fileUrl = window.URL.createObjectURL(blob);
+        resolve(fileUrl);
+      }, 'image/jpeg', 1);
+    });
+
+    const resizedTinyFinal = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        blob.name = fileName;
+        const image = new File([blob], "tinyFinal", {type: "image/jpeg"});
+        resolve(image);
+      }, 'image/jpeg', 1);
+    });
+
+    return {resizedTinyPreview, resizedTinyFinal};
   };
 
   const submitAvatar = () => {
     setLoading(true);
     try {
-      // create 250pxX250px and 32pxX32px, avatarFull, avatarTiny
-      props.userSubmitAvatar(avatar);
+      props.userSubmitAvatar(fullAvatar, tinyAvatar);
     } catch(err) {
       setLoading(false);
       setMessage(err.message);
@@ -145,7 +177,7 @@ const UserDashboard = props => {
         <div className="dashboard-avatar">
           <label>Profile Picture</label>
           <input className="avatar-input" name="set-avatar" type="file" accept="image/*" onChange={onSelectFile} />
-          {avatar !== null && (
+          {avatar && (
             <ReactCrop
               className="avatar-crop-tool"
               style={{minHeight: "300px"}}
@@ -157,10 +189,15 @@ const UserDashboard = props => {
               onComplete={onCropComplete}
             />
           )}
-          {cropTinySize !== null && (
-            <img className="avatar-crop-preview" src={cropTinySize} />
+          {cropFullSizePreview && (
+            <img className="avatar-crop-preview" src={cropFullSizePreview} />
           )}
-          <button className="avatar-submit-button" name="submit-avatar" disabled={loading} onClick={submitAvatar}>Upload</button>
+          {cropTinySizePreview && (
+            <img className="avatar-crop-tiny-preview" src={cropTinySizePreview} />
+          )}
+          {cropFullSizePreview && (
+            <button className="avatar-submit-button" name="submit-avatar" disabled={loading} onClick={submitAvatar}>Upload</button>
+          )}
         </div>
 
         {/* tabs */}
@@ -352,6 +389,7 @@ const UserDashboard = props => {
 };
 
 const mapStateToProps = state => ({
+  message: state.user.message,
   authname: state.auth.authname,
   myPlans: state.data.myPlans,
   myPublicRecipes: state.data.myPublicRecipes,
@@ -363,7 +401,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  userSubmitAvatar: (avatar) => dispatch(userSubmitAvatar(avatar))
+  userSubmitAvatar: (fullAvatar, tinyAvatar) => dispatch(userSubmitAvatar(fullAvatar, tinyAvatar))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDashboard);

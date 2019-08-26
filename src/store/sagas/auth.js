@@ -4,14 +4,14 @@ import axios from 'axios';
 import {
   authMessageClear,
   authDisplay,
-  authCheckState,
+  //authCheckState,
   authUserRegisterSucceeded,
   authUserRegisterFailed,
-  authUserVerifySucceeded,
-  authUserVerifyFailed,
-  authFacebookCheckState,
-  authFacebookLogin,
-  authFacebookLogout,
+  //authUserVerifySucceeded,
+  //authUserVerifyFailed,
+  //authFacebookCheckState,
+  //authFacebookLogin,
+  //authFacebookLogout,
   //authGoogleCheckState,
   //authGoogleLogin,
   //authGoogleLogout,
@@ -23,10 +23,10 @@ import {
   authStaffLoginFailed,
   authStaffLogoutSucceeded,
   authStaffLogoutFailed,
-  authReset
+  //authReset
 } from '../actions/index';
 
-import { getStorageItem, setStorageItem, removeStorageItem, clearStorage } from '../../utils/storageHelpers';
+import { removeStorageItem } from '../../utils/storageHelpers';
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
@@ -38,9 +38,9 @@ Shared
 
 */
 
-export function* authCheckStateSaga() {
+/*export function* authCheckStateSaga() {
   yield put(authCheckState());
-}
+}*/
 
 
 
@@ -151,12 +151,15 @@ export function* authUserRegisterSaga(action) {
       {userInfo: {email: action.email, password: action.password, username: action.username}}
     );
     if (res.data.message == 'User account created.') {
-      yield put(authUserLoginSucceeded(res.data.message));
+      yield put(authUserRegisterSucceeded(res.data.message));
+      yield delay(2000);
+      yield put(authMessageClear());
+      yield action.history.push('/user/login');
     } else {
-      yield put(authUserLoginFailed(res.data.message));
+      yield put(authUserRegisterFailed(res.data.message));
+      yield delay(4000);
+      yield put(authMessageClear());
     }
-    yield delay(4000);
-    yield put(authMessageClear());
   } catch(err) {
     yield put(authUserRegisterFailed('An error occurred. Please try again.'));
     yield delay(4000);

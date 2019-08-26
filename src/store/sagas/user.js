@@ -1004,32 +1004,37 @@ avatar
 
 export function* userSubmitAvatarSaga(action) {
   try {
-    if (action.avatar !== "") {
+    
+    let avatarUrl;
+    if (action.fullAvatar && action.tinyAvatar) {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/avatar`,
-        {fileType: action.avatar.type},
+        {fileType: action.fullAvatar.type},
         {withCredentials: true}
       );
       yield axios.put(
         res1.data.signedRequestFullSize,
-        action.avatarFullSize,
-        {headers: {'Content-Type': action.avatar.type}}
+        action.fullAvatar,
+        {headers: {'Content-Type': action.fullAvatar.type}}
       );
       yield axios.put(
         res1.data.signedRequestTinySize,
-        action.avatarTinySize,
-        {headers: {'Content-Type': action.avatar.type}}
+        action.tinyAvatar,
+        {headers: {'Content-Type': action.tinyAvatar.type}}
       );
-      action.avatar = res1.data.url;
+      avatarUrl = res1.data.urlFullSize;
     } else {
-      action.avatar = "nobsc-user-default";
+      avatarUrl = "nobsc-user-default";
     }
 
     const res = yield axios.post(
       `${endpoint}/user/auth/set-avatar`,
-      {avatar: action.avatar},
+      {avatar: avatarUrl},
       {withCredentials: true}
     );
+    
+    console.log(action.fullAvatar);
+    console.log(action.tinyAvatar);
 
     if (res.data.message == 'Avatar set.') {
       //yield put();  refresh/update respective list

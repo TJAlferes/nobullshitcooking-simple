@@ -25,11 +25,12 @@ auth -- users
 
 */
 
-export const authUserRegister = (email, password, username) => ({
+export const authUserRegister = (email, password, username, history) => ({
   type: actionTypes.AUTH_USER_REGISTER,
   email,
   password,
-  username
+  username,
+  history
 });
 export const authUserRegisterSucceeded = message => ({
   type: actionTypes.AUTH_USER_REGISTER_SUCCEEDED,

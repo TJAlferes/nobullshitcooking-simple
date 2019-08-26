@@ -41,7 +41,7 @@ const Register = props => {
   const handleRegisterSubmit = () => {
     setLoading(true);
     try {
-      props.authUserRegister(email, password, username);
+      props.authUserRegister(email, password, username, props.history);
     } catch(err) {
       setLoading(false);
       setMessage(err.message);
@@ -192,7 +192,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  authUserRegister: (email, pass, username) => dispatch(authUserRegister(email, pass, username)),
+  authUserRegister: (email, pass, username, history) => dispatch(authUserRegister(email, pass, username, history)),
   authUserVerify: (email, pass, confirmationCode) => dispatch(authUserVerify(email, pass, confirmationCode))
 });
 
