@@ -1004,7 +1004,6 @@ avatar
 
 export function* userSubmitAvatarSaga(action) {
   try {
-    
     let avatarUrl;
     if (action.fullAvatar && action.tinyAvatar) {
       const res1 = yield axios.post(
@@ -1032,19 +1031,18 @@ export function* userSubmitAvatarSaga(action) {
       {avatar: avatarUrl},
       {withCredentials: true}
     );
-    
-    console.log(action.fullAvatar);
-    console.log(action.tinyAvatar);
 
     if (res.data.message == 'Avatar set.') {
       //yield put();  refresh/update respective list
       yield put(userSubmitAvatarSucceeded(res.data.message));
+      yield delay(2000);
+      yield put(userMessageClear());
+      yield location.reload();
     } else {
       yield put(userSubmitAvatarFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch (err) {
     yield put(userSubmitAvatarFailed('An error occurred. Please try again.'));
     yield delay(4000);

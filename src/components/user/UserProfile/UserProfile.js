@@ -22,7 +22,7 @@ const UserProfile = props => {
     const { username } = props.match.params;
     const getUserProfile = async (username) => {
       const res = await axios.get(`${endpoint}/user/profile/${username}`);
-      setUserAvatar(res.data.avatar);
+      if (res.data.avatar !== "nobsc-user-default.png") setUserAvatar(username);
       setUserPublicRecipes(res.data.publicRecipes);
       setUserFavoriteRecipes(res.data.favoriteRecipes);
     }
@@ -51,7 +51,11 @@ const UserProfile = props => {
   return (
     <div className={`profile one-column-a ${props.oneColumnATheme}`}>
       <h1>{props.match.params.username}</h1>
-      <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${userAvatar}`} />
+      {
+        (userAvatar !== "nobsc-user-default.png")
+        ? <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${userAvatar}`} />
+        : <img src="https://nobsc-user-avatars.s3.amazonaws.com/nobsc-user-default.png" />
+      }
       
       {
         props.isAuthenticated

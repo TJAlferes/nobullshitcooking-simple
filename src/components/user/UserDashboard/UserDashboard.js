@@ -12,7 +12,7 @@ const UserDashboard = props => {
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ crop, setCrop ] = useState({
-    //disabled: true,
+    disabled: true,
     locked: true,
     width: 250,
     maxWidth: 250,
@@ -63,8 +63,8 @@ const UserDashboard = props => {
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
-    canvas.width = crop.width;
-    canvas.height = crop.height;
+    canvas.width = 250;
+    canvas.height = 250;
     const ctx = canvas.getContext("2d");
 
     ctx.drawImage(
@@ -75,8 +75,8 @@ const UserDashboard = props => {
       crop.height * scaleY,
       0,
       0,
-      crop.width,
-      crop.height
+      250,
+      250
     );
 
     const resizedFullPreview = await new Promise((resolve, reject) => {
@@ -154,6 +154,14 @@ const UserDashboard = props => {
     }
   };
 
+  const cancelAvatar = () => {
+    setCropFullSizePreview(null);
+    setCropTinySizePreview(null);
+    setAvatar(null)
+    setFullAvatar(null);
+    setTinyAvatar(null);
+  };
+
   const handleTabClick = e => {
     setTab(e.target.name);
   };
@@ -175,45 +183,53 @@ const UserDashboard = props => {
 
         {/* avatar*/}
         <div className="dashboard-avatar">
-          <label>Profile Picture</label>
-          <input className="avatar-input" name="set-avatar" type="file" accept="image/*" onChange={onSelectFile} />
+          {!avatar && (
+            <div>
+              <label>Current Profile Picture</label>
+              <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.authname}`} />
+              <label>Change Profile Picture</label>
+              <input className="avatar-input" name="set-avatar" type="file" accept="image/*" onChange={onSelectFile} />
+            </div>
+          )}
+
           {avatar && (
-            <ReactCrop
-              className="avatar-crop-tool"
-              style={{minHeight: "300px"}}
-              imageStyle={{minHeight: "300px"}}
-              src={avatar}
-              crop={crop}
-              onImageLoaded={onImageLoaded}
-              onChange={onCropChange}
-              onComplete={onCropComplete}
-            />
-          )}
-          {cropFullSizePreview && (
-            <img className="avatar-crop-preview" src={cropFullSizePreview} />
-          )}
-          {cropTinySizePreview && (
-            <img className="avatar-crop-tiny-preview" src={cropTinySizePreview} />
-          )}
-          {cropFullSizePreview && (
-            <button className="avatar-submit-button" name="submit-avatar" disabled={loading} onClick={submitAvatar}>Upload</button>
+            <div>
+              <ReactCrop
+                className="avatar-crop-tool"
+                style={{minHeight: "300px"}}
+                imageStyle={{minHeight: "300px"}}
+                src={avatar}
+                crop={crop}
+                onImageLoaded={onImageLoaded}
+                onChange={onCropChange}
+                onComplete={onCropComplete}
+              />
+              <span>Move the crop to your desired position, then click "Complete". These two images will be saved for you:</span>
+              <span>Full Size (250px): </span><img className="avatar-crop-preview" src={cropFullSizePreview} />
+              <span>Tiny Size (25px): </span><img className="avatar-crop-tiny-preview" src={cropTinySizePreview} />
+              <button className="avatar-submit-button" name="submit-avatar" disabled={loading} onClick={submitAvatar}>Complete</button>
+              <button className="avatar-cancel-button" name="cancel-avatar" disabled={loading} onClick={cancelAvatar}>Cancel</button>
+            </div>
           )}
         </div>
 
         {/* tabs */}
 
-        <div className="dashboard-menu-tabs">
-          {/*<button className="dashboard-menu-tab" name="notifications" onClick={handleTabClick}>Notifications</button>*/}
-          <button className="dashboard-menu-tab" name="plans" onClick={e => handleTabClick(e)}>Plans</button>
-          <button className="dashboard-menu-tab" name="recipes" onClick={e => handleTabClick(e)}>Recipes</button>
-          <button className="dashboard-menu-tab" name="ingredients" onClick={e => handleTabClick(e)}>Ingredients</button>
-          <button className="dashboard-menu-tab" name="equipment" onClick={e => handleTabClick(e)}>Equipment</button>
-        </div>
+        {!avatar && (
+          <div className="dashboard-menu-tabs">
+            {/*<button className="dashboard-menu-tab" name="notifications" onClick={handleTabClick}>Notifications</button>*/}
+            <button className="dashboard-menu-tab" name="plans" onClick={e => handleTabClick(e)}>Plans</button>
+            <button className="dashboard-menu-tab" name="recipes" onClick={e => handleTabClick(e)}>Recipes</button>
+            <button className="dashboard-menu-tab" name="ingredients" onClick={e => handleTabClick(e)}>Ingredients</button>
+            <button className="dashboard-menu-tab" name="equipment" onClick={e => handleTabClick(e)}>Equipment</button>
+          </div>
+        )}
+
 
         {/* subTabs */}
 
         {
-          (tab == "recipes") && (
+          (!avatar && tab == "recipes") && (
             <div className="dashboard-menu-subtabs">
               <button className="dashboard-menu-subtab" name="private" onClick={e => handleSubTabClick(e)}>Private</button>
               <button className="dashboard-menu-subtab" name="public" onClick={e => handleSubTabClick(e)}>Public</button>
@@ -233,7 +249,7 @@ const UserDashboard = props => {
         */}
 
         {
-          (tab == "plans") && (
+          (!avatar && tab == "plans") && (
             <div className="dashboard-content">
               <h2>My Plans</h2>
               <Link to="/user/planner/new">Create New Plan</Link>
@@ -253,7 +269,7 @@ const UserDashboard = props => {
         }
 
         {
-          (tab == "recipes" && subTab == "private") && (
+          (!avatar && tab == "recipes" && subTab == "private") && (
             <div className="dashboard-content">
               <h2>My Private Recipes</h2>
               <Link to="/user/recipes/submit">Create New Recipe</Link>
@@ -275,7 +291,7 @@ const UserDashboard = props => {
         }
 
         {
-          (tab == "recipes" && subTab == "public") && (
+          (!avatar && tab == "recipes" && subTab == "public") && (
             <div className="dashboard-content">
               <h2>My Public Recipes</h2>
               <Link to="/user/recipes/submit">Create New Recipe</Link>
@@ -297,7 +313,7 @@ const UserDashboard = props => {
         }
 
         {
-          (tab == "recipes" && subTab == "favorite") && (
+          (!avatar && tab == "recipes" && subTab == "favorite") && (
             <div className="dashboard-content">
               <h2>My Favorite Recipes</h2>
               {
@@ -318,7 +334,7 @@ const UserDashboard = props => {
         }
 
         {
-          (tab == "recipes" && subTab == "saved") && (
+          (!avatar && tab == "recipes" && subTab == "saved") && (
             <div className="dashboard-content">
               <h2>My Saved Recipes</h2>
               {
@@ -339,7 +355,7 @@ const UserDashboard = props => {
         }
 
         {
-          tab == "ingredients" && (
+          !avatar && tab == "ingredients" && (
             <div className="dashboard-content">
               <h2>My Private Ingredients</h2>
               <Link to="/user/ingredients/submit">Create New Ingredient</Link>
@@ -361,7 +377,7 @@ const UserDashboard = props => {
         }
 
         {
-          tab == "equipment" && (
+          !avatar && tab == "equipment" && (
             <div className="dashboard-content">
               <h2>My Private Equipment</h2>
               <Link to="/user/equipment/submit">Create New Equipment</Link>

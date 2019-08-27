@@ -76,6 +76,9 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.USER_UNBLOCK_USER_SUCCEEDED: return userMessage(state, action);
     case actionTypes.USER_UNBLOCK_USER_FAILED: return userMessage(state, action);
 
+    case actionTypes.USER_SUBMIT_AVATAR_SUCCEEDED: return userMessage(state, action);
+    case actionTypes.USER_SUBMIT_AVATAR_FAILED: return userMessage(state, action);
+
     case actionTypes.USER_MESSAGE_CLEAR: return userMessageClear(state, action);
   }
   return state;
