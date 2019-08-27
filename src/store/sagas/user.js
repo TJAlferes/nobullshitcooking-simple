@@ -70,18 +70,32 @@ equipment
 
 export function* userCreateNewPrivateEquipmentSaga(action) {
   try {
-    if (action.equipmentInfo.equipmentImage !== "") {
+    if (
+      action.equipmentInfo.fullEquipmentImage &&
+      action.equipmentInfo.thumbEquipmentImage &&
+      action.equipmentInfo.tinyEquipmentImage
+    ) {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/equipment`,
-        {fileType: action.equipmentInfo.equipmentImage.type},
+        {fileType: action.equipmentInfo.fullEquipmentImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.equipmentInfo.equipmentImage,
-        {headers: {'Content-Type': action.equipmentInfo.equipmentImage.type}}
+        res1.data.signedRequestFullSize,
+        action.equipmentInfo.fullEquipmentImage,
+        {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
       );
-      action.equipmentInfo.equipmentImage = res1.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.equipmentInfo.thumbEquipmentImage,
+        {headers: {'Content-Type': action.equipmentInfo.thumbEquipmentImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.equipmentInfo.tinyEquipmentImage,
+        {headers: {'Content-Type': action.equipmentInfo.tinyEquipmentImage.type}}
+      );
+      action.equipmentInfo.equipmentImage = res1.data.urlFullSize;
     } else {
       action.equipmentInfo.equipmentImage = 'nobsc-equipment-default';
     }
@@ -110,18 +124,34 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
 export function* userEditPrivateEquipmentSaga(action) {
   try {
     // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
-    if (action.equipmentInfo.equipmentImage !== "") {
+    if (
+      action.equipmentInfo.fullEquipmentImage &&
+      action.equipmentInfo.thumbEquipmentImage &&
+      action.equipmentInfo.tinyEquipmentImage
+    ) {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/equipment`,
-        {fileType: action.equipmentInfo.equipmentImage.type},
+        {fileType: action.equipmentInfo.fullEquipmentImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.equipmentInfo.equipmentImage,
-        {headers: {'Content-Type': action.equipmentInfo.equipmentImage.type}}
+        res1.data.signedRequestFullSize,
+        action.equipmentInfo.fullEquipmentImage,
+        {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
       );
-      action.equipmentInfo.equipmentImage = res1.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.equipmentInfo.thumbEquipmentImage,
+        {headers: {'Content-Type': action.equipmentInfo.thumbEquipmentImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.equipmentInfo.tinyEquipmentImage,
+        {headers: {'Content-Type': action.equipmentInfo.tinyEquipmentImage.type}}
+      );
+      action.equipmentInfo.equipmentImage = res1.data.urlFullSize;
+    } else {
+      action.equipmentInfo.equipmentImage = 'nobsc-equipment-default';
     }
 
     const res = yield axios.put(
@@ -177,18 +207,32 @@ ingredient
 
 export function* userCreateNewPrivateIngredientSaga(action) {
   try {
-    if (action.ingredientInfo.ingredientImage !== "") {
+    if (
+      action.ingredientInfo.fullIngredientImage &&
+      action.ingredientInfo.thumbIngredientImage &&
+      action.ingredientInfo.tinyIngredientImage
+    ) {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/ingredient`,
-        {fileType: action.ingredientInfo.ingredientImage.type},
+        {fileType: action.ingredientInfo.fullIngredientImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.ingredientInfo.ingredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.ingredientImage.type}}
+        res1.data.signedRequestFullSize,
+        action.ingredientInfo.fullIngredientImage,
+        {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
       );
-      action.ingredientInfo.ingredientImage = res1.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.ingredientInfo.thumbIngredientImage,
+        {headers: {'Content-Type': action.ingredientInfo.thumbIngredientImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.ingredientInfo.tinyIngredientImage,
+        {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
+      );
+      action.ingredientInfo.ingredientImage = res1.data.urlFullSize;
     } else {
       action.ingredientInfo.ingredientImage = 'nobsc-ingredient-default';
     }
@@ -217,18 +261,34 @@ export function* userCreateNewPrivateIngredientSaga(action) {
 export function* userEditPrivateIngredientSaga(action) {
   try {
     // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
-    if (action.ingredientInfo.ingredientImage !== "") {
+    if (
+      action.ingredientInfo.fullIngredientImage &&
+      action.ingredientInfo.thumbIngredientImage &&
+      action.ingredientInfo.tinyIngredientImage
+    ) {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/ingredient`,
-        {fileType: action.ingredientInfo.ingredientImage.type},
+        {fileType: action.ingredientInfo.fullIngredientImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.ingredientInfo.ingredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.ingredientImage.type}}
+        res1.data.signedRequestFullSize,
+        action.ingredientInfo.fullIngredientImage,
+        {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
       );
-      action.ingredientInfo.ingredientImage = res1.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.ingredientInfo.thumbIngredientImage,
+        {headers: {'Content-Type': action.ingredientInfo.thumbIngredientImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.ingredientInfo.tinyIngredientImage,
+        {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
+      );
+      action.ingredientInfo.ingredientImage = res1.data.urlFullSize;
+    } else {
+      action.ingredientInfo.ingredientImage = 'nobsc-ingredient-default';
     }
 
     const res = yield axios.put(
@@ -284,66 +344,126 @@ recipe (private)
 
 export function* userCreateNewPrivateRecipeSaga(action) {
   try {
-    if (action.recipeInfo.recipeImage !== "") {
+    // 1
+    if (
+      action.recipeInfo.fullRecipeImage &&
+      action.recipeInfo.thumbRecipeImage &&
+      action.recipeInfo.tinyRecipeImage
+    ) {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe`,
-        {fileType: action.recipeInfo.recipeImage.type},
+        {fileType: action.recipeInfo.fullRecipeImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeImage.type}}
       );
-      action.recipeInfo.recipeImage = res1.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeImage.type}}
+      );
+      action.recipeInfo.recipeImage = res1.data.urlFullSize;
     } else {
       action.recipeInfo.recipeImage = "nobsc-recipe-default";
     }
 
-    if (action.recipeInfo.recipeEquipmentImage !== "") {
+    // 2
+    if (
+      action.recipeInfo.fullRecipeEquipmentImage &&
+      action.recipeInfo.thumbRecipeEquipmentImage &&
+      action.recipeInfo.tinyRecipeEquipmentImage
+    ) {
       const res2 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-equipment`,
-        {fileType: action.recipeInfo.recipeEquipmentImage.type},
+        {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeEquipmentImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
       );
-      action.recipeInfo.recipeEquipmentImage = res2.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeEquipmentImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeEquipmentImage.type}}
+      );
+      action.recipeInfo.recipeEquipmentImage = res2.data.urlFullSize;
     } else {
       action.recipeInfo.recipeEquipmentImage = "nobsc-recipe-equipment-default";
     }
 
-    if (action.recipeInfo.recipeIngredientsImage !== "") {
+    // 3
+    if (
+      action.recipeInfo.fullRecipeIngredientsImage &&
+      action.recipeInfo.thumbRecipeIngredientsImage &&
+      action.recipeInfo.tinyRecipeIngredientsImage
+    ) {
       const res3 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
-        {fileType: action.recipeInfo.recipeIngredientsImage.type},
+        {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeIngredientsImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
       );
-      action.recipeInfo.recipeIngredientsImage = res3.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeIngredientsImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeIngredientsImage.type}}
+      );
+      action.recipeInfo.recipeIngredientsImage = res3.data.urlFullSize;
     } else {
       action.recipeInfo.recipeIngredientsImage = "nobsc-recipe-ingredients-default";
     }
 
-    if (action.recipeInfo.recipeCookingImage !== "") {
+    // 4
+    if (
+      action.recipeInfo.fullRecipeCookingImage &&
+      action.recipeInfo.thumbRecipeCookingImage &&
+      action.recipeInfo.tinyRecipeCookingImage
+    ) {
       const res4 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-cooking`,
-        {fileType: action.recipeInfo.recipeCookingImage.type},
+        {fileType: action.recipeInfo.fullRecipeCookingImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeCookingImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
       );
-      action.recipeInfo.recipeCookingImage = res4.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeCookingImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeCookingImage.type}}
+      );
+      action.recipeInfo.recipeCookingImage = res4.data.urlFullSize;
     } else {
       action.recipeInfo.recipeCookingImage = "nobsc-recipe-cooking-default";
     }
@@ -374,60 +494,129 @@ export function* userCreateNewPrivateRecipeSaga(action) {
 export function* userEditPrivateRecipeSaga(action) {
   try {
     // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
-    if (action.recipeInfo.recipeImage !== "") {
+
+    // 1
+    if (
+      action.recipeInfo.fullRecipeImage &&
+      action.recipeInfo.thumbRecipeImage &&
+      action.recipeInfo.tinyRecipeImage
+    ) {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe`,
-        {fileType: action.recipeInfo.recipeImage.type},
+        {fileType: action.recipeInfo.fullRecipeImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeImage.type}}
       );
-      action.recipeInfo.recipeImage = res1.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeImage.type}}
+      );
+      action.recipeInfo.recipeImage = res1.data.urlFullSize;
+    } else {
+      action.recipeInfo.recipeImage = "nobsc-recipe-default";
     }
 
-    if (action.recipeInfo.recipeEquipmentImage !== "") {
+    // 2
+    if (
+      action.recipeInfo.fullRecipeEquipmentImage &&
+      action.recipeInfo.thumbRecipeEquipmentImage &&
+      action.recipeInfo.tinyRecipeEquipmentImage
+    ) {
       const res2 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-equipment`,
-        {fileType: action.recipeInfo.recipeEquipmentImage.type},
+        {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeEquipmentImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
       );
-      action.recipeInfo.recipeEquipmentImage = res2.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeEquipmentImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeEquipmentImage.type}}
+      );
+      action.recipeInfo.recipeEquipmentImage = res2.data.urlFullSize;
+    } else {
+      action.recipeInfo.recipeEquipmentImage = "nobsc-recipe-equipment-default";
     }
 
-    if (action.recipeInfo.recipeIngredientsImage !== "") {
+    // 3
+    if (
+      action.recipeInfo.fullRecipeIngredientsImage &&
+      action.recipeInfo.thumbRecipeIngredientsImage &&
+      action.recipeInfo.tinyRecipeIngredientsImage
+    ) {
       const res3 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
-        {fileType: action.recipeInfo.recipeIngredientsImage.type},
+        {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeIngredientsImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
       );
-      action.recipeInfo.recipeIngredientsImage = res3.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeIngredientsImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeIngredientsImage.type}}
+      );
+      action.recipeInfo.recipeIngredientsImage = res3.data.urlFullSize;
+    } else {
+      action.recipeInfo.recipeIngredientsImage = "nobsc-recipe-ingredients-default";
     }
 
-    if (action.recipeInfo.recipeCookingImage !== "") {
+    // 4
+    if (
+      action.recipeInfo.fullRecipeCookingImage &&
+      action.recipeInfo.thumbRecipeCookingImage &&
+      action.recipeInfo.tinyRecipeCookingImage
+    ) {
       const res4 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-cooking`,
-        {fileType: action.recipeInfo.recipeCookingImage.type},
+        {fileType: action.recipeInfo.fullRecipeCookingImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeCookingImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
       );
-      action.recipeInfo.recipeCookingImage = res4.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeCookingImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeCookingImage.type}}
+      );
+      action.recipeInfo.recipeCookingImage = res4.data.urlFullSize;
+    } else {
+      action.recipeInfo.recipeCookingImage = "nobsc-recipe-cooking-default";
     }
 
     const res = yield axios.put(
@@ -485,66 +674,126 @@ recipe (public)
 
 export function* userCreateNewPublicRecipeSaga(action) {
   try {
-    if (action.recipeInfo.recipeImage !== "") {
+    // 1
+    if (
+      action.recipeInfo.fullRecipeImage &&
+      action.recipeInfo.thumbRecipeImage &&
+      action.recipeInfo.tinyRecipeImage
+    ) {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe`,
-        {fileType: action.recipeInfo.recipeImage.type},
+        {fileType: action.recipeInfo.fullRecipeImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeImage.type}}
       );
-      action.recipeInfo.recipeImage = res1.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeImage.type}}
+      );
+      action.recipeInfo.recipeImage = res1.data.urlFullSize;
     } else {
       action.recipeInfo.recipeImage = "nobsc-recipe-default";
     }
 
-    if (action.recipeInfo.recipeEquipmentImage !== "") {
+    // 2
+    if (
+      action.recipeInfo.fullRecipeEquipmentImage &&
+      action.recipeInfo.thumbRecipeEquipmentImage &&
+      action.recipeInfo.tinyRecipeEquipmentImage
+    ) {
       const res2 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-equipment`,
-        {fileType: action.recipeInfo.recipeEquipmentImage.type},
+        {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeEquipmentImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
       );
-      action.recipeInfo.recipeEquipmentImage = res2.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeEquipmentImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeEquipmentImage.type}}
+      );
+      action.recipeInfo.recipeEquipmentImage = res2.data.urlFullSize;
     } else {
       action.recipeInfo.recipeEquipmentImage = "nobsc-recipe-equipment-default";
     }
 
-    if (action.recipeInfo.recipeIngredientsImage !== "") {
+    // 3
+    if (
+      action.recipeInfo.fullRecipeIngredientsImage &&
+      action.recipeInfo.thumbRecipeIngredientsImage &&
+      action.recipeInfo.tinyRecipeIngredientsImage
+    ) {
       const res3 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
-        {fileType: action.recipeInfo.recipeIngredientsImage.type},
+        {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeIngredientsImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
       );
-      action.recipeInfo.recipeIngredientsImage = res3.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeIngredientsImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeIngredientsImage.type}}
+      );
+      action.recipeInfo.recipeIngredientsImage = res3.data.urlFullSize;
     } else {
       action.recipeInfo.recipeIngredientsImage = "nobsc-recipe-ingredients-default";
     }
 
-    if (action.recipeInfo.recipeCookingImage !== "") {
+    // 4
+    if (
+      action.recipeInfo.fullRecipeCookingImage &&
+      action.recipeInfo.thumbRecipeCookingImage &&
+      action.recipeInfo.tinyRecipeCookingImage
+    ) {
       const res4 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-cooking`,
-        {fileType: action.recipeInfo.recipeCookingImage.type},
+        {fileType: action.recipeInfo.fullRecipeCookingImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeCookingImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
       );
-      action.recipeInfo.recipeCookingImage = res4.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeCookingImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeCookingImage.type}}
+      );
+      action.recipeInfo.recipeCookingImage = res4.data.urlFullSize;
     } else {
       action.recipeInfo.recipeCookingImage = "nobsc-recipe-cooking-default";
     }
@@ -575,60 +824,129 @@ export function* userCreateNewPublicRecipeSaga(action) {
 export function* userEditPublicRecipeSaga(action) {
   try {
     // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
-    if (action.recipeInfo.recipeImage !== "") {
+
+    // 1
+    if (
+      action.recipeInfo.fullRecipeImage &&
+      action.recipeInfo.thumbRecipeImage &&
+      action.recipeInfo.tinyRecipeImage
+    ) {
       const res1 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe`,
-        {fileType: action.recipeInfo.recipeImage.type},
+        {fileType: action.recipeInfo.fullRecipeImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeImage.type}}
       );
-      action.recipeInfo.recipeImage = res1.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeImage.type}}
+      );
+      action.recipeInfo.recipeImage = res1.data.urlFullSize;
+    } else {
+      action.recipeInfo.recipeImage = "nobsc-recipe-default";
     }
 
-    if (action.recipeInfo.recipeEquipmentImage !== "") {
+    // 2
+    if (
+      action.recipeInfo.fullRecipeEquipmentImage &&
+      action.recipeInfo.thumbRecipeEquipmentImage &&
+      action.recipeInfo.tinyRecipeEquipmentImage
+    ) {
       const res2 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-equipment`,
-        {fileType: action.recipeInfo.recipeEquipmentImage.type},
+        {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeEquipmentImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
       );
-      action.recipeInfo.recipeEquipmentImage = res2.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeEquipmentImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeEquipmentImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeEquipmentImage.type}}
+      );
+      action.recipeInfo.recipeEquipmentImage = res2.data.urlFullSize;
+    } else {
+      action.recipeInfo.recipeEquipmentImage = "nobsc-recipe-equipment-default";
     }
 
-    if (action.recipeInfo.recipeIngredientsImage !== "") {
+    // 3
+    if (
+      action.recipeInfo.fullRecipeIngredientsImage &&
+      action.recipeInfo.thumbRecipeIngredientsImage &&
+      action.recipeInfo.tinyRecipeIngredientsImage
+    ) {
       const res3 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
-        {fileType: action.recipeInfo.recipeIngredientsImage.type},
+        {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeIngredientsImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
       );
-      action.recipeInfo.recipeIngredientsImage = res3.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeIngredientsImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeIngredientsImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeIngredientsImage.type}}
+      );
+      action.recipeInfo.recipeIngredientsImage = res3.data.urlFullSize;
+    } else {
+      action.recipeInfo.recipeIngredientsImage = "nobsc-recipe-ingredients-default";
     }
 
-    if (action.recipeInfo.recipeCookingImage !== "") {
+    // 4
+    if (
+      action.recipeInfo.fullRecipeCookingImage &&
+      action.recipeInfo.thumbRecipeCookingImage &&
+      action.recipeInfo.tinyRecipeCookingImage
+    ) {
       const res4 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-cooking`,
-        {fileType: action.recipeInfo.recipeCookingImage.type},
+        {fileType: action.recipeInfo.fullRecipeCookingImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.url,
-        action.recipeInfo.recipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.recipeCookingImage.type}}
+        res1.data.signedRequestFullSize,
+        action.recipeInfo.fullRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
       );
-      action.recipeInfo.recipeCookingImage = res4.data.url;
+      yield axios.put(
+        res1.data.signedRequestThumbSize,
+        action.recipeInfo.thumbRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.thumbRecipeCookingImage.type}}
+      );
+      yield axios.put(
+        res1.data.signedRequestTinySize,
+        action.recipeInfo.tinyRecipeCookingImage,
+        {headers: {'Content-Type': action.recipeInfo.tinyRecipeCookingImage.type}}
+      );
+      action.recipeInfo.recipeCookingImage = res4.data.urlFullSize;
+    } else {
+      action.recipeInfo.recipeCookingImage = "nobsc-recipe-cooking-default";
     }
 
     const res = yield axios.put(
