@@ -185,9 +185,9 @@ const UserDashboard = props => {
         <div className="dashboard-avatar">
           {!avatar && (
             <div>
-              <label>Current Profile Picture</label>
+              <h4>Current Profile Picture</h4>
               <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.authname}`} />
-              <label>Change Profile Picture</label>
+              <h4>Change Profile Picture</h4>
               <input className="avatar-input" name="set-avatar" type="file" accept="image/*" onChange={onSelectFile} />
             </div>
           )}
@@ -205,10 +205,16 @@ const UserDashboard = props => {
                 onComplete={onCropComplete}
               />
               <span>Move the crop to your desired position, then click "Complete". These two images will be saved for you:</span>
-              <span>Full Size (250px): </span><img className="avatar-crop-preview" src={cropFullSizePreview} />
-              <span>Tiny Size (25px): </span><img className="avatar-crop-tiny-preview" src={cropTinySizePreview} />
-              <button className="avatar-submit-button" name="submit-avatar" disabled={loading} onClick={submitAvatar}>Complete</button>
+              <div className="avatar-crop-previews">
+                <div className="avatar-crop-full-preview">
+                  <span>Full Size (250px): </span><img src={cropFullSizePreview} />
+                </div>
+                <div className="avatar-crop-tiny-preview">
+                  <span>Tiny Size (25px): </span><img src={cropTinySizePreview} />
+                </div>
+              </div>
               <button className="avatar-cancel-button" name="cancel-avatar" disabled={loading} onClick={cancelAvatar}>Cancel</button>
+              <button className="avatar-submit-button" name="submit-avatar" disabled={loading} onClick={submitAvatar}>Complete</button>
             </div>
           )}
         </div>

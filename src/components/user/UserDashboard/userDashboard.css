@@ -18,18 +18,53 @@
   max-height: 100%;
 }
 
-.avatar-crop-preview {
-  display: block;
+.avatar-crop-previews {
+  display: flex;
+  flex-direction: row;
+}
+
+.avatar-crop-full-preview {
+  order: 1;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.avatar-crop-full-preview img {
   min-height: 250px;
   max-height: 250px;
+  margin-left: 5px;
 }
 
 .avatar-crop-tiny-preview {
-  display: block;
+  order: 2;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.avatar-crop-tiny-preview img {
   min-height: 25px;
   max-height: 25px;
+  margin-left: 5px;
+}
+
+.avatar-cancel-button {
+  display: inline-block;
+  height: 30px;
+  margin-right: 30px;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 5px;
+  background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
 
 .avatar-submit-button {
-  display: block;
+  display: inline-block;
+  height: 30px;
+  margin-right: 30px;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 5px;
+  background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
 }
