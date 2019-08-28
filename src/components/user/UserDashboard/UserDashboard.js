@@ -283,7 +283,7 @@ const UserDashboard = props => {
                 props.myPrivateRecipes.length
                 ? props.myPrivateRecipes.map(recipe => (
                   <div key={recipe.recipe_id}>
-                    <span>{recipe.recipe_image}</span>
+                    <span><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
                     <span>{recipe.title}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
                     <span><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>

@@ -541,6 +541,41 @@ const UserSubmitRecipe = props => {
     return checkedMethods;
   }
 
+  const getRequiredEquipment = () => {
+    let requiredEquipment = [];
+    equipmentRows.map(eR => {
+      requiredEquipment.push({
+        amount: Number(eR.amount),
+        equipment: Number(eR.equipment)
+      });
+    });
+    return requiredEquipment;
+  }
+
+  const getRequiredIngredients = () => {
+    let requiredIngredients = [];
+    ingredientRows.map(iR => {
+      requiredIngredients.push({
+        amount: Number(iR.amount),
+        unit: Number(iR.unit),
+        ingredient: Number(iR.ingredient)
+      });
+    });
+    return requiredIngredients;
+  }
+
+  const getRequiredSubrecipes = () => {
+    let requiredSubrecipes;
+    subrecipeRows.map(sR => {
+      requiredSubrecipes.push({
+        amount: Number(sR.amount),
+        unit: Number(sR.unit),
+        subrecipe: Number(sR.subrecipe)
+      });
+    });
+    return requiredSubrecipes;
+  }
+
   const handleSubmit = () => {
     const recipeInfo = {
       ownership,
@@ -550,9 +585,9 @@ const UserSubmitRecipe = props => {
       description,
       directions,
       requiredMethods: getCheckedMethods(),
-      requiredEquipment: equipmentRows,
-      requiredIngredients: ingredientRows,
-      requiredSubrecipes: subrecipeRows,
+      requiredEquipment: getRequiredEquipment(),
+      requiredIngredients: getRequiredIngredients(),
+      requiredSubrecipes: getRequiredSubrecipes(),
       recipeImage,
       fullRecipeImage,
       thumbRecipeImage,
