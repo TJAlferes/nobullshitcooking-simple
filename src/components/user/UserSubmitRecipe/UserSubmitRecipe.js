@@ -491,6 +491,7 @@ const UserSubmitRecipe = props => {
     setThumbRecipeImage(null);
     setTinyRecipeImage(null);
   };
+
   const cancelRecipeEquipmentImage = () => {
     setEquipmentCropFullSizePreview(null);
     setEquipmentCropThumbSizePreview(null);
@@ -500,6 +501,7 @@ const UserSubmitRecipe = props => {
     setThumbRecipeEquipmentImage(null);
     setTinyRecipeEquipmentImage(null);
   };
+
   const cancelRecipeIngredientsImage = () => {
     setIngredientsCropFullSizePreview(null);
     setIngredientsCropThumbSizePreview(null);
@@ -509,6 +511,7 @@ const UserSubmitRecipe = props => {
     setThumbRecipeIngredientsImage(null);
     setTinyRecipeIngredientsImage(null);
   };
+
   const cancelRecipeCookingImage = () => {
     setCookingCropFullSizePreview(null);
     setCookingCropThumbSizePreview(null);
@@ -533,7 +536,7 @@ const UserSubmitRecipe = props => {
   const getCheckedMethods = () => {
     let checkedMethods = [];
     Object.entries(methods).forEach(([key, value]) => {
-      if (value === true) checkedMethods.push(Number(key));
+      if (value === true) checkedMethods.push({methodId: Number(key)});
     });
     return checkedMethods;
   }
