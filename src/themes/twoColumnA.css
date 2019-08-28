@@ -74,6 +74,12 @@
   color: #000;
 }
 
+.two-column-a-light .dashboard-hr {
+  background-color: #bfbfbf;
+}
+
+
+
 .two-column-a-dark section {
   background-color: #222;
   color: #aaa;
@@ -126,4 +132,8 @@
 .two-column-a-dark .demo-only-notice {
   background-color: #507ea7;
   color: #000;
+}
+
+.two-column-a-dark .dashboard-hr {
+  background-color: #444;
 }

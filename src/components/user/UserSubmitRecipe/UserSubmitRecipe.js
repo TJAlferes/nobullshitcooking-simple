@@ -634,8 +634,6 @@ const UserSubmitRecipe = props => {
     }
   }
 
-
-
   return (
     <div className={`submit-recipe one-column-a ${props.oneColumnATheme}`}>
 
@@ -654,7 +652,9 @@ const UserSubmitRecipe = props => {
             <p>Public:</p>
             <p>- Anyone can view</p>
             <p>- May only use official NOBSC equipment, ingredients, and recipes, and public recipes submitted by other users</p>
-            <p>- Can't be deleted, but can be disowned (author will be changed from "authname{/*authname*/}" to "Unknown")</p>
+            <p>- Can't be deleted, but can be disowned (author will be changed from "{props.authname}" to "Unknown")</p>
+            <br />
+            <p>Tip: If you're setting your recipe to public, please be sure to include all four images below.</p>
             <br />
             <p>Private:</p>
             <p>- Only you can view</p>
@@ -856,32 +856,7 @@ const UserSubmitRecipe = props => {
         />
       </div>
 
-      {/* images
-      <div className="images">
-        <div className="image_div">
-          <h2 className="red_style">Image of Finished Recipe</h2>
-          <div className="recipe-image-preview"></div>
-          <input name="setRecipeImage" type="file" accept="image/*" onChange={onSelectFile} />
-        </div>
-        <div className="image_div">
-          <h2 className="red_style">Image of All Equipment</h2>
-          <div className="recipe-image-preview"></div>
-          <input name="setRecipeEquipmentImage" type="file" accept="image/*" onChange={onSelectFile} />
-        </div>
-        <div className="image_div">
-          <h2 className="red_style">Image of All Ingredients</h2>
-          <div className="recipe-image-preview"></div>
-          <input name="setRecipeIngredientsImage" type="file" accept="image/*" onChange={onSelectFile} />
-        </div>
-        <div className="image_div">
-          <h2 className="red_style">Image of Cooking In Action</h2>
-          <div className="recipe-image-preview"></div>
-          <input name="setRecipeCookingImage" type="file" accept="image/*" onChange={onSelectFile} />
-        </div>
-      </div>
-      */}
-
-
+      {/* images */}
 
       <div className="submit-recipe-image">
         <h2>Image of Finished Recipe</h2>
@@ -1064,6 +1039,7 @@ const UserSubmitRecipe = props => {
 };
 
 const mapStateToProps = state => ({
+  authname: state.auth.authname,
   message: state.user.message,
   dataMeasurements: state.data.measurements,
   dataEquipment: state.data.equipment,

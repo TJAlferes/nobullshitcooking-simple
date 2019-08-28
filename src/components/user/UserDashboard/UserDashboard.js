@@ -185,9 +185,16 @@ const UserDashboard = props => {
         <div className="dashboard-avatar">
           {!avatar && (
             <div>
-              <h4>Current Profile Picture</h4>
-              <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.authname}`} />
-              <h4>Change Profile Picture</h4>
+              <h2>Profile Picture</h2>
+              <div className="avatar-crop-previews">
+                <div className="avatar-crop-full-preview">
+                  <span>Full Size: </span><img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.authname}`} />
+                </div>
+                <div className="avatar-crop-tiny-preview">
+                  <span>Tiny Size: </span><img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.authname}-tiny`} />
+                </div>
+              </div>
+              <label className="dashboard-avatar-label">Change</label>
               <input className="avatar-input" name="set-avatar" type="file" accept="image/*" onChange={onSelectFile} />
             </div>
           )}
@@ -207,10 +214,10 @@ const UserDashboard = props => {
               <span>Move the crop to your desired position, then click "Complete". These two images will be saved for you:</span>
               <div className="avatar-crop-previews">
                 <div className="avatar-crop-full-preview">
-                  <span>Full Size (250px): </span><img src={cropFullSizePreview} />
+                  <span>Full Size: </span><img src={cropFullSizePreview} />
                 </div>
                 <div className="avatar-crop-tiny-preview">
-                  <span>Tiny Size (25px): </span><img src={cropTinySizePreview} />
+                  <span>Tiny Size: </span><img src={cropTinySizePreview} />
                 </div>
               </div>
               <button className="avatar-cancel-button" name="cancel-avatar" disabled={loading} onClick={cancelAvatar}>Cancel</button>
@@ -218,6 +225,8 @@ const UserDashboard = props => {
             </div>
           )}
         </div>
+
+        <hr className="dashboard-hr" />
 
         {/* tabs */}
 
@@ -257,7 +266,7 @@ const UserDashboard = props => {
         {
           (!avatar && tab == "plans") && (
             <div className="dashboard-content">
-              <h2>My Plans</h2>
+              <h2>Plans</h2>
               <Link to="/user/planner/new">Create New Plan</Link>
               {
                 props.myPlans.length
@@ -277,7 +286,7 @@ const UserDashboard = props => {
         {
           (!avatar && tab == "recipes" && subTab == "private") && (
             <div className="dashboard-content">
-              <h2>My Private Recipes</h2>
+              <h2>Private Recipes</h2>
               <Link to="/user/recipes/submit">Create New Recipe</Link>
               {
                 props.myPrivateRecipes.length
@@ -299,7 +308,7 @@ const UserDashboard = props => {
         {
           (!avatar && tab == "recipes" && subTab == "public") && (
             <div className="dashboard-content">
-              <h2>My Public Recipes</h2>
+              <h2>Public Recipes</h2>
               <Link to="/user/recipes/submit">Create New Recipe</Link>
               {
                 props.myPublicRecipes.length
@@ -321,7 +330,7 @@ const UserDashboard = props => {
         {
           (!avatar && tab == "recipes" && subTab == "favorite") && (
             <div className="dashboard-content">
-              <h2>My Favorite Recipes</h2>
+              <h2>Favorite Recipes</h2>
               {
                 props.myFavoriteRecipes.length
                 ? props.myFavoriteRecipes.map(recipe => (
@@ -342,7 +351,7 @@ const UserDashboard = props => {
         {
           (!avatar && tab == "recipes" && subTab == "saved") && (
             <div className="dashboard-content">
-              <h2>My Saved Recipes</h2>
+              <h2>Saved Recipes</h2>
               {
                 props.mySavedRecipes.length
                 ? props.mySavedRecipes.map(recipe => (
@@ -363,7 +372,7 @@ const UserDashboard = props => {
         {
           !avatar && tab == "ingredients" && (
             <div className="dashboard-content">
-              <h2>My Private Ingredients</h2>
+              <h2>Private Ingredients</h2>
               <Link to="/user/ingredients/submit">Create New Ingredient</Link>
               {
                 props.myPrivateIngredients.length
@@ -385,7 +394,7 @@ const UserDashboard = props => {
         {
           !avatar && tab == "equipment" && (
             <div className="dashboard-content">
-              <h2>My Private Equipment</h2>
+              <h2>Private Equipment</h2>
               <Link to="/user/equipment/submit">Create New Equipment</Link>
               {
                 props.myPrivateEquipment.length
