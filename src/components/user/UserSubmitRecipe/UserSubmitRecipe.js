@@ -535,44 +535,60 @@ const UserSubmitRecipe = props => {
   
   const getCheckedMethods = () => {
     let checkedMethods = [];
-    Object.entries(methods).forEach(([key, value]) => {
-      if (value === true) checkedMethods.push({methodId: Number(key)});
-    });
+    if (methods.length) {
+      Object.entries(methods).forEach(([key, value]) => {
+        if (value === true) checkedMethods.push({methodId: Number(key)});
+      });
+      return checkedMethods;
+    }
+    checkedMethods = "none";
     return checkedMethods;
   }
 
   const getRequiredEquipment = () => {
     let requiredEquipment = [];
-    equipmentRows.map(eR => {
-      requiredEquipment.push({
-        amount: Number(eR.amount),
-        equipment: Number(eR.equipment)
+    if (equipmentRows.length) {
+      equipmentRows.map(eR => {
+        requiredEquipment.push({
+          amount: Number(eR.amount),
+          equipment: Number(eR.equipment)
+        });
       });
-    });
+      return requiredEquipment;
+    }
+    requiredEquipment = "none";
     return requiredEquipment;
   }
 
   const getRequiredIngredients = () => {
     let requiredIngredients = [];
-    ingredientRows.map(iR => {
-      requiredIngredients.push({
-        amount: Number(iR.amount),
-        unit: Number(iR.unit),
-        ingredient: Number(iR.ingredient)
+    if (ingredientRows.length) {
+      ingredientRows.map(iR => {
+        requiredIngredients.push({
+          amount: Number(iR.amount),
+          unit: Number(iR.unit),
+          ingredient: Number(iR.ingredient)
+        });
       });
-    });
+      return requiredIngredients;
+    }
+    requiredIngredients = "none";
     return requiredIngredients;
   }
 
   const getRequiredSubrecipes = () => {
     let requiredSubrecipes;
-    subrecipeRows.map(sR => {
-      requiredSubrecipes.push({
-        amount: Number(sR.amount),
-        unit: Number(sR.unit),
-        subrecipe: Number(sR.subrecipe)
+    if (subrecipeRows.length) {
+      subrecipeRows.map(sR => {
+        requiredSubrecipes.push({
+          amount: Number(sR.amount),
+          unit: Number(sR.unit),
+          subrecipe: Number(sR.subrecipe)
+        });
       });
-    });
+      return requiredSubrecipes;
+    }
+    requiredSubrecipes = "none";
     return requiredSubrecipes;
   }
 
