@@ -200,7 +200,7 @@ const UserDashboard = props => {
           )}
 
           {avatar && (
-            <div>
+            <div className="dashboard-avatar-edit">
               <ReactCrop
                 className="avatar-crop-tool"
                 style={{minHeight: "300px"}}
@@ -226,7 +226,7 @@ const UserDashboard = props => {
           )}
         </div>
 
-        <hr className="dashboard-hr" />
+        {!avatar && <hr className="dashboard-hr" />}
 
         {/* tabs */}
 
@@ -315,7 +315,7 @@ const UserDashboard = props => {
           (!avatar && tab == "plans") && (
             <div className="dashboard-content">
               <h2>Plans</h2>
-              <Link to="/user/planner/new">Create New Plan</Link>
+              <Link className="create-new-entity" to="/user/planner/new">Create New Plan</Link>
               {
                 props.myPlans.length
                 ? props.myPlans.map(plan => (
@@ -325,7 +325,7 @@ const UserDashboard = props => {
                     <span>Delete</span>
                   </div>
                 ))
-                : <div>You haven't created any plans yet.</div>
+                : <div className="dashboard-content-none">You haven't created any plans yet.</div>
               }
             </div>
           )
@@ -335,19 +335,19 @@ const UserDashboard = props => {
           (!avatar && tab == "recipes" && subTab == "private") && (
             <div className="dashboard-content">
               <h2>Private Recipes</h2>
-              <Link to="/user/recipes/submit">Create New Recipe</Link>
+              <Link className="create-new-entity" to="/user/recipes/submit">Create New Recipe</Link>
               {
                 props.myPrivateRecipes.length
                 ? props.myPrivateRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
-                    <span><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
-                    <span>{recipe.title}</span>
-                    <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
-                    <span><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
-                    <span>Delete</span>
+                    <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
+                    <span className="dashboard-content-item-name">{recipe.title}</span>
+                    <span className="dashboard-content-item-action"><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
+                    <span className="dashboard-content-item-action"><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
+                    <span className="dashboard-content-item-action">Delete</span>
                   </div>
                 ))
-                : <div>You haven't created any private recipes yet.</div>
+                : <div className="dashboard-content-none">You haven't created any private recipes yet.</div>
               }
             </div>
           )
@@ -357,7 +357,7 @@ const UserDashboard = props => {
           (!avatar && tab == "recipes" && subTab == "public") && (
             <div className="dashboard-content">
               <h2>Public Recipes</h2>
-              <Link to="/user/recipes/submit">Create New Recipe</Link>
+              <Link className="create-new-entity" to="/user/recipes/submit">Create New Recipe</Link>
               {
                 props.myPublicRecipes.length
                 ? props.myPublicRecipes.map(recipe => (
@@ -369,7 +369,7 @@ const UserDashboard = props => {
                     <span>Delete</span>
                   </div>
                 ))
-                : <div>You haven't created any public recipes yet.</div>
+                : <div className="dashboard-content-none">You haven't created any public recipes yet.</div>
               }
             </div>
           )
@@ -390,7 +390,7 @@ const UserDashboard = props => {
                     <span>Delete</span>
                   </div>
                 ))
-                : <div>You haven't favorited any recipes yet.</div>
+                : <div className="dashboard-content-none">You haven't favorited any recipes yet.</div>
               }
             </div>
           )
@@ -411,7 +411,7 @@ const UserDashboard = props => {
                     <span>Delete</span>
                   </div>
                 ))
-                : <div>You haven't saved any recipes yet.</div>
+                : <div className="dashboard-content-none">You haven't saved any recipes yet.</div>
               }
             </div>
           )
@@ -421,7 +421,7 @@ const UserDashboard = props => {
           !avatar && tab == "ingredients" && (
             <div className="dashboard-content">
               <h2>Private Ingredients</h2>
-              <Link to="/user/ingredients/submit">Create New Ingredient</Link>
+              <Link className="create-new-entity" to="/user/ingredients/submit">Create New Ingredient</Link>
               {
                 props.myPrivateIngredients.length
                 ? props.myPrivateIngredients.map(ingredient => (
@@ -433,7 +433,7 @@ const UserDashboard = props => {
                     <span>Delete</span>
                   </div>
                 ))
-                : <div>You haven't created any private ingredients yet.</div>
+                : <div className="dashboard-content-none">You haven't created any private ingredients yet.</div>
               }
             </div>
           )
@@ -443,7 +443,7 @@ const UserDashboard = props => {
           !avatar && tab == "equipment" && (
             <div className="dashboard-content">
               <h2>Private Equipment</h2>
-              <Link to="/user/equipment/submit">Create New Equipment</Link>
+              <Link className="create-new-entity" to="/user/equipment/submit">Create New Equipment</Link>
               {
                 props.myPrivateEquipment.length
                 ? props.myPrivateEquipment.map(equipment => (
@@ -455,7 +455,7 @@ const UserDashboard = props => {
                     <span>Delete</span>
                   </div>
                 ))
-                : <div>You haven't created any private equipment yet.</div>
+                : <div className="dashboard-content-none">You haven't created any private equipment yet.</div>
               }
             </div>
           )

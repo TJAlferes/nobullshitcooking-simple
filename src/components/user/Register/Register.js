@@ -30,7 +30,7 @@ const Register = props => {
 
   const handlePasswordAgainChange = e => setPasswordAgain(e.target.value);
 
-  const handleRegisterSubmit = () => {
+  const handleRegisterSubmit = (e) => {
     if (!validateRegistrationInfo()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
@@ -147,7 +147,7 @@ const Register = props => {
   );*/
 
   return (
-    <div className="register">
+    <div className="register" onKeyUp={(e) => handleLogin(e)}>
       {props.isAuthenticated && <Redirect to="/" />}
       <Link className="auth-img-link" to="/">
         <img

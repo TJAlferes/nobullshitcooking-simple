@@ -79,6 +79,37 @@
 }
 
 
+.two-column-a-light .dashboard-content-item {
+  border-color: #ddd;
+}
+
+.two-column-a-light .dashboard-content-item:nth-child(even) {
+  background-color: #eee;
+}
+
+.two-column-a-dark .dashboard-content-item {
+  border-color: #3a3a3a;
+}
+
+.two-column-a-dark .dashboard-content-item:nth-child(even) {
+  background-color: #2d2d2d;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .two-column-a-dark section {
   background-color: #222;
