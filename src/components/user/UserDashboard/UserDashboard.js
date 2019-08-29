@@ -233,10 +233,34 @@ const UserDashboard = props => {
         {!avatar && (
           <div className="dashboard-menu-tabs">
             {/*<button className="dashboard-menu-tab" name="notifications" onClick={handleTabClick}>Notifications</button>*/}
-            <button className="dashboard-menu-tab" name="plans" onClick={e => handleTabClick(e)}>Plans</button>
-            <button className="dashboard-menu-tab" name="recipes" onClick={e => handleTabClick(e)}>Recipes</button>
-            <button className="dashboard-menu-tab" name="ingredients" onClick={e => handleTabClick(e)}>Ingredients</button>
-            <button className="dashboard-menu-tab" name="equipment" onClick={e => handleTabClick(e)}>Equipment</button>
+            <button
+              className={(tab === "plans") ? "dashboard-menu-tab active" : "dashboard-menu-tab inactive"}
+              name="plans"
+              onClick={e => handleTabClick(e)}
+            >
+              Plans
+            </button>
+            <button
+              className={(tab === "recipes") ? "dashboard-menu-tab active" : "dashboard-menu-tab inactive"}
+              name="recipes"
+              onClick={e => handleTabClick(e)}
+            >
+              Recipes
+            </button>
+            <button
+              className={(tab === "ingredients") ? "dashboard-menu-tab active" : "dashboard-menu-tab inactive"}
+              name="ingredients"
+              onClick={e => handleTabClick(e)}
+            >
+              Ingredients
+            </button>
+            <button
+              className={(tab === "equipment") ? "dashboard-menu-tab active" : "dashboard-menu-tab inactive"}
+              name="equipment"
+              onClick={e => handleTabClick(e)}
+            >
+              Equipment
+            </button>
           </div>
         )}
 
@@ -246,10 +270,34 @@ const UserDashboard = props => {
         {
           (!avatar && tab == "recipes") && (
             <div className="dashboard-menu-subtabs">
-              <button className="dashboard-menu-subtab" name="private" onClick={e => handleSubTabClick(e)}>Private</button>
-              <button className="dashboard-menu-subtab" name="public" onClick={e => handleSubTabClick(e)}>Public</button>
-              <button className="dashboard-menu-subtab" name="favorite" onClick={e => handleSubTabClick(e)}>Favorite</button>
-              <button className="dashboard-menu-subtab" name="saved" onClick={e => handleSubTabClick(e)}>Saved</button>
+              <button
+                className={(subTab === "private") ? "dashboard-menu-subtab active" : "dashboard-menu-subtab inactive"}
+                name="private"
+                onClick={e => handleSubTabClick(e)}
+              >
+                Private
+              </button>
+              <button
+                className={(subTab === "public") ? "dashboard-menu-subtab active" : "dashboard-menu-subtab inactive"}
+                name="public"
+                onClick={e => handleSubTabClick(e)}
+              >
+                Public
+              </button>
+              <button
+                className={(subTab === "favorite") ? "dashboard-menu-subtab active" : "dashboard-menu-subtab inactive"}
+                name="favorite"
+                onClick={e => handleSubTabClick(e)}
+              >
+                Favorite
+              </button>
+              <button
+                className={(subTab === "saved") ? "dashboard-menu-subtab active" : "dashboard-menu-subtab inactive"}
+                name="saved"
+                onClick={e => handleSubTabClick(e)}
+              >
+                Saved
+              </button>
             </div>
           )
         }
@@ -271,7 +319,7 @@ const UserDashboard = props => {
               {
                 props.myPlans.length
                 ? props.myPlans.map(plan => (
-                  <div key={plan.plan_id}>
+                  <div className="dashboard-content-item" key={plan.plan_id}>
                     <span>{plan.plan_name}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View/Edit</Link></span>
                     <span>Delete</span>
@@ -291,7 +339,7 @@ const UserDashboard = props => {
               {
                 props.myPrivateRecipes.length
                 ? props.myPrivateRecipes.map(recipe => (
-                  <div key={recipe.recipe_id}>
+                  <div className="dashboard-content-item" key={recipe.recipe_id}>
                     <span><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
                     <span>{recipe.title}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
@@ -313,8 +361,8 @@ const UserDashboard = props => {
               {
                 props.myPublicRecipes.length
                 ? props.myPublicRecipes.map(recipe => (
-                  <div key={recipe.recipe_id}>
-                    <span>{recipe.recipe_image}</span>
+                  <div className="dashboard-content-item" key={recipe.recipe_id}>
+                    <span><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
                     <span>{recipe.title}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
                     <span><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
@@ -334,8 +382,8 @@ const UserDashboard = props => {
               {
                 props.myFavoriteRecipes.length
                 ? props.myFavoriteRecipes.map(recipe => (
-                  <div key={recipe.recipe_id}>
-                    <span>{recipe.recipe_image}</span>
+                  <div className="dashboard-content-item" key={recipe.recipe_id}>
+                    <span><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
                     <span>{recipe.title}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
                     <span><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
@@ -355,8 +403,8 @@ const UserDashboard = props => {
               {
                 props.mySavedRecipes.length
                 ? props.mySavedRecipes.map(recipe => (
-                  <div key={recipe.recipe_id}>
-                    <span>{recipe.recipe_image}</span>
+                  <div className="dashboard-content-item" key={recipe.recipe_id}>
+                    <span><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
                     <span>{recipe.title}</span>
                     <span><Link to={`user/recipes/${recipe.recipe_id}`}>View</Link></span>
                     <span><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
@@ -377,8 +425,8 @@ const UserDashboard = props => {
               {
                 props.myPrivateIngredients.length
                 ? props.myPrivateIngredients.map(ingredient => (
-                  <div key={ingredient.ingredient_id}>
-                    <span>{ingredient.ingredient_image}</span>
+                  <div className="dashboard-content-item" key={ingredient.ingredient_id}>
+                    <span><img src={`https://nobsc-user-ingredients.s3.amazonaws.com/${ingredient.ingredient_image}-tiny`} /></span>
                     <span>{ingredient.ingredient_name}</span>
                     <span><Link to={`user/ingredients/${ingredient.ingredient_id}`}>View</Link></span>
                     <span><Link to={`user/ingredients/edit/${ingredient.ingredient_id}`}>Edit</Link></span>
@@ -399,8 +447,8 @@ const UserDashboard = props => {
               {
                 props.myPrivateEquipment.length
                 ? props.myPrivateEquipment.map(equipment => (
-                  <div key={equipment.equipment_id}>
-                    <span>{equipment.equipment_image}</span>
+                  <div className="dashboard-content-item" key={equipment.equipment_id}>
+                    <span><img src={`https://nobsc-user-equipment.s3.amazonaws.com/${equipment.equipment_image}-tiny`} /></span>
                     <span>{equipment.equipment_name}</span>
                     <span><Link to={`user/equipment/${equipment.equipment_id}`}>View</Link></span>
                     <span><Link to={`user/equipment/edit/${equipment.equipment_id}`}>Edit</Link></span>

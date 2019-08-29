@@ -22,23 +22,17 @@ const Register = props => {
     return () => isSubscribed = false;
   });
 
-  const handleUsernameChange = e => {
-    setUsername(e.target.value);
-  }
+  const handleUsernameChange = e => setUsername(e.target.value);
 
-  const handleEmailChange = e => {
-    setEmail(e.target.value);
-  }
+  const handleEmailChange = e => setEmail(e.target.value);
 
-  const handlePasswordChange = e => {
-    setPassword(e.target.value);
-  }
+  const handlePasswordChange = e => setPassword(e.target.value);
 
-  const handlePasswordAgainChange = e => {
-    setPasswordAgain(e.target.value);
-  }
+  const handlePasswordAgainChange = e => setPasswordAgain(e.target.value);
 
   const handleRegisterSubmit = () => {
+    if (!validateRegistrationInfo()) return;
+    if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
     try {
       props.authUserRegister(email, password, username, props.history);

@@ -20,15 +20,13 @@ const Login = props => {
     return () => isSubscribed = false;
   });
 
-  const handleEmailChange = e => {
-    setEmail(e.target.value);
-  }
+  const handleEmailChange = e => setEmail(e.target.value);
 
-  const handlePasswordChange = e => {
-    setPassword(e.target.value);
-  }
+  const handlePasswordChange = e => setPassword(e.target.value);
   
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    if (!validate()) return;
+    if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
     try {
       props.authUserLogin(email, password);
@@ -45,7 +43,7 @@ const Login = props => {
   const validate = () => ((email.length > 1) && (password.length > 1));
 
   return (
-    <div className="login">
+    <div className="login" onKeyUp={(e) => handleLogin(e)}>
       {props.isAuthenticated && <Redirect to="/" />}
       <Link className="auth-img-link" to="/">
         <img

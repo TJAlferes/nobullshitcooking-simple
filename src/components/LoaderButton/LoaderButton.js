@@ -9,6 +9,7 @@ export default ({
   loadingText,
   isLoading,
   onClick,
+  onKeyUp,
   disabled = false
 }) => (
   <button
@@ -18,6 +19,7 @@ export default ({
     className={`LoaderButton ${className}`}
     text={text}
     onClick={(e) => onClick(e)}
+    onKeyUp={(e) => onKeyUp(e)}
     disabled={disabled || isLoading}
   >
     {!isLoading ? text : loadingText}
