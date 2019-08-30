@@ -137,7 +137,10 @@ const UserSubmitRecipe = props => {
 
   useEffect(() => {
     let isSubscribed = true;
-    if (isSubscribed) setMessage(props.message);
+    if (isSubscribed) {
+      window.scrollTo(0,0);
+      setMessage(props.message);
+    }
     return () => isSubscribed = false;
   });
 
@@ -627,8 +630,8 @@ const UserSubmitRecipe = props => {
       else if (ownership === "public") props.userCreateNewPublicRecipe(recipeInfo);
     } catch(err) {
       setLoading(false);
+      window.scrollTo(0,0);
       setMessage(err.message);
-      console.log(err.message);
     } finally {
       setLoading(false);
     }
@@ -640,7 +643,7 @@ const UserSubmitRecipe = props => {
       <h1>Submit New Recipe</h1>
 
       {/* TO DO: SCROLL TO TOP pageY: 0 */}
-      <div id="status">{message}</div>
+      <p className="error-message">{message}</p>
 
       {/* ownership */}
       <div className="ownership">

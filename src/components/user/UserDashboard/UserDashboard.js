@@ -39,7 +39,10 @@ const UserDashboard = props => {
 
   useEffect(() => {
     let isSubscribed = true;
-    if (isSubscribed) setMessage(props.message);
+    if (isSubscribed) {
+      window.scrollTo(0,0);
+      setMessage(props.message);
+    }
     return () => isSubscribed = false;
   });
 
@@ -156,8 +159,8 @@ const UserDashboard = props => {
       props.userSubmitAvatar(fullAvatar, tinyAvatar);
     } catch(err) {
       setLoading(false);
+      window.scrollTo(0,0);
       setMessage(err.message);
-      console.log(err.message);
     } finally {
       setLoading(false);
     }
@@ -176,31 +179,94 @@ const UserDashboard = props => {
   const handleSubTabClick = e => setSubTab(e.target.name);
 
   const handleDeletePlan = id => {
-    props.userDeletePlan(id);
+    setLoading(true);
+    try {
+      props.userDeletePlan(id);
+    } catch(err) {
+      setLoading(false);
+      window.scrollTo(0,0);
+      setMessage(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDeletePrivateRecipe = id => {
-    props.userDeletePrivateRecipe(id);
+    setLoading(true);
+    try {
+      props.userDeletePrivateRecipe(id);
+    } catch(err) {
+      setLoading(false);
+      window.scrollTo(0,0);
+      setMessage(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDisownPublicRecipe = id => {
-    props.userDisownPublicRecipe(id);
+    setLoading(true);
+    try {
+      props.userDisownPublicRecipe(id);
+    } catch(err) {
+      setLoading(false);
+      window.scrollTo(0,0);
+      setMessage(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleUnfavoriteRecipe = id => {
-    props.userUnfavoriteRecipe(id);
+    setLoading(true);
+    try {
+      props.userUnfavoriteRecipe(id);
+    } catch(err) {
+      setLoading(false);
+      window.scrollTo(0,0);
+      setMessage(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleUnsaveRecipe = id => {
-    props.userUnsaveRecipe(id);
+    setLoading(true);
+    try {
+      props.userUnsaveRecipe(id);
+    } catch(err) {
+      setLoading(false);
+      window.scrollTo(0,0);
+      setMessage(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDeletePrivateEquipment = id => {
-    props.userDeletePrivateEquipment(id);
+    setLoading(true);
+    try {
+      props.userDeletePrivateEquipment(id);
+    } catch(err) {
+      setLoading(false);
+      window.scrollTo(0,0);
+      setMessage(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDeletePrivateIngredient = id => {
-    props.userDeletePrivateIngredient(id);
+    setLoading(true);
+    try {
+      props.userDeletePrivateIngredient(id);
+    } catch(err) {
+      setLoading(false);
+      window.scrollTo(0,0);
+      setMessage(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -212,7 +278,7 @@ const UserDashboard = props => {
 
         <h1>{props.authname}</h1>
 
-        <p>{message}</p>
+        <p className="error-message">{message}</p>
 
         {/* avatar*/}
         <div className="dashboard-avatar">
@@ -353,9 +419,9 @@ const UserDashboard = props => {
                 props.myPlans.length
                 ? props.myPlans.map(plan => (
                   <div className="dashboard-content-item" key={plan.plan_id}>
-                    <span>{plan.plan_name}</span>
-                    <span><Link to={`user/recipes/${plan.plan_id}`}>View/Edit</Link></span>
-                    <span onClick={() => handleDeletePlan(plan.plan_id)}>Delete</span>
+                    <span className="dashboard-content-item-name">{plan.plan_name}</span>
+                    <span className="dashboard-content-item-action"><Link to={`user/recipes/${plan.plan_id}`}>View/Edit</Link></span>
+                    <span className="dashboard-content-item-delete" onClick={() => handleDeletePlan(plan.plan_id)}>Delete</span>
                   </div>
                 ))
                 : <div className="dashboard-content-none">You haven't created any plans yet.</div>
@@ -376,7 +442,7 @@ const UserDashboard = props => {
                     <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
                     <span className="dashboard-content-item-name"><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
                     <span className="dashboard-content-item-action"><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
-                    <span className="dashboard-content-item-action" onClick={() => handleDeletePrivateRecipe(recipe.recipe_id)}>Delete</span>
+                    <span className="dashboard-content-item-delete" onClick={() => handleDeletePrivateRecipe(recipe.recipe_id)}>Delete</span>
                   </div>
                 ))
                 : <div className="dashboard-content-none">You haven't created any private recipes yet.</div>
@@ -394,10 +460,10 @@ const UserDashboard = props => {
                 props.myPublicRecipes.length
                 ? props.myPublicRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
-                    <span><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
-                    <span><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
-                    <span><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
-                    <span onClick={() => handleDisownPublicRecipe(recipe.recipe_id)}>Disown</span>
+                    <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
+                    <span className="dashboard-content-item-name"><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
+                    <span className="dashboard-content-item-action"><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
+                    <span className="dashboard-content-item-delete" onClick={() => handleDisownPublicRecipe(recipe.recipe_id)}>Disown</span>
                   </div>
                 ))
                 : <div className="dashboard-content-none">You haven't created any public recipes yet.</div>
@@ -414,9 +480,9 @@ const UserDashboard = props => {
                 props.myFavoriteRecipes.length
                 ? props.myFavoriteRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
-                    <span><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
-                    <span><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
-                    <span onClick={() => handleUnfavoriteRecipe(recipe.recipe_id)}>Unfavorite</span>
+                    <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
+                    <span className="dashboard-content-item-name"><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
+                    <span className="dashboard-content-item-delete" onClick={() => handleUnfavoriteRecipe(recipe.recipe_id)}>Unfavorite</span>
                   </div>
                 ))
                 : <div className="dashboard-content-none">You haven't favorited any recipes yet.</div>
@@ -433,9 +499,9 @@ const UserDashboard = props => {
                 props.mySavedRecipes.length
                 ? props.mySavedRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
-                    <span><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
-                    <span><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
-                    <span onClick={() => handleUnsaveRecipe(recipe.recipe_id)}>Unsave</span>
+                    <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
+                    <span className="dashboard-content-item-name"><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
+                    <span className="dashboard-content-item-delete" onClick={() => handleUnsaveRecipe(recipe.recipe_id)}>Unsave</span>
                   </div>
                 ))
                 : <div className="dashboard-content-none">You haven't saved any recipes yet.</div>
@@ -453,10 +519,10 @@ const UserDashboard = props => {
                 props.myPrivateIngredients.length
                 ? props.myPrivateIngredients.map(ingredient => (
                   <div className="dashboard-content-item" key={ingredient.ingredient_id}>
-                    <span><img src={`https://nobsc-user-ingredients.s3.amazonaws.com/${ingredient.ingredient_image}-tiny`} /></span>
-                    <span><Link to={`user/ingredients/${ingredient.ingredient_id}`}>{ingredient.ingredient_name}</Link></span>
-                    <span><Link to={`user/ingredients/edit/${ingredient.ingredient_id}`}>Edit</Link></span>
-                    <span onClick={() => handleDeletePrivateIngredient(ingredient.ingredient_id)}>Delete</span>
+                    <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-ingredients.s3.amazonaws.com/${ingredient.ingredient_image}-tiny`} /></span>
+                    <span className="dashboard-content-item-name"><Link to={`user/ingredients/${ingredient.ingredient_id}`}>{ingredient.ingredient_name}</Link></span>
+                    <span className="dashboard-content-item-action"><Link to={`user/ingredients/edit/${ingredient.ingredient_id}`}>Edit</Link></span>
+                    <span className="dashboard-content-item-delete" onClick={() => handleDeletePrivateIngredient(ingredient.ingredient_id)}>Delete</span>
                   </div>
                 ))
                 : <div className="dashboard-content-none">You haven't created any private ingredients yet.</div>
@@ -474,10 +540,10 @@ const UserDashboard = props => {
                 props.myPrivateEquipment.length
                 ? props.myPrivateEquipment.map(equipment => (
                   <div className="dashboard-content-item" key={equipment.equipment_id}>
-                    <span><img src={`https://nobsc-user-equipment.s3.amazonaws.com/${equipment.equipment_image}-tiny`} /></span>
-                    <span><Link to={`user/equipment/${equipment.equipment_id}`}>{equipment.equipment_name}</Link></span>
-                    <span><Link to={`user/equipment/edit/${equipment.equipment_id}`}>Edit</Link></span>
-                    <span onClick={() => handleDeletePrivateEquipment(equipment.equipment_id)}>Delete</span>
+                    <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-equipment.s3.amazonaws.com/${equipment.equipment_image}-tiny`} /></span>
+                    <span className="dashboard-content-item-name"><Link to={`user/equipment/${equipment.equipment_id}`}>{equipment.equipment_name}</Link></span>
+                    <span className="dashboard-content-item-action"><Link to={`user/equipment/edit/${equipment.equipment_id}`}>Edit</Link></span>
+                    <span className="dashboard-content-item-delete" onClick={() => handleDeletePrivateEquipment(equipment.equipment_id)}>Delete</span>
                   </div>
                 ))
                 : <div className="dashboard-content-none">You haven't created any private equipment yet.</div>
