@@ -179,8 +179,7 @@ export function* userDeletePrivateEquipmentSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/equipment/delete`,
-      {equipmentInfo: action.equipmentInfo},
-      {withCredentials: true}
+      {withCredentials: true, data: {equipmentId: action.equipmentId}}
     );
     if (res.data.message == 'Equipment deleted.') {
       //yield put();  refresh/update respective list
@@ -316,8 +315,7 @@ export function* userDeletePrivateIngredientSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/ingredient/delete`,
-      {ingredientInfo: action.ingredientInfo},
-      {withCredentials: true}
+      {withCredentials: true, data: {ingredientId: action.ingredientId}}
     );
     if (res.data.message == 'Ingredient deleted.') {
       //yield put();  refresh/update respective list
@@ -644,7 +642,6 @@ export function* userEditPrivateRecipeSaga(action) {
 
 export function* userDeletePrivateRecipeSaga(action) {
   try {
-    console.log(action.recipeId);
     const res = yield axios.delete(
       `${endpoint}/user/recipe/delete/private`,
       {withCredentials: true, data: {recipeId: action.recipeId}}
@@ -976,8 +973,7 @@ export function* userDisownPublicRecipeSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/recipe/disown/public`,
-      {recipeInfo: action.recipeInfo},
-      {withCredentials: true}
+      {withCredentials: true, data: {recipeId: action.recipeId}}
     );
     if (res.data.message == 'Recipe disowned.') {
       //yield put();  refresh/update respective list
@@ -1050,8 +1046,7 @@ export function* userDeletePlanSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/plan/delete`,
-      {planInfo: action.planInfo},
-      {withCredentials: true}
+      {withCredentials: true, data: {planId: action.planId}}
     );
     if (res.data.message == 'Plan deleted.') {
       //yield put();  refresh/update respective list
@@ -1102,8 +1097,7 @@ export function* userUnfavoriteRecipeSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/favorite-recipe/delete`,
-      {recipeId: action.recipeId},
-      {withCredentials: true}
+      {withCredentials: true, data: {recipeId: action.recipeId}}
     );
     if (res.data.message == 'Unfavorited.') {
       //yield put();  refresh/update respective list
@@ -1154,8 +1148,7 @@ export function* userUnsaveRecipeSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/saved-recipe/delete`,
-      {recipeId: action.recipeId},
-      {withCredentials: true}
+      {withCredentials: true, data: {recipeId: action.recipeId}}
     );
     if (res.data.message == 'Unsaved.') {
       //yield put();  refresh/update respective list
@@ -1250,8 +1243,7 @@ export function* userDeleteFriendshipSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/friendship/delete`,
-      {friendName: action.friendName},
-      {withCredentials: true}
+      {withCredentials: true, data: {friendName: action.friendName}}
     );
     if (res.data.message == 'No longer friends. Maybe again later.') {
       //yield put();  refresh/update respective list
@@ -1294,8 +1286,7 @@ export function* userUnblockUserSaga(action) {
   try {
     const res = yield axios.delete(
       `${endpoint}/user/friendship/unblock`,
-      {friendName: action.friendName},
-      {withCredentials: true}
+      {withCredentials: true, data: {friendName: action.friendName}}
     );
     if (res.data.message == 'User unblocked.') {
       //yield put();  refresh/update respective list
