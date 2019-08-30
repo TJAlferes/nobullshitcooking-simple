@@ -183,11 +183,19 @@
 }
 
 .dashboard-content-item-name {
-  min-width: 160px;
-  width: auto;
-  max-width: 690px;
+  width: 690px;
   padding-right: 10px;
   padding-left: 10px;
+}
+
+.dashboard-content-item-name a,
+.dashboard-content-item-action a {
+  color: #68abe6;
+}
+
+.dashboard-content-item-name a:visited,
+.dashboard-content-item-action a:visited {
+  color: #68abe6;
 }
 
 .dashboard-content-item-action {
@@ -201,6 +209,8 @@
   }
 
   .dashboard-content-item-action {
-    width: 40px;
+    width: 44px;
+    padding-right: 2px;
+    padding-left: 2px;
   }
 }

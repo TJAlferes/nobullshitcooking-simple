@@ -147,7 +147,7 @@ const Register = props => {
   );*/
 
   return (
-    <div className="register" onKeyUp={(e) => handleLogin(e)}>
+    <div className="register" onKeyUp={(e) => handleRegisterSubmit(e)}>
       {props.isAuthenticated && <Redirect to="/" />}
       <Link className="auth-img-link" to="/">
         <img

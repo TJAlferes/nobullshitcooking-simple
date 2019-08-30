@@ -97,27 +97,10 @@
   background-color: #eee;
 }
 
-.two-column-a-dark .dashboard-content-item {
-  border-color: #3a3a3a;
+.two-column-a-light .dashboard-content-item-name a:hover,
+.two-column-a-light .dashboard-content-item-action a:hover {
+  color: #c10006;
 }
-
-.two-column-a-dark .dashboard-content-item:nth-child(even) {
-  background-color: #2d2d2d;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -177,4 +160,17 @@
 
 .two-column-a-dark .dashboard-hr {
   background-color: #444;
+}
+
+.two-column-a-dark .dashboard-content-item {
+  border-color: #3a3a3a;
+}
+
+.two-column-a-dark .dashboard-content-item:nth-child(even) {
+  background-color: #2d2d2d;
+}
+
+.two-column-a-dark .dashboard-content-item-name a:hover,
+.two-column-a-dark .dashboard-content-item-action a:hover {
+  color: #690004;
 }

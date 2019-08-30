@@ -644,10 +644,10 @@ export function* userEditPrivateRecipeSaga(action) {
 
 export function* userDeletePrivateRecipeSaga(action) {
   try {
+    console.log(action.recipeId);
     const res = yield axios.delete(
       `${endpoint}/user/recipe/delete/private`,
-      {recipeInfo: action.recipeInfo},
-      {withCredentials: true}
+      {withCredentials: true, data: {recipeId: action.recipeId}}
     );
     if (res.data.message == 'Recipe deleted.') {
       //yield put();  refresh/update respective list
