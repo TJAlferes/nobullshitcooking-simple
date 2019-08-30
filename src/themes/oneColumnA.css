@@ -1,5 +1,7 @@
 .one-column-a {
   display: block;
+  min-width: 300px;
+  max-width: 1200px;
   margin: 20px auto 0px auto;
   padding: 10px 10px;
 }

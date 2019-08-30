@@ -106,6 +106,7 @@
 
 .dashboard-menu-tabs,
 .dashboard-menu-subtabs {
+  width: 100%;
   margin-bottom: 10px;
   border-bottom: 2px solid #6cabe4;
 }
@@ -195,7 +196,7 @@
 }
 
 .dashboard-content-item-name {
-  width: 690px;
+  width: 760px;
   padding-right: 10px;
   padding-left: 10px;
 }
@@ -227,7 +228,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 1179px) {
+@media (max-width: 1209px) {
   .avatar-crop-previews {
     flex-direction: column;
     flex-wrap: wrap;
