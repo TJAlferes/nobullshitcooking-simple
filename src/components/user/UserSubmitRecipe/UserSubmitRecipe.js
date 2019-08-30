@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import uuid from 'uuid/v4';
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -138,11 +139,11 @@ const UserSubmitRecipe = props => {
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
-      window.scrollTo(0,0);
+      if (props.message !== "") window.scrollTo(0,0);
       setMessage(props.message);
     }
     return () => isSubscribed = false;
-  });
+  }, [props.message]);
 
   const handleOwnershipChange = async (e) => {
     if (ownership === "private" && e.target.value === "public") {
@@ -642,7 +643,6 @@ const UserSubmitRecipe = props => {
 
       <h1>Submit New Recipe</h1>
 
-      {/* TO DO: SCROLL TO TOP pageY: 0 */}
       <p className="error-message">{message}</p>
 
       {/* ownership */}
@@ -1025,7 +1025,14 @@ const UserSubmitRecipe = props => {
 
       {/* submit */}
       <div>
+        <Link
+          className="submit-recipe-cancel-button"
+          to="/user/dashboard"
+        >
+          Cancel
+        </Link>
         <LoaderButton
+          className="submit-recipe-submit-button"
           id="user_submit_recipe_button"
           type="button"
           name="submit"

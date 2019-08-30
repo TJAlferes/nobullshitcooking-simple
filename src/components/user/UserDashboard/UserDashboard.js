@@ -36,15 +36,15 @@ const UserDashboard = props => {
   const [ subTab, setSubTab ] = useState("private");
 
   const imageRef = useRef(null);
-
+  
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
-      window.scrollTo(0,0);
+      if (props.message !== "") window.scrollTo(0,0);
       setMessage(props.message);
     }
     return () => isSubscribed = false;
-  });
+  }, [props.message]);
 
   const onSelectFile = e => {
     if (e.target.files && e.target.files.length > 0) {

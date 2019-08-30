@@ -195,17 +195,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /*
 Add & Remove Buttons
 */
@@ -245,74 +234,6 @@ Add & Remove Buttons
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-Images Area
-*/
-.submitted_image {
-  width: 190px;
-  margin: 0;
-}
-
-.image_feedback {
-  display: block;
-  width: 320px;
-  margin: 20px auto 20px auto;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px;
-  font-family: Arial, sans-serif;
-  font-size: 1.4rem;
-  color: black;
-  background-color: #eee;
-}
-
-#preview,
-#preview_e,
-#preview_i,
-#preview_c {
-  display: block;
-  width: 482px;
-  height: 322px;
-  border: 1px solid #aaa;
-  overflow: hidden;
-}
-
-#submitted_image,
-#submitted_equipment_image,
-#submitted_ingredients_image,
-#submitted_cooking_image {
-  border: 0;
-  border-radius: 0;
-}
-
-
-
 /*
 Submit Button
 */
@@ -343,4 +264,32 @@ Submit Button
 
 #submit_button:active {
   background-image: linear-gradient(to bottom, #8cbeec, #4493d8);
+}
+
+.submit-recipe-cancel-button {
+  display: inline-block;
+  width: 235px;
+  height: 30px;
+  margin-right: 30px;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 5px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 26px;
+  color: black;
+  background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
+}
+
+.submit-recipe-submit-button {
+  display: inline-block;
+  width: 235px;
+  height: 30px;
+  margin-right: 30px;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 5px;
+  line-height: 26px;
+  font-family: 'Play', sans-serif;
+  background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
 }

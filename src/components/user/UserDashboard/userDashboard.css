@@ -218,16 +218,53 @@
 
 .dashboard-content-item-delete {
   height: 19px;
+  margin-right: 1px;
   border: 1px solid #aaa;
   border-radius: 2px;
+  line-height: 18px;
+  color: #000;
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
   cursor: pointer;
 }
 
 @media (max-width: 1179px) {
+  .avatar-crop-previews {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  
+  .avatar-crop-full-preview {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  
+  .avatar-crop-full-preview img {
+    margin-left: 0;
+    padding-top: 5px;
+  }
+  
+  .avatar-crop-tiny-preview {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .avatar-crop-tiny-preview img {
+    margin-left: 0;
+    padding-top: 5px;
+  }
+
+
+
   .dashboard-menu-tabs,
   .dashboard-menu-subtabs {
     width: 235px;
+    margin: 0 auto;
+  }
+
+  .create-new-entity {
+    margin: 0 auto 10px auto;
   }
 
   .dashboard-content-item-action,
