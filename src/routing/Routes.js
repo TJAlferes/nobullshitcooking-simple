@@ -33,12 +33,24 @@ const UserProfile = lazy(() => import('../components/user/UserProfile/UserProfil
 
 const PlannerPage = lazy(() => import('../components/PlannerPage/PlannerPage'));  // for public, url-based
 const UserPlannerPage = lazy(() => import('../components/user/UserPlannerPage/UserPlannerPage'));
+const UserNewPlannerPage = lazy(() => import('../components/user/UserNewPlannerPage/UserNewPlannerPage'));
+const UserEditPlannerPage = lazy(() => import('../components/user/UserEditPlannerPage/UserEditPlannerPage'));
 
 const SubmitRecipe = lazy(() => import('../components/demos/SubmitRecipe/SubmitRecipe'));  // for demo purposes
 const StaffSubmitRecipe = lazy(() => import('../components/staff/StaffSubmitRecipe/StaffSubmitRecipe'));
 const UserSubmitRecipe = lazy(() => import('../components/user/UserSubmitRecipe/UserSubmitRecipe'));
 const StaffEditRecipe = lazy(() => import('../components/staff/StaffEditRecipe/StaffEditRecipe'));
 const UserEditRecipe = lazy(() => import('../components/user/UserEditRecipe/UserEditRecipe'));
+
+const StaffSubmitEquipment = lazy(() => import('../components/staff/StaffSubmitEquipment/StaffSubmitEquipment'));
+const UserNewEquipment = lazy(() => import('../components/user/UserNewEquipment/UserNewEquipment'));
+const StaffEditEquipment = lazy(() => import('../components/staff/StaffEditEquipment/StaffEditEquipment'));
+const UserEditEquipment = lazy(() => import('../components/user/UserEditEquipment/UserEditEquipment'));
+
+const StaffSubmitIngredient = lazy(() => import('../components/staff/StaffSubmitIngredient/StaffSubmitIngredient'));
+const UserNewIngredient = lazy(() => import('../components/user/UserNewIngredient/UserNewIngredient'));
+const StaffEditIngredient = lazy(() => import('../components/staff/StaffEditIngredient/StaffEditIngredient'));
+const UserEditIngredient = lazy(() => import('../components/user/UserEditIngredient/UserEditIngredient'));
 
 import Messenger from '../components/demos/Messenger/Messenger';  // for demo purposes
 const UserMessenger = lazy(() => import('../components/user/UserMessenger/UserMessenger'));
@@ -195,16 +207,25 @@ const RoutesList = () => (
       <AppliedRoute path="/user/profile/:username" exact component={UserProfile} />
 
       <AppliedRoute path="/planner" exact component={PlannerPage} />  {/* for demo/public purposes */}
-      <AppliedRoute path="/planner/:plan" exact component={PlannerPage} />
-      <AuthenticatedRoute path="/user/planner" exact component={UserPlannerPage} />
+      <AuthenticatedRoute path="/user/planner/:id" exact component={UserPlannerPage} />
+      <AuthenticatedRoute path="/user/planner/submit" exact component={UserNewPlannerPage} />
+      <AuthenticatedRoute path="/user/planner/edit" exact component={UserEditPlannerPage} />
 
       <AppliedRoute path="/food/recipes/submit" exact component={SubmitRecipe} />  {/* for demo purposes */}
-      <AppliedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
-      {/*<AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />*/}
-      <AppliedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
-      {/*<AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />*/}
+      <AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
+      <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
       <AuthenticatedRoute path="/staff/recipes/edit" exact component={StaffEditRecipe} />
       <AuthenticatedRoute path="/user/recipes/edit" exact component={UserEditRecipe} />
+
+      <AuthenticatedRoute path="/staff/equipment/submit" exact component={StaffSubmitEquipment} />
+      <AuthenticatedRoute path="/user/equipment/submit" exact component={UserNewEquipment} />
+      <AuthenticatedRoute path="/staff/equipment/edit" exact component={StaffEditEquipment} />
+      <AuthenticatedRoute path="/user/equipment/edit" exact component={UserEditEquipment} />
+
+      <AuthenticatedRoute path="/staff/ingredient/submit" exact component={StaffSubmitIngredient} />
+      <AuthenticatedRoute path="/user/ingredient/submit" exact component={UserNewIngredient} />
+      <AuthenticatedRoute path="/staff/ingredient/edit" exact component={StaffEditIngredient} />
+      <AuthenticatedRoute path="/user/ingredient/edit" exact component={UserEditIngredient} />
 
       <AppliedRoute path="/messenger" exact component={Messenger} />  {/* for demo purposes */}
       <AuthenticatedRoute path="/user/messenger" exact component={UserMessenger} />

@@ -73,26 +73,23 @@ dark
   color: #aaa;
 }
 
+.one-column-a-dark .ownership-span-label,
+.one-column-a-dark .method-span-label,
 .one-column-a-dark label {
-  color: #777;
+  color: #999;
 }
 
-.one-column-a-dark input {
-  border-top-color: #666;
-  border-right-color: #888;
-  border-bottom-color: #888;
-  border-left-color: #666;
+.one-column-a-dark select,
+.one-column-a-dark input,
+.one-column-a-dark .manual_amount,
+.one-column-a-dark .recipe-directions {
+  border-color: #666;
   background-color: #1e1e1e;
   color: #bbb;
 }
 
-.one-column-a-dark select {
-  background-color: #333;
-  color: #bbb;
-}
-
 .one-column-a-dark option {
-  background-color: #333;
+  background-color: #1e1e1e;
   color: #bbb;
 }
 

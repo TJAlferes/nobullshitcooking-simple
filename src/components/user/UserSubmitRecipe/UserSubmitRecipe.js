@@ -852,6 +852,7 @@ const UserSubmitRecipe = props => {
       <div className="directions">
         <h2 className="red_style">Directions</h2>
         <textarea
+          className="recipe-directions"
           name="recipe_directions"
           id="recipe_directions"
           onChange={handleDirectionsChange}
@@ -862,11 +863,11 @@ const UserSubmitRecipe = props => {
       {/* images */}
 
       <div className="submit-recipe-image">
-        <h2>Image of Finished Recipe</h2>
+        <h2 className="red_style">Image of Finished Recipe</h2>
         {!recipeImage && (
           <div>
-            <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${props.authname}`} />
-            <h4>Change</h4>
+            <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+            <h4 className="change-default">Change</h4>
             <input className="submit-recipe-image-input" name="setRecipeImage" type="file" accept="image/*" onChange={onSelectFile} />
           </div>
         )}
@@ -896,17 +897,16 @@ const UserSubmitRecipe = props => {
               </div>
             </div>
             <button className="submit-recipe-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeImage}>Cancel</button>
-            {/*<button className="submit-recipe-image-submit-button" name="submit-recipe-image" disabled={loading} onClick={submitRecipeImage}>Complete</button>*/}
           </div>
         )}
       </div>
 
       <div className="submit-recipe-equipment-image">
-        <h2>Image of All Equipment</h2>
+        <h2 className="red_style">Image of All Equipment</h2>
         {!recipeEquipmentImage && (
           <div>
-            <img src={`https://nobsc-user-recipe-equipment.s3.amazonaws.com/${props.authname}`} />
-            <h4>Change</h4>
+            <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+            <h4 className="change-default">Change</h4>
             <input className="submit-recipe-equipment-image-input" name="setRecipeEquipmentImage" type="file" accept="image/*" onChange={onSelectEquipmentFile} />
           </div>
         )}
@@ -936,17 +936,16 @@ const UserSubmitRecipe = props => {
               </div>
             </div>
             <button className="submit-recipe-equipment-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeEquipmentImage}>Cancel</button>
-            {/*<button className="submit-recipe-equipment-image-submit-button" name="submit-recipe-image" disabled={loading} onClick={submitRecipeEquipmentImage}>Complete</button>*/}
           </div>
         )}
       </div>
 
       <div className="submit-recipe-ingredients-image">
-        <h2>Image of All Ingredients</h2>
+        <h2 className="red_style">Image of All Ingredients</h2>
         {!recipeIngredientsImage && (
           <div>
-            <img src={`https://nobsc-user-recipe-ingredients.s3.amazonaws.com/${props.authname}`} />
-            <h4>Change</h4>
+            <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+            <h4 className="change-default">Change</h4>
             <input className="submit-recipe-ingredients-image-input" name="setRecipeIngredientsImage" type="file" accept="image/*" onChange={onSelectIngredientsFile} />
           </div>
         )}
@@ -976,17 +975,16 @@ const UserSubmitRecipe = props => {
               </div>
             </div>
             <button className="submit-recipe-ingredients-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeIngredientsImage}>Cancel</button>
-            {/*<button className="submit-recipe-ingredients-image-submit-button" name="submit-recipe-image" disabled={loading} onClick={submitRecipeIngredientsImage}>Complete</button>*/}
           </div>
         )}
       </div>
 
       <div className="submit-recipe-cooking-image">
-        <h2>Image of Cooking In Action</h2>
+        <h2 className="red_style">Image of Cooking In Action</h2>
         {!recipeCookingImage && (
           <div>
-            <img src={`https://nobsc-user-recipe-cooking.s3.amazonaws.com/${props.authname}`} />
-            <h4>Change</h4>
+            <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+            <h4 className="change-default">Change</h4>
             <input className="submit-recipe-cooking-image-input" name="setRecipeCookingImage" type="file" accept="image/*" onChange={onSelectCookingFile} />
           </div>
         )}
@@ -1016,7 +1014,6 @@ const UserSubmitRecipe = props => {
               </div>
             </div>
             <button className="submit-recipe-cooking-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeCookingImage}>Cancel</button>
-            {/*<button className="submit-recipe-cooking-image-submit-button" name="submit-recipe-image" disabled={loading} onClick={submitRecipeCookingImage}>Complete</button>*/}
           </div>
         )}
       </div>

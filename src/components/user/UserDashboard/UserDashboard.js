@@ -415,13 +415,13 @@ const UserDashboard = props => {
           (!avatar && tab == "plans") && (
             <div className="dashboard-content">
               <h2>Plans</h2>
-              <Link className="create-new-entity" to="/user/planner/new">Create New Plan</Link>
+              <Link className="create-new-entity" to="/user/planner/submit">Create New Plan</Link>
               {
                 props.myPlans.length
                 ? props.myPlans.map(plan => (
                   <div className="dashboard-content-item" key={plan.plan_id}>
-                    <span className="dashboard-content-item-name">{plan.plan_name}</span>
-                    <span className="dashboard-content-item-action"><Link to={`user/recipes/${plan.plan_id}`}>View/Edit</Link></span>
+                    <span className="dashboard-content-item-name"><Link to={`user/planner/${plan.plan_id}`}>{plan.plan_name}</Link></span>
+                    <span className="dashboard-content-item-action"><Link to={`user/planner/edit/${plan.plan_id}`}>Edit</Link></span>
                     <span className="dashboard-content-item-delete" onClick={() => handleDeletePlan(plan.plan_id)}>Delete</span>
                   </div>
                 ))
