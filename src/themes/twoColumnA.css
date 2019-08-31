@@ -110,7 +110,13 @@
   color: #c10006;
 }
 
-
+.two-column-a-light .messenger-room,
+.two-column-a-light .messenger-channel-switch,
+.two-column-a-light .messenger-chat,
+.two-column-a-light .messenger-chat-input,
+.two-column-a-light .messenger-people {
+  border-color: #ddd;
+}
 
 
 
@@ -184,4 +190,25 @@
 .two-column-a-dark .dashboard-content-item-name a:hover,
 .two-column-a-dark .dashboard-content-item-action a:hover {
   color: #690004;
+}
+
+.two-column-a-dark .messenger-room,
+.two-column-a-dark .messenger-channel-switch,
+.two-column-a-dark .messenger-chat,
+.two-column-a-dark .messenger-chat-input,
+.two-column-a-dark .messenger-people {
+  border-color: #444
+}
+
+.two-column-a-dark .messenger-room,
+.two-column-a-dark .messenger-room input,
+.two-column-a-dark .messenger-chat,
+.two-column-a-dark .messenger-chat-messages,
+.two-column-a-dark .messenger-chat-message,
+.two-column-a-dark .messenger-chat-input input,
+.two-column-a-dark .messenger-people,
+.two-column-a-dark .messenger-users-in-room,
+.two-column-a-dark .messenger-friends {
+  background-color: #1e1e1e;
+  color: #bbb;
 }

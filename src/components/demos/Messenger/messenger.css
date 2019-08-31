@@ -1,4 +1,4 @@
-.demo-only-notice {
+/*.demo-only-notice {
   background-color: #d5fdd5;
 }
 
@@ -10,21 +10,7 @@
   background: #fff;
 }
 
-.messenger-room button {
-  display: inline-block;
-  height: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 1px;
-  border-top-color: #ddd;
-  border-right-color: #666;
-  border-bottom-color: #666;
-  border-left-color: #ddd;
-  background-image: linear-gradient(to bottom, #fff, #cecece);
-  cursor: pointer;
-}
+
 
 .messenger-room span {
   display: inline;
@@ -160,3 +146,4 @@
 .chat-display-username-other {
   color: #0029ff;
 }
+*/
