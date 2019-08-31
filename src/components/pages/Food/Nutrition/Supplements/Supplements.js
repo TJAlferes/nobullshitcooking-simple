@@ -82,7 +82,7 @@ const Supplements = props => (
           <tr>
             <td><a href="food/nutrition/micronutrients/zinc">Zinc</a></td>
             <td>50-100 mg per week</td>
-            <td>Improve memory, maintain skin health, maintain sexual health.</td>
+            <td>Improve memory, maintain skin health, maintain reproductive health.</td>
             <td>7 cents</td>
             <td><a href="https://www.amazon.com/Nature-Made-Zinc-Tabs-100/dp/B002FH90Q6" target="_blank"><img src={zinc} /></a></td>
           </tr>

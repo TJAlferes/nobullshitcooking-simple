@@ -1,3 +1,84 @@
 .profile {
   width: 1000px;
 }
+
+.profile-list-menu-tabs {
+  width: 470px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #6cabe4;
+}
+
+.profile-list-menu-tab {
+  width: 235px;
+  height: 30px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  border-top-color: #ddd;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #ddd;
+  line-height: 26px;
+  font-family: 'Play', sans-serif;
+  font-size: 1.3rem;
+  color: #222;
+  cursor: pointer;
+}
+
+.profile-list-menu-tab.active {
+  background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
+}
+
+.profile-list-menu-tab.inactive {
+  background-image: linear-gradient(to bottom, #eee, #bbb);
+}
+
+
+
+
+.profile-content-none {
+  font-size: 13px;
+}
+
+.profile-list-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+  height: 28px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-style: solid;
+  border-left-width: 1px;
+  line-height: 24px;
+}
+
+.profile-list-item:first-of-type {
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+
+.profile-list-item-tiny {
+  width: 25px;
+  height: 25px;
+  padding-left: 1px;
+}
+
+.profile-list-item-name {
+  width: 760px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.profile-list-item-name a {
+  color: #68abe6;
+}
+
+.profile-list-item-name a:visited {
+  color: #68abe6;
+}

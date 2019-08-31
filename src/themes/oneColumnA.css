@@ -1,7 +1,7 @@
 .one-column-a {
   display: block;
-  min-width: 300px;
-  max-width: 1200px;
+  min-width: 300px;  /* ? */
+  max-width: 1200px;  /* ? */
   margin: 20px auto 0px auto;
   padding: 10px 10px;
 }
@@ -48,6 +48,18 @@ light
   color: #777;
 }
 
+.one-column-a-light .profile-list-item {
+  border-color: #ddd;
+}
+
+.one-column-a-light .profile-list-item:nth-child(even) {
+  background-color: #eee;
+}
+
+.one-column-a-light .profile-list-item-name a:hover {
+  color: #c10006;
+}
+
 
 
 /*
@@ -91,4 +103,16 @@ dark
 
 .one-column-a-dark .expand-collapse-heading {
   color: #ccc;
+}
+
+.one-column-a-dark .profile-list-item {
+  border-color: #3a3a3a;
+}
+
+.one-column-a-dark .profile-list-item:nth-child(even) {
+  background-color: #2d2d2d;
+}
+
+.one-column-a-dark .profile-list-item-name a:hover {
+  color: #690004;
 }

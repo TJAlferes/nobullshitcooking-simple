@@ -23,14 +23,13 @@ class Planner extends Component {  // convert to functional w/ hooks
   }*/
 
   render() {
-    const { isSaving, expanded, expandedDay, recipeListsInsideDays } = this.props;
+    const { twoColumnATheme, isSaving, expanded, expandedDay, recipeListsInsideDays } = this.props;
     return (
-      <div id="desktop_planner">
-        <LeftNav
-          isAuthenticated={this.props.isAuthenticated}
-          getUser={this.props.getUser}
-        />
-        <article>
+      <div className={`two-column-a ${twoColumnATheme}`} id="desktop_planner">
+
+        <LeftNav />
+
+        <section>
           <div id="planner_header">
             <h1>Planner</h1>
             <p id="autosave_feedback">
@@ -84,7 +83,8 @@ class Planner extends Component {  // convert to functional w/ hooks
               ]}
             />
           </div>
-        </article>
+        </section>
+
       </div>
     );
   }

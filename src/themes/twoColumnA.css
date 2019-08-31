@@ -104,10 +104,13 @@
   background-color: #eee;
 }
 
+.two-column-a-light.supplements td a:hover,
 .two-column-a-light .dashboard-content-item-name a:hover,
 .two-column-a-light .dashboard-content-item-action a:hover {
   color: #c10006;
 }
+
+
 
 
 
@@ -177,6 +180,7 @@
   background-color: #2d2d2d;
 }
 
+.two-column-a-dark.supplements td a:hover,
 .two-column-a-dark .dashboard-content-item-name a:hover,
 .two-column-a-dark .dashboard-content-item-action a:hover {
   color: #690004;

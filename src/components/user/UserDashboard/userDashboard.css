@@ -11,6 +11,11 @@
   font-size: 14px;
 }
 
+.view-own-profile,
+.view-own-profile:visited {
+  color: #68abe6;
+}
+
 .dashboard-avatar {
   /*width: 940px;*/
   width: 100%;
@@ -179,7 +184,6 @@
   border-bottom-width: 1px;
   border-left-style: solid;
   border-left-width: 1px;
-
   line-height: 24px;
 }
 
@@ -191,7 +195,6 @@
 .dashboard-content-item-tiny {
   width: 25px;
   height: 25px;
-
   padding-left: 1px;
 }
 

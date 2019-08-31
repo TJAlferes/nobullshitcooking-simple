@@ -36,7 +36,7 @@ const UserDashboard = props => {
   const [ subTab, setSubTab ] = useState("private");
 
   const imageRef = useRef(null);
-  
+
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
@@ -284,6 +284,7 @@ const UserDashboard = props => {
         <div className="dashboard-avatar">
           {!avatar && (
             <div>
+              <Link className="view-own-profile" to={`/user/profile/${props.authname}`}>View Profile</Link>
               <h2>Profile Picture</h2>
               <div className="avatar-crop-previews">
                 <div className="avatar-crop-full-preview">

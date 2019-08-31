@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { userRequestFriendship } from '../../../store/actions/index';
@@ -9,12 +10,22 @@ import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpo
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 const UserProfile = props => {
+  const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ clicked, setClicked ] = useState(false);
-  const [ tab, setTab ] = useState("favorite");
-  const [ userAvatar, setUserAvatar ] = useState("nobsc-user-default.png");
+  const [ tab, setTab ] = useState("public");
+  const [ userAvatar, setUserAvatar ] = useState("nobsc-user-default");
   const [ userPublicRecipes, setUserPublicRecipes ]= useState([]);
   const [ userFavoriteRecipes, setUserFavoriteRecipes ]= useState([]);
+
+  useEffect(() => {
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.message !== "") window.scrollTo(0,0);
+      setMessage(props.message);
+    }
+    return () => isSubscribed = false;
+  }, [props.message]);
 
   // TODO: Redirect them to Home if they only navigate to /profile (if there is no /:username)
 
@@ -22,7 +33,7 @@ const UserProfile = props => {
     const { username } = props.match.params;
     const getUserProfile = async (username) => {
       const res = await axios.get(`${endpoint}/user/profile/${username}`);
-      if (res.data.avatar !== "nobsc-user-default.png") setUserAvatar(username);
+      if (res.data.avatar !== "nobsc-user-default") setUserAvatar(username);
       setUserPublicRecipes(res.data.publicRecipes);
       setUserFavoriteRecipes(res.data.favoriteRecipes);
     }
@@ -41,7 +52,8 @@ const UserProfile = props => {
     } catch(err) {
       setClicked(false);
       setLoading(false);
-      console.log(err.message);
+      window.scrollTo(0,0);
+      setMessage(err.message);
     } finally {
       setClicked(true);
       setLoading(false);
@@ -51,14 +63,17 @@ const UserProfile = props => {
   return (
     <div className={`profile one-column-a ${props.oneColumnATheme}`}>
       <h1>{props.match.params.username}</h1>
+
+      <p className="error-message">{message}</p>
+
       {
-        (userAvatar !== "nobsc-user-default.png")
+        (userAvatar !== "nobsc-user-default")
         ? <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${userAvatar}`} />
-        : <img src="https://nobsc-user-avatars.s3.amazonaws.com/nobsc-user-default.png" />
+        : <img src="https://nobsc-user-avatars.s3.amazonaws.com/nobsc-user-default" />
       }
       
       {
-        props.isAuthenticated
+        props.isAuthenticated && props.match.params.username !== props.authname
         ? (
           props.dataMyFriendships.filter(friend => friend.username === props.match.params.username)
           ? <span>Friends</span>
@@ -70,55 +85,59 @@ const UserProfile = props => {
         : false
       }
 
+      <h2>Recipes</h2>
+      
       <div className="profile-list-menu-tabs">
-        <span
-          className="profile-list-menu-tab"
-          onClick={handleFavoriteTabClick}
-        >
-          Favorite Recipes
-        </span>
-        <span
-          className="profile-list-menu-tab"
+        <button
+          className={(tab === "public") ? "profile-list-menu-tab active" : "profile-list-menu-tab inactive"}
           onClick={handlePublicTabClick}
         >
-          Public Recipes
-        </span>
+          Public
+        </button>
+        <button
+          className={(tab === "favorite") ? "profile-list-menu-tab active" : "profile-list-menu-tab inactive"}
+          onClick={handleFavoriteTabClick}
+        >
+          Favorite
+        </button>
       </div>
 
       <div className="profile-list">
         {
-          tab === "favorite" &&
-          userFavoriteRecipes.length
-          ? (
-            userFavoriteRecipes.map(recipe => (
-              <div className="profile-list-item">
-                <span className="profile-list-item-image">
-                  <img src={recipe.recipe_image} />
-                </span>
-                <span className="profile-list-item-title">
-                  {recipe.title}
-                </span>
-              </div>
-            ))
+          tab === "favorite" && (
+            userFavoriteRecipes.length
+            ? (
+              userFavoriteRecipes.map(recipe => (
+                <div className="profile-list-item" key={recipe.recipe_id}>
+                  <span className="profile-list-item-image">
+                    <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                  </span>
+                  <span className="profile-list-item-title">
+                    <Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link>
+                  </span>
+                </div>
+              ))
+            )
+            : <div className="profile-content-none">{props.match.params.username} hasn't favorited any recipes yet.</div>
           )
-          : <div>{props.match.params.username} hasn't favorited any recipes yet.</div>
         }
         {
-          tab === "public" &&
-          userPublicRecipes.length
-          ? (
-              userPublicRecipes.map(recipe => (
-              <div className="profile-list-item">
-                <span className="profile-list-item-image">
-                  <img src={recipe.recipe_image} />
-                </span>
-                <span className="profile-list-item-title">
-                  {recipe.title}
-                </span>
-              </div>
-            ))
+          tab === "public" && (
+            userPublicRecipes.length
+            ? (
+                userPublicRecipes.map(recipe => (
+                <div className="profile-list-item" key={recipe.recipe_id}>
+                  <span className="profile-list-item-tiny">
+                    <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                  </span>
+                  <span className="profile-list-item-name">
+                    <Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link>
+                  </span>
+                </div>
+              ))
+            )
+            : <div className="profile-content-none">{props.match.params.username} hasn't published any recipes yet.</div>
           )
-          : <div>{props.match.params.username} hasn't published any recipes yet.</div>
         }
       </div>
     </div>
@@ -126,9 +145,10 @@ const UserProfile = props => {
 };
 
 const mapStateToProps = state => ({
+  message: state.user.message,
   isAuthenticated: state.auth.isAuthenticated,
-  dataMyFriendships: state.data.myFriendships,
-  userMessage: state.user.message
+  authname: state.auth.authname,
+  dataMyFriendships: state.data.myFriendships
 });
 
 const mapDispatchToProps = dispatch => ({

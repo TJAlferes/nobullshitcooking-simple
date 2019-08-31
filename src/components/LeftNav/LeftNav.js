@@ -16,9 +16,8 @@ const LeftNav = props => {
         : <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/dashboard">{authname}</NavLink>
       }
       {
-        !isAuthenticated
-        ? <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/planner">Planner</NavLink>
-        : <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/planner">Planner</NavLink>
+        !isAuthenticated &&
+        <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/planner">Planner</NavLink>
       }
 
       <hr />

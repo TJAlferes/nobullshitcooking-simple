@@ -82,3 +82,8 @@ tbody td:nth-child(3) {
 /*#supplements_span {
   background-color: #ddd;
 }*/
+
+.supplements td a,
+.supplements td a:visited {
+  color: #68abe6;
+}
