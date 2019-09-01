@@ -1,7 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import io from 'socket.io-client';
 
-//import * as actionTypes from '../actions/actionTypes';
 import {
   messengerConnected,
   messengerDisconnected,
@@ -26,11 +25,14 @@ export function* messengerConnectSaga() {
   let error = null;
 
   socket.on('connect', () => {
-    console.log('Connected');
-    socket.emit('authenticate', {token: tokenInput.value});  // instead of token, do authname? (username)
+    console.log('Connected to NOBSC Messenger.');
+    //socket.emit('authenticate', {token: tokenInput.value});  // instead of token, do authname? (username)
+    // move this outside of connect? ****************
     socket.on('authenticated', () => {
       // use as normal
     });
+
+    socket.emit('GetMe');
   });
 
   socket.on('unauthorized', (reason) => {
@@ -39,14 +41,25 @@ export function* messengerConnectSaga() {
     socket.disconnect();
   });
 
-  socket.on('disconnect', (reason) => {
+  /*socket.on('disconnect', (reason) => {
     console.log(`Disconnected: ${error || reason}`);
     //statusInput.value = `Disconnected: ${error || reason}`;
     error = null;
-  });
+  });*/
+
+  //socket.on('GetMe', )
 
   socket.connect();
   yield put(messengerConnected());
+}
+
+export function* messengerDisconnectSaga() {
+  socket.on('disconnect', () => {
+    console.log('Disconnected from NOBSC Messenger.');
+  });
+
+  socket.disconnect();
+  yield put(messengerDisconnected());
 }
 
 export function* messengerChangeChannelSaga(action) {

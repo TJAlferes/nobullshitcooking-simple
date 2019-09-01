@@ -79,6 +79,12 @@ dark
   color: #999;
 }
 
+.one-column-a-dark .equipment_row:nth-child(even),
+.one-column-a-dark .ingredient_row:nth-child(even),
+.one-column-a-dark .subrecipe_row:nth-child(even) {
+  background-color: #2d2d2d;
+}
+
 .one-column-a-dark select,
 .one-column-a-dark input,
 .one-column-a-dark .manual_amount,

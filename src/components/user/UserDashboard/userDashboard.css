@@ -231,6 +231,8 @@
   cursor: pointer;
 }
 
+
+
 @media (max-width: 1209px) {
   .avatar-crop-previews {
     flex-direction: column;
@@ -259,7 +261,12 @@
     padding-top: 5px;
   }
 
-
+  .avatar-cancel-button,
+  .avatar-submit-button {
+    display: block;
+    width: 235px;
+    margin: 0 auto;
+  }
 
   .dashboard-menu-tabs,
   .dashboard-menu-subtabs {

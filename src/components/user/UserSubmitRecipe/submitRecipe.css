@@ -153,6 +153,14 @@
   /*color: #333;*/
 }
 
+.equipment_row,
+.ingredient_row,
+.subrecipe_row {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
 .manual_amount,
 .manual_amount_sub {
   display: inline;
@@ -248,8 +256,40 @@ Add & Remove Buttons
   height: 102px;
 }
 
+
+/*
+images
+*/
+.submit-recipe-image-crop-previews {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.submit-recipe-image-crop-full-preview,
+.submit-recipe-image-crop-thumb-preview,
+.submit-recipe-image-crop-tiny-preview {
+  order: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
+}
+
+.submit-recipe-image-crop-full-preview img,
+.submit-recipe-image-crop-thumb-preview img,
+.submit-recipe-image-crop-tiny-preview img {
+  margin-left: 5px;
+}
+
 .submit-recipe .change-default {
   padding-bottom: 3px;
+}
+
+.submit-recipe-image-cancel-button {
+  height: 21px;
+  padding-right: 6px;
+  padding-left: 6px;
 }
 
 
@@ -284,4 +324,30 @@ Submit Button
   line-height: 26px;
   font-family: 'Play', sans-serif;
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
+}
+
+
+
+@media (max-width: 1209px) {
+  .finish-area {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .submit-recipe-cancel-button,
+  .submit-recipe-submit-button {
+    display: block;
+    width: 235px;
+    margin: 15px auto 0 auto;
+  }
+
+
+}
+
+@media (max-width: 1000px) {
+  .equipment_row,
+  .ingredient_row,
+  .subrecipe_row {
+    flex-direction: column;
+  }
 }

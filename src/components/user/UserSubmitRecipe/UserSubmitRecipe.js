@@ -914,7 +914,7 @@ const UserSubmitRecipe = props => {
         {recipeEquipmentImage && (
           <div>
             <ReactCrop
-              className="submit-recipe-equipment-image-crop-tool"
+              className="submit-recipe-image-crop-tool"
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
               src={recipeEquipmentImage}
@@ -924,18 +924,18 @@ const UserSubmitRecipe = props => {
               onComplete={onEquipmentCropComplete}
             />
             <span>Move the crop to your desired position. These three images will be saved for you:</span>
-            <div className="submit-recipe-equipment-image-crop-previews">
-              <div className="submit-recipe-equipment-image-crop-full-preview">
+            <div className="submit-recipe-image-crop-previews">
+              <div className="submit-recipe--image-crop-full-preview">
                 <span>Full Size: </span><img src={equipmentCropFullSizePreview} />
               </div>
-              <div className="submit-recipe-equipment-image-crop-thumb-preview">
+              <div className="submit-recipe-image-crop-thumb-preview">
                 <span>Thumb Size: </span><img src={equipmentCropThumbSizePreview} />
               </div>
-              <div className="submit-recipe-equipment-image-crop-tiny-preview">
+              <div className="submit-recipe-image-crop-tiny-preview">
                 <span>Tiny Size: </span><img src={equipmentCropTinySizePreview} />
               </div>
             </div>
-            <button className="submit-recipe-equipment-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeEquipmentImage}>Cancel</button>
+            <button className="submit-recipe-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeEquipmentImage}>Cancel</button>
           </div>
         )}
       </div>
@@ -953,7 +953,7 @@ const UserSubmitRecipe = props => {
         {recipeIngredientsImage && (
           <div>
             <ReactCrop
-              className="submit-recipe-ingredients-image-crop-tool"
+              className="submit-recipe-image-crop-tool"
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
               src={recipeIngredientsImage}
@@ -963,18 +963,18 @@ const UserSubmitRecipe = props => {
               onComplete={onIngredientsCropComplete}
             />
             <span>Move the crop to your desired position. These three images will be saved for you:</span>
-            <div className="submit-recipe-ingredients-image-crop-previews">
-              <div className="submit-recipe-ingredients-image-crop-full-preview">
+            <div className="submit-recipe-image-crop-previews">
+              <div className="submit-recipe-image-crop-full-preview">
                 <span>Full Size: </span><img src={ingredientsCropFullSizePreview} />
               </div>
-              <div className="submit-recipe-ingredients-image-crop-thumb-preview">
+              <div className="submit-recipe-image-crop-thumb-preview">
                 <span>Thumb Size: </span><img src={ingredientsCropThumbSizePreview} />
               </div>
-              <div className="submit-recipe-ingredients-image-crop-tiny-preview">
+              <div className="submit-recipe-image-crop-tiny-preview">
                 <span>Tiny Size: </span><img src={ingredientsCropTinySizePreview} />
               </div>
             </div>
-            <button className="submit-recipe-ingredients-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeIngredientsImage}>Cancel</button>
+            <button className="submit-recipe-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeIngredientsImage}>Cancel</button>
           </div>
         )}
       </div>
@@ -992,7 +992,7 @@ const UserSubmitRecipe = props => {
         {recipeCookingImage && (
           <div>
             <ReactCrop
-              className="submit-recipe-cooking-image-crop-tool"
+              className="submit-recipe-image-crop-tool"
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
               src={recipeCookingImage}
@@ -1002,18 +1002,18 @@ const UserSubmitRecipe = props => {
               onComplete={onCookingCropComplete}
             />
             <span>Move the crop to your desired position. These three images will be saved for you:</span>
-            <div className="submit-recipe-cooking-image-crop-previews">
-              <div className="submit-recipe-cooking-image-crop-full-preview">
+            <div className="submit-recipe-image-crop-previews">
+              <div className="submit-recipe-image-crop-full-preview">
                 <span>Full Size: </span><img src={cookingCropFullSizePreview} />
               </div>
-              <div className="submit-recipe-cooking-image-crop-thumb-preview">
+              <div className="submit-recipe-image-crop-thumb-preview">
                 <span>Thumb Size: </span><img src={cookingCropThumbSizePreview} />
               </div>
-              <div className="submit-recipe-cooking-image-crop-tiny-preview">
+              <div className="submit-recipe-image-crop-tiny-preview">
                 <span>Tiny Size: </span><img src={cookingCropTinySizePreview} />
               </div>
             </div>
-            <button className="submit-recipe-cooking-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeCookingImage}>Cancel</button>
+            <button className="submit-recipe-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeCookingImage}>Cancel</button>
           </div>
         )}
       </div>
@@ -1021,7 +1021,7 @@ const UserSubmitRecipe = props => {
 
 
       {/* submit */}
-      <div>
+      <div className="finish-area">
         <Link
           className="submit-recipe-cancel-button"
           to="/user/dashboard"

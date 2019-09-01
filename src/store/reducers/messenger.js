@@ -18,6 +18,11 @@ const connected = (state, action) => ({
   ...{status: "Connected", connectButtonDisabled: true, disconnectButtonDisabled: false}
 });
 
+const disconnected = (state, action) => ({
+  ...state,
+  ...initialState
+});
+
 const changedChannel = (state, action) => ({
   ...state,
   ...{channel: action.channel, messages: []}
@@ -46,7 +51,7 @@ const messengerReducer = (state = initialState, action) => {
     case actionTypes.MESSENGER_JOINED_USER: return joinedUser(state, action);
     case actionTypes.MESSENGER_LEFT_USER: return leftUser(state, action);
     case actionTypes.MESSENGER_CONNECTED: return connected(state, action);
-    case actionTypes.MESSENGER_DISCONNECTED: return state;
+    case actionTypes.MESSENGER_DISCONNECTED: return disconnected(state, action);
   }
   return state;
 };

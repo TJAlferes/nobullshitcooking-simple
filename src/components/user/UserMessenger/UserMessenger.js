@@ -45,18 +45,61 @@ const UserMessenger = props => {
     autoScroll();
   });
 
-  const handleConnect = () => props.messengerConnect();
-
-  const handleDisconnect = () => props.messengerDisconnect();
-
-  const handleChannelChange = e => {
-    e.preventDefault();
-    if (e.key === "Enter") props.messengerChangeChannel(e.target.value);
+  const handleConnect = () => {
+    setLoading(true);
+    try {
+      props.messengerConnect();
+    } catch(err) {
+      setLoading(false);
+      setMessage(err.message);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  const handleDisconnect = () => {
+    setLoading(true);
+    try {
+      props.messengerDisconnect();
+    } catch(err) {
+      setLoading(false);
+      setMessage(err.message);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // C O C O N U T   1
+  const handleChannelChange = () => {
+    setLoading(true);
+    try {
+      props.messengerChangeChannel(e.target.value);
+    } catch(err) {
+      setLoading(false);
+      setMessage(err.message);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // C O C O N U T   2
   const handleMessageSend = e => {
+    e.stopPropagation();
     e.preventDefault();
-    if (e.key === "Enter") props.messengerSendMessage(e.target.value);
+    if (e.key && (e.key !== "Enter")) return;
+    setLoading(true);
+    try {
+      props.messengerSendMessage(e.target.value);
+    } catch(err) {
+      setLoading(false);
+      setMessage(err.message);
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleUsersInRoomTabClick = () => {
@@ -80,12 +123,25 @@ const UserMessenger = props => {
 
         <div className="messenger-room">
           <div className="messenger-connect-disconnect-container">
-            <button
-              className="messenger-connect-disconnect"
-              onClick={props.status === "Connected" ? handleDisconnect : handleConnect}
-            >
-              {(props.status == "Connected") ? "Disconnect" : "Connect"}
-            </button>
+            {
+              props.status === "Connected"
+              ? (
+                <button
+                  className="messenger-connect-disconnect"
+                  onClick={handleDisconnect}
+                >
+                  Disconnect
+                </button>
+              )
+              : (
+                <button
+                  className="messenger-connect-disconnect"
+                  onClick={handleConnect}
+                >
+                  Connect
+                </button>
+              )
+            }
           </div>
           <span className="messenger-channel-switch">Room:</span>
           <span>5067</span>

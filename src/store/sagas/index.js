@@ -62,6 +62,7 @@ import {
 } from './user';
 import {
   messengerConnectSaga,
+  messengerDisconnectSaga,
   messengerChangeChannelSaga,
   messengerSendMessageSaga
 } from './messenger';
@@ -175,6 +176,7 @@ export function* watchUser() {  // please break this down
 export function* watchMessenger() {
   yield all([
     takeEvery(actionTypes.MESSENGER_CONNECT, messengerConnectSaga),
+    takeEvery(actionTypes.MESSENGER_DISCONNECT, messengerDisconnectSaga),
     takeEvery(actionTypes.MESSENGER_CHANGE_CHANNEL, messengerChangeChannelSaga),
     takeEvery(actionTypes.MESSENGER_SEND_MESSAGE, messengerSendMessageSaga)
   ]);
