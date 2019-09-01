@@ -13,7 +13,12 @@ import {
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const socket = io.connect(endpoint, {autoConnect: false});  // move? pass?
+const socket = io.connect(endpoint, {
+  //forceNew: true,
+  reconnection: false,
+  autoConnect: false,
+  //query: {//...}
+});  // move? pass?
 
 export function* messengerConnectSaga() {
   // const { connection } = 
@@ -49,7 +54,7 @@ export function* messengerConnectSaga() {
 
   //socket.on('GetMe', )
 
-  socket.connect();
+  socket.connect();  // Note to self: alias for .open()
   yield put(messengerConnected());
 }
 
@@ -64,7 +69,8 @@ export function* messengerDisconnectSaga() {
 
 export function* messengerChangeChannelSaga(action) {
   //const { channel } =
-  const channel = yield call([socket, socket.emit], 'change-channel', action.channel);  // apply instead of call?
+  console.log(action.channel);
+  //const channel = yield call([socket, socket.emit], 'change-channel', action.channel);  // apply instead of call?
   // conditional for error?
   //yield put({type: actionTypes.MESSENGER_CHANGED_CHANNEL, channel: action.channel});
   yield put(messengerChangedChannel(action.channel));  // channel?

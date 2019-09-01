@@ -112,10 +112,16 @@
 
 .two-column-a-light .messenger-room,
 .two-column-a-light .messenger-channel-switch,
+.two-column-a-light .messenger-channel-label,
 .two-column-a-light .messenger-chat,
 .two-column-a-light .messenger-chat-input,
 .two-column-a-light .messenger-people {
   border-color: #ddd;
+}
+
+.two-column-a-light .messenger-spacer-one,
+.two-column-a-light .messenger-spacer-two {
+  background-color: #ddd;
 }
 
 
@@ -194,10 +200,16 @@
 
 .two-column-a-dark .messenger-room,
 .two-column-a-dark .messenger-channel-switch,
+.two-column-a-dark .messenger-channel-label,
 .two-column-a-dark .messenger-chat,
 .two-column-a-dark .messenger-chat-input,
 .two-column-a-dark .messenger-people {
   border-color: #444
+}
+
+.two-column-a-dark .messenger-spacer-one,
+.two-column-a-dark .messenger-spacer-two {
+  background-color: #444;
 }
 
 .two-column-a-dark .messenger-room,

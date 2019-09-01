@@ -12,11 +12,11 @@
 }
 
 .messenger-room {
-  width: 100%;
-  height: 42px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  width: 100%;
+  height: 42px;
   border-top: 10px solid #ddd;
   border-right: 10px solid #ddd;
   border-left: 10px solid #ddd;
@@ -28,7 +28,8 @@
   border-bottom: 2px solid #6cabe4;
 }
 
-.messenger-connect-disconnect {
+.messenger-connect-disconnect,
+.messenger-channel-button {
   width: 85px;
   height: 30px;
   padding-left: 8px;
@@ -54,14 +55,29 @@
   display: block;
   height: 32px;
   border-left: 10px solid;
+  padding-right: 6px;
+  padding-left: 6px;
   font-size: 13px;
   line-height: 28px;
 }
 
-.messenger-channel-input {
+.messenger-channel-current {
   order: 3;
-  border: none;
-  border: 2px solid #68abe6;
+}
+
+.messenger-channel-label {
+  order: 4;
+  display: block;
+  height: 32px;
+  border-left: 10px solid;
+  padding-right: 6px;
+  padding-left: 6px;
+  font-size: 13px;
+  line-height: 28px;
+}
+.messenger-channel-input {
+  order: 5;
+  border: 1px solid #68abe6;
   padding-left: 7px;
   /*color: #292929;
   background: #fff;*/
@@ -72,13 +88,28 @@
   border: 2px solid #87c6fd;
 }
 
-.messenger-room span {
+.messenger-spacer-one {
+  order: 6;
+  width: 10px;
+}
+
+.messenger-channel-button-container {
+  order: 7;
+  border-bottom: 2px solid #6cabe4;
+}
+
+.messenger-spacer-two {
+  order: 8;
+  width: 10px;
+}
+
+/*.messenger-room span {
   display: inline;
   line-height: 30px;
   padding: 5px;
   color: #292929;
   background: #fff;
-}
+}*/
 
 .messenger-main {
   display: flex;

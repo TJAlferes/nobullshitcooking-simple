@@ -13,11 +13,11 @@ import './userMessenger.css';
 const UserMessenger = props => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  //console.log(props);
   //const messagesRef = useRef(null);  //
   const messagesRef = createRef();
   //useImperativeHandle(ref, () => ({getNode: () => messagesRef.current}));
   const [ tab, setTab ] = useState("Room");
+  const [ roomToEnter, setRoomToEnter ] = useState("")
 
   useEffect(() => {
     let isSubscribed = true;
@@ -71,11 +71,13 @@ const UserMessenger = props => {
     }
   };
 
+  const handleRoomInputChange = e => setRoomToEnter(e.target.value);
+
   // C O C O N U T   1
   const handleChannelChange = () => {
     setLoading(true);
     try {
-      props.messengerChangeChannel(e.target.value);
+      props.messengerChangeChannel(roomToEnter);
     } catch(err) {
       setLoading(false);
       setMessage(err.message);
@@ -143,16 +145,26 @@ const UserMessenger = props => {
               )
             }
           </div>
-          <span className="messenger-channel-switch">Room:</span>
-          <span>5067</span>
+          <span className="messenger-channel-switch">Current Room:</span>
+          <span className="messenger-channel-current">5067</span>
+          <span className="messenger-channel-label">Go To Room:</span>
           <input
             className="messenger-channel-input"
             type="text"
             name="channel-input"
             defaultValue={props.channel}
-            onKeyUp={(e) => handleChannelChange(e)}
+            onChange={handleRoomInputChange}
           />
-          <button>Enter</button>
+          <span className="messenger-spacer-one"></span>
+          <div className="messenger-channel-button-container">
+            <button
+              className="messenger-channel-button"
+              onClick={handleChannelChange}
+            >
+              Enter
+            </button>
+          </div>
+          <span className="messenger-spacer-two"></span>
         </div>
 
         <div className="messenger-main">
