@@ -6,6 +6,7 @@ import {
   messengerDisconnected,
   messengerChangedChannel,
   messengerSentMessage,
+  messengerReceivedMessage,
   messengerJoinedUser,
   messengerLeftUser
 } from '../actions/index';
@@ -67,21 +68,39 @@ export function* messengerDisconnectSaga() {
   yield put(messengerDisconnected());
 }
 
+
+
 export function* messengerChangeChannelSaga(action) {
-  //const { channel } =
-  console.log(action.channel);
+  const r = {};
+  r.name = action.channel;
   //const channel = yield call([socket, socket.emit], 'change-channel', action.channel);  // apply instead of call?
+  socket.emit('AddRoom', r);
   // conditional for error?
   //yield put({type: actionTypes.MESSENGER_CHANGED_CHANNEL, channel: action.channel});
-  yield put(messengerChangedChannel(action.channel));  // channel?
+  //yield put(messengerChangedChannel(action.channel));  // channel?
 }
+
+
+
+export function* messengerJoinedUserSaga() {
+
+}
+
+export function* messengerLeftUserSaga() {
+
+}
+
+
 
 export function* messengerSendMessageSaga(action) {
   //const { message } =
   const message = yield call([socket, socket.send], action.message);  // apply instead of call?
   // conditional for error?
   //yield put({type: actionTypes.MESSENGER_SENT_MESSAGE, message: action.message});
-  yield put(messengerSentMessage(action.message));  // message?
+  yield put(messengerSentMessage(action.message));  // message? yes
 }
 
-//
+export function* messengerReceivedMessageSaga(action) {
+
+  yield put(messengerReceivedMessage(action.message));
+}

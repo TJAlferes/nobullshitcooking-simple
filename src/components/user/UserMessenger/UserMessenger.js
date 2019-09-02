@@ -146,7 +146,7 @@ const UserMessenger = props => {
             }
           </div>
           <span className="messenger-channel-switch">Current Room:</span>
-          <span className="messenger-channel-current">5067</span>
+          <span className="messenger-channel-current">{props.channel}</span>
           <span className="messenger-channel-label">Go To Room:</span>
           <input
             className="messenger-channel-input"
@@ -155,7 +155,6 @@ const UserMessenger = props => {
             defaultValue={props.channel}
             onChange={handleRoomInputChange}
           />
-          <span className="messenger-spacer-one"></span>
           <div className="messenger-channel-button-container">
             <button
               className="messenger-channel-button"
@@ -164,7 +163,6 @@ const UserMessenger = props => {
               Enter
             </button>
           </div>
-          <span className="messenger-spacer-two"></span>
         </div>
 
         <div className="messenger-main">

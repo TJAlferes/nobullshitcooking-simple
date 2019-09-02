@@ -71,6 +71,7 @@ export {
   messengerChangedChannel,
   messengerSendMessage,
   messengerSentMessage,
+  messengerReceivedMessage,
   messengerJoinUser,
   messengerJoinedUser,
   messengerLeaveUser,

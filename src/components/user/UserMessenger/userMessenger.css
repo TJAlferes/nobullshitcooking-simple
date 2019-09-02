@@ -18,7 +18,7 @@
   width: 100%;
   height: 42px;
   border-top: 10px solid #ddd;
-  border-right: 10px solid #ddd;
+  border-right: 9px solid #ddd;
   border-left: 10px solid #ddd;
   background: #fff;
 }
@@ -54,31 +54,39 @@
   order: 2;
   display: block;
   height: 32px;
-  border-left: 10px solid;
-  padding-right: 6px;
-  padding-left: 6px;
+  padding-right: 10px;
+  padding-left: 200px;
   font-size: 13px;
-  line-height: 28px;
+  line-height: 30px;
 }
 
 .messenger-channel-current {
   order: 3;
+  width: 85px;
+  max-width: 85px;
+  border: 2px solid;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 13px;
+  line-height: 30px;
+  overflow: hidden;
 }
 
 .messenger-channel-label {
   order: 4;
   display: block;
   height: 32px;
-  border-left: 10px solid;
-  padding-right: 6px;
-  padding-left: 6px;
+  padding-right: 10px;
+  padding-left: 191px;
   font-size: 13px;
-  line-height: 28px;
+  line-height: 30px;
 }
 .messenger-channel-input {
   order: 5;
-  border: 1px solid #68abe6;
+  width: 85px;
+  border: 2px solid #68abe6;
   padding-left: 7px;
+  font-family: 'Play', sans-serif;
   /*color: #292929;
   background: #fff;*/
 }
@@ -88,19 +96,9 @@
   border: 2px solid #87c6fd;
 }
 
-.messenger-spacer-one {
-  order: 6;
-  width: 10px;
-}
-
 .messenger-channel-button-container {
-  order: 7;
+  order: 6;
   border-bottom: 2px solid #6cabe4;
-}
-
-.messenger-spacer-two {
-  order: 8;
-  width: 10px;
 }
 
 /*.messenger-room span {

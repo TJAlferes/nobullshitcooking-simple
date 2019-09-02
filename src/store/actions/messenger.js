@@ -21,9 +21,10 @@ export const messengerChangeChannel = channel => ({
   channel
 });
 
-export const messengerChangedChannel = channel => ({
+export const messengerChangedChannel = (channel, users) => ({
   type: actionTypes.MESSENGER_CHANGED_CHANNEL,
-  channel
+  channel,
+  users
 });
 
 export const messengerSendMessage = message => ({
@@ -33,6 +34,11 @@ export const messengerSendMessage = message => ({
 
 export const messengerSentMessage = message => ({
   type: actionTypes.MESSENGER_SENT_MESSAGE,
+  message
+});
+
+export const messengerReceivedMessage = message => ({
+  type: actionTypes.MESSENGER_RECEIVED_MESSAGE,
   message
 });
 
