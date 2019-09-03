@@ -74,6 +74,7 @@ export {
   messengerReceivedMessage,
   messengerJoinUser,
   messengerJoinedUser,
+  messengerTest,
   messengerLeaveUser,
   messengerLeftUser
 } from './messenger';

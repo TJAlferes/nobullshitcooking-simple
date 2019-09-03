@@ -222,8 +222,8 @@ const UserMessenger = props => {
               <ul className="messenger-users-in-room">
                 {props.users && props.users.map(user => (
                   <li className="messenger-user-in-room">
-                    <img src={`https://s3.aws.com/nobscsomething/users/avatars/${user.avatar}`} />
-                    <span>{user.username}</span>
+                    <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${user.user}-tiny`} />
+                    <span>{user.user}</span>
                   </li>
                 ))}
               </ul>
