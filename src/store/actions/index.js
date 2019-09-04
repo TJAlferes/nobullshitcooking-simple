@@ -18,6 +18,7 @@ export {
   authReset,
   authCheckState,
   authMessageClear,
+  authUpdateLocalAvatar,
   authUserRegister,
   authUserRegisterSucceeded,
   authUserRegisterFailed,

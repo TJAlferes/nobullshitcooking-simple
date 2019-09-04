@@ -7,6 +7,7 @@ import "react-image-crop/dist/ReactCrop.css";
 import './userDashboard.css';
 import LeftNav from '../../LeftNav/LeftNav';
 import {
+  authUpdateLocalAvatar,
   userSubmitAvatar,
   userDeletePlan,
   userDeletePrivateRecipe,
@@ -157,11 +158,13 @@ const UserDashboard = props => {
     setLoading(true);
     try {
       props.userSubmitAvatar(fullAvatar, tinyAvatar);
+      props.authUpdateLocalAvatar(props.authname);
     } catch(err) {
       setLoading(false);
       window.scrollTo(0,0);
       setMessage(err.message);
     } finally {
+
       setLoading(false);
     }
   };
@@ -573,6 +576,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  authUpdateLocalAvatar: (name) => dispatch(authUpdateLocalAvatar(name)),
   userSubmitAvatar: (fullAvatar, tinyAvatar) => dispatch(userSubmitAvatar(fullAvatar, tinyAvatar)),
   userDeletePlan: (id) => dispatch(userDeletePlan(id)),
   userDeletePrivateRecipe: (id) => dispatch(userDeletePrivateRecipe(id)),

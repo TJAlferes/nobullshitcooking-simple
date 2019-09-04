@@ -16,6 +16,10 @@ export const authDisplay = (authname, avatar) => ({
 export const authReset = () => ({type: actionTypes.AUTH_RESET});
 export const authCheckState = () => ({type: actionTypes.AUTH_CHECK_STATE});
 export const authMessageClear = () => ({type: actionTypes.AUTH_MESSAGE_CLEAR});
+export const authUpdateLocalAvatar = name => ({
+  type: actionTypes.AUTH_UPDATE_LOCAL_AVATAR,
+  name
+});
 
 
 

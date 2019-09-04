@@ -25,6 +25,11 @@ const authDisplay = (state, action) => ({
   ...{isAuthenticated: true, authname: action.authname, avatar: action.avatar}
 });
 
+const updateLocalAvatar = (state, action) => ({
+  ...state,
+  ...{avatar: action.name}
+});
+
 // Note to self: See: Nir Kofman
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -46,6 +51,8 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.AUTH_MESSAGE_CLEAR: return authMessageClear(state, action);
 
     case actionTypes.AUTH_DISPLAY: return authDisplay(state, action);
+
+    case actionTypes.AUTH_UPDATE_LOCAL_AVATAR: return updateLocalAvatar(state, action);
 
     case actionTypes.AUTH_RESET: return {...state, ...initialState};
 
