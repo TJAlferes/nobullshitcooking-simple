@@ -64,10 +64,7 @@ import {
   messengerConnectSaga,
   messengerDisconnectSaga,
   messengerChangeChannelSaga,
-  messengerSendMessageSaga,
-  messengerReceivedMessageSaga,
-  messengerJoinedUserSaga,
-  messengerLeftUserSaga
+  messengerSendMessageSaga
 } from './messenger';
 import {
   //plannerPublicLoadFromUrlSaga,
@@ -180,13 +177,9 @@ export function* watchMessenger() {
   yield all([
     takeEvery(actionTypes.MESSENGER_CONNECT, messengerConnectSaga),
     takeEvery(actionTypes.MESSENGER_DISCONNECT, messengerDisconnectSaga),
-
+    takeEvery(actionTypes.AUTH_USER_LOGOUT, messengerDisconnectSaga),
     takeEvery(actionTypes.MESSENGER_CHANGE_CHANNEL, messengerChangeChannelSaga),
-    takeEvery(actionTypes.MESSENGER_JOINED_USER, messengerJoinedUserSaga),  // ?
-    takeEvery(actionTypes.MESSENGER_LEFT_USER, messengerLeftUserSaga),  // ?
-
-    takeEvery(actionTypes.MESSENGER_SEND_MESSAGE, messengerSendMessageSaga),
-    takeEvery(actionTypes.MESSENGER_RECEIVED_MESSAGE, messengerReceivedMessageSaga) // ?
+    takeEvery(actionTypes.MESSENGER_SEND_MESSAGE, messengerSendMessageSaga)
   ]);
 }
 

@@ -25,52 +25,48 @@ const disconnected = (state, action) => ({
   ...initialState
 });
 
-
-
-const changedChannel = (state, action) => ({
+/*const changedChannel = (state, action) => ({
   ...state,
-  ...{channel: action.channel, messages: [], users: action.users}
-});
+  ...{channel: action.channel, messages: []}
+});*/
 
-const joinedUser = (state, action) => {
-  console.log(action.user);
-  return {
-    ...state,
-    //...{messages: state.users.concat(action.user)}
-    ...{users: action.user}
+const joinedUser = (state, action) => ({
+  ...state,
+  ...{
+    users: state.users.concat(action.user),
+    messages: state.messages.concat({
+      ts: (new Date).getTime(),
+      message: `${action.user.user} has joined the room.`,
+      user: {user: "messengerstatus"}
+    })
   }
-};
+});
 
 const leftUser = (state, action) => ({
   ...state,
-  ...{users: state.users.filter(user => user.username !== action.user.username)}
+  ...{
+    users: state.users.filter(user => user.user !== action.user.user),
+    messages: state.messages.concat({
+      ts: (new Date).getTime(),
+      message: `${action.user.user} has left the room.`,
+      user: {user: "messengerstatus"}
+    })
+  }
 });
-
-
-
-/*const sentMessage = (state, action) => ({
-  ...state,
-  ...{messages: state.messages.concat(action.message)}
-});*/
 
 const receivedMessage = (state, action) => ({
   ...state,
   ...{messages: state.messages.concat(action.message)}
 });
 
-
-
 const messengerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.MESSENGER_CONNECTED: return connected(state, action);
     case actionTypes.MESSENGER_DISCONNECTED: return disconnected(state, action);
-
-    case actionTypes.MESSENGER_CHANGED_CHANNEL: return changedChannel(state, action);
-    //case actionTypes.MESSENGER_JOINED_USER: return joinedUser(state, action);
-    case actionTypes.MESSENGER_TEST: return {...state, ...{users: action.users}}
+    //case actionTypes.MESSENGER_CHANGED_CHANNEL: return changedChannel(state, action);
+    case actionTypes.MESSENGER_JOINED_USER: return joinedUser(state, action);
+    case actionTypes.MESSENGER_TEST: return {...state, ...{users: action.users, channel: action.channel, messages: []}}
     case actionTypes.MESSENGER_LEFT_USER: return leftUser(state, action);
-
-    //case actionTypes.MESSENGER_SENT_MESSAGE: return sentMessage(state, action);
     case actionTypes.MESSENGER_RECEIVED_MESSAGE: return receivedMessage(state, action);
   }
   return state;

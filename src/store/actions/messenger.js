@@ -41,9 +41,10 @@ export const messengerJoinedUser = user => ({
   type: actionTypes.MESSENGER_JOINED_USER,
   user
 });
-export const messengerTest = users => ({
+export const messengerTest = (users, roomToAdd) => ({
   type: actionTypes.MESSENGER_TEST,
-  users
+  users,
+  channel: roomToAdd
 });
 
 

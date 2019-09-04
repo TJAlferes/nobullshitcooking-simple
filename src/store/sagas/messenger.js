@@ -25,92 +25,51 @@ const socket = io.connect(endpoint, {
 
 socket.on('connect', () => {
   console.log('Connected to NOBSC Messenger.');
-  //socket.emit('GetMe',);
 });
 
 socket.on('disconnect', () => {
   console.log('Disconnected from NOBSC Messenger.');
 });
 
-/*socket.on('GetMe', () => {
-
-});*/
-
-socket.on('GetUser', function (users) {
-  console.log(users);
-  //messengerJoinedUser(users);
-  messengerJoinedUserSaga(users);
-  store.dispatch(messengerTest(users));
-});
-
-socket.on('GetChat', () => {
-  
-});
-
-socket.on('AddChat', () => {
-  
-});
-
-socket.on('GetRoom', () => {
-  
-});
-
-socket.on('RemoveUser', () => {
-  
+socket.on('GetUser', function (users, roomToAdd) {
+  store.dispatch(messengerTest(users, roomToAdd));
 });
 
 socket.on('AddUser', (user) => {
-  console.log(user);
-  // if that works, then do action to reducer to update store to update room list
+  store.dispatch(messengerJoinedUser(user));
 });
 
-//socket.emit('GetMe',);
-//socket.emit('GetUser',);  // room (?)
-//socket.emit('GetChat',);  // data (room?)
-//socket.emit('AddChat',);  // chat
-//socket.emit('GetRoom',);
+socket.on('RemoveUser', (user) => {
+  console.log('yay!!!');
+  store.dispatch(messengerLeftUser(user));
+});
+
+/*socket.on('GetChat', () => {
+  
+});*/
+
+socket.on('AddChat', (message) => {
+  store.dispatch(messengerReceivedMessage(message));
+});
 
 export function* messengerConnectSaga() {
   socket.connect();  // Note to self: alias for .open()
-  yield put(messengerConnected());
+  yield put(messengerConnected());  // ?
 }
 
 export function* messengerDisconnectSaga() {
   socket.disconnect();
-  yield put(messengerDisconnected());
+  yield put(messengerDisconnected());  // ?
 }
-
-
 
 export function* messengerChangeChannelSaga(action) {
-  console.log('called, yay!');
   socket.emit('AddRoom', action.channel);
   // conditional for error?
-  //yield put({type: actionTypes.MESSENGER_CHANGED_CHANNEL, channel: action.channel});
-  //yield put(messengerChangedChannel(action.channel));  // channel?
+  //yield put(messengerChangedChannel(action.channel));
 }
-
-export function* messengerJoinedUserSaga(action) {
-  console.log('called, yay!');
-  yield put(messengerTest(action.user));
-}
-
-export function* messengerLeftUserSaga() {
-
-}
-
-
 
 export function* messengerSendMessageSaga(action) {
-  //const { message } =
-  const message = yield call([socket, socket.send], action.message);  // apply instead of call?
-  socket.emit('AddChat',);
+  socket.emit('AddChat', action.message);
   // conditional for error?
-  //yield put({type: actionTypes.MESSENGER_SENT_MESSAGE, message: action.message});
-  yield put(messengerSentMessage(action.message));  // message? yes
-}
-
-export function* messengerReceivedMessageSaga(action) {
-
-  yield put(messengerReceivedMessage(action.message));
+  //yield put(messengerSentMessage(action.message));  // message? yes ?
 }

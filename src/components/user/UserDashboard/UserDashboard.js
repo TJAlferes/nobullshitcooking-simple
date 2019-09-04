@@ -288,10 +288,10 @@ const UserDashboard = props => {
               <h2>Profile Picture</h2>
               <div className="avatar-crop-previews">
                 <div className="avatar-crop-full-preview">
-                  <span>Full Size: </span><img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.authname}`} />
+                  <span>Full Size: </span><img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.avatar}`} />
                 </div>
                 <div className="avatar-crop-tiny-preview">
-                  <span>Tiny Size: </span><img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.authname}-tiny`} />
+                  <span>Tiny Size: </span><img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.avatar}-tiny`} />
                 </div>
               </div>
               <label className="dashboard-avatar-label">Change</label>
@@ -562,6 +562,7 @@ const UserDashboard = props => {
 const mapStateToProps = state => ({
   message: state.user.message,
   authname: state.auth.authname,
+  avatar: state.auth.avatar,
   myPlans: state.data.myPlans,
   myPublicRecipes: state.data.myPublicRecipes,
   myPrivateEquipment: state.data.myPrivateEquipment,

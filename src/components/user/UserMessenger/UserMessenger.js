@@ -174,24 +174,24 @@ const UserMessenger = props => {
               </li>
               {
                 props.messages && props.messages.map(message => (
-                  message.author === "messengerstatus"
+                  message.user.user === "messengerstatus"
                   ? (
-                    <li className="messenger-chat-message">
-                      <span className="chat-display-admin">{message.text}</span>
+                    <li className="messenger-chat-message" key={message.ts}>
+                      <span className="chat-display-admin">{message.message}</span>
                     </li>
                   )
                   : (
-                    props.authname === message.author
+                    props.authname === message.user.user
                     ? (
-                      <li className="messenger-chat-message">
-                        <span className="chat-display-username-self">{message.author}: </span>
-                        {message.text}
+                      <li className="messenger-chat-message" key={message.ts}>
+                        <span className="chat-display-username-self">{message.user.user}: </span>
+                        {message.message}
                       </li>
                     )
                     : (
-                      <li className="messenger-chat-message">
-                        <span className="chat-display-username-other">{message.author}: </span>
-                        {message.text}
+                      <li className="messenger-chat-message" key={message.ts}>
+                        <span className="chat-display-username-other">{message.user.user}: </span>
+                        {message.message}
                       </li>
                     )
                   )
@@ -221,7 +221,7 @@ const UserMessenger = props => {
             {tab === "Room" && (
               <ul className="messenger-users-in-room">
                 {props.users && props.users.map(user => (
-                  <li className="messenger-user-in-room">
+                  <li className="messenger-user-in-room" key={user.user}>
                     <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${user.user}-tiny`} />
                     <span>{user.user}</span>
                   </li>
@@ -231,7 +231,7 @@ const UserMessenger = props => {
             {tab === "Friends" && (
               <ul className="messenger-friends">
                 {props.friends && props.friends.map(friend => (
-                  <li className="messenger-friend">
+                  <li className="messenger-friend" key={friend.user}>
                     <img src={`https://s3.aws.com/nobscsomething/users/avatars/${friend.avatar}`} />
                     <span>{friend.username}</span>
                   </li>
