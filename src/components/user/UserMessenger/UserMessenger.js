@@ -13,9 +13,7 @@ import './userMessenger.css';
 const UserMessenger = props => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  //const messagesRef = useRef(null);  //
   const messagesRef = createRef();
-  //useImperativeHandle(ref, () => ({getNode: () => messagesRef.current}));
   const [ tab, setTab ] = useState("Room");
   const [ roomToEnter, setRoomToEnter ] = useState("")
 
@@ -30,20 +28,19 @@ const UserMessenger = props => {
 
   useEffect(() => {
     const autoScroll = () => {
-      //console.log(messagesRef.current.lastElementChild);
       const newestMessage = messagesRef.current.lastElementChild;
       const newestMessageHeight = newestMessage.offsetHeight + parseInt(
         getComputedStyle(newestMessage).marginBottom
       );
-      const containerHeight = messagesRef.scrollHeight;
-      const scrollOffset = messagesRef.scrollTop + messagesRef.offsetHeight;
+      const containerHeight = messagesRef.current.scrollHeight;
+      const scrollOffset = messagesRef.current.scrollTop + messagesRef.current.offsetHeight;
       // cancel autoscroll if user is scrolling up through older messages
       if ((containerHeight - newestMessageHeight) <= scrollOffset) {
-        messagesRef.scrollTop = messagesRef.scrollHeight;
+        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       }
     };
     autoScroll();
-  });
+  }, [props.messages]);
 
   const handleConnect = () => {
     setLoading(true);
@@ -73,7 +70,6 @@ const UserMessenger = props => {
 
   const handleRoomInputChange = e => setRoomToEnter(e.target.value);
 
-  // C O C O N U T   1
   const handleChannelChange = () => {
     setLoading(true);
     try {
@@ -87,7 +83,6 @@ const UserMessenger = props => {
     }
   };
 
-  // C O C O N U T   2
   const handleMessageSend = e => {
     e.stopPropagation();
     e.preventDefault();

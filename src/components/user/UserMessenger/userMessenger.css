@@ -136,7 +136,10 @@
 }
 
 .messenger-chat-messages {
+  display: block;
+  height: calc(100% - 40px);
   list-style-type: none;
+  overflow-y: scroll;
 }
 
 .messenger-chat-input {
