@@ -13,9 +13,12 @@ import './userMessenger.css';
 const UserMessenger = props => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [ debounced, setDebounced ] = useState(false);
+  const [ spamCount, setSpamCount ] = useState(1);
   const messagesRef = createRef();
   const [ tab, setTab ] = useState("Room");
-  const [ roomToEnter, setRoomToEnter ] = useState("")
+  const [ roomToEnter, setRoomToEnter ] = useState("");
+  const [ messageToSend, setMessageToSend ] = useState("");
 
   useEffect(() => {
     let isSubscribed = true;
@@ -48,7 +51,7 @@ const UserMessenger = props => {
       props.messengerConnect();
     } catch(err) {
       setLoading(false);
-      setMessage(err.message);
+      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -61,7 +64,7 @@ const UserMessenger = props => {
       props.messengerDisconnect();
     } catch(err) {
       setLoading(false);
-      setMessage(err.message);
+      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -70,13 +73,27 @@ const UserMessenger = props => {
 
   const handleRoomInputChange = e => setRoomToEnter(e.target.value);
 
+  const handleMessageInputChange = e => setMessageToSend(e.target.value);
+
   const handleChannelChange = () => {
     setLoading(true);
     try {
+      if (debounced) {
+        setFeedback("Slow down there partner...");
+        setTimeout(() => setFeedback(""), 6000);
+        return;
+      }
       props.messengerChangeChannel(roomToEnter);
+      setRoomToEnter("");
+      setSpamCount((prev) => prev + 1);
+      setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
+      if (spamCount > 2) {
+        setDebounced(true);
+        setTimeout(() => setDebounced(false), 6000);
+      }
     } catch(err) {
       setLoading(false);
-      setMessage(err.message);
+      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -89,10 +106,23 @@ const UserMessenger = props => {
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
     try {
-      props.messengerSendMessage(e.target.value);
+      if (debounced) {
+        setFeedback("Slow down there partner...");
+        setTimeout(() => setFeedback(""), 6000);
+        return;
+      }
+      if (messageToSend === "") return;
+      props.messengerSendMessage(messageToSend);
+      setMessageToSend("");
+      setSpamCount((prev) => prev + 1);
+      setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
+      if (spamCount > 4) {
+        setDebounced(true);
+        setTimeout(() => setDebounced(false), 6000);
+      }
     } catch(err) {
       setLoading(false);
-      setMessage(err.message);
+      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -194,7 +224,7 @@ const UserMessenger = props => {
               }
             </ul>
             <div className="messenger-chat-input">
-              <input type="text" name="chat-input" onKeyUp={(e) => handleMessageSend(e)} />
+              <input type="text" name="chat-input" value={messageToSend} onChange={handleMessageInputChange} onKeyUp={(e) => handleMessageSend(e)} />
             </div>
           </div>
 

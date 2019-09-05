@@ -208,6 +208,8 @@
 .messenger-users-in-room {
   display: block;
   width: 100%;
+  height: calc(100% - 32px);
+  overflow-y: scroll;
 }
 
 .messenger-user-in-room  {
@@ -229,10 +231,32 @@
 }
 
 .messenger-friends {
+  display: block;
+  width: 100%;
+  height: calc(100% - 32px);
+  overflow-y: scroll;
   border: none;
 }
 
-.messenger-friends li img {
+.messenger-friend {
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  padding: 2px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  border-top-color: #fff;
+  border-right-color: #b3b3b3;
+  border-bottom-color: #b3b3b3;
+  border-left-color: #fff;
+  margin: 3px;
+  list-style-type: none;
+  color: #292929;
+  background: #eaeaea;
+}
+
+/*.messenger-friends li img {
   order: 1;
 }
 
@@ -243,7 +267,9 @@
   margin-left: 8px;
   border: 1px solid #eaeaea;
   line-height: 30px;
-}
+}*/
+
+
 
 .chat-nav span {
   width: 100%;
