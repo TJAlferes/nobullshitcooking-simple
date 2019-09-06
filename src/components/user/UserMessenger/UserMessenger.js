@@ -129,14 +129,10 @@ const UserMessenger = props => {
     }
   };
 
-  const handleUsersInRoomTabClick = () => {
-    setTab("Room");
-  };
+  const handleUsersInRoomTabClick = () => setTab("Room");
 
-  const handleFriendsTabClick = () => {
-    setTab("Friends");
-  };
-
+  const handleFriendsTabClick = () => setTab("Friends");
+  
   return (
     <div className={`messenger two-column-a ${props.twoColumnATheme}`}>
 

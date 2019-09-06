@@ -12,7 +12,7 @@ export {
   menuShadowShow,
   menuShadowHide
 } from './menu';
-
+ 
 export {
   authDisplay,
   authReset,
@@ -65,18 +65,12 @@ export {
 
 export {
   messengerConnect,
-  messengerConnected,
   messengerDisconnect,
-  messengerDisconnected,
   messengerChangeChannel,
   messengerChangedChannel,
   messengerSendMessage,
-  messengerSentMessage,
   messengerReceivedMessage,
-  messengerJoinUser,
   messengerJoinedUser,
-  messengerTest,
-  messengerLeaveUser,
   messengerLeftUser
 } from './messenger';
 
