@@ -145,48 +145,59 @@ const UserMessenger = props => {
         <p className="error-message">{feedback}</p>
 
         <div className="messenger-room">
-          <div className="messenger-connect-disconnect-container">
-            {
-              props.status === "Connected"
-              ? (
-                <button
-                  className="messenger-connect-disconnect"
-                  onClick={handleDisconnect}
-                >
-                  Disconnect
-                </button>
-              )
-              : (
-                <button
-                  className="messenger-connect-disconnect"
-                  onClick={handleConnect}
-                >
-                  Connect
-                </button>
-              )
-            }
+          <div className="messenger-connect-disconnect-outer">
+            <div className="messenger-connect-disconnect-container">
+              {
+                props.status === "Connected"
+                ? (
+                  <button
+                    className="messenger-connect-disconnect"
+                    onClick={handleDisconnect}
+                  >
+                    Disconnect
+                  </button>
+                )
+                : (
+                  <button
+                    className="messenger-connect-disconnect"
+                    onClick={handleConnect}
+                  >
+                    Connect
+                  </button>
+                )
+              }
+            </div>
+            <span className="messenger-connect-disconnect-mobile-spacer"></span>
           </div>
-          <span className="messenger-channel-switch">Current Room:</span>
-          <span className="messenger-channel-current">{props.channel}</span>
-          <span className="messenger-channel-label">Go To Room:</span>
-          <input
-            className="messenger-channel-input"
-            type="text"
-            name="channel-input"
-            value={roomToEnter}
-            onChange={handleRoomInputChange}
-            disabled={props.status !== "Connected"}
-          />
-          <div className="messenger-channel-button-container">
-            <button
-              className="messenger-channel-button"
-              onClick={handleChannelChange}
+
+          <div className="messenger-current-container">
+            <span className="messenger-channel-switch">Current Room:</span>
+            <span className="messenger-channel-current">{props.channel}</span>
+          </div>
+
+          <div className="messenger-go-container">
+            <span className="messenger-channel-label">Go To Room:</span>
+            <input
+              className="messenger-channel-input"
+              type="text"
+              name="channel-input"
+              value={roomToEnter}
+              onChange={handleRoomInputChange}
               disabled={props.status !== "Connected"}
-            >
-              Enter
-            </button>
+            />
+            <div className="messenger-channel-button-container">
+              <button
+                className="messenger-channel-button"
+                onClick={handleChannelChange}
+                disabled={props.status !== "Connected"}
+              >
+                Enter
+              </button>
+            </div>
           </div>
         </div>
+
+
 
         <div className="messenger-main">
 
@@ -231,6 +242,8 @@ const UserMessenger = props => {
               />
             </div>
           </div>
+
+
 
           <div className="messenger-people">
             <div className="messenger-people-tabs">

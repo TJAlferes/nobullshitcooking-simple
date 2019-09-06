@@ -65,7 +65,9 @@ export {
 
 export {
   messengerConnect,
+  messengerConnected,
   messengerDisconnect,
+  messengerDisconnected,
   messengerChangeChannel,
   messengerChangedChannel,
   messengerSendMessage,

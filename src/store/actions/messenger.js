@@ -4,8 +4,16 @@ export const messengerConnect = () => ({
   type: actionTypes.MESSENGER_CONNECT
 });
 
+export const messengerConnected = () => ({
+  type: actionTypes.MESSENGER_CONNECTED
+});
+
 export const messengerDisconnect = () => ({
   type: actionTypes.MESSENGER_DISCONNECT
+});
+
+export const messengerDisconnected = () => ({
+  type: actionTypes.MESSENGER_DISCONNECTED
 });
 
 export const messengerChangeChannel = channel => ({

@@ -120,11 +120,19 @@
   border-color: #ddd;
 }
 
+.two-column-a-light .messenger-room,
+.two-column-a-light .messenger-connect-disconnect-mobile-spacer,
+.two-column-a-light .messenger-current-container,
+.two-column-a-light .messenger-go-container,
 .two-column-a-light .messenger-channel-switch,
 .two-column-a-light .messenger-channel-label,
 .two-column-a-light .messenger-spacer-one,
 .two-column-a-light .messenger-spacer-two {
   background-color: #ddd;
+}
+
+.two-column-a-light .messenger-channel-current {
+  background-color: #fff;
 }
 
 .two-column-a-light .messenger-user-in-room,
@@ -223,6 +231,10 @@
   border-color: #444
 }
 
+.two-column-a-dark .messenger-room,
+.two-column-a-dark .messenger-connect-disconnect-mobile-spacer,
+.two-column-a-dark .messenger-current-container,
+.two-column-a-dark .messenger-go-container,
 .two-column-a-dark .messenger-channel-switch,
 .two-column-a-dark .messenger-channel-label,
 .two-column-a-dark .messenger-spacer-one,
@@ -230,8 +242,8 @@
   background-color: #444;
 }
 
-.two-column-a-dark .messenger-room,
 .two-column-a-dark .messenger-room input,
+.two-column-a-dark .messenger-channel-current,
 .two-column-a-dark .messenger-chat,
 .two-column-a-dark .messenger-chat-messages,
 .two-column-a-dark .messenger-chat-message,

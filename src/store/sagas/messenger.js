@@ -1,6 +1,8 @@
 import io from 'socket.io-client';
 
 import {
+  messengerConnected,
+  messengerDisconnected,
   messengerChangedChannel,
   messengerJoinedUser,
   messengerLeftUser,
@@ -13,11 +15,15 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 const socket = io.connect(endpoint, {reconnection: false, autoConnect: false});
 
+
+
 socket.on('connect', () => {
+  store.dispatch(messengerConnected());
   console.log('Connected to NOBSC Messenger.');
 });
 
 socket.on('disconnect', () => {
+  store.dispatch(messengerDisconnected());
   console.log('Disconnected from NOBSC Messenger.');
 });
 
@@ -36,6 +42,8 @@ socket.on('RemoveUser', (user) => {
 socket.on('AddChat', (message) => {
   store.dispatch(messengerReceivedMessage(message));
 });
+
+
 
 export function* messengerConnectSaga() {
   socket.connect();

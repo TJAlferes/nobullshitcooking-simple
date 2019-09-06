@@ -11,6 +11,8 @@
   font-size: 14px;
 }
 
+
+
 .messenger-room {
   display: flex;
   flex-direction: row;
@@ -20,16 +22,24 @@
   border-top: 10px solid;
   border-right: 9px solid;
   border-left: 10px solid;
-  background: #fff;
+}
+
+.messenger-connect-disconnect-outer {
+  order: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 32px;
 }
 
 .messenger-connect-disconnect-container {
-  order: 1;
+  display: block;
   border-bottom: 2px solid #6cabe4;
 }
 
 .messenger-connect-disconnect,
 .messenger-channel-button {
+  display: block;
   width: 85px;
   height: 30px;
   padding-left: 8px;
@@ -50,9 +60,21 @@
   cursor: pointer;
 }
 
-.messenger-channel-switch {
-  order: 2;
+.messenger-connect-disconnect-mobile-spacer {
   display: block;
+  width: 0px;
+  height: 32px;
+}
+
+.messenger-current-container {
+  order: 2;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 32px;
+}
+
+.messenger-channel-switch {
   height: 32px;
   padding-right: 10px;
   padding-left: 200px;
@@ -61,7 +83,6 @@
 }
 
 .messenger-channel-current {
-  order: 3;
   width: 85px;
   max-width: 85px;
   border: 2px solid;
@@ -72,9 +93,15 @@
   overflow: hidden;
 }
 
+.messenger-go-container {
+  order: 3;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 32px;
+}
+
 .messenger-channel-label {
-  order: 4;
-  display: block;
   height: 32px;
   padding-right: 10px;
   padding-left: 191px;
@@ -82,8 +109,8 @@
   line-height: 30px;
 }
 .messenger-channel-input {
-  order: 5;
   width: 85px;
+  height: 32px;
   border: 2px solid #68abe6;
   padding-left: 7px;
   font-family: 'Play', sans-serif;
@@ -97,9 +124,10 @@
 }
 
 .messenger-channel-button-container {
-  order: 6;
   border-bottom: 2px solid #6cabe4;
 }
+
+
 
 .messenger-main {
   display: flex;
@@ -155,6 +183,8 @@
   outline: none;
   border: 2px solid #87c6fd;
 }
+
+
 
 .messenger-people {
   order: 2;
@@ -236,16 +266,6 @@
 
 
 
-.chat-nav span {
-  width: 100%;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  font-family: Arial;
-  color: #292929;
-  background: #bfbfbf;
-}
-
 .chat-display-admin {
   font-style: italic;
   color: #c10006;
@@ -257,4 +277,53 @@
 
 .chat-display-username-other {
   color: #0029ff;
+}
+
+
+
+@media (max-width: 1279px) {
+  .messenger-connect-disconnect-mobile-spacer {
+    width: 0px;
+  }
+
+  .messenger-channel-switch {
+    padding-left: 50px;
+  }
+
+  .messenger-channel-label {
+    padding-left: 41px;
+  }
+
+  .messenger-chat {
+    width: 450px;
+  }
+}
+
+@media (max-width: 799px) {
+  .messenger-room {
+    flex-direction: column;
+    height: 118px;
+  }
+
+  .messenger-connect-disconnect-outer,
+  .messenger-current-container,
+  .messenger-go-container {
+    margin-bottom: 4px;
+  }
+  .messenger-connect-disconnect-container {
+    width: 85px;
+  }
+
+  .messenger-connect-disconnect-mobile-spacer {
+    width: 100%;
+  }
+
+  .messenger-channel-switch {
+    padding-left: 0px;
+  }
+
+  .messenger-channel-label {
+    padding-right: 20px;
+    padding-left: 0px;
+  }
 }
