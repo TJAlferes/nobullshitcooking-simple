@@ -3,7 +3,7 @@
   grid-template-rows: 92px auto 92px;
   grid-template-areas: none;
   min-width: calc(100vw - (100vw - 100%));
-  max-width: calc(100vw - (100vw - 100%));  /*100vw;   ? */
+  max-width: calc(100vw - (100vw - 100%));
   min-height: 100vh;
 }
 
@@ -17,11 +17,16 @@
 
 
 
-/* mobile */
+/*
+
+mobile
+
+*/
+
 @media (max-width: 899px) {
   #app {
     grid-template-rows: 92px auto 237px;
-    min-width: calc(100vw - (100vw - 100%));  /* ? */
+    min-width: calc(100vw - (100vw - 100%));
     max-width: calc(100vw - (100vw - 100%));
   }
 

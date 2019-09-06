@@ -1,3 +1,6 @@
+/*
+Not using for now, may again in the future though...
+
 require('@babel/register');
 //const path = require('path');
 const webpack = require('webpack');
@@ -19,3 +22,4 @@ const PORT = 8080;
 server.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
 });
+*/
