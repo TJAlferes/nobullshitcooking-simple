@@ -17,9 +17,9 @@
   flex-wrap: nowrap;
   width: 100%;
   height: 42px;
-  border-top: 10px solid #ddd;
-  border-right: 9px solid #ddd;
-  border-left: 10px solid #ddd;
+  border-top: 10px solid;
+  border-right: 9px solid;
+  border-left: 10px solid;
   background: #fff;
 }
 
@@ -100,14 +100,6 @@
   order: 6;
   border-bottom: 2px solid #6cabe4;
 }
-
-/*.messenger-room span {
-  display: inline;
-  line-height: 30px;
-  padding: 5px;
-  color: #292929;
-  background: #fff;
-}*/
 
 .messenger-main {
   display: flex;
@@ -203,42 +195,16 @@
   background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
 }
 
-
-
-.messenger-users-in-room {
-  display: block;
-  width: 100%;
-  height: calc(100% - 32px);
-  overflow-y: scroll;
-}
-
-.messenger-user-in-room  {
-  display: flex;
-  flex-direction: row;
-  height: 30px;
-  padding: 2px;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 1px;
-  border-top-color: #fff;
-  border-right-color: #b3b3b3;
-  border-bottom-color: #b3b3b3;
-  border-left-color: #fff;
-  margin: 3px;
-  list-style-type: none;
-  color: #292929;
-  background: #eaeaea;
-}
-
+.messenger-users-in-room,
 .messenger-friends {
   display: block;
   width: 100%;
   height: calc(100% - 32px);
   overflow-y: scroll;
-  border: none;
 }
 
-.messenger-friend {
+.messenger-user-in-room,
+.messenger-friend  {
   display: flex;
   flex-direction: row;
   height: 30px;
@@ -246,28 +212,27 @@
   border-style: solid;
   border-width: 1px;
   border-radius: 1px;
-  border-top-color: #fff;
-  border-right-color: #b3b3b3;
-  border-bottom-color: #b3b3b3;
-  border-left-color: #fff;
   margin: 3px;
   list-style-type: none;
-  color: #292929;
-  background: #eaeaea;
 }
 
-/*.messenger-friends li img {
+.messenger-user-in-room img,
+.messenger-friend img {
   order: 1;
+  display: block;
+  width: 25px;
+  height: 25px;
 }
 
-.messenger-friends li span {
+.messenger-user-in-room span,
+.messenger-friend span {
   order: 2;
+  display: block;
   height: 25px;
-  line-height: 35px;
-  margin-left: 8px;
-  border: 1px solid #eaeaea;
-  line-height: 30px;
-}*/
+  margin-left: 9px;
+  line-height: 25px;
+  overflow: hidden;
+}
 
 
 

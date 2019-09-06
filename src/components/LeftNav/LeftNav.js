@@ -53,10 +53,12 @@ const LeftNav = props => {
 
       <hr />
 
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/contests">Contest Winners</NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/seasonal">Food for Summer</NavLink>
+      {/*
+        <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/contests">Contest Winners</NavLink>
+        <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/seasonal">Food for Summer</NavLink>
 
-      <hr />
+        <hr />
+      */}
 
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/charity">Charity</NavLink>
 

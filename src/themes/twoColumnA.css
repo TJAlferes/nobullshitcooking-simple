@@ -127,6 +127,18 @@
   background-color: #ddd;
 }
 
+.two-column-a-light .messenger-user-in-room,
+.two-column-a-light .messenger-friend  {
+  border-top-color: #fff;
+  border-right-color: #b3b3b3;
+  border-bottom-color: #b3b3b3;
+  border-left-color: #fff;
+  background-color: #eaeaea;
+  color: #292929;
+}
+
+
+
 
 
 .two-column-a-dark section {
@@ -226,7 +238,17 @@
 .two-column-a-dark .messenger-chat-input input,
 .two-column-a-dark .messenger-people,
 .two-column-a-dark .messenger-users-in-room,
-.two-column-a-dark .messenger-friends {
+.two-column-a-dark .messenger-friends  {
   background-color: #1e1e1e;
+  color: #bbb;
+}
+
+.two-column-a-dark .messenger-user-in-room,
+.two-column-a-dark .messenger-friend  {
+  border-top-color: #222;
+  border-right-color: #000;
+  border-bottom-color: #000;
+  border-left-color: #222;
+  background-color: #2c2c2c;
   color: #bbb;
 }

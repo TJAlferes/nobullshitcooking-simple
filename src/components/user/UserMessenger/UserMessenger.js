@@ -177,13 +177,15 @@ const UserMessenger = props => {
             className="messenger-channel-input"
             type="text"
             name="channel-input"
-            defaultValue={props.channel}
+            value={roomToEnter}
             onChange={handleRoomInputChange}
+            disabled={props.status !== "Connected"}
           />
           <div className="messenger-channel-button-container">
             <button
               className="messenger-channel-button"
               onClick={handleChannelChange}
+              disabled={props.status !== "Connected"}
             >
               Enter
             </button>
@@ -224,7 +226,13 @@ const UserMessenger = props => {
               }
             </ul>
             <div className="messenger-chat-input">
-              <input type="text" name="chat-input" value={messageToSend} onChange={handleMessageInputChange} onKeyUp={(e) => handleMessageSend(e)} />
+              <input
+                type="text" name="chat-input"
+                value={messageToSend}
+                onChange={handleMessageInputChange}
+                onKeyUp={(e) => handleMessageSend(e)}
+                disabled={props.status !== "Connected"}
+              />
             </div>
           </div>
 
