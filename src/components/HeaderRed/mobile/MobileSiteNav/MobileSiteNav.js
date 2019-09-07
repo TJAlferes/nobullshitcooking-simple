@@ -16,12 +16,11 @@ const MobileSiteNav = () => {
           Fitness
         </Link>
       </li>
-      <li>
+      {/*<li>
         <Link className="mobile-site-nav-link mobile_text" to="/store/storefront">
           Supply
         </Link>
-      </li>
-
+      </li>*/}
     </div>
   );
 }

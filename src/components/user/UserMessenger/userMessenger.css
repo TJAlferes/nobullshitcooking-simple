@@ -142,13 +142,11 @@
 .messenger-chat {
   order: 1;
   position: relative;  /* ? */
-  /*min-width: 720px;
-  max-width: 720px;*/
   width: 750px;
   height: 450px;
   padding: 10px;
   border: 10px solid;
-  color: #292929;  /* ? */
+  /*color: #292929; ? */
 }
 
 .messenger-chat-messages p {
@@ -175,8 +173,8 @@
   height: 30px;
   border: 2px solid #68abe6;
   padding-left: 7px;
-  color: #292929;
-  background: #fff;
+  /*color: #292929;
+  background: #fff;*/
 }
 
 .messenger-chat-input input:focus {
@@ -190,9 +188,9 @@
   order: 2;
   width: 180px;
   height: 450px;
-  border-top: 10px solid #ddd;
-  border-right: 10px solid #ddd;
-  border-bottom: 10px solid #ddd;
+  border-top: 10px solid;
+  border-right: 10px solid;
+  border-bottom: 10px solid;
 }
 
 .messenger-people-tabs {
@@ -310,6 +308,7 @@
   .messenger-go-container {
     margin-bottom: 4px;
   }
+
   .messenger-connect-disconnect-container {
     width: 85px;
   }

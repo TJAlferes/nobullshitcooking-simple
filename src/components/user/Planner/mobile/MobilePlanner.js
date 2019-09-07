@@ -9,9 +9,9 @@ import MobilePlannerExpandedDay from './MobilePlannerExpandedDay/MobilePlannerEx
 //import CustomDragLayer from './CustomDragLayer';
 import './mobilePlanner.css';  // use BEM
 
-// TO DO: on page refresh, preserve state (localStorage? indexedDB? webSQL?) (... localForage.)
+// TO DO: on page refresh, preserve state (localStorage? indexedDB? webSQL?) (... localForage.) (already good boys, already good)
 // TO DO: clear/delete plan button
-// TO DO: button on recipe page to add to plan
+// TO DO: button on recipe page to add to plan (no)
 
 class MobilePlanner extends Component {  // convert to functional w/ hooks
   /*handleSave = async () => {  // put in redux-saga, perform 5 seconds after no mouse or keyboard activity

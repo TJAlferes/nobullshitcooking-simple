@@ -53,7 +53,8 @@ const StaffEditIngredient = lazy(() => import('../components/staff/StaffEditIngr
 const UserEditIngredient = lazy(() => import('../components/user/UserEditIngredient/UserEditIngredient'));
 
 import Messenger from '../components/demos/Messenger/Messenger';  // for demo purposes
-const UserMessenger = lazy(() => import('../components/user/UserMessenger/UserMessenger'));
+//const UserMessenger = lazy(() => import('../components/user/UserMessenger/UserMessenger'));
+const UserMessengerPage = lazy(() => import('../components/user/UserMessengerPage/UserMessengerPage'));
 
 import Friends from '../components/demos/Friends/Friends';  // for demo purposes
 const UserFriends = lazy(() => import('../components/user/UserFriends/UserFriends'));
@@ -228,7 +229,7 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/user/ingredient/edit" exact component={UserEditIngredient} />
 
       <AppliedRoute path="/messenger" exact component={Messenger} />  {/* for demo purposes */}
-      <AuthenticatedRoute path="/user/messenger" exact component={UserMessenger} />
+      <AuthenticatedRoute path="/user/messenger" exact component={UserMessengerPage} />
 
       <AppliedRoute path="/friends" exact component={Friends} />  {/* for demo purposes */}
       <AuthenticatedRoute path="/user/friends" exact component={UserFriends} />

@@ -66,11 +66,11 @@ class UserNav extends Component {
             </Fragment>
           )
         }
-        <li>
+        {/*<li>
           <Link className="user-nav-link" to="/store/view_cart">
             View Cart
           </Link>
-        </li>
+        </li>*/}
       </div>
     );
   }

@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './mobileUserNav.css';
-import CartIcon from '../CartIcon/CartIcon';
+//import CartIcon from '../CartIcon/CartIcon';
 import { authUserLogout, themeDarkTrigger, themeLightTrigger } from '../../../../store/actions/index';
 
 class MobileUserNav extends Component {
@@ -48,11 +48,11 @@ class MobileUserNav extends Component {
             </li>
           )
         }
-        <li>
+        {/*<li>
           <Link className="mobile-user-nav-link" to="/store/view_cart">
             <CartIcon />
           </Link>
-        </li>
+        </li>*/}
       </div>
     );
   }

@@ -47,7 +47,7 @@ class SiteNav extends Component {
             : false
           }
         </li>
-        <li onMouseEnter={() => this.handleMouseEnter('Supply')} onMouseLeave={this.handleMouseLeave}>
+        {/*<li onMouseEnter={() => this.handleMouseEnter('Supply')} onMouseLeave={this.handleMouseLeave}>
           <Link className="site-nav-link" to="/store/storefront">Supply</Link>
           {
             (expanded && expandedDropdown === 'Supply')
@@ -55,7 +55,7 @@ class SiteNav extends Component {
             : false
           }
         </li>
-        {/*<li>
+        <li>
           <Link className="site-nav-link" to="/site/welcome">New? Start Here</Link>
         </li>*/}
       </div>

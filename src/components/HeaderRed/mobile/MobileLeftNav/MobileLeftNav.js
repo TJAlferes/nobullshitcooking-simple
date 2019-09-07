@@ -46,7 +46,7 @@ const MobileLeftNav = props => {
       <hr />
 
       <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/food/nutrition/supplements')}} to="/food/nutrition/supplements">Supplements</NavLink>
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/supply/kitchen-equipment')}} to="/supply/kitchen-equipment">Equipment</NavLink>
+      {/*<NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/supply/kitchen-equipment')}} to="/supply/kitchen-equipment">Equipment</NavLink>*/}
 
       <hr />
 
@@ -62,10 +62,10 @@ const MobileLeftNav = props => {
 
       <hr />
 
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/contests')}} to="/contests">Contest Winners</NavLink>
+      {/*<NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/contests')}} to="/contests">Contest Winners</NavLink>
       <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/seasonal')}} to="/seasonal">Food for Summer</NavLink>
 
-      <hr />
+      <hr />*/}
 
       <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/')}} to="/">Charity</NavLink>
 
