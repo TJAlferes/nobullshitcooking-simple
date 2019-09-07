@@ -13,7 +13,7 @@ const UserMessengerPage = props => (
     </div>
     <div className="desktop_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <UserMessenger className="desktop_display" />
+        <UserMessenger twoColumnATheme={props.twoColumnATheme} />
       </Suspense>
     </div>
   </div>
