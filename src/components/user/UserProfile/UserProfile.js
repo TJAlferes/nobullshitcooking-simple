@@ -27,10 +27,9 @@ const UserProfile = props => {
     return () => isSubscribed = false;
   }, [props.message]);
 
-  // TODO: Redirect them to Home if they only navigate to /profile (if there is no /:username)
-
   useEffect(() => {
     const { username } = props.match.params;
+    // if (!username) redirect
     const getUserProfile = async (username) => {
       const res = await axios.get(`${endpoint}/user/profile/${username}`);
       if (res.data.avatar !== "nobsc-user-default") setUserAvatar(username);
@@ -72,18 +71,20 @@ const UserProfile = props => {
         : <img src="https://nobsc-user-avatars.s3.amazonaws.com/nobsc-user-default" />
       }
       
-      {
-        props.isAuthenticated && props.match.params.username !== props.authname
-        ? (
-          props.dataMyFriendships.filter(friend => friend.username === props.match.params.username)
-          ? <span>Friends</span>
-          : (
-            !clicked ? <button onClick={handleFriendRequestClick} disabled={loading}>Send Friend Request</button>
-            : <span>Friend Request Sent</span>
+      <div className="friend-request-outer">
+        {
+          props.isAuthenticated && props.match.params.username !== props.authname
+          ? (
+            props.dataMyFriendships.find(friend => friend.username === props.match.params.username)
+            ? <span>Friends</span>
+            : (
+              !clicked ? <button onClick={handleFriendRequestClick} disabled={loading}>Send Friend Request</button>
+              : <span>Friend Request Sent</span>
+            )
           )
-        )
-        : false
-      }
+          : false
+        }
+      </div>
 
       <h2>Recipes</h2>
       

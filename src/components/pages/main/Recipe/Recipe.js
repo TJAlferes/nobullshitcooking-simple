@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import { userFavoriteRecipe, userSaveRecipe } from '../../../store/actions/index';
 import { RecipeBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './recipe.css';
 
@@ -9,30 +10,82 @@ import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEn
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 const Recipe = props => {
+  const [ message, setMessage ] = useState("");
+  const [ loading, setLoading ] = useState(false);
+  const [ favoriteClicked, setFavoriteClicked ] = useState(false);
+  const [ saveClicked, setSaveClicked ] = useState(false);
   const [ recipe, setRecipe ] = useState({});
+
+  useEffect(() => {
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.message !== "") window.scrollTo(0,0);
+      setMessage(props.message);
+    }
+    return () => isSubscribed = false;
+  }, [props.message]);
 
   useEffect(() => {
     const { id } = props.match.params;
     //if (!id) Redirect them to Recipes
-    const localRecipe = props.dataRecipes.find(rec => rec.recipe_id === id);
+    const localRecipe = (
+      props.dataRecipes.find(rec => rec.recipe_id === id) ||
+      props.dataMyPrivateRecipes && props.dataMyPrivateRecipes.find(rec => rec.recipe_id === id)
+    );
     if (localRecipe) {
       setRecipe(localRecipe);
     } else {
-      getRecipe(id);
+      getPublicRecipe(id);
     }
   }, []);
 
-  const getRecipe = async (id) => {
+  const getPublicRecipe = async (id) => {
     try {
-      const res = await axios.get(`${endpoint}/recipe/${id}`);  // also for private! /user/
-      setRecipe(res.data);
+      const res = await axios.get(`${endpoint}/user/recipe/public/${id}`);
+      if (res.data.success === true) {
+        setRecipe(res.data);
+      } else {
+        //Redirect them to Recipes
+      }
     } catch (err) {
       console.error(err);
     }
   }
 
+  const handleFavoriteClick = () => {
+    const { id } = props.match.params;
+    setLoading(true);
+    try {
+      props.userFavoriteRecipe(id);
+    } catch(err) {
+      setFavoriteClicked(false);
+      setLoading(false);
+      window.scrollTo(0,0);
+      setMessage(err.message);
+    } finally {
+      setFavoriteClicked(true);
+      setLoading(false);
+    }
+  };
+
+  const handleSaveClick = () => {
+    const { id } = props.match.params;
+    setLoading(true);
+    try {
+      props.userSaveRecipe(id);
+    } catch(err) {
+      setSaveClicked(false);
+      setLoading(false);
+      window.scrollTo(0,0);
+      setMessage(err.message);
+    } finally {
+      setSaveClicked(true);
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="recipe">
+    <div className="view-recipe">
       <div>
         {
           (Object.keys(recipe).length > 1) &&
@@ -40,30 +93,49 @@ const Recipe = props => {
         }
       </div>
 
-      <div className="view-recipe">
+      <div className="recipe">
         <div className="title"><h1>{recipe.title}</h1></div>
 
         <p className="error-message">{message}</p>
 
-        {
-          (
-            props.isAuthenticated &&
-            !props.dataMyPrivateRecipes.find(props.match.params.id) &&
-            !props.dataMyPublicRecipes.find(props.match.params.id)
-          )
-          ? (
-            props.dataMyFavoriteRecipes.filter(friend => friend.username === props.match.params.username)
-            ? <span>Favorited</span>
-            : (
-              !clicked ? <button onClick={handleFavoriteClick} disabled={loading}>Favorite</button>
-              : <span>Favorited</span>
+        <div className="favorite-save-outer">
+          {
+            (
+              props.isAuthenticated &&
+              !props.dataMyPrivateRecipes.find(props.match.params.id) &&
+              !props.dataMyPublicRecipes.find(props.match.params.id)
             )
-          )
-          : false
-        }
+            ? (
+              props.dataMyFavoriteRecipes.find(rec => rec.recipe_id === props.match.params.id)
+              ? <span>Favorited</span>
+              : (
+                !favoriteClicked ? <button onClick={handleFavoriteClick} disabled={loading}>Favorite</button>
+                : <span>Favorited</span>
+              )
+            )
+            : false
+          }
+
+          {
+            (
+              props.isAuthenticated &&
+              !props.dataMyPrivateRecipes.find(props.match.params.id) &&
+              !props.dataMyPublicRecipes.find(props.match.params.id)
+            )
+            ? (
+              props.dataMySavedRecipes.find(rec => rec.recipe_id === props.match.params.id)
+              ? <span>Saved</span>
+              : (
+                !saveClicked ? <button onClick={handleSaveClick} disabled={loading}>Save</button>
+                : <span>Saved</span>
+              )
+            )
+            : false
+          }
+        </div>
 
         <div className="recipe-image">
-          <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/recipe/${recipe.recipe_image}.png`} />
+          <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}`} />
         </div>
 
         <div className="recipe-type-name">{recipe.recipe_type_name}</div>
@@ -93,15 +165,15 @@ const Recipe = props => {
         <div className="directions">{recipe.directions}</div>
 
         <div className="equipment-image">
-          <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/equipment/${recipe.equipment_image}.png`} />
+          <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${recipe.equipment_image}`} />
         </div>
 
         <div className="ingredients-image">
-          <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/ingredients/${recipe.ingredients_image}.png`} />
+          <img src={`https://s3.amazonaws.com/nobsc-user-recipe-ingredients/${recipe.ingredients_image}`} />
         </div>
 
         <div className="cooking-image">
-          <img src={`https://s3.amazonaws.com/nobsc-images-01/recipes/cooking/${recipe.cooking_image}.png`} />
+          <img src={`https://s3.amazonaws.com/nobsc-user-recipe-cooking/${recipe.cooking_image}`} />
         </div>
         
       </div>
@@ -120,4 +192,9 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Recipe);
+const mapDispatchToProps = state => ({
+  userFavoriteRecipe: id => dispatch(userFavoriteRecipe(id)),
+  userSaveRecipe: id => dispatch(userSaveRecipe(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Recipe);
