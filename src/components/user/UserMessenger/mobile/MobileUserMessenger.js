@@ -82,7 +82,14 @@ const UserMessenger = props => {
         setTimeout(() => setFeedback(""), 6000);
         return;
       }
-      props.messengerChangeChannel(roomToEnter);
+      const trimmedRoom = roomToEnter.trim();
+      if (trimmedRoom.length < 1 || trimmedRoom === "") return;
+      if (trimmedRoom.length > 20) {
+        setFeedback("Please limit room name length to 20 characters.");
+        setTimeout(() => setFeedback(""), 4000);
+        return;
+      }
+      props.messengerChangeChannel(trimmedRoom);
       setRoomToEnter("");
       setSpamCount((prev) => prev + 1);
       setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
@@ -110,8 +117,14 @@ const UserMessenger = props => {
         setTimeout(() => setFeedback(""), 6000);
         return;
       }
-      if (messageToSend === "") return;
-      props.messengerSendMessage(messageToSend);
+      const trimmedMessage = messageToSend.trim();
+      if (trimmedMessage.length < 1 || trimmedMessage === "") return;
+      if (trimmedMessage.length > 4000) {
+        setFeedback("Please limit message length to 4,000 characters.");
+        setTimeout(() => setFeedback(""), 4000);
+        return;
+      }
+      props.messengerSendMessage(trimmedMessage);
       setMessageToSend("");
       setSpamCount((prev) => prev + 1);
       setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
