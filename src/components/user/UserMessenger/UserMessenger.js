@@ -5,7 +5,8 @@ import {
   messengerConnect,
   messengerDisconnect,
   messengerChangeChannel,
-  messengerSendMessage
+  messengerSendMessage,
+  messengerSendWhisper
 } from '../../../store/actions/index';
 import LeftNav from '../../LeftNav/LeftNav';
 import './userMessenger.css';
@@ -127,10 +128,9 @@ const UserMessenger = props => {
       }
       if (trimmedMessage.slice(0, 3) === "/w ") {
         const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
-        const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/).substring(3);
-        console.log('trimmedWhisper: ', trimmedWhisper);
-        console.log('userToWhisper: ', userToWhisper);
-        //props.messengerSendWhisper(trimmedWhisper, userToWhisper);
+        const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
+        const trimmedUserToWhisper = userToWhisper[1].substring(3);
+        props.messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
       } else {
         props.messengerSendMessage(trimmedMessage);
       }
@@ -238,16 +238,34 @@ const UserMessenger = props => {
                   : (
                     props.authname === message.user.user
                     ? (
-                      <li className="messenger-chat-message" key={message.ts}>
-                        <span className="chat-display-username-self">{message.user.user}: </span>
-                        {message.message}
-                      </li>
+                      message.whisper
+                      ? (
+                        <li className="messenger-chat-message" key={message.ts}>
+                          <span className="chat-display-username-self">You whisper to {message.to}: </span>
+                          <span className="chat-whisper">{message.whisper}</span>
+                        </li>
+                      )
+                      : (
+                        <li className="messenger-chat-message" key={message.ts}>
+                          <span className="chat-display-username-self">{message.user.user}: </span>
+                          {message.message}
+                        </li>
+                      )
                     )
                     : (
-                      <li className="messenger-chat-message" key={message.ts}>
-                        <span className="chat-display-username-other">{message.user.user}: </span>
-                        {message.message}
-                      </li>
+                      message.whisper
+                      ? (
+                        <li className="messenger-chat-message" key={message.ts}>
+                          <span className="chat-display-username-other">{message.user.user} whispers to you: </span>
+                          <span className="chat-whisper">{message.whisper}</span>
+                        </li>
+                      )
+                      : (
+                        <li className="messenger-chat-message" key={message.ts}>
+                          <span className="chat-display-username-other">{message.user.user}: </span>
+                          {message.message}
+                        </li>
+                      )
                     )
                   )
                 ))
@@ -324,7 +342,8 @@ const mapDispatchToProps = dispatch => ({
   messengerConnect: () => dispatch(messengerConnect()),
   messengerDisconnect: () => dispatch(messengerDisconnect()),
   messengerChangeChannel: (channel) => dispatch(messengerChangeChannel(channel)),
-  messengerSendMessage: (message) => dispatch(messengerSendMessage(message))
+  messengerSendMessage: (message) => dispatch(messengerSendMessage(message)),
+  messengerSendWhisper: (whisper, to) => dispatch(messengerSendWhisper(whisper, to))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMessenger);

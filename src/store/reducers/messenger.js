@@ -59,6 +59,22 @@ const receivedMessage = (state, action) => ({
   ...{messages: state.messages.concat(action.message)}
 });
 
+const receivedWhisper = (state, action) => ({
+  ...state,
+  ...{messages: state.messages.concat(action.whisper)}
+});
+
+const failedWhisper = (state, action) => ({
+  ...state,
+  ...{
+    messages: state.messages.concat({
+      ts: (new Date).getTime(),
+      message: action.feedback,
+      user: {user: "messengerstatus"}
+    })
+  }
+});
+
 const messengerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.MESSENGER_CONNECTED: return connected(state, action);
@@ -67,6 +83,8 @@ const messengerReducer = (state = initialState, action) => {
     case actionTypes.MESSENGER_JOINED_USER: return joinedUser(state, action);
     case actionTypes.MESSENGER_LEFT_USER: return leftUser(state, action);
     case actionTypes.MESSENGER_RECEIVED_MESSAGE: return receivedMessage(state, action);
+    case actionTypes.MESSENGER_RECEIVED_WHISPER: return receivedWhisper(state, action);
+    case actionTypes.MESSENGER_FAILED_WHISPER: return failedWhisper(state, action);
   }
   return state;
 };

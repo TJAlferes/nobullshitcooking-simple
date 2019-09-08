@@ -60,7 +60,8 @@ import {
   messengerConnectSaga,
   messengerDisconnectSaga,
   messengerChangeChannelSaga,
-  messengerSendMessageSaga
+  messengerSendMessageSaga,
+  messengerSendWhisperSaga
 } from './messenger';
 import {
   //plannerPublicLoadFromUrlSaga,
@@ -68,6 +69,7 @@ import {
   //plannerSaveSaga,
   //plannerLoadSaga
 } from './planner';
+import { messengerSendWhisper } from '../actions';
 
 export function* watchAuth() {
   yield all([
@@ -171,7 +173,8 @@ export function* watchMessenger() {
     takeEvery(actionTypes.MESSENGER_DISCONNECT, messengerDisconnectSaga),
     takeEvery(actionTypes.AUTH_USER_LOGOUT, messengerDisconnectSaga),
     takeEvery(actionTypes.MESSENGER_CHANGE_CHANNEL, messengerChangeChannelSaga),
-    takeEvery(actionTypes.MESSENGER_SEND_MESSAGE, messengerSendMessageSaga)
+    takeEvery(actionTypes.MESSENGER_SEND_MESSAGE, messengerSendMessageSaga),
+    takeEvery(actionTypes.MESSENGER_SEND_WHISPER, messengerSendWhisperSaga)
   ]);
 }
 

@@ -71,7 +71,10 @@ export {
   messengerChangeChannel,
   messengerChangedChannel,
   messengerSendMessage,
+  messengerSendWhisper,
   messengerReceivedMessage,
+  messengerReceivedWhisper,
+  messengerFailedWhisper,
   messengerJoinedUser,
   messengerLeftUser
 } from './messenger';

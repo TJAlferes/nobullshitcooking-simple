@@ -6,7 +6,9 @@ import {
   messengerChangedChannel,
   messengerJoinedUser,
   messengerLeftUser,
-  messengerReceivedMessage
+  messengerReceivedMessage,
+  messengerReceivedWhisper,
+  messengerFailedWhisper
 } from '../actions/index';
 import { store } from '../../index';
 
@@ -43,6 +45,14 @@ socket.on('AddChat', (message) => {
   store.dispatch(messengerReceivedMessage(message));
 });
 
+socket.on('AddWhisper', (whisper) => {
+  store.dispatch(messengerReceivedWhisper(whisper));
+});
+
+socket.on('FailedWhisper', (feedback) => {
+  store.dispatch(messengerFailedWhisper(feedback));
+});
+
 
 
 export function* messengerConnectSaga() {
@@ -59,4 +69,8 @@ export function* messengerChangeChannelSaga(action) {
 
 export function* messengerSendMessageSaga(action) {
   socket.emit('AddChat', action.message);
+}
+
+export function* messengerSendWhisperSaga(action) {
+  socket.emit('AddWhisper', action.whisper, action.to);
 }
