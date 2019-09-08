@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import { IngredientBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './ingredient.css';
 
+import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEndpointOne';
+const endpoint = NOBSCBackendAPIEndpointOne;
+
 const Ingredient = props => {
+  const [ ingredient, setIngredient ] = useState({});
 
-  // TODO: Redirect them to Ingredients if they only navigate to /ingredient (if there is no /:id)
+  useEffect(() => {
+    const { id } = props.match.params;
+    //if (!id) Redirect them to Ingredients
+    const localIngredient = props.dataIngredients.find(ing => ing.ingredient_id === id);
+    if (localIngredient) {
+      setIngredient(localIngredient);
+    } else {
+      getIngredient(id);
+    }
+  }, []);
 
-  const { id } = props.match.params;
-  const ingredient = props.dataIngredients.find(ing => ing.ingredient_id === id);
+  const getIngredient = async (id) => {
+    try {
+      const res = await axios.get(`${endpoint}/ingredient/${id}`);  // also for private! /user/
+      setIngredient(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <div>
@@ -36,7 +56,9 @@ const Ingredient = props => {
 }
 
 const mapStateToProps = state => ({
-  dataIngredients: state.data.ingredients
+  dataIngredients: state.data.ingredients,
+  dataMyPrivateIngredients: state.data.myPrivateIngredients,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps)(Ingredient);

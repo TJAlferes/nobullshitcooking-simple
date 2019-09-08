@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { EquipmentBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
@@ -10,22 +11,25 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 const Equipment = props => {
   const [ equipment, setEquipment ] = useState({});
 
-  // TODO: Redirect them to equipments if they only navigate to /equipment (if there is no /:id)
+  useEffect(() => {
+    const { id } = props.match.params;
+    //if (!id) Redirect them to Equipments
+    const localEquipment = props.dataEquipment.find(equ=> equ.equipment_id === id);
+    if (localEquipment) {
+      setEquipment(localEquipment);
+    } else {
+      getEquipment(id);
+    }
+  }, []);
 
   const getEquipment = async (id) => {
     try {
-      const res = await axios.get(`${endpoint}/equipment/${id}`);
-      const row = res.data;
-      setEquipment(row);
+      const res = await axios.get(`${endpoint}/equipment/${id}`);  // also for private! /user/
+      setEquipment(res.data);
     } catch (err) {
       console.error(err);
     }
   }
-
-  useEffect(() => {
-    const { id } = props.match.params;
-    getEquipment(id);
-  }, []);
 
   return (
     <div>
@@ -51,4 +55,10 @@ const Equipment = props => {
   );
 }
 
-export default Equipment;
+const mapStateToProps = state => ({
+  dataEquipment: state.data.equipment,
+  dataMyPrivateEquipment: state.data.myPrivateEquipment,
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Equipment);
