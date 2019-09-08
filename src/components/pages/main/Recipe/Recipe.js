@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { userFavoriteRecipe, userSaveRecipe } from '../../../store/actions/index';
+import { userFavoriteRecipe, userSaveRecipe } from '../../../../store/actions/index';
 import { RecipeBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './recipe.css';
 

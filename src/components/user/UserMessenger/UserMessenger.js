@@ -125,7 +125,15 @@ const UserMessenger = props => {
         setTimeout(() => setFeedback(""), 4000);
         return;
       }
-      props.messengerSendMessage(trimmedMessage);
+      if (trimmedMessage.slice(0, 3) === "/w ") {
+        const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
+        const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/).substring(3);
+        console.log('trimmedWhisper: ', trimmedWhisper);
+        console.log('userToWhisper: ', userToWhisper);
+        //props.messengerSendWhisper(trimmedWhisper, userToWhisper);
+      } else {
+        props.messengerSendMessage(trimmedMessage);
+      }
       setMessageToSend("");
       setSpamCount((prev) => prev + 1);
       setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
