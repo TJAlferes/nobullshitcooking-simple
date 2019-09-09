@@ -38,7 +38,7 @@ const UserMessenger = props => {
       );
       const containerHeight = messagesRef.current.scrollHeight;
       const scrollOffset = messagesRef.current.scrollTop + messagesRef.current.offsetHeight;
-      // cancel autoscroll if user is scrolling up through older messages
+      // cancels autoscroll if user is scrolling up through older messages
       if ((containerHeight - newestMessageHeight) <= scrollOffset) {
         messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       }
@@ -52,7 +52,6 @@ const UserMessenger = props => {
       props.messengerConnect();
     } catch(err) {
       setLoading(false);
-      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -65,7 +64,6 @@ const UserMessenger = props => {
       props.messengerDisconnect();
     } catch(err) {
       setLoading(false);
-      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -101,7 +99,6 @@ const UserMessenger = props => {
       }
     } catch(err) {
       setLoading(false);
-      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -144,7 +141,6 @@ const UserMessenger = props => {
       }
     } catch(err) {
       setLoading(false);
-      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);

@@ -91,10 +91,10 @@
   color: #000;
 }
 
-.two-column-a-light .dashboard-hr {
+.two-column-a-light .dashboard-hr,
+.two-column-a-light .friends-hr {
   background-color: #bfbfbf;
 }
-
 
 .two-column-a-light .dashboard-content-item {
   border-color: #ddd;
@@ -203,7 +203,8 @@
   color: #000;
 }
 
-.two-column-a-dark .dashboard-hr {
+.two-column-a-dark .dashboard-hr,
+.two-column-a-dark .friends-hr {
   background-color: #444;
 }
 
