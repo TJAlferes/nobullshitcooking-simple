@@ -3,12 +3,15 @@ import io from 'socket.io-client';
 import {
   messengerConnected,
   messengerDisconnected,
+  messengerShowOnline,
+  messengerShowOffline,
   messengerChangedChannel,
   messengerJoinedUser,
   messengerLeftUser,
   messengerReceivedMessage,
   messengerReceivedWhisper,
-  messengerFailedWhisper
+  messengerFailedWhisper,
+  messengerGetOnline
 } from '../actions/index';
 import { store } from '../../index';
 
@@ -22,11 +25,20 @@ const socket = io.connect(endpoint, {reconnection: false, autoConnect: false});
 socket.on('connect', () => {
   store.dispatch(messengerConnected());
   console.log('Connected to NOBSC Messenger.');
+  socket.emit('GetOnline');
 });
 
 socket.on('disconnect', () => {
   store.dispatch(messengerDisconnected());
   console.log('Disconnected from NOBSC Messenger.');
+});
+
+socket.on('ShowOnline', (user) => {
+  store.dispatch(messengerShowOnline(user));
+});
+
+socket.on('ShowOffline', (user) => {
+  store.dispatch(messengerShowOffline(user));
 });
 
 socket.on('GetUser', (users, roomToAdd) => {
@@ -53,6 +65,11 @@ socket.on('FailedWhisper', (feedback) => {
   store.dispatch(messengerFailedWhisper(feedback));
 });
 
+socket.on('GetOnline', online => {
+  console.log(online);
+  store.dispatch(messengerGetOnline(online));
+});
+
 
 
 export function* messengerConnectSaga() {
@@ -73,4 +90,10 @@ export function* messengerSendMessageSaga(action) {
 
 export function* messengerSendWhisperSaga(action) {
   socket.emit('AddWhisper', action.whisper, action.to);
+}
+
+export function* messengerUpdateOnlineSaga() {
+  console.log(store.getState(messenger.status));
+  if (store.getState(messenger.status) === "Disconnected") return;
+  socket.emit('GetOnline');
 }

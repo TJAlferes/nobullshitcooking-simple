@@ -234,7 +234,7 @@ const mapDispatchToProps = dispatch => ({
   userRejectFriendship: friendName => dispatch(userRejectFriendship(friendName)),
   userDeleteFriendship: friendName => dispatch(userDeleteFriendship(friendName)),
   userBlockUser: friendName => dispatch(userBlockUser(friendName)),
-  userUnblockUser: friendName => dispatch(userUnblockUser(friendName))
+  userUnblockUser: friendName => dispatch(userUnblockUser(friendName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserFriends);

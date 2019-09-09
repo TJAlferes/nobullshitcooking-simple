@@ -68,6 +68,8 @@ export {
   messengerConnected,
   messengerDisconnect,
   messengerDisconnected,
+  messengerShowOnline,
+  messengerShowOffline,
   messengerChangeChannel,
   messengerChangedChannel,
   messengerSendMessage,
@@ -76,7 +78,8 @@ export {
   messengerReceivedWhisper,
   messengerFailedWhisper,
   messengerJoinedUser,
-  messengerLeftUser
+  messengerLeftUser,
+  messengerGetOnline
 } from './messenger';
 
 export {

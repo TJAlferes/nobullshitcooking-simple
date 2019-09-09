@@ -10,6 +10,7 @@ const initialState = {
   channel: "",
   messages: [],
   users: [],
+  onlineFriends: [],
   status: "Disconnected",
   connectButtonDisabled: false,
   disconnectButtonDisabled: true,
@@ -23,6 +24,16 @@ const connected = (state, action) => ({
 const disconnected = (state, action) => ({
   ...state,
   ...initialState
+});
+
+const showOnline = (state, action) => ({
+  ...state,
+  ...{onlineFriends: state.onlineFriends.concat(action.user)}
+});
+
+const showOffline = (state, action) => ({
+  ...state,
+  ...{onlineFriends: state.onlineFriends.filter(friend => friend.user !== action.user.user)}
 });
 
 const changedChannel = (state, action) => ({
@@ -75,16 +86,25 @@ const failedWhisper = (state, action) => ({
   }
 });
 
+const getOnline = (state, action) => ({
+  ...state,
+  ...{onlineFriends: action.online}
+});
+
 const messengerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.MESSENGER_CONNECTED: return connected(state, action);
     case actionTypes.MESSENGER_DISCONNECTED: return disconnected(state, action);
+    case actionTypes.AUTH_USER_LOGOUT: return disconnected(state, action);
+    case actionTypes.MESSENGER_SHOW_ONLINE: return showOnline(state, action);
+    case actionTypes.MESSENGER_SHOW_OFFLINE: return showOffline(state, action);
     case actionTypes.MESSENGER_CHANGED_CHANNEL: return changedChannel(state, action);
     case actionTypes.MESSENGER_JOINED_USER: return joinedUser(state, action);
     case actionTypes.MESSENGER_LEFT_USER: return leftUser(state, action);
     case actionTypes.MESSENGER_RECEIVED_MESSAGE: return receivedMessage(state, action);
     case actionTypes.MESSENGER_RECEIVED_WHISPER: return receivedWhisper(state, action);
     case actionTypes.MESSENGER_FAILED_WHISPER: return failedWhisper(state, action);
+    case actionTypes.MESSENGER_GET_ONLINE: return getOnline(state, action);
   }
   return state;
 };

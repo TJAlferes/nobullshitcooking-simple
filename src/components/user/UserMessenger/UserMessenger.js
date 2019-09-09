@@ -127,6 +127,7 @@ const UserMessenger = props => {
         return;
       }
       if (trimmedMessage.slice(0, 3) === "/w ") {
+        // TO DO: MESS AROUND AGAIN WITH "WRONG" WHITESPACES, if return here, or clean
         const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
         const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
         const trimmedUserToWhisper = userToWhisper[1].substring(3);
@@ -311,10 +312,10 @@ const UserMessenger = props => {
             )}
             {tab === "Friends" && (
               <ul className="messenger-friends">
-                {props.friends && props.friends.map(friend => (
-                  <li className="messenger-friend" key={friend.user}>
-                    <img src={`https://s3.aws.com/nobscsomething/users/avatars/${friend.avatar}`} />
-                    <span>{friend.username}</span>
+                {props.onlineFriends && props.onlineFriends.map(online => (
+                  <li className="messenger-friend" key={online.user}>
+                    <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${online.user}-tiny`} />
+                    <span>{online.user}</span>
                   </li>
                 ))}
               </ul>
@@ -335,7 +336,8 @@ const mapStateToProps = state => ({
   status: state.messenger.status,
   channel: state.messenger.channel,
   messages: state.messenger.messages,
-  users: state.messenger.users
+  users: state.messenger.users,
+  onlineFriends: state.messenger.onlineFriends
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -16,6 +16,16 @@ export const messengerDisconnected = () => ({
   type: actionTypes.MESSENGER_DISCONNECTED
 });
 
+export const messengerShowOnline = user => ({
+  type: actionTypes.MESSENGER_SHOW_ONLINE,
+  user
+});
+
+export const messengerShowOffline = user => ({
+  type: actionTypes.MESSENGER_SHOW_OFFLINE,
+  user
+});
+
 export const messengerChangeChannel = channel => ({
   type: actionTypes.MESSENGER_CHANGE_CHANNEL,
   channel
@@ -60,4 +70,9 @@ export const messengerReceivedWhisper = (whisper) => ({
 export const messengerFailedWhisper = (feedback) => ({
   type: actionTypes.MESSENGER_FAILED_WHISPER,
   feedback
+});
+
+export const messengerGetOnline = online => ({
+  type: actionTypes.MESSENGER_GET_ONLINE,
+  online
 });
