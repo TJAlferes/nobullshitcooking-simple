@@ -285,7 +285,7 @@ export const userUnsaveRecipeFailed = message => ({
 
 
 // request friendship
-export const userRequestFriendship = friendName => ({
+export const userRequestFriendship = (friendName) => ({
   type: actionTypes.USER_REQUEST_FRIENDSHIP,
   friendName
 });
@@ -299,7 +299,7 @@ export const userRequestFriendshipFailed = message => ({
 });
 
 // accept friendship
-export const userAcceptFriendship = friendName => ({
+export const userAcceptFriendship = (friendName) => ({
   type: actionTypes.USER_ACCEPT_FRIENDSHIP,
   friendName
 });
@@ -313,7 +313,7 @@ export const userAcceptFriendshipFailed = message => ({
 });
 
 // reject friendship
-export const userRejectFriendship = friendName => ({
+export const userRejectFriendship = (friendName) => ({
   type: actionTypes.USER_REJECT_FRIENDSHIP,
   friendName
 });
@@ -327,7 +327,7 @@ export const userRejectFriendshipFailed = message => ({
 });
 
 // delete friendship
-export const userDeleteFriendship = friendName => ({
+export const userDeleteFriendship = (friendName) => ({
   type: actionTypes.USER_DELETE_FRIENDSHIP,
   friendName
 });
@@ -341,7 +341,7 @@ export const userDeleteFriendshipFailed = message => ({
 });
 
 // block user
-export const userBlockUser = friendName => ({
+export const userBlockUser = (friendName) => ({
   type: actionTypes.USER_BLOCK_USER,
   friendName
 });
@@ -355,7 +355,7 @@ export const userBlockUserFailed = message => ({
 });
 
 // unblock user
-export const userUnblockUser = friendName => ({
+export const userUnblockUser = (friendName) => ({
   type: actionTypes.USER_UNBLOCK_USER,
   friendName
 });

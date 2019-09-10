@@ -93,7 +93,6 @@ export function* messengerSendWhisperSaga(action) {
 }
 
 export function* messengerUpdateOnlineSaga() {
-  console.log(store.getState(messenger.status));
-  if (store.getState(messenger.status) === "Disconnected") return;
-  socket.emit('GetOnline');
+  const { messenger } = store.getState();
+  if (store.getState(messenger.status) === "Connected") socket.emit('GetOnline');
 }

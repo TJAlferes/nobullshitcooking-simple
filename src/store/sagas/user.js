@@ -1,6 +1,8 @@
 import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
+// TO DO: BREAK THIS UP
+
 import {
   userMessageClear,
   userCreateNewPrivateEquipmentSucceeded,
@@ -56,6 +58,7 @@ import {
   userSubmitAvatarSucceeded,
   userSubmitAvatarFailed
 } from '../actions/index';
+import { dataGetMyFriendshipsSaga } from './data';
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
@@ -1181,13 +1184,14 @@ export function* userRequestFriendshipSaga(action) {
       {withCredentials: true}
     );
     if (res.data.message == 'Friendship request sent.') {
-      //yield put();  refresh/update respective list
       yield put(userRequestFriendshipSucceeded(res.data.message));
+      yield delay(3000);
+      yield put(userMessageClear());
     } else {
       yield put(userRequestFriendshipFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userRequestFriendshipFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -1203,13 +1207,15 @@ export function* userAcceptFriendshipSaga(action) {
       {withCredentials: true}
     );
     if (res.data.message == 'Friendship request accepted.') {
-      //yield put();  refresh/update respective list
       yield put(userAcceptFriendshipSucceeded(res.data.message));
+      yield delay(3000);
+      yield dataGetMyFriendshipsSaga();
+      yield put(userMessageClear());
     } else {
       yield put(userAcceptFriendshipFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userAcceptFriendshipFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -1225,13 +1231,15 @@ export function* userRejectFriendshipSaga(action) {
       {withCredentials: true}
     );
     if (res.data.message == 'Friendship request rejected.') {
-      //yield put();  refresh/update respective list
       yield put(userRejectFriendshipSucceeded(res.data.message));
+      yield delay(3000);
+      yield dataGetMyFriendshipsSaga();
+      yield put(userMessageClear());
     } else {
       yield put(userRejectFriendshipFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userRejectFriendshipFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -1246,13 +1254,15 @@ export function* userDeleteFriendshipSaga(action) {
       {withCredentials: true, data: {friendName: action.friendName}}
     );
     if (res.data.message == 'No longer friends. Maybe again later.') {
-      //yield put();  refresh/update respective list
       yield put(userDeleteFriendshipSucceeded(res.data.message));
+      yield delay(3000);
+      yield dataGetMyFriendshipsSaga();
+      yield put(userMessageClear());
     } else {
       yield put(userDeleteFriendshipFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userDeleteFriendshipFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -1268,13 +1278,15 @@ export function* userBlockUserSaga(action) {
       {withCredentials: true}
     );
     if (res.data.message == 'User blocked.') {
-      //yield put();  refresh/update respective list
       yield put(userBlockUserSucceeded(res.data.message));
+      yield delay(3000);
+      yield dataGetMyFriendshipsSaga();
+      yield put(userMessageClear());
     } else {
       yield put(userBlockUserFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userBlockUserFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -1289,13 +1301,15 @@ export function* userUnblockUserSaga(action) {
       {withCredentials: true, data: {friendName: action.friendName}}
     );
     if (res.data.message == 'User unblocked.') {
-      //yield put();  refresh/update respective list
       yield put(userUnblockUserSucceeded(res.data.message));
+      yield delay(3000);
+      yield dataGetMyFriendshipsSaga();
+      yield put(userMessageClear());
     } else {
       yield put(userUnblockUserFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userUnblockUserFailed('An error occurred. Please try again.'));
     yield delay(4000);

@@ -70,7 +70,6 @@ import {
   //plannerSaveSaga,
   //plannerLoadSaga
 } from './planner';
-import { messengerSendWhisper } from '../actions';
 
 export function* watchAuth() {
   yield all([
@@ -154,18 +153,13 @@ export function* watchUser() {  // please break this down
 
     takeEvery(actionTypes.USER_REQUEST_FRIENDSHIP, userRequestFriendshipSaga),
     takeEvery(actionTypes.USER_ACCEPT_FRIENDSHIP, userAcceptFriendshipSaga),
-    takeEvery(actionTypes.USER_ACCEPT_FRIENDSHIP_SUCCEEDED, dataGetMyFriendshipsSaga),
     takeEvery(actionTypes.USER_ACCEPT_FRIENDSHIP_SUCCEEDED, messengerUpdateOnlineSaga),
     takeEvery(actionTypes.USER_REJECT_FRIENDSHIP, userRejectFriendshipSaga),
-    takeEvery(actionTypes.USER_REJECT_FRIENDSHIP_SUCCEEDED, dataGetMyFriendshipsSaga),
     takeEvery(actionTypes.USER_DELETE_FRIENDSHIP, userDeleteFriendshipSaga),
-    takeEvery(actionTypes.USER_DELETE_FRIENDSHIP_SUCCEEDED, dataGetMyFriendshipsSaga),
     takeEvery(actionTypes.USER_DELETE_FRIENDSHIP_SUCCEEDED, messengerUpdateOnlineSaga),
     takeEvery(actionTypes.USER_BLOCK_USER, userBlockUserSaga),
-    takeEvery(actionTypes.USER_BLOCK_USER_SUCCEEDED, dataGetMyFriendshipsSaga),
     takeEvery(actionTypes.USER_BLOCK_USER_SUCCEEDED, messengerUpdateOnlineSaga),
     takeEvery(actionTypes.USER_UNBLOCK_USER, userUnblockUserSaga),
-    takeEvery(actionTypes.USER_UNBLOCK_USER_SUCCEEDED, dataGetMyFriendshipsSaga),
 
     takeEvery(actionTypes.USER_SUBMIT_AVATAR, userSubmitAvatarSaga),
   ]);

@@ -30,16 +30,17 @@ const UserFriends = props => {
 
   const handleCurrentTabClick = () => setTab("accepted");
 
-  const handlePendingTabClick = () => setTab("pending");
+  const handlePendingTabClick = () => setTab("pending-received");
 
   const handleBlockedTabClick = () => setTab("blocked");
 
   const handleFindUserInputChange = e => setUsertoFind(e.target.value);
 
   const handleFriendRequestClick = () => {
-    const friendName = userToFind;
+    const friendName = userToFind.trim();
     setLoading(true);
     try {
+      if (friendName === props.authname) return;
       props.userRequestFriendship(friendName);
       setUsertoFind("");
     } catch(err) {
@@ -90,9 +91,10 @@ const UserFriends = props => {
   };
 
   const handleUserBlockClick = () => {
-    const friendName = userToFind;
+    const friendName = userToFind.trim();
     setLoading(true);
     try {
+      if (friendName === props.authname) return;
       props.userBlockUser(friendName);
       setUsertoFind("");
     } catch(err) {
@@ -156,7 +158,7 @@ const UserFriends = props => {
             Current
           </button>
           <button
-            className={(tab === "pending") ? "friends-list-menu-tab active" : "friends-list-menu-tab inactive"}
+            className={(tab === "pending-received") ? "friends-list-menu-tab active" : "friends-list-menu-tab inactive"}
             onClick={handlePendingTabClick}
           >
             Pending
@@ -174,7 +176,7 @@ const UserFriends = props => {
             props.dataMyFriendships
             .filter(friend => friend.status === tab)
             .map(friend => (
-              <div className="friends-list-item">
+              <div className="friends-list-item" key={friend.username}>
                 <span className="friends-list-item-avatar">
                   <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${friend.avatar}-tiny`} />
                 </span>
@@ -182,7 +184,7 @@ const UserFriends = props => {
                   <Link to={`/user/profile/${friend.username}`}>{friend.username}</Link>
                 </span>
                 {
-                  (friend.status === "pending") &&
+                  (friend.status === "pending-received") &&
                   <button
                     className="friends-list-item-action"
                     disabled={loading}
@@ -193,7 +195,7 @@ const UserFriends = props => {
                   </button>
                 }
                 {
-                  (friend.status === "pending") &&
+                  (friend.status === "pending-received") &&
                   <button
                     className="friends-list-item-delete"
                     disabled={loading}
@@ -237,16 +239,17 @@ const UserFriends = props => {
 
 const mapStateToProps = state => ({
   dataMyFriendships: state.data.myFriendships,
-  feedback: state.user.message
+  feedback: state.user.message,
+  authname: state.auth.authname
 });
 
 const mapDispatchToProps = dispatch => ({
-  userRequestFriendship: friendName => dispatch(userRequestFriendship(friendName)),
-  userAcceptFriendship: friendName => dispatch(userAcceptFriendship(friendName)),
-  userRejectFriendship: friendName => dispatch(userRejectFriendship(friendName)),
-  userDeleteFriendship: friendName => dispatch(userDeleteFriendship(friendName)),
-  userBlockUser: friendName => dispatch(userBlockUser(friendName)),
-  userUnblockUser: friendName => dispatch(userUnblockUser(friendName)),
+  userRequestFriendship: (friendName) => dispatch(userRequestFriendship(friendName)),
+  userAcceptFriendship: (friendName) => dispatch(userAcceptFriendship(friendName)),
+  userRejectFriendship: (friendName) => dispatch(userRejectFriendship(friendName)),
+  userDeleteFriendship: (friendName) => dispatch(userDeleteFriendship(friendName)),
+  userBlockUser: (friendName) => dispatch(userBlockUser(friendName)),
+  userUnblockUser: (friendName) => dispatch(userUnblockUser(friendName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserFriends);
