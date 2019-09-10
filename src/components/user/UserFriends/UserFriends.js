@@ -41,6 +41,7 @@ const UserFriends = props => {
     setLoading(true);
     try {
       props.userRequestFriendship(friendName);
+      setUsertoFind("");
     } catch(err) {
       setLoading(false);
       console.log(err.message);
@@ -79,7 +80,7 @@ const UserFriends = props => {
     const friendName = e.target.value;
     setLoading(true);
     try {
-      props.userBlockUser(friendName);
+      props.userDeleteFriendship(friendName);
     } catch(err) {
       setLoading(false);
       console.log(err.message);
@@ -93,6 +94,7 @@ const UserFriends = props => {
     setLoading(true);
     try {
       props.userBlockUser(friendName);
+      setUsertoFind("");
     } catch(err) {
       setLoading(false);
       console.log(err.message);
@@ -193,7 +195,7 @@ const UserFriends = props => {
                 {
                   (friend.status === "pending") &&
                   <button
-                    className="friends-list-item-action"
+                    className="friends-list-item-delete"
                     disabled={loading}
                     value={friend.username}
                     onClick={handleFriendRejectClick}
@@ -204,7 +206,7 @@ const UserFriends = props => {
                 {
                   (friend.status === "accepted") &&
                   <button
-                    className="friends-list-item-action"
+                    className="friends-list-item-delete"
                     disabled={loading}
                     value={friend.username}
                     onClick={handleFriendDeleteClick}
@@ -215,7 +217,7 @@ const UserFriends = props => {
                 {
                   (friend.status === "blocked") &&
                   <button
-                    className="friends-list-item-action"
+                    className="friends-list-item-delete"
                     disabled={loading}
                     value={friend.username}
                     onClick={handleUserUnblockClick}

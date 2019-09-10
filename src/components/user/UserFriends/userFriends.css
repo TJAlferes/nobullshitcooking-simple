@@ -86,7 +86,7 @@
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
 
-.dashboard-content-none {
+.friends-list-none {
   font-size: 13px;
 }
 
@@ -132,22 +132,43 @@
 }
 
 .friends-list-item-action,
-.dashboard-content-item-delete {
+.friends-list-item-delete {
   width: 75px;
-  text-align: center;
-}
-
-.dashboard-content-item-delete {
   height: 19px;
   margin-right: 1px;
   border: 1px solid #aaa;
   border-radius: 2px;
   line-height: 18px;
+  text-align: center;
   color: #000;
-  background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
   cursor: pointer;
+}
+
+.friends-list-item-action {
+  background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
+}
+
+.friends-list-item-delete {
+  background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
 
 
 
-@media (max-width: 1209px) {}
+@media (max-width: 1209px) {
+  .friends-list-menu-tabs {
+    width: 235px;
+    margin: 0 auto;
+  }
+
+  .friends-find-request,
+  .friends-find-block {
+    margin: 0 auto 10px auto;
+  }
+
+  .friends-list-item-action,
+  .dashboard-content-item-delete {
+    width: 44px;
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+}
