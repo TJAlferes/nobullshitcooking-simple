@@ -75,6 +75,7 @@ const UserMessenger = props => {
   const handleMessageInputChange = e => setMessageToSend(e.target.value);
 
   const handleChannelChange = () => {
+    if (loading) return;
     setLoading(true);
     try {
       if (debounced) {
@@ -109,6 +110,7 @@ const UserMessenger = props => {
     e.stopPropagation();
     e.preventDefault();
     if (e.key && (e.key !== "Enter")) return;
+    if (loading) return;
     setLoading(true);
     try {
       if (debounced) {
@@ -171,6 +173,7 @@ const UserMessenger = props => {
                   <button
                     className="messenger-connect-disconnect"
                     onClick={handleDisconnect}
+                    disabled={loading}
                   >
                     Disconnect
                   </button>
@@ -179,6 +182,7 @@ const UserMessenger = props => {
                   <button
                     className="messenger-connect-disconnect"
                     onClick={handleConnect}
+                    disabled={loading}
                   >
                     Connect
                   </button>
@@ -201,13 +205,13 @@ const UserMessenger = props => {
               name="channel-input"
               value={roomToEnter}
               onChange={handleRoomInputChange}
-              disabled={props.status !== "Connected"}
+              disabled={(props.status !== "Connected") || loading}
             />
             <div className="messenger-channel-button-container">
               <button
                 className="messenger-channel-button"
                 onClick={handleChannelChange}
-                disabled={props.status !== "Connected"}
+                disabled={(props.status !== "Connected") || loading}
               >
                 Enter
               </button>

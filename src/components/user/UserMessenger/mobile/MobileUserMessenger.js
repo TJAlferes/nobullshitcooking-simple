@@ -5,7 +5,8 @@ import {
   messengerConnect,
   messengerDisconnect,
   messengerChangeChannel,
-  messengerSendMessage
+  messengerSendMessage,
+  messengerSendWhisper
 } from '../../../../store/actions/index';
 import './mobileUserMessenger.css';
 
@@ -36,7 +37,7 @@ const UserMessenger = props => {
       );
       const containerHeight = messagesRef.current.scrollHeight;
       const scrollOffset = messagesRef.current.scrollTop + messagesRef.current.offsetHeight;
-      // cancel autoscroll if user is scrolling up through older messages
+      // cancels autoscroll if user is scrolling up through older messages
       if ((containerHeight - newestMessageHeight) <= scrollOffset) {
         messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       }
@@ -50,7 +51,6 @@ const UserMessenger = props => {
       props.messengerConnect();
     } catch(err) {
       setLoading(false);
-      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -63,7 +63,6 @@ const UserMessenger = props => {
       props.messengerDisconnect();
     } catch(err) {
       setLoading(false);
-      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -75,6 +74,7 @@ const UserMessenger = props => {
   const handleMessageInputChange = e => setMessageToSend(e.target.value);
 
   const handleChannelChange = () => {
+    if (loading) return;
     setLoading(true);
     try {
       if (debounced) {
@@ -99,7 +99,6 @@ const UserMessenger = props => {
       }
     } catch(err) {
       setLoading(false);
-      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -110,6 +109,7 @@ const UserMessenger = props => {
     e.stopPropagation();
     e.preventDefault();
     if (e.key && (e.key !== "Enter")) return;
+    if (loading) return;
     setLoading(true);
     try {
       if (debounced) {
@@ -124,7 +124,15 @@ const UserMessenger = props => {
         setTimeout(() => setFeedback(""), 4000);
         return;
       }
-      props.messengerSendMessage(trimmedMessage);
+      if (trimmedMessage.slice(0, 3) === "/w ") {
+        // TO DO: MESS AROUND AGAIN WITH "WRONG" WHITESPACES, if return here, or clean
+        const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
+        const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
+        const trimmedUserToWhisper = userToWhisper[1].substring(3);
+        props.messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
+      } else {
+        props.messengerSendMessage(trimmedMessage);
+      }
       setMessageToSend("");
       setSpamCount((prev) => prev + 1);
       setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
@@ -134,7 +142,6 @@ const UserMessenger = props => {
       }
     } catch(err) {
       setLoading(false);
-      setFeedback(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);
@@ -161,6 +168,7 @@ const UserMessenger = props => {
                   <button
                     className="messenger-connect-disconnect"
                     onClick={handleDisconnect}
+                    disabled={loading}
                   >
                     Disconnect
                   </button>
@@ -169,6 +177,7 @@ const UserMessenger = props => {
                   <button
                     className="messenger-connect-disconnect"
                     onClick={handleConnect}
+                    disabled={loading}
                   >
                     Connect
                   </button>
@@ -191,13 +200,13 @@ const UserMessenger = props => {
               name="channel-input"
               value={roomToEnter}
               onChange={handleRoomInputChange}
-              disabled={props.status !== "Connected"}
+              disabled={(props.status !== "Connected") || loading}
             />
             <div className="messenger-channel-button-container">
               <button
                 className="messenger-channel-button"
                 onClick={handleChannelChange}
-                disabled={props.status !== "Connected"}
+                disabled={(props.status !== "Connected") || loading}
               >
                 Enter
               </button>
@@ -225,16 +234,34 @@ const UserMessenger = props => {
                   : (
                     props.authname === message.user.user
                     ? (
-                      <li className="messenger-chat-message" key={message.ts}>
-                        <span className="chat-display-username-self">{message.user.user}: </span>
-                        {message.message}
-                      </li>
+                      message.whisper
+                      ? (
+                        <li className="messenger-chat-message" key={message.ts}>
+                          <span className="chat-display-username-self">You whisper to {message.to}: </span>
+                          <span className="chat-whisper">{message.whisper}</span>
+                        </li>
+                      )
+                      : (
+                        <li className="messenger-chat-message" key={message.ts}>
+                          <span className="chat-display-username-self">{message.user.user}: </span>
+                          {message.message}
+                        </li>
+                      )
                     )
                     : (
-                      <li className="messenger-chat-message" key={message.ts}>
-                        <span className="chat-display-username-other">{message.user.user}: </span>
-                        {message.message}
-                      </li>
+                      message.whisper
+                      ? (
+                        <li className="messenger-chat-message" key={message.ts}>
+                          <span className="chat-display-username-other">{message.user.user} whispers to you: </span>
+                          <span className="chat-whisper">{message.whisper}</span>
+                        </li>
+                      )
+                      : (
+                        <li className="messenger-chat-message" key={message.ts}>
+                          <span className="chat-display-username-other">{message.user.user}: </span>
+                          {message.message}
+                        </li>
+                      )
                     )
                   )
                 ))
@@ -280,10 +307,10 @@ const UserMessenger = props => {
             )}
             {tab === "Friends" && (
               <ul className="messenger-friends">
-                {props.friends && props.friends.map(friend => (
-                  <li className="messenger-friend" key={friend.user}>
-                    <img src={`https://s3.aws.com/nobscsomething/users/avatars/${friend.avatar}`} />
-                    <span>{friend.username}</span>
+                {props.onlineFriends && props.onlineFriends.map(online => (
+                  <li className="messenger-friend" key={online.user}>
+                    <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${online.user}-tiny`} />
+                    <span>{online.user}</span>
                   </li>
                 ))}
               </ul>
@@ -302,14 +329,16 @@ const mapStateToProps = state => ({
   status: state.messenger.status,
   channel: state.messenger.channel,
   messages: state.messenger.messages,
-  users: state.messenger.users
+  users: state.messenger.users,
+  onlineFriends: state.messenger.onlineFriends
 });
 
 const mapDispatchToProps = dispatch => ({
   messengerConnect: () => dispatch(messengerConnect()),
   messengerDisconnect: () => dispatch(messengerDisconnect()),
   messengerChangeChannel: (channel) => dispatch(messengerChangeChannel(channel)),
-  messengerSendMessage: (message) => dispatch(messengerSendMessage(message))
+  messengerSendMessage: (message) => dispatch(messengerSendMessage(message)),
+  messengerSendWhisper: (whisper, to) => dispatch(messengerSendWhisper(whisper, to))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMessenger);
