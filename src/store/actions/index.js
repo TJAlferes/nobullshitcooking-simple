@@ -46,6 +46,10 @@ export {
 } from './auth';
 
 export {
+  plannerClearWork,
+
+  plannerSetPlanName,
+  
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,

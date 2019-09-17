@@ -2,7 +2,7 @@ import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 // TO DO: BREAK THIS UP
-
+ 
 import {
   userMessageClear,
   userCreateNewPrivateEquipmentSucceeded,
@@ -58,7 +58,10 @@ import {
   userSubmitAvatarSucceeded,
   userSubmitAvatarFailed
 } from '../actions/index';
-import { dataGetMyFriendshipsSaga } from './data';
+import {
+  dataGetMyPlansSaga,
+  dataGetMyFriendshipsSaga
+} from './data';
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
@@ -1009,13 +1012,16 @@ export function* userCreateNewPlanSaga(action) {
       {withCredentials: true}
     );
     if (res.data.message == 'Plan created.') {
-      //yield put();  refresh/update respective list
       yield put(userCreateNewPlanSucceeded(res.data.message));
+      yield delay(3000);
+      yield dataGetMyPlansSaga();
+      yield put(userMessageClear());
+      yield action.history.push('/user/dashboard');
     } else {
       yield put(userCreateNewPlanFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userCreateNewPlanFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -1031,13 +1037,16 @@ export function* userEditPlanSaga(action) {
       {withCredentials: true}
     );
     if (res.data.message == 'Plan updated.') {
-      //yield put();  refresh/update respective list
       yield put(userEditPlanSucceeded(res.data.message));
+      yield delay(3000);
+      yield dataGetMyPlansSaga();
+      yield put(userMessageClear());
+      yield action.history.push('/user/dashboard');
     } else {
       yield put(userEditPlanFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userEditPlanFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -1052,13 +1061,15 @@ export function* userDeletePlanSaga(action) {
       {withCredentials: true, data: {planId: action.planId}}
     );
     if (res.data.message == 'Plan deleted.') {
-      //yield put();  refresh/update respective list
       yield put(userDeletePlanSucceeded(res.data.message));
+      yield delay(3000);
+      yield dataGetMyPlansSaga();
+      yield put(userMessageClear());
     } else {
       yield put(userDeletePlanFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userDeletePlanFailed('An error occurred. Please try again.'));
     yield delay(4000);

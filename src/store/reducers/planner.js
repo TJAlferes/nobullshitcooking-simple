@@ -6,15 +6,20 @@ import convertPlannerToUrl from '../../utils/publicPlanner/convertPlannerToUrl';
 
 // WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
 
-// TO DO ASAP: IMPLEMENT AS KIND OF "FINITE STATE MACHINE"
+// IMPLEMENT AS KIND OF "FINITE STATE MACHINE"
 
 // flatten this (?)
 const initialState = {
+  viewing: false,
+  creating: false,
+  updating: false,
   isLoading: false,
   isSaving: false,
   expanded: false,
   expandedDay: "none",
   publicUrl: "",
+  updateId: null,
+  planName: "",
   recipeListsInsideDays: {
     1: [],
     2: [],
@@ -112,6 +117,8 @@ const publicSaveToUrl = (state, action) => {
 // remember Nir Kofman's actions patterns
 const plannerReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.PLANNER_CLEAR_WORK: return {...state, ...initialState};
+    case actionTypes.PLANNER_SET_PLAN_NAME: return {...state, ...{planName: action.name}};
     case actionTypes.PLANNER_CLICK_DAY: return clickDay(state, action);
     case actionTypes.PLANNER_ADD_RECIPE_TO_DAY: return addRecipeToDay(state, action);
     case actionTypes.PLANNER_REMOVE_RECIPE_FROM_DAY: return removeRecipeFromDay(state, action);

@@ -208,9 +208,9 @@ const RoutesList = () => (
       <AppliedRoute path="/user/profile/:username" exact component={UserProfile} />
 
       <AppliedRoute path="/planner" exact component={PlannerPage} />  {/* for demo/public purposes */}
-      <AuthenticatedRoute path="/user/planner/:id" exact component={UserPlannerPage} />
-      <AuthenticatedRoute path="/user/planner/submit" exact component={UserNewPlannerPage} />
-      <AuthenticatedRoute path="/user/planner/edit" exact component={UserEditPlannerPage} />
+      <AuthenticatedRoute path="/user/planner/:id" exact component={UserPlannerPage} />  {/* take away dnd capability, have "Change/Edit" button */}
+      <AuthenticatedRoute path="/user/planner/submit" exact component={UserNewPlannerPage} />  {/* have "Cancel" and "Create" buttons */}
+      <AuthenticatedRoute path="/user/planner/edit" exact component={UserEditPlannerPage} />  {/* have "Cancel" and "Update" buttons */}
 
       <AppliedRoute path="/food/recipes/submit" exact component={SubmitRecipe} />  {/* for demo purposes */}
       <AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />

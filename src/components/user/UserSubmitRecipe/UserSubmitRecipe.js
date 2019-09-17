@@ -632,7 +632,6 @@ const UserSubmitRecipe = props => {
     } catch(err) {
       setLoading(false);
       window.scrollTo(0,0);
-      setMessage(err.message);
     } finally {
       setLoading(false);
     }
@@ -1021,7 +1020,7 @@ const UserSubmitRecipe = props => {
 
 
       {/* submit */}
-      <div className="finish-area">
+      <div className="submit-recipe-finish-area">
         <Link
           className="submit-recipe-cancel-button"
           to="/user/dashboard"

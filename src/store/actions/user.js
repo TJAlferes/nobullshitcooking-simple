@@ -181,7 +181,7 @@ export const userDisownPublicRecipeFailed = message => ({
 
 
 // create new plan
-export const userCreateNewPlan = planInfo => ({
+export const userCreateNewPlan = (planInfo, history) => ({
   type: actionTypes.USER_CREATE_NEW_PLAN,
   planInfo
 });
@@ -195,7 +195,7 @@ export const userCreateNewPlanFailed = message => ({
 });
 
 // edit plan
-export const userEditPlan = planInfo => ({
+export const userEditPlan = (planInfo, history) => ({
   type: actionTypes.USER_EDIT_PLAN,
   planInfo
 });

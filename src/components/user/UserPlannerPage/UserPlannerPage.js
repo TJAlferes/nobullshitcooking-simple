@@ -13,7 +13,7 @@ const UserPlannerPage = props => (
     </div>
     <div className="desktop_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <Planner className="desktop_display" />
+        <Planner className="desktop_display" twoColumnATheme={props.twoColumnATheme} />
       </Suspense>
     </div>
   </div>

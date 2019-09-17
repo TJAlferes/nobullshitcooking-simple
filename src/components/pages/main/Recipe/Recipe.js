@@ -58,10 +58,7 @@ const Recipe = props => {
     try {
       props.userFavoriteRecipe(id);
     } catch(err) {
-      setFavoriteClicked(false);
-      setLoading(false);
-      window.scrollTo(0,0);
-      setMessage(err.message);
+      console.log(err);
     } finally {
       setFavoriteClicked(true);
       setLoading(false);
@@ -74,10 +71,7 @@ const Recipe = props => {
     try {
       props.userSaveRecipe(id);
     } catch(err) {
-      setSaveClicked(false);
-      setLoading(false);
-      window.scrollTo(0,0);
-      setMessage(err.message);
+      console.log(err);
     } finally {
       setSaveClicked(true);
       setLoading(false);

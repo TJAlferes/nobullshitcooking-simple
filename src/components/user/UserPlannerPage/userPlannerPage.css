@@ -1,12 +1,11 @@
 /* desktop */
 @media (min-width: 900px) {
-  #planner_page {
+  /*#planner_page {
     width: 1200px;
     min-height: fit-content;
-  }
+  }*/
 
   .mobile_display {
-    /* ??? */
     display: none;
   }
 

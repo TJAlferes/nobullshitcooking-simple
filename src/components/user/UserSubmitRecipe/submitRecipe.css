@@ -298,38 +298,33 @@ images
 Submit Button
 */
 
-.submit-recipe-cancel-button {
-  display: inline-block;
+.submit-recipe-cancel-button,
+.submit-recipe-submit-button {
   width: 235px;
   height: 30px;
   margin-right: 30px;
   border: 1px solid #aaa;
   border-radius: 2px;
   padding: 1px 5px;
+  line-height: 26px;
   text-align: center;
   text-decoration: none;
-  line-height: 26px;
+  font-family: 'Play', sans-serif;
   color: black;
+}
+
+.submit-recipe-cancel-button {
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
 
 .submit-recipe-submit-button {
-  display: inline-block;
-  width: 235px;
-  height: 30px;
-  margin-right: 30px;
-  border: 1px solid #aaa;
-  border-radius: 2px;
-  padding: 1px 5px;
-  line-height: 26px;
-  font-family: 'Play', sans-serif;
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
 }
 
 
 
 @media (max-width: 1209px) {
-  .finish-area {
+  .submit-recipe-finish-area {
     padding-top: 10px;
     padding-bottom: 10px;
   }

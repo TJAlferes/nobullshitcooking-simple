@@ -418,14 +418,47 @@ const UserDashboard = props => {
           (!avatar && tab == "plans") && (
             <div className="dashboard-content">
               <h2>Plans</h2>
-              <Link className="create-new-entity" to="/user/planner/submit">Create New Plan</Link>
+              {
+                props.creatingPlan &&
+                <Link className="create-new-entity" to="/user/planner/submit">
+                  Finish Creating Plan
+                </Link>
+              }
+              {
+                props.updatingPlan &&
+                <Link className="create-new-entity" to={`/user/planner/edit/${props.updateId}`}>
+                  Finish Updating Plan
+                </Link>
+              }
+              {
+                (!props.creatingPlan && !props.updatingPlan) &&
+                <Link className="create-new-entity" to="/user/planner/submit">
+                  Create New Plan
+                </Link>
+              }
               {
                 props.myPlans.length
                 ? props.myPlans.map(plan => (
                   <div className="dashboard-content-item" key={plan.plan_id}>
-                    <span className="dashboard-content-item-name"><Link to={`user/planner/${plan.plan_id}`}>{plan.plan_name}</Link></span>
-                    <span className="dashboard-content-item-action"><Link to={`user/planner/edit/${plan.plan_id}`}>Edit</Link></span>
-                    <span className="dashboard-content-item-delete" onClick={() => handleDeletePlan(plan.plan_id)}>Delete</span>
+                    <span className="dashboard-content-item-name">
+                      <Link to={`user/planner/${plan.plan_id}`}>
+                        {plan.plan_name}
+                      </Link>
+                    </span>
+                    {
+                      (!props.creatingPlan && !props.updatingPlan) &&
+                      <span className="dashboard-content-item-action">
+                        <Link to={`user/planner/edit/${plan.plan_id}`}>
+                          Edit
+                        </Link>
+                      </span>
+                    }
+                    <span
+                      className="dashboard-content-item-delete"
+                      onClick={() => handleDeletePlan(plan.plan_id)}
+                    >
+                      Delete
+                    </span>
                   </div>
                 ))
                 : <div className="dashboard-content-none">You haven't created any plans yet.</div>
@@ -572,7 +605,10 @@ const mapStateToProps = state => ({
   myPrivateIngredients: state.data.myPrivateIngredients,
   myPrivateRecipes: state.data.myPrivateRecipes,
   myFavoriteRecipes: state.data.myFavoriteRecipes,
-  mySavedRecipes: state.data.mySavedRecipes
+  mySavedRecipes: state.data.mySavedRecipes,
+  creatingPlan: state.planner.creating,
+  updatingPlan: state.planner.updating,
+  updateId: state.planner.updateId
 })
 
 const mapDispatchToProps = dispatch => ({

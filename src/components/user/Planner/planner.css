@@ -1,14 +1,7 @@
-#desktop_planner {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  justify-content: center;
+/*.desktop-planner {
   width: 1200px;
-  margin: 0 auto;
-  padding-top: 10px;
 }
-
+ 
 article {
   order: 2;
   flex: 1 1 auto;
@@ -19,7 +12,7 @@ article {
   margin-left: 10px;
   padding: 10px 10px;
   background-color: #fff;
-}
+}*/
 
 #autosave_feedback {
   margin-right: auto;
@@ -29,8 +22,14 @@ article {
   color: #aaa;
 }
 
+.planner-hr {
+  width: 100%;
+  height: 1px;
+  border: 0 none;
+  margin-bottom: 10px;
+}
+
 #calendar_container {
-  width: 99%;
   height: 480px;
   margin: 0 auto 0 auto;
   padding-top: 5px;
@@ -164,3 +163,75 @@ article {
   margin-left: 10px;
   border: 1px solid #fff;
 }
+
+.planner-finish-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.planner-cancel-button,
+.planner-cancel-cancel-button,
+.planner-submit-button {
+  display: block;
+  width: 235px;
+  height: 30px;
+  margin-right: 30px;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 5px;
+  line-height: 26px;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Play', sans-serif;
+  color: black;
+  cursor: pointer;
+}
+
+.planner-cancel-button {
+  background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
+}
+
+.planner-submit-button {
+  background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
+}
+
+.planner-cancel-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*align-self: center;*/
+  width: 280px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.planner-cancel-modal .planner-cancel-cancel-button,
+.planner-cancel-modal .planner-cancel-button {
+  margin: 0 auto;
+}
+
+.planner-cancel-prompt {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+
+
+@media (max-width: 1209px) {
+  .planner-finish-area {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .planner-cancel-button,
+  .planner-submit-button {
+    display: block;
+    width: 235px;
+    margin: 15px auto 0 auto;
+  }
+
+
+}
+

@@ -5,6 +5,13 @@ import * as actionTypes from './actionTypes';
 Planner -- core functionality
 */
 
+export const plannerClearWork = () => ({type: actionTypes.PLANNER_CLEAR_WORK});
+
+export const plannerSetPlanName = name => ({
+  type: actionTypes.PLANNER_SET_PLAN_NAME,
+  name
+});
+
 export const plannerClickDay = day => ({
   type: actionTypes.PLANNER_CLICK_DAY,
   day
