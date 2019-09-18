@@ -164,6 +164,39 @@ article {
   border: 1px solid #fff;
 }
 
+.planner-recipes-list-tabs {
+  width: 755px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #6cabe4;
+}
+
+.planner-recipes-list-tab {
+  width: 151px;
+  height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  border-top-color: #ddd;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #ddd;
+  /*line-height: 26px;*/
+  font-family: 'Play', sans-serif;
+  font-size: 1.3rem;
+  color: #222;
+  cursor: pointer;
+}
+
+.planner-recipes-list-tab.active {
+  background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
+}
+
+.planner-recipes-list-tab.inactive {
+  background-image: linear-gradient(to bottom, #eee, #bbb);
+}
+
 .planner-finish-area {
   display: flex;
   flex-direction: row;

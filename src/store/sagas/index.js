@@ -66,9 +66,7 @@ import {
 } from './messenger';
 import {
   //plannerPublicLoadFromUrlSaga,
-  plannerPublicSaveToUrlSaga,
-  //plannerSaveSaga,
-  //plannerLoadSaga
+  plannerPublicSaveToUrlSaga
 } from './planner';
 
 export function* watchAuth() {
@@ -179,8 +177,6 @@ export function* watchMessenger() {
 export function* watchPlanner() {
   yield all([
     //takeEvery(actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL, plannerPublicLoadFromUrlSaga),
-    takeEvery(actionTypes.PLANNER_PUBLIC_SAVE_TO_URL, plannerPublicSaveToUrlSaga),
-    //takeEvery(actionTypes.PLANNER_LOAD, plannerLoadSaga),
-    //takeEvery(actionTypes.PLANNER_SAVE, plannerSaveSaga),
+    takeEvery(actionTypes.PLANNER_PUBLIC_SAVE_TO_URL, plannerPublicSaveToUrlSaga)
   ]);
 }

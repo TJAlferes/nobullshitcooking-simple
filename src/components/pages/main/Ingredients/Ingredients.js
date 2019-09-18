@@ -7,6 +7,8 @@ import './ingredients.css';
 const Ingredients = props => {
   const [ ingredients, setIngredients ] = useState([]);
   const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
+
+  // redux?
   const [ pages, setPages ] = useState(1);
   const [ starting, setStarting ] = useState(0);
   const [
@@ -33,33 +35,28 @@ const Ingredients = props => {
     18: false
   });
 
-  useEffect(() => {
-    const fetchDataIngredientTypes = async () => {
-      const res = await axios.get(`${endpoint}/ingredient-type`);
-      setDataIngredientTypes(res.data);
-    };
-    fetchDataIngredientTypes();
-    if (props.ingredientTypesPreFilter) {
-      //setCheckedIngredientTypesFilters();
-    } else {
-      getIngredients();
-    }
-  }, []);
+  // be sure they are not used anywhere else
+  // search page..?
+  // use querystring / qs to pre-apply filters?
+
+  // state.view.
+  // ingredients, checkedIngredientTypesFilters, ingredientsDisplay, ingredientsPages, ingredientsStarting
+  // equipment, checkedEquipmentTypesFilters, equipmentDisplay, equipmentPages, equipmentStarting
+  // recipes, checkedRecipeTypesFilters, checkedCuisinesFilters, recipesDisplay, recipesPages, recipesStarting
 
   useEffect(() => {
-    getIngredients();
+    getIngredientsView();
   }, [checkedIngredientTypesFilters]);
   
-  const getIngredients = async (startingAt = 0) => {
+  const getIngredientsView = async (startingAt = 0) => {
     try {
-      const res = await axios.post(`${endpoint}/ingredient`, {
-        types: getCheckedIngredientTypesFilters(),
-        start: startingAt
-      });
-      const { rows, pages, starting } = res.data;
-      setIngredients(rows);
-      setPages(pages);
-      setStarting(starting);
+      //const res = await axios.post(`${endpoint}/ingredient`, {types: getCheckedIngredientTypesFilters(), start: startingAt});
+      //const { rows, pages, starting } = res.data;
+      props.viewIngredients(types, display, start);
+      props.viewIngredients(getCheckedIngredientTypesFilters(), display, startingAt);
+      //setIngredients(rows);  // needed? see planName or test
+      //setPages(pages);  // needed? see planName or test
+      //setStarting(starting);  // needed? see planName or test
     } catch (err) {
       console.error(err);
     }
@@ -91,7 +88,7 @@ const Ingredients = props => {
         numbers.push(
           <span
             className="page_number"
-            onClick={() => getIngredients(startingAt)}
+            onClick={() => getIngredientsView(startingAt)}
             key={i}
           >
             {i}
@@ -116,7 +113,7 @@ const Ingredients = props => {
             (currentPage != 1) &&
             <span
               className="page_nav"
-              onClick={() => getIngredients(startingAtPrev)}
+              onClick={() => getIngredientsView(startingAtPrev)}
             >
               Prev
             </span>
@@ -126,7 +123,7 @@ const Ingredients = props => {
             (currentPage != pages) &&
             <span
               className="page_nav"
-              onClick={() => getIngredients(startingAtNext)}
+              onClick={() => getIngredientsView(startingAtNext)}
             >
               Next
             </span>
@@ -176,6 +173,7 @@ const Ingredients = props => {
           {(pages > 1) && paginate()}
 
           <div>
+            {/*viewIngredients.map*/}
             {ingredients.map(ingredient => (
               <div className="ingredient" key={ingredient.ingredient_id}>
                 <Link
@@ -207,7 +205,6 @@ const Ingredients = props => {
     </div>
   );
 }
-
 
 const mapStateToProps = state => ({
   dataIngredients: state.data.ingredients,

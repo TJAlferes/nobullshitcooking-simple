@@ -46,25 +46,14 @@ export {
 } from './auth';
 
 export {
-  plannerClearWork,
-
-  plannerSetPlanName,
-  
   plannerClickDay,
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay,
-
   plannerPublicLoadFromUrl,
   plannerPublicSaveToUrl,
-  
-  plannerLoad,
-  plannerSave,
-
-  plannerLoadSucceeded,
-  plannerLoadFailed,
-  plannerSaveSucceeded,
-  plannerSaveFailed,
+  plannerClearWork,
+  plannerSetPlanName
 } from './planner';
 
 export {

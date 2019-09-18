@@ -183,7 +183,8 @@ export const userDisownPublicRecipeFailed = message => ({
 // create new plan
 export const userCreateNewPlan = (planInfo, history) => ({
   type: actionTypes.USER_CREATE_NEW_PLAN,
-  planInfo
+  planInfo,
+  history
 });
 export const userCreateNewPlanSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PLAN_SUCCEEDED,

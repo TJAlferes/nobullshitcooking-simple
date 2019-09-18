@@ -14,7 +14,6 @@ const initialState = {
   creating: false,
   updating: false,
   isLoading: false,
-  isSaving: false,
   expanded: false,
   expandedDay: "none",
   publicUrl: "",
@@ -103,6 +102,8 @@ const reorderRecipeInDay = (state, action) => {
   });
 };
 
+
+
 const publicLoadFromUrl = (state, action) => {
   const { preLoadedPlan } = action;
   return {...state, ...{recipeListsInsideDays: preLoadedPlan}};
@@ -114,17 +115,27 @@ const publicSaveToUrl = (state, action) => {
   return {...state, ...{publicUrl: newPublicUrl}}
 };
 
+
+
+const clearWork = (state, action) => ({...state, ...initialState});
+
+const setPlanName = (state, action) => ({...state, ...{planName: action.name}});
+
+
+
 // remember Nir Kofman's actions patterns
 const plannerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.PLANNER_CLEAR_WORK: return {...state, ...initialState};
-    case actionTypes.PLANNER_SET_PLAN_NAME: return {...state, ...{planName: action.name}};
     case actionTypes.PLANNER_CLICK_DAY: return clickDay(state, action);
     case actionTypes.PLANNER_ADD_RECIPE_TO_DAY: return addRecipeToDay(state, action);
     case actionTypes.PLANNER_REMOVE_RECIPE_FROM_DAY: return removeRecipeFromDay(state, action);
     case actionTypes.PLANNER_REORDER_RECIPE_IN_DAY: return reorderRecipeInDay(state, action);
+
     case actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL: return publicLoadFromUrl(state, action);
     case actionTypes.PLANNER_PUBLIC_SAVE_TO_URL: return publicSaveToUrl(state, action);
+
+    case actionTypes.PLANNER_CLEAR_WORK: return clearWork(state, action);
+    case actionTypes.PLANNER_SET_PLAN_NAME: return setPlanName(state, action);
   }
   return state;
 };

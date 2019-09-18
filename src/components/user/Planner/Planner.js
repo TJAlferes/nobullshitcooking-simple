@@ -17,6 +17,7 @@ import './planner.css';  // use BEM
 const Planner = props => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [ tab, setTab ] = useState("official");
   const [ modalActive, setModalActive ] = useState(false);
 
   useEffect(() => {
@@ -34,6 +35,8 @@ const Planner = props => {
     props.plannerSetPlanName((e.target.value).trim());
   };
 
+  const handleTabClick = e => setTab(e.target.name);
+
   const activateModal = () => setModalActive(true);
 
   const deactivateModal = () => setModalActive(false);
@@ -47,7 +50,7 @@ const Planner = props => {
   };
 
   const getPlanData = () => {
-    return props.recipeListsInsideDays;
+    return props.recipeListsInsideDays;  // not done; clean/format?
   };
 
   const handleSubmit = () => {
@@ -127,15 +130,58 @@ const Planner = props => {
             </div>
           </div>
 
-          {/* make filters */}
-          <PlannerRecipesList
+          <div className="planner-recipes-list-tabs">
+          <button
+              className={(tab === "official") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+              name="official"
+              onClick={e => handleTabClick(e)}
+            >
+              All Official
+            </button>
+            <button
+              className={(tab === "private") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+              name="private"
+              onClick={e => handleTabClick(e)}
+            >
+              My Private
+            </button>
+            <button
+              className={(tab === "public") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+              name="public"
+              onClick={e => handleTabClick(e)}
+            >
+              My Public
+            </button>
+            <button
+              className={(tab === "favorite") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+              name="favorite"
+              onClick={e => handleTabClick(e)}
+            >
+              My Favorite
+            </button>
+            <button
+              className={(tab === "saved") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+              name="saved"
+              onClick={e => handleTabClick(e)}
+            >
+              My Saved
+            </button>
+          </div>
+
+          {(tab === "official") && <PlannerRecipesList day="0" list={props.dataRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
+          {(tab === "private") && <PlannerRecipesList day="0" list={props.dataMyPrivateRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
+          {(tab === "public") && <PlannerRecipesList day="0" list={props.dataMyPublicRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
+          {(tab === "favorite") && <PlannerRecipesList day="0" list={props.dataMyFavoriteRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
+          {(tab === "saved") && <PlannerRecipesList day="0" list={props.dataMySavedRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
+
+          {/*<PlannerRecipesList
             day="0"
             list={[
               {key: uuidv4(), id: 1, text: "Sheperd's Pie"},
               {key: uuidv4(), id: 2, text: "Split Pea Soup"},
               {key: uuidv4(), id: 3, text: "Steak Asparagus and Sweet Potato"}
             ]}
-          />
+          />*/}
 
         </div>
 
@@ -200,9 +246,18 @@ const mapStateToProps = state => ({
   viewingPlan: state.planner.viewing,
   creatingPlan: state.planner.creating,
   updatingPlan: state.planner.updating,
-  isSaving: state.planner.isSaving,
+
+  feedback: state.user.message,
+
+  dataRecipes: state.data.recipes,
+  dataMyPublicRecipes: state.data.myPublicRecipes,
+  dataMyPrivateRecipes: state.data.myPrivateRecipes,
+  dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
+  dataMySavedRecipes: state.data.mySavedRecipes,
+
   expanded: state.planner.expanded,
   expandedDay: state.planner.expandedDay,
+
   planName: state.planner.planName,
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
