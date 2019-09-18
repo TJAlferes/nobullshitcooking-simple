@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './ingredients.css';
+import { viewGetIngredients } from '../../../../store/actions/index';
 
 const Ingredients = props => {
   const [ ingredients, setIngredients ] = useState([]);
@@ -48,12 +49,10 @@ const Ingredients = props => {
     getIngredientsView();
   }, [checkedIngredientTypesFilters]);
   
-  const getIngredientsView = async (startingAt = 0) => {
+  const getIngredientsView = async (startingAt = 0) => {  // async not needed if filtering on frontend (since no network call)?
     try {
-      //const res = await axios.post(`${endpoint}/ingredient`, {types: getCheckedIngredientTypesFilters(), start: startingAt});
-      //const { rows, pages, starting } = res.data;
-      props.viewIngredients(types, display, start);
-      props.viewIngredients(getCheckedIngredientTypesFilters(), display, startingAt);
+      //props.viewGetIngredients(types, display, start);
+      props.viewGetIngredients(getCheckedIngredientTypesFilters(), display, startingAt);
       //setIngredients(rows);  // needed? see planName or test
       //setPages(pages);  // needed? see planName or test
       //setStarting(starting);  // needed? see planName or test
@@ -173,8 +172,7 @@ const Ingredients = props => {
           {(pages > 1) && paginate()}
 
           <div>
-            {/*viewIngredients.map*/}
-            {ingredients.map(ingredient => (
+            {props.viewIngredients.map(ingredient => (
               <div className="ingredient" key={ingredient.ingredient_id}>
                 <Link
                   className="ingredient_link"
@@ -207,8 +205,16 @@ const Ingredients = props => {
 }
 
 const mapStateToProps = state => ({
-  dataIngredients: state.data.ingredients,
+  viewIngredients: state.view.ingredients,
+  viewIngredientTypesChecked: state.view.ingredientTypesChecked,
+  viewDisplay: state.view.ingredientsDisplay,
+  viewPages: state.view.ingredientsPages,
+  viewStarting: state.view.ingredientsStarting,
   dataIngredientTypes: state.data.ingredientTypes
 });
 
-export default connect(mapStateToProps)(Ingredients);
+const mapDispatchToProps = dispatch => ({
+  viewGetIngredients: (types, display, start) => dispatch(viewGetIngredients(types, display, start))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Ingredients);

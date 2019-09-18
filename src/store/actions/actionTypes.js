@@ -232,6 +232,14 @@ export const DATA_GET_MY_FRIENDSHIPS_FAILED = 'DATA_GET_MY_FRIENDSHIPS_FAILED';
 
 
 /*
+filters and searches
+*/
+
+export const VIEW_GET_INGREDIENTS = 'VIEW_GET_INGREDIENTS';
+
+
+
+/*
 user content creation
 */
 

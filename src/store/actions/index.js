@@ -139,6 +139,10 @@ export {
 } from './data';
 
 export {
+  viewGetIngredients
+} from './view';
+
+export {
   userMessageClear,
   userCreateNewPrivateEquipment,
   userCreateNewPrivateEquipmentSucceeded,
