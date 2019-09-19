@@ -37,7 +37,7 @@ const Ingredients = props => {
 
   // be sure they are not used anywhere else
   // search page..?
-  // use querystring / qs to pre-apply filters?
+  // use querystring / qs to pre-apply filters? or props?
 
   // recipes, checkedRecipeTypesFilters, checkedCuisinesFilters, recipesDisplay, recipesPages, recipesStarting -- NO! recipes you still filter on backend with mysql and elasticsearch
 
@@ -49,7 +49,6 @@ const Ingredients = props => {
     try {
       //e.preventDefault();
       //e.stopPropagation();
-      //props.viewGetIngredients(types, display, start);
       props.viewGetIngredients(getCheckedIngredientTypesFilters(), getCheckedDisplay(), startingAt);
     } catch (err) {
       console.error(err);
@@ -61,14 +60,13 @@ const Ingredients = props => {
     Object.entries(checkedIngredientTypesFilters).forEach(([key, value]) => {
       if (value === true) checkedIngredientTypes.push(Number(key));
     });
-    console.log(checkedIngredientTypes);
     return checkedIngredientTypes;
   }
 
-  const getCheckedDisplay = () => {
+  const getCheckedDisplay = () => {  // this is an ungodly mess, please clean up...
     let displayAmount = [];
     Object.entries(checkedDisplay).forEach(([key, value]) => value && displayAmount.push(Number(key)));
-    return displayAmount;
+    return displayAmount[0];
   };
 
   const handleIngredientTypesFilterChange = async (e) => {  // why async..?
@@ -81,7 +79,7 @@ const Ingredients = props => {
     }));
   }
 
-  const handleDisplayChange = async (e) => {  // why async..?
+  const handleDisplayChange = async (e) => {  // why async..?  add radio
     //e.preventDefault();
     //e.stopPropagation();
     const id = e.target.id;
@@ -148,13 +146,11 @@ const Ingredients = props => {
   }
 
   return (
-    <div>
+    <div className={`ingredients two-column-b ${props.twoColumnBTheme}`}>
 
-      <div id="page">
+        <div className="left-column">
 
-        <div id="page_col_left">
-
-          <div id="list_header"><h1>Ingredients</h1></div>
+          <div><h1>Ingredients</h1></div>
 
           <div id="filters">
             <form
@@ -209,21 +205,19 @@ const Ingredients = props => {
 
         </div>
 
-        <div id="page_col_right">
+        <div className="right-column">
         </div>
-
-      </div>
 
     </div>
   );
 }
 
 const mapStateToProps = state => ({
-  viewIngredients: state.data.ingredients,
+  viewIngredients: state.data.viewMainIngredients,
   //viewIngredientTypesChecked: state.data.ingredientTypesChecked,
-  viewDisplay: state.data.ingredientsDisplay,
-  viewPages: state.data.ingredientsPages,
-  viewStarting: state.data.ingredientsStarting,
+  viewDisplay: state.data.viewMainIngredientsDisplay,
+  viewPages: state.data.viewMainIngredientsPages,
+  viewStarting: state.data.viewMainIngredientsStarting,
   dataIngredientTypes: state.data.ingredientTypes
 });
 

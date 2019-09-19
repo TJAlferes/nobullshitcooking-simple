@@ -58,30 +58,42 @@ const initialState = {
 };
 
 const viewMainIngredients = (state, action) => {
-  let view = [];
-  console.log(action.types);
-  console.log(action.display);
-  console.log(action.start);
-  action.types.map(ingredientType => {
-    view.push(state.viewMainIngredients.filter(ing => ing.ingredient_type_id === ingredientType))
-  });
-  let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
-  return {
-    ...state,
-    ...{
-      viewMainIngredients: view,
-      viewMainIngredientTypesChecked: action.types,
-      viewMainIngredientsDisplay: action.display,
-      viewMainIngredientsPages: pages,
-      viewMainIngredientsStarting: action.start
-    }
-  };
+  if (action.types.length) {
+    let view = [];
+    action.types.forEach(ingredientType => {
+      view = view.concat(state.ingredients.filter(ing => ing.ingredient_type_id == ingredientType));
+    });
+    let finalView = view.slice(action.start, (action.start + action.display));
+    let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
+    return {
+      ...state,
+      ...{
+        viewMainIngredients: finalView,
+        viewMainIngredientTypesChecked: action.types,
+        viewMainIngredientsDisplay: action.display,
+        viewMainIngredientsPages: pages,
+        viewMainIngredientsStarting: action.start
+      }
+    };
+  } else {
+    let finalView = state.ingredients.slice(action.start, (action.start + action.display));
+    return {
+      ...state,
+      ...{
+        viewMainIngredients: finalView,
+        viewMainIngredientTypesChecked: action.types,
+        viewMainIngredientsDisplay: action.display,
+        viewMainIngredientsPages: Math.ceil(state.ingredients.length / action.display),
+        viewMainIngredientsStarting: action.start
+      }
+    };
+  }
 };
 
 const viewMainEquipment = (state, action) => {
   let view = [];
   action.types.map(equipmentType => {
-    view.push(state.viewMainEquipment.filter(ing => ing.equipment_type_id === equipmentType))
+    view.push(state.viewMainEquipment.filter(ing => ing.equipment_type_id === equipmentType));
   });
   let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
   return {
