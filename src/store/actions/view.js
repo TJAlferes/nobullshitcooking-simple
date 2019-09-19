@@ -6,3 +6,10 @@ export const viewGetIngredients = (types, display, start) => ({
   display,
   start
 });
+
+export const viewGetEquipment = (types, display, start) => ({
+  type: actionTypes.VIEW_GET_EQUIPMENT,
+  types,
+  display,
+  start
+});

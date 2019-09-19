@@ -139,7 +139,8 @@ export {
 } from './data';
 
 export {
-  viewGetIngredients
+  viewGetIngredients,
+  viewGetEquipment
 } from './view';
 
 export {

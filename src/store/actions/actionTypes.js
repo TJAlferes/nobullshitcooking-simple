@@ -236,6 +236,7 @@ filters and searches
 */
 
 export const VIEW_GET_INGREDIENTS = 'VIEW_GET_INGREDIENTS';
+export const VIEW_GET_EQUIPMENT = 'VIEW_GET_EQUIPMENT';
 
 
 

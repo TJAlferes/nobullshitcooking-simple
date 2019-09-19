@@ -1,5 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
+// eventually split up into types, recipes, ings, equ, plans, friends
+
 const initialState = {
   measurements: [],
   equipment: [],
@@ -40,7 +42,58 @@ const initialState = {
 
   myPlans: [],
 
-  myFriendships: []
+  myFriendships: [],
+
+  viewMainIngredients: [],
+  viewMainIngredientTypesChecked: [],
+  viewMainIngredientsDisplay: 25,
+  viewMainIngredientsPages: 1,
+  viewMainIngredientsStarting: 0,
+
+  viewMainEquipment: [],
+  viewMainEquipmentTypesChecked: [],
+  viewMainEquipmentDisplay: 25,
+  viewMainEquipmentPages: 1,
+  viewMainEquipmentStarting: 0
+};
+
+const viewMainIngredients = (state, action) => {
+  let view = [];
+  console.log(action.types);
+  console.log(action.display);
+  console.log(action.start);
+  action.types.map(ingredientType => {
+    view.push(state.viewMainIngredients.filter(ing => ing.ingredient_type_id === ingredientType))
+  });
+  let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
+  return {
+    ...state,
+    ...{
+      viewMainIngredients: view,
+      viewMainIngredientTypesChecked: action.types,
+      viewMainIngredientsDisplay: action.display,
+      viewMainIngredientsPages: pages,
+      viewMainIngredientsStarting: action.start
+    }
+  };
+};
+
+const viewMainEquipment = (state, action) => {
+  let view = [];
+  action.types.map(equipmentType => {
+    view.push(state.viewMainEquipment.filter(ing => ing.equipment_type_id === equipmentType))
+  });
+  let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
+  return {
+    ...state,
+    ...{
+      viewMainEquipment: view,
+      viewMainEquipmentTypesChecked: action.types,
+      viewMainEquipmentDisplay: action.display,
+      viewMainEquipmentPages: pages,
+      viewMainEquipmentStarting: action.start
+    }
+  };
 };
 
 const dataReducer = (state = initialState, action) => {
@@ -69,6 +122,9 @@ const dataReducer = (state = initialState, action) => {
     case actionTypes.DATA_GET_MY_PLANS: return {...state, ...{myPlans: action.myPlans}};
 
     case actionTypes.DATA_GET_MY_FRIENDSHIPS: return {...state, ...{myFriendships: action.myFriendships}};
+
+    case actionTypes.VIEW_GET_INGREDIENTS: return viewMainIngredients(state, action);
+    case actionTypes.VIEW_GET_EQUIPMENT: return viewMainEquipment(state, action);
   }
   return state;
 };

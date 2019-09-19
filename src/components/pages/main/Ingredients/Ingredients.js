@@ -6,12 +6,6 @@ import './ingredients.css';
 import { viewGetIngredients } from '../../../../store/actions/index';
 
 const Ingredients = props => {
-  const [ ingredients, setIngredients ] = useState([]);
-  const [ dataIngredientTypes, setDataIngredientTypes ] = useState([]);
-
-  // redux?
-  const [ pages, setPages ] = useState(1);
-  const [ starting, setStarting ] = useState(0);
   const [
     checkedIngredientTypesFilters,
     setCheckedIngredientTypesFilters
@@ -35,27 +29,28 @@ const Ingredients = props => {
     17: false,
     18: false
   });
+  const [ checkedDisplay, setCheckedDisplay ] = useState({
+    25: true,
+    50: false,
+    100: false
+  });
 
   // be sure they are not used anywhere else
   // search page..?
   // use querystring / qs to pre-apply filters?
 
-  // state.view.
-  // ingredients, checkedIngredientTypesFilters, ingredientsDisplay, ingredientsPages, ingredientsStarting
-  // equipment, checkedEquipmentTypesFilters, equipmentDisplay, equipmentPages, equipmentStarting
-  // recipes, checkedRecipeTypesFilters, checkedCuisinesFilters, recipesDisplay, recipesPages, recipesStarting
+  // recipes, checkedRecipeTypesFilters, checkedCuisinesFilters, recipesDisplay, recipesPages, recipesStarting -- NO! recipes you still filter on backend with mysql and elasticsearch
 
   useEffect(() => {
     getIngredientsView();
-  }, [checkedIngredientTypesFilters]);
+  }, [checkedIngredientTypesFilters, checkedDisplay]);
   
   const getIngredientsView = async (startingAt = 0) => {  // async not needed if filtering on frontend (since no network call)?
     try {
+      //e.preventDefault();
+      //e.stopPropagation();
       //props.viewGetIngredients(types, display, start);
-      props.viewGetIngredients(getCheckedIngredientTypesFilters(), display, startingAt);
-      //setIngredients(rows);  // needed? see planName or test
-      //setPages(pages);  // needed? see planName or test
-      //setStarting(starting);  // needed? see planName or test
+      props.viewGetIngredients(getCheckedIngredientTypesFilters(), getCheckedDisplay(), startingAt);
     } catch (err) {
       console.error(err);
     }
@@ -66,10 +61,19 @@ const Ingredients = props => {
     Object.entries(checkedIngredientTypesFilters).forEach(([key, value]) => {
       if (value === true) checkedIngredientTypes.push(Number(key));
     });
+    console.log(checkedIngredientTypes);
     return checkedIngredientTypes;
   }
 
-  const handleIngredientTypesFilterChange = async (e) => {
+  const getCheckedDisplay = () => {
+    let displayAmount = [];
+    Object.entries(checkedDisplay).forEach(([key, value]) => value && displayAmount.push(Number(key)));
+    return displayAmount;
+  };
+
+  const handleIngredientTypesFilterChange = async (e) => {  // why async..?
+    //e.preventDefault();
+    //e.stopPropagation();
     const id = e.target.id;
     await setCheckedIngredientTypesFilters(prevState => ({
       ...prevState,
@@ -77,12 +81,22 @@ const Ingredients = props => {
     }));
   }
 
+  const handleDisplayChange = async (e) => {  // why async..?
+    //e.preventDefault();
+    //e.stopPropagation();
+    const id = e.target.id;
+    await setCheckedDisplay(prevState => ({
+      ...prevState,
+      [id]: !prevState[[id]]
+    }));
+  }
+
   const paginationNumbers = () => {
-    const display = 25;
-    const currentPage = Math.floor((starting / display) + 1);
+    //const display = 25;
+    const currentPage = Math.floor((props.viewStarting / props.viewDisplay) + 1);
     let numbers = [];
-    for (let i = 1; i <= pages; i++) {
-      let startingAt = (display * (i - 1));
+    for (let i = 1; i <= props.viewPages; i++) {
+      let startingAt = (props.viewDisplay * (i - 1));
       if (i != currentPage) {
         numbers.push(
           <span
@@ -101,10 +115,10 @@ const Ingredients = props => {
   }
 
   const paginate = () => {
-    const display = 25;
-    const currentPage = Math.floor((starting / display) + 1);
-    const startingAtPrev = (starting == 0) ? starting : (starting - display);
-    const startingAtNext = (starting + display);
+    //const display = 25;
+    const currentPage = Math.floor((props.viewStarting / props.viewDisplay) + 1);
+    const startingAtPrev = (props.viewStarting == 0) ? props.viewStarting : (props.viewStarting - props.viewDisplay);
+    const startingAtNext = (props.viewStarting + props.viewDisplay);
     const paginationLinks = (
       <div className="page_links">
         <span className="page_numbers">
@@ -119,7 +133,7 @@ const Ingredients = props => {
           }
           {paginationNumbers()}
           {
-            (currentPage != pages) &&
+            (currentPage != props.viewPages) &&
             <span
               className="page_nav"
               onClick={() => getIngredientsView(startingAtNext)}
@@ -151,7 +165,7 @@ const Ingredients = props => {
               <span id="filter_title"><b>Filter by:</b></span>
               <div>
                 <p className="filter_type"><b>Ingredient type</b></p>
-                {dataIngredientTypes.map(ingredientType => (
+                {props.dataIngredientTypes.map(ingredientType => (
                   <span
                     className="filter_span"
                     key={ingredientType.ingredient_type_id}
@@ -169,7 +183,7 @@ const Ingredients = props => {
             </form>
           </div>
 
-          {(pages > 1) && paginate()}
+          {(props.viewPages > 1) && paginate()}
 
           <div>
             {props.viewIngredients.map(ingredient => (
@@ -191,7 +205,7 @@ const Ingredients = props => {
             ))}
           </div>
 
-          {(pages > 1) && paginate()}
+          {(props.viewPages > 1) && paginate()}
 
         </div>
 
@@ -205,11 +219,11 @@ const Ingredients = props => {
 }
 
 const mapStateToProps = state => ({
-  viewIngredients: state.view.ingredients,
-  viewIngredientTypesChecked: state.view.ingredientTypesChecked,
-  viewDisplay: state.view.ingredientsDisplay,
-  viewPages: state.view.ingredientsPages,
-  viewStarting: state.view.ingredientsStarting,
+  viewIngredients: state.data.ingredients,
+  //viewIngredientTypesChecked: state.data.ingredientTypesChecked,
+  viewDisplay: state.data.ingredientsDisplay,
+  viewPages: state.data.ingredientsPages,
+  viewStarting: state.data.ingredientsStarting,
   dataIngredientTypes: state.data.ingredientTypes
 });
 
