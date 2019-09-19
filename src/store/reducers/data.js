@@ -91,21 +91,35 @@ const viewMainIngredients = (state, action) => {
 };
 
 const viewMainEquipment = (state, action) => {
-  let view = [];
-  action.types.map(equipmentType => {
-    view.push(state.viewMainEquipment.filter(ing => ing.equipment_type_id === equipmentType));
-  });
-  let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
-  return {
-    ...state,
-    ...{
-      viewMainEquipment: view,
-      viewMainEquipmentTypesChecked: action.types,
-      viewMainEquipmentDisplay: action.display,
-      viewMainEquipmentPages: pages,
-      viewMainEquipmentStarting: action.start
-    }
-  };
+  if (action.types.length) {
+    let view = [];
+    action.types.forEach(equipmentType => {
+      view = view.concat(state.equipment.filter(equ => equ.equipment_type_id === equipmentType));
+    });
+    let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
+    return {
+      ...state,
+      ...{
+        viewMainEquipment: view,
+        viewMainEquipmentTypesChecked: action.types,
+        viewMainEquipmentDisplay: action.display,
+        viewMainEquipmentPages: pages,
+        viewMainEquipmentStarting: action.start
+      }
+    };
+  } else {
+    let finalView = state.equipment.slice(action.start, (action.start + action.display));
+    return {
+      ...state,
+      ...{
+        viewMainEquipment: finalView,
+        viewMainEquipmentTypesChecked: action.types,
+        viewMainEquipmentDisplay: action.display,
+        viewMainEquipmentPages: Math.ceil(state.equipment.length / action.display),
+        viewMainEquipmentStarting: action.start
+      }
+    };
+  }
 };
 
 const dataReducer = (state = initialState, action) => {

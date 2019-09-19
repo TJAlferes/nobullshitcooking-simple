@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import './ingredients.css';
 import { viewGetIngredients } from '../../../../store/actions/index';
 
+// if double renders, fix
 const Ingredients = props => {
   const [
     checkedIngredientTypesFilters,
@@ -29,11 +30,7 @@ const Ingredients = props => {
     17: false,
     18: false
   });
-  const [ checkedDisplay, setCheckedDisplay ] = useState({
-    25: true,
-    50: false,
-    100: false
-  });
+  const [ checkedDisplay, setCheckedDisplay ] = useState(25);
 
   // be sure they are not used anywhere else
   // search page..?
@@ -45,15 +42,8 @@ const Ingredients = props => {
     getIngredientsView();
   }, [checkedIngredientTypesFilters, checkedDisplay]);
   
-  const getIngredientsView = async (startingAt = 0) => {  // async not needed if filtering on frontend (since no network call)?
-    try {
-      //e.preventDefault();
-      //e.stopPropagation();
-      props.viewGetIngredients(getCheckedIngredientTypesFilters(), getCheckedDisplay(), startingAt);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  const getIngredientsView = (startingAt = 0) =>
+    props.viewGetIngredients(getCheckedIngredientTypesFilters(), checkedDisplay, startingAt);
 
   const getCheckedIngredientTypesFilters = () => {
     let checkedIngredientTypes = [];
@@ -61,36 +51,21 @@ const Ingredients = props => {
       if (value === true) checkedIngredientTypes.push(Number(key));
     });
     return checkedIngredientTypes;
-  }
-
-  const getCheckedDisplay = () => {  // this is an ungodly mess, please clean up...
-    let displayAmount = [];
-    Object.entries(checkedDisplay).forEach(([key, value]) => value && displayAmount.push(Number(key)));
-    return displayAmount[0];
   };
 
-  const handleIngredientTypesFilterChange = async (e) => {  // why async..?
-    //e.preventDefault();
-    //e.stopPropagation();
+  const handleIngredientTypesFilterChange = e => {
     const id = e.target.id;
-    await setCheckedIngredientTypesFilters(prevState => ({
+    setCheckedIngredientTypesFilters(prevState => ({
       ...prevState,
       [id]: !prevState[[id]]
     }));
-  }
+  };
 
-  const handleDisplayChange = async (e) => {  // why async..?  add radio
-    //e.preventDefault();
-    //e.stopPropagation();
-    const id = e.target.id;
-    await setCheckedDisplay(prevState => ({
-      ...prevState,
-      [id]: !prevState[[id]]
-    }));
-  }
+  const handleDisplayChange = e => setCheckedDisplay(e.target.value);
 
+  // move pagination to own function/hook/module
+  // limit pagination numbers
   const paginationNumbers = () => {
-    //const display = 25;
     const currentPage = Math.floor((props.viewStarting / props.viewDisplay) + 1);
     let numbers = [];
     for (let i = 1; i <= props.viewPages; i++) {
@@ -110,10 +85,9 @@ const Ingredients = props => {
       }
     }
     return numbers;
-  }
+  };
 
   const paginate = () => {
-    //const display = 25;
     const currentPage = Math.floor((props.viewStarting / props.viewDisplay) + 1);
     const startingAtPrev = (props.viewStarting == 0) ? props.viewStarting : (props.viewStarting - props.viewDisplay);
     const startingAtNext = (props.viewStarting + props.viewDisplay);
@@ -143,7 +117,7 @@ const Ingredients = props => {
       </div>
     );
     return paginationLinks;
-  }
+  };
 
   return (
     <div className={`ingredients two-column-b ${props.twoColumnBTheme}`}>
@@ -152,25 +126,25 @@ const Ingredients = props => {
 
           <div><h1>Ingredients</h1></div>
 
-          <div id="filters">
+          <div className="ingredients-list-filters">
             <form
-              id="itid"
+              className="ingredients-list-filters-form"
               name="itid"
               onChange={e => handleIngredientTypesFilterChange(e)}
             >
-              <span id="filter_title"><b>Filter by:</b></span>
+              <span className="ingredients-filter-title">Filter by:</span>
               <div>
-                <p className="filter_type"><b>Ingredient type</b></p>
+                <p className="ingredients-filter-type">Ingredient type</p>
                 {props.dataIngredientTypes.map(ingredientType => (
                   <span
-                    className="filter_span"
+                    className="ingredients-filter-span"
                     key={ingredientType.ingredient_type_id}
                   >
                     <input
                       type="checkbox"
                       id={ingredientType.ingredient_type_id}
                     />
-                    <label className="filter_label">
+                    <label className="ingredients-filter-label">
                       {ingredientType.ingredient_type_name}
                     </label>
                   </span>
@@ -179,21 +153,53 @@ const Ingredients = props => {
             </form>
           </div>
 
+          <div className="ingredients-list-display">
+            <form className="ingredients-list-filters-form">
+              <span className="ingredients-filter-title">Results per page:</span>
+              <div>
+                <span className="ingredients-filter-span">
+                  <input
+                    type="radio"
+                    checked={props.viewDisplay == 25}
+                    onChange={handleDisplayChange}
+                    value="25"
+                  />
+                  <label className="ingredients-filter-label">25</label>
+                </span>
+                <span className="ingredients-filter-span">
+                  <input
+                    type="radio"
+                    checked={props.viewDisplay == 50}
+                    onChange={handleDisplayChange}
+                    value="50"
+                  />
+                  <label className="ingredients-filter-label">50</label>
+                </span>
+                <span className="ingredients-filter-span">
+                  <input
+                    type="radio"
+                    checked={props.viewDisplay == 100}
+                    onChange={handleDisplayChange}
+                    value="100"
+                  />
+                  <label className="ingredients-filter-label">100</label>
+                </span>
+              </div>
+            </form>
+          </div>
+
           {(props.viewPages > 1) && paginate()}
 
-          <div>
+          <div className="ingredients-list">
             {props.viewIngredients.map(ingredient => (
-              <div className="ingredient" key={ingredient.ingredient_id}>
+              <div className="ingredients-list-item" key={ingredient.ingredient_id}>
                 <Link
-                  className="ingredient_link"
+                  className="ingredient-link"
                   to={`/food/ingredient/${ingredient.ingredient_id}`}
                 >
-                  <div className="ingredient_name">
-                    {ingredient.ingredient_name}
-                  </div>
-                  {/* TO DO: change to thumbnail image */}
+                  <div className="ingredient-name">{ingredient.ingredient_name}</div>
                   <img
-                    className="ingredient_thumbnail"
+                    className="ingredient-thumbnail"
                     src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`}
                   />
                 </Link>
@@ -214,7 +220,6 @@ const Ingredients = props => {
 
 const mapStateToProps = state => ({
   viewIngredients: state.data.viewMainIngredients,
-  //viewIngredientTypesChecked: state.data.ingredientTypesChecked,
   viewDisplay: state.data.viewMainIngredientsDisplay,
   viewPages: state.data.viewMainIngredientsPages,
   viewStarting: state.data.viewMainIngredientsStarting,

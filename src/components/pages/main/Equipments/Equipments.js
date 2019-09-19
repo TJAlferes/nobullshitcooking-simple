@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 import './equipments.css';
+import { viewGetEquipment } from '../../../../store/actions/index';
 
-import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEndpointOne';
-const endpoint = NOBSCBackendAPIEndpointOne;
-
+// if double renders, fix
 const Equipments = props => {
-  const [ equipment, setEquipment ] = useState([]);
-  const [ dataEquipmentTypes, setDataEquipmentTypes ] = useState([]);
-  const [ pages, setPages ] = useState(1);
-  const [ starting, setStarting ] = useState(0);
   const [
     checkedEquipmentTypesFilters,
     setCheckedEquipmentTypesFilters
@@ -35,38 +30,18 @@ const Equipments = props => {
     17: false,
     18: false
   });
+  const [ checkedDisplay, setCheckedDisplay ] = useState(25);
+
+  // be sure they are not used anywhere else
+  // search page..?
+  // use querystring / qs to pre-apply filters? or props?
 
   useEffect(() => {
-    const fetchDataEquipmentTypes = async () => {
-      const res = await axios.get(`${endpoint}/equipment-type`);
-      setDataEquipmentTypes(res.data);
-    };
-    fetchDataEquipmentTypes();
-    if (props.equipmentTypesPreFilter) {
-      //setCheckedEquipmentTypesFilters();
-    } else {
-      getEquipment();
-    }
-  }, []);
+    getEquipmentView();
+  }, [checkedEquipmentTypesFilters, checkedDisplay]);
 
-  useEffect(() => {
-    getEquipment();
-  }, [checkedEquipmentTypesFilters]);
-
-  const getEquipment = async (startingAt = 0) => {
-    try {
-      const res = await axios.post(`${endpoint}/equipment`, {
-        types: getCheckedEquipmentTypesFilters(),
-        start: startingAt
-      });
-      const { rows, pages, starting } = res.data;
-      setEquipment(rows);
-      setPages(pages);
-      setStarting(starting);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  const getEquipmentView = (startingAt = 0) =>
+    props.viewGetEquipment(getCheckedEquipmentTypesFilters(), checkedDisplay, startingAt);
 
   const getCheckedEquipmentTypesFilters = () => {
     let checkedEquipmentTypes = [];
@@ -74,27 +49,30 @@ const Equipments = props => {
       if (value === true) checkedEquipmentTypes.push(Number(key));
     });
     return checkedEquipmentTypes;
-  }
+  };
 
-  const handleEquipmentTypesFilterChange = async (e) => {
+  const handleEquipmentTypesFilterChange = e => {
     const id = e.target.id;
-    await setCheckedEquipmentTypesFilters(prevState => ({
+    setCheckedEquipmentTypesFilters(prevState => ({
       ...prevState,
       [id]: !prevState[[id]]
     }));
-  }
+  };
 
+  const handleDisplayChange = e => setCheckedDisplay(e.target.value);
+
+  // move pagination to own function/hook/module
+  // limit pagination numbers
   const paginationNumbers = () => {
-    const display = 25;
-    const currentPage = Math.floor((starting / display) + 1);
+    const currentPage = Math.floor((props.viewStarting / props.viewDisplay) + 1);
     let numbers = [];
-    for (let i = 1; i <= pages; i++) {
-      let startingAt = (display * (i - 1));
+    for (let i = 1; i <= props.viewPages; i++) {
+      let startingAt = (props.viewDisplay * (i - 1));
       if (i != currentPage) {
         numbers.push(
-          <span 
+          <span
             className="page_number"
-            onClick={() => getEquipment(startingAt)}
+            onClick={() => getEquipmentView(startingAt)}
             key={i}
           >
             {i}
@@ -108,35 +86,32 @@ const Equipments = props => {
   }
 
   const paginate = () => {
-    const display = 25;
-    const currentPage = Math.floor((starting / display) + 1);
-    const startingAtPrev = (starting == 0) ? starting : (starting - display);
-    const startingAtNext = (starting + display);
+    const currentPage = Math.floor((props.viewStarting / props.viewDisplay) + 1);
+    const startingAtPrev = (props.viewStarting == 0) ? props.viewStarting : (props.viewStarting - props.viewDisplay);
+    const startingAtNext = (props.viewStarting + props.viewDisplay);
     const paginationLinks = (
       <div className="page_links">
-        {
-          <span className="page_numbers">
-            {
-              (currentPage != 1) &&
-              <span
-                className="page_nav"
-                onClick={() => getEquipment(startingAtPrev)}
-              >
-                Prev
-              </span>
-            }
-            {paginationNumbers()}
-            {
-              (currentPage != pages) &&
-              <span
-                className="page_nav"
-                onClick={() => getEquipment(startingAtNext)}
-              >
-                Next
-              </span>
+        <span className="page_numbers">
+          {
+            (currentPage != 1) &&
+            <span
+              className="page_nav"
+              onClick={() => getEquipmentView(startingAtPrev)}
+            >
+              Prev
+            </span>
           }
-          </span>
-        }
+          {paginationNumbers()}
+          {
+            (currentPage != props.viewPages) &&
+            <span
+              className="page_nav"
+              onClick={() => getEquipmentView(startingAtNext)}
+            >
+              Next
+            </span>
+          }
+        </span>
       </div>
     );
     return paginationLinks;
@@ -149,25 +124,25 @@ const Equipments = props => {
 
           <div><h1>Equipment</h1></div>
 
-          <div id="filters">
+          <div className="equipments-list-filters">
             <form
-              id="itid"
+              className="equipments-list-filters-form"
               name="itid"
               onChange={e => handleEquipmentTypesFilterChange(e)}
             >
-              <span className="filter-title"><b>Filter by:</b></span>
+              <span className="equipments-filter-title">Filter by:</span>
               <div>
-                <p className="filter-type"><b>Equipment type</b></p>
-                {dataEquipmentTypes.map(equipmentType => (
+                <p className="equipments-filter-type">Equipment type</p>
+                {props.dataEquipmentTypes.map(equipmentType => (
                   <span
-                    className="filter-span"
+                    className="equipments-filter-span"
                     key={equipmentType.equipment_type_id}
                   >
                     <input
                       type="checkbox"
                       id={equipmentType.equipment_type_id}
                     />
-                    <label className="filter-label">
+                    <label className="equipments-filter-label">
                       {equipmentType.equipment_type_name}
                     </label>
                   </span>
@@ -176,19 +151,51 @@ const Equipments = props => {
             </form>
           </div>
 
-          {(pages > 1) && paginate()}
+          <div className="equipments-list-display">
+            <form className="equipments-list-filters-form">
+              <span className="equipments-filter-title">Results per page:</span>
+              <div>
+                <span className="equipments-filter-span">
+                  <input
+                    type="radio"
+                    checked={props.viewDisplay == 25}
+                    onChange={handleDisplayChange}
+                    value="25"
+                  />
+                  <label className="equipments-filter-label">25</label>
+                </span>
+                <span className="equipments-filter-span">
+                  <input
+                    type="radio"
+                    checked={props.viewDisplay == 50}
+                    onChange={handleDisplayChange}
+                    value="50"
+                  />
+                  <label className="equipments-filter-label">50</label>
+                </span>
+                <span className="equipments-filter-span">
+                  <input
+                    type="radio"
+                    checked={props.viewDisplay == 100}
+                    onChange={handleDisplayChange}
+                    value="100"
+                  />
+                  <label className="equipments-filter-label">100</label>
+                </span>
+              </div>
+            </form>
+          </div>
+
+          {(props.viewPages > 1) && paginate()}
 
           <div className="equipments-list">
-            {equipment.map(equipment => (
+            {props.viewEquipment.map(equipment => (
               <div className="equipments-list-item" key={equipment.equipment_id}>
                 <Link
                   className="equipment-link"
                   to={`/food/equipment/${equipment.equipment_id}`}
                 >
-                  <div className="equipment-name">
-                    {equipment.equipment_name}
-                  </div>
-                  {/* TO DO: change to thumbnail image */}
+                  <div className="equipment-name">{equipment.equipment_name}</div>
                   <img
                     className="equipment-thumbnail"
                     src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.equipment_image}.jpg`}
@@ -198,7 +205,7 @@ const Equipments = props => {
             ))}
           </div>
 
-          {(pages > 1) && paginate()}
+          {(props.viewPages > 1) && paginate()}
 
         </div>
 
@@ -209,4 +216,16 @@ const Equipments = props => {
   );
 }
 
-export default Equipments;
+const mapStateToProps = state => ({
+  viewEquipment: state.data.viewMainEquipment,
+  viewDisplay: state.data.viewMainEquipmentDisplay,
+  viewPages: state.data.viewMainEquipmentPages,
+  viewStarting: state.data.viewMainEquipmentStarting,
+  dataEquipmentTypes: state.data.equipmentTypes
+});
+
+const mapDispatchToProps = dispatch => ({
+  viewGetEquipment: (types, display, start) => dispatch(viewGetEquipment(types, display, start))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Equipments);
