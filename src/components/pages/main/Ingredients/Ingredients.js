@@ -38,9 +38,22 @@ const Ingredients = props => {
 
   // recipes, checkedRecipeTypesFilters, checkedCuisinesFilters, recipesDisplay, recipesPages, recipesStarting -- NO! recipes you still filter on backend with mysql and elasticsearch
 
+  // change starch to grain (in db too)
+
+  useEffect(() => {
+    if (props.match.params.type == "fish-and-shellfish") setCheckedIngredientTypesFilters(prevState => ({...prevState, ...{1: true, 2: true}}));
+    if (props.match.params.type == "meat-and-poultry") setCheckedIngredientTypesFilters(prevState => ({...prevState, ...{3: true, 4: true, 5: true}}));
+    if (props.match.params.type == "eggs-and-dairy") setCheckedIngredientTypesFilters(prevState => ({...prevState, ...{6: true, 7: true}}));
+    if (props.match.params.type == "beans-and-vegetables") setCheckedIngredientTypesFilters(prevState => ({...prevState, ...{10: true, 11: true}}));
+    if (props.match.params.type == "fruit") setCheckedIngredientTypesFilters(prevState => ({...prevState, 12: true}));
+    if (props.match.params.type == "seeds-and-grains") setCheckedIngredientTypesFilters(prevState => ({...prevState, ...{9: true, 14: true}}));
+    if (props.match.params.type == "fats-and-oils") setCheckedIngredientTypesFilters(prevState => ({...prevState, 8: true}));
+    if (props.match.params.type == "acids-herbs-and-spices") setCheckedIngredientTypesFilters(prevState => ({...prevState, ...{15: true, 16: true, 17: true}}));
+  }, []);
+
   useEffect(() => {
     getIngredientsView();
-  }, [checkedIngredientTypesFilters, checkedDisplay]);
+  }, [props.dataIngredients, checkedIngredientTypesFilters, checkedDisplay]);
   
   const getIngredientsView = (startingAt = 0) =>
     props.viewGetIngredients(getCheckedIngredientTypesFilters(), checkedDisplay, startingAt);
@@ -143,6 +156,7 @@ const Ingredients = props => {
                     <input
                       type="checkbox"
                       id={ingredientType.ingredient_type_id}
+                      checked={checkedIngredientTypesFilters[ingredientType.ingredient_type_id] == true}
                     />
                     <label className="ingredients-filter-label">
                       {ingredientType.ingredient_type_name}
@@ -223,6 +237,7 @@ const mapStateToProps = state => ({
   viewDisplay: state.data.viewMainIngredientsDisplay,
   viewPages: state.data.viewMainIngredientsPages,
   viewStarting: state.data.viewMainIngredientsStarting,
+  dataIngredients: state.data.ingredients,
   dataIngredientTypes: state.data.ingredientTypes
 });
 

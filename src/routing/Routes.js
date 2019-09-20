@@ -246,8 +246,10 @@ const RoutesList = () => (
       */}
       
       <AppliedRoute path="/equipments" exact component={Equipments} />
+      <AppliedRoute path="/equipments/:type" exact component={Equipments} />
       <AppliedRoute path="/equipment/:id" exact component={Equipment} />
       <AppliedRoute path="/ingredients" exact component={Ingredients} />
+      <AppliedRoute path="/ingredients/:type" exact component={Ingredients} />
       <AppliedRoute path="/ingredient/:id" exact component={Ingredient} />
       <AppliedRoute path="/recipes" exact component={Recipes} />
       <AppliedRoute path="/recipe/:id" exact component={Recipe} />

@@ -15,30 +15,25 @@ const Equipments = props => {
     2: false,
     3: false,
     4: false,
-    5: false,
-    6: false,
-    7: false,
-    8: false,
-    9: false,
-    10: false,
-    11: false,
-    12: false,
-    13: false,
-    14: false,
-    15: false,
-    16: false,
-    17: false,
-    18: false
+    5: false
   });
   const [ checkedDisplay, setCheckedDisplay ] = useState(25);
 
   // be sure they are not used anywhere else
   // search page..?
-  // use querystring / qs to pre-apply filters? or props?
+  // use querystring/qs to pre-apply filters? or props?
+
+  useEffect(() => {
+    if (props.match.params.type == "cleaning") setCheckedEquipmentTypesFilters(prevState => ({...prevState, 1: true}));
+    if (props.match.params.type == "preparing") setCheckedEquipmentTypesFilters(prevState => ({...prevState, 2: true}));
+    if (props.match.params.type == "cooking") setCheckedEquipmentTypesFilters(prevState => ({...prevState, 3: true}));
+    if (props.match.params.type == "dining") setCheckedEquipmentTypesFilters(prevState => ({...prevState, 4: true}));
+    if (props.match.params.type == "storage") setCheckedEquipmentTypesFilters(prevState => ({...prevState, 5: true}));
+  }, []);
 
   useEffect(() => {
     getEquipmentView();
-  }, [checkedEquipmentTypesFilters, checkedDisplay]);
+  }, [props.dataEquipment, checkedEquipmentTypesFilters, checkedDisplay]);
 
   const getEquipmentView = (startingAt = 0) =>
     props.viewGetEquipment(getCheckedEquipmentTypesFilters(), checkedDisplay, startingAt);
@@ -141,6 +136,7 @@ const Equipments = props => {
                     <input
                       type="checkbox"
                       id={equipmentType.equipment_type_id}
+                      checked={checkedEquipmentTypesFilters[equipmentType.equipment_type_id] == true}
                     />
                     <label className="equipments-filter-label">
                       {equipmentType.equipment_type_name}
@@ -221,6 +217,7 @@ const mapStateToProps = state => ({
   viewDisplay: state.data.viewMainEquipmentDisplay,
   viewPages: state.data.viewMainEquipmentPages,
   viewStarting: state.data.viewMainEquipmentStarting,
+  dataEquipment: state.data.equipment,
   dataEquipmentTypes: state.data.equipmentTypes
 });
 

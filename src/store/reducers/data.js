@@ -96,11 +96,12 @@ const viewMainEquipment = (state, action) => {
     action.types.forEach(equipmentType => {
       view = view.concat(state.equipment.filter(equ => equ.equipment_type_id === equipmentType));
     });
+    let finalView = view.slice(action.start, (action.start + action.display));
     let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
     return {
       ...state,
       ...{
-        viewMainEquipment: view,
+        viewMainEquipment: finalView,
         viewMainEquipmentTypesChecked: action.types,
         viewMainEquipmentDisplay: action.display,
         viewMainEquipmentPages: pages,
