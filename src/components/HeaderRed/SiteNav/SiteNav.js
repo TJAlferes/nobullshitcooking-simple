@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Menu from './Menu/Menu';
 import foodMenuData from './Menu/foodMenuData';
 import fitnessMenuData from './Menu/fitnessMenuData';
-import supplyMenuData from './Menu/supplyMenuData';
+//import supplyMenuData from './Menu/supplyMenuData';
 import { menuShadowShow, menuShadowHide } from '../../../store/actions/index';
 import './siteNav.css';
 

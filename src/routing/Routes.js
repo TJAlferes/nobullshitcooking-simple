@@ -25,7 +25,7 @@ const StaffLogin = lazy(() => import('../components/staff/StaffLogin/StaffLogin'
 const Login = lazy(() => import('../components/user/Login/Login'));
 
 
-import Dashboard from '../components/demos/Dashboard/Dashboard';  // for demo purposes
+
 const StaffDashboard = lazy(() => import('../components/staff/StaffDashboard/StaffDashboard'));
 const UserDashboard = lazy(() => import('../components/user/UserDashboard/UserDashboard'));
 
@@ -36,7 +36,6 @@ const UserPlannerPage = lazy(() => import('../components/user/UserPlannerPage/Us
 const UserNewPlannerPage = lazy(() => import('../components/user/UserNewPlannerPage/UserNewPlannerPage'));
 const UserEditPlannerPage = lazy(() => import('../components/user/UserEditPlannerPage/UserEditPlannerPage'));
 
-const SubmitRecipe = lazy(() => import('../components/demos/SubmitRecipe/SubmitRecipe'));  // for demo purposes
 const StaffSubmitRecipe = lazy(() => import('../components/staff/StaffSubmitRecipe/StaffSubmitRecipe'));
 const UserSubmitRecipe = lazy(() => import('../components/user/UserSubmitRecipe/UserSubmitRecipe'));
 const StaffEditRecipe = lazy(() => import('../components/staff/StaffEditRecipe/StaffEditRecipe'));
@@ -52,11 +51,8 @@ const UserNewIngredient = lazy(() => import('../components/user/UserNewIngredien
 const StaffEditIngredient = lazy(() => import('../components/staff/StaffEditIngredient/StaffEditIngredient'));
 const UserEditIngredient = lazy(() => import('../components/user/UserEditIngredient/UserEditIngredient'));
 
-import Messenger from '../components/demos/Messenger/Messenger';  // for demo purposes
-//const UserMessenger = lazy(() => import('../components/user/UserMessenger/UserMessenger'));
 const UserMessengerPage = lazy(() => import('../components/user/UserMessengerPage/UserMessengerPage'));
 
-import Friends from '../components/demos/Friends/Friends';  // for demo purposes
 const UserFriends = lazy(() => import('../components/user/UserFriends/UserFriends'));
 
 
@@ -199,7 +195,6 @@ const RoutesList = () => (
         primary app feature routes
       */}
 
-      <AppliedRoute path="/dashboard" exact component={Dashboard} />  {/* for demo purposes */}
       <AuthenticatedRoute path="/staff/dashboard" exact component={StaffDashboard} />
       <AuthenticatedRoute path="/staff" exact component={StaffDashboard} />
       <AuthenticatedRoute path="/user/dashboard" exact component={UserDashboard} />
@@ -212,7 +207,6 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/user/planner/submit" exact component={UserNewPlannerPage} />  {/* have "Cancel" and "Create" buttons */}
       <AuthenticatedRoute path="/user/planner/edit" exact component={UserEditPlannerPage} />  {/* have "Cancel" and "Update" buttons */}
 
-      <AppliedRoute path="/food/recipes/submit" exact component={SubmitRecipe} />  {/* for demo purposes */}
       <AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
       <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
       <AuthenticatedRoute path="/staff/recipes/edit" exact component={StaffEditRecipe} />
@@ -228,10 +222,8 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/staff/ingredient/edit" exact component={StaffEditIngredient} />
       <AuthenticatedRoute path="/user/ingredient/edit" exact component={UserEditIngredient} />
 
-      <AppliedRoute path="/messenger" exact component={Messenger} />  {/* for demo purposes */}
       <AuthenticatedRoute path="/user/messenger" exact component={UserMessengerPage} />
 
-      <AppliedRoute path="/friends" exact component={Friends} />  {/* for demo purposes */}
       <AuthenticatedRoute path="/user/friends" exact component={UserFriends} />
 
 

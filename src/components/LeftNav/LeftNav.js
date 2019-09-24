@@ -9,59 +9,30 @@ const LeftNav = props => {
   let backgroundColor = (theme === "left-nav-light") ? "#ddd" : "#444";
   return (
     <nav className={`left-nav ${theme}`}>
-
-      {
-        !isAuthenticated
-        ? <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/dashboard">Dashboard</NavLink>
-        : <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/dashboard">{authname}</NavLink>
-      }
-      {
-        !isAuthenticated &&
-        <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/planner">Planner</NavLink>
-      }
-
+      {isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/dashboard">{authname}</NavLink>}
+      {!isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/planner">Planner</NavLink>}
       <hr />
-
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/" exact>News</NavLink>
-      {
-        !isAuthenticated
-        ? <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/messenger">Messenger</NavLink>
-        : <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/messenger">Messenger</NavLink>
-      }
-      {
-        !isAuthenticated
-        ? <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/friends">Friends</NavLink>
-        : <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/friends">Friends</NavLink>
-      }
-
-      <hr />
-
+      {isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/messenger">Messenger</NavLink>}
+      {isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/friends">Friends</NavLink>}
+      {isAuthenticated && <hr />}
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/food/nutrition/supplements">Supplements</NavLink>
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/kitchen-equipment">Equipment</NavLink>
-
       <hr />
-
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/water-filtration">Water Filtration</NavLink>
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/tea">Tea</NavLink>
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/coffee">Coffee</NavLink>
-
       <hr />
-
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/outdoors">Outdoors</NavLink>
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/garden">Garden</NavLink>
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/tools">Tools</NavLink>
-
       <hr />
-
       {/*
         <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/contests">Contest Winners</NavLink>
         <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/seasonal">Food for Summer</NavLink>
-
         <hr />
       */}
-
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/charity">Charity</NavLink>
-
     </nav>
   );
 };
