@@ -24,13 +24,11 @@ const socket = io.connect(endpoint, {reconnection: false, autoConnect: false});
 
 socket.on('connect', () => {
   store.dispatch(messengerConnected());
-  console.log('Connected to NOBSC Messenger.');
   socket.emit('GetOnline');
 });
 
 socket.on('disconnect', () => {
   store.dispatch(messengerDisconnected());
-  console.log('Disconnected from NOBSC Messenger.');
 });
 
 socket.on('ShowOnline', (user) => {
@@ -66,7 +64,6 @@ socket.on('FailedWhisper', (feedback) => {
 });
 
 socket.on('GetOnline', online => {
-  console.log(online);
   store.dispatch(messengerGetOnline(online));
 });
 

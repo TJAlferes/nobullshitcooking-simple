@@ -27,8 +27,7 @@ import {
   dataGetMySavedRecipesSaga,
   dataGetMyPlansSaga,
   dataGetMyFriendshipsSaga,
-
-  dataSearchPublicRecipesSaga
+  //dataSearchPublicRecipesSaga
 } from './data';
 import {
   userCreateNewPrivateEquipmentSaga,
@@ -101,8 +100,7 @@ export function* watchData() {
     takeEvery(actionTypes.DATA_INIT, dataGetCuisinesSaga),
     takeEvery(actionTypes.DATA_INIT, dataGetMethodsSaga),
     takeEvery(actionTypes.DATA_INIT, dataGetPublicRecipesSaga),
-
-    takeEvery(actionTypes.DATA_INIT, dataSearchPublicRecipesSaga),
+    //takeEvery(actionTypes.DATA_INIT, dataSearchPublicRecipesSaga),
   ]);
 }
 

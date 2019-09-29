@@ -321,11 +321,13 @@ export function* dataGetMyFriendshipsSaga() {
   }
 }
 
-export function* dataSearchPublicRecipesSaga() {
+
+
+/*export function* dataSearchPublicRecipesSaga() {
   try {
     const res = yield axios.get(`${endpoint}/search/recipes`);
     console.log(res.data);
   } catch (err) {
     console.log(err);
   }
-}
+}*/

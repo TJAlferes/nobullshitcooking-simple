@@ -5,36 +5,42 @@ import axios from 'axios';
  
 import {
   userMessageClear,
+  
   userCreateNewPrivateEquipmentSucceeded,
   userCreateNewPrivateEquipmentFailed,
   userEditPrivateEquipmentSucceeded,
   userEditPrivateEquipmentFailed,
   userDeletePrivateEquipmentSucceeded,
   userDeletePrivateEquipmentFailed,
+
   userCreateNewPrivateIngredientSucceeded,
   userCreateNewPrivateIngredientFailed,
   userEditPrivateIngredientSucceeded,
   userEditPrivateIngredientFailed,
   userDeletePrivateIngredientSucceeded,
   userDeletePrivateIngredientFailed,
+
   userCreateNewPrivateRecipeSucceeded,
   userCreateNewPrivateRecipeFailed,
   userEditPrivateRecipeSucceeded,
   userEditPrivateRecipeFailed,
   userDeletePrivateRecipeSucceeded,
   userDeletePrivateRecipeFailed,
+
   userCreateNewPublicRecipeSucceeded,
   userCreateNewPublicRecipeFailed,
   userEditPublicRecipeSucceeded,
   userEditPublicRecipeFailed,
   userDisownPublicRecipeSucceeded,
   userDisownPublicRecipeFailed,
+
   userCreateNewPlanSucceeded,
   userCreateNewPlanFailed,
   userEditPlanSucceeded,
   userEditPlanFailed,
   userDeletePlanSucceeded,
   userDeletePlanFailed,
+
   userFavoriteRecipeSucceeded,
   userFavoriteRecipeFailed,
   userUnfavoriteRecipeSucceeded,
@@ -43,6 +49,7 @@ import {
   userSaveRecipeFailed,
   userUnsaveRecipeSucceeded,
   userUnsaveRecipeFailed,
+
   userRequestFriendshipSucceeded,
   userRequestFriendshipFailed,
   userAcceptFriendshipSucceeded,
@@ -55,6 +62,7 @@ import {
   userBlockUserFailed,
   userUnblockUserSucceeded,
   userUnblockUserFailed,
+
   userSubmitAvatarSucceeded,
   userSubmitAvatarFailed
 } from '../actions/index';
