@@ -5,18 +5,51 @@ https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 
 */
 
-/*function getHighlight(hit, fieldName) {
-  if (hit._source.title === )
-}*/
+function getHighlight(hit, fieldName) {
+  if (
+    !hit.highlight ||
+    !hit.highlight[fieldName] ||
+    hit.highlight[fieldName].length < 1
+  ) {
+    return;
+  }
+  return hit.highlight[fieldName][0];
+}
 
+/*function buildResults(hits) {
+  const addEachKeyValueToObject = (acc, [key, value]) => ({
+    ...acc,
+    [key]: value
+  });
+
+  const toObject = (value, snippet) => {
+    return { raw: value, ...(snippet && { snippet }) };
+  };
+
+  return hits.map(record => {
+    return Object.entries(record._source)
+      .map(([fieldName, fieldValue]) => [
+        fieldName,
+        toObject(fieldValue, getHighlight(record, fieldName))
+      ])
+      .reduce(addEachKeyValueToObject, {});
+  });
+}*/
 function buildResults(hits) {
-  const addEachKeyValueToObject = (acc, [key, value]) => ({...acc, [key]: value});
-  const toObject = (value, snippet) => ({raw: value, ...(snippet && {snippet})});
-  return hits.map(record =>
-    Object.entries(record._source).map(([fieldName, fieldValue]) =>
-      [fieldName, toObject(fieldValue, getHighlight(record, fieldName))]
-    ))
-    .reduce(addEachKeyValueToObject, {});
+  const shitArr = [];
+  hits.map(record => {
+    const snippet = getHighlight(record, "title");
+    shitArr.push(
+      {
+        id: {
+          raw: record._source.title,
+          ...(snippet && {snippet})
+        }
+      }
+    );
+  });
+  console.log('shitArr', shitArr);
+  return shitArr;
 }
 
 function buildTotalPages(resultsPerPage, totalResults) {
@@ -55,6 +88,6 @@ export default function buildState(response, resultsPerPage) {
   const results = buildResults(response.hits.hits);
   const totalResults = response.hits.total.value;
   const totalPages = buildTotalPages(resultsPerPage, totalResults);
-  //const facets = buildStateFacets(response.aggregations);
+  const facets = buildStateFacets(response.aggregations);
   return {results, totalPages, totalResults, ...(facets && {facets})};
 }

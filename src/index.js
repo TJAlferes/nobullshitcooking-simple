@@ -27,6 +27,9 @@ import './themes/twoColumnB.css';
 import './themes/tableA.css';
 //import registerServiceWorker from "./registerServiceWorker";
 
+import { NOBSCBackendAPIEndpointOne } from './config/NOBSCBackendAPIEndpointOne';
+const endpoint = NOBSCBackendAPIEndpointOne;
+
 const composeEnhancers = process.env.NODE_ENV === "development"
 ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 : null || compose;
@@ -76,14 +79,22 @@ const searchMethods = {
   onAutocompleteResultClick: function() {
 
   },
-  onAutocomplete: async function({ searchTerm }) {
-    const res = await axios.get(JSON.stringify(buildRequest({searchTerm})));
+  onAutocomplete: async function({ searchTerm }) {  // JSON.stringify()?
+    const res = await axios.post(
+      `${endpoint}/search/autocomplete/recipes`,
+      {searchTerm}, //buildRequest({searchTerm}), (for filters!)
+      {withCredentials: true}
+    );
     const state = buildState(res.data.found);
     return {autocompletedResults: state.results};
   },
-  onSearch: async function(state) {
-    const res = await axios.get(JSON.stringify(buildRequest(state)));
-    return buildState(res.data.found, state.resultsPerPage)
+  onSearch: async function(state) {  // JSON.stringify()?
+    const res = await axios.post(
+      `${endpoint}/search/find/recipes`,
+      buildRequest(state),
+      {withCredentials: true}
+    );
+    return buildState(res.data.found, state.resultsPerPage);
   }
 };
 
