@@ -14,7 +14,7 @@ import { SearchProvider } from '@elastic/react-search-ui';
 
 import { dataInit } from './store/actions/index';
 import rootReducer from './store/reducers/index';
-import { watchAuth, watchData, watchUser, watchMessenger, watchPlanner } from './store/sagas/index';
+import { watchAuth, watchData, watchUser, watchMessenger } from './store/sagas/index';
 import buildRequest from './utils/search/buildRequest';
 import buildState from './utils/search/buildState';
 import App from './App';
@@ -25,7 +25,6 @@ import './themes/oneColumnA.css';
 import './themes/twoColumnA.css';
 import './themes/twoColumnB.css';
 import './themes/tableA.css';
-//import registerServiceWorker from "./registerServiceWorker";
 
 import { NOBSCBackendAPIEndpointOne } from './config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
@@ -66,23 +65,22 @@ sagaMiddleware.run(watchAuth);
 sagaMiddleware.run(watchData);
 sagaMiddleware.run(watchUser);
 sagaMiddleware.run(watchMessenger);
-sagaMiddleware.run(watchPlanner);
 
 store.dispatch(dataInit());  // gets initial data (Note: this needs to be optimized)
 
 store.subscribe(() => saveToLocalStorage(store.getState()));
 
-const searchMethods = {
+const searchConfig = {
   onResultClick: function() {
 
   },
   onAutocompleteResultClick: function() {
-
+    console.log('clicked!');
   },
   onAutocomplete: async function({ searchTerm }) {  // JSON.stringify()?
     const res = await axios.post(
       `${endpoint}/search/autocomplete/recipes`,
-      {searchTerm}, //buildRequest({searchTerm}), (for filters!)
+      {searchTerm},  //buildRequest({searchTerm}), (for filters!)
       {withCredentials: true}
     );
     const state = buildState(res.data.found);
@@ -91,17 +89,25 @@ const searchMethods = {
   onSearch: async function(state) {  // JSON.stringify()?
     const res = await axios.post(
       `${endpoint}/search/find/recipes`,
-      buildRequest(state),
+      {searchTerm: state.searchTerm},  //buildRequest(state),
       {withCredentials: true}
     );
+    //let history = useHistory();  // otherwise just do through redux saga searchGoToSearchResults
+    //history.push('/search-results');
     return buildState(res.data.found, state.resultsPerPage);
+  },
+  searchQuery: {
+    facets: {
+      recipeTypes: {type: "value", size: 12},
+      cuisines: {type: "value", size: 24}
+    }
   }
 };
 
 const app = (
   <Provider store={store}>
     <BrowserRouter>
-      <SearchProvider config={searchMethods}>
+      <SearchProvider config={searchConfig}>
         <App />
       </SearchProvider>
     </BrowserRouter>

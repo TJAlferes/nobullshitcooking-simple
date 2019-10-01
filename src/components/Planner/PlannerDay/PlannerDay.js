@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { DropTarget } from 'react-dnd';
+import { DropTarget } from 'react-dnd-cjs';
+//import { useDrop } from 'react-dnd';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import {

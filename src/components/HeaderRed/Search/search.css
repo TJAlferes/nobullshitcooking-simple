@@ -263,6 +263,7 @@
   font-family: Arial, sans-serif;
   font-size: 1.3rem;
   color: #111;
+  cursor: pointer;
 }
 
 .sui-search-box__submit {

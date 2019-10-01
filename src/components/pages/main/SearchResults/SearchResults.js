@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { withSearch, Results, Facet, PagingInfo, Paging, ResultsPerPage } from '@elastic/react-search-ui';
+import { MultiCheckboxFacet } from '@elastic/react-search-ui-views';
 
-import './results.css';
+import './searchResults.css';
 
-const Results = props => {
+const SearchResults = props => {
   return (
     <div className="results">
       <h1>Results</h1>
       <Facet
-        field="recipe_type"
+        field="recipeType"
         label="Recipe Type"
-        view={SingleSelectFacet}
+        view={MultiCheckboxFacet}
       />
       <Facet
         field="cuisine"
         label="Cuisine"
-        view={SingleSelectFacet}
+        view={MultiCheckboxFacet}
       />
       <Results />
       {props.wasSearched && <PagingInfo />}
@@ -27,4 +28,4 @@ const Results = props => {
 
 const mapContextToProps = ({ wasSearched }) => ({wasSearched});
 
-export default withSearch(mapContextToProps)(Results);
+export default withSearch(mapContextToProps)(SearchResults);

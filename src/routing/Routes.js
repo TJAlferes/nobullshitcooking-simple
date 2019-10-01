@@ -56,6 +56,8 @@ const UserMessengerPage = lazy(() => import('../components/user/UserMessengerPag
 const UserFriends = lazy(() => import('../components/user/UserFriends/UserFriends'));
 
 
+const SearchResults = lazy(() => import('../components/pages/main/SearchResults/SearchResults'));
+//const SearchResult = lazy(() => import('../components/pages/main/SearchResult/SearchResult'));
 const Equipments = lazy(() => import('../components/pages/main/Equipments/Equipments'));
 const Equipment = lazy(() => import('../components/pages/main/Equipment/Equipment'));
 const Ingredients = lazy(() => import('../components/pages/main/Ingredients/Ingredients'));
@@ -237,6 +239,7 @@ const RoutesList = () => (
         routes
       */}
       
+      <AppliedRoute path="/search-results" exact component={SearchResults} />
       <AppliedRoute path="/equipments" exact component={Equipments} />
       <AppliedRoute path="/equipments/:type" exact component={Equipments} />
       <AppliedRoute path="/equipment/:id" exact component={Equipment} />

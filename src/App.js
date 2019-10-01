@@ -1,8 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
-import { DragDropContext } from 'react-dnd';
+import MultiBackend from 'react-dnd-multi-backend';
+//import HTML5Backend from 'react-dnd-html5-backend-cjs';
+//import TouchBackend from 'react-dnd-touch-backend-cjs';
+import { DndProvider } from 'react-dnd-cjs';
 
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
 import HeaderRed from './components/HeaderRed/HeaderRed';
@@ -11,7 +13,7 @@ import FooterGray from './components/FooterGray/FooterGray';
 import RoutesList from './routing/Routes';
 import './app.css';
 
-const withDragDropContext = DragDropContext(MultiBackend(HTML5toTouch));
+// TO DO: Either move DnDProvider to index.js, or move other providers here
 
 const App = props => {
   /*
@@ -37,24 +39,26 @@ const App = props => {
   } else {
     // ... Otherwise, render the normal layout
     layout = (
-      <div id="app">
-        <div>
-          <div className="mobile_display">
-            <MobileHeaderRed />
+      <DndProvider backend={MultiBackend} options={HTML5toTouch}>
+        <div id="app">
+          <div>
+            <div className="mobile_display">
+              <MobileHeaderRed />
+            </div>
+            <div className="desktop_display">
+              <HeaderRed />
+            </div>
           </div>
-          <div className="desktop_display">
-            <HeaderRed />
-          </div>
+          <MainWhite location={location}>
+            <RoutesList />
+          </MainWhite>
+          <FooterGray />
         </div>
-        <MainWhite location={location}>
-          <RoutesList />
-        </MainWhite>
-        <FooterGray />
-      </div>
+      </DndProvider>
     );
   }
 
   return layout;
 }
 
-export default withRouter(withDragDropContext(App));
+export default withRouter(App);

@@ -65,10 +65,6 @@ import {
   messengerSendWhisperSaga,
   messengerUpdateOnlineSaga
 } from './messenger';
-import {
-  //plannerPublicLoadFromUrlSaga,
-  plannerPublicSaveToUrlSaga
-} from './planner';
 
 export function* watchAuth() {
   yield all([
@@ -173,12 +169,5 @@ export function* watchMessenger() {
     takeEvery(actionTypes.MESSENGER_CHANGE_CHANNEL, messengerChangeChannelSaga),
     takeEvery(actionTypes.MESSENGER_SEND_MESSAGE, messengerSendMessageSaga),
     takeEvery(actionTypes.MESSENGER_SEND_WHISPER, messengerSendWhisperSaga)
-  ]);
-}
-
-export function* watchPlanner() {
-  yield all([
-    //takeEvery(actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL, plannerPublicLoadFromUrlSaga),
-    takeEvery(actionTypes.PLANNER_PUBLIC_SAVE_TO_URL, plannerPublicSaveToUrlSaga)
   ]);
 }

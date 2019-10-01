@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropTarget } from 'react-dnd';
+import { DropTarget } from 'react-dnd-cjs';
 
 import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import './plannerRecipesList.css';  // use BEM

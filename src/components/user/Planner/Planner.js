@@ -9,7 +9,6 @@ import LeftNav from '../../LeftNav/LeftNav';
 import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
-//import CustomDragLayer from './CustomDragLayer';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
 import './planner.css';  // use BEM

@@ -16,40 +16,13 @@ function getHighlight(hit, fieldName) {
   return hit.highlight[fieldName][0];
 }
 
-/*function buildResults(hits) {
-  const addEachKeyValueToObject = (acc, [key, value]) => ({
-    ...acc,
-    [key]: value
-  });
-
-  const toObject = (value, snippet) => {
-    return { raw: value, ...(snippet && { snippet }) };
-  };
-
-  return hits.map(record => {
-    return Object.entries(record._source)
-      .map(([fieldName, fieldValue]) => [
-        fieldName,
-        toObject(fieldValue, getHighlight(record, fieldName))
-      ])
-      .reduce(addEachKeyValueToObject, {});
-  });
-}*/
 function buildResults(hits) {
-  const shitArr = [];
+  const builtResults = [];
   hits.map(record => {
     const snippet = getHighlight(record, "title");
-    shitArr.push(
-      {
-        id: {
-          raw: record._source.title,
-          ...(snippet && {snippet})
-        }
-      }
-    );
+    builtResults.push({id: {raw: record._source.title, ...(snippet && {snippet})}});
   });
-  console.log('shitArr', shitArr);
-  return shitArr;
+  return builtResults;
 }
 
 function buildTotalPages(resultsPerPage, totalResults) {
@@ -58,7 +31,7 @@ function buildTotalPages(resultsPerPage, totalResults) {
   return Math.ceil(totalResults / resultsPerPage);
 }
 
-function getValueFacet(aggregations, fieldName) {
+/*function getValueFacet(aggregations, fieldName) {
   if (
    aggregations &&
    aggregations[fieldName] &&
@@ -82,12 +55,17 @@ function buildStateFacets(aggregations) {
   const cuisines = getValueFacet(aggregations, "cuisines");
   const facets = {...(recipe_types && {recipe_types}), ...(cuisines && {cuisines})};
   if (Object.keys(facets).length > 0) return facets;
-}
+}*/
 
 export default function buildState(response, resultsPerPage) {
   const results = buildResults(response.hits.hits);
   const totalResults = response.hits.total.value;
   const totalPages = buildTotalPages(resultsPerPage, totalResults);
-  const facets = buildStateFacets(response.aggregations);
-  return {results, totalPages, totalResults, ...(facets && {facets})};
+  //const facets = buildStateFacets(response.aggregations);
+  return {
+    results,
+    totalPages,
+    totalResults,
+    //...(facets && {facets})
+  };
 }

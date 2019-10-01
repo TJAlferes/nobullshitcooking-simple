@@ -10,7 +10,7 @@ const convertPlannerToUrl = recipeListsInsideDays => {
     plannerSubString += '!';
     plannerString += plannerSubString;
   });
-  plannerString = plannerString.slice(0, -1);  // This removes the last '.'
+  plannerString = plannerString.slice(0, -1);  // This removes the last '!'
   return plannerString;
 };
 
