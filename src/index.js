@@ -71,12 +71,12 @@ store.dispatch(dataInit());  // gets initial data (Note: this needs to be optimi
 store.subscribe(() => saveToLocalStorage(store.getState()));
 
 const searchConfig = {
-  onResultClick: function() {
-
+  /*onResultClick: function() {
+    console.log('clicked!');
   },
   onAutocompleteResultClick: function() {
     console.log('clicked!');
-  },
+  },*/
   onAutocomplete: async function({ searchTerm }) {  // JSON.stringify()?
     const res = await axios.post(
       `${endpoint}/search/autocomplete/recipes`,
@@ -92,8 +92,6 @@ const searchConfig = {
       {searchTerm: state.searchTerm},  //buildRequest(state),
       {withCredentials: true}
     );
-    //let history = useHistory();  // otherwise just do through redux saga searchGoToSearchResults
-    //history.push('/search-results');
     return buildState(res.data.found, state.resultsPerPage);
   },
   searchQuery: {
