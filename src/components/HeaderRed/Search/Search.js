@@ -65,37 +65,37 @@ const Search = props => {
 
       <div id="search_insert">
         <SearchBox
+          onSubmit={handleSubmit}
+          inputProps={{placeholder: ""}}
+          useAutocomplete={true}
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
             titleField: "title",
             urlField: "title",
             shouldTrackClickThrough: true
           }}
-          autocompleteView={props => (
-            <div className="sui-search-box__autocomplete">
-              <ul className="sui-search-box__results-list">
-                {props.autocompletedResults.map(res => (
-                  <li
-                    key={res.id.raw}
-                    dangerouslySetInnerHTML={{__html: res.id.snippet}}
-                    onClick={async () => {
-                      await redirectToSearchPage();
-                      props.setSearchTerm(res.id.raw);
-                      props.closeMenu();
-                      console.log(props);
-                    }}
-                  >
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          inputProps={{
-            placeholder: "",
-            onKeyDown: (e) => console.log(e.target.props)
+          autocompleteView={props => {
+            return (
+              <div className="sui-search-box__autocomplete">
+                <ul className="sui-search-box__results-list">
+                  {props.autocompletedResults.map(res => {
+                    return (
+                      <li
+                        key={res.id.raw}
+                        dangerouslySetInnerHTML={{__html: res.id.snippet}}
+                        onClick={async () => {
+                          await redirectToSearchPage();
+                          props.setSearchTerm(res.id.raw);
+                          props.closeMenu();
+                        }}
+                      >
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
           }}
-          onSubmit={handleSubmit}
-          useAutocomplete={true}
         />
       </div>
 

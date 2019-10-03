@@ -241,6 +241,7 @@
   padding-left: 5px;
   list-style-type: none;
   background-color: #fff;
+  color: #111;
 }
 
 .sui-search-box__suggestion-list li,

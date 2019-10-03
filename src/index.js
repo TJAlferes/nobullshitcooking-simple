@@ -15,6 +15,7 @@ import { SearchProvider } from '@elastic/react-search-ui';
 import { dataInit } from './store/actions/index';
 import rootReducer from './store/reducers/index';
 import { watchAuth, watchData, watchUser, watchMessenger } from './store/sagas/index';
+//import applyFaceting from './utils/search/applyFaceting';
 import buildRequest from './utils/search/buildRequest';
 import buildState from './utils/search/buildState';
 import App from './App';
@@ -71,12 +72,12 @@ store.dispatch(dataInit());  // gets initial data (Note: this needs to be optimi
 store.subscribe(() => saveToLocalStorage(store.getState()));
 
 const searchConfig = {
-  /*onResultClick: function() {
-    console.log('clicked!');
+  onResultClick: function() {
+    //console.log('clicked!');
   },
   onAutocompleteResultClick: function() {
-    console.log('clicked!');
-  },*/
+    //console.log('clicked!');
+  },
   onAutocomplete: async function({ searchTerm }) {  // JSON.stringify()?
     const res = await axios.post(
       `${endpoint}/search/autocomplete/recipes`,
