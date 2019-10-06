@@ -15,7 +15,7 @@ import { SearchProvider } from '@elastic/react-search-ui';
 import { dataInit } from './store/actions/index';
 import rootReducer from './store/reducers/index';
 import { watchAuth, watchData, watchUser, watchMessenger } from './store/sagas/index';
-//import applyFaceting from './utils/search/applyFaceting';
+import applyDisjunctiveFaceting from './utils/search/applyDisjunctiveFaceting';
 import buildRequest from './utils/search/buildRequest';
 import buildState from './utils/search/buildState';
 import App from './App';
@@ -72,35 +72,56 @@ store.dispatch(dataInit());  // gets initial data (Note: this needs to be optimi
 store.subscribe(() => saveToLocalStorage(store.getState()));
 
 const searchConfig = {
+  //debug: true,
   onResultClick: function() {
     //console.log('clicked!');
   },
   onAutocompleteResultClick: function() {
     //console.log('clicked!');
   },
-  onAutocomplete: async function({ searchTerm }) {  // JSON.stringify()?
+  onAutocomplete: async function({ searchTerm }) {  // JSON.stringify()? 
     const res = await axios.post(
       `${endpoint}/search/autocomplete/recipes`,
-      {searchTerm},  //buildRequest({searchTerm}), (for filters!)
+      {searchTerm},
       {withCredentials: true}
     );
-    const state = buildState(res.data.found);
-    return {autocompletedResults: state.results};
+    const newState = buildState(res.data.found);
+    return {autocompletedResults: newState.results};
   },
   onSearch: async function(state) {  // JSON.stringify()?
     const res = await axios.post(
       `${endpoint}/search/find/recipes`,
-      {searchTerm: state.searchTerm},  //buildRequest(state),
+      buildRequest(state),  //{searchTerm: state.searchTerm}
       {withCredentials: true}
     );
-    return buildState(res.data.found, state.resultsPerPage);
+    /*const resWithDisjunctiveFacetCounts = await applyDisjunctiveFaceting(
+      res.data,
+      state,
+      ["recipeTypeName", "cuisineName"]
+    );*/
+    //console.log(resWithDisjunctiveFacetCounts);
+    //console.log(res.data.found);
+
+    const newState = buildState(res.data.found, state.resultsPerPage);  //const newState = buildState(resWithDisjunctiveFacetCounts, state.resultsPerPage);
+    return newState;
   },
   searchQuery: {
     facets: {
-      recipeTypes: {type: "value", size: 12},
-      cuisines: {type: "value", size: 24}
+      recipeTypeName: {type: "value", size: 12},
+      cuisineName: {type: "value", size: 24}
     }
-  }
+  },
+  initialState: {
+    filters: [
+      {
+        field: "recipeTypeName",
+        values: ["Appetizer", "Main", "Side", "Salad", "Soup", "Casserole", "Sauce", "Condiment", "Dressing", "Dessert"],
+        type: "any"
+      }
+    ]
+  },
+  trackUrlState: false,
+  //disjunctiveFacets: ["recipeTypeName", "cuisineName"]
 };
 
 const app = (

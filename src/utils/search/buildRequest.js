@@ -6,8 +6,11 @@ https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
 
 function buildMatch(searchTerm) {
+  // multi_match? (more than just title (description, methodNames, ingredientNames, etc.))
+  //{multi_match: {query: searchTerm, fields: ["title"]}}
+  //{match: {title: {query: searchTerm, operator: "and"}}}
   return searchTerm
-  ? {match: {query: searchTerm}}
+  ? {match: {title: {query: searchTerm}}}
   : {match_all: {}}
 }
 
@@ -18,8 +21,8 @@ function buildFrom(current, resultsPerPage) {
 
 function getTermFilterValue(field, fieldValue) {
   if (fieldValue === "false" || fieldValue === "true") {
-    return {[field]: fieldValue === "true"};  // ?
-  }
+    return {[field]: fieldValue === "true"};
+  }  // ?
   return {[`${field}.keyword`]: fieldValue};  // ?
 }
 
@@ -51,24 +54,36 @@ function getTermFilter(filter) {
 function buildRequestFilter(filters) {
   if (!filters) return;
   filters = filters.reduce((acc, filter) => {
-    if (["recipeTypes", "cuisines"].includes(filter.field)) {
+    // TO DO: also add methodNames, allergy ingredients, etc. (index them first)
+    if (["recipeTypeName", "cuisineName"].includes(filter.field)) { 
       return [...acc, getTermFilter(filter)];
     }
-  }, []);  // ?
+  }, []);
   if (filters.length < 1) return;
   return filters;
 }
 
 export default function buildRequest(state) {
   const { searchTerm, filters, current, resultsPerPage } = state;
+  //console.log('filters', filters);
   const match = buildMatch(searchTerm);
   const filter = buildRequestFilter(filters);
+  //console.log('filter', filter);
   const from = buildFrom(current, resultsPerPage);  // starting
   const size = resultsPerPage;  // limit
   const body = {
-    //_source: ["title"],
-    //highlight: {},
-    //aggs: {},
+    highlight: {
+      fragment_size: 200,  // less?
+      number_of_fragments: 1,
+      fields: {title: {}}
+    },
+    //_source: ["title", "recipeTypeName", "cuisineName"],
+    aggs: {
+      recipeTypeName: {terms: {field: "recipeTypeName.keyword"}},
+      cuisineName: {terms: {field: "cuisineName.keyword"}},
+      //ingredientTypes: {terms: {fields: "ingredientTypes"}},
+      //methods: {terms: {fields: "methodNames"}}
+    },
     query: {
       bool: {
         must: [match],

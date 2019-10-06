@@ -31,6 +31,7 @@ const Search = props => {
           <span id="facade_text">All</span>
           <img id="facade_arrow" src={DownArrowGray} />
         </div>
+        {/* <Facet view={SingleSelectFacet} /> nested? combined? */}
         <select
           name="search_prefilter"
           id="search_prefilter"
