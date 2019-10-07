@@ -94,14 +94,14 @@ const searchConfig = {
       buildRequest(state),  //{searchTerm: state.searchTerm}
       {withCredentials: true}
     );
+    console.log(res.data);
     /*const resWithDisjunctiveFacetCounts = await applyDisjunctiveFaceting(
       res.data,
       state,
       ["recipeTypeName", "cuisineName"]
     );*/
     //console.log(resWithDisjunctiveFacetCounts);
-    //console.log(res.data.found);
-
+    console.log(res.data.found);
     const newState = buildState(res.data.found, state.resultsPerPage);  //const newState = buildState(resWithDisjunctiveFacetCounts, state.resultsPerPage);
     return newState;
   },
@@ -111,16 +111,21 @@ const searchConfig = {
       cuisineName: {type: "value", size: 24}
     }
   },
-  initialState: {
+  /*initialState: {
     filters: [
       {
         field: "recipeTypeName",
-        values: ["Appetizer", "Main", "Side", "Salad", "Soup", "Casserole", "Sauce", "Condiment", "Dressing", "Dessert"],
+        values: ["Salad"],
+        type: "any"
+      },
+      {
+        field: "cuisineName",
+        values: ["Greek"],
         type: "any"
       }
     ]
-  },
-  trackUrlState: false,
+  },*/
+  //trackUrlState: false,
   //disjunctiveFacets: ["recipeTypeName", "cuisineName"]
 };
 

@@ -16,17 +16,20 @@ function getHighlight(hit, fieldName) {
   return hit.highlight[fieldName][0];
 }
 
-function buildResults(hits) {
+/*function buildResults(hits) {
   const builtResults = [];
   hits.map(record => {
     const snippet = getHighlight(record, "title");
-    builtResults.push({id: {raw: record._source.title, ...(snippet && {snippet})}});
+    builtResults.push({
+      id: {raw: record._source.title, ...(snippet && {snippet})},
+      //
+    });
   });
   return builtResults;
-}
+}*/
 
 //TO DO: make this one for search results, leave above one for autocomplete results
-/*function buildResults(hits) {
+function buildResults(hits) {
   const addEachKeyValueToObject = (acc, [key, value]) => ({
     ...acc,
     [key]: value
@@ -44,7 +47,7 @@ function buildResults(hits) {
       ])
       .reduce(addEachKeyValueToObject, {});
   });
-}*/
+}
 
 function buildTotalPages(resultsPerPage, totalResults) {
   if (!resultsPerPage) return 0;
@@ -82,12 +85,12 @@ function buildStateFacets(aggregations) {
 }
 
 export default function buildState(response, resultsPerPage) {
+  //console.log('response', response);
+  //console.log('response.aggregations', response.aggregations);
   const results = buildResults(response.hits.hits);
   const totalResults = response.hits.total.value;
   const totalPages = buildTotalPages(resultsPerPage, totalResults);
   const facets = buildStateFacets(response.aggregations);
-  //console.log('response', response);
-  //console.log('response.aggregations', response.aggregations);
   return {
     results,
     totalPages,

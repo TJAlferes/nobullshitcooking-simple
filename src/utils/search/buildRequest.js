@@ -65,12 +65,18 @@ function buildRequestFilter(filters) {
 
 export default function buildRequest(state) {
   const { searchTerm, filters, current, resultsPerPage } = state;
-  //console.log('filters', filters);
+  console.log('filters', filters);
+
   const match = buildMatch(searchTerm);
   const filter = buildRequestFilter(filters);
-  //console.log('filter', filter);
   const from = buildFrom(current, resultsPerPage);  // starting
   const size = resultsPerPage;  // limit
+
+  console.log('match', match);
+  console.log('filter', filter);
+  console.log('from', from);
+  console.log('size', size);
+
   const body = {
     highlight: {
       fragment_size: 200,  // less?
