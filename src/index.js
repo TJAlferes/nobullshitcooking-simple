@@ -16,8 +16,9 @@ import { dataInit } from './store/actions/index';
 import rootReducer from './store/reducers/index';
 import { watchAuth, watchData, watchUser, watchMessenger } from './store/sagas/index';
 import applyDisjunctiveFaceting from './utils/search/applyDisjunctiveFaceting';
-import buildRequest from './utils/search/buildRequest';
-import buildState from './utils/search/buildState';
+import buildSearchRequest from './utils/search/buildSearchRequest';
+import buildSearchState from './utils/search/buildSearchState';
+import buildAutocompleteState from './utils/search/buildAutocompleteState';
 import App from './App';
 import './global.css';
 //import './main.css';
@@ -85,31 +86,32 @@ const searchConfig = {
       {searchTerm},
       {withCredentials: true}
     );
-    const newState = buildState(res.data.found);
+    const newState = buildAutocompleteState(res.data.found);
     return {autocompletedResults: newState.results};
   },
   onSearch: async function(state) {  // JSON.stringify()?
     const res = await axios.post(
       `${endpoint}/search/find/recipes`,
-      buildRequest(state),  //{searchTerm: state.searchTerm}
+      {body: buildSearchRequest(state)},
       {withCredentials: true}
     );
-    console.log(res.data);
-    /*const resWithDisjunctiveFacetCounts = await applyDisjunctiveFaceting(
-      res.data,
+    //console.log(res.data.found);
+    const resWithDisjunctiveFacetCounts = await applyDisjunctiveFaceting(
+      res.data.found,
       state,
       ["recipeTypeName", "cuisineName"]
-    );*/
-    //console.log(resWithDisjunctiveFacetCounts);
-    console.log(res.data.found);
-    const newState = buildState(res.data.found, state.resultsPerPage);  //const newState = buildState(resWithDisjunctiveFacetCounts, state.resultsPerPage);
+    );
+    console.log('resWithDisjunctiveFacetCounts: ', resWithDisjunctiveFacetCounts);
+    //const newState = buildSearchState(res.data.found, state.resultsPerPage);
+    const newState = buildSearchState(resWithDisjunctiveFacetCounts, state.resultsPerPage);
     return newState;
   },
   searchQuery: {
     facets: {
       recipeTypeName: {type: "value", size: 12},
       cuisineName: {type: "value", size: 24}
-    }
+    },
+    disjunctiveFacets: ["recipeTypeName", "cuisineName"]
   },
   /*initialState: {
     filters: [

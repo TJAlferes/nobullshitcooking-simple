@@ -1,8 +1,7 @@
 import React from 'react';
-import { withSearch, Facet, Results, PagingInfo, Paging, ResultsPerPage } from '@elastic/react-search-ui';
+import { withSearch, Facet, PagingInfo, Paging, ResultsPerPage } from '@elastic/react-search-ui';
 import { Link } from 'react-router-dom';
 
-import SearchResult from '../SearchResult/SearchResult';
 import './searchResults.css'; 
 
 const SearchResults = props => {
@@ -13,9 +12,6 @@ const SearchResults = props => {
 
         <h1>Search Results</h1>
 
-        <div>{JSON.stringify({...props.facets})}</div>
-        <div>{JSON.stringify({...props.filters})}</div>
-
         <div className="search-results-filters">
           <span className="search-results-filter-title">Filter by:</span>
           <Facet
@@ -25,7 +21,6 @@ const SearchResults = props => {
             isFilterable={true}
             showSearch={false}
             show={12}
-            //view={() => <div>{JSON.stringify({...props.options})}</div>}
             facets={{
               recipeTypeName: [
                 {
@@ -45,12 +40,7 @@ const SearchResults = props => {
                   ],
                   field: "recipeTypeName",
                   type: "value"
-                },
-                {
-                  data: [{count: 1, value: "Appetizer"}],
-                  field: "recipeTypeName",
-                  type: "value"
-                },
+                }
               ]
             }}
           />
@@ -104,27 +94,36 @@ const SearchResults = props => {
         {props.wasSearched && <PagingInfo />}
         <Paging />
 
-        <div>
+        <div className="search-results-list">
           {props.results.map(result => {
             let rows = Object.entries(result);
             return (
               <div className="search-result-recipe" key={rows[0][1].raw}>
-                <div className="search-result-recipe__title"><Link to={`/recipe/${rows[0][1].raw}`}>{rows[4][1].raw}</Link></div>
-                <div className="search-result-recipe__author">Author: {rows[1][1].raw}</div>
-                <div className="search-result-recipe__recipe-type">{rows[2][1].raw}</div>
-                <div className="search-result-recipe__cuisine">{rows[3][1].raw}</div>
-                {/*<div>: {rows[5][1].raw}</div>*/}
-                {/*<div>: {rows[6][1].raw}</div>*/}
-                <div>: {rows[7][1].raw}</div>
-                <div>: {rows[8][1].raw}</div>
-                <div>: {rows[9][1].raw}</div>
-                <div>: {rows[10][1].raw}</div>
-                <div>: {rows[11][1].raw}</div>
+                <Link
+                  className="search-result-recipe-link"
+                  to={`/recipe/${rows[0][1].raw}`}
+                >
+                  <div className="search-result-recipe-text">
+                    <div className="search-result-recipe-text__title">{rows[4][1].raw}</div>
+                    <div className="search-result-recipe-text__author">{rows[1][1].raw}</div>
+
+                    <div className="search-result-recipe-text__cuisine">{rows[3][1].raw}</div>
+                    <div className="search-result-recipe-text__recipe-type">{rows[2][1].raw}</div>
+
+                    <div className="search-result-recipe-text__tags">
+                      <div className="search-result-recipe-text__tags-methods">{rows[8][1].raw}</div>
+                      <div className="search-result-recipe-text__tags-ingredients">{rows[10][1].raw}</div>
+                    </div>
+                  </div>
+                  <img
+                    className="search-result-recipe-image"
+                    src={`https://s3.amazonaws.com/nobsc-user-recipe/${rows[7][1].raw}-thumb`}
+                  />
+                </Link>
               </div>
             );
           })}
         </div>
-        {/*<Results resultView={result => <SearchResult key={result.id.raw} result={result} />} />*/}
 
         {props.wasSearched && <PagingInfo />}
         <Paging />

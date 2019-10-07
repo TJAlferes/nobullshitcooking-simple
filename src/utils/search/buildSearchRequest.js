@@ -20,10 +20,9 @@ function buildFrom(current, resultsPerPage) {
 }
 
 function getTermFilterValue(field, fieldValue) {
-  if (fieldValue === "false" || fieldValue === "true") {
-    return {[field]: fieldValue === "true"};
-  }  // ?
-  return {[`${field}.keyword`]: fieldValue};  // ?
+  if (fieldValue === "false" || fieldValue === "true") return {[field]: fieldValue === "true"};  // ?
+  //return {[`${field}.keyword`]: fieldValue};  // ?  
+  return {[`${field}`]: fieldValue};  // ?  
 }
 
 function getTermFilter(filter) {
@@ -63,7 +62,7 @@ function buildRequestFilter(filters) {
   return filters;
 }
 
-export default function buildRequest(state) {
+export default function buildSearchRequest(state) {
   const { searchTerm, filters, current, resultsPerPage } = state;
   console.log('filters', filters);
 
@@ -72,10 +71,10 @@ export default function buildRequest(state) {
   const from = buildFrom(current, resultsPerPage);  // starting
   const size = resultsPerPage;  // limit
 
-  console.log('match', match);
+  //console.log('match', match);
   console.log('filter', filter);
-  console.log('from', from);
-  console.log('size', size);
+  //console.log('from', from);
+  //console.log('size', size);
 
   const body = {
     highlight: {
@@ -85,8 +84,10 @@ export default function buildRequest(state) {
     },
     //_source: ["title", "recipeTypeName", "cuisineName"],
     aggs: {
-      recipeTypeName: {terms: {field: "recipeTypeName.keyword"}},
-      cuisineName: {terms: {field: "cuisineName.keyword"}},
+      //recipeTypeName: {terms: {field: "recipeTypeName.keyword"}},
+      //cuisineName: {terms: {field: "cuisineName.keyword"}},
+      recipeTypeName: {terms: {field: "recipeTypeName"}},
+      cuisineName: {terms: {field: "cuisineName"}},
       //ingredientTypes: {terms: {fields: "ingredientTypes"}},
       //methods: {terms: {fields: "methodNames"}}
     },

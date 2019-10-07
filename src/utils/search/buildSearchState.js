@@ -16,19 +16,6 @@ function getHighlight(hit, fieldName) {
   return hit.highlight[fieldName][0];
 }
 
-/*function buildResults(hits) {
-  const builtResults = [];
-  hits.map(record => {
-    const snippet = getHighlight(record, "title");
-    builtResults.push({
-      id: {raw: record._source.title, ...(snippet && {snippet})},
-      //
-    });
-  });
-  return builtResults;
-}*/
-
-//TO DO: make this one for search results, leave above one for autocomplete results
 function buildResults(hits) {
   const addEachKeyValueToObject = (acc, [key, value]) => ({
     ...acc,
@@ -59,8 +46,8 @@ function getValueFacet(aggregations, fieldName) {
   if (
    aggregations &&
    aggregations[fieldName] &&
-   aggregations[fieldName].buckets &&
-   aggregations[fieldName].buckets.length > 0
+   aggregations[fieldName].buckets
+   //aggregations[fieldName].buckets.length > 0
   ) {
     return [{
       field: fieldName,
@@ -77,6 +64,7 @@ function getValueFacet(aggregations, fieldName) {
 function buildStateFacets(aggregations) {
   const recipeTypeName = getValueFacet(aggregations, "recipeTypeName");
   const cuisineName = getValueFacet(aggregations, "cuisineName");
+  console.log('RECIPE_TYPE_NAME: ', recipeTypeName);
   const facets = {
     ...(recipeTypeName && {recipeTypeName}),
     ...(cuisineName && {cuisineName})
@@ -84,13 +72,12 @@ function buildStateFacets(aggregations) {
   if (Object.keys(facets).length > 0) return facets;
 }
 
-export default function buildState(response, resultsPerPage) {
-  //console.log('response', response);
-  //console.log('response.aggregations', response.aggregations);
+export default function buildSearchState(response, resultsPerPage) {
   const results = buildResults(response.hits.hits);
   const totalResults = response.hits.total.value;
   const totalPages = buildTotalPages(resultsPerPage, totalResults);
   const facets = buildStateFacets(response.aggregations);
+  console.log('FACETS: ', facets);
   return {
     results,
     totalPages,
