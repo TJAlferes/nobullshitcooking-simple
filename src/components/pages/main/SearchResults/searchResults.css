@@ -100,6 +100,7 @@
   align-items: flex-start;
   width: 100%;
   height: 100%;
+  padding: 10px;
 }
 
 .search-result-recipe-link {
@@ -115,6 +116,7 @@
 .search-result-recipe-text__title {
   text-decoration: none;
   font-size: 1.6rem;
+  font-weight: 900;
   color: #000;
 }
 
@@ -123,20 +125,32 @@
   color: #c10006;
 }
 
+.search-result-recipe-text__types-cuisine,
+.search-result-recipe-text__types-recipe-type {
+  display: inline-block;
+  margin-right: 5px;
+}
 
-
-.search-result-recipe-text-tags {
+.search-result-recipe-text__tags {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
 }
 
-.search-result-recipe-text__methods,
-.search-result-recipe-text__ingredients {
+.search-result-recipe-text__tags-methods,
+.search-result-recipe-text__tags-ingredients {
   max-width: fit-content;
-  margin: 2px;
+  margin-right: 4px;
+  margin-bottom: 4px;
   padding: 1px 3px;
-  font-size: 12px;
-  background-color: #ddd;
+  font-size: 13px;
+}
+
+.search-result-recipe-text__tags-methods {
+  background-color: #cfcfcf;
+}
+
+.search-result-recipe-text__tags-ingredients {
+  background-color: #dedede;
 }

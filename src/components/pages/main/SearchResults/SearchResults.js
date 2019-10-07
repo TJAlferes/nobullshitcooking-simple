@@ -107,8 +107,10 @@ const SearchResults = props => {
                     <div className="search-result-recipe-text__title">{rows[4][1].raw}</div>
                     <div className="search-result-recipe-text__author">{rows[1][1].raw}</div>
 
-                    <div className="search-result-recipe-text__cuisine">{rows[3][1].raw}</div>
-                    <div className="search-result-recipe-text__recipe-type">{rows[2][1].raw}</div>
+                    <div className="search-result-recipe-text__types">
+                      <div className="search-result-recipe-text__types-cuisine">{rows[3][1].raw}</div>
+                      <div className="search-result-recipe-text__types-recipe-type">{rows[2][1].raw}</div>
+                    </div>
 
                     <div className="search-result-recipe-text__tags">
                       <div className="search-result-recipe-text__tags-methods">{rows[8][1].raw}</div>
