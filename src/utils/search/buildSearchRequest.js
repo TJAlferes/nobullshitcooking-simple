@@ -5,13 +5,16 @@ https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 
 */
 
-function buildMatch(searchTerm) {
-  // multi_match? (more than just title (description, methodNames, ingredientNames, etc.))
-  //{multi_match: {query: searchTerm, fields: ["title"]}}
-  //{match: {title: {query: searchTerm, operator: "and"}}}
-  return searchTerm
-  ? {match: {title: {query: searchTerm}}}
-  : {match_all: {}}
+function buildMatch(searchTerm, currentIndex) {
+  if (currentIndex === "recipes") {
+    return searchTerm
+    ? {match: {title: {query: searchTerm}}}
+    : {match_all: {}};
+  } else if (currentIndex === "ingredients") {
+    return searchTerm
+    ? {match: {ingredientName: {query: searchTerm}}}
+    : {match_all: {}};
+  }
 }
 
 function buildFrom(current, resultsPerPage) {
@@ -20,9 +23,10 @@ function buildFrom(current, resultsPerPage) {
 }
 
 function getTermFilterValue(field, fieldValue) {
-  if (fieldValue === "false" || fieldValue === "true") return {[field]: fieldValue === "true"};  // ?
-  //return {[`${field}.keyword`]: fieldValue};  // ?  
-  return {[`${field}`]: fieldValue};  // ?  
+  /*if (fieldValue === "false" || fieldValue === "true") {
+    return {[field]: fieldValue === "true"};
+  }*/
+  return {[`${field}`]: fieldValue};
 }
 
 function getTermFilter(filter) {
@@ -50,47 +54,56 @@ function getTermFilter(filter) {
   }
 }
 
-function buildRequestFilter(filters) {
+function buildRequestFilter(filters, currentIndex) {
   if (!filters) return;
   filters = filters.reduce((acc, filter) => {
-    // TO DO: also add methodNames, allergy ingredients, etc. (index them first)
-    if (["recipeTypeName", "cuisineName"].includes(filter.field)) { 
-      return [...acc, getTermFilter(filter)];
+    if (currentIndex === "recipes") {
+      // TO DO: also add methodNames, allergy ingredients, etc. (index them first)
+      if (["recipeTypeName", "cuisineName"].includes(filter.field)) { 
+        return [...acc, getTermFilter(filter)];
+      }
+    } else if (currentIndex === "ingredients") {
+      if (["ingredientTypeName"].includes(filter.field)) { 
+        return [...acc, getTermFilter(filter)];
+      }
     }
   }, []);
   if (filters.length < 1) return;
   return filters;
 }
 
-export default function buildSearchRequest(state) {
+export default function buildSearchRequest(state, currentIndex) {
   const { searchTerm, filters, current, resultsPerPage } = state;
-  console.log('filters', filters);
 
-  const match = buildMatch(searchTerm);
-  const filter = buildRequestFilter(filters);
+  const match = buildMatch(searchTerm, currentIndex);
+  const filter = buildRequestFilter(filters, currentIndex);
   const from = buildFrom(current, resultsPerPage);  // starting
   const size = resultsPerPage;  // limit
 
-  //console.log('match', match);
-  console.log('filter', filter);
-  //console.log('from', from);
-  //console.log('size', size);
+  let highlightFields;
+  let aggs;
+  if (currentIndex === "recipes") {
+    highlightFields = {title: {}};
+    aggs = {
+      recipeTypeName: {terms: {field: "recipeTypeName"}},
+      cuisineName: {terms: {field: "cuisineName"}},
+      //ingredientTypes: {terms: {fields: "ingredientTypes"}},
+      //methodName: {terms: {fields: "methodNames"}}  ???
+      //methodName: {terms: {fields: ["methodName"]}}
+    };
+  } else if (currentIndex === "ingredients") {
+    highlightFields = {ingredientName: {}};
+    aggs = {ingredientTypeName: {terms: {field: "ingredientTypeName"}}};
+  }
+  //console.log('highlightFields: ', highlightFields);
 
   const body = {
     highlight: {
       fragment_size: 200,  // less?
       number_of_fragments: 1,
-      fields: {title: {}}
+      fields: highlightFields
     },
-    //_source: ["title", "recipeTypeName", "cuisineName"],
-    aggs: {
-      //recipeTypeName: {terms: {field: "recipeTypeName.keyword"}},
-      //cuisineName: {terms: {field: "cuisineName.keyword"}},
-      recipeTypeName: {terms: {field: "recipeTypeName"}},
-      cuisineName: {terms: {field: "cuisineName"}},
-      //ingredientTypes: {terms: {fields: "ingredientTypes"}},
-      //methods: {terms: {fields: "methodNames"}}
-    },
+    aggs,
     query: {
       bool: {
         must: [match],
@@ -100,5 +113,6 @@ export default function buildSearchRequest(state) {
     ...(from && {from}),
     ...(size && {size})
   };
+  console.log(body);
   return body;
 }

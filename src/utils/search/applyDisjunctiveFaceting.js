@@ -12,12 +12,8 @@ https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 
 */
 
-// TO DO: rename disjunctive to sticky?
-
 function combineAggregationsFromResponses(responses) {
-  let here = responses.reduce((acc, response) => ({...acc, ...response.aggregations}), {});
-  console.log('HERE: ', here);
-  return here;
+  return responses.reduce((acc, response) => ({...acc, ...response.aggregations}), {});
 }
 
 function removeFilterByName(state, facetName) {
@@ -32,31 +28,29 @@ function changeSizeToZero(body) {
   return {...body, size: 0};
 }
 
-async function getDisjunctiveFacetCounts(state, disjunctiveFacetNames) {
+async function getDisjunctiveFacetCounts(state, disjunctiveFacetNames, currentIndex) {
   let responses = [];
-  
+
   // TO DO: don't make request if "not" filter is currently applied
   disjunctiveFacetNames.map(async facetName => {
     let newState = removeFilterByName(state, facetName);
-    let body = buildSearchRequest(newState);
+    let body = buildSearchRequest(newState, currentIndex);
     body = changeSizeToZero(body);
     body = removeAllFacetsExcept(body, facetName);
     const res = await axios.post(
-      `${endpoint}/search/find/recipes`,
+      `${endpoint}/search/find/${currentIndex}`,
       {body},
       {withCredentials: true}
     );
     responses.push(res.data.found);
   });
-  console.log('responses', responses);
-  const combinedShit = combineAggregationsFromResponses(responses);
-  console.log('combinedShit: ', combinedShit);
-  return combinedShit;
+
+  return combineAggregationsFromResponses(responses);
 }
 
-export default async function applyDisjunctiveFaceting(json, state, disjunctiveFacetNames) {
-  const disjunctiveFacetCounts = await getDisjunctiveFacetCounts(state, disjunctiveFacetNames);
-  console.log('disjunctiveFacetCounts', disjunctiveFacetCounts);
+export default async function applyDisjunctiveFaceting(json, state, disjunctiveFacetNames, currentIndex) {
+  const disjunctiveFacetCounts = await getDisjunctiveFacetCounts(state, disjunctiveFacetNames, currentIndex);
+
   return {
     ...json,
     aggregations: {

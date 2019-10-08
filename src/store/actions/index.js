@@ -143,6 +143,8 @@ export {
   viewGetEquipment
 } from './view';
 
+export { searchSetIndex } from './search';
+
 export {
   userMessageClear,
   userCreateNewPrivateEquipment,

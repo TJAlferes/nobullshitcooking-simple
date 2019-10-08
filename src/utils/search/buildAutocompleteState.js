@@ -6,6 +6,8 @@ https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
 
 function getHighlight(hit, fieldName) {
+  console.log(hit);
+  console.log(fieldName);
   if (
     !hit.highlight ||
     !hit.highlight[fieldName] ||
@@ -16,12 +18,14 @@ function getHighlight(hit, fieldName) {
   return hit.highlight[fieldName][0];
 }
 
-function buildResults(hits) {
-  const builtResults = [];
+function buildResults(hits, currentIndex) {
+  let fieldString = currentIndex === "recipes" ? "title" : "ingredientName";
+  let builtResults = [];
   hits.map(record => {
-    const snippet = getHighlight(record, "title");
+    let field = currentIndex === "recipes" ? record._source.title : record._source.ingredientName;
+    let snippet = getHighlight(record, fieldString);
     builtResults.push({
-      id: {raw: record._source.title, ...(snippet && {snippet})},
+      id: {raw: field, ...(snippet && {snippet})},
       //
     });
   });
@@ -39,7 +43,7 @@ function getValueFacet(aggregations, fieldName) {
    aggregations &&
    aggregations[fieldName] &&
    aggregations[fieldName].buckets &&
-   aggregations[fieldName].buckets.length > 0
+   aggregations[fieldName].buckets.length > 0  // ?
   ) {
     return [{
       field: fieldName,
@@ -53,24 +57,31 @@ function getValueFacet(aggregations, fieldName) {
   }
 }
 
-function buildStateFacets(aggregations) {
-  const recipeTypeName = getValueFacet(aggregations, "recipeTypeName");
-  const cuisineName = getValueFacet(aggregations, "cuisineName");
-  const facets = {
-    ...(recipeTypeName && {recipeTypeName}),
-    ...(cuisineName && {cuisineName})
-  };
-  if (Object.keys(facets).length > 0) return facets;
+function buildStateFacets(aggregations, currentIndex) {
+  if (currentIndex === "recipes") {
+    const recipeTypeName = getValueFacet(aggregations, "recipeTypeName");
+    const cuisineName = getValueFacet(aggregations, "cuisineName");
+    const facets = {
+      ...(recipeTypeName && {recipeTypeName}),
+      ...(cuisineName && {cuisineName})
+    };
+    if (Object.keys(facets).length > 0) return facets;
+  } else if (currentIndex === "ingredients") {
+    const ingredientTypeName = getValueFacet(aggregations, "ingredientTypeName");
+    const facets = {...(ingredientTypeName && {ingredientTypeName})};
+    if (Object.keys(facets).length > 0) return facets;
+  }
 }
 
-export default function buildAutocompleteState(response, resultsPerPage) {
-  const results = buildResults(response.hits.hits);
+export default function buildAutocompleteState(response, currentIndex) {
+  const results = buildResults(response.hits.hits, currentIndex);
+  console.log(results);
   const totalResults = response.hits.total.value;
-  const totalPages = buildTotalPages(resultsPerPage, totalResults);
-  const facets = buildStateFacets(response.aggregations);
+  //const totalPages = buildTotalPages(resultsPerPage, totalResults);
+  const facets = buildStateFacets(response.aggregations, currentIndex);
   return {
     results,
-    totalPages,
+    //totalPages,
     totalResults,
     ...(facets && {facets})
   };

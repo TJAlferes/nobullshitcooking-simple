@@ -46,7 +46,7 @@ function getValueFacet(aggregations, fieldName) {
   if (
    aggregations &&
    aggregations[fieldName] &&
-   aggregations[fieldName].buckets
+   aggregations[fieldName].buckets  // remove also?
    //aggregations[fieldName].buckets.length > 0
   ) {
     return [{
@@ -61,23 +61,27 @@ function getValueFacet(aggregations, fieldName) {
   }
 }
 
-function buildStateFacets(aggregations) {
-  const recipeTypeName = getValueFacet(aggregations, "recipeTypeName");
-  const cuisineName = getValueFacet(aggregations, "cuisineName");
-  console.log('RECIPE_TYPE_NAME: ', recipeTypeName);
-  const facets = {
-    ...(recipeTypeName && {recipeTypeName}),
-    ...(cuisineName && {cuisineName})
-  };
-  if (Object.keys(facets).length > 0) return facets;
+function buildStateFacets(aggregations, currentIndex) {
+  if (currentIndex === "recipes") {
+    const recipeTypeName = getValueFacet(aggregations, "recipeTypeName");
+    const cuisineName = getValueFacet(aggregations, "cuisineName");
+    const facets = {
+      ...(recipeTypeName && {recipeTypeName}),
+      ...(cuisineName && {cuisineName})
+    };
+    if (Object.keys(facets).length > 0) return facets;
+  } else if (currentIndex === "ingredients") {
+    const ingredientTypeName = getValueFacet(aggregations, "ingredientTypeName");
+    const facets = {...(ingredientTypeName && {ingredientTypeName}),};
+    if (Object.keys(facets).length > 0) return facets;
+  }
 }
 
-export default function buildSearchState(response, resultsPerPage) {
+export default function buildSearchState(response, resultsPerPage, currentIndex) {
   const results = buildResults(response.hits.hits);
   const totalResults = response.hits.total.value;
   const totalPages = buildTotalPages(resultsPerPage, totalResults);
-  const facets = buildStateFacets(response.aggregations);
-  console.log('FACETS: ', facets);
+  const facets = buildStateFacets(response.aggregations, currentIndex);
   return {
     results,
     totalPages,

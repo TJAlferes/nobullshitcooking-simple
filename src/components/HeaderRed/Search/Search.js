@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withSearch, SearchBox } from '@elastic/react-search-ui';
 
 import './search.css';
 import DownArrowGray from '../../../assets/images/header/down-arrow-gray.png';
+import { searchSetIndex } from '../../../store/actions/index';
 
 const Search = props => {
   const swapFacadeText = () => {
@@ -11,24 +13,34 @@ const Search = props => {
     var sInsert = document.getElementsByClassName("sui-search-box__text-input")[0];
     var sIndex = document.getElementById("search_prefilter").selectedIndex;
     var x = document.getElementById("search_prefilter").options[sIndex].text;
+    let newSearchIndex = `${x}`.toLowerCase();
+    props.searchSetIndex(newSearchIndex);  // tighter control here? fast enough?
     // innerHTML is an invitation XSS attacks! dompurify? dangerouslySetInnerHTML?
     fT.innerHTML = x;
     sInsert.focus();
   }
 
-  const redirectToSearchPage = async () => props.history.push('/search-results');
-
-  const handleSubmit = async () => {
-    await redirectToSearchPage();
-    props.setSearchTerm(props.searchTerm);
+  const redirectToSearchPage = () => {
+    props.history.push(`/search-results-${props.currentIndex}`);
   };
+
+  const handleSubmit = () => {
+    //await redirectToSearchPage();
+    //props.setSearchTerm(props.searchTerm);
+
+    props.setSearchTerm(props.searchTerm);
+    redirectToSearchPage();
+  };
+
+  let titleField = props.currentIndex === "recipes" ? "title" : "ingredientName";
+  let urlField = props.currentIndex === "recipes" ? "title" : "ingredientName";
 
   return (
     <div className={`search ${props.theme}`} id="search_form">
 
       <div id="search_category">
         <div id="search_facade">
-          <span id="facade_text">All</span>
+          <span id="facade_text">Recipes</span>
           <img id="facade_arrow" src={DownArrowGray} />
         </div>
         {/* <Facet view={SingleSelectFacet} /> nested? combined? */}
@@ -38,9 +50,11 @@ const Search = props => {
           type="select-one"
           onChange={swapFacadeText}
         >
+          {/*
           <option id="search_all" value="search-filter-none">
             All
           </option>
+          */}
           <option id="search_recipes" value="search-filter-recipes">
             Recipes
           </option>
@@ -71,8 +85,8 @@ const Search = props => {
           useAutocomplete={true}
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
-            titleField: "title",
-            urlField: "title",
+            titleField,
+            urlField,
             shouldTrackClickThrough: true
           }}
           autocompleteView={props => {
@@ -84,10 +98,11 @@ const Search = props => {
                       <li
                         key={res.id.raw}
                         dangerouslySetInnerHTML={{__html: res.id.snippet}}
-                        onClick={async () => {
-                          await redirectToSearchPage();
+                        onClick={() => {
+                          //await redirectToSearchPage();
                           props.setSearchTerm(res.id.raw);
                           props.closeMenu();
+                          redirectToSearchPage();
                         }}
                       >
                       </li>
@@ -109,4 +124,20 @@ const mapContextToProps = ({ searchTerm, setSearchTerm }) => ({
   setSearchTerm
 });
 
-export default withRouter(withSearch(mapContextToProps)(Search));
+const mapStateToProps = state => ({currentIndex: state.search.currentIndex});
+
+const mapDispatchToProps = dispatch => ({
+  searchSetIndex: (index) => dispatch(searchSetIndex(index))
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps, mapDispatchToProps
+  )(
+    withSearch(
+      mapContextToProps
+    )(
+      Search
+    )
+  )
+);

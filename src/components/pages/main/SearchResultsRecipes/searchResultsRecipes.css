@@ -1,0 +1,156 @@
+.search-results-filters {
+  display: block;
+}
+
+.search-results-filter-title {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  margin-left: 5px;
+}
+
+.sui-facet {
+  border-width: 0px;
+}
+
+.sui-facet__title {
+  margin-left: 5px;
+  padding-top: 3px;
+  padding-bottom: 8px;
+  text-align: left;
+  font-size: 1.4rem;
+  font-weight: 900;
+  font-family: 'Play', sans-serif;
+}
+
+.sui-multi-checkbox-facet {
+  padding: 12px;
+}
+
+.sui-multi-checkbox-facet__option-label {
+  display: inline-block;
+  width: 92px;
+  min-width: 92px;
+  max-width: 92px;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+}
+
+.sui-multi-checkbox-facet__option-input-wrapper {
+}
+
+.sui-multi-checkbox-facet__checkbox {
+  display: inline;
+  width: 13px;
+  height: 13px;
+}
+
+.sui-multi-checkbox-facet__input-text {
+  display: inline;
+  font-size: 1.3rem;
+  margin-left: 2px;
+}
+
+.sui-multi-checkbox-facet__option-count {
+  display: none;
+}
+
+
+
+.sui-results-container {
+
+}
+
+
+
+.sui-result {
+  padding: 10px;
+}
+
+.sui-result__body {
+
+}
+
+.sui-result__details {
+
+}
+
+.sui-result__key {
+
+}
+
+.sui-result__value {
+
+}
+
+.search_results_list {
+
+}
+
+.search-result-recipe {
+  padding: 10px;
+}
+
+.search-result-recipe-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.search-result-recipe-link {
+  text-decoration: none;
+  color: #000;
+}
+
+.search-result-recipe-link:hover,
+.search-result-recipe-link:active {
+  background-color: #eee;
+}
+
+.search-result-recipe-text__title {
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #000;
+}
+
+.search-result-recipe-link:hover .search-result-recipe-text .search-result-recipe-text__title,
+.search-result-recipe-link:active .search-result-recipe-text .search-result-recipe-text__title {
+  color: #c10006;
+}
+
+.search-result-recipe-text__types-cuisine,
+.search-result-recipe-text__types-recipe-type {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.search-result-recipe-text__tags {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.search-result-recipe-text__tags-methods,
+.search-result-recipe-text__tags-ingredients {
+  max-width: fit-content;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  padding: 1px 3px;
+  font-size: 13px;
+}
+
+.search-result-recipe-text__tags-methods {
+  background-color: #cfcfcf;
+}
+
+.search-result-recipe-text__tags-ingredients {
+  background-color: #dedede;
+}

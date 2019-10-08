@@ -2,9 +2,9 @@ import React from 'react';
 import { withSearch, Facet, PagingInfo, Paging, ResultsPerPage } from '@elastic/react-search-ui';
 import { Link } from 'react-router-dom';
 
-import './searchResults.css'; 
+import './searchResultsRecipes.css'; 
 
-const SearchResults = props => {
+const SearchResultsRecipes = props => {
   return (
     <div className={`search-results two-column-b ${props.twoColumnBTheme}`}>
 
@@ -13,7 +13,9 @@ const SearchResults = props => {
         <h1>Search Results</h1>
 
         <div className="search-results-filters">
-          <span className="search-results-filter-title">Filter by:</span>
+
+          <span className="search-results-filter-title">Filter recipes by:</span>
+
           <Facet
             field="recipeTypeName"
             label="Recipe Types"
@@ -87,6 +89,50 @@ const SearchResults = props => {
               ]
             }}
           />
+
+          <Facet
+            field="methodNames"
+            label="Methods"
+            filterType="any"
+            isFilterable={true}
+            showSearch={false}
+            show={24}
+            facets={{
+              cuisineName: [
+                {
+                  data: [
+                    {count: 1, value: "No-Cook"},
+                    {count: 1, value: "Chill"},
+                    {count: 1, value: "Freeze"},
+                    {count: 1, value: "Microwave"},
+                    {count: 1, value: "Toast"},
+                    {count: 1, value: "Steam"},
+                    {count: 1, value: "Poach"},
+                    {count: 1, value: "Simmer"},
+                    {count: 1, value: "Boil"},
+                    {count: 1, value: "Blanch"},
+                    {count: 1, value: "Stew"},
+                    {count: 1, value: "Braise"},
+                    {count: 1, value: "Bake"},
+                    {count: 1, value: "Roast"},
+                    {count: 1, value: "Broil"},
+                    {count: 1, value: "Saute"},
+                    {count: 1, value: "Pan-Fry"},
+                    {count: 1, value: "Shallow-Fry"},
+                    {count: 1, value: "Deep-Fry"},
+                    {count: 1, value: "Stir-Fry"},
+                    {count: 1, value: "Glaze"},
+                    {count: 1, value: "BBQ"},
+                    {count: 1, value: "Grill"},
+                    {count: 1, value: "Smoke"}
+                  ],
+                  field: "methodNames",
+                  type: "value"
+                },
+              ]
+            }}
+          />
+
         </div>
 
         {props.wasSearched && <ResultsPerPage />}
@@ -104,7 +150,7 @@ const SearchResults = props => {
                   to={`/recipe/${rows[0][1].raw}`}
                 >
                   <div className="search-result-recipe-text">
-                    <div className="search-result-recipe-text__title">{rows[4][1].raw}</div>
+                    <div className="search-result-recipe-text__title">{rows[4] && rows[4][1].raw}</div>
                     <div className="search-result-recipe-text__author">{rows[1][1].raw}</div>
 
                     <div className="search-result-recipe-text__types">
@@ -113,13 +159,13 @@ const SearchResults = props => {
                     </div>
 
                     <div className="search-result-recipe-text__tags">
-                      <div className="search-result-recipe-text__tags-methods">{rows[8][1].raw}</div>
-                      <div className="search-result-recipe-text__tags-ingredients">{rows[10][1].raw}</div>
+                      <div className="search-result-recipe-text__tags-methods">{rows[8] && rows[8][1].raw}</div>
+                      <div className="search-result-recipe-text__tags-ingredients">{rows[10] && rows[10][1].raw}</div>
                     </div>
                   </div>
                   <img
                     className="search-result-recipe-image"
-                    src={`https://s3.amazonaws.com/nobsc-user-recipe/${rows[7][1].raw}-thumb`}
+                    src={`https://s3.amazonaws.com/nobsc-user-recipe/${rows[7] && rows[7][1].raw}-thumb`}
                   />
                 </Link>
               </div>
@@ -139,6 +185,11 @@ const SearchResults = props => {
   );
 };
 
-const mapContextToProps = ({ wasSearched, facets, filters, results }) => ({wasSearched, facets, filters, results});
+const mapContextToProps = ({ wasSearched, facets, filters, results }) => ({
+  wasSearched,
+  facets,
+  filters,
+  results
+});
 
-export default withSearch(mapContextToProps)(SearchResults);
+export default withSearch(mapContextToProps)(SearchResultsRecipes);
