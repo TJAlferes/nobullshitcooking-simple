@@ -9,7 +9,9 @@ import { NOBSCBackendAPIEndpointOne } from './NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 import { store } from '../index';
-console.log(store);
+//console.log(store);
+
+// TO DO: put currentIndex on window??????????????????????????????????????????
 
 /*function getSearchState() {
   const { search } = store.getState();
@@ -39,7 +41,7 @@ function getDisjunctiveFacetsConfig() {
 
 const searchConfig = {
   //debug: true,
-  trackUrlState: false,
+  trackUrlState: false,  // ?
   onResultClick: function() {
     //console.log('clicked!');
   },
