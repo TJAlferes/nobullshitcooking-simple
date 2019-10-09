@@ -1,108 +1,166 @@
-import React, { Component } from 'react';
-// use react-final-form here  meh?
-// elasticsearch not meant for public facing high traffic search???
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { withSearch, SearchBox } from '@elastic/react-search-ui';
 
 import './mobileSearch.css';
-//import DownArrowGray from '../../../assets/images/header/down-arrow-gray.png';
+import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
+import { searchSetIndex } from '../../../../store/actions/index';
 
-class MobileSearch extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  /*
-  function headerRedActionOne() {
-    var sInsert = document.getElementById("search_insert_input");
-    
-    sInsert.addEventListener("input", liveSearchRed, false);
-    sInsert.addEventListener("input", liveSearchShow, false);
-    document.addEventListener("click", function(e) { liveSearchHide(e); }, false);
-  }
-  
-  window.addEventListener("load", function() { headerRedActionOne(); }, false);
-  */
+<form name="search_form" id="mobile_search_form">
+    <div id="mobile_search_insert">
+      <input id="mobile_search_insert_input" type="text" autoComplete="off" />
+      <div id="search_auto_suggestions">
+        {/* live from the database table column */}
+      </div>
+    </div>
+    <div id="mobile_search_execute">
+      <input id="mobile_search_execute_input" type="submit" value="Search" />
+    </div>
+</form>
 
-  /*
-  // not needed on mobile, remove
-  swapFacadeText = () => {  // edit this
+const MobileSearch = props => {
+  const swapFacadeText = () => {
     var fT = document.getElementById("facade_text");
-    var sInsert = document.getElementById("search_insert_input");
+    var sInsert = document.getElementsByClassName("sui-search-box__text-input")[0];
     var sIndex = document.getElementById("search_prefilter").selectedIndex;
     var x = document.getElementById("search_prefilter").options[sIndex].text;
-    fT.innerHTML = x;  // don't use this, like, ever! innerHTML is an invitation XSS attacks! (OK if you use dompurify?) (also, how does this fit into state???) declarative, react-final-form, or refs? https://reactjs.org/docs/refs-and-the-dom.html
+    let newSearchIndex = `${x}`.toLowerCase();
+    props.searchSetIndex(newSearchIndex);  // tighter control here? fast enough?
+    // innerHTML is an invitation XSS attacks! dompurify? dangerouslySetInnerHTML?
+    fT.innerHTML = x;
     sInsert.focus();
   }
-  */
 
-  /*
-  liveSearchShow = () => {
-    var sInsert = document.getElementById("search_insert_input");
-    var sAuto = document.getElementById("search_auto_suggestions");
-    var sAutoShadow = document.getElementById("search_auto_suggestions_shadow");
-    
-    if (sInsert == document.activeElement) {
-      sAuto.style.display = "block";
-      sAutoShadow.style.display = "block";
-    }
-  }
+  const redirectToSearchPage = () => {
+    props.history.push(`/search-results-${props.currentIndex}`);
+  };
 
-  liveSearchHide = e => {
-    var sInsert = document.getElementById("search_insert_input");
-    var sAuto = document.getElementById("search_auto_suggestions");
-    var sAutoShadow = document.getElementById("search_auto_suggestions_shadow");
-    
-    if ((e.target != sInsert) && (e.target != sAuto)) {
-      sAuto.style.display = "none";
-      sAutoShadow.style.display = "none";
-    }
-  }
+  const handleSubmit = () => {
+    //await redirectToSearchPage();
+    //props.setSearchTerm(props.searchTerm);
 
-  liveSearchWidthExtend = e => {
-    var childLink = e.firstChild.href;
-    
-    window.location.href = childLink;
-  }
+    props.setSearchTerm(props.searchTerm);
+    redirectToSearchPage();
+  };
 
-  liveSearchArrowKeysSupport () => {
-    
-  }
+  let titleField = props.currentIndex === "recipes" ? "title" : "ingredientName";
+  let urlField = props.currentIndex === "recipes" ? "title" : "ingredientName";
 
-  liveSearchRed = () => {  // THIS NEEDS DEBOUNCING (time: half a second?)
-    var sInsert = document.getElementById("search_insert_input").value;
-    
-    if (sInsert.length > 2) {
-      var fdata = new FormData();
-      var xhttp = new XMLHttpRequest();
-      
-      fdata.append("search_insert_input", sInsert);
-      
-      xhttp.open("POST", "https://www.nobullshitcooking.com/search_auto_suggestions.php", true);
-      xhttp.onreadystatechange = function() {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-          var sAuto = document.getElementById("search_auto_suggestions");
-          
-          sAuto.innerHTML = xhttp.responseText;
-        }
-      }
-      xhttp.send(fdata);
-    }
-  }
-  */
-  render() {
-    return (
-      <form name="search_form" id="mobile_search_form">
-          <div id="mobile_search_insert">
-            <input id="mobile_search_insert_input" type="text" autoComplete="off" />
-            <div id="search_auto_suggestions">
-              {/* live from the database table column */}
-            </div>
-          </div>
-          <div id="mobile_search_execute">
-            <input id="mobile_search_execute_input" type="submit" value="Search" />
-          </div>
-      </form>
-    );
-  }
+  return (
+    <div className={`mobile-search ${props.theme}`} id="search_form">
+
+      <div id="search_category">
+        <div id="search_facade">
+          <span id="facade_text">Recipes</span>
+          <img id="facade_arrow" src={DownArrowGray} />
+        </div>
+        {/* <Facet view={SingleSelectFacet} /> nested? combined? */}
+        <select
+          name="search_prefilter"
+          id="search_prefilter"
+          type="select-one"
+          onChange={swapFacadeText}
+        >
+          {/*
+          <option id="search_all" value="search-filter-none">
+            All
+          </option>
+          */}
+          <option id="search_recipes" value="search-filter-recipes">
+            Recipes
+          </option>
+          <option id="search_ingredients" value="search-filter-ingredients">
+            Ingredients
+          </option>
+          {/*
+          <option id="search_nutrients" value="search-filter-nutrients">
+            Nutrients
+          </option>
+          <option id="search_kitchen_equipment" value="search-filter-kitchen-equipment">
+            Kitchen Equipment
+          </option>
+          <option id="search_fitness_gear" value="search-filter-fitness-gear">
+            Fitness Gear
+          </option>
+          <option id="search_exercises" value="search-filter-exercises">
+            Exercises
+          </option>
+          */}
+        </select>
+      </div>
+
+      <div id="search_insert">
+        <SearchBox
+          onSubmit={handleSubmit}
+          inputProps={{placeholder: ""}}
+          useAutocomplete={true}
+          autocompleteMinimumCharacters={2}
+          autocompleteResults={{
+            titleField,
+            urlField,
+            shouldTrackClickThrough: true
+          }}
+          autocompleteView={props => {
+            return (
+              <div className="sui-search-box__autocomplete">
+                <ul className="sui-search-box__results-list">
+                  {props.autocompletedResults.map(res => {
+                    return (
+                      <li
+                        key={res.id.raw}
+                        dangerouslySetInnerHTML={{__html: res.id.snippet}}
+                        onClick={() => {
+                          //await redirectToSearchPage();
+                          props.setSearchTerm(res.id.raw);
+                          props.closeMenu();
+                          redirectToSearchPage();
+                        }}
+                      >
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          }}
+          inputView={({ getAutocomplete, getInputProps }) => (
+            <>
+              <div className="sui-search-box__wrapper">
+                <input {...getInputProps()} />
+                {getAutocomplete()}
+              </div>
+              <button className="mobile-sui-search-box__submit">
+                <span className="magnifying-glass"></span>
+              </button>
+            </>
+          )}
+        />
+      </div>
+
+    </div>
+  );
 }
 
-export default MobileSearch;
+const mapContextToProps = ({ searchTerm, setSearchTerm }) => ({
+  searchTerm,
+  setSearchTerm
+});
+
+const mapStateToProps = state => ({currentIndex: state.search.currentIndex});
+
+const mapDispatchToProps = dispatch => ({
+  searchSetIndex: (index) => dispatch(searchSetIndex(index))
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps, mapDispatchToProps
+  )(
+    withSearch(
+      mapContextToProps
+    )(
+      MobileSearch
+    )
+  )
+);
