@@ -8,15 +8,13 @@ import DownArrowGray from '../../../assets/images/header/down-arrow-gray.png';
 import { searchSetIndex } from '../../../store/actions/index';
 
 const Search = props => {
-  const swapFacadeText = () => {
-    var fT = document.getElementById("facade_text");
-    var sInsert = document.getElementsByClassName("sui-search-box__text-input")[0];
-    var sIndex = document.getElementById("search_prefilter").selectedIndex;
-    var x = document.getElementById("search_prefilter").options[sIndex].text;
-    let newSearchIndex = `${x}`.toLowerCase();
+  const swapFacadeText = () => {  // useEffect? useLayoutEffect?
+    const sInsert = document.getElementsByClassName("sui-search-box__wrapper")[0].firstChild;
+    const sIndex = document.getElementById("search_prefilter").selectedIndex;
+    const x = document.getElementById("search_prefilter").options[sIndex].text;
+    const newSearchIndex = `${x}`.toLowerCase();
     props.searchSetIndex(newSearchIndex);  // tighter control here? fast enough?
     // innerHTML is an invitation XSS attacks! dompurify? dangerouslySetInnerHTML?
-    fT.innerHTML = x;
     sInsert.focus();
   }
 
@@ -25,13 +23,13 @@ const Search = props => {
   };
 
   const handleSubmit = () => {
-    //await redirectToSearchPage();
-    //props.setSearchTerm(props.searchTerm);
-
     props.setSearchTerm(props.searchTerm);
     redirectToSearchPage();
   };
 
+  let capitalizedFirstLetter = `${props.currentIndex}`.slice(0, 1).toUpperCase();
+  let otherLetters = `${props.currentIndex}`.slice(1, props.currentIndex.length).toLowerCase();
+  let facadeText = `${capitalizedFirstLetter}${otherLetters}`;
   let titleField = props.currentIndex === "recipes" ? "title" : "ingredientName";
   let urlField = props.currentIndex === "recipes" ? "title" : "ingredientName";
 
@@ -40,10 +38,9 @@ const Search = props => {
 
       <div id="search_category">
         <div id="search_facade">
-          <span id="facade_text">Recipes</span>
+          <span id="facade_text">{facadeText}</span>
           <img id="facade_arrow" src={DownArrowGray} />
         </div>
-        {/* <Facet view={SingleSelectFacet} /> nested? combined? */}
         <select
           name="search_prefilter"
           id="search_prefilter"
@@ -55,10 +52,10 @@ const Search = props => {
             All
           </option>
           */}
-          <option id="search_recipes" value="search-filter-recipes">
+          <option id="search_recipes" value="recipes">
             Recipes
           </option>
-          <option id="search_ingredients" value="search-filter-ingredients">
+          <option id="search_ingredients" value="ingredients">
             Ingredients
           </option>
           {/*
@@ -78,7 +75,7 @@ const Search = props => {
         </select>
       </div>
 
-      <div id="search_insert">
+      <div className="search-insert">
         <SearchBox
           onSubmit={handleSubmit}
           inputProps={{placeholder: ""}}
@@ -99,7 +96,6 @@ const Search = props => {
                         key={res.id.raw}
                         dangerouslySetInnerHTML={{__html: res.id.snippet}}
                         onClick={() => {
-                          //await redirectToSearchPage();
                           props.setSearchTerm(res.id.raw);
                           props.closeMenu();
                           redirectToSearchPage();

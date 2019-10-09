@@ -11,6 +11,10 @@ const MobileLeftNav = props => {
   let backgroundColor = (theme === "left-nav-light") ? "#ddd" : "#444";
   return (
     <div className="mobile-left-nav">
+      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/food')}} to="/food">Food</NavLink>
+      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/fitness')}} to="/fitness">Fitness</NavLink>
+      {/*<NavLink className="mobile-left-nav-link" to="/store/storefront">Supply</NavLink>*/}
+      <hr />
       {/*<NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/welcome')}} to="/welcome">New? Start Here</NavLink>*/}
       <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/site/help')}} to="/site/help">Help</NavLink>
       {!isAuthenticated && <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/user/register')}} to="/user/register">Create Account</NavLink>}

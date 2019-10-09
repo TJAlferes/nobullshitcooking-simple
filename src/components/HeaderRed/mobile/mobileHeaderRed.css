@@ -5,7 +5,7 @@
   min-width: 300px;
   max-width: 100%;  /* 100vw */
   height: 92px;
-  padding-top: 2px;
+  padding-top: 7px;
   font-family: 'Play', sans-serif;
   background-color: #c10006;
 }
@@ -25,22 +25,19 @@
   flex-wrap: nowrap;
   width: 100%;
   min-width: 300px;
-  max-width: 90%;
-  height: 30px;
+  max-width: 96%;
+  height: 40px;
+  margin: 0 auto;
 }
 
 .mobile-header-row-2 {
   display: flex;
   width: 100%;
   min-width: 300px;
-  max-width: 90%;
-  height: 30px;
-  padding-left: 8px;
-}
-
-.mobile-header-row-3 {
-  height: 30px;
-  max-width: 90%;
+  max-width: 96%;
+  height: 45px;
+  /*padding-left: 8px;*/
+  margin: 0 auto;
 }
 
 .mobile-header-row-1-col-1 {

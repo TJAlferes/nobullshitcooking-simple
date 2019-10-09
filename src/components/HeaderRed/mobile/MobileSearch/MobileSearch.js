@@ -7,28 +7,14 @@ import './mobileSearch.css';
 import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
 import { searchSetIndex } from '../../../../store/actions/index';
 
-<form name="search_form" id="mobile_search_form">
-    <div id="mobile_search_insert">
-      <input id="mobile_search_insert_input" type="text" autoComplete="off" />
-      <div id="search_auto_suggestions">
-        {/* live from the database table column */}
-      </div>
-    </div>
-    <div id="mobile_search_execute">
-      <input id="mobile_search_execute_input" type="submit" value="Search" />
-    </div>
-</form>
-
 const MobileSearch = props => {
-  const swapFacadeText = () => {
-    var fT = document.getElementById("facade_text");
-    var sInsert = document.getElementsByClassName("sui-search-box__text-input")[0];
-    var sIndex = document.getElementById("search_prefilter").selectedIndex;
-    var x = document.getElementById("search_prefilter").options[sIndex].text;
-    let newSearchIndex = `${x}`.toLowerCase();
+  const swapFacadeText = () => {  // useEffect? useLayoutEffect?  RENAME NOW
+    const sInsert = document.getElementsByClassName("mobile-sui-search-box__wrapper")[0].firstChild;
+    const sIndex = document.getElementById("mobile-search-prefilter").selectedIndex;
+    const x = document.getElementById("mobile-search-prefilter").options[sIndex].text;
+    const newSearchIndex = `${x}`.toLowerCase();
     props.searchSetIndex(newSearchIndex);  // tighter control here? fast enough?
     // innerHTML is an invitation XSS attacks! dompurify? dangerouslySetInnerHTML?
-    fT.innerHTML = x;
     sInsert.focus();
   }
 
@@ -37,60 +23,40 @@ const MobileSearch = props => {
   };
 
   const handleSubmit = () => {
-    //await redirectToSearchPage();
-    //props.setSearchTerm(props.searchTerm);
-
     props.setSearchTerm(props.searchTerm);
     redirectToSearchPage();
   };
 
+  let capitalizedFirstLetter = `${props.currentIndex}`.slice(0, 1).toUpperCase();
+  let otherLetters = `${props.currentIndex}`.slice(1, props.currentIndex.length).toLowerCase();
+  let facadeText = `${capitalizedFirstLetter}${otherLetters}`;
   let titleField = props.currentIndex === "recipes" ? "title" : "ingredientName";
   let urlField = props.currentIndex === "recipes" ? "title" : "ingredientName";
 
   return (
-    <div className={`mobile-search ${props.theme}`} id="search_form">
+    <div className={`mobile-search ${props.theme}`}>
 
-      <div id="search_category">
-        <div id="search_facade">
-          <span id="facade_text">Recipes</span>
-          <img id="facade_arrow" src={DownArrowGray} />
+      <div id="mobile-search-category">
+        <div id="mobile-search-facade">
+          <span id="mobile-search-facade__text">{facadeText}</span>
+          <img id="mobile-search-facade__arrow" src={DownArrowGray} />
         </div>
-        {/* <Facet view={SingleSelectFacet} /> nested? combined? */}
         <select
+          id="mobile-search-prefilter"
           name="search_prefilter"
-          id="search_prefilter"
           type="select-one"
           onChange={swapFacadeText}
         >
-          {/*
-          <option id="search_all" value="search-filter-none">
-            All
-          </option>
-          */}
-          <option id="search_recipes" value="search-filter-recipes">
+          <option id="search_recipes" value="recipes">
             Recipes
           </option>
-          <option id="search_ingredients" value="search-filter-ingredients">
+          <option id="search_ingredients" value="ingredients">
             Ingredients
           </option>
-          {/*
-          <option id="search_nutrients" value="search-filter-nutrients">
-            Nutrients
-          </option>
-          <option id="search_kitchen_equipment" value="search-filter-kitchen-equipment">
-            Kitchen Equipment
-          </option>
-          <option id="search_fitness_gear" value="search-filter-fitness-gear">
-            Fitness Gear
-          </option>
-          <option id="search_exercises" value="search-filter-exercises">
-            Exercises
-          </option>
-          */}
         </select>
       </div>
 
-      <div id="search_insert">
+      <div className="mobile-search-insert">
         <SearchBox
           onSubmit={handleSubmit}
           inputProps={{placeholder: ""}}
@@ -111,7 +77,6 @@ const MobileSearch = props => {
                         key={res.id.raw}
                         dangerouslySetInnerHTML={{__html: res.id.snippet}}
                         onClick={() => {
-                          //await redirectToSearchPage();
                           props.setSearchTerm(res.id.raw);
                           props.closeMenu();
                           redirectToSearchPage();
@@ -126,7 +91,7 @@ const MobileSearch = props => {
           }}
           inputView={({ getAutocomplete, getInputProps }) => (
             <>
-              <div className="sui-search-box__wrapper">
+              <div className="mobile-sui-search-box__wrapper">
                 <input {...getInputProps()} />
                 {getAutocomplete()}
               </div>
