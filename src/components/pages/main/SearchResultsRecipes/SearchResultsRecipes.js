@@ -2,7 +2,8 @@ import React from 'react';
 import { withSearch, Facet, PagingInfo, Paging, ResultsPerPage } from '@elastic/react-search-ui';
 import { Link } from 'react-router-dom';
 
-import './searchResultsRecipes.css'; 
+import './searchResultsRecipes.css';
+import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
 
 const SearchResultsRecipes = props => {
   return (
@@ -12,128 +13,130 @@ const SearchResultsRecipes = props => {
 
         <h1>Search Results</h1>
 
-        <div className="search-results-filters">
+        <ExpandCollapse headingWhileCollapsed="Filter Results (Click here to expand)">
+          <div className="search-results-filters">
 
-          <span className="search-results-filter-title">Filter recipes by:</span>
+            <span className="search-results-filter-title">Filter recipes by:</span>
 
-          <Facet
-            field="recipeTypeName"
-            label="Recipe Types"
-            filterType="any"
-            isFilterable={true}
-            showSearch={false}
-            show={12}
-            facets={{
-              recipeTypeName: [
-                {
-                  data: [
-                    {count: 1, value: "Drink"},
-                    {count: 1, value: "Appetizer"},
-                    {count: 1, value: "Main"},
-                    {count: 1, value: "Side"},
-                    {count: 1, value: "Dessert"},
-                    {count: 1, value: "Soup"},
-                    {count: 1, value: "Salad"},
-                    {count: 1, value: "Stew"},
-                    {count: 1, value: "Casserole"},
-                    {count: 1, value: "Sauce"},
-                    {count: 1, value: "Dressing"},
-                    {count: 1, value: "Condiment"}
-                  ],
-                  field: "recipeTypeName",
-                  type: "value"
-                }
-              ]
-            }}
-          />
+            <Facet
+              field="recipeTypeName"
+              label="Recipe Types"
+              filterType="any"
+              isFilterable={true}
+              showSearch={false}
+              show={12}
+              facets={{
+                recipeTypeName: [
+                  {
+                    data: [
+                      {count: 1, value: "Drink"},
+                      {count: 1, value: "Appetizer"},
+                      {count: 1, value: "Main"},
+                      {count: 1, value: "Side"},
+                      {count: 1, value: "Dessert"},
+                      {count: 1, value: "Soup"},
+                      {count: 1, value: "Salad"},
+                      {count: 1, value: "Stew"},
+                      {count: 1, value: "Casserole"},
+                      {count: 1, value: "Sauce"},
+                      {count: 1, value: "Dressing"},
+                      {count: 1, value: "Condiment"}
+                    ],
+                    field: "recipeTypeName",
+                    type: "value"
+                  }
+                ]
+              }}
+            />
 
-          <Facet
-            field="cuisineName"
-            label="Cuisines"
-            filterType="any"
-            isFilterable={true}
-            showSearch={false}
-            show={24}
-            facets={{
-              cuisineName: [
-                {
-                  data: [
-                    {count: 1, value: "Russian"},
-                    {count: 1, value: "German"},
-                    {count: 1, value: "Turkish"},
-                    {count: 1, value: "French"},
-                    {count: 1, value: "Italian"},
-                    {count: 1, value: "Mexican"},
-                    {count: 1, value: "Greek"},
-                    {count: 1, value: "Irish"},
-                    {count: 1, value: "Chinese"},
-                    {count: 1, value: "Indian"},
-                    {count: 1, value: "Japanese"},
-                    {count: 1, value: "Iranian"},
-                    {count: 1, value: "Spanish"},
-                    {count: 1, value: "Thai"},
-                    {count: 1, value: "Vietnamese"},
-                    {count: 1, value: "Korean"},
-                    {count: 1, value: "Swedish"},
-                    {count: 1, value: "Norwegian"},
-                    {count: 1, value: "Polish"},
-                    {count: 1, value: "Hungarian"},
-                    {count: 1, value: "Brazilian"},
-                    {count: 1, value: "Argentinian"},
-                    {count: 1, value: "Nigerian"},
-                    {count: 1, value: "Other"}
-                  ],
-                  field: "cuisineName",
-                  type: "value"
-                },
-              ]
-            }}
-          />
+            <Facet
+              field="cuisineName"
+              label="Cuisines"
+              filterType="any"
+              isFilterable={true}
+              showSearch={false}
+              show={24}
+              facets={{
+                cuisineName: [
+                  {
+                    data: [
+                      {count: 1, value: "Russian"},
+                      {count: 1, value: "German"},
+                      {count: 1, value: "Turkish"},
+                      {count: 1, value: "French"},
+                      {count: 1, value: "Italian"},
+                      {count: 1, value: "Mexican"},
+                      {count: 1, value: "Greek"},
+                      {count: 1, value: "Irish"},
+                      {count: 1, value: "Chinese"},
+                      {count: 1, value: "Indian"},
+                      {count: 1, value: "Japanese"},
+                      {count: 1, value: "Iranian"},
+                      {count: 1, value: "Spanish"},
+                      {count: 1, value: "Thai"},
+                      {count: 1, value: "Vietnamese"},
+                      {count: 1, value: "Korean"},
+                      {count: 1, value: "Swedish"},
+                      {count: 1, value: "Norwegian"},
+                      {count: 1, value: "Polish"},
+                      {count: 1, value: "Hungarian"},
+                      {count: 1, value: "Brazilian"},
+                      {count: 1, value: "Argentinian"},
+                      {count: 1, value: "Nigerian"},
+                      {count: 1, value: "Other"}
+                    ],
+                    field: "cuisineName",
+                    type: "value"
+                  },
+                ]
+              }}
+            />
 
-          <Facet
-            field="methodNames"
-            label="Methods"
-            filterType="any"
-            isFilterable={true}
-            showSearch={false}
-            show={24}
-            facets={{
-              cuisineName: [
-                {
-                  data: [
-                    {count: 1, value: "No-Cook"},
-                    {count: 1, value: "Chill"},
-                    {count: 1, value: "Freeze"},
-                    {count: 1, value: "Microwave"},
-                    {count: 1, value: "Toast"},
-                    {count: 1, value: "Steam"},
-                    {count: 1, value: "Poach"},
-                    {count: 1, value: "Simmer"},
-                    {count: 1, value: "Boil"},
-                    {count: 1, value: "Blanch"},
-                    {count: 1, value: "Stew"},
-                    {count: 1, value: "Braise"},
-                    {count: 1, value: "Bake"},
-                    {count: 1, value: "Roast"},
-                    {count: 1, value: "Broil"},
-                    {count: 1, value: "Saute"},
-                    {count: 1, value: "Pan-Fry"},
-                    {count: 1, value: "Shallow-Fry"},
-                    {count: 1, value: "Deep-Fry"},
-                    {count: 1, value: "Stir-Fry"},
-                    {count: 1, value: "Glaze"},
-                    {count: 1, value: "BBQ"},
-                    {count: 1, value: "Grill"},
-                    {count: 1, value: "Smoke"}
-                  ],
-                  field: "methodNames",
-                  type: "value"
-                },
-              ]
-            }}
-          />
+            <Facet
+              field="methodNames"
+              label="Methods"
+              filterType="any"
+              isFilterable={true}
+              showSearch={false}
+              show={24}
+              facets={{
+                methodNames: [
+                  {
+                    data: [
+                      {count: 1, value: "No-Cook"},
+                      {count: 1, value: "Chill"},
+                      {count: 1, value: "Freeze"},
+                      {count: 1, value: "Microwave"},
+                      {count: 1, value: "Toast"},
+                      {count: 1, value: "Steam"},
+                      {count: 1, value: "Poach"},
+                      {count: 1, value: "Simmer"},
+                      {count: 1, value: "Boil"},
+                      {count: 1, value: "Blanch"},
+                      {count: 1, value: "Stew"},
+                      {count: 1, value: "Braise"},
+                      {count: 1, value: "Bake"},
+                      {count: 1, value: "Roast"},
+                      {count: 1, value: "Broil"},
+                      {count: 1, value: "Saute"},
+                      {count: 1, value: "Pan-Fry"},
+                      {count: 1, value: "Shallow-Fry"},
+                      {count: 1, value: "Deep-Fry"},
+                      {count: 1, value: "Stir-Fry"},
+                      {count: 1, value: "Glaze"},
+                      {count: 1, value: "BBQ"},
+                      {count: 1, value: "Grill"},
+                      {count: 1, value: "Smoke"}
+                    ],
+                    field: "methodNames",
+                    type: "value"
+                  },
+                ]
+              }}
+            />
 
-        </div>
+          </div>
+        </ExpandCollapse>
 
         {props.wasSearched && <ResultsPerPage />}
 

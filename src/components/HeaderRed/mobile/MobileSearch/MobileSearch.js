@@ -8,13 +8,9 @@ import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png'
 import { searchSetIndex } from '../../../../store/actions/index';
 
 const MobileSearch = props => {
-  const swapFacadeText = () => {  // useEffect? useLayoutEffect?  RENAME NOW
+  const changeSearchIndex = e => {  // useEffect? useLayoutEffect?  RENAME NOW
     const sInsert = document.getElementsByClassName("mobile-sui-search-box__wrapper")[0].firstChild;
-    const sIndex = document.getElementById("mobile-search-prefilter").selectedIndex;
-    const x = document.getElementById("mobile-search-prefilter").options[sIndex].text;
-    const newSearchIndex = `${x}`.toLowerCase();
-    props.searchSetIndex(newSearchIndex);  // tighter control here? fast enough?
-    // innerHTML is an invitation XSS attacks! dompurify? dangerouslySetInnerHTML?
+    props.searchSetIndex(e.target.value);
     sInsert.focus();
   }
 
@@ -30,6 +26,7 @@ const MobileSearch = props => {
   let capitalizedFirstLetter = `${props.currentIndex}`.slice(0, 1).toUpperCase();
   let otherLetters = `${props.currentIndex}`.slice(1, props.currentIndex.length).toLowerCase();
   let facadeText = `${capitalizedFirstLetter}${otherLetters}`;
+
   let titleField = props.currentIndex === "recipes" ? "title" : "ingredientName";
   let urlField = props.currentIndex === "recipes" ? "title" : "ingredientName";
 
@@ -45,7 +42,7 @@ const MobileSearch = props => {
           id="mobile-search-prefilter"
           name="search_prefilter"
           type="select-one"
-          onChange={swapFacadeText}
+          onChange={changeSearchIndex}
         >
           <option id="search_recipes" value="recipes">
             Recipes

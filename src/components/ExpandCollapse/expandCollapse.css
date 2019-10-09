@@ -3,9 +3,9 @@
   padding: 5px;
   margin: 8px 0;
   background-color: #d5fdd5;
-  cursor: pointer;
 }
 
 .expand-collapse-heading {
   font-size: 1.1rem;
+  cursor: pointer;
 }

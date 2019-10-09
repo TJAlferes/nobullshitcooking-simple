@@ -17,7 +17,7 @@ const MainWhite = props => {
       </div>
       {
         !isHome && !isRecipe && !isIngredient && !isEquipment &&
-        <div id="breadcrumbs"><Breadcrumbs /></div>
+        <div className="desktop_display" id="breadcrumbs"><Breadcrumbs /></div>
       }
       {props.children}
     </main>
