@@ -14,11 +14,11 @@ import {
   dataGetEquipmentTypesSaga,
   dataGetIngredientsSaga,
   dataGetIngredientTypesSaga,
-  dataGetRecipesSaga,
+  dataGetRecipesSaga,  // rename to dataGetAllOfficialRecipesSaga ?
   dataGetRecipeTypesSaga,
   dataGetCuisinesSaga,
   dataGetMethodsSaga,
-  dataGetPublicRecipesSaga,
+  //dataGetPublicRecipesSaga,  // probably remove
   dataGetMyPublicRecipesSaga,
   dataGetMyPrivateEquipmentsSaga,
   dataGetMyPrivateIngredientsSaga,
@@ -95,8 +95,8 @@ export function* watchData() {
     takeEvery(actionTypes.DATA_INIT, dataGetRecipeTypesSaga),
     takeEvery(actionTypes.DATA_INIT, dataGetCuisinesSaga),
     takeEvery(actionTypes.DATA_INIT, dataGetMethodsSaga),
-    takeEvery(actionTypes.DATA_INIT, dataGetPublicRecipesSaga),
-    //takeEvery(actionTypes.DATA_INIT, dataSearchPublicRecipesSaga),
+    //takeEvery(actionTypes.DATA_INIT, dataGetPublicRecipesSaga),  // probably remove
+    //takeEvery(actionTypes.DATA_INIT, dataSearchPublicRecipesSaga),  // probably remove
   ]);
 }
 

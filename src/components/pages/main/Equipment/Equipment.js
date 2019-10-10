@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { EquipmentBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './equipment.css';
-
+ 
 const Equipment = props => {
   const [ equipment, setEquipment ] = useState({});
 

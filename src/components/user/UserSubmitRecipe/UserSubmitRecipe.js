@@ -13,12 +13,15 @@ import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import {
   userCreateNewPrivateRecipe,
-  userCreateNewPublicRecipe
+  userCreateNewPublicRecipe,
+  userEditPrivateRecipe,
+  userEditPublicRecipe
 } from '../../../store/actions/index';
 
 const UserSubmitRecipe = props => {
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [ editing, setEditing ] = useState(false);
   const [ ownership, setOwnership ] = useState("");
   const [ recipeTypeId, setRecipeTypeId ] = useState("");
   const [ cuisineId, setCuisineId ] = useState("");
@@ -137,6 +140,14 @@ const UserSubmitRecipe = props => {
   const cookingImageRef = useRef(null);
 
   useEffect(() => {
+    if (props.editing === "true") {
+      setEditing(true);
+      //axios particular recipe,
+      //with res.data, setStates of forms
+    }
+  }, []);
+
+  useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.message !== "") window.scrollTo(0,0);
@@ -146,6 +157,7 @@ const UserSubmitRecipe = props => {
   }, [props.message]);
 
   const handleOwnershipChange = async (e) => {
+    if (props.editing === "true" || editing === true) return;
     if (ownership === "private" && e.target.value === "public") {
       // show prompt "Switching to from private to public. Any references to your private equipment, ingredients, or subrecipes will be removed. Continue Cancel"
       // if cancel return
@@ -676,6 +688,7 @@ const UserSubmitRecipe = props => {
               checked={ownership === "public"}
               onChange={handleOwnershipChange}
               value="public"
+              disabled={props.editing === "true" || editing === true}
             />
             <label className="ownership-span-label">Public</label>
           </span>
@@ -687,6 +700,7 @@ const UserSubmitRecipe = props => {
               checked={ownership === "private"}
               onChange={handleOwnershipChange}
               value="private"
+              disabled={props.editing === "true" || editing === true}
             />
             <label className="ownership-span-label">Private</label>
           </span>

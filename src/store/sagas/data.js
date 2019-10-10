@@ -153,52 +153,6 @@ export function* dataGetMethodsSaga() {
   }
 }
 
-/*export function* dataGetRecipeMethodsSaga() {
-  try {
-    yield axios.get(`${endpoint}/`);
-    yield put(dataGetSucceeded());
-  } catch (err) {
-    yield put(dataGetFailed());
-  }
-}
-
-export function* dataGetRecipeEquipmentSaga() {
-  try {
-    yield axios.get(`${endpoint}/`);
-    yield put(dataGetSucceeded());
-  } catch (err) {
-    yield put(dataGetFailed());
-  }
-}
-
-export function* dataGetRecipeIngredientsSaga() {
-  try {
-    yield axios.get(`${endpoint}/`);
-    yield put(dataGetSucceeded());
-  } catch (err) {
-    yield put(dataGetFailed());
-  }
-}
-
-export function* dataGetRecipeSubrecipesSaga() {
-  try {
-    yield axios.get(`${endpoint}/`);
-    yield put(dataGetSucceeded());
-  } catch (err) {
-    yield put(dataGetFailed());
-  }
-}*/
-
-export function* dataGetPublicRecipesSaga() {
-  try {
-    const res = yield axios.get(`${endpoint}/recipe/public/all`);
-    yield put(dataGetPublicRecipes(res.data));
-    yield put(dataGetPublicRecipesSucceeded());
-  } catch (err) {
-    yield put(dataGetPublicRecipesFailed());
-  }
-}
-
 
 
 export function* dataGetMyPublicRecipesSaga() {

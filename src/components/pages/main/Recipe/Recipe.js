@@ -8,7 +8,7 @@ import './recipe.css';
 
 import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
-
+ 
 const Recipe = props => {
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
@@ -31,7 +31,7 @@ const Recipe = props => {
     const localRecipe = (
       props.dataRecipes.find(rec => rec.recipe_id === id) ||
       props.dataMyPrivateRecipes && props.dataMyPrivateRecipes.find(rec => rec.recipe_id === id)
-    );
+    );  // HERE ****************************************************************************************************************
     if (localRecipe) {
       setRecipe(localRecipe);
     } else {
@@ -41,12 +41,14 @@ const Recipe = props => {
 
   const getPublicRecipe = async (id) => {
     try {
-      const res = await axios.get(`${endpoint}/user/recipe/public/${id}`);
-      if (res.data.success === true) {
+      const res = await axios.get(`${endpoint}/recipe/${id}`);
+      console.log(res.data);
+      setRecipe(res.data);
+      /*if (res.data.success === true) {
         setRecipe(res.data);
       } else {
         //Redirect them to Recipes
-      }
+      }*/
     } catch (err) {
       console.error(err);
     }
@@ -81,14 +83,14 @@ const Recipe = props => {
   return (
     <div className="view-recipe">
       <div>
-        {
+        {/*
           (Object.keys(recipe).length > 1) &&
           <RecipeBreadcrumbs recipe={recipe} />
-        }
+        */}
       </div>
 
       <div className="recipe">
-        <div className="title"><h1>{recipe.title}</h1></div>
+        <div className="title"><h1>{recipe && recipe.recipe && recipe.recipe.title}</h1></div>
 
         <p className="error-message">{message}</p>
 
@@ -129,34 +131,34 @@ const Recipe = props => {
         </div>
 
         <div className="recipe-image">
-          <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}`} />
+          <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe && recipe.recipe && recipe.recipe.recipeImage}`} />
         </div>
 
-        <div className="recipe-type-name">{recipe.recipe_type_name}</div>
+        <div className="recipe-type-name">{recipe && recipe.recipe && recipe.recipe.recipeTypeName}</div>
 
-        <div className="cuisine-name">{recipe.cuisine_name}</div>
+        <div className="cuisine-name">{recipe && recipe.recipe && recipe.recipe.cuisineName}</div>
 
-        <div className="description">{recipe.description}</div>
+        <div className="description">{recipe && recipe.recipe && recipe.recipe.description}</div>
 
         <div className="required-equipment">
-          {recipe.required_equipment && recipe.required_equipment.map(equ => (
-            <div key={equ.key}>{equ.amount}{' '}{equ.equipment}</div>
+          {recipe && recipe.requiredEquipment && recipe.requiredEquipment.map(equ => (
+            <div key={equ.equipmentName}>{equ.amount}{' '}{equ.equipmentName}</div>
           ))}
         </div>
 
         <div className="required-ingredients">
-          {recipe.required_ingredients && recipe.required_ingredients.map(ing => (
-            <div key={ing.key}>{ing.amount}{ing.unit}{' '}{ing.ingredient}</div>
+          {recipe && recipe.requiredIngredients && recipe.requiredIngredients.map(ing => (
+            <div key={ing.ingredientName}>{ing.amount}{ing.measurementName}{' '}{ing.ingredientName}</div>
           ))}
         </div>
 
         <div className="required-subrecipes">
-          {recipe.required_subrecipes && recipe.required_subrecipes.map(rec => (
-            <div key={rec.key}>{rec.amount}{rec.unit}{' '}{rec.subrecipe}</div>
+          {recipe && recipe.requiredSubrecipes && recipe.requiredSubrecipes.map(rec => (
+            <div key={rec.subrecipeTitle}>{rec.amount}{rec.measurementName}{' '}{rec.subrecipeTitle}</div>
           ))}
         </div>
 
-        <div className="directions">{recipe.directions}</div>
+        <div className="directions">{recipe && recipe.recipe && recipe.recipe.directions}</div>
 
         <div className="equipment-image">
           <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${recipe.equipment_image}`} />

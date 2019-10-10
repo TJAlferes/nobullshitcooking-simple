@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { IngredientBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './ingredient.css';
-
+ 
 const Ingredient = props => {
   const [ ingredient, setIngredient ] = useState({});
 
