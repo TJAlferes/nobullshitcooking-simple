@@ -10,15 +10,18 @@ import {
 } from './auth';
 import {
   dataGetMeasurementsSaga,
+
   dataGetEquipmentsSaga,
   dataGetEquipmentTypesSaga,
+
   dataGetIngredientsSaga,
   dataGetIngredientTypesSaga,
+
   dataGetRecipesSaga,  // rename to dataGetAllOfficialRecipesSaga ?
   dataGetRecipeTypesSaga,
   dataGetCuisinesSaga,
   dataGetMethodsSaga,
-  //dataGetPublicRecipesSaga,  // probably remove
+
   dataGetMyPublicRecipesSaga,
   dataGetMyPrivateEquipmentsSaga,
   dataGetMyPrivateIngredientsSaga,
@@ -26,29 +29,34 @@ import {
   dataGetMyFavoriteRecipesSaga,
   dataGetMySavedRecipesSaga,
   dataGetMyPlansSaga,
-  dataGetMyFriendshipsSaga,
-  //dataSearchPublicRecipesSaga
+  dataGetMyFriendshipsSaga
 } from './data';
 import {
   userCreateNewPrivateEquipmentSaga,
   userEditPrivateEquipmentSaga,
   userDeletePrivateEquipmentSaga,
+
   userCreateNewPrivateIngredientSaga,
   userEditPrivateIngredientSaga,
   userDeletePrivateIngredientSaga,
+
   userCreateNewPrivateRecipeSaga,
   userEditPrivateRecipeSaga,
   userDeletePrivateRecipeSaga,
+
   userCreateNewPublicRecipeSaga,
   userEditPublicRecipeSaga,
   userDisownPublicRecipeSaga,
+
   userCreateNewPlanSaga,
   userEditPlanSaga,
   userDeletePlanSaga,
+
   userFavoriteRecipeSaga,
   userUnfavoriteRecipeSaga,
   userSaveRecipeSaga,
   userUnsaveRecipeSaga,
+  
   userRequestFriendshipSaga,
   userAcceptFriendshipSaga,
   userRejectFriendshipSaga,
@@ -94,9 +102,7 @@ export function* watchData() {
     takeEvery(actionTypes.DATA_INIT, dataGetRecipesSaga),
     takeEvery(actionTypes.DATA_INIT, dataGetRecipeTypesSaga),
     takeEvery(actionTypes.DATA_INIT, dataGetCuisinesSaga),
-    takeEvery(actionTypes.DATA_INIT, dataGetMethodsSaga),
-    //takeEvery(actionTypes.DATA_INIT, dataGetPublicRecipesSaga),  // probably remove
-    //takeEvery(actionTypes.DATA_INIT, dataSearchPublicRecipesSaga),  // probably remove
+    takeEvery(actionTypes.DATA_INIT, dataGetMethodsSaga)
   ]);
 }
 

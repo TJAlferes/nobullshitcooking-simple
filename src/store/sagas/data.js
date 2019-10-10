@@ -1,22 +1,25 @@
-import { call, put } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
   dataGetMeasurements,
   dataGetMeasurementsSucceeded,
   dataGetMeasurementsFailed,
+
   dataGetEquipments,
   dataGetEquipmentsSucceeded,
   dataGetEquipmentsFailed,
   dataGetEquipmentTypes,
   dataGetEquipmentTypesSucceeded,
   dataGetEquipmentTypesFailed,
+
   dataGetIngredients,
   dataGetIngredientsSucceeded,
   dataGetIngredientsFailed,
   dataGetIngredientTypes,
   dataGetIngredientTypesSucceeded,
   dataGetIngredientTypesFailed,
+
   dataGetRecipes,
   dataGetRecipesSucceeded,
   dataGetRecipesFailed,
@@ -29,9 +32,7 @@ import {
   dataGetMethods,
   dataGetMethodsSucceeded,
   dataGetMethodsFailed,
-  dataGetPublicRecipes,
-  dataGetPublicRecipesSucceeded,
-  dataGetPublicRecipesFailed,
+
   dataGetMyPublicRecipes,
   dataGetMyPublicRecipesSucceeded,
   dataGetMyPublicRecipesFailed,
@@ -44,15 +45,18 @@ import {
   dataGetMyPrivateRecipes,
   dataGetMyPrivateRecipesSucceeded,
   dataGetMyPrivateRecipesFailed,
+
   dataGetMyFavoriteRecipes,
   dataGetMyFavoriteRecipesSucceeded,
   dataGetMyFavoriteRecipesFailed,
   dataGetMySavedRecipes,
   dataGetMySavedRecipesSucceeded,
   dataGetMySavedRecipesFailed,
+
   dataGetMyPlans,
   dataGetMyPlansSucceeded,
   dataGetMyPlansFailed,
+
   dataGetMyFriendships,
   dataGetMyFriendshipsSucceeded,
   dataGetMyFriendshipsFailed
@@ -61,7 +65,7 @@ import {
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-// IMPLEMENT RETRY LOGIC
+// TO DO: IMPLEMENT RETRY LOGIC
 
 export function* dataGetMeasurementsSaga() {
   try {
@@ -72,6 +76,8 @@ export function* dataGetMeasurementsSaga() {
     yield put(dataGetMeasurementsFailed());
   }
 }
+
+
 
 export function* dataGetEquipmentsSaga() {
   try {
@@ -93,6 +99,8 @@ export function* dataGetEquipmentTypesSaga() {
   }
 }
 
+
+
 export function* dataGetIngredientsSaga() {
   try {
     const res = yield axios.get(`${endpoint}/ingredient/official/all`);
@@ -112,6 +120,8 @@ export function* dataGetIngredientTypesSaga() {
     yield put(dataGetIngredientTypesFailed());
   }
 }
+
+
 
 export function* dataGetRecipesSaga() {
   try {
@@ -168,8 +178,6 @@ export function* dataGetMyPublicRecipesSaga() {
     yield put(dataGetMyPublicRecipesFailed());
   }
 }
-
-
 
 export function* dataGetMyPrivateEquipmentsSaga() {
   try {
@@ -274,14 +282,3 @@ export function* dataGetMyFriendshipsSaga() {
     yield put(dataGetMyFriendshipsFailed());
   }
 }
-
-
-
-/*export function* dataSearchPublicRecipesSaga() {
-  try {
-    const res = yield axios.get(`${endpoint}/search/recipes`);
-    console.log(res.data);
-  } catch (err) {
-    console.log(err);
-  }
-}*/

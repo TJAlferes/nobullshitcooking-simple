@@ -85,21 +85,21 @@ export {
   dataGetMeasurements,
   dataGetMeasurementsSucceeded,
   dataGetMeasurementsFailed,
-  dataGetEquipments,
-  dataGetEquipmentsSucceeded,
-  dataGetEquipmentsFailed,
+  dataGetEquipments,  // ...possibly delete
+  dataGetEquipmentsSucceeded,  // ...possibly delete
+  dataGetEquipmentsFailed,  // ...possibly delete
   dataGetEquipmentTypes,
   dataGetEquipmentTypesSucceeded,
   dataGetEquipmentTypesFailed,
-  dataGetIngredients,
-  dataGetIngredientsSucceeded,
-  dataGetIngredientsFailed,
+  dataGetIngredients,  // ...possibly delete
+  dataGetIngredientsSucceeded,  // ...possibly delete
+  dataGetIngredientsFailed,  // ...possibly delete
   dataGetIngredientTypes,
   dataGetIngredientTypesSucceeded,
   dataGetIngredientTypesFailed,
-  dataGetRecipes,
-  dataGetRecipesSucceeded,
-  dataGetRecipesFailed,
+  dataGetRecipes,  // probably delete
+  dataGetRecipesSucceeded,  // probably delete
+  dataGetRecipesFailed,  // probably delete
   dataGetRecipeTypes,
   dataGetRecipeTypesSucceeded,
   dataGetRecipeTypesFailed,
@@ -109,9 +109,6 @@ export {
   dataGetMethods,
   dataGetMethodsSucceeded,
   dataGetMethodsFailed,
-  dataGetPublicRecipes,
-  dataGetPublicRecipesSucceeded,
-  dataGetPublicRecipesFailed,
   dataGetMyPublicRecipes,
   dataGetMyPublicRecipesSucceeded,
   dataGetMyPublicRecipesFailed,

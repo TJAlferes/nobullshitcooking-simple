@@ -5,6 +5,8 @@ import * as actionTypes from './actionTypes';
 // init (when user first visits website)
 export const dataInit = () => ({type: actionTypes.DATA_INIT});
 
+
+
 // measurements
 export const dataGetMeasurements = measurements => ({
   type: actionTypes.DATA_GET_MEASUREMENTS,
@@ -13,7 +15,9 @@ export const dataGetMeasurements = measurements => ({
 export const dataGetMeasurementsSucceeded = () => ({type: actionTypes.DATA_GET_MEASUREMENTS_SUCCEEDED});
 export const dataGetMeasurementsFailed = () => ({type: actionTypes.DATA_GET_MEASUREMENTS_FAILED});
 
-// equipment
+
+
+// equipment ... NOTE: MAY NOT NEED, NOW THAT WE USE ELASTICSEARCH ***********************************************************************
 export const dataGetEquipments = equipment => ({
   type: actionTypes.DATA_GET_EQUIPMENTS,
   equipment
@@ -29,7 +33,9 @@ export const dataGetEquipmentTypes = equipmentTypes => ({
 export const dataGetEquipmentTypesSucceeded = () => ({type: actionTypes.DATA_GET_EQUIPMENT_TYPES_SUCCEEDED});
 export const dataGetEquipmentTypesFailed = () => ({type: actionTypes.DATA_GET_EQUIPMENTS_FAILED});
 
-// ingredients
+
+
+// ingredients ... NOTE: MAY NOT NEED, NOW THAT WE USE ELASTICSEARCH ***********************************************************************
 export const dataGetIngredients = ingredients => ({
   type: actionTypes.DATA_GET_INGREDIENTS,
   ingredients
@@ -45,7 +51,9 @@ export const dataGetIngredientTypes = ingredientTypes => ({
 export const dataGetIngredientTypesSucceeded = () => ({type: actionTypes.DATA_GET_INGREDIENT_TYPES_SUCCEEDED});
 export const dataGetIngredientTypesFailed = () => ({type: actionTypes.DATA_GET_INGREDIENT_TYPES_FAILED});
 
-// recipes
+
+
+// recipes ... NOTE: MAY NOT NEED, NOW THAT WE USE ELASTICSEARCH ***********************************************************************
 export const dataGetRecipes = recipes => ({
   type: actionTypes.DATA_GET_RECIPES,
   recipes
@@ -76,16 +84,6 @@ export const dataGetMethods = methods => ({
 });
 export const dataGetMethodsSucceeded = () => ({type: actionTypes.DATA_GET_METHODS_SUCCEEDED});
 export const dataGetMethodsFailed = () => ({type: actionTypes.DATA_GET_METHODS_FAILED});
-
-
-
-// others' public recipes (Note to self: HERE you will need retrieval and caching strategy)
-export const dataGetPublicRecipes = publicRecipes => ({
-  type: actionTypes.DATA_GET_PUBLIC_RECIPES,
-  publicRecipes
-});
-export const dataGetPublicRecipesSucceeded = () => ({type: actionTypes.DATA_GET_PUBLIC_RECIPES_SUCCEEDED});
-export const dataGetPublicRecipesFailed = () => ({type: actionTypes.DATA_GET_PUBLIC_RECIPES_FAILED});
 
 
 

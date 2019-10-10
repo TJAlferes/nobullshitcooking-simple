@@ -1,7 +1,7 @@
-import { call, put, delay } from 'redux-saga/effects';
+import { put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
-// TO DO: BREAK THIS UP
+// TO DO: BREAK THIS UP *****
  
 import {
   userMessageClear,
