@@ -26,12 +26,12 @@ const Recipe = props => {
   }, [props.message]);
 
   useEffect(() => {
-    const { id } = props.match.params;
+    const { id } = props.match.params;  // withRouter ? // HERE *****
     //if (!id) Redirect them to Recipes
     const localRecipe = (
       props.dataRecipes.find(rec => rec.recipe_id === id) ||
       props.dataMyPrivateRecipes && props.dataMyPrivateRecipes.find(rec => rec.recipe_id === id)
-    );  // HERE ****************************************************************************************************************
+    );  // HERE **************************************************************************************************************** 
     if (localRecipe) {
       setRecipe(localRecipe);
     } else {

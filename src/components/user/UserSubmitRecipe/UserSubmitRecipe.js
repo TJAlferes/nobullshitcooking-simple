@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import uuid from 'uuid/v4';
+import axios from 'axios';
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
@@ -17,6 +18,9 @@ import {
   userEditPrivateRecipe,
   userEditPublicRecipe
 } from '../../../store/actions/index';
+
+import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
+const endpoint = NOBSCBackendAPIEndpointOne;
 
 const UserSubmitRecipe = props => {
   const [ message, setMessage ] = useState("");
@@ -140,10 +144,43 @@ const UserSubmitRecipe = props => {
   const cookingImageRef = useRef(null);
 
   useEffect(() => {
+    // props.editing and props.editingOwnership and the props.match.params.id will come from components/user/UserDashboard/UserDashboard and routing/Routes
     if (props.editing === "true") {
       setEditing(true);
-      //axios particular recipe,
-      //with res.data, setStates of forms
+      const res = await axios.post(
+        `${endpoint}/user/recipe/edit/${props.editingOwnership}`,
+        {recipeId: props.match.params.id},
+        {withCredentials: true}
+      );
+      console.log(res.data);
+      setOwnership(props.editingOwnership);  // or from res.data?
+      setRecipeTypeId();
+      setCuisineId();
+      setTitle();
+      setDescription();
+      setDirections();
+
+      /*
+        *
+        *
+        *
+      */
+      setMethods();  // ?
+      setEquipmentRows();  // ?
+      setIngredientRows();  // ?
+      setSubrecipeRows();  // ?
+      /*
+        *
+        *
+        *
+      */
+      // and then remember you need to handle list populations (and autosuggestions) *****
+      // then images... oh boy...
+      // delete Edit stuff (yay!)
+      // then pre populate checked filters
+      // then max recipes per day in plan?
+      // css, themes
+      // content all in one place
     }
   }, []);
 
@@ -639,8 +676,13 @@ const UserSubmitRecipe = props => {
     };
     setLoading(true);
     try {
-      if (ownership === "private") props.userCreateNewPrivateRecipe(recipeInfo);
-      else if (ownership === "public") props.userCreateNewPublicRecipe(recipeInfo);
+      if (props.editing === "true" || editing === true) {
+        if (props.editingOwnership === "private") props.userEditPrivateRecipe(recipeInfo);
+        else if (props.editingOwnership === "public") props.userEditPublicRecipe(recipeInfo);
+      } else {
+        if (ownership === "private") props.userCreateNewPrivateRecipe(recipeInfo);
+        else if (ownership === "public") props.userCreateNewPublicRecipe(recipeInfo);
+      }
     } catch(err) {
       setLoading(false);
       window.scrollTo(0,0);
@@ -1079,7 +1121,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   userCreateNewPrivateRecipe: (recipeInfo) => dispatch(userCreateNewPrivateRecipe(recipeInfo)),
-  userCreateNewPublicRecipe: (recipeInfo) => dispatch(userCreateNewPublicRecipe(recipeInfo))
+  userCreateNewPublicRecipe: (recipeInfo) => dispatch(userCreateNewPublicRecipe(recipeInfo)),
+  userEditPrivateRecipe: (recipeInfo) => dispatch(userEditPrivateRecipe(recipeInfo)),
+  userEditPublicRecipe: (recipeInfo) => dispatch(userEditPublicRecipe(recipeInfo))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSubmitRecipe);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserSubmitRecipe));
