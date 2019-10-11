@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import { userFavoriteRecipe, userSaveRecipe } from '../../../../store/actions/index';
@@ -26,8 +27,8 @@ const Recipe = props => {
   }, [props.message]);
 
   useEffect(() => {
-    const { id } = props.match.params;  // withRouter ? // HERE *****
-    //if (!id) Redirect them to Recipes
+    const { id } = props.match.params;
+    //if (!id) Redirect them to Recipes *****
     const localRecipe = (
       props.dataRecipes.find(rec => rec.recipe_id === id) ||
       props.dataMyPrivateRecipes && props.dataMyPrivateRecipes.find(rec => rec.recipe_id === id)
@@ -193,4 +194,4 @@ const mapDispatchToProps = state => ({
   userSaveRecipe: id => dispatch(userSaveRecipe(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Recipe);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Recipe));

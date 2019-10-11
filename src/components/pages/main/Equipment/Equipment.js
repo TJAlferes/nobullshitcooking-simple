@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { EquipmentBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './equipment.css';
@@ -9,7 +10,7 @@ const Equipment = props => {
 
   useEffect(() => {
     const { id } = props.match.params;
-    //if (!id) Redirect them to Equipments
+    //if (!id) Redirect them to Equipments *****
     const localEquipment = (
       props.dataEquipment.find(equ=> equ.equipment_id === id) ||
       (props.dataMyPrivateEquipment && props.dataMyPrivateEquipment.find(equ=> equ.equipment_id === id))
@@ -54,4 +55,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Equipment);
+export default withRouter(connect(mapStateToProps)(Equipment));

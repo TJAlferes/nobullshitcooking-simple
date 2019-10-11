@@ -73,6 +73,10 @@ const UserSubmitRecipe = props => {
     {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
     {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
   ]);
+  const [ prevRecipeImage, setPrevRecipeImage ] = useState("");
+  const [ prevEquipmentImage, setPrevEquipmentImage ] = useState("");
+  const [ prevIngredientsImage, setPrevIngredientsImage ] = useState("");
+  const [ prevCookingImage, setPrevCookingImage ] = useState("");
 
   const [ cropOne, setCropOne ] = useState({
     disabled: true,
@@ -143,45 +147,84 @@ const UserSubmitRecipe = props => {
   const ingredientsImageRef = useRef(null);
   const cookingImageRef = useRef(null);
 
+  // this effect only runs once,
+  // and it is only used for editing an existing recipe
+  // it is not used for creating a new recipe
+  // this populates the form fields with the existing info
   useEffect(() => {
-    // props.editing and props.editingOwnership and the props.match.params.id will come from components/user/UserDashboard/UserDashboard and routing/Routes
-    if (props.editing === "true") {
-      setEditing(true);
-      const res = await axios.post(
-        `${endpoint}/user/recipe/edit/${props.editingOwnership}`,
-        {recipeId: props.match.params.id},
-        {withCredentials: true}
-      );
-      console.log(res.data);
-      setOwnership(props.editingOwnership);  // or from res.data?
-      setRecipeTypeId();
-      setCuisineId();
-      setTitle();
-      setDescription();
-      setDirections();
+    const getExistingRecipeToEdit = async () => {
+      if (props.childProps.editing === "true") {
+        setLoading(true);
+        setEditing(true);
+        const res = await axios.post(
+          `${endpoint}/user/recipe/edit/${props.childProps.editingOwnership}`,
+          {recipeId: props.match.params.id},
+          {withCredentials: true}
+        );
+        console.log(res.data);
+        setOwnership(res.data.recipe.ownerId);  // or from res.data?
+        setRecipeTypeId(res.data.recipe.recipeTypeId);
+        setCuisineId(res.data.recipe.cuisineId);
+        setTitle(res.data.recipe.title);
+        setDescription(res.data.recipe.description);
+        setDirections(res.data.recipe.directions);
 
-      /*
-        *
-        *
-        *
-      */
-      setMethods();  // ?
-      setEquipmentRows();  // ?
-      setIngredientRows();  // ?
-      setSubrecipeRows();  // ?
-      /*
-        *
-        *
-        *
-      */
-      // and then remember you need to handle list populations (and autosuggestions) *****
-      // then images... oh boy...
-      // delete Edit stuff (yay!)
-      // then pre populate checked filters
-      // then max recipes per day in plan?
-      // css, themes
-      // content all in one place
-    }
+        res.data.requiredMethods.map(method => setMethods(prevState => ({
+            ...prevState,
+            [method]: true
+          }))
+        );
+
+        let equipmentToSet = [];
+        let ingredientsToSet = [];
+        let subrecipesToSet = [];
+
+        res.data.requiredEquipment.length &&
+        res.data.requiredEquipment.map(equ => equipmentToSet.push({
+          key: uuid(),
+          amount: equ.amount,
+          type: equ.equipmentTypeId,
+          equipment: equ.equipmentId
+        }));
+
+        res.data.requiredIngredients.length &&
+        res.data.requiredIngredients.map(ing => ingredientsToSet.push({
+          key: uuid(),
+          amount: 1,
+          unit: ing.measurementId,
+          type: ing.ingredientTypeId,
+          ingredient: ing.ingredientId
+        }));
+
+        res.data.requiredSubrecipes.length &&
+        res.data.requiredSubrecipes.map(sub => subrecipesToSet.push({
+          key: uuid(),
+          amount: 1,
+          unit: sub.measurementId,
+          type: sub.recipeTypeId,
+          cuisine: sub.cuisineId,
+          subrecipe: sub.subrecipeId
+        }))
+
+        setEquipmentRows(equipmentToSet);
+        setIngredientRows(ingredientsToSet);
+        setSubrecipeRows(subrecipesToSet);
+
+        setPrevRecipeImage(res.data.recipe.recipeImage);
+        setPrevEquipmentImage(res.data.recipe.recipeEquipmentImage);
+        setPrevIngredientsImage(res.data.recipe.recipeIngredientsImage);
+        setPrevCookingImage(res.data.recipe.recipeCookingImage);
+
+        setLoading(false);
+
+        // and then remember you need to handle list populations (and autosuggestions) *****
+        // then pre populate checked filters
+        // then max recipes per day in plan?
+        // css, themes
+        // content all in one place
+      }
+    };
+    getExistingRecipeToEdit();
   }, []);
 
   useEffect(() => {
@@ -674,14 +717,26 @@ const UserSubmitRecipe = props => {
       thumbRecipeCookingImage,
       tinyRecipeCookingImage
     };
+    if (props.editing === "true" || editing === true) {
+      recipeInfo.prevRecipeImage = prevRecipeImage;
+      recipeInfo.prevEquipmentImage = prevEquipmentImage;
+      recipeInfo.prevIngredientsImage = prevIngredientsImage;
+      recipeInfo.prevCookingImage = prevCookingImage;
+    }
     setLoading(true);
     try {
       if (props.editing === "true" || editing === true) {
-        if (props.editingOwnership === "private") props.userEditPrivateRecipe(recipeInfo);
-        else if (props.editingOwnership === "public") props.userEditPublicRecipe(recipeInfo);
+        if (props.editingOwnership === "private" || ownership === "private") {
+          props.userEditPrivateRecipe(recipeInfo);
+        } else if (props.editingOwnership === "public" || ownership === "public") {
+          props.userEditPublicRecipe(recipeInfo);
+        }
       } else {
-        if (ownership === "private") props.userCreateNewPrivateRecipe(recipeInfo);
-        else if (ownership === "public") props.userCreateNewPublicRecipe(recipeInfo);
+        if (ownership === "private") {
+          props.userCreateNewPrivateRecipe(recipeInfo);
+        } else if (ownership === "public") {
+          props.userCreateNewPublicRecipe(recipeInfo);
+        }
       }
     } catch(err) {
       setLoading(false);
@@ -694,13 +749,15 @@ const UserSubmitRecipe = props => {
   return (
     <div className={`submit-recipe one-column-a ${props.oneColumnATheme}`}>
 
-      <h1>Submit New Recipe</h1>
+      <h1>{editing ? 'Edit Recipe' : 'Submit New Recipe'}</h1>
 
-      <p className="error-message">{message}</p>
+      <p className="submit-recipe__error-message">{message}</p>
+
+
 
       {/* ownership */}
-      <div className="ownership">
-        <h2 className="red_style">Ownership</h2>
+      <div className="submit-recipe__section-ownership">
+        <h2 className="submit-recipe__heading-two">Ownership</h2>
         <ExpandCollapse>
           <div>
             <p>Once submitted, a recipe's ownership can't be changed.</p>
@@ -749,9 +806,11 @@ const UserSubmitRecipe = props => {
         </div>
       </div>
 
+
+
       {/* recipe type */}
-      <div className="recipe-type">
-        <h2 className="red_style">Type of Recipe</h2>
+      <div className="submit-recipe__section-recipe-type">
+        <h2 className="submit-recipe__heading-two">Type of Recipe</h2>
         <select
           name="recipe_type_id"
           id="recipe_type_id"
@@ -771,9 +830,11 @@ const UserSubmitRecipe = props => {
         </select>
       </div>
 
+
+
       {/* cuisine */}
-      <div className="cuisine">
-        <h2 className="red_style">Cuisine</h2>
+      <div className="submit-recipe__section-cuisine">
+        <h2 className="submit-recipe__heading-two">Cuisine</h2>
         <select
           name="cuisine_id"
           id="cuisine_id"
@@ -793,9 +854,11 @@ const UserSubmitRecipe = props => {
         </select>
       </div>
 
+
+
       {/* title */}
-      <div className="title">
-        <h2 className="red_style">Title</h2>
+      <div className="submit-recipe__section-title">
+        <h2 className="submit-recipe__heading-two">Title</h2>
         <input
           type="text"
           name="recipe_title"
@@ -805,9 +868,11 @@ const UserSubmitRecipe = props => {
         />
       </div>
 
+
+
       {/* description */}
-      <div className="description">
-        <h2 className="red_style">Description / Author Note</h2>
+      <div className="submit-recipe__section-description">
+        <h2 className="submit-recipe__heading-two">Description / Author Note</h2>
         <input
           type="text"
           name="recipe_description"
@@ -817,9 +882,11 @@ const UserSubmitRecipe = props => {
         />
       </div>
 
-      {/* methods */}
-      <div className="methods">
-        <h2 className="red_style">Methods</h2>
+
+
+      {/* required methods */}
+      <div className="submit-recipe__section-required-methods">
+        <h2 className="submit-recipe__heading-two">Methods</h2>
         <div className="method-spans" onChange={e => handleMethodsChange(e)}>
           {props.dataMethods.map(method => (
             <span className="method-span" key={method.method_id}>
@@ -830,9 +897,11 @@ const UserSubmitRecipe = props => {
         </div>
       </div>
 
-      {/* equipment */}
-      <div className="recipe_additions" id="equipment_div">
-        <h2 className="red_style">Equipment</h2>
+
+
+      {/* required equipment */}
+      <div className="submit-recipe__section-required-equipment">
+        <h2 className="submit-recipe__heading-two">Equipment</h2>
         <div id="equipment_rows_container">
           {equipmentRows.map(equipmentRow => (
             <EquipmentRow
@@ -851,9 +920,11 @@ const UserSubmitRecipe = props => {
         </button>
       </div>
 
-      {/* ingredients */}
-      <div className="recipe_additions" id="ingredients_div">
-        <h2 className="red_style">Ingredients</h2>
+
+
+      {/* required ingredients */}
+      <div className="submit-recipe__section-required-ingredients">
+        <h2 className="submit-recipe__heading-two">Ingredients</h2>
         <div id="ingredient_rows_container">
           {ingredientRows.map(ingredientRow => (
             <IngredientRow
@@ -876,9 +947,11 @@ const UserSubmitRecipe = props => {
         </button>
       </div>
 
-      {/* subrecipes */}
-      <div className="recipe_additions" id="subrecipes_div">
-        <h2 className="red_style">Subrecipes</h2>
+
+
+      {/* required subrecipes */}
+      <div className="submit-recipe__section-required-subrecipes">
+        <h2 className="submit-recipe__heading-two">Subrecipes</h2>
         <div id="subrecipe_rows_container">
           {subrecipeRows.map(subrecipeRow => (
             <SubrecipeRow
@@ -903,9 +976,11 @@ const UserSubmitRecipe = props => {
         </button>
       </div>
 
+
+
       {/* directions */}
-      <div className="directions">
-        <h2 className="red_style">Directions</h2>
+      <div className="submit-recipe__section-directions">
+        <h2 className="submit-recipe__heading-two">Directions</h2>
         <textarea
           className="recipe-directions"
           name="recipe_directions"
@@ -915,18 +990,23 @@ const UserSubmitRecipe = props => {
         />
       </div>
 
+
+
       {/* images */}
 
-      <div className="submit-recipe-image">
-        <h2 className="red_style">Image of Finished Recipe</h2>
+      <div className="submit-recipe__section-recipe-image">
+        <h2 className="submit-recipe__heading-two">Image of Finished Recipe</h2>
         {!recipeImage && (
           <div>
-            <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+            {
+              !editing
+              ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+              : <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${prevRecipeImage}`} />
+            }
             <h4 className="change-default">Change</h4>
             <input className="submit-recipe-image-input" name="setRecipeImage" type="file" accept="image/*" onChange={onSelectFile} />
           </div>
         )}
-
         {recipeImage && (
           <div>
             <ReactCrop
@@ -956,16 +1036,19 @@ const UserSubmitRecipe = props => {
         )}
       </div>
 
-      <div className="submit-recipe-equipment-image">
-        <h2 className="red_style">Image of All Equipment</h2>
+      <div className="submit-recipe__section-equipment-image">
+        <h2 className="submit-recipe__heading-two">Image of All Equipment</h2>
         {!recipeEquipmentImage && (
           <div>
-            <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+            {
+              !editing
+              ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+              : <img src={`https://nobsc-user-recipe-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
+            }
             <h4 className="change-default">Change</h4>
             <input className="submit-recipe-equipment-image-input" name="setRecipeEquipmentImage" type="file" accept="image/*" onChange={onSelectEquipmentFile} />
           </div>
         )}
-
         {recipeEquipmentImage && (
           <div>
             <ReactCrop
@@ -995,16 +1078,19 @@ const UserSubmitRecipe = props => {
         )}
       </div>
 
-      <div className="submit-recipe-ingredients-image">
-        <h2 className="red_style">Image of All Ingredients</h2>
+      <div className="submit-recipe__section-ingredients-image">
+        <h2 className="submit-recipe__heading-two">Image of All Ingredients</h2>
         {!recipeIngredientsImage && (
           <div>
-            <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+            {
+              !editing
+              ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+              : <img src={`https://nobsc-user-recipe-ingredients.s3.amazonaws.com/${prevIngredientsImage}`} />
+            }
             <h4 className="change-default">Change</h4>
             <input className="submit-recipe-ingredients-image-input" name="setRecipeIngredientsImage" type="file" accept="image/*" onChange={onSelectIngredientsFile} />
           </div>
         )}
-
         {recipeIngredientsImage && (
           <div>
             <ReactCrop
@@ -1034,16 +1120,19 @@ const UserSubmitRecipe = props => {
         )}
       </div>
 
-      <div className="submit-recipe-cooking-image">
-        <h2 className="red_style">Image of Cooking In Action</h2>
+      <div className="submit-recipe__section-cooking-image">
+        <h2 className="submit-recipe__heading-two">Image of Cooking In Action</h2>
         {!recipeCookingImage && (
           <div>
-            <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+            {
+              !editing
+              ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
+              : <img src={`https://nobsc-user-recipe-cooking.s3.amazonaws.com/${prevCookingImage}`} />
+            }
             <h4 className="change-default">Change</h4>
             <input className="submit-recipe-cooking-image-input" name="setRecipeCookingImage" type="file" accept="image/*" onChange={onSelectCookingFile} />
           </div>
         )}
-
         {recipeCookingImage && (
           <div>
             <ReactCrop

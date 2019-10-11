@@ -9,11 +9,11 @@ const EquipmentRow = ({
   handleEquipmentRowChange,
   removeEquipmentRow
 }) => (
-  <div className="equipment_row">
+  <div className="equipment-row"> 
 
-    <label>Amount:</label>
+    <label className="equipment-row__label">Amount:</label>
     <select
-      className="select_amount"
+      className="equipment-row__select-amount"
       name="amount"
       required
       value={amount}
@@ -27,9 +27,9 @@ const EquipmentRow = ({
       <option value="5">5</option>
     </select>
 
-    <label>Type:</label>
+    <label className="equipment-row__label">Type:</label>
     <select
-      className="select_equipment_type"
+      className="equipment-row__select-equipment-type"
       name="type"
       required
       value={type}
@@ -40,9 +40,9 @@ const EquipmentRow = ({
       <option value="3">Cooking</option>
     </select>
 
-    <label>Equipment:</label>
+    <label className="equipment-row__label">Equipment:</label>
     <select
-      className="select_equipment"
+      className="equipment-row__select-equipment"
       name="equipment"
       required
       value={equipment}
@@ -61,7 +61,7 @@ const EquipmentRow = ({
     </select>
 
     <button
-      className="remove_equipment_row_button"
+      className="equipment-row__remove-row"
       onClick={() => removeEquipmentRow(rowKey)}
     >
       Remove

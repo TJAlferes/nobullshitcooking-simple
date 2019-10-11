@@ -14,11 +14,11 @@ const SubrecipeRow = ({
   handleSubrecipeRowChange,
   removeSubrecipeRow
 }) => (
-  <div className="subrecipe_row">
+  <div className="subrecipe-row">
 
-    <label>Amount:</label>
+    <label className="subrecipe-row__label">Amount:</label>
     <input
-      className="manual_amount"
+      className="subrecipe-row__manual-amount"
       type="number"
       name="amount"
       step="any"
@@ -29,9 +29,9 @@ const SubrecipeRow = ({
       onChange={(e) => handleSubrecipeRowChange(e, rowKey)}
     />
 
-    <label>Unit:</label>
+    <label className="subrecipe-row__label">Unit:</label>
     <select
-      className="select_unit"
+      className="subrecipe-row__select-unit"
       name="unit"
       required
       value={unit}
@@ -45,9 +45,9 @@ const SubrecipeRow = ({
       ))}
     </select>
 
-    <label>Type:</label>
+    <label className="subrecipe-row__label">Type:</label>
     <select
-      className="select_subrecipe_type"
+      className="subrecipe-ro__select-subrecipe-type"
       name="type"
       required
       value={type}
@@ -61,9 +61,9 @@ const SubrecipeRow = ({
       ))}
     </select>
 
-    <label>Cuisine:</label>
+    <label className="subrecipe-row__label">Cuisine:</label>
     <select
-      className="select_subrecipe_cuisine"
+      className="subrecipe-row__select-cuisine"
       name="cuisine"
       required
       value={cuisine}
@@ -77,9 +77,9 @@ const SubrecipeRow = ({
       ))}
     </select>
 
-    <label>Subrecipe:</label>
+    <label className="subrecipe-row__label">Subrecipe:</label>
     <select
-      className="select_subrecipe"
+      className="subrecipe-row__select-subrecipe"
       name="subrecipe"
       required
       value={subrecipe}
@@ -99,7 +99,7 @@ const SubrecipeRow = ({
     </select>
 
     <button
-      className="remove_subrecipe_row_button"
+      className="subrecipe-row__remove-row"
       onClick={() => removeSubrecipeRow(rowKey)}
     >
       Remove

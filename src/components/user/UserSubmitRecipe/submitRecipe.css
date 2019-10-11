@@ -1,8 +1,8 @@
-.submit-recipe {
-  /*width: 1000px;*/
-}
+/*.submit-recipe {
 
-.submit-recipe .error-message {
+}*/
+
+.submit-recipe__error-message {
   width: 100%;
   height: 31px;
   color: #c10006;
@@ -11,11 +11,13 @@
   font-size: 14px;
 }
 
+.submit-recipe__heading-two {
+  font-size: 1.7rem;
+}
+
 .submit-recipe select:required {
   box-shadow: none;
 }
-
-
 
 .ownership-spans {
   display: flex;
@@ -65,8 +67,6 @@
   font-weight: 700;
 }
 
-
-
 .method-spans {
   display: flex;
   flex-direction: row;
@@ -115,10 +115,7 @@
   margin-left: 4px;
   font-size: 1.3rem;
   font-weight: 700;
-  /*line-height: 13px;*/
 }
-
-
 
 .submit-recipe .title input,
 .submit-recipe .description input {
@@ -132,38 +129,68 @@
   padding: 3px 7px 3px 7px;
 }
 
-.recipe-type,
-.cuisine,
-.title,
-.description,
-.methods,
-#equipment_div,
-#ingredients_div,
-#subrecipes_div,
-.directions,
-.submit-recipe-image,
-.submit-recipe-equipment-image,
-.submit-recipe-ingredients-image,
-.submit-recipe-cooking-image {
+.submit-recipe__section-ownership
+.submit-recipe__section-recipe-type,
+.submit-recipe__section-cuisine,
+.submit-recipe__section-title,
+.submit-recipe__section-description,
+.submit-recipe__section-required-methods,
+.submit-recipe__section-required-equipment,
+.submit-recipe__section-required-ingredients,
+.submit-recipe__section-required-subrecipes,
+.submit-recipe__section-directions,
+.submit-recipe__section-recipe-image,
+.submit-recipe__section-equipment-image,
+.submit-recipe__section-ingredients-image,
+.submit-recipe__section-cooking-image {
   padding-top: 18px;
 }
 
-.red_style {
-  font-size: 1.7rem;
-  /*color: #333;*/
-}
-
-.equipment_row,
-.ingredient_row,
-.subrecipe_row {
+.equipment-row,
+.ingredient-row,
+.subrecipe-row {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
+  justify-content: flex-start;
 }
 
-.manual_amount,
-.manual_amount_sub {
-  display: inline;
+.equipment-row__label,
+.ingredient-row__label,
+.subrecipe-row__label {
+  height: 23px;
+  margin-right: 4px;
+  margin-left: 18px;
+  padding-top: 3px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.equipment-row__select-amount {
+  height: 23px;
+}
+
+.equipment-row__select-equipment-type {
+  height: 23px;
+}
+
+.equipment-row__select-equipment {
+  height: 23px;
+}
+
+.equipment-row__remove-row,
+.ingredient-row__remove-row,
+.subrecipe-row__remove-row {
+  height: 23px;
+  margin-left: 18px;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 2px;
+  background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
+}
+
+.ingredient-row__manual-amount,
+.subrecipe-row__manual-amount {
   width: 70px;
   min-width: 70px;
   max-width: 70px;
@@ -171,66 +198,17 @@
   border-style: solid;
   border-width: 1px;
   border-radius: 1px;
-  margin-right: 18px;
-  margin-left: 4px;
 }
 
-.select_subrecipe {
+.subrecipe-row__select-subrecipe {
   width: 233px;
   min-width: 233px;
   max-width: 233px;
-  margin-right: 18px;
-}
-
-.manual_step {
-  margin-right: 18px;
-  margin-left: 4px;
-}
-
-.recipe_additions p {
-  display: block;
-  width: 100%;
-  margin: 14px auto 4px auto;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-.recipe_additions label {
-  display: inline-block;
-  margin: 14px auto 4px auto;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-.recipe_additions input {
-  display: inline-block;
-  width: 75%;
-}
-
-.recipe_additions div select {
-  margin-right: 17px;
-  margin-left: 3px;
-}
-
-
-
-/*
-Add & Remove Buttons
-*/
-.remove_equipment_row_button,
-.remove_ingredient_row_button,
-.remove_subrecipe_row_button,
-.remove_step_row_button {
-  background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
-  border: 1px solid #aaa;
-  border-radius: 2px;
-  padding: 1px 2px;
 }
 
 #add_equipment_button,
 #add_ingredient_button,
-#add_subrecipe_button,
-#add_step_button {
+#add_subrecipe_button {
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
   border: 1px solid #aaa;
   border-radius: 2px;
@@ -242,13 +220,8 @@ Add & Remove Buttons
   margin-top: 8px;
 }
 
-#add_ingredient_button,
-#add_step_button {
+#add_ingredient_button {
   margin-top: 10px;
-}
-
-#add_step_button {
-  display: block;
 }
 
 .recipe-directions {
@@ -256,10 +229,6 @@ Add & Remove Buttons
   height: 102px;
 }
 
-
-/*
-images
-*/
 .submit-recipe-image-crop-previews {
   display: flex;
   flex-direction: row;
@@ -291,12 +260,6 @@ images
   padding-right: 6px;
   padding-left: 6px;
 }
-
-
-
-/*
-Submit Button
-*/
 
 .submit-recipe-cancel-button,
 .submit-recipe-submit-button {
@@ -335,14 +298,14 @@ Submit Button
     width: 235px;
     margin: 15px auto 0 auto;
   }
-
-
 }
 
+
+
 @media (max-width: 1000px) {
-  .equipment_row,
-  .ingredient_row,
-  .subrecipe_row {
+  .equipment-row,
+  .ingredient-row,
+  .subrecipe-row {
     flex-direction: column;
   }
 }

@@ -441,14 +441,14 @@ const UserDashboard = props => {
                 ? props.myPlans.map(plan => (
                   <div className="dashboard-content-item" key={plan.plan_id}>
                     <span className="dashboard-content-item-name">
-                      <Link to={`user/planner/${plan.plan_id}`}>
+                      <Link to={`/user/planner/${plan.plan_id}`}>
                         {plan.plan_name}
                       </Link>
                     </span>
                     {
                       (!props.creatingPlan && !props.updatingPlan) &&
                       <span className="dashboard-content-item-action">
-                        <Link to={`user/planner/edit/${plan.plan_id}`}>
+                        <Link to={`/user/planner/edit/${plan.plan_id}`}>
                           Edit
                         </Link>
                       </span>
@@ -477,8 +477,8 @@ const UserDashboard = props => {
                 ? props.myPrivateRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
                     <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
-                    <span className="dashboard-content-item-name"><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
-                    <span className="dashboard-content-item-action"><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
+                    <span className="dashboard-content-item-name"><Link to={`/user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
+                    <span className="dashboard-content-item-action"><Link to={`/user/recipes/private/edit/${recipe.recipe_id}`}>Edit</Link></span>
                     <span className="dashboard-content-item-delete" onClick={() => handleDeletePrivateRecipe(recipe.recipe_id)}>Delete</span>
                   </div>
                 ))
@@ -498,8 +498,8 @@ const UserDashboard = props => {
                 ? props.myPublicRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
                     <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
-                    <span className="dashboard-content-item-name"><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
-                    <span className="dashboard-content-item-action"><Link to={`user/recipes/edit/${recipe.recipe_id}`}>Edit</Link></span>
+                    <span className="dashboard-content-item-name"><Link to={`/user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
+                    <span className="dashboard-content-item-action"><Link to={`/user/recipes/public/edit/${recipe.recipe_id}`}>Edit</Link></span>
                     <span className="dashboard-content-item-delete" onClick={() => handleDisownPublicRecipe(recipe.recipe_id)}>Disown</span>
                   </div>
                 ))
@@ -518,7 +518,7 @@ const UserDashboard = props => {
                 ? props.myFavoriteRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
                     <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
-                    <span className="dashboard-content-item-name"><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
+                    <span className="dashboard-content-item-name"><Link to={`/user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
                     <span className="dashboard-content-item-delete" onClick={() => handleUnfavoriteRecipe(recipe.recipe_id)}>Unfavorite</span>
                   </div>
                 ))
@@ -537,7 +537,7 @@ const UserDashboard = props => {
                 ? props.mySavedRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
                     <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} /></span>
-                    <span className="dashboard-content-item-name"><Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
+                    <span className="dashboard-content-item-name"><Link to={`/user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link></span>
                     <span className="dashboard-content-item-delete" onClick={() => handleUnsaveRecipe(recipe.recipe_id)}>Unsave</span>
                   </div>
                 ))
@@ -557,8 +557,8 @@ const UserDashboard = props => {
                 ? props.myPrivateIngredients.map(ingredient => (
                   <div className="dashboard-content-item" key={ingredient.ingredient_id}>
                     <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-ingredients.s3.amazonaws.com/${ingredient.ingredient_image}-tiny`} /></span>
-                    <span className="dashboard-content-item-name"><Link to={`user/ingredients/${ingredient.ingredient_id}`}>{ingredient.ingredient_name}</Link></span>
-                    <span className="dashboard-content-item-action"><Link to={`user/ingredients/edit/${ingredient.ingredient_id}`}>Edit</Link></span>
+                    <span className="dashboard-content-item-name"><Link to={`/user/ingredients/${ingredient.ingredient_id}`}>{ingredient.ingredient_name}</Link></span>
+                    <span className="dashboard-content-item-action"><Link to={`/user/ingredients/edit/${ingredient.ingredient_id}`}>Edit</Link></span>
                     <span className="dashboard-content-item-delete" onClick={() => handleDeletePrivateIngredient(ingredient.ingredient_id)}>Delete</span>
                   </div>
                 ))
@@ -578,8 +578,8 @@ const UserDashboard = props => {
                 ? props.myPrivateEquipment.map(equipment => (
                   <div className="dashboard-content-item" key={equipment.equipment_id}>
                     <span className="dashboard-content-item-tiny"><img src={`https://nobsc-user-equipment.s3.amazonaws.com/${equipment.equipment_image}-tiny`} /></span>
-                    <span className="dashboard-content-item-name"><Link to={`user/equipment/${equipment.equipment_id}`}>{equipment.equipment_name}</Link></span>
-                    <span className="dashboard-content-item-action"><Link to={`user/equipment/edit/${equipment.equipment_id}`}>Edit</Link></span>
+                    <span className="dashboard-content-item-name"><Link to={`/user/equipment/${equipment.equipment_id}`}>{equipment.equipment_name}</Link></span>
+                    <span className="dashboard-content-item-action"><Link to={`/user/equipment/edit/${equipment.equipment_id}`}>Edit</Link></span>
                     <span className="dashboard-content-item-delete" onClick={() => handleDeletePrivateEquipment(equipment.equipment_id)}>Delete</span>
                   </div>
                 ))

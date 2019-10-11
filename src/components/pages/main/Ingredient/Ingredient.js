@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { IngredientBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './ingredient.css';
@@ -9,7 +10,7 @@ const Ingredient = props => {
 
   useEffect(() => {
     const { id } = props.match.params;
-    //if (!id) Redirect them to Ingredients
+    //if (!id) Redirect them to Ingredients *****
     const localIngredient = (
       props.dataIngredients.find(ing => ing.ingredient_id === id) ||
       (props.dataMyPrivateIngredients && props.dataMyPrivateIngredients.find(ing => ing.ingredient_id === id))
@@ -54,4 +55,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Ingredient);
+export default withRouter(connect(mapStateToProps)(Ingredient));

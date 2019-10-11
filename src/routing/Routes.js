@@ -213,7 +213,8 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
       <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
       <AuthenticatedRoute path="/staff/recipes/edit" exact component={StaffEditRecipe} />
-      <AuthenticatedRoute path="/user/recipes/edit" exact component={UserEditRecipe} />
+      <AuthenticatedRoute path="/user/recipes/private/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "private"}} />
+      <AuthenticatedRoute path="/user/recipes/public/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "public"}} />
 
       <AuthenticatedRoute path="/staff/equipment/submit" exact component={StaffSubmitEquipment} />
       <AuthenticatedRoute path="/user/equipment/submit" exact component={UserNewEquipment} />
