@@ -40,9 +40,8 @@ import {
   userEditPrivateIngredientSaga,
   userDeletePrivateIngredientSaga,
 
-  userCreateNewPrivateRecipeSaga,
+  userCreateNewRecipeSaga,
   userDeletePrivateRecipeSaga,
-  userCreateNewPublicRecipeSaga,
   userDisownPublicRecipeSaga,
   userEditRecipeSaga,
 
@@ -120,14 +119,14 @@ export function* watchUser() {  // please break this down
     takeEvery(actionTypes.USER_DELETE_PRIVATE_INGREDIENT, userDeletePrivateIngredientSaga),
     takeEvery(actionTypes.USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED, dataGetMyPrivateIngredientsSaga),
 
-    takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE, userCreateNewPrivateRecipeSaga),
+    takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE, userCreateNewRecipeSaga),
     takeEvery(actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED, dataGetMyPrivateRecipesSaga),
     takeEvery(actionTypes.USER_EDIT_PRIVATE_RECIPE, userEditRecipeSaga),
     takeEvery(actionTypes.USER_EDIT_PRIVATE_RECIPE_SUCCEEDED, dataGetMyPrivateRecipesSaga),
     takeEvery(actionTypes.USER_DELETE_PRIVATE_RECIPE, userDeletePrivateRecipeSaga),
     takeEvery(actionTypes.USER_DELETE_PRIVATE_RECIPE_SUCCEEDED, dataGetMyPrivateRecipesSaga),
 
-    takeEvery(actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE, userCreateNewPublicRecipeSaga),
+    takeEvery(actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE, userCreateNewRecipeSaga),
     takeEvery(actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED, dataGetMyPublicRecipesSaga),
     takeEvery(actionTypes.USER_EDIT_PUBLIC_RECIPE, userEditRecipeSaga),
     takeEvery(actionTypes.USER_EDIT_PUBLIC_RECIPE_SUCCEEDED, dataGetMyPublicRecipesSaga),

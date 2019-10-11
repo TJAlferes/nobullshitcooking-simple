@@ -13,8 +13,6 @@ const initialState = {
   cuisines: [],
   methods: [],
 
-  publicRecipes: [],
-
   myPublicRecipes: [],
 
   myPrivateEquipment: [],
@@ -118,8 +116,6 @@ const dataReducer = (state = initialState, action) => {
     case actionTypes.DATA_GET_RECIPE_TYPES: return {...state, ...{recipeTypes: action.recipeTypes}};
     case actionTypes.DATA_GET_CUISINES: return {...state, ...{cuisines: action.cuisines}};
     case actionTypes.DATA_GET_METHODS: return {...state, ...{methods: action.methods}};
-
-    case actionTypes.DATA_GET_PUBLIC_RECIPES: return {...state, ...{publicRecipes: action.publicRecipes}};
 
     case actionTypes.DATA_GET_MY_PUBLIC_RECIPES: return {...state, ...{myPublicRecipes: action.myPublicRecipes}};
     

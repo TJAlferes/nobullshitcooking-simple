@@ -2,7 +2,7 @@ import { put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 // TO DO: BREAK THIS UP *****
- 
+
 import {
   userMessageClear,
   
@@ -350,11 +350,11 @@ export function* userDeletePrivateIngredientSaga(action) {
 
 /*
 
-recipe (private)
+recipe
 
 */
 
-export function* userCreateNewPrivateRecipeSaga(action) {
+export function* userCreateNewRecipeSaga(action) {
   try {
     // 1
     if (
@@ -488,20 +488,72 @@ export function* userCreateNewPrivateRecipeSaga(action) {
 
     if (res.data.message == 'Recipe created.') {
       //yield put();  refresh/update respective list
-      yield put(userCreateNewPrivateRecipeSucceeded(res.data.message));
+      if (action.recipeInfo.ownership === "private") {
+        yield put(userCreateNewPrivateRecipeSucceeded(res.data.message));
+      } else {
+        yield put(userCreateNewPublicRecipeSucceeded(res.data.message));
+      }
     } else {
-      yield put(userCreateNewPrivateRecipeFailed(res.data.message));
+      if (action.recipeInfo.ownership === "private") {
+        yield put(userCreateNewPrivateRecipeFailed(res.data.message));
+      } else {
+        yield put(userCreateNewPublicRecipeFailed(res.data.message));
+      }
     }
     yield delay(4000);
     yield put(userMessageClear());
   } catch(err) {
-    yield put(userCreateNewPrivateRecipeFailed('An error occurred. Please try again.'));
+    if (action.recipeInfo.ownership === "private") {
+      yield put(userCreateNewPrivateRecipeFailed('An error occurred. Please try again.'));
+    } else {
+      yield put(userCreateNewPublicRecipeFailed('An error occurred. Please try again.'));
+    }
     yield delay(4000);
     yield put(userMessageClear());
   }
 }
 
+export function* userDeletePrivateRecipeSaga(action) {
+  try {
+    const res = yield axios.delete(
+      `${endpoint}/user/recipe/delete/private`,
+      {withCredentials: true, data: {recipeId: action.recipeId}}
+    );
+    if (res.data.message == 'Recipe deleted.') {
+      //yield put();  refresh/update respective list
+      yield put(userDeletePrivateRecipeSucceeded(res.data.message));
+    } else {
+      yield put(userDeletePrivateRecipeFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(userMessageClear());
+  } catch(err) {
+    yield put(userDeletePrivateRecipeFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(userMessageClear());
+  }
+}
 
+export function* userDisownPublicRecipeSaga(action) {
+  try {
+    const res = yield axios.delete(
+      `${endpoint}/user/recipe/disown/public`,
+      {withCredentials: true, data: {recipeId: action.recipeId}}
+    );
+    if (res.data.message == 'Recipe disowned.') {
+      //yield put();  refresh/update respective list
+      yield put(userDisownPublicRecipeSucceeded(res.data.message));
+    } else {
+      yield put(userDisownPublicRecipeFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(userMessageClear());
+  } catch(err) {
+    yield put(userDisownPublicRecipeFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(userMessageClear());
+  }
+}
 
 export function* userEditRecipeSaga(action) {
   try {
@@ -657,207 +709,6 @@ export function* userEditRecipeSaga(action) {
     } else {
       yield put(userEditPublicRecipeFailed('An error occurred. Please try again.'));
     }
-    yield delay(4000);
-    yield put(userMessageClear());
-  }
-}
-
-
-
-export function* userDeletePrivateRecipeSaga(action) {
-  try {
-    const res = yield axios.delete(
-      `${endpoint}/user/recipe/delete/private`,
-      {withCredentials: true, data: {recipeId: action.recipeId}}
-    );
-    if (res.data.message == 'Recipe deleted.') {
-      //yield put();  refresh/update respective list
-      yield put(userDeletePrivateRecipeSucceeded(res.data.message));
-    } else {
-      yield put(userDeletePrivateRecipeFailed(res.data.message));
-    }
-    yield delay(4000);
-    yield put(userMessageClear());
-  } catch(err) {
-    yield put(userDeletePrivateRecipeFailed('An error occurred. Please try again.'));
-    yield delay(4000);
-    yield put(userMessageClear());
-  }
-}
-
-
-
-/*
-
-recipe (public)
-
-*/
-
-export function* userCreateNewPublicRecipeSaga(action) {
-  try {
-    // 1
-    if (
-      action.recipeInfo.fullRecipeImage &&
-      action.recipeInfo.thumbRecipeImage &&
-      action.recipeInfo.tinyRecipeImage
-    ) {
-      const res1 = yield axios.post(
-        `${endpoint}/user/get-signed-url/recipe`,
-        {fileType: action.recipeInfo.fullRecipeImage.type},
-        {withCredentials: true}
-      );
-      yield axios.put(
-        res1.data.signedRequestFullSize,
-        action.recipeInfo.fullRecipeImage,
-        {headers: {'Content-Type': action.recipeInfo.fullRecipeImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeImage.type}}
-      );
-      action.recipeInfo.recipeImage = res1.data.urlFullSize;
-    } else {
-      action.recipeInfo.recipeImage = "nobsc-recipe-default";
-    }
-
-    // 2
-    if (
-      action.recipeInfo.fullRecipeEquipmentImage &&
-      action.recipeInfo.thumbRecipeEquipmentImage &&
-      action.recipeInfo.tinyRecipeEquipmentImage
-    ) {
-      const res2 = yield axios.post(
-        `${endpoint}/user/get-signed-url/recipe-equipment`,
-        {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
-        {withCredentials: true}
-      );
-      yield axios.put(
-        res1.data.signedRequestFullSize,
-        action.recipeInfo.fullRecipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeEquipmentImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeEquipmentImage.type}}
-      );
-      action.recipeInfo.recipeEquipmentImage = res2.data.urlFullSize;
-    } else {
-      action.recipeInfo.recipeEquipmentImage = "nobsc-recipe-equipment-default";
-    }
-
-    // 3
-    if (
-      action.recipeInfo.fullRecipeIngredientsImage &&
-      action.recipeInfo.thumbRecipeIngredientsImage &&
-      action.recipeInfo.tinyRecipeIngredientsImage
-    ) {
-      const res3 = yield axios.post(
-        `${endpoint}/user/get-signed-url/recipe-ingredients`,
-        {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
-        {withCredentials: true}
-      );
-      yield axios.put(
-        res1.data.signedRequestFullSize,
-        action.recipeInfo.fullRecipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeIngredientsImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeIngredientsImage.type}}
-      );
-      action.recipeInfo.recipeIngredientsImage = res3.data.urlFullSize;
-    } else {
-      action.recipeInfo.recipeIngredientsImage = "nobsc-recipe-ingredients-default";
-    }
-
-    // 4
-    if (
-      action.recipeInfo.fullRecipeCookingImage &&
-      action.recipeInfo.thumbRecipeCookingImage &&
-      action.recipeInfo.tinyRecipeCookingImage
-    ) {
-      const res4 = yield axios.post(
-        `${endpoint}/user/get-signed-url/recipe-cooking`,
-        {fileType: action.recipeInfo.fullRecipeCookingImage.type},
-        {withCredentials: true}
-      );
-      yield axios.put(
-        res1.data.signedRequestFullSize,
-        action.recipeInfo.fullRecipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeCookingImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeCookingImage.type}}
-      );
-      action.recipeInfo.recipeCookingImage = res4.data.urlFullSize;
-    } else {
-      action.recipeInfo.recipeCookingImage = "nobsc-recipe-cooking-default";
-    }
-
-    const res = yield axios.post(
-      `${endpoint}/user/recipe/create`,
-      {recipeInfo: action.recipeInfo},
-      {withCredentials: true}
-    );
-    
-    if (res.data.message == 'Recipe created.') {
-      //yield put();  refresh/update respective list
-      yield put(userCreateNewPublicRecipeSucceeded(res.data.message));
-    } else {
-      yield put(userCreateNewPublicRecipeFailed(res.data.message));
-    }
-    yield delay(4000);
-    yield put(userMessageClear());
-  } catch(err) {
-    yield put(userCreateNewPublicRecipeFailed('An error occurred. Please try again.'));
-    yield delay(4000);
-    yield put(userMessageClear());
-  }
-}
-
-
-
-export function* userDisownPublicRecipeSaga(action) {
-  try {
-    const res = yield axios.delete(
-      `${endpoint}/user/recipe/disown/public`,
-      {withCredentials: true, data: {recipeId: action.recipeId}}
-    );
-    if (res.data.message == 'Recipe disowned.') {
-      //yield put();  refresh/update respective list
-      yield put(userDisownPublicRecipeSucceeded(res.data.message));
-    } else {
-      yield put(userDisownPublicRecipeFailed(res.data.message));
-    }
-    yield delay(4000);
-    yield put(userMessageClear());
-  } catch(err) {
-    yield put(userDisownPublicRecipeFailed('An error occurred. Please try again.'));
     yield delay(4000);
     yield put(userMessageClear());
   }

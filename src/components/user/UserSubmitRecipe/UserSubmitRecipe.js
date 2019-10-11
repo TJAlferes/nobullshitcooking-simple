@@ -911,6 +911,7 @@ const UserSubmitRecipe = props => {
               type={equipmentRow.type}
               equipment={equipmentRow.equipment}
               dataEquipment={props.dataEquipment}
+              dataMyPrivateEquipment={ownership === "private" && props.dataMyPrivateEquipment}
               handleEquipmentRowChange={handleEquipmentRowChange}
               removeEquipmentRow={removeEquipmentRow} />
           ))}
@@ -937,6 +938,7 @@ const UserSubmitRecipe = props => {
               dataMeasurements={props.dataMeasurements}
               dataIngredientTypes={props.dataIngredientTypes}
               dataIngredients={props.dataIngredients}
+              dataMyPrivateIngredients={ownership === "private" && props.dataMyPrivateIngredients}
               handleIngredientRowChange={handleIngredientRowChange}
               removeIngredientRow={removeIngredientRow}
             />
@@ -966,6 +968,12 @@ const UserSubmitRecipe = props => {
               dataRecipeTypes={props.dataRecipeTypes}
               dataCuisines={props.dataCuisines}
               dataRecipes={props.dataRecipes}
+              dataMyPrivateRecipes={ownership === "private" && props.dataMyPrivateRecipes}
+              dataMyPublicRecipes={props.dataMyPublicRecipes}
+              dataMyFavoriteRecipes={props.dataMyFavoriteRecipes}
+              dataMySavedRecipes={props.dataMySavedRecipes}
+              editing={props.childProps.editing === "true" ? "true" : "false"}
+              selfId={props.match.params.id && props.match.params.id}
               handleSubrecipeRowChange={handleSubrecipeRowChange}
               removeSubrecipeRow={removeSubrecipeRow}
             />
@@ -1201,11 +1209,12 @@ const mapStateToProps = state => ({
   dataRecipeTypes: state.data.recipeTypes,
   dataCuisines: state.data.cuisines,
   dataMethods: state.data.methods,
-  dataPublicRecipes: state.data.publicRecipes,
   dataMyPublicRecipes: state.data.myPublicRecipes,
   dataMyPrivateEquipment: state.data.myPrivateEquipment,
   dataMyPrivateIngredients: state.data.myPrivateIngredients,
-  dataMyPrivateRecipes: state.data.myPrivateRecipes
+  dataMyPrivateRecipes: state.data.myPrivateRecipes,
+  dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
+  dataMySavedRecipes: state.data.mySavedRecipes
 });
 
 const mapDispatchToProps = dispatch => ({
