@@ -50,13 +50,10 @@ const UserNewIngredient = lazy(() => import('../components/user/UserNewIngredien
 
 const StaffDashboard = lazy(() => import('../components/staff/StaffDashboard/StaffDashboard'));
 const StaffSubmitRecipe = lazy(() => import('../components/staff/StaffSubmitRecipe/StaffSubmitRecipe'));
-const StaffEditRecipe = lazy(() => import('../components/staff/StaffEditRecipe/StaffEditRecipe'));
 
 const StaffSubmitEquipment = lazy(() => import('../components/staff/StaffSubmitEquipment/StaffSubmitEquipment'));
-const StaffEditEquipment = lazy(() => import('../components/staff/StaffEditEquipment/StaffEditEquipment'));
 
 const StaffSubmitIngredient = lazy(() => import('../components/staff/StaffSubmitIngredient/StaffSubmitIngredient'));
-const StaffEditIngredient = lazy(() => import('../components/staff/StaffEditIngredient/StaffEditIngredient'));
 
 
 
@@ -236,13 +233,13 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/staff" exact component={StaffDashboard} />
 
       <AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
-      <AuthenticatedRoute path="/staff/recipes/edit" exact component={StaffEditRecipe} />
+      <AuthenticatedRoute path="/staff/recipes/edit/:id" exact component={StaffSubmitRecipe} childProps={{editing: "true"}} />
 
       <AuthenticatedRoute path="/staff/equipment/submit" exact component={StaffSubmitEquipment} />
-      <AuthenticatedRoute path="/staff/equipment/edit" exact component={StaffEditEquipment} />
+      <AuthenticatedRoute path="/staff/equipment/edit/:id" exact component={StaffSubmitEquipment} childProps={{editing: "true"}} />
 
       <AuthenticatedRoute path="/staff/ingredients/submit" exact component={StaffSubmitIngredient} />
-      <AuthenticatedRoute path="/staff/ingredients/edit" exact component={StaffEditIngredient} />
+      <AuthenticatedRoute path="/staff/ingredients/edit/:id" exact component={StaffSubmitIngredient} childProps={{editing: "true"}} />
 
 
 
