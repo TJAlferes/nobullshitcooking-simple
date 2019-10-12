@@ -15,45 +15,51 @@ import UnauthenticatedRoute from './UnauthenticatedRoute';
 import LoaderSpinner from '../components/LoaderSpinner/LoaderSpinner';
 
 
+
 /*
 
 ---------- routes ----------
 
 */
 const Register = lazy(() => import('../components/user/Register/Register'));
-const StaffLogin = lazy(() => import('../components/staff/StaffLogin/StaffLogin'));  // eventually break out into separate React app
 const Login = lazy(() => import('../components/user/Login/Login'));
 
+const StaffLogin = lazy(() => import('../components/staff/StaffLogin/StaffLogin'));  // eventually break out into separate React app
 
 
-const StaffDashboard = lazy(() => import('../components/staff/StaffDashboard/StaffDashboard'));
-const UserDashboard = lazy(() => import('../components/user/UserDashboard/UserDashboard'));
 
 const UserProfile = lazy(() => import('../components/user/UserProfile/UserProfile'));
+
+const UserDashboard = lazy(() => import('../components/user/UserDashboard/UserDashboard'));
+
+const UserFriends = lazy(() => import('../components/user/UserFriends/UserFriends'));
+
+const UserMessengerPage = lazy(() => import('../components/user/UserMessengerPage/UserMessengerPage'));
 
 const PlannerPage = lazy(() => import('../components/PlannerPage/PlannerPage'));  // for public, url-based
 const UserPlannerPage = lazy(() => import('../components/user/UserPlannerPage/UserPlannerPage'));
 const UserNewPlannerPage = lazy(() => import('../components/user/UserNewPlannerPage/UserNewPlannerPage'));
 const UserEditPlannerPage = lazy(() => import('../components/user/UserEditPlannerPage/UserEditPlannerPage'));
 
-const StaffSubmitRecipe = lazy(() => import('../components/staff/StaffSubmitRecipe/StaffSubmitRecipe'));
 const UserSubmitRecipe = lazy(() => import('../components/user/UserSubmitRecipe/UserSubmitRecipe'));
+
+const UserNewEquipment = lazy(() => import('../components/user/UserNewEquipment/UserNewEquipment'));
+
+const UserNewIngredient = lazy(() => import('../components/user/UserNewIngredient/UserNewIngredient'));
+
+
+
+const StaffDashboard = lazy(() => import('../components/staff/StaffDashboard/StaffDashboard'));
+const StaffSubmitRecipe = lazy(() => import('../components/staff/StaffSubmitRecipe/StaffSubmitRecipe'));
 const StaffEditRecipe = lazy(() => import('../components/staff/StaffEditRecipe/StaffEditRecipe'));
-const UserEditRecipe = lazy(() => import('../components/user/UserEditRecipe/UserEditRecipe'));
 
 const StaffSubmitEquipment = lazy(() => import('../components/staff/StaffSubmitEquipment/StaffSubmitEquipment'));
-const UserNewEquipment = lazy(() => import('../components/user/UserNewEquipment/UserNewEquipment'));
 const StaffEditEquipment = lazy(() => import('../components/staff/StaffEditEquipment/StaffEditEquipment'));
-const UserEditEquipment = lazy(() => import('../components/user/UserEditEquipment/UserEditEquipment'));
 
 const StaffSubmitIngredient = lazy(() => import('../components/staff/StaffSubmitIngredient/StaffSubmitIngredient'));
-const UserNewIngredient = lazy(() => import('../components/user/UserNewIngredient/UserNewIngredient'));
 const StaffEditIngredient = lazy(() => import('../components/staff/StaffEditIngredient/StaffEditIngredient'));
-const UserEditIngredient = lazy(() => import('../components/user/UserEditIngredient/UserEditIngredient'));
 
-const UserMessengerPage = lazy(() => import('../components/user/UserMessengerPage/UserMessengerPage'));
 
-const UserFriends = lazy(() => import('../components/user/UserFriends/UserFriends'));
 
 //const SearchResultsAll = lazy(() => import('../components/pages/main/SearchResults/SearchResultsAll'));
 const SearchResultsRecipes = lazy(() => import('../components/pages/main/SearchResultsRecipes/SearchResultsRecipes'));
@@ -189,8 +195,11 @@ const RoutesList = () => (
       */}
 
       <UnauthenticatedRoute path="/user/register" exact component={Register} />
-      <UnauthenticatedRoute path="/staff/login" exact component={StaffLogin} />
       <UnauthenticatedRoute path="/user/login" exact component={Login} />
+
+
+
+      <UnauthenticatedRoute path="/staff/login" exact component={StaffLogin} />
 
 
 
@@ -198,37 +207,43 @@ const RoutesList = () => (
         primary app feature routes
       */}
 
-      <AuthenticatedRoute path="/staff/dashboard" exact component={StaffDashboard} />
-      <AuthenticatedRoute path="/staff" exact component={StaffDashboard} />
+      <AppliedRoute path="/user/profile/:username" exact component={UserProfile} />
+
       <AuthenticatedRoute path="/user/dashboard" exact component={UserDashboard} />
       <AuthenticatedRoute path="/user" exact component={UserDashboard} />
 
-      <AppliedRoute path="/user/profile/:username" exact component={UserProfile} />
+      <AuthenticatedRoute path="/user/friends" exact component={UserFriends} />
+
+      <AuthenticatedRoute path="/user/messenger" exact component={UserMessengerPage} />
 
       <AppliedRoute path="/planner" exact component={PlannerPage} />  {/* for demo/public purposes */}
       <AuthenticatedRoute path="/user/planner/:id" exact component={UserPlannerPage} />  {/* take away dnd capability, have "Change/Edit" button */}
       <AuthenticatedRoute path="/user/planner/submit" exact component={UserNewPlannerPage} />  {/* have "Cancel" and "Create" buttons */}
       <AuthenticatedRoute path="/user/planner/edit" exact component={UserEditPlannerPage} />  {/* have "Cancel" and "Update" buttons */}
 
-      <AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
       <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
-      <AuthenticatedRoute path="/staff/recipes/edit" exact component={StaffEditRecipe} />
       <AuthenticatedRoute path="/user/recipes/private/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "private"}} />
       <AuthenticatedRoute path="/user/recipes/public/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "public"}} />
 
-      <AuthenticatedRoute path="/staff/equipment/submit" exact component={StaffSubmitEquipment} />
       <AuthenticatedRoute path="/user/equipment/submit" exact component={UserNewEquipment} />
+      <AuthenticatedRoute path="/user/equipment/edit" exact component={UserNewEquipment} childProps={{editing: "true"}} />
+
+      <AuthenticatedRoute path="/user/ingredients/submit" exact component={UserNewIngredient} />
+      <AuthenticatedRoute path="/user/ingredients/edit" exact component={UserNewIngredient} childProps={{editing: "true"}} />
+
+
+
+      <AuthenticatedRoute path="/staff/dashboard" exact component={StaffDashboard} />
+      <AuthenticatedRoute path="/staff" exact component={StaffDashboard} />
+
+      <AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
+      <AuthenticatedRoute path="/staff/recipes/edit" exact component={StaffEditRecipe} />
+
+      <AuthenticatedRoute path="/staff/equipment/submit" exact component={StaffSubmitEquipment} />
       <AuthenticatedRoute path="/staff/equipment/edit" exact component={StaffEditEquipment} />
-      <AuthenticatedRoute path="/user/equipment/edit" exact component={UserEditEquipment} />
 
-      <AuthenticatedRoute path="/staff/ingredient/submit" exact component={StaffSubmitIngredient} />
-      <AuthenticatedRoute path="/user/ingredient/submit" exact component={UserNewIngredient} />
-      <AuthenticatedRoute path="/staff/ingredient/edit" exact component={StaffEditIngredient} />
-      <AuthenticatedRoute path="/user/ingredient/edit" exact component={UserEditIngredient} />
-
-      <AuthenticatedRoute path="/user/messenger" exact component={UserMessengerPage} />
-
-      <AuthenticatedRoute path="/user/friends" exact component={UserFriends} />
+      <AuthenticatedRoute path="/staff/ingredients/submit" exact component={StaffSubmitIngredient} />
+      <AuthenticatedRoute path="/staff/ingredients/edit" exact component={StaffEditIngredient} />
 
 
 

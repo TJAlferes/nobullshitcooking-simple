@@ -6,14 +6,19 @@ import "react-image-crop/dist/ReactCrop.css";
 
 import './newEquipment.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
-import { userCreateNewPrivateEquipment } from '../../../store/actions/index';
+import {
+  userCreateNewPrivateEquipment,
+  userEditPrivateEquipment
+} from '../../../store/actions/index';
 
 const UserNewEquipment = props => {
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [ editing, setEditing ] = useState(false);
   const [ equipmentTypeId, setEquipmentTypeId ] = useState("");
   const [ equipmentName, setEquipmentName ] = useState("");
   const [ equipmentDescription, setEquipmentDescription ] = useState("");
+  const [ equipmentImage, setEquipmentImage ] = useState("");
 
   const [ crop, setCrop ] = useState({
     disabled: true,
@@ -223,7 +228,11 @@ const UserNewEquipment = props => {
     };
     setLoading(true);
     try {
-      props.userCreateNewPrivateEquipment(equipmentInfo);
+      if (props.childProps.editing === "true" || editing === true) {
+        props.userEditPrivateEquipment(equipmentInfo);
+      } else {
+        props.userCreateNewPrivateEquipment(equipmentInfo);
+      }
     } catch(err) {
       setLoading(false);
       window.scrollTo(0,0);
@@ -260,7 +269,11 @@ const UserNewEquipment = props => {
         <h2>Image of Equipment</h2>
         {!equipmentImage && (
           <div>
-            <img src="https://nobsc-user-equipment.s3.amazonaws.com/nobsc-equipment-default" />
+            {
+              !editing
+              ? <img src="https://nobsc-user-equipment.s3.amazonaws.com/nobsc-equipment-default" />
+              : <img src={`https://nobsc-user-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
+            }
             <h4>Change</h4>
             <input
               className="new-equipment-image-input"
@@ -271,7 +284,6 @@ const UserNewEquipment = props => {
             />
           </div>
         )}
-
         {equipmentImage && (
           <div>
             <ReactCrop
@@ -338,7 +350,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userCreateNewPrivateEquipment: (equipmentInfo) => dispatch(userCreateNewPrivateEquipment(equipmentInfo))
+  userCreateNewPrivateEquipment: (equipmentInfo) => dispatch(userCreateNewPrivateEquipment(equipmentInfo)),
+  userEditPrivateEquipment: (equipmentInfo) => dispatch(userEditPrivateEquipment(equipmentInfo))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserNewEquipment);

@@ -29,7 +29,7 @@ const Recipe = props => {
   useEffect(() => {
     const { id } = props.match.params;
     //if (!id) Redirect them to Recipes *****
-    const localRecipe = (
+    const localRecipe = () => (
       props.dataRecipes.find(rec => rec.recipe_id === id) ||
       props.dataMyPrivateRecipes && props.dataMyPrivateRecipes.find(rec => rec.recipe_id === id)
     );  // HERE **************************************************************************************************************** 

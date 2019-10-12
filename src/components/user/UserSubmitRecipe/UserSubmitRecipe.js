@@ -717,7 +717,7 @@ const UserSubmitRecipe = props => {
       thumbRecipeCookingImage,
       tinyRecipeCookingImage
     };
-    if (props.editing === "true" || editing === true) {
+    if (props.childProps.editing === "true" || editing === true) {
       recipeInfo.prevRecipeImage = prevRecipeImage;
       recipeInfo.prevEquipmentImage = prevEquipmentImage;
       recipeInfo.prevIngredientsImage = prevIngredientsImage;
@@ -725,7 +725,7 @@ const UserSubmitRecipe = props => {
     }
     setLoading(true);
     try {
-      if (props.editing === "true" || editing === true) {
+      if (props.childProps.editing === "true" || editing === true) {
         if (props.editingOwnership === "private" || ownership === "private") {
           props.userEditPrivateRecipe(recipeInfo);
         } else if (props.editingOwnership === "public" || ownership === "public") {
@@ -787,7 +787,7 @@ const UserSubmitRecipe = props => {
               checked={ownership === "public"}
               onChange={handleOwnershipChange}
               value="public"
-              disabled={props.editing === "true" || editing === true}
+              disabled={props.childProps.editing === "true" || editing === true}
             />
             <label className="ownership-span-label">Public</label>
           </span>
@@ -799,7 +799,7 @@ const UserSubmitRecipe = props => {
               checked={ownership === "private"}
               onChange={handleOwnershipChange}
               value="private"
-              disabled={props.editing === "true" || editing === true}
+              disabled={props.childProps.editing === "true" || editing === true}
             />
             <label className="ownership-span-label">Private</label>
           </span>
@@ -1012,7 +1012,13 @@ const UserSubmitRecipe = props => {
               : <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${prevRecipeImage}`} />
             }
             <h4 className="change-default">Change</h4>
-            <input className="submit-recipe-image-input" name="setRecipeImage" type="file" accept="image/*" onChange={onSelectFile} />
+            <input
+              className="submit-recipe-image-input"
+              name="setRecipeImage"
+              type="file"
+              accept="image/*"
+              onChange={onSelectFile}
+            />
           </div>
         )}
         {recipeImage && (

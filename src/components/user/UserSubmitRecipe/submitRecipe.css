@@ -11,6 +11,23 @@
   font-size: 14px;
 }
 
+.submit-recipe__section-ownership
+.submit-recipe__section-recipe-type,
+.submit-recipe__section-cuisine,
+.submit-recipe__section-title,
+.submit-recipe__section-description,
+.submit-recipe__section-required-methods,
+.submit-recipe__section-required-equipment,
+.submit-recipe__section-required-ingredients,
+.submit-recipe__section-required-subrecipes,
+.submit-recipe__section-directions,
+.submit-recipe__section-recipe-image,
+.submit-recipe__section-equipment-image,
+.submit-recipe__section-ingredients-image,
+.submit-recipe__section-cooking-image {
+  padding-top: 18px;
+}
+
 .submit-recipe__heading-two {
   font-size: 1.7rem;
 }
@@ -127,23 +144,6 @@
   border-width: 1px;
   border-radius: 1px;
   padding: 3px 7px 3px 7px;
-}
-
-.submit-recipe__section-ownership
-.submit-recipe__section-recipe-type,
-.submit-recipe__section-cuisine,
-.submit-recipe__section-title,
-.submit-recipe__section-description,
-.submit-recipe__section-required-methods,
-.submit-recipe__section-required-equipment,
-.submit-recipe__section-required-ingredients,
-.submit-recipe__section-required-subrecipes,
-.submit-recipe__section-directions,
-.submit-recipe__section-recipe-image,
-.submit-recipe__section-equipment-image,
-.submit-recipe__section-ingredients-image,
-.submit-recipe__section-cooking-image {
-  padding-top: 18px;
 }
 
 .equipment-row,
