@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
 import './newEquipment.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
+import {
+  getCroppedFullImage,
+  getCroppedThumbImage,
+  getCroppedTinyImage
+} from '../../../utils/imageCropPreviews/imageCropPreviews';
 import {
   userCreateNewPrivateEquipment,
   userEditPrivateEquipment
@@ -19,6 +24,7 @@ const UserNewEquipment = props => {
   const [ equipmentName, setEquipmentName ] = useState("");
   const [ equipmentDescription, setEquipmentDescription ] = useState("");
   const [ equipmentImage, setEquipmentImage ] = useState("");
+  const [ prevEquipmentImage, setPrevEquipmentImage ] = useState("");
 
   const [ crop, setCrop ] = useState({
     disabled: true,
@@ -37,6 +43,25 @@ const UserNewEquipment = props => {
   const [ tinyEquipmentImage, setTinyEquipmentImage ] = useState(null);
 
   const imageRef = useRef(null);
+
+  // this effect only runs once,
+  // and it is only used for editing an existing equipment
+  // it is not used for creating a new equipment
+  // this populates the form fields with the existing info
+  useEffect(() => {
+    const getExistingEquipmentToEdit = async () => {
+      setLoading(true);
+      setEditing(true);
+      const prev = props.dataMyPrivateEquipment.filter((equ) => equ.equipment_id === props.match.params.id);
+      console.log(prev);
+      setEquipmentTypeId(prev.equipment_type_id);
+      setEquipmentName(prev.equipment_name);
+      setEquipmentDescription(prev.equipment_description);
+      setPrevEquipmentImage(prev.equipment_image);
+      setLoading(false);
+    };
+    if (props.childProps.editing === "true") getExistingEquipmentToEdit();
+  }, []);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -81,132 +106,6 @@ const UserNewEquipment = props => {
     }
   };
 
-  // put in util module?
-  const getCroppedFullImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 280;
-    canvas.height = 172;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      280,
-      172
-    );
-
-    const resizedFullPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedFullFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "fullFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedFullPreview, resizedFullFinal};
-  };
-
-  // put in util module?
-  const getCroppedThumbImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 100;
-    canvas.height = 62;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      100,
-      62
-    );
-
-    const resizedThumbPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedThumbFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "thumbFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedThumbPreview, resizedThumbFinal};
-  };
-
-  // put in util module?
-  const getCroppedTinyImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 25;
-    canvas.height = 25;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      25,
-      25
-    );
-
-    const resizedTinyPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedTinyFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "tinyFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedTinyPreview, resizedTinyFinal};
-  };
-
   const cancelEquipmentImage = () => {
     setCropFullSizePreview(null);
     setCropThumbSizePreview(null);
@@ -235,9 +134,9 @@ const UserNewEquipment = props => {
     setLoading(true);
     try {
       if (props.childProps.editing === "true" || editing === true) {
-        props.userEditPrivateEquipment(equipmentInfo);
+        props.userEditPrivateEquipment(equipmentInfo, props.history);
       } else {
-        props.userCreateNewPrivateEquipment(equipmentInfo);
+        props.userCreateNewPrivateEquipment(equipmentInfo, props.history);
       }
     } catch(err) {
       setLoading(false);
@@ -352,7 +251,8 @@ const UserNewEquipment = props => {
 
 const mapStateToProps = state => ({
   message: state.user.message,
-  dataEquipmentTypes: state.data.equipmentTypes
+  dataEquipmentTypes: state.data.equipmentTypes,
+  dataMyPrivateEquipment: state.data.myPrivateEquipment
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -360,4 +260,4 @@ const mapDispatchToProps = dispatch => ({
   userEditPrivateEquipment: (equipmentInfo) => dispatch(userEditPrivateEquipment(equipmentInfo))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserNewEquipment);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserNewEquipment));

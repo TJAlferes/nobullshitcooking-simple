@@ -5,9 +5,10 @@ import * as actionTypes from './actionTypes';
 export const userMessageClear = () => ({type: actionTypes.USER_MESSAGE_CLEAR});
 
 // create new (private) equipment
-export const userCreateNewPrivateEquipment = equipmentInfo => ({
+export const userCreateNewPrivateEquipment = (equipmentInfo, history) => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT,
-  equipmentInfo
+  equipmentInfo,
+  history
 });
 export const userCreateNewPrivateEquipmentSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
@@ -19,9 +20,10 @@ export const userCreateNewPrivateEquipmentFailed = message => ({
 });
 
 // edit equipment
-export const userEditPrivateEquipment = equipmentInfo => ({
+export const userEditPrivateEquipment = (equipmentInfo, history) => ({
   type: actionTypes.USER_EDIT_PRIVATE_EQUIPMENT,
-  equipmentInfo
+  equipmentInfo,
+  history
 });
 export const userEditPrivateEquipmentSucceeded = message => ({
   type: actionTypes.USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
@@ -49,9 +51,10 @@ export const userDeletePrivateEquipmentFailed = message => ({
 
 
 // create new (private) ingredient
-export const userCreateNewPrivateIngredient = ingredientInfo => ({
+export const userCreateNewPrivateIngredient = (ingredientInfo, history) => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT,
-  ingredientInfo
+  ingredientInfo,
+  history
 });
 export const userCreateNewPrivateIngredientSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
@@ -63,9 +66,10 @@ export const userCreateNewPrivateIngredientFailed = message => ({
 });
 
 // edit ingredient
-export const userEditPrivateIngredient = ingredientInfo => ({
+export const userEditPrivateIngredient = (ingredientInfo, history) => ({
   type: actionTypes.USER_EDIT_PRIVATE_INGREDIENT,
-  ingredientInfo
+  ingredientInfo,
+  history
 });
 export const userEditPrivateIngredientSucceeded = message => ({
   type: actionTypes.USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED,
@@ -93,9 +97,10 @@ export const userDeletePrivateIngredientFailed = message => ({
 
 
 // create new (private) recipe
-export const userCreateNewPrivateRecipe = recipeInfo => ({
+export const userCreateNewPrivateRecipe = (recipeInfo, history) => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE,
-  recipeInfo
+  recipeInfo,
+  history
 });
 export const userCreateNewPrivateRecipeSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
@@ -107,9 +112,10 @@ export const userCreateNewPrivateRecipeFailed = message => ({
 });
 
 // edit (private) recipe
-export const userEditPrivateRecipe = recipeInfo => ({
+export const userEditPrivateRecipe = (recipeInfo, history) => ({
   type: actionTypes.USER_EDIT_PRIVATE_RECIPE,
-  recipeInfo
+  recipeInfo,
+  history
 });
 export const userEditPrivateRecipeSucceeded = message => ({
   type: actionTypes.USER_EDIT_PRIVATE_RECIPE_SUCCEEDED,
@@ -137,9 +143,10 @@ export const userDeletePrivateRecipeFailed = message => ({
 
 
 // create new (public) recipe
-export const userCreateNewPublicRecipe = recipeInfo => ({
+export const userCreateNewPublicRecipe = (recipeInfo, history) => ({
   type: actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE,
-  recipeInfo
+  recipeInfo,
+  history
 });
 export const userCreateNewPublicRecipeSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED,
@@ -151,9 +158,10 @@ export const userCreateNewPublicRecipeFailed = message => ({
 });
 
 // edit (public) recipe
-export const userEditPublicRecipe = recipeInfo => ({
+export const userEditPublicRecipe = (recipeInfo, history) => ({
   type: actionTypes.USER_EDIT_PUBLIC_RECIPE,
-  recipeInfo
+  recipeInfo,
+  history
 });
 export const userEditPublicRecipeSucceeded = message => ({
   type: actionTypes.USER_EDIT_PUBLIC_RECIPE_SUCCEEDED,
@@ -198,7 +206,8 @@ export const userCreateNewPlanFailed = message => ({
 // edit plan
 export const userEditPlan = (planInfo, history) => ({
   type: actionTypes.USER_EDIT_PLAN,
-  planInfo
+  planInfo,
+  history
 });
 export const userEditPlanSucceeded = message => ({
   type: actionTypes.USER_EDIT_PLAN_SUCCEEDED,

@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
 import './newIngredient.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
+import {
+  getCroppedFullImage,
+  getCroppedThumbImage,
+  getCroppedTinyImage
+} from '../../../utils/imageCropPreviews/imageCropPreviews';
 import {
   userCreateNewPrivateIngredient,
   userEditPrivateIngredient
@@ -38,6 +43,25 @@ const UserNewIngredient = props => {
 
   const imageRef = useRef(null);
 
+  // this effect only runs once,
+  // and it is only used for editing an existing ingredient
+  // it is not used for creating a new ingredient
+  // this populates the form fields with the existing info
+  useEffect(() => {
+    const getExistingIngredientToEdit = async () => {
+      setLoading(true);
+      setEditing(true);
+      const prev = props.dataMyPrivateIngredients.filter((ing) => ing.ingredient_id === props.match.params.id);
+      console.log(prev);
+      setIngredientTypeId(prev.ingredient_type_id);
+      setIngredientName(prev.ingredient_name);
+      setIngredientDescription(prev.ingredient_description);
+      setPrevEquipmentImage(prev.equipment_image);
+      setLoading(false);
+    };
+    if (props.childProps.editing === "true") getExistingIngredientToEdit();
+  }, []);
+
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
@@ -52,8 +76,6 @@ const UserNewIngredient = props => {
   const handleIngredientNameChange = e => setIngredientName(e.target.value);
 
   const handleIngredientDescriptionChange = e => setIngredientDescription(e.target.value);
-
-  //const handleIngredientImageChange = e => setIngredientImage(e.target.files[0]);
 
   const onSelectFile = e => {
     if (e.target.files && e.target.files.length > 0) {
@@ -81,132 +103,6 @@ const UserNewIngredient = props => {
       setThumbIngredientImage(resizedThumbFinal);
       setTinyIngredientImage(resizedTinyFinal);
     }
-  };
-
-  // put in util module?
-  const getCroppedFullImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 280;
-    canvas.height = 172;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      280,
-      172
-    );
-
-    const resizedFullPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedFullFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "fullFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedFullPreview, resizedFullFinal};
-  };
-
-  // put in util module?
-  const getCroppedThumbImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 100;
-    canvas.height = 62;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      100,
-      62
-    );
-
-    const resizedThumbPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedThumbFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "thumbFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedThumbPreview, resizedThumbFinal};
-  };
-
-  // put in util module?
-  const getCroppedTinyImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 25;
-    canvas.height = 25;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      25,
-      25
-    );
-
-    const resizedTinyPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedTinyFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "tinyFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedTinyPreview, resizedTinyFinal};
   };
 
   const cancelIngredientImage = () => {
@@ -237,9 +133,9 @@ const UserNewIngredient = props => {
     setLoading(true);
     try {
       if (props.childProps.editing === "true" || editing === true) {
-        props.userEditPrivateIngredient(ingredientInfo);
+        props.userEditPrivateIngredient(ingredientInfo, props.history);
       } else {
-        props.userCreateNewPrivateIngredient(ingredientInfo);
+        props.userCreateNewPrivateIngredient(ingredientInfo, props.history);
       }
     } catch(err) {
       setLoading(false);
@@ -354,7 +250,8 @@ const UserNewIngredient = props => {
 
 const mapStateToProps = state => ({
   message: state.user.message,
-  dataIngredientTypes: state.data.ingredientTypes
+  dataIngredientTypes: state.data.ingredientTypes,
+  dataMyPrivateIngredients: state.data.myPrivateIngredients
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -362,4 +259,4 @@ const mapDispatchToProps = dispatch => ({
   userEditPrivateIngredient: (ingredientInfo) => dispatch(userEditPrivateIngredient(ingredientInfo))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserNewIngredient);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserNewIngredient));

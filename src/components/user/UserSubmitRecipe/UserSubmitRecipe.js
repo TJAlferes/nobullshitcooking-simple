@@ -13,6 +13,11 @@ import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
 import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import {
+  getCroppedFullImage,
+  getCroppedThumbImage,
+  getCroppedTinyImage
+} from '../../../utils/imageCropPreviews/imageCropPreviews';
+import {
   userCreateNewPrivateRecipe,
   userCreateNewPublicRecipe,
   userEditPrivateRecipe,
@@ -153,78 +158,76 @@ const UserSubmitRecipe = props => {
   // this populates the form fields with the existing info
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
-      if (props.childProps.editing === "true") {
-        setLoading(true);
-        setEditing(true);
-        const res = await axios.post(
-          `${endpoint}/user/recipe/edit/${props.childProps.editingOwnership}`,
-          {recipeId: props.match.params.id},
-          {withCredentials: true}
-        );
-        console.log(res.data);
-        setOwnership(res.data.recipe.ownerId);  // or from res.data?
-        setRecipeTypeId(res.data.recipe.recipeTypeId);
-        setCuisineId(res.data.recipe.cuisineId);
-        setTitle(res.data.recipe.title);
-        setDescription(res.data.recipe.description);
-        setDirections(res.data.recipe.directions);
+      setLoading(true);
+      setEditing(true);
+      const res = await axios.post(
+        `${endpoint}/user/recipe/edit/${props.childProps.editingOwnership}`,
+        {recipeId: props.match.params.id},
+        {withCredentials: true}
+      );
+      console.log(res.data);
+      setOwnership(res.data.recipe.ownerId);  // or from res.data?
+      setRecipeTypeId(res.data.recipe.recipeTypeId);
+      setCuisineId(res.data.recipe.cuisineId);
+      setTitle(res.data.recipe.title);
+      setDescription(res.data.recipe.description);
+      setDirections(res.data.recipe.directions);
 
-        res.data.requiredMethods.map(method => setMethods(prevState => ({
-            ...prevState,
-            [method]: true
-          }))
-        );
-
-        let equipmentToSet = [];
-        let ingredientsToSet = [];
-        let subrecipesToSet = [];
-
-        res.data.requiredEquipment.length &&
-        res.data.requiredEquipment.map(equ => equipmentToSet.push({
-          key: uuid(),
-          amount: equ.amount,
-          type: equ.equipmentTypeId,
-          equipment: equ.equipmentId
-        }));
-
-        res.data.requiredIngredients.length &&
-        res.data.requiredIngredients.map(ing => ingredientsToSet.push({
-          key: uuid(),
-          amount: 1,
-          unit: ing.measurementId,
-          type: ing.ingredientTypeId,
-          ingredient: ing.ingredientId
-        }));
-
-        res.data.requiredSubrecipes.length &&
-        res.data.requiredSubrecipes.map(sub => subrecipesToSet.push({
-          key: uuid(),
-          amount: 1,
-          unit: sub.measurementId,
-          type: sub.recipeTypeId,
-          cuisine: sub.cuisineId,
-          subrecipe: sub.subrecipeId
+      res.data.requiredMethods.map(method => setMethods(prevState => ({
+          ...prevState,
+          [method]: true
         }))
+      );
 
-        setEquipmentRows(equipmentToSet);
-        setIngredientRows(ingredientsToSet);
-        setSubrecipeRows(subrecipesToSet);
+      let equipmentToSet = [];
+      let ingredientsToSet = [];
+      let subrecipesToSet = [];
 
-        setPrevRecipeImage(res.data.recipe.recipeImage);
-        setPrevEquipmentImage(res.data.recipe.recipeEquipmentImage);
-        setPrevIngredientsImage(res.data.recipe.recipeIngredientsImage);
-        setPrevCookingImage(res.data.recipe.recipeCookingImage);
+      res.data.requiredEquipment.length &&
+      res.data.requiredEquipment.map(equ => equipmentToSet.push({
+        key: uuid(),
+        amount: equ.amount,
+        type: equ.equipmentTypeId,
+        equipment: equ.equipmentId
+      }));
 
-        setLoading(false);
+      res.data.requiredIngredients.length &&
+      res.data.requiredIngredients.map(ing => ingredientsToSet.push({
+        key: uuid(),
+        amount: 1,
+        unit: ing.measurementId,
+        type: ing.ingredientTypeId,
+        ingredient: ing.ingredientId
+      }));
 
-        // and then remember you need to handle list populations (and autosuggestions) *****
-        // then pre populate checked filters
-        // then max recipes per day in plan?
-        // css, themes
-        // content all in one place
-      }
+      res.data.requiredSubrecipes.length &&
+      res.data.requiredSubrecipes.map(sub => subrecipesToSet.push({
+        key: uuid(),
+        amount: 1,
+        unit: sub.measurementId,
+        type: sub.recipeTypeId,
+        cuisine: sub.cuisineId,
+        subrecipe: sub.subrecipeId
+      }))
+
+      setEquipmentRows(equipmentToSet);
+      setIngredientRows(ingredientsToSet);
+      setSubrecipeRows(subrecipesToSet);
+
+      setPrevRecipeImage(res.data.recipe.recipeImage);
+      setPrevEquipmentImage(res.data.recipe.recipeEquipmentImage);
+      setPrevIngredientsImage(res.data.recipe.recipeIngredientsImage);
+      setPrevCookingImage(res.data.recipe.recipeCookingImage);
+
+      setLoading(false);
+
+      // and then remember you need to handle list populations (and autosuggestions) *****
+      // then pre populate checked filters
+      // then max recipes per day in plan?
+      // css, themes
+      // content all in one place
     };
-    getExistingRecipeToEdit();
+    if (props.childProps.editing === "true") getExistingRecipeToEdit();
   }, []);
 
   useEffect(() => {
@@ -455,129 +458,6 @@ const UserSubmitRecipe = props => {
     }
   };
 
-  const getCroppedFullImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 280;
-    canvas.height = 172;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      280,
-      172
-    );
-
-    const resizedFullPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedFullFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "fullFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedFullPreview, resizedFullFinal};
-  };
-
-  const getCroppedThumbImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 100;
-    canvas.height = 62;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      100,
-      62
-    );
-
-    const resizedThumbPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedThumbFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "thumbFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedThumbPreview, resizedThumbFinal};
-  };
-
-  const getCroppedTinyImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 25;
-    canvas.height = 25;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      25,
-      25
-    );
-
-    const resizedTinyPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedTinyFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "tinyFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedTinyPreview, resizedTinyFinal};
-  };
-
   const cancelRecipeImage = () => {
     setCropFullSizePreview(null);
     setCropThumbSizePreview(null);
@@ -727,15 +607,15 @@ const UserSubmitRecipe = props => {
     try {
       if (props.childProps.editing === "true" || editing === true) {
         if (props.editingOwnership === "private" || ownership === "private") {
-          props.userEditPrivateRecipe(recipeInfo);
+          props.userEditPrivateRecipe(recipeInfo, props.history);
         } else if (props.editingOwnership === "public" || ownership === "public") {
-          props.userEditPublicRecipe(recipeInfo);
+          props.userEditPublicRecipe(recipeInfo, props.history);
         }
       } else {
         if (ownership === "private") {
-          props.userCreateNewPrivateRecipe(recipeInfo);
+          props.userCreateNewPrivateRecipe(recipeInfo, props.history);
         } else if (ownership === "public") {
-          props.userCreateNewPublicRecipe(recipeInfo);
+          props.userCreateNewPublicRecipe(recipeInfo, props.history);
         }
       }
     } catch(err) {

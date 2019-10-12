@@ -39,7 +39,6 @@ const UserMessengerPage = lazy(() => import('../components/user/UserMessengerPag
 const PlannerPage = lazy(() => import('../components/PlannerPage/PlannerPage'));  // for public, url-based
 const UserPlannerPage = lazy(() => import('../components/user/UserPlannerPage/UserPlannerPage'));
 const UserNewPlannerPage = lazy(() => import('../components/user/UserNewPlannerPage/UserNewPlannerPage'));
-const UserEditPlannerPage = lazy(() => import('../components/user/UserEditPlannerPage/UserEditPlannerPage'));
 
 const UserSubmitRecipe = lazy(() => import('../components/user/UserSubmitRecipe/UserSubmitRecipe'));
 
@@ -219,17 +218,17 @@ const RoutesList = () => (
       <AppliedRoute path="/planner" exact component={PlannerPage} />  {/* for demo/public purposes */}
       <AuthenticatedRoute path="/user/planner/:id" exact component={UserPlannerPage} />  {/* take away dnd capability, have "Change/Edit" button */}
       <AuthenticatedRoute path="/user/planner/submit" exact component={UserNewPlannerPage} />  {/* have "Cancel" and "Create" buttons */}
-      <AuthenticatedRoute path="/user/planner/edit" exact component={UserEditPlannerPage} />  {/* have "Cancel" and "Update" buttons */}
+      <AuthenticatedRoute path="/user/planner/edit/:id" exact component={UserNewPlannerPage} childProps={{editing: "true"}} />  {/* have "Cancel" and "Update" buttons */}
 
       <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
       <AuthenticatedRoute path="/user/recipes/private/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "private"}} />
       <AuthenticatedRoute path="/user/recipes/public/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "public"}} />
 
       <AuthenticatedRoute path="/user/equipment/submit" exact component={UserNewEquipment} />
-      <AuthenticatedRoute path="/user/equipment/edit" exact component={UserNewEquipment} childProps={{editing: "true"}} />
+      <AuthenticatedRoute path="/user/equipment/edit/:id" exact component={UserNewEquipment} childProps={{editing: "true"}} />
 
       <AuthenticatedRoute path="/user/ingredients/submit" exact component={UserNewIngredient} />
-      <AuthenticatedRoute path="/user/ingredients/edit" exact component={UserNewIngredient} childProps={{editing: "true"}} />
+      <AuthenticatedRoute path="/user/ingredients/edit/:id" exact component={UserNewIngredient} childProps={{editing: "true"}} />
 
 
 

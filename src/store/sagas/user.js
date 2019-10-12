@@ -67,9 +67,8 @@ import {
   userSubmitAvatarFailed
 } from '../actions/index';
 import {
-  dataGetMyPlansSaga,
   dataGetMyFriendshipsSaga
-} from './data';
+} from './data';  // just call from index, like others?
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
@@ -121,13 +120,15 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
     );
 
     if (res.data.message == 'Equipment created.') {
-      //yield put();  refresh/update respective list
       yield put(userCreateNewPrivateEquipmentSucceeded(res.data.message));
+      yield delay(3000);
+      yield put(userMessageClear());
+      yield action.history.push('/user/dashboard');
     } else {
       yield put(userCreateNewPrivateEquipmentFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userCreateNewPrivateEquipmentFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -137,7 +138,6 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
 
 export function* userEditPrivateEquipmentSaga(action) {
   try {
-    // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
     if (
       action.equipmentInfo.fullEquipmentImage &&
       action.equipmentInfo.thumbEquipmentImage &&
@@ -165,7 +165,7 @@ export function* userEditPrivateEquipmentSaga(action) {
       );
       action.equipmentInfo.equipmentImage = res1.data.urlFullSize;
     } else {
-      action.equipmentInfo.equipmentImage = 'nobsc-equipment-default';
+      action.equipmentInfo.equipmentImage = action.equipmentInfo.prevEquipmentImage;
     }
 
     const res = yield axios.put(
@@ -175,13 +175,15 @@ export function* userEditPrivateEquipmentSaga(action) {
     );
 
     if (res.data.message == 'Equipment updated.') {
-      //yield put();  refresh/update respective list
       yield put(userEditPrivateEquipmentSucceeded(res.data.message));
+      yield delay(3000);
+      yield put(userMessageClear());
+      yield action.history.push('/user/dashboard');
     } else {
       yield put(userEditPrivateEquipmentFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userEditPrivateEquipmentFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -196,7 +198,6 @@ export function* userDeletePrivateEquipmentSaga(action) {
       {withCredentials: true, data: {equipmentId: action.equipmentId}}
     );
     if (res.data.message == 'Equipment deleted.') {
-      //yield put();  refresh/update respective list
       yield put(userDeletePrivateEquipmentSucceeded(res.data.message));
     } else {
       yield put(userDeletePrivateEquipmentFailed(res.data.message));
@@ -257,13 +258,15 @@ export function* userCreateNewPrivateIngredientSaga(action) {
     );
 
     if (res.data.message == 'Ingredient created.') {
-      //yield put();  refresh/update respective list
       yield put(userCreateNewPrivateIngredientSucceeded(res.data.message));
+      yield delay(3000);
+      yield put(userMessageClear());
+      yield action.history.push('/user/dashboard');
     } else {
       yield put(userCreateNewPrivateIngredientFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userCreateNewPrivateIngredientFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -273,7 +276,6 @@ export function* userCreateNewPrivateIngredientSaga(action) {
 
 export function* userEditPrivateIngredientSaga(action) {
   try {
-    // RADIO FOR KEEP CURRENT IMAGE / SET NEW IMAGE / USE DEFAULT IMAGE ?
     if (
       action.ingredientInfo.fullIngredientImage &&
       action.ingredientInfo.thumbIngredientImage &&
@@ -301,7 +303,7 @@ export function* userEditPrivateIngredientSaga(action) {
       );
       action.ingredientInfo.ingredientImage = res1.data.urlFullSize;
     } else {
-      action.ingredientInfo.ingredientImage = 'nobsc-ingredient-default';
+      action.ingredientInfo.ingredientImage = action.ingredientInfo.prevIngredientImage;
     }
 
     const res = yield axios.put(
@@ -311,13 +313,15 @@ export function* userEditPrivateIngredientSaga(action) {
     );
 
     if (res.data.message == 'Ingredient updated.') {
-      //yield put();  refresh/update respective list
       yield put(userEditPrivateIngredientSucceeded(res.data.message));
+      yield delay(3000);
+      yield put(userMessageClear());
+      yield action.history.push('/user/dashboard');
     } else {
       yield put(userEditPrivateIngredientFailed(res.data.message));
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     yield put(userEditPrivateIngredientFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -332,7 +336,6 @@ export function* userDeletePrivateIngredientSaga(action) {
       {withCredentials: true, data: {ingredientId: action.ingredientId}}
     );
     if (res.data.message == 'Ingredient deleted.') {
-      //yield put();  refresh/update respective list
       yield put(userDeletePrivateIngredientSucceeded(res.data.message));
     } else {
       yield put(userDeletePrivateIngredientFailed(res.data.message));
@@ -487,21 +490,23 @@ export function* userCreateNewRecipeSaga(action) {
     );
 
     if (res.data.message == 'Recipe created.') {
-      //yield put();  refresh/update respective list
       if (action.recipeInfo.ownership === "private") {
         yield put(userCreateNewPrivateRecipeSucceeded(res.data.message));
       } else {
         yield put(userCreateNewPublicRecipeSucceeded(res.data.message));
       }
+      yield delay(3000);
+      yield put(userMessageClear());
+      yield action.history.push('/user/dashboard');
     } else {
       if (action.recipeInfo.ownership === "private") {
         yield put(userCreateNewPrivateRecipeFailed(res.data.message));
       } else {
         yield put(userCreateNewPublicRecipeFailed(res.data.message));
       }
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     if (action.recipeInfo.ownership === "private") {
       yield put(userCreateNewPrivateRecipeFailed('An error occurred. Please try again.'));
@@ -520,7 +525,6 @@ export function* userDeletePrivateRecipeSaga(action) {
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
     if (res.data.message == 'Recipe deleted.') {
-      //yield put();  refresh/update respective list
       yield put(userDeletePrivateRecipeSucceeded(res.data.message));
     } else {
       yield put(userDeletePrivateRecipeFailed(res.data.message));
@@ -541,7 +545,6 @@ export function* userDisownPublicRecipeSaga(action) {
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
     if (res.data.message == 'Recipe disowned.') {
-      //yield put();  refresh/update respective list
       yield put(userDisownPublicRecipeSucceeded(res.data.message));
     } else {
       yield put(userDisownPublicRecipeFailed(res.data.message));
@@ -688,21 +691,23 @@ export function* userEditRecipeSaga(action) {
     );
 
     if (res.data.message == 'Recipe updated.') {
-      //yield put();  refresh/update respective list
       if (action.recipeInfo.ownership === "private") { 
         yield put(userEditPrivateRecipeSucceeded(res.data.message));
       } else {
         yield put(userEditPublicRecipeSucceeded(res.data.message));
       }
+      yield delay(3000);
+      yield put(userMessageClear());
+      yield action.history.push('/user/dashboard');
     } else {
       if (action.recipeInfo.ownership === "private") { 
         yield put(userEditPrivateRecipeFailed(res.data.message));
       } else {
         yield put(userEditPublicRecipeFailed(res.data.message));
       }
+      yield delay(4000);
+      yield put(userMessageClear());
     }
-    yield delay(4000);
-    yield put(userMessageClear());
   } catch(err) {
     if (action.recipeInfo.ownership === "private") { 
       yield put(userEditPrivateRecipeFailed('An error occurred. Please try again.'));
@@ -732,7 +737,6 @@ export function* userCreateNewPlanSaga(action) {
     if (res.data.message == 'Plan created.') {
       yield put(userCreateNewPlanSucceeded(res.data.message));
       yield delay(3000);
-      yield dataGetMyPlansSaga();
       yield put(userMessageClear());
       yield action.history.push('/user/dashboard');
     } else {
@@ -757,7 +761,6 @@ export function* userEditPlanSaga(action) {
     if (res.data.message == 'Plan updated.') {
       yield put(userEditPlanSucceeded(res.data.message));
       yield delay(3000);
-      yield dataGetMyPlansSaga();
       yield put(userMessageClear());
       yield action.history.push('/user/dashboard');
     } else {
@@ -781,7 +784,6 @@ export function* userDeletePlanSaga(action) {
     if (res.data.message == 'Plan deleted.') {
       yield put(userDeletePlanSucceeded(res.data.message));
       yield delay(3000);
-      yield dataGetMyPlansSaga();
       yield put(userMessageClear());
     } else {
       yield put(userDeletePlanFailed(res.data.message));
@@ -811,7 +813,6 @@ export function* userFavoriteRecipeSaga(action) {
       {withCredentials: true}
     );
     if (res.data.message == 'Favorited.') {
-      //yield put();  refresh/update respective list
       yield put(userFavoriteRecipeSucceeded(res.data.message));
     } else {
       yield put(userFavoriteRecipeFailed(res.data.message));
@@ -832,7 +833,6 @@ export function* userUnfavoriteRecipeSaga(action) {
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
     if (res.data.message == 'Unfavorited.') {
-      //yield put();  refresh/update respective list
       yield put(userUnfavoriteRecipeSucceeded(res.data.message));
     } else {
       yield put(userUnfavoriteRecipeFailed(res.data.message));
@@ -862,7 +862,6 @@ export function* userSaveRecipeSaga(action) {
       {withCredentials: true}
     );
     if (res.data.message == 'Saved.') {
-      //yield put();  refresh/update respective list
       yield put(userSaveRecipeSucceeded(res.data.message));
     } else {
       yield put(userSaveRecipeFailed(res.data.message));
@@ -883,7 +882,6 @@ export function* userUnsaveRecipeSaga(action) {
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
     if (res.data.message == 'Unsaved.') {
-      //yield put();  refresh/update respective list
       yield put(userUnsaveRecipeSucceeded(res.data.message));
     } else {
       yield put(userUnsaveRecipeFailed(res.data.message));
