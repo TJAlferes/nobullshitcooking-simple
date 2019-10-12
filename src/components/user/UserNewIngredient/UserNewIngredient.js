@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 import './newIngredient.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
@@ -17,23 +20,220 @@ const UserNewIngredient = props => {
   const [ ingredientDescription, setIngredientDescription ] = useState("");
   const [ ingredientImage, setIngredientImage ] = useState("");
 
+  const [ crop, setCrop ] = useState({
+    disabled: true,
+    locked: true,
+    width: 280,
+    maxWidth: 280,
+    height: 172,
+    maxHeight: 172
+  });
+  const [ cropFullSizePreview, setCropFullSizePreview ] = useState(null);
+  const [ cropThumbSizePreview, setCropThumbSizePreview ] = useState(null);
+  const [ cropTinySizePreview, setCropTinySizePreview ] = useState(null);
+
+  const [ fullIngredientImage, setFullIngredientImage ] = useState(null);
+  const [ thumbIngredientImage, setThumbIngredientImage ] = useState(null);
+  const [ tinyIngredientImage, setTinyIngredientImage ] = useState(null);
+
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.message !== "") window.scrollTo(0,0);
+      setMessage(props.message);
+    }
+    return () => isSubscribed = false;
+  }, [props.message]);
+
   const handleIngredientTypeChange = e => setIngredientTypeId(e.target.value);
 
   const handleIngredientNameChange = e => setIngredientName(e.target.value);
 
   const handleIngredientDescriptionChange = e => setIngredientDescription(e.target.value);
 
-  const handleIngredientImageChange = e => setIngredientImage(e.target.files[0]);
+  //const handleIngredientImageChange = e => setIngredientImage(e.target.files[0]);
+
+  const onSelectFile = e => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => setIngredientImage(reader.result));
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const onImageLoaded = image => imageRef.current = image;
+
+  const onCropChange = crop => setCrop(crop);
+
+  const onCropComplete = crop => makeClientCrops(crop);
+
+  const makeClientCrops = async (crop) => {
+    if (imageRef && crop.width) {
+      const { resizedFullPreview, resizedFullFinal } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
+      const { resizedThumbPreview, resizedThumbFinal } = await getCroppedThumbImage(imageRef.current, crop, "newFile.jpeg");
+      const { resizedTinyPreview, resizedTinyFinal } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
+      setCropFullSizePreview(resizedFullPreview);
+      setCropThumbSizePreview(resizedThumbPreview);
+      setCropTinySizePreview(resizedTinyPreview);
+      setFullIngredientImage(resizedFullFinal);
+      setThumbIngredientImage(resizedThumbFinal);
+      setTinyIngredientImage(resizedTinyFinal);
+    }
+  };
+
+  // put in util module?
+  const getCroppedFullImage = async (image, crop, fileName) => {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = 280;
+    canvas.height = 172;
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      280,
+      172
+    );
+
+    const resizedFullPreview = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        blob.name = fileName;
+        const fileUrl = window.URL.createObjectURL(blob);
+        resolve(fileUrl);
+      }, 'image/jpeg', 1);
+    });
+
+    const resizedFullFinal = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        blob.name = fileName;
+        const image = new File([blob], "fullFinal", {type: "image/jpeg"});
+        resolve(image);
+      }, 'image/jpeg', 1);
+    });
+
+    return {resizedFullPreview, resizedFullFinal};
+  };
+
+  // put in util module?
+  const getCroppedThumbImage = async (image, crop, fileName) => {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = 100;
+    canvas.height = 62;
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      100,
+      62
+    );
+
+    const resizedThumbPreview = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        blob.name = fileName;
+        const fileUrl = window.URL.createObjectURL(blob);
+        resolve(fileUrl);
+      }, 'image/jpeg', 1);
+    });
+
+    const resizedThumbFinal = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        blob.name = fileName;
+        const image = new File([blob], "thumbFinal", {type: "image/jpeg"});
+        resolve(image);
+      }, 'image/jpeg', 1);
+    });
+
+    return {resizedThumbPreview, resizedThumbFinal};
+  };
+
+  // put in util module?
+  const getCroppedTinyImage = async (image, crop, fileName) => {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = 25;
+    canvas.height = 25;
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      25,
+      25
+    );
+
+    const resizedTinyPreview = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        blob.name = fileName;
+        const fileUrl = window.URL.createObjectURL(blob);
+        resolve(fileUrl);
+      }, 'image/jpeg', 1);
+    });
+
+    const resizedTinyFinal = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        blob.name = fileName;
+        const image = new File([blob], "tinyFinal", {type: "image/jpeg"});
+        resolve(image);
+      }, 'image/jpeg', 1);
+    });
+
+    return {resizedTinyPreview, resizedTinyFinal};
+  };
+
+  const cancelIngredientImage = () => {
+    setCropFullSizePreview(null);
+    setCropThumbSizePreview(null);
+    setCropTinySizePreview(null);
+    setIngredientImage(null);
+    setFullIngredientImage(null);
+    setThumbIngredientImage(null);
+    setTinyIngredientImage(null);
+  };
 
   const validate = () => (ingredientTypeId !== "") && (ingredientName !== "");
 
   const handleSubmit = () => {
     const ingredientInfo = {
-      ingredientType,
+      ingredientTypeId,
       ingredientName,
       ingredientDescription,
-      ingredientImage
+      ingredientImage,
+      fullIngredientImage,
+      thumbIngredientImage,
+      tinyIngredientImage
     };
+    if (props.childProps.editing === "true" || editing === true) {
+      ingredientInfo.prevIngredientImage = prevIngredientImage;
+    }
     setLoading(true);
     try {
       if (props.childProps.editing === "true" || editing === true) {

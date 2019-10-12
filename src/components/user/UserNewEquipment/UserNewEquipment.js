@@ -31,7 +31,7 @@ const UserNewEquipment = props => {
   const [ cropFullSizePreview, setCropFullSizePreview ] = useState(null);
   const [ cropThumbSizePreview, setCropThumbSizePreview ] = useState(null);
   const [ cropTinySizePreview, setCropTinySizePreview ] = useState(null);
-  const [ equipmentImage, setEquipmentImage ] = useState("");
+
   const [ fullEquipmentImage, setFullEquipmentImage ] = useState(null);
   const [ thumbEquipmentImage, setThumbEquipmentImage ] = useState(null);
   const [ tinyEquipmentImage, setTinyEquipmentImage ] = useState(null);
@@ -81,6 +81,7 @@ const UserNewEquipment = props => {
     }
   };
 
+  // put in util module?
   const getCroppedFullImage = async (image, crop, fileName) => {
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
@@ -122,6 +123,7 @@ const UserNewEquipment = props => {
     return {resizedFullPreview, resizedFullFinal};
   };
 
+  // put in util module?
   const getCroppedThumbImage = async (image, crop, fileName) => {
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
@@ -163,6 +165,7 @@ const UserNewEquipment = props => {
     return {resizedThumbPreview, resizedThumbFinal};
   };
 
+  // put in util module?
   const getCroppedTinyImage = async (image, crop, fileName) => {
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
@@ -226,6 +229,9 @@ const UserNewEquipment = props => {
       thumbEquipmentImage,
       tinyEquipmentImage
     };
+    if (props.childProps.editing === "true" || editing === true) {
+      equipmentInfo.prevEquipmentImage = prevEquipmentImage;
+    }
     setLoading(true);
     try {
       if (props.childProps.editing === "true" || editing === true) {
