@@ -60,7 +60,7 @@ const UserNewEquipment = props => {
       setPrevEquipmentImage(prev.equipment_image);
       setLoading(false);
     };
-    if (props.childProps.editing === "true") getExistingEquipmentToEdit();
+    if (props.childProps && props.childProps.editing === "true") getExistingEquipmentToEdit();
   }, []);
 
   useEffect(() => {
@@ -154,7 +154,7 @@ const UserNewEquipment = props => {
 
       <p className="error-message">{message}</p>
 
-      <h2 className="red_style">Type of Equipment</h2>
+      <h2 className="new-equipment__heading-two">Type of Equipment</h2>
       <select name="equipment_type_id" required onChange={handleEquipmentTypeChange} value={equipmentTypeId}>
         <option value=""></option>
         {props.dataEquipmentTypes.map(type => (
@@ -164,14 +164,23 @@ const UserNewEquipment = props => {
         ))}
       </select>
 
-      <h2 className="red_style">Name</h2>
-      <input className="equipment-name" name="equipment_name" type="text" onChange={handleEquipmentNameChange} value={equipmentName} />
+      <h2 className="new-equipment__heading-two">Name</h2>
+      <input
+        className="new-equipment__name"
+        type="text"
+        onChange={handleEquipmentNameChange}
+        value={equipmentName}
+      />
 
-      <h2 className="red_style">Description</h2>
-      <textarea name="equipment_description" onChange={handleEquipmentDescriptionChange} value={equipmentDescription} />
+      <h2 className="new-equipment__heading-two">Description</h2>
+      <textarea
+        className="new-equipment__description"
+        onChange={handleEquipmentDescriptionChange}
+        value={equipmentDescription}
+      />
 
-      <div className="new-equipment-image">
-        <h2>Image of Equipment</h2>
+      <div className="new-equipment__image">
+        <h2 className="new-equipment__heading-two">Image of Equipment</h2>
         {!equipmentImage && (
           <div>
             {
@@ -182,7 +191,6 @@ const UserNewEquipment = props => {
             <h4>Change</h4>
             <input
               className="new-equipment-image-input"
-              name="setEquipmentImage"
               type="file"
               accept="image/*"
               onChange={onSelectFile}
@@ -227,13 +235,13 @@ const UserNewEquipment = props => {
 
       <div>
         <Link
-          className="new-equipment-cancel-button"
+          className="new-equipment__cancel-button"
           to="/user/dashboard"
         >
           Cancel
         </Link>
         <LoaderButton
-          className="new-equipment-submit-button"
+          className="new-equipment__submit-button"
           type="button"
           name="submit"
           id="create_new_private_user_equipment_button"

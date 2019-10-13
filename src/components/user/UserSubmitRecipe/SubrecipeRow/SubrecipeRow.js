@@ -11,10 +11,10 @@ const SubrecipeRow = ({
   dataRecipeTypes,
   dataCuisines,
   dataRecipes,
-  dataMyPrivateRecipes = [],
-  dataMyPublicRecipes = [],
-  dataMyFavoriteRecipes = [],
-  dataMySavedRecipes = [],
+  dataMyPrivateRecipes,
+  dataMyPublicRecipes,
+  dataMyFavoriteRecipes,
+  dataMySavedRecipes,
   editing,
   selfId,
   handleSubrecipeRowChange,
@@ -22,18 +22,26 @@ const SubrecipeRow = ({
 }) => {
   let availableRecipes = [
     ...dataRecipes,
-    ...(dataMyPrivateRecipes.length && (
-      editing === "true"
-      ? dataMyPrivateRecipes.filter((rec) => rec.recipe_id != selfId)
-      : dataMyPrivateRecipes
-    )),
-    ...(dataMyPublicRecipes.length && (
-      editing === "true"
-      ? dataMyPublicRecipes.filter((rec) => rec.recipe_id != selfId)
-      : dataMyPublicRecipes
-    )),
-    ...(dataMyFavoriteRecipes.length && dataMyFavoriteRecipes),
-    ...(dataMySavedRecipes.length && dataMySavedRecipes)
+    ...(
+      dataMyPrivateRecipes.length
+      ? (
+        editing === "true"
+        ? dataMyPrivateRecipes.filter((rec) => rec.recipe_id != selfId)
+        : dataMyPrivateRecipes
+      )
+      : []
+    ),
+    ...(
+      dataMyPublicRecipes.length
+      ? (
+        editing === "true"
+        ? dataMyPublicRecipes.filter((rec) => rec.recipe_id != selfId)
+        : dataMyPublicRecipes
+      )
+      : []
+    ),
+    ...(dataMyFavoriteRecipes.length ? dataMyFavoriteRecipes : []),
+    ...(dataMySavedRecipes.length ? dataMySavedRecipes : [])
   ];
   return (
     <div className="subrecipe-row">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import ReactCrop from "react-image-crop";
@@ -24,6 +24,7 @@ const UserNewIngredient = props => {
   const [ ingredientName, setIngredientName ] = useState("");
   const [ ingredientDescription, setIngredientDescription ] = useState("");
   const [ ingredientImage, setIngredientImage ] = useState("");
+  const [ prevIngredientImage, setPrevIngredientImage ] = useState("");
 
   const [ crop, setCrop ] = useState({
     disabled: true,
@@ -59,7 +60,7 @@ const UserNewIngredient = props => {
       setPrevEquipmentImage(prev.equipment_image);
       setLoading(false);
     };
-    if (props.childProps.editing === "true") getExistingIngredientToEdit();
+    if (props.childProps && props.childProps.editing === "true") getExistingIngredientToEdit();
   }, []);
 
   useEffect(() => {
@@ -153,7 +154,7 @@ const UserNewIngredient = props => {
 
       <p className="error-message">{message}</p>
 
-      <h2>Type of Ingredient</h2>
+      <h2 className="new-ingredient__heading-two">Type of Ingredient</h2>
       <select onChange={handleIngredientTypeChange}>
         <option value=""></option>
         {props.dataIngredientTypes.map(type => (
@@ -163,25 +164,33 @@ const UserNewIngredient = props => {
         ))}
       </select>
 
-      <h2>Name</h2>
-      <input onChange={handleIngredientNameChange} />
+      <h2 className="new-ingredient__heading-two">Name</h2>
+      <input
+        className="new-ingredient__name"
+        type="text"
+        onChange={handleIngredientNameChange}
+        value={ingredientName}
+      />
 
-      <h2>Description</h2>
-      <textarea onChange={handleIngredientDescriptionChange} />
+      <h2 className="new-ingredient__heading-two">Description</h2>
+      <textarea
+        className="new-ingredient__description"
+        onChange={handleIngredientDescriptionChange}
+        value={ingredientDescription}
+      />
 
       <div className="new-ingredient__image">
-        <h2>Image of Ingredient</h2>
+        <h2 className="new-ingredient__heading-two">Image of Ingredient</h2>
         {!ingredientImage && (
           <div>
             {
               !editing
-              ? <img src="https://nobsc-user-ingredients.s3.amazon.com/nobsc-ingredients-default" />
+              ? <img src="https://nobsc-user-ingredients.s3.amazonaws.com/nobsc-ingredient-default" />
               : <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${prevIngredientImage}`} />
             }
             <h4 className="change-default">Change</h4>
             <input
               className="new-ingredient-image-input"
-              name="setIngredientImage"
               type="file"
               accept="image/*"
               onChange={onSelectFile}
@@ -226,13 +235,13 @@ const UserNewIngredient = props => {
 
       <div>
         <Link
-          className="new-ingredient-cancel-button"
+          className="new-ingredient__cancel-button"
           to="/user/dashboard"
         >
           Cancel
         </Link>
         <LoaderButton
-          className="new-ingredient-submit-button"
+          className="new-ingredient__submit-button"
           type="button"
           name="submit"
           id="create_new_private_user_ingredient_button"

@@ -9,13 +9,13 @@ const IngredientRow = ({
   dataMeasurements,
   dataIngredientTypes,
   dataIngredients,
-  dataMyPrivateIngredients = [],
+  dataMyPrivateIngredients,
   handleIngredientRowChange,
   removeIngredientRow
 }) => {
   let availableIngredients = [
     ...dataIngredients,
-    ...(dataMyPrivateIngredients.length && dataMyPrivateIngredients)
+    ...(dataMyPrivateIngredients.length ? dataMyPrivateIngredients : [])
   ];
   return (
     <div className="ingredient-row">

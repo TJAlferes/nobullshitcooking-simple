@@ -227,7 +227,7 @@ const UserSubmitRecipe = props => {
       // css, themes
       // content all in one place
     };
-    if (props.childProps.editing === "true") getExistingRecipeToEdit();
+    if (props.childProps && props.childProps.editing === "true") getExistingRecipeToEdit();
   }, []);
 
   useEffect(() => {
@@ -667,7 +667,7 @@ const UserSubmitRecipe = props => {
               checked={ownership === "public"}
               onChange={handleOwnershipChange}
               value="public"
-              disabled={props.childProps.editing === "true" || editing === true}
+              disabled={editing === true}
             />
             <label className="ownership-span-label">Public</label>
           </span>
@@ -679,7 +679,7 @@ const UserSubmitRecipe = props => {
               checked={ownership === "private"}
               onChange={handleOwnershipChange}
               value="private"
-              disabled={props.childProps.editing === "true" || editing === true}
+              disabled={editing === true}
             />
             <label className="ownership-span-label">Private</label>
           </span>
@@ -791,7 +791,7 @@ const UserSubmitRecipe = props => {
               type={equipmentRow.type}
               equipment={equipmentRow.equipment}
               dataEquipment={props.dataEquipment}
-              dataMyPrivateEquipment={ownership === "private" && props.dataMyPrivateEquipment}
+              dataMyPrivateEquipment={ownership === "private" ? props.dataMyPrivateEquipment : []}
               handleEquipmentRowChange={handleEquipmentRowChange}
               removeEquipmentRow={removeEquipmentRow} />
           ))}
@@ -818,7 +818,7 @@ const UserSubmitRecipe = props => {
               dataMeasurements={props.dataMeasurements}
               dataIngredientTypes={props.dataIngredientTypes}
               dataIngredients={props.dataIngredients}
-              dataMyPrivateIngredients={ownership === "private" && props.dataMyPrivateIngredients}
+              dataMyPrivateIngredients={ownership === "private" ? props.dataMyPrivateIngredients : []}
               handleIngredientRowChange={handleIngredientRowChange}
               removeIngredientRow={removeIngredientRow}
             />
@@ -848,11 +848,11 @@ const UserSubmitRecipe = props => {
               dataRecipeTypes={props.dataRecipeTypes}
               dataCuisines={props.dataCuisines}
               dataRecipes={props.dataRecipes}
-              dataMyPrivateRecipes={ownership === "private" && props.dataMyPrivateRecipes}
+              dataMyPrivateRecipes={ownership === "private" ? props.dataMyPrivateRecipes : []}
               dataMyPublicRecipes={props.dataMyPublicRecipes}
               dataMyFavoriteRecipes={props.dataMyFavoriteRecipes}
               dataMySavedRecipes={props.dataMySavedRecipes}
-              editing={props.childProps.editing === "true" ? "true" : "false"}
+              editing={editing === true ? "true" : "false"}
               selfId={props.match.params.id && props.match.params.id}
               handleSubrecipeRowChange={handleSubrecipeRowChange}
               removeSubrecipeRow={removeSubrecipeRow}

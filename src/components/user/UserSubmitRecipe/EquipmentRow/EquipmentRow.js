@@ -1,18 +1,18 @@
 import React from 'react';
- 
+  
 const EquipmentRow = ({
   rowKey,
   amount,
   type,
   equipment,
   dataEquipment,
-  dataMyPrivateEquipment = [],
+  dataMyPrivateEquipment,
   handleEquipmentRowChange,
   removeEquipmentRow
 }) => {
   let availableEquipment = [
     ...dataEquipment,
-    ...(dataMyPrivateEquipment.length && dataMyPrivateEquipment)
+    ...(dataMyPrivateEquipment.length ? dataMyPrivateEquipment : [])
   ];
   return (
     <div className="equipment-row"> 
