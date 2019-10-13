@@ -23,13 +23,10 @@ light
   color: #777;
 }
 
-.one-column-a-light input {
-  border-color: #bbb;
-  background-color: #fff;
-  color: #000;
-}
-
-.one-column-a-light select {
+.one-column-a-light select,
+.one-column-a-light input,
+.one-column-a-light textarea
+ {
   border-color: #bbb;
   background-color: #fff;
   color: #000;
@@ -87,8 +84,7 @@ dark
 
 .one-column-a-dark select,
 .one-column-a-dark input,
-.one-column-a-dark .manual_amount,
-.one-column-a-dark .recipe-directions {
+.one-column-a-dark textarea {
   border-color: #666;
   background-color: #1e1e1e;
   color: #bbb;

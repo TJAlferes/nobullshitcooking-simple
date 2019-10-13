@@ -133,9 +133,9 @@
   font-size: 1.3rem;
   font-weight: 700;
 }
-
-.submit-recipe .title input,
-.submit-recipe .description input {
+ 
+.submit-recipe__title,
+.submit-recipe__description {
   display: block;
   width: 100%;
   height: 31px;
@@ -153,6 +153,7 @@
   flex-wrap: nowrap;
   flex-direction: row;
   justify-content: flex-start;
+  margin-bottom: 6px;
 }
 
 .equipment-row__label,
@@ -261,11 +262,20 @@
   padding-left: 6px;
 }
 
-.submit-recipe-cancel-button,
-.submit-recipe-submit-button {
+.submit-recipe__finish-area {
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.submit-recipe__cancel-button,
+.submit-recipe__submit-button {
+  display: block;
   width: 235px;
   height: 30px;
   margin-right: 30px;
+  margin-top: 15px;
   border: 1px solid #aaa;
   border-radius: 2px;
   padding: 1px 5px;
@@ -276,28 +286,12 @@
   color: black;
 }
 
-.submit-recipe-cancel-button {
+.submit-recipe__cancel-button {
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
 
-.submit-recipe-submit-button {
+.submit-recipe__submit-button {
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
-}
-
-
-
-@media (max-width: 1209px) {
-  .submit-recipe-finish-area {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  .submit-recipe-cancel-button,
-  .submit-recipe-submit-button {
-    display: block;
-    width: 235px;
-    margin: 15px auto 0 auto;
-  }
 }
 
 
@@ -307,5 +301,18 @@
   .ingredient-row,
   .subrecipe-row {
     flex-direction: column;
+  }
+}
+
+
+
+@media (max-width: 899px) {
+  .submit-recipe__finish-area {
+    flex-direction: column;
+  }
+
+  .submit-recipe__cancel-button,
+  .submit-recipe__submit-button {
+    margin: 15px auto 0 auto;
   }
 }

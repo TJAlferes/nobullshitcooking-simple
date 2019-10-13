@@ -740,6 +740,7 @@ const UserSubmitRecipe = props => {
       <div className="submit-recipe__section-title">
         <h2 className="submit-recipe__heading-two">Title</h2>
         <input
+          className="submit-recipe__title"
           type="text"
           name="recipe_title"
           id="recipe_title"
@@ -754,6 +755,7 @@ const UserSubmitRecipe = props => {
       <div className="submit-recipe__section-description">
         <h2 className="submit-recipe__heading-two">Description / Author Note</h2>
         <input
+          className="submit-recipe__description"
           type="text"
           name="recipe_description"
           id="recipe_description"
@@ -1059,15 +1061,15 @@ const UserSubmitRecipe = props => {
 
 
       {/* submit */}
-      <div className="submit-recipe-finish-area">
+      <div className="submit-recipe__finish-area">
         <Link
-          className="submit-recipe-cancel-button"
+          className="submit-recipe__cancel-button"
           to="/user/dashboard"
         >
           Cancel
         </Link>
         <LoaderButton
-          className="submit-recipe-submit-button"
+          className="submit-recipe__submit-button"
           id="user_submit_recipe_button"
           type="button"
           name="submit"

@@ -233,7 +233,7 @@ const UserNewIngredient = props => {
         )}
       </div>
 
-      <div>
+      <div className="new-ingredient__finish-area">
         <Link
           className="new-ingredient__cancel-button"
           to="/user/dashboard"

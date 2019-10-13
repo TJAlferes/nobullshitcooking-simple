@@ -233,7 +233,7 @@ const UserNewEquipment = props => {
         )}
       </div>
 
-      <div>
+      <div className="new-equipment__finish-area">
         <Link
           className="new-equipment__cancel-button"
           to="/user/dashboard"
