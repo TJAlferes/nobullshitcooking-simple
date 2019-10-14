@@ -182,11 +182,12 @@
 .equipment-row__remove-row,
 .ingredient-row__remove-row,
 .subrecipe-row__remove-row {
-  height: 23px;
+  height: 19px;
   margin-left: 18px;
   border: 1px solid #aaa;
   border-radius: 2px;
   padding: 1px 2px;
+  font-size: 12px;
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
 
@@ -207,25 +208,15 @@
   max-width: 233px;
 }
 
-#add_equipment_button,
-#add_ingredient_button,
-#add_subrecipe_button {
-  background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
+.add-row {
   border: 1px solid #aaa;
   border-radius: 2px;
   padding: 1px 2px;
+  font-size: 12px;
+  background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
 }
 
-#add_equipment_button,
-#add_subrecipe_button {
-  margin-top: 8px;
-}
-
-#add_ingredient_button {
-  margin-top: 10px;
-}
-
-.recipe-directions {
+.submit-recipe__directions {
   width: 100%;
   height: 102px;
 }
@@ -301,6 +292,18 @@
   .ingredient-row,
   .subrecipe-row {
     flex-direction: column;
+    width: fit-content;
+  }
+
+  .equipment-row__remove-row,
+  .ingredient-row__remove-row,
+  .subrecipe-row__remove-row {
+    width: fit-content;
+    margin-top: 6px;
+  }
+
+  .add-row {
+    margin-top: 12px;
   }
 }
 

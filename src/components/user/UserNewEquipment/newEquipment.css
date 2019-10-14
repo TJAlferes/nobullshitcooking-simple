@@ -31,6 +31,38 @@
   width: 100%;
 }
 
+.new-equipment__image-crop-previews {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.new-equipment__image-crop-full-preview,
+.new-equipment__image-crop-thumb-preview,
+.new-equipment__image-crop-tiny-preview {
+  order: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
+}
+
+.new-equipment__image-crop-full-preview img,
+.new-equipment__image-crop-thumb-preview img,
+.new-equipment__image-crop-tiny-preview img {
+  margin-left: 5px;
+}
+
+.submit-recipe .change-default {
+  padding-bottom: 3px;
+}
+
+.new-equipment__image-cancel-button {
+  height: 21px;
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
 .new-equipment__finish-area {
   display: flex;
   flex-direction: row;

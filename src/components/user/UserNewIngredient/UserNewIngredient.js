@@ -44,10 +44,6 @@ const UserNewIngredient = props => {
 
   const imageRef = useRef(null);
 
-  // this effect only runs once,
-  // and it is only used for editing an existing ingredient
-  // it is not used for creating a new ingredient
-  // this populates the form fields with the existing info
   useEffect(() => {
     const getExistingIngredientToEdit = async () => {
       setLoading(true);
@@ -140,8 +136,7 @@ const UserNewIngredient = props => {
       }
     } catch(err) {
       setLoading(false);
-      setMessage(err.message);
-      console.log(err.message);
+      window.scrollTo(0,0);
     } finally {
       setLoading(false);
     }
@@ -200,7 +195,7 @@ const UserNewIngredient = props => {
         {ingredientImage && (
           <div>
             <ReactCrop
-              className="new-ingredient-image-crop-tool"
+              className="new-ingredient__image-crop-tool"
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
               src={ingredientImage}
@@ -210,20 +205,19 @@ const UserNewIngredient = props => {
               onComplete={onCropComplete}
             />
             <span>Move the crop to your desired position. These three images will be saved for you:</span>
-            <div className="new-ingredient-image-crop-previews">
-              <div className="new-ingredient-image-crop-full-preview">
+            <div className="new-ingredient__image-crop-previews">
+              <div className="new-ingredient__image-crop-full-preview">
                 <span>Full Size: </span><img src={cropFullSizePreview} />
               </div>
-              <div className="new-ingredient-image-crop-thumb-preview">
+              <div className="new-ingredient__image-crop-thumb-preview">
                 <span>Thumb Size: </span><img src={cropThumbSizePreview} />
               </div>
-              <div className="new-ingredient-image-crop-tiny-preview">
+              <div className="new-ingredient__image-crop-tiny-preview">
                 <span>Tiny Size: </span><img src={cropTinySizePreview} />
               </div>
             </div>
             <button
               className="new-ingredient-image-cancel-button"
-              name="cancel-image"
               disabled={loading}
               onClick={cancelIngredientImage}
             >

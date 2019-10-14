@@ -44,10 +44,6 @@ const UserNewEquipment = props => {
 
   const imageRef = useRef(null);
 
-  // this effect only runs once,
-  // and it is only used for editing an existing equipment
-  // it is not used for creating a new equipment
-  // this populates the form fields with the existing info
   useEffect(() => {
     const getExistingEquipmentToEdit = async () => {
       setLoading(true);
@@ -141,7 +137,6 @@ const UserNewEquipment = props => {
     } catch(err) {
       setLoading(false);
       window.scrollTo(0,0);
-      setMessage(err.message);
     } finally {
       setLoading(false);
     }
@@ -200,7 +195,7 @@ const UserNewEquipment = props => {
         {equipmentImage && (
           <div>
             <ReactCrop
-              className="new-equipment-image-crop-tool"
+              className="new-equipment__image-crop-tool"
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
               src={equipmentImage}
@@ -210,20 +205,19 @@ const UserNewEquipment = props => {
               onComplete={onCropComplete}
             />
             <span>Move the crop to your desired position. These three images will be saved for you:</span>
-            <div className="new-equipment-image-crop-previews">
+            <div className="new-equipment__image-crop-previews">
               <div className="new-equipment-image-crop-full-preview">
                 <span>Full Size: </span><img src={cropFullSizePreview} />
               </div>
-              <div className="new-equipment-image-crop-thumb-preview">
+              <div className="new-equipment__image-crop-thumb-preview">
                 <span>Thumb Size: </span><img src={cropThumbSizePreview} />
               </div>
-              <div className="new-equipment-image-crop-tiny-preview">
+              <div className="new-equipment__image-crop-tiny-preview">
                 <span>Tiny Size: </span><img src={cropTinySizePreview} />
               </div>
             </div>
             <button
-              className="new-equipment-image-cancel-button"
-              name="cancel-image"
+              className="new-equipment__image-cancel-button"
               disabled={loading}
               onClick={cancelEquipmentImage}
             >

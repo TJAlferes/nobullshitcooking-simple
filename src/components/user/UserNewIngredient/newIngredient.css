@@ -31,6 +31,38 @@
   width: 100%;
 }
 
+.new-ingredient__image-crop-previews {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.new-ingredient__image-crop-full-preview,
+.new-ingredient__image-crop-thumb-preview,
+.new-ingredient__image-crop-tiny-preview {
+  order: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
+}
+
+.new-ingredient__image-crop-full-preview img,
+.new-ingredient__image-crop-thumb-preview img,
+.new-ingredient__image-crop-tiny-preview img {
+  margin-left: 5px;
+}
+
+.submit-recipe .change-default {
+  padding-bottom: 3px;
+}
+
+.new-ingredient__image-cancel-button {
+  height: 21px;
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
 .new-ingredient__finish-area {
   display: flex;
   flex-direction: row;

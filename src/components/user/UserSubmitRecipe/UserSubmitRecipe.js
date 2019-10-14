@@ -152,20 +152,17 @@ const UserSubmitRecipe = props => {
   const ingredientsImageRef = useRef(null);
   const cookingImageRef = useRef(null);
 
-  // this effect only runs once,
-  // and it is only used for editing an existing recipe
-  // it is not used for creating a new recipe
-  // this populates the form fields with the existing info
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
       setLoading(true);
       setEditing(true);
+
       const res = await axios.post(
         `${endpoint}/user/recipe/edit/${props.childProps.editingOwnership}`,
         {recipeId: props.match.params.id},
         {withCredentials: true}
       );
-      console.log(res.data);
+
       setOwnership(res.data.recipe.ownerId);  // or from res.data?
       setRecipeTypeId(res.data.recipe.recipeTypeId);
       setCuisineId(res.data.recipe.cuisineId);
@@ -220,12 +217,6 @@ const UserSubmitRecipe = props => {
       setPrevCookingImage(res.data.recipe.recipeCookingImage);
 
       setLoading(false);
-
-      // and then remember you need to handle list populations (and autosuggestions) *****
-      // then pre populate checked filters
-      // then max recipes per day in plan?
-      // css, themes
-      // content all in one place
     };
     if (props.childProps && props.childProps.editing === "true") getExistingRecipeToEdit();
   }, []);
@@ -662,7 +653,6 @@ const UserSubmitRecipe = props => {
           <span className="ownership-span">
             <input
               className="ownership-span-input"
-              name="ownership"
               type="radio"
               checked={ownership === "public"}
               onChange={handleOwnershipChange}
@@ -674,7 +664,6 @@ const UserSubmitRecipe = props => {
           <span className="ownership-span">
             <input
               className="ownership-span-input"
-              name="ownership"
               type="radio"
               checked={ownership === "private"}
               onChange={handleOwnershipChange}
@@ -692,7 +681,6 @@ const UserSubmitRecipe = props => {
       <div className="submit-recipe__section-recipe-type">
         <h2 className="submit-recipe__heading-two">Type of Recipe</h2>
         <select
-          name="recipe_type_id"
           id="recipe_type_id"
           required
           onChange={handleRecipeTypeChange}
@@ -700,10 +688,7 @@ const UserSubmitRecipe = props => {
         >
           <option value=""></option>
           {props.dataRecipeTypes.map(recipeType => (
-            <option
-              key={recipeType.recipe_type_id}
-              value={recipeType.recipe_type_id}
-            >
+            <option key={recipeType.recipe_type_id} value={recipeType.recipe_type_id}>
               {recipeType.recipe_type_name}
             </option>
           ))}
@@ -716,7 +701,6 @@ const UserSubmitRecipe = props => {
       <div className="submit-recipe__section-cuisine">
         <h2 className="submit-recipe__heading-two">Cuisine</h2>
         <select
-          name="cuisine_id"
           id="cuisine_id"
           required
           onChange={handleCuisineChange}
@@ -724,10 +708,7 @@ const UserSubmitRecipe = props => {
         >
           <option value=""></option>
           {props.dataCuisines.map(cuisine => (
-            <option
-              key={cuisine.cuisine_id}
-              value={cuisine.cuisine_id}
-            >
+            <option key={cuisine.cuisine_id} value={cuisine.cuisine_id}>
               {cuisine.cuisine_name}
             </option>
           ))}
@@ -742,7 +723,6 @@ const UserSubmitRecipe = props => {
         <input
           className="submit-recipe__title"
           type="text"
-          name="recipe_title"
           id="recipe_title"
           onChange={handleTitleChange}
           value={title}
@@ -757,7 +737,6 @@ const UserSubmitRecipe = props => {
         <input
           className="submit-recipe__description"
           type="text"
-          name="recipe_description"
           id="recipe_description"
           onChange={handleDescriptionChange}
           value={description}
@@ -798,7 +777,7 @@ const UserSubmitRecipe = props => {
               removeEquipmentRow={removeEquipmentRow} />
           ))}
         </div>
-        <button id="add_equipment_button" onClick={addEquipmentRow}>
+        <button className="add-row" onClick={addEquipmentRow}>
           Add Equipment
         </button>
       </div>
@@ -826,7 +805,7 @@ const UserSubmitRecipe = props => {
             />
           ))}
         </div>
-        <button id="add_ingredient_button" onClick={addIngredientRow}>
+        <button className="add-row" onClick={addIngredientRow}>
           Add Ingredient
         </button>
       </div>
@@ -861,7 +840,7 @@ const UserSubmitRecipe = props => {
             />
           ))}
         </div>
-        <button id="add_subrecipe_button" onClick={addSubrecipeRow}>
+        <button className="add-row" onClick={addSubrecipeRow}>
           Add Subrecipe
         </button>
       </div>
@@ -872,8 +851,7 @@ const UserSubmitRecipe = props => {
       <div className="submit-recipe__section-directions">
         <h2 className="submit-recipe__heading-two">Directions</h2>
         <textarea
-          className="recipe-directions"
-          name="recipe_directions"
+          className="submit-recipe__directions"
           id="recipe_directions"
           onChange={handleDirectionsChange}
           value={directions}
@@ -896,7 +874,6 @@ const UserSubmitRecipe = props => {
             <h4 className="change-default">Change</h4>
             <input
               className="submit-recipe-image-input"
-              name="setRecipeImage"
               type="file"
               accept="image/*"
               onChange={onSelectFile}
@@ -927,7 +904,13 @@ const UserSubmitRecipe = props => {
                 <span>Tiny Size: </span><img src={cropTinySizePreview} />
               </div>
             </div>
-            <button className="submit-recipe-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeImage}>Cancel</button>
+            <button
+              className="submit-recipe-image-cancel-button"
+              disabled={loading}
+              onClick={cancelRecipeImage}
+            >
+              Cancel
+            </button>
           </div>
         )}
       </div>
@@ -942,7 +925,12 @@ const UserSubmitRecipe = props => {
               : <img src={`https://nobsc-user-recipe-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
             }
             <h4 className="change-default">Change</h4>
-            <input className="submit-recipe-equipment-image-input" name="setRecipeEquipmentImage" type="file" accept="image/*" onChange={onSelectEquipmentFile} />
+            <input
+              className="submit-recipe-equipment-image-input"
+              type="file"
+              accept="image/*"
+              onChange={onSelectEquipmentFile}
+            />
           </div>
         )}
         {recipeEquipmentImage && (
@@ -969,7 +957,13 @@ const UserSubmitRecipe = props => {
                 <span>Tiny Size: </span><img src={equipmentCropTinySizePreview} />
               </div>
             </div>
-            <button className="submit-recipe-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeEquipmentImage}>Cancel</button>
+            <button
+              className="submit-recipe-image-cancel-button"
+              disabled={loading}
+              onClick={cancelRecipeEquipmentImage}
+            >
+              Cancel
+            </button>
           </div>
         )}
       </div>
@@ -984,7 +978,12 @@ const UserSubmitRecipe = props => {
               : <img src={`https://nobsc-user-recipe-ingredients.s3.amazonaws.com/${prevIngredientsImage}`} />
             }
             <h4 className="change-default">Change</h4>
-            <input className="submit-recipe-ingredients-image-input" name="setRecipeIngredientsImage" type="file" accept="image/*" onChange={onSelectIngredientsFile} />
+            <input
+              className="submit-recipe-ingredients-image-input"
+              type="file"
+              accept="image/*"
+              onChange={onSelectIngredientsFile}
+            />
           </div>
         )}
         {recipeIngredientsImage && (
@@ -1011,7 +1010,13 @@ const UserSubmitRecipe = props => {
                 <span>Tiny Size: </span><img src={ingredientsCropTinySizePreview} />
               </div>
             </div>
-            <button className="submit-recipe-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeIngredientsImage}>Cancel</button>
+            <button
+              className="submit-recipe-image-cancel-button"
+              disabled={loading}
+              onClick={cancelRecipeIngredientsImage}
+            >
+              Cancel
+            </button>
           </div>
         )}
       </div>
@@ -1026,7 +1031,11 @@ const UserSubmitRecipe = props => {
               : <img src={`https://nobsc-user-recipe-cooking.s3.amazonaws.com/${prevCookingImage}`} />
             }
             <h4 className="change-default">Change</h4>
-            <input className="submit-recipe-cooking-image-input" name="setRecipeCookingImage" type="file" accept="image/*" onChange={onSelectCookingFile} />
+            <input
+              className="submit-recipe-cooking-image-input"
+              type="file" accept="image/*"
+              onChange={onSelectCookingFile}
+            />
           </div>
         )}
         {recipeCookingImage && (
@@ -1053,7 +1062,13 @@ const UserSubmitRecipe = props => {
                 <span>Tiny Size: </span><img src={cookingCropTinySizePreview} />
               </div>
             </div>
-            <button className="submit-recipe-image-cancel-button" name="cancel-recipe-image" disabled={loading} onClick={cancelRecipeCookingImage}>Cancel</button>
+            <button
+              className="submit-recipe-image-cancel-button"
+              disabled={loading}
+              onClick={cancelRecipeCookingImage}
+            >
+              Cancel
+            </button>
           </div>
         )}
       </div>
