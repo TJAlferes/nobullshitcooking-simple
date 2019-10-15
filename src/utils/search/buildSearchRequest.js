@@ -14,6 +14,10 @@ function buildMatch(searchTerm, currentIndex) {
     return searchTerm
     ? {match: {ingredientName: {query: searchTerm}}}
     : {match_all: {}};
+  } else if (currentIndex === "equipment") {
+    return searchTerm
+    ? {match: {equipmentName: {query: searchTerm}}}
+    : {match_all: {}};
   }
 }
 
@@ -66,6 +70,10 @@ function buildRequestFilter(filters, currentIndex) {
       if (["ingredientTypeName"].includes(filter.field)) { 
         return [...acc, getTermFilter(filter)];
       }
+    } else if (currentIndex === "equipment") {
+      if (["equipmentTypeName"].includes(filter.field)) { 
+        return [...acc, getTermFilter(filter)];
+      }
     }
   }, []);
   if (filters.length < 1) return;
@@ -94,8 +102,10 @@ export default function buildSearchRequest(state, currentIndex) {
   } else if (currentIndex === "ingredients") {
     highlightFields = {ingredientName: {}};
     aggs = {ingredientTypeName: {terms: {field: "ingredientTypeName"}}};
+  } else if (currentIndex === "equipment") {
+    highlightFields = {equipmentName: {}};
+    aggs = {equipmentTypeName: {terms: {field: "equipmentTypeName"}}};
   }
-  //console.log('highlightFields: ', highlightFields);
 
   const body = {
     highlight: {
@@ -113,6 +123,6 @@ export default function buildSearchRequest(state, currentIndex) {
     ...(from && {from}),
     ...(size && {size})
   };
-  console.log(body);
+  
   return body;
 }

@@ -50,27 +50,19 @@ const searchConfig = {
   },
   onAutocomplete: async function({ searchTerm }) {  // JSON.stringify()?
     const { search } = store.getState();
-    if (search.currentIndex === "recipes") {
-      const res = await axios.post(
-        `${endpoint}/search/autocomplete/recipes`,
-        {searchTerm},
-        {withCredentials: true}
-      );
-      const newState = buildAutocompleteState(res.data.found, "recipes");
-      return {autocompletedResults: newState.results};
-    } else if (search.currentIndex === "ingredients") {
-      const res = await axios.post(
-        `${endpoint}/search/autocomplete/ingredients`,
-        {searchTerm},
-        {withCredentials: true}
-      );
-      const newState = buildAutocompleteState(res.data.found, "ingredients");
-      return {autocompletedResults: newState.results};
-    }
+    const res = await axios.post(
+      `${endpoint}/search/autocomplete/${search.currentIndex}`,
+      {searchTerm},
+      {withCredentials: true}
+    );
+    const newState = buildAutocompleteState(res.data.found, search.currentIndex);
+    return {autocompletedResults: newState.results};
   },
   onSearch: async function(state) {  // JSON.stringify()?
     const { search } = store.getState();
+
     if (search.currentIndex === "recipes") {
+
       const res = await axios.post(
         `${endpoint}/search/find/recipes`,
         {body: buildSearchRequest(state, "recipes")},
@@ -88,7 +80,9 @@ const searchConfig = {
         "recipes"
       );
       return newState;
+
     } else if (search.currentIndex === "ingredients") {
+
       const res = await axios.post(
         `${endpoint}/search/find/ingredients`,
         {body: buildSearchRequest(state, "ingredients")},
@@ -106,6 +100,27 @@ const searchConfig = {
         "ingredients"
       );
       return newState;
+
+    } else if (search.currentIndex === "equipment") {
+
+      const res = await axios.post(
+        `${endpoint}/search/find/equipment`,
+        {body: buildSearchRequest(state, "equipment")},
+        {withCredentials: true}
+      );
+      const resWithDisjunctiveFacetCounts = await applyDisjunctiveFaceting(
+        res.data.found,
+        state,
+        ["equipmentTypeName"],
+        "equipment"
+      );
+      const newState = buildSearchState(
+        resWithDisjunctiveFacetCounts,
+        state.resultsPerPage,
+        "equipment"
+      );
+      return newState;
+      
     }
   },
   searchQuery: {
@@ -115,7 +130,7 @@ const searchConfig = {
       //methods,
       //ingredientTypes (for allergies)
     },
-    disjunctiveFacets: ["recipeTypeName", "cuisineName"]
+    disjunctiveFacets: ["recipeTypeName", "cuisineName"]  // "ingredientTypeName", "equipmentTypeName"
   }
 };
 

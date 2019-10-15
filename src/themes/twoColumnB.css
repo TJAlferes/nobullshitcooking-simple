@@ -11,7 +11,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
-
+ 
 .two-column-b .left-column {
   order: 1;
   min-width: 300px;
@@ -61,6 +61,43 @@
   color: #000;
 }
 
+.two-column-b-light .expand-collapse {
+  background-color: #d5fdd5;
+}
+
+.two-column-b-light .expand-collapse-heading {
+  color: #777;
+}
+
+.two-column-b-light .search-result-recipe-link:hover,
+.two-column-b-light .search-result-recipe-link:active,
+.two-column-b-light .search-result-ingredient-link:hover,
+.two-column-b-light .search-result-ingredient-link:active {
+  background-color: #eee;
+}
+
+.two-column-b-light .search-result-recipe-text__title,
+.two-column-b-light .search-result-recipe-text__author,
+.two-column-b-light .search-result-recipe-text__types-cuisine,
+.two-column-b-light .search-result-recipe-text__types-recipe-type,
+.two-column-b-light .search-result-recipe-text__tags-methods,
+.two-column-b-light .search-result-recipe-text__tags-ingredients,
+.two-column-b-light .search-result-ingredient-text__name,
+.two-column-b-light .search-result-ingredient-text__type {
+  color: #000;
+}
+
+.two-column-b-light .search-result-recipe-text__tags-methods,
+.two-column-b-light .recipe-details__required-method {
+  background-color: #cfcfcf;
+}
+
+.two-column-b-light .search-result-recipe-text__tags-ingredients {
+  background-color: #dedede;
+}
+
+
+
 /* dark */
 
 .two-column-b-dark .left-column,
@@ -86,4 +123,40 @@
 .two-column-b-dark .equipments-list-item a {
   background-color: #222;
   color: #aaa;
+}
+
+.two-column-b-dark .expand-collapse {
+  background-color: #507ea7;
+  color: #000;
+}
+
+.two-column-b-dark .expand-collapse-heading {
+  color: #ccc;
+}
+
+.two-column-b-dark .search-result-recipe-link:hover,
+.two-column-b-dark .search-result-recipe-link:active,
+.two-column-b-dark .search-result-ingredient-link:hover,
+.two-column-b-dark .search-result-ingredient-link:active {
+  background-color: #333;
+}
+
+.two-column-b-dark .search-result-recipe-text__title,
+.two-column-b-dark .search-result-recipe-text__author,
+.two-column-b-dark .search-result-recipe-text__types-cuisine,
+.two-column-b-dark .search-result-recipe-text__types-recipe-type,
+.two-column-b-dark .search-result-recipe-text__tags-methods,
+.two-column-b-dark .search-result-recipe-text__tags-ingredients,
+.two-column-b-dark .search-result-ingredient-text__name,
+.two-column-b-dark .search-result-ingredient-text__type {
+  color: #aaa;
+}
+
+.two-column-b-dark .search-result-recipe-text__tags-methods,
+.two-column-b-dark .recipe-details__required-method {
+  background-color: #555;
+}
+
+.two-column-b-dark .search-result-recipe-text__tags-ingredients {
+  background-color: #444;
 }

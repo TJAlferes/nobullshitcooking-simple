@@ -102,7 +102,6 @@
   height: 100%;
   padding: 10px;
   text-decoration: none;
-  color: #000;
 }
 
 .search-result-ingredient-link:hover,
@@ -114,7 +113,6 @@
   text-decoration: none;
   font-size: 1.6rem;
   font-weight: 900;
-  color: #000;
 }
 
 .search-result-ingredient-link:hover .search-result-ingredient-text .search-result-ingredient-text__name,

@@ -13,7 +13,10 @@ https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
 
 function combineAggregationsFromResponses(responses) {
-  return responses.reduce((acc, response) => ({...acc, ...response.aggregations}), {});
+  return responses.reduce(
+    (acc, response) => ({...acc, ...response.aggregations}),
+    {}
+  );
 }
 
 function removeFilterByName(state, facetName) {

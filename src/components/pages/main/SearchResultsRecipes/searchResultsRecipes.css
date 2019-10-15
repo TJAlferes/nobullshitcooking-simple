@@ -102,19 +102,12 @@
   height: 100%;
   padding: 10px;
   text-decoration: none;
-  color: #000;
-}
-
-.search-result-recipe-link:hover,
-.search-result-recipe-link:active {
-  background-color: #eee;
 }
 
 .search-result-recipe-text__title {
   text-decoration: none;
   font-size: 1.6rem;
   font-weight: 900;
-  color: #000;
 }
 
 .search-result-recipe-link:hover .search-result-recipe-text .search-result-recipe-text__title,
@@ -144,10 +137,10 @@
   font-size: 13px;
 }
 
-.search-result-recipe-text__tags-methods {
-  background-color: #cfcfcf;
+/*.search-result-recipe-text__tags-methods {
+
 }
 
 .search-result-recipe-text__tags-ingredients {
-  background-color: #dedede;
-}
+
+}*/

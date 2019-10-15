@@ -13,6 +13,9 @@ const SearchResultsRecipes = props => {
 
         <h1>Search Results</h1>
 
+        {/* Note to self: the `facets` props below are set incorrectly, fix them */}
+        {/*<p>{"props.facets: "}{JSON.stringify(props.facets)}</p>*/}
+
         <ExpandCollapse headingWhileCollapsed="Filter Results (Click here to expand)">
           <div className="search-results-filters">
 
@@ -153,17 +156,29 @@ const SearchResultsRecipes = props => {
                   to={`/recipe/${rows[0][1].raw}`}
                 >
                   <div className="search-result-recipe-text">
-                    <div className="search-result-recipe-text__title">{rows[4] && rows[4][1].raw}</div>
-                    <div className="search-result-recipe-text__author">{rows[1][1].raw}</div>
+                    <div className="search-result-recipe-text__title">
+                      {rows[4] && rows[4][1].raw}
+                    </div>
+                    <div className="search-result-recipe-text__author">
+                      {rows[1][1].raw}
+                    </div>
 
                     <div className="search-result-recipe-text__types">
-                      <div className="search-result-recipe-text__types-cuisine">{rows[3][1].raw}</div>
-                      <div className="search-result-recipe-text__types-recipe-type">{rows[2][1].raw}</div>
+                      <div className="search-result-recipe-text__types-cuisine">
+                        {rows[3][1].raw}
+                      </div>
+                      <div className="search-result-recipe-text__types-recipe-type">
+                        {rows[2][1].raw}
+                      </div>
                     </div>
 
                     <div className="search-result-recipe-text__tags">
-                      <div className="search-result-recipe-text__tags-methods">{rows[8] && rows[8][1].raw}</div>
-                      <div className="search-result-recipe-text__tags-ingredients">{rows[10] && rows[10][1].raw}</div>
+                      <div className="search-result-recipe-text__tags-methods">
+                        {rows[8] && rows[8][1].raw}
+                      </div>
+                      <div className="search-result-recipe-text__tags-ingredients">
+                        {rows[10] && rows[10][1].raw}
+                      </div>
                     </div>
                   </div>
                   <img

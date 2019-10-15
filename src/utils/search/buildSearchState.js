@@ -72,7 +72,11 @@ function buildStateFacets(aggregations, currentIndex) {
     if (Object.keys(facets).length > 0) return facets;
   } else if (currentIndex === "ingredients") {
     const ingredientTypeName = getValueFacet(aggregations, "ingredientTypeName");
-    const facets = {...(ingredientTypeName && {ingredientTypeName}),};
+    const facets = {...(ingredientTypeName && {ingredientTypeName})};
+    if (Object.keys(facets).length > 0) return facets;
+  } else if (currentIndex === "equipment") {
+    const equipmentTypeName = getValueFacet(aggregations, "equipmentTypeName");
+    const facets = {...(equipmentTypeName && {equipmentTypeName})};
     if (Object.keys(facets).length > 0) return facets;
   }
 }
