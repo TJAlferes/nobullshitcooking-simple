@@ -72,7 +72,9 @@
 .two-column-b-light .search-result-recipe-link:hover,
 .two-column-b-light .search-result-recipe-link:active,
 .two-column-b-light .search-result-ingredient-link:hover,
-.two-column-b-light .search-result-ingredient-link:active {
+.two-column-b-light .search-result-ingredient-link:active,
+.two-column-b-light .search-result-equipment-link:hover,
+.two-column-b-light .search-result-equipment-link:active {
   background-color: #eee;
 }
 
@@ -83,7 +85,9 @@
 .two-column-b-light .search-result-recipe-text__tags-methods,
 .two-column-b-light .search-result-recipe-text__tags-ingredients,
 .two-column-b-light .search-result-ingredient-text__name,
-.two-column-b-light .search-result-ingredient-text__type {
+.two-column-b-light .search-result-ingredient-text__type,
+.two-column-b-light .search-result-equipment-text__name,
+.two-column-b-light .search-result-equipment-text__type {
   color: #000;
 }
 
@@ -137,7 +141,9 @@
 .two-column-b-dark .search-result-recipe-link:hover,
 .two-column-b-dark .search-result-recipe-link:active,
 .two-column-b-dark .search-result-ingredient-link:hover,
-.two-column-b-dark .search-result-ingredient-link:active {
+.two-column-b-dark .search-result-ingredient-link:active,
+.two-column-b-dark .search-result-equipment-link:hover,
+.two-column-b-dark .search-result-equipment-link:active {
   background-color: #333;
 }
 
@@ -148,7 +154,9 @@
 .two-column-b-dark .search-result-recipe-text__tags-methods,
 .two-column-b-dark .search-result-recipe-text__tags-ingredients,
 .two-column-b-dark .search-result-ingredient-text__name,
-.two-column-b-dark .search-result-ingredient-text__type {
+.two-column-b-dark .search-result-ingredient-text__type,
+.two-column-b-dark .search-result-equipment-text__name,
+.two-column-b-dark .search-result-equipment-text__type {
   color: #aaa;
 }
 

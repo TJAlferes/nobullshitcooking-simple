@@ -38,13 +38,12 @@
   max-height: 32px;
 }
 
-.sui-multi-checkbox-facet__option-input-wrapper {
-}
+/*.sui-multi-checkbox-facet__option-input-wrapper {
+
+}*/
 
 .sui-multi-checkbox-facet__checkbox {
   display: inline;
-  width: 13px;
-  height: 13px;
 }
 
 .sui-multi-checkbox-facet__input-text {
