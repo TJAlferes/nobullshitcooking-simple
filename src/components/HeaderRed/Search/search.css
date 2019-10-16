@@ -138,6 +138,7 @@ Come back to this at a later time, see if a better approach can be done.
 .sui-search-box__suggestion-list,
 .sui-search-box__results-list {
   padding-left: 5px;
+  overflow: hidden;
   list-style-type: none;
   background-color: #fff;
   color: #111;
@@ -145,6 +146,7 @@ Come back to this at a later time, see if a better approach can be done.
 
 .sui-search-box__suggestion-list li,
 .sui-search-box__results-list li {
+  overflow: hidden;
   font-weight: 700;
   font-style: normal;
 }

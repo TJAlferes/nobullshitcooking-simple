@@ -9,7 +9,7 @@ import { searchSetIndex } from '../../../store/actions/index';
 
 const Search = props => {
   const changeSearchIndex = e => {  // useEffect? useLayoutEffect?
-    const sInsert = document.getElementsByClassName("sui-search-box__wrapper")[0].firstChild;
+    const sInsert = document.getElementsByClassName("sui-search-box__wrapper")[1].firstChild;
     props.searchSetIndex(e.target.value);
     sInsert.focus();
   }
@@ -76,7 +76,9 @@ const Search = props => {
       <div className="search-insert">
         <SearchBox
           onSubmit={handleSubmit}
-          inputProps={{placeholder: ""}}
+          inputProps={{
+            placeholder: ""
+          }}
           useAutocomplete={true}
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
@@ -106,6 +108,19 @@ const Search = props => {
               </div>
             );
           }}
+          /*inputView={({ getAutocomplete, getInputProps, getButtonProps }) => (
+            <>
+              <div className="desktop-sui-search-box__wrapper">
+                <input
+                  {...getInputProps()}
+                />
+                {getAutocomplete()}
+              </div>
+              <button className="sui-search-box__submit" {...getButtonProps()}>
+                Search
+              </button>
+            </>
+          )}*/
         />
       </div>
 

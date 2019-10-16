@@ -140,6 +140,7 @@ Come back to this at a later time, see if a better approach can be done.
 .sui-search-box__suggestion-list,
 .sui-search-box__results-list {
   padding-left: 5px;
+  overflow: hidden;
   list-style-type: none;
   background-color: #fff;
   color: #111;
@@ -147,6 +148,7 @@ Come back to this at a later time, see if a better approach can be done.
 
 .sui-search-box__suggestion-list li,
 .sui-search-box__results-list li {
+  overflow: hidden;
   font-weight: 700;
   font-style: normal;
 }
@@ -168,7 +170,7 @@ Come back to this at a later time, see if a better approach can be done.
   cursor: pointer;
 }
 
-.mobile-sui-search-box__submit {
+.mobile-search-insert .sui-search-box__submit {
   order: 2;
   width: 32px;
   height: 30px;
@@ -181,8 +183,22 @@ Come back to this at a later time, see if a better approach can be done.
   border-right-color: #666;
   border-bottom-color: #666;
   border-left-color: #ddd;
+  background-image: none;
   background-color: #b8dbfb;
+  color: #b8dbfb;
   line-height: 26px;
+  cursor: pointer;
+}
+
+.mobile-search-insert .sui-search-box__submit:hover,
+.mobile-search-insert .sui-search-box__submit:active {
+  background-image: none;
+}
+
+.magnifying-glass-holder {
+  position: absolute;
+  top: 8px;
+  right: 11px;
   cursor: pointer;
 }
 
@@ -195,6 +211,7 @@ Come back to this at a later time, see if a better approach can be done.
   border-radius: 30px;
   background-color: #b8dbfb;
   margin-bottom: 1px;
+  cursor: pointer;
 }
 
 .magnifying-glass:after {
@@ -206,4 +223,5 @@ Come back to this at a later time, see if a better approach can be done.
   background-color: #555;
   content: "";
   transform: rotate(45deg);
+  cursor: pointer;
 }

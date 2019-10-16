@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withSearch, SearchBox } from '@elastic/react-search-ui';
- 
+
 import './mobileSearch.css';
 import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
 import { searchSetIndex } from '../../../../store/actions/index';
 
 const MobileSearch = props => {
-  const changeSearchIndex = e => {  // useEffect? useLayoutEffect?  RENAME NOW
-    const sInsert = document.getElementsByClassName("mobile-sui-search-box__wrapper")[0].firstChild;
+  const changeSearchIndex = e => {  // useEffect? useLayoutEffect?
+    const sInsert = document.getElementsByClassName("sui-search-box__wrapper")[0].firstChild;
     props.searchSetIndex(e.target.value);
     sInsert.focus();
   }
@@ -60,7 +60,13 @@ const MobileSearch = props => {
       <div className="mobile-search-insert">
         <SearchBox
           onSubmit={handleSubmit}
-          inputProps={{placeholder: ""}}
+          inputProps={{
+            placeholder: "",
+            //className: "mobile-sui-search-box__text-input",
+          }}
+          buttonProps={{
+            className: "mobile-sui-search-box__submit"
+          }}
           useAutocomplete={true}
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
@@ -90,18 +96,23 @@ const MobileSearch = props => {
               </div>
             );
           }}
-          inputView={({ getAutocomplete, getInputProps }) => (
+          /*inputView={({ getAutocomplete, getInputProps }) => (
             <>
               <div className="mobile-sui-search-box__wrapper">
-                <input {...getInputProps()} />
+                <input
+                  {...getInputProps()}
+                />
                 {getAutocomplete()}
               </div>
               <button className="mobile-sui-search-box__submit">
                 <span className="magnifying-glass"></span>
               </button>
             </>
-          )}
+          )}*/
         />
+        <div className="magnifying-glass-holder" onClick={handleSubmit}>
+          <span className="magnifying-glass"></span>
+        </div>
       </div>
 
     </div>
