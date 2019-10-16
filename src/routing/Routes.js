@@ -60,6 +60,7 @@ const StaffSubmitIngredient = lazy(() => import('../components/staff/StaffSubmit
 //const SearchResultsAll = lazy(() => import('../components/pages/main/SearchResults/SearchResultsAll'));
 const SearchResultsRecipes = lazy(() => import('../components/pages/main/SearchResultsRecipes/SearchResultsRecipes'));
 const SearchResultsIngredients = lazy(() => import('../components/pages/main/SearchResultsIngredients/SearchResultsIngredients'));
+const SearchResultsEquipment = lazy(() => import('../components/pages/main/SearchResultsEquipment/SearchResultsEquipment'));
 //const SearchResult = lazy(() => import('../components/pages/main/SearchResult/SearchResult'));
 const Equipments = lazy(() => import('../components/pages/main/Equipments/Equipments'));
 const Equipment = lazy(() => import('../components/pages/main/Equipment/Equipment'));
@@ -255,6 +256,7 @@ const RoutesList = () => (
       {/*<AppliedRoute path="/search-results-all" exact component={SearchResultsAll} />*/}
       <AppliedRoute path="/search-results-recipes" exact component={SearchResultsRecipes} />
       <AppliedRoute path="/search-results-ingredients" exact component={SearchResultsIngredients} />
+      <AppliedRoute path="/search-results-equipment" exact component={SearchResultsEquipment} />
 
       <AppliedRoute path="/equipments" exact component={Equipments} />
       <AppliedRoute path="/equipments/:type" exact component={Equipments} />

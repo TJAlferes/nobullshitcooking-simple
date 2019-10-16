@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withSearch, SearchBox } from '@elastic/react-search-ui';
-
+ 
 import './mobileSearch.css';
 import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
 import { searchSetIndex } from '../../../../store/actions/index';
@@ -23,12 +23,15 @@ const MobileSearch = props => {
     redirectToSearchPage();
   };
 
+  const getField = () => {
+    if (props.currentIndex === "recipes") return "title";
+    if (props.currentIndex === "ingredients") return "ingredientName";
+    if (props.currentIndex === "equipment") return "equipmentName";
+  };
+
   let capitalizedFirstLetter = `${props.currentIndex}`.slice(0, 1).toUpperCase();
   let otherLetters = `${props.currentIndex}`.slice(1, props.currentIndex.length).toLowerCase();
   let facadeText = `${capitalizedFirstLetter}${otherLetters}`;
-
-  let titleField = props.currentIndex === "recipes" ? "title" : "ingredientName";
-  let urlField = props.currentIndex === "recipes" ? "title" : "ingredientName";
 
   return (
     <div className={`mobile-search ${props.theme}`}>
@@ -50,6 +53,9 @@ const MobileSearch = props => {
           <option id="search_ingredients" value="ingredients">
             Ingredients
           </option>
+          <option id="search_kitchen_equipment" value="equipment">
+            Equipment
+          </option>
         </select>
       </div>
 
@@ -60,8 +66,8 @@ const MobileSearch = props => {
           useAutocomplete={true}
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
-            titleField,
-            urlField,
+            titleField: getField(),
+            urlField: getField(),
             shouldTrackClickThrough: true
           }}
           autocompleteView={props => {
