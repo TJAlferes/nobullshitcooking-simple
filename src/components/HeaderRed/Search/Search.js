@@ -23,15 +23,13 @@ const Search = props => {
     redirectToSearchPage();
   };
 
-  const getField = () => {
-    if (props.currentIndex === "recipes") return "title";
-    if (props.currentIndex === "ingredients") return "ingredientName";
-    if (props.currentIndex === "equipment") return "equipmentName";
-  };
-
   let capitalizedFirstLetter = `${props.currentIndex}`.slice(0, 1).toUpperCase();
   let otherLetters = `${props.currentIndex}`.slice(1, props.currentIndex.length).toLowerCase();
   let facadeText = `${capitalizedFirstLetter}${otherLetters}`;
+  let field;
+  if (props.currentIndex === "recipes") field = "title";
+  if (props.currentIndex === "ingredients") field = "ingredientName";
+  if (props.currentIndex === "equipment") field = "equipmentName";
 
   return (
     <div className={`search ${props.theme}`} id="search_form">
@@ -82,8 +80,8 @@ const Search = props => {
           useAutocomplete={true}
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
-            titleField: getField(),
-            urlField: getField(),
+            titleField: field,
+            urlField: field,
             shouldTrackClickThrough: true
           }}
           autocompleteView={props => {

@@ -20,21 +20,19 @@ function buildResults(hits, currentIndex) {
   let builtResults = [];
 
   hits.map(record => {
-    function getField() {
-      if (currentIndex === "recipes") return record._source.title;
-      if (currentIndex === "ingredients") return record._source.ingredientName;
-      if (currentIndex === "equipment") return record._source.equipmentName;
-    }
+    let field;
+    if (currentIndex === "recipes") field = record._source.title;
+    if (currentIndex === "ingredients") field = record._source.ingredientName;
+    if (currentIndex === "equipment") field = record._source.equipmentName;
 
-    function getFieldString() {
-      if (currentIndex === "recipes") return "title";
-      if (currentIndex === "ingredients") return "ingredientName";
-      if (currentIndex === "equipment") return "equipmentName";
-    }
+    let fieldString;
+    if (currentIndex === "recipes") fieldString = "title";
+    if (currentIndex === "ingredients") fieldString = "ingredientName";
+    if (currentIndex === "equipment") fieldString = "equipmentName";
 
-    let snippet = getHighlight(record, getFieldString());
+    let snippet = getHighlight(record, fieldString);
 
-    builtResults.push({id: {raw: getField, ...(snippet && {snippet})}});
+    builtResults.push({id: {raw: field, ...(snippet && {snippet})}});
   });
 
   return builtResults;

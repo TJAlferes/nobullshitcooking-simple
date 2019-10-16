@@ -61,13 +61,12 @@ const StaffSubmitIngredient = lazy(() => import('../components/staff/StaffSubmit
 const SearchResultsRecipes = lazy(() => import('../components/pages/main/SearchResultsRecipes/SearchResultsRecipes'));
 const SearchResultsIngredients = lazy(() => import('../components/pages/main/SearchResultsIngredients/SearchResultsIngredients'));
 const SearchResultsEquipment = lazy(() => import('../components/pages/main/SearchResultsEquipment/SearchResultsEquipment'));
-//const SearchResult = lazy(() => import('../components/pages/main/SearchResult/SearchResult'));
-const Equipments = lazy(() => import('../components/pages/main/Equipments/Equipments'));
-const Equipment = lazy(() => import('../components/pages/main/Equipment/Equipment'));
-const Ingredients = lazy(() => import('../components/pages/main/Ingredients/Ingredients'));
-const Ingredient = lazy(() => import('../components/pages/main/Ingredient/Ingredient'));
-const Recipes = lazy(() => import('../components/pages/main/Recipes/Recipes'));
+
 const Recipe = lazy(() => import('../components/pages/main/Recipe/Recipe'));
+const Ingredient = lazy(() => import('../components/pages/main/Ingredient/Ingredient'));
+const Equipment = lazy(() => import('../components/pages/main/Equipment/Equipment'));
+
+
 
 
 import Food from '../components/pages/Food/Food';
@@ -258,14 +257,9 @@ const RoutesList = () => (
       <AppliedRoute path="/search-results-ingredients" exact component={SearchResultsIngredients} />
       <AppliedRoute path="/search-results-equipment" exact component={SearchResultsEquipment} />
 
-      <AppliedRoute path="/equipments" exact component={Equipments} />
-      <AppliedRoute path="/equipments/:type" exact component={Equipments} />
-      <AppliedRoute path="/equipment/:id" exact component={Equipment} />
-      <AppliedRoute path="/ingredients" exact component={Ingredients} />
-      <AppliedRoute path="/ingredients/:type" exact component={Ingredients} />
-      <AppliedRoute path="/ingredient/:id" exact component={Ingredient} />
-      <AppliedRoute path="/recipes" exact component={Recipes} />
       <AppliedRoute path="/recipe/:id" exact component={Recipe} />
+      <AppliedRoute path="/ingredient/:id" exact component={Ingredient} />
+      <AppliedRoute path="/equipment/:id" exact component={Equipment} />
 
 
 

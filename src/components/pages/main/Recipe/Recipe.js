@@ -28,7 +28,7 @@ const Recipe = props => {
 
   useEffect(() => {
     const { id } = props.match.params;
-    //if (!id) Redirect them to Recipes *****
+    if (!id) props.history.push('/home');
     const getPublicRecipe = async (id) => {
       try {
         const res = await axios.get(`${endpoint}/recipe/${id}`);

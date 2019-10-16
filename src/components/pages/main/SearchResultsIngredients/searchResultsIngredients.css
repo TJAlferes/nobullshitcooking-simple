@@ -38,10 +38,6 @@
   max-height: 32px;
 }
 
-/*.sui-multi-checkbox-facet__option-input-wrapper {
-
-}*/
-
 .sui-multi-checkbox-facet__checkbox {
   display: inline;
 }
@@ -56,9 +52,59 @@
   display: none;
 }
 
-/*.sui-result {
-  padding: 10px;
-}*/
+.sui-paging {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  list-style-type: none;
+}
+
+.rc-pagination {
+  display: flex;
+  flex-direction: row;
+}
+
+.rc-pagination-item {
+  margin-right: 12px;
+  margin-left: 12px;
+  font-weight: 900;
+}
+
+.rc-pagination-item a {
+  font-size: 1.5rem;
+}
+
+.rc-pagination-item:hover {
+  color: #c10006;
+  cursor: pointer;
+}
+
+.sui-paging-info {
+  margin-left: 12px;
+  font-size: 12px;
+}
+
+.sui-results-per-page {
+  margin-left: 12px;
+}
+
+.sui-results-per-page,
+.sui-select__control {
+  display: flex;
+  flex-direction: row;
+}
+
+.sui-select__single-value {
+  font-size: 12px;
+}
+
+.sui-results-per-page__label {
+  padding-top: 4px;
+  font-size: 12px;
+}
+
+.sui-results-per-page .sui-select .sui-select--inline {
+
+}
 
 .search-result-ingredient {
   padding: 10px;

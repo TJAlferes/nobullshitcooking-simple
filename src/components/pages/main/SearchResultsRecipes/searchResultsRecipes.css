@@ -38,13 +38,8 @@
   max-height: 32px;
 }
 
-.sui-multi-checkbox-facet__option-input-wrapper {
-}
-
 .sui-multi-checkbox-facet__checkbox {
   display: inline;
-  width: 13px;
-  height: 13px;
 }
 
 .sui-multi-checkbox-facet__input-text {
@@ -57,35 +52,57 @@
   display: none;
 }
 
-
-
-.sui-results-container {
-
+.sui-paging {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  list-style-type: none;
 }
 
-
-
-.sui-result {
-  padding: 10px;
+.rc-pagination {
+  display: flex;
+  flex-direction: row;
 }
 
-.sui-result__body {
-
+.rc-pagination-item {
+  margin-right: 12px;
+  margin-left: 12px;
+  font-weight: 900;
 }
 
-.sui-result__details {
-
+.rc-pagination-item a {
+  font-size: 1.5rem;
 }
 
-.sui-result__key {
-
+.rc-pagination-item:hover {
+  color: #c10006;
+  cursor: pointer;
 }
 
-.sui-result__value {
-
+.sui-paging-info {
+  margin-left: 12px;
+  font-size: 12px;
 }
 
-.search_results_list {
+.sui-results-per-page {
+  margin-left: 12px;
+}
+
+.sui-results-per-page,
+.sui-select__control {
+  display: flex;
+  flex-direction: row;
+}
+
+.sui-select__single-value {
+  font-size: 12px;
+}
+
+.sui-results-per-page__label {
+  padding-top: 4px;
+  font-size: 12px;
+}
+
+.sui-results-per-page .sui-select .sui-select--inline {
 
 }
 
