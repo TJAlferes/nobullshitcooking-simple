@@ -1,0 +1,31 @@
+@media (min-width: 900px) {
+  .plan-page {
+    width: 1200px;
+    min-height: fit-content;
+    margin: 0 auto 0 auto;
+  }
+
+  .mobile_display {
+    display: none;
+  }
+
+  .desktop_display {
+    display: block;
+    margin: 0 auto 0 auto;
+  }
+}
+
+@media (max-width: 899px) {
+  .plan-page {
+    min-width: 300px;
+    max-width: 100%;
+  }
+
+  .mobile_display {
+    display: block;
+  }
+  
+  .desktop_display {
+    display: none;
+  }
+}

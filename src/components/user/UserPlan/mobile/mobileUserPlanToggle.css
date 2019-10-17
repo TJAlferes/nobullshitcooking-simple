@@ -1,0 +1,22 @@
+.mobile_planner_toggle {
+  display: block;
+  width: 196px;
+  height: 30px;
+  margin: 20px auto;
+  border: 1px solid #aaa; border-radius: 2px;
+  background-color:  #d5fdd5;
+}
+
+.planner_modal {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+#close_planner {
+  display: block;
+  width: 196px;
+  height: 30px;
+  border: 1px solid #aaa; border-radius: 2px;
+  background-color: #ffd6d6;
+  float: right;
+}

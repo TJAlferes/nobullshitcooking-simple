@@ -36,9 +36,9 @@ const UserFriends = lazy(() => import('../components/user/UserFriends/UserFriend
 
 const UserMessengerPage = lazy(() => import('../components/user/UserMessengerPage/UserMessengerPage'));
 
-const PlannerPage = lazy(() => import('../components/PlannerPage/PlannerPage'));  // for public, url-based
-const UserPlannerPage = lazy(() => import('../components/user/UserPlannerPage/UserPlannerPage'));
-const UserNewPlannerPage = lazy(() => import('../components/user/UserNewPlannerPage/UserNewPlannerPage'));
+const PlanPage = lazy(() => import('../components/Plan/PlanPage'));  // for public, url-based
+const UserPlanPage = lazy(() => import('../components/user/UserPlan/UserPlanPage'));
+const UserNewPlanPage = lazy(() => import('../components/user/UserNewPlan/UserNewPlanPage'));
 
 const UserSubmitRecipe = lazy(() => import('../components/user/UserSubmitRecipe/UserSubmitRecipe'));
 
@@ -212,10 +212,10 @@ const RoutesList = () => (
 
       <AuthenticatedRoute path="/user/messenger" exact component={UserMessengerPage} />
 
-      <AppliedRoute path="/planner" exact component={PlannerPage} />  {/* for demo/public purposes */}
-      <AuthenticatedRoute path="/user/planner/:id" exact component={UserPlannerPage} />  {/* take away dnd capability, have "Change/Edit" button */}
-      <AuthenticatedRoute path="/user/planner/submit" exact component={UserNewPlannerPage} />  {/* have "Cancel" and "Create" buttons */}
-      <AuthenticatedRoute path="/user/planner/edit/:id" exact component={UserNewPlannerPage} childProps={{editing: "true"}} />  {/* have "Cancel" and "Update" buttons */}
+      <AppliedRoute path="/plan" exact component={PlanPage} />  {/* for demo/public purposes */}
+      <AuthenticatedRoute path="/user/plan/:id" exact component={UserPlanPage} />  {/* take away dnd capability, have "Change/Edit" button */}
+      <AuthenticatedRoute path="/user/plan/submit" exact component={UserNewPlanPage} />  {/* have "Cancel" and "Create" buttons */}
+      <AuthenticatedRoute path="/user/plan/edit/:id" exact component={UserNewPlanPage} childProps={{editing: "true"}} />  {/* have "Cancel" and "Update" buttons */}
 
       <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
       <AuthenticatedRoute path="/user/recipes/private/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "private"}} />
