@@ -8,8 +8,8 @@ const MainWhite = props => {
   // so that breadcrumbs aren't displayed on the home page
   let isHome = props.location.pathname.match(/^\/$/);
   // so that the default breadcrumbs aren't displayed on these pages
-  let isRecipe = props.location.pathname.match(/^(\/recipe\/([1-9][0-9]*))$/);  
-  let isIngredient = props.location.pathname.match(/^(\/ingredient\/([1-9][0-9]*))$/);
+  let isRecipe = props.location.pathname.match(/^(\/recipes\/([1-9][0-9]*))$/);  
+  let isIngredient = props.location.pathname.match(/^(\/ingredients\/([1-9][0-9]*))$/);
   let isEquipment = props.location.pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
   return (
     <main className={`mainwhite ${props.theme}`}>

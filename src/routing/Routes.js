@@ -252,14 +252,14 @@ const RoutesList = () => (
         routes
       */}
       
-      {/*<AppliedRoute path="/search-results-all" exact component={SearchResultsAll} />*/}
-      <AppliedRoute path="/search-results-recipes" exact component={SearchResultsRecipes} />
-      <AppliedRoute path="/search-results-ingredients" exact component={SearchResultsIngredients} />
-      <AppliedRoute path="/search-results-equipment" exact component={SearchResultsEquipment} />
-
-      <AppliedRoute path="/recipe/:id" exact component={Recipe} />
-      <AppliedRoute path="/ingredient/:id" exact component={Ingredient} />
+      <AppliedRoute path="/recipes/:id" exact component={Recipe} />
+      <AppliedRoute path="/ingredients/:id" exact component={Ingredient} />
       <AppliedRoute path="/equipment/:id" exact component={Equipment} />
+
+      {/*<AppliedRoute path="/all" exact component={SearchResultsAll} />*/}
+      <AppliedRoute path="/recipes" exact component={SearchResultsRecipes} />
+      <AppliedRoute path="/ingredients" exact component={SearchResultsIngredients} />
+      <AppliedRoute path="/equipment" exact component={SearchResultsEquipment} />
 
 
 

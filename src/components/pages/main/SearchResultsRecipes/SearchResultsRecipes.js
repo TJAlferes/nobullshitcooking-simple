@@ -153,7 +153,7 @@ const SearchResultsRecipes = props => {
               <div className="search-result-recipe" key={rows[0][1].raw}>
                 <Link
                   className="search-result-recipe-link"
-                  to={`/recipe/${rows[0][1].raw}`}
+                  to={`/recipes/${rows[0][1].raw}`}
                 >
                   <div className="search-result-recipe-text">
                     <div className="search-result-recipe-text__title">

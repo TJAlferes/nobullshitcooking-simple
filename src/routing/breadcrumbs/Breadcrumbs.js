@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useLocation } from 'react-router';
+//import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
 
@@ -15,10 +15,10 @@ export const Breadcrumbs = withBreadcrumbs()(
     ({ breadCrumbsTheme, breadcrumbs }) => (
       <div className={`crumbs ${breadCrumbsTheme}`}>
         {breadcrumbs.map((breadcrumb, index) => {
-          let { pathname } = useLocation();
+          //let { pathname } = useLocation();
           return (
             <span className="crumb" key={breadcrumb.key}>
-              <Link className="crumb_link" to={pathname}>
+              <Link className="crumb_link" to={breadcrumb.key}>
                 {breadcrumb.breadcrumb}
               </Link>
               {
@@ -39,22 +39,25 @@ export const RecipeBreadcrumbs = withBreadcrumbs()(
       breadcrumbs.pop();
       return (
         <div className={`crumbs ${breadCrumbsTheme}`}>
-          {breadcrumbs.map((breadcrumb, index) => (
-            <span className="crumb" key={breadcrumb.key}>
-              <Link className="crumb_link" to={breadcrumb.props.match.url}>
-                {breadcrumb}
-              </Link>
-              {
-                (index < breadcrumbs.length) &&
-                <i className="crumb_pointer"> > </i>
-              }
-            </span>
-          ))}
+          {breadcrumbs.map((breadcrumb, index) => {
+            //let { pathname } = useLocation();
+            return (
+              <span className="crumb" key={breadcrumb.key}>
+                <Link className="crumb_link" to={breadcrumb.key}>
+                  {breadcrumb.breadcrumb}
+                </Link>
+                {
+                  (index < breadcrumbs.length) &&
+                  <i className="crumb_pointer"> > </i>
+                }
+              </span>
+            );
+          })}
           <Link
             className="crumb_link"
-            to={`/food/recipe/${recipe && recipe.recipe_id}`}
+            to={`/recipes/${recipe && recipe.recipe[0].recipeId}`}
           >
-            {recipe && recipe.title}
+            {recipe && recipe.recipe[0].title}
           </Link>
         </div>
       );
@@ -68,22 +71,25 @@ export const IngredientBreadcrumbs = withBreadcrumbs()(
       breadcrumbs.pop();
       return (
         <div className={`crumbs ${breadCrumbsTheme}`}>
-          {breadcrumbs.map((breadcrumb, index) => (
-            <span className="crumb" key={breadcrumb.key}>
-              <Link className="crumb_link" to={breadcrumb.props.match.url}>
-                {breadcrumb}
-              </Link>
-              {
-                (index < breadcrumbs.length) &&
-                <i className="crumb_pointer"> > </i>
-              }
-            </span>
-          ))}
+          {breadcrumbs.map((breadcrumb, index) => {
+            //let { pathname } = useLocation();
+            return (
+              <span className="crumb" key={breadcrumb.key}>
+                <Link className="crumb_link" to={breadcrumb.key}>
+                  {breadcrumb.breadcrumb}
+                </Link>
+                {
+                  (index < breadcrumbs.length) &&
+                  <i className="crumb_pointer"> > </i>
+                }
+              </span>
+            );
+          })}
           <Link
             className="crumb_link"
-            to={`/food/ingredient/${ingredient && ingredient.ingredient_id}`}
+            to={`/ingredients/${ingredient && ingredient.ingredient_id}`}
           >
-            {ingredient && ingredient.title}
+            {ingredient && ingredient.ingredient_name}
           </Link>
         </div>
       );
@@ -97,22 +103,25 @@ export const EquipmentBreadcrumbs = withBreadcrumbs()(
       breadcrumbs.pop();
       return (
         <div className={`crumbs ${breadCrumbsTheme}`}>
-          {breadcrumbs.map((breadcrumb, index) => (
-            <span className="crumb" key={breadcrumb.key}>
-              <Link className="crumb_link" to={breadcrumb.props.match.url}>
-                {breadcrumb}
-              </Link>
-              {
-                (index < breadcrumbs.length) &&
-                <i className="crumb_pointer"> > </i>
-              }
-            </span>
-          ))}
+          {breadcrumbs.map((breadcrumb, index) => {
+            //let { pathname } = useLocation();
+            return (
+              <span className="crumb" key={breadcrumb.key}>
+                <Link className="crumb_link" to={breadcrumb.key}>
+                  {breadcrumb.breadcrumb}
+                </Link>
+                {
+                  (index < breadcrumbs.length) &&
+                  <i className="crumb_pointer"> > </i>
+                }
+              </span>
+            );
+          })}
           <Link
             className="crumb_link"
-            to={`/food/equipment/${equipment && equipment.equipment_id}`}
+            to={`/equipment/${equipment && equipment.equipment_id}`}
           >
-            {equipment && equipment.title}
+            {equipment && equipment.equipment_name}
           </Link>
         </div>
       );

@@ -15,7 +15,7 @@ const Search = props => {
   }
 
   const redirectToSearchPage = () => {
-    props.history.push(`/search-results-${props.currentIndex}`);
+    props.history.push(`/${props.currentIndex}`);
   };
 
   const handleSubmit = () => {

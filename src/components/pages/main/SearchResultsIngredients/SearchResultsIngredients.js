@@ -70,7 +70,7 @@ const SearchResultsIngredients = props => {
               <div className="search-result-ingredient" key={rows[0][1].raw}>
                 <Link
                   className="search-result-ingredient-link"
-                  to={`/ingredient/${rows[0][1].raw}`}
+                  to={`/ingredients/${rows[0][1].raw}`}
                 >
                   <div className="search-result-ingredient-text">
                     <div className="search-result-ingredient-text__name">{rows[2][1].raw}</div>
