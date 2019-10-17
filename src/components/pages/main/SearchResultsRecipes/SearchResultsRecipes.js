@@ -11,7 +11,7 @@ const SearchResultsRecipes = props => {
 
       <div className="left-column">
 
-        <h1>Search Results</h1>
+        <h1>Recipes</h1>
 
         {/* Note to self: the `facets` props below are set incorrectly, fix them */}
         {/*<p>{"props.facets: "}{JSON.stringify(props.facets)}</p>*/}

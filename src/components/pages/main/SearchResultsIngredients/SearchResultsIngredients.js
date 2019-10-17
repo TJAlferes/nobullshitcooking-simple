@@ -11,7 +11,7 @@ const SearchResultsIngredients = props => {
 
       <div className="left-column">
 
-        <h1>Search Results</h1>
+        <h1>Ingredients</h1>
 
         <ExpandCollapse headingWhileCollapsed="Filter Results (Click here to expand)">
           <div className="search-results-filters">
