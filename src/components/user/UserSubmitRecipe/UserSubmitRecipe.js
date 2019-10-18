@@ -218,7 +218,10 @@ const UserSubmitRecipe = props => {
 
       setLoading(false);
     };
-    if (props.childProps && props.childProps.editing === "true") getExistingRecipeToEdit();
+    
+    if (props.childProps && props.childProps.editing === "true") {
+      getExistingRecipeToEdit();
+    }
   }, []);
 
   useEffect(() => {

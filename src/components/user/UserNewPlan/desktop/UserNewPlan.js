@@ -1,27 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import AriaModal from 'react-aria-modal';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import AriaModal from 'react-aria-modal';
 const uuidv4 = require('uuid/v4');
 
 import {
-  userCreateNewPlan,
   plannerClearWork,
-  plannerSetPlanName
+  plannerSetPlanName,
+  userCreateNewPlan,
+  userEditPlan
 } from '../../../../store/actions/index';
+
+import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
 import LeftNav from '../../../LeftNav/LeftNav';
-import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
+import LoaderButton from '../../../LoaderButton/LoaderButton';
+
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
-import LoaderButton from '../../../LoaderButton/LoaderButton';
-import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
-import './userNewPlan.css';  // use BEM
+import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
+
+import './userNewPlan.css';
 
 const UserNewPlan = props => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [ editing, setEditing ] = useState(false);
   const [ tab, setTab ] = useState("official");
   const [ modalActive, setModalActive ] = useState(false);
+
+  useEffect(() => {
+    const getExistingPlanToEdit = async () => {
+      setLoading(true);
+      setEditing(true);
+      setLoading(false);
+    };
+
+    if (props.childProps && props.childProps.editing === "true") {
+      getExistingPlanToEdit();
+    }
+  }, []);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -52,15 +69,14 @@ const UserNewPlan = props => {
     props.history.push('/user/dashboard');
   };
 
-  const getPlanData = () => {
-    return props.recipeListsInsideDays;  // not done; clean/format?
-  };
+  const getPlanData = () => props.recipeListsInsideDays;  // not done; clean/format?
 
   const handleSubmit = () => {
     const planInfo = {planName: props.planName, planData: getPlanData()};
     setLoading(true);
     try {
       //props.userCreateNewPlan(planInfo, props.history);
+      //props.userEditPlan(planInfo, props.history);
       console.log(planInfo);
     } catch(err) {
       setLoading(false);
@@ -77,13 +93,13 @@ const UserNewPlan = props => {
 
       <section>
 
-        <div className="planner-header">
-          <h1>Create New Plan</h1>
-          <p className="error-message">{feedback}</p>
-          <div className="planner-name">
-            <label className="planner-name-label">Plan Name:</label>
+        <div className="user-new-plan__header">
+          <h1>{editing ? 'Edit Plan' : 'Create New Plan'}</h1>
+          <p className="user-new-plan__error-message">{feedback}</p>
+          <div className="user-new-plan__name">
+            <label className="user-new-plan__name-label">Plan Name:</label>
             <input
-              className="planner-name-input"
+              className="user-new-plan__name-input"
               type="text"
               onChange={handlePlanNameChange}
               value={props.planName}
@@ -92,6 +108,8 @@ const UserNewPlan = props => {
         </div>
 
         <hr className="planner-hr" />
+
+
 
         <div id="calendar_container">
 
@@ -133,37 +151,54 @@ const UserNewPlan = props => {
             </div>
           </div>
 
+
+
           <div className="planner-recipes-list-tabs">
-          <button
-              className={(tab === "official") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+            <button
+              className={(tab === "official")
+                ? "planner-recipes-list-tab active"
+                : "planner-recipes-list-tab inactive"
+              }
               name="official"
               onClick={e => handleTabClick(e)}
             >
               All Official
             </button>
             <button
-              className={(tab === "private") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+              className={(tab === "private")
+                ? "planner-recipes-list-tab active"
+                : "planner-recipes-list-tab inactive"
+              }
               name="private"
               onClick={e => handleTabClick(e)}
             >
               My Private
             </button>
             <button
-              className={(tab === "public") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+              className={(tab === "public")
+                ? "planner-recipes-list-tab active"
+                : "planner-recipes-list-tab inactive"
+              }
               name="public"
               onClick={e => handleTabClick(e)}
             >
               My Public
             </button>
             <button
-              className={(tab === "favorite") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+              className={(tab === "favorite")
+                ? "planner-recipes-list-tab active"
+                : "planner-recipes-list-tab inactive"
+              }
               name="favorite"
               onClick={e => handleTabClick(e)}
             >
               My Favorite
             </button>
             <button
-              className={(tab === "saved") ? "planner-recipes-list-tab active" : "planner-recipes-list-tab inactive"}
+              className={(tab === "saved")
+                ? "planner-recipes-list-tab active"
+                : "planner-recipes-list-tab inactive"
+              }
               name="saved"
               onClick={e => handleTabClick(e)}
             >
@@ -171,22 +206,65 @@ const UserNewPlan = props => {
             </button>
           </div>
 
-          {(tab === "official") && <PlannerRecipesList day="0" list={props.dataRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
-          {(tab === "private") && <PlannerRecipesList day="0" list={props.dataMyPrivateRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
-          {(tab === "public") && <PlannerRecipesList day="0" list={props.dataMyPublicRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
-          {(tab === "favorite") && <PlannerRecipesList day="0" list={props.dataMyFavoriteRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
-          {(tab === "saved") && <PlannerRecipesList day="0" list={props.dataMySavedRecipes.map(recipe => ({key: uuidv4(), id: recipe.recipe_id, text: recipe.title}))} />}
-
-          {/*<PlannerRecipesList
-            day="0"
-            list={[
-              {key: uuidv4(), id: 1, text: "Sheperd's Pie"},
-              {key: uuidv4(), id: 2, text: "Split Pea Soup"},
-              {key: uuidv4(), id: 3, text: "Steak Asparagus and Sweet Potato"}
-            ]}
-          />*/}
+          {tab === "official" && (
+            <PlannerRecipesList
+              day="0"
+              list={props.dataRecipes.map(recipe => ({
+                key: uuidv4(),
+                id: recipe.recipe_id,
+                text: recipe.title,
+                image: recipe.recipe_image
+              }))}
+            />
+          )}
+          {tab === "private" && (
+            <PlannerRecipesList
+              day="0"
+              list={props.dataMyPrivateRecipes.map(recipe => ({
+                key: uuidv4(),
+                id: recipe.recipe_id,
+                text: recipe.title,
+                image: recipe.recipe_image
+              }))}
+            />
+          )}
+          {tab === "public" && (
+            <PlannerRecipesList
+              day="0"
+              list={props.dataMyPublicRecipes.map(recipe => ({
+                key: uuidv4(),
+                id: recipe.recipe_id,
+                text: recipe.title,
+                image: recipe.recipe_image
+              }))}
+            />
+          )}
+          {tab === "favorite" && (
+            <PlannerRecipesList
+              day="0"
+              list={props.dataMyFavoriteRecipes.map(recipe => ({
+                key: uuidv4(),
+                id: recipe.recipe_id,
+                text: recipe.title,
+                image: recipe.recipe_image
+              }))}
+            />
+          )}
+          {tab === "saved" && (
+            <PlannerRecipesList
+              day="0"
+              list={props.dataMySavedRecipes.map(recipe => ({
+                key: uuidv4(),
+                id: recipe.recipe_id,
+                text: recipe.title,
+                image: recipe.recipe_image
+              }))}
+            />
+          )}
 
         </div>
+
+
 
         <div>
           <ExpandCollapse>
@@ -208,7 +286,9 @@ const UserNewPlan = props => {
         </div>
 
         <div className="planner-finish-area">
-          <button className="planner-cancel-button" onClick={activateModal}>Cancel</button>
+          <button className="planner-cancel-button" onClick={activateModal}>
+            Cancel
+          </button>
           {
             modalActive
             ? (
@@ -220,9 +300,21 @@ const UserNewPlan = props => {
                 getApplicationNode={getApplicationNode}
                 focusTrapOptions={{returnFocusOnDeactivate: false}}
               >
-                <p className="planner-cancel-prompt">Cancel new plan? Changes will not be saved.</p>
-                <button className="planner-cancel-cancel-button" onClick={deactivateModal}>No, Keep Working</button>
-                <button className="planner-cancel-button" onClick={discardChanges}>Yes, Discard Changes</button>
+                <p className="planner-cancel-prompt">
+                  Cancel new plan? Changes will not be saved.
+                </p>
+                <button
+                  className="planner-cancel-cancel-button"
+                  onClick={deactivateModal}
+                >
+                  No, Keep Working
+                </button>
+                <button
+                  className="planner-cancel-button"
+                  onClick={discardChanges}
+                >
+                  Yes, Discard Changes
+                </button>
               </AriaModal>
             )
             : false
@@ -246,29 +338,30 @@ const UserNewPlan = props => {
 }
 
 const mapStateToProps = state => ({
-  viewingPlan: state.planner.viewing,
-  creatingPlan: state.planner.creating,
-  updatingPlan: state.planner.updating,
-
+  viewingPlan: state.planner.viewing,  // ?
+  creatingPlan: state.planner.creating,  // ?
+  updatingPlan: state.planner.updating,  // like editing
   feedback: state.user.message,
-
   dataRecipes: state.data.recipes,
   dataMyPublicRecipes: state.data.myPublicRecipes,
   dataMyPrivateRecipes: state.data.myPrivateRecipes,
   dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
   dataMySavedRecipes: state.data.mySavedRecipes,
-
   expanded: state.planner.expanded,
   expandedDay: state.planner.expandedDay,
-
   planName: state.planner.planName,
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
 const mapDispatchToProps = dispatch => ({
-  userCreateNewPlan: (planInfo, history) => dispatch(userCreateNewPlan(planInfo, history)),
+  userCreateNewPlan: (planInfo, history) =>
+    dispatch(userCreateNewPlan(planInfo, history)),
+  userEditPlan: (planInfo, history) =>
+  dispatch(userEditPlan(planInfo, history)),
   plannerClearWork: () => dispatch(plannerClearWork()),
   plannerSetPlanName: (name) => dispatch(plannerSetPlanName(name))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserNewPlan));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserNewPlan)
+);

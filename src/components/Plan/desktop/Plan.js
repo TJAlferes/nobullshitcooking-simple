@@ -3,19 +3,21 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 const uuidv4 = require('uuid/v4');
 
+import convertUrlToPlanner from '../../../utils/publicPlanner/convertUrlToPlanner';
+
+import { plannerPublicLoadFromUrl } from '../../../store/actions/index';
+
 import LeftNav from '../../LeftNav/LeftNav';
-import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
+
 import PlannerDay from './PlannerDay/PlannerDay';
 import PlannerExpandedDay from './PlannerExpandedDay/PlannerExpandedDay';
-import { plannerPublicLoadFromUrl } from '../../../store/actions/index';
-import convertUrlToPlanner from '../../../utils/publicPlanner/convertUrlToPlanner';
-import './plan.css';  // use BEM
+import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
+
+import './plan.css';
 
 // TO DO: MAKE SPECIAL PLANNER BREADCRUMBS
 // TO DO: LIMIT THE RECIPES PER DAY (including expanded day) TO SEVEN
-// TO DO: on page refresh, preserve state (localStorage? indexedDB? webSQL?) (... localForage.)
-// TO DO: clear/delete plan button
-// TO DO: button on recipe page to add to plan
+// TO DO: actual recipes
 
 class Plan extends Component {
   async componentDidMount() {
@@ -28,7 +30,14 @@ class Plan extends Component {
   }
 
   render() {
-    const { expanded, expandedDay, publicUrl, recipeListsInsideDays, twoColumnATheme } = this.props;
+    const {
+      expanded,
+      expandedDay,
+      publicUrl,
+      recipeListsInsideDays,
+      twoColumnATheme
+    } = this.props;
+
     return (
       <div className={`two-column-a ${twoColumnATheme}`}>
         <LeftNav />
@@ -85,11 +94,12 @@ class Plan extends Component {
             </div>
             <PlannerRecipesList
               day="0"
-              list={[
-                {key: uuidv4(), id: 1, text: "Sheperd's Pie"},
-                {key: uuidv4(), id: 2, text: "Split Pea Soup"},
-                {key: uuidv4(), id: 3, text: "Steak Asparagus and Sweet Potato"}
-              ]}
+              list={props.dataRecipes.map(recipe => ({
+                key: uuidv4(),
+                id: recipe.recipe_id,
+                text: recipe.title,
+                image: recipe.recipe_image
+              }))}
             />
           </div>
         </section>
@@ -99,15 +109,16 @@ class Plan extends Component {
 }
 
 const mapStateToProps = state => ({
-  isSaving: state.planner.isSaving,
   expanded: state.planner.expanded,
   expandedDay: state.planner.expandedDay,
   publicUrl: state.planner.publicUrl,
-  recipeListsInsideDays: state.planner.recipeListsInsideDays
+  recipeListsInsideDays: state.planner.recipeListsInsideDays,
+  dataRecipes: state.data.recipes
 });
 
 const mapDispatchToProps = dispatch => ({
-  plannerPublicLoadFromUrl: (preLoadedPlan) => dispatch(plannerPublicLoadFromUrl(preLoadedPlan)) 
+  plannerPublicLoadFromUrl: (preLoadedPlan) =>
+    dispatch(plannerPublicLoadFromUrl(preLoadedPlan)) 
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Plan));
