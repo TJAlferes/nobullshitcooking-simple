@@ -1,90 +1,22 @@
-/*.desktop-planner {
-  width: 1200px;
-}
- 
-article {
-  order: 2;
-  flex: 1 1 auto;
-  width: 960px;
-  min-width: 960px;
-  max-width: 960px;
-  margin-top: 10px;
-  margin-left: 10px;
-  padding: 10px 10px;
-  background-color: #fff;
+/*.user-new-plan {
+
 }*/
 
-#autosave_feedback {
-  margin-right: auto;
-  margin-left: auto;
-  padding-bottom: 5px;
-  text-align: center;
-  color: #aaa;
-}
-
-.planner-hr {
+.user-new-plan__hr {
   width: 100%;
   height: 1px;
   border: 0 none;
   margin-bottom: 10px;
 }
 
-#calendar_container {
-  height: 480px;
-  margin: 0 auto 0 auto;
-  padding-top: 5px;
-}
 
-#monthly_plan {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  width: 100%;
-}
 
-#monthly_plan #table {
+.monthly-plan {
   order: 1;
-  width: 756px;
-  height: 321px;
-  max-height: 321px;
-}
-
-#monthly_plan #thead {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 1px;
-  width: 100%;
-  height: 20px;
-  background: #b1d7f9;
-}
-
-#monthly_plan .th {
-  height: 20px;
-  text-align: center;
-  line-height: 20px;
-  background: #b1d7f9;
-}
-
-#monthly_plan #tbody {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 1px;
-  width: 100%;
-  min-height: 300px;
-  height: 300px;
-  max-height: 300px;
-  border: 1px solid #b1d7f9;
-  background: #b1d7f9;
-}
-
-#monthly_plan .td {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
 }
 
 /* :after? */
-#monthly_plan .td:before {
+.monthly-plan__body-day:before {
   content: "";
   height: 0;
   display: inline-block;
@@ -93,7 +25,7 @@ article {
   position: relative;
 }
 
-#monthly_plan .td .content {
+.body-day__content {
   position: absolute;
   top: 0;
   left: 0;
@@ -103,6 +35,10 @@ article {
   justify-items: start;
   align-items: end;
 }
+
+
+
+
 
 .the_date {
   position: absolute;
@@ -155,7 +91,11 @@ article {
   background: #fff;
 }
 
-#expanded_day_area {
+
+
+
+
+.expanded-day-container {
   order: 2;
   width: 150px;
   height: 319px;

@@ -391,30 +391,16 @@ export function* userCreateNewRecipeSaga(action) {
     }
 
     // 2
-    if (
-      action.recipeInfo.fullRecipeEquipmentImage &&
-      action.recipeInfo.thumbRecipeEquipmentImage &&
-      action.recipeInfo.tinyRecipeEquipmentImage
-    ) {
+    if (action.recipeInfo.fullRecipeEquipmentImage) {
       const res2 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-equipment`,
         {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.signedRequestFullSize,
+        res2.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeEquipmentImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeEquipmentImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeEquipmentImage.type}}
       );
       action.recipeInfo.recipeEquipmentImage = res2.data.urlFullSize;
     } else {
@@ -422,30 +408,16 @@ export function* userCreateNewRecipeSaga(action) {
     }
 
     // 3
-    if (
-      action.recipeInfo.fullRecipeIngredientsImage &&
-      action.recipeInfo.thumbRecipeIngredientsImage &&
-      action.recipeInfo.tinyRecipeIngredientsImage
-    ) {
+    if (action.recipeInfo.fullRecipeIngredientsImage) {
       const res3 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
         {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.signedRequestFullSize,
+        res3.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeIngredientsImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeIngredientsImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeIngredientsImage.type}}
       );
       action.recipeInfo.recipeIngredientsImage = res3.data.urlFullSize;
     } else {
@@ -453,30 +425,16 @@ export function* userCreateNewRecipeSaga(action) {
     }
 
     // 4
-    if (
-      action.recipeInfo.fullRecipeCookingImage &&
-      action.recipeInfo.thumbRecipeCookingImage &&
-      action.recipeInfo.tinyRecipeCookingImage
-    ) {
+    if (action.recipeInfo.fullRecipeCookingImage) {
       const res4 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-cooking`,
         {fileType: action.recipeInfo.fullRecipeCookingImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.signedRequestFullSize,
+        res4.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeCookingImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeCookingImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeCookingImage.type}}
       );
       action.recipeInfo.recipeCookingImage = res4.data.urlFullSize;
     } else {
@@ -497,6 +455,8 @@ export function* userCreateNewRecipeSaga(action) {
       }
       yield delay(3000);
       yield put(userMessageClear());
+      console.log(action.history);
+      console.log(action.history.push);
       yield action.history.push('/user/dashboard');
     } else {
       if (action.recipeInfo.ownership === "private") {
@@ -592,30 +552,16 @@ export function* userEditRecipeSaga(action) {
     }
 
     // 2
-    if (
-      action.recipeInfo.fullRecipeEquipmentImage &&
-      action.recipeInfo.thumbRecipeEquipmentImage &&
-      action.recipeInfo.tinyRecipeEquipmentImage
-    ) {
+    if (action.recipeInfo.fullRecipeEquipmentImage) {
       const res2 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-equipment`,
         {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.signedRequestFullSize,
+        res2.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeEquipmentImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeEquipmentImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeEquipmentImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeEquipmentImage.type}}
       );
       action.recipeInfo.recipeEquipmentImage = res2.data.urlFullSize;
     } else {
@@ -623,30 +569,16 @@ export function* userEditRecipeSaga(action) {
     }
 
     // 3
-    if (
-      action.recipeInfo.fullRecipeIngredientsImage &&
-      action.recipeInfo.thumbRecipeIngredientsImage &&
-      action.recipeInfo.tinyRecipeIngredientsImage
-    ) {
+    if (action.recipeInfo.fullRecipeIngredientsImage) {
       const res3 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
         {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.signedRequestFullSize,
+        res3.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeIngredientsImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeIngredientsImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeIngredientsImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeIngredientsImage.type}}
       );
       action.recipeInfo.recipeIngredientsImage = res3.data.urlFullSize;
     } else {
@@ -654,30 +586,16 @@ export function* userEditRecipeSaga(action) {
     }
 
     // 4
-    if (
-      action.recipeInfo.fullRecipeCookingImage &&
-      action.recipeInfo.thumbRecipeCookingImage &&
-      action.recipeInfo.tinyRecipeCookingImage
-    ) {
+    if (action.recipeInfo.fullRecipeCookingImage) {
       const res4 = yield axios.post(
         `${endpoint}/user/get-signed-url/recipe-cooking`,
         {fileType: action.recipeInfo.fullRecipeCookingImage.type},
         {withCredentials: true}
       );
       yield axios.put(
-        res1.data.signedRequestFullSize,
+        res4.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeCookingImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.recipeInfo.thumbRecipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.thumbRecipeCookingImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestTinySize,
-        action.recipeInfo.tinyRecipeCookingImage,
-        {headers: {'Content-Type': action.recipeInfo.tinyRecipeCookingImage.type}}
       );
       action.recipeInfo.recipeCookingImage = res4.data.urlFullSize;
     } else {

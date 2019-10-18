@@ -87,7 +87,7 @@ const UserNewPlan = props => {
   }
 
   return(
-    <div className={`desktop-planner two-column-a ${props.twoColumnATheme}`}>
+    <div className={`user-new-plan two-column-a ${props.twoColumnATheme}`}> 
 
       <LeftNav />
 
@@ -107,28 +107,27 @@ const UserNewPlan = props => {
           </div>
         </div>
 
-        <hr className="planner-hr" />
+        <hr className="user-new-plan__hr" />
 
 
 
-        <div id="calendar_container">
+        <div className="user-new-plan__calendar-container">
 
-          <div id="monthly_plan">
-            <div id="table">
-              <div id="thead">
-                <span className="th">Sunday</span>
-                <span className="th">Monday</span>
-                <span className="th">Tuesday</span>
-                <span className="th">Wednesday</span>
-                <span className="th">Thursday</span>
-                <span className="th">Friday</span>
-                <span className="th">Saturday</span>
+          <div className="user-new-plan__monthly-plan">
+            <div className="monthly-plan">
+              <div className="monthly-plan__header">
+                <span className="monthly-plan__header-day">Sunday</span>
+                <span className="monthly-plan__header-day">Monday</span>
+                <span className="monthly-plan__header-day">Tuesday</span>
+                <span className="monthly-plan__header-day">Wednesday</span>
+                <span className="monthly-plan__header-day">Thursday</span>
+                <span className="monthly-plan__header-day">Friday</span>
+                <span className="monthly-plan__header-day">Saturday</span>
               </div>
-              <div id="tbody">
-                {/* do you need Object.assign({}, ...Object.keys etc.) here? */}
+              <div className="monthly-plan__body">
                 {Object.keys(props.recipeListsInsideDays).map((recipeList, i) => (
-                  <div key={i} className="td">
-                    <div className="content">
+                  <div key={i} className="monthly-plan__body-day">
+                    <div className="body-day__content">
                       <PlannerDay
                         day={i + 1}
                         list={props.recipeListsInsideDays[recipeList]}
@@ -141,7 +140,7 @@ const UserNewPlan = props => {
               </div>
             </div>
 
-            <div id="expanded_day_area">
+            <div className="expanded-day-container">
               <PlannerExpandedDay
                 day={props.expandedDay}
                 list={(props.expanded) ? props.recipeListsInsideDays[props.expandedDay] : []}

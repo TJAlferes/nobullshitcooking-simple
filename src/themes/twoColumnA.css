@@ -47,13 +47,13 @@
   color: #000;
 }
 
-.two-column-a-light #monthly_plan #thead,
-.two-column-a-light #monthly_plan .th {
+.two-column-a-light .monthly-plan__header,
+.two-column-a-light .monthly-plan__header-day {
   background-color: #b1d7f9;
   color: #000;
 }
 
-.two-column-a-light #monthly_plan #tbody {
+.two-column-a-light .monthly-plan__body {
   border: 1px solid #b1d7f9;
   background-color: #b1d7f9;
 }
@@ -70,7 +70,7 @@
   color: #afafaf;
 }
 
-.two-column-a-light #expanded_day_area {
+.two-column-a-light .expanded-day-container {
   border: 1px solid #fff;
 }
 
@@ -93,7 +93,9 @@
 
 .two-column-a-light .dashboard-hr,
 .two-column-a-light .friends-hr,
-.two-column-a-light .planner-hr {
+.two-column-a-light .plan__hr,
+.two-column-a-light .user-plan__hr,
+.two-column-a-light .user-new-plan__hr {
   background-color: #bfbfbf;
 }
 
@@ -166,13 +168,13 @@
   color: #aaa;
 }
 
-.two-column-a-dark #monthly_plan #thead,
-.two-column-a-dark #monthly_plan .th {
+.two-column-a-dark .monthly-plan__header,
+.two-column-a-dark .monthly-plan__header-day {
   background-color: #507ea7;
   color: #bbb;
 }
 
-.two-column-a-dark #monthly_plan #tbody {
+.two-column-a-dark .monthly-plan__body {
   border: 1px solid #507ea7;
   background-color: #507ea7;
 }
@@ -189,7 +191,7 @@
   color: #666;
 }
 
-.two-column-a-dark #expanded_day_area {
+.two-column-a-dark .expanded-day-container {
   border: 1px solid #222;
 }
 
@@ -217,7 +219,9 @@
 
 .two-column-a-dark .dashboard-hr,
 .two-column-a-dark .friends-hr,
-.two-column-a-dark .planner-hr {
+.two-column-a-dark .plan__hr,
+.two-column-a-dark .user-plan__hr,
+.two-column-a-dark .user-new-plan__hr {
   background-color: #444;
 }
 

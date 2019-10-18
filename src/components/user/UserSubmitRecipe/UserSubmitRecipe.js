@@ -108,12 +108,8 @@ const UserSubmitRecipe = props => {
     maxHeight: 172
   });
   const [ equipmentCropFullSizePreview, setEquipmentCropFullSizePreview ] = useState(null);
-  const [ equipmentCropThumbSizePreview, setEquipmentCropThumbSizePreview ] = useState(null);
-  const [ equipmentCropTinySizePreview, setEquipmentCropTinySizePreview ] = useState(null);
   const [ recipeEquipmentImage, setRecipeEquipmentImage ] = useState(null);
   const [ fullRecipeEquipmentImage, setFullRecipeEquipmentImage ] = useState(null);
-  const [ thumbRecipeEquipmentImage, setThumbRecipeEquipmentImage ] = useState(null);
-  const [ tinyRecipeEquipmentImage, setTinyRecipeEquipmentImage ] = useState(null);
 
   const [ cropThree, setCropThree ] = useState({
     disabled: true,
@@ -124,12 +120,8 @@ const UserSubmitRecipe = props => {
     maxHeight: 172
   });
   const [ ingredientsCropFullSizePreview, setIngredientsCropFullSizePreview ] = useState(null);
-  const [ ingredientsCropThumbSizePreview, setIngredientsCropThumbSizePreview ] = useState(null);
-  const [ ingredientsCropTinySizePreview, setIngredientsCropTinySizePreview ] = useState(null);
   const [ recipeIngredientsImage, setRecipeIngredientsImage ] = useState(null);
   const [ fullRecipeIngredientsImage, setFullRecipeIngredientsImage ] = useState(null);
-  const [ thumbRecipeIngredientsImage, setThumbRecipeIngredientsImage ] = useState(null);
-  const [ tinyRecipeIngredientsImage, setTinyRecipeIngredientsImage ] = useState(null);
 
   const [ cropFour, setCropFour ] = useState({
     disabled: true,
@@ -140,12 +132,8 @@ const UserSubmitRecipe = props => {
     maxHeight: 172
   });
   const [ cookingCropFullSizePreview, setCookingCropFullSizePreview ] = useState(null);
-  const [ cookingCropThumbSizePreview, setCookingCropThumbSizePreview ] = useState(null);
-  const [ cookingCropTinySizePreview, setCookingCropTinySizePreview ] = useState(null);
   const [ recipeCookingImage, setRecipeCookingImage ] = useState(null);
   const [ fullRecipeCookingImage, setFullRecipeCookingImage ] = useState(null);
-  const [ thumbRecipeCookingImage, setThumbRecipeCookingImage ] = useState(null);
-  const [ tinyRecipeCookingImage, setTinyRecipeCookingImage ] = useState(null);
 
   const imageRef = useRef(null);
   const equipmentImageRef = useRef(null);
@@ -234,7 +222,7 @@ const UserSubmitRecipe = props => {
   }, [props.message]);
 
   const handleOwnershipChange = async (e) => {
-    if (props.editing === "true" || editing === true) return;
+    if (editing === true) return;
     if (ownership === "private" && e.target.value === "public") {
       // show prompt "Switching to from private to public. Any references to your private equipment, ingredients, or subrecipes will be removed. Continue Cancel"
       // if cancel return
@@ -398,9 +386,18 @@ const UserSubmitRecipe = props => {
 
   const makeClientCrops = async (crop) => {
     if (imageRef && crop.width) {
-      const { resizedFullPreview, resizedFullFinal } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
-      const { resizedThumbPreview, resizedThumbFinal } = await getCroppedThumbImage(imageRef.current, crop, "newFile.jpeg");
-      const { resizedTinyPreview, resizedTinyFinal } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedFullPreview,
+        resizedFullFinal
+      } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedThumbPreview,
+        resizedThumbFinal
+      } = await getCroppedThumbImage(imageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedTinyPreview,
+        resizedTinyFinal
+      } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
       setCropFullSizePreview(resizedFullPreview);
       setCropThumbSizePreview(resizedThumbPreview);
       setCropTinySizePreview(resizedTinyPreview);
@@ -412,43 +409,34 @@ const UserSubmitRecipe = props => {
 
   const makeClientEquipmentCrops = async (crop) => {
     if (equipmentImageRef && crop.width) {
-      const { resizedFullPreview, resizedFullFinal } = await getCroppedFullImage(equipmentImageRef.current, crop, "newFile.jpeg");
-      const { resizedThumbPreview, resizedThumbFinal } = await getCroppedThumbImage(equipmentImageRef.current, crop, "newFile.jpeg");
-      const { resizedTinyPreview, resizedTinyFinal } = await getCroppedTinyImage(equipmentImageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedFullPreview,
+        resizedFullFinal
+      } = await getCroppedFullImage(equipmentImageRef.current, crop, "newFile.jpeg");
       setEquipmentCropFullSizePreview(resizedFullPreview);
-      setEquipmentCropThumbSizePreview(resizedThumbPreview);
-      setEquipmentCropTinySizePreview(resizedTinyPreview);
       setFullRecipeEquipmentImage(resizedFullFinal);
-      setThumbRecipeEquipmentImage(resizedThumbFinal);
-      setTinyRecipeEquipmentImage(resizedTinyFinal);
     }
   };
 
   const makeClientIngredientsCrops = async (crop) => {
     if (ingredientsImageRef && crop.width) {
-      const { resizedFullPreview, resizedFullFinal } = await getCroppedFullImage(ingredientsImageRef.current, crop, "newFile.jpeg");
-      const { resizedThumbPreview, resizedThumbFinal } = await getCroppedThumbImage(ingredientsImageRef.current, crop, "newFile.jpeg");
-      const { resizedTinyPreview, resizedTinyFinal } = await getCroppedTinyImage(ingredientsImageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedFullPreview,
+        resizedFullFinal
+      } = await getCroppedFullImage(ingredientsImageRef.current, crop, "newFile.jpeg");
       setIngredientsCropFullSizePreview(resizedFullPreview);
-      setIngredientsCropThumbSizePreview(resizedThumbPreview);
-      setIngredientsCropTinySizePreview(resizedTinyPreview);
       setFullRecipeIngredientsImage(resizedFullFinal);
-      setThumbRecipeIngredientsImage(resizedThumbFinal);
-      setTinyRecipeIngredientsImage(resizedTinyFinal);
     }
   };
 
   const makeClientCookingCrops = async (crop) => {
     if (cookingImageRef && crop.width) {
-      const { resizedFullPreview, resizedFullFinal } = await getCroppedFullImage(cookingImageRef.current, crop, "newFile.jpeg");
-      const { resizedThumbPreview, resizedThumbFinal } = await getCroppedThumbImage(cookingImageRef.current, crop, "newFile.jpeg");
-      const { resizedTinyPreview, resizedTinyFinal } = await getCroppedTinyImage(cookingImageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedFullPreview,
+        resizedFullFinal
+      } = await getCroppedFullImage(cookingImageRef.current, crop, "newFile.jpeg");
       setCookingCropFullSizePreview(resizedFullPreview);
-      setCookingCropThumbSizePreview(resizedThumbPreview);
-      setCookingCropTinySizePreview(resizedTinyPreview);
       setFullRecipeCookingImage(resizedFullFinal);
-      setThumbRecipeCookingImage(resizedThumbFinal);
-      setTinyRecipeCookingImage(resizedTinyFinal);
     }
   };
 
@@ -464,32 +452,20 @@ const UserSubmitRecipe = props => {
 
   const cancelRecipeEquipmentImage = () => {
     setEquipmentCropFullSizePreview(null);
-    setEquipmentCropThumbSizePreview(null);
-    setEquipmentCropTinySizePreview(null);
     setRecipeEquipmentImage(null);
     setFullRecipeEquipmentImage(null);
-    setThumbRecipeEquipmentImage(null);
-    setTinyRecipeEquipmentImage(null);
   };
 
   const cancelRecipeIngredientsImage = () => {
     setIngredientsCropFullSizePreview(null);
-    setIngredientsCropThumbSizePreview(null);
-    setIngredientsCropTinySizePreview(null);
     setRecipeIngredientsImage(null);
     setFullRecipeIngredientsImage(null);
-    setThumbRecipeIngredientsImage(null);
-    setTinyRecipeIngredientsImage(null);
   };
 
   const cancelRecipeCookingImage = () => {
     setCookingCropFullSizePreview(null);
-    setCookingCropThumbSizePreview(null);
-    setCookingCropTinySizePreview(null);
     setRecipeCookingImage(null);
     setFullRecipeCookingImage(null);
-    setThumbRecipeCookingImage(null);
-    setTinyRecipeCookingImage(null);
   };
 
   const validate = () => {
@@ -547,7 +523,7 @@ const UserSubmitRecipe = props => {
   }
 
   const getRequiredSubrecipes = () => {
-    let requiredSubrecipes;
+    let requiredSubrecipes = [];
     if (subrecipeRows.length) {
       subrecipeRows.map(sR => {
         requiredSubrecipes.push({
@@ -570,28 +546,27 @@ const UserSubmitRecipe = props => {
       title,
       description,
       directions,
+
       requiredMethods: getCheckedMethods(),
       requiredEquipment: getRequiredEquipment(),
       requiredIngredients: getRequiredIngredients(),
       requiredSubrecipes: getRequiredSubrecipes(),
+
       recipeImage,
       fullRecipeImage,
       thumbRecipeImage,
       tinyRecipeImage,
+
       recipeEquipmentImage,
       fullRecipeEquipmentImage,
-      thumbRecipeEquipmentImage,
-      tinyRecipeEquipmentImage,
+
       recipeIngredientsImage,
       fullRecipeIngredientsImage,
-      thumbRecipeIngredientsImage,
-      tinyRecipeIngredientsImage,
+
       recipeCookingImage,
-      fullRecipeCookingImage,
-      thumbRecipeCookingImage,
-      tinyRecipeCookingImage
+      fullRecipeCookingImage
     };
-    if (props.childProps.editing === "true" || editing === true) {
+    if (editing === true) {
       recipeInfo.prevRecipeImage = prevRecipeImage;
       recipeInfo.prevEquipmentImage = prevEquipmentImage;
       recipeInfo.prevIngredientsImage = prevIngredientsImage;
@@ -599,10 +574,10 @@ const UserSubmitRecipe = props => {
     }
     setLoading(true);
     try {
-      if (props.childProps.editing === "true" || editing === true) {
-        if (props.editingOwnership === "private" || ownership === "private") {
+      if (editing === true) {
+        if (ownership === "private") {
           props.userEditPrivateRecipe(recipeInfo, props.history);
-        } else if (props.editingOwnership === "public" || ownership === "public") {
+        } else if (ownership === "public") {
           props.userEditPublicRecipe(recipeInfo, props.history);
         }
       } else {
@@ -948,16 +923,10 @@ const UserSubmitRecipe = props => {
               onChange={onCropTwoChange}
               onComplete={onEquipmentCropComplete}
             />
-            <span>Move the crop to your desired position. These three images will be saved for you:</span>
+            <span>Move the crop to your desired position. This image will be saved for you:</span>
             <div className="submit-recipe-image-crop-previews">
               <div className="submit-recipe--image-crop-full-preview">
                 <span>Full Size: </span><img src={equipmentCropFullSizePreview} />
-              </div>
-              <div className="submit-recipe-image-crop-thumb-preview">
-                <span>Thumb Size: </span><img src={equipmentCropThumbSizePreview} />
-              </div>
-              <div className="submit-recipe-image-crop-tiny-preview">
-                <span>Tiny Size: </span><img src={equipmentCropTinySizePreview} />
               </div>
             </div>
             <button
@@ -1001,16 +970,10 @@ const UserSubmitRecipe = props => {
               onChange={onCropThreeChange}
               onComplete={onIngredientsCropComplete}
             />
-            <span>Move the crop to your desired position. These three images will be saved for you:</span>
+            <span>Move the crop to your desired position. This image will be saved for you:</span>
             <div className="submit-recipe-image-crop-previews">
               <div className="submit-recipe-image-crop-full-preview">
                 <span>Full Size: </span><img src={ingredientsCropFullSizePreview} />
-              </div>
-              <div className="submit-recipe-image-crop-thumb-preview">
-                <span>Thumb Size: </span><img src={ingredientsCropThumbSizePreview} />
-              </div>
-              <div className="submit-recipe-image-crop-tiny-preview">
-                <span>Tiny Size: </span><img src={ingredientsCropTinySizePreview} />
               </div>
             </div>
             <button
@@ -1053,16 +1016,10 @@ const UserSubmitRecipe = props => {
               onChange={onCropFourChange}
               onComplete={onCookingCropComplete}
             />
-            <span>Move the crop to your desired position. These three images will be saved for you:</span>
+            <span>Move the crop to your desired position. This image will be saved for you:</span>
             <div className="submit-recipe-image-crop-previews">
               <div className="submit-recipe-image-crop-full-preview">
                 <span>Full Size: </span><img src={cookingCropFullSizePreview} />
-              </div>
-              <div className="submit-recipe-image-crop-thumb-preview">
-                <span>Thumb Size: </span><img src={cookingCropThumbSizePreview} />
-              </div>
-              <div className="submit-recipe-image-crop-tiny-preview">
-                <span>Tiny Size: </span><img src={cookingCropTinySizePreview} />
               </div>
             </div>
             <button
