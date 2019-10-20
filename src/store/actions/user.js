@@ -97,10 +97,9 @@ export const userDeletePrivateIngredientFailed = message => ({
 
 
 // create new (private) recipe
-export const userCreateNewPrivateRecipe = (recipeInfo, history) => ({
+export const userCreateNewPrivateRecipe = recipeInfo => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE,
-  recipeInfo,
-  history
+  recipeInfo
 });
 export const userCreateNewPrivateRecipeSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
@@ -112,10 +111,9 @@ export const userCreateNewPrivateRecipeFailed = message => ({
 });
 
 // edit (private) recipe
-export const userEditPrivateRecipe = (recipeInfo, history) => ({
+export const userEditPrivateRecipe = recipeInfo => ({
   type: actionTypes.USER_EDIT_PRIVATE_RECIPE,
-  recipeInfo,
-  history
+  recipeInfo
 });
 export const userEditPrivateRecipeSucceeded = message => ({
   type: actionTypes.USER_EDIT_PRIVATE_RECIPE_SUCCEEDED,
@@ -143,10 +141,9 @@ export const userDeletePrivateRecipeFailed = message => ({
 
 
 // create new (public) recipe
-export const userCreateNewPublicRecipe = (recipeInfo, history) => ({
+export const userCreateNewPublicRecipe = recipeInfo => ({
   type: actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE,
-  recipeInfo,
-  history
+  recipeInfo
 });
 export const userCreateNewPublicRecipeSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED,
@@ -158,10 +155,9 @@ export const userCreateNewPublicRecipeFailed = message => ({
 });
 
 // edit (public) recipe
-export const userEditPublicRecipe = (recipeInfo, history) => ({
+export const userEditPublicRecipe = recipeInfo => ({
   type: actionTypes.USER_EDIT_PUBLIC_RECIPE,
-  recipeInfo,
-  history
+  recipeInfo
 });
 export const userEditPublicRecipeSucceeded = message => ({
   type: actionTypes.USER_EDIT_PUBLIC_RECIPE_SUCCEEDED,

@@ -24,7 +24,10 @@ const UserNewIngredient = props => {
   const [ ingredientName, setIngredientName ] = useState("");
   const [ ingredientDescription, setIngredientDescription ] = useState("");
   const [ ingredientImage, setIngredientImage ] = useState("");
-  const [ prevIngredientImage, setPrevIngredientImage ] = useState("");
+  const [
+    prevIngredientImage,
+    setPrevIngredientImage
+  ] = useState("nobsc-ingredient-default");
 
   const [ crop, setCrop ] = useState({
     disabled: true,

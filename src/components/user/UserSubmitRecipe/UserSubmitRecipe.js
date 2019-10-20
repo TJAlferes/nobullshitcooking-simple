@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { withRouter, Link } from 'react-router-dom';
 import uuid from 'uuid/v4';
 import axios from 'axios';
@@ -28,9 +29,12 @@ import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpo
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 const UserSubmitRecipe = props => {
+  const history = useHistory();
+
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ editing, setEditing ] = useState(false);
+  const [ editingId, setEditingId ] = useState("");
   const [ ownership, setOwnership ] = useState("");
   const [ recipeTypeId, setRecipeTypeId ] = useState("");
   const [ cuisineId, setCuisineId ] = useState("");
@@ -73,15 +77,23 @@ const UserSubmitRecipe = props => {
     {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
     {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
   ]);
-  const [ subrecipeRows, setSubrecipeRows ] = useState([
-    {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
-    {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
-    {key: uuid(), amount: 1, unit: "", type: "", cuisine: "", subrecipe: ""},
-  ]);
-  const [ prevRecipeImage, setPrevRecipeImage ] = useState("");
-  const [ prevEquipmentImage, setPrevEquipmentImage ] = useState("");
-  const [ prevIngredientsImage, setPrevIngredientsImage ] = useState("");
-  const [ prevCookingImage, setPrevCookingImage ] = useState("");
+  const [ subrecipeRows, setSubrecipeRows ] = useState([]);
+  const [
+    prevRecipeImage,
+    setPrevRecipeImage
+  ] = useState("nobsc-recipe-default");
+  const [
+    prevEquipmentImage,
+    setPrevEquipmentImage
+  ] = useState("nobsc-recipe-equipment-default");
+  const [
+    prevIngredientsImage,
+    setPrevIngredientsImage
+  ] = useState("nobsc-recipe-ingredients-default");
+  const [
+    prevCookingImage,
+    setPrevCookingImage
+  ] = useState("nobsc-recipe-cooking-default");
 
   const [ cropOne, setCropOne ] = useState({
     disabled: true,
@@ -142,6 +154,7 @@ const UserSubmitRecipe = props => {
 
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
+      window.scrollTo(0,0);
       setLoading(true);
       setEditing(true);
 
@@ -151,22 +164,21 @@ const UserSubmitRecipe = props => {
         {withCredentials: true}
       );
 
-      setOwnership(res.data.recipe.ownerId);  // or from res.data?
+      setOwnership(props.childProps.editingOwnership);
+      setEditingId(res.data.recipe.recipeId);
       setRecipeTypeId(res.data.recipe.recipeTypeId);
       setCuisineId(res.data.recipe.cuisineId);
       setTitle(res.data.recipe.title);
       setDescription(res.data.recipe.description);
       setDirections(res.data.recipe.directions);
 
-      res.data.requiredMethods.map(method => setMethods(prevState => ({
-          ...prevState,
-          [method]: true
-        }))
-      );
-
+      let methodsToSet = [];
       let equipmentToSet = [];
       let ingredientsToSet = [];
       let subrecipesToSet = [];
+
+      res.data.requiredMethods.length &&
+      res.data.requiredMethods.map(method => methodsToSet.push(method.methodId));
 
       res.data.requiredEquipment.length &&
       res.data.requiredEquipment.map(equ => equipmentToSet.push({
@@ -195,6 +207,13 @@ const UserSubmitRecipe = props => {
         subrecipe: sub.subrecipeId
       }))
 
+      setMethods(prevState => {
+        const nextState = {...prevState};
+        methodsToSet.map(method => {
+          nextState[[method]] = true;
+        });
+        return nextState;
+      });
       setEquipmentRows(equipmentToSet);
       setIngredientRows(ingredientsToSet);
       setSubrecipeRows(subrecipesToSet);
@@ -217,6 +236,12 @@ const UserSubmitRecipe = props => {
     if (isSubscribed) {
       if (props.message !== "") window.scrollTo(0,0);
       setMessage(props.message);
+      if (
+        props.message === "Recipe created." ||
+        props.message === "Recipe updated."
+      ) {
+        setTimeout(() => history.push('/user/dashboard'), 3000);
+      }
     }
     return () => isSubscribed = false;
   }, [props.message]);
@@ -244,13 +269,13 @@ const UserSubmitRecipe = props => {
 
   const handleDirectionsChange = e => setDirections(e.target.value);
 
-  const handleMethodsChange = async (e) => {
+  const handleMethodsChange = e => {
     const id = e.target.id;
-    await setMethods(prevState => ({
+    setMethods(prevState => ({
       ...prevState,
       [id]: !prevState[[id]]
     }));
-  }
+  };
 
   const handleEquipmentRowChange = (e, rowKey) => {
     const newEquipmentRows = Array.from(equipmentRows);
@@ -263,7 +288,7 @@ const UserSubmitRecipe = props => {
       newEquipmentRows[elToUpdate].equipment = e.target.value;
     }
     setEquipmentRows(newEquipmentRows);
-  }
+  };
 
   const handleIngredientRowChange = (e, rowKey) => {
     const newIngredientRows = Array.from(ingredientRows);
@@ -278,7 +303,7 @@ const UserSubmitRecipe = props => {
       newIngredientRows[elToUpdate].ingredient = e.target.value;
     }
     setIngredientRows(newIngredientRows);
-  }
+  };
 
   const handleSubrecipeRowChange = (e, rowKey) => {
     const newSubrecipeRows = Array.from(subrecipeRows);
@@ -296,10 +321,14 @@ const UserSubmitRecipe = props => {
       newSubrecipeRows[elToUpdate].subrecipe = e.target.value;
     }
     setSubrecipeRows(newSubrecipeRows);
-  }
+  };
 
   const addEquipmentRow = () => {
-    const newEquipmentRows = equipmentRows.concat({key: uuid(),});
+    const newEquipmentRows = equipmentRows.concat({
+      key: uuid(),
+      amount: "",
+      equipment: ""
+    });
     setEquipmentRows(newEquipmentRows);
   };
 
@@ -309,7 +338,12 @@ const UserSubmitRecipe = props => {
   };
 
   const addIngredientRow = () => {
-    const newIngredientRows = ingredientRows.concat({key: uuid(),});
+    const newIngredientRows = ingredientRows.concat({
+      key: uuid(),
+      amount: "",
+      unit: "",
+      ingredient: ""
+    });
     setIngredientRows(newIngredientRows);
   };
 
@@ -319,7 +353,12 @@ const UserSubmitRecipe = props => {
   };
 
   const addSubrecipeRow = () => {
-    const newSubrecipeRows = subrecipeRows.concat({key: uuid(),});
+    const newSubrecipeRows = subrecipeRows.concat({
+      key: uuid(),
+      amount: "",
+      unit: "",
+      subrecipe: ""
+    });
     setSubrecipeRows(newSubrecipeRows);
   };
 
@@ -467,29 +506,16 @@ const UserSubmitRecipe = props => {
     setRecipeCookingImage(null);
     setFullRecipeCookingImage(null);
   };
-
-  const validate = () => {
-    // TO DO: FINISH, also, messages
-    return (
-      (recipeTypeId !== "") &&
-      (cuisineId !== "") &&
-      (title !== "") &&
-      (description !== "") &&
-      (directions !== "")
-    );
-  };
   
   const getCheckedMethods = () => {
     let checkedMethods = [];
-    if (methods.length) {
-      Object.entries(methods).forEach(([key, value]) => {
-        if (value === true) checkedMethods.push({methodId: Number(key)});
-      });
-      return checkedMethods;
-    }
+    Object.entries(methods).forEach(([key, value]) => {
+      if (value === true) checkedMethods.push({methodId: Number(key)});
+    });
+    if (checkedMethods.length) return checkedMethods;
     checkedMethods = "none";
     return checkedMethods;
-  }
+  };
 
   const getRequiredEquipment = () => {
     let requiredEquipment = [];
@@ -504,7 +530,7 @@ const UserSubmitRecipe = props => {
     }
     requiredEquipment = "none";
     return requiredEquipment;
-  }
+  };
 
   const getRequiredIngredients = () => {
     let requiredIngredients = [];
@@ -520,7 +546,7 @@ const UserSubmitRecipe = props => {
     }
     requiredIngredients = "none";
     return requiredIngredients;
-  }
+  };
 
   const getRequiredSubrecipes = () => {
     let requiredSubrecipes = [];
@@ -536,7 +562,80 @@ const UserSubmitRecipe = props => {
     }
     requiredSubrecipes = "none";
     return requiredSubrecipes;
-  }
+  };
+
+  const valid = () => {
+    let validOwnership = ownership === "private" || ownership === "public";
+
+    let validEquipmentRows = true;
+    let validIngredientRows = true;
+    let validSubrecipeRows = true;
+
+    if (!validOwnership) {
+      window.scrollTo(0,0);
+      setMessage("You forgot to select the ownership...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    // finish up, but also do on back end, where it actually matters,
+    // get rid of action.history stuff, find out how register is working though
+
+    if (equipmentRows.length) {
+      equipmentRows.map(row => {
+        if (row.amount === "" || row.equipment === "")  {
+          validEquipmentRows = false;
+        }
+      });
+      if (!validEquipmentRows) {
+        window.scrollTo(0,0);
+        setMessage("Umm, double check your equipment...");
+        setTimeout(() => setMessage(""), 3000);
+      }
+    }
+    if (!validEquipmentRows) return false;
+
+    if (ingredientRows.length) {
+      ingredientRows.map(row => {
+        if (row.amount === "" || row.unit === "" || row.ingredient === "") {
+          validIngredientRows = false;
+        }
+      });
+      if (!validIngredientRows) {
+        window.scrollTo(0,0);
+        setMessage("Umm, double check your ingredients...");
+        setTimeout(() => setMessage(""), 3000);
+      }
+    }
+    if (!validIngredientRows) return false;
+
+    if (subrecipeRows.length) {
+      subrecipeRows.map(row => {
+        if (row.amount === "" || row.unit === "" || row.subrecipe === "") {
+          validSubrecipeRows = false;
+        }
+      });
+      if (!validSubrecipeRows) {
+        window.scrollTo(0,0);
+        setMessage("Umm, double check your subrecipes...");
+        setTimeout(() => setMessage(""), 3000);
+      }
+    }
+    if (!validSubrecipeRows) return false;
+
+    return (
+      validOwnership &&
+      recipeTypeId !== "" &&
+      cuisineId !== "" &&
+      title !== "" &&
+      description !== "" &&
+      validMethods &&
+      validEquipmentRows &&
+      validIngredientRows &&
+      validSubrecipeRows &&
+      directions !== ""
+    );
+  };
 
   const handleSubmit = () => {
     const recipeInfo = {
@@ -566,7 +665,9 @@ const UserSubmitRecipe = props => {
       recipeCookingImage,
       fullRecipeCookingImage
     };
-    if (editing === true) {
+    if (!valid()) return;
+    if (editing) {
+      recipeInfo.recipeId = editingId;  // change?
       recipeInfo.prevRecipeImage = prevRecipeImage;
       recipeInfo.prevEquipmentImage = prevEquipmentImage;
       recipeInfo.prevIngredientsImage = prevIngredientsImage;
@@ -574,26 +675,28 @@ const UserSubmitRecipe = props => {
     }
     setLoading(true);
     try {
-      if (editing === true) {
+      if (editing) {
         if (ownership === "private") {
-          props.userEditPrivateRecipe(recipeInfo, props.history);
+          props.userEditPrivateRecipe(recipeInfo);
         } else if (ownership === "public") {
-          props.userEditPublicRecipe(recipeInfo, props.history);
+          props.userEditPublicRecipe(recipeInfo);
         }
       } else {
         if (ownership === "private") {
-          props.userCreateNewPrivateRecipe(recipeInfo, props.history);
+          props.userCreateNewPrivateRecipe(recipeInfo);
         } else if (ownership === "public") {
-          props.userCreateNewPublicRecipe(recipeInfo, props.history);
+          console.log(recipeInfo);
+          //props.userCreateNewPublicRecipe(recipeInfo);
         }
       }
     } catch(err) {
       setLoading(false);
       window.scrollTo(0,0);
+      console.log(err.message);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <div className={`submit-recipe one-column-a ${props.oneColumnATheme}`}>
@@ -726,10 +829,16 @@ const UserSubmitRecipe = props => {
       {/* required methods */}
       <div className="submit-recipe__section-required-methods">
         <h2 className="submit-recipe__heading-two">Methods</h2>
-        <div className="method-spans" onChange={e => handleMethodsChange(e)}>
+        <div className="method-spans">
           {props.dataMethods.map(method => (
             <span className="method-span" key={method.method_id}>
-              <input className="method-span-input" type="checkbox" id={method.method_id} />
+              <input
+                className="method-span-input"
+                type="checkbox"
+                id={method.method_id}
+                checked={methods[method.method_id] === true ? true : false}
+                onChange={e => handleMethodsChange(e)}
+              />
               <label className="method-span-label">{method.method_name}</label>
             </span>
           ))}
@@ -750,7 +859,11 @@ const UserSubmitRecipe = props => {
               type={equipmentRow.type}
               equipment={equipmentRow.equipment}
               dataEquipment={props.dataEquipment}
-              dataMyPrivateEquipment={ownership === "private" ? props.dataMyPrivateEquipment : []}
+              dataMyPrivateEquipment={
+                ownership === "private"
+                ? props.dataMyPrivateEquipment
+                : []
+              }
               handleEquipmentRowChange={handleEquipmentRowChange}
               removeEquipmentRow={removeEquipmentRow} />
           ))}
@@ -777,7 +890,11 @@ const UserSubmitRecipe = props => {
               dataMeasurements={props.dataMeasurements}
               dataIngredientTypes={props.dataIngredientTypes}
               dataIngredients={props.dataIngredients}
-              dataMyPrivateIngredients={ownership === "private" ? props.dataMyPrivateIngredients : []}
+              dataMyPrivateIngredients={
+                ownership === "private"
+                ? props.dataMyPrivateIngredients
+                : []
+              }
               handleIngredientRowChange={handleIngredientRowChange}
               removeIngredientRow={removeIngredientRow}
             />
@@ -807,7 +924,11 @@ const UserSubmitRecipe = props => {
               dataRecipeTypes={props.dataRecipeTypes}
               dataCuisines={props.dataCuisines}
               dataRecipes={props.dataRecipes}
-              dataMyPrivateRecipes={ownership === "private" ? props.dataMyPrivateRecipes : []}
+              dataMyPrivateRecipes={
+                ownership === "private"
+                ? props.dataMyPrivateRecipes
+                : []
+              }
               dataMyPublicRecipes={props.dataMyPublicRecipes}
               dataMyFavoriteRecipes={props.dataMyFavoriteRecipes}
               dataMySavedRecipes={props.dataMySavedRecipes}
@@ -847,7 +968,7 @@ const UserSubmitRecipe = props => {
             {
               !editing
               ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
-              : <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${prevRecipeImage}`} />
+              : prevRecipeImage && <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${prevRecipeImage}`} />
             }
             <h4 className="change-default">Change</h4>
             <input
@@ -900,7 +1021,7 @@ const UserSubmitRecipe = props => {
             {
               !editing
               ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
-              : <img src={`https://nobsc-user-recipe-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
+              : prevEquipmentImage && <img src={`https://nobsc-user-recipe-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
             }
             <h4 className="change-default">Change</h4>
             <input
@@ -947,7 +1068,7 @@ const UserSubmitRecipe = props => {
             {
               !editing
               ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
-              : <img src={`https://nobsc-user-recipe-ingredients.s3.amazonaws.com/${prevIngredientsImage}`} />
+              : prevIngredientsImage && <img src={`https://nobsc-user-recipe-ingredients.s3.amazonaws.com/${prevIngredientsImage}`} />
             }
             <h4 className="change-default">Change</h4>
             <input
@@ -994,7 +1115,7 @@ const UserSubmitRecipe = props => {
             {
               !editing
               ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
-              : <img src={`https://nobsc-user-recipe-cooking.s3.amazonaws.com/${prevCookingImage}`} />
+              : prevCookingImage && <img src={`https://nobsc-user-recipe-cooking.s3.amazonaws.com/${prevCookingImage}`} />
             }
             <h4 className="change-default">Change</h4>
             <input
@@ -1051,7 +1172,6 @@ const UserSubmitRecipe = props => {
           text="Submit Recipe"
           loadingText="Submitting Recipe..."
           isLoading={loading}
-          disabled={!validate()}
           onClick={handleSubmit}
         />
       </div>

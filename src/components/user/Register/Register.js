@@ -38,7 +38,7 @@ const Register = props => {
       props.authUserRegister(email, password, username, props.history);
     } catch(err) {
       setLoading(false);
-      setMessage(err.message);
+      //setMessage(err.message);
       console.log(err.message);
     } finally {
       setLoading(false);

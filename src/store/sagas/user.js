@@ -455,9 +455,6 @@ export function* userCreateNewRecipeSaga(action) {
       }
       yield delay(3000);
       yield put(userMessageClear());
-      console.log(action.history);
-      console.log(action.history.push);
-      yield action.history.push('/user/dashboard');
     } else {
       if (action.recipeInfo.ownership === "private") {
         yield put(userCreateNewPrivateRecipeFailed(res.data.message));
@@ -616,7 +613,6 @@ export function* userEditRecipeSaga(action) {
       }
       yield delay(3000);
       yield put(userMessageClear());
-      yield action.history.push('/user/dashboard');
     } else {
       if (action.recipeInfo.ownership === "private") { 
         yield put(userEditPrivateRecipeFailed(res.data.message));

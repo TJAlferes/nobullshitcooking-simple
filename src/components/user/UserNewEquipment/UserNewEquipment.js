@@ -24,7 +24,10 @@ const UserNewEquipment = props => {
   const [ equipmentName, setEquipmentName ] = useState("");
   const [ equipmentDescription, setEquipmentDescription ] = useState("");
   const [ equipmentImage, setEquipmentImage ] = useState("");
-  const [ prevEquipmentImage, setPrevEquipmentImage ] = useState("");
+  const [
+    prevEquipmentImage,
+    setPrevEquipmentImage
+  ] = useState("nobsc-equipment-default");
 
   const [ crop, setCrop ] = useState({
     disabled: true,
