@@ -117,7 +117,6 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
       yield put(userCreateNewPrivateEquipmentSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userCreateNewPrivateEquipmentFailed(res.data.message));
       yield delay(4000);
@@ -166,7 +165,6 @@ export function* userEditPrivateEquipmentSaga(action) {
       yield put(userEditPrivateEquipmentSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userEditPrivateEquipmentFailed(res.data.message));
       yield delay(4000);
@@ -243,7 +241,6 @@ export function* userCreateNewPrivateIngredientSaga(action) {
       yield put(userCreateNewPrivateIngredientSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userCreateNewPrivateIngredientFailed(res.data.message));
       yield delay(4000);
@@ -292,7 +289,6 @@ export function* userEditPrivateIngredientSaga(action) {
       yield put(userEditPrivateIngredientSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userEditPrivateIngredientFailed(res.data.message));
       yield delay(4000);
@@ -628,7 +624,6 @@ export function* userCreateNewPlanSaga(action) {
       yield put(userCreateNewPlanSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userCreateNewPlanFailed(res.data.message));
       yield delay(4000);
@@ -652,7 +647,6 @@ export function* userEditPlanSaga(action) {
       yield put(userEditPlanSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userEditPlanFailed(res.data.message));
       yield delay(4000);

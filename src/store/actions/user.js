@@ -5,10 +5,9 @@ import * as actionTypes from './actionTypes';
 export const userMessageClear = () => ({type: actionTypes.USER_MESSAGE_CLEAR});
 
 // create new (private) equipment
-export const userCreateNewPrivateEquipment = (equipmentInfo, history) => ({
+export const userCreateNewPrivateEquipment = equipmentInfo => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT,
-  equipmentInfo,
-  history
+  equipmentInfo
 });
 export const userCreateNewPrivateEquipmentSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
@@ -20,10 +19,9 @@ export const userCreateNewPrivateEquipmentFailed = message => ({
 });
 
 // edit equipment
-export const userEditPrivateEquipment = (equipmentInfo, history) => ({
+export const userEditPrivateEquipment = equipmentInfo => ({
   type: actionTypes.USER_EDIT_PRIVATE_EQUIPMENT,
-  equipmentInfo,
-  history
+  equipmentInfo
 });
 export const userEditPrivateEquipmentSucceeded = message => ({
   type: actionTypes.USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
@@ -51,10 +49,9 @@ export const userDeletePrivateEquipmentFailed = message => ({
 
 
 // create new (private) ingredient
-export const userCreateNewPrivateIngredient = (ingredientInfo, history) => ({
+export const userCreateNewPrivateIngredient = ingredientInfo => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT,
-  ingredientInfo,
-  history
+  ingredientInfo
 });
 export const userCreateNewPrivateIngredientSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
@@ -66,10 +63,9 @@ export const userCreateNewPrivateIngredientFailed = message => ({
 });
 
 // edit ingredient
-export const userEditPrivateIngredient = (ingredientInfo, history) => ({
+export const userEditPrivateIngredient = ingredientInfo => ({
   type: actionTypes.USER_EDIT_PRIVATE_INGREDIENT,
-  ingredientInfo,
-  history
+  ingredientInfo
 });
 export const userEditPrivateIngredientSucceeded = message => ({
   type: actionTypes.USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED,
@@ -185,10 +181,9 @@ export const userDisownPublicRecipeFailed = message => ({
 
 
 // create new plan
-export const userCreateNewPlan = (planInfo, history) => ({
+export const userCreateNewPlan = planInfo => ({
   type: actionTypes.USER_CREATE_NEW_PLAN,
-  planInfo,
-  history
+  planInfo
 });
 export const userCreateNewPlanSucceeded = message => ({
   type: actionTypes.USER_CREATE_NEW_PLAN_SUCCEEDED,
@@ -200,10 +195,9 @@ export const userCreateNewPlanFailed = message => ({
 });
 
 // edit plan
-export const userEditPlan = (planInfo, history) => ({
+export const userEditPlan = planInfo => ({
   type: actionTypes.USER_EDIT_PLAN,
-  planInfo,
-  history
+  planInfo
 });
 export const userEditPlanSucceeded = message => ({
   type: actionTypes.USER_EDIT_PLAN_SUCCEEDED,

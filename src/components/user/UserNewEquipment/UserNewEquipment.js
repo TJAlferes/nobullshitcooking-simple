@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { withRouter, Link } from 'react-router-dom';
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -8,7 +9,6 @@ import './newEquipment.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import {
   getCroppedFullImage,
-  getCroppedThumbImage,
   getCroppedTinyImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
 import {
@@ -17,9 +17,12 @@ import {
 } from '../../../store/actions/index';
 
 const UserNewEquipment = props => {
+  const history = useHistory();
+
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ editing, setEditing ] = useState(false);
+  const [ editingId, setEditingId ] = useState("");
   const [ equipmentTypeId, setEquipmentTypeId ] = useState("");
   const [ equipmentName, setEquipmentName ] = useState("");
   const [ equipmentDescription, setEquipmentDescription ] = useState("");
@@ -38,28 +41,32 @@ const UserNewEquipment = props => {
     maxHeight: 172
   });
   const [ cropFullSizePreview, setCropFullSizePreview ] = useState(null);
-  const [ cropThumbSizePreview, setCropThumbSizePreview ] = useState(null);
   const [ cropTinySizePreview, setCropTinySizePreview ] = useState(null);
 
   const [ fullEquipmentImage, setFullEquipmentImage ] = useState(null);
-  const [ thumbEquipmentImage, setThumbEquipmentImage ] = useState(null);
   const [ tinyEquipmentImage, setTinyEquipmentImage ] = useState(null);
 
   const imageRef = useRef(null);
 
   useEffect(() => {
     const getExistingEquipmentToEdit = async () => {
+      window.scrollTo(0,0);
       setLoading(true);
       setEditing(true);
-      const prev = props.dataMyPrivateEquipment.filter((equ) => equ.equipment_id === props.match.params.id);
-      console.log(prev);
+
+      const prev = props.dataMyPrivateEquipment
+      .filter((equ) => equ.equipment_id === props.match.params.id);
+
+      setEditingId(prev.equipment_id);
       setEquipmentTypeId(prev.equipment_type_id);
       setEquipmentName(prev.equipment_name);
       setEquipmentDescription(prev.equipment_description);
       setPrevEquipmentImage(prev.equipment_image);
       setLoading(false);
     };
-    if (props.childProps && props.childProps.editing === "true") getExistingEquipmentToEdit();
+    if (props.childProps && props.childProps.editing === "true") {
+      getExistingEquipmentToEdit();
+    }
   }, []);
 
   useEffect(() => {
@@ -67,6 +74,12 @@ const UserNewEquipment = props => {
     if (isSubscribed) {
       if (props.message !== "") window.scrollTo(0,0);
       setMessage(props.message);
+      if (
+        props.message === "Equipment created." ||
+        props.message === "Equipment updated."
+      ) {
+        setTimeout(() => history.push('/user/dashboard'), 3000);
+      }
     }
     return () => isSubscribed = false;
   }, [props.message]);
@@ -93,29 +106,61 @@ const UserNewEquipment = props => {
 
   const makeClientCrops = async (crop) => {
     if (imageRef && crop.width) {
-      const { resizedFullPreview, resizedFullFinal } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
-      const { resizedThumbPreview, resizedThumbFinal } = await getCroppedThumbImage(imageRef.current, crop, "newFile.jpeg");
-      const { resizedTinyPreview, resizedTinyFinal } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedFullPreview,
+        resizedFullFinal
+      } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedTinyPreview,
+        resizedTinyFinal
+      } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
       setCropFullSizePreview(resizedFullPreview);
-      setCropThumbSizePreview(resizedThumbPreview);
       setCropTinySizePreview(resizedTinyPreview);
       setFullEquipmentImage(resizedFullFinal);
-      setThumbEquipmentImage(resizedThumbFinal);
       setTinyEquipmentImage(resizedTinyFinal);
     }
   };
 
   const cancelEquipmentImage = () => {
     setCropFullSizePreview(null);
-    setCropThumbSizePreview(null);
     setCropTinySizePreview(null);
     setEquipmentImage(null);
     setFullEquipmentImage(null);
-    setThumbEquipmentImage(null);
     setTinyEquipmentImage(null);
   };
 
-  const validate = () => (equipmentTypeId !== "") && (equipmentName !== "");
+  const valid = () => {
+    let validEquipmentTypeId = equipmentTypeId !== "";
+    let validEquipmentName = equipmentName.trim() !== "";
+    let validEquipmentDescription = equipmentDescription.trim() !== "";
+
+    if (!validEquipmentTypeId) {
+      window.scrollTo(0,0);
+      setMessage("You forgot to select the equipment type...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    if (!validEquipmentName) {
+      window.scrollTo(0,0);
+      setMessage("Umm, double check your name...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    if (!validEquipmentDescription) {
+      window.scrollTo(0,0);
+      setMessage("Umm, double check your description...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    return (
+      equipmentTypeId !== "" &&
+      equipmentName.trim() !== "" &&
+      equipmentDescription.trim() !== ""
+    );
+  };
 
   const handleSubmit = () => {
     const equipmentInfo = {
@@ -124,18 +169,19 @@ const UserNewEquipment = props => {
       equipmentDescription,
       equipmentImage,
       fullEquipmentImage,
-      thumbEquipmentImage,
       tinyEquipmentImage
     };
-    if (props.childProps.editing === "true" || editing === true) {
+    if (!valid()) return;
+    if (editing === true) {
+      equipmentInfo.equipmentId = editingId;
       equipmentInfo.prevEquipmentImage = prevEquipmentImage;
     }
     setLoading(true);
     try {
       if (props.childProps.editing === "true" || editing === true) {
-        props.userEditPrivateEquipment(equipmentInfo, props.history);
+        props.userEditPrivateEquipment(equipmentInfo);
       } else {
-        props.userCreateNewPrivateEquipment(equipmentInfo, props.history);
+        props.userCreateNewPrivateEquipment(equipmentInfo);
       }
     } catch(err) {
       setLoading(false);
@@ -150,10 +196,14 @@ const UserNewEquipment = props => {
 
       <h1>Create New Private Equipment</h1>
 
-      <p className="error-message">{message}</p>
+      <p className="new-equipment__error-message">{message}</p>
 
       <h2 className="new-equipment__heading-two">Type of Equipment</h2>
-      <select name="equipment_type_id" required onChange={handleEquipmentTypeChange} value={equipmentTypeId}>
+      <select
+        required
+        onChange={handleEquipmentTypeChange}
+        value={equipmentTypeId}
+      >
         <option value=""></option>
         {props.dataEquipmentTypes.map(type => (
           <option key={type.equipment_type_id} value={type.equipment_type_id}>
@@ -184,7 +234,7 @@ const UserNewEquipment = props => {
             {
               !editing
               ? <img src="https://nobsc-user-equipment.s3.amazonaws.com/nobsc-equipment-default" />
-              : <img src={`https://nobsc-user-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
+              : prevEquipmentImage && <img src={`https://nobsc-user-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
             }
             <h4>Change</h4>
             <input
@@ -207,13 +257,10 @@ const UserNewEquipment = props => {
               onChange={onCropChange}
               onComplete={onCropComplete}
             />
-            <span>Move the crop to your desired position. These three images will be saved for you:</span>
+            <span>Move the crop to your desired position. These two images will be saved for you:</span>
             <div className="new-equipment__image-crop-previews">
               <div className="new-equipment-image-crop-full-preview">
                 <span>Full Size: </span><img src={cropFullSizePreview} />
-              </div>
-              <div className="new-equipment__image-crop-thumb-preview">
-                <span>Thumb Size: </span><img src={cropThumbSizePreview} />
               </div>
               <div className="new-equipment__image-crop-tiny-preview">
                 <span>Tiny Size: </span><img src={cropTinySizePreview} />
@@ -245,7 +292,6 @@ const UserNewEquipment = props => {
           text="Create"
           loadingText="Creating..."
           isLoading={loading}
-          disabled={!validate()}
           onClick={handleSubmit}
         />
       </div>

@@ -565,11 +565,18 @@ const UserSubmitRecipe = props => {
   };
 
   const valid = () => {
+    // bare minimum validation, finish up,
+    // but also finish up on back end, where it actually matters
     let validOwnership = ownership === "private" || ownership === "public";
-
+    let validRecipeTypeId = recipeTypeId !== "";
+    let validCuisineId = cuisineId !== "";
+    let validTitle = title.trim() !== "";
+    let validDescription = description.trim() !== "";
+    let validMethods = Object.values(methods).filter(method => method === true);
     let validEquipmentRows = true;
     let validIngredientRows = true;
     let validSubrecipeRows = true;
+    let validDirections = directions.trim() !== "";
 
     if (!validOwnership) {
       window.scrollTo(0,0);
@@ -578,8 +585,40 @@ const UserSubmitRecipe = props => {
       return false;
     }
 
-    // finish up, but also do on back end, where it actually matters,
-    // get rid of action.history stuff, find out how register is working though
+    if (!validRecipeTypeId) {
+      window.scrollTo(0,0);
+      setMessage("You forgot to select the recipe type...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    if (!validCuisineId) {
+      window.scrollTo(0,0);
+      setMessage("You forgot to select the cuisine...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    if (!validTitle) {
+      window.scrollTo(0,0);
+      setMessage("Umm, double check your title...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    if (!validDescription) {
+      window.scrollTo(0,0);
+      setMessage("Umm, double check your description...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    if (!validMethods) {  //validMethods.length < 1
+      window.scrollTo(0,0);
+      setMessage("You forgot to select the method(s)...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
 
     if (equipmentRows.length) {
       equipmentRows.map(row => {
@@ -623,17 +662,24 @@ const UserSubmitRecipe = props => {
     }
     if (!validSubrecipeRows) return false;
 
+    if (!validDirections) {
+      window.scrollTo(0,0);
+      setMessage("Umm, double check your directions...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
     return (
       validOwnership &&
       recipeTypeId !== "" &&
       cuisineId !== "" &&
-      title !== "" &&
-      description !== "" &&
+      title.trim() !== "" &&
+      description.trim() !== "" &&
       validMethods &&
       validEquipmentRows &&
       validIngredientRows &&
       validSubrecipeRows &&
-      directions !== ""
+      directions.trim() !== ""
     );
   };
 
@@ -685,8 +731,7 @@ const UserSubmitRecipe = props => {
         if (ownership === "private") {
           props.userCreateNewPrivateRecipe(recipeInfo);
         } else if (ownership === "public") {
-          console.log(recipeInfo);
-          //props.userCreateNewPublicRecipe(recipeInfo);
+          props.userCreateNewPublicRecipe(recipeInfo);
         }
       }
     } catch(err) {

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { withRouter, Link } from 'react-router-dom';
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -8,7 +9,6 @@ import './newIngredient.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 import {
   getCroppedFullImage,
-  getCroppedThumbImage,
   getCroppedTinyImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
 import {
@@ -17,9 +17,12 @@ import {
 } from '../../../store/actions/index';
 
 const UserNewIngredient = props => {
+  const history = useHistory();
+
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ editing, setEditing ] = useState(false);
+  const [ editingId, setEditingId ] = useState("");
   const [ ingredientTypeId, setIngredientTypeId ] = useState("");
   const [ ingredientName, setIngredientName ] = useState("");
   const [ ingredientDescription, setIngredientDescription ] = useState("");
@@ -38,28 +41,32 @@ const UserNewIngredient = props => {
     maxHeight: 172
   });
   const [ cropFullSizePreview, setCropFullSizePreview ] = useState(null);
-  const [ cropThumbSizePreview, setCropThumbSizePreview ] = useState(null);
   const [ cropTinySizePreview, setCropTinySizePreview ] = useState(null);
 
   const [ fullIngredientImage, setFullIngredientImage ] = useState(null);
-  const [ thumbIngredientImage, setThumbIngredientImage ] = useState(null);
   const [ tinyIngredientImage, setTinyIngredientImage ] = useState(null);
 
   const imageRef = useRef(null);
 
   useEffect(() => {
     const getExistingIngredientToEdit = async () => {
+      window.scrollTo(0,0);
       setLoading(true);
       setEditing(true);
-      const prev = props.dataMyPrivateIngredients.filter((ing) => ing.ingredient_id === props.match.params.id);
-      console.log(prev);
+
+      const prev = props.dataMyPrivateIngredients
+      .filter((ing) => ing.ingredient_id === props.match.params.id);
+
+      setEditingId(prev.ingredient_id);
       setIngredientTypeId(prev.ingredient_type_id);
       setIngredientName(prev.ingredient_name);
       setIngredientDescription(prev.ingredient_description);
-      setPrevEquipmentImage(prev.equipment_image);
+      setPrevIngredientImage(prev.equipment_image);
       setLoading(false);
     };
-    if (props.childProps && props.childProps.editing === "true") getExistingIngredientToEdit();
+    if (props.childProps && props.childProps.editing === "true") {
+      getExistingIngredientToEdit();
+    }
   }, []);
 
   useEffect(() => {
@@ -67,6 +74,12 @@ const UserNewIngredient = props => {
     if (isSubscribed) {
       if (props.message !== "") window.scrollTo(0,0);
       setMessage(props.message);
+      if (
+        props.message === "Ingredient created." ||
+        props.message === "Ingredient updated."
+      ) {
+        setTimeout(() => history.push('/user/dashboard'), 3000);
+      }
     }
     return () => isSubscribed = false;
   }, [props.message]);
@@ -93,30 +106,62 @@ const UserNewIngredient = props => {
 
   const makeClientCrops = async (crop) => {
     if (imageRef && crop.width) {
-      const { resizedFullPreview, resizedFullFinal } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
-      const { resizedThumbPreview, resizedThumbFinal } = await getCroppedThumbImage(imageRef.current, crop, "newFile.jpeg");
-      const { resizedTinyPreview, resizedTinyFinal } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedFullPreview,
+        resizedFullFinal
+      } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
+      const {
+        resizedTinyPreview,
+        resizedTinyFinal
+      } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
       setCropFullSizePreview(resizedFullPreview);
-      setCropThumbSizePreview(resizedThumbPreview);
       setCropTinySizePreview(resizedTinyPreview);
       setFullIngredientImage(resizedFullFinal);
-      setThumbIngredientImage(resizedThumbFinal);
       setTinyIngredientImage(resizedTinyFinal);
     }
   };
 
   const cancelIngredientImage = () => {
     setCropFullSizePreview(null);
-    setCropThumbSizePreview(null);
     setCropTinySizePreview(null);
     setIngredientImage(null);
     setFullIngredientImage(null);
-    setThumbIngredientImage(null);
     setTinyIngredientImage(null);
   };
 
-  const validate = () => (ingredientTypeId !== "") && (ingredientName !== "");
+  const valid = () => {
+    let validIngredientTypeId = ingredientTypeId !== "";
+    let validIngredientName = ingredientName.trim() !== "";
+    let validIngredientDescription = ingredientDescription.trim() !== "";
 
+    if (!validIngredientTypeId) {
+      window.scrollTo(0,0);
+      setMessage("You forgot to select the ingredient type...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    if (!validIngredientName) {
+      window.scrollTo(0,0);
+      setMessage("Umm, double check your name...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    if (!validIngredientDescription) {
+      window.scrollTo(0,0);
+      setMessage("Umm, double check your description...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    return (
+      ingredientTypeId !== "" &&
+      ingredientName.trim() !== "" &&
+      ingredientDescription.trim() !== ""
+    );
+  };
+ 
   const handleSubmit = () => {
     const ingredientInfo = {
       ingredientTypeId,
@@ -124,18 +169,19 @@ const UserNewIngredient = props => {
       ingredientDescription,
       ingredientImage,
       fullIngredientImage,
-      thumbIngredientImage,
       tinyIngredientImage
     };
-    if (props.childProps.editing === "true" || editing === true) {
+    if (!valid()) return;
+    if (editing === true) {
+      ingredientInfo.ingredientId = editingId;
       ingredientInfo.prevIngredientImage = prevIngredientImage;
     }
     setLoading(true);
     try {
-      if (props.childProps.editing === "true" || editing === true) {
-        props.userEditPrivateIngredient(ingredientInfo, props.history);
+      if (editing === true) {
+        props.userEditPrivateIngredient(ingredientInfo);
       } else {
-        props.userCreateNewPrivateIngredient(ingredientInfo, props.history);
+        props.userCreateNewPrivateIngredient(ingredientInfo);
       }
     } catch(err) {
       setLoading(false);
@@ -150,10 +196,14 @@ const UserNewIngredient = props => {
 
       <h1>Create New Private Ingredient</h1>
 
-      <p className="error-message">{message}</p>
+      <p className="new-ingredient__error-message">{message}</p>
 
       <h2 className="new-ingredient__heading-two">Type of Ingredient</h2>
-      <select onChange={handleIngredientTypeChange}>
+      <select
+        required
+        onChange={handleIngredientTypeChange}
+        value={ingredientTypeId}
+      >
         <option value=""></option>
         {props.dataIngredientTypes.map(type => (
           <option key={type.ingredient_type_id} value={type.ingredient_type_id}>
@@ -184,7 +234,7 @@ const UserNewIngredient = props => {
             {
               !editing
               ? <img src="https://nobsc-user-ingredients.s3.amazonaws.com/nobsc-ingredient-default" />
-              : <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${prevIngredientImage}`} />
+              : prevIngredientImage && <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${prevIngredientImage}`} />
             }
             <h4 className="change-default">Change</h4>
             <input
@@ -207,13 +257,10 @@ const UserNewIngredient = props => {
               onChange={onCropChange}
               onComplete={onCropComplete}
             />
-            <span>Move the crop to your desired position. These three images will be saved for you:</span>
+            <span>Move the crop to your desired position. These two images will be saved for you:</span>
             <div className="new-ingredient__image-crop-previews">
               <div className="new-ingredient__image-crop-full-preview">
                 <span>Full Size: </span><img src={cropFullSizePreview} />
-              </div>
-              <div className="new-ingredient__image-crop-thumb-preview">
-                <span>Thumb Size: </span><img src={cropThumbSizePreview} />
               </div>
               <div className="new-ingredient__image-crop-tiny-preview">
                 <span>Tiny Size: </span><img src={cropTinySizePreview} />
@@ -245,7 +292,6 @@ const UserNewIngredient = props => {
           text="Create"
           loadingText="Creating..."
           isLoading={loading}
-          disabled={!validate()}
           onClick={handleSubmit}
         />
       </div>
