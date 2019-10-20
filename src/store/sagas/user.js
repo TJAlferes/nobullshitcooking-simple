@@ -85,7 +85,6 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
   try {
     if (
       action.equipmentInfo.fullEquipmentImage &&
-      action.equipmentInfo.thumbEquipmentImage &&
       action.equipmentInfo.tinyEquipmentImage
     ) {
       const res1 = yield axios.post(
@@ -97,11 +96,6 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
         res1.data.signedRequestFullSize,
         action.equipmentInfo.fullEquipmentImage,
         {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.equipmentInfo.thumbEquipmentImage,
-        {headers: {'Content-Type': action.equipmentInfo.thumbEquipmentImage.type}}
       );
       yield axios.put(
         res1.data.signedRequestTinySize,
@@ -123,7 +117,7 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
       yield put(userCreateNewPrivateEquipmentSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      yield action.history.push('/user/dashboard');
+      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userCreateNewPrivateEquipmentFailed(res.data.message));
       yield delay(4000);
@@ -140,7 +134,6 @@ export function* userEditPrivateEquipmentSaga(action) {
   try {
     if (
       action.equipmentInfo.fullEquipmentImage &&
-      action.equipmentInfo.thumbEquipmentImage &&
       action.equipmentInfo.tinyEquipmentImage
     ) {
       const res1 = yield axios.post(
@@ -152,11 +145,6 @@ export function* userEditPrivateEquipmentSaga(action) {
         res1.data.signedRequestFullSize,
         action.equipmentInfo.fullEquipmentImage,
         {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.equipmentInfo.thumbEquipmentImage,
-        {headers: {'Content-Type': action.equipmentInfo.thumbEquipmentImage.type}}
       );
       yield axios.put(
         res1.data.signedRequestTinySize,
@@ -178,7 +166,7 @@ export function* userEditPrivateEquipmentSaga(action) {
       yield put(userEditPrivateEquipmentSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      yield action.history.push('/user/dashboard');
+      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userEditPrivateEquipmentFailed(res.data.message));
       yield delay(4000);
@@ -223,7 +211,6 @@ export function* userCreateNewPrivateIngredientSaga(action) {
   try {
     if (
       action.ingredientInfo.fullIngredientImage &&
-      action.ingredientInfo.thumbIngredientImage &&
       action.ingredientInfo.tinyIngredientImage
     ) {
       const res1 = yield axios.post(
@@ -235,11 +222,6 @@ export function* userCreateNewPrivateIngredientSaga(action) {
         res1.data.signedRequestFullSize,
         action.ingredientInfo.fullIngredientImage,
         {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.ingredientInfo.thumbIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.thumbIngredientImage.type}}
       );
       yield axios.put(
         res1.data.signedRequestTinySize,
@@ -261,7 +243,7 @@ export function* userCreateNewPrivateIngredientSaga(action) {
       yield put(userCreateNewPrivateIngredientSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      yield action.history.push('/user/dashboard');
+      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userCreateNewPrivateIngredientFailed(res.data.message));
       yield delay(4000);
@@ -278,7 +260,6 @@ export function* userEditPrivateIngredientSaga(action) {
   try {
     if (
       action.ingredientInfo.fullIngredientImage &&
-      action.ingredientInfo.thumbIngredientImage &&
       action.ingredientInfo.tinyIngredientImage
     ) {
       const res1 = yield axios.post(
@@ -290,11 +271,6 @@ export function* userEditPrivateIngredientSaga(action) {
         res1.data.signedRequestFullSize,
         action.ingredientInfo.fullIngredientImage,
         {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
-      );
-      yield axios.put(
-        res1.data.signedRequestThumbSize,
-        action.ingredientInfo.thumbIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.thumbIngredientImage.type}}
       );
       yield axios.put(
         res1.data.signedRequestTinySize,
@@ -316,7 +292,7 @@ export function* userEditPrivateIngredientSaga(action) {
       yield put(userEditPrivateIngredientSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      yield action.history.push('/user/dashboard');
+      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userEditPrivateIngredientFailed(res.data.message));
       yield delay(4000);
@@ -652,7 +628,7 @@ export function* userCreateNewPlanSaga(action) {
       yield put(userCreateNewPlanSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      yield action.history.push('/user/dashboard');
+      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userCreateNewPlanFailed(res.data.message));
       yield delay(4000);
@@ -676,7 +652,7 @@ export function* userEditPlanSaga(action) {
       yield put(userEditPlanSucceeded(res.data.message));
       yield delay(3000);
       yield put(userMessageClear());
-      yield action.history.push('/user/dashboard');
+      // MOVE THIS yield action.history.push('/user/dashboard');
     } else {
       yield put(userEditPlanFailed(res.data.message));
       yield delay(4000);
