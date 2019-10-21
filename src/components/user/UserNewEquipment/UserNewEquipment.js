@@ -49,7 +49,7 @@ const UserNewEquipment = props => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    const getExistingEquipmentToEdit = async () => {
+    const getExistingEquipmentToEdit = () => {
       window.scrollTo(0,0);
       setLoading(true);
       setEditing(true);

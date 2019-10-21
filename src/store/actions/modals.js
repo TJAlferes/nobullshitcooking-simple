@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
 
+// Possibly delete this
+
 export const openModal = obj => ({
   type: actionTypes.OPEN_MODAL,
   obj

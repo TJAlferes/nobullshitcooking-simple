@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AriaModal from 'react-aria-modal';
@@ -6,7 +7,9 @@ const uuidv4 = require('uuid/v4');
 
 import {
   plannerClearWork,
+  plannerSetEditingId,
   plannerSetPlanName,
+  plannerSetPlanData,
   userCreateNewPlan,
   userEditPlan
 } from '../../../../store/actions/index';
@@ -22,6 +25,8 @@ import PlannerRecipesList from './PlannerRecipesList/PlannerRecipesList';
 import './userNewPlan.css';
 
 const UserNewPlan = props => {
+  const history = useHistory();
+
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ editing, setEditing ] = useState(false);
@@ -29,9 +34,19 @@ const UserNewPlan = props => {
   const [ modalActive, setModalActive ] = useState(false);
 
   useEffect(() => {
-    const getExistingPlanToEdit = async () => {
+    const getExistingPlanToEdit = () => {
+      if (props.editingId !== "") return;
+
+      window.scrollTo(0,0);
       setLoading(true);
       setEditing(true);
+
+      const prev = props.dataMyPlans
+      .filter(plan => plan.plan_id === props.match.params.id)
+
+      props.plannerSetEditingId(prev.plan_id);
+      props.plannerSetPlanName(prev.plan_name);
+      props.plannerSetPlanData(prev.plan_data);
       setLoading(false);
     };
 
@@ -45,6 +60,12 @@ const UserNewPlan = props => {
     if (isSubscribed) {
       if (props.feedback !== "") window.scrollTo(0,0);
       setFeedback(props.feedback);
+      if (
+        props.feedback === "Plan created." ||
+        props.feedback === "Plan updated."
+      ) {
+        setTimeout(() => history.push('/user/dashboard'), 3000);
+      }
     }
     return () => isSubscribed = false;
   }, [props.feedback]);
@@ -66,18 +87,40 @@ const UserNewPlan = props => {
   const discardChanges = () => {
     setModalActive(false);
     props.plannerClearWork();
-    props.history.push('/user/dashboard');
+    history.push('/user/dashboard');
   };
 
-  const getPlanData = () => props.recipeListsInsideDays;  // not done; clean/format?
+  const getPlanData = () => props.recipeListsInsideDays;  // not done; clean/format? ***
+
+  const valid = () => {
+    validPlanName = props.planName.trim() !== "";
+
+    if (!validPlanName) {
+      window.scrollTo(0,0);
+      setMessage("Umm, double check your name...");
+      setTimeout(() => setMessage(""), 3000);
+      return false;
+    }
+
+    return validPlanName;
+  };
 
   const handleSubmit = () => {
-    const planInfo = {planName: props.planName, planData: getPlanData()};
+    const planInfo = {
+      planName: props.planName,
+      planData: getPlanData()
+    };
+    if (!valid()) return;
+    if (editing === true) {
+      planInfo.planId = props.editingId;
+    }
     setLoading(true);
     try {
-      //props.userCreateNewPlan(planInfo, props.history);
-      //props.userEditPlan(planInfo, props.history);
-      console.log(planInfo);
+      if (editing === true) {
+        props.userEditPlan(planInfo);
+      } else {
+        props.userCreateNewPlan(planInfo);
+      }
     } catch(err) {
       setLoading(false);
       window.scrollTo(0,0);
@@ -325,7 +368,6 @@ const UserNewPlan = props => {
             text="Save Plan"
             loadingText="Saving Plan..."
             isLoading={loading}
-            disabled={loading}
             onClick={handleSubmit}
           />
         </div>
@@ -337,28 +379,30 @@ const UserNewPlan = props => {
 }
 
 const mapStateToProps = state => ({
-  viewingPlan: state.planner.viewing,  // ?
-  creatingPlan: state.planner.creating,  // ?
-  updatingPlan: state.planner.updating,  // like editing
   feedback: state.user.message,
+
+  dataMyPlans: state.data.myPlans,
+
   dataRecipes: state.data.recipes,
   dataMyPublicRecipes: state.data.myPublicRecipes,
   dataMyPrivateRecipes: state.data.myPrivateRecipes,
   dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
   dataMySavedRecipes: state.data.mySavedRecipes,
+
   expanded: state.planner.expanded,
   expandedDay: state.planner.expandedDay,
+  editingId: state.planner.editingId,
   planName: state.planner.planName,
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
 const mapDispatchToProps = dispatch => ({
-  userCreateNewPlan: (planInfo, history) =>
-    dispatch(userCreateNewPlan(planInfo, history)),
-  userEditPlan: (planInfo, history) =>
-  dispatch(userEditPlan(planInfo, history)),
+  userCreateNewPlan: (planInfo) => dispatch(userCreateNewPlan(planInfo)),
+  userEditPlan: (planInfo) => dispatch(userEditPlan(planInfo)),
   plannerClearWork: () => dispatch(plannerClearWork()),
-  plannerSetPlanName: (name) => dispatch(plannerSetPlanName(name))
+  plannerSetEditingId: (id) => dispatch(plannerSetEditingId(id)),
+  plannerSetPlanName: (name) => dispatch(plannerSetPlanName(name)),
+  plannerSetPlanData: (data) => dispatch(plannerSetPlanData(data))
 });
 
 export default withRouter(

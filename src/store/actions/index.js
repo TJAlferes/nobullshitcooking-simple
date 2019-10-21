@@ -53,7 +53,9 @@ export {
   plannerPublicLoadFromUrl,
   plannerPublicSaveToUrl,
   plannerClearWork,
-  plannerSetPlanName
+  plannerSetEditingId,
+  plannerSetPlanName,
+  plannerSetPlanData
 } from './planner';
 
 export {

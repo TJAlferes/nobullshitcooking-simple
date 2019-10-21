@@ -49,7 +49,7 @@ const UserNewIngredient = props => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    const getExistingIngredientToEdit = async () => {
+    const getExistingIngredientToEdit = () => {
       window.scrollTo(0,0);
       setLoading(true);
       setEditing(true);

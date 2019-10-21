@@ -2,12 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd-cjs';
 
-import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
 import {
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay
 } from '../../../../../store/actions/index';
-import './plannerRecipesList.css';  // use BEM
+
+import PlannerRecipe from '../PlannerRecipe/PlannerRecipe';
+
+import './plannerRecipesList.css';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
@@ -35,8 +37,8 @@ const PlannerRecipesList = ({ day, list, connectDropTarget }) => (
         id={recipe.key}
         index={i}
         listId={day}
-        recipe={recipe}
         day={day}
+        recipe={recipe}
       />
     ))}
   </div>

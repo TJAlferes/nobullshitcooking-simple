@@ -45,10 +45,23 @@ export const plannerPublicSaveToUrl = () => ({
 });
 
 
+/*
+Planner -- for logged in users
+*/
 
 export const plannerClearWork = () => ({type: actionTypes.PLANNER_CLEAR_WORK});
+
+export const plannerSetEditingId = id => ({
+  type: actionTypes.PLANNER_SET_EDITING_ID,
+  id
+});
 
 export const plannerSetPlanName = name => ({
   type: actionTypes.PLANNER_SET_PLAN_NAME,
   name
+});
+
+export const plannerSetPlanData = data => ({
+  type: actionTypes.PLANNER_SET_PLAN_DATA,
+  data
 });

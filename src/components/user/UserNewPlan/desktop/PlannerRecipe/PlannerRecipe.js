@@ -6,7 +6,8 @@ import {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
 } from '../../../../../store/actions/index';
-import './plannerRecipe.css';  // use BEM
+
+import './plannerRecipe.css';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
@@ -23,7 +24,7 @@ const plannerRecipeSource = {
   },
   endDrag(props, monitor) {
     const item = monitor.getItem();
-    if (item.day === "0") return;  // to copy rather than remove from plannerrecipeslist
+    if (item.day === "0") return;  // to copy from rather than remove from PlannerRecipesList
     const dropResult = monitor.getDropResult();
     if (dropResult && (dropResult.listId !== item.day)) {
       props.plannerRemoveRecipeFromDay(item.day, item.index);
@@ -31,26 +32,32 @@ const plannerRecipeSource = {
   }
 };
 
-// be sure to explain this well, so that others easily understand it
 const plannerRecipeTarget = {
   hover(props, monitor, component) {
     if (!component) return null;
+
     const node = component.getNode();
     if (!node) return null;
+
     const { day, expandedDay } = props;
     if (day !== expandedDay) return;
+
     const sourceDay = monitor.getItem().day;
     if (sourceDay !== expandedDay) return;
+
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     if (dragIndex === hoverIndex) return;
+
     const hoverBoundingRect = node.getBoundingClientRect();
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
     if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
     if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
+
     props.plannerReorderRecipeInDay(dragIndex, hoverIndex);
+
     monitor.getItem().index = hoverIndex;
   }
 };
@@ -69,8 +76,10 @@ function collectDropTarget(connect) {
 const PlannerRecipe = forwardRef(
   ({ recipe, connectDragSource, connectDropTarget }, ref) => {
     const elementRef = useRef(null);
+
     connectDragSource(elementRef);
     connectDropTarget(elementRef);
+    
     useImperativeHandle(ref, () => ({getNode: () => elementRef.current}));
 
     return (
