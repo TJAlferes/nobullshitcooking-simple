@@ -16,12 +16,25 @@
 }
 
 .recipe-details__heading-two {
+  padding-top: 18px;
   font-size: 1.7rem;
+}
+
+.recipe-details__author-name {
+  text-decoration: none;
+  font-weight: 900;
+  color: #68abe6;
+}
+
+.recipe-details__required-methods {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .recipe-details__required-method {
   max-width: fit-content;
   margin-right: 4px;
-  /*margin-bottom: 4px;*/
+  margin-bottom: 4px;
   padding: 1px 3px;
 } 

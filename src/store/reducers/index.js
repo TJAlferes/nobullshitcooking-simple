@@ -8,6 +8,7 @@ import dataReducer from './data';
 import searchReducer from './search';
 import userReducer from './user';
 import plannerReducer from './planner';
+import plannerViewReducer from './plannerView';
 import messengerReducer from './messenger';
 
 
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   user: userReducer,
   planner: plannerReducer,
+  plannerView: plannerViewReducer,
   messenger: messengerReducer,
 });
 

@@ -19,9 +19,10 @@
   cursor: move;
 }
 
-/*.planner_recipe image {
-
-}*/
+.planner_recipe_image {
+  margin-left: 1px;
+  margin-top: 1px;
+}
 
 .planner_recipe_text {
   width: 100%;

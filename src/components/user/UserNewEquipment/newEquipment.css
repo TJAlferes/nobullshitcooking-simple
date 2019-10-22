@@ -38,7 +38,6 @@
 }
 
 .new-equipment__image-crop-full-preview,
-.new-equipment__image-crop-thumb-preview,
 .new-equipment__image-crop-tiny-preview {
   order: 1;
   display: flex;
@@ -48,7 +47,6 @@
 }
 
 .new-equipment__image-crop-full-preview img,
-.new-equipment__image-crop-thumb-preview img,
 .new-equipment__image-crop-tiny-preview img {
   margin-left: 5px;
 }

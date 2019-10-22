@@ -10,7 +10,7 @@ const LeftNav = props => {
   return (
     <nav className={`left-nav ${theme}`}>
       {isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/dashboard">{authname}</NavLink>}
-      {!isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/planner">Planner</NavLink>}
+      {!isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/plan">Planner</NavLink>}
       <hr />
       <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/" exact>News</NavLink>
       {isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/messenger">Messenger</NavLink>}

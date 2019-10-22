@@ -148,10 +148,7 @@
 .search-result-recipe-text__tags-methods,
 .search-result-recipe-text__tags-ingredients {
   max-width: fit-content;
-  margin-right: 4px;
-  margin-bottom: 4px;
-  padding: 1px 3px;
-  font-size: 13px;
+  margin-top: 1px;
 }
 
 /*.search-result-recipe-text__tags-methods {
@@ -161,3 +158,12 @@
 .search-result-recipe-text__tags-ingredients {
 
 }*/
+
+.search-result-recipe-text__tags-method,
+.search-result-recipe-text__tags-ingredient {
+  max-width: fit-content;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  padding: 1px 3px;
+  font-size: 13px;
+}

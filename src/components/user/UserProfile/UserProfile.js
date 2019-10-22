@@ -114,7 +114,7 @@ const UserProfile = props => {
                     <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
                   </span>
                   <span className="profile-list-item-title">
-                    <Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link>
+                    <Link to={`/recipes/${recipe.recipe_id}`}>{recipe.title}</Link>
                   </span>
                 </div>
               ))
@@ -132,7 +132,7 @@ const UserProfile = props => {
                     <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
                   </span>
                   <span className="profile-list-item-name">
-                    <Link to={`user/recipes/${recipe.recipe_id}`}>{recipe.title}</Link>
+                    <Link to={`/recipes/${recipe.recipe_id}`}>{recipe.title}</Link>
                   </span>
                 </div>
               ))

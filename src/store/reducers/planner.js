@@ -11,14 +11,13 @@ import convertPlannerToUrl from '../../utils/publicPlanner/convertPlannerToUrl';
 // flatten this (?)
 const initialState = {
   isLoading: false,
+  creating: false,
+
+  editingId: "",
+  publicUrl: "",
 
   expanded: false,
   expandedDay: "none",
-
-  publicUrl: "",
-
-  creating: false,
-  editingId: "",
   planName: "",
   recipeListsInsideDays: {
     1: [],
@@ -126,7 +125,10 @@ const setPlanName = (state, action) => ({...state, ...{planName: action.name}});
 
 const setEditingId = (state, action) => ({...state, ...{editingId: action.id}});
 
-const setPlanData = (state, action) => ({...state, ...{planData: action.data}});
+const setPlanData = (state, action) => ({
+  ...state,
+  ...{recipeListsInsideDays: action.data}
+});
 
 
 

@@ -52,6 +52,8 @@ export {
   plannerReorderRecipeInDay,
   plannerPublicLoadFromUrl,
   plannerPublicSaveToUrl,
+  plannerViewClickDay,
+  plannerPrivateLoad,
   plannerClearWork,
   plannerSetCreating,
   plannerSetEditingId,

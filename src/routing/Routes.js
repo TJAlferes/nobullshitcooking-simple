@@ -215,17 +215,20 @@ const RoutesList = () => (
       <AppliedRoute path="/plan" exact component={PlanPage} />  {/* for demo/public purposes */}
       <AuthenticatedRoute path="/user/plan/edit/:id" exact component={UserNewPlanPage} childProps={{editing: "true"}} />
       <AuthenticatedRoute path="/user/plan/submit" exact component={UserNewPlanPage} />
-      <AuthenticatedRoute path="/user/plan/:id" exact component={UserPlanPage} />  {/* take away dnd capability */}
+      <AuthenticatedRoute path="/user/plan/:id" exact component={UserPlanPage} />  {/* no dnd capability, just for viewing their own plan */}
 
       <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
       <AuthenticatedRoute path="/user/recipes/private/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "private"}} />
       <AuthenticatedRoute path="/user/recipes/public/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "public"}} />
+      <AuthenticatedRoute path="/user/recipes/:id" exact component={Recipe} />  {/* for viewing their own private recipe */}
 
       <AuthenticatedRoute path="/user/equipment/submit" exact component={UserNewEquipment} />
       <AuthenticatedRoute path="/user/equipment/edit/:id" exact component={UserNewEquipment} childProps={{editing: "true"}} />
+      <AuthenticatedRoute path="/user/equipment/:id" exact component={Equipment} />  {/* for viewing their own private equipment */}
 
       <AuthenticatedRoute path="/user/ingredients/submit" exact component={UserNewIngredient} />
       <AuthenticatedRoute path="/user/ingredients/edit/:id" exact component={UserNewIngredient} childProps={{editing: "true"}} />
+      <AuthenticatedRoute path="/user/ingredients/:id" exact component={Ingredient} />  {/* for viewing their own private ingredient */}
 
 
 

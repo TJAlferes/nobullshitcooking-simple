@@ -31,6 +31,7 @@ class Plan extends Component {
 
   render() {
     const {
+      dataRecipes,
       expanded,
       expandedDay,
       publicUrl,
@@ -94,7 +95,7 @@ class Plan extends Component {
             </div>
             <PlannerRecipesList
               day="0"
-              list={props.dataRecipes.map(recipe => ({
+              list={dataRecipes.map(recipe => ({
                 key: uuidv4(),
                 id: recipe.recipe_id,
                 text: recipe.title,
@@ -109,11 +110,11 @@ class Plan extends Component {
 }
 
 const mapStateToProps = state => ({
+  dataRecipes: state.data.recipes,
   expanded: state.planner.expanded,
   expandedDay: state.planner.expandedDay,
   publicUrl: state.planner.publicUrl,
-  recipeListsInsideDays: state.planner.recipeListsInsideDays,
-  dataRecipes: state.data.recipes
+  recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -88,8 +88,8 @@ export const getCroppedTinyImage = async (image, crop, fileName) => {
   const canvas = document.createElement("canvas");
   const scaleX = image.naturalWidth / image.width;
   const scaleY = image.naturalHeight / image.height;
-  canvas.width = 25;
-  canvas.height = 25;
+  canvas.width = 28;
+  canvas.height = 18;
   const ctx = canvas.getContext("2d");
 
   ctx.drawImage(
@@ -100,8 +100,8 @@ export const getCroppedTinyImage = async (image, crop, fileName) => {
     crop.height * scaleY,
     0,
     0,
-    25,
-    25
+    28,
+    18
   );
 
   const resizedTinyPreview = await new Promise((resolve, reject) => {

@@ -49,6 +49,17 @@ export const plannerPublicSaveToUrl = () => ({
 Planner -- for logged in users
 */
 
+export const plannerViewClickDay = day => ({
+  type: actionTypes.PLANNER_VIEW_CLICK_DAY,
+  day
+});
+
+export const plannerPrivateLoad = (planName, planData) => ({
+  type: actionTypes.PLANNER_PRIVATE_LOAD,
+  planName,
+  planData
+});
+
 export const plannerClearWork = () => ({type: actionTypes.PLANNER_CLEAR_WORK});
 
 export const plannerSetCreating = () => ({type: actionTypes.PLANNER_SET_CREATING});

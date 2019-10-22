@@ -75,7 +75,10 @@ const Recipe = props => {
       return "Unknown";
     } else {
       return (
-        <Link to={`/user/profile/${recipe.recipe[0].authorName}`}>
+        <Link
+          className="recipe-details__author-name"
+          to={`/user/profile/${recipe.recipe[0].authorName}`}
+        >
           {recipe.recipe[0].authorName}
         </Link>
       );
@@ -190,9 +193,12 @@ const Recipe = props => {
               <div className="recipe-details__equipment-image">
                 <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${recipe.recipe[0].recipeEquipmentImage}`} />
               </div>
-              <div className="recipe-details__required-equipment">
+              <div className="recipe-details__required-equipments">
                 {recipe.requiredEquipment && recipe.requiredEquipment.map(equ => (
-                  <div key={equ.equipmentName}>
+                  <div
+                    className="recipe-details__required-equipment"
+                    key={equ.equipmentName}
+                  >
                     {equ.amount}{' '}{equ.equipmentName}
                   </div>
                 ))}
@@ -206,15 +212,24 @@ const Recipe = props => {
               </div>
               <div className="recipe-details__required-ingredients">
                 {recipe.requiredIngredients && recipe.requiredIngredients.map(ing => (
-                  <div key={ing.ingredientName}>
+                  <div
+                    className="recipe-details__required-ingredient"
+                    key={ing.ingredientName}
+                  >
                     {ing.amount}{' '}{ing.measurementName}{' '}{ing.ingredientName}
                   </div>
                 ))}
               </div>
+
+
+
               <div className="recipe-details__required-subrecipes">
-                {recipe.requiredSubrecipes.length && <h2>Required Subrecipes</h2>}
-                {recipe.requiredSubrecipes && recipe.requiredSubrecipes.map(rec => (
-                  <div key={rec.subrecipeTitle}>
+                {recipe.requiredSubrecipes.length > 0 && <h2>Required Subrecipes</h2>}
+                {recipe.requiredSubrecipes.length > 0 && recipe.requiredSubrecipes.map(rec => (
+                  <div
+                    className="recipe-details__required-subrecipe"
+                    key={rec.subrecipeTitle}
+                  >
                     {rec.amount}{' '}{rec.measurementName}{' '}{rec.subrecipeTitle}
                   </div>
                 ))}

@@ -101,11 +101,14 @@ const UserNewPlan = props => {
     history.push('/user/dashboard');
   };
 
-  const getPlanData = () => props.recipeListsInsideDays;  // not done; clean/format? ***
+  const getPlanData = () => {
+    // not done; clean/format? *** keys???
+    return JSON.stringify(props.recipeListsInsideDays);
+  };
 
   const valid = () => {
-    validPlanName = props.planName.trim() !== "";
-    validPlanNameLength = props.planName.trim().length < 21;
+    let validPlanName = props.planName.trim() !== "";
+    let validPlanNameLength = props.planName.trim().length < 21;
 
     if (!validPlanName) {
       window.scrollTo(0,0);

@@ -581,7 +581,7 @@ const UserDashboard = props => {
                       <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
                     </span>
                     <span className="dashboard-content-item-name">
-                      <Link to={`/user/recipes/${recipe.recipe_id}`}>
+                      <Link to={`/recipes/${recipe.recipe_id}`}>
                         {recipe.title}
                       </Link>
                     </span>
@@ -620,7 +620,7 @@ const UserDashboard = props => {
                       <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
                     </span>
                     <span className="dashboard-content-item-name">
-                      <Link to={`/user/recipes/${recipe.recipe_id}`}>
+                      <Link to={`/recipes/${recipe.recipe_id}`}>
                         {recipe.title}
                       </Link>
                     </span>
@@ -654,7 +654,7 @@ const UserDashboard = props => {
                       <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
                     </span>
                     <span className="dashboard-content-item-name">
-                      <Link to={`/user/recipes/${recipe.recipe_id}`}>
+                      <Link to={`/recipes/${recipe.recipe_id}`}>
                         {recipe.title}
                       </Link>
                     </span>

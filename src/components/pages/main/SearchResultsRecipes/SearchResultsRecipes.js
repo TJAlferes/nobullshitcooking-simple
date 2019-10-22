@@ -174,10 +174,24 @@ const SearchResultsRecipes = props => {
 
                     <div className="search-result-recipe-text__tags">
                       <div className="search-result-recipe-text__tags-methods">
-                        {rows[8] && rows[8][1].raw}
+                        {rows[8] && rows[8][1].raw.map(method => (
+                          <span
+                            className="search-result-recipe-text__tags-method"
+                            key={method}
+                          >
+                            {method}
+                          </span>
+                        ))}
                       </div>
                       <div className="search-result-recipe-text__tags-ingredients">
-                        {rows[10] && rows[10][1].raw}
+                        {rows[10] && rows[10][1].raw.map(ingredient => (
+                          <span
+                            className="search-result-recipe-text__tags-ingredient"
+                            key={ingredient}
+                          >
+                            {ingredient}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   </div>

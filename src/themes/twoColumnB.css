@@ -91,13 +91,17 @@
   color: #000;
 }
 
-.two-column-b-light .search-result-recipe-text__tags-methods,
+.two-column-b-light .search-result-recipe-text__tags-method,
 .two-column-b-light .recipe-details__required-method {
   background-color: #cfcfcf;
 }
 
-.two-column-b-light .search-result-recipe-text__tags-ingredients {
+.two-column-b-light .search-result-recipe-text__tags-ingredient {
   background-color: #dedede;
+}
+
+.two-column-b-light .recipe-details__author-name:hover {
+  color: #c10006;
 }
 
 
@@ -160,11 +164,15 @@
   color: #aaa;
 }
 
-.two-column-b-dark .search-result-recipe-text__tags-methods,
+.two-column-b-dark .search-result-recipe-text__tags-method,
 .two-column-b-dark .recipe-details__required-method {
   background-color: #555;
 }
 
-.two-column-b-dark .search-result-recipe-text__tags-ingredients {
+.two-column-b-dark .search-result-recipe-text__tags-ingredient {
   background-color: #444;
+}
+
+.two-column-b-dark .recipe-details__author-name:hover {
+  color: #690004;
 }
