@@ -29,7 +29,7 @@ function collect(connect, monitor) {
 }
 
 const PlannerRecipesList = ({ day, list, connectDropTarget }) => (
-  <div id="planner_recipes_list" ref={connectDropTarget}>
+  <div className="planner-recipes-list" ref={connectDropTarget}>
     {list.map((recipe, i) => (
       <PlannerRecipe
         className="planner_recipe"

@@ -84,7 +84,9 @@ const PlannerRecipe = forwardRef(
 
     return (
       <div className="planner_recipe" ref={elementRef}>
-        <div className="planner_recipe_image"><img src={recipe.image} /></div>
+        <div className="planner_recipe_image">
+          <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.image}-tiny`} />
+        </div>
         <div className="planner_recipe_text">{recipe.text}</div>
       </div>
     );

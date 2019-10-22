@@ -47,6 +47,16 @@
   color: #000;
 }
 
+.two-column-a-light .user-new-plan__name-label {
+  color: #777;
+}
+
+.two-column-a-light .user-new-plan__name-input {
+  border-color: #bbb;
+  background-color: #fff;
+  color: #000;
+}
+
 .two-column-a-light .monthly-plan__header,
 .two-column-a-light .monthly-plan__header-day {
   background-color: #b1d7f9;
@@ -166,6 +176,16 @@
 .two-column-a-dark section {
   background-color: #222;
   color: #aaa;
+}
+
+.two-column-a-dark .user-new-plan__name-label {
+  color: #999;
+}
+
+.two-column-a-dark .user-new-plan__name-input {
+  border-color: #666;
+  background-color: #1e1e1e;
+  color: #bbb;
 }
 
 .two-column-a-dark .monthly-plan__header,

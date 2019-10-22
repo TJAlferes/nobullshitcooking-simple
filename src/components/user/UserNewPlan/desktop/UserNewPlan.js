@@ -7,6 +7,7 @@ const uuidv4 = require('uuid/v4');
 
 import {
   plannerClearWork,
+  plannerSetCreating,
   plannerSetEditingId,
   plannerSetPlanName,
   plannerSetPlanData,
@@ -52,6 +53,8 @@ const UserNewPlan = props => {
 
     if (props.childProps && props.childProps.editing === "true") {
       getExistingPlanToEdit();
+    } else {
+      props.plannerSetCreating();
     }
   }, []);
 
@@ -73,7 +76,15 @@ const UserNewPlan = props => {
   const handlePlanNameChange = e => {
     e.preventDefault();
     e.stopPropagation();
-    props.plannerSetPlanName((e.target.value).trim());
+
+    if (e.target.value.trim().length > 20) {
+      window.scrollTo(0,0);
+      setFeedback("Please keep your plan name under 20 characters");
+      setTimeout(() => setFeedback(""), 3000);
+      return;
+    }
+
+    props.plannerSetPlanName(e.target.value);
   };
 
   const handleTabClick = e => setTab(e.target.name);
@@ -94,15 +105,23 @@ const UserNewPlan = props => {
 
   const valid = () => {
     validPlanName = props.planName.trim() !== "";
+    validPlanNameLength = props.planName.trim().length < 21;
 
     if (!validPlanName) {
       window.scrollTo(0,0);
-      setMessage("Umm, double check your name...");
-      setTimeout(() => setMessage(""), 3000);
+      setFeedback("You forgot to name your plan...");
+      setTimeout(() => setFeedback(""), 3000);
       return false;
     }
 
-    return validPlanName;
+    if (!validPlanNameLength) {
+      window.scrollTo(0,0);
+      setFeedback("Please keep your plan name under 20 characters");
+      setTimeout(() => setFeedback(""), 3000);
+      return false;
+    }
+
+    return validPlanName && validPlanNameLength;
   };
 
   const handleSubmit = () => {
@@ -400,6 +419,7 @@ const mapDispatchToProps = dispatch => ({
   userCreateNewPlan: (planInfo) => dispatch(userCreateNewPlan(planInfo)),
   userEditPlan: (planInfo) => dispatch(userEditPlan(planInfo)),
   plannerClearWork: () => dispatch(plannerClearWork()),
+  plannerSetCreating: () => dispatch(plannerSetCreating()),
   plannerSetEditingId: (id) => dispatch(plannerSetEditingId(id)),
   plannerSetPlanName: (name) => dispatch(plannerSetPlanName(name)),
   plannerSetPlanData: (data) => dispatch(plannerSetPlanData(data))

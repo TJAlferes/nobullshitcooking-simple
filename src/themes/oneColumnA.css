@@ -25,8 +25,7 @@ light
 
 .one-column-a-light select,
 .one-column-a-light input,
-.one-column-a-light textarea
- {
+.one-column-a-light textarea {
   border-color: #bbb;
   background-color: #fff;
   color: #000;

@@ -2,6 +2,16 @@
 
 }*/
 
+.user-new-plan__error-message {
+  display: block;
+  width: 100%;
+  height: 31px;
+  color: #c10006;
+  text-align: center;
+  font-family: Arial;
+  font-size: 14px;
+}
+
 .user-new-plan__hr {
   width: 100%;
   height: 1px;
@@ -9,10 +19,82 @@
   margin-bottom: 10px;
 }
 
+.user-new-plan__name {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin-bottom: 10px;
+}
 
+.user-new-plan__name-label {
+  order: 1;
+  display: block;
+  margin-right: 5px;
+  line-height: 30px;
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.user-new-plan__name-input {
+  order: 2;
+  display: block;
+  width: 685px;
+  height: 31px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  padding: 3px 7px 3px 7px;
+}
+
+.user-new-plan__calendar-container {
+  width: 100%;
+  height: 480px;
+  margin: 0 auto 0 auto;
+}
+
+.user-new-plan__monthly-plan {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
 
 .monthly-plan {
   order: 1;
+  width: 756px;
+  height: 321px;
+  max-height: 321px;
+}
+
+.monthly-plan__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 1px;
+  width: 100%;
+  height: 20px;
+}
+
+.monthly-plan__header-day {
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.monthly-plan__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 1px;
+  width: 100%;
+  min-height: 300px;
+  height: 300px;
+  max-height: 300px;
+}
+
+.monthly-plan__body-day {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* :after? */
@@ -106,13 +188,13 @@
 
 .planner-recipes-list-tabs {
   width: 755px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   border-bottom: 2px solid #6cabe4;
 }
 
 .planner-recipes-list-tab {
   width: 151px;
-  height: 20px;
+  height: 30px;
   padding-left: 8px;
   padding-right: 8px;
   border-style: solid;

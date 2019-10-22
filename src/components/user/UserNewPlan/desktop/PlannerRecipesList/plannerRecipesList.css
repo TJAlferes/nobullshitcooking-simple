@@ -1,12 +1,16 @@
-#planner_recipes_list {
-  width: 757px;
+.planner-recipes-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 756px;
   height: 125px;
-  margin-top: 12px;
   border: 1px solid #bfbfbf;
   padding: 6px;
+  overflow-y: scroll;
 }
 
-#planner_recipes_list #planner_recipe {
+.planner-recipes-list #planner_recipe {
   display: inline-block;
   margin: 6px 1px;
 }

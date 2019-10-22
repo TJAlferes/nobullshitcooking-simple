@@ -17,6 +17,7 @@ const initialState = {
 
   publicUrl: "",
 
+  creating: false,
   editingId: "",
   planName: "",
   recipeListsInsideDays: {
@@ -119,6 +120,8 @@ const publicSaveToUrl = (state, action) => {
 
 const clearWork = (state, action) => ({...state, ...initialState});
 
+const setCreating = (state, action) => ({...state, ...{creating: true}});
+
 const setPlanName = (state, action) => ({...state, ...{planName: action.name}});
 
 const setEditingId = (state, action) => ({...state, ...{editingId: action.id}});
@@ -139,6 +142,7 @@ const plannerReducer = (state = initialState, action) => {
     case actionTypes.PLANNER_PUBLIC_SAVE_TO_URL: return publicSaveToUrl(state, action);
 
     case actionTypes.PLANNER_CLEAR_WORK: return clearWork(state, action);
+    case actionTypes.PLANNER_SET_CREATING: return setCreating(state, action);
     case actionTypes.PLANNER_SET_PLAN_NAME: return setPlanName(state, action);
     case actionTypes.PLANNER_SET_EDITING_ID: return setEditingId(state, action);
     case actionTypes.PLANNER_SET_PLAN_DATA: return setPlanData(state, action);

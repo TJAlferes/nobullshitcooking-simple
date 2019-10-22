@@ -51,6 +51,8 @@ Planner -- for logged in users
 
 export const plannerClearWork = () => ({type: actionTypes.PLANNER_CLEAR_WORK});
 
+export const plannerSetCreating = () => ({type: actionTypes.PLANNER_SET_CREATING});
+
 export const plannerSetEditingId = id => ({
   type: actionTypes.PLANNER_SET_EDITING_ID,
   id

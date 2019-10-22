@@ -213,9 +213,9 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/user/messenger" exact component={UserMessengerPage} />
 
       <AppliedRoute path="/plan" exact component={PlanPage} />  {/* for demo/public purposes */}
-      <AuthenticatedRoute path="/user/plan/:id" exact component={UserPlanPage} />  {/* take away dnd capability, have "Change/Edit" button */}
-      <AuthenticatedRoute path="/user/plan/submit" exact component={UserNewPlanPage} />  {/* have "Cancel" and "Create" buttons */}
-      <AuthenticatedRoute path="/user/plan/edit/:id" exact component={UserNewPlanPage} childProps={{editing: "true"}} />  {/* have "Cancel" and "Update" buttons */}
+      <AuthenticatedRoute path="/user/plan/edit/:id" exact component={UserNewPlanPage} childProps={{editing: "true"}} />
+      <AuthenticatedRoute path="/user/plan/submit" exact component={UserNewPlanPage} />
+      <AuthenticatedRoute path="/user/plan/:id" exact component={UserPlanPage} />  {/* take away dnd capability */}
 
       <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
       <AuthenticatedRoute path="/user/recipes/private/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "private"}} />
