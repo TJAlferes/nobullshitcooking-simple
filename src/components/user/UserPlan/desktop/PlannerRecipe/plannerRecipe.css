@@ -16,7 +16,7 @@
   font-size: 11px;
   overflow: hidden;
   box-shadow: 1px 1px 1px #999;
-  cursor: move;
+  cursor: pointer;
 }
 
 /*.planner_recipe image {

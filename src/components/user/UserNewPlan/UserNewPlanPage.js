@@ -8,12 +8,25 @@ const UserNewPlanPage = props => (
   <div className="user-new-plan-page">
     <div className="mobile_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <MobileUserNewPlanToggle className="mobile_display" />
+        <MobileUserNewPlanToggle
+          className="mobile_display"
+          editing={
+            (props.childProps && props.childProps.editing) &&
+            props.childProps.editing
+          }
+        />
       </Suspense>
     </div>
     <div className="desktop_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <UserNewPlan className="desktop_display" twoColumnATheme={props.twoColumnATheme} />
+        <UserNewPlan
+          className="desktop_display"
+          twoColumnATheme={props.twoColumnATheme}
+          editing={
+            (props.childProps && props.childProps.editing) &&
+            props.childProps.editing
+          }
+        />
       </Suspense>
     </div>
   </div>

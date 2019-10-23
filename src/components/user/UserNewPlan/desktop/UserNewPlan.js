@@ -36,24 +36,27 @@ const UserNewPlan = props => {
 
   useEffect(() => {
     const getExistingPlanToEdit = () => {
-      if (props.editingId !== "") return;
+      //if (props.childProps.editing !== "true") return;
 
       window.scrollTo(0,0);
       setLoading(true);
       setEditing(true);
 
       const [ prev ] = props.dataMyPlans
-      .filter(plan => plan.plan_id === props.match.params.id)
+      .filter(plan => plan.plan_id === Number(props.match.params.id));
+      console.log(prev);
 
       props.plannerSetEditingId(Number(prev.plan_id));
       props.plannerSetPlanName(prev.plan_name);
-      props.plannerSetPlanData(JSON.parse(prev.plan_data)); 
+      props.plannerSetPlanData(prev.plan_data);
       setLoading(false);
     };
 
-    if (props.childProps && props.childProps.editing === "true") {
+    if (props.editing && props.editing === "true") {
+      props.plannerClearWork();
       getExistingPlanToEdit();
     } else {
+      props.plannerClearWork();
       props.plannerSetCreating();
     }
   }, []);
@@ -67,7 +70,10 @@ const UserNewPlan = props => {
         props.feedback === "Plan created." ||
         props.feedback === "Plan updated."
       ) {
-        setTimeout(() => history.push('/user/dashboard'), 3000);
+        setTimeout(() => {
+          props.plannerClearWork();
+          history.push('/user/dashboard');
+        }, 3000);
       }
     }
     return () => isSubscribed = false;
@@ -208,7 +214,10 @@ const UserNewPlan = props => {
             <div className="expanded-day-container">
               <PlannerExpandedDay
                 day={props.expandedDay}
-                list={(props.expanded) ? props.recipeListsInsideDays[props.expandedDay] : []}
+                list={(props.expanded)
+                  ? props.recipeListsInsideDays[props.expandedDay]
+                  : []
+                }
                 expanded={props.expanded}
                 expandedDay={props.expandedDay}
               />

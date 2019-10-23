@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AriaModal from 'react-aria-modal';
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
@@ -23,6 +24,7 @@ import './userDashboard.css';
 const UserDashboard = props => {
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
+
   const [ crop, setCrop ] = useState({
     disabled: true,
     locked: true,
@@ -35,8 +37,13 @@ const UserDashboard = props => {
   const [ avatar, setAvatar ] = useState(null);
   const [ fullAvatar, setFullAvatar ] = useState(null);
   const [ tinyAvatar, setTinyAvatar ] = useState(null);
+
   const [ tab, setTab ] = useState("plans");
   const [ subTab, setSubTab ] = useState("private");
+
+  const [ deletePlanId, setDeletePlanId ] = useState("");
+  const [ deletePlanName, setDeletePlanName ] = useState("");
+  const [ deletePlanModalActive, setDeletePlanModalActive ] = useState(false);
 
   const imageRef = useRef(null);
 
@@ -187,15 +194,32 @@ const UserDashboard = props => {
 
   const handleSubTabClick = e => setSubTab(e.target.name);
 
-  const handleDeletePlan = id => {
+  const activateDeletePlanModal = (id, name) => {
+    setDeletePlanId(Number(id));
+    setDeletePlanName(name);
+    setDeletePlanModalActive(true);
+  };
+
+  const deactivateDeletePlanModal = () => {
+    setDeletePlanId("");
+    setDeletePlanName("");
+    setDeletePlanModalActive(false);
+  };
+
+  const getApplicationNode = () => document.getElementById('root');
+
+  const handleDeletePlan = () => {
     setLoading(true);
     try {
-      props.userDeletePlan(id);
+      props.userDeletePlan(Number(deletePlanId));
     } catch(err) {
       setLoading(false);
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
+      setDeletePlanId("");
+      setDeletePlanName("");
+      setDeletePlanModalActive(false);
     }
   };
 
@@ -208,6 +232,7 @@ const UserDashboard = props => {
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
+      setModalActive(false);
     }
   };
 
@@ -220,6 +245,7 @@ const UserDashboard = props => {
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
+      setModalActive(false);
     }
   };
 
@@ -256,6 +282,7 @@ const UserDashboard = props => {
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
+      setModalActive(false);
     }
   };
 
@@ -268,6 +295,7 @@ const UserDashboard = props => {
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
+      setModalActive(false);
     }
   };
 
@@ -475,19 +503,49 @@ const UserDashboard = props => {
                 </Link>
               }
               {
-                props.creatingPlan &&
+                (props.creatingPlan && !props.editingId) &&
                 <Link className="create-new-entity" to="/user/plan/submit">
                   Finish Creating Plan
                 </Link>
               }
               {
-                props.editingId &&
+                (!props.creatingPlan && props.editingId) &&
                 <Link
                   className="create-new-entity"
                   to={`/user/plan/edit/${props.editingId}`}
                 >
                   Finish Updating Plan
                 </Link>
+              }
+              {
+                deletePlanModalActive
+                ? (
+                  <AriaModal
+                    dialogClass="plan-delete-modal"
+                    titleText="Cancel?"
+                    onExit={deactivateDeletePlanModal}
+                    focusDialog="true"
+                    getApplicationNode={getApplicationNode}
+                    focusTrapOptions={{returnFocusOnDeactivate: false}}
+                  >
+                    <p className="plan-delete-prompt">
+                      {'Delete Plan: '}{deletePlanName}{' ?'}
+                    </p>
+                    <button
+                      className="plan-delete-cancel-button"
+                      onClick={deactivateDeletePlanModal}
+                    >
+                      No
+                    </button>
+                    <button
+                      className="plan-delete-button"
+                      onClick={handleDeletePlan}
+                    >
+                      Yes, Delete Plan
+                    </button>
+                  </AriaModal>
+                )
+                : false
               }
               {
                 props.myPlans.length
@@ -506,12 +564,15 @@ const UserDashboard = props => {
                         </Link>
                       </span>
                     }
-                    <span
-                      className="dashboard-content-item-delete"
-                      onClick={() => handleDeletePlan(plan.plan_id)}
-                    >
-                      Delete
-                    </span>
+                    {
+                      (!props.creatingPlan && !props.editingId) &&
+                      <span
+                        className="dashboard-content-item-delete"
+                        onClick={() => activateDeletePlanModal(plan.plan_id, plan.plan_name)}
+                      >
+                        Delete
+                      </span>
+                    }
                   </div>
                 ))
                 : (
@@ -625,7 +686,7 @@ const UserDashboard = props => {
                       </Link>
                     </span>
                     <span
-                      className="dashboard-content-item-delete"
+                      className="dashboard-content-item-unfavorite"
                       onClick={() => handleUnfavoriteRecipe(recipe.recipe_id)}
                     >
                       Unfavorite

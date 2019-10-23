@@ -31,40 +31,39 @@ const UserPlan = props => {
   }, []);
 
   return (
-    <div className={`desktop-planner two-column-a ${props.twoColumnATheme}`}>
+    <div className={`user-plan two-column-a ${props.twoColumnATheme}`}>
 
       <LeftNav />
 
       <section>
 
-        <div className="planner-header">
+        <div className="user-plan__header">
           <h1>Plan</h1>
-          <div className="planner-name">
-            <label className="planner-name-label">Plan Name:</label>
-            <span className="planner-name-input">
-              {props.planName}
-            </span>
+          <div className="user-plan__name">
+            <label className="user-plan__name-label">Plan Name:</label>
+            <span className="user-plan__name-value">{props.planName}</span>
           </div>
         </div>
 
-        <hr className="planner-hr" />
+        <hr className="user-plan__hr" />
 
-        <div id="calendar_container">
-          <div id="monthly_plan">
-            <div id="table">
-              <div id="thead">
-                <span className="th">Sunday</span>
-                <span className="th">Monday</span>
-                <span className="th">Tuesday</span>
-                <span className="th">Wednesday</span>
-                <span className="th">Thursday</span>
-                <span className="th">Friday</span>
-                <span className="th">Saturday</span>
+        <div className="user-plan__calendar-container">
+
+          <div className="user-plan__monthly-plan">
+            <div className="monthly-plan">
+              <div className="monthly-plan__header">
+                <span className="monthly-plan__header-day">Sunday</span>
+                <span className="monthly-plan__header-day">Monday</span>
+                <span className="monthly-plan__header-day">Tuesday</span>
+                <span className="monthly-plan__header-day">Wednesday</span>
+                <span className="monthly-plan__header-day">Thursday</span>
+                <span className="monthly-plan__header-day">Friday</span>
+                <span className="monthly-plan__header-day">Saturday</span>
               </div>
-              <div id="tbody">
+              <div className="monthly-plan__body">
                 {Object.keys(props.recipeListsInsideDays).map((recipeList, i) => (
-                  <div key={i} className="td">
-                    <div className="content">
+                  <div key={i} className="monthly-plan__body-day">
+                    <div className="body-day__content">
                       <PlannerDay
                         day={i + 1}
                         list={props.recipeListsInsideDays[recipeList]}
@@ -76,7 +75,8 @@ const UserPlan = props => {
                 ))}
               </div>
             </div>
-            <div id="expanded_day_area">
+            
+            <div className="expanded-day-container">
               <PlannerExpandedDay
                 day={props.expandedDay}
                 list={(props.expanded)
@@ -88,6 +88,7 @@ const UserPlan = props => {
               />
             </div>
           </div>
+
         </div>
 
       </section>

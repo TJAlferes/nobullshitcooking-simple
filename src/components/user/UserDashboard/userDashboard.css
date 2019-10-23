@@ -220,7 +220,13 @@
   text-align: center;
 }
 
-.dashboard-content-item-delete {
+.dashboard-content-item-unfavorite {
+  width: 95px;
+  text-align: center;
+}
+
+.dashboard-content-item-delete,
+.dashboard-content-item-unfavorite {
   height: 19px;
   margin-right: 1px;
   border: 1px solid #aaa;
@@ -268,10 +274,10 @@
     margin: 0 auto;
   }
 
-  .dashboard-menu-tabs,
-  .dashboard-menu-subtabs {
-    width: 235px;
-    margin: 0 auto;
+  .dashboard-menu-tab,
+  .dashboard-menu-subtab {
+    width: 25%;
+    padding: 0;
   }
 
   .create-new-entity {
@@ -280,7 +286,18 @@
 
   .dashboard-content-item-action,
   .dashboard-content-item-delete {
-    width: 44px;
+    width: 54px;
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+
+  /*.dashboard-content-item-disown,
+  .dashboard-content-item-unsave {
+
+  }*/
+
+  .dashboard-content-item-unfavorite {
+    width: 74px;
     padding-right: 2px;
     padding-left: 2px;
   }
