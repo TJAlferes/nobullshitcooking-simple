@@ -42,12 +42,12 @@ const UserNewPlan = props => {
       setLoading(true);
       setEditing(true);
 
-      const prev = props.dataMyPlans
+      const [ prev ] = props.dataMyPlans
       .filter(plan => plan.plan_id === props.match.params.id)
 
-      props.plannerSetEditingId(prev.plan_id);
+      props.plannerSetEditingId(Number(prev.plan_id));
       props.plannerSetPlanName(prev.plan_name);
-      props.plannerSetPlanData(prev.plan_data);
+      props.plannerSetPlanData(JSON.parse(prev.plan_data)); 
       setLoading(false);
     };
 

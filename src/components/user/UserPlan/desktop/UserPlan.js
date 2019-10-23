@@ -18,11 +18,9 @@ const UserPlan = props => {
   useEffect(() => {
     const getPlan = () => {
       window.scrollTo(0,0);
-      setLoading(true);
-      const prev = props.dataMyPlans
-      .filter(plan => plan.plan_id === props.match.params.id)
-      props.plannerPrivateLoad(prev.plan_name, JSON.parse(prev.plan_data)); 
-      setLoading(false);
+      const [ prev ] = props.dataMyPlans
+      .filter(plan => plan.plan_id === Number(props.match.params.id));
+      props.plannerPrivateLoad(prev.plan_name, prev.plan_data);
     };
 
     if (props.match.params.id) {
@@ -41,15 +39,11 @@ const UserPlan = props => {
 
         <div className="planner-header">
           <h1>Plan</h1>
-          <p className="error-message">{feedback}</p>
           <div className="planner-name">
             <label className="planner-name-label">Plan Name:</label>
-            <input
-              className="planner-name-input"
-              type="text"
-              onChange={handlePlanNameChange}
-              value={props.planName}
-            />
+            <span className="planner-name-input">
+              {props.planName}
+            </span>
           </div>
         </div>
 
@@ -103,6 +97,7 @@ const UserPlan = props => {
 };
 
 const mapStateToProps = state => ({
+  dataMyPlans: state.data.myPlans,
   expanded: state.plannerView.expanded,
   expandedDay: state.plannerView.expandedDay,
   planName: state.plannerView.planName,

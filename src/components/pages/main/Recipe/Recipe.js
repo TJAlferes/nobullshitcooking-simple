@@ -46,7 +46,6 @@ const Recipe = props => {
     try {
       props.userFavoriteRecipe(Number(id));
     } catch(err) {
-      console.log(err);
       setLoading(false);
       window.scrollTo(0,0);
     } finally {
@@ -61,7 +60,6 @@ const Recipe = props => {
     try {
       props.userSaveRecipe(Number(id));
     } catch(err) {
-      console.log(err);
       setLoading(false);
       window.scrollTo(0,0);
     } finally {
@@ -99,7 +97,7 @@ const Recipe = props => {
 
               <p className="recipe-details__error-message">{message}</p>
 
-              <div className="favorite-save-outer">
+              <div className="recipe-details__favorite-save-outer">
                 {
                   (
                     props.isAuthenticated &&
@@ -114,14 +112,26 @@ const Recipe = props => {
                     props.dataMyFavoriteRecipes.find(
                       rec => rec.recipe_id == props.match.params.id
                     )
-                    ? <span>Favorited</span>
+                    ? (
+                      <span className="recipe-details__favorited-saved">
+                        Favorited
+                      </span>
+                    )
                     : (
                       !favoriteClicked ? (
-                        <button onClick={handleFavoriteClick} disabled={loading}>
+                        <button
+                          className="recipe-details__favorite-save"
+                          onClick={handleFavoriteClick}
+                          disabled={loading}
+                        >
                           Favorite
                         </button>
                       )
-                      : <span>Favorited</span>
+                      : (
+                        <span className="recipe-details__favorited-saved">
+                          Favorited
+                        </span>
+                      )
                     )
                   )
                   : false
@@ -141,14 +151,26 @@ const Recipe = props => {
                     props.dataMySavedRecipes.find(
                       rec => rec.recipe_id == props.match.params.id
                     )
-                    ? <span>Saved</span>
+                    ? (
+                      <span className="recipe-details__favorited-saved">
+                        Saved
+                      </span>
+                    )
                     : (
                       !saveClicked ? (
-                        <button onClick={handleSaveClick} disabled={loading}>
+                        <button
+                          className="recipe-details__favorite-save"
+                          onClick={handleSaveClick}
+                          disabled={loading}
+                        >
                           Save
                         </button>
                       )
-                      : <span>Saved</span>
+                      : (
+                        <span className="recipe-details__favorited-saved">
+                          Saved
+                        </span>
+                      )
                     )
                   )
                   : false

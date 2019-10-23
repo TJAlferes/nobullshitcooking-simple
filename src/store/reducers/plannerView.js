@@ -57,8 +57,8 @@ const clickDay = (state, action) => {
 const privateLoad = (state, action) => ({
   ...state,
   ...{
-    viewPlanName: action.planName,
-    viewRecipeListsInsideDays: action.planData
+    planName: action.planName,
+    recipeListsInsideDays: action.planData
   }
 });
 

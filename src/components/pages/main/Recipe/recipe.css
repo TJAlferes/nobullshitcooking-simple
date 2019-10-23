@@ -15,6 +15,43 @@
   font-size: 13px;
 }
 
+.recipe-details__favorite-save-outer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.recipe-details__favorite-save {
+  margin-right: 17px;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 2px;
+  font-size: 12px;
+  background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
+  /*display: block;
+  width: 235px;
+  height: 30px;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 5px;
+  line-height: 26px;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Play', sans-serif;
+  color: #000;
+  background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);*/
+}
+
+.recipe-details__favorited-saved {
+  margin-right: 10px;
+  padding: 2px 3px;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .recipe-details__heading-two {
   padding-top: 18px;
   font-size: 1.7rem;
