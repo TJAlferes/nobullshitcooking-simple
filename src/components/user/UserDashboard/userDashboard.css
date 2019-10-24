@@ -237,6 +237,54 @@
   cursor: pointer;
 }
 
+.plan-delete-modal,
+.recipe-delete-modal,
+.recipe-disown-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*align-self: center;*/
+  width: 280px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.plan-delete-modal .plan-delete-cancel-button,
+.plan-delete-modal .plan-delete-button,
+.recipe-delete-modal .recipe-delete-cancel-button,
+.recipe-delete-modal .recipe-delete-button,
+.recipe-disown-modal .recipe-disown-cancel-button,
+.recipe-disown-modal .recipe-disown-button {
+  display: block;
+  width: 235px;
+  height: 30px;
+  /*margin-right: 30px;*/
+  margin: 0 auto;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 5px;
+  line-height: 26px;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Play', sans-serif;
+  color: black;
+  cursor: pointer;
+}
+
+.plan-delete-modal .plan-delete-button,
+.recipe-delete-modal .recipe-delete-button,
+.recipe-disown-modal .recipe-disown-button {
+  background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
+}
+
+.plan-delete-prompt,
+.recipe-delete-prompt,
+.recipe-disown-prompt {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 
 
 @media (max-width: 1209px) {

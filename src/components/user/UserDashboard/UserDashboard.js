@@ -45,6 +45,14 @@ const UserDashboard = props => {
   const [ deletePlanName, setDeletePlanName ] = useState("");
   const [ deletePlanModalActive, setDeletePlanModalActive ] = useState(false);
 
+  const [ deleteRecipeId, setDeleteRecipeId ] = useState("");
+  const [ deleteRecipeName, setDeleteRecipeName ] = useState("");
+  const [ deleteRecipeModalActive, setDeleteRecipeModalActive ] = useState(false);
+
+  const [ disownRecipeId, setDisownRecipeId ] = useState("");
+  const [ disownRecipeName, setDisownRecipeName ] = useState("");
+  const [ disownRecipeModalActive, setDisownRecipeModalActive ] = useState(false);
+
   const imageRef = useRef(null);
 
   useEffect(() => {
@@ -206,6 +214,30 @@ const UserDashboard = props => {
     setDeletePlanModalActive(false);
   };
 
+  const activateDeleteRecipeModal = (id, name) => {
+    setDeleteRecipeId(Number(id));
+    setDeleteRecipeName(name);
+    setDeleteRecipeModalActive(true);
+  };
+
+  const deactivateDeleteRecipeModal = () => {
+    setDeleteRecipeId("");
+    setDeleteRecipeName("");
+    setDeleteRecipeModalActive(false);
+  };
+
+  const activateDisownRecipeModal = (id, name) => {
+    setDisownRecipeId(Number(id));
+    setDisownRecipeName(name);
+    setDisownRecipeModalActive(true);
+  };
+
+  const deactivateDisownRecipeModal = () => {
+    setDisownRecipeId("");
+    setDisownRecipeName("");
+    setDisownRecipeModalActive(false);
+  };
+
   const getApplicationNode = () => document.getElementById('root');
 
   const handleDeletePlan = () => {
@@ -213,7 +245,6 @@ const UserDashboard = props => {
     try {
       props.userDeletePlan(Number(deletePlanId));
     } catch(err) {
-      setLoading(false);
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
@@ -223,29 +254,31 @@ const UserDashboard = props => {
     }
   };
 
-  const handleDeletePrivateRecipe = id => {
+  const handleDeletePrivateRecipe = () => {
     setLoading(true);
     try {
-      props.userDeletePrivateRecipe(id);
+      props.userDeletePrivateRecipe(Number(deleteRecipeId));
     } catch(err) {
-      setLoading(false);
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
-      setModalActive(false);
+      setDeleteRecipeId("");
+      setDeleteRecipeName("");
+      setDeleteRecipeModalActive(false);
     }
   };
 
-  const handleDisownPublicRecipe = id => {
+  const handleDisownPublicRecipe = () => {
     setLoading(true);
     try {
-      props.userDisownPublicRecipe(id);
+      props.userDisownPublicRecipe(Number(disownRecipeId));
     } catch(err) {
-      setLoading(false);
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
-      setModalActive(false);
+      setDisownRecipeId("");
+      setDisownRecipeName("");
+      setDisownRecipeModalActive(false);
     }
   };
 
@@ -254,7 +287,6 @@ const UserDashboard = props => {
     try {
       props.userUnfavoriteRecipe(id);
     } catch(err) {
-      setLoading(false);
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
@@ -266,7 +298,6 @@ const UserDashboard = props => {
     try {
       props.userUnsaveRecipe(id);
     } catch(err) {
-      setLoading(false);
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
@@ -278,7 +309,6 @@ const UserDashboard = props => {
     try {
       props.userDeletePrivateEquipment(id);
     } catch(err) {
-      setLoading(false);
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
@@ -291,7 +321,6 @@ const UserDashboard = props => {
     try {
       props.userDeletePrivateIngredient(id);
     } catch(err) {
-      setLoading(false);
       window.scrollTo(0,0);
     } finally {
       setLoading(false);
@@ -527,6 +556,7 @@ const UserDashboard = props => {
                     focusDialog="true"
                     getApplicationNode={getApplicationNode}
                     focusTrapOptions={{returnFocusOnDeactivate: false}}
+                    underlayClickExits={false}
                   >
                     <p className="plan-delete-prompt">
                       {'Delete Plan: '}{deletePlanName}{' ?'}
@@ -593,6 +623,37 @@ const UserDashboard = props => {
                 Create New Recipe
               </Link>
               {
+                deleteRecipeModalActive
+                ? (
+                  <AriaModal
+                    dialogClass="recipe-delete-modal"
+                    titleText="Cancel?"
+                    onExit={deactivateDeleteRecipeModal}
+                    focusDialog="true"
+                    getApplicationNode={getApplicationNode}
+                    focusTrapOptions={{returnFocusOnDeactivate: false}}
+                    underlayClickExits={false}
+                  >
+                    <p className="recipe-delete-prompt">
+                      {'Delete Recipe: '}{deleteRecipeName}{' ?'}
+                    </p>
+                    <button
+                      className="recipe-delete-cancel-button"
+                      onClick={deactivateDeleteRecipeModal}
+                    >
+                      No
+                    </button>
+                    <button
+                      className="recipe-delete-button"
+                      onClick={handleDeletePrivateRecipe}
+                    >
+                      Yes, Delete Recipe
+                    </button>
+                  </AriaModal>
+                )
+                : false
+              }
+              {
                 props.myPrivateRecipes.length
                 ? props.myPrivateRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
@@ -611,7 +672,7 @@ const UserDashboard = props => {
                     </span>
                     <span
                       className="dashboard-content-item-delete"
-                      onClick={() => handleDeletePrivateRecipe(recipe.recipe_id)}
+                      onClick={() => activateDeleteRecipeModal(recipe.recipe_id, recipe.title)}
                     >
                       Delete
                     </span>
@@ -635,6 +696,37 @@ const UserDashboard = props => {
                 Create New Recipe
               </Link>
               {
+                disownRecipeModalActive
+                ? (
+                  <AriaModal
+                    dialogClass="recipe-disown-modal"
+                    titleText="Cancel?"
+                    onExit={deactivateDisownRecipeModal}
+                    focusDialog="true"
+                    getApplicationNode={getApplicationNode}
+                    focusTrapOptions={{returnFocusOnDeactivate: false}}
+                    underlayClickExits={false}
+                  >
+                    <p className="recipe-disown-prompt">
+                      {'Disown Recipe: '}{disownRecipeName}{' ?'}
+                    </p>
+                    <button
+                      className="recipe-disown-cancel-button"
+                      onClick={deactivateDisownRecipeModal}
+                    >
+                      No
+                    </button>
+                    <button
+                      className="recipe-disown-button"
+                      onClick={handleDisownPublicRecipe}
+                    >
+                      Yes, Disown Recipe
+                    </button>
+                  </AriaModal>
+                )
+                : false
+              }
+              {
                 props.myPublicRecipes.length
                 ? props.myPublicRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
@@ -653,7 +745,7 @@ const UserDashboard = props => {
                     </span>
                     <span
                       className="dashboard-content-item-delete"
-                      onClick={() => handleDisownPublicRecipe(recipe.recipe_id)}
+                      onClick={() => activateDisownRecipeModal(recipe.recipe_id, recipe.title)}
                     >
                       Disown
                     </span>
