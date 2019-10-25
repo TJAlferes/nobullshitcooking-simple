@@ -54,8 +54,8 @@ const UserNewIngredient = props => {
       setLoading(true);
       setEditing(true);
 
-      const prev = props.dataMyPrivateIngredients
-      .filter((ing) => ing.ingredient_id === props.match.params.id);
+      const [ prev ] = props.dataMyPrivateIngredients
+      .filter((ing) => ing.ingredient_id === Number(props.match.params.id));
 
       setEditingId(prev.ingredient_id);
       setIngredientTypeId(prev.ingredient_type_id);
@@ -161,7 +161,7 @@ const UserNewIngredient = props => {
       ingredientDescription.trim() !== ""
     );
   };
- 
+
   const handleSubmit = () => {
     const ingredientInfo = {
       ingredientTypeId,
@@ -194,7 +194,9 @@ const UserNewIngredient = props => {
   return (
     <div className={`new-ingredient one-column-a ${props.oneColumnATheme}`}>
 
-      <h1>Create New Private Ingredient</h1>
+      <h1>
+        {editing ? 'Edit Private Ingredient' : 'Create New Private Ingredient'}
+      </h1>
 
       <p className="new-ingredient__error-message">{message}</p>
 
@@ -257,7 +259,9 @@ const UserNewIngredient = props => {
               onChange={onCropChange}
               onComplete={onCropComplete}
             />
-            <span>Move the crop to your desired position. These two images will be saved for you:</span>
+            <span className="new-ingredient__image-crop-tool-tip">
+              Move the crop to your desired position. These two images will be saved for you:
+            </span>
             <div className="new-ingredient__image-crop-previews">
               <div className="new-ingredient__image-crop-full-preview">
                 <span>Full Size: </span><img src={cropFullSizePreview} />

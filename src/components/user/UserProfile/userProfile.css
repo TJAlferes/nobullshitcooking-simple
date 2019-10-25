@@ -64,8 +64,8 @@
 }
 
 .profile-list-item-tiny {
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 18px;
   padding-left: 1px;
 }
 
@@ -81,4 +81,22 @@
 
 .profile-list-item-name a:visited {
   color: #68abe6;
+}
+
+
+
+@media (max-width: 1209px) {
+  .profile {
+    width: 100%;
+  }
+}
+
+@media (max-width: 509px) {
+  .profile-list-menu-tabs {
+    width: 100%;
+  }
+
+  .profile-list-menu-tab {
+    width: 50%;
+  }
 }

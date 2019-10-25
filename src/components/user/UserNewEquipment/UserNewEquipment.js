@@ -54,8 +54,8 @@ const UserNewEquipment = props => {
       setLoading(true);
       setEditing(true);
 
-      const prev = props.dataMyPrivateEquipment
-      .filter((equ) => equ.equipment_id === props.match.params.id);
+      const [ prev ] = props.dataMyPrivateEquipment
+      .filter((equ) => equ.equipment_id === Number(props.match.params.id));
 
       setEditingId(prev.equipment_id);
       setEquipmentTypeId(prev.equipment_type_id);
@@ -178,7 +178,7 @@ const UserNewEquipment = props => {
     }
     setLoading(true);
     try {
-      if (props.childProps.editing === "true" || editing === true) {
+      if (editing === true) {
         props.userEditPrivateEquipment(equipmentInfo);
       } else {
         props.userCreateNewPrivateEquipment(equipmentInfo);
@@ -257,7 +257,9 @@ const UserNewEquipment = props => {
               onChange={onCropChange}
               onComplete={onCropComplete}
             />
-            <span>Move the crop to your desired position. These two images will be saved for you:</span>
+            <span className="new-equipment__image-crop-tool-tip">
+              Move the crop to your desired position. These two images will be saved for you:
+            </span>
             <div className="new-equipment__image-crop-previews">
               <div className="new-equipment-image-crop-full-preview">
                 <span>Full Size: </span><img src={cropFullSizePreview} />

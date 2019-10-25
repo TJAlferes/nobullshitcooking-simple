@@ -372,6 +372,7 @@ const UserNewPlan = props => {
                 focusDialog="true"
                 getApplicationNode={getApplicationNode}
                 focusTrapOptions={{returnFocusOnDeactivate: false}}
+                underlayClickExits={false}
               >
                 <p className="planner-cancel-prompt">
                   Cancel new plan? Changes will not be saved.

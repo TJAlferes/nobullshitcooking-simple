@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -10,6 +11,8 @@ import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpo
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 const UserProfile = props => {
+  const history = useHistory();
+
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ clicked, setClicked ] = useState(false);
@@ -29,13 +32,15 @@ const UserProfile = props => {
 
   useEffect(() => {
     const { username } = props.match.params;
-    // if (!username) redirect
+    if (!username) history.push('/');  // change
+
     const getUserProfile = async (username) => {
       const res = await axios.get(`${endpoint}/user/profile/${username}`);
       if (res.data.avatar !== "nobsc-user-default") setUserAvatar(username);
       setUserPublicRecipes(res.data.publicRecipes);
       setUserFavoriteRecipes(res.data.favoriteRecipes);
-    }
+    };
+
     getUserProfile(username);
   }, []);
 
@@ -45,6 +50,7 @@ const UserProfile = props => {
 
   const handleFriendRequestClick = () => {
     const { username } = props.match.params;
+    if (!username) return;
     setLoading(true);
     try {
       props.userRequestFriendship(username);
@@ -52,7 +58,6 @@ const UserProfile = props => {
       setClicked(false);
       setLoading(false);
       window.scrollTo(0,0);
-      setMessage(err.message);
     } finally {
       setClicked(true);
       setLoading(false);
@@ -110,10 +115,10 @@ const UserProfile = props => {
             ? (
               userFavoriteRecipes.map(recipe => (
                 <div className="profile-list-item" key={recipe.recipe_id}>
-                  <span className="profile-list-item-image">
+                  <span className="profile-list-item-tiny">
                     <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
                   </span>
-                  <span className="profile-list-item-title">
+                  <span className="profile-list-item-name">
                     <Link to={`/recipes/${recipe.recipe_id}`}>{recipe.title}</Link>
                   </span>
                 </div>

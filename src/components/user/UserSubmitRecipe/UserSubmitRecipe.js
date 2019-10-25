@@ -1036,7 +1036,9 @@ const UserSubmitRecipe = props => {
               onChange={onCropOneChange}
               onComplete={onCropComplete}
             />
-            <span>Move the crop to your desired position. These three images will be saved for you:</span>
+            <span className="submit-recipe-image-crop-tool-tip">
+              Move the crop to your desired position. These three images will be saved for you:
+            </span>
             <div className="submit-recipe-image-crop-previews">
               <div className="submit-recipe-image-crop-full-preview">
                 <span>Full Size: </span><img src={cropFullSizePreview} />
@@ -1089,7 +1091,9 @@ const UserSubmitRecipe = props => {
               onChange={onCropTwoChange}
               onComplete={onEquipmentCropComplete}
             />
-            <span>Move the crop to your desired position. This image will be saved for you:</span>
+            <span className="submit-recipe-image-crop-tool-tip">
+              Move the crop to your desired position. This image will be saved for you:
+            </span>
             <div className="submit-recipe-image-crop-previews">
               <div className="submit-recipe--image-crop-full-preview">
                 <span>Full Size: </span><img src={equipmentCropFullSizePreview} />
@@ -1136,7 +1140,9 @@ const UserSubmitRecipe = props => {
               onChange={onCropThreeChange}
               onComplete={onIngredientsCropComplete}
             />
-            <span>Move the crop to your desired position. This image will be saved for you:</span>
+            <span className="submit-recipe-image-crop-tool-tip">
+              Move the crop to your desired position. This image will be saved for you:
+            </span>
             <div className="submit-recipe-image-crop-previews">
               <div className="submit-recipe-image-crop-full-preview">
                 <span>Full Size: </span><img src={ingredientsCropFullSizePreview} />
@@ -1182,7 +1188,9 @@ const UserSubmitRecipe = props => {
               onChange={onCropFourChange}
               onComplete={onCookingCropComplete}
             />
-            <span>Move the crop to your desired position. This image will be saved for you:</span>
+            <span className="submit-recipe-image-crop-tool-tip">
+              Move the crop to your desired position. This image will be saved for you:
+            </span>
             <div className="submit-recipe-image-crop-previews">
               <div className="submit-recipe-image-crop-full-preview">
                 <span>Full Size: </span><img src={cookingCropFullSizePreview} />

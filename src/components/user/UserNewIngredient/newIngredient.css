@@ -31,6 +31,10 @@
   width: 100%;
 }
 
+.new-ingredient__image-crop-tool-tip {
+  display: block;
+}
+
 .new-ingredient__image-crop-previews {
   display: flex;
   flex-direction: row;

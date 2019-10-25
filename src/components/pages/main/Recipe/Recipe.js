@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -11,10 +12,13 @@ import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEn
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 const Recipe = props => {
+  const history = useHistory();
+  const location = useLocation();
+
   const [ message, setMessage ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ favoriteClicked, setFavoriteClicked ] = useState(false);
-  const [ saveClicked, setSaveClicked ] = useState(false);
+  const [ favoriteClicked, setFavoriteClicked ] = useState(false);  // Make sure they can't favorite their own recipes (whether public or private)
+  const [ saveClicked, setSaveClicked ] = useState(false);  // Make sure they can't save their own recipes (whether public or private)
   const [ recipe, setRecipe ] = useState("");
 
   useEffect(() => {
@@ -28,7 +32,8 @@ const Recipe = props => {
 
   useEffect(() => {
     const { id } = props.match.params;
-    if (!id) props.history.push('/home');
+    if (!id) history.push('/home');
+
     const getPublicRecipe = async (id) => {
       try {
         const res = await axios.get(`${endpoint}/recipe/${id}`);
@@ -37,7 +42,28 @@ const Recipe = props => {
         console.error(err);
       }
     };
-    getPublicRecipe(Number(id));
+
+    const getPrivateRecipe = async (id) => {
+      try {
+        const res = await axios.post(
+          `${endpoint}/user/recipe/private/one`,
+          {recipeId: id},
+          {withCredentials: true}
+        );
+        if (res.data) setRecipe(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    let isPrivateUserRecipe = location.pathname
+    .match(/^(\/user\/recipes\/([1-9][0-9]*))$/);
+    
+    if (isPrivateUserRecipe) {
+      getPrivateRecipe(Number(id));
+    } else {
+      getPublicRecipe(Number(id));
+    }
   }, []);
 
   const handleFavoriteClick = () => {

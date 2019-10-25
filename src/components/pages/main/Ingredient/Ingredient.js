@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
 import { IngredientBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './ingredient.css';
 
 const Ingredient = props => {
+  const history = useHistory();
+
   const [ ingredient, setIngredient ] = useState("");
 
   useEffect(() => {
     const { id } = props.match.params;
-    if (!id) props.history.push('/home');
+    if (!id) history.push('/home');
     const localIngredient = (
       props.dataIngredients.find(ing => ing.ingredient_id == id) ||
       props.dataMyPrivateIngredients.find(ing => ing.ingredient_id == id)
     );
     if (localIngredient) {
-      const localIngredientType = props.dataIngredientTypes.find(
+      const localIngredientType = props.dataIngredientTypes.filter(
         ing => ing.ingredient_type_id == localIngredient.ingredient_type_id
       );
       localIngredient.ingredient_type_name = localIngredientType.ingredient_type_name;
       setIngredient(localIngredient);
     } else {
-      //Redirect them to Ingredients
+      history.push('/ingredients');
     }
   }, []);
 

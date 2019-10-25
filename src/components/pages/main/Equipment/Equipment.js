@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
 import { EquipmentBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 import './equipment.css';
 
 const Equipment = props => {
+  const history = useHistory();
+
   const [ equipment, setEquipment ] = useState("");
 
   useEffect(() => {
     const { id } = props.match.params;
-    if (!id) props.history.push('/home');
+    if (!id) history.push('/home');
     const localEquipment = (
       props.dataEquipment.find(equ=> equ.equipment_id == id) ||
       props.dataMyPrivateEquipment.find(equ=> equ.equipment_id == id)
@@ -22,7 +25,7 @@ const Equipment = props => {
       localEquipment.equipment_type_name = localEquipmentType.equipment_type_name;
       setEquipment(localEquipment);
     } else {
-      //Redirect them to Equipments
+      history.push('/equipment');
     }
   }, []);
 

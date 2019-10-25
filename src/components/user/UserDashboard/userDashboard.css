@@ -46,6 +46,10 @@
   max-height: 100%;
 }
 
+.avatar-crop-tool-tip {
+  display: block;
+}
+
 .avatar-crop-previews {
   display: flex;
   flex-direction: row;

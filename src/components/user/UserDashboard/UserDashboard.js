@@ -383,7 +383,9 @@ const UserDashboard = props => {
                 onChange={onCropChange}
                 onComplete={onCropComplete}
               />
-              <span>Move the crop to your desired position, then click "Complete". These two images will be saved for you:</span>
+              <span className="avatar-crop-tool-tip">
+                Move the crop to your desired position, then click "Complete". These two images will be saved for you:
+              </span>
               <div className="avatar-crop-previews">
                 <div className="avatar-crop-full-preview">
                   <span>Full Size: </span><img src={cropFullSizePreview} />

@@ -221,6 +221,10 @@
   height: 102px;
 }
 
+.submit-recipe-image-crop-tool-tip {
+  display: block;
+}
+
 .submit-recipe-image-crop-previews {
   display: flex;
   flex-direction: row;
