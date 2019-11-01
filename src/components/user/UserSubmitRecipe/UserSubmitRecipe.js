@@ -5,7 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 import uuid from 'uuid/v4';
 import axios from 'axios';
 import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
+import "react-image-crop/lib/ReactCrop.scss";
 
 import './submitRecipe.css';
 import EquipmentRow from './EquipmentRow/EquipmentRow';

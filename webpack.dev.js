@@ -39,10 +39,11 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.(scss|css)$/,
         use: [
           {loader: 'style-loader'},
           {loader: 'css-loader', options: {importLoaders: 1}},
+          //{loader: 'sass-loader'},
           {
             loader: 'postcss-loader',
             options: {
@@ -51,7 +52,8 @@ module.exports = {
                 autoprefixer({browsers: ["> 1%", "last 2 versions"]})
               ]
             }
-          }
+          },
+          {loader: 'sass-loader'}
         ]
       },
       {

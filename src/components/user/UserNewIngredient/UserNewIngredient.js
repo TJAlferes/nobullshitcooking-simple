@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { withRouter, Link } from 'react-router-dom';
 import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
+import "react-image-crop/lib/ReactCrop.scss";
 
 import './newIngredient.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';

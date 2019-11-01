@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AriaModal from 'react-aria-modal';
 import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
+import "react-image-crop/lib/ReactCrop.scss";
 
 import {
   authUpdateLocalAvatar,
