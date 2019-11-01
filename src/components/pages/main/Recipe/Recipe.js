@@ -206,7 +206,11 @@ const Recipe = props => {
 
 
               <div className="recipe-details__image">
-                <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe[0].recipeImage}`} />
+                {
+                  recipe.recipe[0].recipeImage !== "nobsc-recipe-default"
+                  ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe[0].recipeImage}`} />
+                  : <div className="image-default-280-172"></div>
+                }
               </div>
               <div className="recipe-details__author">
                 <b>Author:</b>{' '}{recipeBy()}
@@ -239,7 +243,11 @@ const Recipe = props => {
 
               <h2 className="recipe-details__heading-two">Required Equipment</h2>
               <div className="recipe-details__equipment-image">
-                <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${recipe.recipe[0].recipeEquipmentImage}`} />
+                {
+                  recipe.recipe[0].recipeEquipmentImage !== "nobsc-recipe-equipment-default"
+                  ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${recipe.recipe[0].recipeEquipmentImage}`} />
+                  : <div className="image-default-280-172"></div>
+                }
               </div>
               <div className="recipe-details__required-equipments">
                 {recipe.requiredEquipment && recipe.requiredEquipment.map(equ => (
@@ -256,7 +264,11 @@ const Recipe = props => {
 
               <h2 className="recipe-details__heading-two">Required Ingredients</h2>
               <div className="recipe-details__ingredients-image">
-                <img src={`https://s3.amazonaws.com/nobsc-user-recipe-ingredients/${recipe.recipe[0].recipeIngredientsImage}`} />
+                {
+                  recipe.recipe[0].recipeIngredientsImage !== "nobsc-recipe-ingredients-default"
+                  ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-ingredients/${recipe.recipe[0].recipeIngredientsImage}`} />
+                  : <div className="image-default-280-172"></div>
+                }
               </div>
               <div className="recipe-details__required-ingredients">
                 {recipe.requiredIngredients && recipe.requiredIngredients.map(ing => (
@@ -287,7 +299,11 @@ const Recipe = props => {
 
               <h2 className="recipe-details__heading-two">Directions</h2>
               <div className="recipe-details__cooking-image">
-                <img src={`https://s3.amazonaws.com/nobsc-user-recipe-cooking/${recipe.recipe[0].recipeCookingImage}`} />
+                {
+                  recipe.recipe[0].recipeCookingImage !== "nobsc-recipe-cooking-default"
+                  ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-cooking/${recipe.recipe[0].recipeCookingImage}`} />
+                  : <div className="image-default-280-172"></div>
+                }
               </div>
               <div className="recipe-details__directions">
                 {recipe.recipe[0].directions}

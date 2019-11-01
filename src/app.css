@@ -15,6 +15,21 @@
   display: block;
 }
 
+.image-default-280-172 {
+  min-width: 280px;
+  min-height: 172px;
+}
+
+.image-default-100-62 {
+  min-width: 100px;
+  min-height: 62px;
+}
+
+.image-default-28-18 {
+  min-width: 28px;
+  min-height: 18px;
+}
+
 
 
 /*

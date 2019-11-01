@@ -19,6 +19,12 @@ light
   color: #000;
 }
 
+.one-column-a-light .image-default-280-172,
+.one-column-a-light .image-default-100-62,
+.one-column-a-light .image-default-28-18 {
+  background-color: #c10006;
+}
+
 .one-column-a-light label {
   color: #777;
 }
@@ -67,6 +73,12 @@ dark
 .one-column-a-dark {
   background-color: #222;
   color: #aaa;
+}
+
+.one-column-a-dark .image-default-280-172,
+.one-column-a-dark .image-default-100-62,
+.one-column-a-dark .image-default-28-18 {
+  background-color: #690004;
 }
 
 .one-column-a-dark .ownership-span-label,

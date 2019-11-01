@@ -99,4 +99,8 @@
   .profile-list-menu-tab {
     width: 50%;
   }
+
+  .profile-list-item-name {
+    width: 100%;
+  }
 }

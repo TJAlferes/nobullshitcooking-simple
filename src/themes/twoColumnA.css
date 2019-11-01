@@ -47,6 +47,12 @@
   color: #000;
 }
 
+.two-column-a-light .image-default-280-172,
+.two-column-a-light .image-default-100-62,
+.two-column-a-light .image-default-28-18 {
+  background-color: #c10006;
+}
+
 .two-column-a-light .user-new-plan__name-label {
   color: #777;
 }
@@ -176,6 +182,12 @@
 .two-column-a-dark section {
   background-color: #222;
   color: #aaa;
+}
+
+.two-column-a-dark .image-default-280-172,
+.two-column-a-dark .image-default-100-62,
+.two-column-a-dark .image-default-28-18 {
+  background-color: #690004;
 }
 
 .two-column-a-dark .user-new-plan__name-label {

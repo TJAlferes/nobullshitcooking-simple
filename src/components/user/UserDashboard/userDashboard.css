@@ -336,6 +336,10 @@
     margin: 0 auto 10px auto;
   }
 
+  .dashboard-content-item-name {
+    width: 100%;
+  }
+
   .dashboard-content-item-action,
   .dashboard-content-item-delete {
     width: 54px;

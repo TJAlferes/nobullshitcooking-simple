@@ -660,7 +660,11 @@ const UserDashboard = props => {
                 ? props.myPrivateRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
                     <span className="dashboard-content-item-tiny">
-                      <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                      {
+                        recipe.recipe_image !== "nobsc-recipe-default"
+                        ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                        : <div className="image-default-28-18"></div>
+                      }
                     </span>
                     <span className="dashboard-content-item-name">
                       <Link to={`/user/recipes/${recipe.recipe_id}`}>
@@ -733,7 +737,11 @@ const UserDashboard = props => {
                 ? props.myPublicRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
                     <span className="dashboard-content-item-tiny">
-                      <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                      {
+                        recipe.recipe_image !== "nobsc-recipe-default"
+                        ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                        : <div className="image-default-28-18"></div>
+                      }
                     </span>
                     <span className="dashboard-content-item-name">
                       <Link to={`/recipes/${recipe.recipe_id}`}>
@@ -772,7 +780,11 @@ const UserDashboard = props => {
                 ? props.myFavoriteRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
                     <span className="dashboard-content-item-tiny">
-                      <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                      {
+                        recipe.recipe_image !== "nobsc-recipe-default"
+                        ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                        : <div className="image-default-28-18"></div>
+                      }
                     </span>
                     <span className="dashboard-content-item-name">
                       <Link to={`/recipes/${recipe.recipe_id}`}>
@@ -806,7 +818,11 @@ const UserDashboard = props => {
                 ? props.mySavedRecipes.map(recipe => (
                   <div className="dashboard-content-item" key={recipe.recipe_id}>
                     <span className="dashboard-content-item-tiny">
-                      <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                      {
+                        recipe.recipe_image !== "nobsc-recipe-default"
+                        ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                        : <div className="image-default-28-18"></div>
+                      }
                     </span>
                     <span className="dashboard-content-item-name">
                       <Link to={`/recipes/${recipe.recipe_id}`}>
@@ -846,7 +862,11 @@ const UserDashboard = props => {
                     key={ingredient.ingredient_id}
                   >
                     <span className="dashboard-content-item-tiny">
-                      <img src={`https://nobsc-user-ingredients.s3.amazonaws.com/${ingredient.ingredient_image}-tiny`} />
+                      {
+                        ingredient.ingredient_image !== "nobsc-ingredient-default"
+                        ? <img src={`https://nobsc-user-ingredients.s3.amazonaws.com/${ingredient.ingredient_image}-tiny`} />
+                        : <div className="image-default-28-18"></div>
+                      }
                     </span>
                     <span className="dashboard-content-item-name">
                       <Link to={`/user/ingredients/${ingredient.ingredient_id}`}>
@@ -891,7 +911,11 @@ const UserDashboard = props => {
                     key={equipment.equipment_id}
                   >
                     <span className="dashboard-content-item-tiny">
-                      <img src={`https://nobsc-user-equipment.s3.amazonaws.com/${equipment.equipment_image}-tiny`} />
+                      {
+                        equipment.equipment_image !== "nobsc-equipment-default"
+                        ? <img src={`https://nobsc-user-equipment.s3.amazonaws.com/${equipment.equipment_image}-tiny`} />
+                        : <div className="image-default-28-18"></div>
+                      }
                     </span>
                     <span className="dashboard-content-item-name">
                       <Link to={`/user/equipment/${equipment.equipment_id}`}>

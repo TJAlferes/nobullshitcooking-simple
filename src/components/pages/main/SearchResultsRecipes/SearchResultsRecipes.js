@@ -195,10 +195,16 @@ const SearchResultsRecipes = props => {
                       </div>
                     </div>
                   </div>
-                  <img
-                    className="search-result-recipe-image"
-                    src={`https://s3.amazonaws.com/nobsc-user-recipe/${rows[7] && rows[7][1].raw}-thumb`}
-                  />
+                  {
+                    (rows[7] && (rows[7][1].raw !== "nobsc-recipe-default"))
+                    ? (
+                      <img
+                        className="search-result-recipe-image"
+                        src={`https://s3.amazonaws.com/nobsc-user-recipe/${rows[7] && rows[7][1].raw}-thumb`}
+                      />
+                    )
+                    : <div className="image-default-100-62"></div>
+                  }
                 </Link>
               </div>
             );
