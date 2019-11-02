@@ -10,7 +10,7 @@ import createSagaMiddleware from 'redux-saga';
 import { SearchProvider } from '@elastic/react-search-ui';
 
 import searchConfig from './config/searchConfig';
-import { dataInit } from './store/actions/index';
+import { dataInit, nobscappWindowFocused } from './store/actions/index';
 import rootReducer from './store/reducers/index';
 import { watchAuth, watchData, watchUser, watchMessenger } from './store/sagas/index';
 import App from './App';
@@ -21,6 +21,8 @@ import './themes/oneColumnA.css';
 import './themes/twoColumnA.css';
 import './themes/twoColumnB.css';
 import './themes/tableA.css';
+import './nobsc-alert-favicon.png';
+import './nobsc-normal-favicon.png';
 
 // TO DO: code split redux store?
 
@@ -61,9 +63,20 @@ sagaMiddleware.run(watchData);
 sagaMiddleware.run(watchUser);
 sagaMiddleware.run(watchMessenger);
 
-store.dispatch(dataInit());  // gets initial data (Note: this needs to be optimized)
+store.dispatch(dataInit());  // gets initial data
 
 store.subscribe(() => saveToLocalStorage(store.getState()));
+
+// move
+window.onblur = function() {
+  store.dispatch(nobscappWindowFocused(false));
+};
+window.onfocus = function() {
+  const nobscFavicon = document.getElementById('nobsc-favicon');
+  nobscFavicon.href = "/nobsc-normal-favicon.png";
+  store.dispatch(nobscappWindowFocused(true));
+
+}
 
 const app = (
   <Provider store={store}>

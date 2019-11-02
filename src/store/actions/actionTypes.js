@@ -1,4 +1,12 @@
 /*
+app
+*/
+
+export const NOBSCAPP_WINDOW_FOCUSED = 'NOBSCAPP_WINDOW_FOCUSED';
+
+
+
+/*
 modal
 */
 

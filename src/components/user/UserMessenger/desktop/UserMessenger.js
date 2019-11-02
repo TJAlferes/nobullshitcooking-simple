@@ -7,8 +7,10 @@ import {
   messengerChangeChannel,
   messengerSendMessage,
   messengerSendWhisper
-} from '../../../store/actions/index';
-import LeftNav from '../../LeftNav/LeftNav';
+} from '../../../../store/actions/index';
+
+import LeftNav from '../../../LeftNav/LeftNav';
+
 import './userMessenger.css';
 
 const UserMessenger = props => {
@@ -16,10 +18,11 @@ const UserMessenger = props => {
   const [ loading, setLoading ] = useState(false);
   const [ debounced, setDebounced ] = useState(false);
   const [ spamCount, setSpamCount ] = useState(1);
-  const messagesRef = createRef();
   const [ tab, setTab ] = useState("Room");
   const [ roomToEnter, setRoomToEnter ] = useState("");
   const [ messageToSend, setMessageToSend ] = useState("");
+
+  const messagesRef = createRef();
 
   useEffect(() => {
     let isSubscribed = true;
@@ -43,7 +46,19 @@ const UserMessenger = props => {
         messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       }
     };
+
+    const setAlertFavicon = () => {
+      const nobscFavicon = document.getElementById('nobsc-favicon');
+      nobscFavicon.href = "/nobsc-alert-favicon.png";
+    };
+
+    /*const setNormalFavicon = () => {
+      const nobscFavicon = document.getElementById('nobsc-favicon');
+      nobscFavicon.href = "/nobsc-normal-favicon.png";
+    };*/
+
     autoScroll();
+    if (props.windowFocused === false) setAlertFavicon();
   }, [props.messages]);
 
   const handleConnect = () => {
@@ -331,6 +346,7 @@ const UserMessenger = props => {
 };
 
 const mapStateToProps = state => ({
+  windowFocused: state.nobscapp.windowFocused,
   authname: state.auth.authname,
   feedback: state.user.message,
   status: state.messenger.status,
@@ -341,6 +357,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  nobscappWindowFocused: (condition) => dispatch(nobscappWindowFocused(condition)),
   messengerConnect: () => dispatch(messengerConnect()),
   messengerDisconnect: () => dispatch(messengerDisconnect()),
   messengerChangeChannel: (channel) => dispatch(messengerChangeChannel(channel)),

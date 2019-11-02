@@ -1,8 +1,8 @@
 import React, { lazy, Suspense } from 'react';
 
 import './userMessengerPage.css'
-const MobileUserMessengerToggle = lazy(() => import('../UserMessenger/mobile/MobileUserMessengerToggle'));
-const UserMessenger = lazy(() => import('../UserMessenger/UserMessenger'));
+const MobileUserMessengerToggle = lazy(() => import('./mobile/MobileUserMessengerToggle'));
+const UserMessenger = lazy(() => import('./desktop/UserMessenger'));
 
 const UserMessengerPage = props => (
   <div id="messenger_page">

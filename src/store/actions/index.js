@@ -1,3 +1,7 @@
+export {
+  nobscappWindowFocused
+} from './nobscapp';
+
 /*export {
   openModal,
   closeModal

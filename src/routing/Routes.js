@@ -34,7 +34,7 @@ const UserDashboard = lazy(() => import('../components/user/UserDashboard/UserDa
 
 const UserFriends = lazy(() => import('../components/user/UserFriends/UserFriends'));
 
-const UserMessengerPage = lazy(() => import('../components/user/UserMessengerPage/UserMessengerPage'));
+const UserMessengerPage = lazy(() => import('../components/user/UserMessenger/UserMessengerPage'));
 
 const PlanPage = lazy(() => import('../components/Plan/PlanPage'));  // for public, url-based
 const UserPlanPage = lazy(() => import('../components/user/UserPlan/UserPlanPage'));

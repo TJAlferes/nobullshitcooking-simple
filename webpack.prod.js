@@ -58,7 +58,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: __dirname + '/public/index.html',
       filename: 'index.html',
-      inject: 'body'
+      inject: 'body',
+      //favicon: "./src/favicon.ico"
     }),
     new UglifyJsWebpackPlugin(),
     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 7})
