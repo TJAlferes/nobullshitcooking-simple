@@ -36,15 +36,12 @@ const UserNewPlan = props => {
 
   useEffect(() => {
     const getExistingPlanToEdit = () => {
-      //if (props.childProps.editing !== "true") return;
-
       window.scrollTo(0,0);
       setLoading(true);
       setEditing(true);
 
       const [ prev ] = props.dataMyPlans
       .filter(plan => plan.plan_id === Number(props.match.params.id));
-      console.log(prev);
 
       props.plannerSetEditingId(Number(prev.plan_id));
       props.plannerSetPlanName(prev.plan_name);
@@ -286,7 +283,8 @@ const UserNewPlan = props => {
                 key: uuidv4(),
                 id: recipe.recipe_id,
                 text: recipe.title,
-                image: recipe.recipe_image
+                image: recipe.recipe_image,
+                owner: recipe.owner_id
               }))}
             />
           )}
@@ -297,7 +295,8 @@ const UserNewPlan = props => {
                 key: uuidv4(),
                 id: recipe.recipe_id,
                 text: recipe.title,
-                image: recipe.recipe_image
+                image: recipe.recipe_image,
+                owner: recipe.owner_id
               }))}
             />
           )}
@@ -308,7 +307,8 @@ const UserNewPlan = props => {
                 key: uuidv4(),
                 id: recipe.recipe_id,
                 text: recipe.title,
-                image: recipe.recipe_image
+                image: recipe.recipe_image,
+                owner: recipe.owner_id
               }))}
             />
           )}
@@ -319,7 +319,8 @@ const UserNewPlan = props => {
                 key: uuidv4(),
                 id: recipe.recipe_id,
                 text: recipe.title,
-                image: recipe.recipe_image
+                image: recipe.recipe_image,
+                owner: recipe.owner_id
               }))}
             />
           )}
@@ -330,7 +331,8 @@ const UserNewPlan = props => {
                 key: uuidv4(),
                 id: recipe.recipe_id,
                 text: recipe.title,
-                image: recipe.recipe_image
+                image: recipe.recipe_image,
+                owner: recipe.owner_id
               }))}
             />
           )}
