@@ -42,17 +42,12 @@ const changedChannel = (state, action) => ({
 });
 
 const joinedUser = (state, action) => {
-  const now = new Date;
-  const hour = now.getHours();
-  let minute = now.getMinutes();
-  let second = now.getSeconds();
-  if (minute.toString().length === 1) minute = `0${minute}`;
-  if (second.toString().length === 1) second = `0${second}`;
-  const ts = `${hour}:${minute}:${second}`;
+  const ts = `${(new Date).toLocaleTimeString()}`;
   return {
     ...state,
     ...{
       messages: state.messages.concat({
+        id: 'admin' + (new Date).getTime().toString(),
         ts,
         message: `${action.user.user} has joined the room.`,
         user: {user: "messengerstatus"}
@@ -63,17 +58,12 @@ const joinedUser = (state, action) => {
 };
 
 const leftUser = (state, action) => {
-  const now = new Date;
-  const hour = now.getHours();
-  let minute = now.getMinutes();
-  let second = now.getSeconds();
-  if (minute.toString().length === 1) minute = `0${minute}`;
-  if (second.toString().length === 1) second = `0${second}`;
-  const ts = `${hour}:${minute}:${second}`;
+  const ts = `${(new Date).toLocaleTimeString()}`;
   return {
     ...state,
     ...{
       messages: state.messages.concat({
+        id: 'admin' + (new Date).getTime().toString(),
         ts,
         message: `${action.user.user} has left the room.`,
         user: {user: "messengerstatus"}
@@ -83,26 +73,38 @@ const leftUser = (state, action) => {
   };
 };
 
-const receivedMessage = (state, action) => ({
-  ...state,
-  ...{messages: state.messages.concat(action.message)}
-});
+const receivedMessage = (state, action) => {
+  const ts = `${(new Date).toLocaleTimeString()}`;
+  action.message.ts = ts;
+  return {
+    ...state,
+    ...{messages: state.messages.concat(action.message)}
+  };
+};
 
-const receivedWhisper = (state, action) => ({
-  ...state,
-  ...{messages: state.messages.concat(action.whisper)}
-});
+const receivedWhisper = (state, action) => {
+  const ts = `${(new Date).toLocaleTimeString()}`;
+  action.message.ts = ts;
+  return {
+    ...state,
+    ...{messages: state.messages.concat(action.whisper)}
+  };
+};
 
-const failedWhisper = (state, action) => ({
-  ...state,
-  ...{
-    messages: state.messages.concat({
-      ts: (new Date).getTime(),
-      message: action.feedback,
-      user: {user: "messengerstatus"}
-    })
-  }
-});
+const failedWhisper = (state, action) => {
+  const ts = `${(new Date).toLocaleTimeString()}`;
+  return {
+    ...state,
+    ...{
+      messages: state.messages.concat({
+        id: 'admin' + (new Date).getTime().toString(),
+        ts,
+        message: action.feedback,
+        user: {user: "messengerstatus"}
+      })
+    }
+  };
+};
 
 const getOnline = (state, action) => ({
   ...state,

@@ -247,7 +247,7 @@ const UserMessenger = props => {
                 props.messages && props.messages.map(message => (
                   message.user.user === "messengerstatus"
                   ? (
-                    <li className="messenger-chat-message" key={message.ts}>
+                    <li className="messenger-chat-message" key={message.id}>
                       <span className="chat-ts">{message.ts}{' '}</span>
                       <span className="chat-display-admin">
                         {message.message}
@@ -259,7 +259,7 @@ const UserMessenger = props => {
                     ? (
                       message.whisper
                       ? (
-                        <li className="messenger-chat-message" key={message.ts}>
+                        <li className="messenger-chat-message" key={message.id}>
                           <span className="chat-ts">{message.ts}{' '}</span>
                           <span className="chat-display-username-self">
                             You whisper to{' '}{message.to}:{' '}
@@ -268,7 +268,7 @@ const UserMessenger = props => {
                         </li>
                       )
                       : (
-                        <li className="messenger-chat-message" key={message.ts}>
+                        <li className="messenger-chat-message" key={message.id}>
                           <span className="chat-ts">{message.ts}{' '}</span>
                           <span className="chat-display-username-self">
                             {message.user.user}:{' '}
@@ -280,7 +280,7 @@ const UserMessenger = props => {
                     : (
                       message.whisper
                       ? (
-                        <li className="messenger-chat-message" key={message.ts}>
+                        <li className="messenger-chat-message" key={message.id}>
                           <span className="chat-ts">{message.ts}{' '}</span>
                           <span className="chat-display-username-other">
                             {message.user.user}{' '}whispers to you:{' '}
@@ -289,7 +289,7 @@ const UserMessenger = props => {
                         </li>
                       )
                       : (
-                        <li className="messenger-chat-message" key={message.ts}>
+                        <li className="messenger-chat-message" key={message.id}>
                           <span className="chat-ts">{message.ts}{' '}</span>
                           <span className="chat-display-username-other">
                             {message.user.user}:{' '}
