@@ -7,7 +7,7 @@ import * as actionTypes from '../actions/actionTypes';
 // remember Nir Kofman's actions patterns (maybe)
 
 const initialState = {
-  channel: "",
+  channel: "",  //channels: []
   messages: [],
   users: [],
   onlineFriends: [],
@@ -40,30 +40,48 @@ const changedChannel = (state, action) => ({
   ...state,
   ...{channel: action.channel, messages: [], users: action.users}
 });
- 
-const joinedUser = (state, action) => ({
-  ...state,
-  ...{
-    messages: state.messages.concat({
-      ts: (new Date).getTime(),
-      message: `${action.user.user} has joined the room.`,
-      user: {user: "messengerstatus"}
-    }),
-    users: state.users.concat(action.user)
-  }
-});
 
-const leftUser = (state, action) => ({
-  ...state,
-  ...{
-    messages: state.messages.concat({
-      ts: (new Date).getTime(),
-      message: `${action.user.user} has left the room.`,
-      user: {user: "messengerstatus"}
-    }),
-    users: state.users.filter(user => user.user !== action.user.user)
-  }
-});
+const joinedUser = (state, action) => {
+  const now = new Date;
+  const hour = now.getHours();
+  let minute = now.getMinutes();
+  let second = now.getSeconds();
+  if (minute.toString().length === 1) minute = `0${minute}`;
+  if (second.toString().length === 1) second = `0${second}`;
+  const ts = `${hour}:${minute}:${second}`;
+  return {
+    ...state,
+    ...{
+      messages: state.messages.concat({
+        ts,
+        message: `${action.user.user} has joined the room.`,
+        user: {user: "messengerstatus"}
+      }),
+      users: state.users.concat(action.user)
+    }
+  };
+};
+
+const leftUser = (state, action) => {
+  const now = new Date;
+  const hour = now.getHours();
+  let minute = now.getMinutes();
+  let second = now.getSeconds();
+  if (minute.toString().length === 1) minute = `0${minute}`;
+  if (second.toString().length === 1) second = `0${second}`;
+  const ts = `${hour}:${minute}:${second}`;
+  return {
+    ...state,
+    ...{
+      messages: state.messages.concat({
+        ts,
+        message: `${action.user.user} has left the room.`,
+        user: {user: "messengerstatus"}
+      }),
+      users: state.users.filter(user => user.user !== action.user.user)
+    }
+  };
+};
 
 const receivedMessage = (state, action) => ({
   ...state,

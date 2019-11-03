@@ -142,6 +142,10 @@
   border-color: #ddd;
 }
 
+.two-column-a-light .messenger-chat-message .chat-ts {
+  color: #bbb;
+}
+
 .two-column-a-light .messenger-room,
 .two-column-a-light .messenger-connect-disconnect-mobile-spacer,
 .two-column-a-light .messenger-current-container,
@@ -282,6 +286,10 @@
 .two-column-a-dark .messenger-chat-input,
 .two-column-a-dark .messenger-people {
   border-color: #444
+}
+
+.two-column-a-dark .messenger-chat-message .chat-ts {
+  color: #666;
 }
 
 .two-column-a-dark .messenger-room,
