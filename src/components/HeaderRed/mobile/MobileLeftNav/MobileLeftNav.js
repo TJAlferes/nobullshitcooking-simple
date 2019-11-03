@@ -19,7 +19,6 @@ const MobileLeftNav = props => {
       <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/site/help')}} to="/site/help">Help</NavLink>
       {!isAuthenticated && <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/user/register')}} to="/user/register">Create Account</NavLink>}
       {isAuthenticated && <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/user/dashboard')}} to="/user/dashboard">{authname}</NavLink>}
-      {!isAuthenticated && <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/plan')}} to="/plan">Planner</NavLink>}
       <hr />
       <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/')}} to="/" exact>News</NavLink>
       {isAuthenticated && <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/user/messenger')}} to="/user/messenger">Messenger</NavLink>}

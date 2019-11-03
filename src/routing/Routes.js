@@ -36,7 +36,7 @@ const UserFriends = lazy(() => import('../components/user/UserFriends/UserFriend
 
 const UserMessengerPage = lazy(() => import('../components/user/UserMessenger/UserMessengerPage'));
 
-const PlanPage = lazy(() => import('../components/Plan/PlanPage'));  // for public, url-based
+//const PlanPage = lazy(() => import('../components/Plan/PlanPage'));  // for public, url-based
 const UserPlanPage = lazy(() => import('../components/user/UserPlan/UserPlanPage'));
 const UserNewPlanPage = lazy(() => import('../components/user/UserNewPlan/UserNewPlanPage'));
 
@@ -212,7 +212,7 @@ const RoutesList = () => (
 
       <AuthenticatedRoute path="/user/messenger" exact component={UserMessengerPage} />
 
-      <AppliedRoute path="/plan" exact component={PlanPage} />  {/* for demo/public purposes */}
+      {/*<AppliedRoute path="/plan" exact component={PlanPage} />  was for demo/public purposes, but now we WILL PROBABLY REMOVE THIS */}
       <AuthenticatedRoute path="/user/plan/edit/:id" exact component={UserNewPlanPage} childProps={{editing: "true"}} />
       <AuthenticatedRoute path="/user/plan/submit" exact component={UserNewPlanPage} />
       <AuthenticatedRoute path="/user/plan/:id" exact component={UserPlanPage} />  {/* no dnd capability, just for viewing their own plan */}
