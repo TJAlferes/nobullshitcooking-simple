@@ -226,8 +226,16 @@ const UserSubmitRecipe = props => {
       setLoading(false);
     };
     
-    if (props.childProps && props.childProps.editing === "true") {
+    if (
+      props.childProps &&
+      props.childProps.editing &&
+      props.childProps.editing === "true"
+    ) {
       getExistingRecipeToEdit();
+    } else if (props.childProps && props.childProps.submittingOwnership) {
+      setOwnership(props.childProps.submittingOwnership);
+    } else {
+      history.push('/user/dashboard');
     }
   }, []);
 
@@ -246,7 +254,8 @@ const UserSubmitRecipe = props => {
     return () => isSubscribed = false;
   }, [props.message]);
 
-  const handleOwnershipChange = async (e) => {
+  // remove
+  /*const handleOwnershipChange = async (e) => {
     if (editing === true) return;
     if (ownership === "private" && e.target.value === "public") {
       // show prompt "Switching to from private to public. Any references to your private equipment, ingredients, or subrecipes will be removed. Continue Cancel"
@@ -257,7 +266,7 @@ const UserSubmitRecipe = props => {
     //setOwnership(e.target.value);
     //if (e.target.value === "private") await fetchNeededPrivateData();
     setOwnership(e.target.value);
-  };
+  };*/
 
   const handleRecipeTypeChange = e => setRecipeTypeId(e.target.value);
 
@@ -746,7 +755,13 @@ const UserSubmitRecipe = props => {
   return (
     <div className={`submit-recipe one-column-a ${props.oneColumnATheme}`}>
 
-      <h1>{editing ? 'Edit Recipe' : 'Submit New Recipe'}</h1>
+      <h1>
+        {
+          editing
+          ? ownership === "private" ? 'Edit Private Recipe' : 'Edit Public Recipe'
+          : ownership === "private" ? 'Submit New Private Recipe' : 'Submit New Public Recipe'
+        }
+      </h1>
 
       <p className="submit-recipe__error-message">{message}</p>
 
@@ -780,23 +795,21 @@ const UserSubmitRecipe = props => {
             <input
               className="ownership-span-input"
               type="radio"
-              checked={ownership === "public"}
-              onChange={handleOwnershipChange}
-              value="public"
-              disabled={editing === true}
+              checked={ownership === "private"}
+              value="private"
+              disabled={true}
             />
-            <label className="ownership-span-label">Public</label>
+            <label className="ownership-span-label">Private</label>
           </span>
           <span className="ownership-span">
             <input
               className="ownership-span-input"
               type="radio"
-              checked={ownership === "private"}
-              onChange={handleOwnershipChange}
-              value="private"
-              disabled={editing === true}
+              checked={ownership === "public"}
+              value="public"
+              disabled={true}
             />
-            <label className="ownership-span-label">Private</label>
+            <label className="ownership-span-label">Public</label>
           </span>
         </div>
       </div>

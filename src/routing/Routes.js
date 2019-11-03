@@ -217,7 +217,8 @@ const RoutesList = () => (
       <AuthenticatedRoute path="/user/plan/submit" exact component={UserNewPlanPage} />
       <AuthenticatedRoute path="/user/plan/:id" exact component={UserPlanPage} />  {/* no dnd capability, just for viewing their own plan */}
 
-      <AuthenticatedRoute path="/user/recipes/submit" exact component={UserSubmitRecipe} />
+      <AuthenticatedRoute path="/user/recipes/private/submit" exact component={UserSubmitRecipe} childProps={{submittingOwnership: "private"}} />
+      <AuthenticatedRoute path="/user/recipes/public/submit" exact component={UserSubmitRecipe} childProps={{submittingOwnership: "public"}} />
       <AuthenticatedRoute path="/user/recipes/private/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "private"}} />
       <AuthenticatedRoute path="/user/recipes/public/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "public"}} />
       <AuthenticatedRoute path="/user/recipes/:id" exact component={Recipe} />  {/* for viewing their own private recipe */}

@@ -21,6 +21,7 @@ const UserMessenger = props => {
   const [ tab, setTab ] = useState("Room");
   const [ roomToEnter, setRoomToEnter ] = useState("");
   const [ messageToSend, setMessageToSend ] = useState("");
+  //const [ currentFriend, setCurrentFriend ] = useState("");
 
   const messagesRef = createRef();
 
@@ -51,11 +52,6 @@ const UserMessenger = props => {
       const nobscFavicon = document.getElementById('nobsc-favicon');
       nobscFavicon.href = "/nobsc-alert-favicon.png";
     };
-
-    /*const setNormalFavicon = () => {
-      const nobscFavicon = document.getElementById('nobsc-favicon');
-      nobscFavicon.href = "/nobsc-normal-favicon.png";
-    };*/
 
     autoScroll();
     if (props.windowFocused === false) setAlertFavicon();
@@ -105,6 +101,7 @@ const UserMessenger = props => {
         setTimeout(() => setFeedback(""), 4000);
         return;
       }
+      setCurrentFriend("");
       props.messengerChangeChannel(trimmedRoom);
       setRoomToEnter("");
       setSpamCount((prev) => prev + 1);
@@ -146,6 +143,9 @@ const UserMessenger = props => {
         const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
         const trimmedUserToWhisper = userToWhisper[1].substring(3);
         props.messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
+      } else if (currentFriend !== "") {
+        const trimmedFriend = currentFriend.trim();
+        props.messengerSendWhisper(trimmedMessage, trimmedFriend);
       } else {
         props.messengerSendMessage(trimmedMessage);
       }
@@ -167,6 +167,8 @@ const UserMessenger = props => {
   const handleUsersInRoomTabClick = () => setTab("Room");
 
   const handleFriendsTabClick = () => setTab("Friends");
+
+  //const handleFriendClick = () => setCurrentFriend(e.target.id);
   
   return (
     <div className={`messenger two-column-a ${props.twoColumnATheme}`}>
@@ -318,13 +320,19 @@ const UserMessenger = props => {
           <div className="messenger-people">
             <div className="messenger-people-tabs">
               <button
-                className={(tab === "Room") ? "messenger-people-tab chat-nav-current" : "messenger-people-tab"}
+                className={(tab === "Room")
+                  ? "messenger-people-tab chat-nav-current"
+                  : "messenger-people-tab"
+                }
                 onClick={handleUsersInRoomTabClick}
               >
                 Room
               </button>
               <button
-                className={(tab === "Friends") ? "messenger-people-tab chat-nav-current" : "messenger-people-tab"}
+                className={(tab === "Friends")
+                  ? "messenger-people-tab chat-nav-current"
+                  : "messenger-people-tab"
+                }
                 onClick={handleFriendsTabClick}
               >
                 Friends
@@ -343,7 +351,11 @@ const UserMessenger = props => {
             {tab === "Friends" && (
               <ul className="messenger-friends">
                 {props.onlineFriends && props.onlineFriends.map(online => (
-                  <li className="messenger-friend" key={online.user}>
+                  <li
+                    className="messenger-friend"
+                    id={online.user}
+                    key={online.user}
+                  >
                     <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${online.avatar}-tiny`} />
                     <span>{online.user}</span>
                   </li>

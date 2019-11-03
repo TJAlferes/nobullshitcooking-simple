@@ -621,8 +621,8 @@ const UserDashboard = props => {
           (!avatar && tab == "recipes" && subTab == "private") && (
             <div className="dashboard-content">
               <h2>Private Recipes</h2>
-              <Link className="create-new-entity" to="/user/recipes/submit">
-                Create New Recipe
+              <Link className="create-new-entity" to="/user/recipes/private/submit">
+                Create New Private Recipe
               </Link>
               {
                 deleteRecipeModalActive
@@ -698,8 +698,8 @@ const UserDashboard = props => {
           (!avatar && tab == "recipes" && subTab == "public") && (
             <div className="dashboard-content">
               <h2>Public Recipes</h2>
-              <Link className="create-new-entity" to="/user/recipes/submit">
-                Create New Recipe
+              <Link className="create-new-entity" to="/user/recipes/public/submit">
+                Create New Public Recipe
               </Link>
               {
                 disownRecipeModalActive

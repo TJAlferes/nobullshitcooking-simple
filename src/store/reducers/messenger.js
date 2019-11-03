@@ -7,7 +7,7 @@ import * as actionTypes from '../actions/actionTypes';
 // remember Nir Kofman's actions patterns (maybe)
 
 const initialState = {
-  channel: "",  //channels: []
+  channel: "",
   messages: [],
   users: [],
   onlineFriends: [],
