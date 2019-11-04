@@ -101,7 +101,7 @@ const UserMessenger = props => {
         setTimeout(() => setFeedback(""), 4000);
         return;
       }
-      setCurrentFriend("");
+      //setCurrentFriend("");
       props.messengerChangeChannel(trimmedRoom);
       setRoomToEnter("");
       setSpamCount((prev) => prev + 1);

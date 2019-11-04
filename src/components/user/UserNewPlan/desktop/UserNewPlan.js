@@ -106,6 +106,7 @@ const UserNewPlan = props => {
 
   const getPlanData = () => {
     // not done; clean/format? *** keys???
+    console.log(JSON.stringify(props.recipeListsInsideDays));
     return JSON.stringify(props.recipeListsInsideDays);
   };
 

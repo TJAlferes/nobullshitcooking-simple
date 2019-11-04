@@ -1,6 +1,6 @@
-.friends {
-  width: 1000px;
-}
+/*.friends {
+
+}*/
 
 .friends .error-message {
   width: 100%;
@@ -13,7 +13,22 @@
 
 .friends-find {
   display: flex;
+  flex-direction: row;
   width: 100%;
+  margin-bottom: 10px;
+}
+
+.friends-find-label {
+  margin-right: 3px;
+  margin-bottom: 10px;
+  margin-top: 7px;
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.friends-find-user {
+  height: 30px;
+  margin-right: 30px;
   margin-bottom: 10px;
 }
 
@@ -31,7 +46,7 @@
 }
 
 .friends-list-menu-tab {
-  width: 235px;
+  width: 33.33%;
   height: 30px;
   padding-left: 8px;
   padding-right: 8px;
@@ -96,7 +111,7 @@
   flex-wrap: nowrap;
   align-items: center;
   width: 100%;
-  height: 28px;
+  height: 29px;
   border-right-style: solid;
   border-right-width: 1px;
   border-bottom-style: solid;
@@ -114,7 +129,7 @@
 .friends-list-item-avatar {
   width: 25px;
   height: 25px;
-  padding-left: 1px;
+  margin-left: 1px;
 }
 
 .friends-list-item-username {
@@ -155,13 +170,19 @@
 
 
 @media (max-width: 1209px) {
-  .friends-list-menu-tabs {
-    width: 235px;
-    margin: 0 auto;
+  .friends-list-menu-tab {
+    padding: 0;
   }
 
+  .friends-find {
+    flex-direction: column;
+  }
+
+  .friends-find-label,
+  .friends-find-user,
   .friends-find-request,
   .friends-find-block {
+    display: block;
     margin: 0 auto 10px auto;
   }
 

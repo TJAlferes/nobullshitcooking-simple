@@ -130,8 +130,15 @@ const UserFriends = props => {
         <p className="error-message">{feedback}</p>
 
         <div className="friends-find">
-          <label htmlFor="friends-find-user">Username:</label>
-          <input name="friends-find-user" value={userToFind} onChange={handleFindUserInputChange} />
+          <label className="friends-find-label" htmlFor="friends-find-user">
+            Username:
+          </label>
+          <input
+            className="friends-find-user"
+            name="friends-find-user"
+            value={userToFind}
+            onChange={handleFindUserInputChange}
+          />
           <button
             className="friends-find-request"
             disabled={loading}

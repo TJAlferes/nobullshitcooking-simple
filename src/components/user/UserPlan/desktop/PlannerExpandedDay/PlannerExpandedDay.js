@@ -21,7 +21,7 @@ const PlannerExpandedDay = ({
       <span className="the_date">{day}</span>
       {list.map((recipe, i) => (
         <PlannerRecipe
-          className="planner_recipe"
+          className="plan_recipe"
           key={recipe.key}
           id={recipe.key}
           index={i}

@@ -820,7 +820,7 @@ export function* userAcceptFriendshipSaga(action) {
     if (res.data.message == 'Friendship request accepted.') {
       yield put(userAcceptFriendshipSucceeded(res.data.message));
       yield delay(3000);
-      yield dataGetMyFriendshipsSaga();
+      //yield dataGetMyFriendshipsSaga();
       yield put(userMessageClear());
     } else {
       yield put(userAcceptFriendshipFailed(res.data.message));
@@ -867,7 +867,7 @@ export function* userDeleteFriendshipSaga(action) {
     if (res.data.message == 'No longer friends. Maybe again later.') {
       yield put(userDeleteFriendshipSucceeded(res.data.message));
       yield delay(3000);
-      yield dataGetMyFriendshipsSaga();
+      //yield dataGetMyFriendshipsSaga();
       yield put(userMessageClear());
     } else {
       yield put(userDeleteFriendshipFailed(res.data.message));
@@ -891,7 +891,7 @@ export function* userBlockUserSaga(action) {
     if (res.data.message == 'User blocked.') {
       yield put(userBlockUserSucceeded(res.data.message));
       yield delay(3000);
-      yield dataGetMyFriendshipsSaga();
+      //yield dataGetMyFriendshipsSaga();
       yield put(userMessageClear());
     } else {
       yield put(userBlockUserFailed(res.data.message));
