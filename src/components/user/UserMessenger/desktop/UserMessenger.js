@@ -143,12 +143,17 @@ const UserMessenger = props => {
         const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
         const trimmedUserToWhisper = userToWhisper[1].substring(3);
         props.messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
-      } else if (currentFriend !== "") {
-        const trimmedFriend = currentFriend.trim();
-        props.messengerSendWhisper(trimmedMessage, trimmedFriend);
       } else {
         props.messengerSendMessage(trimmedMessage);
       }
+
+      /*
+      else if (currentFriend !== "") {
+        const trimmedFriend = currentFriend.trim();
+        props.messengerSendWhisper(trimmedMessage, trimmedFriend);
+      }
+      */
+
       setMessageToSend("");
       setSpamCount((prev) => prev + 1);
       setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
@@ -351,11 +356,7 @@ const UserMessenger = props => {
             {tab === "Friends" && (
               <ul className="messenger-friends">
                 {props.onlineFriends && props.onlineFriends.map(online => (
-                  <li
-                    className="messenger-friend"
-                    id={online.user}
-                    key={online.user}
-                  >
+                  <li className="messenger-friend" key={online.user}>
                     <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${online.avatar}-tiny`} />
                     <span>{online.user}</span>
                   </li>
