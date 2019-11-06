@@ -145,9 +145,12 @@ import Flexibility from '../components/pages/Fitness/Principles/Flexibility/Flex
 
 import Exercises from '../components/pages/Fitness/Exercises/Exercises';
 import Walk from '../components/pages/Fitness/Exercises/Walk/Walk';
+import Bike from '../components/pages/Fitness/Exercises/Bike/Bike';
+import Run from '../components/pages/Fitness/Exercises/Run/Run';
 import Squat from '../components/pages/Fitness/Exercises/Squat/Squat';
 import Pushup from '../components/pages/Fitness/Exercises/Pushup/Pushup';
 import Pullup from '../components/pages/Fitness/Exercises/Pullup/Pullup';
+
 
 
 import StoreFront from '../components/shop/StoreFront/StoreFront';
@@ -272,7 +275,7 @@ const RoutesList = () => (
       <AppliedRoute path="/food/recipes" exact component={SiteNavRecipes} />
       <AppliedRoute path="/food/recipes/drinks" exact component={Drinks} />
       <AppliedRoute path="/food/recipes/appetizers" exact component={Appetizers} />
-      <AppliedRoute path="/food/recipes/main" exact component={Mains} />
+      <AppliedRoute path="/food/recipes/mains" exact component={Mains} />
       <AppliedRoute path="/food/recipes/sides" exact component={Sides} />
       <AppliedRoute path="/food/recipes/desserts" exact component={Desserts} />
       <AppliedRoute path="/food/recipes/soups" exact component={Soups} />
@@ -343,6 +346,8 @@ const RoutesList = () => (
 
       <AppliedRoute path="/fitness/exercises" exact component={Exercises} />
       <AppliedRoute path="/fitness/exercises/walk" exact component={Walk} />
+      <AppliedRoute path="/fitness/exercises/bike" exact component={Bike} />
+      <AppliedRoute path="/fitness/exercises/run" exact component={Run} />
       <AppliedRoute path="/fitness/exercises/squat" exact component={Squat} />
       <AppliedRoute path="/fitness/exercises/pushup" exact component={Pushup} />
       <AppliedRoute path="/fitness/exercises/pullup" exact component={Pullup} />
