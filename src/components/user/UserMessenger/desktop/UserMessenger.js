@@ -63,7 +63,8 @@ const UserMessenger = props => {
       props.messengerConnect();
     } catch(err) {
       setLoading(false);
-      console.log(err.message);
+      console.log(err);
+      console.log(props.feedback);
     } finally {
       setLoading(false);
     }
@@ -75,7 +76,8 @@ const UserMessenger = props => {
       props.messengerDisconnect();
     } catch(err) {
       setLoading(false);
-      console.log(err.message);
+      console.log(err);
+      console.log(props.feedback);
     } finally {
       setLoading(false);
     }
@@ -112,7 +114,8 @@ const UserMessenger = props => {
       }
     } catch(err) {
       setLoading(false);
-      console.log(err.message);
+      console.log(err);
+      console.log(props.feedback);
     } finally {
       setLoading(false);
     }
@@ -163,7 +166,8 @@ const UserMessenger = props => {
       }
     } catch(err) {
       setLoading(false);
-      console.log(err.message);
+      console.log(err);
+      console.log(props.feedback);
     } finally {
       setLoading(false);
     }

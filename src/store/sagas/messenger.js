@@ -18,9 +18,11 @@ import { store } from '../../index';
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const socket = io.connect(endpoint, {reconnection: true, autoConnect: false});
-
-
+const socket = io.connect(endpoint, {
+  reconnection: false,
+  autoConnect: false,
+  transports: ['websocket']
+});
 
 socket.on('connect', () => {
   store.dispatch(messengerConnected());
