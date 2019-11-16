@@ -84,7 +84,7 @@ const receivedMessage = (state, action) => {
 
 const receivedWhisper = (state, action) => {
   const ts = `${(new Date).toLocaleTimeString()}`;
-  action.message.ts = ts;
+  action.whisper.ts = ts;
   return {
     ...state,
     ...{messages: state.messages.concat(action.whisper)}

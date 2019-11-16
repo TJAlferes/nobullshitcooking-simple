@@ -18,10 +18,10 @@ import { store } from '../../index';
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const socket = io.connect(endpoint, {
+const socket = io.connect(`${endpoint}`, {
   reconnection: false,
   autoConnect: false,
-  transports: ['websocket']
+  //transports: ['websocket']
 });
 
 socket.on('connect', () => {
