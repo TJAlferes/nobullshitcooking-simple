@@ -21,7 +21,6 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 const socket = io.connect(`${endpoint}`, {
   reconnection: false,
   autoConnect: false,
-  //transports: ['websocket']
 });
 
 socket.on('connect', () => {
