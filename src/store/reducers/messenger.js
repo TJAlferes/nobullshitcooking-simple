@@ -21,7 +21,7 @@ const connected = (state, action) => ({
   ...{status: "Connected", connectButtonDisabled: true, disconnectButtonDisabled: false}
 });
 
-const disconnected = (state, action) => ({
+const disconnected = (state, action) => ({  // double check here too
   ...state,
   ...initialState
 });

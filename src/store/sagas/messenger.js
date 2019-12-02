@@ -19,7 +19,7 @@ import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpoint
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 const socket = io.connect(`${endpoint}`, {
-  reconnection: false,
+  reconnection: true,
   autoConnect: false,
 });
 

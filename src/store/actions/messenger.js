@@ -62,12 +62,12 @@ export const messengerSendWhisper = (whisper, to) => ({
   to
 });
 
-export const messengerReceivedWhisper = (whisper) => ({
+export const messengerReceivedWhisper = whisper => ({
   type: actionTypes.MESSENGER_RECEIVED_WHISPER,
   whisper
 });
 
-export const messengerFailedWhisper = (feedback) => ({
+export const messengerFailedWhisper = feedback => ({
   type: actionTypes.MESSENGER_FAILED_WHISPER,
   feedback
 });
