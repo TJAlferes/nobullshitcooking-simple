@@ -1,7 +1,4 @@
 import * as actionTypes from '../actions/actionTypes';
-//import update from 'immutability-helper';
-
-// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
 
 const initialState = {
   message: '',
