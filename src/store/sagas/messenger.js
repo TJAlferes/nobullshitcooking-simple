@@ -6,6 +6,7 @@ import {
   messengerShowOnline,
   messengerShowOffline,
   messengerChangedChannel,
+  messengerRejoinedChannel,
   messengerJoinedUser,
   messengerLeftUser,
   messengerReceivedMessage,
@@ -23,14 +24,37 @@ const socket = io.connect(`${endpoint}`, {
   autoConnect: false,
 });
 
-socket.on('connect', () => {
-  store.dispatch(messengerConnected());
-  socket.emit('GetOnline');
+// +=========+
+// |  Users  |
+// +=========+
+
+// +============+
+// |  Messages  |
+// +============+
+
+socket.on('AddChat', (message) => {
+  if (!message) return;
+  if (typeof message === "undefined") return;
+  store.dispatch(messengerReceivedMessage(message));
 });
 
-socket.on('disconnect', () => {
-  store.dispatch(messengerDisconnected());
+socket.on('AddWhisper', (whisper) => {
+  if (!whisper) return;
+  if (typeof whisper === "undefined") return;
+  store.dispatch(messengerReceivedWhisper(whisper));
 });
+
+socket.on('FailedWhisper', (feedback) => {
+  if (!feedback) return;
+  if (typeof feedback === "undefined") return;
+  store.dispatch(messengerFailedWhisper(feedback));
+});
+
+// +=========+
+// |  Rooms  |
+// +=========+
+
+
 
 socket.on('ShowOnline', (user) => {
   if (!user) return;
@@ -52,6 +76,16 @@ socket.on('GetUser', (users, roomToAdd) => {
   store.dispatch(messengerChangedChannel(users, roomToAdd));
 });
 
+socket.on('RegetUser', (users, roomToRejoin) => {
+  if (!users) return;
+  if (!roomToRejoin) return;
+  if (typeof users === "undefined") return;
+  if (typeof users === "roomToRejoin") return;
+  store.dispatch(messengerRejoinedChannel(users, roomToRejoin))
+});
+
+
+
 socket.on('AddUser', (user) => {
   if (!user) return;
   if (typeof user === "undefined") return;
@@ -64,28 +98,32 @@ socket.on('RemoveUser', (user) => {
   store.dispatch(messengerLeftUser(user));
 });
 
-socket.on('AddChat', (message) => {
-  if (!message) return;
-  if (typeof message === "undefined") return;
-  store.dispatch(messengerReceivedMessage(message));
-});
-
-socket.on('AddWhisper', (whisper) => {
-  if (!whisper) return;
-  if (typeof whisper === "undefined") return;
-  store.dispatch(messengerReceivedWhisper(whisper));
-});
-
-socket.on('FailedWhisper', (feedback) => {
-  if (!feedback) return;
-  if (typeof feedback === "undefined") return;
-  store.dispatch(messengerFailedWhisper(feedback));
-});
-
 socket.on('GetOnline', online => {
   if (!online) return;
   if (typeof online === "undefined") return;
   store.dispatch(messengerGetOnline(online));
+});
+
+
+
+// +===================+
+// |  SocketIO events  |
+// +===================+
+
+socket.on('connect', () => {
+  store.dispatch(messengerConnected());
+  socket.emit('GetOnline');
+});
+
+socket.on('disconnect', () => {
+  store.dispatch(messengerDisconnected());
+  //messengerConnectSaga();  // organize and flag for no or yes reconnect
+  //messengerRejoinRoomSaga();
+});
+
+socket.on('reconnect', () => {
+  //messengerReconnectSaga();
+  messengerRejoinRoomSaga();
 });
 
 
@@ -113,4 +151,11 @@ export function* messengerSendWhisperSaga(action) {
 export function* messengerUpdateOnlineSaga() {
   const { messenger } = store.getState();
   if (store.getState(messenger.status) === "Connected") socket.emit('GetOnline');
+}
+
+export function messengerRejoinRoomSaga() {
+  const { messenger } = store.getState();
+  if (store.getState(messenger.channel) === "") return;
+  console.log('Rejoining room: ', messenger.channel);
+  socket.emit('RejoinRoom', messenger.channel);
 }

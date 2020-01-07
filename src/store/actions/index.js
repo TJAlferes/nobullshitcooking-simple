@@ -74,6 +74,7 @@ export {
   messengerShowOffline,
   messengerChangeChannel,
   messengerChangedChannel,
+  messengerRejoinedChannel,
   messengerSendMessage,
   messengerSendWhisper,
   messengerReceivedMessage,

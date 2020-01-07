@@ -23,7 +23,8 @@ const connected = (state, action) => ({
 
 const disconnected = (state, action) => ({  // double check here too
   ...state,
-  ...initialState
+  //...initialState
+  ...{status: "Disconnected", connectButtonDisabled: false, disconnectButtonDisabled: true}
 });
 
 const showOnline = (state, action) => ({
@@ -38,7 +39,19 @@ const showOffline = (state, action) => ({
 
 const changedChannel = (state, action) => ({
   ...state,
-  ...{channel: action.channel, messages: [], users: action.users}
+  ...{
+    channel: action.channel,
+    messages: [],
+    users: action.users
+  }
+});
+
+const rejoinedChannel = (state, action) => ({
+  ...state,
+  ...{
+    channel: action.channel,
+    users: action.users
+  }
 });
 
 const joinedUser = (state, action) => {
@@ -119,6 +132,7 @@ const messengerReducer = (state = initialState, action) => {
     case actionTypes.MESSENGER_SHOW_ONLINE: return showOnline(state, action);
     case actionTypes.MESSENGER_SHOW_OFFLINE: return showOffline(state, action);
     case actionTypes.MESSENGER_CHANGED_CHANNEL: return changedChannel(state, action);
+    case actionTypes.MESSENGER_REJOINED_CHANNEL: return rejoinedChannel(state, action);
     case actionTypes.MESSENGER_JOINED_USER: return joinedUser(state, action);
     case actionTypes.MESSENGER_LEFT_USER: return leftUser(state, action);
     case actionTypes.MESSENGER_RECEIVED_MESSAGE: return receivedMessage(state, action);

@@ -36,6 +36,12 @@ export const messengerChangedChannel = (users, channel) => ({
   channel
 });
 
+export const messengerRejoinedChannel = (users, channel) => ({
+  type: actionTypes.MESSENGER_REJOINED_CHANNEL,
+  users,
+  channel
+});
+
 export const messengerJoinedUser = user => ({
   type: actionTypes.MESSENGER_JOINED_USER,
   user
