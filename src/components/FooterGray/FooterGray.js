@@ -13,7 +13,7 @@ const FooterGray = props => (
       <li><Link to="/site/privacy">Privacy Policy</Link></li>
       <li><Link to="/site/help">Help</Link></li>
     </ul>
-    <p>Copyright 2015-2019 NoBullshitCooking. All rights reserved.</p>
+    <p>Copyright 2015-2020 NoBullshitCooking. All rights reserved.</p>
   </footer>
 );
 

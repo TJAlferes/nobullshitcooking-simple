@@ -173,7 +173,7 @@ const Register = props => {
         </li>
       </ul>
       <p className="register-copyright">
-        Copyright 2015-2019 NoBullshitCooking. All Rights Reserved.
+        Copyright 2015-2020 NoBullshitCooking. All Rights Reserved.
       </p>
 
     </div>
