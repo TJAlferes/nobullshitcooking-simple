@@ -12,6 +12,7 @@
 }
 
 .suggestions-light span {
+  display: block;
   color: #000;
 }
 
@@ -24,6 +25,7 @@
 }
 
 .suggestions-dark span {
+  display: block;
   color: #aaa;
 }
 
