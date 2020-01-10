@@ -11,12 +11,16 @@
   background-color: #fff;
 }
 
-.suggestions-light span {
+.suggestions-light .suggestions__header {
   display: block;
+  margin-bottom: 5px;
   color: #000;
 }
 
-.suggestions-light hr {
+.suggestions-light .suggestions__line {
+  height: 1px;
+  margin-bottom: 5px;
+  border: 0 none;
   background-color: #bfbfbf;
 }
 
@@ -24,13 +28,27 @@
   background-color: #222;
 }
 
-.suggestions-dark span {
+.suggestions-dark .suggestions__header {
   display: block;
+  margin-bottom: 5px;
   color: #aaa;
 }
 
-.suggestions-dark hr {
+.suggestions-dark .suggestions__line {
+  height: 1px;
+  margin-bottom: 5px;
+  border: 0 none;
   background-color: #444;
+}
+
+#suggestions__nearby-stores {
+  width: 260px;
+  height: 260px;
+}
+
+#nearby-stores__iframe {
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 899px) {
