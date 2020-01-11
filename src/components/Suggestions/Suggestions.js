@@ -1,18 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+
+import {
+  geoLatitude,
+  geoLongitude,
+  geoAddress,
+  geoNearbyStoresClicked
+} from '../../store/actions/index.js';
 
 import './suggestions.css';
 
 const googleMapsAPIKeyOne = 'AIzaSyCULKDLxoF9O413jjvF5Ot2xXXMdgz0Eag';
 const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';
 
-const Suggestions = props => {
-  const [ latitude, setLatitude ] = useState("");
-  const [ longitude, setLongitude ] = useState("");
-  const [ address, setAddress ] = useState("");
-  const [ showNearbyStoresClicked, setShowNearbyStoresClicked ] = useState(false);
-
+const Suggestions = ({
+  theme,
+  latitude,
+  longitude,
+  address,
+  nearbyStoresClicked,
+  geoLatitude,
+  geoLongitude,
+  geoAddress,
+  geoNearbyStoresClicked
+}) => {
   useEffect(() => {
     const getAddress = async () => {
       if (latitude === "") return;
@@ -20,7 +32,7 @@ const Suggestions = props => {
       const res = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleMapsAPIKeyTwo}`
       );
-      if (res.data) setAddress(res.data.results[3].formatted_address);
+      if (res.data) geoAddress(res.data.results[3].formatted_address);
     };
     getAddress();
   }, [latitude, longitude]);
@@ -28,22 +40,22 @@ const Suggestions = props => {
   const getLocation = async () => {
     const geolocation = navigator.geolocation;
     geolocation.getCurrentPosition(function(position) {
-      setLatitude(`${position.coords.latitude}`);
-      setLongitude(`${position.coords.longitude}`);
+      geoLatitude(`${position.coords.latitude}`);
+      geoLongitude(`${position.coords.longitude}`);
     });
   };
 
   const handleShowNearbyStoresClick = () => {
-    setShowNearbyStoresClicked(true);
+    geoNearbyStoresClicked(true);
     getLocation();
   };
 
   return (
-    <div className={`suggestions ${props.theme}`}>
+    <div className={`suggestions ${theme}`}>
       <span className="suggestions__header">Stores near you</span>
       <div id="suggestions__nearby-stores">
         {
-          (showNearbyStoresClicked)
+          (nearbyStoresClicked)
           ? (
             (address !== "") &&
             <iframe
@@ -74,7 +86,18 @@ const Suggestions = props => {
 };
 
 const mapStateToProps = state => ({
-  theme: state.theme.suggestionsTheme
+  theme: state.theme.suggestionsTheme,
+  latitude: state.geolocation.latitude,
+  longitude: state.geolocation.longitude,
+  address: state.geolocation.address,
+  nearbyStoresClicked: state.geolocation.nearbyStoresClicked
 });
 
-export default connect(mapStateToProps)(Suggestions);
+const mapDispatchToProps = dispatch => ({
+  geoLatitude: (latitude) => dispatch(geoLatitude(latitude)),
+  geoLongitude: (longitude) => dispatch(geoLongitude(longitude)),
+  geoAddress: (address) => dispatch(geoAddress(address)),
+  geoNearbyStoresClicked: (clicked) => dispatch(geoNearbyStoresClicked(clicked))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Suggestions);

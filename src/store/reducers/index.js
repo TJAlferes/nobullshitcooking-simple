@@ -4,6 +4,7 @@ import nobscappReducer from './nobscapp';
 //import modalsReducer from './modals';
 import themeReducer from './theme';
 import menuReducer from './menu';
+import geolocationReducer from './geolocation';
 import authReducer from './auth';
 import dataReducer from './data';
 import searchReducer from './search';
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   //modals: modalsReducer,
   theme: themeReducer,
   menu: menuReducer,
+  geolocation: geolocationReducer,
   auth: authReducer,
   data: dataReducer,
   search: searchReducer,

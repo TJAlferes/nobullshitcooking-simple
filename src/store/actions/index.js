@@ -16,7 +16,14 @@ export {
   menuShadowShow,
   menuShadowHide
 } from './menu';
- 
+
+export {
+  geoLatitude,
+  geoLongitude,
+  geoAddress,
+  geoNearbyStoresClicked
+} from './geolocation';
+
 export {
   authDisplay,
   authReset,

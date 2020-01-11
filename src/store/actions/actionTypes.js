@@ -32,6 +32,14 @@ export const MENU_SHADOW_SHOW = 'MENU_SHADOW_SHOW';
 export const MENU_SHADOW_HIDE = 'MENU_SHADOW_HIDE';
 
 
+/*
+geolocation
+*/
+
+export const GEO_LATITUDE = 'GEO_LATITUDE';
+export const GEO_LONGITUDE = 'GEO_LONGITUDE';
+export const GEO_ADDRESS = 'GEO_ADDRESS';
+export const GEO_NEARBY_STORES_CLICKED = 'GEO_NEARBY_STORES_CLICKED';
 
 /*
 auth
