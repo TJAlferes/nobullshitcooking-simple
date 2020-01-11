@@ -11,17 +11,7 @@ const Suggestions = props => {
   const [ latitude, setLatitude ] = useState("");
   const [ longitude, setLongitude ] = useState("");
   const [ address, setAddress ] = useState("");
-
-  useEffect(() => {
-    const getLocation = async () => {
-      const geolocation = navigator.geolocation;
-      geolocation.getCurrentPosition(function(position) {
-        setLatitude(`${position.coords.latitude}`);
-        setLongitude(`${position.coords.longitude}`);
-      });
-    };
-    getLocation();
-  }, []);
+  const [ showNearbyStoresClicked, setShowNearbyStoresClicked ] = useState(false);
 
   useEffect(() => {
     const getAddress = async () => {
@@ -35,21 +25,42 @@ const Suggestions = props => {
     getAddress();
   }, [latitude, longitude]);
 
+  const getLocation = async () => {
+    const geolocation = navigator.geolocation;
+    geolocation.getCurrentPosition(function(position) {
+      setLatitude(`${position.coords.latitude}`);
+      setLongitude(`${position.coords.longitude}`);
+    });
+  };
+
+  const handleShowNearbyStoresClick = () => {
+    setShowNearbyStoresClicked(true);
+    getLocation();
+  };
+
   return (
     <div className={`suggestions ${props.theme}`}>
       <span className="suggestions__header">Stores near you</span>
-      {
-        (address !== "") &&
-        <div id="suggestions__nearby-stores">
-          <iframe
-            id="nearby-stores__iframe"
-            frameBorder="0"
-            style={{border: "0 none"}}
-            src={`https://www.google.com/maps/embed/v1/search?q=grocery+stores+near+${address}&center=${latitude},${longitude}&zoom=11&key=${googleMapsAPIKeyOne}`}
-          >
-          </iframe>
-        </div>
-      }
+      <div id="suggestions__nearby-stores">
+        {
+          (showNearbyStoresClicked)
+          ? (
+            (address !== "") &&
+            <iframe
+              id="nearby-stores__iframe"
+              frameBorder="0"
+              style={{border: "0 none"}}
+              src={`https://www.google.com/maps/embed/v1/search?q=grocery+stores+near+${address}&center=${latitude},${longitude}&zoom=11&key=${googleMapsAPIKeyOne}`}
+            >
+            </iframe>
+          )
+          : (
+            <button id="nearby-stores__button" onClick={handleShowNearbyStoresClick}>
+              Show Nearby Stores
+            </button>
+          )
+        }
+      </div>
       <hr className="suggestions__line"/>
       <span className="suggestions__header">Growers &amp; Ranchers</span>
       <hr className="suggestions__line"/>
