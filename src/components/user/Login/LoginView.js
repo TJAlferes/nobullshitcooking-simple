@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
-import './login.css';
+import './loginView.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
 // TO DO: make inputs uneditable/unselectable while isLoading,
@@ -10,7 +10,7 @@ import LoaderButton from '../../LoaderButton/LoaderButton';
 
 const LoginView = ({
   isAuthenticated,
-  message,
+  feedback,
   loading,
   email,
   handleEmailChange,
@@ -21,6 +21,7 @@ const LoginView = ({
 }) => (
   <div className="login" onKeyUp={(e) => handleLogin(e)}>
     {isAuthenticated && <Redirect to="/" />}
+
     <Link className="auth-img-link" to="/">
       <img
         className="auth-img-desktop"
@@ -31,9 +32,10 @@ const LoginView = ({
         src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-small-white.png"
       />
     </Link>
+    
     <form className="login-form">
       <h1>Sign In</h1>
-      <p className="error-message">{message}</p>
+      <p className="error-message">{feedback}</p>
       <label>Email</label>
       <input
         type="text"
@@ -44,6 +46,7 @@ const LoginView = ({
         autoFocus
         value={email}
         onChange={handleEmailChange}
+        disabled={loading}
       />
       <label>Password</label>
       <input
@@ -54,6 +57,7 @@ const LoginView = ({
         maxLength="20"
         value={password}
         onChange={handlePasswordChange}
+        disabled={loading}
       />
       <LoaderButton
         type="button"

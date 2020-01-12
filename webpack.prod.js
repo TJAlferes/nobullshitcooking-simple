@@ -62,6 +62,7 @@ module.exports = {
       //favicon: "./src/favicon.ico"
     }),
     new UglifyJsWebpackPlugin(),
-    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 7})
+    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 12}),
+    new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
   ]
 };

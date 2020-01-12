@@ -6,7 +6,7 @@ const Disclaimer = props => (
   <div className={`disclaimer one-column-a ${props.oneColumnATheme}`}>
     <h1>Disclaimer</h1>
 
-    <p>The <b>nobullshitcooking.net</b> website does not contain any medical advice.</p>
+    <p>The <b>nobullshitcooking.com</b> website does not contain any medical advice.</p>
 
     <p>The authors of this website are not doctors, nutritionists, or dieticians.</p>
 
@@ -14,13 +14,13 @@ const Disclaimer = props => (
     is intended for informational purposes only and does not constitute or replace
     professional medical advice, diagnosis, or treatment.</p>
 
-    <p><b>nobullshitcooking.net</b> does not recommend or endorse any specific
+    <p><b>nobullshitcooking.com</b> does not recommend or endorse any specific
     test, physician, product, procedure, opinion,
     or any other information provided on this website.
     Any information, procedure, or product on this website is not intended to
     diagnose, treat, cure, or prevent any disease.</p>
 
-    <p><b>nobullshitcooking.net</b> does not endorse any drugs, medications, supplements, vitamins, or herbs
+    <p><b>nobullshitcooking.com</b> does not endorse any drugs, medications, supplements, vitamins, or herbs
     nor do we condone the use of illegal drugs or using drugs for an unintended purpose.
     Before taking any drugs, medications, supplements, vitamins, or herbs,
     consult a physician for a thorough evaluation.</p>
