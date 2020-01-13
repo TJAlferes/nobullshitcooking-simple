@@ -44,6 +44,7 @@ const LoginView = ({
         size="20"
         maxLength="50"
         autoFocus
+        autoComplete="email"
         value={email}
         onChange={handleEmailChange}
         disabled={loading}
@@ -55,6 +56,7 @@ const LoginView = ({
         id="password"
         size="20"
         maxLength="20"
+        autoComplete="current-password"
         value={password}
         onChange={handlePasswordChange}
         disabled={loading}

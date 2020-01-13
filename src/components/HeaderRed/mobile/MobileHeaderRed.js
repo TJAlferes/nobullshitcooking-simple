@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import './mobileHeaderRed.css';
 import MobileLeftNavToggle from './MobileLeftNavToggle/MobileLeftNavToggle';
@@ -26,6 +25,4 @@ const MobileHeaderRed = ({ theme }) => (
   </div>
 );
 
-const mapStateToProps = state => ({theme: state.theme.headerTheme});
-
-export default connect(mapStateToProps)(MobileHeaderRed);
+export default MobileHeaderRed;

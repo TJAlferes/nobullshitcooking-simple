@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { authUserRegister, authUserVerify } from '../../../store/actions/index';
 
+import RegisterView from './RegisterView';
+
 export const Register = ({
   isAuthenticated,
   message,

@@ -7,32 +7,40 @@ import './search.css';
 import DownArrowGray from '../../../assets/images/header/down-arrow-gray.png';
 import { searchSetIndex } from '../../../store/actions/index';
 
-const Search = props => {
+const Search = ({
+  theme,
+  history,
+  currentIndex,
+  searchSetIndex,
+  searchTerm,
+  setSearchTerm
+}) => {
   const changeSearchIndex = e => {  // useEffect? useLayoutEffect?
-    const sInsert = document.getElementsByClassName("sui-search-box__wrapper")[1].firstChild;
-    props.searchSetIndex(e.target.value);
+    const sInsert = document
+    .getElementsByClassName("sui-search-box__wrapper")[1].firstChild;
+    searchSetIndex(e.target.value);
     sInsert.focus();
   }
 
   const redirectToSearchPage = () => {
-    props.history.push(`/${props.currentIndex}`);
+    history.push(`/${currentIndex}`);
   };
 
   const handleSubmit = () => {
-    props.setSearchTerm(props.searchTerm);
+    setSearchTerm(searchTerm);
     redirectToSearchPage();
   };
 
-  let capitalizedFirstLetter = `${props.currentIndex}`.slice(0, 1).toUpperCase();
-  let otherLetters = `${props.currentIndex}`.slice(1, props.currentIndex.length).toLowerCase();
+  let capitalizedFirstLetter = `${currentIndex}`.slice(0, 1).toUpperCase();
+  let otherLetters = `${currentIndex}`.slice(1, currentIndex.length).toLowerCase();
   let facadeText = `${capitalizedFirstLetter}${otherLetters}`;
   let field;
-  if (props.currentIndex === "recipes") field = "title";
-  if (props.currentIndex === "ingredients") field = "ingredientName";
-  if (props.currentIndex === "equipment") field = "equipmentName";
+  if (currentIndex === "recipes") field = "title";
+  if (currentIndex === "ingredients") field = "ingredientName";
+  if (currentIndex === "equipment") field = "equipmentName";
 
   return (
-    <div className={`search ${props.theme}`} id="search_form">
+    <div className={`search ${theme}`} id="search_form">
 
       <div id="search_category">
         <div id="search_facade">

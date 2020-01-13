@@ -1,10 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
-import MultiBackend from 'react-dnd-multi-backend';
-//import HTML5Backend from 'react-dnd-html5-backend-cjs';
-//import TouchBackend from 'react-dnd-touch-backend-cjs';
-import { DndProvider } from 'react-dnd-cjs';
+import { connect } from 'react-redux';
 
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
 import HeaderRed from './components/HeaderRed/HeaderRed';
@@ -13,52 +9,44 @@ import FooterGray from './components/FooterGray/FooterGray';
 import RoutesList from './routing/Routes';
 import './app.css';
 
-// TO DO: Either move DnDProvider to index.js, or move other providers here
-
-const App = props => {
-  /*
-
-  Decide visual layout style
-
-  */
-
+export const App = ({ location, theme }) => {
   // Determine if the user is currently at an authentication page...
-  let location = props.location;
-  let isAccessing = location.pathname &&
+  let userIsAtAuthPage = location.pathname &&
   (
     location.pathname.match(/^\/staff\/register/) ||
     location.pathname.match(/^\/staff\/login/) ||
     location.pathname.match(/^\/user\/register/) ||
     location.pathname.match(/^\/user\/login/)
   );
-  let layout = null;
 
-  if (isAccessing) {
+  let layout;
+
+  if (userIsAtAuthPage) {
     // ... If they are, then render authentication pages layout
     layout = <div><RoutesList /></div>;
   } else {
     // ... Otherwise, render the normal layout
     layout = (
-      <DndProvider backend={MultiBackend} options={HTML5toTouch}>
-        <div id="app">
-          <div>
-            <div className="mobile_display">
-              <MobileHeaderRed />
-            </div>
-            <div className="desktop_display">
-              <HeaderRed />
-            </div>
+      <div id="app">
+        <div>
+          <div className="mobile_display">
+            <MobileHeaderRed theme={theme} />
           </div>
-          <MainWhite location={location}>
-            <RoutesList />
-          </MainWhite>
-          <FooterGray />
+          <div className="desktop_display">
+            <HeaderRed theme={theme} />
+          </div>
         </div>
-      </DndProvider>
+        <MainWhite location={location}>
+          <RoutesList />
+        </MainWhite>
+        <FooterGray />
+      </div>
     );
   }
 
   return layout;
 }
 
-export default withRouter(App);
+const mapStateToProps = state => ({theme: state.theme.headerTheme});
+
+export default withRouter(connect(mapStateToProps)(App));

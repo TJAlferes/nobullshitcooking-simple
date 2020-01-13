@@ -4,17 +4,13 @@ import { StaticRouter } from 'react-router-dom';
 
 import { shallow } from 'enzyme';  // remove?
 
-import App from './App';
+import { App as UnconnectedApp } from './App';
 
 it('displays a HeadRed component', () => {
   const div = document.createElement('div');
-
-  ReactDOM.render(<StaticRouter><App /></StaticRouter>, div);
-
+  ReactDOM.render(<StaticRouter><UnconnectedApp location={{pathname: "/"}} /></StaticRouter>, div);
   console.log(div.innerHTML);
   //expect(div).toEqual;
-
-
   ReactDOM.unmountComponentAtNode(div);
 });
 /*

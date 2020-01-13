@@ -8,6 +8,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { SearchProvider } from '@elastic/react-search-ui';
+import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
+import MultiBackend from 'react-dnd-multi-backend';
+//import HTML5Backend from 'react-dnd-html5-backend-cjs';
+//import TouchBackend from 'react-dnd-touch-backend-cjs';
+import { DndProvider } from 'react-dnd-cjs';
 
 import searchConfig from './config/searchConfig';
 import { dataInit, nobscappWindowFocused } from './store/actions/index';
@@ -81,7 +86,9 @@ const app = (
   <Provider store={store}>
     <BrowserRouter>
       <SearchProvider config={searchConfig}>
-        <App />
+        <DndProvider backend={MultiBackend} options={HTML5toTouch}>
+          <App />
+        </DndProvider>
       </SearchProvider>
     </BrowserRouter>
   </Provider>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+
 
 import './headerRed.css';
 import Logo from './Logo/Logo';
@@ -34,6 +34,4 @@ const HeaderRed = ({ theme }) => (
   </header>
 );
 
-const mapStateToProps = state => ({theme: state.theme.headerTheme});
-
-export default connect(mapStateToProps)(HeaderRed);
+export default HeaderRed;

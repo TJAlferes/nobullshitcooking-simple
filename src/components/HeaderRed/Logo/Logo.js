@@ -7,16 +7,16 @@ import DarkWebsiteLogo from '../../../assets/images/header/logo-slim-dark-red.pn
 import LightTabletLogo from '../../../assets/images/header/logo-mobile-red.png';
 import DarkTabletLogo from '../../../assets/images/header/logo-mobile-dark-red.png';
 
-const Logo = props => (
-  <div className={`logo ${props.theme}`}>
+const Logo = ({ theme }) => (
+  <div className={`logo ${theme}`}>
     <Link className="logo-link" to="/">
       <img
         className="logo-img-desktop"
-        src={props.theme === 'header-light' ? LightWebsiteLogo : DarkWebsiteLogo}
+        src={theme === 'header-light' ? LightWebsiteLogo : DarkWebsiteLogo}
       />
       <img
         className="logo-img-tablet"
-        src={props.theme === 'header-light' ? LightTabletLogo : DarkTabletLogo}
+        src={theme === 'header-light' ? LightTabletLogo : DarkTabletLogo}
       />
     </Link>
   </div>
