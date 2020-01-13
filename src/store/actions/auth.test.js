@@ -28,7 +28,7 @@ describe('authDisplay action creator', () => {
     expect(actual).toEqual(expected);
   });
   it('returns the correct avatar', () => {
-    const actual = getRecipesRequest('Allison', 'Allison').avatar;
+    const actual = authDisplay('Allison', 'Allison').avatar;
     const expected = 'Allison';
     expect(actual).toEqual(expected);
   });
@@ -40,8 +40,8 @@ describe('authUpdateLocalAvatar action creator', () => {
     const expected = AUTH_UPDATE_LOCAL_AVATAR;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct name', () => {
-    const actual = authUpdateLocalAvatar('Leeroy').name;
+  it('returns the correct avatar', () => {
+    const actual = authUpdateLocalAvatar('Leeroy').avatar;
     const expected = 'Leeroy';
     expect(actual).toEqual(expected);
   });

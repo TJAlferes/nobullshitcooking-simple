@@ -7,12 +7,12 @@ import MobileLogo from './MobileLogo/MobileLogo';
 import MobileSearch from './MobileSearch/MobileSearch';
 import MobileUserNav from './MobileUserNav/MobileUserNav';
 
-const MobileHeaderRed = props => (
-  <div className={`mobile-header-red ${props.theme}`}>
+const MobileHeaderRed = ({ theme }) => (
+  <div className={`mobile-header-red ${theme}`}>
     <div className="mobile-header-row-1">
       <div className="mobile-header-row-1-col-1">
         <MobileLeftNavToggle />
-        <MobileLogo theme={props.theme} />
+        <MobileLogo theme={theme} />
       </div>
       <div className="mobile-header-row-1-col-2">
       </div>
@@ -21,7 +21,7 @@ const MobileHeaderRed = props => (
       </div>
     </div>
     <div className="mobile-header-row-2">
-      <MobileSearch theme={props.theme} />
+      <MobileSearch theme={theme} />
     </div>
   </div>
 );

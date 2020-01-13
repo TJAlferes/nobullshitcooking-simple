@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { StaticRouter } from 'react-router-dom';
 
-import { shallow } from 'enzyme';
+import { shallow } from 'enzyme';  // remove?
 
 import App from './App';
 

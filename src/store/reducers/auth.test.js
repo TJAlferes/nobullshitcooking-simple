@@ -35,7 +35,7 @@ const beforeState = {
 describe('the auth reducer', () => {
   it('returns initial state', () => {
     const actual = authReducer(undefined, {});
-    const expected = {};
+    const expected = initialState;
     expect(actual).toEqual(expected);
   });
 
@@ -211,14 +211,14 @@ describe('the auth reducer', () => {
   });
 
   it('handles actions of type AUTH_UPDATE_LOCAL_AVATAR', () => {
-    const actual = authReducer(beforeStateState, {
-      TYPE: AUTH_UPDATE_LOCAL_AVATAR,
+    const actual = authReducer(beforeState, {
+      type: AUTH_UPDATE_LOCAL_AVATAR,
       avatar: 'Squidward-456456456'
     });
     const expected = {
       message: '',
       isAuthenticated: true,
-      authname: 'Squidward',
+      authname: 'Spongebob',
       avatar: 'Squidward-456456456'
     };
     expect(actual).toEqual(expected);

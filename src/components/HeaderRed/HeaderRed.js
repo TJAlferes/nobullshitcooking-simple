@@ -8,14 +8,14 @@ import Promo from './Promo/Promo';
 import SiteNav from './SiteNav/SiteNav';
 import UserNav from './UserNav/UserNav';
 
-const HeaderRed = props => (
-  <header className={`headerred ${props.theme}`}>
+const HeaderRed = ({ theme }) => (
+  <header className={`headerred ${theme}`}>
     <div className="header-row-1">
       <div className="header-row-1-col-1">
-        <Logo theme={props.theme} />
+        <Logo theme={theme} />
       </div>
       <div className="header-row-1-col-2">
-        <Search theme={props.theme} />
+        <Search theme={theme} />
       </div>
       <div className="header-row-1-col-3">
         <Promo />

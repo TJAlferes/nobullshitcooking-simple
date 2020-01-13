@@ -1,6 +1,6 @@
-import Login from './LoginView';
+import LoginView from './LoginView';
 
-describe('user/LoginView component', () => {
+describe('user LoginView component', () => {
   it('displays an email input element', () => {
 
   });

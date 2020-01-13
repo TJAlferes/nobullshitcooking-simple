@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import './loginView.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
-// TO DO: make inputs uneditable/unselectable while isLoading,
+// TO DO:
 // make Sign In button css not change color on hover while in Signing In...
 // AKA isloading state
 
@@ -32,7 +32,7 @@ const LoginView = ({
         src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-small-white.png"
       />
     </Link>
-    
+
     <form className="login-form">
       <h1>Sign In</h1>
       <p className="error-message">{feedback}</p>

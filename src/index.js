@@ -75,7 +75,6 @@ window.onfocus = function() {
   const nobscFavicon = document.getElementById('nobsc-favicon');
   nobscFavicon.href = "/nobsc-normal-favicon.png";
   store.dispatch(nobscappWindowFocused(true));
-
 }
 
 const app = (

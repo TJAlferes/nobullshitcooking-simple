@@ -24,7 +24,7 @@ const authDisplay = (state, action) => ({
 
 const updateLocalAvatar = (state, action) => ({
   ...state,
-  ...{avatar: action.name}
+  ...{avatar: action.avatar}
 });
 
 // Note to self: See: Nir Kofman

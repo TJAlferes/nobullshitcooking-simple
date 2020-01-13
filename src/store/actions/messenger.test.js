@@ -72,7 +72,7 @@ describe('messengerChangedChannel action creator', () => {
     expect(actual).toEqual(expected);
   });
   it('returns the correct channel', () => {
-    const actual = messengerChangedChannel('5067').channel;
+    const actual = messengerChangedChannel([], '5067').channel;
     const expected = '5067';
     expect(actual).toEqual(expected);
   });

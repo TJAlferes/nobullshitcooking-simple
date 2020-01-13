@@ -10,7 +10,7 @@ import LoginView from './LoginView';
 // make Sign In button css not change color on hover while in Signing In...
 // AKA isloading state
 
-const Login = ({ isAuthenticated, message, authUserLogin }) => {
+export const Login = ({ isAuthenticated, message, authUserLogin }) => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ email, setEmail ] = useState("");

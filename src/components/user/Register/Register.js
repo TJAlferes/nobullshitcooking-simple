@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { authUserRegister, authUserVerify } from '../../../store/actions/index';
 
-const Register = ({
+export const Register = ({
   isAuthenticated,
   message,
   authUserRegister,
