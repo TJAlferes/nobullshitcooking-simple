@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { menuShadowShow, menuShadowHide } from '../../../../store/actions/index';
+
 import Menu from './Menu/Menu';
 import foodMenuData from './Menu/foodMenuData';
 import fitnessMenuData from './Menu/fitnessMenuData';
 //import supplyMenuData from './Menu/supplyMenuData';
-import { menuShadowShow, menuShadowHide } from '../../../store/actions/index';
+
 import './siteNav.css';
 
 class SiteNav extends Component {

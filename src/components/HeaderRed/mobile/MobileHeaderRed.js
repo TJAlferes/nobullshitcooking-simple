@@ -1,10 +1,11 @@
 import React from 'react';
 
-import './mobileHeaderRed.css';
 import MobileLeftNavToggle from './MobileLeftNavToggle/MobileLeftNavToggle';
 import MobileLogo from './MobileLogo/MobileLogo';
 import MobileSearch from './MobileSearch/MobileSearch';
 import MobileUserNav from './MobileUserNav/MobileUserNav';
+
+import './mobileHeaderRed.css';
 
 const MobileHeaderRed = ({ theme }) => (
   <div className={`mobile-header-red ${theme}`}>

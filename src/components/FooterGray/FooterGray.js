@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import './footerGray.css';
 
-const FooterGray = props => (
-  <footer className={`footergray ${props.theme}`}>
+const FooterGray = ({ theme }) => (
+  <footer className={`footergray ${theme}`}>
     <ul>
       <li><Link to="/site/sitemap">Sitemap</Link></li>
       <li><Link to="/site/disclaimer">Disclaimer</Link></li>
@@ -17,6 +16,4 @@ const FooterGray = props => (
   </footer>
 );
 
-const mapStateToProps = state => ({theme: state.theme.footerTheme});
-
-export default connect(mapStateToProps)(FooterGray);
+export default FooterGray;

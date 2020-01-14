@@ -1,25 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
-import { withRouter, Link } from 'react-router-dom';
-import ReactCrop from "react-image-crop";
-import "react-image-crop/lib/ReactCrop.scss";
+import { withRouter } from 'react-router-dom';
 
-import './newEquipment.css';
-import LoaderButton from '../../LoaderButton/LoaderButton';
 import {
   getCroppedFullImage,
   getCroppedTinyImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
+
 import {
   userCreateNewPrivateEquipment,
   userEditPrivateEquipment
 } from '../../../store/actions/index';
 
-const UserNewEquipment = props => {
+import UserNewEquipmentView from './UserNewEquipmentView';
+
+export const UserNewEquipment = ({
+  match,
+  oneColumnATheme,
+  message,
+  childProps,
+  dataEquipmentTypes,
+  dataMyPrivateEquipment,
+  userCreateNewPrivateEquipment,
+  userEditPrivateEquipment
+}) => {
   const history = useHistory();
 
-  const [ message, setMessage ] = useState("");
+  const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ editing, setEditing ] = useState(false);
   const [ editingId, setEditingId ] = useState("");
@@ -54,8 +62,8 @@ const UserNewEquipment = props => {
       setLoading(true);
       setEditing(true);
 
-      const [ prev ] = props.dataMyPrivateEquipment
-      .filter((equ) => equ.equipment_id === Number(props.match.params.id));
+      const [ prev ] = dataMyPrivateEquipment
+      .filter((equ) => equ.equipment_id === Number(match.params.id));
 
       setEditingId(prev.equipment_id);
       setEquipmentTypeId(prev.equipment_type_id);
@@ -64,7 +72,7 @@ const UserNewEquipment = props => {
       setPrevEquipmentImage(prev.equipment_image);
       setLoading(false);
     };
-    if (props.childProps && props.childProps.editing === "true") {
+    if (childProps && childProps.editing === "true") {
       getExistingEquipmentToEdit();
     }
   }, []);
@@ -72,17 +80,17 @@ const UserNewEquipment = props => {
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
-      if (props.message !== "") window.scrollTo(0,0);
-      setMessage(props.message);
+      if (message !== "") window.scrollTo(0,0);
+      setFeedback(message);
       if (
-        props.message === "Equipment created." ||
-        props.message === "Equipment updated."
+        message === "Equipment created." ||
+        message === "Equipment updated."
       ) {
         setTimeout(() => history.push('/user/dashboard'), 3000);
       }
     }
     return () => isSubscribed = false;
-  }, [props.message]);
+  }, [message]);
 
   const handleEquipmentTypeChange = e => setEquipmentTypeId(e.target.value);
 
@@ -136,22 +144,22 @@ const UserNewEquipment = props => {
 
     if (!validEquipmentTypeId) {
       window.scrollTo(0,0);
-      setMessage("You forgot to select the equipment type...");
-      setTimeout(() => setMessage(""), 3000);
+      setFeedback("You forgot to select the equipment type...");
+      setTimeout(() => setFeedback(""), 3000);
       return false;
     }
 
     if (!validEquipmentName) {
       window.scrollTo(0,0);
-      setMessage("Umm, double check your name...");
-      setTimeout(() => setMessage(""), 3000);
+      setFeedback("Umm, double check your name...");
+      setTimeout(() => setFeedback(""), 3000);
       return false;
     }
 
     if (!validEquipmentDescription) {
       window.scrollTo(0,0);
-      setMessage("Umm, double check your description...");
-      setTimeout(() => setMessage(""), 3000);
+      setFeedback("Umm, double check your description...");
+      setTimeout(() => setFeedback(""), 3000);
       return false;
     }
 
@@ -179,9 +187,9 @@ const UserNewEquipment = props => {
     setLoading(true);
     try {
       if (editing === true) {
-        props.userEditPrivateEquipment(equipmentInfo);
+        userEditPrivateEquipment(equipmentInfo);
       } else {
-        props.userCreateNewPrivateEquipment(equipmentInfo);
+        userCreateNewPrivateEquipment(equipmentInfo);
       }
     } catch(err) {
       setLoading(false);
@@ -192,113 +200,34 @@ const UserNewEquipment = props => {
   };
 
   return (
-    <div className={`new-equipment one-column-a ${props.oneColumnATheme}`}>
+    <UserNewEquipmentView
+      oneColumnATheme={oneColumnATheme}
+      feedback={feedback}
+      loading={loading}
 
-      <h1>Create New Private Equipment</h1>
+      editing={editing}
+      equipmentTypeId={equipmentTypeId}
+      equipmentName={equipmentName}
+      equipmentDescription={equipmentDescription}
+      equipmentImage={equipmentImage}
+      prevEquipmentImage={prevEquipmentImage}
 
-      <p className="new-equipment__error-message">{message}</p>
+      dataEquipmentTypes={dataEquipmentTypes}
+      handleEquipmentTypeChange={handleEquipmentTypeChange}
+      handleEquipmentNameChange={handleEquipmentNameChange}
+      handleEquipmentDescriptionChange={handleEquipmentDescriptionChange}
 
-      <h2 className="new-equipment__heading-two">Type of Equipment</h2>
-      <select
-        required
-        onChange={handleEquipmentTypeChange}
-        value={equipmentTypeId}
-      >
-        <option value=""></option>
-        {props.dataEquipmentTypes.map(type => (
-          <option key={type.equipment_type_id} value={type.equipment_type_id}>
-            {type.equipment_type_name}
-          </option>
-        ))}
-      </select>
+      onSelectFile={onSelectFile}
+      onImageLoaded={onImageLoaded}
+      crop={crop}
+      cropFullSizePreview={cropFullSizePreview}
+      cropTinySizePreview={cropTinySizePreview}
+      onCropChange={onCropChange}
+      onCropComplete={onCropComplete}
 
-      <h2 className="new-equipment__heading-two">Name</h2>
-      <input
-        className="new-equipment__name"
-        type="text"
-        onChange={handleEquipmentNameChange}
-        value={equipmentName}
-      />
-
-      <h2 className="new-equipment__heading-two">Description</h2>
-      <textarea
-        className="new-equipment__description"
-        onChange={handleEquipmentDescriptionChange}
-        value={equipmentDescription}
-      />
-
-      <div className="new-equipment__image">
-        <h2 className="new-equipment__heading-two">Image of Equipment</h2>
-        {!equipmentImage && (
-          <div>
-            {
-              !editing
-              ? <img src="https://nobsc-user-equipment.s3.amazonaws.com/nobsc-equipment-default" />
-              : prevEquipmentImage && <img src={`https://nobsc-user-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
-            }
-            <h4>Change</h4>
-            <input
-              className="new-equipment-image-input"
-              type="file"
-              accept="image/*"
-              onChange={onSelectFile}
-            />
-          </div>
-        )}
-        {equipmentImage && (
-          <div>
-            <ReactCrop
-              className="new-equipment__image-crop-tool"
-              style={{minHeight: "300px"}}
-              imageStyle={{minHeight: "300px"}}
-              src={equipmentImage}
-              crop={crop}
-              onImageLoaded={onImageLoaded}
-              onChange={onCropChange}
-              onComplete={onCropComplete}
-            />
-            <span className="new-equipment__image-crop-tool-tip">
-              Move the crop to your desired position. These two images will be saved for you:
-            </span>
-            <div className="new-equipment__image-crop-previews">
-              <div className="new-equipment-image-crop-full-preview">
-                <span>Full Size: </span><img src={cropFullSizePreview} />
-              </div>
-              <div className="new-equipment__image-crop-tiny-preview">
-                <span>Tiny Size: </span><img src={cropTinySizePreview} />
-              </div>
-            </div>
-            <button
-              className="new-equipment__image-cancel-button"
-              disabled={loading}
-              onClick={cancelEquipmentImage}
-            >
-              Cancel
-            </button>
-          </div>
-        )}
-      </div>
-
-      <div className="new-equipment__finish-area">
-        <Link
-          className="new-equipment__cancel-button"
-          to="/user/dashboard"
-        >
-          Cancel
-        </Link>
-        <LoaderButton
-          className="new-equipment__submit-button"
-          type="button"
-          name="submit"
-          id="create_new_private_user_equipment_button"
-          text="Create"
-          loadingText="Creating..."
-          isLoading={loading}
-          onClick={handleSubmit}
-        />
-      </div>
-
-    </div>
+      cancelEquipmentImage={cancelEquipmentImage}
+      handleSubmit={handleSubmit}
+    />
   );
 };
 

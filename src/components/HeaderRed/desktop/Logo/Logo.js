@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import LightWebsiteLogo from '../../../../assets/images/header/logo-slim-red.png';
+import DarkWebsiteLogo from '../../../../assets/images/header/logo-slim-dark-red.png';
+import LightTabletLogo from '../../../../assets/images/header/logo-mobile-red.png';
+import DarkTabletLogo from '../../../../assets/images/header/logo-mobile-dark-red.png';
+
 import './logo.css';
-import LightWebsiteLogo from '../../../assets/images/header/logo-slim-red.png';
-import DarkWebsiteLogo from '../../../assets/images/header/logo-slim-dark-red.png';
-import LightTabletLogo from '../../../assets/images/header/logo-mobile-red.png';
-import DarkTabletLogo from '../../../assets/images/header/logo-mobile-dark-red.png';
 
 const Logo = ({ theme }) => (
   <div className={`logo ${theme}`}>

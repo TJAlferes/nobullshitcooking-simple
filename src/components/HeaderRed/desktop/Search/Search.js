@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withSearch, SearchBox } from '@elastic/react-search-ui';
- 
+
+import { searchSetIndex } from '../../../../store/actions/index';
+
+import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
+
 import './search.css';
-import DownArrowGray from '../../../assets/images/header/down-arrow-gray.png';
-import { searchSetIndex } from '../../../store/actions/index';
 
 const Search = ({
   theme,

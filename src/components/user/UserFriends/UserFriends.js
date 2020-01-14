@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import {
   userRequestFriendship,
@@ -10,10 +9,21 @@ import {
   userBlockUser,
   userUnblockUser
 } from '../../../store/actions/index';
-import LeftNav from '../../LeftNav/LeftNav';
-import './userFriends.css';
 
-const UserFriends = props => {
+import UserFriendsView from './UserFriendsView';
+
+export const UserFriends = ({
+  twoColumnATheme,
+  message,
+  authname,
+  dataMyFriendships,
+  userRequestFriendship,
+  userAcceptFriendship,
+  userRejectFriendship,
+  userDeleteFriendship,
+  userBlockUser,
+  userUnblockUser
+}) => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ tab, setTab ] = useState("accepted");
@@ -22,11 +32,11 @@ const UserFriends = props => {
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
-      if (props.feedback !== "") window.scrollTo(0,0);
-      setFeedback(props.feedback);
+      if (message !== "") window.scrollTo(0,0);
+      setFeedback(message);
     }
     return () => isSubscribed = false;
-  }, [props.feedback]);
+  }, [message]);
 
   const handleCurrentTabClick = () => setTab("accepted");
 
@@ -40,8 +50,8 @@ const UserFriends = props => {
     const friendName = userToFind.trim();
     setLoading(true);
     try {
-      if (friendName === props.authname) return;
-      props.userRequestFriendship(friendName);
+      if (friendName === authname) return;
+      userRequestFriendship(friendName);
       setUsertoFind("");
     } catch(err) {
       setLoading(false);
@@ -55,7 +65,7 @@ const UserFriends = props => {
     const friendName = e.target.value;
     setLoading(true);
     try {
-      props.userAcceptFriendship(friendName);
+      userAcceptFriendship(friendName);
     } catch(err) {
       setLoading(false);
       console.log(err.message);
@@ -68,7 +78,7 @@ const UserFriends = props => {
     const friendName = e.target.value;
     setLoading(true);
     try {
-      props.userRejectFriendship(friendName);
+      userRejectFriendship(friendName);
     } catch(err) {
       setLoading(false);
       console.log(err.message);
@@ -81,7 +91,7 @@ const UserFriends = props => {
     const friendName = e.target.value;
     setLoading(true);
     try {
-      props.userDeleteFriendship(friendName);
+      userDeleteFriendship(friendName);
     } catch(err) {
       setLoading(false);
       console.log(err.message);
@@ -94,8 +104,8 @@ const UserFriends = props => {
     const friendName = userToFind.trim();
     setLoading(true);
     try {
-      if (friendName === props.authname) return;
-      props.userBlockUser(friendName);
+      if (friendName === authname) return;
+      userBlockUser(friendName);
       setUsertoFind("");
     } catch(err) {
       setLoading(false);
@@ -109,7 +119,7 @@ const UserFriends = props => {
     const friendName = e.target.value;
     setLoading(true);
     try {
-      props.userUnblockUser(friendName);
+      userUnblockUser(friendName);
     } catch(err) {
       setLoading(false);
       console.log(err.message);
@@ -119,135 +129,29 @@ const UserFriends = props => {
   };
 
   return (
-    <div className={`friends two-column-a ${props.twoColumnATheme}`}>
-
-      <LeftNav />
-
-      <section>
-
-        <h1>Friends</h1>
-
-        <p className="error-message">{feedback}</p>
-
-        <div className="friends-find">
-          <label className="friends-find-label" htmlFor="friends-find-user">
-            Username:
-          </label>
-          <input
-            className="friends-find-user"
-            name="friends-find-user"
-            value={userToFind}
-            onChange={handleFindUserInputChange}
-          />
-          <button
-            className="friends-find-request"
-            disabled={loading}
-            onClick={handleFriendRequestClick}
-          >
-            Send Friend Request
-          </button>
-          <button
-            className="friends-find-block"
-            disabled={loading}
-            onClick={handleUserBlockClick}
-          >
-            Block User
-          </button>
-        </div>
-
-        <hr className="friends-hr" />
-
-        <div className="friends-list-menu-tabs">
-          <button
-            className={(tab === "accepted") ? "friends-list-menu-tab active" : "friends-list-menu-tab inactive"}
-            onClick={handleCurrentTabClick}
-          >
-            Current
-          </button>
-          <button
-            className={(tab === "pending-received") ? "friends-list-menu-tab active" : "friends-list-menu-tab inactive"}
-            onClick={handlePendingTabClick}
-          >
-            Pending
-          </button>
-          <button
-            className={(tab === "blocked") ? "friends-list-menu-tab active" : "friends-list-menu-tab inactive"}
-            onClick={handleBlockedTabClick}
-          >
-            Blocked
-          </button>
-        </div>
-
-        <div className="friends-list">
-          {
-            props.dataMyFriendships
-            .filter(friend => friend.status === tab)
-            .map(friend => (
-              <div className="friends-list-item" key={friend.username}>
-                <span className="friends-list-item-avatar">
-                  <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${friend.avatar}-tiny`} />
-                </span>
-                <span className="friends-list-item-username">
-                  <Link to={`/user/profile/${friend.username}`}>{friend.username}</Link>
-                </span>
-                {
-                  (friend.status === "pending-received") &&
-                  <button
-                    className="friends-list-item-action"
-                    disabled={loading}
-                    value={friend.username}
-                    onClick={handleFriendAcceptClick}
-                  >
-                    Accept
-                  </button>
-                }
-                {
-                  (friend.status === "pending-received") &&
-                  <button
-                    className="friends-list-item-delete"
-                    disabled={loading}
-                    value={friend.username}
-                    onClick={handleFriendRejectClick}
-                  >
-                    Reject
-                  </button>
-                }
-                {
-                  (friend.status === "accepted") &&
-                  <button
-                    className="friends-list-item-delete"
-                    disabled={loading}
-                    value={friend.username}
-                    onClick={handleFriendDeleteClick}
-                  >
-                    Unfriend
-                  </button>
-                }
-                {
-                  (friend.status === "blocked") &&
-                  <button
-                    className="friends-list-item-delete"
-                    disabled={loading}
-                    value={friend.username}
-                    onClick={handleUserUnblockClick}
-                  >
-                    Unblock
-                  </button>
-                }
-              </div>
-            ))
-          }
-        </div>
-      </section>
-
-    </div>
+    <UserFriendsView
+      twoColumnATheme={twoColumnATheme}
+      feedback={feedback}
+      loading={loading}
+      dataMyFriendships={dataMyFriendships}
+      handleCurrentTabClick={handleCurrentTabClick}
+      handlePendingTabClick={handlePendingTabClick}
+      handleBlockedTabClick={handleBlockedTabClick}
+      handleFindUserInputChange={handleFindUserInputChange}
+      handleFriendRequestClick={handleFriendRequestClick}
+      handleFriendAcceptClick={handleFriendAcceptClick}
+      handleFriendRejectClick={handleFriendRejectClick}
+      handleFriendDeleteClick={handleFriendDeleteClick}
+      handleUserBlockClick={handleUserBlockClick}
+      handleUserUnblockClick={handleUserUnblockClick}
+    />
   );
 };
 
 const mapStateToProps = state => ({
-  dataMyFriendships: state.data.myFriendships,
-  feedback: state.user.message,
-  authname: state.auth.authname
+  message: state.user.message,
+  authname: state.auth.authname,
+  dataMyFriendships: state.data.myFriendships
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -256,7 +160,7 @@ const mapDispatchToProps = dispatch => ({
   userRejectFriendship: (friendName) => dispatch(userRejectFriendship(friendName)),
   userDeleteFriendship: (friendName) => dispatch(userDeleteFriendship(friendName)),
   userBlockUser: (friendName) => dispatch(userBlockUser(friendName)),
-  userUnblockUser: (friendName) => dispatch(userUnblockUser(friendName)),
+  userUnblockUser: (friendName) => dispatch(userUnblockUser(friendName))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserFriends);

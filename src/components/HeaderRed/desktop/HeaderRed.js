@@ -1,12 +1,12 @@
 import React from 'react';
 
-
-import './headerRed.css';
 import Logo from './Logo/Logo';
 import Search from './Search/Search';
 import Promo from './Promo/Promo';
 import SiteNav from './SiteNav/SiteNav';
 import UserNav from './UserNav/UserNav';
+
+import './headerRed.css';
 
 const HeaderRed = ({ theme }) => (
   <header className={`headerred ${theme}`}>

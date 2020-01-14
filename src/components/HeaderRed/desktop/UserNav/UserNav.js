@@ -2,8 +2,13 @@ import React, { Component, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import {
+  authUserLogout,
+  themeDarkTrigger,
+  themeLightTrigger
+} from '../../../../store/actions/index';
+
 import './userNav.css';
-import { authUserLogout, themeDarkTrigger, themeLightTrigger } from '../../../store/actions/index';
 
 class UserNav extends Component {
   handleLogout = async () => {

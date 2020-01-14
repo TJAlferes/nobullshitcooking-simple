@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import './mobileUserNav.css';
 //import CartIcon from '../CartIcon/CartIcon';
-import { authUserLogout, themeDarkTrigger, themeLightTrigger } from '../../../../store/actions/index';
+import {
+  authUserLogout,
+  themeDarkTrigger,
+  themeLightTrigger
+} from '../../../../store/actions/index';
+
+import './mobileUserNav.css';
 
 class MobileUserNav extends Component {
   handleLogout = async () => {

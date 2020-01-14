@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import AriaModal from 'react-aria-modal';
-import ReactCrop from "react-image-crop";
-import "react-image-crop/lib/ReactCrop.scss";
 
 import {
   authUpdateLocalAvatar,
@@ -17,12 +13,33 @@ import {
   userDeletePrivateIngredient
 } from '../../../store/actions/index';
 
-import LeftNav from '../../LeftNav/LeftNav';
+import UserDashboardView from './UserDashboardView';
 
-import './userDashboard.css';
-
-const UserDashboard = props => {
-  const [ message, setMessage ] = useState("");
+export const UserDashboard = ({
+  twoColumnATheme,
+  message,
+  authname,
+  avatar,
+  myPlans,
+  myPublicRecipes,
+  myPrivateEquipment,
+  myPrivateIngredients,
+  myPrivateRecipes,
+  myFavoriteRecipes,
+  mySavedRecipes,
+  creatingPlan,
+  editingId,
+  authUpdateLocalAvatar,
+  userSubmitAvatar,
+  userDeletePlan,
+  userDeletePrivateRecipe,
+  userDisownPublicRecipe,
+  userUnfavoriteRecipe,
+  userUnsaveRecipe,
+  userDeletePrivateEquipment,
+  userDeletePrivateIngredient
+}) => {
+  const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
 
   const [ crop, setCrop ] = useState({
@@ -58,11 +75,11 @@ const UserDashboard = props => {
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
-      if (props.message !== "") window.scrollTo(0,0);
-      setMessage(props.message);
+      if (message !== "") window.scrollTo(0,0);
+      setFeedback(message);
     }
     return () => isSubscribed = false;
-  }, [props.message]);
+  }, [message]);
 
   const onSelectFile = e => {
     if (e.target.files && e.target.files.length > 0) {
@@ -180,8 +197,8 @@ const UserDashboard = props => {
   const submitAvatar = () => {
     setLoading(true);
     try {
-      props.userSubmitAvatar(fullAvatar, tinyAvatar);
-      props.authUpdateLocalAvatar(props.authname);
+      userSubmitAvatar(fullAvatar, tinyAvatar);
+      authUpdateLocalAvatar(authname);
     } catch(err) {
       setLoading(false);
       window.scrollTo(0,0);
@@ -243,7 +260,7 @@ const UserDashboard = props => {
   const handleDeletePlan = () => {
     setLoading(true);
     try {
-      props.userDeletePlan(Number(deletePlanId));
+      userDeletePlan(Number(deletePlanId));
     } catch(err) {
       window.scrollTo(0,0);
     } finally {
@@ -257,7 +274,7 @@ const UserDashboard = props => {
   const handleDeletePrivateRecipe = () => {
     setLoading(true);
     try {
-      props.userDeletePrivateRecipe(Number(deleteRecipeId));
+      userDeletePrivateRecipe(Number(deleteRecipeId));
     } catch(err) {
       window.scrollTo(0,0);
     } finally {
@@ -271,7 +288,7 @@ const UserDashboard = props => {
   const handleDisownPublicRecipe = () => {
     setLoading(true);
     try {
-      props.userDisownPublicRecipe(Number(disownRecipeId));
+      userDisownPublicRecipe(Number(disownRecipeId));
     } catch(err) {
       window.scrollTo(0,0);
     } finally {
@@ -285,7 +302,7 @@ const UserDashboard = props => {
   const handleUnfavoriteRecipe = id => {
     setLoading(true);
     try {
-      props.userUnfavoriteRecipe(id);
+      userUnfavoriteRecipe(id);
     } catch(err) {
       window.scrollTo(0,0);
     } finally {
@@ -296,7 +313,7 @@ const UserDashboard = props => {
   const handleUnsaveRecipe = id => {
     setLoading(true);
     try {
-      props.userUnsaveRecipe(id);
+      userUnsaveRecipe(id);
     } catch(err) {
       window.scrollTo(0,0);
     } finally {
@@ -307,7 +324,7 @@ const UserDashboard = props => {
   const handleDeletePrivateEquipment = id => {
     setLoading(true);
     try {
-      props.userDeletePrivateEquipment(id);
+      userDeletePrivateEquipment(id);
     } catch(err) {
       window.scrollTo(0,0);
     } finally {
@@ -319,7 +336,7 @@ const UserDashboard = props => {
   const handleDeletePrivateIngredient = id => {
     setLoading(true);
     try {
-      props.userDeletePrivateIngredient(id);
+      userDeletePrivateIngredient(id);
     } catch(err) {
       window.scrollTo(0,0);
     } finally {
@@ -329,634 +346,71 @@ const UserDashboard = props => {
   };
 
   return (
-    <div className={`dashboard two-column-a ${props.twoColumnATheme}`}>
+    <UserDashboardView
+      twoColumnATheme={twoColumnATheme}
+      authname={authname}
+      avatar={avatar}
+      feedback={feedback}
+      loading={loading}
+      creatingPlan={creatingPlan}
+      editingId={editingId}
 
-      <LeftNav />
+      onSelectFile={onSelectFile}
+      onImageLoaded={onImageLoaded}
+      crop={crop}
+      cropFullSizePreview={cropFullSizePreview}
+      cropTinySizePreview={cropTinySizePreview}
+      onCropChange={onCropChange}
+      onCropComplete={onCropComplete}
+      submitAvatar={submitAvatar}
+      cancelAvatar={cancelAvatar}
 
-      <section>
+      tab={tab}
+      handleTabClick={handleTabClick}
+      subTab={subTab}
+      handleSubTabClick={handleSubTabClick}
+      getApplicationNode={getApplicationNode}
 
-        <h1>{props.authname}</h1>
+      myPlans={myPlans}
+      deletePlanModalActive={deletePlanModalActive}
+      activateDeletePlanModal={activateDeletePlanModal}
+      deactivateDeletePlanModal={deactivateDeletePlanModal}
+      deletePlanName={deletePlanName}
+      handleDeletePlan={handleDeletePlan}
 
-        <p className="error-message">{message}</p>
+      myPrivateRecipes={myPrivateRecipes}
+      deleteRecipeModalActive={deleteRecipeModalActive}
+      activateDeleteRecipeModal={activateDeleteRecipeModal}
+      deactivateDeleteRecipeModal={deactivateDeleteRecipeModal}
+      deleteRecipeName={deleteRecipeName}
+      handleDeletePrivateRecipe={handleDeletePrivateRecipe}
 
-        {/* avatar*/}
-        <div className="dashboard-avatar">
-          {!avatar && (
-            <div>
-              <Link
-                className="view-own-profile"
-                to={`/user/profile/${props.authname}`}
-              >
-                View Profile
-              </Link>
-              <h2>Profile Picture</h2>
-              <div className="avatar-crop-previews">
-                <div className="avatar-crop-full-preview">
-                  <span>Full Size: </span>
-                  <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.avatar}`} />
-                </div>
-                <div className="avatar-crop-tiny-preview">
-                  <span>Tiny Size: </span>
-                  <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${props.avatar}-tiny`} />
-                </div>
-              </div>
-              <label className="dashboard-avatar-label">Change</label>
-              <input
-                className="avatar-input"
-                name="set-avatar"
-                type="file"
-                accept="image/*"
-                onChange={onSelectFile}
-              />
-            </div>
-          )}
+      myPublicRecipes={myPublicRecipes}
+      disownRecipeModalActive={disownRecipeModalActive}
+      activateDisownRecipeModal={activateDisownRecipeModal}
+      deactivateDisownRecipeModal={deactivateDisownRecipeModal}
+      disownRecipeName={disownRecipeName}
+      handleDisownPublicRecipe={handleDisownPublicRecipe}
 
-          {avatar && (
-            <div className="dashboard-avatar-edit">
-              <ReactCrop
-                className="avatar-crop-tool"
-                style={{minHeight: "300px"}}
-                imageStyle={{minHeight: "300px"}}
-                src={avatar}
-                crop={crop}
-                onImageLoaded={onImageLoaded}
-                onChange={onCropChange}
-                onComplete={onCropComplete}
-              />
-              <span className="avatar-crop-tool-tip">
-                Move the crop to your desired position, then click "Complete". These two images will be saved for you:
-              </span>
-              <div className="avatar-crop-previews">
-                <div className="avatar-crop-full-preview">
-                  <span>Full Size: </span><img src={cropFullSizePreview} />
-                </div>
-                <div className="avatar-crop-tiny-preview">
-                  <span>Tiny Size: </span><img src={cropTinySizePreview} />
-                </div>
-              </div>
-              <button
-                className="avatar-cancel-button"
-                name="cancel-avatar"
-                disabled={loading}
-                onClick={cancelAvatar}
-              >
-                Cancel
-              </button>
-              <button
-                className="avatar-submit-button"
-                name="submit-avatar"
-                disabled={loading}
-                onClick={submitAvatar}
-              >
-                Complete
-              </button>
-            </div>
-          )}
-        </div>
+      myFavoriteRecipes={myFavoriteRecipes}
+      handleUnfavoriteRecipe={handleUnfavoriteRecipe}
 
-        {!avatar && <hr className="dashboard-hr" />}
+      mySavedRecipes={mySavedRecipes}
+      handleUnsaveRecipe={handleUnsaveRecipe}
 
-        {/* tabs */}
+      myPrivateIngredients={myPrivateIngredients}
+      handleDeletePrivateIngredient={handleDeletePrivateIngredient}
 
-        {!avatar && (
-          <div className="dashboard-menu-tabs">
-            {/*<button className="dashboard-menu-tab" name="notifications" onClick={handleTabClick}>Notifications</button>*/}
-            <button
-              className={(tab === "plans")
-                ? "dashboard-menu-tab active"
-                : "dashboard-menu-tab inactive"
-              }
-              name="plans"
-              onClick={e => handleTabClick(e)}
-            >
-              Plans
-            </button>
-            <button
-              className={(tab === "recipes")
-                ? "dashboard-menu-tab active"
-                : "dashboard-menu-tab inactive"
-              }
-              name="recipes"
-              onClick={e => handleTabClick(e)}
-            >
-              Recipes
-            </button>
-            <button
-              className={(tab === "ingredients")
-                ? "dashboard-menu-tab active"
-                : "dashboard-menu-tab inactive"
-              }
-              name="ingredients"
-              onClick={e => handleTabClick(e)}
-            >
-              Ingredients
-            </button>
-            <button
-              className={(tab === "equipment")
-                ? "dashboard-menu-tab active"
-                : "dashboard-menu-tab inactive"
-              }
-              name="equipment"
-              onClick={e => handleTabClick(e)}
-            >
-              Equipment
-            </button>
-          </div>
-        )}
-
-
-        {/* subTabs */}
-
-        {
-          (!avatar && tab == "recipes") && (
-            <div className="dashboard-menu-subtabs">
-              <button
-                className={(subTab === "private")
-                  ? "dashboard-menu-subtab active"
-                  : "dashboard-menu-subtab inactive"
-                }
-                name="private"
-                onClick={e => handleSubTabClick(e)}
-              >
-                Private
-              </button>
-              <button
-                className={(subTab === "public")
-                  ? "dashboard-menu-subtab active"
-                  : "dashboard-menu-subtab inactive"
-                }
-                name="public"
-                onClick={e => handleSubTabClick(e)}
-              >
-                Public
-              </button>
-              <button
-                className={(subTab === "favorite")
-                  ? "dashboard-menu-subtab active"
-                  : "dashboard-menu-subtab inactive"
-                }
-                name="favorite"
-                onClick={e => handleSubTabClick(e)}
-              >
-                Favorite
-              </button>
-              <button
-                className={(subTab === "saved")
-                  ? "dashboard-menu-subtab active"
-                  : "dashboard-menu-subtab inactive"
-                }
-                name="saved"
-                onClick={e => handleSubTabClick(e)}
-              >
-                Saved
-              </button>
-            </div>
-          )
-        }
-
-        {/* content */}
-
-        {/*
-          tab == "notifications" && (
-            <div className="dashboard-content">
-            </div>
-          )
-        */}
-
-        {
-          (!avatar && tab == "plans") && (
-            <div className="dashboard-content">
-              <h2>Plans</h2>
-              {
-                (!props.creatingPlan && !props.editingId) &&
-                <Link className="create-new-entity" to="/user/plan/submit">
-                  Create New Plan
-                </Link>
-              }
-              {
-                (props.creatingPlan && !props.editingId) &&
-                <Link className="create-new-entity" to="/user/plan/submit">
-                  Finish Creating Plan
-                </Link>
-              }
-              {
-                (!props.creatingPlan && props.editingId) &&
-                <Link
-                  className="create-new-entity"
-                  to={`/user/plan/edit/${props.editingId}`}
-                >
-                  Finish Updating Plan
-                </Link>
-              }
-              {
-                deletePlanModalActive
-                ? (
-                  <AriaModal
-                    dialogClass="plan-delete-modal"
-                    titleText="Cancel?"
-                    onExit={deactivateDeletePlanModal}
-                    focusDialog="true"
-                    getApplicationNode={getApplicationNode}
-                    focusTrapOptions={{returnFocusOnDeactivate: false}}
-                    underlayClickExits={false}
-                  >
-                    <p className="plan-delete-prompt">
-                      {'Delete Plan: '}{deletePlanName}{' ?'}
-                    </p>
-                    <button
-                      className="plan-delete-cancel-button"
-                      onClick={deactivateDeletePlanModal}
-                    >
-                      No
-                    </button>
-                    <button
-                      className="plan-delete-button"
-                      onClick={handleDeletePlan}
-                    >
-                      Yes, Delete Plan
-                    </button>
-                  </AriaModal>
-                )
-                : false
-              }
-              {
-                props.myPlans.length
-                ? props.myPlans.map(plan => (
-                  <div className="dashboard-content-item" key={plan.plan_id}>
-                    <span className="dashboard-content-item-name">
-                      <Link to={`/user/plan/${plan.plan_id}`}>
-                        {plan.plan_name}
-                      </Link>
-                    </span>
-                    {
-                      (!props.creatingPlan && !props.editingId) &&
-                      <span className="dashboard-content-item-action">
-                        <Link to={`/user/plan/edit/${plan.plan_id}`}>
-                          Edit
-                        </Link>
-                      </span>
-                    }
-                    {
-                      (!props.creatingPlan && !props.editingId) &&
-                      <span
-                        className="dashboard-content-item-delete"
-                        onClick={() => activateDeletePlanModal(plan.plan_id, plan.plan_name)}
-                      >
-                        Delete
-                      </span>
-                    }
-                  </div>
-                ))
-                : (
-                  <div className="dashboard-content-none">
-                    You haven't created any plans yet.
-                  </div>
-                )
-              }
-            </div>
-          )
-        }
-
-        {
-          (!avatar && tab == "recipes" && subTab == "private") && (
-            <div className="dashboard-content">
-              <h2>Private Recipes</h2>
-              <Link className="create-new-entity" to="/user/recipes/private/submit">
-                Create New Private Recipe
-              </Link>
-              {
-                deleteRecipeModalActive
-                ? (
-                  <AriaModal
-                    dialogClass="recipe-delete-modal"
-                    titleText="Cancel?"
-                    onExit={deactivateDeleteRecipeModal}
-                    focusDialog="true"
-                    getApplicationNode={getApplicationNode}
-                    focusTrapOptions={{returnFocusOnDeactivate: false}}
-                    underlayClickExits={false}
-                  >
-                    <p className="recipe-delete-prompt">
-                      {'Delete Recipe: '}{deleteRecipeName}{' ?'}
-                    </p>
-                    <button
-                      className="recipe-delete-cancel-button"
-                      onClick={deactivateDeleteRecipeModal}
-                    >
-                      No
-                    </button>
-                    <button
-                      className="recipe-delete-button"
-                      onClick={handleDeletePrivateRecipe}
-                    >
-                      Yes, Delete Recipe
-                    </button>
-                  </AriaModal>
-                )
-                : false
-              }
-              {
-                props.myPrivateRecipes.length
-                ? props.myPrivateRecipes.map(recipe => (
-                  <div className="dashboard-content-item" key={recipe.recipe_id}>
-                    <span className="dashboard-content-item-tiny">
-                      {
-                        recipe.recipe_image !== "nobsc-recipe-default"
-                        ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
-                        : <div className="image-default-28-18"></div>
-                      }
-                    </span>
-                    <span className="dashboard-content-item-name">
-                      <Link to={`/user/recipes/${recipe.recipe_id}`}>
-                        {recipe.title}
-                      </Link>
-                    </span>
-                    <span className="dashboard-content-item-action">
-                      <Link to={`/user/recipes/private/edit/${recipe.recipe_id}`}>
-                        Edit
-                      </Link>
-                    </span>
-                    <span
-                      className="dashboard-content-item-delete"
-                      onClick={() => activateDeleteRecipeModal(recipe.recipe_id, recipe.title)}
-                    >
-                      Delete
-                    </span>
-                  </div>
-                ))
-                : (
-                  <div className="dashboard-content-none">
-                    You haven't created any private recipes yet.
-                  </div>
-                )
-              }
-            </div>
-          )
-        }
-
-        {
-          (!avatar && tab == "recipes" && subTab == "public") && (
-            <div className="dashboard-content">
-              <h2>Public Recipes</h2>
-              <Link className="create-new-entity" to="/user/recipes/public/submit">
-                Create New Public Recipe
-              </Link>
-              {
-                disownRecipeModalActive
-                ? (
-                  <AriaModal
-                    dialogClass="recipe-disown-modal"
-                    titleText="Cancel?"
-                    onExit={deactivateDisownRecipeModal}
-                    focusDialog="true"
-                    getApplicationNode={getApplicationNode}
-                    focusTrapOptions={{returnFocusOnDeactivate: false}}
-                    underlayClickExits={false}
-                  >
-                    <p className="recipe-disown-prompt">
-                      {'Disown Recipe: '}{disownRecipeName}{' ?'}
-                    </p>
-                    <button
-                      className="recipe-disown-cancel-button"
-                      onClick={deactivateDisownRecipeModal}
-                    >
-                      No
-                    </button>
-                    <button
-                      className="recipe-disown-button"
-                      onClick={handleDisownPublicRecipe}
-                    >
-                      Yes, Disown Recipe
-                    </button>
-                  </AriaModal>
-                )
-                : false
-              }
-              {
-                props.myPublicRecipes.length
-                ? props.myPublicRecipes.map(recipe => (
-                  <div className="dashboard-content-item" key={recipe.recipe_id}>
-                    <span className="dashboard-content-item-tiny">
-                      {
-                        recipe.recipe_image !== "nobsc-recipe-default"
-                        ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
-                        : <div className="image-default-28-18"></div>
-                      }
-                    </span>
-                    <span className="dashboard-content-item-name">
-                      <Link to={`/recipes/${recipe.recipe_id}`}>
-                        {recipe.title}
-                      </Link>
-                    </span>
-                    <span className="dashboard-content-item-action">
-                      <Link to={`/user/recipes/public/edit/${recipe.recipe_id}`}>
-                        Edit
-                      </Link>
-                    </span>
-                    <span
-                      className="dashboard-content-item-delete"
-                      onClick={() => activateDisownRecipeModal(recipe.recipe_id, recipe.title)}
-                    >
-                      Disown
-                    </span>
-                  </div>
-                ))
-                : (
-                  <div className="dashboard-content-none">
-                    You haven't created any public recipes yet.
-                  </div>
-                )
-              }
-            </div>
-          )
-        }
-
-        {
-          (!avatar && tab == "recipes" && subTab == "favorite") && (
-            <div className="dashboard-content">
-              <h2>Favorite Recipes</h2>
-              {
-                props.myFavoriteRecipes.length
-                ? props.myFavoriteRecipes.map(recipe => (
-                  <div className="dashboard-content-item" key={recipe.recipe_id}>
-                    <span className="dashboard-content-item-tiny">
-                      {
-                        recipe.recipe_image !== "nobsc-recipe-default"
-                        ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
-                        : <div className="image-default-28-18"></div>
-                      }
-                    </span>
-                    <span className="dashboard-content-item-name">
-                      <Link to={`/recipes/${recipe.recipe_id}`}>
-                        {recipe.title}
-                      </Link>
-                    </span>
-                    <span
-                      className="dashboard-content-item-unfavorite"
-                      onClick={() => handleUnfavoriteRecipe(recipe.recipe_id)}
-                    >
-                      Unfavorite
-                    </span>
-                  </div>
-                ))
-                : (
-                  <div className="dashboard-content-none">
-                    You haven't favorited any recipes yet.
-                  </div>
-                )
-              }
-            </div>
-          )
-        }
-
-        {
-          (!avatar && tab == "recipes" && subTab == "saved") && (
-            <div className="dashboard-content">
-              <h2>Saved Recipes</h2>
-              {
-                props.mySavedRecipes.length
-                ? props.mySavedRecipes.map(recipe => (
-                  <div className="dashboard-content-item" key={recipe.recipe_id}>
-                    <span className="dashboard-content-item-tiny">
-                      {
-                        recipe.recipe_image !== "nobsc-recipe-default"
-                        ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
-                        : <div className="image-default-28-18"></div>
-                      }
-                    </span>
-                    <span className="dashboard-content-item-name">
-                      <Link to={`/recipes/${recipe.recipe_id}`}>
-                        {recipe.title}
-                      </Link>
-                    </span>
-                    <span
-                      className="dashboard-content-item-delete"
-                      onClick={() => handleUnsaveRecipe(recipe.recipe_id)}
-                    >
-                      Unsave
-                    </span>
-                  </div>
-                ))
-                : (
-                  <div className="dashboard-content-none">
-                    You haven't saved any recipes yet.
-                  </div>
-                )
-              }
-            </div>
-          )
-        }
-
-        {
-          !avatar && tab == "ingredients" && (
-            <div className="dashboard-content">
-              <h2>Private Ingredients</h2>
-              <Link className="create-new-entity" to="/user/ingredients/submit">
-                Create New Ingredient
-              </Link>
-              {
-                props.myPrivateIngredients.length
-                ? props.myPrivateIngredients.map(ingredient => (
-                  <div
-                    className="dashboard-content-item"
-                    key={ingredient.ingredient_id}
-                  >
-                    <span className="dashboard-content-item-tiny">
-                      {
-                        ingredient.ingredient_image !== "nobsc-ingredient-default"
-                        ? <img src={`https://nobsc-user-ingredients.s3.amazonaws.com/${ingredient.ingredient_image}-tiny`} />
-                        : <div className="image-default-28-18"></div>
-                      }
-                    </span>
-                    <span className="dashboard-content-item-name">
-                      <Link to={`/user/ingredients/${ingredient.ingredient_id}`}>
-                        {ingredient.ingredient_name}
-                      </Link>
-                    </span>
-                    <span className="dashboard-content-item-action">
-                      <Link to={`/user/ingredients/edit/${ingredient.ingredient_id}`}>
-                        Edit
-                      </Link>
-                    </span>
-                    <span
-                      className="dashboard-content-item-delete"
-                      onClick={() => handleDeletePrivateIngredient(ingredient.ingredient_id)}
-                    >
-                      Delete
-                    </span>
-                  </div>
-                ))
-                : (
-                  <div className="dashboard-content-none">
-                    You haven't created any private ingredients yet.
-                  </div>
-                )
-              }
-            </div>
-          )
-        }
-
-        {
-          !avatar && tab == "equipment" && (
-            <div className="dashboard-content">
-              <h2>Private Equipment</h2>
-              <Link className="create-new-entity" to="/user/equipment/submit">
-                Create New Equipment
-              </Link>
-              {
-                props.myPrivateEquipment.length
-                ? props.myPrivateEquipment.map(equipment => (
-                  <div
-                    className="dashboard-content-item"
-                    key={equipment.equipment_id}
-                  >
-                    <span className="dashboard-content-item-tiny">
-                      {
-                        equipment.equipment_image !== "nobsc-equipment-default"
-                        ? <img src={`https://nobsc-user-equipment.s3.amazonaws.com/${equipment.equipment_image}-tiny`} />
-                        : <div className="image-default-28-18"></div>
-                      }
-                    </span>
-                    <span className="dashboard-content-item-name">
-                      <Link to={`/user/equipment/${equipment.equipment_id}`}>
-                        {equipment.equipment_name}
-                      </Link>
-                    </span>
-                    <span className="dashboard-content-item-action">
-                      <Link to={`/user/equipment/edit/${equipment.equipment_id}`}>
-                        Edit
-                      </Link>
-                    </span>
-                    <span
-                      className="dashboard-content-item-delete"
-                      onClick={() => handleDeletePrivateEquipment(equipment.equipment_id)}
-                    >
-                      Delete
-                    </span>
-                  </div>
-                ))
-                : (
-                  <div className="dashboard-content-none">
-                    You haven't created any private equipment yet.
-                  </div>
-                )
-              }
-            </div>
-          )
-        }
-
-      </section>
-
-    </div>
+      myPrivateEquipment={myPrivateEquipment}
+      handleDeletePrivateEquipment={handleDeletePrivateEquipment}
+    />
   );
 };
 
 const mapStateToProps = state => ({
   message: state.user.message,
-
   authname: state.auth.authname,
   avatar: state.auth.avatar,
-
   myPlans: state.data.myPlans,
   myPublicRecipes: state.data.myPublicRecipes,
   myPrivateEquipment: state.data.myPrivateEquipment,
@@ -964,7 +418,6 @@ const mapStateToProps = state => ({
   myPrivateRecipes: state.data.myPrivateRecipes,
   myFavoriteRecipes: state.data.myFavoriteRecipes,
   mySavedRecipes: state.data.mySavedRecipes,
-
   creatingPlan: state.planner.creating,
   editingId: state.planner.editingId
 });

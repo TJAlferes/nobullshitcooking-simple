@@ -2,8 +2,6 @@ import React, { useState, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import './menu.css';
-
 const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/header/dropdowns/';
 
 const NutritionSlideImage = `${s3Path}steve-reeves-nutrition-slide.png`;
@@ -20,6 +18,8 @@ const ExercisesSlideImage = `${s3Path}pushups-exercises-slide.png`;
 const ExercisesSlideImageDark = `${s3Path}pushups-exercises-slide-dark.png`;
 const KitchenEquipmentSlideImage = `${s3Path}kitchen-equipment-slide.png`;
 const KitchenEquipmentSlideImageDark = `${s3Path}kitchen-equipment-slide-dark.png`;
+
+import './menu.css';
 
 /*
 This Menu component heavily borrows from react-menu-aim

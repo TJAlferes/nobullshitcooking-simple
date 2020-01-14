@@ -4,46 +4,67 @@ import { connect } from 'react-redux';
 
 import './mobileLeftNav.css';
 
-// TO DO: make higher order of NavLink to reduce repetitious attributes below
+export const MobileLeftNav = ({ theme, isAuthenticated, authname, closeNav }) => {
+  const backgroundColor = (theme === "left-nav-light") ? "#ddd" : "#444";
 
-const MobileLeftNav = props => {
-  const { closeNav, authname, isAuthenticated, theme } = props;
-  let backgroundColor = (theme === "left-nav-light") ? "#ddd" : "#444";
+  const MobileLeftNavLink = ({ to, text, closeNav }) => (
+    <NavLink
+      className="mobile-left-nav-link"
+      activeStyle={{backgroundColor}}
+      onTouchEnd={() => {
+        closeNav(to);
+      }}
+      to={to}
+    >
+      {`${text}`}
+    </NavLink>
+  );
+
   return (
     <div className="mobile-left-nav">
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/food')}} to="/food">Food</NavLink>
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/fitness')}} to="/fitness">Fitness</NavLink>
-      {/*<NavLink className="mobile-left-nav-link" to="/store/storefront">Supply</NavLink>*/}
+      <MobileLeftNavLink to="/food" text="Food" closeNav={closeNav} />
+      <MobileLeftNavLink to="/fitness" text="Fitness" closeNav={closeNav} />
+      {/*<MobileLeftNavLink to="/store/storefront" text="Supply" closeNav={closeNav} />*/}
       <hr />
-      {/*<NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/welcome')}} to="/welcome">New? Start Here</NavLink>*/}
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/site/help')}} to="/site/help">Help</NavLink>
-      {!isAuthenticated && <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/user/register')}} to="/user/register">Create Account</NavLink>}
-      {isAuthenticated && <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/user/dashboard')}} to="/user/dashboard">{authname}</NavLink>}
+      {/*<MobileLeftNavLink to="/welcome" text="New? Start Here" closeNav={closeNav} />*/}
+      <MobileLeftNavLink to="/site/help" text="Help" closeNav={closeNav} />
+      {!isAuthenticated && <MobileLeftNavLink to="/user/register" text="Create Account" closeNav={closeNav} />}
+      {isAuthenticated && <MobileLeftNavLink to="/user/dashboard" text={authname} closeNav={closeNav} />}
       <hr />
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/')}} to="/" exact>News</NavLink>
-      {isAuthenticated && <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/user/messenger')}} to="/user/messenger">Messenger</NavLink>}
-      {isAuthenticated && <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/user/friends')}} to="/user/friends">Friends</NavLink>}
+      <NavLink
+        className="mobile-left-nav-link"
+        activeStyle={{backgroundColor}}
+        onTouchEnd={() => {
+          closeNav('/');
+        }}
+        to="/"
+        exact
+      >
+        News
+      </NavLink>
+      {isAuthenticated && <MobileLeftNavLink to="/user/messenger" text="Messenger" closeNav={closeNav} />}
+      {isAuthenticated && <MobileLeftNavLink to="/user/friends" text="Friends" closeNav={closeNav} />}
       <hr />
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/food/nutrition/supplements')}} to="/food/nutrition/supplements">Supplements</NavLink>
-      {/*<NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/supply/kitchen-equipment')}} to="/supply/kitchen-equipment">Equipment</NavLink>*/}
+      <MobileLeftNavLink to="/food/nutrition/supplements" text="Supplements" closeNav={closeNav} />
+      {/*<MobileLeftNavLink to="/supply/kitchen-equipment" text="Equipment" closeNav={closeNav} />*/}
       <hr />
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/supply/water-filtration')}} to="/supply/water-filtration">Water Filtration</NavLink>
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/supply/tea')}} to="/supply/tea">Tea</NavLink>
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/supply/coffee')}} to="/supply/coffee">Coffee</NavLink>
+      <MobileLeftNavLink to="/supply/water-filtration" text="Water Filtration" closeNav={closeNav} />
+      <MobileLeftNavLink to="/supply/tea" text="Tea" closeNav={closeNav} />
+      <MobileLeftNavLink to="/supply/coffee" text="Coffee" closeNav={closeNav} />
       <hr />
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/supply/outdoors')}} to="/supply/outdoors">Outdoors</NavLink>
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/supply/garden')}} to="/supply/garden">Garden</NavLink>
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/supply/tools')}} to="/supply/tools">Tools</NavLink>
+      <MobileLeftNavLink to="/supply/outdoors" text="Outdoors" closeNav={closeNav} />
+      <MobileLeftNavLink to="/supply/garden" text="Garden" closeNav={closeNav} />
+      <MobileLeftNavLink to="/supply/tools" text="Tools" closeNav={closeNav} />
       <hr />
       {/*
-        <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/contests')}} to="/contests">Contest Winners</NavLink>
-        <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/seasonal')}} to="/seasonal">Food for Summer</NavLink>
+        <MobileLeftNavLink to="/contests" text="Contest Winners" closeNav={closeNav} />
+        <MobileLeftNavLink to="/seasonal" text="Seasonal" closeNav={closeNav} />
         <hr />
       */}
-      <NavLink className="mobile-left-nav-link" activeStyle={{backgroundColor}} onTouchEnd={() => { closeNav('/')}} to="/">Charity</NavLink>
+      <MobileLeftNavLink to="/charity" text="Charity" closeNav={closeNav} />
     </div>
   );
-}
+};
 
 const mapStateToProps = state => ({
   authname: state.auth.authname,

@@ -4,21 +4,21 @@ import { connect } from 'react-redux';
 import { Breadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
 import './mainWhite.css';
 
-const MainWhite = props => {
+const MainWhite = ({ location, theme, shadow, children }) => {
   // so that breadcrumbs aren't displayed at all on the home page:
-  let isHome = props.location.pathname.match(/^\/$/);
+  let isHome = location.pathname.match(/^\/$/);
 
   // so that the default breadcrumbs aren't displayed on these pages:
-  let isRecipe = props.location.pathname.match(/^(\/recipes\/([1-9][0-9]*))$/);
-  let isIngredient = props.location.pathname.match(/^(\/ingredients\/([1-9][0-9]*))$/);
-  let isEquipment = props.location.pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
-  let isUserRecipe = props.location.pathname.match(/^(\/user\/recipes\/([1-9][0-9]*))$/);
-  let isUserIngredient = props.location.pathname.match(/^(\/user\/ingredients\/([1-9][0-9]*))$/);
-  let isUserEquipment = props.location.pathname.match(/^(\/user\/equipment\/([1-9][0-9]*))$/);
+  let isRecipe = location.pathname.match(/^(\/recipes\/([1-9][0-9]*))$/);
+  let isIngredient = location.pathname.match(/^(\/ingredients\/([1-9][0-9]*))$/);
+  let isEquipment = location.pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
+  let isUserRecipe = location.pathname.match(/^(\/user\/recipes\/([1-9][0-9]*))$/);
+  let isUserIngredient = location.pathname.match(/^(\/user\/ingredients\/([1-9][0-9]*))$/);
+  let isUserEquipment = location.pathname.match(/^(\/user\/equipment\/([1-9][0-9]*))$/);
 
   return (
-    <main className={`mainwhite ${props.theme}`}>
-      <div className={props.shadow ? 'show-shadow' : 'hide-shadow'}>
+    <main className={`mainwhite ${theme}`}>
+      <div className={shadow ? 'show-shadow' : 'hide-shadow'}>
       </div>
       {
         !isHome &&
@@ -30,7 +30,7 @@ const MainWhite = props => {
         !isUserEquipment &&
         <div className="desktop_display" id="breadcrumbs"><Breadcrumbs /></div>
       }
-      {props.children}
+      {children}
     </main>
   );
 }

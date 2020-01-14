@@ -3,13 +3,15 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
-import HeaderRed from './components/HeaderRed/HeaderRed';
+import HeaderRed from './components/HeaderRed/desktop/HeaderRed';
 import MainWhite from './components/MainWhite/MainWhite';
 import FooterGray from './components/FooterGray/FooterGray';
+
 import RoutesList from './routing/Routes';
+
 import './app.css';
 
-export const App = ({ location, theme }) => {
+export const App = ({ location, headerTheme, footerTheme }) => {
   // Determine if the user is currently at an authentication page...
   let userIsAtAuthPage = location.pathname &&
   (
@@ -23,23 +25,25 @@ export const App = ({ location, theme }) => {
 
   if (userIsAtAuthPage) {
     // ... If they are, then render authentication pages layout
-    layout = <div><RoutesList /></div>;
+    layout = (
+      <div><RoutesList /></div>
+    );
   } else {
     // ... Otherwise, render the normal layout
     layout = (
       <div id="app">
         <div>
           <div className="mobile_display">
-            <MobileHeaderRed theme={theme} />
+            <MobileHeaderRed theme={headerTheme} />
           </div>
           <div className="desktop_display">
-            <HeaderRed theme={theme} />
+            <HeaderRed theme={headerTheme} />
           </div>
         </div>
         <MainWhite location={location}>
           <RoutesList />
         </MainWhite>
-        <FooterGray />
+        <FooterGray theme={footerTheme} />
       </div>
     );
   }
@@ -47,6 +51,9 @@ export const App = ({ location, theme }) => {
   return layout;
 }
 
-const mapStateToProps = state => ({theme: state.theme.headerTheme});
+const mapStateToProps = state => ({
+  headerTheme: state.theme.headerTheme,
+  footerTheme: state.theme.footerTheme
+});
 
 export default withRouter(connect(mapStateToProps)(App));

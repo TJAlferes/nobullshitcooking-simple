@@ -4,34 +4,51 @@ import { connect } from 'react-redux';
 
 import './leftNav.css';
 
-const LeftNav = props => {
-  const { authname, isAuthenticated, theme } = props;
-  let backgroundColor = (theme === "left-nav-light") ? "#ddd" : "#444";
+export const LeftNav = ({ theme, isAuthenticated, authname }) => {
+  const backgroundColor = (theme === "left-nav-light") ? "#ddd" : "#444";
+
+  const LeftNavLink = ({ to, text }) => (
+    <NavLink
+      className="left-nav-link"
+      activeStyle={{backgroundColor}}
+      to={to}
+    >
+      {`${text}`}
+    </NavLink>
+  );
+
   return (
     <nav className={`left-nav ${theme}`}>
-      {isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/dashboard">{authname}</NavLink>}
+      {isAuthenticated && <LeftNavLink to="/user/dashboard" text={authname} />}
       {isAuthenticated && <hr />}
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/" exact>News</NavLink>
-      {isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/messenger">Messenger</NavLink>}
-      {isAuthenticated && <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/user/friends">Friends</NavLink>}
+      <NavLink
+        className="left-nav-link"
+        activeStyle={{backgroundColor}}
+        to="/"
+        exact
+      >
+        News
+      </NavLink>
+      {isAuthenticated && <LeftNavLink to="/user/messenger" text="Messenger" />}
+      {isAuthenticated && <LeftNavLink to="/user/friends" text="Friends" />}
       <hr />
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/food/nutrition/supplements">Supplements</NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/kitchen-equipment">Equipment</NavLink>
+      <LeftNavLink to="/food/nutrition/supplements" text="Supplements" />
+      <LeftNavLink to="/supply/kitchen-equipment" text="Equipment" />
       <hr />
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/water-filtration">Water Filtration</NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/tea">Tea</NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/coffee">Coffee</NavLink>
+      <LeftNavLink to="/supply/water-filtration" text="Water Filtration" />
+      <LeftNavLink to="/supply/tea" text="Tea" />
+      <LeftNavLink to="/supply/coffee" text="Coffee" />
       <hr />
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/outdoors">Outdoors</NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/garden">Garden</NavLink>
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/supply/tools">Tools</NavLink>
+      <LeftNavLink to="/supply/outdoors" text="Outdoors" />
+      <LeftNavLink to="/supply/garden" text="Garden" />
+      <LeftNavLink to="/supply/tools" text="Tools" />
       <hr />
       {/*
-        <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/contests">Contest Winners</NavLink>
-        <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/seasonal">Food for Summer</NavLink>
+        <LeftNavLink to="/contests" text="Contest Winners" />
+        <LeftNavLink to="/seasonal" text="Seasonal" />
         <hr />
       */}
-      <NavLink className="left-nav-link" activeStyle={{backgroundColor}} to="/charity">Charity</NavLink>
+      <LeftNavLink to="/charity" text="Charity" />
     </nav>
   );
 };

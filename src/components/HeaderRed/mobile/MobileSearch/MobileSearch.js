@@ -3,36 +3,46 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withSearch, SearchBox } from '@elastic/react-search-ui';
 
-import './mobileSearch.css';
-import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
 import { searchSetIndex } from '../../../../store/actions/index';
 
-const MobileSearch = props => {
+import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
+
+import './mobileSearch.css';
+
+const MobileSearch = ({
+  theme,
+  history,
+  currentIndex,
+  searchSetIndex,
+  searchTerm,
+  setSearchTerm
+}) => {
   const changeSearchIndex = e => {  // useEffect? useLayoutEffect?
-    const sInsert = document.getElementsByClassName("sui-search-box__wrapper")[0].firstChild;
-    props.searchSetIndex(e.target.value);
+    const sInsert = document
+    .getElementsByClassName("sui-search-box__wrapper")[0].firstChild;
+    searchSetIndex(e.target.value);
     sInsert.focus();
   }
 
   const redirectToSearchPage = () => {
-    props.history.push(`/${props.currentIndex}`);
+    history.push(`/${currentIndex}`);
   };
 
   const handleSubmit = () => {
-    props.setSearchTerm(props.searchTerm);
+    setSearchTerm(searchTerm);
     redirectToSearchPage();
   };
 
-  let capitalizedFirstLetter = `${props.currentIndex}`.slice(0, 1).toUpperCase();
-  let otherLetters = `${props.currentIndex}`.slice(1, props.currentIndex.length).toLowerCase();
+  let capitalizedFirstLetter = `${currentIndex}`.slice(0, 1).toUpperCase();
+  let otherLetters = `${currentIndex}`.slice(1, currentIndex.length).toLowerCase();
   let facadeText = `${capitalizedFirstLetter}${otherLetters}`;
   let field;
-  if (props.currentIndex === "recipes") field = "title";
-  if (props.currentIndex === "ingredients") field = "ingredientName";
-  if (props.currentIndex === "equipment") field = "equipmentName";
+  if (currentIndex === "recipes") field = "title";
+  if (currentIndex === "ingredients") field = "ingredientName";
+  if (currentIndex === "equipment") field = "equipmentName";
 
   return (
-    <div className={`mobile-search ${props.theme}`}>
+    <div className={`mobile-search ${theme}`}>
 
       <div id="mobile-search-category">
         <div id="mobile-search-facade">
