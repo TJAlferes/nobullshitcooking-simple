@@ -78,8 +78,8 @@ const UserNewIngredientView = ({
         <div>
           {
             !editing
-            ? <img src="https://nobsc-user-ingredients.s3.amazonaws.com/nobsc-ingredient-default" />
-            : prevIngredientImage && <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${prevIngredientImage}`} />
+            ? <img src="https://s3.amazonaws.com/nobsc-user-ingredients/nobsc-ingredient-default" />
+            : prevIngredientImage && <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${prevIngredientImage}`} />
           }
           <h4 className="change-default">Change</h4>
           <input

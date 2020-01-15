@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './methods.css';
 
-const ComingSoon = "https://nobsc-images-01.s3.amazonaws.com/content/misc/coming-soon-120-120.png";
+const ComingSoon = "https://s3.amazonaws.com/nobsc-images-01/content/misc/coming-soon-120-120.png";
 
 const Methods = ({ oneColumnATheme, navGridATheme }) => (
   <div className={`methods one-column-a ${oneColumnATheme}`}>

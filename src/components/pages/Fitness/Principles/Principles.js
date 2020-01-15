@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './principles.css';
 
-const ComingSoon = 'https://nobsc-images-01.s3.amazonaws.com/content/misc/coming-soon-120-120.png';
+const ComingSoon = 'https://s3.amazonaws.com/nobsc-images-01/content/misc/coming-soon-120-120.png';
 
 const Principles = ({ oneColumnATheme, navGridATheme }) => (
   <div className={`principles one-column-a ${oneColumnATheme}`}>

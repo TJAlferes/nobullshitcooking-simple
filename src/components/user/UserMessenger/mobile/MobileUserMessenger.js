@@ -293,7 +293,7 @@ const UserMessenger = props => {
                 <ul className="mobile-messenger__users-in-room">
                   {props.users && props.users.map(user => (
                     <li className="mobile-messenger__user-in-room" key={user.user}>
-                      <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${user.user}-tiny`} />
+                      <img src={`https://s3.amazonaws.com/nobsc-user-avatars${user.user}-tiny`} />
                       <span>{user.user}</span>
                     </li>
                   ))}
@@ -304,7 +304,7 @@ const UserMessenger = props => {
                 <ul className="mobile-messenger__friends">
                   {props.onlineFriends && props.onlineFriends.map(online => (
                     <li className="mobile-messenger__friend" key={online.user}>
-                      <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${online.user}-tiny`} />
+                      <img src={`https://s3.amazonaws.com/nobsc-user-avatars${online.user}-tiny`} />
                       <span>{online.user}</span>
                     </li>
                   ))}

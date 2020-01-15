@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './fitness.css';
 
-const s3Path = 'https://nobsc-images-01.s3.amazonaws.com/content/fitness/';
+const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/fitness/';
 
 const Fitness = ({ oneColumnATheme, navGridATheme }) => (
   <div className={`fitness one-column-a ${oneColumnATheme}`}>

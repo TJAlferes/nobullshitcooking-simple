@@ -27,7 +27,7 @@ const UserProfileView = ({
 
     {
       userAvatar !== "nobsc-user-default" &&
-      <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${userAvatar}`} />
+      <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${userAvatar}`} />
     }
     
     <div className="friend-request-outer">
@@ -85,7 +85,7 @@ const UserProfileView = ({
                 <span className="profile-list-item-tiny">
                   {
                     recipe.recipe_image !== "nobsc-recipe-default"
-                    ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                    ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
                     : <div className="image-default-28-18"></div>
                   }
                 </span>
@@ -111,7 +111,7 @@ const UserProfileView = ({
                 <span className="profile-list-item-tiny">
                   {
                     recipe.recipe_image !== "nobsc-recipe-default"
-                    ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                    ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
                     : <div className="image-default-28-18"></div>
                   }
                 </span>

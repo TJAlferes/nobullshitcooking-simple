@@ -374,8 +374,8 @@ const UserSubmitRecipeView = ({
         <div>
           {
             !editing
-            ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
-            : prevRecipeImage && <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${prevRecipeImage}`} />
+            ? <img src="https://s3.amazonaws.com/nobsc-user-recipe/nobsc-recipe-default" />
+            : prevRecipeImage && <img src={`https://s3.amazonaws.com/nobsc-user-recipe${prevRecipeImage}`} />
           }
           <h4 className="change-default">Change</h4>
           <input
@@ -429,8 +429,8 @@ const UserSubmitRecipeView = ({
         <div>
           {
             !editing
-            ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
-            : prevEquipmentImage && <img src={`https://nobsc-user-recipe-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
+            ? <img src="https://s3.amazonaws.com/nobsc-user-recipe/nobsc-recipe-default" />
+            : prevEquipmentImage && <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${prevEquipmentImage}`} />
           }
           <h4 className="change-default">Change</h4>
           <input
@@ -478,8 +478,8 @@ const UserSubmitRecipeView = ({
         <div>
           {
             !editing
-            ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
-            : prevIngredientsImage && <img src={`https://nobsc-user-recipe-ingredients.s3.amazonaws.com/${prevIngredientsImage}`} />
+            ? <img src="https://s3.amazonaws.com/nobsc-user-recipe/nobsc-recipe-default" />
+            : prevIngredientsImage && <img src={`https://.s3.amazonaws.com/nobsc-user-recipe-ingredients/${prevIngredientsImage}`} />
           }
           <h4 className="change-default">Change</h4>
           <input
@@ -527,8 +527,8 @@ const UserSubmitRecipeView = ({
         <div>
           {
             !editing
-            ? <img src="https://nobsc-user-recipe.s3.amazonaws.com/nobsc-recipe-default" />
-            : prevCookingImage && <img src={`https://nobsc-user-recipe-cooking.s3.amazonaws.com/${prevCookingImage}`} />
+            ? <img src="https://s3.amazonaws.com/nobsc-user-recipe/nobsc-recipe-default" />
+            : prevCookingImage && <img src={`https://.s3.amazonaws.com/nobsc-user-recipe-cooking/${prevCookingImage}`} />
           }
           <h4 className="change-default">Change</h4>
           <input

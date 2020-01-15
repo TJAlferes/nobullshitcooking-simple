@@ -78,8 +78,8 @@ const UserNewEquipmentView = ({
         <div>
           {
             !editing
-            ? <img src="https://nobsc-user-equipment.s3.amazonaws.com/nobsc-equipment-default" />
-            : prevEquipmentImage && <img src={`https://nobsc-user-equipment.s3.amazonaws.com/${prevEquipmentImage}`} />
+            ? <img src="https://s3.amazonaws.com/nobsc-user-equipment/nobsc-equipment-default" />
+            : prevEquipmentImage && <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${prevEquipmentImage}`} />
           }
           <h4>Change</h4>
           <input

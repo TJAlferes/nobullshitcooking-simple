@@ -100,7 +100,7 @@ const UserFriendsView = ({
           .map(friend => (
             <div className="friends-list-item" key={friend.username}>
               <span className="friends-list-item-avatar">
-                <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${friend.avatar}-tiny`} />
+                <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${friend.avatar}-tiny`} />
               </span>
               <span className="friends-list-item-username">
                 <Link to={`/user/profile/${friend.username}`}>{friend.username}</Link>
