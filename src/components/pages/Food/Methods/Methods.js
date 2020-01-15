@@ -5,10 +5,10 @@ import './methods.css';
 
 const ComingSoon = "https://nobsc-images-01.s3.amazonaws.com/content/misc/coming-soon-120-120.png";
 
-const Methods = props => (
-  <div className={`methods one-column-a ${props.oneColumnATheme}`}>
+const Methods = ({ oneColumnATheme, navGridATheme }) => (
+  <div className={`methods one-column-a ${oneColumnATheme}`}>
     <h1>Methods</h1>
-    <div className={`nav-grid-a ${props.navGridATheme}`}>
+    <div className={`nav-grid-a ${navGridATheme}`}>
       <div className="nav-grid-a-item">
         <Link to="/food/methods/chill-and-freeze">
           <span className="nav-grid-a-item-text">Chill and Freeze</span>

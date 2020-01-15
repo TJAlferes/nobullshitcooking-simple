@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Breadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
+
 import './mainWhite.css';
 
-const MainWhite = ({ location, theme, shadow, children }) => {
+export const MainWhite = ({ location, theme, shadow, children }) => {
   // so that breadcrumbs aren't displayed at all on the home page:
   let isHome = location.pathname.match(/^\/$/);
 

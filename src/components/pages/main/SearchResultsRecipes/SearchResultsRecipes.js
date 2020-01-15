@@ -5,9 +5,15 @@ import { Link } from 'react-router-dom';
 import './searchResultsRecipes.css';
 import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
 
-const SearchResultsRecipes = props => {
+export const SearchResultsRecipes = ({
+  twoColumnBTheme,
+  wasSearched,
+  facets,  // ?
+  filters,  // ?
+  results
+}) => {
   return (
-    <div className={`search-results two-column-b ${props.twoColumnBTheme}`}>
+    <div className={`search-results two-column-b ${twoColumnBTheme}`}>
 
       <div className="left-column">
 
@@ -141,13 +147,13 @@ const SearchResultsRecipes = props => {
           </div>
         </ExpandCollapse>
 
-        {props.wasSearched && <ResultsPerPage />}
+        {wasSearched && <ResultsPerPage />}
 
-        {props.wasSearched && <PagingInfo />}
+        {wasSearched && <PagingInfo />}
         <Paging />
 
         <div className="search-results-list">
-          {props.results.map(result => {
+          {results.map(result => {
             let rows = Object.entries(result);
             return (
               <div className="search-result-recipe" key={rows[0][1].raw}>
@@ -211,7 +217,7 @@ const SearchResultsRecipes = props => {
           })}
         </div>
 
-        {props.wasSearched && <PagingInfo />}
+        {wasSearched && <PagingInfo />}
         <Paging />
 
       </div>

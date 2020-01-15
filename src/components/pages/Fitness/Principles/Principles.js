@@ -5,10 +5,10 @@ import './principles.css';
 
 const ComingSoon = 'https://nobsc-images-01.s3.amazonaws.com/content/misc/coming-soon-120-120.png';
 
-const Principles = props => (
-  <div className={`principles one-column-a ${props.oneColumnATheme}`}>
+const Principles = ({ oneColumnATheme, navGridATheme }) => (
+  <div className={`principles one-column-a ${oneColumnATheme}`}>
     <h1>Principles</h1>
-    <div className={`nav-grid-a ${props.navGridATheme}`}>
+    <div className={`nav-grid-a ${navGridATheme}`}>
       <div className="nav-grid-a-item">
         <Link to="/fitness/principles/composition">
           <span className="nav-grid-a-item-text">Composition</span>

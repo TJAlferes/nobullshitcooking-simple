@@ -83,8 +83,7 @@ class UserNav extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  authname: state.auth.authname,
-  theme: state.theme.headerTheme
+  authname: state.auth.authname
 });
 
 const mapDispatchToProps = dispatch => ({

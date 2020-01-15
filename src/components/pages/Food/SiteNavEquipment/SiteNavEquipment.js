@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import './siteNavEquipment.css';
 const ComingSoon = "https://s3.amazonaws.com/nobsc-images-01/content/misc/coming-soon-120-120.png";
 
-const SiteNavEquipment = props => (
-  <div className={`site-nav-equipment one-column-a ${props.oneColumnATheme}`}>
+const SiteNavEquipment = ({ oneColumnATheme, navGridATheme }) => (
+  <div className={`site-nav-equipment one-column-a ${oneColumnATheme}`}>
     <h1>Equipment</h1>
-    <div className={`nav-grid-a ${props.navGridATheme}`}>
+    <div className={`nav-grid-a ${navGridATheme}`}>
       <div className="nav-grid-a-item">
         <Link to="/food/equipment/cleaning">
           <span className="nav-grid-a-item-text">Cleaning</span>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Site = props => (
-  <div className={`cuisines one-column-a ${props.oneColumnATheme}`}>
+const Site = ({ oneColumnATheme, navGridATheme }) => (
+  <div className={`cuisines one-column-a ${oneColumnATheme}`}>
     <h1>Site</h1>
-    <div className={`nav-grid-a ${props.navGridATheme}`}>
+    <div className={`nav-grid-a ${navGridATheme}`}>
       {/*<div className="nav-grid-a-item">
         <Link to="/site/welcome">
           <span className="nav-grid-a-item-text">Welcome</span>

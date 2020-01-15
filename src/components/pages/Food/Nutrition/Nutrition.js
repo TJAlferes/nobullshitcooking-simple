@@ -5,10 +5,10 @@ import './nutrition.css';
 
 const s3Path = "https://nobsc-images-01.s3.amazonaws.com/content/food/nutrition/";
 
-const Nutrition = props => (
-  <div className={`nutrition one-column-a ${props.oneColumnATheme}`}>
+const Nutrition = ({ oneColumnATheme, navGridATheme }) => (
+  <div className={`nutrition one-column-a ${oneColumnATheme}`}>
     <h1>Nutrition</h1>
-    <div className={`nav-grid-a ${props.navGridATheme}`}>
+    <div className={`nav-grid-a ${navGridATheme}`}>
       <div className="nav-grid-a-item">
         <Link to="/food/nutrition/calories">
           <span className="nav-grid-a-item-text">Calories</span>

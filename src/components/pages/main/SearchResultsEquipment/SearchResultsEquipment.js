@@ -2,12 +2,19 @@ import React from 'react';
 import { withSearch, Facet, PagingInfo, Paging, ResultsPerPage } from '@elastic/react-search-ui';
 import { Link } from 'react-router-dom';
 
-import './searchResultsEquipment.css';
 import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
 
-const SearchResultsEquipment = props => {
+import './searchResultsEquipment.css';
+
+export const SearchResultsEquipment = ({
+  twoColumnBTheme,
+  wasSearched,
+  facets,  // ?
+  filters,  // ?
+  results
+}) => {
   return (
-    <div className={`search-results two-column-b ${props.twoColumnBTheme}`}>
+    <div className={`search-results two-column-b ${twoColumnBTheme}`}>
 
       <div className="left-column">
 
@@ -45,13 +52,13 @@ const SearchResultsEquipment = props => {
           </div>
         </ExpandCollapse>
 
-        {props.wasSearched && <ResultsPerPage />}
+        {wasSearched && <ResultsPerPage />}
 
-        {props.wasSearched && <PagingInfo />}
+        {wasSearched && <PagingInfo />}
         <Paging />
 
         <div className="search-results-list">
-          {props.results.map(result => {
+          {results.map(result => {
             let rows = Object.entries(result);
             return (
               <div className="search-result-equipment" key={rows[0][1].raw}>
@@ -73,7 +80,7 @@ const SearchResultsEquipment = props => {
           })}
         </div>
 
-        {props.wasSearched && <PagingInfo />}
+        {wasSearched && <PagingInfo />}
         <Paging />
 
       </div>

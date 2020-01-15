@@ -28,7 +28,7 @@ const HeaderRed = ({ theme }) => (
       <div className="header-row-2-col-2">
       </div>
       <div className="header-row-2-col-3">
-        <UserNav />
+        <UserNav theme={theme} />
       </div>
     </div>
   </header>

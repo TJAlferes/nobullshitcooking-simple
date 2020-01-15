@@ -20,10 +20,10 @@ const IndianThumb = `${s3Path}indian/nobsc-indian-thumb.png`;
 //const JapaneseThumb = `${s3Path}japanese/nobsc-japanese-thumb.png`;
 const IranianThumb = `${s3Path}iranian/nobsc-iranian-thumb.png`;
 
-const Cuisines = props => (
-  <div className={`cuisines one-column-a ${props.oneColumnATheme}`}>
+const Cuisines = ({ oneColumnATheme, navGridATheme }) => (
+  <div className={`cuisines one-column-a ${oneColumnATheme}`}>
     <h1>Cuisines</h1>
-    <div className={`nav-grid-a ${props.navGridATheme}`}>
+    <div className={`nav-grid-a ${navGridATheme}`}>
       <div className="nav-grid-a-item">
         <Link to="/food/cuisines/russian">
           <span className="nav-grid-a-item-text">Russian</span>

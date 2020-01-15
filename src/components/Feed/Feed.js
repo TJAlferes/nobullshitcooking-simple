@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import './feed.css';
 
-const Feed = props => (
-  <div className={`feed ${props.theme}`}>
+export const Feed = ({ theme }) => (
+  <div className={`feed ${theme}`}>
     <div className="news_item">
       <h1>Here Is a Sample News Article Title Text</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

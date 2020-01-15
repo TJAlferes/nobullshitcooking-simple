@@ -5,10 +5,10 @@ import './exercises.css';
 
 const WalkThumb = "https://s3.amazonaws.com/nobsc-images-01/content/fitness/exercises/walk/walk-120-120.png";
 
-const Exercises = props => (
-  <div className={`exercises one-column-a ${props.oneColumnATheme}`}>
+const Exercises = ({ oneColumnATheme, navGridATheme }) => (
+  <div className={`exercises one-column-a ${oneColumnATheme}`}>
     <h1>Exercises</h1>
-    <div className={`nav-grid-a ${props.navGridATheme}`}>
+    <div className={`nav-grid-a ${navGridATheme}`}>
       <div className="nav-grid-a-item">
         <Link to="/fitness/exercises/walk">
           <span className="nav-grid-a-item-text">Walk</span>
