@@ -1,19 +1,17 @@
 import React, { lazy, Suspense } from 'react';
 
-import './userNewPlanPage.css'
 const MobileUserNewPlanToggle = lazy(() => import('./mobile/MobileUserNewPlanToggle'));
 const UserNewPlan = lazy(() => import('./desktop/UserNewPlan'));
 
-const UserNewPlanPage = props => (
+import './userNewPlanPage.css'
+
+const UserNewPlanPage = ({ twoColumnATheme, childProps }) => (
   <div className="user-new-plan-page">
     <div className="mobile_display">
       <Suspense fallback={<div>Loading...</div>} >
         <MobileUserNewPlanToggle
           className="mobile_display"
-          editing={
-            (props.childProps && props.childProps.editing) &&
-            props.childProps.editing
-          }
+          editing={(childProps && childProps.editing) && childProps.editing}
         />
       </Suspense>
     </div>
@@ -21,11 +19,8 @@ const UserNewPlanPage = props => (
       <Suspense fallback={<div>Loading...</div>} >
         <UserNewPlan
           className="desktop_display"
-          twoColumnATheme={props.twoColumnATheme}
-          editing={
-            (props.childProps && props.childProps.editing) &&
-            props.childProps.editing
-          }
+          twoColumnATheme={twoColumnATheme}
+          editing={(childProps && childProps.editing) && childProps.editing}
         />
       </Suspense>
     </div>

@@ -9,11 +9,25 @@ import {
   messengerSendWhisper
 } from '../../../../store/actions/index';
 
-import LeftNav from '../../../LeftNav/LeftNav';
+import UserMessengerView from './UserMessengerView';
 
-import './userMessenger.css';
-
-const UserMessenger = props => {
+export const UserMessenger = ({
+  twoColumnATheme,
+  windowFocused,
+  authname,
+  message,
+  status,
+  channel,
+  messages,
+  users,
+  onlineFriends,
+  //nobscappWindowFocused,
+  messengerConnect,
+  messengerDisconnect,
+  messengerChangeChannel,
+  messengerSendMessage,
+  messengerSendWhisper
+}) => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ debounced, setDebounced ] = useState(false);
@@ -28,11 +42,11 @@ const UserMessenger = props => {
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
-      if (props.feedback !== "") window.scrollTo(0,0);
-      setFeedback(props.feedback);
+      if (message !== "") window.scrollTo(0,0);
+      setFeedback(message);
     }
     return () => isSubscribed = false;
-  }, [props.feedback]);
+  }, [message]);
 
   useEffect(() => {
     const autoScroll = () => {
@@ -54,17 +68,16 @@ const UserMessenger = props => {
     };
 
     autoScroll();
-    if (props.windowFocused === false) setAlertFavicon();
-  }, [props.messages]);
+    if (windowFocused === false) setAlertFavicon();
+  }, [messages]);
 
   const handleConnect = () => {
     setLoading(true);
     try {
-      props.messengerConnect();
+      messengerConnect();
     } catch(err) {
-      setLoading(false);
       console.log(err);
-      console.log(props.feedback);
+      console.log(message);
     } finally {
       setLoading(false);
     }
@@ -73,11 +86,10 @@ const UserMessenger = props => {
   const handleDisconnect = () => {
     setLoading(true);
     try {
-      props.messengerDisconnect();
+      messengerDisconnect();
     } catch(err) {
-      setLoading(false);
       console.log(err);
-      console.log(props.feedback);
+      console.log(message);
     } finally {
       setLoading(false);
     }
@@ -104,7 +116,7 @@ const UserMessenger = props => {
         return;
       }
       //setCurrentFriend("");
-      props.messengerChangeChannel(trimmedRoom);
+      messengerChangeChannel(trimmedRoom);
       setRoomToEnter("");
       setSpamCount((prev) => prev + 1);
       setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
@@ -113,9 +125,8 @@ const UserMessenger = props => {
         setTimeout(() => setDebounced(false), 6000);
       }
     } catch(err) {
-      setLoading(false);
       console.log(err);
-      console.log(props.feedback);
+      console.log(message);
     } finally {
       setLoading(false);
     }
@@ -145,15 +156,15 @@ const UserMessenger = props => {
         const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
         const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
         const trimmedUserToWhisper = userToWhisper[1].substring(3);
-        props.messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
+        messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
       } else {
-        props.messengerSendMessage(trimmedMessage);
+        messengerSendMessage(trimmedMessage);
       }
 
       /*
       else if (currentFriend !== "") {
         const trimmedFriend = currentFriend.trim();
-        props.messengerSendWhisper(trimmedMessage, trimmedFriend);
+        messengerSendWhisper(trimmedMessage, trimmedFriend);
       }
       */
 
@@ -165,9 +176,8 @@ const UserMessenger = props => {
         setTimeout(() => setDebounced(false), 6000);
       }
     } catch(err) {
-      setLoading(false);
       console.log(err);
-      console.log(props.feedback);
+      console.log(message);
     } finally {
       setLoading(false);
     }
@@ -180,207 +190,39 @@ const UserMessenger = props => {
   //const handleFriendClick = () => setCurrentFriend(e.target.id);
   
   return (
-    <div className={`messenger two-column-a ${props.twoColumnATheme}`}>
+    <UserMessengerView
+      twoColumnATheme={twoColumnATheme}
+      authname={authname}
+      feedback={feedback}
+      loading={loading}
 
-      <LeftNav />
+      status={status}
+      handleConnect={handleConnect}
+      handleDisconnect={handleDisconnect}
 
-      <section>
+      channel={channel}
+      roomToEnter={roomToEnter}
+      handleRoomInputChange={handleRoomInputChange}
+      handleChannelChange={handleChannelChange}
 
-        <h1>Messenger</h1>
+      messagesRef={messagesRef}
+      messages={messages}
+      handleMessageInputChange={handleMessageInputChange}
+      handleMessageSend={handleMessageSend}
 
-        <p className="error-message">{feedback}</p>
-
-        <div className="messenger-room">
-          <div className="messenger-connect-disconnect-outer">
-            <div className="messenger-connect-disconnect-container">
-              {
-                props.status === "Connected"
-                ? (
-                  <button
-                    className="messenger-connect-disconnect"
-                    onClick={handleDisconnect}
-                    disabled={loading}
-                  >
-                    Disconnect
-                  </button>
-                )
-                : (
-                  <button
-                    className="messenger-connect-disconnect"
-                    onClick={handleConnect}
-                    disabled={loading}
-                  >
-                    Connect
-                  </button>
-                )
-              }
-            </div>
-            <span className="messenger-connect-disconnect-mobile-spacer"></span>
-          </div>
-
-          <div className="messenger-current-container">
-            <span className="messenger-channel-switch">Current Room:</span>
-            <span className="messenger-channel-current">{props.channel}</span>
-          </div>
-
-          <div className="messenger-go-container">
-            <span className="messenger-channel-label">Go To Room:</span>
-            <input
-              className="messenger-channel-input"
-              type="text"
-              name="channel-input"
-              value={roomToEnter}
-              onChange={handleRoomInputChange}
-              disabled={(props.status !== "Connected") || loading}
-            />
-            <div className="messenger-channel-button-container">
-              <button
-                className="messenger-channel-button"
-                onClick={handleChannelChange}
-                disabled={(props.status !== "Connected") || loading}
-              >
-                Enter
-              </button>
-            </div>
-          </div>
-        </div>
-
-
-
-        <div className="messenger-main">
-
-          <div className="messenger-chat">
-            <ul className="messenger-chat-messages" ref={messagesRef}>
-              <li className="messenger-chat-message">
-                <span className="chat-display-admin">COOK EAT WIN REPEAT</span>
-              </li>
-              {
-                props.messages && props.messages.map(message => (
-                  message.user.user === "messengerstatus"
-                  ? (
-                    <li className="messenger-chat-message" key={message.id}>
-                      <span className="chat-ts">{message.ts}{' '}</span>
-                      <span className="chat-display-admin">
-                        {message.message}
-                      </span>
-                    </li>
-                  )
-                  : (
-                    props.authname === message.user.user
-                    ? (
-                      message.whisper
-                      ? (
-                        <li className="messenger-chat-message" key={message.id}>
-                          <span className="chat-ts">{message.ts}{' '}</span>
-                          <span className="chat-display-username-self">
-                            You whisper to{' '}{message.to}:{' '}
-                          </span>
-                          <span className="chat-whisper">{message.whisper}</span>
-                        </li>
-                      )
-                      : (
-                        <li className="messenger-chat-message" key={message.id}>
-                          <span className="chat-ts">{message.ts}{' '}</span>
-                          <span className="chat-display-username-self">
-                            {message.user.user}:{' '}
-                          </span>
-                          {message.message}
-                        </li>
-                      )
-                    )
-                    : (
-                      message.whisper
-                      ? (
-                        <li className="messenger-chat-message" key={message.id}>
-                          <span className="chat-ts">{message.ts}{' '}</span>
-                          <span className="chat-display-username-other">
-                            {message.user.user}{' '}whispers to you:{' '}
-                          </span>
-                          <span className="chat-whisper">{message.whisper}</span>
-                        </li>
-                      )
-                      : (
-                        <li className="messenger-chat-message" key={message.id}>
-                          <span className="chat-ts">{message.ts}{' '}</span>
-                          <span className="chat-display-username-other">
-                            {message.user.user}:{' '}
-                          </span>
-                          {message.message}
-                        </li>
-                      )
-                    )
-                  )
-                ))
-              }
-            </ul>
-            <div className="messenger-chat-input">
-              <input
-                type="text" name="chat-input"
-                value={messageToSend}
-                onChange={handleMessageInputChange}
-                onKeyUp={(e) => handleMessageSend(e)}
-                disabled={props.status !== "Connected"}
-              />
-            </div>
-          </div>
-
-
-
-          <div className="messenger-people">
-            <div className="messenger-people-tabs">
-              <button
-                className={(tab === "Room")
-                  ? "messenger-people-tab chat-nav-current"
-                  : "messenger-people-tab"
-                }
-                onClick={handleUsersInRoomTabClick}
-              >
-                Room
-              </button>
-              <button
-                className={(tab === "Friends")
-                  ? "messenger-people-tab chat-nav-current"
-                  : "messenger-people-tab"
-                }
-                onClick={handleFriendsTabClick}
-              >
-                Friends
-              </button>
-            </div>
-            {tab === "Room" && (
-              <ul className="messenger-users-in-room">
-                {props.users && props.users.map(user => (
-                  <li className="messenger-user-in-room" key={user.user}>
-                    <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${user.avatar}-tiny`} />
-                    <span>{user.user}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {tab === "Friends" && (
-              <ul className="messenger-friends">
-                {props.onlineFriends && props.onlineFriends.map(online => (
-                  <li className="messenger-friend" key={online.user}>
-                    <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${online.avatar}-tiny`} />
-                    <span>{online.user}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
+      tab={tab}
+      users={users}
+      onlineFriends={onlineFriends}
+      handleUsersInRoomTabClick={handleUsersInRoomTabClick}
+      handleFriendsTabClick={handleFriendsTabClick}
+    />
   );
 };
 
 const mapStateToProps = state => ({
   windowFocused: state.nobscapp.windowFocused,
   authname: state.auth.authname,
-  feedback: state.user.message,
+  message: state.user.message,
   status: state.messenger.status,
   channel: state.messenger.channel,
   messages: state.messenger.messages,
@@ -389,7 +231,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  nobscappWindowFocused: (condition) => dispatch(nobscappWindowFocused(condition)),
+  //nobscappWindowFocused: (condition) => dispatch(nobscappWindowFocused(condition)),
   messengerConnect: () => dispatch(messengerConnect()),
   messengerDisconnect: () => dispatch(messengerDisconnect()),
   messengerChangeChannel: (channel) => dispatch(messengerChangeChannel(channel)),

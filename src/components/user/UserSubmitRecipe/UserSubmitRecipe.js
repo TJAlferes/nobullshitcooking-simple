@@ -23,7 +23,7 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 import UserSubmitRecipeView from './UserSubmitRecipeView';
 
-const UserSubmitRecipe = ({
+export const UserSubmitRecipe = ({
   match,
   oneColumnATheme,
   authname,

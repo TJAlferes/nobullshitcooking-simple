@@ -1,10 +1,11 @@
 import React, { lazy, Suspense } from 'react';
 
-import './userMessengerPage.css'
 const MobileUserMessengerToggle = lazy(() => import('./mobile/MobileUserMessengerToggle'));
 const UserMessenger = lazy(() => import('./desktop/UserMessenger'));
 
-const UserMessengerPage = props => (
+import './userMessengerPage.css'
+
+const UserMessengerPage = ({ twoColumnATheme }) => (
   <div id="messenger_page">
     <div className="mobile_display">
       <Suspense fallback={<div>Loading...</div>} >
@@ -13,7 +14,7 @@ const UserMessengerPage = props => (
     </div>
     <div className="desktop_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <UserMessenger twoColumnATheme={props.twoColumnATheme} />
+        <UserMessenger twoColumnATheme={twoColumnATheme} />
       </Suspense>
     </div>
   </div>

@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { userRequestFriendship } from '../../../store/actions/index';
-import './userProfile.css';
 
 import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const UserProfile = props => {
+import UserProfileView from './UserProfileView';
+
+export const UserProfile = ({
+  match,
+  oneColumnATheme,
+  message,
+  isAuthenticated,
+  authname,
+  dataMyFriendships,
+  userRequestFriendship
+}) => {
   const history = useHistory();
 
-  const [ message, setMessage ] = useState("");
+  const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ clicked, setClicked ] = useState(false);
   const [ tab, setTab ] = useState("public");
@@ -24,15 +32,15 @@ const UserProfile = props => {
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
-      if (props.message !== "") window.scrollTo(0,0);
-      setMessage(props.message);
+      if (message !== "") window.scrollTo(0,0);
+      setFeedback(message);
     }
     return () => isSubscribed = false;
-  }, [props.message]);
+  }, [message]);
 
   useEffect(() => {
-    const { username } = props.match.params;
-    if (!username) history.push('/');  // change
+    const { username } = match.params;  // withRouter?
+    if (!username) history.push('/');  // change (to what?)
 
     const getUserProfile = async (username) => {
       const res = await axios.get(`${endpoint}/user/profile/${username}`);
@@ -49,111 +57,39 @@ const UserProfile = props => {
   const handlePublicTabClick = () => setTab("public");
 
   const handleFriendRequestClick = () => {
-    const { username } = props.match.params;
+    const { username } = match.params;
     if (!username) return;
+    setClicked(true);
     setLoading(true);
     try {
-      props.userRequestFriendship(username);
+      userRequestFriendship(username);
     } catch(err) {
       setClicked(false);
       setLoading(false);
       window.scrollTo(0,0);
     } finally {
-      setClicked(true);
       setLoading(false);
     }
   };
 
   return (
-    <div className={`profile one-column-a ${props.oneColumnATheme}`}>
-      <h1>{props.match.params.username}</h1>
-
-      <p className="error-message">{message}</p>
-
-      {
-        userAvatar !== "nobsc-user-default" &&
-        <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${userAvatar}`} />
-      }
-      
-      <div className="friend-request-outer">
-        {
-          props.isAuthenticated && props.match.params.username !== props.authname
-          ? (
-            props.dataMyFriendships.find(friend => friend.username === props.match.params.username)
-            ? <span>Friends</span>
-            : (
-              !clicked ? <button onClick={handleFriendRequestClick} disabled={loading}>Send Friend Request</button>
-              : <span>Friend Request Sent</span>
-            )
-          )
-          : false
-        }
-      </div>
-
-      <h2>Recipes</h2>
-      
-      <div className="profile-list-menu-tabs">
-        <button
-          className={(tab === "public") ? "profile-list-menu-tab active" : "profile-list-menu-tab inactive"}
-          onClick={handlePublicTabClick}
-        >
-          Public
-        </button>
-        <button
-          className={(tab === "favorite") ? "profile-list-menu-tab active" : "profile-list-menu-tab inactive"}
-          onClick={handleFavoriteTabClick}
-        >
-          Favorite
-        </button>
-      </div>
-
-      <div className="profile-list">
-        {
-          tab === "favorite" && (
-            userFavoriteRecipes.length
-            ? (
-              userFavoriteRecipes.map(recipe => (
-                <div className="profile-list-item" key={recipe.recipe_id}>
-                  <span className="profile-list-item-tiny">
-                    {
-                      recipe.recipe_image !== "nobsc-recipe-default"
-                      ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
-                      : <div className="image-default-28-18"></div>
-                    }
-                  </span>
-                  <span className="profile-list-item-name">
-                    <Link to={`/recipes/${recipe.recipe_id}`}>{recipe.title}</Link>
-                  </span>
-                </div>
-              ))
-            )
-            : <div className="profile-content-none">{props.match.params.username} hasn't favorited any recipes yet.</div>
-          )
-        }
-        {
-          tab === "public" && (
-            userPublicRecipes.length
-            ? (
-                userPublicRecipes.map(recipe => (
-                <div className="profile-list-item" key={recipe.recipe_id}>
-                  <span className="profile-list-item-tiny">
-                    {
-                      recipe.recipe_image !== "nobsc-recipe-default"
-                      ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
-                      : <div className="image-default-28-18"></div>
-                    }
-                  </span>
-                  <span className="profile-list-item-name">
-                    <Link to={`/recipes/${recipe.recipe_id}`}>{recipe.title}</Link>
-                  </span>
-                </div>
-              ))
-            )
-            : <div className="profile-content-none">{props.match.params.username} hasn't published any recipes yet.</div>
-          )
-        }
-      </div>
-    </div>
+    <UserProfileView
+      match={match}
+      oneColumnATheme={oneColumnATheme}
+      feedback={feedback}
+      loading={loading}
+      isAuthenticated={isAuthenticated}
+      authname={authname}
+      dataMyFriendships={dataMyFriendships}
+      clicked={clicked}
+      tab={tab}
+      userAvatar={userAvatar}
+      userPublicRecipes={userPublicRecipes}
+      userFavoriteRecipes={userFavoriteRecipes}
+      handleFriendRequestClick={handleFriendRequestClick}
+      handlePublicTabClick={handlePublicTabClick}
+      handleFavoriteTabClick={handleFavoriteTabClick}
+    />
   );
 };
 

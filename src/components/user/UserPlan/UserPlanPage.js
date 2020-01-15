@@ -1,10 +1,11 @@
 import React, { lazy, Suspense } from 'react';
 
-import './userPlanPage.css'
 const MobileUserPlanToggle = lazy(() => import('./mobile/MobileUserPlanToggle'));
 const UserPlan = lazy(() => import('./desktop/UserPlan'));
 
-const UserPlanPage = props => (
+import './userPlanPage.css'
+
+const UserPlanPage = ({ twoColumnATheme }) => (
   <div className="user-plan-page">
     <div className="mobile_display">
       <Suspense fallback={<div>Loading...</div>} >
@@ -13,7 +14,7 @@ const UserPlanPage = props => (
     </div>
     <div className="desktop_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <UserPlan className="desktop_display" twoColumnATheme={props.twoColumnATheme} />
+        <UserPlan className="desktop_display" twoColumnATheme={twoColumnATheme} />
       </Suspense>
     </div>
   </div>

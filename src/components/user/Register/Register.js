@@ -42,7 +42,8 @@ export const Register = ({
     try {
       authUserRegister(email, password, username, props.history);
     } catch(err) {
-      setLoading(false);
+      console.log(err);
+      console.log(message);
     } finally {
       setLoading(false);
     }
