@@ -12,6 +12,7 @@ const UserDashboardView = ({
   twoColumnATheme,
   authname,
   avatar,
+  currentAvatar,
   feedback,
   loading,
   creatingPlan,
@@ -90,11 +91,11 @@ const UserDashboardView = ({
             <div className="avatar-crop-previews">
               <div className="avatar-crop-full-preview">
                 <span>Full Size: </span>
-                <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${avatar}`} />
+                <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${currentAvatar}`} />
               </div>
               <div className="avatar-crop-tiny-preview">
                 <span>Tiny Size: </span>
-                <img src={`https://nobsc-user-avatars.s3.amazonaws.com/${avatar}-tiny`} />
+                <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${currentAvatar}-tiny`} />
               </div>
             </div>
             <label className="dashboard-avatar-label">Change</label>
@@ -399,7 +400,7 @@ const UserDashboardView = ({
                   <span className="dashboard-content-item-tiny">
                     {
                       recipe.recipe_image !== "nobsc-recipe-default"
-                      ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                      ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
                       : <div className="image-default-28-18"></div>
                     }
                   </span>
@@ -476,7 +477,7 @@ const UserDashboardView = ({
                   <span className="dashboard-content-item-tiny">
                     {
                       recipe.recipe_image !== "nobsc-recipe-default"
-                      ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                      ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe${recipe.recipe_image}-tiny`} />
                       : <div className="image-default-28-18"></div>
                     }
                   </span>
@@ -519,7 +520,7 @@ const UserDashboardView = ({
                   <span className="dashboard-content-item-tiny">
                     {
                       recipe.recipe_image !== "nobsc-recipe-default"
-                      ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                      ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe${recipe.recipe_image}-tiny`} />
                       : <div className="image-default-28-18"></div>
                     }
                   </span>
@@ -557,7 +558,7 @@ const UserDashboardView = ({
                   <span className="dashboard-content-item-tiny">
                     {
                       recipe.recipe_image !== "nobsc-recipe-default"
-                      ? <img src={`https://nobsc-user-recipe.s3.amazonaws.com/${recipe.recipe_image}-tiny`} />
+                      ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
                       : <div className="image-default-28-18"></div>
                     }
                   </span>
@@ -601,7 +602,7 @@ const UserDashboardView = ({
                   <span className="dashboard-content-item-tiny">
                     {
                       ingredient.ingredient_image !== "nobsc-ingredient-default"
-                      ? <img src={`https://nobsc-user-ingredients.s3.amazonaws.com/${ingredient.ingredient_image}-tiny`} />
+                      ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${ingredient.ingredient_image}-tiny`} />
                       : <div className="image-default-28-18"></div>
                     }
                   </span>
@@ -650,7 +651,7 @@ const UserDashboardView = ({
                   <span className="dashboard-content-item-tiny">
                     {
                       equipment.equipment_image !== "nobsc-equipment-default"
-                      ? <img src={`https://nobsc-user-equipment.s3.amazonaws.com/${equipment.equipment_image}-tiny`} />
+                      ? <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${equipment.equipment_image}-tiny`} />
                       : <div className="image-default-28-18"></div>
                     }
                   </span>

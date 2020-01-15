@@ -45,7 +45,6 @@ const UserSubmitRecipeView = ({
   dataIngredientTypes,
   dataIngredients,
   dataMyPrivateIngredients,
-  dataRecipeTypes,
   dataRecipes,
   dataMyPrivateRecipes,
   dataMyPublicRecipes,

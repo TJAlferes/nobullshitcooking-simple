@@ -1,4 +1,4 @@
-import React from 'recat';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/header/dropdowns/';

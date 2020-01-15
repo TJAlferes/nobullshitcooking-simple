@@ -26,24 +26,27 @@ export const App = ({ location, headerTheme, footerTheme }) => {
   if (userIsAtAuthPage) {
     // ... If they are, then render authentication pages layout
     layout = (
-      <div><RoutesList /></div>
+      <div data-test="component-App"><RoutesList /></div>
     );
   } else {
     // ... Otherwise, render the normal layout
     layout = (
-      <div id="app">
+      <div data-test="component-App" id="app">
         <div>
           <div className="mobile_display">
-            <MobileHeaderRed theme={headerTheme} />
+            <MobileHeaderRed
+              data-test="component-MobileHeaderRed"
+              theme={headerTheme}
+            />
           </div>
           <div className="desktop_display">
-            <HeaderRed theme={headerTheme} />
+            <HeaderRed data-test="component-HeaderRed" theme={headerTheme} />
           </div>
         </div>
-        <MainWhite location={location}>
+        <MainWhite data-test="component-MainWhite" location={location}>
           <RoutesList />
         </MainWhite>
-        <FooterGray theme={footerTheme} />
+        <FooterGray data-test="component-FooterGray" theme={footerTheme} />
       </div>
     );
   }

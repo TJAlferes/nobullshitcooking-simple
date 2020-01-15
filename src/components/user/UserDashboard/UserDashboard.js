@@ -19,7 +19,7 @@ export const UserDashboard = ({
   twoColumnATheme,
   message,
   authname,
-  avatar,
+  currentAvatar,
   myPlans,
   myPublicRecipes,
   myPrivateEquipment,
@@ -350,6 +350,7 @@ export const UserDashboard = ({
       twoColumnATheme={twoColumnATheme}
       authname={authname}
       avatar={avatar}
+      currentAvatar={currentAvatar}
       feedback={feedback}
       loading={loading}
       creatingPlan={creatingPlan}
@@ -410,7 +411,7 @@ export const UserDashboard = ({
 const mapStateToProps = state => ({
   message: state.user.message,
   authname: state.auth.authname,
-  avatar: state.auth.avatar,
+  currentAvatar: state.auth.avatar,
   myPlans: state.data.myPlans,
   myPublicRecipes: state.data.myPublicRecipes,
   myPrivateEquipment: state.data.myPrivateEquipment,
