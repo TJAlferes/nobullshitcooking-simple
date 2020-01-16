@@ -37,7 +37,7 @@ const RecipeView = ({
               <h1>{recipe.recipe[0].title}</h1>
             </div>
 
-            <p className="recipe-details__error-message">{message}</p>
+            <p className="recipe-details__error-message">{feedback}</p>
 
             <div className="recipe-details__favorite-save-outer">
               {

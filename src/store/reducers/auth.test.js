@@ -1,4 +1,3 @@
-import authReducer from './auth';
 import {
   AUTH_USER_REGISTER_SUCCEEDED,
   AUTH_USER_REGISTER_FAILED,
@@ -18,6 +17,8 @@ import {
   AUTH_STAFF_LOGOUT
 } from '../actions/actionTypes';
 
+import authReducer from './auth';
+
 const initialState = {
   message: '',
   isAuthenticated: false,
@@ -25,6 +26,7 @@ const initialState = {
   avatar: ''
 };
 
+// move
 const beforeState = {
   message: '',
   isAuthenticated: true,

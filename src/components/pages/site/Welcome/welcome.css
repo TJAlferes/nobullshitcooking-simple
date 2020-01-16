@@ -3,13 +3,7 @@
   max-width: 1000px;
 }
 
-.welcome h1 {
+.welcome__heading {
   margin-bottom: 12px;
   text-align: center;
-}
-
-.welcome p {
-  margin-bottom: 12px;
-  font-size: 12px;
-  font-family: Arial, sans-serif;
 }

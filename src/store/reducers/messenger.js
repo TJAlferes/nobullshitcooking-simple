@@ -1,7 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
 
-// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
-
 // NORMALIZE STATE, USE OBJECTS/MAPS, NOT ARRAYS
 
 // remember Nir Kofman's actions patterns (maybe)
@@ -21,9 +19,8 @@ const connected = (state, action) => ({
   ...{status: "Connected", connectButtonDisabled: true, disconnectButtonDisabled: false}
 });
 
-const disconnected = (state, action) => ({  // double check here too
+const disconnected = (state, action) => ({
   ...state,
-  //...initialState
   ...{status: "Disconnected", connectButtonDisabled: false, disconnectButtonDisabled: true}
 });
 

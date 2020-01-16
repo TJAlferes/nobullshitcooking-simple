@@ -51,6 +51,10 @@ const UserSubmitRecipeView = ({
   dataMyFavoriteRecipes,
   dataMySavedRecipes,
 
+  recipeImage,
+  recipeEquipmentImage,
+  recipeIngredientsImage,
+  recipeCookingImage,
   cropOne,
   cropFullSizePreview,
   cropThumbSizePreview,

@@ -207,6 +207,7 @@ export const UserMessenger = ({
 
       messagesRef={messagesRef}
       messages={messages}
+      messageToSend={messageToSend}
       handleMessageInputChange={handleMessageInputChange}
       handleMessageSend={handleMessageSend}
 

@@ -1,14 +1,9 @@
-.not_found {
+.not-found {
   display: block;
   margin: 50px auto;
 }
 
-.not_found img {
-  display: block;
-  margin: 0 auto;
-}
-
-.not_found h1 {
+.not-found__heading {
   display: block;
   width: 262px;
   margin: 0 auto;

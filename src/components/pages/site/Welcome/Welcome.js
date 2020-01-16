@@ -2,10 +2,10 @@ import React from 'react';
 
 import './welcome.css';
 
-const Welcome = props => (
-  <div className={`welcome one-column-a ${props.oneColumnATheme}`}>
+const Welcome = ({ oneColumnATheme }) => (
+  <div className={`welcome one-column-a ${oneColumnATheme}`}>
 
-    <h1>Welcome</h1>
+    <h1 className="welcome__heading">Welcome</h1>
 
     <div className="welcome-block">
       <h2 className="welcome-block-statement">Learn To Cook</h2>

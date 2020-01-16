@@ -1,10 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
-
-const initialState = {
-  message: ''
-};
+const initialState = {message: ''};
 
 const userMessage = (state, action) => ({
   ...state,

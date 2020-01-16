@@ -5,7 +5,7 @@ import Feed from '../../Feed/Feed';
 import Suggestions from '../../Suggestions/Suggestions';
 import './home.css';
 
-const Home = () => (
+const Home = props => (
   <div className="home">
     <div className="home-desktop-tablet">
       <LeftNav />

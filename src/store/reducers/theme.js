@@ -1,6 +1,7 @@
-import * as actionTypes from '../actions/actionTypes';
-
-// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
+import {
+  THEME_DARK_TRIGGER,
+  THEME_LIGHT_TRIGGER
+} from '../actions/actionTypes';
 
 const initialState = {
   headerTheme: "header-light",
@@ -20,7 +21,7 @@ const initialState = {
 
 const themeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.THEME_DARK_TRIGGER:
+    case THEME_DARK_TRIGGER:
       return {...state, ...{
         headerTheme: "header-dark",
         mainTheme: "main-dark",
@@ -36,8 +37,7 @@ const themeReducer = (state = initialState, action) => {
         suggestionsTheme: "suggestions-dark",
         feedTheme: "feed-dark"
       }};
-    case actionTypes.THEME_LIGHT_TRIGGER:
-      return {...state, ...initialState};
+    case THEME_LIGHT_TRIGGER: return {...state, ...initialState};
   }
   return state;
 };

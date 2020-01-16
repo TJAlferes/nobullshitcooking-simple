@@ -168,14 +168,14 @@ import StoreFront from '../components/shop/StoreFront/StoreFront';
 //import FoodInSeason from '../components/pages/promo/FoodInSeason/FoodInSeason';
 
 import Site from '../components/pages/site/Site';
-//import Contests from '../components/pages/site/Contests/Contests';
-//import Charity from '../components/pages/site/Charity/Charity';
-//import Sitemap from '../components/pages/site/Sitemap/Sitemap';
+import Contests from '../components/pages/site/Contests/Contests';
+import Charity from '../components/pages/site/Charity/Charity';
+import Sitemap from '../components/pages/site/Sitemap/Sitemap';
 import Disclaimer from '../components/pages/site/Disclaimer/Disclaimer';
-//import TermsOfUse from '../components/pages/site/TermsOfUse/TermsOfUse';
-//import PrivacyPolicy from '../components/pages/site/PrivacyPolicy/PrivacyPolicy';
-//import Help from '../components/pages/site/Help/Help';
-//import Welcome from '../components/pages/site/Welcome/Welcome';
+import TermsOfUse from '../components/pages/site/TermsOfUse/TermsOfUse';
+import PrivacyPolicy from '../components/pages/site/PrivacyPolicy/PrivacyPolicy';
+import Help from '../components/pages/site/Help/Help';
+import Welcome from '../components/pages/site/Welcome/Welcome';
 
 import Home from '../components/pages/Home/Home';
 
@@ -361,18 +361,18 @@ const RoutesList = () => (
 
       <AppliedRoute path="/promo/outdoors" exact component={Outdoors} />
       <AppliedRoute path="/promo/garden" exact component={Garden} />
-      <AppliedRoute path="/promo/tools" exact component={Tools} />*/}
+      <AppliedRoute path="/promo/tools" exact component={Tools} />
+      <AppliedRoute path="/site/seasonal" exact component={FoodInSeason} />*/}
 
       <AppliedRoute path="/site" exact component={Site} />
-      {/*<AppliedRoute path="/site/contests" exact component={Contests} />
-      <AppliedRoute path="/site/seasonal" exact component={FoodInSeason} />
+      <AppliedRoute path="/site/contests" exact component={Contests} />
       <AppliedRoute path="/site/charity" exact component={Charity} />
-      <AppliedRoute path="/site/sitemap" exact component={Sitemap} />*/}
+      <AppliedRoute path="/site/sitemap" exact component={Sitemap} />
       <AppliedRoute path="/site/disclaimer" exact component={Disclaimer} />
-      {/*<AppliedRoute path="/site/terms" exact component={TermsOfUse} />
+      <AppliedRoute path="/site/terms" exact component={TermsOfUse} />
       <AppliedRoute path="/site/privacy" exact component={PrivacyPolicy} />
       <AppliedRoute path="/site/help" exact component={Help} />
-      <AppliedRoute path="/site/welcome" exact component={Welcome} />*/}
+      <AppliedRoute path="/site/welcome" exact component={Welcome} />
 
 
 

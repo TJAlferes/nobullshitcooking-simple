@@ -815,6 +815,10 @@ export const UserSubmitRecipe = ({
       dataMyFavoriteRecipes={dataMyFavoriteRecipes}
       dataMySavedRecipes={dataMySavedRecipes}
     
+      recipeImage={recipeImage}
+      recipeEquipmentImage={recipeEquipmentImage}
+      recipeIngredientsImage={recipeIngredientsImage}
+      recipeCookingImage={recipeCookingImage}
       cropOne={cropOne}
       cropFullSizePreview={cropFullSizePreview}
       cropThumbSizePreview={cropThumbSizePreview}

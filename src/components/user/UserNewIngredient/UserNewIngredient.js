@@ -20,10 +20,10 @@ export const UserNewIngredient = ({
   oneColumnATheme,
   message,
   childProps,
-  dataEquipmentTypes,
-  dataMyPrivateEquipment,
-  userCreateNewPrivateEquipment,
-  userEditPrivateEquipment
+  dataIngredientTypes,
+  dataMyPrivateIngredients,
+  userCreateNewPrivateIngredient,
+  userEditPrivateIngredient
 }) => {
   const history = useHistory();
 

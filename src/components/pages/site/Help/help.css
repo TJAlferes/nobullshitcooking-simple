@@ -1,15 +1,14 @@
-.disclaimer {
+.help {
   min-width: 300px;
   max-width: 1000px;
 }
 
-.disclaimer__heading,
-.disclaimer__text--final {
+.help__heading {
   margin-bottom: 12px;
   text-align: center;
 }
 
-.disclaimer__text {
+.help__text {
   margin-bottom: 12px;
   font-size: 12px;
   font-family: Arial, sans-serif;

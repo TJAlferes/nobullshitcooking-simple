@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 
 import './expandCollapse.css';
 
-const ExpandCollapse = ({ children, headingWhileCollapsed, headingWhileExpanded }) => {
+const ExpandCollapse = ({
+  children,
+  headingWhileCollapsed,
+  headingWhileExpanded
+}) => {
   const [ expanded, setExpanded ] = useState(false);
 
   const toggle = () => setExpanded(prevState => !prevState);
 
-  headingWhileCollapsed
   let headingWhenExpanded = headingWhileExpanded || "(Click here to collapse)";
   let headingWhenCollapsed = headingWhileCollapsed || "More info (Click here to expand)";
 

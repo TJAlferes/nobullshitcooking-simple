@@ -21,6 +21,7 @@ const UserMessengerView = ({
 
   messagesRef,
   messages,
+  messageToSend,
   handleMessageInputChange,
   handleMessageSend,
 
