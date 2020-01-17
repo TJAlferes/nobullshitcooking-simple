@@ -107,56 +107,56 @@ const UserMessengerView = ({
             </li>
             {
               messages && messages.map(message => (
-                message.user.user === "messengerstatus"
+                message.user.username === "messengerstatus"
                 ? (
-                  <li className="messenger-chat-message" key={message.id}>
+                  <li className="messenger-chat-message" key={message.chatMessageId}>
                     <span className="chat-ts">{message.ts}{' '}</span>
                     <span className="chat-display-admin">
-                      {message.message}
+                      {message.chatMessageText}
                     </span>
                   </li>
                 )
                 : (
-                  authname === message.user.user
+                  authname === message.user.username
                   ? (
-                    message.whisper
+                    message.whisperText
                     ? (
-                      <li className="messenger-chat-message" key={message.id}>
+                      <li className="messenger-chat-message" key={message.whisperId}>
                         <span className="chat-ts">{message.ts}{' '}</span>
                         <span className="chat-display-username-self">
                           You whisper to{' '}{message.to}:{' '}
                         </span>
-                        <span className="chat-whisper">{message.whisper}</span>
+                        <span className="chat-whisper">{message.whisperText}</span>
                       </li>
                     )
                     : (
-                      <li className="messenger-chat-message" key={message.id}>
+                      <li className="messenger-chat-message" key={message.chatMessageId}>
                         <span className="chat-ts">{message.ts}{' '}</span>
                         <span className="chat-display-username-self">
-                          {message.user.user}:{' '}
+                          {message.user.username}:{' '}
                         </span>
-                        {message.message}
+                        {message.chatMessageText}
                       </li>
                     )
                   )
                   : (
-                    message.whisper
+                    message.whisperText
                     ? (
-                      <li className="messenger-chat-message" key={message.id}>
+                      <li className="messenger-chat-message" key={message.whisperId}>
                         <span className="chat-ts">{message.ts}{' '}</span>
                         <span className="chat-display-username-other">
-                          {message.user.user}{' '}whispers to you:{' '}
+                          {message.user.username}{' '}whispers to you:{' '}
                         </span>
-                        <span className="chat-whisper">{message.whisper}</span>
+                        <span className="chat-whisper">{message.whisperText}</span>
                       </li>
                     )
                     : (
-                      <li className="messenger-chat-message" key={message.id}>
+                      <li className="messenger-chat-message" key={message.chatMessageId}>
                         <span className="chat-ts">{message.ts}{' '}</span>
                         <span className="chat-display-username-other">
-                          {message.user.user}:{' '}
+                          {message.user.username}:{' '}
                         </span>
-                        {message.message}
+                        {message.chatMessageText}
                       </li>
                     )
                   )
@@ -201,9 +201,9 @@ const UserMessengerView = ({
           {tab === "Room" && (
             <ul className="messenger-users-in-room">
               {users && users.map(user => (
-                <li className="messenger-user-in-room" key={user.user}>
+                <li className="messenger-user-in-room" key={user.username}>
                   <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${user.avatar}-tiny`} />
-                  <span>{user.user}</span>
+                  <span>{user.username}</span>
                 </li>
               ))}
             </ul>
@@ -211,9 +211,9 @@ const UserMessengerView = ({
           {tab === "Friends" && (
             <ul className="messenger-friends">
               {onlineFriends && onlineFriends.map(online => (
-                <li className="messenger-friend" key={online.user}>
+                <li className="messenger-friend" key={online.username}>
                   <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${online.avatar}-tiny`} />
-                  <span>{online.user}</span>
+                  <span>{online.username}</span>
                 </li>
               ))}
             </ul>

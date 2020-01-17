@@ -1,7 +1,20 @@
-import * as actionTypes from '../actions/actionTypes';
+import {
+  MESSENGER_CONNECTED,
+  MESSENGER_DISCONNECTED,
+  AUTH_USER_LOGOUT,
+  MESSENGER_SHOW_ONLINE,
+  MESSENGER_SHOW_OFFLINE,
+  MESSENGER_CHANGED_CHANNEL,
+  MESSENGER_REJOINED_CHANNEL,
+  MESSENGER_JOINED_USER,
+  MESSENGER_LEFT_USER,
+  MESSENGER_RECEIVED_MESSAGE,
+  MESSENGER_RECEIVED_WHISPER,
+  MESSENGER_FAILED_WHISPER,
+  MESSENGER_GET_ONLINE
+} from '../actions/actionTypes';
 
 // NORMALIZE STATE, USE OBJECTS/MAPS, NOT ARRAYS
-
 // remember Nir Kofman's actions patterns (maybe)
 
 const initialState = {
@@ -31,7 +44,9 @@ const showOnline = (state, action) => ({
 
 const showOffline = (state, action) => ({
   ...state,
-  ...{onlineFriends: state.onlineFriends.filter(friend => friend.user !== action.user.user)}
+  ...{
+    onlineFriends: state.onlineFriends.filter(friend => friend.userId !== action.user.userId)
+  }
 });
 
 const changedChannel = (state, action) => ({
@@ -57,10 +72,10 @@ const joinedUser = (state, action) => {
     ...state,
     ...{
       messages: state.messages.concat({
-        id: 'admin' + (new Date).getTime().toString(),
+        chatMessageId: 'admin' + (new Date).getTime().toString(),
         ts,
-        message: `${action.user.user} has joined the room.`,
-        user: {user: "messengerstatus"}
+        chatMessageText: `${action.user.username} has joined the room.`,
+        user: {username: "messengerstatus"}
       }),
       users: state.users.concat(action.user)
     }
@@ -73,12 +88,12 @@ const leftUser = (state, action) => {
     ...state,
     ...{
       messages: state.messages.concat({
-        id: 'admin' + (new Date).getTime().toString(),
+        chatMessageId: 'admin' + (new Date).getTime().toString(),
         ts,
-        message: `${action.user.user} has left the room.`,
-        user: {user: "messengerstatus"}
+        chatMessageText: `${action.user.username} has left the room.`,
+        user: {username: "messengerstatus"}
       }),
-      users: state.users.filter(user => user.user !== action.user.user)
+      users: state.users.filter(user => user.userId !== action.user.userId)
     }
   };
 };
@@ -107,10 +122,10 @@ const failedWhisper = (state, action) => {
     ...state,
     ...{
       messages: state.messages.concat({
-        id: 'admin' + (new Date).getTime().toString(),
+        whisperId: 'admin' + (new Date).getTime().toString(),
         ts,
-        message: action.feedback,
-        user: {user: "messengerstatus"}
+        whisperText: action.feedback,
+        user: {username: "messengerstatus"}
       })
     }
   };
@@ -123,19 +138,19 @@ const getOnline = (state, action) => ({
 
 const messengerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.MESSENGER_CONNECTED: return connected(state, action);
-    case actionTypes.MESSENGER_DISCONNECTED: return disconnected(state, action);
-    case actionTypes.AUTH_USER_LOGOUT: return disconnected(state, action);
-    case actionTypes.MESSENGER_SHOW_ONLINE: return showOnline(state, action);
-    case actionTypes.MESSENGER_SHOW_OFFLINE: return showOffline(state, action);
-    case actionTypes.MESSENGER_CHANGED_CHANNEL: return changedChannel(state, action);
-    case actionTypes.MESSENGER_REJOINED_CHANNEL: return rejoinedChannel(state, action);
-    case actionTypes.MESSENGER_JOINED_USER: return joinedUser(state, action);
-    case actionTypes.MESSENGER_LEFT_USER: return leftUser(state, action);
-    case actionTypes.MESSENGER_RECEIVED_MESSAGE: return receivedMessage(state, action);
-    case actionTypes.MESSENGER_RECEIVED_WHISPER: return receivedWhisper(state, action);
-    case actionTypes.MESSENGER_FAILED_WHISPER: return failedWhisper(state, action);
-    case actionTypes.MESSENGER_GET_ONLINE: return getOnline(state, action);
+    case MESSENGER_CONNECTED: return connected(state, action);
+    case MESSENGER_DISCONNECTED: return disconnected(state, action);
+    case AUTH_USER_LOGOUT: return disconnected(state, action);
+    case MESSENGER_SHOW_ONLINE: return showOnline(state, action);
+    case MESSENGER_SHOW_OFFLINE: return showOffline(state, action);
+    case MESSENGER_CHANGED_CHANNEL: return changedChannel(state, action);
+    case MESSENGER_REJOINED_CHANNEL: return rejoinedChannel(state, action);
+    case MESSENGER_JOINED_USER: return joinedUser(state, action);
+    case MESSENGER_LEFT_USER: return leftUser(state, action);
+    case MESSENGER_RECEIVED_MESSAGE: return receivedMessage(state, action);
+    case MESSENGER_RECEIVED_WHISPER: return receivedWhisper(state, action);
+    case MESSENGER_FAILED_WHISPER: return failedWhisper(state, action);
+    case MESSENGER_GET_ONLINE: return getOnline(state, action);
   }
   return state;
 };

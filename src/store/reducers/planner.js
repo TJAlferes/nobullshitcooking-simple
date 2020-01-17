@@ -1,14 +1,27 @@
 import update from 'immutability-helper';
 
-import * as actionTypes from '../actions/actionTypes';
 import convertPlannerToUrl from '../../utils/publicPlanner/convertPlannerToUrl';
 //import { convertUrlToPlannerv2 } from '../../utils/publicPlanner/convertUrlToPlanner';
 
-// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS
+import {
+  PLANNER_CLICK_DAY,
+  PLANNER_ADD_RECIPE_TO_DAY,
+  PLANNER_REMOVE_RECIPE_FROM_DAY,
+  PLANNER_REORDER_RECIPE_IN_DAY,
 
-// IMPLEMENT AS KIND OF "FINITE STATE MACHINE"
+  PLANNER_PUBLIC_LOAD_FROM_URL,
+  PLANNER_PUBLIC_SAVE_TO_URL,
 
-// flatten this (?)
+  PLANNER_CLEAR_WORK,
+  PLANNER_SET_CREATING,
+  PLANNER_SET_PLAN_NAME,
+  PLANNER_SET_EDITING_ID,
+  PLANNER_SET_PLAN_DATA
+} from '../actions/actionTypes';
+
+// research further: "FINITE STATE MACHINE"
+// flatten this (?) normalize? use objects, not arrays?
+
 const initialState = {
   isLoading: false,
   creating: false,
@@ -135,19 +148,19 @@ const setPlanData = (state, action) => ({
 // remember Nir Kofman's actions patterns
 const plannerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.PLANNER_CLICK_DAY: return clickDay(state, action);
-    case actionTypes.PLANNER_ADD_RECIPE_TO_DAY: return addRecipeToDay(state, action);
-    case actionTypes.PLANNER_REMOVE_RECIPE_FROM_DAY: return removeRecipeFromDay(state, action);
-    case actionTypes.PLANNER_REORDER_RECIPE_IN_DAY: return reorderRecipeInDay(state, action);
+    case PLANNER_CLICK_DAY: return clickDay(state, action);
+    case PLANNER_ADD_RECIPE_TO_DAY: return addRecipeToDay(state, action);
+    case PLANNER_REMOVE_RECIPE_FROM_DAY: return removeRecipeFromDay(state, action);
+    case PLANNER_REORDER_RECIPE_IN_DAY: return reorderRecipeInDay(state, action);
 
-    case actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL: return publicLoadFromUrl(state, action);
-    case actionTypes.PLANNER_PUBLIC_SAVE_TO_URL: return publicSaveToUrl(state, action);
+    case PLANNER_PUBLIC_LOAD_FROM_URL: return publicLoadFromUrl(state, action);
+    case PLANNER_PUBLIC_SAVE_TO_URL: return publicSaveToUrl(state, action);
 
-    case actionTypes.PLANNER_CLEAR_WORK: return clearWork(state, action);
-    case actionTypes.PLANNER_SET_CREATING: return setCreating(state, action);
-    case actionTypes.PLANNER_SET_PLAN_NAME: return setPlanName(state, action);
-    case actionTypes.PLANNER_SET_EDITING_ID: return setEditingId(state, action);
-    case actionTypes.PLANNER_SET_PLAN_DATA: return setPlanData(state, action);
+    case PLANNER_CLEAR_WORK: return clearWork(state, action);
+    case PLANNER_SET_CREATING: return setCreating(state, action);
+    case PLANNER_SET_PLAN_NAME: return setPlanName(state, action);
+    case PLANNER_SET_EDITING_ID: return setEditingId(state, action);
+    case PLANNER_SET_PLAN_DATA: return setPlanData(state, action);
   }
   return state;
 };

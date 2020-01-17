@@ -14,6 +14,7 @@ import {
   messengerFailedWhisper,
   messengerGetOnline
 } from '../actions/index';
+
 import { store } from '../../index';
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
@@ -82,7 +83,7 @@ socket.on('GetUser', (users, roomToAdd) => {
   if (!users) return;
   if (!roomToAdd) return;
   if (typeof users === "undefined") return;
-  if (typeof users === "roomToAdd") return;
+  if (typeof users === "roomToAdd") return;  // ?
   store.dispatch(messengerChangedChannel(users, roomToAdd));
 });
 
@@ -90,7 +91,7 @@ socket.on('RegetUser', (users, roomToRejoin) => {
   if (!users) return;
   if (!roomToRejoin) return;
   if (typeof users === "undefined") return;
-  if (typeof users === "roomToRejoin") return;
+  if (typeof users === "roomToRejoin") return;  // ?
   store.dispatch(messengerRejoinedChannel(users, roomToRejoin));
 });
 

@@ -169,7 +169,8 @@ describe('the messenger reducer', () => {
     };
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_CHANGED_CHANNEL,
-      
+      channel: "autos101",
+      users: []
     });
     const expected = ;
     expect(actual).toEqual(expected);
@@ -196,7 +197,7 @@ describe('the messenger reducer', () => {
       ],
       users: [
         {id: "1", user: "Joe55", avatar: "Joe55"},
-        `rooms:${room}`, Date.now(), user
+        `rooms:${room}`, Date.now(), user  // FINISH
       ],
       onlineFriends: [],
       status: "Connected",
