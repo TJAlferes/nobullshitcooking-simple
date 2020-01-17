@@ -131,7 +131,7 @@ export const Menu = ({
   useLayoutEffect(() => {
     // config
     initMenuAim({
-      submenuDirection: props.submenuDirection,
+      submenuDirection: submenuDirection,
       menuSelector: '.menu',
       delay: 300,
       tolerance: 75

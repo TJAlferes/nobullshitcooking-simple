@@ -113,13 +113,13 @@ describe('the messenger reducer', () => {
     };
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_SHOW_ONLINE,
-      user: {id: "1", user: "Joe55", avatar: "Joe55"}
+      user: {userId: "1", username: "Joe55", avatar: "Joe55"}
     });
     const expected = {
       channel: "",
       messages: [],
       users: [],
-      onlineFriends: [{id: "1", user: "Joe55", avatar: "Joe55"}],
+      onlineFriends: [{userId: "1", username: "Joe55", avatar: "Joe55"}],
       status: "Connected",
       connectButtonDisabled: true,
       disconnectButtonDisabled: false
@@ -134,14 +134,14 @@ describe('the messenger reducer', () => {
       channel: "",
       messages: [],
       users: [],
-      onlineFriends: [{id: "1", user: "Joe55", avatar: "Joe55"}],
+      onlineFriends: [{userId: "1", username: "Joe55", avatar: "Joe55"}],
       status: "Connected",
       connectButtonDisabled: true,
       disconnectButtonDisabled: false
     };
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_SHOW_OFFLINE,
-      user: {id: "1", user: "Joe55", avatar: "Joe55"}
+      user: {userId: "1", username: "Joe55", avatar: "Joe55"}
     });
     const expected = {
       channel: "",
@@ -170,9 +170,17 @@ describe('the messenger reducer', () => {
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_CHANGED_CHANNEL,
       channel: "autos101",
-      users: []
+      users: [{userId: 93, username: "CarEnthusiast", avatar: "CarEnthusiast"}]
     });
-    const expected = ;
+    const expected = {
+      channel: "autos101",
+      messages: [],
+      users: [{userId: 93, username: "CarEnthusiast", avatar: "CarEnthusiast"}],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
     expect(actual).toEqual(expected);
   });
 
@@ -183,21 +191,23 @@ describe('the messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
-          id: "Joe555" + (new Date).getTime().toString(),
-          message: "Hey! How are you?",
+          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
-          user: "Joe555"
+          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          ts: `${(new Date).toLocaleTimeString()}`
         },
         {
-          id: "Jane888" + (new Date).getTime().toString(),
-          message: "I'm good, thanks! You?",
+          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
-          user: "Jane888"
+          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          ts: `${(new Date).toLocaleTimeString()}`
         }
       ],
       users: [
-        {id: "1", user: "Joe55", avatar: "Joe55"},
-        `rooms:${room}`, Date.now(), user  // FINISH
+        {userId: 555, username: "Joe555", avatar: "Joe555"},
+        {userId: 888, username: "Jane888", avatar: "Jane888"}
       ],
       onlineFriends: [],
       status: "Connected",
@@ -206,75 +216,333 @@ describe('the messenger reducer', () => {
     };
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_REJOINED_CHANNEL,
-      
+      channel: "GrillNChill",
+      users: [
+        {userId: 555, username: "Joe555", avatar: "Joe555"},
+        {userId: 888, username: "Jane888", avatar: "Jane888"}
+      ]
     });
-    const expected = ;
+    const expected = beforeState;
     expect(actual).toEqual(expected);
   });
 
 
 
   it('handles actions of type MESSENGER_JOINED_USER', () => {
-    const actual = messengerReducer(, {
+    const beforeState = {
+      channel: "GrillNChill",
+      messages: [
+        {
+          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageText: "Hey! How are you?",
+          room: "GrillNChill",
+          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        },
+        {
+          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageText: "I'm good, thanks! You?",
+          room: "GrillNChill",
+          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        }
+      ],
+      users: [
+        {userId: 555, username: "Joe555", avatar: "Joe555"},
+        {userId: 888, username: "Jane888", avatar: "Jane888"}
+      ],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
+    const actual = messengerReducer(beforeState, {
       type: MESSENGER_JOINED_USER,
-      
+      user: {userId: 23, username: "Bubbles", avatar: "Bubbles"}
     });
-    const expected = ;
+
+    const expected = {
+      channel: "GrillNChill",
+      messages: [
+        {
+          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageText: "Hey! How are you?",
+          room: "GrillNChill",
+          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        },
+        {
+          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageText: "I'm good, thanks! You?",
+          room: "GrillNChill",
+          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        },
+        {
+          chatMessageId: 'admin' + (new Date).getTime().toString(),
+          ts: `${(new Date).toLocaleTimeString()}`,
+          chatMessageText: "Bubbles has joined the room.",
+          user: {username: "messengerstatus"}
+        }
+      ],
+      users: [
+        {userId: 555, username: "Joe555", avatar: "Joe555"},
+        {userId: 888, username: "Jane888", avatar: "Jane888"},
+        {userId: 23, username: "Bubbles", avatar: "Bubbles"}
+      ],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
     expect(actual).toEqual(expected);
   });
 
 
 
   it('handles actions of type MESSENGER_LEFT_USER', () => {
-    const actual = messengerReducer(, {
+    const beforeState = {
+      channel: "GrillNChill",
+      messages: [
+        {
+          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageText: "Hey! How are you?",
+          room: "GrillNChill",
+          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        },
+        {
+          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageText: "I'm good, thanks! You?",
+          room: "GrillNChill",
+          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        }
+      ],
+      users: [
+        {userId: 555, username: "Joe555", avatar: "Joe555"},
+        {userId: 888, username: "Jane888", avatar: "Jane888"}
+      ],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
+    const actual = messengerReducer(beforeState, {
       type: MESSENGER_LEFT_USER,
-      
+      user: {userId: 888, username: "Jane888", avatar: "Jane888"}
     });
-    const expected = ;
+
+    const expected = {
+      channel: "GrillNChill",
+      messages: [
+        {
+          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageText: "Hey! How are you?",
+          room: "GrillNChill",
+          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        },
+        {
+          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageText: "I'm good, thanks! You?",
+          room: "GrillNChill",
+          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        },
+        {
+          chatMessageId: 'admin' + (new Date).getTime().toString(),
+          ts: `${(new Date).toLocaleTimeString()}`,
+          chatMessageText: `Jane888 has left the room.`,
+          user: {username: "messengerstatus"}
+        }
+      ],
+      users: [
+        {userId: 555, username: "Joe555", avatar: "Joe555"}
+      ],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
     expect(actual).toEqual(expected);
   });
 
 
 
   it('handles actions of type MESSENGER_RECEIVED_MESSAGE', () => {
-    const actual = messengerReducer(, {
+    const beforeState = {
+      channel: "GrillNChill",
+      messages: [
+        {
+          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageText: "Hey! How are you?",
+          room: "GrillNChill",
+          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        }
+      ],
+      users: [
+        {userId: 555, username: "Joe555", avatar: "Joe555"},
+        {userId: 888, username: "Jane888", avatar: "Jane888"}
+      ],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
+    const actual = messengerReducer(beforeState, {
       type: MESSENGER_RECEIVED_MESSAGE,
-      
+      message: {
+        chatMessageId: 888 + (new Date).getTime().toString(),
+        chatMessageText: "I'm good, thanks! You?",
+        room: "GrillNChill",
+        user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+        ts: `${(new Date).toLocaleTimeString()}`
+      }
     });
-    const expected = ;
+
+    const expected = {
+      channel: "GrillNChill",
+      messages: [
+        {
+          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageText: "Hey! How are you?",
+          room: "GrillNChill",
+          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        },
+        {
+          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageText: "I'm good, thanks! You?",
+          room: "GrillNChill",
+          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        }
+      ],
+      users: [
+        {userId: 555, username: "Joe555", avatar: "Joe555"},
+        {userId: 888, username: "Jane888", avatar: "Jane888"}
+      ],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
     expect(actual).toEqual(expected);
   });
 
 
 
   it('handles actions of type MESSENGER_RECEIVED_WHISPER', () => {
-    const actual = messengerReducer(, {
+    const beforeState = {
+      channel: "GrillNChill",
+      messages: [],
+      users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
+    const actual = messengerReducer(beforeState, {
       type: MESSENGER_RECEIVED_WHISPER,
-      
+      whisper: {
+        whisperId: 888 + (new Date).getTime().toString(),
+        whisperText: "Are you still moving next year?",
+        to: "Joe555",
+        user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+        ts: `${(new Date).toLocaleTimeString()}`
+      }
     });
-    const expected = ;
+
+    const expected = {
+      channel: "GrillNChill",
+      messages: [
+        {
+          whisperId: 888 + (new Date).getTime().toString(),
+          whisperText: "Are you still moving next year?",
+          to: "Joe555",
+          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          ts: `${(new Date).toLocaleTimeString()}`
+        }
+      ],
+      users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
     expect(actual).toEqual(expected);
   });
 
 
 
   it('handles actions of type MESSENGER_FAILED_WHISPER', () => {
-    const actual = messengerReducer(, {
+    const beforeState = {
+      channel: "GrillNChill",
+      messages: [],
+      users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
+    const actual = messengerReducer(beforeState, {
       type: MESSENGER_FAILED_WHISPER,
-      
+      feedback: 'User not found.'
     });
-    const expected = ;
+
+    const expected = {
+      channel: "GrillNChill",
+      messages: [
+        {
+          whisperId: 'admin' + (new Date).getTime().toString(),
+          ts: `${(new Date).toLocaleTimeString()}`,
+          whisperText: 'User not found.',
+          user: {username: "messengerstatus"}
+        }
+      ],
+      users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],
+      onlineFriends: [],
+      status: "Connected",
+      connectButtonDisabled: true,
+      disconnectButtonDisabled: false
+    };
+
     expect(actual).toEqual(expected);
   });
 
 
 
   it('handles actions of type MESSENGER_GET_ONLINE', () => {
-    const actual = messengerReducer(, {
+    const actual = messengerReducer(initialState, {
       type: MESSENGER_GET_ONLINE,
-      
+      online: [
+        {userId: 43, username: "MrClean", avatar: "MrClean"},
+        {userId: 52, username: "Shabsquash", avatar: "Shabsquash"}
+      ]
     });
-    const expected = ;
+    const expected = {
+      channel: "",
+      messages: [],
+      users: [],
+      onlineFriends: [
+        {userId: 43, username: "MrClean", avatar: "MrClean"},
+        {userId: 52, username: "Shabsquash", avatar: "Shabsquash"}
+      ],
+      status: "Disconnected",
+      connectButtonDisabled: false,
+      disconnectButtonDisabled: true,
+    };
     expect(actual).toEqual(expected);
   });
 });

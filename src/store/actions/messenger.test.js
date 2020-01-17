@@ -151,26 +151,26 @@ describe('messengerSendWhisper action creator', () => {
 describe('messengerReceivedWhisper action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerReceivedWhisper({
-      id: '32873443823428384923',
-      whisper: 'How are you?',
+      whisperId: '32873443823428384923',
+      whisperText: 'How are you?',
       to: '0923849323432',
-      user: 'Jill'
+      user: {userId: 90, username: 'Jill', avatar: 'Jill'}
     }).type;
     const expected = MESSENGER_RECEIVED_WHISPER;
     expect(actual).toEqual(expected);
   });
   it('returns the correct ', () => {
     const actual = messengerReceivedWhisper({
-      id: '32873443823428384923',
-      whisper: 'How are you?',
+      whisperId: '32873443823428384923',
+      whisperText: 'How are you?',
       to: '0923849323432',
-      user: 'Jill'
+      user: {userId: 90, username: 'Jill', avatar: 'Jill'}
     }).whisper;
     const expected = {
-      id: '32873443823428384923',
-      whisper: 'How are you?',
+      whisperId: '32873443823428384923',
+      whisperText: 'How are you?',
       to: '0923849323432',
-      user: 'Jill'
+      user: {userId: 90, username: 'Jill', avatar: 'Jill'}
     };
     expect(actual).toEqual(expected);  // deep?
   });
@@ -179,8 +179,8 @@ describe('messengerReceivedWhisper action creator', () => {
 describe('messengerGetOnline action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerGetOnline([{
-      id: 5,
-      user: 'Alex',
+      userId: 5,
+      username: 'Alex',
       avatar: 'Alex'
     }]).type;
     const expected = MESSENGER_GET_ONLINE;
@@ -188,13 +188,13 @@ describe('messengerGetOnline action creator', () => {
   });
   it('returns the correct ', () => {
     const actual = messengerGetOnline([{
-      id: 5,
-      user: 'Alex',
+      userId: 5,
+      username: 'Alex',
       avatar: 'Alex'
     }]).online;
     const expected = [{
-      id: 5,
-      user: 'Alex',
+      userId: 5,
+      username: 'Alex',
       avatar: 'Alex'
     }];
     expect(actual).toEqual(expected);  // deep?
