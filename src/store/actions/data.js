@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 
-// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS AND SELECTORS AND SAGAS
+
 
 // init (when user first visits website)
 export const dataInit = () => ({type: actionTypes.DATA_INIT});

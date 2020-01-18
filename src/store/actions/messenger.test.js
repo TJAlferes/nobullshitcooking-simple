@@ -1,30 +1,107 @@
 import {
+  MESSENGER_CONNECT,
+  MESSENGER_CONNECTED,
+  MESSENGER_DISCONNECT,
+  MESSENGER_DISCONNECTED,
+
+  MESSENGER_GET_ONLINE,
   MESSENGER_SHOW_ONLINE,
   MESSENGER_SHOW_OFFLINE,
+
   MESSENGER_CHANGE_CHANNEL,
   MESSENGER_CHANGED_CHANNEL,
   MESSENGER_JOINED_USER,
   MESSENGER_LEFT_USER,
+
   MESSENGER_SEND_MESSAGE,
   MESSENGER_RECEIVED_MESSAGE,
   MESSENGER_SEND_WHISPER,
   MESSENGER_RECEIVED_WHISPER,
-  MESSENGER_GET_ONLINE
+  MESSENGER_FAILED_WHISPER
 } from './actionTypes';
-
 import {
+  messengerConnect,
+  messengerConnected,
+  messengerDisconnect,
+  messengerDisconnected,
+
+  messengerGetOnline,
   messengerShowOnline,
   messengerShowOffline,
+
   messengerChangeChannel,
   messengerChangedChannel,
+  messengerRejoinedChannel,
   messengerJoinedUser,
   messengerLeftUser,
+
   messengerSendMessage,
   messengerReceivedMessage,
   messengerSendWhisper,
   messengerReceivedWhisper,
-  messengerGetOnline
+  messengerFailedWhisper
 } from './messenger';
+
+
+
+describe('the messengerConnect action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = messengerConnect().type;
+    const expected = MESSENGER_CONNECT;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('the messengerConnected action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = messengerConnected().type;
+    const expected = MESSENGER_CONNECTED;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('the messengerDisconnect action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = messengerDisconnect().type;
+    const expected = MESSENGER_DISCONNECT;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('the messengerDisconnected action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = messengerDisconnected().type;
+    const expected = MESSENGER_DISCONNECTED;
+    expect(actual).toEqual(expected);
+  });
+});
+
+
+
+describe('messengerGetOnline action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = messengerGetOnline([{
+      userId: 5,
+      username: 'Alex',
+      avatar: 'Alex'
+    }]).type;
+    const expected = MESSENGER_GET_ONLINE;
+    expect(actual).toEqual(expected);
+  });
+  it('returns the correct ', () => {
+    const actual = messengerGetOnline([{
+      userId: 5,
+      username: 'Alex',
+      avatar: 'Alex'
+    }]).online;
+    const expected = [{
+      userId: 5,
+      username: 'Alex',
+      avatar: 'Alex'
+    }];
+    expect(actual).toEqual(expected);  // deep?
+  });
+});
 
 describe('messengerShowOnline action creator', () => {
   it('returns the correct action type', () => {
@@ -51,6 +128,8 @@ describe('messengerShowOffline action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
+
+
 
 describe('messengerChangeChannel action creator', () => {
   it('returns the correct action type', () => {
@@ -103,6 +182,8 @@ describe('messengerLeftUser action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
+
+
 
 describe('messengerSendMessage action creator', () => {
   it('returns the correct action type', () => {
@@ -176,27 +257,15 @@ describe('messengerReceivedWhisper action creator', () => {
   });
 });
 
-describe('messengerGetOnline action creator', () => {
+describe('the messengerFailedWhisper action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerGetOnline([{
-      userId: 5,
-      username: 'Alex',
-      avatar: 'Alex'
-    }]).type;
-    const expected = MESSENGER_GET_ONLINE;
+    const actual = messengerFailedWhisper("User not found.").type;
+    const expected = MESSENGER_FAILED_WHISPER;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct ', () => {
-    const actual = messengerGetOnline([{
-      userId: 5,
-      username: 'Alex',
-      avatar: 'Alex'
-    }]).online;
-    const expected = [{
-      userId: 5,
-      username: 'Alex',
-      avatar: 'Alex'
-    }];
-    expect(actual).toEqual(expected);  // deep?
+  it('returns the correct feedback', () => {
+    const actual = messengerFailedWhisper("User not found.").feedback;
+    const expected = "User not found.";
+    expect(actual).toEqual(expected);
   });
 });
