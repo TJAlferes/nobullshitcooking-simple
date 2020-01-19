@@ -1,80 +1,87 @@
-import * as actionTypes from './actionTypes';
 //import '../../utils/publicPlanner/convertPlannerToUrl';
 
-/*
-Planner -- core functionality
-*/
+import {
+  PLANNER_CLICK_DAY,
+  PLANNER_ADD_RECIPE_TO_DAY,
+  PLANNER_REMOVE_RECIPE_FROM_DAY,
+  PLANNER_REORDER_RECIPE_IN_DAY,
+
+  PLANNER_PUBLIC_LOAD_FROM_URL,
+  PLANNER_PUBLIC_SAVE_TO_URL,
+
+  PLANNER_VIEW_CLICK_DAY,
+  PLANNER_PRIVATE_LOAD,
+  PLANNER_CLEAR_WORK,
+  PLANNER_SET_CREATING,
+  PLANNER_SET_EDITING_ID,
+  PLANNER_SET_PLAN_NAME,
+  PLANNER_SET_PLAN_DATA
+} from './actionTypes';
+
+
 
 export const plannerClickDay = day => ({
-  type: actionTypes.PLANNER_CLICK_DAY,
+  type: PLANNER_CLICK_DAY,
   day
 });
 
 export const plannerAddRecipeToDay = (day, recipe) => ({
-  type: actionTypes.PLANNER_ADD_RECIPE_TO_DAY,
+  type: PLANNER_ADD_RECIPE_TO_DAY,
   day,
   recipe
 });
 
 export const plannerRemoveRecipeFromDay = (day, index) => ({
-  type: actionTypes.PLANNER_REMOVE_RECIPE_FROM_DAY,
+  type: PLANNER_REMOVE_RECIPE_FROM_DAY,
   day,
   index
 });
 
 export const plannerReorderRecipeInDay = (dragIndex, hoverIndex) => ({
-  type: actionTypes.PLANNER_REORDER_RECIPE_IN_DAY,
+  type: PLANNER_REORDER_RECIPE_IN_DAY,
   dragIndex,
   hoverIndex
 });
 
 
 
-/*
-Planner -- publicly save and load to and from the URL
-(DEV NOTE: Be careful that these two don't trigger an unterminating loop.)
-*/
+// NOTE: Be careful that these two don't trigger an unterminating loop.
 
 export const plannerPublicLoadFromUrl = preLoadedPlan => ({
-  type: actionTypes.PLANNER_PUBLIC_LOAD_FROM_URL,
+  type: PLANNER_PUBLIC_LOAD_FROM_URL,
   preLoadedPlan
 });
 
-export const plannerPublicSaveToUrl = () => ({
-  type: actionTypes.PLANNER_PUBLIC_SAVE_TO_URL
-});
+export const plannerPublicSaveToUrl = () => ({type: PLANNER_PUBLIC_SAVE_TO_URL});
 
 
-/*
-Planner -- for logged in users
-*/
 
 export const plannerViewClickDay = day => ({
-  type: actionTypes.PLANNER_VIEW_CLICK_DAY,
+  type: PLANNER_VIEW_CLICK_DAY,
   day
 });
 
 export const plannerPrivateLoad = (planName, planData) => ({
-  type: actionTypes.PLANNER_PRIVATE_LOAD,
+  type: PLANNER_PRIVATE_LOAD,
   planName,
   planData
 });
 
-export const plannerClearWork = () => ({type: actionTypes.PLANNER_CLEAR_WORK});
+export const plannerClearWork = () => ({type: PLANNER_CLEAR_WORK});
 
-export const plannerSetCreating = () => ({type: actionTypes.PLANNER_SET_CREATING});
+export const plannerSetCreating = () => ({type: PLANNER_SET_CREATING});
 
 export const plannerSetEditingId = id => ({
-  type: actionTypes.PLANNER_SET_EDITING_ID,
+  type: PLANNER_SET_EDITING_ID,
   id
 });
 
 export const plannerSetPlanName = name => ({
-  type: actionTypes.PLANNER_SET_PLAN_NAME,
+  type: PLANNER_SET_PLAN_NAME,
   name
 });
 
 export const plannerSetPlanData = data => ({
-  type: actionTypes.PLANNER_SET_PLAN_DATA,
+  type: PLANNER_SET_PLAN_DATA,
   data
 });

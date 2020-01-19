@@ -1,9 +1,5 @@
-import * as actionTypes from './actionTypes';
+import { MENU_SHADOW_SHOW, MENU_SHADOW_HIDE } from './actionTypes';
 
-export const menuShadowShow = () => ({
-  type: actionTypes.MENU_SHADOW_SHOW
-});
+export const menuShadowShow = () => ({type: MENU_SHADOW_SHOW});
 
-export const menuShadowHide = () => ({
-  type: actionTypes.MENU_SHADOW_HIDE
-});
+export const menuShadowHide = () => ({type: MENU_SHADOW_HIDE});

@@ -53,12 +53,13 @@ export const messengerChangeChannel = channel => ({
   type: MESSENGER_CHANGE_CHANNEL,
   channel
 });
+
 export const messengerChangedChannel = (users, channel) => ({
   type: MESSENGER_CHANGED_CHANNEL,
   users,
   channel
 });
-
+ 
 export const messengerRejoinedChannel = (users, channel) => ({
   type: MESSENGER_REJOINED_CHANNEL,
   users,
