@@ -1,5 +1,4 @@
 import { SEARCH_SET_INDEX } from './actionTypes';
-
 import { searchSetIndex } from './search';
 
 describe('the searchSetIndex action creator', () => {

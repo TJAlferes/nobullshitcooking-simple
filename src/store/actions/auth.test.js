@@ -6,7 +6,6 @@ import {
   AUTH_USER_LOGIN,
   //AUTH_STAFF_LOGIN
 } from './actionTypes';
-
 import {
   authDisplay,
   authUpdateLocalAvatar,

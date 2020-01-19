@@ -69,7 +69,6 @@ import {
   DATA_GET_MY_FRIENDSHIPS_SUCCEEDED,
   DATA_GET_MY_FRIENDSHIPS_FAILED
 } from './actionTypes';
-
 import {
   dataInit,
   dataGetMeasurements,

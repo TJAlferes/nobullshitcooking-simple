@@ -1,5 +1,4 @@
 import { THEME_DARK_TRIGGER, THEME_LIGHT_TRIGGER } from './actionTypes';
-
 import { themeDarkTrigger, themeLightTrigger } from './theme';
 
 describe('the themeDarkTrigger action creator', () => {

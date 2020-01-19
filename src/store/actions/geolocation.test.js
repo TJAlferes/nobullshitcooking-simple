@@ -4,7 +4,6 @@ import {
   GEO_ADDRESS,
   GEO_NEARBY_STORES_CLICKED
 } from './actionTypes';
-
 import {
   geoLatitude,
   geoLongitude,

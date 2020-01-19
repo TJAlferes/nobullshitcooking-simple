@@ -15,7 +15,6 @@ import {
   PLANNER_SET_PLAN_NAME,
   PLANNER_SET_PLAN_DATA
 } from './actionTypes';
-
 import {
   plannerClickDay,
   plannerAddRecipeToDay,

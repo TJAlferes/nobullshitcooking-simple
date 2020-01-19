@@ -1,384 +1,531 @@
-import * as actionTypes from './actionTypes';
+import {
+  USER_MESSAGE_CLEAR,
 
-// WRITE UNIT TESTS FOR REDUCERS AND ACTION CREATORS AND SELECTORS AND SAGAS
+  USER_CREATE_NEW_PRIVATE_EQUIPMENT,
+  USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
+  USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED,
 
-export const userMessageClear = () => ({type: actionTypes.USER_MESSAGE_CLEAR});
+  USER_EDIT_PRIVATE_EQUIPMENT,
+  USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
+  USER_EDIT_PRIVATE_EQUIPMENT_FAILED,
 
-// create new (private) equipment
+  USER_DELETE_PRIVATE_EQUIPMENT,
+  USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
+  USER_DELETE_PRIVATE_EQUIPMENT_FAILED,
+
+  USER_CREATE_NEW_PRIVATE_INGREDIENT,
+  USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
+  USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED,
+
+  USER_EDIT_PRIVATE_INGREDIENT,
+  USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED,
+  USER_EDIT_PRIVATE_INGREDIENT_FAILED,
+
+  USER_DELETE_PRIVATE_INGREDIENT,
+  USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED,
+  USER_DELETE_PRIVATE_INGREDIENT_FAILED,
+
+  USER_CREATE_NEW_PRIVATE_RECIPE,
+  USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
+  USER_CREATE_NEW_PRIVATE_RECIPE_FAILED,
+
+  USER_EDIT_PRIVATE_RECIPE,
+  USER_EDIT_PRIVATE_RECIPE_SUCCEEDED,
+  USER_EDIT_PRIVATE_RECIPE_FAILED,
+
+  USER_DELETE_PRIVATE_RECIPE,
+  USER_DELETE_PRIVATE_RECIPE_SUCCEEDED,
+  USER_DELETE_PRIVATE_RECIPE_FAILED,
+
+  USER_CREATE_NEW_PUBLIC_RECIPE,
+  USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED,
+  USER_CREATE_NEW_PUBLIC_RECIPE_FAILED,
+
+  USER_EDIT_PUBLIC_RECIPE,
+  USER_EDIT_PUBLIC_RECIPE_SUCCEEDED,
+  USER_EDIT_PUBLIC_RECIPE_FAILED,
+
+  USER_DISOWN_PUBLIC_RECIPE,
+  USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED,
+  USER_DISOWN_PUBLIC_RECIPE_FAILED,
+
+  USER_CREATE_NEW_PLAN,
+  USER_CREATE_NEW_PLAN_SUCCEEDED,
+  USER_CREATE_NEW_PLAN_FAILED,
+
+  USER_EDIT_PLAN,
+  USER_EDIT_PLAN_SUCCEEDED,
+  USER_EDIT_PLAN_FAILED,
+
+  USER_DELETE_PLAN,
+  USER_DELETE_PLAN_SUCCEEDED,
+  USER_DELETE_PLAN_FAILED,
+
+  USER_FAVORITE_RECIPE,
+  USER_FAVORITE_RECIPE_SUCCEEDED,
+  USER_FAVORITE_RECIPE_FAILED,
+
+  USER_UNFAVORITE_RECIPE,
+  USER_UNFAVORITE_RECIPE_SUCCEEDED,
+  USER_UNFAVORITE_RECIPE_FAILED,
+
+  USER_SAVE_RECIPE,
+  USER_SAVE_RECIPE_SUCCEEDED,
+  USER_SAVE_RECIPE_FAILED,
+
+  USER_UNSAVE_RECIPE,
+  USER_UNSAVE_RECIPE_SUCCEEDED,
+  USER_UNSAVE_RECIPE_FAILED,
+
+  USER_REQUEST_FRIENDSHIP,
+  USER_REQUEST_FRIENDSHIP_SUCCEEDED,
+  USER_REQUEST_FRIENDSHIP_FAILED,
+
+  USER_ACCEPT_FRIENDSHIP,
+  USER_ACCEPT_FRIENDSHIP_SUCCEEDED,
+  USER_ACCEPT_FRIENDSHIP_FAILED,
+
+  USER_REJECT_FRIENDSHIP,
+  USER_REJECT_FRIENDSHIP_SUCCEEDED,
+  USER_REJECT_FRIENDSHIP_FAILED,
+
+  USER_DELETE_FRIENDSHIP,
+  USER_DELETE_FRIENDSHIP_SUCCEEDED,
+  USER_DELETE_FRIENDSHIP_FAILED,
+
+  USER_BLOCK_USER,
+  USER_BLOCK_USER_SUCCEEDED,
+  USER_BLOCK_USER_FAILED,
+
+  USER_UNBLOCK_USER,
+  USER_UNBLOCK_USER_SUCCEEDED,
+  USER_UNBLOCK_USER_FAILED,
+
+  USER_SUBMIT_AVATAR,
+  USER_SUBMIT_AVATAR_SUCCEEDED,
+  USER_SUBMIT_AVATAR_FAILED
+} from './actionTypes';
+
+
+
+export const userMessageClear = () => ({type: USER_MESSAGE_CLEAR});
+
+
+
+/*
+An opportunity to DRY your code...
+You may want to abstract all of this into just three functions...
+(same with store/actions/data.js)
+
+export const userCreateEntity = (entityType, entityInfo) => ({
+  type: USER_CREATE_ENTITY,
+  entityType,  // PRIVATE_EQUIPMENT
+  entityInfo  // equipmentInfo
+});
+export const userUpdateEntity = (entityType, entityInfo) => ({
+  type: USER_UPDATE_ENTITY,
+  entityType,  // PRIVATE_EQUIPMENT
+  entityInfo  // equipmentInfo
+});
+export const userDeleteEntity = (entityType, entityId) => ({
+  type: USER_DELETE_ENTITY,
+  entityType,  // PRIVATE_EQUIPMENT
+  entityId  // equipmentId
+});
+
+... But then you'd have to redo your saga...
+... And you'd still basically need a big ass switch statement...
+... So would this DRYing actually help you that much?
+... Maybe... think about it.
+*/
+
+
+
 export const userCreateNewPrivateEquipment = equipmentInfo => ({
-  type: actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT,
+  type: USER_CREATE_NEW_PRIVATE_EQUIPMENT,
   equipmentInfo
 });
 export const userCreateNewPrivateEquipmentSucceeded = message => ({
-  type: actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
+  type: USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
   message
 });
 export const userCreateNewPrivateEquipmentFailed = message => ({
-  type: actionTypes.USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED,
+  type: USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED,
   message
 });
 
-// edit equipment
+
+
 export const userEditPrivateEquipment = equipmentInfo => ({
-  type: actionTypes.USER_EDIT_PRIVATE_EQUIPMENT,
+  type: USER_EDIT_PRIVATE_EQUIPMENT,
   equipmentInfo
 });
 export const userEditPrivateEquipmentSucceeded = message => ({
-  type: actionTypes.USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
+  type: USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
   message
 });
 export const userEditPrivateEquipmentFailed = message => ({
-  type: actionTypes.USER_EDIT_PRIVATE_EQUIPMENT_FAILED,
+  type: USER_EDIT_PRIVATE_EQUIPMENT_FAILED,
   message
 });
 
-// delete equipment
+
+
 export const userDeletePrivateEquipment = equipmentId => ({
-  type: actionTypes.USER_DELETE_PRIVATE_EQUIPMENT,
+  type: USER_DELETE_PRIVATE_EQUIPMENT,
   equipmentId
 });
 export const userDeletePrivateEquipmentSucceeded = message => ({
-  type: actionTypes.USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
+  type: USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
   message
 });
 export const userDeletePrivateEquipmentFailed = message => ({
-  type: actionTypes.USER_DELETE_PRIVATE_EQUIPMENT_FAILED,
+  type: USER_DELETE_PRIVATE_EQUIPMENT_FAILED,
   message
 });
 
 
 
-// create new (private) ingredient
 export const userCreateNewPrivateIngredient = ingredientInfo => ({
-  type: actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT,
+  type: USER_CREATE_NEW_PRIVATE_INGREDIENT,
   ingredientInfo
 });
 export const userCreateNewPrivateIngredientSucceeded = message => ({
-  type: actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
+  type: USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
   message
 });
 export const userCreateNewPrivateIngredientFailed = message => ({
-  type: actionTypes.USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED,
+  type: USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED,
   message
 });
 
-// edit ingredient
+
+
 export const userEditPrivateIngredient = ingredientInfo => ({
-  type: actionTypes.USER_EDIT_PRIVATE_INGREDIENT,
+  type: USER_EDIT_PRIVATE_INGREDIENT,
   ingredientInfo
 });
 export const userEditPrivateIngredientSucceeded = message => ({
-  type: actionTypes.USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED,
+  type: USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED,
   message
 });
 export const userEditPrivateIngredientFailed = message => ({
-  type: actionTypes.USER_EDIT_PRIVATE_INGREDIENT_FAILED,
+  type: USER_EDIT_PRIVATE_INGREDIENT_FAILED,
   message
 });
 
-// delete ingredient
+
+
 export const userDeletePrivateIngredient = ingredientId => ({
-  type: actionTypes.USER_DELETE_PRIVATE_INGREDIENT,
+  type: USER_DELETE_PRIVATE_INGREDIENT,
   ingredientId
 });
 export const userDeletePrivateIngredientSucceeded = message => ({
-  type: actionTypes.USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED,
+  type: USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED,
   message
 });
 export const userDeletePrivateIngredientFailed = message => ({
-  type: actionTypes.USER_DELETE_PRIVATE_INGREDIENT_FAILED,
+  type: USER_DELETE_PRIVATE_INGREDIENT_FAILED,
   message
 });
 
 
 
-// create new (private) recipe
 export const userCreateNewPrivateRecipe = recipeInfo => ({
-  type: actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE,
+  type: USER_CREATE_NEW_PRIVATE_RECIPE,
   recipeInfo
 });
 export const userCreateNewPrivateRecipeSucceeded = message => ({
-  type: actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
+  type: USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
   message
 });
 export const userCreateNewPrivateRecipeFailed = message => ({
-  type: actionTypes.USER_CREATE_NEW_PRIVATE_RECIPE_FAILED,
+  type: USER_CREATE_NEW_PRIVATE_RECIPE_FAILED,
   message
 });
 
-// edit (private) recipe
+
+
 export const userEditPrivateRecipe = recipeInfo => ({
-  type: actionTypes.USER_EDIT_PRIVATE_RECIPE,
+  type: USER_EDIT_PRIVATE_RECIPE,
   recipeInfo
 });
 export const userEditPrivateRecipeSucceeded = message => ({
-  type: actionTypes.USER_EDIT_PRIVATE_RECIPE_SUCCEEDED,
+  type: USER_EDIT_PRIVATE_RECIPE_SUCCEEDED,
   message
 });
 export const userEditPrivateRecipeFailed = message => ({
-  type: actionTypes.USER_EDIT_PRIVATE_RECIPE_FAILED,
+  type: USER_EDIT_PRIVATE_RECIPE_FAILED,
   message
 });
 
-// delete (private) recipe
+
+
 export const userDeletePrivateRecipe = recipeId => ({
-  type: actionTypes.USER_DELETE_PRIVATE_RECIPE,
+  type: USER_DELETE_PRIVATE_RECIPE,
   recipeId
 });
 export const userDeletePrivateRecipeSucceeded = message => ({
-  type: actionTypes.USER_DELETE_PRIVATE_RECIPE_SUCCEEDED,
+  type: USER_DELETE_PRIVATE_RECIPE_SUCCEEDED,
   message
 });
 export const userDeletePrivateRecipeFailed = message => ({
-  type: actionTypes.USER_DELETE_PRIVATE_RECIPE_FAILED,
+  type: USER_DELETE_PRIVATE_RECIPE_FAILED,
   message
 });
 
 
 
-// create new (public) recipe
 export const userCreateNewPublicRecipe = recipeInfo => ({
-  type: actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE,
+  type: USER_CREATE_NEW_PUBLIC_RECIPE,
   recipeInfo
 });
 export const userCreateNewPublicRecipeSucceeded = message => ({
-  type: actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED,
+  type: USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED,
   message
 });
 export const userCreateNewPublicRecipeFailed = message => ({
-  type: actionTypes.USER_CREATE_NEW_PUBLIC_RECIPE_FAILED,
+  type: USER_CREATE_NEW_PUBLIC_RECIPE_FAILED,
   message
 });
 
-// edit (public) recipe
+
+
 export const userEditPublicRecipe = recipeInfo => ({
-  type: actionTypes.USER_EDIT_PUBLIC_RECIPE,
+  type: USER_EDIT_PUBLIC_RECIPE,
   recipeInfo
 });
 export const userEditPublicRecipeSucceeded = message => ({
-  type: actionTypes.USER_EDIT_PUBLIC_RECIPE_SUCCEEDED,
+  type: USER_EDIT_PUBLIC_RECIPE_SUCCEEDED,
   message
 });
 export const userEditPublicRecipeFailed = message => ({
-  type: actionTypes.USER_EDIT_PUBLIC_RECIPE_FAILED,
+  type: USER_EDIT_PUBLIC_RECIPE_FAILED,
   message
 });
 
-// disown (public) recipe
+
+
 export const userDisownPublicRecipe = recipeId => ({
-  type: actionTypes.USER_DISOWN_PUBLIC_RECIPE,
+  type: USER_DISOWN_PUBLIC_RECIPE,
   recipeId
 });
 export const userDisownPublicRecipeSucceeded = message => ({
-  type: actionTypes.USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED,
+  type: USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED,
   message
 });
 export const userDisownPublicRecipeFailed = message => ({
-  type: actionTypes.USER_DISOWN_PUBLIC_RECIPE_FAILED,
+  type: USER_DISOWN_PUBLIC_RECIPE_FAILED,
   message
 });
 
 
 
-// create new plan
 export const userCreateNewPlan = planInfo => ({
-  type: actionTypes.USER_CREATE_NEW_PLAN,
+  type: USER_CREATE_NEW_PLAN,
   planInfo
 });
 export const userCreateNewPlanSucceeded = message => ({
-  type: actionTypes.USER_CREATE_NEW_PLAN_SUCCEEDED,
+  type: USER_CREATE_NEW_PLAN_SUCCEEDED,
   message
 });
 export const userCreateNewPlanFailed = message => ({
-  type: actionTypes.USER_CREATE_NEW_PLAN_FAILED,
+  type: USER_CREATE_NEW_PLAN_FAILED,
   message
 });
 
-// edit plan
+
+
 export const userEditPlan = planInfo => ({
-  type: actionTypes.USER_EDIT_PLAN,
+  type: USER_EDIT_PLAN,
   planInfo
 });
 export const userEditPlanSucceeded = message => ({
-  type: actionTypes.USER_EDIT_PLAN_SUCCEEDED,
+  type: USER_EDIT_PLAN_SUCCEEDED,
   message
 });
 export const userEditPlanFailed = message => ({
-  type: actionTypes.USER_EDIT_PLAN_FAILED,
+  type: USER_EDIT_PLAN_FAILED,
   message
 });
 
-// delete plan
+
+
 export const userDeletePlan = planId => ({
-  type: actionTypes.USER_DELETE_PLAN,
+  type: USER_DELETE_PLAN,
   planId
 });
 export const userDeletePlanSucceeded = message => ({
-  type: actionTypes.USER_DELETE_PLAN_SUCCEEDED,
+  type: USER_DELETE_PLAN_SUCCEEDED,
   message
 });
 export const userDeletePlanFailed = message => ({
-  type: actionTypes.USER_DELETE_PLAN_FAILED,
+  type: USER_DELETE_PLAN_FAILED,
   message
 });
 
 
 
-// favorite recipe
 export const userFavoriteRecipe = recipeId => ({
-  type: actionTypes.USER_FAVORITE_RECIPE,
+  type: USER_FAVORITE_RECIPE,
   recipeId
 });
 export const userFavoriteRecipeSucceeded = message => ({
-  type: actionTypes.USER_FAVORITE_RECIPE_SUCCEEDED,
+  type: USER_FAVORITE_RECIPE_SUCCEEDED,
   message
 });
 export const userFavoriteRecipeFailed = message => ({
-  type: actionTypes.USER_FAVORITE_RECIPE_FAILED,
+  type: USER_FAVORITE_RECIPE_FAILED,
   message
 });
 
-// unfavorite recipe
+
+
 export const userUnfavoriteRecipe = recipeId => ({
-  type: actionTypes.USER_UNFAVORITE_RECIPE,
+  type: USER_UNFAVORITE_RECIPE,
   recipeId
 });
 export const userUnfavoriteRecipeSucceeded = message => ({
-  type: actionTypes.USER_UNFAVORITE_RECIPE_SUCCEEDED,
+  type: USER_UNFAVORITE_RECIPE_SUCCEEDED,
   message
 });
 export const userUnfavoriteRecipeFailed = message => ({
-  type: actionTypes.USER_UNFAVORITE_RECIPE_FAILED,
+  type: USER_UNFAVORITE_RECIPE_FAILED,
   message
 });
 
 
 
-// save recipe
 export const userSaveRecipe = recipeId => ({
-  type: actionTypes.USER_SAVE_RECIPE,
+  type: USER_SAVE_RECIPE,
   recipeId
 });
 export const userSaveRecipeSucceeded = message => ({
-  type: actionTypes.USER_SAVE_RECIPE_SUCCEEDED,
+  type: USER_SAVE_RECIPE_SUCCEEDED,
   message
 });
 export const userSaveRecipeFailed = message => ({
-  type: actionTypes.USER_SAVE_RECIPE_FAILED,
+  type: USER_SAVE_RECIPE_FAILED,
   message
 });
 
-// unsave recipe
+
+
 export const userUnsaveRecipe = recipeId => ({
-  type: actionTypes.USER_UNSAVE_RECIPE,
+  type: USER_UNSAVE_RECIPE,
   recipeId
 });
 export const userUnsaveRecipeSucceeded = message => ({
-  type: actionTypes.USER_UNSAVE_RECIPE_SUCCEEDED,
+  type: USER_UNSAVE_RECIPE_SUCCEEDED,
   message
 });
 export const userUnsaveRecipeFailed = message => ({
-  type: actionTypes.USER_UNSAVE_RECIPE_FAILED,
+  type: USER_UNSAVE_RECIPE_FAILED,
   message
 });
 
 
 
-// request friendship
-export const userRequestFriendship = (friendName) => ({
-  type: actionTypes.USER_REQUEST_FRIENDSHIP,
+export const userRequestFriendship = friendName => ({
+  type: USER_REQUEST_FRIENDSHIP,
   friendName
 });
 export const userRequestFriendshipSucceeded = message => ({
-  type: actionTypes.USER_REQUEST_FRIENDSHIP_SUCCEEDED,
+  type: USER_REQUEST_FRIENDSHIP_SUCCEEDED,
   message
 });
 export const userRequestFriendshipFailed = message => ({
-  type: actionTypes.USER_REQUEST_FRIENDSHIP_FAILED,
+  type: USER_REQUEST_FRIENDSHIP_FAILED,
   message
 });
 
-// accept friendship
-export const userAcceptFriendship = (friendName) => ({
-  type: actionTypes.USER_ACCEPT_FRIENDSHIP,
+
+
+export const userAcceptFriendship = friendName => ({
+  type: USER_ACCEPT_FRIENDSHIP,
   friendName
 });
 export const userAcceptFriendshipSucceeded = message => ({
-  type: actionTypes.USER_ACCEPT_FRIENDSHIP_SUCCEEDED,
+  type: USER_ACCEPT_FRIENDSHIP_SUCCEEDED,
   message
 });
 export const userAcceptFriendshipFailed = message => ({
-  type: actionTypes.USER_ACCEPT_FRIENDSHIP_FAILED,
+  type: USER_ACCEPT_FRIENDSHIP_FAILED,
   message
 });
 
-// reject friendship
-export const userRejectFriendship = (friendName) => ({
-  type: actionTypes.USER_REJECT_FRIENDSHIP,
+
+
+export const userRejectFriendship = friendName => ({
+  type: USER_REJECT_FRIENDSHIP,
   friendName
 });
 export const userRejectFriendshipSucceeded = message => ({
-  type: actionTypes.USER_REJECT_FRIENDSHIP_SUCCEEDED,
+  type: USER_REJECT_FRIENDSHIP_SUCCEEDED,
   message
 });
 export const userRejectFriendshipFailed = message => ({
-  type: actionTypes.USER_REJECT_FRIENDSHIP_FAILED,
+  type: USER_REJECT_FRIENDSHIP_FAILED,
   message
 });
 
-// delete friendship
-export const userDeleteFriendship = (friendName) => ({
-  type: actionTypes.USER_DELETE_FRIENDSHIP,
+
+
+export const userDeleteFriendship = friendName => ({
+  type: USER_DELETE_FRIENDSHIP,
   friendName
 });
 export const userDeleteFriendshipSucceeded = message => ({
-  type: actionTypes.USER_DELETE_FRIENDSHIP_SUCCEEDED,
+  type: USER_DELETE_FRIENDSHIP_SUCCEEDED,
   message
 });
 export const userDeleteFriendshipFailed = message => ({
-  type: actionTypes.USER_DELETE_FRIENDSHIP_FAILED,
+  type: USER_DELETE_FRIENDSHIP_FAILED,
   message
 });
 
-// block user
-export const userBlockUser = (friendName) => ({
-  type: actionTypes.USER_BLOCK_USER,
+
+
+export const userBlockUser = friendName => ({
+  type: USER_BLOCK_USER,
   friendName
 });
 export const userBlockUserSucceeded = message => ({
-  type: actionTypes.USER_BLOCK_USER_SUCCEEDED,
+  type: USER_BLOCK_USER_SUCCEEDED,
   message
 });
 export const userBlockUserFailed = message => ({
-  type: actionTypes.USER_BLOCK_USER_FAILED,
+  type: USER_BLOCK_USER_FAILED,
   message
 });
 
-// unblock user
-export const userUnblockUser = (friendName) => ({
-  type: actionTypes.USER_UNBLOCK_USER,
+
+
+export const userUnblockUser = friendName => ({
+  type: USER_UNBLOCK_USER,
   friendName
 });
 export const userUnblockUserSucceeded = message => ({
-  type: actionTypes.USER_UNBLOCK_USER_SUCCEEDED,
+  type: USER_UNBLOCK_USER_SUCCEEDED,
   message
 });
 export const userUnblockUserFailed = message => ({
-  type: actionTypes.USER_UNBLOCK_USER_FAILED,
+  type: USER_UNBLOCK_USER_FAILED,
   message
 });
 
-// submit avatar
+
+
 export const userSubmitAvatar = (fullAvatar, tinyAvatar) => ({
-  type: actionTypes.USER_SUBMIT_AVATAR,
+  type: USER_SUBMIT_AVATAR,
   fullAvatar,
   tinyAvatar
 });
 export const userSubmitAvatarSucceeded = message => ({
-  type: actionTypes.USER_SUBMIT_AVATAR_SUCCEEDED,
+  type: USER_SUBMIT_AVATAR_SUCCEEDED,
   message
 });
 export const userSubmitAvatarFailed = message => ({
-  type: actionTypes.USER_SUBMIT_AVATAR_FAILED,
+  type: USER_SUBMIT_AVATAR_FAILED,
   message
 });

@@ -1,5 +1,4 @@
 import { MENU_SHADOW_SHOW, MENU_SHADOW_HIDE } from './actionTypes';
-
 import { menuShadowShow, menuShadowHide } from './menu';
 
 describe('the menuShadowShow action creator', () => {
