@@ -65,7 +65,7 @@ import {
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-// TO DO: IMPLEMENT RETRY LOGIC
+
 
 export function* dataGetMeasurementsSaga() {
   try {
@@ -165,6 +165,20 @@ export function* dataGetMethodsSaga() {
 
 
 
+export function* dataGetMyPlansSaga() {
+  try {
+    const res = yield axios.post(
+      `${endpoint}/user/plan/all`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetMyPlans(res.data));
+    yield put(dataGetMyPlansSucceeded());
+  } catch (err) {
+    yield put(dataGetMyPlansFailed());
+  }
+}
+
 export function* dataGetMyPublicRecipesSaga() {
   try {
     const res = yield axios.post(
@@ -176,34 +190,6 @@ export function* dataGetMyPublicRecipesSaga() {
     yield put(dataGetMyPublicRecipesSucceeded());
   } catch (err) {
     yield put(dataGetMyPublicRecipesFailed());
-  }
-}
-
-export function* dataGetMyPrivateEquipmentsSaga() {
-  try {
-    const res = yield axios.post(
-      `${endpoint}/user/equipment/all`,
-      {},
-      {withCredentials: true}
-    );
-    yield put(dataGetMyPrivateEquipments(res.data));
-    yield put(dataGetMyPrivateEquipmentsSucceeded());
-  } catch (err) {
-    yield put(dataGetMyPrivateEquipmentsFailed());
-  }
-}
-
-export function* dataGetMyPrivateIngredientsSaga() {
-  try {
-    const res = yield axios.post(
-      `${endpoint}/user/ingredient/all`,
-      {},
-      {withCredentials: true}
-    );
-    yield put(dataGetMyPrivateIngredients(res.data));
-    yield put(dataGetMyPrivateIngredientsSucceeded());
-  } catch (err) {
-    yield put(dataGetMyPrivateIngredientsFailed());
   }
 }
 
@@ -220,8 +206,6 @@ export function* dataGetMyPrivateRecipesSaga() {
     yield put(dataGetMyPrivateRecipesFailed());
   }
 }
-
-
 
 export function* dataGetMyFavoriteRecipesSaga() {
   try {
@@ -251,19 +235,31 @@ export function* dataGetMySavedRecipesSaga() {
   }
 }
 
-
-
-export function* dataGetMyPlansSaga() {
+export function* dataGetMyPrivateEquipmentsSaga() {
   try {
     const res = yield axios.post(
-      `${endpoint}/user/plan/all`,
+      `${endpoint}/user/equipment/all`,
       {},
       {withCredentials: true}
     );
-    yield put(dataGetMyPlans(res.data));
-    yield put(dataGetMyPlansSucceeded());
+    yield put(dataGetMyPrivateEquipments(res.data));
+    yield put(dataGetMyPrivateEquipmentsSucceeded());
   } catch (err) {
-    yield put(dataGetMyPlansFailed());
+    yield put(dataGetMyPrivateEquipmentsFailed());
+  }
+}
+
+export function* dataGetMyPrivateIngredientsSaga() {
+  try {
+    const res = yield axios.post(
+      `${endpoint}/user/ingredient/all`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetMyPrivateIngredients(res.data));
+    yield put(dataGetMyPrivateIngredientsSucceeded());
+  } catch (err) {
+    yield put(dataGetMyPrivateIngredientsFailed());
   }
 }
 
