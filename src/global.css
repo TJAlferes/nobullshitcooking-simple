@@ -1,8 +1,4 @@
-/*
-
-reset
-
-*/
+/* simple reset */
 
 * {
   box-sizing: border-box;
@@ -10,13 +6,7 @@ reset
   padding: 0;
 }
 
-
-
-/*
-
-base styles
-
-*/
+/* base styles */
 
 html {
   min-width: calc(100vw - (100vw - 100%));
@@ -40,13 +30,7 @@ body {
   max-width: calc(100vw - (100vw - 100%));
 }
 
-
-
-/*
-
-base fonts
-
-*/
+/* base fonts */
 
 h1, h2, h3, h4 {
   line-height: 1.2;
@@ -62,13 +46,7 @@ span {font-size: 1.3rem;}
 li {font-size: 1.3rem;}
 th, td {font-size: 1.3rem;}
 
-
-
-/*
-
-mobile
-
-*/
+/* mobile */
 
 @media (max-width: 899px) {
   html,

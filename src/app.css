@@ -30,13 +30,7 @@
   min-height: 18px;
 }
 
-
-
-/*
-
-mobile
-
-*/
+/* mobile */
 
 @media (max-width: 899px) {
   #app {

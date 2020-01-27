@@ -6,10 +6,8 @@ import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpoint
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 /*
-
 This module was adapted from code written by Jason Stoltz & team at Elastic:
 https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
-
 */
 
 function combineAggregationsFromResponses(responses) {
@@ -31,7 +29,11 @@ function changeSizeToZero(body) {
   return {...body, size: 0};
 }
 
-async function getDisjunctiveFacetCounts(state, disjunctiveFacetNames, currentIndex) {
+async function getDisjunctiveFacetCounts(
+  state,
+  disjunctiveFacetNames,
+  currentIndex
+) {
   let responses = [];
 
   // TO DO: don't make request if "not" filter is currently applied
@@ -51,8 +53,17 @@ async function getDisjunctiveFacetCounts(state, disjunctiveFacetNames, currentIn
   return combineAggregationsFromResponses(responses);
 }
 
-export default async function applyDisjunctiveFaceting(json, state, disjunctiveFacetNames, currentIndex) {
-  const disjunctiveFacetCounts = await getDisjunctiveFacetCounts(state, disjunctiveFacetNames, currentIndex);
+export default async function applyDisjunctiveFaceting(
+  json,
+  state,
+  disjunctiveFacetNames,
+  currentIndex
+) {
+  const disjunctiveFacetCounts = await getDisjunctiveFacetCounts(
+    state,
+    disjunctiveFacetNames,
+    currentIndex
+  );
 
   return {
     ...json,

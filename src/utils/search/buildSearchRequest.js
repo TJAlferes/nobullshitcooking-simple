@@ -1,8 +1,6 @@
 /*
-
 This module was adapted from code written by Jason Stoltz & team at Elastic:
 https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
-
 */
 
 function buildMatch(searchTerm, currentIndex) {

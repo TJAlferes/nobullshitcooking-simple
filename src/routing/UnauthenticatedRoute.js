@@ -2,7 +2,12 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-const UnauthenticatedRoute = ({ component: Component, isAuthenticated, props: childProps, ...rest }) => (
+const UnauthenticatedRoute = ({
+  component: Component,
+  isAuthenticated,
+  props: childProps,
+  ...rest
+}) => (
   <Route
     {...rest}
     render={props =>
