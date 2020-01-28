@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ReactCrop from "react-image-crop";
-import "react-image-crop/lib/ReactCrop.scss";
 
 import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
-import EquipmentRow from './EquipmentRow/EquipmentRow';
-import IngredientRow from './IngredientRow/IngredientRow';
-import SubrecipeRow from './SubrecipeRow/SubrecipeRow';
+import EquipmentRow from './views/EquipmentRow/EquipmentRow';
+import IngredientRow from './views/IngredientRow/IngredientRow';
+import SubrecipeRow from './views/SubrecipeRow/SubrecipeRow';
+import ImageUploads from './views/ImageUploads';
 
 import './submitRecipe.css';
 
@@ -118,9 +117,6 @@ const UserSubmitRecipeView = ({
 
     <p className="submit-recipe__error-message">{feedback}</p>
 
-
-
-    {/* ownership */}
     <div className="submit-recipe__section-ownership">
       <h2 className="submit-recipe__heading-two">Ownership</h2>
       <ExpandCollapse>
@@ -167,9 +163,6 @@ const UserSubmitRecipeView = ({
       </div>
     </div>
 
-
-
-    {/* recipe type */}
     <div className="submit-recipe__section-recipe-type">
       <h2 className="submit-recipe__heading-two">Type of Recipe</h2>
       <select
@@ -187,9 +180,6 @@ const UserSubmitRecipeView = ({
       </select>
     </div>
 
-
-
-    {/* cuisine */}
     <div className="submit-recipe__section-cuisine">
       <h2 className="submit-recipe__heading-two">Cuisine</h2>
       <select
@@ -207,9 +197,6 @@ const UserSubmitRecipeView = ({
       </select>
     </div>
 
-
-
-    {/* title */}
     <div className="submit-recipe__section-title">
       <h2 className="submit-recipe__heading-two">Title</h2>
       <input
@@ -221,9 +208,6 @@ const UserSubmitRecipeView = ({
       />
     </div>
 
-
-
-    {/* description */}
     <div className="submit-recipe__section-description">
       <h2 className="submit-recipe__heading-two">Description / Author Note</h2>
       <input
@@ -235,9 +219,6 @@ const UserSubmitRecipeView = ({
       />
     </div>
 
-
-
-    {/* required methods */}
     <div className="submit-recipe__section-required-methods">
       <h2 className="submit-recipe__heading-two">Methods</h2>
       <div className="method-spans">
@@ -256,9 +237,6 @@ const UserSubmitRecipeView = ({
       </div>
     </div>
 
-
-
-    {/* required equipment */}
     <div className="submit-recipe__section-required-equipment">
       <h2 className="submit-recipe__heading-two">Equipment</h2>
       <div id="equipment_rows_container">
@@ -284,9 +262,6 @@ const UserSubmitRecipeView = ({
       </button>
     </div>
 
-
-
-    {/* required ingredients */}
     <div className="submit-recipe__section-required-ingredients">
       <h2 className="submit-recipe__heading-two">Ingredients</h2>
       <div id="ingredient_rows_container">
@@ -316,9 +291,6 @@ const UserSubmitRecipeView = ({
       </button>
     </div>
 
-
-
-    {/* required subrecipes */}
     <div className="submit-recipe__section-required-subrecipes">
       <h2 className="submit-recipe__heading-two">Subrecipes</h2>
       <div id="subrecipe_rows_container">
@@ -355,9 +327,6 @@ const UserSubmitRecipeView = ({
       </button>
     </div>
 
-
-
-    {/* directions */}
     <div className="submit-recipe__section-directions">
       <h2 className="submit-recipe__heading-two">Directions</h2>
       <textarea
@@ -368,214 +337,49 @@ const UserSubmitRecipeView = ({
       />
     </div>
 
+    <ImageUploads
+      recipeImage={recipeImage}
+      recipeEquipmentImage={recipeEquipmentImage}
+      recipeIngredientsImage={recipeIngredientsImage}
+      recipeCookingImage={recipeCookingImage}
+      editing={editing}
+      prevRecipeImage={prevRecipeImage}
+      prevEquipmentImage={prevEquipmentImage}
+      prevIngredientsImage={prevIngredientsImage}
+      prevCookingImage={prevCookingImage}
+      onSelectFile={onSelectFile}
+      onSelectEquipmentFile={onSelectEquipmentFile}
+      onSelectIngredientsFile={onSelectIngredientsFile}
+      onSelectCookingFile={onSelectCookingFile}
+      cropOne={cropOne}
+      cropTwo={cropTwo}
+      cropThree={cropThree}
+      cropFour={cropFour}
+      onImageLoaded={onImageLoaded}
+      onEquipmentImageLoaded={onEquipmentImageLoaded}
+      onIngredientsImageLoaded={onIngredientsImageLoaded}
+      onCookingImageLoaded={onCookingImageLoaded}
+      onCropOneChange={onCropOneChange}
+      onCropTwoChange={onCropTwoChange}
+      onCropThreeChange={onCropThreeChange}
+      onCropFourChange={onCropFourChange}
+      onCropComplete={onCropComplete}
+      onEquipmentCropComplete={onEquipmentCropComplete}
+      onIngredientsCropComplete={onIngredientsCropComplete}
+      onCookingCropComplete={onCookingCropComplete}
+      cropFullSizePreview={cropFullSizePreview}
+      cropThumbSizePreview={cropThumbSizePreview}
+      cropTinySizePreview={cropTinySizePreview}
+      equipmentCropFullSizePreview={equipmentCropFullSizePreview}
+      ingredientsCropFullSizePreview={ingredientsCropFullSizePreview}
+      cookingCropFullSizePreview={cookingCropFullSizePreview}
+      loading={loading}
+      cancelRecipeImage={cancelRecipeImage}
+      cancelRecipeEquipmentImage={cancelRecipeEquipmentImage}
+      cancelRecipeIngredientsImage={cancelRecipeIngredientsImage}
+      cancelRecipeCookingImage={cancelRecipeCookingImage}
+    />
 
-
-    {/* images */}
-
-    <div className="submit-recipe__section-recipe-image">
-      <h2 className="submit-recipe__heading-two">Image of Finished Recipe</h2>
-      {!recipeImage && (
-        <div>
-          {
-            !editing
-            ? <img src="https://s3.amazonaws.com/nobsc-user-recipe/nobsc-recipe-default" />
-            : prevRecipeImage && <img src={`https://s3.amazonaws.com/nobsc-user-recipe${prevRecipeImage}`} />
-          }
-          <h4 className="change-default">Change</h4>
-          <input
-            className="submit-recipe-image-input"
-            type="file"
-            accept="image/*"
-            onChange={onSelectFile}
-          />
-        </div>
-      )}
-      {recipeImage && (
-        <div>
-          <ReactCrop
-            className="submit-recipe-image-crop-tool"
-            style={{minHeight: "300px"}}
-            imageStyle={{minHeight: "300px"}}
-            src={recipeImage}
-            crop={cropOne}
-            onImageLoaded={onImageLoaded}
-            onChange={onCropOneChange}
-            onComplete={onCropComplete}
-          />
-          <span className="submit-recipe-image-crop-tool-tip">
-            Move the crop to your desired position. These three images will be saved for you:
-          </span>
-          <div className="submit-recipe-image-crop-previews">
-            <div className="submit-recipe-image-crop-full-preview">
-              <span>Full Size: </span><img src={cropFullSizePreview} />
-            </div>
-            <div className="submit-recipe-image-crop-thumb-preview">
-              <span>Thumb Size: </span><img src={cropThumbSizePreview} />
-            </div>
-            <div className="submit-recipe-image-crop-tiny-preview">
-              <span>Tiny Size: </span><img src={cropTinySizePreview} />
-            </div>
-          </div>
-          <button
-            className="submit-recipe-image-cancel-button"
-            disabled={loading}
-            onClick={cancelRecipeImage}
-          >
-            Cancel
-          </button>
-        </div>
-      )}
-    </div>
-
-    <div className="submit-recipe__section-equipment-image">
-      <h2 className="submit-recipe__heading-two">Image of All Equipment</h2>
-      {!recipeEquipmentImage && (
-        <div>
-          {
-            !editing
-            ? <img src="https://s3.amazonaws.com/nobsc-user-recipe/nobsc-recipe-default" />
-            : prevEquipmentImage && <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${prevEquipmentImage}`} />
-          }
-          <h4 className="change-default">Change</h4>
-          <input
-            className="submit-recipe-equipment-image-input"
-            type="file"
-            accept="image/*"
-            onChange={onSelectEquipmentFile}
-          />
-        </div>
-      )}
-      {recipeEquipmentImage && (
-        <div>
-          <ReactCrop
-            className="submit-recipe-image-crop-tool"
-            style={{minHeight: "300px"}}
-            imageStyle={{minHeight: "300px"}}
-            src={recipeEquipmentImage}
-            crop={cropTwo}
-            onImageLoaded={onEquipmentImageLoaded}
-            onChange={onCropTwoChange}
-            onComplete={onEquipmentCropComplete}
-          />
-          <span className="submit-recipe-image-crop-tool-tip">
-            Move the crop to your desired position. This image will be saved for you:
-          </span>
-          <div className="submit-recipe-image-crop-previews">
-            <div className="submit-recipe--image-crop-full-preview">
-              <span>Full Size: </span><img src={equipmentCropFullSizePreview} />
-            </div>
-          </div>
-          <button
-            className="submit-recipe-image-cancel-button"
-            disabled={loading}
-            onClick={cancelRecipeEquipmentImage}
-          >
-            Cancel
-          </button>
-        </div>
-      )}
-    </div>
-
-    <div className="submit-recipe__section-ingredients-image">
-      <h2 className="submit-recipe__heading-two">Image of All Ingredients</h2>
-      {!recipeIngredientsImage && (
-        <div>
-          {
-            !editing
-            ? <img src="https://s3.amazonaws.com/nobsc-user-recipe/nobsc-recipe-default" />
-            : prevIngredientsImage && <img src={`https://.s3.amazonaws.com/nobsc-user-recipe-ingredients/${prevIngredientsImage}`} />
-          }
-          <h4 className="change-default">Change</h4>
-          <input
-            className="submit-recipe-ingredients-image-input"
-            type="file"
-            accept="image/*"
-            onChange={onSelectIngredientsFile}
-          />
-        </div>
-      )}
-      {recipeIngredientsImage && (
-        <div>
-          <ReactCrop
-            className="submit-recipe-image-crop-tool"
-            style={{minHeight: "300px"}}
-            imageStyle={{minHeight: "300px"}}
-            src={recipeIngredientsImage}
-            crop={cropThree}
-            onImageLoaded={onIngredientsImageLoaded}
-            onChange={onCropThreeChange}
-            onComplete={onIngredientsCropComplete}
-          />
-          <span className="submit-recipe-image-crop-tool-tip">
-            Move the crop to your desired position. This image will be saved for you:
-          </span>
-          <div className="submit-recipe-image-crop-previews">
-            <div className="submit-recipe-image-crop-full-preview">
-              <span>Full Size: </span><img src={ingredientsCropFullSizePreview} />
-            </div>
-          </div>
-          <button
-            className="submit-recipe-image-cancel-button"
-            disabled={loading}
-            onClick={cancelRecipeIngredientsImage}
-          >
-            Cancel
-          </button>
-        </div>
-      )}
-    </div>
-
-    <div className="submit-recipe__section-cooking-image">
-      <h2 className="submit-recipe__heading-two">Image of Cooking In Action</h2>
-      {!recipeCookingImage && (
-        <div>
-          {
-            !editing
-            ? <img src="https://s3.amazonaws.com/nobsc-user-recipe/nobsc-recipe-default" />
-            : prevCookingImage && <img src={`https://.s3.amazonaws.com/nobsc-user-recipe-cooking/${prevCookingImage}`} />
-          }
-          <h4 className="change-default">Change</h4>
-          <input
-            className="submit-recipe-cooking-image-input"
-            type="file" accept="image/*"
-            onChange={onSelectCookingFile}
-          />
-        </div>
-      )}
-      {recipeCookingImage && (
-        <div>
-          <ReactCrop
-            className="submit-recipe-image-crop-tool"
-            style={{minHeight: "300px"}}
-            imageStyle={{minHeight: "300px"}}
-            src={recipeCookingImage}
-            crop={cropFour}
-            onImageLoaded={onCookingImageLoaded}
-            onChange={onCropFourChange}
-            onComplete={onCookingCropComplete}
-          />
-          <span className="submit-recipe-image-crop-tool-tip">
-            Move the crop to your desired position. This image will be saved for you:
-          </span>
-          <div className="submit-recipe-image-crop-previews">
-            <div className="submit-recipe-image-crop-full-preview">
-              <span>Full Size: </span><img src={cookingCropFullSizePreview} />
-            </div>
-          </div>
-          <button
-            className="submit-recipe-image-cancel-button"
-            disabled={loading}
-            onClick={cancelRecipeCookingImage}
-          >
-            Cancel
-          </button>
-        </div>
-      )}
-    </div>
-
-
-
-    {/* submit */}
     <div className="submit-recipe__finish-area">
       <Link
         className="submit-recipe__cancel-button"

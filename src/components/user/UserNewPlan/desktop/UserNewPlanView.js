@@ -63,8 +63,6 @@ const UserNewPlanView = ({
 
       <hr className="user-new-plan__hr" />
 
-
-
       <div className="user-new-plan__calendar-container">
 
         <div className="user-new-plan__monthly-plan">
@@ -224,8 +222,6 @@ const UserNewPlanView = ({
         )}
 
       </div>
-
-
 
       <div>
         <ExpandCollapse>
