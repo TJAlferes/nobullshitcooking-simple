@@ -1,16 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import AriaModal from 'react-aria-modal';
 
 import LeftNav from '../../LeftNav/LeftNav';
 
 import AvatarView from './views/AvatarView';
 import AvatarEditView from './views/AvatarEditView';
+import TabsView from './views/TabsView';
+import SubtabsView from './views/SubtabsView';
 import PlansTabView from './views/PlansTabView';
 import PrivateRecipesTabView from './views/PrivateRecipesTabView';
 import PublicRecipesTabView from './views/PublicRecipesTabView';
 import FavoriteRecipesTabView from './views/FavoriteRecipesTabView';
 import SavedRecipesTabView from './view/SavedRecipesTabView';
+import IngredientsTabView from './views/IngredientsTabView';
+import EquipmentTabView from './views/EquipmentTabView';
 
 import './userDashboard.css';
 
@@ -109,105 +111,11 @@ const UserDashboardView = ({
 
       {!avatar && <hr className="dashboard-hr" />}
 
-      {/* tabs */}
+      {!avatar && <TabsView tab={tab} handleTabClick={handleTabClick} />}
 
-      {!avatar && (
-        <div className="dashboard-menu-tabs">
-          {/*<button className="dashboard-menu-tab" name="notifications" onClick={handleTabClick}>Notifications</button>*/}
-          <button
-            className={(tab === "plans")
-              ? "dashboard-menu-tab active"
-              : "dashboard-menu-tab inactive"
-            }
-            name="plans"
-            onClick={e => handleTabClick(e)}
-          >
-            Plans
-          </button>
-          <button
-            className={(tab === "recipes")
-              ? "dashboard-menu-tab active"
-              : "dashboard-menu-tab inactive"
-            }
-            name="recipes"
-            onClick={e => handleTabClick(e)}
-          >
-            Recipes
-          </button>
-          <button
-            className={(tab === "ingredients")
-              ? "dashboard-menu-tab active"
-              : "dashboard-menu-tab inactive"
-            }
-            name="ingredients"
-            onClick={e => handleTabClick(e)}
-          >
-            Ingredients
-          </button>
-          <button
-            className={(tab === "equipment")
-              ? "dashboard-menu-tab active"
-              : "dashboard-menu-tab inactive"
-            }
-            name="equipment"
-            onClick={e => handleTabClick(e)}
-          >
-            Equipment
-          </button>
-        </div>
+      {(!avatar && tab == "recipes") && (
+        <SubtabsView subTab={subTab} handleSubTabClick={handleSubTabClick} />
       )}
-
-
-      {/* subTabs */}
-
-      {
-        (!avatar && tab == "recipes") && (
-          <div className="dashboard-menu-subtabs">
-            <button
-              className={(subTab === "private")
-                ? "dashboard-menu-subtab active"
-                : "dashboard-menu-subtab inactive"
-              }
-              name="private"
-              onClick={e => handleSubTabClick(e)}
-            >
-              Private
-            </button>
-            <button
-              className={(subTab === "public")
-                ? "dashboard-menu-subtab active"
-                : "dashboard-menu-subtab inactive"
-              }
-              name="public"
-              onClick={e => handleSubTabClick(e)}
-            >
-              Public
-            </button>
-            <button
-              className={(subTab === "favorite")
-                ? "dashboard-menu-subtab active"
-                : "dashboard-menu-subtab inactive"
-              }
-              name="favorite"
-              onClick={e => handleSubTabClick(e)}
-            >
-              Favorite
-            </button>
-            <button
-              className={(subTab === "saved")
-                ? "dashboard-menu-subtab active"
-                : "dashboard-menu-subtab inactive"
-              }
-              name="saved"
-              onClick={e => handleSubTabClick(e)}
-            >
-              Saved
-            </button>
-          </div>
-        )
-      }
-
-      {/* content */}
 
       {/*
         tab == "notifications" && (
@@ -268,103 +176,19 @@ const UserDashboardView = ({
         />
       )}
 
-      {
-        !avatar && tab == "ingredients" && (
-          <div className="dashboard-content">
-            <h2>Private Ingredients</h2>
-            <Link className="create-new-entity" to="/user/ingredients/submit">
-              Create New Ingredient
-            </Link>
-            {
-              myPrivateIngredients.length
-              ? myPrivateIngredients.map(ingredient => (
-                <div
-                  className="dashboard-content-item"
-                  key={ingredient.ingredient_id}
-                >
-                  <span className="dashboard-content-item-tiny">
-                    {
-                      ingredient.ingredient_image !== "nobsc-ingredient-default"
-                      ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${ingredient.ingredient_image}-tiny`} />
-                      : <div className="image-default-28-18"></div>
-                    }
-                  </span>
-                  <span className="dashboard-content-item-name">
-                    <Link to={`/user/ingredients/${ingredient.ingredient_id}`}>
-                      {ingredient.ingredient_name}
-                    </Link>
-                  </span>
-                  <span className="dashboard-content-item-action">
-                    <Link to={`/user/ingredients/edit/${ingredient.ingredient_id}`}>
-                      Edit
-                    </Link>
-                  </span>
-                  <span
-                    className="dashboard-content-item-delete"
-                    onClick={() => handleDeletePrivateIngredient(ingredient.ingredient_id)}
-                  >
-                    Delete
-                  </span>
-                </div>
-              ))
-              : (
-                <div className="dashboard-content-none">
-                  You haven't created any private ingredients yet.
-                </div>
-              )
-            }
-          </div>
-        )
-      }
+      {!avatar && tab == "ingredients" && (
+        <IngredientsTabView
+          myPrivateIngredients={myPrivateIngredients}
+          handleDeletePrivateIngredient={handleDeletePrivateIngredient}
+        />
+      )}
 
-      {
-        !avatar && tab == "equipment" && (
-          <div className="dashboard-content">
-            <h2>Private Equipment</h2>
-            <Link className="create-new-entity" to="/user/equipment/submit">
-              Create New Equipment
-            </Link>
-            {
-              myPrivateEquipment.length
-              ? myPrivateEquipment.map(equipment => (
-                <div
-                  className="dashboard-content-item"
-                  key={equipment.equipment_id}
-                >
-                  <span className="dashboard-content-item-tiny">
-                    {
-                      equipment.equipment_image !== "nobsc-equipment-default"
-                      ? <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${equipment.equipment_image}-tiny`} />
-                      : <div className="image-default-28-18"></div>
-                    }
-                  </span>
-                  <span className="dashboard-content-item-name">
-                    <Link to={`/user/equipment/${equipment.equipment_id}`}>
-                      {equipment.equipment_name}
-                    </Link>
-                  </span>
-                  <span className="dashboard-content-item-action">
-                    <Link to={`/user/equipment/edit/${equipment.equipment_id}`}>
-                      Edit
-                    </Link>
-                  </span>
-                  <span
-                    className="dashboard-content-item-delete"
-                    onClick={() => handleDeletePrivateEquipment(equipment.equipment_id)}
-                  >
-                    Delete
-                  </span>
-                </div>
-              ))
-              : (
-                <div className="dashboard-content-none">
-                  You haven't created any private equipment yet.
-                </div>
-              )
-            }
-          </div>
-        )
-      }
+      {!avatar && tab == "equipment" && (
+        <EquipmentTabView
+          myPrivateEquipment={myPrivateEquipment}
+          handleDeletePrivateEquipment={handleDeletePrivateEquipment}
+        />
+      )}
 
     </section>
 
