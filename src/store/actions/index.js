@@ -1,30 +1,4 @@
 export {
-  nobscappWindowFocused
-} from './nobscapp';
-
-/*export {
-  openModal,
-  closeModal
-} from './modals';*/
-
-export {
-  themeDarkTrigger,
-  themeLightTrigger
-} from './theme';
-
-export {
-  menuShadowShow,
-  menuShadowHide
-} from './menu';
-
-export {
-  geoLatitude,
-  geoLongitude,
-  geoAddress,
-  geoNearbyStoresClicked
-} from './geolocation';
-
-export {
   authDisplay,
   authReset,
   authCheckState,
@@ -56,21 +30,88 @@ export {
   authStaffLogoutFailed
 } from './auth';
 
+export { cartAddItem, cartRemoveItem, cartEmpty } from './cart';
+
 export {
-  plannerClickDay,
-  plannerAddRecipeToDay,
-  plannerRemoveRecipeFromDay,
-  plannerReorderRecipeInDay,
-  plannerPublicLoadFromUrl,
-  plannerPublicSaveToUrl,
-  plannerViewClickDay,
-  plannerPrivateLoad,
-  plannerClearWork,
-  plannerSetCreating,
-  plannerSetEditingId,
-  plannerSetPlanName,
-  plannerSetPlanData
-} from './planner';
+  dataInit,
+
+  dataGetMeasurements,
+  dataGetMeasurementsSucceeded,
+  dataGetMeasurementsFailed,
+
+  dataGetEquipments,
+  dataGetEquipmentsSucceeded,
+  dataGetEquipmentsFailed,
+
+  dataGetEquipmentTypes,
+  dataGetEquipmentTypesSucceeded,
+  dataGetEquipmentTypesFailed,
+
+  dataGetIngredients,
+  dataGetIngredientsSucceeded,
+  dataGetIngredientsFailed,
+
+  dataGetIngredientTypes,
+  dataGetIngredientTypesSucceeded,
+  dataGetIngredientTypesFailed,
+
+  dataGetRecipes,
+  dataGetRecipesSucceeded,
+  dataGetRecipesFailed,
+
+  dataGetRecipeTypes,
+  dataGetRecipeTypesSucceeded,
+  dataGetRecipeTypesFailed,
+
+  dataGetCuisines,
+  dataGetCuisinesSucceeded,
+  dataGetCuisinesFailed,
+
+  dataGetMethods,
+  dataGetMethodsSucceeded,
+  dataGetMethodsFailed,
+
+  dataGetMyPublicRecipes,
+  dataGetMyPublicRecipesSucceeded,
+  dataGetMyPublicRecipesFailed,
+
+  dataGetMyPrivateEquipments,
+  dataGetMyPrivateEquipmentsSucceeded,
+  dataGetMyPrivateEquipmentsFailed,
+
+  dataGetMyPrivateIngredients,
+  dataGetMyPrivateIngredientsSucceeded,
+  dataGetMyPrivateIngredientsFailed,
+
+  dataGetMyPrivateRecipes,
+  dataGetMyPrivateRecipesSucceeded,
+  dataGetMyPrivateRecipesFailed,
+
+  dataGetMyFavoriteRecipes,
+  dataGetMyFavoriteRecipesSucceeded,
+  dataGetMyFavoriteRecipesFailed,
+
+  dataGetMySavedRecipes,
+  dataGetMySavedRecipesSucceeded,
+  dataGetMySavedRecipesFailed,
+
+  dataGetMyPlans,
+  dataGetMyPlansSucceeded,
+  dataGetMyPlansFailed,
+
+  dataGetMyFriendships,
+  dataGetMyFriendshipsSucceeded,
+  dataGetMyFriendshipsFailed
+} from './data';
+
+export {
+  geoLatitude,
+  geoLongitude,
+  geoAddress,
+  geoNearbyStoresClicked
+} from './geolocation';
+
+export { menuShadowShow, menuShadowHide } from './menu';
 
 export {
   messengerConnect,
@@ -92,150 +133,131 @@ export {
   messengerGetOnline
 } from './messenger';
 
-export {
-  cartItemAdd,
-  cartItemRemove
-} from './cart';
+export { nobscappWindowFocused } from './nobscapp';
 
 export {
-  dataInit,
-  dataGetMeasurements,
-  dataGetMeasurementsSucceeded,
-  dataGetMeasurementsFailed,
-  dataGetEquipments,  // ...possibly delete
-  dataGetEquipmentsSucceeded,  // ...possibly delete
-  dataGetEquipmentsFailed,  // ...possibly delete
-  dataGetEquipmentTypes,
-  dataGetEquipmentTypesSucceeded,
-  dataGetEquipmentTypesFailed,
-  dataGetIngredients,  // ...possibly delete
-  dataGetIngredientsSucceeded,  // ...possibly delete
-  dataGetIngredientsFailed,  // ...possibly delete
-  dataGetIngredientTypes,
-  dataGetIngredientTypesSucceeded,
-  dataGetIngredientTypesFailed,
-  dataGetRecipes,  // probably delete
-  dataGetRecipesSucceeded,  // probably delete
-  dataGetRecipesFailed,  // probably delete
-  dataGetRecipeTypes,
-  dataGetRecipeTypesSucceeded,
-  dataGetRecipeTypesFailed,
-  dataGetCuisines,
-  dataGetCuisinesSucceeded,
-  dataGetCuisinesFailed,
-  dataGetMethods,
-  dataGetMethodsSucceeded,
-  dataGetMethodsFailed,
-  dataGetMyPublicRecipes,
-  dataGetMyPublicRecipesSucceeded,
-  dataGetMyPublicRecipesFailed,
-  dataGetMyPrivateEquipments,
-  dataGetMyPrivateEquipmentsSucceeded,
-  dataGetMyPrivateEquipmentsFailed,
-  dataGetMyPrivateIngredients,
-  dataGetMyPrivateIngredientsSucceeded,
-  dataGetMyPrivateIngredientsFailed,
-  dataGetMyPrivateRecipes,
-  dataGetMyPrivateRecipesSucceeded,
-  dataGetMyPrivateRecipesFailed,
-  dataGetMyFavoriteRecipes,
-  dataGetMyFavoriteRecipesSucceeded,
-  dataGetMyFavoriteRecipesFailed,
-  dataGetMySavedRecipes,
-  dataGetMySavedRecipesSucceeded,
-  dataGetMySavedRecipesFailed,
-  dataGetMyPlans,
-  dataGetMyPlansSucceeded,
-  dataGetMyPlansFailed,
-  dataGetMyFriendships,
-  dataGetMyFriendshipsSucceeded,
-  dataGetMyFriendshipsFailed
-} from './data';
-
-export {
-  viewGetIngredients,
-  viewGetEquipment
-} from './view';
+  plannerClickDay,
+  plannerAddRecipeToDay,
+  plannerRemoveRecipeFromDay,
+  plannerReorderRecipeInDay,
+  plannerPublicLoadFromUrl,
+  plannerPublicSaveToUrl,
+  plannerViewClickDay,
+  plannerPrivateLoad,
+  plannerClearWork,
+  plannerSetCreating,
+  plannerSetEditingId,
+  plannerSetPlanName,
+  plannerSetPlanData
+} from './planner';
 
 export { searchSetIndex } from './search';
 
+export { themeDarkTrigger, themeLightTrigger } from './theme';
+
 export {
   userMessageClear,
+
   userCreateNewPrivateEquipment,
   userCreateNewPrivateEquipmentSucceeded,
   userCreateNewPrivateEquipmentFailed,
+
   userEditPrivateEquipment,
   userEditPrivateEquipmentSucceeded,
   userEditPrivateEquipmentFailed,
+
   userDeletePrivateEquipment,
   userDeletePrivateEquipmentSucceeded,
   userDeletePrivateEquipmentFailed,
+
   userCreateNewPrivateIngredient,
   userCreateNewPrivateIngredientSucceeded,
   userCreateNewPrivateIngredientFailed,
+
   userEditPrivateIngredient,
   userEditPrivateIngredientSucceeded,
   userEditPrivateIngredientFailed,
+
   userDeletePrivateIngredient,
   userDeletePrivateIngredientSucceeded,
   userDeletePrivateIngredientFailed,
+
   userCreateNewPrivateRecipe,
   userCreateNewPrivateRecipeSucceeded,
   userCreateNewPrivateRecipeFailed,
+
   userEditPrivateRecipe,
   userEditPrivateRecipeSucceeded,
   userEditPrivateRecipeFailed,
+
   userDeletePrivateRecipe,
   userDeletePrivateRecipeSucceeded,
   userDeletePrivateRecipeFailed,
+
   userCreateNewPublicRecipe,
   userCreateNewPublicRecipeSucceeded,
   userCreateNewPublicRecipeFailed,
+
   userEditPublicRecipe,
   userEditPublicRecipeSucceeded,
   userEditPublicRecipeFailed,
+
   userDisownPublicRecipe,
   userDisownPublicRecipeSucceeded,
   userDisownPublicRecipeFailed,
+
   userCreateNewPlan,
   userCreateNewPlanSucceeded,
   userCreateNewPlanFailed,
+
   userEditPlan,
   userEditPlanSucceeded,
   userEditPlanFailed,
+
   userDeletePlan,
   userDeletePlanSucceeded,
   userDeletePlanFailed,
+
   userFavoriteRecipe,
   userFavoriteRecipeSucceeded,
   userFavoriteRecipeFailed,
+
   userUnfavoriteRecipe,
   userUnfavoriteRecipeSucceeded,
   userUnfavoriteRecipeFailed,
+
   userSaveRecipe,
   userSaveRecipeSucceeded,
   userSaveRecipeFailed,
+
   userUnsaveRecipe,
   userUnsaveRecipeSucceeded,
   userUnsaveRecipeFailed,
+
   userRequestFriendship,
   userRequestFriendshipSucceeded,
   userRequestFriendshipFailed,
+
   userAcceptFriendship,
   userAcceptFriendshipSucceeded,
   userAcceptFriendshipFailed,
+
   userRejectFriendship,
   userRejectFriendshipSucceeded,
   userRejectFriendshipFailed,
+
   userDeleteFriendship,
   userDeleteFriendshipSucceeded,
   userDeleteFriendshipFailed,
+
   userBlockUser,
   userBlockUserSucceeded,
   userBlockUserFailed,
+
   userUnblockUser,
   userUnblockUserSucceeded,
   userUnblockUserFailed,
+
   userSubmitAvatar,
   userSubmitAvatarSucceeded,
   userSubmitAvatarFailed

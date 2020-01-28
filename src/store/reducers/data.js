@@ -1,14 +1,12 @@
 import * as actionTypes from '../actions/actionTypes';
 
-// eventually split up into types, recipes, ings, equ, plans, friends
-
 const initialState = {
   measurements: [],
-  equipment: [],
+  equipment: [],  // official
   equipmentTypes: [],
-  ingredients: [],
+  ingredients: [],  // official
   ingredientTypes: [],
-  recipes: [],
+  recipes: [],  // official
   recipeTypes: [],
   cuisines: [],
   methods: [],
@@ -24,85 +22,7 @@ const initialState = {
 
   myPlans: [],
 
-  myFriendships: [],
-
-  viewMainIngredients: [],
-  viewMainIngredientTypesChecked: [],
-  viewMainIngredientsDisplay: 25,
-  viewMainIngredientsPages: 1,
-  viewMainIngredientsStarting: 0,
-
-  viewMainEquipment: [],
-  viewMainEquipmentTypesChecked: [],
-  viewMainEquipmentDisplay: 25,
-  viewMainEquipmentPages: 1,
-  viewMainEquipmentStarting: 0
-};
-
-const viewMainIngredients = (state, action) => {
-  if (action.types.length) {
-    let view = [];
-    action.types.forEach(ingredientType => {
-      view = view.concat(state.ingredients.filter(ing => ing.ingredient_type_id == ingredientType));
-    });
-    let finalView = view.slice(action.start, (action.start + action.display));
-    let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
-    return {
-      ...state,
-      ...{
-        viewMainIngredients: finalView,
-        viewMainIngredientTypesChecked: action.types,
-        viewMainIngredientsDisplay: action.display,
-        viewMainIngredientsPages: pages,
-        viewMainIngredientsStarting: action.start
-      }
-    };
-  } else {
-    let finalView = state.ingredients.slice(action.start, (action.start + action.display));
-    return {
-      ...state,
-      ...{
-        viewMainIngredients: finalView,
-        viewMainIngredientTypesChecked: action.types,
-        viewMainIngredientsDisplay: action.display,
-        viewMainIngredientsPages: Math.ceil(state.ingredients.length / action.display),
-        viewMainIngredientsStarting: action.start
-      }
-    };
-  }
-};
-
-const viewMainEquipment = (state, action) => {
-  if (action.types.length) {
-    let view = [];
-    action.types.forEach(equipmentType => {
-      view = view.concat(state.equipment.filter(equ => equ.equipment_type_id === equipmentType));
-    });
-    let finalView = view.slice(action.start, (action.start + action.display));
-    let pages = (view.length > action.display) ? Math.ceil(view.length / action.display) : 1;
-    return {
-      ...state,
-      ...{
-        viewMainEquipment: finalView,
-        viewMainEquipmentTypesChecked: action.types,
-        viewMainEquipmentDisplay: action.display,
-        viewMainEquipmentPages: pages,
-        viewMainEquipmentStarting: action.start
-      }
-    };
-  } else {
-    let finalView = state.equipment.slice(action.start, (action.start + action.display));
-    return {
-      ...state,
-      ...{
-        viewMainEquipment: finalView,
-        viewMainEquipmentTypesChecked: action.types,
-        viewMainEquipmentDisplay: action.display,
-        viewMainEquipmentPages: Math.ceil(state.equipment.length / action.display),
-        viewMainEquipmentStarting: action.start
-      }
-    };
-  }
+  myFriendships: []
 };
 
 const dataReducer = (state = initialState, action) => {
@@ -129,9 +49,6 @@ const dataReducer = (state = initialState, action) => {
     case actionTypes.DATA_GET_MY_PLANS: return {...state, ...{myPlans: action.myPlans}};
 
     case actionTypes.DATA_GET_MY_FRIENDSHIPS: return {...state, ...{myFriendships: action.myFriendships}};
-
-    case actionTypes.VIEW_GET_INGREDIENTS: return viewMainIngredients(state, action);
-    case actionTypes.VIEW_GET_EQUIPMENT: return viewMainEquipment(state, action);
   }
   return state;
 };

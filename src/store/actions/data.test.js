@@ -5,25 +5,25 @@ import {
   DATA_GET_MEASUREMENTS_SUCCEEDED,
   DATA_GET_MEASUREMENTS_FAILED,
 
-  //DATA_GET_EQUIPMENTS,
-  //DATA_GET_EQUIPMENTS_SUCCEEDED,
-  //DATA_GET_EQUIPMENTS_FAILED,
+  DATA_GET_EQUIPMENTS,
+  DATA_GET_EQUIPMENTS_SUCCEEDED,
+  DATA_GET_EQUIPMENTS_FAILED,
 
   DATA_GET_EQUIPMENT_TYPES,
   DATA_GET_EQUIPMENT_TYPES_SUCCEEDED,
   DATA_GET_EQUIPMENT_TYPES_FAILED,
 
-  //DATA_GET_INGREDIENTS,
-  //DATA_GET_INGREDIENTS_SUCCEEDED,
-  //DATA_GET_INGREDIENTS_FAILED,
+  DATA_GET_INGREDIENTS,
+  DATA_GET_INGREDIENTS_SUCCEEDED,
+  DATA_GET_INGREDIENTS_FAILED,
 
   DATA_GET_INGREDIENT_TYPES,
   DATA_GET_INGREDIENT_TYPES_SUCCEEDED,
   DATA_GET_INGREDIENT_TYPES_FAILED,
 
-  //DATA_GET_RECIPES,
-  //DATA_GET_RECIPES_SUCCEEDED,
-  //DATA_GET_RECIPES_FAILED,
+  DATA_GET_RECIPES,
+  DATA_GET_RECIPES_SUCCEEDED,
+  DATA_GET_RECIPES_FAILED,
 
   DATA_GET_RECIPE_TYPES,
   DATA_GET_RECIPE_TYPES_SUCCEEDED,
@@ -69,56 +69,74 @@ import {
   DATA_GET_MY_FRIENDSHIPS_SUCCEEDED,
   DATA_GET_MY_FRIENDSHIPS_FAILED
 } from './actionTypes';
+
 import {
   dataInit,
+
   dataGetMeasurements,
   dataGetMeasurementsSucceeded,
   dataGetMeasurementsFailed,
-  //dataGetEquipments,  // ...possibly delete
-  //dataGetEquipmentsSucceeded,  // ...possibly delete
-  //dataGetEquipmentsFailed,  // ...possibly delete
+
+  dataGetEquipments,
+  dataGetEquipmentsSucceeded,
+  dataGetEquipmentsFailed,
+
   dataGetEquipmentTypes,
   dataGetEquipmentTypesSucceeded,
   dataGetEquipmentTypesFailed,
-  //dataGetIngredients,  // ...possibly delete
-  //dataGetIngredientsSucceeded,  // ...possibly delete
-  //dataGetIngredientsFailed,  // ...possibly delete
+
+  dataGetIngredients,
+  dataGetIngredientsSucceeded,
+  dataGetIngredientsFailed,
+
   dataGetIngredientTypes,
   dataGetIngredientTypesSucceeded,
   dataGetIngredientTypesFailed,
-  //dataGetRecipes,  // probably delete
-  //dataGetRecipesSucceeded,  // probably delete
-  //dataGetRecipesFailed,  // probably delete
+
+  dataGetRecipes,
+  dataGetRecipesSucceeded,
+  dataGetRecipesFailed,
+
   dataGetRecipeTypes,
   dataGetRecipeTypesSucceeded,
   dataGetRecipeTypesFailed,
+
   dataGetCuisines,
   dataGetCuisinesSucceeded,
   dataGetCuisinesFailed,
+
   dataGetMethods,
   dataGetMethodsSucceeded,
   dataGetMethodsFailed,
+
   dataGetMyPublicRecipes,
   dataGetMyPublicRecipesSucceeded,
   dataGetMyPublicRecipesFailed,
+
   dataGetMyPrivateEquipments,
   dataGetMyPrivateEquipmentsSucceeded,
   dataGetMyPrivateEquipmentsFailed,
+
   dataGetMyPrivateIngredients,
   dataGetMyPrivateIngredientsSucceeded,
   dataGetMyPrivateIngredientsFailed,
+
   dataGetMyPrivateRecipes,
   dataGetMyPrivateRecipesSucceeded,
   dataGetMyPrivateRecipesFailed,
+
   dataGetMyFavoriteRecipes,
   dataGetMyFavoriteRecipesSucceeded,
   dataGetMyFavoriteRecipesFailed,
+
   dataGetMySavedRecipes,
   dataGetMySavedRecipesSucceeded,
   dataGetMySavedRecipesFailed,
+
   dataGetMyPlans,
   dataGetMyPlansSucceeded,
   dataGetMyPlansFailed,
+  
   dataGetMyFriendships,
   dataGetMyFriendshipsSucceeded,
   dataGetMyFriendshipsFailed
@@ -176,15 +194,24 @@ describe('the dataGetMeasurementsFailed action creator', () => {
 
 
 
-/*describe('the dataGetEquipments action creator', () => {
+describe('the dataGetEquipments action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetEquipments().type;
+    const actual = dataGetEquipments([
+      {"equipment_id": 1, "equipment_name": "Chopstick"},
+      {"equipment_id": 2, "equipment_name": "Fork"}
+    ]).type;
     const expected = DATA_GET_EQUIPMENTS;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct ', () => {
-    const actual = dataGetEquipments().;
-    const expected = ;
+  it('returns the correct equipment', () => {
+    const actual = dataGetEquipments([
+      {"equipment_id": 1, "equipment_name": "Chopstick"},
+      {"equipment_id": 2, "equipment_name": "Fork"}
+    ]).equipment;
+    const expected = [
+      {"equipment_id": 1, "equipment_name": "Chopstick"},
+      {"equipment_id": 2, "equipment_name": "Fork"}
+    ];
     expect(actual).toEqual(expected);
   });
 });
@@ -203,7 +230,7 @@ describe('the dataGetEquipmentsFailed action creator', () => {
     const expected = DATA_GET_EQUIPMENTS_FAILED;
     expect(actual).toEqual(expected);
   });
-});*/
+});
 
 
 
@@ -247,15 +274,24 @@ describe('the dataGetEquipmentTypesFailed action creator', () => {
 
 
 
-/*describe('the dataGetIngredients action creator', () => {
+describe('the dataGetIngredients action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetIngredients().type;
+    const actual = dataGetIngredients([
+      {"ingredient_id": 1, "ingredient_name": "Salmon"},
+      {"ingredient_id": 2, "ingredient_name": "Tuna"}
+    ]).type;
     const expected = DATA_GET_INGREDIENTS;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct ', () => {
-    const actual = dataGetIngredients().;
-    const expected = ;
+  it('returns the correct ingredients', () => {
+    const actual = dataGetIngredients([
+      {"ingredient_id": 1, "ingredient_name": "Salmon"},
+      {"ingredient_id": 2, "ingredient_name": "Tuna"}
+    ]).ingredients;
+    const expected = [
+      {"ingredient_id": 1, "ingredient_name": "Salmon"},
+      {"ingredient_id": 2, "ingredient_name": "Tuna"}
+    ];
     expect(actual).toEqual(expected);
   });
 });
@@ -274,7 +310,7 @@ describe('the dataGetIngredientsFailed action creator', () => {
     const expected = DATA_GET_INGREDIENTS_FAILED;
     expect(actual).toEqual(expected);
   });
-});*/
+});
 
 
 
@@ -318,15 +354,24 @@ describe('the dataGetIngredientTypesFailed action creator', () => {
 
 
 
-/*describe('the dataGetRecipes action creator', () => {
+describe('the dataGetRecipes action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetRecipes().type;
+    const actual = dataGetRecipes([
+      {"recipe_id": 1, "title": "Tasty"},
+      {"recipe_id": 2, "title": "Yummy"}
+    ]).type;
     const expected = DATA_GET_RECIPES;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct ', () => {
-    const actual = dataGetRecipes().;
-    const expected = ;
+  it('returns the correct recipes', () => {
+    const actual = dataGetRecipes([
+      {"recipe_id": 1, "title": "Tasty"},
+      {"recipe_id": 2, "title": "Yummy"}
+    ]).recipes;
+    const expected = [
+      {"recipe_id": 1, "title": "Tasty"},
+      {"recipe_id": 2, "title": "Yummy"}
+    ];
     expect(actual).toEqual(expected);
   });
 });
@@ -345,7 +390,7 @@ describe('the dataGetRecipesFailed action creator', () => {
     const expected = DATA_GET_RECIPES_FAILED;
     expect(actual).toEqual(expected);
   });
-});*/
+});
 
 
 

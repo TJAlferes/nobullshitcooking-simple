@@ -1,11 +1,13 @@
-import * as actionTypes from './actionTypes';  // destructure these???
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY } from './actionTypes';
 
-export const cartItemAdd = itemId => ({
-  type: actionTypes.CART_ITEM_ADD,
+export const cartAddItem = itemId => ({
+  type: CART_ADD_ITEM,
   itemId
 });
 
-export const cartItemRemove = itemId => ({
-  type: actionTypes.CART_ITEM_REMOVE,
+export const cartRemoveItem = itemId => ({
+  type: CART_REMOVE_ITEM,
   itemId
 });
+
+export const cartEmpty = () => ({type: CART_EMPTY});

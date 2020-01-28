@@ -10,7 +10,7 @@ import PlansTabView from './views/PlansTabView';
 import PrivateRecipesTabView from './views/PrivateRecipesTabView';
 import PublicRecipesTabView from './views/PublicRecipesTabView';
 import FavoriteRecipesTabView from './views/FavoriteRecipesTabView';
-import SavedRecipesTabView from './view/SavedRecipesTabView';
+import SavedRecipesTabView from './views/SavedRecipesTabView';
 import IngredientsTabView from './views/IngredientsTabView';
 import EquipmentTabView from './views/EquipmentTabView';
 

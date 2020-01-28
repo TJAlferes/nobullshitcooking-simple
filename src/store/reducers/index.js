@@ -1,39 +1,31 @@
 import { combineReducers } from 'redux';
 
-import nobscappReducer from './nobscapp';
-//import modalsReducer from './modals';
-import themeReducer from './theme';
-import menuReducer from './menu';
-import geolocationReducer from './geolocation';
 import authReducer from './auth';
+//import cartReducer from './cart';
 import dataReducer from './data';
-import searchReducer from './search';
-import userReducer from './user';
+import geolocationReducer from './geolocation';
+import menuReducer from './menu';
+import messengerReducer from './messenger';
+import nobscappReducer from './nobscapp';
 import plannerReducer from './planner';
 import plannerViewReducer from './plannerView';
-import messengerReducer from './messenger';
-
-
-
-/*
-import all reducers,
-combine them into a single "root" reducer,
-and export it (to be used in src/index.js)
-*/
+import searchReducer from './search';
+import themeReducer from './theme';
+import userReducer from './user';
 
 const rootReducer = combineReducers({
-  nobscapp: nobscappReducer,
-  //modals: modalsReducer,
-  theme: themeReducer,
-  menu: menuReducer,
-  geolocation: geolocationReducer,
   auth: authReducer,
+  //cart: cartReducer,
   data: dataReducer,
-  search: searchReducer,
-  user: userReducer,
+  geolocation: geolocationReducer,
+  menu: menuReducer,
+  messenger: messengerReducer,
+  nobscapp: nobscappReducer,
   planner: plannerReducer,
   plannerView: plannerViewReducer,
-  messenger: messengerReducer,
+  search: searchReducer,
+  theme: themeReducer,
+  user: userReducer,
 });
 
 export default rootReducer;
