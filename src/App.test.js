@@ -14,23 +14,23 @@ describe('the App component', () => {
   beforeEach(() => wrapper = shallow(<App />));
 
   it('displays itself', () => {
-    expect(wrapper.find("[data-test='component-App']")).length.toBe(1);
+    expect(wrapper.find("[data-test='component-App']").length).toBe(1);
   })
 
   it('displays a MobileHeaderRed component', () => {
-    expect(wrapper.find("[data-test='component-MobileHeaderRed']")).length.toBe(1);
+    expect(wrapper.find("[data-test='component-MobileHeaderRed']").length).toBe(1);
   });
 
   it('displays a HeaderRed component', () => {
-    expect(wrapper.find("[data-test='component-HeaderRed']")).length.toBe(1);
+    expect(wrapper.find("[data-test='component-HeaderRed']").length).toBe(1);
   });
 
   it('displays a MainWhite component', () => {
-    expect(wrapper.find("[data-test='component-MainWhite']")).length.toBe(1);
+    expect(wrapper.find("[data-test='component-MainWhite']").length).toBe(1);
   });
 
   it('displays a FooterGray component', () => {
-    expect(wrapper.find("[data-test='component-FooterGray']")).length.toBe(1);
+    expect(wrapper.find("[data-test='component-FooterGray']").length).toBe(1);
   });
   
   /*it('does not display a HeaderRed component when location is user/register', () => {

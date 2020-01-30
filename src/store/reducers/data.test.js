@@ -58,7 +58,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_MEASUREMENTS', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_MEASUREMENTS,
       measurements: [
         {"measurement_id": 1, "measurement_name": "teaspoon"},
@@ -74,7 +74,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_EQUIPMENTS', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_EQUIPMENTS,
       equipment: [
         {"equipment_id": 1, "equipment_name": "Chopstick"},
@@ -90,7 +90,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_EQUIPMENT_TYPES', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_EQUIPMENT_TYPES,
       equipmentTypes: [
         {"equipment_type_id": 1, "equipment_type_name": "Cleaning"},
@@ -106,7 +106,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_INGREDIENTS', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_INGREDIENTS,
       ingredients: [
         {"ingredient_id": 1, "ingredient_name": "Salmon"},
@@ -122,7 +122,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_INGREDIENT_TYPES', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_INGREDIENT_TYPES,
       ingredientTypes: [
         {"ingredient_type_id": 1, "ingredient_type_name": "Fish"},
@@ -138,7 +138,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_RECIPES', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_RECIPES,
       recipes: [
         {"recipe_id": 1, "title": "Tasty"},
@@ -154,7 +154,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_RECIPE_TYPES', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_RECIPE_TYPES,
       recipeTypes: [
         {"recipe_type_id": 1, "recipe_type_name": "Drink"},
@@ -170,7 +170,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_CUISINES', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_CUISINES,
       cuisines: [
         {"cuisine_id": 1, "cuisine_name": "Russian"},
@@ -186,7 +186,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_METHODS', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_METHODS,
       methods: [
         {"method_id": 1, "method_name": "No-Cook"},
@@ -204,7 +204,7 @@ describe('the data reducer', () => {
 
 
   it('handles actions of type DATA_GET_MY_PUBLIC_RECIPES', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_MY_PUBLIC_RECIPES,
       myPublicRecipes: [{recipeId: 841, title: "Tasty"}]
     });
@@ -216,7 +216,7 @@ describe('the data reducer', () => {
 
 
   it('handles actions of type DATA_GET_MY_PRIVATE_EQUIPMENTS', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_MY_PRIVATE_EQUIPMENTS,
       myPrivateEquipment: [{equipment_id: 9829, equipment_name: "My Teapot"}]
     });
@@ -226,7 +226,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_MY_PRIVATE_INGREDIENTS', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_MY_PRIVATE_INGREDIENTS,
       myPrivateIngredients: [{ingredient_id: 8927, ingredient_name: "My Basil"}]
     });
@@ -236,7 +236,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_MY_PRIVATE_RECIPES', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_MY_PRIVATE_RECIPES,
       myPrivateRecipes: [{recipeId: 841, title: "Tasty"}]
     });
@@ -248,7 +248,7 @@ describe('the data reducer', () => {
 
 
   it('handles actions of type DATA_GET_MY_FAVORITE_RECIPES', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_MY_FAVORITE_RECIPES,
       myFavoriteRecipes: [{recipeId: 841, title: "Tasty"}]
     });
@@ -258,7 +258,7 @@ describe('the data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_MY_SAVED_RECIPES', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_MY_SAVED_RECIPES,
       mySavedRecipes: [{recipeId: 841, title: "Tasty"}]
     });
@@ -270,7 +270,7 @@ describe('the data reducer', () => {
 
 
   it('handles actions of type DATA_GET_MY_PLANS', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_MY_PLANS,
       myPlans: [{plan_id: 98234, plan_name: "Plan A"}]
     });
@@ -282,7 +282,7 @@ describe('the data reducer', () => {
 
 
   it('handles actions of type DATA_GET_MY_FRIENDSHIPS', () => {
-    const act = cartReducer(initialState, {
+    const act = dataReducer(initialState, {
       type: DATA_GET_MY_FRIENDSHIPS,
       myFriendships: [{friend_id: 1749, friend_name: "SnowboarderMike"}]
     });

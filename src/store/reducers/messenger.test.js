@@ -187,22 +187,25 @@ describe('the messenger reducer', () => {
 
 
   it('handles actions of type MESSENGER_REJOINED_CHANNEL', () => {
+    const serverTimeStr = (new Date).getTime().toString();
+    const clientTimeStr = (new Date).toLocaleTimeString();
+
     const beforeState = {
       channel: "GrillNChill",
       messages: [
         {
-          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageId: 555 + serverTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
           user: {userId: 555, username: "Joe555", avatar: "Joe555"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         },
         {
-          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageId: 888 + serverTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
           user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         }
       ],
       users: [
@@ -229,22 +232,25 @@ describe('the messenger reducer', () => {
 
 
   it('handles actions of type MESSENGER_JOINED_USER', () => {
+    const serverTimeStr = (new Date).getTime().toString();
+    const clientTimeStr = (new Date).toLocaleTimeString();
+
     const beforeState = {
       channel: "GrillNChill",
       messages: [
         {
-          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageId: 555 + serverTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
           user: {userId: 555, username: "Joe555", avatar: "Joe555"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         },
         {
-          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageId: 888 + serverTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
           user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         }
       ],
       users: [
@@ -266,22 +272,22 @@ describe('the messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
-          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageId: 555 + serverTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
           user: {userId: 555, username: "Joe555", avatar: "Joe555"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         },
         {
-          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageId: 888 + serverTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
           user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         },
         {
-          chatMessageId: 'admin' + (new Date).getTime().toString(),
-          ts: `${(new Date).toLocaleTimeString()}`,
+          chatMessageId: 'admin' + serverTimeStr,
+          ts: `${clientTimeStr}`,
           chatMessageText: "Bubbles has joined the room.",
           user: {username: "messengerstatus"}
         }
@@ -303,22 +309,25 @@ describe('the messenger reducer', () => {
 
 
   it('handles actions of type MESSENGER_LEFT_USER', () => {
+    const serverTimeStr = (new Date).getTime().toString();
+    const clientTimeStr = (new Date).toLocaleTimeString();
+
     const beforeState = {
       channel: "GrillNChill",
       messages: [
         {
-          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageId: 555 + serverTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
           user: {userId: 555, username: "Joe555", avatar: "Joe555"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         },
         {
-          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageId: 888 + serverTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
           user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         }
       ],
       users: [
@@ -340,22 +349,22 @@ describe('the messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
-          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageId: 555 + serverTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
           user: {userId: 555, username: "Joe555", avatar: "Joe555"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         },
         {
-          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageId: 888 + serverTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
           user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         },
         {
-          chatMessageId: 'admin' + (new Date).getTime().toString(),
-          ts: `${(new Date).toLocaleTimeString()}`,
+          chatMessageId: 'admin' + serverTimeStr,
+          ts: `${clientTimeStr}`,
           chatMessageText: `Jane888 has left the room.`,
           user: {username: "messengerstatus"}
         }
@@ -375,15 +384,18 @@ describe('the messenger reducer', () => {
 
 
   it('handles actions of type MESSENGER_RECEIVED_MESSAGE', () => {
+    const serverTimeStr = (new Date).getTime().toString();
+    const clientTimeStr = (new Date).toLocaleTimeString();
+
     const beforeState = {
       channel: "GrillNChill",
       messages: [
         {
-          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageId: 555 + serverTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
           user: {userId: 555, username: "Joe555", avatar: "Joe555"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         }
       ],
       users: [
@@ -399,11 +411,11 @@ describe('the messenger reducer', () => {
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_RECEIVED_MESSAGE,
       message: {
-        chatMessageId: 888 + (new Date).getTime().toString(),
+        chatMessageId: 888 + serverTimeStr,
         chatMessageText: "I'm good, thanks! You?",
         room: "GrillNChill",
         user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-        ts: `${(new Date).toLocaleTimeString()}`
+        ts: `${clientTimeStr}`
       }
     });
 
@@ -411,18 +423,18 @@ describe('the messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
-          chatMessageId: 555 + (new Date).getTime().toString(),
+          chatMessageId: 555 + serverTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
           user: {userId: 555, username: "Joe555", avatar: "Joe555"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         },
         {
-          chatMessageId: 888 + (new Date).getTime().toString(),
+          chatMessageId: 888 + serverTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
           user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         }
       ],
       users: [
@@ -441,6 +453,9 @@ describe('the messenger reducer', () => {
 
 
   it('handles actions of type MESSENGER_RECEIVED_WHISPER', () => {
+    const serverTimeStr = (new Date).getTime().toString();
+    const clientTimeStr = (new Date).toLocaleTimeString();
+
     const beforeState = {
       channel: "GrillNChill",
       messages: [],
@@ -454,11 +469,11 @@ describe('the messenger reducer', () => {
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_RECEIVED_WHISPER,
       whisper: {
-        whisperId: 888 + (new Date).getTime().toString(),
+        whisperId: 888 + serverTimeStr,
         whisperText: "Are you still moving next year?",
         to: "Joe555",
         user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-        ts: `${(new Date).toLocaleTimeString()}`
+        ts: `${clientTimeStr}`
       }
     });
 
@@ -466,11 +481,11 @@ describe('the messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
-          whisperId: 888 + (new Date).getTime().toString(),
+          whisperId: 888 + serverTimeStr,
           whisperText: "Are you still moving next year?",
           to: "Joe555",
           user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-          ts: `${(new Date).toLocaleTimeString()}`
+          ts: `${clientTimeStr}`
         }
       ],
       users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],

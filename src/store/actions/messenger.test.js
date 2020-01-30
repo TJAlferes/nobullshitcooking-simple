@@ -10,6 +10,7 @@ import {
 
   MESSENGER_CHANGE_CHANNEL,
   MESSENGER_CHANGED_CHANNEL,
+  MESSENGER_REJOINED_CHANNEL,
   MESSENGER_JOINED_USER,
   MESSENGER_LEFT_USER,
 
@@ -196,7 +197,7 @@ describe('the messengerRejoinedChannel action creator', () => {
       ],
       '5067'
     ).type;
-    const expected = MESSENGER_CHANGED_CHANNEL;
+    const expected = MESSENGER_REJOINED_CHANNEL;
     expect(actual).toEqual(expected);
   });
 

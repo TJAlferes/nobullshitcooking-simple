@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import authReducer from './auth';
-//import cartReducer from './cart';
+import cartReducer from './cart';
 import dataReducer from './data';
 import geolocationReducer from './geolocation';
 import menuReducer from './menu';
@@ -15,7 +15,7 @@ import userReducer from './user';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  //cart: cartReducer,
+  cart: cartReducer,
   data: dataReducer,
   geolocation: geolocationReducer,
   menu: menuReducer,

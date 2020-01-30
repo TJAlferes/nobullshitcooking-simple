@@ -207,7 +207,7 @@ describe('the plannerSetPlanName action creator', () => {
     expect(actual).toEqual(expected);
   });
   it('returns the correct name', () => {
-    const actual = plannerSetPlanName().name;
+    const actual = plannerSetPlanName("A Great Plan").name;
     const expected = "A Great Plan";
     expect(actual).toEqual(expected);
   });

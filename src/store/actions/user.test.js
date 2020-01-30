@@ -597,7 +597,7 @@ describe('the userFailed action creator', () => {
 describe('the userEditPublicRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPublicRecipe({someKey: 'someValue'}).type;
-    const expected = USER_EDIT_PUBLIC_RECIPE_FAILED;
+    const expected = USER_EDIT_PUBLIC_RECIPE;
     expect(actual).toEqual(expected);
   });
   it('returns the correct recipeInfo', () => {
@@ -609,7 +609,7 @@ describe('the userEditPublicRecipe action creator', () => {
 describe('the userEditPublicRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPublicRecipeSucceeded('OK.').type;
-    const expected = USER_EDIT_PUBLIC_RECIPE_FAILED_SUCCEEDED;
+    const expected = USER_EDIT_PUBLIC_RECIPE_SUCCEEDED;
     expect(actual).toEqual(expected);
   });
   it('returns the correct message', () => {
@@ -621,7 +621,7 @@ describe('the userEditPublicRecipeSucceeded action creator', () => {
 describe('the userEditPublicRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPublicRecipeFailed('Try again.').type;
-    const expected = USER_EDIT_PUBLIC_RECIPE_FAILED_FAILED;
+    const expected = USER_EDIT_PUBLIC_RECIPE_FAILED;
     expect(actual).toEqual(expected);
   });
   it('returns the correct message', () => {
@@ -676,7 +676,7 @@ describe('the userDisownPublicRecipeFailed action creator', () => {
 describe('the userCreateNewPlan action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPlan({someKey: 'someValue'}).type;
-    const expected = USER_USER_CREATE_NEW_PLAN;
+    const expected = USER_CREATE_NEW_PLAN;
     expect(actual).toEqual(expected);
   });
   it('returns the correct planInfo', () => {
@@ -688,7 +688,7 @@ describe('the userCreateNewPlan action creator', () => {
 describe('the userCreateNewPlanSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPlanSucceeded('OK.').type;
-    const expected = USER_USER_CREATE_NEW_PLAN_SUCCEEDED;
+    const expected = USER_CREATE_NEW_PLAN_SUCCEEDED;
     expect(actual).toEqual(expected);
   });
   it('returns the correct message', () => {
@@ -700,7 +700,7 @@ describe('the userCreateNewPlanSucceeded action creator', () => {
 describe('the userCreateNewPlanFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPlanFailed('Try again.').type;
-    const expected = USER_USER_CREATE_NEW_PLAN_FAILED;
+    const expected = USER_CREATE_NEW_PLAN_FAILED;
     expect(actual).toEqual(expected);
   });
   it('returns the correct message', () => {
@@ -714,7 +714,7 @@ describe('the userCreateNewPlanFailed action creator', () => {
 describe('the userEditPlan action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPlan({someKey: 'someValue'}).type;
-    const expected = USER_USER_EDIT_PLAN;
+    const expected = USER_EDIT_PLAN;
     expect(actual).toEqual(expected);
   });
   it('returns the correct planInfo', () => {
@@ -726,7 +726,7 @@ describe('the userEditPlan action creator', () => {
 describe('the userEditPlanSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPlanSucceeded('OK.').type;
-    const expected = USER_USER_EDIT_PLAN_SUCCEEDED;
+    const expected = USER_EDIT_PLAN_SUCCEEDED;
     expect(actual).toEqual(expected);
   });
   it('returns the correct message', () => {
@@ -738,7 +738,7 @@ describe('the userEditPlanSucceeded action creator', () => {
 describe('the userEditPlanFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPlanFailed('Try again.').type;
-    const expected = USER_USER_EDIT_PLAN_FAILED;
+    const expected = USER_EDIT_PLAN_FAILED;
     expect(actual).toEqual(expected);
   });
   it('returns the correct message', () => {
