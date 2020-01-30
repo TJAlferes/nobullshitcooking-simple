@@ -99,12 +99,8 @@ const endpoint = NOBSCBackendAPIEndpointOne;  // remove in test?
 
 
 describe('the dataGetMeasurementsSaga', () => {
-  const iterator = dataGetMeasurementsSaga();
-  it('should hit API', () => {
-    expect(iterator.next().value)
-    .toEqual(call([axios, axios.get], `${endpoint}/measurement`));
-
-    /*return expectSaga(dataGetMeasurementsSaga)
+  /*it('should hit API', () => {
+    return expectSaga(dataGetMeasurementsSaga)
     .provide([
       [call(() => {
         mock
@@ -125,23 +121,42 @@ describe('the dataGetMeasurementsSaga', () => {
     })
     .put({type: 'AUTH_MESSAGE_CLEAR'})
     .dispatch(action)
-    .silentRun(50);*/
-  });
-  it('should dispatch succeeded', () => {
+    .silentRun(50);
+  });*/
+
+  it('should dispatch measurements and succeeded if data found', () => {
+    const iterator = dataGetMeasurementsSaga();
     const res = {
       data: [
         {"measurement_id": "1", "measurement_name": "teaspoon"}
       ]
     };
+
     expect(iterator.next().value)
-    .toEqual(put(dataGetMeasurements(res)));
+    .toEqual(call([axios, axios.get], `${endpoint}/measurement`));
+
+    expect(iterator.next(res.data).value)
+    .toEqual(put(dataGetMeasurements(res.data)));
+
     expect(iterator.next().value)
     .toEqual(put(dataGetMeasurementsSucceeded()));
+
+    expect(iterator.next())
+    .toEqual({done: true, value: undefined});
   });
-  it('should dispatch failed', () => {
-    const res = null;
+
+  it('should dispatch failed if data not found', () => {
+    const iterator = dataGetMeasurementsSaga();
+    const res = {};
+
     expect(iterator.next().value)
-    .toEqual(put(dataGetMeasurementsFailed()))
+    .toEqual(call([axios, axios.get], `${endpoint}/measurement`));
+
+    expect(iterator.next(res).value)
+    .toEqual(put(dataGetMeasurementsFailed()));
+
+    expect(iterator.next())
+    .toEqual({done: true, value: undefined});
   });
 });
 

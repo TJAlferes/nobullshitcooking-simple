@@ -11,7 +11,7 @@ const setup = (props = {}, state = null) => shallow(<App {...props} />);
 let wrapper;
 
 describe('the App component', () => {
-  beforeEach(() => wrapper = shallow(<App />));
+  beforeEach(() => wrapper = shallow(<App location={{pathname: '/'}} />));
 
   it('displays itself', () => {
     expect(wrapper.find('[data-test="component-App"]').length).toBe(1);
