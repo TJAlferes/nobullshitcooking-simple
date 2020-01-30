@@ -20,6 +20,7 @@ import {
   MESSENGER_RECEIVED_WHISPER,
   MESSENGER_FAILED_WHISPER
 } from './actionTypes';
+
 import {
   messengerConnect,
   messengerConnected,
