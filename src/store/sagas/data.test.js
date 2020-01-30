@@ -66,7 +66,7 @@ import {
   dataGetMyFriendshipsFailed
 } from '../actions/index';
 
-/*import {
+import {
   dataGetMeasurementsSaga,
 
   dataGetEquipmentsSaga,
@@ -89,7 +89,7 @@ import {
   dataGetMyPrivateIngredientsSaga,
 
   dataGetMyFriendshipsSaga
-} from './data';*/
+} from './data';
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;  // remove in test?

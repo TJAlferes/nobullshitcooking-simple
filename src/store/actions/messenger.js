@@ -69,12 +69,14 @@ export const messengerRejoinedChannel = (users, channel) => ({
 
 export const messengerJoinedUser = user => ({
   type: MESSENGER_JOINED_USER,
-  user
+  user,
+  ts: `${(new Date).toLocaleTimeString()}`
 });
 
 export const messengerLeftUser = user => ({
   type: MESSENGER_LEFT_USER,
-  user
+  user,
+  ts: `${(new Date).toLocaleTimeString()}`
 });
 
 
@@ -84,10 +86,14 @@ export const messengerSendMessage = message => ({
   message
 });
 
-export const messengerReceivedMessage = message => ({
-  type: MESSENGER_RECEIVED_MESSAGE,
-  message
-});
+export const messengerReceivedMessage = message => {
+  const ts = `${(new Date).toLocaleTimeString()}`;
+  return {
+    type: MESSENGER_RECEIVED_MESSAGE,
+    message,
+    ts
+  };
+};
 
 export const messengerSendWhisper = (whisper, to) => ({
   type: MESSENGER_SEND_WHISPER,
@@ -95,12 +101,17 @@ export const messengerSendWhisper = (whisper, to) => ({
   to
 });
 
-export const messengerReceivedWhisper = whisper => ({
-  type: MESSENGER_RECEIVED_WHISPER,
-  whisper
-});
+export const messengerReceivedWhisper = whisper => {
+  const ts = `${(new Date).toLocaleTimeString()}`;
+  return {
+    type: MESSENGER_RECEIVED_WHISPER,
+    whisper,
+    ts
+  };
+};
 
 export const messengerFailedWhisper = feedback => ({
   type: MESSENGER_FAILED_WHISPER,
-  feedback
+  feedback,
+  ts: `${(new Date).toLocaleTimeString()}`
 });

@@ -29,12 +29,20 @@ const initialState = {
 
 const connected = (state, action) => ({
   ...state,
-  ...{status: "Connected", connectButtonDisabled: true, disconnectButtonDisabled: false}
+  ...{
+    status: "Connected",
+    connectButtonDisabled: true,
+    disconnectButtonDisabled: false
+  }
 });
 
 const disconnected = (state, action) => ({
   ...state,
-  ...{status: "Disconnected", connectButtonDisabled: false, disconnectButtonDisabled: true}
+  ...{
+    status: "Disconnected",
+    connectButtonDisabled: false,
+    disconnectButtonDisabled: true
+  }
 });
 
 const showOnline = (state, action) => ({
@@ -66,41 +74,34 @@ const rejoinedChannel = (state, action) => ({
   }
 });
 
-const joinedUser = (state, action) => {
-  const ts = `${(new Date).toLocaleTimeString()}`;
-  return {
-    ...state,
-    ...{
-      messages: state.messages.concat({
-        chatMessageId: 'admin' + (new Date).getTime().toString(),
-        ts,
-        chatMessageText: `${action.user.username} has joined the room.`,
-        user: {username: "messengerstatus"}
-      }),
-      users: state.users.concat(action.user)
-    }
-  };
-};
+const joinedUser = (state, action) => ({
+  ...state,
+  ...{
+    messages: state.messages.concat({
+      chatMessageId: 'admin' + action.ts,
+      ts: action.ts,
+      chatMessageText: `${action.user.username} has joined the room.`,
+      user: {username: "messengerstatus"}
+    }),
+    users: state.users.concat(action.user)
+  }
+});
 
-const leftUser = (state, action) => {
-  const ts = `${(new Date).toLocaleTimeString()}`;
-  return {
-    ...state,
-    ...{
-      messages: state.messages.concat({
-        chatMessageId: 'admin' + (new Date).getTime().toString(),
-        ts,
-        chatMessageText: `${action.user.username} has left the room.`,
-        user: {username: "messengerstatus"}
-      }),
-      users: state.users.filter(user => user.userId !== action.user.userId)
-    }
-  };
-};
+const leftUser = (state, action) => ({
+  ...state,
+  ...{
+    messages: state.messages.concat({
+      chatMessageId: 'admin' + action.ts,
+      ts: action.ts,
+      chatMessageText: `${action.user.username} has left the room.`,
+      user: {username: "messengerstatus"}
+    }),
+    users: state.users.filter(user => user.userId !== action.user.userId)
+  }
+});
 
 const receivedMessage = (state, action) => {
-  const ts = `${(new Date).toLocaleTimeString()}`;
-  action.message.ts = ts;
+  action.message.ts = action.ts;
   return {
     ...state,
     ...{messages: state.messages.concat(action.message)}
@@ -108,28 +109,24 @@ const receivedMessage = (state, action) => {
 };
 
 const receivedWhisper = (state, action) => {
-  const ts = `${(new Date).toLocaleTimeString()}`;
-  action.whisper.ts = ts;
+  action.whisper.ts = action.ts;
   return {
     ...state,
     ...{messages: state.messages.concat(action.whisper)}
   };
 };
 
-const failedWhisper = (state, action) => {
-  const ts = `${(new Date).toLocaleTimeString()}`;
-  return {
-    ...state,
-    ...{
-      messages: state.messages.concat({
-        whisperId: 'admin' + (new Date).getTime().toString(),
-        ts,
-        whisperText: action.feedback,
-        user: {username: "messengerstatus"}
-      })
-    }
-  };
-};
+const failedWhisper = (state, action) => ({
+  ...state,
+  ...{
+    messages: state.messages.concat({
+      whisperId: 'admin' + action.ts,
+      ts: action.ts,
+      whisperText: action.feedback,
+      user: {username: "messengerstatus"}
+    })
+  }
+});
 
 const getOnline = (state, action) => ({
   ...state,

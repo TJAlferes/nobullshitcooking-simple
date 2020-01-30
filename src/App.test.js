@@ -14,7 +14,7 @@ describe('the App component', () => {
   beforeEach(() => wrapper = shallow(<App />));
 
   it('displays itself', () => {
-    expect(wrapper.find("[data-test='component-App']").length).toBe(1);
+    expect(wrapper.find('[data-test="component-App"]').length).toBe(1);
   })
 
   it('displays a MobileHeaderRed component', () => {

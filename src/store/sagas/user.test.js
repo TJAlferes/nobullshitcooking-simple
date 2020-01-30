@@ -111,7 +111,7 @@ describe('the userDeletePrivateIngredientSaga', () => {
 
 describe('the userCreateNewRecipeSaga', () => {
   it('works', () => {
-    const action = {};
+    const action = {ownership: "public"};
     return expectSaga(userCreateNewRecipeSaga, action)
     .silentRun(50);
   });
@@ -141,7 +141,7 @@ describe('the userDisownPublicRecipeSaga', () => {
 
 describe('the userEditRecipeSaga', () => {
   it('works', () => {
-    const action = {};
+    const action = {ownership: "public"};
     return expectSaga(userEditRecipeSaga, action)
     .silentRun(50);
   });

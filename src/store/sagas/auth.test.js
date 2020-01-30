@@ -1,5 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { call, put, delay } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { throwError } from 'redux-saga-test-plan/providers';
@@ -50,7 +51,7 @@ describe('the authUserLoginSaga', () => {
 
   it('handles errors', () => {
     const error = new Error('error');
-    return expectSaga(userSaga, api)
+    return expectSaga(authUserLoginSaga, api)
     .provide([
       [matchers.call.fn(api.fetchUser), throwError(error)],
     ])
