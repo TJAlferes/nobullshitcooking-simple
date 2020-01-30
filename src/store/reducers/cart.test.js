@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY } from './actionTypes';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY } from '../actions/actionTypes';
 
 import cartReducer from './cart';
 

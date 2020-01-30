@@ -5,7 +5,7 @@ import {
   GEO_NEARBY_STORES_CLICKED
 } from '../actions/actionTypes';
 
-import geolocationReducer from './geo';
+import geolocationReducer from './geolocation';
 
 const initialState = {
   latitude: "",

@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects'
-import axios from axios;
+import axios from 'axios';
 //import MockAdapter from 'axios-mock-adapter';
 import { expectSaga } from 'redux-saga-test-plan';
 //import * as matchers from 'redux-saga-test-plan/matchers';
