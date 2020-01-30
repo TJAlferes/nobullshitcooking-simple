@@ -1,4 +1,4 @@
-import { put, delay } from 'redux-saga/effects';
+import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -64,6 +64,7 @@ import {
   userSubmitAvatarSucceeded,
   userSubmitAvatarFailed
 } from '../actions/index';
+
 import {
   dataGetMyFriendshipsSaga
 } from './data';  // just call from index, like others?
@@ -73,11 +74,7 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 
 
-/*
-
-equipment
-
-*/
+/* equipment */
 
 export function* userCreateNewPrivateEquipmentSaga(action) {
   try {
@@ -85,17 +82,20 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
       action.equipmentInfo.fullEquipmentImage &&
       action.equipmentInfo.tinyEquipmentImage
     ) {
-      const res1 = yield axios.post(
+      const res1 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/equipment`,
         {fileType: action.equipmentInfo.fullEquipmentImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestFullSize,
         action.equipmentInfo.fullEquipmentImage,
         {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestTinySize,
         action.equipmentInfo.tinyEquipmentImage,
         {headers: {'Content-Type': action.equipmentInfo.tinyEquipmentImage.type}}
@@ -105,7 +105,8 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
       action.equipmentInfo.equipmentImage = 'nobsc-equipment-default';
     }
 
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/equipment/create`,
       {equipmentInfo: action.equipmentInfo},
       {withCredentials: true}
@@ -133,17 +134,20 @@ export function* userEditPrivateEquipmentSaga(action) {
       action.equipmentInfo.fullEquipmentImage &&
       action.equipmentInfo.tinyEquipmentImage
     ) {
-      const res1 = yield axios.post(
+      const res1 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/equipment`,
         {fileType: action.equipmentInfo.fullEquipmentImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestFullSize,
         action.equipmentInfo.fullEquipmentImage,
         {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestTinySize,
         action.equipmentInfo.tinyEquipmentImage,
         {headers: {'Content-Type': action.equipmentInfo.tinyEquipmentImage.type}}
@@ -153,7 +157,8 @@ export function* userEditPrivateEquipmentSaga(action) {
       action.equipmentInfo.equipmentImage = action.equipmentInfo.prevEquipmentImage;
     }
 
-    const res = yield axios.put(
+    const res = yield call(
+      [axios, axios.put],
       `${endpoint}/user/equipment/update`,
       {equipmentInfo: action.equipmentInfo},
       {withCredentials: true}
@@ -177,7 +182,8 @@ export function* userEditPrivateEquipmentSaga(action) {
 
 export function* userDeletePrivateEquipmentSaga(action) {
   try {
-    const res = yield axios.delete(
+    const res = yield call(
+      [axios, axios.delete],
       `${endpoint}/user/equipment/delete`,
       {withCredentials: true, data: {equipmentId: action.equipmentId}}
     );
@@ -197,11 +203,7 @@ export function* userDeletePrivateEquipmentSaga(action) {
 
 
 
-/*
-
-ingredient
-
-*/
+/* ingredient */
 
 export function* userCreateNewPrivateIngredientSaga(action) {
   try {
@@ -209,17 +211,20 @@ export function* userCreateNewPrivateIngredientSaga(action) {
       action.ingredientInfo.fullIngredientImage &&
       action.ingredientInfo.tinyIngredientImage
     ) {
-      const res1 = yield axios.post(
+      const res1 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/ingredient`,
         {fileType: action.ingredientInfo.fullIngredientImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestFullSize,
         action.ingredientInfo.fullIngredientImage,
         {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestTinySize,
         action.ingredientInfo.tinyIngredientImage,
         {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
@@ -229,7 +234,8 @@ export function* userCreateNewPrivateIngredientSaga(action) {
       action.ingredientInfo.ingredientImage = 'nobsc-ingredient-default';
     }
 
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/ingredient/create`,
       {ingredientInfo: action.ingredientInfo},
       {withCredentials: true}
@@ -257,17 +263,20 @@ export function* userEditPrivateIngredientSaga(action) {
       action.ingredientInfo.fullIngredientImage &&
       action.ingredientInfo.tinyIngredientImage
     ) {
-      const res1 = yield axios.post(
+      const res1 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/ingredient`,
         {fileType: action.ingredientInfo.fullIngredientImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestFullSize,
         action.ingredientInfo.fullIngredientImage,
         {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestTinySize,
         action.ingredientInfo.tinyIngredientImage,
         {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
@@ -277,7 +286,8 @@ export function* userEditPrivateIngredientSaga(action) {
       action.ingredientInfo.ingredientImage = action.ingredientInfo.prevIngredientImage;
     }
 
-    const res = yield axios.put(
+    const res = yield call(
+      [axios, axios.put],
       `${endpoint}/user/ingredient/update`,
       {ingredientInfo: action.ingredientInfo},
       {withCredentials: true}
@@ -301,7 +311,8 @@ export function* userEditPrivateIngredientSaga(action) {
 
 export function* userDeletePrivateIngredientSaga(action) {
   try {
-    const res = yield axios.delete(
+    const res = yield call(
+      [axios, axios.delete],
       `${endpoint}/user/ingredient/delete`,
       {withCredentials: true, data: {ingredientId: action.ingredientId}}
     );
@@ -321,11 +332,7 @@ export function* userDeletePrivateIngredientSaga(action) {
 
 
 
-/*
-
-recipe
-
-*/
+/* recipe */
 
 export function* userCreateNewRecipeSaga(action) {
   try {
@@ -335,22 +342,26 @@ export function* userCreateNewRecipeSaga(action) {
       action.recipeInfo.thumbRecipeImage &&
       action.recipeInfo.tinyRecipeImage
     ) {
-      const res1 = yield axios.post(
+      const res1 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/recipe`,
         {fileType: action.recipeInfo.fullRecipeImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeImage.type}}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestThumbSize,
         action.recipeInfo.thumbRecipeImage,
         {headers: {'Content-Type': action.recipeInfo.thumbRecipeImage.type}}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestTinySize,
         action.recipeInfo.tinyRecipeImage,
         {headers: {'Content-Type': action.recipeInfo.tinyRecipeImage.type}}
@@ -362,12 +373,14 @@ export function* userCreateNewRecipeSaga(action) {
 
     // 2
     if (action.recipeInfo.fullRecipeEquipmentImage) {
-      const res2 = yield axios.post(
+      const res2 = yield call(
+        [axios, axios.put],
         `${endpoint}/user/get-signed-url/recipe-equipment`,
         {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res2.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeEquipmentImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
@@ -379,12 +392,14 @@ export function* userCreateNewRecipeSaga(action) {
 
     // 3
     if (action.recipeInfo.fullRecipeIngredientsImage) {
-      const res3 = yield axios.post(
+      const res3 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
         {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res3.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeIngredientsImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
@@ -396,12 +411,14 @@ export function* userCreateNewRecipeSaga(action) {
 
     // 4
     if (action.recipeInfo.fullRecipeCookingImage) {
-      const res4 = yield axios.post(
+      const res4 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/recipe-cooking`,
         {fileType: action.recipeInfo.fullRecipeCookingImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res4.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeCookingImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
@@ -411,7 +428,8 @@ export function* userCreateNewRecipeSaga(action) {
       action.recipeInfo.recipeCookingImage = "nobsc-recipe-cooking-default";
     }
 
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/recipe/create`,
       {recipeInfo: action.recipeInfo},
       {withCredentials: true}
@@ -447,7 +465,8 @@ export function* userCreateNewRecipeSaga(action) {
 
 export function* userDeletePrivateRecipeSaga(action) {
   try {
-    const res = yield axios.delete(
+    const res = yield call(
+      [axios, axios.delete],
       `${endpoint}/user/recipe/delete/private`,
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
@@ -467,7 +486,8 @@ export function* userDeletePrivateRecipeSaga(action) {
 
 export function* userDisownPublicRecipeSaga(action) {
   try {
-    const res = yield axios.delete(
+    const res = yield call(
+      [axios, axios.delete],
       `${endpoint}/user/recipe/disown/public`,
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
@@ -493,22 +513,26 @@ export function* userEditRecipeSaga(action) {
       action.recipeInfo.thumbRecipeImage &&
       action.recipeInfo.tinyRecipeImage
     ) {
-      const res1 = yield axios.post(
+      const res1 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/recipe`,
         {fileType: action.recipeInfo.fullRecipeImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeImage.type}}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestThumbSize,
         action.recipeInfo.thumbRecipeImage,
         {headers: {'Content-Type': action.recipeInfo.thumbRecipeImage.type}}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestTinySize,
         action.recipeInfo.tinyRecipeImage,
         {headers: {'Content-Type': action.recipeInfo.tinyRecipeImage.type}}
@@ -520,12 +544,14 @@ export function* userEditRecipeSaga(action) {
 
     // 2
     if (action.recipeInfo.fullRecipeEquipmentImage) {
-      const res2 = yield axios.post(
+      const res2 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/recipe-equipment`,
         {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res2.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeEquipmentImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
@@ -537,12 +563,14 @@ export function* userEditRecipeSaga(action) {
 
     // 3
     if (action.recipeInfo.fullRecipeIngredientsImage) {
-      const res3 = yield axios.post(
+      const res3 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/recipe-ingredients`,
         {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res3.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeIngredientsImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
@@ -554,12 +582,14 @@ export function* userEditRecipeSaga(action) {
 
     // 4
     if (action.recipeInfo.fullRecipeCookingImage) {
-      const res4 = yield axios.post(
+      const res4 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/recipe-cooking`,
         {fileType: action.recipeInfo.fullRecipeCookingImage.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res4.data.signedRequestFullSize,
         action.recipeInfo.fullRecipeCookingImage,
         {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
@@ -569,7 +599,8 @@ export function* userEditRecipeSaga(action) {
       action.recipeInfo.recipeCookingImage = action.recipeInfo.prevCookingImage;
     }
 
-    const res = yield axios.put(
+    const res = yield call(
+      [axios, axios.put],
       `${endpoint}/user/recipe/update`,
       {recipeInfo: action.recipeInfo},
       {withCredentials: true}
@@ -605,15 +636,12 @@ export function* userEditRecipeSaga(action) {
 
 
 
-/*
-
-plan
-
-*/
+/* plan */
 
 export function* userCreateNewPlanSaga(action) {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/plan/create`,
       {planInfo: action.planInfo},
       {withCredentials: true}
@@ -636,7 +664,8 @@ export function* userCreateNewPlanSaga(action) {
 
 export function* userEditPlanSaga(action) {
   try {
-    const res = yield axios.put(
+    const res = yield call(
+      [axios, axios.put],
       `${endpoint}/user/plan/update`,
       {planInfo: action.planInfo},
       {withCredentials: true}
@@ -659,7 +688,8 @@ export function* userEditPlanSaga(action) {
 
 export function* userDeletePlanSaga(action) {
   try {
-    const res = yield axios.delete(
+    const res = yield call(
+      [axios, axios.delete],
       `${endpoint}/user/plan/delete`,
       {withCredentials: true, data: {planId: action.planId}}
     );
@@ -681,15 +711,12 @@ export function* userDeletePlanSaga(action) {
 
 
 
-/*
-
-favorite
-
-*/
+/* favorite */
 
 export function* userFavoriteRecipeSaga(action) {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/favorite-recipe/create`,
       {recipeId: action.recipeId},
       {withCredentials: true}
@@ -710,7 +737,8 @@ export function* userFavoriteRecipeSaga(action) {
 
 export function* userUnfavoriteRecipeSaga(action) {
   try {
-    const res = yield axios.delete(
+    const res = yield call(
+      [axios, axios.delete],
       `${endpoint}/user/favorite-recipe/delete`,
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
@@ -730,15 +758,12 @@ export function* userUnfavoriteRecipeSaga(action) {
 
 
 
-/*
-
-save
-
-*/
+/* save */
 
 export function* userSaveRecipeSaga(action) {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/saved-recipe/create`,
       {recipeId: action.recipeId},
       {withCredentials: true}
@@ -759,7 +784,8 @@ export function* userSaveRecipeSaga(action) {
 
 export function* userUnsaveRecipeSaga(action) {
   try {
-    const res = yield axios.delete(
+    const res = yield call(
+      [axios, axios.delete],
       `${endpoint}/user/saved-recipe/delete`,
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
@@ -779,15 +805,12 @@ export function* userUnsaveRecipeSaga(action) {
 
 
 
-/*
-
-friendship
-
-*/
+/* friendship */
 
 export function* userRequestFriendshipSaga(action) {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/friendship/create`,
       {friendName: action.friendName},
       {withCredentials: true}
@@ -810,7 +833,8 @@ export function* userRequestFriendshipSaga(action) {
 
 export function* userAcceptFriendshipSaga(action) {
   try {
-    const res = yield axios.put(
+    const res = yield call(
+      [axios, axios.put],
       `${endpoint}/user/friendship/accept`,
       {friendName: action.friendName},
       {withCredentials: true}
@@ -834,7 +858,8 @@ export function* userAcceptFriendshipSaga(action) {
 
 export function* userRejectFriendshipSaga(action) {
   try {
-    const res = yield axios.put(
+    const res = yield call(
+      [axios, axios.put],
       `${endpoint}/user/friendship/reject`,
       {friendName: action.friendName},
       {withCredentials: true}
@@ -858,7 +883,8 @@ export function* userRejectFriendshipSaga(action) {
 
 export function* userDeleteFriendshipSaga(action) {
   try {
-    const res = yield axios.delete(
+    const res = yield call(
+      [axios, axios.delete],
       `${endpoint}/user/friendship/delete`,
       {withCredentials: true, data: {friendName: action.friendName}}
     );
@@ -881,7 +907,8 @@ export function* userDeleteFriendshipSaga(action) {
 
 export function* userBlockUserSaga(action) {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/friendship/block`,
       {friendName: action.friendName},
       {withCredentials: true}
@@ -905,7 +932,8 @@ export function* userBlockUserSaga(action) {
 
 export function* userUnblockUserSaga(action) {
   try {
-    const res = yield axios.delete(
+    const res = yield call(
+      [axios, axios.delete],
       `${endpoint}/user/friendship/unblock`,
       {withCredentials: true, data: {friendName: action.friendName}}
     );
@@ -928,27 +956,26 @@ export function* userUnblockUserSaga(action) {
 
 
 
-/*
-
-avatar
-
-*/
+/* avatar */
 
 export function* userSubmitAvatarSaga(action) {
   try {
     let avatarUrl;
     if (action.fullAvatar && action.tinyAvatar) {
-      const res1 = yield axios.post(
+      const res1 = yield call(
+        [axios, axios.post],
         `${endpoint}/user/get-signed-url/avatar`,
         {fileType: action.fullAvatar.type},
         {withCredentials: true}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestFullSize,
         action.fullAvatar,
         {headers: {'Content-Type': action.fullAvatar.type}}
       );
-      yield axios.put(
+      yield call(
+        [axios, axios.put],
         res1.data.signedRequestTinySize,
         action.tinyAvatar,
         {headers: {'Content-Type': action.tinyAvatar.type}}
@@ -958,7 +985,8 @@ export function* userSubmitAvatarSaga(action) {
       avatarUrl = "nobsc-user-default";
     }
 
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/auth/set-avatar`,
       {avatar: avatarUrl},
       {withCredentials: true}

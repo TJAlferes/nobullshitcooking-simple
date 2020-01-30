@@ -3,7 +3,7 @@ import { searchSetIndex } from './search';
 
 describe('the searchSetIndex action creator', () => {
   it('returns the correct action type', () => {
-    const actual = searchSetIndexx("Ingredients").type;
+    const actual = searchSetIndex("Ingredients").type;
     const expected = SEARCH_SET_INDEX;
     expect(actual).toEqual(expected);
   });

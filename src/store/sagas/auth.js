@@ -41,13 +41,12 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function* authStaffLoginSaga(action) {
   try {
-    const res = yield call(() => {
-      axios.post(
-        `${endpoint}/staff/auth/login`,
-        {staffInfo: {email: action.email, password: action.password}},
-        {withCredentials: true}
-      );
-    });
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/staff/auth/login`,
+      {staffInfo: {email: action.email, password: action.password}},
+      {withCredentials: true}
+    );
     if (res.data.message == 'Signed in.') {
       yield put(authDisplay(res.data.staffname, res.data.avatar));
       yield put(authStaffLoginSucceeded(res.data.message));
@@ -65,13 +64,12 @@ export function* authStaffLoginSaga(action) {
 
 export function* authStaffLogoutSaga() {
   try {
-    yield call(() => {
-      axios.post(
-        `${endpoint}/staff/auth/logout`,
-        {},
-        {withCredentials: true}
-      );
-    });
+    yield call(
+      [axios, axios.post],
+      `${endpoint}/staff/auth/logout`,
+      {},
+      {withCredentials: true}
+    );
     yield put(authStaffLogoutSucceeded('Signed out.'));
     yield delay(4000);
     yield put(authMessageClear());
@@ -86,13 +84,12 @@ export function* authStaffLogoutSaga() {
 
 export function* authUserLoginSaga(action) {
   try {
-    const res = yield call(() => {
-      axios.post(
-        `${endpoint}/user/auth/login`,
-        {userInfo: {email: action.email, password: action.password}},
-        {withCredentials: true}
-      );
-    });
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/auth/login`,
+      {userInfo: {email: action.email, password: action.password}},
+      {withCredentials: true}
+    );
     if (res.data.message == 'Signed in.') {
       yield put(authDisplay(res.data.username, res.data.avatar));
       yield put(authUserLoginSucceeded(res.data.message));
@@ -110,13 +107,12 @@ export function* authUserLoginSaga(action) {
 
 export function* authUserLogoutSaga() {
   try {
-    const res = yield call(() => {
-      axios.post(
-        `${endpoint}/user/auth/logout`,
-        {},
-        {withCredentials: true}
-      );
-    });
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/auth/logout`,
+      {},
+      {withCredentials: true}
+    );
     if (res.data.message == 'Signed out.') {
       yield call(removeStorageItem, 'appState');
       yield put(authUserLogoutSucceeded(res.data.message));
@@ -135,18 +131,17 @@ export function* authUserLogoutSaga() {
 
 export function* authUserRegisterSaga(action) {
   try {
-    const res = yield call(() => {
-      axios.post(
-        `${endpoint}/user/auth/register`,
-        {
-          userInfo: {
-            email: action.email,
-            password: action.password,
-            username: action.username
-          }
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/auth/register`,
+      {
+        userInfo: {
+          email: action.email,
+          password: action.password,
+          username: action.username
         }
-      );
-    });
+      }
+    );
     if (res.data.message == 'User account created.') {
       yield put(authUserRegisterSucceeded(res.data.message));
       yield delay(2000);
@@ -166,18 +161,17 @@ export function* authUserRegisterSaga(action) {
 
 /*export function* authUserVerifySaga(action) {
   try {
-    const res = call(() => {
-      yield axios.post(
-        `${endpoint}/user/auth/verify`,
-        {
-          userInfo: {
-            email: action.email,
-            pass: action.pass,
-            confirmationCode: action.confirmationCode
-          }
+    const res = call(
+      [axios, axios.post],
+      `${endpoint}/user/auth/verify`,
+      {
+        userInfo: {
+          email: action.email,
+          pass: action.pass,
+          confirmationCode: action.confirmationCode
         }
-      );
-    });
+      }
+    );
     //history.push(redirectPath);
     yield put(authUserVerifySucceeded());
   } catch(err) {

@@ -131,7 +131,7 @@ socket.on('reconnect', () => {
 
 
 // +=========+
-// |  Sagas  |
+// |  Sagas  |  use call([socket, socket.method(), ...args]) ?
 // +=========+
 
 export function* messengerConnectSaga() {
@@ -162,6 +162,5 @@ export function* messengerUpdateOnlineSaga() {
 export function messengerRejoinRoomSaga() {
   const { messenger } = store.getState();
   if (store.getState(messenger.channel) === "") return;
-  console.log('Rejoining room: ', messenger.channel);
   socket.emit('RejoinRoom', messenger.channel);
 }

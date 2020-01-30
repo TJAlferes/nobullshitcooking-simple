@@ -110,17 +110,15 @@ import Squat from '../components/pages/Fitness/Exercises/Squat/Squat';
 import Pushup from '../components/pages/Fitness/Exercises/Pushup/Pushup';
 import Pullup from '../components/pages/Fitness/Exercises/Pullup/Pullup';
 
-import StoreFront from '../components/shop/StoreFront/StoreFront';
+import Supply from '../components/supply/Supply';
+// was from '../components/supply/ProductsList/ProductsList';
 
-//import KitchenEquipment from '../components/pages/promo/KitchenEquipment';
-// was from '../components/shop/ProductsList/ProductsList';
-// TO DO: Pass filter/sort/search data as prop to '../components/shop/ProductsList/ProductsList'; (!!! beware initializing component state from props)
-//import WaterFiltration from '../components/pages/promo/WaterFiltration/WaterFiltration';
-//import Tea from '../components/pages/promo/Tea/Tea';
-//import Coffee from '../components/pages/promo/Coffee/Coffee';
-//import Outdoors from '../components/pages/promo/Outdoors/Outdoors';
-//import Garden from '../components/pages/promo/Garden/Garden';
-//import Tools from '../components/pages/promo/Tools/Tools';
+import WaterFiltration from '../components/pages/promo/WaterFiltration/WaterFiltration';
+import Tea from '../components/pages/promo/Tea/Tea';
+import Coffee from '../components/pages/promo/Coffee/Coffee';
+import Outdoors from '../components/pages/promo/Outdoors/Outdoors';
+import Garden from '../components/pages/promo/Garden/Garden';
+import Tools from '../components/pages/promo/Tools/Tools';
 //import FoodInSeason from '../components/pages/promo/FoodInSeason/FoodInSeason';
 
 import Site from '../components/pages/site/Site';
@@ -254,16 +252,16 @@ const RoutesList = () => (
       <AppliedRoute path="/fitness/exercises/pushup" exact component={Pushup} />
       <AppliedRoute path="/fitness/exercises/pullup" exact component={Pullup} />
 
-      <AppliedRoute path="/supply" exact component={StoreFront} />
+      <AppliedRoute path="/supply" exact component={Supply} />
 
-      {/*<AppliedRoute path="/promo/kitchen-equipment" exact component={KitchenEquipment} />
+      {/*<AppliedRoute path="/promo/kitchen-equipment" exact component={KitchenEquipment} />*/}
       <AppliedRoute path="/promo/water-filtration" exact component={WaterFiltration} />
       <AppliedRoute path="/promo/tea" exact component={Tea} />
       <AppliedRoute path="/promo/coffee" exact component={Coffee} />
       <AppliedRoute path="/promo/outdoors" exact component={Outdoors} />
       <AppliedRoute path="/promo/garden" exact component={Garden} />
       <AppliedRoute path="/promo/tools" exact component={Tools} />
-      <AppliedRoute path="/site/seasonal" exact component={FoodInSeason} />*/}
+      {/*<AppliedRoute path="/site/seasonal" exact component={FoodInSeason} />*/}
 
       <AppliedRoute path="/site" exact component={Site} />
       <AppliedRoute path="/site/contests" exact component={Contests} />

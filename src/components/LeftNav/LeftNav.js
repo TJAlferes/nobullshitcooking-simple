@@ -35,13 +35,13 @@ export const LeftNav = ({ theme, isAuthenticated, authname }) => {
       <LeftNavLink to="/food/nutrition/supplements" text="Supplements" />
       <LeftNavLink to="/supply/kitchen-equipment" text="Equipment" />
       <hr />
-      <LeftNavLink to="/supply/water-filtration" text="Water Filtration" />
-      <LeftNavLink to="/supply/tea" text="Tea" />
-      <LeftNavLink to="/supply/coffee" text="Coffee" />
+      <LeftNavLink to="/promo/water-filtration" text="Water Filtration" />
+      <LeftNavLink to="/promo/tea" text="Tea" />
+      <LeftNavLink to="/promo/coffee" text="Coffee" />
       <hr />
-      <LeftNavLink to="/supply/outdoors" text="Outdoors" />
-      <LeftNavLink to="/supply/garden" text="Garden" />
-      <LeftNavLink to="/supply/tools" text="Tools" />
+      <LeftNavLink to="/promo/outdoors" text="Outdoors" />
+      <LeftNavLink to="/promo/garden" text="Garden" />
+      <LeftNavLink to="/promo/tools" text="Tools" />
       <hr />
       {/*
         <LeftNavLink to="/contests" text="Contest Winners" />

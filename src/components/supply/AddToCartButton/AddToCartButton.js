@@ -2,11 +2,13 @@ import React from 'react';
 import { connect } from 'redux';
 
 import './addToCartButton.css';
-import { cartItemAdd } from '../../../../store/actions/index';
+import { cartAddItem } from '../../../../store/actions/index';
 
-const AddToCartButton = props => {
-  const handleClick = props => props.cartItemAdd(props.itemId);
-
+const AddToCartButton = ({
+  itemId,
+  cartAddItem
+}) => {
+  const handleClick = () => cartAddItem(itemId);
   return (
     <button
       className="add-to-cart-button"
@@ -18,7 +20,7 @@ const AddToCartButton = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  cartItemAdd: (itemId) => dispatch(cartItemAdd(itemId))
+  cartAddItem: (itemId) => dispatch(cartAddItem(itemId))
 });
 
 export default connect(null, mapDispatchToProps)(AddToCartButton);

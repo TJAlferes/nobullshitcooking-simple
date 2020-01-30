@@ -1,10 +1,72 @@
+import { call, put } from 'redux-saga/effects'
 import axios from axios;
-import MockAdapter from 'axios-mock-adapter';
+//import MockAdapter from 'axios-mock-adapter';
 import { expectSaga } from 'redux-saga-test-plan';
-import * as matchers from 'redux-saga-test-plan/matchers';
-import { throwError } from 'redux-saga-test-plan/providers';
+//import * as matchers from 'redux-saga-test-plan/matchers';
+//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
+  dataGetMeasurements,
+  dataGetMeasurementsSucceeded,
+  dataGetMeasurementsFailed,
+
+  dataGetEquipments,
+  dataGetEquipmentsSucceeded,
+  dataGetEquipmentsFailed,
+  dataGetEquipmentTypes,
+  dataGetEquipmentTypesSucceeded,
+  dataGetEquipmentTypesFailed,
+
+  dataGetIngredients,
+  dataGetIngredientsSucceeded,
+  dataGetIngredientsFailed,
+  dataGetIngredientTypes,
+  dataGetIngredientTypesSucceeded,
+  dataGetIngredientTypesFailed,
+
+  dataGetRecipes,
+  dataGetRecipesSucceeded,
+  dataGetRecipesFailed,
+  dataGetRecipeTypes,
+  dataGetRecipeTypesSucceeded,
+  dataGetRecipeTypesFailed,
+  dataGetCuisines,
+  dataGetCuisinesSucceeded,
+  dataGetCuisinesFailed,
+  dataGetMethods,
+  dataGetMethodsSucceeded,
+  dataGetMethodsFailed,
+
+  dataGetMyPublicRecipes,
+  dataGetMyPublicRecipesSucceeded,
+  dataGetMyPublicRecipesFailed,
+  dataGetMyPrivateEquipments,
+  dataGetMyPrivateEquipmentsSucceeded,
+  dataGetMyPrivateEquipmentsFailed,
+  dataGetMyPrivateIngredients,
+  dataGetMyPrivateIngredientsSucceeded,
+  dataGetMyPrivateIngredientsFailed,
+  dataGetMyPrivateRecipes,
+  dataGetMyPrivateRecipesSucceeded,
+  dataGetMyPrivateRecipesFailed,
+
+  dataGetMyFavoriteRecipes,
+  dataGetMyFavoriteRecipesSucceeded,
+  dataGetMyFavoriteRecipesFailed,
+  dataGetMySavedRecipes,
+  dataGetMySavedRecipesSucceeded,
+  dataGetMySavedRecipesFailed,
+
+  dataGetMyPlans,
+  dataGetMyPlansSucceeded,
+  dataGetMyPlansFailed,
+
+  dataGetMyFriendships,
+  dataGetMyFriendshipsSucceeded,
+  dataGetMyFriendshipsFailed
+} from '../actions/index';
+
+/*import {
   dataGetMeasurementsSaga,
 
   dataGetEquipmentsSaga,
@@ -27,18 +89,22 @@ import {
   dataGetMyPrivateIngredientsSaga,
 
   dataGetMyFriendshipsSaga
-} from './data';
+} from './data';*/
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;  // remove in test?
 
-const mock = new MockAdapter(axios, {delayResponse: 100});
+//const mock = new MockAdapter(axios, {delayResponse: 100});
 
 
 
 describe('the dataGetMeasurementsSaga', () => {
-  it('works', () => {
-    return expectSaga(dataGetMeasurementsSaga)
+  const iterator = dataGetMeasurementsSaga();
+  it('should hit API', () => {
+    expect(iterator.next().value)
+    .toEqual(call([axios, axios.get], `${endpoint}/measurement`));
+
+    /*return expectSaga(dataGetMeasurementsSaga)
     .provide([
       [call(() => {
         mock
@@ -59,7 +125,23 @@ describe('the dataGetMeasurementsSaga', () => {
     })
     .put({type: 'AUTH_MESSAGE_CLEAR'})
     .dispatch(action)
-    .silentRun(50);
+    .silentRun(50);*/
+  });
+  it('should dispatch succeeded', () => {
+    const res = {
+      data: [
+        {"measurement_id": "1", "measurement_name": "teaspoon"}
+      ]
+    };
+    expect(iterator.next().value)
+    .toEqual(put(dataGetMeasurements(res)));
+    expect(iterator.next().value)
+    .toEqual(put(dataGetMeasurementsSucceeded()));
+  });
+  it('should dispatch failed', () => {
+    const res = null;
+    expect(iterator.next().value)
+    .toEqual(put(dataGetMeasurementsFailed()))
   });
 });
 

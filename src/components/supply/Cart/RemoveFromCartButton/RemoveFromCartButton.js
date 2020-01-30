@@ -2,10 +2,13 @@ import React from 'react';
 import { connect } from 'redux';
 
 import './removeFromCartButton.css';
-import { cartItemRemove } from '../../../../store/actions/index';
+import { cartRemoveItem } from '../../../../store/actions/index';
 
-const RemoveFromCartButton = props => {
-  const handleClick = props => props.cartItemRemove(props.itemId);
+const RemoveFromCartButton = ({
+  itemId,
+  cartRemoveItem
+}) => {
+  const handleClick = () => cartRemoveItem(itemId);
 
   return (
     <button
@@ -18,7 +21,7 @@ const RemoveFromCartButton = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  cartItemRemove: (itemId) => dispatch(cartItemRemove(itemId))
+  cartRemoveItem: (itemId) => dispatch(cartRemoveItem(itemId))
 });
 
 export default connect(null, mapDispatchToProps)(RemoveFromCartButton);

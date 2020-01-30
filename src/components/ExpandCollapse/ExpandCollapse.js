@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import ExpandCollapseView from './ExpandCollapseView';
+
 import './expandCollapse.css';
 
 const ExpandCollapse = ({
@@ -12,22 +14,18 @@ const ExpandCollapse = ({
   const toggle = () => setExpanded(prevState => !prevState);
 
   let headingWhenExpanded = headingWhileExpanded || "(Click here to collapse)";
-  let headingWhenCollapsed = headingWhileCollapsed || "More info (Click here to expand)";
+  let headingWhenCollapsed = headingWhileCollapsed ||
+  "More info (Click here to expand)";
 
   return (
-    <div className="expand-collapse">
-      {
-        !expanded
-        ? <div className="expand-collapse-heading" onClick={toggle}>{headingWhenCollapsed}</div>
-        : (
-          <div>
-            <div className="expand-collapse-heading" onClick={toggle}>{headingWhenExpanded}</div>
-            <br />
-            {children}
-          </div>
-        )
-      }
-    </div>
+    <ExpandCollapseView
+      expanded={expanded}
+      toggle={toggle}
+      headingWhenExpanded={headingWhenExpanded}
+      headingWhenCollapsed={headingWhenCollapsed}
+    >
+      {children}
+    </ExpandCollapseView>
   );
 };
 

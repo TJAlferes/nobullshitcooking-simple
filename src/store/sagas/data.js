@@ -1,4 +1,4 @@
-import { put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -69,7 +69,7 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function* dataGetMeasurementsSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/measurement`);
+    const res = yield call([axios, axios.get], `${endpoint}/measurement`);
     yield put(dataGetMeasurements(res.data));
     yield put(dataGetMeasurementsSucceeded());
   } catch (err) {
@@ -81,7 +81,10 @@ export function* dataGetMeasurementsSaga() {
 
 export function* dataGetEquipmentsSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/equipment/official/all`);
+    const res = yield call(
+      [axios, axios.get],
+      `${endpoint}/equipment/official/all`
+    );
     yield put(dataGetEquipments(res.data));
     yield put(dataGetEquipmentsSucceeded());
   } catch (err) {
@@ -91,7 +94,7 @@ export function* dataGetEquipmentsSaga() {
 
 export function* dataGetEquipmentTypesSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/equipment-type`);
+    const res = yield call([axios, axios.get], `${endpoint}/equipment-type`);
     yield put(dataGetEquipmentTypes(res.data));
     yield put(dataGetEquipmentTypesSucceeded());
   } catch (err) {
@@ -103,7 +106,10 @@ export function* dataGetEquipmentTypesSaga() {
 
 export function* dataGetIngredientsSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/ingredient/official/all`);
+    const res = yield call(
+      [axios, axios.get],
+      `${endpoint}/ingredient/official/all`
+    );
     yield put(dataGetIngredients(res.data));
     yield put(dataGetIngredientsSucceeded());
   } catch (err) {
@@ -113,7 +119,7 @@ export function* dataGetIngredientsSaga() {
 
 export function* dataGetIngredientTypesSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/ingredient-type`);
+    const res = yield call([axios, axios.get], `${endpoint}/ingredient-type`);
     yield put(dataGetIngredientTypes(res.data));
     yield put(dataGetIngredientTypesSucceeded());
   } catch (err) {
@@ -125,7 +131,10 @@ export function* dataGetIngredientTypesSaga() {
 
 export function* dataGetRecipesSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/recipe/official/all`);
+    const res = yield call(
+      [axios, axios.get],
+      `${endpoint}/recipe/official/all`
+    );
     yield put(dataGetRecipes(res.data));
     yield put(dataGetRecipesSucceeded());
   } catch (err) {
@@ -135,7 +144,7 @@ export function* dataGetRecipesSaga() {
 
 export function* dataGetRecipeTypesSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/recipe-type`);
+    const res = yield call([axios, axios.get], `${endpoint}/recipe-type`);
     yield put(dataGetRecipeTypes(res.data));
     yield put(dataGetRecipeTypesSucceeded());
   } catch (err) {
@@ -145,7 +154,7 @@ export function* dataGetRecipeTypesSaga() {
 
 export function* dataGetCuisinesSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/cuisine`);
+    const res = yield call([axios, axios.get], `${endpoint}/cuisine`);
     yield put(dataGetCuisines(res.data));
     yield put(dataGetCuisinesSucceeded('Cuisines loaded.'));
   } catch (err) {
@@ -155,7 +164,7 @@ export function* dataGetCuisinesSaga() {
 
 export function* dataGetMethodsSaga() {
   try {
-    const res = yield axios.get(`${endpoint}/method`);
+    const res = yield call([axios, axios.get], `${endpoint}/method`);
     yield put(dataGetMethods(res.data));
     yield put(dataGetMethodsSucceeded());
   } catch (err) {
@@ -167,7 +176,8 @@ export function* dataGetMethodsSaga() {
 
 export function* dataGetMyPlansSaga() {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/plan/all`,
       {},
       {withCredentials: true}
@@ -181,7 +191,8 @@ export function* dataGetMyPlansSaga() {
 
 export function* dataGetMyPublicRecipesSaga() {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/recipe/public/all`,
       {},
       {withCredentials: true}
@@ -195,7 +206,8 @@ export function* dataGetMyPublicRecipesSaga() {
 
 export function* dataGetMyPrivateRecipesSaga() {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/recipe/private/all`,
       {},
       {withCredentials: true}
@@ -209,7 +221,8 @@ export function* dataGetMyPrivateRecipesSaga() {
 
 export function* dataGetMyFavoriteRecipesSaga() {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/favorite-recipe`,
       {},
       {withCredentials: true}
@@ -223,7 +236,8 @@ export function* dataGetMyFavoriteRecipesSaga() {
 
 export function* dataGetMySavedRecipesSaga() {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/saved-recipe`,
       {},
       {withCredentials: true}
@@ -237,7 +251,8 @@ export function* dataGetMySavedRecipesSaga() {
 
 export function* dataGetMyPrivateEquipmentsSaga() {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/equipment/all`,
       {},
       {withCredentials: true}
@@ -251,7 +266,8 @@ export function* dataGetMyPrivateEquipmentsSaga() {
 
 export function* dataGetMyPrivateIngredientsSaga() {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/ingredient/all`,
       {},
       {withCredentials: true}
@@ -267,7 +283,8 @@ export function* dataGetMyPrivateIngredientsSaga() {
 
 export function* dataGetMyFriendshipsSaga() {
   try {
-    const res = yield axios.post(
+    const res = yield call(
+      [axios, axios.post],
       `${endpoint}/user/friendship`,
       {},
       {withCredentials: true}

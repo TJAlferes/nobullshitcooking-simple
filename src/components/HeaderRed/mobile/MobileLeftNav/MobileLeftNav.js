@@ -48,13 +48,13 @@ export const MobileLeftNav = ({ theme, isAuthenticated, authname, closeNav }) =>
       <MobileLeftNavLink to="/food/nutrition/supplements" text="Supplements" closeNav={closeNav} />
       {/*<MobileLeftNavLink to="/supply/kitchen-equipment" text="Equipment" closeNav={closeNav} />*/}
       <hr />
-      <MobileLeftNavLink to="/supply/water-filtration" text="Water Filtration" closeNav={closeNav} />
-      <MobileLeftNavLink to="/supply/tea" text="Tea" closeNav={closeNav} />
-      <MobileLeftNavLink to="/supply/coffee" text="Coffee" closeNav={closeNav} />
+      <MobileLeftNavLink to="/promo/water-filtration" text="Water Filtration" closeNav={closeNav} />
+      <MobileLeftNavLink to="/promo/tea" text="Tea" closeNav={closeNav} />
+      <MobileLeftNavLink to="/promo/coffee" text="Coffee" closeNav={closeNav} />
       <hr />
-      <MobileLeftNavLink to="/supply/outdoors" text="Outdoors" closeNav={closeNav} />
-      <MobileLeftNavLink to="/supply/garden" text="Garden" closeNav={closeNav} />
-      <MobileLeftNavLink to="/supply/tools" text="Tools" closeNav={closeNav} />
+      <MobileLeftNavLink to="/promo/outdoors" text="Outdoors" closeNav={closeNav} />
+      <MobileLeftNavLink to="/promo/garden" text="Garden" closeNav={closeNav} />
+      <MobileLeftNavLink to="/promo/tools" text="Tools" closeNav={closeNav} />
       <hr />
       {/*
         <MobileLeftNavLink to="/contests" text="Contest Winners" closeNav={closeNav} />
