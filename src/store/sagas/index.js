@@ -1,6 +1,7 @@
 import { all, takeEvery } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
+
 import {
   authStaffLoginSaga,
   authStaffLogoutSaga,
@@ -8,6 +9,7 @@ import {
   authUserLoginSaga,
   authUserLogoutSaga
 } from './auth';
+
 import {
   dataGetMeasurementsSaga,
 
@@ -31,37 +33,46 @@ import {
   dataGetMyPlansSaga,
   dataGetMyFriendshipsSaga
 } from './data';
+
+import { userSubmitAvatarSaga } from './user/avatar';
 import {
   userCreateNewPrivateEquipmentSaga,
   userEditPrivateEquipmentSaga,
-  userDeletePrivateEquipmentSaga,
-
-  userCreateNewPrivateIngredientSaga,
-  userEditPrivateIngredientSaga,
-  userDeletePrivateIngredientSaga,
-
-  userCreateNewRecipeSaga,
-  userDeletePrivateRecipeSaga,
-  userDisownPublicRecipeSaga,
-  userEditRecipeSaga,
-
-  userCreateNewPlanSaga,
-  userEditPlanSaga,
-  userDeletePlanSaga,
-
+  userDeletePrivateEquipmentSaga
+} from './user/equipment';
+import {
   userFavoriteRecipeSaga,
-  userUnfavoriteRecipeSaga,
-  userSaveRecipeSaga,
-  userUnsaveRecipeSaga,
-  
+  userUnfavoriteRecipeSaga
+} from './user/favorite';
+import {
   userRequestFriendshipSaga,
   userAcceptFriendshipSaga,
   userRejectFriendshipSaga,
   userDeleteFriendshipSaga,
   userBlockUserSaga,
-  userUnblockUserSaga,
-  userSubmitAvatarSaga
-} from './user';
+  userUnblockUserSaga
+} from './user/friendship';
+import {
+  userCreateNewPrivateIngredientSaga,
+  userEditPrivateIngredientSaga,
+  userDeletePrivateIngredientSaga
+} from './user/ingredient';
+import {
+  userCreateNewPlanSaga,
+  userEditPlanSaga,
+  userDeletePlanSaga
+} from './user/plan';
+import {
+  userCreateNewRecipeSaga,
+  userDeletePrivateRecipeSaga,
+  userDisownPublicRecipeSaga,
+  userEditRecipeSaga
+} from './user/recipe';
+import {
+  userSaveRecipeSaga,
+  userUnsaveRecipeSaga
+} from './user/save';
+
 import {
   messengerConnectSaga,
   messengerDisconnectSaga,
