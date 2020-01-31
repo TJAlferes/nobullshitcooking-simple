@@ -172,7 +172,32 @@ export function* dataGetMethodsSaga() {
   }
 }
 
+/*
+perhaps too early to abstract
 
+function postData(path, action, succeeded, failed) {
+  return function*() {
+    try {
+      const res = yield call(
+        [axios, axios.post],
+        `${endpoint}/${path}`,
+        {},
+        {withCredentials: true}
+      );
+      yield put(action(res.data));
+      yield put(succeeded());
+    } catch (err) {
+      yield put(failed());
+    }
+  }
+}
+
+export const dataGetMyPlansSaga = postData(
+  'user/plan/all',
+  dataGetMyPlans,
+  dataGetMyPlansSucceeded,
+  dataGetMyPlansFailed
+);*/
 
 export function* dataGetMyPlansSaga() {
   try {
