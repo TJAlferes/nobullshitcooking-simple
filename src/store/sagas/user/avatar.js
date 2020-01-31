@@ -52,7 +52,7 @@ export function* userSubmitAvatarSaga(action) {
       yield put(userSubmitAvatarSucceeded(res.data.message));
       yield delay(2000);
       yield put(userMessageClear());
-      yield location.reload();
+      yield call([location, location.reload]);
     } else {
       yield put(userSubmitAvatarFailed(res.data.message));
       yield delay(4000);

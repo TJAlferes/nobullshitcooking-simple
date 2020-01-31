@@ -85,7 +85,7 @@ describe('the userCreateNewPrivateEquipmentSaga', () => {
     expect(iterator.next(res).value)
     .toEqual(put(userCreateNewPrivateEquipmentSucceeded(res.data.message)));
 
-    expect(iterator.next(res).value).toEqual(put(userMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
@@ -110,7 +110,9 @@ describe('the userCreateNewPrivateEquipmentSaga', () => {
     iterator.next();  //iterator.next(res);
 
     expect(iterator.next(res).value)
-    toEqual(userCreateNewPrivateEquipmentFailed(res.data.message))
+    toEqual(put(userCreateNewPrivateEquipmentFailed(res.data.message)));
+
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
@@ -138,6 +140,8 @@ describe('the userCreateNewPrivateEquipmentSaga', () => {
 
     expect(iterator.throw('error').value)
     .toEqual(put(userCreateNewPrivateEquipmentFailed()));
+
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
