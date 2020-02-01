@@ -1,6 +1,6 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 //import MockAdapter from 'axios-mock-adapter';
+import { call, put, delay } from 'redux-saga/effects';
 //import { expectSaga } from 'redux-saga-test-plan';
 //import * as matchers from 'redux-saga-test-plan/matchers';
 //import { throwError } from 'redux-saga-test-plan/providers';
@@ -27,7 +27,7 @@ describe('the userSubmitAvatarSaga', () => {
     return expectSaga(userSubmitAvatarSaga, action).silentRun(50);
   });*/
 
-  it('should dispatch succeeded and server message, then reload', () => {
+  it('should dispatch succeeded, then reload', () => {
     const action = {
       fullAvatar: {type: "jpeg"},
       tinyAvatar: {type: "jpeg"}
@@ -70,15 +70,13 @@ describe('the userSubmitAvatarSaga', () => {
     expect(iterator.next(res).value)
     .toEqual(put(userSubmitAvatarSucceeded(res.data.message)));
 
+    expect(iterator.next().value).toEqual(delay(2000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
-
-    expect(iterator.next(res).value)
-    .toEqual(call([location, location.reload]));
-
+    expect(iterator.next(res).value).toEqual(call([location, location.reload]));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
-  it('should dispatch failed and server message', () => {
+  it('should dispatch failed', () => {
     const action = {
       fullAvatar: {type: "jpeg"},
       tinyAvatar: {type: "jpeg"}
@@ -92,10 +90,10 @@ describe('the userSubmitAvatarSaga', () => {
     iterator.next();  //iterator.next(res);
 
     expect(iterator.next(res).value)
-    toEqual(put(userSubmitAvatarFailed(res.data.message)));
+    .toEqual(put(userSubmitAvatarFailed(res.data.message)));
 
+    expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
-
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -106,19 +104,13 @@ describe('the userSubmitAvatarSaga', () => {
     };
     const iterator = userSubmitAvatarSaga(action);
 
-    /*expect(iterator.next().value)
-    .toEqual(call(
-      [axios, axios.post],
-      `${endpoint}/user/friendship`,
-      {},
-      {withCredentials: true}
-    ));*/
-
     expect(iterator.throw('error').value)
-    .toEqual(put(userSubmitAvatarFailed()));
+    .toEqual(
+      put(userSubmitAvatarFailed('An error occurred. Please try again.'))
+    );
 
+    expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
-
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });

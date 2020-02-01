@@ -1,5 +1,5 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, put, delay } from 'redux-saga/effects';
 
 import {
   userMessageClear,
@@ -38,12 +38,11 @@ export function* userRequestFriendshipSaga(action) {
     if (res.data.message == 'Friendship request sent.') {
       yield put(userRequestFriendshipSucceeded(res.data.message));
       yield delay(3000);
-      yield put(userMessageClear());
     } else {
       yield put(userRequestFriendshipFailed(res.data.message));
       yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userRequestFriendshipFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -63,12 +62,11 @@ export function* userAcceptFriendshipSaga(action) {
       yield put(userAcceptFriendshipSucceeded(res.data.message));
       yield delay(3000);
       //yield dataGetMyFriendshipsSaga();
-      yield put(userMessageClear());
     } else {
       yield put(userAcceptFriendshipFailed(res.data.message));
       yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userAcceptFriendshipFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -88,12 +86,11 @@ export function* userRejectFriendshipSaga(action) {
       yield put(userRejectFriendshipSucceeded(res.data.message));
       yield delay(3000);
       yield dataGetMyFriendshipsSaga();
-      yield put(userMessageClear());
     } else {
       yield put(userRejectFriendshipFailed(res.data.message));
       yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userRejectFriendshipFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -112,12 +109,11 @@ export function* userDeleteFriendshipSaga(action) {
       yield put(userDeleteFriendshipSucceeded(res.data.message));
       yield delay(3000);
       //yield dataGetMyFriendshipsSaga();
-      yield put(userMessageClear());
     } else {
       yield put(userDeleteFriendshipFailed(res.data.message));
       yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userDeleteFriendshipFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -137,12 +133,11 @@ export function* userBlockUserSaga(action) {
       yield put(userBlockUserSucceeded(res.data.message));
       yield delay(3000);
       //yield dataGetMyFriendshipsSaga();
-      yield put(userMessageClear());
     } else {
       yield put(userBlockUserFailed(res.data.message));
       yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userBlockUserFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -161,12 +156,11 @@ export function* userUnblockUserSaga(action) {
       yield put(userUnblockUserSucceeded(res.data.message));
       yield delay(3000);
       yield dataGetMyFriendshipsSaga();
-      yield put(userMessageClear());
     } else {
       yield put(userUnblockUserFailed(res.data.message));
       yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userUnblockUserFailed('An error occurred. Please try again.'));
     yield delay(4000);

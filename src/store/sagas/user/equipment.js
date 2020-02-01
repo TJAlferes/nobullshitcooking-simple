@@ -1,5 +1,5 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, put, delay } from 'redux-saga/effects';
 
 import {
   userMessageClear,
@@ -14,6 +14,7 @@ import {
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
+
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function* userCreateNewPrivateEquipmentSaga(action) {

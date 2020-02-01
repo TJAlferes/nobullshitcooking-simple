@@ -28,12 +28,11 @@ export function* userCreateNewPlanSaga(action) {
     if (res.data.message == 'Plan created.') {
       yield put(userCreateNewPlanSucceeded(res.data.message));
       yield delay(3000);
-      yield put(userMessageClear());
     } else {
       yield put(userCreateNewPlanFailed(res.data.message));
       yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userCreateNewPlanFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -52,12 +51,11 @@ export function* userEditPlanSaga(action) {
     if (res.data.message == 'Plan updated.') {
       yield put(userEditPlanSucceeded(res.data.message));
       yield delay(3000);
-      yield put(userMessageClear());
     } else {
       yield put(userEditPlanFailed(res.data.message));
       yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userEditPlanFailed('An error occurred. Please try again.'));
     yield delay(4000);
@@ -75,12 +73,11 @@ export function* userDeletePlanSaga(action) {
     if (res.data.message == 'Plan deleted.') {
       yield put(userDeletePlanSucceeded(res.data.message));
       yield delay(3000);
-      yield put(userMessageClear());
     } else {
       yield put(userDeletePlanFailed(res.data.message));
       yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield put(userMessageClear());
   } catch(err) {
     yield put(userDeletePlanFailed('An error occurred. Please try again.'));
     yield delay(4000);

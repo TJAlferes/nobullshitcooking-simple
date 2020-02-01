@@ -1,9 +1,29 @@
-import { call, put } from 'redux-saga/effects'
 import axios from 'axios';
 //import MockAdapter from 'axios-mock-adapter';
+import { call, put } from 'redux-saga/effects';
 //import { expectSaga } from 'redux-saga-test-plan';
 //import * as matchers from 'redux-saga-test-plan/matchers';
 //import { throwError } from 'redux-saga-test-plan/providers';
+
+import {
+  dataGetMeasurementsSaga,
+  dataGetEquipmentsSaga,
+  dataGetEquipmentTypesSaga,
+  dataGetIngredientsSaga,
+  dataGetIngredientTypesSaga,
+  dataGetRecipesSaga,
+  dataGetRecipeTypesSaga,
+  dataGetCuisinesSaga,
+  dataGetMethodsSaga,
+  dataGetMyPlansSaga,
+  dataGetMyPublicRecipesSaga,
+  dataGetMyPrivateRecipesSaga,
+  dataGetMyFavoriteRecipesSaga,
+  dataGetMySavedRecipesSaga,
+  dataGetMyPrivateEquipmentsSaga,
+  dataGetMyPrivateIngredientsSaga,
+  dataGetMyFriendshipsSaga
+} from './data';
 
 import {
   dataGetMeasurements,
@@ -76,26 +96,9 @@ import {
 } from '../actions/index';
 
 import {
-  dataGetMeasurementsSaga,
-  dataGetEquipmentsSaga,
-  dataGetEquipmentTypesSaga,
-  dataGetIngredientsSaga,
-  dataGetIngredientTypesSaga,
-  dataGetRecipesSaga,
-  dataGetRecipeTypesSaga,
-  dataGetCuisinesSaga,
-  dataGetMethodsSaga,
-  dataGetMyPlansSaga,
-  dataGetMyPublicRecipesSaga,
-  dataGetMyPrivateRecipesSaga,
-  dataGetMyFavoriteRecipesSaga,
-  dataGetMySavedRecipesSaga,
-  dataGetMyPrivateEquipmentsSaga,
-  dataGetMyPrivateIngredientsSaga,
-  dataGetMyFriendshipsSaga
-} from './data';
+  NOBSCBackendAPIEndpointOne
+} from '../../config/NOBSCBackendAPIEndpointOne';
 
-import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;  // remove in test?
 
 //const mock = new MockAdapter(axios, {delayResponse: 100});
@@ -141,9 +144,7 @@ describe('the dataGetMeasurementsSaga', () => {
     expect(iterator.next(res).value)
     .toEqual(put(dataGetMeasurements(res.data)));
 
-    expect(iterator.next().value)
-    .toEqual(put(dataGetMeasurementsSucceeded()));
-
+    expect(iterator.next().value).toEqual(put(dataGetMeasurementsSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -179,9 +180,7 @@ describe('the dataGetEquipmentsSaga', () => {
     .toEqual(call([axios, axios.get], `${endpoint}/equipment/official/all`));
 
     expect(iterator.next(res).value).toEqual(put(dataGetEquipments(res.data)));
-
     expect(iterator.next().value).toEqual(put(dataGetEquipmentsSucceeded()));
-
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -222,8 +221,7 @@ describe('the dataGetEquipmentTypesSaga', () => {
     expect(iterator.next().value)
     .toEqual(put(dataGetEquipmentTypesSucceeded()));
 
-    expect(iterator.next())
-    .toEqual({done: true, value: undefined});
+    expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if data not found', () => {
@@ -235,8 +233,7 @@ describe('the dataGetEquipmentTypesSaga', () => {
     expect(iterator.throw('error').value)
     .toEqual(put(dataGetEquipmentTypesFailed()));
 
-    expect(iterator.next())
-    .toEqual({done: true, value: undefined});
+    expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
 
@@ -258,12 +255,8 @@ describe('the dataGetIngredientsSaga', () => {
     expect(iterator.next().value)
     .toEqual(call([axios, axios.get], `${endpoint}/ingredient/official/all`));
 
-    expect(iterator.next(res).value)
-    .toEqual(put(dataGetIngredients(res.data)));
-
-    expect(iterator.next().value)
-    .toEqual(put(dataGetIngredientsSucceeded()));
-
+    expect(iterator.next(res).value).toEqual(put(dataGetIngredients(res.data)));
+    expect(iterator.next().value).toEqual(put(dataGetIngredientsSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -338,12 +331,8 @@ describe('the dataGetRecipesSaga', () => {
     expect(iterator.next().value)
     .toEqual(call([axios, axios.get], `${endpoint}/recipe/official/all`));
 
-    expect(iterator.next(res).value)
-    .toEqual(put(dataGetRecipes(res.data)));
-
-    expect(iterator.next().value)
-    .toEqual(put(dataGetRecipesSucceeded()));
-
+    expect(iterator.next(res).value).toEqual(put(dataGetRecipes(res.data)));
+    expect(iterator.next().value).toEqual(put(dataGetRecipesSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -378,12 +367,8 @@ describe('the dataGetRecipeTypesSaga', () => {
     expect(iterator.next().value)
     .toEqual(call([axios, axios.get], `${endpoint}/recipe-type`));
 
-    expect(iterator.next(res).value)
-    .toEqual(put(dataGetRecipeTypes(res.data)));
-
-    expect(iterator.next().value)
-    .toEqual(put(dataGetRecipeTypesSucceeded()));
-
+    expect(iterator.next(res).value).toEqual(put(dataGetRecipeTypes(res.data)));
+    expect(iterator.next().value).toEqual(put(dataGetRecipeTypesSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -418,12 +403,8 @@ describe('the dataGetCuisinesSaga', () => {
     expect(iterator.next().value)
     .toEqual(call([axios, axios.get], `${endpoint}/cuisine`));
 
-    expect(iterator.next(res).value)
-    .toEqual(put(dataGetCuisines(res.data)));
-
-    expect(iterator.next().value)
-    .toEqual(put(dataGetCuisinesSucceeded()));
-
+    expect(iterator.next(res).value).toEqual(put(dataGetCuisines(res.data)));
+    expect(iterator.next().value).toEqual(put(dataGetCuisinesSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -503,12 +484,8 @@ describe('the dataGetMyPlansSaga', () => {
       {withCredentials: true}
     ));
 
-    expect(iterator.next(res).value)
-    .toEqual(put(dataGetMyPlans(res.data)));
-
-    expect(iterator.next().value)
-    .toEqual(put(dataGetMyPlansSucceeded()));
-
+    expect(iterator.next(res).value).toEqual(put(dataGetMyPlans(res.data)));
+    expect(iterator.next().value).toEqual(put(dataGetMyPlansSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -523,9 +500,7 @@ describe('the dataGetMyPlansSaga', () => {
       {withCredentials: true}
     ));
 
-    expect(iterator.throw('error').value)
-    .toEqual(put(dataGetMyPlansFailed()));
-
+    expect(iterator.throw('error').value).toEqual(put(dataGetMyPlansFailed()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
@@ -856,9 +831,7 @@ describe('the dataGetMyFriendshipsSaga', () => {
     expect(iterator.next(res).value)
     .toEqual(put(dataGetMyFriendships(res.data)));
 
-    expect(iterator.next().value)
-    .toEqual(put(dataGetMyFriendshipsSucceeded()));
-
+    expect(iterator.next().value).toEqual(put(dataGetMyFriendshipsSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 

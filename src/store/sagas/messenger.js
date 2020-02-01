@@ -131,8 +131,12 @@ socket.on('reconnect', () => {
 
 
 // +=========+
-// |  Sagas  |  use call([socket, socket.method(), ...args]) ?
+// |  Sagas  |
 // +=========+
+
+// use call([socket, socket.method(), ...args])
+
+// do these even need to be sagas?
 
 export function* messengerConnectSaga() {
   socket.connect();
