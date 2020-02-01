@@ -75,6 +75,8 @@ describe('the userCreateNewPlanSaga', () => {
   it ('should dispatch failed if thrown', () => {
     const iterator = userCreateNewPlanSaga(action);
 
+    iterator.next();
+
     expect(iterator.throw('error').value)
     .toEqual(
       put(userCreateNewPlanFailed('An error occurred. Please try again.'))
@@ -134,6 +136,8 @@ describe('the userEditPlanSaga', () => {
   it ('should dispatch failed if thrown', () => {
     const iterator = userEditPlanSaga(action);
 
+    iterator.next();
+
     expect(iterator.throw('error').value)
     .toEqual(
       put(userEditPlanFailed('An error occurred. Please try again.'))
@@ -158,7 +162,7 @@ describe('the userDeletePlanSaga', () => {
 
   it ('should dispatch succeeded', () => {
     const iterator = userDeletePlanSaga(action);
-    const res = {data: {message: 'Favorited.'}};
+    const res = {data: {message: 'Plan deleted.'}};
 
     expect(iterator.next().value)
     .toEqual(call(

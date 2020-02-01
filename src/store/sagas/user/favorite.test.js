@@ -69,6 +69,8 @@ describe('the userFavoriteRecipeSaga', () => {
   it ('should dispatch failed if thrown', () => {
     const iterator = userFavoriteRecipeSaga(action);
 
+    iterator.next();
+
     expect(iterator.throw('error').value)
     .toEqual(
       put(userFavoriteRecipeFailed('An error occurred. Please try again.'))
@@ -124,6 +126,8 @@ describe('the userUnfavoriteRecipeSaga', () => {
 
   it ('should dispatch failed if thrown', () => {
     const iterator = userUnfavoriteRecipeSaga(action);
+
+    iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(

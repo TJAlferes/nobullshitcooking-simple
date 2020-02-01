@@ -33,7 +33,7 @@ import {
   userBlockUserFailed,
   userUnblockUserSucceeded,
   userUnblockUserFailed
-} from '../actions/index';
+} from '../../actions/index';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -88,6 +88,8 @@ describe('the userRequestFriendshipSaga', () => {
 
   it ('should dispatch failed if thrown', () => {
     const iterator = userRequestFriendshipSaga(action);
+
+    iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(
@@ -148,6 +150,8 @@ describe('the userAcceptFriendshipSaga', () => {
   it ('should dispatch failed if thrown', () => {
     const iterator = userAcceptFriendshipSaga(action);
 
+    iterator.next();
+
     expect(iterator.throw('error').value)
     .toEqual(
       put(userAcceptFriendshipFailed('An error occurred. Please try again.'))
@@ -207,6 +211,8 @@ describe('the userRejectFriendshipSaga', () => {
   it ('should dispatch failed if thrown', () => {
     const iterator = userRejectFriendshipSaga(action);
 
+    iterator.next();
+
     expect(iterator.throw('error').value)
     .toEqual(
       put(userRejectFriendshipFailed('An error occurred. Please try again.'))
@@ -264,6 +270,8 @@ describe('the userDeleteFriendshipSaga', () => {
 
   it ('should dispatch failed if thrown', () => {
     const iterator = userDeleteFriendshipSaga(action);
+
+    iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(
@@ -324,6 +332,8 @@ describe('the userBlockUserSaga', () => {
   it ('should dispatch failed if thrown', () => {
     const iterator = userBlockUserSaga(action);
 
+    iterator.next();
+
     expect(iterator.throw('error').value)
     .toEqual(
       put(userBlockUserFailed('An error occurred. Please try again.'))
@@ -381,6 +391,8 @@ describe('the userUnblockUserSaga', () => {
 
   it ('should dispatch failed if thrown', () => {
     const iterator = userUnblockUserSaga(action);
+
+    iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(

@@ -128,8 +128,8 @@ describe('the authUserLoginSaga', () => {
 
     iterator.next();
 
-    expect(iterator.throw('error').value)
-    .toEqual(put(authUserLoginFailed('An error occurred. Please try again.')));
+    expect(iterator.next(res).value)
+    .toEqual(put(authUserLoginFailed(res.data.message)));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
@@ -138,6 +138,8 @@ describe('the authUserLoginSaga', () => {
 
   it('should dispatch failed if thrown', () => {
     const iterator = authUserLoginSaga(action);
+
+    iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(put(authUserLoginFailed('An error occurred. Please try again.')));
@@ -220,6 +222,8 @@ describe('the authUserLogoutSaga', () => {
   it('should dispatch failed if thrown', () => {
     const iterator = authUserLogoutSaga(action);
     
+    iterator.next();
+
     expect(iterator.throw('error').value)
     .toEqual(put(authUserLogoutFailed('An error occurred. Please try again.')));
 
@@ -273,13 +277,14 @@ describe('the authUserRegisterSaga', () => {
     email: 'person@place.com',
     password: 'secret',
     username: 'Person',
-    history: {
+    historyDouble: {
       push: function(path) {}
     }
   };
 
   it('should dispatch succeeded, then push history', () => {
     const iterator = authUserRegisterSaga(action);
+    const { historyDouble } = action;
     const res = {data: {message: 'User account created.'}};
 
     expect(iterator.next().value)
@@ -302,7 +307,7 @@ describe('the authUserRegisterSaga', () => {
     expect(iterator.next().value).toEqual(put(authMessageClear()));
 
     expect(iterator.next().value)
-    .toEqual(call([history, history.push], '/user/login'));
+    .toEqual(call([historyDouble, historyDouble.push], '/user/login'));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
@@ -323,6 +328,8 @@ describe('the authUserRegisterSaga', () => {
 
   it('should dispatch failed if thrown', () => {
     const iterator = authUserRegisterSaga(action);
+
+    iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(
