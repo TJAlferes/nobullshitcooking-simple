@@ -3,22 +3,52 @@ require("regenerator-runtime/runtime");
 
 import React from 'react';
 import { render } from 'react-dom';
+
 import { BrowserRouter } from 'react-router-dom';
+
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+
 import { SearchProvider } from '@elastic/react-search-ui';
+
+import { DndProvider } from 'react-dnd-cjs';
 import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 import MultiBackend from 'react-dnd-multi-backend';
 //import HTML5Backend from 'react-dnd-html5-backend-cjs';
 //import TouchBackend from 'react-dnd-touch-backend-cjs';
-import { DndProvider } from 'react-dnd-cjs';
 
 import searchConfig from './config/searchConfig';
-import { dataInit, nobscappWindowFocused } from './store/actions/index';
+
+import {
+  initWindowBlurHandler,
+  initWindowFocusHandler
+} from './utils/nobscappWindow';
+import {
+  loadFromLocalStorage,
+  saveToLocalStorage
+} from './utils/storageHelpers';
+
+import { dataInit } from './store/actions/index';
+
 import rootReducer from './store/reducers/index';
-import { watchAuth, watchData, watchUser, watchMessenger } from './store/sagas/index';
+
+import {
+  watchAuth,
+  watchData,
+  watchMessenger,
+  watchUserAvatar,
+  watchUserEquipment,
+  watchUserFavorite,
+  watchUserFriendship,
+  watchUserIngredient,
+  watchUserPlan,
+  watchUserRecipe,
+  watchUserSave
+} from './store/sagas/index';
+
 import App from './App';
+
 import './global.css';
 //import './main.css';
 import './themes/navGridA.css';
@@ -26,6 +56,7 @@ import './themes/oneColumnA.css';
 import './themes/twoColumnA.css';
 import './themes/twoColumnB.css';
 import './themes/tableA.css';
+
 import './nobsc-alert-favicon.png';
 import './nobsc-normal-favicon.png';
 
@@ -37,24 +68,6 @@ const composeEnhancers = process.env.NODE_ENV === "development"
 
 const sagaMiddleware = createSagaMiddleware();
 
-function saveToLocalStorage(state) {
-  try {
-    localStorage.setItem('appState', JSON.stringify(state));
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-function loadFromLocalStorage() {
-  try {
-    if (localStorage.getItem('appState') === null) return undefined;  // sufficient?
-    return JSON.parse(localStorage.getItem('appState'));
-  } catch (err) {
-    console.log(err);
-    return undefined;
-  }
-}
-
 const persistedState = loadFromLocalStorage();
 
 export const store = createStore(
@@ -65,22 +78,23 @@ export const store = createStore(
 
 sagaMiddleware.run(watchAuth);
 sagaMiddleware.run(watchData);
-sagaMiddleware.run(watchUser);
 sagaMiddleware.run(watchMessenger);
+sagaMiddleware.run(watchUser);
+sagaMiddleware.run(watchUserAvatar);
+sagaMiddleware.run(watchUserEquipment);
+sagaMiddleware.run(watchUserFavorite);
+sagaMiddleware.run(watchUserFriendship);
+sagaMiddleware.run(watchUserIngredient);
+sagaMiddleware.run(watchUserPlan);
+sagaMiddleware.run(watchUserRecipe);
+sagaMiddleware.run(watchUserSave);
 
-store.dispatch(dataInit());  // gets initial data
+store.dispatch(dataInit());
 
 store.subscribe(() => saveToLocalStorage(store.getState()));
 
-// move
-window.onblur = function() {
-  store.dispatch(nobscappWindowFocused(false));
-};
-window.onfocus = function() {
-  const nobscFavicon = document.getElementById('nobsc-favicon');
-  nobscFavicon.href = "/nobsc-normal-favicon.png";
-  store.dispatch(nobscappWindowFocused(true));
-}
+initWindowBlurHandler(store);
+initWindowFocusHandler(store);
 
 const app = (
   <Provider store={store}>

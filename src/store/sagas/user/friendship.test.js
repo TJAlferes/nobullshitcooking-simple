@@ -15,10 +15,6 @@ import {
 } from './friendship';
 
 import {
-  dataGetMyFriendshipsSaga
-} from '../data';  // just call from index, like others?
-
-import {
   userMessageClear,
 
   userRequestFriendshipSucceeded,

@@ -27,13 +27,22 @@ describe('the userSubmitAvatarSaga', () => {
     return expectSaga(userSubmitAvatarSaga, action).silentRun(50);
   });*/
 
+  const action = {
+    fullAvatar: {type: "jpeg"},
+    tinyAvatar: {type: "jpeg"}
+  };
+  const res1 = {
+    data: {
+      signedRequestFullSize: "signedUrlString",
+      signedRequestTinySize: "signedUrlString-tiny",
+      urlFullSize: "avatarUrlString"
+    }
+  };
+
   it('should dispatch succeeded, then reload', () => {
-    const action = {
-      fullAvatar: {type: "jpeg"},
-      tinyAvatar: {type: "jpeg"}
-    };
     const iterator = userSubmitAvatarSaga(action);
     const res = {data: {message: 'Avatar set.'}};
+    const avatarUrl = res1.data.urlFullSize;
 
     expect(iterator.next().value)
     .toEqual(call(
@@ -43,7 +52,7 @@ describe('the userSubmitAvatarSaga', () => {
       {withCredentials: true}
     ));
 
-    expect(iterator.next().value)
+    expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
@@ -51,7 +60,7 @@ describe('the userSubmitAvatarSaga', () => {
       {headers: {'Content-Type': action.fullAvatar.type}}
     ));
 
-    expect(iterator.next().value)
+    expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestTinySize,
@@ -59,7 +68,7 @@ describe('the userSubmitAvatarSaga', () => {
       {headers: {'Content-Type': action.tinyAvatar.type}}
     ));
 
-    expect(iterator.next().value)
+    expect(iterator.next(avatarUrl).value)
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/auth/set-avatar`,
@@ -77,17 +86,14 @@ describe('the userSubmitAvatarSaga', () => {
   });
 
   it('should dispatch failed', () => {
-    const action = {
-      fullAvatar: {type: "jpeg"},
-      tinyAvatar: {type: "jpeg"}
-    };
     const iterator = userSubmitAvatarSaga(action);
-    const res = {data: {message: 'Not created, try again.'}};
+    const res = {data: {message: 'Oops.'}};
+    const avatarUrl = res1.data.urlFullSize;
 
     iterator.next();
-    iterator.next();
-    iterator.next();
-    iterator.next();  //iterator.next(res);
+    iterator.next(res1);
+    iterator.next(res1);
+    iterator.next(avatarUrl);  //iterator.next(res);
 
     expect(iterator.next(res).value)
     .toEqual(put(userSubmitAvatarFailed(res.data.message)));
@@ -98,11 +104,9 @@ describe('the userSubmitAvatarSaga', () => {
   });
 
   it('should dispatch failed if thrown', () => {
-    const action = {
-      fullAvatar: {type: "jpeg"},
-      tinyAvatar: {type: "jpeg"}
-    };
     const iterator = userSubmitAvatarSaga(action);
+
+    iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(

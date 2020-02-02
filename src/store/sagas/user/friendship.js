@@ -18,10 +18,6 @@ import {
 } from '../../actions/index';
 
 import {
-  dataGetMyFriendshipsSaga
-} from '../data';  // just call from index, like others?
-
-import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
 
@@ -61,7 +57,6 @@ export function* userAcceptFriendshipSaga(action) {
     if (res.data.message == 'Friendship request accepted.') {
       yield put(userAcceptFriendshipSucceeded(res.data.message));
       yield delay(3000);
-      //yield dataGetMyFriendshipsSaga();
     } else {
       yield put(userAcceptFriendshipFailed(res.data.message));
       yield delay(4000);
@@ -85,7 +80,6 @@ export function* userRejectFriendshipSaga(action) {
     if (res.data.message == 'Friendship request rejected.') {
       yield put(userRejectFriendshipSucceeded(res.data.message));
       yield delay(3000);
-      yield dataGetMyFriendshipsSaga();
     } else {
       yield put(userRejectFriendshipFailed(res.data.message));
       yield delay(4000);
@@ -108,7 +102,6 @@ export function* userDeleteFriendshipSaga(action) {
     if (res.data.message == 'No longer friends. Maybe again later.') {
       yield put(userDeleteFriendshipSucceeded(res.data.message));
       yield delay(3000);
-      //yield dataGetMyFriendshipsSaga();
     } else {
       yield put(userDeleteFriendshipFailed(res.data.message));
       yield delay(4000);
@@ -132,7 +125,6 @@ export function* userBlockUserSaga(action) {
     if (res.data.message == 'User blocked.') {
       yield put(userBlockUserSucceeded(res.data.message));
       yield delay(3000);
-      //yield dataGetMyFriendshipsSaga();
     } else {
       yield put(userBlockUserFailed(res.data.message));
       yield delay(4000);
@@ -155,7 +147,6 @@ export function* userUnblockUserSaga(action) {
     if (res.data.message == 'User unblocked.') {
       yield put(userUnblockUserSucceeded(res.data.message));
       yield delay(3000);
-      yield dataGetMyFriendshipsSaga();
     } else {
       yield put(userUnblockUserFailed(res.data.message));
       yield delay(4000);

@@ -55,15 +55,15 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
 
     if (res.data.message == 'Equipment created.') {
       yield put(userCreateNewPrivateEquipmentSucceeded(res.data.message));
-      yield delay(3000);
-      yield put(userMessageClear());
     } else {
       yield put(userCreateNewPrivateEquipmentFailed(res.data.message));
-      yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield delay(4000);
+    yield put(userMessageClear());
   } catch(err) {
-    yield put(userCreateNewPrivateEquipmentFailed('An error occurred. Please try again.'));
+    yield put(userCreateNewPrivateEquipmentFailed(
+      'An error occurred. Please try again.'
+    ));
     yield delay(4000);
     yield put(userMessageClear());
   }
@@ -107,15 +107,15 @@ export function* userEditPrivateEquipmentSaga(action) {
 
     if (res.data.message == 'Equipment updated.') {
       yield put(userEditPrivateEquipmentSucceeded(res.data.message));
-      yield delay(3000);
-      yield put(userMessageClear());
     } else {
       yield put(userEditPrivateEquipmentFailed(res.data.message));
-      yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield delay(4000);
+    yield put(userMessageClear());
   } catch(err) {
-    yield put(userEditPrivateEquipmentFailed('An error occurred. Please try again.'));
+    yield put(userEditPrivateEquipmentFailed(
+      'An error occurred. Please try again.'
+    ));
     yield delay(4000);
     yield put(userMessageClear());
   }
@@ -136,7 +136,9 @@ export function* userDeletePrivateEquipmentSaga(action) {
     yield delay(4000);
     yield put(userMessageClear());
   } catch(err) {
-    yield put(userDeletePrivateEquipmentFailed('An error occurred. Please try again.'));
+    yield put(userDeletePrivateEquipmentFailed(
+      'An error occurred. Please try again.'
+    ));
     yield delay(4000);
     yield put(userMessageClear());
   }

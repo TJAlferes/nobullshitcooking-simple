@@ -55,15 +55,15 @@ export function* userCreateNewPrivateIngredientSaga(action) {
 
     if (res.data.message == 'Ingredient created.') {
       yield put(userCreateNewPrivateIngredientSucceeded(res.data.message));
-      yield delay(3000);
-      yield put(userMessageClear());
     } else {
       yield put(userCreateNewPrivateIngredientFailed(res.data.message));
-      yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield delay(4000);
+    yield put(userMessageClear());
   } catch(err) {
-    yield put(userCreateNewPrivateIngredientFailed('An error occurred. Please try again.'));
+    yield put(userCreateNewPrivateIngredientFailed(
+      'An error occurred. Please try again.'
+    ));
     yield delay(4000);
     yield put(userMessageClear());
   }
@@ -107,15 +107,15 @@ export function* userEditPrivateIngredientSaga(action) {
 
     if (res.data.message == 'Ingredient updated.') {
       yield put(userEditPrivateIngredientSucceeded(res.data.message));
-      yield delay(3000);
-      yield put(userMessageClear());
     } else {
       yield put(userEditPrivateIngredientFailed(res.data.message));
-      yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield delay(4000);
+    yield put(userMessageClear());
   } catch(err) {
-    yield put(userEditPrivateIngredientFailed('An error occurred. Please try again.'));
+    yield put(userEditPrivateIngredientFailed(
+      'An error occurred. Please try again.'
+    ));
     yield delay(4000);
     yield put(userMessageClear());
   }
@@ -136,7 +136,9 @@ export function* userDeletePrivateIngredientSaga(action) {
     yield delay(4000);
     yield put(userMessageClear());
   } catch(err) {
-    yield put(userDeletePrivateIngredientFailed('An error occurred. Please try again.'));
+    yield put(userDeletePrivateIngredientFailed(
+      'An error occurred. Please try again.'
+    ));
     yield delay(4000);
     yield put(userMessageClear());
   }

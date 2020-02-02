@@ -196,6 +196,8 @@ describe('the userDeletePlanSaga', () => {
   it ('should dispatch failed if thrown', () => {
     const iterator = userDeletePlanSaga(action);
 
+    iterator.next();
+
     expect(iterator.throw('error').value)
     .toEqual(
       put(userDeletePlanFailed('An error occurred. Please try again.'))

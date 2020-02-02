@@ -132,22 +132,24 @@ export function* userCreateNewRecipeSaga(action) {
       } else {
         yield put(userCreateNewPublicRecipeSucceeded(res.data.message));
       }
-      yield delay(3000);
-      yield put(userMessageClear());
     } else {
       if (action.recipeInfo.ownership === "private") {
         yield put(userCreateNewPrivateRecipeFailed(res.data.message));
       } else {
         yield put(userCreateNewPublicRecipeFailed(res.data.message));
       }
-      yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield delay(4000);
+    yield put(userMessageClear());
   } catch(err) {
     if (action.recipeInfo.ownership === "private") {
-      yield put(userCreateNewPrivateRecipeFailed('An error occurred. Please try again.'));
+      yield put(userCreateNewPrivateRecipeFailed(
+        'An error occurred. Please try again.'
+      ));
     } else {
-      yield put(userCreateNewPublicRecipeFailed('An error occurred. Please try again.'));
+      yield put(userCreateNewPublicRecipeFailed(
+        'An error occurred. Please try again.'
+      ));
     }
     yield delay(4000);
     yield put(userMessageClear());
@@ -169,7 +171,9 @@ export function* userDeletePrivateRecipeSaga(action) {
     yield delay(4000);
     yield put(userMessageClear());
   } catch(err) {
-    yield put(userDeletePrivateRecipeFailed('An error occurred. Please try again.'));
+    yield put(userDeletePrivateRecipeFailed(
+      'An error occurred. Please try again.'
+    ));
     yield delay(4000);
     yield put(userMessageClear());
   }
@@ -190,7 +194,9 @@ export function* userDisownPublicRecipeSaga(action) {
     yield delay(4000);
     yield put(userMessageClear());
   } catch(err) {
-    yield put(userDisownPublicRecipeFailed('An error occurred. Please try again.'));
+    yield put(userDisownPublicRecipeFailed(
+      'An error occurred. Please try again.'
+    ));
     yield delay(4000);
     yield put(userMessageClear());
   }
@@ -303,22 +309,24 @@ export function* userEditRecipeSaga(action) {
       } else {
         yield put(userEditPublicRecipeSucceeded(res.data.message));
       }
-      yield delay(3000);
-      yield put(userMessageClear());
     } else {
       if (action.recipeInfo.ownership === "private") { 
         yield put(userEditPrivateRecipeFailed(res.data.message));
       } else {
         yield put(userEditPublicRecipeFailed(res.data.message));
       }
-      yield delay(4000);
-      yield put(userMessageClear());
     }
+    yield delay(4000);
+    yield put(userMessageClear());
   } catch(err) {
     if (action.recipeInfo.ownership === "private") { 
-      yield put(userEditPrivateRecipeFailed('An error occurred. Please try again.'));
+      yield put(userEditPrivateRecipeFailed(
+        'An error occurred. Please try again.'
+      ));
     } else {
-      yield put(userEditPublicRecipeFailed('An error occurred. Please try again.'));
+      yield put(userEditPublicRecipeFailed(
+        'An error occurred. Please try again.'
+      ));
     }
     yield delay(4000);
     yield put(userMessageClear());

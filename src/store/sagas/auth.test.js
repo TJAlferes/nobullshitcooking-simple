@@ -277,14 +277,14 @@ describe('the authUserRegisterSaga', () => {
     email: 'person@place.com',
     password: 'secret',
     username: 'Person',
-    historyDouble: {
+    history: {
       push: function(path) {}
     }
   };
 
   it('should dispatch succeeded, then push history', () => {
     const iterator = authUserRegisterSaga(action);
-    const { historyDouble } = action;
+    const { history } = action;
     const res = {data: {message: 'User account created.'}};
 
     expect(iterator.next().value)
@@ -307,7 +307,7 @@ describe('the authUserRegisterSaga', () => {
     expect(iterator.next().value).toEqual(put(authMessageClear()));
 
     expect(iterator.next().value)
-    .toEqual(call([historyDouble, historyDouble.push], '/user/login'));
+    .toEqual(call([history, history.push], '/user/login'));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
