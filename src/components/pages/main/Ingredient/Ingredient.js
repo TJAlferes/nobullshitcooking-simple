@@ -19,19 +19,18 @@ export const Ingredient = ({
   useEffect(() => {
     const { id } = match.params;
     if (!id) history.push('/home');
+
     const localIngredient = (
       dataIngredients.find(ing => ing.ingredient_id == id) ||
       dataMyPrivateIngredients.find(ing => ing.ingredient_id == id)
     );
-    if (localIngredient) {
-      const localIngredientType = dataIngredientTypes.filter(
-        ing => ing.ingredient_type_id == localIngredient.ingredient_type_id
-      );
-      localIngredient.ingredient_type_name = localIngredientType.ingredient_type_name;
-      setIngredient(localIngredient);
-    } else {
-      history.push('/ingredients');
-    }
+    if (!localIngredient) history.push('/ingredients');
+
+    const localIngredientType = dataIngredientTypes
+    .find(ing => ing.ingredient_type_id == localIngredient.ingredient_type_id);
+
+    localIngredient.ingredient_type_name = localIngredientType.ingredient_type_name;
+    setIngredient(localIngredient);
   }, []);
 
   return (

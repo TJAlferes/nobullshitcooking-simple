@@ -4,8 +4,7 @@ import { useHistory } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
 import {
-  getCroppedFullImage,
-  getCroppedTinyImage
+  getCroppedImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
 
 import {
@@ -88,6 +87,7 @@ export const UserNewEquipment = ({
       ) {
         setTimeout(() => history.push('/user/dashboard'), 3000);
       }
+      setLoading(false);
     }
     return () => isSubscribed = false;
   }, [message]);
@@ -113,20 +113,26 @@ export const UserNewEquipment = ({
   const onCropComplete = crop => makeClientCrops(crop);
 
   const makeClientCrops = async (crop) => {
-    if (imageRef && crop.width) {
-      const {
-        resizedFullPreview,
-        resizedFullFinal
-      } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
-      const {
-        resizedTinyPreview,
-        resizedTinyFinal
-      } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
-      setCropFullSizePreview(resizedFullPreview);
-      setCropTinySizePreview(resizedTinyPreview);
-      setFullEquipmentImage(resizedFullFinal);
-      setTinyEquipmentImage(resizedTinyFinal);
-    }
+    if (!imageRef) return;
+    if (!crop.width) return;
+    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+      280,
+      172,
+      imageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    const { resizedTinyPreview, resizedTinyFinal } = await getCroppedImage(
+      28,
+      18,
+      imageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    setCropFullSizePreview(resizedFullPreview);
+    setCropTinySizePreview(resizedTinyPreview);
+    setFullEquipmentImage(resizedFullFinal);
+    setTinyEquipmentImage(resizedTinyFinal);
   };
 
   const cancelEquipmentImage = () => {
@@ -185,20 +191,10 @@ export const UserNewEquipment = ({
       equipmentInfo.prevEquipmentImage = prevEquipmentImage;
     }
     setLoading(true);
-    try {
-      if (editing === true) {
-        userEditPrivateEquipment(equipmentInfo);
-      } else {
-        userCreateNewPrivateEquipment(equipmentInfo);
-      }
-    } catch(err) {
-      setLoading(false);
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-    }
+    if (editing === true) userEditPrivateEquipment(equipmentInfo);
+    else userCreateNewPrivateEquipment(equipmentInfo);
   };
-
+  
   return (
     <UserNewEquipmentView
       oneColumnATheme={oneColumnATheme}
@@ -238,8 +234,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userCreateNewPrivateEquipment: (equipmentInfo) => dispatch(userCreateNewPrivateEquipment(equipmentInfo)),
-  userEditPrivateEquipment: (equipmentInfo) => dispatch(userEditPrivateEquipment(equipmentInfo))
+  userCreateNewPrivateEquipment: (equipmentInfo) =>
+    dispatch(userCreateNewPrivateEquipment(equipmentInfo)),
+  userEditPrivateEquipment: (equipmentInfo) =>
+    dispatch(userEditPrivateEquipment(equipmentInfo))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserNewEquipment));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserNewEquipment)
+);

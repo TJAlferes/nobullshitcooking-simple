@@ -1,6 +1,33 @@
 import RegisterView from './RegisterView';
 
-describe('user RegisterView component', () => {
+describe('RegisterView', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(
+      <RegisterView
+        //isAuthenticated={isAuthenticated}
+        //feedback={feedback}
+        //loading={loading}
+        //username={username}
+        //email={email}
+        //password={password}
+        //passwordAgain={passwordAgain}
+        handleUsernameChange={handleUsernameChange}
+        handleEmailChange={handleEmailChange}
+        handlePasswordChange={handlePasswordChange}
+        handlePasswordAgainChange={handlePasswordAgainChange}
+        handleRegisterSubmit={handleRegisterSubmit}
+        validateRegistrationInfo={validateRegistrationInfo}
+      />
+    );
+  });
+
+  it('should redirect to home route if authenticated', () => {
+    wrapper.setProps({isAuthenticated: true});
+    expect(wrapper.find()).toBeNull();
+  });
+
+
   it('displays a username input element', () => {
 
   });

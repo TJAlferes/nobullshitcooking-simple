@@ -6,9 +6,7 @@ import uuid from 'uuid/v4';
 import axios from 'axios';
 
 import {
-  getCroppedFullImage,
-  getCroppedThumbImage,
-  getCroppedTinyImage
+  getCroppedImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
 
 import {
@@ -274,6 +272,7 @@ export const UserSubmitRecipe = ({
       ) {
         setTimeout(() => history.push('/user/dashboard'), 3000);
       }
+      setLoading(false);
     }
     return () => isSubscribed = false;
   }, [message]);
@@ -443,59 +442,77 @@ export const UserSubmitRecipe = ({
   const onCookingCropComplete = crop => makeClientCookingCrops(crop);
 
   const makeClientCrops = async (crop) => {
-    if (imageRef && crop.width) {
-      const {
-        resizedFullPreview,
-        resizedFullFinal
-      } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
-      const {
-        resizedThumbPreview,
-        resizedThumbFinal
-      } = await getCroppedThumbImage(imageRef.current, crop, "newFile.jpeg");
-      const {
-        resizedTinyPreview,
-        resizedTinyFinal
-      } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
-      setCropFullSizePreview(resizedFullPreview);
-      setCropThumbSizePreview(resizedThumbPreview);
-      setCropTinySizePreview(resizedTinyPreview);
-      setFullRecipeImage(resizedFullFinal);
-      setThumbRecipeImage(resizedThumbFinal);
-      setTinyRecipeImage(resizedTinyFinal);
-    }
+    if (!imageRef) return;
+    if (!crop.width) return;
+    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+      280,
+      172,
+      imageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    const { resizedThumbPreview, resizedThumbFinal } = await getCroppedImage(
+      100,
+      62,
+      imageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    const { resizedTinyPreview, resizedTinyFinal } = await getCroppedImage(
+      28,
+      18,
+      imageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    setCropFullSizePreview(resizedFullPreview);
+    setCropThumbSizePreview(resizedThumbPreview);
+    setCropTinySizePreview(resizedTinyPreview);
+    setFullRecipeImage(resizedFullFinal);
+    setThumbRecipeImage(resizedThumbFinal);
+    setTinyRecipeImage(resizedTinyFinal);
   };
 
   const makeClientEquipmentCrops = async (crop) => {
-    if (equipmentImageRef && crop.width) {
-      const {
-        resizedFullPreview,
-        resizedFullFinal
-      } = await getCroppedFullImage(equipmentImageRef.current, crop, "newFile.jpeg");
-      setEquipmentCropFullSizePreview(resizedFullPreview);
-      setFullRecipeEquipmentImage(resizedFullFinal);
-    }
+    if (!equipmentImageRef) return;
+    if (!crop.width) return;
+    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+      280,
+      172,
+      equipmentImageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    setEquipmentCropFullSizePreview(resizedFullPreview);
+    setFullRecipeEquipmentImage(resizedFullFinal);
   };
 
   const makeClientIngredientsCrops = async (crop) => {
-    if (ingredientsImageRef && crop.width) {
-      const {
-        resizedFullPreview,
-        resizedFullFinal
-      } = await getCroppedFullImage(ingredientsImageRef.current, crop, "newFile.jpeg");
-      setIngredientsCropFullSizePreview(resizedFullPreview);
-      setFullRecipeIngredientsImage(resizedFullFinal);
-    }
+    if (!ingredientsImageRef) return;
+    if (!crop.width) return;
+    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+      280,
+      172,
+      ingredientsImageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    setIngredientsCropFullSizePreview(resizedFullPreview);
+    setFullRecipeIngredientsImage(resizedFullFinal);
   };
 
   const makeClientCookingCrops = async (crop) => {
-    if (cookingImageRef && crop.width) {
-      const {
-        resizedFullPreview,
-        resizedFullFinal
-      } = await getCroppedFullImage(cookingImageRef.current, crop, "newFile.jpeg");
-      setCookingCropFullSizePreview(resizedFullPreview);
-      setFullRecipeCookingImage(resizedFullFinal);
-    }
+    if (!cookingImageRef) return;
+    if (!crop.width) return;
+    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+      280,
+      172,
+      cookingImageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    setCookingCropFullSizePreview(resizedFullPreview);
+    setFullRecipeCookingImage(resizedFullFinal);
   };
 
   const cancelRecipeImage = () => {
@@ -537,49 +554,40 @@ export const UserSubmitRecipe = ({
   };
 
   const getRequiredEquipment = () => {
+    if (!equipmentRows.length) return "none";
     let requiredEquipment = [];
-    if (equipmentRows.length) {
-      equipmentRows.map(eR => {
-        requiredEquipment.push({
-          amount: Number(eR.amount),
-          equipment: Number(eR.equipment)
-        });
+    equipmentRows.map(eR => {
+      requiredEquipment.push({
+        amount: Number(eR.amount),
+        equipment: Number(eR.equipment)
       });
-      return requiredEquipment;
-    }
-    requiredEquipment = "none";
+    });
     return requiredEquipment;
   };
 
   const getRequiredIngredients = () => {
+    if (!ingredientRows.length) return "none";
     let requiredIngredients = [];
-    if (ingredientRows.length) {
-      ingredientRows.map(iR => {
-        requiredIngredients.push({
-          amount: Number(iR.amount),
-          unit: Number(iR.unit),
-          ingredient: Number(iR.ingredient)
-        });
+    ingredientRows.map(iR => {
+      requiredIngredients.push({
+        amount: Number(iR.amount),
+        unit: Number(iR.unit),
+        ingredient: Number(iR.ingredient)
       });
-      return requiredIngredients;
-    }
-    requiredIngredients = "none";
+    });
     return requiredIngredients;
   };
 
   const getRequiredSubrecipes = () => {
+    if (subrecipeRows.length) return "none";
     let requiredSubrecipes = [];
-    if (subrecipeRows.length) {
-      subrecipeRows.map(sR => {
-        requiredSubrecipes.push({
-          amount: Number(sR.amount),
-          unit: Number(sR.unit),
-          subrecipe: Number(sR.subrecipe)
-        });
+    subrecipeRows.map(sR => {
+      requiredSubrecipes.push({
+        amount: Number(sR.amount),
+        unit: Number(sR.unit),
+        subrecipe: Number(sR.subrecipe)
       });
-      return requiredSubrecipes;
-    }
-    requiredSubrecipes = "none";
+    });
     return requiredSubrecipes;
   };
 
@@ -591,23 +599,18 @@ export const UserSubmitRecipe = ({
       title,
       description,
       directions,
-
       requiredMethods: getCheckedMethods(),
       requiredEquipment: getRequiredEquipment(),
       requiredIngredients: getRequiredIngredients(),
       requiredSubrecipes: getRequiredSubrecipes(),
-
       recipeImage,
       fullRecipeImage,
       thumbRecipeImage,
       tinyRecipeImage,
-
       recipeEquipmentImage,
       fullRecipeEquipmentImage,
-
       recipeIngredientsImage,
       fullRecipeIngredientsImage,
-
       recipeCookingImage,
       fullRecipeCookingImage
     };
@@ -638,28 +641,14 @@ export const UserSubmitRecipe = ({
       recipeInfo.prevCookingImage = prevCookingImage;
     }
 
-    setLoading(true);
+    setLoading(true);  // move up one?
 
-    try {
-      if (editing) {
-        if (ownership === "private") {
-          userEditPrivateRecipe(recipeInfo);
-        } else if (ownership === "public") {
-          userEditPublicRecipe(recipeInfo);
-        }
-      } else {
-        if (ownership === "private") {
-          userCreateNewPrivateRecipe(recipeInfo);
-        } else if (ownership === "public") {
-          userCreateNewPublicRecipe(recipeInfo);
-        }
-      }
-    } catch(err) {
-      setLoading(false);
-      window.scrollTo(0,0);
-      console.log(err.message);
-    } finally {
-      setLoading(false);
+    if (editing) {
+      if (ownership === "private") userEditPrivateRecipe(recipeInfo);
+      else if (ownership === "public") userEditPublicRecipe(recipeInfo);
+    } else {
+      if (ownership === "private") userCreateNewPrivateRecipe(recipeInfo);
+      else if (ownership === "public") userCreateNewPublicRecipe(recipeInfo);
     }
   };
 
@@ -783,10 +772,16 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userCreateNewPrivateRecipe: (recipeInfo) => dispatch(userCreateNewPrivateRecipe(recipeInfo)),
-  userCreateNewPublicRecipe: (recipeInfo) => dispatch(userCreateNewPublicRecipe(recipeInfo)),
-  userEditPrivateRecipe: (recipeInfo) => dispatch(userEditPrivateRecipe(recipeInfo)),
-  userEditPublicRecipe: (recipeInfo) => dispatch(userEditPublicRecipe(recipeInfo))
+  userCreateNewPrivateRecipe: (recipeInfo) =>
+    dispatch(userCreateNewPrivateRecipe(recipeInfo)),
+  userCreateNewPublicRecipe: (recipeInfo) =>
+    dispatch(userCreateNewPublicRecipe(recipeInfo)),
+  userEditPrivateRecipe: (recipeInfo) =>
+    dispatch(userEditPrivateRecipe(recipeInfo)),
+  userEditPublicRecipe: (recipeInfo) =>
+    dispatch(userEditPublicRecipe(recipeInfo))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserSubmitRecipe));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserSubmitRecipe)
+);

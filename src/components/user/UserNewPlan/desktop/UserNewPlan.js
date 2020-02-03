@@ -88,6 +88,7 @@ export const UserNewPlan = ({
           history.push('/user/dashboard');
         }, 3000);
       }
+      setLoading(false);
     }
     return () => isSubscribed = false;
   }, [message]);
@@ -148,21 +149,12 @@ export const UserNewPlan = ({
   };
 
   const handleSubmit = () => {
-    const planInfo = {
-      planName: planName,
-      planData: getPlanData()
-    };
+    const planInfo = {planName: planName, planData: getPlanData()};
     if (!valid()) return;
     if (editing === true) planInfo.planId = editingId;
     setLoading(true);
-    try {
-      if (editing === true) userEditPlan(planInfo);
-      else userCreateNewPlan(planInfo);
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-    }
+    if (editing === true) userEditPlan(planInfo);
+    else userCreateNewPlan(planInfo);
   }
 
   return(

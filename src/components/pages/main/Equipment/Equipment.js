@@ -19,19 +19,18 @@ export const Equipment = ({
   useEffect(() => {
     const { id } = match.params;
     if (!id) history.push('/home');
+
     const localEquipment = (
       dataEquipment.find(equ=> equ.equipment_id == id) ||
       dataMyPrivateEquipment.find(equ=> equ.equipment_id == id)
     );
-    if (localEquipment) {
-      const localEquipmentType = dataEquipmentTypes.find(
-        equ => equ.equipment_type_id == localEquipment.equipment_type_id
-      );
-      localEquipment.equipment_type_name = localEquipmentType.equipment_type_name;
-      setEquipment(localEquipment);
-    } else {
-      history.push('/equipment');
-    }
+    if (!localEquipment) history.push('/equipment');
+
+    const localEquipmentType = dataEquipmentTypes
+    .find(equ => equ.equipment_type_id == localEquipment.equipment_type_id);
+    
+    localEquipment.equipment_type_name = localEquipmentType.equipment_type_name;
+    setEquipment(localEquipment);
   }, []);
 
   return (

@@ -5,7 +5,10 @@ import axios from 'axios';
 
 import { userRequestFriendship } from '../../../store/actions/index';
 
-import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
+import {
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 import UserProfileView from './UserProfileView';
@@ -61,15 +64,7 @@ export const UserProfile = ({
     if (!username) return;
     setClicked(true);
     setLoading(true);
-    try {
-      userRequestFriendship(username);
-    } catch(err) {
-      setClicked(false);
-      setLoading(false);
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-    }
+    userRequestFriendship(username);
   };
 
   return (
@@ -101,7 +96,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userRequestFriendship: friendName => dispatch(userRequestFriendship(friendName))
+  userRequestFriendship: friendName =>
+    dispatch(userRequestFriendship(friendName))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

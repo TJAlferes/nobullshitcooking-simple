@@ -4,8 +4,7 @@ import { useHistory } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
 import {
-  getCroppedFullImage,
-  getCroppedTinyImage
+  getCroppedImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
 
 import {
@@ -88,6 +87,7 @@ export const UserNewIngredient = ({
       ) {
         setTimeout(() => history.push('/user/dashboard'), 3000);
       }
+      setLoading(false);
     }
     return () => isSubscribed = false;
   }, [message]);
@@ -113,20 +113,26 @@ export const UserNewIngredient = ({
   const onCropComplete = crop => makeClientCrops(crop);
 
   const makeClientCrops = async (crop) => {
-    if (imageRef && crop.width) {
-      const {
-        resizedFullPreview,
-        resizedFullFinal
-      } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
-      const {
-        resizedTinyPreview,
-        resizedTinyFinal
-      } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
-      setCropFullSizePreview(resizedFullPreview);
-      setCropTinySizePreview(resizedTinyPreview);
-      setFullIngredientImage(resizedFullFinal);
-      setTinyIngredientImage(resizedTinyFinal);
-    }
+    if (!imageRef) return;
+    if (!crop.width) return;
+    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+      280,
+      172,
+      imageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    const { resizedTinyPreview, resizedTinyFinal } = await getCroppedImage(
+      28,
+      18,
+      imageRef.current,
+      crop,
+      "newFile.jpeg"
+    );
+    setCropFullSizePreview(resizedFullPreview);
+    setCropTinySizePreview(resizedTinyPreview);
+    setFullIngredientImage(resizedFullFinal);
+    setTinyIngredientImage(resizedTinyFinal);
   };
 
   const cancelIngredientImage = () => {
@@ -185,18 +191,8 @@ export const UserNewIngredient = ({
       ingredientInfo.prevIngredientImage = prevIngredientImage;
     }
     setLoading(true);
-    try {
-      if (editing === true) {
-        userEditPrivateIngredient(ingredientInfo);
-      } else {
-        userCreateNewPrivateIngredient(ingredientInfo);
-      }
-    } catch(err) {
-      setLoading(false);
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-    }
+    if (editing === true) userEditPrivateIngredient(ingredientInfo);
+    else userCreateNewPrivateIngredient(ingredientInfo);
   };
 
   return (
@@ -238,8 +234,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userCreateNewPrivateIngredient: (ingredientInfo) => dispatch(userCreateNewPrivateIngredient(ingredientInfo)),
-  userEditPrivateIngredient: (ingredientInfo) => dispatch(userEditPrivateIngredient(ingredientInfo))
+  userCreateNewPrivateIngredient: (ingredientInfo) =>
+    dispatch(userCreateNewPrivateIngredient(ingredientInfo)),
+  userEditPrivateIngredient: (ingredientInfo) =>
+    dispatch(userEditPrivateIngredient(ingredientInfo))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserNewIngredient));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserNewIngredient)
+);

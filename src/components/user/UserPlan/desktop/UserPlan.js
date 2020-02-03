@@ -22,10 +22,13 @@ export const UserPlan = ({
   useEffect(() => {
     const getPlan = () => {
       window.scrollTo(0,0);
+
       const [ prev ] = dataMyPlans
       .filter(plan => plan.plan_id === Number(match.params.id));
+      
       plannerPrivateLoad(prev.plan_name, prev.plan_data);
     };
+
     if (match.params.id) getPlan();
     else history.push('/home');
   }, []);

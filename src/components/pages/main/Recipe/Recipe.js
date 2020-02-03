@@ -11,7 +11,10 @@ import {
 
 import RecipeView from './RecipeView';
 
-import { NOBSCBackendAPIEndpointOne } from '../../../../config/NOBSCBackendAPIEndpointOne';
+import {
+  NOBSCBackendAPIEndpointOne
+} from '../../../../config/NOBSCBackendAPIEndpointOne';
+
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 export const Recipe = ({
@@ -42,6 +45,7 @@ export const Recipe = ({
     if (isSubscribed) {
       if (message !== "") window.scrollTo(0,0);
       setFeedback(message);
+      setLoading(false);
     }
     return () => isSubscribed = false;
   }, [message]);
@@ -50,77 +54,51 @@ export const Recipe = ({
     const { id } = match.params;
     if (!id) history.push('/home');
 
-    const getPublicRecipe = async (id) => {
-      try {
-        const res = await axios.get(`${endpoint}/recipe/${id}`);
-        if (res.data) setRecipe(res.data);
-      } catch (err) {
-        console.error(err);
-      }
+    const getPrivateRecipe = async (id) => {
+      const res = await axios.post(
+        `${endpoint}/user/recipe/private/one`,
+        {recipeId: id},
+        {withCredentials: true}
+      );
+      if (res.data) setRecipe(res.data);
     };
 
-    const getPrivateRecipe = async (id) => {
-      try {
-        const res = await axios.post(
-          `${endpoint}/user/recipe/private/one`,
-          {recipeId: id},
-          {withCredentials: true}
-        );
-        if (res.data) setRecipe(res.data);
-      } catch (err) {
-        console.error(err);
-      }
+    const getPublicRecipe = async (id) => {
+      const res = await axios.get(`${endpoint}/recipe/${id}`);
+      if (res.data) setRecipe(res.data);
     };
 
     let isPrivateUserRecipe = location.pathname
     .match(/^(\/user\/recipes\/([1-9][0-9]*))$/);
     
-    if (isPrivateUserRecipe) {
-      getPrivateRecipe(Number(id));
-    } else {
-      getPublicRecipe(Number(id));
-    }
+    if (isPrivateUserRecipe) getPrivateRecipe(Number(id));
+    else getPublicRecipe(Number(id));
   }, []);
 
   const handleFavoriteClick = () => {
     const { id } = match.params;
     setLoading(true);
-    try {
-      userFavoriteRecipe(Number(id));
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setFavoriteClicked(true);
-      setLoading(false);
-    }
+    userFavoriteRecipe(Number(id));
+    setFavoriteClicked(true);
   };
 
   const handleSaveClick = () => {
     const { id } = match.params;
     setLoading(true);
-    try {
-      userSaveRecipe(Number(id));
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setSaveClicked(true);
-      setLoading(false);
-    }
+    userSaveRecipe(Number(id));
+    setSaveClicked(true);
   };
 
   const recipeBy = () => {
-    if (recipe.recipe[0].authorName === "Unknown") {
-      return "Unknown";
-    } else {
-      return (
-        <Link
-          className="recipe-details__author-name"
-          to={`/user/profile/${recipe.recipe[0].authorName}`}
-        >
-          {recipe.recipe[0].authorName}
-        </Link>
-      );
-    }
+    if (recipe.recipe[0].authorName === "Unknown") return "Unknown";
+    return (
+      <Link
+        className="recipe-details__author-name"
+        to={`/user/profile/${recipe.recipe[0].authorName}`}
+      >
+        {recipe.recipe[0].authorName}
+      </Link>
+    );
   };
 
   return (

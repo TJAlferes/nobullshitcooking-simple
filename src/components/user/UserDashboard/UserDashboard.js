@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import {
+  getCroppedImage
+} from '../../../utils/imageCropPreviews/imageCropPreviews';
+
+import {
   authUpdateLocalAvatar,
   userSubmitAvatar,
   userDeletePlan,
@@ -76,17 +80,21 @@ export const UserDashboard = ({
     let isSubscribed = true;
     if (isSubscribed) {
       if (message !== "") window.scrollTo(0,0);
+      deactivateDeleteRecipeModal();
+      deactivateDisownRecipeModal();
+      deactivateDeletePlanModal();
       setFeedback(message);
+      setLoading(false);
     }
     return () => isSubscribed = false;
   }, [message]);
 
   const onSelectFile = e => {
-    if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => setAvatar(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
-    }
+    if (!e.target.files) return;
+    if (!(e.target.files.length > 0)) return;
+    const reader = new FileReader();
+    reader.addEventListener("load", () => setAvatar(reader.result));
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const onImageLoaded = image => imageRef.current = image;
@@ -96,115 +104,29 @@ export const UserDashboard = ({
   const onCropComplete = crop => makeClientCrops(crop);
 
   const makeClientCrops = async (crop) => {
-    if (imageRef && crop.width) {
-      const {
-        resizedFullPreview,
-        resizedFullFinal
-      } = await getCroppedFullImage(imageRef.current, crop, "newFile.jpeg");
-      const {
-        resizedTinyPreview,
-        resizedTinyFinal
-      } = await getCroppedTinyImage(imageRef.current, crop, "newFile.jpeg");
-      setCropFullSizePreview(resizedFullPreview);
-      setCropTinySizePreview(resizedTinyPreview);
-      setFullAvatar(resizedFullFinal);
-      setTinyAvatar(resizedTinyFinal);
-    }
+    if (!imageRef) return;
+    if (!crop.width) return;
+
+    const {
+      resizedFullPreview,
+      resizedFullFinal
+    } = await getCroppedImage(250, 250, imageRef.current, crop, "newFile.jpeg");
+
+    const {
+      resizedTinyPreview,
+      resizedTinyFinal
+    } = await getCroppedImage(25, 25, imageRef.current, crop, "newFile.jpeg");
+
+    setCropFullSizePreview(resizedFullPreview);
+    setCropTinySizePreview(resizedTinyPreview);
+    setFullAvatar(resizedFullFinal);
+    setTinyAvatar(resizedTinyFinal);
   };
-
-  const getCroppedFullImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 250;
-    canvas.height = 250;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      250,
-      250
-    );
-
-    const resizedFullPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedFullFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "fullFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedFullPreview, resizedFullFinal};
-  };
-
-  const getCroppedTinyImage = async (image, crop, fileName) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = 25;
-    canvas.height = 25;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      25,
-      25
-    );
-
-    const resizedTinyPreview = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const fileUrl = window.URL.createObjectURL(blob);
-        resolve(fileUrl);
-      }, 'image/jpeg', 1);
-    });
-
-    const resizedTinyFinal = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        blob.name = fileName;
-        const image = new File([blob], "tinyFinal", {type: "image/jpeg"});
-        resolve(image);
-      }, 'image/jpeg', 1);
-    });
-
-    return {resizedTinyPreview, resizedTinyFinal};
-  };
-
+  
   const submitAvatar = () => {
     setLoading(true);
-    try {
-      userSubmitAvatar(fullAvatar, tinyAvatar);
-      authUpdateLocalAvatar(authname);
-    } catch(err) {
-      setLoading(false);
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-    }
+    userSubmitAvatar(fullAvatar, tinyAvatar);
+    authUpdateLocalAvatar(authname);
   };
 
   const cancelAvatar = () => {
@@ -259,90 +181,37 @@ export const UserDashboard = ({
 
   const handleDeletePlan = () => {
     setLoading(true);
-    try {
-      userDeletePlan(Number(deletePlanId));
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-      setDeletePlanId("");
-      setDeletePlanName("");
-      setDeletePlanModalActive(false);
-    }
+    userDeletePlan(Number(deletePlanId));
   };
 
   const handleDeletePrivateRecipe = () => {
     setLoading(true);
-    try {
-      userDeletePrivateRecipe(Number(deleteRecipeId));
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-      setDeleteRecipeId("");
-      setDeleteRecipeName("");
-      setDeleteRecipeModalActive(false);
-    }
+    userDeletePrivateRecipe(Number(deleteRecipeId));
   };
 
   const handleDisownPublicRecipe = () => {
     setLoading(true);
-    try {
-      userDisownPublicRecipe(Number(disownRecipeId));
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-      setDisownRecipeId("");
-      setDisownRecipeName("");
-      setDisownRecipeModalActive(false);
-    }
+    userDisownPublicRecipe(Number(disownRecipeId));
   };
 
   const handleUnfavoriteRecipe = id => {
     setLoading(true);
-    try {
-      userUnfavoriteRecipe(id);
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-    }
+    userUnfavoriteRecipe(id);
   };
 
   const handleUnsaveRecipe = id => {
     setLoading(true);
-    try {
-      userUnsaveRecipe(id);
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-    }
+    userUnsaveRecipe(id);
   };
 
   const handleDeletePrivateEquipment = id => {
     setLoading(true);
-    try {
-      userDeletePrivateEquipment(id);
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-      setModalActive(false);
-    }
+    userDeletePrivateEquipment(id);
   };
 
   const handleDeletePrivateIngredient = id => {
     setLoading(true);
-    try {
-      userDeletePrivateIngredient(id);
-    } catch(err) {
-      window.scrollTo(0,0);
-    } finally {
-      setLoading(false);
-      setModalActive(false);
-    }
+    userDeletePrivateIngredient(id);
   };
 
   return (
@@ -425,7 +294,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   authUpdateLocalAvatar: (name) => dispatch(authUpdateLocalAvatar(name)),
-  userSubmitAvatar: (fullAvatar, tinyAvatar) => dispatch(userSubmitAvatar(fullAvatar, tinyAvatar)),
+  userSubmitAvatar: (fullAvatar, tinyAvatar) =>
+    dispatch(userSubmitAvatar(fullAvatar, tinyAvatar)),
   userDeletePlan: (id) => dispatch(userDeletePlan(id)),
   userDeletePrivateRecipe: (id) => dispatch(userDeletePrivateRecipe(id)),
   userDisownPublicRecipe: (id) => dispatch(userDisownPublicRecipe(id)),

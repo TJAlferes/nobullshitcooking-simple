@@ -1,9 +1,18 @@
 import React from 'react';
-import { withSearch, Facet, PagingInfo, Paging, ResultsPerPage } from '@elastic/react-search-ui';
 import { Link } from 'react-router-dom';
+import {
+  withSearch,
+  Facet,
+  PagingInfo,
+  Paging,
+  ResultsPerPage
+} from '@elastic/react-search-ui';
+
+import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
 
 import './searchResultsRecipes.css';
-import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
+
+// TO DO: finish styling
 
 export const SearchResultsRecipes = ({
   twoColumnBTheme,

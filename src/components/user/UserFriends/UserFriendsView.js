@@ -11,6 +11,7 @@ const UserFriendsView = ({
   loading,
   dataMyFriendships,
   userToFind,
+  tab,
   handleCurrentTabClick,
   handlePendingTabClick,
   handleBlockedTabClick,

@@ -18,9 +18,12 @@ export const Login = ({ isAuthenticated, message, authUserLogin }) => {
 
   useEffect(() => {
     let isSubscribed = true;
-    if (isSubscribed) setFeedback(message);
+    if (isSubscribed) {
+      setFeedback(message);
+      setLoading(false);
+    }
     return () => isSubscribed = false;
-  });
+  }, [message]);
 
   const handleEmailChange = e => setEmail(e.target.value);
 
@@ -30,13 +33,7 @@ export const Login = ({ isAuthenticated, message, authUserLogin }) => {
     if (!validate()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
-    try {
-      authUserLogin(email, password);
-    } catch(err) {
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
+    authUserLogin(email, password);
   }
 
   const validate = () => ((email.length > 1) && (password.length > 1));

@@ -34,6 +34,7 @@ export const UserFriends = ({
     if (isSubscribed) {
       if (message !== "") window.scrollTo(0,0);
       setFeedback(message);
+      setLoading(false);
     }
     return () => isSubscribed = false;
   }, [message]);
@@ -48,84 +49,42 @@ export const UserFriends = ({
 
   const handleFriendRequestClick = () => {
     const friendName = userToFind.trim();
+    if (friendName === authname) return;
     setLoading(true);
-    try {
-      if (friendName === authname) return;
-      userRequestFriendship(friendName);
-      setUsertoFind("");
-    } catch(err) {
-      setLoading(false);
-      console.log(err.message);
-    } finally {
-      setLoading(false);
-    }
+    userRequestFriendship(friendName);
+    setUsertoFind("");
   };
 
   const handleFriendAcceptClick = e => {
     const friendName = e.target.value;
     setLoading(true);
-    try {
-      userAcceptFriendship(friendName);
-    } catch(err) {
-      setLoading(false);
-      console.log(err.message);
-    } finally {
-      setLoading(false);
-    }
+    userAcceptFriendship(friendName);
   };
 
   const handleFriendRejectClick = e => {
     const friendName = e.target.value;
     setLoading(true);
-    try {
-      userRejectFriendship(friendName);
-    } catch(err) {
-      setLoading(false);
-      console.log(err.message);
-    } finally {
-      setLoading(false);
-    }
+    userRejectFriendship(friendName);
   }
 
   const handleFriendDeleteClick = e => {
     const friendName = e.target.value;
     setLoading(true);
-    try {
-      userDeleteFriendship(friendName);
-    } catch(err) {
-      setLoading(false);
-      console.log(err.message);
-    } finally {
-      setLoading(false);
-    }
+    userDeleteFriendship(friendName);
   };
 
   const handleUserBlockClick = () => {
     const friendName = userToFind.trim();
+    if (friendName === authname) return;
     setLoading(true);
-    try {
-      if (friendName === authname) return;
-      userBlockUser(friendName);
-      setUsertoFind("");
-    } catch(err) {
-      setLoading(false);
-      console.log(err.message);
-    } finally {
-      setLoading(false);
-    }
+    userBlockUser(friendName);
+    setUsertoFind("");
   };
 
   const handleUserUnblockClick = e => {
     const friendName = e.target.value;
     setLoading(true);
-    try {
-      userUnblockUser(friendName);
-    } catch(err) {
-      setLoading(false);
-      console.log(err.message);
-    } finally {
-      setLoading(false);
-    }
+    userUnblockUser(friendName);
   };
 
   return (
@@ -134,6 +93,8 @@ export const UserFriends = ({
       feedback={feedback}
       loading={loading}
       dataMyFriendships={dataMyFriendships}
+      userToFind={userToFind}
+      tab={tab}
       handleCurrentTabClick={handleCurrentTabClick}
       handlePendingTabClick={handlePendingTabClick}
       handleBlockedTabClick={handleBlockedTabClick}
@@ -155,10 +116,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userRequestFriendship: (friendName) => dispatch(userRequestFriendship(friendName)),
-  userAcceptFriendship: (friendName) => dispatch(userAcceptFriendship(friendName)),
-  userRejectFriendship: (friendName) => dispatch(userRejectFriendship(friendName)),
-  userDeleteFriendship: (friendName) => dispatch(userDeleteFriendship(friendName)),
+  userRequestFriendship: (friendName) =>
+    dispatch(userRequestFriendship(friendName)),
+  userAcceptFriendship: (friendName) =>
+    dispatch(userAcceptFriendship(friendName)),
+  userRejectFriendship: (friendName) =>
+    dispatch(userRejectFriendship(friendName)),
+  userDeleteFriendship: (friendName) =>
+    dispatch(userDeleteFriendship(friendName)),
   userBlockUser: (friendName) => dispatch(userBlockUser(friendName)),
   userUnblockUser: (friendName) => dispatch(userUnblockUser(friendName))
 });

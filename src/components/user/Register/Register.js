@@ -7,6 +7,7 @@ import { authUserRegister, authUserVerify } from '../../../store/actions/index';
 import RegisterView from './RegisterView';
 
 export const Register = ({
+  history,
   isAuthenticated,
   message,
   authUserRegister,
@@ -23,9 +24,12 @@ export const Register = ({
 
   useEffect(() => {
     let isSubscribed = true;
-    if (isSubscribed) setFeedback(message);
+    if (isSubscribed) {
+      setFeedback(message);
+      setLoading(false);
+    }
     return () => isSubscribed = false;
-  });
+  }, [message]);
 
   const handleUsernameChange = e => setUsername(e.target.value);
 
@@ -39,24 +43,15 @@ export const Register = ({
     if (!validateRegistrationInfo()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
-    try {
-      authUserRegister(email, password, username, props.history);
-    } catch(err) {
-      console.log(err);
-      console.log(message);
-    } finally {
-      setLoading(false);
-    }
+    authUserRegister(email, password, username, history);
   }
 
   /*handleVerifySubmit = () => {
-    this.setState({isLoading: true});
-    try {
-      this.props.authUserVerify(this.state.email, this.state.pass, this.state.confirmationCode)
-      this.setState({newUser: false, isLoading: false, error: null});
-    } catch (err) {
-      this.setState({isLoading: false, error: err.message});
-    }
+    if (!validateConfirmationCode()) return;
+    if (e.key && (e.key !== "Enter")) return;
+    setLoading(true);
+    authUserVerify(email, password, confirmationCode);
+    setNewUser(false);  // move?
   }*/
   
   const validateRegistrationInfo = () => (
@@ -93,8 +88,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  authUserRegister: (email, pass, username, history) => dispatch(authUserRegister(email, pass, username, history)),
-  authUserVerify: (email, pass, confirmationCode) => dispatch(authUserVerify(email, pass, confirmationCode))
+  authUserRegister: (email, pass, username, history) =>
+    dispatch(authUserRegister(email, pass, username, history)),
+  authUserVerify: (email, pass, confirmationCode) =>
+    dispatch(authUserVerify(email, pass, confirmationCode))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Register)
+);
