@@ -9,12 +9,14 @@ import {
   messengerSendWhisper
 } from '../../../../store/actions/index';
 
-import MessengerView from './MessengerView';
+import MobileMessengerView from './views/MobileMessengerView';
+import MessengerView from './views/MessengerView';
 
 // TO DO: fix no longer auto scrolling after spam debounce
 
 export const Messenger = ({
   twoColumnATheme,
+  messengerView,
   windowFocused,
   authname,
   message,
@@ -34,6 +36,7 @@ export const Messenger = ({
   const [ debounced, setDebounced ] = useState(false);
   const [ spamCount, setSpamCount ] = useState(1);
   const [ tab, setTab ] = useState("Room");
+  const [ topTab, setTopTab ] = useState("Options");
   const [ roomToEnter, setRoomToEnter ] = useState("");
   const [ messageToSend, setMessageToSend ] = useState("");
   //const [ currentFriend, setCurrentFriend ] = useState("");
@@ -163,14 +166,24 @@ export const Messenger = ({
     setLoading(false);
   };
 
+  const handleOptionsTopTabClick = () => setTopTab("Options");
+
+  const handleChatTopTabClick = () => setTopTab("Chat");
+
+  const handlePeopleTopTabClick = () => setTopTab("People");
+
   const handleUsersInRoomTabClick = () => setTab("Room");
 
   const handleFriendsTabClick = () => setTab("Friends");
 
   //const handleFriendClick = () => setCurrentFriend(e.target.id);
+
+  let ViewComponent;
+  if (messengerView === "mobile") ViewComponent = MobileMessengerView;
+  if (messengerView === "desktop") ViewComponent = MessengerView;
   
   return (
-    <MessengerView
+    <ViewComponent
       twoColumnATheme={twoColumnATheme}
       authname={authname}
       feedback={feedback}
@@ -192,10 +205,14 @@ export const Messenger = ({
       handleMessageSend={handleMessageSend}
 
       tab={tab}
+      topTab={topTab}
       users={users}
       onlineFriends={onlineFriends}
       handleUsersInRoomTabClick={handleUsersInRoomTabClick}
       handleFriendsTabClick={handleFriendsTabClick}
+      handleOptionsTopTabClick={handleOptionsTopTabClick}
+      handleChatTopTabClick={handleChatTopTabClick}
+      handlePeopleTopTabClick={handlePeopleTopTabClick}
     />
   );
 };
