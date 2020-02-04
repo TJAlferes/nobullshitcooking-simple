@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { plannerPrivateLoad } from '../../../../store/actions/index';
+import { plannerPrivateLoad } from '../../../store/actions/index';
 
 import MobilePlanView from './views/MobilePlanView';
 import PlanView from './views/PlanView';

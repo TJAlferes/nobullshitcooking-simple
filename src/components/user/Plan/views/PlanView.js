@@ -1,8 +1,8 @@
 import React from 'react';
 import LeftNav from '../../../LeftNav/LeftNav';
 
-import Day from './views/Day/Day';
-import ExpandedDay from './views/ExpandedDay/ExpandedDay';
+import Day from './Day/Day';
+import ExpandedDay from './ExpandedDay/ExpandedDay';
 
 import './plan.css';
 

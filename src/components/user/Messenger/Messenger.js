@@ -7,7 +7,7 @@ import {
   messengerChangeChannel,
   messengerSendMessage,
   messengerSendWhisper
-} from '../../../../store/actions/index';
+} from '../../../store/actions/index';
 
 import MobileMessengerView from './views/MobileMessengerView';
 import MessengerView from './views/MessengerView';

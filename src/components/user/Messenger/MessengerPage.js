@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 
 const MobileMessengerToggle = lazy(
-  () => import('./mobile/MobileMessengerToggle')
+  () => import('./MobileMessengerToggle')
 );
-const Messenger = lazy(() => import('./desktop/Messenger'));
+const Messenger = lazy(() => import('./Messenger'));
 
 import './messengerPage.css'
 
@@ -16,7 +16,7 @@ const MessengerPage = ({ twoColumnATheme }) => (
     </div>
     <div className="desktop_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <Messenger twoColumnATheme={twoColumnATheme} />
+        <Messenger twoColumnATheme={twoColumnATheme} messengerView={desktop} />
       </Suspense>
     </div>
   </div>

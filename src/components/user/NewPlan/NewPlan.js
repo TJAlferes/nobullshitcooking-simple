@@ -11,7 +11,7 @@ import {
   plannerSetPlanData,
   userCreateNewPlan,
   userEditPlan
-} from '../../../../store/actions/index';
+} from '../../../store/actions/index';
 
 import MobileNewPlanView from './views/MobileNewPlanView';
 import NewPlanView from './views/NewPlanView';

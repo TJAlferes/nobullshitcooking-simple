@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AriaModal from 'react-aria-modal';
 
-import MobilePlan from './MobilePlan';
+import Plan from './Plan';
 
 import './mobilePlanToggle.css'
 
@@ -37,7 +37,7 @@ class MobilePlanToggle extends Component {
         <button id="close_planner" onClick={this.deactivateModal}>
           Close Planner
         </button>
-        <MobilePlan planView={mobile} />
+        <Plan planView={mobile} />
       </AriaModal>
     )
     : false;

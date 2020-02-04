@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AriaModal from 'react-aria-modal';
 
-import MobileMessenger from './MobileMessenger';
+import Messenger from './Messenger';
 
 import './mobileMessengerToggle.css';
 
@@ -37,7 +37,7 @@ class MobileMessengerToggle extends Component {
         <button id="close_messenger" onClick={this.deactivateModal}>
           Close Messenger
         </button>
-        <MobileMessenger />
+        <Messenger messengerView={mobile} />
       </AriaModal>
     )
     : false;
