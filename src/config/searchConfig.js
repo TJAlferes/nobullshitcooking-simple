@@ -5,13 +5,13 @@ import buildSearchRequest from '../utils/search/buildSearchRequest';
 import applyDisjunctiveFaceting from '../utils/search/applyDisjunctiveFaceting';
 import buildSearchState from '../utils/search/buildSearchState';
 
+import { store } from '../index';
+
 import { NOBSCBackendAPIEndpointOne } from './NOBSCBackendAPIEndpointOne';
+
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-import { store } from '../index';
-//console.log(store);
-
-// TO DO: put currentIndex on window??????????????????????????????????????????
+// TO DO: put currentIndex on window?
 
 /*function getSearchState() {
   const { search } = store.getState();

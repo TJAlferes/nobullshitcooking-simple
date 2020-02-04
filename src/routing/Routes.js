@@ -113,6 +113,7 @@ import Pullup from '../components/pages/Fitness/Exercises/Pullup/Pullup';
 import Supply from '../components/supply/Supply';
 // was from '../components/supply/ProductsList/ProductsList';
 
+import Promo from '../components/pages/promo/Promo';
 import WaterFiltration from '../components/pages/promo/WaterFiltration/WaterFiltration';
 import Tea from '../components/pages/promo/Tea/Tea';
 import Coffee from '../components/pages/promo/Coffee/Coffee';
@@ -323,6 +324,7 @@ const RoutesList = () => (
       {appRoute("/supply", Supply)}
 
       {/*{appRoute("/promo/kitchen-equipment", KitchenEquipment)}*/}
+      {appRoute("/promo", Promo)}
       {appRoute("/promo/water-filtration", WaterFiltration)}
       {appRoute("/promo/tea", Tea)}
       {appRoute("/promo/coffee", Coffee)}

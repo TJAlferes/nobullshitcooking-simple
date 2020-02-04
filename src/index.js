@@ -79,7 +79,6 @@ export const store = createStore(
 sagaMiddleware.run(watchAuth);
 sagaMiddleware.run(watchData);
 sagaMiddleware.run(watchMessenger);
-sagaMiddleware.run(watchUser);
 sagaMiddleware.run(watchUserAvatar);
 sagaMiddleware.run(watchUserEquipment);
 sagaMiddleware.run(watchUserFavorite);

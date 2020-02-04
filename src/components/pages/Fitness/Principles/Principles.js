@@ -3,54 +3,31 @@ import { Link } from 'react-router-dom';
 
 import './principles.css';
 
-const ComingSoon = 'https://s3.amazonaws.com/nobsc-images-01/content/misc/coming-soon-120-120.png';
+const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/misc/';
+
+const navItem = (path, title, image) => (
+  <div className="nav-grid-a-item">
+    <Link to={`${path}`}>
+      <span className="nav-grid-a-item-text">{title}</span>
+      <img
+        className="nav-grid-a-item-image"
+        src={`${s3Path}${image}.png`}
+      />
+    </Link>
+  </div>
+);
 
 const Principles = ({ oneColumnATheme, navGridATheme }) => (
   <div className={`principles one-column-a ${oneColumnATheme}`}>
     <h1>Principles</h1>
     <div className={`nav-grid-a ${navGridATheme}`}>
-      <div className="nav-grid-a-item">
-        <Link to="/fitness/principles/composition">
-          <span className="nav-grid-a-item-text">Composition</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/fitness/principles/balance">
-          <span className="nav-grid-a-item-text">Balance</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/fitness/principles/strength">
-          <span className="nav-grid-a-item-text">Strength</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/fitness/principles/speed">
-          <span className="nav-grid-a-item-text">Speed</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/fitness/principles/agility">
-          <span className="nav-grid-a-item-text">Agility</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/fitness/principles/endurance">
-          <span className="nav-grid-a-item-text">Endurance</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/fitness/principles/flexibility">
-          <span className="nav-grid-a-item-text">Flexibility</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
+      {navItem("/fitness/principles/composition", "Composition", "coming-soon-120-120")}
+      {navItem("/fitness/principles/balance", "Balance", "coming-soon-120-120")}
+      {navItem("/fitness/principles/strength", "Strength", "coming-soon-120-120")}
+      {navItem("/fitness/principles/speed", "Speed", "coming-soon-120-120")}
+      {navItem("/fitness/principles/agility", "Agility", "coming-soon-120-120")}
+      {navItem("/fitness/principles/endurance", "Endurance", "coming-soon-120-120")}
+      {navItem("/fitness/principles/flexibility", "Flexibility", "coming-soon-120-120")}
     </div>
   </div>
 );

@@ -79,19 +79,14 @@ async function convertUrlToPlanner(urlString) {
     recipesStringsSplitToNum.push(toNum);
   });
 
-  // TO DO:
-  // flatten recipesStringsSplitToNum 
-  // put some recipes in MySQL
-  // get backend api EB back online (and get ready to get redis online)
-  // fix, test, and double check those regexes
-  // you have to actually put at least the 3 dummy recipes in there,
-  // and you have to then get REAL recipes going ASAP...
-
   recipesStringsSplitToNum.flat();
   const theValues = recipesStringsSplitToNum.values();
   //console.log("recipesStringsSplitToNum: ", recipesStringsSplitToNum);
   //console.log("theValues: ", theValues);
-  const res = await axios.post(`${endpoint}/recipe/titles`, {recipeIds: [1, 2, 3]});  // change
+  const res = await axios.post(
+    `${endpoint}/recipe/titles`,
+    {recipeIds: [1, 2, 3]}
+  );  // change
 
   Object.keys(toMerge).map((key, i) => {
     if (recipesStrings[i] === "none") {

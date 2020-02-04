@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ExpandCollapseView = ({
+  children,
   expanded,
   toggle,
   headingWhenCollapsed,

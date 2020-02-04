@@ -2,42 +2,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './siteNavEquipment.css';
-const ComingSoon = "https://s3.amazonaws.com/nobsc-images-01/content/misc/coming-soon-120-120.png";
+
+const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/misc/';
+
+const navItem = (path, title, image) => (
+  <div className="nav-grid-a-item">
+    <Link to={`${path}`}>
+      <span className="nav-grid-a-item-text">{title}</span>
+      <img
+        className="nav-grid-a-item-image"
+        src={`${s3Path}${image}.png`}
+      />
+    </Link>
+  </div>
+);
 
 const SiteNavEquipment = ({ oneColumnATheme, navGridATheme }) => (
   <div className={`site-nav-equipment one-column-a ${oneColumnATheme}`}>
     <h1>Equipment</h1>
     <div className={`nav-grid-a ${navGridATheme}`}>
-      <div className="nav-grid-a-item">
-        <Link to="/food/equipment/cleaning">
-          <span className="nav-grid-a-item-text">Cleaning</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/food/equipment/preparing">
-          <span className="nav-grid-a-item-text">Preparing</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/food/equipment/cooking">
-          <span className="nav-grid-a-item-text">Cooking</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/food/equipment/dining">
-          <span className="nav-grid-a-item-text">Dining</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
-      <div className="nav-grid-a-item">
-        <Link to="/food/equipment/storage">
-          <span className="nav-grid-a-item-text">Storage</span>
-          <img className="nav-grid-a-item-image" src={ComingSoon} />
-        </Link>
-      </div>
+      {navItem("/food/equipment/cleaning", "Cleaning", "coming-soon-120-120")}
+      {navItem("/food/equipment/preparing", "Preparing", "coming-soon-120-120")}
+      {navItem("/food/equipment/cooking", "Cooking", "coming-soon-120-120")}
+      {navItem("/food/equipment/dining", "Dining", "coming-soon-120-120")}
+      {navItem("/food/equipment/storage", "Storage", "coming-soon-120-120")}
     </div>
   </div>
 );
