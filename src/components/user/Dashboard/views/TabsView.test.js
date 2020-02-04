@@ -1,0 +1,1 @@
+import TabsView from './TabsView';

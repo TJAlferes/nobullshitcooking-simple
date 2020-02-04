@@ -1,0 +1,1 @@
+import PrivateRecipesTabView from './PrivateRecipesTabView';

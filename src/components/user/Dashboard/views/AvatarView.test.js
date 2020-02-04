@@ -1,0 +1,1 @@
+import AvatarView from './AvatarView';

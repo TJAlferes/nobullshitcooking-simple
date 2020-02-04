@@ -1,0 +1,1 @@
+import IngredientsTabView from './IngredientsTabView';

@@ -1,0 +1,1 @@
+import EquipmentTabView from './EquipmentTabView';

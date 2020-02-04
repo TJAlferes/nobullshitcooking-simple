@@ -1,0 +1,1 @@
+import FavoriteRecipesTabView from './FavoriteRecipesTabView';

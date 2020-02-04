@@ -13,16 +13,16 @@ import LoaderSpinner from '../components/LoaderSpinner/LoaderSpinner';
 
 const Register = lazy(() => import('../components/user/Register/Register'));
 const Login = lazy(() => import('../components/user/Login/Login'));
-const UserProfile = lazy(() => import('../components/user/UserProfile/UserProfile'));
-const UserDashboard = lazy(() => import('../components/user/UserDashboard/UserDashboard'));
-const UserFriends = lazy(() => import('../components/user/UserFriends/UserFriends'));
-const UserMessengerPage = lazy(() => import('../components/user/UserMessenger/UserMessengerPage'));
+const Profile = lazy(() => import('../components/user/Profile/Profile'));
+const Dashboard = lazy(() => import('../components/user/Dashboard/Dashboard'));
+const Friends = lazy(() => import('../components/user/Friends/Friends'));
+const MessengerPage = lazy(() => import('../components/user/Messenger/MessengerPage'));
 //const PlanPage = lazy(() => import('../components/Plan/PlanPage'));  // for public, url-based
-const UserPlanPage = lazy(() => import('../components/user/UserPlan/UserPlanPage'));
-const UserNewPlanPage = lazy(() => import('../components/user/UserNewPlan/UserNewPlanPage'));
-const UserSubmitRecipe = lazy(() => import('../components/user/UserSubmitRecipe/UserSubmitRecipe'));
-const UserNewEquipment = lazy(() => import('../components/user/UserNewEquipment/UserNewEquipment'));
-const UserNewIngredient = lazy(() => import('../components/user/UserNewIngredient/UserNewIngredient'));
+const PlanPage = lazy(() => import('../components/user/Plan/PlanPage'));
+const NewPlanPage = lazy(() => import('../components/user/NewPlan/NewPlanPage'));
+const SubmitRecipe = lazy(() => import('../components/user/SubmitRecipe/SubmitRecipe'));
+const NewEquipment = lazy(() => import('../components/user/NewEquipment/NewEquipment'));
+const NewIngredient = lazy(() => import('../components/user/NewIngredient/NewIngredient'));
 
 const StaffLogin = lazy(() => import('../components/staff/StaffLogin/StaffLogin'));  // eventually break out into separate React app?
 const StaffDashboard = lazy(() => import('../components/staff/StaffDashboard/StaffDashboard'));
@@ -135,146 +135,214 @@ import Home from '../components/pages/Home/Home';
 
 import NotFound from '../components/NotFound/NotFound';
 
+const authRoute = (path, component, childProps = null) =>
+  !childProps ? (
+    <AuthenticatedRoute path={path} exact component={component} />
+  )
+  : (
+    <AuthenticatedRoute
+      path={path}
+      exact
+      component={component}
+      childProps={childProps}
+    />
+  );
+
+const unauthRoute = (path, component, childProps = null) =>
+  !childProps ? (
+    <UnauthenticatedRoute path={path} exact component={component} />
+  )
+  : (
+    <UnauthenticatedRoute
+      path={path}
+      exact
+      component={component}
+      childProps={childProps}
+    />
+  );
+
+const appRoute = (path, component) =>
+  <AppliedRoute path={path} exact component={component} />;
+
 const RoutesList = () => (
   <Suspense fallback={<LoaderSpinner />}>
     <Switch>
+      {unauthRoute("/user/register", Register)}
+      {unauthRoute("/user/login", Login)}
+      {authRoute("/user/profile/:username", Profile)}
+      {authRoute("/user/dashboard", Dashboard)}
+      {authRoute("/user", Dashboard)}
+      {authRoute("/user/friends", Friends)}
+      {authRoute("/user/messenger", MessengerPage)}
+      {authRoute("/user/plan/edit/:id", NewPlanPage, {editing: "true"})}
+      {authRoute("/user/plan/submit", NewPlanPage)}
+      {authRoute("/user/plan/:id", PlanPage)}
+      {authRoute(
+        "/user/recipes/private/submit",
+        SubmitRecipe,
+        {submittingOwnership: "private"}
+      )}
+      {authRoute(
+        "/user/recipes/public/submit",
+        SubmitRecipe,
+        {submittingOwnership: "public"}
+      )}
+      {authRoute(
+        "/user/recipes/private/edit/:id",
+        SubmitRecipe,
+        {editing: "true", editingOwnership: "private"}
+      )}
+      {authRoute(
+        "/user/recipes/public/edit/:id",
+        SubmitRecipe,
+        {editing: "true", editingOwnership: "public"}
+      )}
+      {authRoute("/user/recipes/:id", Recipe)}
+      {authRoute("/user/equipment/submit", NewEquipment)}
+      {authRoute("/user/equipment/edit/:id", NewEquipment, {editing: "true"})}
+      {authRoute("/user/equipment/:id", Equipment)}
+      {authRoute("/user/ingredients/submit", NewIngredient)}
+      {authRoute(
+        "/user/ingredients/edit/:id",
+        NewIngredient,
+        {editing: "true"}
+      )}
+      {authRoute("/user/ingredients/:id", Ingredient)}
 
-      <UnauthenticatedRoute path="/user/register" exact component={Register} />
-      <UnauthenticatedRoute path="/user/login" exact component={Login} />
-      <AppliedRoute path="/user/profile/:username" exact component={UserProfile} />
-      <AuthenticatedRoute path="/user/dashboard" exact component={UserDashboard} />
-      <AuthenticatedRoute path="/user" exact component={UserDashboard} />
-      <AuthenticatedRoute path="/user/friends" exact component={UserFriends} />
-      <AuthenticatedRoute path="/user/messenger" exact component={UserMessengerPage} />
-      {/*<AppliedRoute path="/plan" exact component={PlanPage} />  was for demo/public purposes, but now we WILL PROBABLY REMOVE THIS */}
-      <AuthenticatedRoute path="/user/plan/edit/:id" exact component={UserNewPlanPage} childProps={{editing: "true"}} />
-      <AuthenticatedRoute path="/user/plan/submit" exact component={UserNewPlanPage} />
-      <AuthenticatedRoute path="/user/plan/:id" exact component={UserPlanPage} />  {/* no dnd capability, just for viewing their own plan */}
-      <AuthenticatedRoute path="/user/recipes/private/submit" exact component={UserSubmitRecipe} childProps={{submittingOwnership: "private"}} />
-      <AuthenticatedRoute path="/user/recipes/public/submit" exact component={UserSubmitRecipe} childProps={{submittingOwnership: "public"}} />
-      <AuthenticatedRoute path="/user/recipes/private/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "private"}} />
-      <AuthenticatedRoute path="/user/recipes/public/edit/:id" exact component={UserSubmitRecipe} childProps={{editing: "true", editingOwnership: "public"}} />
-      <AuthenticatedRoute path="/user/recipes/:id" exact component={Recipe} />  {/* for viewing their own private recipe */}
-      <AuthenticatedRoute path="/user/equipment/submit" exact component={UserNewEquipment} />
-      <AuthenticatedRoute path="/user/equipment/edit/:id" exact component={UserNewEquipment} childProps={{editing: "true"}} />
-      <AuthenticatedRoute path="/user/equipment/:id" exact component={Equipment} />  {/* for viewing their own private equipment */}
-      <AuthenticatedRoute path="/user/ingredients/submit" exact component={UserNewIngredient} />
-      <AuthenticatedRoute path="/user/ingredients/edit/:id" exact component={UserNewIngredient} childProps={{editing: "true"}} />
-      <AuthenticatedRoute path="/user/ingredients/:id" exact component={Ingredient} />  {/* for viewing their own private ingredient */}
+      {unauthRoute("/staff/login", StaffLogin)}
+      {authRoute("/staff/dashboard", StaffDashboard)}
+      {authRoute("/staff", StaffDashboard)}
+      {authRoute("/staff/recipes/submit", StaffSubmitRecipe)}
+      {authRoute(
+        "/staff/recipes/edit/:id",
+        StaffSubmitRecipe,
+        {editing: "true"}
+      )}
+      {authRoute("/staff/equipment/submit", StaffSubmitEquipment)}
+      {authRoute(
+        "/staff/equipment/edit/:id",
+        StaffSubmitEquipment,
+        {editing: "true"}
+      )}
+      {authRoute("/staff/ingredients/submit", StaffSubmitIngredient)}
+      {authRoute(
+        "/staff/ingredients/edit/:id",
+        StaffSubmitIngredient,
+        {editing: "true"}
+      )}
 
-      <UnauthenticatedRoute path="/staff/login" exact component={StaffLogin} />
-      <AuthenticatedRoute path="/staff/dashboard" exact component={StaffDashboard} />
-      <AuthenticatedRoute path="/staff" exact component={StaffDashboard} />
-      <AuthenticatedRoute path="/staff/recipes/submit" exact component={StaffSubmitRecipe} />
-      <AuthenticatedRoute path="/staff/recipes/edit/:id" exact component={StaffSubmitRecipe} childProps={{editing: "true"}} />
-      <AuthenticatedRoute path="/staff/equipment/submit" exact component={StaffSubmitEquipment} />
-      <AuthenticatedRoute path="/staff/equipment/edit/:id" exact component={StaffSubmitEquipment} childProps={{editing: "true"}} />
-      <AuthenticatedRoute path="/staff/ingredients/submit" exact component={StaffSubmitIngredient} />
-      <AuthenticatedRoute path="/staff/ingredients/edit/:id" exact component={StaffSubmitIngredient} childProps={{editing: "true"}} />
+      {appRoute("/recipes/:id", Recipe)}
+      {appRoute("/ingredients/:id", Ingredient)}
+      {appRoute("/equipment/:id", Equipment)}
+      {/*{appRoute("/all", SearchResultsAll)}*/}
+      {appRoute("/recipes", SearchResultsRecipes)}
+      {appRoute("/ingredients", SearchResultsIngredients)}
+      {appRoute("/equipment", SearchResultsEquipment)}
 
-      <AppliedRoute path="/recipes/:id" exact component={Recipe} />
-      <AppliedRoute path="/ingredients/:id" exact component={Ingredient} />
-      <AppliedRoute path="/equipment/:id" exact component={Equipment} />
-      {/*<AppliedRoute path="/all" exact component={SearchResultsAll} />*/}
-      <AppliedRoute path="/recipes" exact component={SearchResultsRecipes} />
-      <AppliedRoute path="/ingredients" exact component={SearchResultsIngredients} />
-      <AppliedRoute path="/equipment" exact component={SearchResultsEquipment} />
+      {appRoute("/food", Food)}
+      {appRoute("/food/recipes", SiteNavRecipes)}
+      {appRoute("/food/recipes/drinks", Drinks)}
+      {appRoute("/food/recipes/appetizers", Appetizers)}
+      {appRoute("/food/recipes/mains", Mains)}
+      {appRoute("/food/recipes/sides", Sides)}
+      {appRoute("/food/recipes/desserts", Desserts)}
+      {appRoute("/food/recipes/soups", Soups)}
+      {appRoute("/food/recipes/salads", Salads)}
+      {appRoute("/food/recipes/stews", Stews)}
+      {appRoute("/food/recipes/casseroles", Casseroles)}
+      {appRoute("/food/recipes/sauces", Sauces)}
+      {appRoute("/food/recipes/dressings", Dressings)}
+      {appRoute("/food/recipes/condiments", Condiments)}
+      {appRoute("/food/cuisines", Cuisines)}
+      {appRoute("/food/cuisines/russian", Russian)}
+      {appRoute("/food/cuisines/german", German)}
+      {appRoute("/food/cuisines/turkish", Turkish)}
+      {appRoute("/food/cuisines/french", French)}
+      {appRoute("/food/cuisines/italian", Italian)}
+      {appRoute("/food/cuisines/mexican", Mexican)}
+      {appRoute("/food/cuisines/greek", Greek)}
+      {appRoute("/food/cuisines/irish", Irish)}
+      {appRoute("/food/cuisines/chinese", Chinese)}
+      {appRoute("/food/cuisines/indian", Indian)}
+      {appRoute("/food/cuisines/japanese", Japanese)}
+      {appRoute("/food/cuisines/iranian", Iranian)}
+      {appRoute("/food/ingredients", SiteNavIngredients)}
+      {appRoute("/food/ingredients/fish-and-shellfish", FishAndShellfish)}
+      {appRoute("/food/ingredients/meat-and-poultry", MeatAndPoultry)}
+      {appRoute("/food/ingredients/eggs-and-dairy", EggsAndDairy)}
+      {appRoute("/food/ingredients/beans-and-vegetables", BeansAndVegetables)}
+      {appRoute("/food/ingredients/fruit", Fruit)}
+      {appRoute("/food/ingredients/seeds-and-grains", SeedsAndGrains)}
+      {appRoute("/food/ingredients/fats-and-oils", FatsAndOils)}
+      {appRoute(
+        "/food/ingredients/acids-herbs-and-spices",
+        AcidsHerbsAndSpices
+      )}
+      {appRoute("/food/nutrition", Nutrition)}
+      {appRoute("/food/nutrition/calories", Calories)}
+      {appRoute("/food/nutrition/macronutrients", Macronutrients)}
+      {appRoute("/food/nutrition/micronutrients", Micronutrients)}
+      {appRoute("/food/nutrition/supplements", Supplements)}
+      {appRoute("/food/equipment", SiteNavEquipment)}
+      {appRoute("/food/equipment/cleaning", Cleaning)}
+      {appRoute("/food/equipment/preparing", Preparing)}
+      {appRoute("/food/equipment/cooking", Cooking)}
+      {appRoute("/food/equipment/dining", Dining)}
+      {appRoute("/food/equipment/storage", Storage)}
+      {appRoute("/food/methods", Methods)}
+      {appRoute("/food/methods/chill-and-freeze", ChillAndFreeze)}
+      {appRoute(
+        "/food/methods/steam-poach-simmer-boil-and-blanch",
+        SteamPoachSimmerBoilAndBlanch
+      )}
+      {appRoute("/food/methods/stew-and-braise", StewAndBraise)}
+      {appRoute(
+        "/food/methods/bake-roast-toast-and-broil",
+        BakeRoastToastAndBroil
+      )}
+      {appRoute("/food/methods/saute-fry-and-glaze", SauteFryAndGlaze)}
+      {appRoute("/food/methods/bbq-grill-and-smoke", BBQGrillAndSmoke)}
 
-      <AppliedRoute path="/food" exact component={Food} />
-      <AppliedRoute path="/food/recipes" exact component={SiteNavRecipes} />
-      <AppliedRoute path="/food/recipes/drinks" exact component={Drinks} />
-      <AppliedRoute path="/food/recipes/appetizers" exact component={Appetizers} />
-      <AppliedRoute path="/food/recipes/mains" exact component={Mains} />
-      <AppliedRoute path="/food/recipes/sides" exact component={Sides} />
-      <AppliedRoute path="/food/recipes/desserts" exact component={Desserts} />
-      <AppliedRoute path="/food/recipes/soups" exact component={Soups} />
-      <AppliedRoute path="/food/recipes/salads" exact component={Salads} />
-      <AppliedRoute path="/food/recipes/stews" exact component={Stews} />
-      <AppliedRoute path="/food/recipes/casseroles" exact component={Casseroles} />
-      <AppliedRoute path="/food/recipes/sauces" exact component={Sauces} />
-      <AppliedRoute path="/food/recipes/dressings" exact component={Dressings} />
-      <AppliedRoute path="/food/recipes/condiments" exact component={Condiments} />
-      <AppliedRoute path="/food/cuisines" exact component={Cuisines} />
-      <AppliedRoute path="/food/cuisines/russian" exact component={Russian} />
-      <AppliedRoute path="/food/cuisines/german" exact component={German} />
-      <AppliedRoute path="/food/cuisines/turkish" exact component={Turkish} />
-      <AppliedRoute path="/food/cuisines/french" exact component={French} />
-      <AppliedRoute path="/food/cuisines/italian" exact component={Italian} />
-      <AppliedRoute path="/food/cuisines/mexican" exact component={Mexican} />
-      <AppliedRoute path="/food/cuisines/greek" exact component={Greek} />
-      <AppliedRoute path="/food/cuisines/irish" exact component={Irish} />
-      <AppliedRoute path="/food/cuisines/chinese" exact component={Chinese} />
-      <AppliedRoute path="/food/cuisines/indian" exact component={Indian} />
-      <AppliedRoute path="/food/cuisines/japanese" exact component={Japanese} />
-      <AppliedRoute path="/food/cuisines/iranian" exact component={Iranian} />
-      <AppliedRoute path="/food/ingredients" exact component={SiteNavIngredients} />
-      <AppliedRoute path="/food/ingredients/fish-and-shellfish" exact component={FishAndShellfish} />
-      <AppliedRoute path="/food/ingredients/meat-and-poultry" exact component={MeatAndPoultry} />
-      <AppliedRoute path="/food/ingredients/eggs-and-dairy" exact component={EggsAndDairy} />
-      <AppliedRoute path="/food/ingredients/beans-and-vegetables" exact component={BeansAndVegetables} />
-      <AppliedRoute path="/food/ingredients/fruit" exact component={Fruit} />
-      <AppliedRoute path="/food/ingredients/seeds-and-grains" exact component={SeedsAndGrains} />
-      <AppliedRoute path="/food/ingredients/fats-and-oils" exact component={FatsAndOils} />
-      <AppliedRoute path="/food/ingredients/acids-herbs-and-spices" exact component={AcidsHerbsAndSpices} />
-      <AppliedRoute path="/food/nutrition" exact component={Nutrition} />
-      <AppliedRoute path="/food/nutrition/calories" exact component={Calories} />
-      <AppliedRoute path="/food/nutrition/macronutrients" exact component={Macronutrients} />
-      <AppliedRoute path="/food/nutrition/micronutrients" exact component={Micronutrients} />
-      <AppliedRoute path="/food/nutrition/supplements" exact component={Supplements} />
-      <AppliedRoute path="/food/equipment" exact component={SiteNavEquipment} />
-      <AppliedRoute path="/food/equipment/cleaning" exact component={Cleaning} />
-      <AppliedRoute path="/food/equipment/preparing" exact component={Preparing} />
-      <AppliedRoute path="/food/equipment/cooking" exact component={Cooking} />
-      <AppliedRoute path="/food/equipment/dining" exact component={Dining} />
-      <AppliedRoute path="/food/equipment/storage" exact component={Storage} />
-      <AppliedRoute path="/food/methods" exact component={Methods} />
-      <AppliedRoute path="/food/methods/chill-and-freeze" exact component={ChillAndFreeze} />
-      <AppliedRoute path="/food/methods/steam-poach-simmer-boil-and-blanch" exact component={SteamPoachSimmerBoilAndBlanch} />
-      <AppliedRoute path="/food/methods/stew-and-braise" exact component={StewAndBraise} />
-      <AppliedRoute path="/food/methods/bake-roast-toast-and-broil" exact component={BakeRoastToastAndBroil} />
-      <AppliedRoute path="/food/methods/saute-fry-and-glaze" exact component={SauteFryAndGlaze} />
-      <AppliedRoute path="/food/methods/bbq-grill-and-smoke" exact component={BBQGrillAndSmoke} />
+      {appRoute("/fitness", Fitness)}
+      {appRoute("/fitness/principles", Principles)}
+      {appRoute("/fitness/principles/composition", Composition)}
+      {appRoute("/fitness/principles/balance", Balance)}
+      {appRoute("/fitness/principles/strength", Strength)}
+      {appRoute("/fitness/principles/speed", Speed)}
+      {appRoute("/fitness/principles/agility", Agility)}
+      {appRoute("/fitness/principles/endurance", Endurance)}
+      {appRoute("/fitness/principles/flexibility", Flexibility)}
+      {appRoute("/fitness/exercises", Exercises)}
+      {appRoute("/fitness/exercises/walk", Walk)}
+      {appRoute("/fitness/exercises/bike", Bike)}
+      {appRoute("/fitness/exercises/run", Run)}
+      {appRoute("/fitness/exercises/squat", Squat)}
+      {appRoute("/fitness/exercises/pushup", Pushup)}
+      {appRoute("/fitness/exercises/pullup", Pullup)}
 
-      <AppliedRoute path="/fitness" exact component={Fitness} />
-      <AppliedRoute path="/fitness/principles" exact component={Principles} />
-      <AppliedRoute path="/fitness/principles/composition" exact component={Composition} />
-      <AppliedRoute path="/fitness/principles/balance" exact component={Balance} />
-      <AppliedRoute path="/fitness/principles/strength" exact component={Strength} />
-      <AppliedRoute path="/fitness/principles/speed" exact component={Speed} />
-      <AppliedRoute path="/fitness/principles/agility" exact component={Agility} />
-      <AppliedRoute path="/fitness/principles/endurance" exact component={Endurance} />
-      <AppliedRoute path="/fitness/principles/flexibility" exact component={Flexibility} />
-      <AppliedRoute path="/fitness/exercises" exact component={Exercises} />
-      <AppliedRoute path="/fitness/exercises/walk" exact component={Walk} />
-      <AppliedRoute path="/fitness/exercises/bike" exact component={Bike} />
-      <AppliedRoute path="/fitness/exercises/run" exact component={Run} />
-      <AppliedRoute path="/fitness/exercises/squat" exact component={Squat} />
-      <AppliedRoute path="/fitness/exercises/pushup" exact component={Pushup} />
-      <AppliedRoute path="/fitness/exercises/pullup" exact component={Pullup} />
+      {appRoute("/supply", Supply)}
 
-      <AppliedRoute path="/supply" exact component={Supply} />
+      {/*{appRoute("/promo/kitchen-equipment", KitchenEquipment)}*/}
+      {appRoute("/promo/water-filtration", WaterFiltration)}
+      {appRoute("/promo/tea", Tea)}
+      {appRoute("/promo/coffee", Coffee)}
+      {appRoute("/promo/outdoors", Outdoors)}
+      {appRoute("/promo/garden", Garden)}
+      {appRoute("/promo/tools", Tools)}
+      {/*{appRoute("/site/seasonal", FoodInSeason)}*/}
 
-      {/*<AppliedRoute path="/promo/kitchen-equipment" exact component={KitchenEquipment} />*/}
-      <AppliedRoute path="/promo/water-filtration" exact component={WaterFiltration} />
-      <AppliedRoute path="/promo/tea" exact component={Tea} />
-      <AppliedRoute path="/promo/coffee" exact component={Coffee} />
-      <AppliedRoute path="/promo/outdoors" exact component={Outdoors} />
-      <AppliedRoute path="/promo/garden" exact component={Garden} />
-      <AppliedRoute path="/promo/tools" exact component={Tools} />
-      {/*<AppliedRoute path="/site/seasonal" exact component={FoodInSeason} />*/}
+      {appRoute("/site", Site)}
+      {appRoute("/site/contests", Contests)}
+      {appRoute("/site/charity", Charity)}
+      {appRoute("/site/sitemap", Sitemap)}
+      {appRoute("/site/disclaimer", Disclaimer)}
+      {appRoute("/site/terms", TermsOfUse)}
+      {appRoute("/site/privacy", PrivacyPolicy)}
+      {appRoute("/site/help", Help)}
+      {appRoute("/site/welcome", Welcome)}
 
-      <AppliedRoute path="/site" exact component={Site} />
-      <AppliedRoute path="/site/contests" exact component={Contests} />
-      <AppliedRoute path="/site/charity" exact component={Charity} />
-      <AppliedRoute path="/site/sitemap" exact component={Sitemap} />
-      <AppliedRoute path="/site/disclaimer" exact component={Disclaimer} />
-      <AppliedRoute path="/site/terms" exact component={TermsOfUse} />
-      <AppliedRoute path="/site/privacy" exact component={PrivacyPolicy} />
-      <AppliedRoute path="/site/help" exact component={Help} />
-      <AppliedRoute path="/site/welcome" exact component={Welcome} />
-
-      <AppliedRoute path="/home" exact component={Home} />
-      <AppliedRoute path="/" exact component={Home} />
+      {appRoute("/home", Home)}
+      {appRoute("/", Home)}
 
       <Route render={props => <NotFound {...props} />} />
 
