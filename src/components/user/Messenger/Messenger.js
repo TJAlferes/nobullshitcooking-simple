@@ -82,6 +82,15 @@ export const Messenger = ({
     autoScroll();
   }, [messages]);
 
+  const preventSpam = () => {
+    setSpamCount((prev) => prev + 1);
+    setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
+    if (spamCount > 2) {
+      setDebounced(true);
+      setTimeout(() => setDebounced(false), 6000);
+    }
+  };
+
   const handleConnect = () => {
     setLoading(true);
     messengerConnect();
@@ -100,12 +109,12 @@ export const Messenger = ({
 
   const handleChannelChange = () => {
     if (loading) return;
-    setLoading(true);
     if (debounced) {
       setFeedback("Slow down there partner...");
       setTimeout(() => setFeedback(""), 6000);
       return;
     }
+
     const trimmedRoom = roomToEnter.trim();
     if (trimmedRoom.length < 1 || trimmedRoom === "") return;
     if (trimmedRoom.length > 20) {
@@ -113,15 +122,13 @@ export const Messenger = ({
       setTimeout(() => setFeedback(""), 4000);
       return;
     }
+
+    setLoading(true);
+
     //setCurrentFriend("");
     messengerChangeChannel(trimmedRoom);
     setRoomToEnter("");
-    setSpamCount((prev) => prev + 1);
-    setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
-    if (spamCount > 2) {
-      setDebounced(true);
-      setTimeout(() => setDebounced(false), 6000);
-    }
+    preventSpam();
     setLoading(false);
   };
 
@@ -130,12 +137,12 @@ export const Messenger = ({
     e.preventDefault();
     if (e.key && (e.key !== "Enter")) return;
     if (loading) return;
-    setLoading(true);
     if (debounced) {
       setFeedback("Slow down there partner...");
       setTimeout(() => setFeedback(""), 6000);
       return;
     }
+
     const trimmedMessage = messageToSend.trim();
     if (trimmedMessage.length < 1 || trimmedMessage === "") return;
     if (trimmedMessage.length > 4000) {
@@ -143,7 +150,11 @@ export const Messenger = ({
       setTimeout(() => setFeedback(""), 4000);
       return;
     }
-    if (trimmedMessage.slice(0, 3) === "/w ") {
+
+    setLoading(true);
+
+    const whispering = trimmedMessage.slice(0, 3) === "/w ";
+    if (whispering) {
       // TO DO: MESS AROUND AGAIN WITH "WRONG" WHITESPACES, if return here, or clean
       const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
       const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
@@ -157,12 +168,7 @@ export const Messenger = ({
       messengerSendWhisper(trimmedMessage, trimmedFriend);
     }*/
     setMessageToSend("");
-    setSpamCount((prev) => prev + 1);
-    setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
-    if (spamCount > 4) {
-      setDebounced(true);
-      setTimeout(() => setDebounced(false), 6000);
-    }
+    preventSpam();
     setLoading(false);
   };
 
