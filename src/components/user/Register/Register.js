@@ -11,16 +11,23 @@ export const Register = ({
   isAuthenticated,
   message,
   authUserRegister,
-  authUserVerify
+  authUserVerify,
+  childProps
 }) => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  //const [ newUser, setNewUser ] = useState(true);
-  //const [ confirmationCode, setConfirmationCode ] = useState("");
+  const [ confirmingUser, setConfirmingUser ] = useState(false);
+  const [ confirmationCode, setConfirmationCode ] = useState("");
   const [ username, setUsername ] = useState("");
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
   const [ passwordAgain, setPasswordAgain ] = useState("");
+
+  useEffect(() => {
+    if (!childProps) return;
+    if (!childProps.confirmingUser) return;
+    if (childProps.confirmingUser === "true") setConfirmingUser(true);
+  }, []);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -31,6 +38,8 @@ export const Register = ({
     return () => isSubscribed = false;
   }, [message]);
 
+  const handleConfirmationCodeChange = e => setConfirmationCode(e.target.value);
+
   const handleUsernameChange = e => setUsername(e.target.value);
 
   const handleEmailChange = e => setEmail(e.target.value);
@@ -39,45 +48,49 @@ export const Register = ({
 
   const handlePasswordAgainChange = e => setPasswordAgain(e.target.value);
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = e => {
     if (!validateRegistrationInfo()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
     authUserRegister(email, password, username, history);
   }
 
-  /*handleVerifySubmit = () => {
+  const handleVerifySubmit = e => {
     if (!validateConfirmationCode()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
-    authUserVerify(email, password, confirmationCode);
-    setNewUser(false);  // move?
-  }*/
+    authUserVerify(email, password, confirmationCode, history);
+  }
   
   const validateRegistrationInfo = () => (
     (username.length > 1) &&
-    (email.length > 1) &&
-    (password.length > 1) &&
+    (email.length > 4) &&
+    (password.length > 5) &&
     (password == passwordAgain)
   );
 
-  //const validateConfirmationCode = () => confirmationCode.length > 1;
+  const validateConfirmationCode = () => confirmationCode.length > 1;
   
   return (
     <RegisterView
       isAuthenticated={isAuthenticated}
       feedback={feedback}
       loading={loading}
+      confirmingUser={confirmingUser}
+      confirmationCode={confirmationCode}
       username={username}
-      handleUsernameChange={handleUsernameChange}
       email={email}
-      handleEmailChange={handleEmailChange}
       password={password}
-      handlePasswordChange={handlePasswordChange}
       passwordAgain={passwordAgain}
+      handleConfirmationCodeChange={handleConfirmationCodeChange}
+      handleUsernameChange={handleUsernameChange}
+      handleEmailChange={handleEmailChange}
+      handlePasswordChange={handlePasswordChange}
       handlePasswordAgainChange={handlePasswordAgainChange}
-      validateRegistrationInfo={validateRegistrationInfo}
       handleRegisterSubmit={handleRegisterSubmit}
+      handleVerifySubmit={handleVerifySubmit}
+      validateRegistrationInfo={validateRegistrationInfo}
+      validateConfirmationCode={validateConfirmationCode}
     />
   );
 }

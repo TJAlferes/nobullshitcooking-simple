@@ -38,11 +38,12 @@ export const authUserRegisterFailed = message => ({
 
 
 
-export const authUserVerify = (email, password, confirmationCode) => ({
+export const authUserVerify = (email, password, confirmationCode, history) => ({
   type: actionTypes.AUTH_USER_VERIFY,
   email,
   password,
-  confirmationCode
+  confirmationCode,
+  history
 });
 
 export const authUserVerifySucceeded = () => ({type: actionTypes.AUTH_USER_VERIFY_SUCCEEDED});

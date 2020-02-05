@@ -169,6 +169,7 @@ const RoutesList = () => (
   <Suspense fallback={<LoaderSpinner />}>
     <Switch>
       {unauthRoute("/user/register", Register)}
+      {unauthRoute("/user/verify", Register, {confirmingUser: "true"})}
       {unauthRoute("/user/login", Login)}
       {authRoute("/user/profile/:username", Profile)}
       {authRoute("/user/dashboard", Dashboard)}

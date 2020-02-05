@@ -7,8 +7,8 @@ import {
   //authCheckState,
   authUserRegisterSucceeded,
   authUserRegisterFailed,
-  //authUserVerifySucceeded,
-  //authUserVerifyFailed,
+  authUserVerifySucceeded,
+  authUserVerifyFailed,
   //authFacebookCheckState,
   //authFacebookLogin,
   //authFacebookLogout,
@@ -150,6 +150,7 @@ export function* authUserRegisterSaga(action) {
       yield put(authUserRegisterSucceeded(res.data.message));
       yield delay(2000);
       yield put(authMessageClear());
+      //yield call([history, history.push], '/user/verify');
       yield call([history, history.push], '/user/login');
     } else {
       yield put(authUserRegisterFailed(res.data.message));
@@ -163,25 +164,36 @@ export function* authUserRegisterSaga(action) {
   }
 }
 
-/*export function* authUserVerifySaga(action) {
+export function* authUserVerifySaga(action) {
   try {
-    const res = call(
+    const { history } = action;
+    const res = yield call(
       [axios, axios.post],
       `${endpoint}/user/auth/verify`,
       {
         userInfo: {
           email: action.email,
-          pass: action.pass,
+          pass: action.password,
           confirmationCode: action.confirmationCode
         }
       }
     );
-    //history.push(redirectPath);
-    yield put(authUserVerifySucceeded());
+    if (res.data.message === "User account verified.") {
+      yield put(authUserVerifySucceeded(res.data.message));
+      yield delay(2000);
+      yield put(authMessageClear());
+      yield call([history, history.push], '/user/login');
+    } else {
+      yield put(authUserVerifyFailed(res.data.message));
+      yield delay(4000);
+      yield put(authMessageClear());
+    }
   } catch(err) {
-    yield put(authUserVerifyFailed());
+    yield put(authUserVerifyFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
   }
-}*/
+}
 
 
 

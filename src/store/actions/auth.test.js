@@ -2,7 +2,7 @@ import {
   AUTH_DISPLAY,
   AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_USER_REGISTER,
-  //AUTH_USER_VERIFY,
+  AUTH_USER_VERIFY,
   AUTH_USER_LOGIN,
   //AUTH_STAFF_LOGIN
 } from './actionTypes';
@@ -10,8 +10,9 @@ import {
   authDisplay,
   authUpdateLocalAvatar,
   authUserRegister,
-  //authUserVerify,
+  authUserVerify,
   authUserLogin,
+  authUserVerify,
   //authStaffLogin
 } from './auth';
 
@@ -89,18 +90,48 @@ describe('authUserRegister action creator', () => {
   });
 });
 
-/*describe('authUserVerify action creator', () => {
+describe('authUserVerify action creator', () => {
   it('returns the correct action type', () => {
-    const actual = auth().type;
+    const actual = auth(
+      'coolperson@coolplace.com',
+      'supersecret',
+      'SOMERANDOMCODE',
+      {}
+    ).type;
     const expected = AUTH_USER_VERIFY;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct ', () => {
-    const actual = auth().;
-    const expected = '';
+  it('returns the correct email', () => {
+    const actual = authUserVerify(
+      'coolperson@coolplace.com',
+      'supersecret',
+      'SOMERANDOMCODE',
+      {}
+    ).email;
+    const expected = 'coolperson@coolplace.com';
     expect(actual).toEqual(expected);
   });
-});*/
+  it('returns the correct password', () => {
+    const actual = authUserVerify(
+      'coolperson@coolplace.com',
+      'supersecret',
+      'SOMERANDOMCODE',
+      {}
+    ).password;
+    const expected = 'supersecret';
+    expect(actual).toEqual(expected);
+  });
+  it('returns the correct confirmationCode', () => {
+    const actual = authUserVerify(
+      'coolperson@coolplace.com',
+      'supersecret',
+      'SOMERANDOMCODE',
+      {}
+    ).confirmationCode;
+    const expected = 'SOMERANDOMCODE';
+    expect(actual).toEqual(expected);
+  });
+});
 
 describe('authUserLogin action creator', () => {
   it('returns the correct action type', () => {

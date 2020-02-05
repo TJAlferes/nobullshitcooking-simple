@@ -1,23 +1,29 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
-import './registerView.css';
 import LoaderButton from '../../LoaderButton/LoaderButton';
+
+import './registerView.css';
 
 const RegisterView = ({
   isAuthenticated,
   feedback,
   loading,
+  confirmingUser,
+  confirmationCode,
   username,
-  handleUsernameChange,
   email,
-  handleEmailChange,
   password,
-  handlePasswordChange,
   passwordAgain,
+  handleConfirmationCodeChange,
+  handleUsernameChange,
+  handleEmailChange,
+  handlePasswordChange,
   handlePasswordAgainChange,
+  handleRegisterSubmit,
+  handleVerifySubmit,
   validateRegistrationInfo,
-  handleRegisterSubmit
+  validateConfirmationCode
 }) => {
   const registerForm = () => (
     <form className="register-form">
@@ -86,31 +92,37 @@ const RegisterView = ({
     </form>
   );
 
-  /*const verifyForm = () => (
+  const verifyForm = () => (
     <form className="register-confirm-form">
       <h1>Verify</h1>
-      <p className="error-message">{message}</p>
+      <p className="error-message">{feedback}</p>
       <label>Code</label>
       <input 
-        type="input"
+        type="text"
+        name="confirmationCode"
+        id="confirmationCode"
+        size="20"
+        maxLength="20"
         autoFocus
-        value={this.state.confirmationCode}
-        onChange={this.handleChange}
+        autoComplete="confirmation-code"
+        value={confirmationCode}
+        onChange={handleConfirmationCodeChange}
+        disabled={loading}
       />
       <p>Please check your email for the confirmation code.</p>
       <LoaderButton
-        type="submit"
+        type="button"
         name="submit"
         className="verify-confirmation-code-button"
         id="verify_confirmation_code_button"
         text="Verify"
         loadingText="Verifying..."
-        isLoading={this.state.isLoading}
-        disabled={!this.validateConfirmationCode()}
-        onClick={this.handleVerifySubmit}
+        isLoading={loading}
+        disabled={!validateConfirmationCode()}
+        onClick={handleVerifySubmit}
       />
     </form>
-  );*/
+  );
 
   return (
     <div className="register" onKeyUp={(e) => handleRegisterSubmit(e)}>
@@ -127,8 +139,7 @@ const RegisterView = ({
         />
       </Link>
 
-      {/*newUser === true ? registerForm() : verifyForm()*/}
-      {registerForm()}
+      {confirmingUser === true ? verifyForm() : registerForm()}
 
       <ul className="register-links">
         <li className="register-link">

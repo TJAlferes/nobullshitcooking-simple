@@ -62,10 +62,11 @@ import {
 
   AUTH_STAFF_LOGIN,
   AUTH_STAFF_LOGOUT,
-  AUTH_USER_REGISTER,
   AUTH_USER_LOGIN,
   AUTH_USER_LOGIN_SUCCEEDED,
   AUTH_USER_LOGOUT,
+  AUTH_USER_REGISTER,
+  AUTH_USER_VERIFY,
 
   DATA_INIT,
 
@@ -118,25 +119,22 @@ import {
 import {
   authStaffLoginSaga,
   authStaffLogoutSaga,
-  authUserRegisterSaga,
   authUserLoginSaga,
-  authUserLogoutSaga
+  authUserLogoutSaga,
+  authUserRegisterSaga,
+  authUserVerifySaga
 } from './auth';
 
 import {
   dataGetMeasurementsSaga,
-
   dataGetEquipmentsSaga,  // official
   dataGetEquipmentTypesSaga,
-
   dataGetIngredientsSaga,  // official
   dataGetIngredientTypesSaga,
-
   dataGetRecipesSaga,  // official
   dataGetRecipeTypesSaga,
   dataGetCuisinesSaga,
   dataGetMethodsSaga,
-
   dataGetMyPublicRecipesSaga,
   dataGetMyPrivateEquipmentsSaga,
   dataGetMyPrivateIngredientsSaga,
@@ -254,7 +252,9 @@ export function* watchAuth() {
   yield all([
     takeEvery(AUTH_STAFF_LOGIN, authStaffLoginSaga),
     takeEvery(AUTH_STAFF_LOGOUT, authStaffLogoutSaga),
+
     takeEvery(AUTH_USER_REGISTER, authUserRegisterSaga),
+    takeEvery(AUTH_USER_VERIFY, authUserVerifySaga),
     takeEvery(AUTH_USER_LOGIN, authUserLoginSaga),
     takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMyPublicRecipesSaga),
     takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMyPrivateEquipmentsSaga),

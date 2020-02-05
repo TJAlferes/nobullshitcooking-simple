@@ -1,27 +1,20 @@
 import {
-  AUTH_USER_REGISTER_SUCCEEDED,
-  AUTH_USER_REGISTER_FAILED,
-
-  AUTH_USER_LOGIN_SUCCEEDED,
-  AUTH_USER_LOGIN_FAILED,
-
-  AUTH_USER_LOGOUT_SUCCEEDED,
-  AUTH_USER_LOGOUT_FAILED,
-
   AUTH_STAFF_LOGIN_SUCCEEDED,
   AUTH_STAFF_LOGIN_FAILED,
-
   AUTH_STAFF_LOGOUT_SUCCEEDED,
   AUTH_STAFF_LOGOUT_FAILED,
-
+  AUTH_USER_LOGIN_SUCCEEDED,
+  AUTH_USER_LOGIN_FAILED,
+  AUTH_USER_LOGOUT_SUCCEEDED,
+  AUTH_USER_LOGOUT_FAILED,
+  AUTH_USER_REGISTER_SUCCEEDED,
+  AUTH_USER_REGISTER_FAILED,
+  AUTH_USER_VERIFY_SUCCEEDED,
+  AUTH_USER_VERIFY_FAILED,
   AUTH_MESSAGE_CLEAR,
-
   AUTH_DISPLAY,
-
   AUTH_UPDATE_LOCAL_AVATAR,
-
   AUTH_RESET,
-
   AUTH_USER_LOGOUT,
   AUTH_STAFF_LOGOUT
 } from '../actions/actionTypes';
@@ -55,8 +48,11 @@ const updateLocalAvatar = (state, action) => ({
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case AUTH_USER_REGISTER_SUCCEEDED: return authMessage(state, action);
-    case AUTH_USER_REGISTER_FAILED: return authMessage(state, action);
+    case AUTH_STAFF_LOGIN_SUCCEEDED: return authMessage(state, action);
+    case AUTH_STAFF_LOGIN_FAILED: return authMessage(state, action);
+
+    case AUTH_STAFF_LOGOUT_SUCCEEDED: return authMessage(state, action);
+    case AUTH_STAFF_LOGOUT_FAILED: return authMessage(state, action);
 
     case AUTH_USER_LOGIN_SUCCEEDED: return authMessage(state, action);
     case AUTH_USER_LOGIN_FAILED: return authMessage(state, action);
@@ -64,11 +60,11 @@ const authReducer = (state = initialState, action) => {
     case AUTH_USER_LOGOUT_SUCCEEDED: return authMessage(state, action);
     case AUTH_USER_LOGOUT_FAILED: return authMessage(state, action);
 
-    case AUTH_STAFF_LOGIN_SUCCEEDED: return authMessage(state, action);
-    case AUTH_STAFF_LOGIN_FAILED: return authMessage(state, action);
+    case AUTH_USER_REGISTER_SUCCEEDED: return authMessage(state, action);
+    case AUTH_USER_REGISTER_FAILED: return authMessage(state, action);
 
-    case AUTH_STAFF_LOGOUT_SUCCEEDED: return authMessage(state, action);
-    case AUTH_STAFF_LOGOUT_FAILED: return authMessage(state, action);
+    case AUTH_USER_VERIFY_SUCCEEDED: return authMessage(state, action);
+    case AUTH_USER_VERIFY_FAILED: return authMessage(state, action);
 
     case AUTH_MESSAGE_CLEAR: return authMessageClear(state, action);
 
