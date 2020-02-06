@@ -35,8 +35,8 @@ export const Messenger = ({
   const [ loading, setLoading ] = useState(false);
   const [ debounced, setDebounced ] = useState(false);
   const [ spamCount, setSpamCount ] = useState(1);
-  const [ tab, setTab ] = useState("Room");
-  const [ topTab, setTopTab ] = useState("Options");
+  const [ peopleTab, setPeopleTab ] = useState("Room");
+  const [ mobileTab, setMobileTab ] = useState("Options");
   const [ roomToEnter, setRoomToEnter ] = useState("");
   const [ messageToSend, setMessageToSend ] = useState("");
   //const [ currentFriend, setCurrentFriend ] = useState("");
@@ -172,15 +172,9 @@ export const Messenger = ({
     setLoading(false);
   };
 
-  const handleOptionsTopTabClick = () => setTopTab("Options");
+  const handleMobileTabChange = value => setMobileTab(value);
 
-  const handleChatTopTabClick = () => setTopTab("Chat");
-
-  const handlePeopleTopTabClick = () => setTopTab("People");
-
-  const handleUsersInRoomTabClick = () => setTab("Room");
-
-  const handleFriendsTabClick = () => setTab("Friends");
+  const handlePeopleTabChange = value = setPeopleTab(value);
 
   //const handleFriendClick = () => setCurrentFriend(e.target.id);
 
@@ -210,15 +204,13 @@ export const Messenger = ({
       handleMessageInputChange={handleMessageInputChange}
       handleMessageSend={handleMessageSend}
 
-      tab={tab}
-      topTab={topTab}
       users={users}
       onlineFriends={onlineFriends}
-      handleUsersInRoomTabClick={handleUsersInRoomTabClick}
-      handleFriendsTabClick={handleFriendsTabClick}
-      handleOptionsTopTabClick={handleOptionsTopTabClick}
-      handleChatTopTabClick={handleChatTopTabClick}
-      handlePeopleTopTabClick={handlePeopleTopTabClick}
+
+      peopleTab={peopleTab}
+      mobileTab={mobileTab}
+      handlePeopleTabChange={handlePeopleTabChange}
+      handleMobileTabChange={handleMobileTabChange}
     />
   );
 };

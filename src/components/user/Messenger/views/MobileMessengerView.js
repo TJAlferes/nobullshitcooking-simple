@@ -1,5 +1,9 @@
 import React from 'react';
 
+import ChatView from './mobile/ChatView'
+import OptionsView from './mobile/OptionsView';
+import PeopleView from './mobile/PeopleView';
+
 import './mobileMessenger.css';
 
 const MobileMessengerView = ({
@@ -22,15 +26,11 @@ const MobileMessengerView = ({
   handleMessageInputChange,
   handleMessageSend,
 
-  tab,
-  topTab,
+  mobileTab,
   users,
   onlineFriends,
-  handleUsersInRoomTabClick,
-  handleFriendsTabClick,
-  handleOptionsTopTabClick,
-  handleChatTopTabClick,
-  handlePeopleTopTabClick
+  handlePeopleTabChange,
+  handleMobileTabTouch
 }) => (
   <div className="mobile-messenger">
 
@@ -40,216 +40,69 @@ const MobileMessengerView = ({
 
     <div className="mobile-messenger__top-tabs">
       <button
-        className={(topTab === "Options")
+        className={(mobileTab === "Options")
           ? "mobile-messenger__top-tab chat-top-nav-current"
           : "mobile-messenger__top-tab"
         }
-        onClick={handleOptionsTopTabClick}
+        onClick={() => handleMobileTabTouch("Options")}
       >
         Options
       </button>
       <button
-        className={(topTab === "Chat")
+        className={(mobileTab === "Chat")
           ? "mobile-messenger__top-tab chat-top-nav-current"
           : "mobile-messenger__top-tab"
         }
-        onClick={handleChatTopTabClick}
+        onClick={() => handleMobileTabTouch("Chat")}
       >
         Chat
       </button>
       <button
-        className={(topTab === "People")
+        className={(mobileTab === "People")
           ? "mobile-messenger__top-tab chat-top-nav-current"
           : "mobile-messenger__top-tab"
         }
-        onClick={handlePeopleTopTabClick}
+        onClick={() => handleMobileTabTouch("People")}
       >
         People
       </button>
     </div>
 
     <div className="mobile-messenger__views">
-      {topTab === "Options" && (
-        <div className="mobile-messenger__view">
-          <div className="mobile-messenger__connect-disconnect-container">
-            {
-              props.status === "Connected"
-              ? (
-                <button
-                  className="mobile-messenger__connect-disconnect"
-                  onClick={handleDisconnect}
-                  disabled={loading}
-                >
-                  Disconnect
-                </button>
-              )
-              : (
-                <button
-                  className="mobile-messenger__connect-disconnect"
-                  onClick={handleConnect}
-                  disabled={loading}
-                >
-                  Connect
-                </button>
-              )
-            }
-          </div>
 
-          <div className="mobile-messenger__current-container">
-            <span className="mobile-messenger__channel-switch">
-              Current Room:
-            </span>
-            <span className="mobile-messenger__channel-current">
-              {props.channel}
-            </span>
-          </div>
-
-          <div className="mobile-messenger__go-container">
-            <span className="mobile-messenger__channel-label">
-              Go To Room:
-            </span>
-            <input
-              className="mobile-messenger__channel-input"
-              type="text"
-              name="channel-input"
-              value={roomToEnter}
-              onChange={handleRoomInputChange}
-              disabled={(props.status !== "Connected") || loading}
-            />
-            <div className="mobile-messenger__channel-button-container">
-              <button
-                className="mobile-messenger__channel-button"
-                onClick={handleChannelChange}
-                disabled={(props.status !== "Connected") || loading}
-              >
-                Enter
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {topTab === "Options" && (
-        <div className="mobile-messenger__view">
-          messages
-          input
-        </div>
-      )}
-
-      {topTab === "Options" && (
-        <div className="mobile-messenger__view">
-          <div className="mobile-messenger__people-tabs">
-            <button
-              className={(tab === "Room")
-                ? "mobile-messenger__people-tab chat-nav-current"
-                : "mobile-messenger__people-tab"
-              }
-              onClick={handleUsersInRoomTabClick}
-            >
-              Room
-            </button>
-            <button
-              className={(tab === "Friends")
-                ? "mobile-messenger__people-tab chat-nav-current"
-                : "mobile-messenger__people-tab"
-              }
-              onClick={handleFriendsTabClick}
-            >
-              Friends
-            </button>
-          </div>
-
-          {tab === "Room" && (
-            <ul className="mobile-messenger__users-in-room">
-              {props.users && props.users.map(user => (
-                <li className="mobile-messenger__user-in-room" key={user.user}>
-                  <img src={`https://s3.amazonaws.com/nobsc-user-avatars${user.user}-tiny`} />
-                  <span>{user.user}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {tab === "Friends" && (
-            <ul className="mobile-messenger__friends">
-              {props.onlineFriends && props.onlineFriends.map(online => (
-                <li className="mobile-messenger__friend" key={online.user}>
-                  <img src={`https://s3.amazonaws.com/nobsc-user-avatars${online.user}-tiny`} />
-                  <span>{online.user}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
-    </div>
-
-    <div className="messenger-chat">
-      <ul className="messenger-chat-messages" ref={messagesRef}>
-        <li className="messenger-chat-message">
-          <span className="chat-display-admin">COOK EAT WIN REPEAT</span>
-        </li>
-        {
-          props.messages && props.messages.map(message => (
-            message.user.user === "messengerstatus"
-            ? (
-              <li className="messenger-chat-message" key={message.ts}>
-                <span className="chat-display-admin">{message.message}</span>
-              </li>
-            )
-            : (
-              props.authname === message.user.user
-              ? (
-                message.whisper
-                ? (
-                  <li className="messenger-chat-message" key={message.ts}>
-                    <span className="chat-display-username-self">
-                      You whisper to{' '}{message.to}:{' '}
-                    </span>
-                    <span className="chat-whisper">{message.whisper}</span>
-                  </li>
-                )
-                : (
-                  <li className="messenger-chat-message" key={message.ts}>
-                    <span className="chat-display-username-self">
-                      {message.user.user}:{' '}
-                    </span>
-                    {message.message}
-                  </li>
-                )
-              )
-              : (
-                message.whisper
-                ? (
-                  <li className="messenger-chat-message" key={message.ts}>
-                    <span className="chat-display-username-other">
-                      {message.user.user}{' '}whispers to you:{' '}
-                    </span>
-                    <span className="chat-whisper">{message.whisper}</span>
-                  </li>
-                )
-                : (
-                  <li className="messenger-chat-message" key={message.ts}>
-                    <span className="chat-display-username-other">
-                      {message.user.user}:{' '}
-                    </span>
-                    {message.message}
-                  </li>
-                )
-              )
-            )
-          ))
-        }
-      </ul>
-      <div className="messenger-chat-input">
-        <input
-          type="text" name="chat-input"
-          value={messageToSend}
-          onChange={handleMessageInputChange}
-          onKeyUp={(e) => handleMessageSend(e)}
-          disabled={props.status !== "Connected"}
+      {mobileTab === "Options" && (
+        <OptionsView
+          loading={loading}
+          status={status}
+          channel={channel}
+          roomToEnter={roomToEnter}
+          handleRoomInputChange={handleRoomInputChange}
+          handleChannelChange={handleChannelChange}
+          handleConnect={handleConnect}
+          handleDisconnect={handleDisconnect}
         />
-      </div>
+      )}
+
+      {mobileTab === "Chat" && (
+        <ChatView
+          authname={authname}
+          status={status}
+          messagesRef={messagesRef}
+          messages={messages}
+          messageToSend={messageToSend}
+          handleMessageInputChange={handleMessageInputChange}
+          handleMessageSend={handleMessageSend}
+        />
+      )}
+
+      {mobileTab === "People" && (
+        <PeopleView
+          users={users}
+          onlineFriends={onlineFriends}
+          peopleTab={peopleTab}
+          handlePeopleTabChange={handlePeopleTabChange}
+        />
+      )}
     </div>
 
   </div>
