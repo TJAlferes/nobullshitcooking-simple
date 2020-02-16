@@ -7,7 +7,6 @@ import OptionsView from './desktop/OptionsView';
 import PeopleView from './desktop/PeopleView';
 
 import './messenger.css';
-import OptionsView from './desktop/OptionsView';
 
 const MessengerView = ({
   twoColumnATheme,
