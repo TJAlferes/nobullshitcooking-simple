@@ -16,7 +16,7 @@ const MessengerPage = ({ twoColumnATheme }) => (
     </div>
     <div className="desktop_display">
       <Suspense fallback={<div>Loading...</div>} >
-        <Messenger twoColumnATheme={twoColumnATheme} messengerView={desktop} />
+        <Messenger twoColumnATheme={twoColumnATheme} messengerView="desktop" />
       </Suspense>
     </div>
   </div>

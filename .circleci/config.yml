@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.16.3-browsers
-    working_directory: ~/nobullshitcooking-simple
+    working_directory: ~/nobullshitcooking-ui
     steps:
       - checkout
       - restore_cache:

@@ -20,7 +20,7 @@ const NewPlanPage = ({ twoColumnATheme, childProps }) => (
         <NewPlan
           className="desktop_display"
           twoColumnATheme={twoColumnATheme}
-          planView={desktop}
+          planView="desktop"
           editing={(childProps && childProps.editing) && childProps.editing}
         />
       </Suspense>

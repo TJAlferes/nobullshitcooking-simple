@@ -1,3 +1,22 @@
 .cuisine {
   width: 1020px;
 }
+
+.cuisine-nav-title {
+  margin-bottom: 18px;
+}
+
+.cuisine-nav-group {
+  margin-bottom: 18px;
+}
+
+.cuisine-nav-letter {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.cuisine-nav-nation {
+  margin-bottom: 10px;
+  font-size: 13px;
+}

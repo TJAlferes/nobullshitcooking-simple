@@ -140,6 +140,7 @@ socket.on('reconnect', () => {
 
 export function* messengerConnectSaga() {
   socket.connect();
+  console.log('hey');
 }
 
 export function* messengerDisconnectSaga() {

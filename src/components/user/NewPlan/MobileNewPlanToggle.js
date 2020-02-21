@@ -28,7 +28,7 @@ class MobileNewPlanToggle extends Component {
         <button id="close_planner" onClick={this.deactivateModal}>
           Close Planner
         </button>
-        <NewPlan planView={mobile} />
+        <NewPlan planView="mobile" />
       </AriaModal>
     )
     : false;

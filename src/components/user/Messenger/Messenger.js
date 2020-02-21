@@ -174,7 +174,7 @@ export const Messenger = ({
 
   const handleMobileTabChange = value => setMobileTab(value);
 
-  const handlePeopleTabChange = value = setPeopleTab(value);
+  const handlePeopleTabChange = value => setPeopleTab(value);
 
   //const handleFriendClick = () => setCurrentFriend(e.target.id);
 

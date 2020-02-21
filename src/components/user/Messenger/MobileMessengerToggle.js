@@ -37,7 +37,7 @@ class MobileMessengerToggle extends Component {
         <button id="close_messenger" onClick={this.deactivateModal}>
           Close Messenger
         </button>
-        <Messenger messengerView={mobile} />
+        <Messenger messengerView="mobile" />
       </AriaModal>
     )
     : false;
