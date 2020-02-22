@@ -97,35 +97,3 @@ export const authUserLogoutFailed = message => ({
   type: actionTypes.AUTH_USER_LOGOUT_FAILED,
   message
 });
-
-
-
-export const authStaffLogin = (email, password) => ({
-  type: actionTypes.AUTH_STAFF_LOGIN,
-  email,
-  password
-});
-
-export const authStaffLoginSucceeded = message => ({
-  type: actionTypes.AUTH_STAFF_LOGIN_SUCCEEDED,
-  message
-});
-
-export const authStaffLoginFailed = message => ({
-  type: actionTypes.AUTH_STAFF_LOGIN_FAILED,
-  message
-});
-
-
-
-export const authStaffLogout = () => ({type: actionTypes.AUTH_STAFF_LOGOUT});
-
-export const authStaffLogoutSucceeded = message => ({
-  type: actionTypes.AUTH_STAFF_LOGOUT_SUCCEEDED,
-  message
-});
-
-export const authStaffLogoutFailed = message => ({
-  type: actionTypes.AUTH_STAFF_LOGOUT_FAILED,
-  message
-});

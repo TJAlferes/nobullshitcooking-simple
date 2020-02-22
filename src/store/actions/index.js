@@ -21,13 +21,7 @@ export {
   authUserLoginFailed,
   authUserLogout,
   authUserLogoutSucceeded,
-  authUserLogoutFailed,
-  authStaffLogin,
-  authStaffLoginSucceeded,
-  authStaffLoginFailed,
-  authStaffLogout,
-  authStaffLogoutSucceeded,
-  authStaffLogoutFailed
+  authUserLogoutFailed
 } from './auth';
 
 export { cartAddItem, cartRemoveItem, cartEmpty } from './cart';

@@ -1,8 +1,4 @@
 import {
-  AUTH_STAFF_LOGIN_SUCCEEDED,
-  AUTH_STAFF_LOGIN_FAILED,
-  AUTH_STAFF_LOGOUT_SUCCEEDED,
-  AUTH_STAFF_LOGOUT_FAILED,
   AUTH_USER_LOGIN_SUCCEEDED,
   AUTH_USER_LOGIN_FAILED,
   AUTH_USER_LOGOUT_SUCCEEDED,
@@ -15,8 +11,7 @@ import {
   AUTH_DISPLAY,
   AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_RESET,
-  AUTH_USER_LOGOUT,
-  AUTH_STAFF_LOGOUT
+  AUTH_USER_LOGOUT
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -48,12 +43,6 @@ const updateLocalAvatar = (state, action) => ({
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case AUTH_STAFF_LOGIN_SUCCEEDED: return authMessage(state, action);
-    case AUTH_STAFF_LOGIN_FAILED: return authMessage(state, action);
-
-    case AUTH_STAFF_LOGOUT_SUCCEEDED: return authMessage(state, action);
-    case AUTH_STAFF_LOGOUT_FAILED: return authMessage(state, action);
-
     case AUTH_USER_LOGIN_SUCCEEDED: return authMessage(state, action);
     case AUTH_USER_LOGIN_FAILED: return authMessage(state, action);
 
@@ -75,7 +64,6 @@ const authReducer = (state = initialState, action) => {
     case AUTH_RESET: return {...state, ...initialState};
 
     case AUTH_USER_LOGOUT: return {...state, ...initialState};
-    case AUTH_STAFF_LOGOUT: return {...state, ...initialState};
   }
   return state;
 };

@@ -60,8 +60,6 @@ import {
 
   USER_SUBMIT_AVATAR,
 
-  AUTH_STAFF_LOGIN,
-  AUTH_STAFF_LOGOUT,
   AUTH_USER_LOGIN,
   AUTH_USER_LOGIN_SUCCEEDED,
   AUTH_USER_LOGOUT,
@@ -117,8 +115,6 @@ import {
 } from './user/save';
 
 import {
-  authStaffLoginSaga,
-  authStaffLogoutSaga,
   authUserLoginSaga,
   authUserLogoutSaga,
   authUserRegisterSaga,
@@ -250,9 +246,6 @@ export function* watchUserSave() {
 
 export function* watchAuth() {
   yield all([
-    takeEvery(AUTH_STAFF_LOGIN, authStaffLoginSaga),
-    takeEvery(AUTH_STAFF_LOGOUT, authStaffLogoutSaga),
-
     takeEvery(AUTH_USER_REGISTER, authUserRegisterSaga),
     takeEvery(AUTH_USER_VERIFY, authUserVerifySaga),
     takeEvery(AUTH_USER_LOGIN, authUserLoginSaga),

@@ -20,15 +20,9 @@ const MessengerPage = lazy(() => import('../components/user/Messenger/MessengerP
 //const PlanPage = lazy(() => import('../components/Plan/PlanPage'));  // for public, url-based
 const PlanPage = lazy(() => import('../components/user/Plan/PlanPage'));
 const NewPlanPage = lazy(() => import('../components/user/NewPlan/NewPlanPage'));
-const SubmitRecipe = lazy(() => import('../components/user/SubmitRecipe/SubmitRecipe'));
+const NewRecipe = lazy(() => import('../components/user/NewRecipe/NewRecipe'));
 const NewEquipment = lazy(() => import('../components/user/NewEquipment/NewEquipment'));
 const NewIngredient = lazy(() => import('../components/user/NewIngredient/NewIngredient'));
-
-const StaffLogin = lazy(() => import('../components/staff/StaffLogin/StaffLogin'));  // eventually break out into separate React app?
-const StaffDashboard = lazy(() => import('../components/staff/StaffDashboard/StaffDashboard'));
-const StaffSubmitRecipe = lazy(() => import('../components/staff/StaffSubmitRecipe/StaffSubmitRecipe'));
-const StaffSubmitEquipment = lazy(() => import('../components/staff/StaffSubmitEquipment/StaffSubmitEquipment'));
-const StaffSubmitIngredient = lazy(() => import('../components/staff/StaffSubmitIngredient/StaffSubmitIngredient'));
 
 //const SearchResultsAll = lazy(() => import('../components/pages/main/SearchResults/SearchResultsAll'));
 const SearchResultsRecipes = lazy(() => import('../components/pages/main/SearchResultsRecipes/SearchResultsRecipes'));
@@ -181,22 +175,22 @@ const RoutesList = () => (
       {authRoute("/user/plan/:id", PlanPage)}
       {authRoute(
         "/user/recipes/private/submit",
-        SubmitRecipe,
+        NewRecipe,
         {submittingOwnership: "private"}
       )}
       {authRoute(
         "/user/recipes/public/submit",
-        SubmitRecipe,
+        NewRecipe,
         {submittingOwnership: "public"}
       )}
       {authRoute(
         "/user/recipes/private/edit/:id",
-        SubmitRecipe,
+        NewRecipe,
         {editing: "true", editingOwnership: "private"}
       )}
       {authRoute(
         "/user/recipes/public/edit/:id",
-        SubmitRecipe,
+        NewRecipe,
         {editing: "true", editingOwnership: "public"}
       )}
       {authRoute("/user/recipes/:id", Recipe)}
@@ -210,28 +204,6 @@ const RoutesList = () => (
         {editing: "true"}
       )}
       {authRoute("/user/ingredients/:id", Ingredient)}
-
-      {unauthRoute("/staff/login", StaffLogin)}
-      {authRoute("/staff/dashboard", StaffDashboard)}
-      {authRoute("/staff", StaffDashboard)}
-      {authRoute("/staff/recipes/submit", StaffSubmitRecipe)}
-      {authRoute(
-        "/staff/recipes/edit/:id",
-        StaffSubmitRecipe,
-        {editing: "true"}
-      )}
-      {authRoute("/staff/equipment/submit", StaffSubmitEquipment)}
-      {authRoute(
-        "/staff/equipment/edit/:id",
-        StaffSubmitEquipment,
-        {editing: "true"}
-      )}
-      {authRoute("/staff/ingredients/submit", StaffSubmitIngredient)}
-      {authRoute(
-        "/staff/ingredients/edit/:id",
-        StaffSubmitIngredient,
-        {editing: "true"}
-      )}
 
       {appRoute("/recipes/:id", Recipe)}
       {appRoute("/ingredients/:id", Ingredient)}

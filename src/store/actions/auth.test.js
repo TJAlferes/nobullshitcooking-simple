@@ -3,17 +3,15 @@ import {
   AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_USER_REGISTER,
   AUTH_USER_VERIFY,
-  AUTH_USER_LOGIN,
-  //AUTH_STAFF_LOGIN
+  AUTH_USER_LOGIN
 } from './actionTypes';
+
 import {
   authDisplay,
   authUpdateLocalAvatar,
   authUserRegister,
   authUserVerify,
-  authUserLogin,
-  authUserVerify,
-  //authStaffLogin
+  authUserLogin
 } from './auth';
 
 describe('authDisplay action creator', () => {
@@ -159,16 +157,3 @@ describe('authUserLogin action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-
-/*describe('authStaffLogin action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = auth().type;
-    const expected = AUTH_STAFF_LOGIN;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct ', () => {
-    const actual = auth().;
-    const expected = '';
-    expect(actual).toEqual(expected);
-  });
-});*/

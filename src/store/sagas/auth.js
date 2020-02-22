@@ -19,10 +19,6 @@ import {
   authUserLoginFailed,
   authUserLogoutSucceeded,
   authUserLogoutFailed,
-  authStaffLoginSucceeded,
-  authStaffLoginFailed,
-  authStaffLogoutSucceeded,
-  authStaffLogoutFailed,
   //authReset
 } from '../actions/index';
 
@@ -39,49 +35,6 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 /*export function* authCheckStateSaga() {
   yield put(authCheckState());
 }*/
-
-
-
-export function* authStaffLoginSaga(action) {
-  try {
-    const res = yield call(
-      [axios, axios.post],
-      `${endpoint}/staff/auth/login`,
-      {staffInfo: {email: action.email, password: action.password}},
-      {withCredentials: true}
-    );
-    if (res.data.message == 'Signed in.') {
-      yield put(authDisplay(res.data.staffname, res.data.avatar));
-      yield put(authStaffLoginSucceeded(res.data.message));
-    } else {
-      yield put(authStaffLoginFailed(res.data.message));
-    }
-    yield delay(4000);
-    yield put(authMessageClear());
-  } catch(err) {
-    yield put(authStaffLoginFailed('An error occurred. Please try again.'));
-    yield delay(4000);
-    yield put(authMessageClear());
-  }
-}
-
-export function* authStaffLogoutSaga() {
-  try {
-    yield call(
-      [axios, axios.post],
-      `${endpoint}/staff/auth/logout`,
-      {},
-      {withCredentials: true}
-    );
-    yield put(authStaffLogoutSucceeded('Signed out.'));
-    yield delay(4000);
-    yield put(authMessageClear());
-  } catch(err) {
-    yield put(authStaffLogoutFailed('An error occurred. Please try again.'));
-    yield delay(4000);
-    yield put(authMessageClear());
-  }
-}
 
 
 
