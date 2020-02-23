@@ -157,3 +157,43 @@ export const EquipmentBreadcrumbsView = ({
     </Link>
   </div>
 );
+
+
+
+export const CuisineBreadcrumbs = withBreadcrumbs()(
+  connect(mapStateToProps)(
+    ({ breadCrumbsTheme, breadcrumbs, cuisine }) => {
+      breadcrumbs.pop();
+      return (
+        <CuisineBreadcrumbsView
+          breadCrumbsTheme={breadCrumbsTheme}
+          breadcrumbs={breadcrumbs}
+          cuisine={cuisine}
+        />
+      );
+    }
+  )
+);
+
+export const CuisineBreadcrumbsView = ({
+  breadCrumbsTheme,
+  breadcrumbs,
+  cuisine
+}) => (
+  <div className={`crumbs ${breadCrumbsTheme}`}>
+    {breadcrumbs.map((breadcrumb, index) => (
+      <span className="crumb" key={breadcrumb.key}>
+        <Link className="crumb_link" to={breadcrumb.key}>
+          {breadcrumb.breadcrumb}
+        </Link>
+        {(index < breadcrumbs.length) && <i className="crumb_pointer"> > </i>}
+      </span>
+    ))}
+    <Link
+      className="crumb_link"
+      to={`/cuisines/${cuisine && cuisine.cuisine_id}`}
+    >
+      {cuisine && cuisine.cuisine_name}
+    </Link>
+  </div>
+);

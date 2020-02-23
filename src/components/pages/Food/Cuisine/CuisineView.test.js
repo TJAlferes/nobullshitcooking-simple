@@ -28,42 +28,42 @@ describe('CuisineView', () => {
 
   it('displays a button element with text Intro', () => {
     expect(
-      wrapper.find('button.cuisine.cuisine-tab[name="intro-tab"]').text()
+      wrapper.find('button.cuisine-tab[name="intro"]').text()
     )
     .toEqual("Intro");
   });
 
   it('displays a button element with text Sources', () => {
     expect(
-      wrapper.find('button.cuisine.cuisine-tab[name="sources-tab"]').text()
+      wrapper.find('button.cuisine-tab[name="sources"]').text()
     )
     .toEqual("Sources");
   });
 
   it('displays a button element with text Equipment', () => {
     expect(
-      wrapper.find('button.cuisine.cuisine-tab[name="equipment-tab"]').text()
+      wrapper.find('button.cuisine-tab[name="equipment"]').text()
     )
     .toEqual("Equipment");
   });
 
   it('displays a button element with text Ingredients', () => {
     expect(
-      wrapper.find('button.cuisine.cuisine-tab[name="ingredients-tab"]').text()
+      wrapper.find('button.cuisine-tab[name="ingredients"]').text()
     )
     .toEqual("Ingredients");
   });
 
   it('displays a button element with text Recipes', () => {
     expect(
-      wrapper.find('button.cuisine.cuisine-tab[name="recipes-tab"]').text()
+      wrapper.find('button.cuisine-tab[name="recipes"]').text()
     )
     .toEqual("Recipes");
   });
 
   it('displays a button element with text Plans', () => {
     expect(
-      wrapper.find('button.cuisine.cuisine-tab[name="plans-tab"]').text()
+      wrapper.find('button.cuisine-tab[name="plans"]').text()
     )
     .toEqual("Plans");
   });
