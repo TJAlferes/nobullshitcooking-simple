@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-/* ---------- helpers ---------- */
+/* helpers */
 
 import AppliedRoute from './AppliedRoute';
 import AuthenticatedRoute from './AuthenticatedRoute';
@@ -9,7 +9,7 @@ import UnauthenticatedRoute from './UnauthenticatedRoute';
 
 import LoaderSpinner from '../components/LoaderSpinner/LoaderSpinner';
 
-/* ---------- routes ---------- */
+/* routes */
 
 const Register = lazy(() => import('../components/user/Register/Register'));
 const Login = lazy(() => import('../components/user/Login/Login'));
@@ -17,7 +17,6 @@ const Profile = lazy(() => import('../components/user/Profile/Profile'));
 const Dashboard = lazy(() => import('../components/user/Dashboard/Dashboard'));
 const Friends = lazy(() => import('../components/user/Friends/Friends'));
 const MessengerPage = lazy(() => import('../components/user/Messenger/MessengerPage'));
-//const PlanPage = lazy(() => import('../components/Plan/PlanPage'));  // for public, url-based
 const PlanPage = lazy(() => import('../components/user/Plan/PlanPage'));
 const NewPlanPage = lazy(() => import('../components/user/NewPlan/NewPlanPage'));
 const NewRecipe = lazy(() => import('../components/user/NewRecipe/NewRecipe'));
@@ -46,19 +45,10 @@ import Casseroles from '../components/pages/Food/SiteNavRecipes/Casseroles/Casse
 import Sauces from '../components/pages/Food/SiteNavRecipes/Sauces/Sauces';
 import Dressings from '../components/pages/Food/SiteNavRecipes/Dressings/Dressings';
 import Condiments from '../components/pages/Food/SiteNavRecipes/Condiments/Condiments';
+
 import Cuisines from '../components/pages/Food/Cuisines/Cuisines';
-import Russian from '../components/pages/Food/Cuisines/Russian/Russian';
-import German from '../components/pages/Food/Cuisines/German/German';
-import Turkish from '../components/pages/Food/Cuisines/Turkish/Turkish';
-import French from '../components/pages/Food/Cuisines/French/French';
-import Italian from '../components/pages/Food/Cuisines/Italian/Italian';
-import Mexican from '../components/pages/Food/Cuisines/Mexican/Mexican';
-import Greek from '../components/pages/Food/Cuisines/Greek/Greek';
-import Irish from '../components/pages/Food/Cuisines/Irish/Irish';
-import Chinese from '../components/pages/Food/Cuisines/Chinese/Chinese';
-import Indian from '../components/pages/Food/Cuisines/Indian/Indian';
-import Japanese from '../components/pages/Food/Cuisines/Japanese/Japanese';
-import Iranian from '../components/pages/Food/Cuisines/Iranian/Iranian';
+import Cuisine from '../components/pages/Food/Cuisine/Cuisine';
+
 import SiteNavIngredients from '../components/pages/Food/SiteNavIngredients/SiteNavIngredients';
 import FishAndShellfish from '../components/pages/Food/SiteNavIngredients/FishAndShellfish/FishAndShellfish';
 import MeatAndPoultry from '../components/pages/Food/SiteNavIngredients/MeatAndPoultry/MeatAndPoultry';
@@ -105,7 +95,6 @@ import Pushup from '../components/pages/Fitness/Exercises/Pushup/Pushup';
 import Pullup from '../components/pages/Fitness/Exercises/Pullup/Pullup';
 
 import Supply from '../components/supply/Supply';
-// was from '../components/supply/ProductsList/ProductsList';
 
 import Promo from '../components/pages/promo/Promo';
 import WaterFiltration from '../components/pages/promo/WaterFiltration/WaterFiltration';
@@ -114,7 +103,6 @@ import Coffee from '../components/pages/promo/Coffee/Coffee';
 import Outdoors from '../components/pages/promo/Outdoors/Outdoors';
 import Garden from '../components/pages/promo/Garden/Garden';
 import Tools from '../components/pages/promo/Tools/Tools';
-//import FoodInSeason from '../components/pages/promo/FoodInSeason/FoodInSeason';
 
 import Site from '../components/pages/site/Site';
 import Contests from '../components/pages/site/Contests/Contests';
@@ -165,6 +153,7 @@ const RoutesList = () => (
       {unauthRoute("/user/register", Register)}
       {unauthRoute("/user/verify", Register, {confirmingUser: "true"})}
       {unauthRoute("/user/login", Login)}
+      
       {authRoute("/user/profile/:username", Profile)}
       {authRoute("/user/dashboard", Dashboard)}
       {authRoute("/user", Dashboard)}
@@ -227,19 +216,10 @@ const RoutesList = () => (
       {appRoute("/food/recipes/sauces", Sauces)}
       {appRoute("/food/recipes/dressings", Dressings)}
       {appRoute("/food/recipes/condiments", Condiments)}
+
+      {appRoute("/food/cuisines/:id", Cuisine)}
       {appRoute("/food/cuisines", Cuisines)}
-      {appRoute("/food/cuisines/russian", Russian)}
-      {appRoute("/food/cuisines/german", German)}
-      {appRoute("/food/cuisines/turkish", Turkish)}
-      {appRoute("/food/cuisines/french", French)}
-      {appRoute("/food/cuisines/italian", Italian)}
-      {appRoute("/food/cuisines/mexican", Mexican)}
-      {appRoute("/food/cuisines/greek", Greek)}
-      {appRoute("/food/cuisines/irish", Irish)}
-      {appRoute("/food/cuisines/chinese", Chinese)}
-      {appRoute("/food/cuisines/indian", Indian)}
-      {appRoute("/food/cuisines/japanese", Japanese)}
-      {appRoute("/food/cuisines/iranian", Iranian)}
+
       {appRoute("/food/ingredients", SiteNavIngredients)}
       {appRoute("/food/ingredients/fish-and-shellfish", FishAndShellfish)}
       {appRoute("/food/ingredients/meat-and-poultry", MeatAndPoultry)}
@@ -257,12 +237,14 @@ const RoutesList = () => (
       {appRoute("/food/nutrition/macronutrients", Macronutrients)}
       {appRoute("/food/nutrition/micronutrients", Micronutrients)}
       {appRoute("/food/nutrition/supplements", Supplements)}
+
       {appRoute("/food/equipment", SiteNavEquipment)}
       {appRoute("/food/equipment/cleaning", Cleaning)}
       {appRoute("/food/equipment/preparing", Preparing)}
       {appRoute("/food/equipment/cooking", Cooking)}
       {appRoute("/food/equipment/dining", Dining)}
       {appRoute("/food/equipment/storage", Storage)}
+
       {appRoute("/food/methods", Methods)}
       {appRoute("/food/methods/chill-and-freeze", ChillAndFreeze)}
       {appRoute(
@@ -286,6 +268,7 @@ const RoutesList = () => (
       {appRoute("/fitness/principles/agility", Agility)}
       {appRoute("/fitness/principles/endurance", Endurance)}
       {appRoute("/fitness/principles/flexibility", Flexibility)}
+
       {appRoute("/fitness/exercises", Exercises)}
       {appRoute("/fitness/exercises/walk", Walk)}
       {appRoute("/fitness/exercises/bike", Bike)}
@@ -296,7 +279,6 @@ const RoutesList = () => (
 
       {appRoute("/supply", Supply)}
 
-      {/*{appRoute("/promo/kitchen-equipment", KitchenEquipment)}*/}
       {appRoute("/promo", Promo)}
       {appRoute("/promo/water-filtration", WaterFiltration)}
       {appRoute("/promo/tea", Tea)}
@@ -304,7 +286,6 @@ const RoutesList = () => (
       {appRoute("/promo/outdoors", Outdoors)}
       {appRoute("/promo/garden", Garden)}
       {appRoute("/promo/tools", Tools)}
-      {/*{appRoute("/site/seasonal", FoodInSeason)}*/}
 
       {appRoute("/site", Site)}
       {appRoute("/site/contests", Contests)}

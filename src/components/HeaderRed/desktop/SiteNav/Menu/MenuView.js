@@ -20,6 +20,8 @@ const KitchenEquipmentSlideImageDark = `${s3Path}kitchen-equipment-slide-dark.pn
 
 import './menu.css';
 
+// TO DO: DRY the JSX
+
 const MenuView = ({
   theme,
   menuData,

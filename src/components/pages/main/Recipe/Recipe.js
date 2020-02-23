@@ -133,7 +133,8 @@ const mapStateToProps = state => ({
   dataMyPrivateRecipes: state.data.myPrivateRecipes,
   dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
   dataMySavedRecipes: state.data.mySavedRecipes,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  message: state.user.message
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -60,19 +60,48 @@ export const Menu = ({
   
   function getActivateDelay(config) {
     let menu = config.menuSelector && document.querySelector(config.menuSelector);  // do you need findDOMNode? or a ref?
+
     let menuOffset = offset(menu);
-    let upperLeft = {x: menuOffset.left, y: menuOffset.top - (config.tolerance || TOLERANCE)};
+
+    let upperLeft = {
+      x: menuOffset.left,
+      y: menuOffset.top - (config.tolerance || TOLERANCE)
+    };
+
     let upperRight = {x: menuOffset.left + outerWidth(menu), y: upperLeft.y};
-    let lowerLeft = {x: menuOffset.left, y: menuOffset.top + outerHeight(menu) + (config.tolerance || TOLERANCE)};
+
+    let lowerLeft = {
+      x: menuOffset.left,
+      y: menuOffset.top + outerHeight(menu) + (config.tolerance || TOLERANCE)
+    };
+
     let lowerRight = {x: menuOffset.left + outerWidth(menu), y: lowerLeft.y};
+
     let loc = mouseLocs[mouseLocs.length - 1];
+
     let prevLoc = mouseLocs[0];
   
     if (!loc) return 0;
+
     if (!prevLoc) prevLoc = loc;
-    if (prevLoc.x < menuOffset.left || prevLoc.x > lowerRight.x || prevLoc.y < menuOffset.top || prevLoc.y > lowerRight.y) return 0;
-    if (_lastDelayLoc && loc.x === _lastDelayLoc.x && loc.y === _lastDelayLoc.y) return 0;
-  
+
+    if (
+      prevLoc.x < menuOffset.left ||
+      prevLoc.x > lowerRight.x ||
+      prevLoc.y < menuOffset.top ||
+      prevLoc.y > lowerRight.y
+    ) {
+      return 0;
+    }
+
+    if (
+      _lastDelayLoc &&
+      loc.x === _lastDelayLoc.x &&
+      loc.y === _lastDelayLoc.y
+    ) {
+      return 0;
+    }
+
     function slope(a, b) {
       return (b.y - a.y) / (b.x - a.x);
     }
@@ -84,11 +113,16 @@ export const Menu = ({
     let prevDecreasingSlope = slope(prevLoc, decreasingCorner);
     let prevIncreasingSlope = slope(prevLoc, increasingCorner);
   
-    if (decreasingSlope < prevDecreasingSlope && increasingSlope > prevIncreasingSlope) {
+    if (
+      decreasingSlope < prevDecreasingSlope &&
+      increasingSlope > prevIncreasingSlope
+    ) {
       _lastDelayLoc = loc;
       return config.delay || DELAY;
     }
+
     _lastDelayLoc = null;
+    
     return 0;
   }
   
@@ -136,15 +170,21 @@ export const Menu = ({
       delay: 300,
       tolerance: 75
     });
+
     // setup
     let mousemoveListener = 0;
-    if (mousemoveListener === 0) document.addEventListener('mousemove', __getMouseMoveDocumentHandler(), false);
+    if (mousemoveListener === 0) {
+      document
+      .addEventListener('mousemove', __getMouseMoveDocumentHandler(), false);
+    }
     mousemoveListener += 1;
+
     // cleanup
     return () => {
       mousemoveListener -= 1;
       if (mousemoveListener === 0) {
-        document.removeEventListener('mousemove', __getMouseMoveDocumentHandler());
+        document
+        .removeEventListener('mousemove', __getMouseMoveDocumentHandler());
         mouseLocs = [];
       }
       clearTimeout(__reactMenuAimTimer);
@@ -168,8 +208,6 @@ export const Menu = ({
   );
 };
 
-const mapStateToProps = state => ({
-  theme: state.theme.dropDownMenuTheme
-});
+const mapStateToProps = state => ({theme: state.theme.dropDownMenuTheme});
 
 export default connect(mapStateToProps)(Menu);
