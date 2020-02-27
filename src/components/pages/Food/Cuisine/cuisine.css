@@ -2,21 +2,59 @@
   width: 1020px;
 }
 
-.cuisine-nav-title {
-  margin-bottom: 18px;
-}
-
-.cuisine-nav-group {
-  margin-bottom: 18px;
-}
-
-.cuisine-nav-letter {
+.cuisine-tabs {
+  width: 100%;
   margin-bottom: 10px;
-  font-size: 16px;
-  font-weight: 900;
+  border-bottom: 2px solid #6cabe4;
 }
 
-.cuisine-nav-nation {
-  margin-bottom: 10px;
-  font-size: 13px;
+.cuisine-tab {
+  width: 188px;
+  height: 30px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  border-top-color: #ddd;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #ddd;
+  line-height: 26px;
+  font-family: 'Play', sans-serif;
+  font-size: 1.3rem;
+  color: #222;
+  cursor: pointer;
+}
+
+.cuisine-tab.active {
+  background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
+}
+
+.cuisine-tab.inactive {
+  background-image: linear-gradient(to bottom, #eee, #bbb);
+}
+
+.cuisine__nearby-stores {
+  width: 260px;
+  height: 260px;
+}
+
+.cuisine__nearby-stores__iframe,
+.cuisine__nearby-stores__button {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 5px;
+}
+
+.cuisine__nearby-stores__button {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  border-top-color: #fff;
+  border-right-color: #888;
+  border-bottom-color: #888;
+  border-left-color: #fff;
+  background-image: linear-gradient(to bottom, #eee, #bbb);
+  cursor: pointer;
 }

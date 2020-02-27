@@ -43,15 +43,15 @@ export const Cuisines = ({ oneColumnATheme, cuisines }) => {
           <div className="cuisine-nav-letter">{letter}</div>
           {nations[index].map(nation => {
             i++;
-            console.log(cuisines[i]);
             return (
-              <Link
-                className="cuisine-nav-nation"
-                key={nation}
-                to={`/food/cuisines/${cuisines[i].cuisine_id}`}
-              >
-                {nation}
-              </Link>
+              <div className="cuisine-nav-nation" key={nation}>
+                <Link
+                  className="cuisine-nav-nation-link"
+                  to={`/food/cuisines/${cuisines[i].cuisine_id}`}
+                >
+                  {nation}
+                </Link>
+              </div>
             );
           })}
         </div>

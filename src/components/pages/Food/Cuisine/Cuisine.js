@@ -11,6 +11,7 @@ import {
 } from '../../../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
+const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';
 
 export const Cuisine = ({
   match,
@@ -23,7 +24,11 @@ export const Cuisine = ({
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ cuisine, setCuisine ] = useState(null);
-  const [ tab, setTab ] = useState("Intro");
+  const [ nearbyStoresClicked, setNearbyStoresClicked ] = useState(false);
+  const [ address, setAddress ] = useState("");
+  const [ latitude, setLatitude ] = useState("");
+  const [ longitude, setLongitude ] = useState("");
+  const [ tab, setTab ] = useState("intro");
 
   useEffect(() => {
     let isSubscribed = true;
@@ -45,12 +50,36 @@ export const Cuisine = ({
     // TO DO: move to redux saga
     const getCuisine = async (id) => {
       const res = await axios.get(`${endpoint}/cuisine/detail/${id}`);
-      console.log(res.data);
       if (res.data) setCuisine(res.data);
     };
 
     getCuisine(Number(id));
   }, []);
+
+  useEffect(() => {
+    const getAddress = async () => {
+      if (latitude === "") return;
+      if (longitude === "") return;
+      const res = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleMapsAPIKeyTwo}`
+      );
+      if (res.data) setAddress(res.data.results[3].formatted_address);
+    };
+    getAddress();
+  }, [latitude, longitude]);
+
+  const getLocation = async () => {
+    const geolocation = navigator.geolocation;
+    geolocation.getCurrentPosition(function(position) {
+      setLatitude(`${position.coords.latitude}`);
+      setLongitude(`${position.coords.longitude}`);
+    });
+  };
+
+  const handleShowNearbyStoresClick = () => {
+    setNearbyStoresClicked(true);
+    getLocation();
+  };
 
   const handleTabChange = value => setTab(value);
 
@@ -60,6 +89,11 @@ export const Cuisine = ({
       cuisine={cuisine}
       tab={tab}
       handleTabChange={handleTabChange}
+      nearbyStoresClicked={nearbyStoresClicked}
+      address={address}
+      latitude={latitude}
+      longitude={longitude}
+      handleShowNearbyStoresClick={handleShowNearbyStoresClick}
     />
   );
 }

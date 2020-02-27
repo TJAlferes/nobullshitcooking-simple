@@ -3,8 +3,36 @@
   max-width: 1200px;
 }
 
+.cuisine-nav-title {
+  margin-bottom: 18px;
+}
+
+.cuisine-nav-group {
+  margin-bottom: 18px;
+}
+
+.cuisine-nav-letter {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
 .cuisine-nav-nation {
   display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.cuisine-nav-nation {
+  display: block;
+}
+
+.cuisine-nav-nation-link {
   text-decoration: none;
   color: #000;
+}
+
+.cuisine-nav-nation-link:hover,
+.cuisine-nav-nation-link:active {
+  color: #c10006;
 }

@@ -14,13 +14,13 @@ const SuggestionsView = ({
 }) => (
   <div className={`suggestions ${theme}`}>
     <span className="suggestions__header">Stores near you</span>
-    <div id="suggestions__nearby-stores">
+    <div className="suggestions__nearby-stores">
       {
         (nearbyStoresClicked)
         ? (
           (address !== "") &&
           <iframe
-            id="nearby-stores__iframe"
+            className="suggestions__nearby-stores__iframe"
             frameBorder="0"
             style={{border: "0 none"}}
             src={`https://www.google.com/maps/embed/v1/search?q=grocery+stores+near+${address}&center=${latitude},${longitude}&zoom=11&key=${googleMapsAPIKeyOne}`}
@@ -28,7 +28,7 @@ const SuggestionsView = ({
           </iframe>
         )
         : (
-          <button id="nearby-stores__button" onClick={handleShowNearbyStoresClick}>
+          <button className="suggestions__nearby-stores__button" onClick={handleShowNearbyStoresClick}>
             Show Nearby Stores
           </button>
         )
