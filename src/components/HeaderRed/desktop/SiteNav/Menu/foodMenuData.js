@@ -48,21 +48,21 @@ export default [
       'Chinese',
       'Indian',
       'Japanese',
-      'Iranian'
+      'More...'
     ],
     subMenuLinks: [
-      '/food/cuisines/russian',
-      '/food/cuisines/german',
-      '/food/cuisines/turkish',
-      '/food/cuisines/french',
-      '/food/cuisines/italian',
-      '/food/cuisines/mexican',
-      '/food/cuisines/greek',
-      '/food/cuisines/irish',
-      '/food/cuisines/chinese',
-      '/food/cuisines/indian',
-      '/food/cuisines/japanese',
-      '/food/cuisines/iranian'
+      '/food/cuisines/144',
+      '/food/cuisines/65',
+      '/food/cuisines/181',
+      '/food/cuisines/61',
+      '/food/cuisines/83',
+      '/food/cuisines/111',
+      '/food/cuisines/67',
+      '/food/cuisines/81',
+      '/food/cuisines/37',
+      '/food/cuisines/77',
+      '/food/cuisines/85',
+      '/food/cuisines'
     ],
     image: 'cuisines'
   },

@@ -45,7 +45,7 @@ export const Cuisine = ({
     if (!id) history.push('/home');
 
     const isCuisine = dataCuisines.find(cui=> cui.cuisine_id == id);
-    if (!isCuisine) history.push('/cuisines');
+    if (!isCuisine) history.push('/food/cuisines');
 
     // TO DO: move to redux saga
     const getCuisine = async (id) => {
