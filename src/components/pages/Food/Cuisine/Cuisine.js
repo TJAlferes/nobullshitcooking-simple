@@ -43,7 +43,7 @@ export const Cuisine = ({
     // TO DO: move to redux saga
     const getCuisine = async (id) => {
       const res = await axios.get(`${endpoint}/cuisine/detail/${id}`);
-      if (res.data) setCuisine(res.data);
+      if (res.data.detail) setCuisine(res.data.detail);
     };
 
     getCuisine(Number(id));

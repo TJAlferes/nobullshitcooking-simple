@@ -43,7 +43,7 @@ export const Cuisines = ({ oneColumnATheme, cuisines }) => {
             <Link
               className="cuisine-nav-nation"
               key={nation}
-              to={`/cuisine-detail/${index + 1}`}
+              to={`/cuisines/${index + 1}`}
             >
               {nation}
             </Link>
