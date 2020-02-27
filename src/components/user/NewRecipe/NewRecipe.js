@@ -21,9 +21,9 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 import { valid } from './validation/valid';
 
-import SubmitRecipeView from './SubmitRecipeView';
+import NewRecipeView from './NewRecipeView';
 
-export const SubmitRecipe = ({
+export const NewRecipe = ({
   match,
   oneColumnATheme,
   authname,
@@ -653,7 +653,7 @@ export const SubmitRecipe = ({
   };
 
   return (
-    <SubmitRecipeView
+    <NewRecipeView
       match={match}
       oneColumnATheme={oneColumnATheme}
       authname={authname}
@@ -783,5 +783,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SubmitRecipe)
+  connect(mapStateToProps, mapDispatchToProps)(NewRecipe)
 );

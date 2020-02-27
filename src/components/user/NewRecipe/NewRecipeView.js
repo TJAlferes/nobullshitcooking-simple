@@ -9,9 +9,9 @@ import IngredientRow from './views/IngredientRow/IngredientRow';
 import SubrecipeRow from './views/SubrecipeRow/SubrecipeRow';
 import ImageUploads from './views/ImageUploads';
 
-import './submitRecipe.css';
+import './newRecipe.css';
 
-const SubmitRecipeView = ({
+const NewRecipeView = ({
   match,
   oneColumnATheme,
   authname,
@@ -402,4 +402,4 @@ const SubmitRecipeView = ({
   </div>
 );
 
-export default SubmitRecipeView;
+export default NewRecipeView;

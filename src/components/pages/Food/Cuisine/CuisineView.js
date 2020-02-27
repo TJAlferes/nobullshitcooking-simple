@@ -12,7 +12,7 @@ const CuisineView = ({
 }) => !cuisine ? false : (
   <div className="cuisine-view">
 
-    <div><CuisineBreadcrumbs cuisine={cuisine} /></div>
+    <div><CuisineBreadcrumbs cuisine={cuisine.cuisine} /></div>
 
     <div className={`cuisine one-column-a ${oneColumnATheme}`}>
 
@@ -23,7 +23,7 @@ const CuisineView = ({
             : "cuisine-tab inactive"
           }
           name="intro"
-          onClick={e => handleTabChange(e)}
+          onClick={() => handleTabChange("intro")}
         >
           Intro
         </button>
@@ -33,7 +33,7 @@ const CuisineView = ({
             : "cuisine-tab inactive"
           }
           name="sources"
-          onClick={e => handleTabChange(e)}
+          onClick={() => handleTabChange("sources")}
         >
           Sources
         </button>
@@ -43,7 +43,7 @@ const CuisineView = ({
             : "cuisine-tab inactive"
           }
           name="equipment"
-          onClick={e => handleTabChange(e)}
+          onClick={() => handleTabChange("equipment")}
         >
           Equipment
         </button>
@@ -53,7 +53,7 @@ const CuisineView = ({
             : "cuisine-tab inactive"
           }
           name="ingredients"
-          onClick={e => handleTabChange(e)}
+          onClick={() => handleTabChange("ingredients")}
         >
           Ingredients
         </button>
@@ -63,24 +63,14 @@ const CuisineView = ({
             : "cuisine-tab inactive"
           }
           name="recipes"
-          onClick={e => handleTabChange(e)}
+          onClick={() => handleTabChange("recipes")}
         >
           Recipes
-        </button>
-        <button
-          className={(tab === "plans")
-            ? "cuisine-tab active"
-            : "cuisine-tab inactive"
-          }
-          name="plans"
-          onClick={e => handleTabChange(e)}
-        >
-          Plans
         </button>
       </div>
 
       <div className="equipment-details__name">
-        <h1>{equipment.equipment_name}</h1>
+        <h1>{cuisine.cuisine.cuisine_name}{' '}Cuisine</h1>
       </div>
 
       <div className="equipment-details__image">
@@ -88,7 +78,7 @@ const CuisineView = ({
       </div>
 
       <div className="equipment-details__type">
-        <b>Equipment Type:</b> {equipment.equipment_type_name}
+        <b>Wikipedia link: </b><a href={`https://en.wikipedia.org/wiki/${cuisine.cuisine.cuisine_wiki}`} target="_blank">{`https://en.wikipedia.org/wiki/${cuisine.cuisine.cuisine_wiki}`}</a>
       </div>
       
       {/*<div className="equipment-details__description">

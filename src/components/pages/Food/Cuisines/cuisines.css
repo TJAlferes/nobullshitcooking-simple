@@ -2,3 +2,9 @@
   min-width: 300px;
   max-width: 1200px;
 }
+
+.cuisine-nav-nation {
+  display: block;
+  text-decoration: none;
+  color: #000;
+}

@@ -10,6 +10,7 @@ export const MainWhite = ({ location, theme, shadow, children }) => {
   let isHome = location.pathname.match(/^\/$/);
 
   // so that the default breadcrumbs aren't displayed on these pages:
+  let isCuisineDetail = location.pathname.match(/^(\/food\/cuisines\/([1-9][0-9]*))$/);
   let isRecipe = location.pathname.match(/^(\/recipes\/([1-9][0-9]*))$/);
   let isIngredient = location.pathname.match(/^(\/ingredients\/([1-9][0-9]*))$/);
   let isEquipment = location.pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
@@ -23,6 +24,7 @@ export const MainWhite = ({ location, theme, shadow, children }) => {
       </div>
       {
         !isHome &&
+        !isCuisineDetail &&
         !isRecipe &&
         !isIngredient &&
         !isEquipment &&

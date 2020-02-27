@@ -11,9 +11,9 @@ function alphabetizeCuisines(cuisines) {
   if (cuisines.length === 0) return [];
 
   const alphabetizedCuisines = cuisines.reduce((acc, cuisine) => {
-    const firstLetter = cuisine['cuisine_name'][0].toLocaleUpperCase();
-    if (acc[firstLetter]) acc[firstLetter].push(cuisine['cuisine_name']);
-    else acc[firstLetter] = [cuisine['cuisine_name']];
+    const firstLetter = cuisine['cuisine_nation'][0].toLocaleUpperCase();
+    if (acc[firstLetter]) acc[firstLetter].push(cuisine['cuisine_nation']);
+    else acc[firstLetter] = [cuisine['cuisine_nation']];
     return acc;
   }, {});
 
@@ -32,6 +32,8 @@ export const Cuisines = ({ oneColumnATheme, cuisines }) => {
     setNations(nationValues);
   }, []);
 
+  let i = -1;
+
   return (
     <div className={`cuisines one-column-a ${oneColumnATheme}`}>
       <h1 className="cuisine-nav-title">Cuisines</h1>
@@ -39,15 +41,19 @@ export const Cuisines = ({ oneColumnATheme, cuisines }) => {
       {letters.length && nations.length && letters.map((letter, index) => (
         <div className="cuisine-nav-group" key={letter}>
           <div className="cuisine-nav-letter">{letter}</div>
-          {nations[index].map((nation, index) => (
-            <Link
-              className="cuisine-nav-nation"
-              key={nation}
-              to={`/cuisines/${index + 1}`}
-            >
-              {nation}
-            </Link>
-          ))}
+          {nations[index].map(nation => {
+            i++;
+            console.log(cuisines[i]);
+            return (
+              <Link
+                className="cuisine-nav-nation"
+                key={nation}
+                to={`/food/cuisines/${cuisines[i].cuisine_id}`}
+              >
+                {nation}
+              </Link>
+            );
+          })}
         </div>
       ))}
     </div>

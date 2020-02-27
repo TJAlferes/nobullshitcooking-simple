@@ -21,7 +21,9 @@ export const Cuisine = ({
   const history = useHistory();
 
   const [ feedback, setFeedback ] = useState("");
-  const [ cuisine, setCuisine ] = useState({});
+  const [ loading, setLoading ] = useState(false);
+  const [ cuisine, setCuisine ] = useState(null);
+  const [ tab, setTab ] = useState("Intro");
 
   useEffect(() => {
     let isSubscribed = true;
@@ -37,26 +39,31 @@ export const Cuisine = ({
     const { id } = match.params;
     if (!id) history.push('/home');
 
-    const isCuisine = dataCuisineTypes.find(cui=> cui.cuisine_id == id);
+    const isCuisine = dataCuisines.find(cui=> cui.cuisine_id == id);
     if (!isCuisine) history.push('/cuisines');
 
     // TO DO: move to redux saga
     const getCuisine = async (id) => {
       const res = await axios.get(`${endpoint}/cuisine/detail/${id}`);
-      if (res.data.detail) setCuisine(res.data.detail);
+      console.log(res.data);
+      if (res.data) setCuisine(res.data);
     };
 
     getCuisine(Number(id));
   }, []);
 
+  const handleTabChange = value => setTab(value);
+
   return (
     <CuisineView
       oneColumnATheme={oneColumnATheme}
       cuisine={cuisine}
+      tab={tab}
+      handleTabChange={handleTabChange}
     />
   );
 }
 
 const mapStateToProps = state => ({dataCuisines: state.data.cuisines});
 
-export default withRouter(connect(mapStateToProps)(Equipment));
+export default withRouter(connect(mapStateToProps)(Cuisine));
