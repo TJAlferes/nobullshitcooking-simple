@@ -11,8 +11,8 @@ let cuisine = {
   cuisine_nation: "Italy",
   //cuisine_banner: "",  // AWS S3  cuisine/banner/${cuisine.cuisine_nation}
   //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation}
-  cuisine_intro: ``,
-  cuisine_wiki: "https://en.wikipedia.org/wiki/Italian_cuisine",
+  cuisine_wiki: "Italian_cuisine",
+  cuisine_intro: "",
   cuisine_suppliers: [
     {supplier_id: 14, supplier_name: "Amazing Italian Foods"}
   ],

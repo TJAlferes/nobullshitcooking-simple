@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 
 import './cuisines.css';
 
-//const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/food/cuisines/';
-
-// just do group by in sql?
 function alphabetizeCuisines(cuisines) {
   if (cuisines.length === 0) return [];
 
@@ -32,7 +29,7 @@ export const Cuisines = ({ oneColumnATheme, cuisines }) => {
     setNations(nationValues);
   }, []);
 
-  let i = -1;
+  let i = 0;
 
   return (
     <div className={`cuisines one-column-a ${oneColumnATheme}`}>
@@ -47,7 +44,7 @@ export const Cuisines = ({ oneColumnATheme, cuisines }) => {
               <div className="cuisine-nav-nation" key={nation}>
                 <Link
                   className="cuisine-nav-nation-link"
-                  to={`/food/cuisines/${cuisines[i].cuisine_id}`}
+                  to={`/food/cuisines/${cuisines[i].cuisine_id - 1}`}
                 >
                   {nation}
                 </Link>

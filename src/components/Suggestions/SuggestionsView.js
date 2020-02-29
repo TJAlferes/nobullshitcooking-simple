@@ -13,14 +13,14 @@ const SuggestionsView = ({
   handleShowNearbyStoresClick
 }) => (
   <div className={`suggestions ${theme}`}>
-    <span className="suggestions__header">Stores near you</span>
-    <div className="suggestions__nearby-stores">
+    <span className="suggestions-header">Stores near you</span>
+    <div className="suggestions-nearby-stores">
       {
         (nearbyStoresClicked)
         ? (
           (address !== "") &&
           <iframe
-            className="suggestions__nearby-stores__iframe"
+            className="suggestions-nearby-stores-iframe"
             frameBorder="0"
             style={{border: "0 none"}}
             src={`https://www.google.com/maps/embed/v1/search?q=grocery+stores+near+${address}&center=${latitude},${longitude}&zoom=11&key=${googleMapsAPIKeyOne}`}
@@ -34,14 +34,14 @@ const SuggestionsView = ({
         )
       }
     </div>
-    <hr className="suggestions__line"/>
-    <span className="suggestions__header">Growers &amp; Ranchers</span>
-    <hr className="suggestions__line"/>
-    <span className="suggestions__header">Stores &amp; Butchers</span>
-    <hr className="suggestions__line"/>
-    <span className="suggestions__header">Popular Now</span>
-    <hr className="suggestions__line"/>
-    <span className="suggestions__header">Suggested for You</span>
+    <hr className="suggestions-line"/>
+    <span className="suggestions-header">Growers &amp; Ranchers</span>
+    <hr className="suggestions-line"/>
+    <span className="suggestions-header">Stores &amp; Butchers</span>
+    <hr className="suggestions-line"/>
+    <span className="suggestions-header">Popular Now</span>
+    <hr className="suggestions-line"/>
+    <span className="suggestions-header">Suggested for You</span>
   </div>
 );
 

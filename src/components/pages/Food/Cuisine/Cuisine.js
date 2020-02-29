@@ -16,13 +16,12 @@ const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';
 export const Cuisine = ({
   match,
   oneColumnATheme,
-  message,
   dataCuisines
 }) => {
   const history = useHistory();
 
   const [ feedback, setFeedback ] = useState("");
-  const [ loading, setLoading ] = useState(false);
+  const [ loading, setLoading ] = useState(false);  // set spinner?
   const [ cuisine, setCuisine ] = useState(null);
   const [ nearbyStoresClicked, setNearbyStoresClicked ] = useState(false);
   const [ address, setAddress ] = useState("");
@@ -31,23 +30,12 @@ export const Cuisine = ({
   const [ tab, setTab ] = useState("intro");
 
   useEffect(() => {
-    let isSubscribed = true;
-    if (isSubscribed) {
-      if (message !== "") window.scrollTo(0,0);
-      setFeedback(message);
-      setLoading(false);
-    }
-    return () => isSubscribed = false;
-  }, [message]);
-
-  useEffect(() => {
     const { id } = match.params;
-    if (!id) history.push('/home');
+    if (!id) history.push('/food/cuisines');
 
     const isCuisine = dataCuisines.find(cui=> cui.cuisine_id == id);
     if (!isCuisine) history.push('/food/cuisines');
 
-    // TO DO: move to redux saga
     const getCuisine = async (id) => {
       const res = await axios.get(`${endpoint}/cuisine/detail/${id}`);
       if (res.data) setCuisine(res.data);
