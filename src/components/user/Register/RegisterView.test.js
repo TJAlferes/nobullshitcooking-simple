@@ -1,7 +1,7 @@
 import { render, shallow } from 'enzyme';
 import React from 'react';
 
-import { TestingRouter } from '../../../../test/testUtils';
+import { TestingRouter } from '../../../../test/testUtils';  // TO DO: change, this is a false positive
 
 import RegisterView from './RegisterView';
 
@@ -13,6 +13,8 @@ const handleRegisterSubmit = jest.fn();
 const validateRegistrationInfo = jest.fn();
 
 let wrapper;
+
+// TO DO: change, this is a false positive
 
 describe('RegisterView Redirect', () => {
   it('should redirect to home route if authenticated', () => {
