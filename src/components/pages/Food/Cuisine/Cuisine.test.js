@@ -1,9 +1,10 @@
-import { shallow } from 'enzyme';
+import { mount, render, shallow } from 'enzyme';
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 //import routeData from 'react-router';
 //import * as ReactRouterDom from 'react-router-dom';
 
-import { TestingRouter } from '../../../../../test/testUtils';
+//import { TestingRouter } from '../../../../../test/testUtils';
 
 import { Cuisine } from './Cuisine';
 
@@ -14,64 +15,95 @@ import { Cuisine } from './Cuisine';
   state: ''
 };*/
 
-describe('Cuisine Redirects', () => {
+/*describe('Cuisine Redirects', () => {
   it('should redirect to /food/cuisines if given no cuisine', () => {
-    const givenProps = {
-      match: {params: {id: undefined}},
-      oneColumnATheme: "light",
-      dataCuisines: [
-        {cuisine_id: 1, cuisine_name: "Chinese"},
-        {cuisine_id: 2, cuisine_name: "Italian"}
-      ]
-    };
     const container = render(
       <TestingRouter
-        ComponentWithRedirection={() => <Cuisine {...givenProps} />}
+        Path="/food/cuisines/1"
+        ComponentWithRedirection={() => (
+          <Cuisine
+            match={{params: {id: "1"}}}
+            oneColumnATheme="light"
+            dataCuisines={[
+              {cuisine_id: 1, cuisine_name: "Chinese"},
+              {cuisine_id: 2, cuisine_name: "Italian"}
+            ]}
+          />
+        )}
         RedirectUrl={'/food/cuisines'}
       />
     );
-    expect(container[0].children[0].data).toEqual('/food/cuisines');
+    console.log(container[0]);
+    expect(container[0].children[0].data).toEqual('/food/cuisines/1');
   });
 
   it('should redirect to /food/cuisines if given a non-existent/invalid cuisine', () => {
-    const givenProps = {
-      match: {params: {id: "999"}},
-      oneColumnATheme: "light",
-      dataCuisines: [
-        {cuisine_id: 1, cuisine_name: "Chinese"},
-        {cuisine_id: 2, cuisine_name: "Italian"}
-      ]
-    };
     const container = render(
       <TestingRouter
-        ComponentWithRedirection={() => <Cuisine {...givenProps} />}
+        Path="/food/cuisines/2"
+        ComponentWithRedirection={() => (
+          <Cuisine
+            match={{params: {id: "2"}}}
+            oneColumnATheme="light"
+            dataCuisines={[
+              {cuisine_id: 1, cuisine_name: "Chinese"},
+              {cuisine_id: 2, cuisine_name: "Italian"}
+            ]}
+          />
+        )}
         RedirectUrl={'/food/cuisines'}
       />
     );
-    expect(container[0].children[0].data).toEqual('/food/cuisines');
+    console.log(container[0]);
+    expect(container[0].children[0].data).toEqual('/food/cuisines/2');
   });
-});
+});*/
+
+const mockHistoryPush = jest.fn();
 
 describe('Cuisine', () => {
-  // wrong approach!
-  /*beforeEach(() => {
-    jest.mock('react-router-dom', () => ({
+  beforeEach(() => {
+    /*jest.mock('react-router-dom', () => ({
       ...jest.requireActual('react-router-dom'),
       useParams: () => ({companyId: 'company-id1', teamId: 'team-id1'}),
       useRouteMatch: () => ({ url: '/company/company-id1/team/team-id1' }),
-    }));
+    }));*/
 
     jest.mock('react-router-dom', () => ({
       ...jest.requireActual('react-router-dom'),
-      useHistory: () => ({push: jest.fn()})
+      useHistory: () => ({push: mockHistoryPush})
     }));
 
-    jest.spyOn(ReactRouterDom, 'useHistory').returnValue({push: mockHistoryPush});
+    //console.log(TestRouter);
 
-    jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
-  });*/
+    //jest.spyOn(ReactRouterDom, 'useHistory').returnValue({push: mockHistoryPush});
 
-  it('should load the appropriate cuisine', () => {
+    //jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
+  });
+
+  it ('redirects', async () => {
+    mount(
+      <MemoryRouter>
+        <Cuisine
+          match={{params: {id: '999999'}}}
+          oneColumnATheme="light"
+          dataCuisines={[
+            {cuisine_id: 1, cuisine_name: "Chinese"},
+            {cuisine_id: 2, cuisine_name: "Italian"}
+          ]}
+        />
+      </MemoryRouter>
+    );
+
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    await wait(3000);
+
+    expect(mockHistoryPush).toHaveBeenCalled();
+    //expect(mockHistoryPush).not.toHaveBeenCalled();
+  });
+
+  /*it('should load the appropriate cuisine', () => {
     const props = {
       match: {params: {id: "999"}},
       oneColumnATheme: "light",
@@ -83,6 +115,6 @@ describe('Cuisine', () => {
 
     const wrapper = shallow(<Cuisine {...props} />);
 
-    expect(wrapper.state("cuisine")).not.toBeNull();  // insufficient
-  });
+    expect(wrapper.state("cuisine")).not.toBeNull();  // insufficient, also, this is not a unit test, it's an integration test now...
+  });*/
 });

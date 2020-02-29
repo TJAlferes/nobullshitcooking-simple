@@ -1,18 +1,23 @@
 import { render, shallow } from 'enzyme';
 import React from 'react';
 
-import { TestingRouter } from '../../../../test/testUtils';
+import { TestingRouter } from '../../../../../test/testUtils';
 
 import CuisineView from './CuisineView';
 
+const handleShowNearbyStoresClick = jest.fn();
+const handleTabChange = jest.fn();
+
 let cuisine = {
-  cuisine_id: 1,
-  cuisine_name: "Italian",
-  cuisine_nation: "Italy",
-  //cuisine_banner: "",  // AWS S3  cuisine/banner/${cuisine.cuisine_nation}
-  //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation}
-  cuisine_wiki: "Italian_cuisine",
-  cuisine_intro: "",
+  cuisine: {
+    cuisine_id: 1,
+    cuisine_name: "Italian",
+    cuisine_nation: "Italy",
+    //cuisine_banner: "",  // AWS S3  cuisine/banner/${cuisine.cuisine_nation}
+    //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation}
+    cuisine_wiki: "Italian_cuisine",
+    cuisine_intro: ""
+  },
   cuisine_suppliers: [
     {supplier_id: 14, supplier_name: "Amazing Italian Foods"}
   ],
@@ -37,19 +42,45 @@ describe('CuisineView Redirect', () => {
   it('should redirect to cuisines route if cuisineId not specified', () => {
     const container = render(
       <TestingRouter
+        Path={'/food/cuisines/1'}
         ComponentWithRedirection={() => (
-          <CuisineView oneColumnATheme="light" cuisine={null} />
+          <CuisineView
+            oneColumnATheme="light"
+            redirect={false}
+            cuisine={cuisine}
+            tab="intro"
+            handleTabChange={handleTabChange}
+            nearbyStoresClicked={false}
+            address=""
+            latitude=""
+            longitude=""
+            handleShowNearbyStoresClick={handleShowNearbyStoresClick}
+          />
         )}
-        RedirectUrl={'/food/cuisines'}
+        RedirectUrl={'/'}
       />
     );
-    expect(container[0].children[0].data).toEqual('/food/cuisines');
+    console.log(container);
+    expect(container[0].children[0].data).toEqual('/');
   });
 });
 
 describe('CuisineView', () => {
   beforeEach(() => {
-    wrapper = shallow(<CuisineView oneColumnATheme="light" cuisine={null} />);
+    wrapper = shallow(
+      <CuisineView
+        oneColumnATheme="light"
+        redirect={false}
+        cuisine={cuisine}
+        tab="intro"
+        handleTabChange={handleTabChange}
+        nearbyStoresClicked={false}
+        address=""
+        latitude=""
+        longitude=""
+        handleShowNearbyStoresClick={handleShowNearbyStoresClick}
+      />
+    );
   });
 
   it('displays a button element with text Intro', () => {
@@ -75,11 +106,6 @@ describe('CuisineView', () => {
   it('displays a button element with text Recipes', () => {
     expect(wrapper.find('button.cuisine-tab[name="recipes"]').text())
     .toEqual("Recipes");
-  });
-
-  it('displays a button element with text Plans', () => {
-    expect(wrapper.find('button.cuisine-tab[name="plans"]').text())
-    .toEqual("Plans");
   });
 
   it('displays respective tab when tab button is clicked', () => {

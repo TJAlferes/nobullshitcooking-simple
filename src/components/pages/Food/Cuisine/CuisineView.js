@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 import { CuisineBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
 
@@ -13,6 +14,7 @@ const googleMapsAPIKeyOne = 'AIzaSyCULKDLxoF9O413jjvF5Ot2xXXMdgz0Eag';
 
 const CuisineView = ({
   oneColumnATheme,
+  redirect,
   cuisine,
   tab,
   handleTabChange,
@@ -21,8 +23,9 @@ const CuisineView = ({
   latitude,
   longitude,
   handleShowNearbyStoresClick
-}) => !cuisine ? false : (
+}) => (
   <div className="cuisine-view">
+    {redirect && <Redirect to="/food/cuisines" />}
 
     <div><CuisineBreadcrumbs cuisine={cuisine.cuisine} /></div>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import CuisineView from './CuisineView';
@@ -22,6 +22,7 @@ export const Cuisine = ({
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);  // set spinner?
+  const [ redirect, setRedirect ] = useState(false);
   const [ cuisine, setCuisine ] = useState(null);
   const [ nearbyStoresClicked, setNearbyStoresClicked ] = useState(false);
   const [ address, setAddress ] = useState("");
@@ -31,17 +32,24 @@ export const Cuisine = ({
 
   useEffect(() => {
     const { id } = match.params;
-    if (!id) history.push('/food/cuisines');
+    console.log('id: ', id);
+    if (!id) {
+      history.push('/food/cuisines');
+      //return;
+    }
 
     const isCuisine = dataCuisines.find(cui=> cui.cuisine_id == id);
-    if (!isCuisine) history.push('/food/cuisines');
+    if (!isCuisine) {
+      history.push('/food/cuisines');
+      //return;
+    }
 
-    const getCuisine = async (id) => {
+    const getCuisineDetail = async (id) => {
       const res = await axios.get(`${endpoint}/cuisine/detail/${id}`);
       if (res.data) setCuisine(res.data);
     };
 
-    getCuisine(Number(id));
+    if (id && isCuisine) getCuisineDetail(Number(id));
   }, []);
 
   useEffect(() => {
@@ -71,9 +79,10 @@ export const Cuisine = ({
 
   const handleTabChange = value => setTab(value);
 
-  return (
+  return !cuisine ? <div></div> : (
     <CuisineView
       oneColumnATheme={oneColumnATheme}
+      redirect={redirect}
       cuisine={cuisine}
       tab={tab}
       handleTabChange={handleTabChange}

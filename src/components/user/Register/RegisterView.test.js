@@ -18,6 +18,7 @@ describe('RegisterView Redirect', () => {
   it('should redirect to home route if authenticated', () => {
     const container = render(
       <TestingRouter
+        Path="/user/register"
         ComponentWithRedirection={() => (
           <RegisterView
             isAuthenticated={true}
@@ -38,6 +39,7 @@ describe('RegisterView Redirect', () => {
         RedirectUrl={'/'}
       />
     );
+    console.log(container);
     expect(container[0].children[0].data).toEqual('/');
   });
 });
