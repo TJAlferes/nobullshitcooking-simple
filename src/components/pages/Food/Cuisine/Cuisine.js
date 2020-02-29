@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
-import { Redirect, withRouter } from 'react-router-dom';
+//import { useHistory } from 'react-router';
+import { useHistory, useParams, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import CuisineView from './CuisineView';
@@ -19,10 +19,10 @@ export const Cuisine = ({
   dataCuisines
 }) => {
   const history = useHistory();
+  const { id } = useParams;
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);  // set spinner?
-  const [ redirect, setRedirect ] = useState(false);
   const [ cuisine, setCuisine ] = useState(null);
   const [ nearbyStoresClicked, setNearbyStoresClicked ] = useState(false);
   const [ address, setAddress ] = useState("");
@@ -32,16 +32,19 @@ export const Cuisine = ({
 
   useEffect(() => {
     const { id } = match.params;
+    //const { id } = useParams;
     console.log('id: ', id);
     if (!id) {
       history.push('/food/cuisines');
-      //return;
+      console.log(history);
+      return;
     }
 
     const isCuisine = dataCuisines.find(cui=> cui.cuisine_id == id);
     if (!isCuisine) {
       history.push('/food/cuisines');
-      //return;
+      console.log(history);
+      return;
     }
 
     const getCuisineDetail = async (id) => {
@@ -82,7 +85,6 @@ export const Cuisine = ({
   return !cuisine ? <div></div> : (
     <CuisineView
       oneColumnATheme={oneColumnATheme}
-      redirect={redirect}
       cuisine={cuisine}
       tab={tab}
       handleTabChange={handleTabChange}

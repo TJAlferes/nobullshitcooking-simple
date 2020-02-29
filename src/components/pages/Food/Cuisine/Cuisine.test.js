@@ -1,8 +1,8 @@
 import { mount, render, shallow } from 'enzyme';
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route } from 'react-router-dom';
 //import routeData from 'react-router';
-//import * as ReactRouterDom from 'react-router-dom';
+//import * as ReactRouter from 'react-router';
 
 //import { TestingRouter } from '../../../../../test/testUtils';
 
@@ -59,7 +59,13 @@ import { Cuisine } from './Cuisine';
   });
 });*/
 
+//const { useHistory } = jest.requireActual('react-router');
 const mockHistoryPush = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({push: mockHistoryPush})
+}));
 
 describe('Cuisine', () => {
   beforeEach(() => {
@@ -69,14 +75,14 @@ describe('Cuisine', () => {
       useRouteMatch: () => ({ url: '/company/company-id1/team/team-id1' }),
     }));*/
 
-    jest.mock('react-router-dom', () => ({
+    /*jest.mock('react-router-dom', () => ({
       ...jest.requireActual('react-router-dom'),
       useHistory: () => ({push: mockHistoryPush})
-    }));
+    }));*/
 
     //console.log(TestRouter);
 
-    //jest.spyOn(ReactRouterDom, 'useHistory').returnValue({push: mockHistoryPush});
+    //jest.spyOn(wtf, 'useHistory').returnValue({push: mockHistoryPush});
 
     //jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
   });
@@ -85,7 +91,7 @@ describe('Cuisine', () => {
     mount(
       <MemoryRouter>
         <Cuisine
-          match={{params: {id: '999999'}}}
+          match={{params: {id: "999"}}}
           oneColumnATheme="light"
           dataCuisines={[
             {cuisine_id: 1, cuisine_name: "Chinese"},
