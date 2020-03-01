@@ -3,8 +3,8 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 export const UnauthenticatedRoute = ({
-  component: Component,
   isAuthenticated,
+  component: Component,
   props: childProps,
   ...rest
 }) => (
