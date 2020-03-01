@@ -1,13 +1,14 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import Register, { Register as UnconnectedRegister } from './Register';
+import { Register } from './Register';
 
 const authUserRegister = jest.fn();
 let wrapper;
+
 beforeEach(() => {
   wrapper = shallow(
-    <UnconnectedRegister
+    <Register
       //history={}
       //isAuthenticated={}
       //message={}

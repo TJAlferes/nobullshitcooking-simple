@@ -36,18 +36,17 @@ export const Login = ({ isAuthenticated, message, authUserLogin }) => {
     authUserLogin(email, password);
   }
 
-  const validate = () => ((email.length > 1) && (password.length > 1));
+  const validateLoginInfo = () => ((email.length > 1) && (password.length > 1));
 
   return (
     <LoginView
-      isAuthenticated={isAuthenticated}
       feedback={feedback}
       loading={loading}
       email={email}
-      handleEmailChange={handleEmailChange}
       password={password}
+      handleEmailChange={handleEmailChange}
       handlePasswordChange={handlePasswordChange}
-      validate={validate}
+      validateLoginInfo={validateLoginInfo}
       handleLogin={handleLogin}
     />
   );

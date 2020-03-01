@@ -1,7 +1,5 @@
-import { render, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
-
-import { TestingRouter } from '../../../../test/testUtils';  // TO DO: change, this is a false positive
 
 import RegisterView from './RegisterView';
 
@@ -13,38 +11,6 @@ const handleRegisterSubmit = jest.fn();
 const validateRegistrationInfo = jest.fn();
 
 let wrapper;
-
-// TO DO: change, this is a false positive
-
-describe('RegisterView Redirect', () => {
-  it('should redirect to home route if authenticated', () => {
-    const container = render(
-      <TestingRouter
-        Path="/user/register"
-        ComponentWithRedirection={() => (
-          <RegisterView
-            isAuthenticated={true}
-            //feedback={feedback}
-            //loading={loading}
-            //username={username}
-            //email={email}
-            //password={password}
-            //passwordAgain={passwordAgain}
-            handleUsernameChange={handleUsernameChange}
-            handleEmailChange={handleEmailChange}
-            handlePasswordChange={handlePasswordChange}
-            handlePasswordAgainChange={handlePasswordAgainChange}
-            handleRegisterSubmit={handleRegisterSubmit}
-            validateRegistrationInfo={validateRegistrationInfo}
-          />
-        )}
-        RedirectUrl={'/'}
-      />
-    );
-    console.log(container);
-    expect(container[0].children[0].data).toEqual('/');
-  });
-});
 
 describe('RegisterView', () => {
   beforeEach(() => {

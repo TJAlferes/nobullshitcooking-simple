@@ -45,7 +45,7 @@
   font-weight: 700;
 }
 
-.login input {
+.login-input {
   display: block;
   width: 100%;
   height: 31px;
@@ -81,7 +81,7 @@
   height: 100px;
 }
 
-#sign_in_button,
+.login-button,
 #facebook_federation_button,
 #google_federation_button {
   width: 100%;
@@ -102,10 +102,12 @@
   cursor: pointer;
   cursor: hand;
 }
-#sign_in_button:hover {
+
+.login-button:hover {
   background-image: linear-gradient(to bottom, #8cbeec, #4493d8);
 }
-#sign_in_button:active {
+
+.login-button:active {
   background-image: linear-gradient(to bottom, #8cbeec, #4493d8);
 }
 
@@ -115,9 +117,11 @@
   color: #fff;
   background-image: linear-gradient(#4e69a2, #3b5998 50%);
 }
+
 #facebook_federation_button:hover {
   background-image: linear-gradient(#425886, #314879 50%);
 }
+
 #facebook_federation_button:active {
   background-image: linear-gradient(#425886, #314879 50%);
 }
@@ -128,9 +132,11 @@
   color: #fff;
   background: #dd5347;
 }
+
 #google_federation_button:hover {
   background: #bd453b;
 }
+
 #google_federation_button:active {
   background: #bd453b;
 }

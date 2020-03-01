@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
 import './registerView.css';
 
 const RegisterView = ({
-  isAuthenticated,
   feedback,
   loading,
   confirmingUser,
@@ -126,8 +125,6 @@ const RegisterView = ({
 
   return (
     <div className="register" onKeyUp={(e) => handleRegisterSubmit(e)}>
-      {isAuthenticated && <Redirect to="/" />}
-
       <Link className="auth-img-link" to="/">
         <img
           className="auth-img-desktop"

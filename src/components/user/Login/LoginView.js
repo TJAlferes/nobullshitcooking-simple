@@ -1,27 +1,25 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import LoaderButton from '../../LoaderButton/LoaderButton';
 
 import './loginView.css';
-import LoaderButton from '../../LoaderButton/LoaderButton';
 
 // TO DO:
 // make Sign In button css not change color on hover while in Signing In...
 // AKA isloading state
 
 const LoginView = ({
-  isAuthenticated,
   feedback,
   loading,
   email,
-  handleEmailChange,
   password,
+  handleEmailChange,
   handlePasswordChange,
-  validate,
+  validateLoginInfo,
   handleLogin
 }) => (
   <div className="login" onKeyUp={(e) => handleLogin(e)}>
-    {isAuthenticated && <Redirect to="/" />}
-
     <Link className="auth-img-link" to="/">
       <img
         className="auth-img-desktop"
@@ -38,6 +36,7 @@ const LoginView = ({
       <p className="error-message">{feedback}</p>
       <label>Email</label>
       <input
+        className="login-input"
         type="text"
         name="email"
         id="email"
@@ -51,6 +50,7 @@ const LoginView = ({
       />
       <label>Password</label>
       <input
+        className="login-input"
         type="password"
         name="password"
         id="password"
@@ -62,13 +62,14 @@ const LoginView = ({
         disabled={loading}
       />
       <LoaderButton
+        className="login-button"
         type="button"
         name="submit"
-        id="sign_in_button"
+        id="login-button"
         text="Sign In"
         loadingText="Signing In..."
         isLoading={loading}
-        disabled={!validate()}
+        disabled={!validateLoginInfo()}
         onClick={handleLogin}
       />
     </form>

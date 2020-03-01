@@ -8,7 +8,6 @@ import RegisterView from './RegisterView';
 
 export const Register = ({
   history,
-  isAuthenticated,
   message,
   authUserRegister,
   authUserVerify,
@@ -73,7 +72,6 @@ export const Register = ({
   
   return (
     <RegisterView
-      isAuthenticated={isAuthenticated}
       feedback={feedback}
       loading={loading}
       confirmingUser={confirmingUser}

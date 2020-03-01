@@ -16,7 +16,7 @@ jest.mock('react-router-dom', () => ({
 // TO DO:
 /*jest.mock('axios', () => ({
   ...jest.requireActual('axios'),
-  get: () => {}  // finish
+  get: () => Promise.resolve  // finish
 }));*/
 
 describe('Cuisine redirect behavior', () => {
