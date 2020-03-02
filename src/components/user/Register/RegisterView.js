@@ -30,6 +30,7 @@ const RegisterView = ({
       <p className="error-message">{feedback}</p>
       <label>Username</label>
       <input
+        className="register-input"
         type="text"
         name="username"
         id="username"
@@ -43,6 +44,7 @@ const RegisterView = ({
       />
       <label>Email</label>
       <input
+        className="register-input"
         type="email"
         name="email"
         id="email"
@@ -55,6 +57,7 @@ const RegisterView = ({
       />
       <label>Password</label>
       <input
+        className="register-input"
         type="password"
         name="password"
         id="password"
@@ -67,6 +70,7 @@ const RegisterView = ({
       />
       <label>Password Again</label>
       <input
+        className="register-input"
         type="password"
         name="passwordAgain"
         id="passwordAgain"
@@ -78,9 +82,9 @@ const RegisterView = ({
         disabled={loading}
       />
       <LoaderButton
+        className="create-account-button"
         type="button"
         name="submit"
-        className="create-account-button"
         id="create_account_button"
         text="Create Account"
         loadingText="Creating Account..."
@@ -96,7 +100,8 @@ const RegisterView = ({
       <h1>Verify</h1>
       <p className="error-message">{feedback}</p>
       <label>Code</label>
-      <input 
+      <input
+        className="register-input"
         type="text"
         name="confirmationCode"
         id="confirmationCode"
@@ -110,9 +115,9 @@ const RegisterView = ({
       />
       <p>Please check your email for the confirmation code.</p>
       <LoaderButton
+        className="verify-confirmation-code-button"
         type="button"
         name="submit"
-        className="verify-confirmation-code-button"
         id="verify_confirmation_code_button"
         text="Verify"
         loadingText="Verifying..."

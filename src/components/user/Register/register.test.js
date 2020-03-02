@@ -4,6 +4,8 @@ import React from 'react';
 import { Register } from './Register';
 
 const authUserRegister = jest.fn();
+const authUserVerify = jest.fn();
+
 let wrapper;
 
 beforeEach(() => {
@@ -13,12 +15,12 @@ beforeEach(() => {
       //isAuthenticated={}
       //message={}
       authUserRegister={authUserRegister}
-      authUserVerify={() => {}}
+      authUserVerify={authUserVerify}
     />
   );
 });
 
-describe('UnconnectedRegister', () => {
+describe('Register', () => {
   it('should submit user registration info', () => {
     wrapper.setState({username: "Person"});
     wrapper.setState({email: "person@place.com"});
