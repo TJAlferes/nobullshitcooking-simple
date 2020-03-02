@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { authUserLogin } from '../../../store/actions/index';
@@ -10,7 +9,7 @@ import LoginView from './LoginView';
 // make Sign In button css not change color on hover while in Signing In...
 // AKA isloading state
 
-export const Login = ({ isAuthenticated, message, authUserLogin }) => {
+export const Login = ({ message, authUserLogin }) => {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ email, setEmail ] = useState("");
@@ -29,14 +28,15 @@ export const Login = ({ isAuthenticated, message, authUserLogin }) => {
 
   const handlePasswordChange = e => setPassword(e.target.value);
   
-  const handleLogin = (e) => {
+  const handleLogin = e => {
+    if (loading) return;
     if (!validate()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
     authUserLogin(email, password);
   }
 
-  const validateLoginInfo = () => ((email.length > 1) && (password.length > 1));
+  const validateLoginInfo = () => ((email.length > 4) && (password.length > 5));
 
   return (
     <LoginView
@@ -46,19 +46,16 @@ export const Login = ({ isAuthenticated, message, authUserLogin }) => {
       password={password}
       handleEmailChange={handleEmailChange}
       handlePasswordChange={handlePasswordChange}
-      validateLoginInfo={validateLoginInfo}
       handleLogin={handleLogin}
+      validateLoginInfo={validateLoginInfo}
     />
   );
 }
 
-const mapStateToProps = state => ({
-  message: state.auth.message,
-  isAuthenticated: state.auth.isAuthenticated
-});
+const mapStateToProps = state => ({message: state.auth.message});
 
 const mapDispatchToProps = dispatch => ({
   authUserLogin: (email, password) => dispatch(authUserLogin(email, password))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

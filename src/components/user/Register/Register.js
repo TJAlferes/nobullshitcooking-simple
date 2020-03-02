@@ -48,14 +48,16 @@ export const Register = ({
 
   const handlePasswordAgainChange = e => setPasswordAgain(e.target.value);
 
-  const handleRegisterSubmit = e => {
+  const handleRegister = e => {
+    if (loading) return;
     if (!validateRegistrationInfo()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
     authUserRegister(email, password, username, history);
   }
 
-  const handleVerifySubmit = e => {
+  const handleVerify = e => {
+    if (loading) return;
     if (!validateConfirmationCode()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
@@ -86,18 +88,15 @@ export const Register = ({
       handleEmailChange={handleEmailChange}
       handlePasswordChange={handlePasswordChange}
       handlePasswordAgainChange={handlePasswordAgainChange}
-      handleRegisterSubmit={handleRegisterSubmit}
-      handleVerifySubmit={handleVerifySubmit}
+      handleRegister={handleRegister}
+      handleVerify={handleVerify}
       validateRegistrationInfo={validateRegistrationInfo}
       validateConfirmationCode={validateConfirmationCode}
     />
   );
 }
 
-const mapStateToProps = state => ({
-  message: state.auth.message,
-  isAuthenticated: state.auth.isAuthenticated
-});
+const mapStateToProps = state => ({message: state.auth.message});
 
 const mapDispatchToProps = dispatch => ({
   authUserRegister: (email, pass, username, history) =>
@@ -106,6 +105,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(authUserVerify(email, pass, confirmationCode))
 });
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Register)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -16,8 +16,8 @@ const LoginView = ({
   password,
   handleEmailChange,
   handlePasswordChange,
-  validateLoginInfo,
-  handleLogin
+  handleLogin,
+  validateLoginInfo
 }) => (
   <div className="login" onKeyUp={(e) => handleLogin(e)}>
     <Link className="auth-img-link" to="/">

@@ -16,16 +16,20 @@ describe('LoginView', () => {
   beforeEach(() => {
     wrapper = shallow(
       <LoginView
-        feedback=""
+        feedback="Some message."
         loading={false}
         email=""
         password=""
         handleEmailChange={handleEmailChange}
         handlePasswordChange={handlePasswordChange}
-        validateLoginInfo={validateLoginInfo}
         handleLogin={handleLogin}
+        validateLoginInfo={validateLoginInfo}
       />
     );
+  });
+
+  it('displays feedback', () => {
+    expect(wrapper.find('p.error-message').text()).toEqual("Some message.");
   });
 
   it('displays an email input element', () => {

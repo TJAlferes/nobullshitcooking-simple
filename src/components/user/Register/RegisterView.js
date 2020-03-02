@@ -19,8 +19,8 @@ const RegisterView = ({
   handleEmailChange,
   handlePasswordChange,
   handlePasswordAgainChange,
-  handleRegisterSubmit,
-  handleVerifySubmit,
+  handleRegister,
+  handleVerify,
   validateRegistrationInfo,
   validateConfirmationCode
 }) => {
@@ -90,7 +90,7 @@ const RegisterView = ({
         loadingText="Creating Account..."
         isLoading={loading}
         disabled={!validateRegistrationInfo()}
-        onClick={handleRegisterSubmit}
+        onClick={handleRegister}
       />
     </form>
   );
@@ -123,7 +123,7 @@ const RegisterView = ({
         loadingText="Verifying..."
         isLoading={loading}
         disabled={!validateConfirmationCode()}
-        onClick={handleVerifySubmit}
+        onClick={handleVerify}
       />
     </form>
   );

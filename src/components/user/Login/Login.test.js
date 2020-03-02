@@ -1,37 +1,49 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-//import { storeFactory } from '../test/testUtils';
-import Login, { Login as UnconnectedLogin } from './Login';
+import { Login } from './Login';
 
-/**
- * @function setup
- * @params {object} state - State for this setup.
- * @returns {ShallowWrapper}
-*/
-const setup = (state = {}) => {
-  const store = storeFactory(state);
-  const wrapper = shallow(<Login store={store} />).dive();  // CHANGE to Unconnected
-  return wrapper;
-};
+const authUserLogin = jest.fn();
 
-describe('Login redux access', () => {
+let wrapper;
 
-  it('can get `isAuthenticated` state', () => {
-    const wrapper = setup({isAuthenticated});
-    const isAuthenticatedProp = wrapper.instance().props.isAuthenticated;
-    expect(isAuthenticatedProp).toBe(true);
-  });
-  it('can get `message` state', () => {
-    const wrapper = setup({message});
-    const messageProp = wrapper.instance().props.message;
-    expect(messageProp).toBe(true);
+beforeEach(() => {
+  wrapper = shallow(
+    <Login message="Some message." authUserLogin={authUserLogin} />
+  );
+});
+
+describe('Login', () => {
+  it('should submit user login info', () => {
+    wrapper.setState({email: "person@place.com"});
+    wrapper.setState({password: "secret"});
+    wrapper.find('#login-button').simulate('click');
+    expect(authUserLogin).toBeCalledTimes(1);
   });
 
-  test('`authUserLogin` action creator is a function on the props', () => {
-    const wrapper = setup({message});
-    const authUserLoginProp = wrapper.instance().props.authUserLogin;
-    expect(authUserLoginProp).toBeInstanceOf(Function);
+  it('should not submit when no email is given', () => {
+    wrapper.setState({password: "secret"});
+    wrapper.find('#login-button').simulate('click');
+    expect(authUserLogin).toBeCalledTimes(0);
   });
-  
+
+  it('should not submit when no password is given', () => {
+    wrapper.setState({email: "person@place.com"});
+    wrapper.find('#login-button').simulate('click');
+    expect(authUserLogin).toBeCalledTimes(0);
+  });
+
+  it('should not submit when email is less than 5 characters', () => {
+    wrapper.setState({email: "p@p."});
+    wrapper.setState({password: "secret"});
+    wrapper.find('#create_account_button').simulate('click');
+    expect(authUserLogin).toBeCalledTimes(0);
+  });
+
+  it('should not submit when password is less than 6 characters', () => {
+    wrapper.setState({email: "person@place.com"});
+    wrapper.setState({password: "secre"});
+    wrapper.find('#create_account_button').simulate('click');
+    expect(authUserLogin).toBeCalledTimes(0);
+  });
 });

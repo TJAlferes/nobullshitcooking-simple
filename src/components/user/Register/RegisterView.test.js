@@ -10,8 +10,8 @@ const handleUsernameChange = jest.fn();
 const handleEmailChange = jest.fn();
 const handlePasswordChange = jest.fn();
 const handlePasswordAgainChange = jest.fn();
-const handleRegisterSubmit = jest.fn();
-const handleVerifySubmit = jest.fn();
+const handleRegister = jest.fn();
+const handleVerify = jest.fn();
 const validateRegistrationInfo = jest.fn();
 const validateConfirmationCode = jest.fn();
 
@@ -34,8 +34,8 @@ describe('RegisterView account creation / registration', () => {
         handleEmailChange={handleEmailChange}
         handlePasswordChange={handlePasswordChange}
         handlePasswordAgainChange={handlePasswordAgainChange}
-        handleRegisterSubmit={handleRegisterSubmit}
-        handleVerifySubmit={handleVerifySubmit}
+        handleRegister={handleRegister}
+        handleVerify={handleVerify}
         validateRegistrationInfo={validateRegistrationInfo}
         validateConfirmationCode={validateConfirmationCode}
       />
@@ -84,8 +84,8 @@ describe('RegisterView confirmation/verification', () => {
         handleEmailChange={handleEmailChange}
         handlePasswordChange={handlePasswordChange}
         handlePasswordAgainChange={handlePasswordAgainChange}
-        handleRegisterSubmit={handleRegisterSubmit}
-        handleVerifySubmit={handleVerifySubmit}
+        handleRegister={handleRegister}
+        handleVerify={handleVerify}
         validateRegistrationInfo={validateRegistrationInfo}
         validateConfirmationCode={validateConfirmationCode}
       />
