@@ -3,11 +3,7 @@ import { Link } from 'react-router-dom';
 
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
-import './loginView.css';
-
-// TO DO:
-// make Sign In button css not change color on hover while in Signing In...
-// AKA isloading state
+import './login.css';
 
 const LoginView = ({
   feedback,
@@ -32,9 +28,9 @@ const LoginView = ({
     </Link>
 
     <form className="login-form">
-      <h1>Sign In</h1>
-      <p className="error-message">{feedback}</p>
-      <label>Email</label>
+      <h1 className="login-heading">Sign In</h1>
+      <p className="login-feedback">{feedback}</p>
+      <label className="login-label">Email</label>
       <input
         className="login-input"
         type="text"
@@ -48,7 +44,7 @@ const LoginView = ({
         onChange={handleEmailChange}
         disabled={loading}
       />
-      <label>Password</label>
+      <label className="login-label">Password</label>
       <input
         className="login-input"
         type="password"

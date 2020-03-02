@@ -19,7 +19,7 @@
   margin: 0 auto;
 }
 
-.login .login-form {
+.login-form {
   display: block;
   width: 320px;
   margin: 20px auto 20px auto;
@@ -30,7 +30,7 @@
   padding: 14px 18px;
 }
 
-.login h1 {
+.login-heading {
   display: block;
   margin-bottom: 14px;
   font-size: 28px;
@@ -38,7 +38,16 @@
   line-height: 1.2;
 }
 
-.login label {
+.login-feedback {
+  width: 100%;
+  height: 31px;
+  color: #c10006;
+  text-align: center;
+  font-family: Arial;
+  font-size: 14px;
+}
+
+.login-label {
   display: block;
   margin: 14px auto 4px auto;
   font-size: 13px;
@@ -56,34 +65,14 @@
   border-color: #aaa;
   padding: 3px 7px 3px 7px;
 }
-/*input:focus {background-color: #fdfdd5;}*/
 
-.login-form .error-message {
-  width: 100%;
-  height: 31px;
-  color: #c10006;
-  text-align: center;
-  font-family: Arial;
-  font-size: 14px;
-}
-
-.login .distinction-line {
+.login-distinction-line {
   border-top: 1px solid #ccc;
 }
 
-#centered_logo {
-  display: block;
-  margin-top: 10px;
-  margin-right:	auto;
-  margin-bottom: 0;
-  margin-left: auto;
-  width: 900px;
-  height: 100px;
-}
-
 .login-button,
-#facebook_federation_button,
-#google_federation_button {
+.login-button__facebook,
+.login-button__google {
   width: 100%;
   height: 31px;
   margin: 18px auto 24px auto;
@@ -95,65 +84,44 @@
   border-bottom-color: #555;
   border-left-color: #777;
   padding-top: 1px;
-  font-family: 'Play', sans-serif;
-  font-size: 14px;
-  color: black;
-  background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
   cursor: pointer;
   cursor: hand;
 }
 
-.login-button:hover {
-  background-image: linear-gradient(to bottom, #8cbeec, #4493d8);
+.login-button {
+  font-family: 'Play', sans-serif;
+  font-size: 14px;
+  color: black;
+  background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
 }
 
+.login-button:hover,
 .login-button:active {
   background-image: linear-gradient(to bottom, #8cbeec, #4493d8);
 }
 
-#facebook_federation_button {
+.login-button__facebook {
   font-family: Arial;
   font-size: 12px;
   color: #fff;
   background-image: linear-gradient(#4e69a2, #3b5998 50%);
 }
 
-#facebook_federation_button:hover {
+.login-button__facebook:hover,
+.login-button__facebook:active {
   background-image: linear-gradient(#425886, #314879 50%);
 }
 
-#facebook_federation_button:active {
-  background-image: linear-gradient(#425886, #314879 50%);
-}
-
-#google_federation_button {
+.login-button__google {
   font-family: Arial;
   font-size: 12px;
   color: #fff;
   background: #dd5347;
 }
 
-#google_federation_button:hover {
+.login-button__google:hover,
+.login-button__google:active {
   background: #bd453b;
-}
-
-#google_federation_button:active {
-  background: #bd453b;
-}
-
-.login .validation_messages {
-  display: block;
-  width: 320px;
-  margin: 20px auto 20px auto;
-  border-width: 1px;
-  border-color: #ccc;
-  border-style: solid;
-  border-radius: 4px;
-  padding: 5px;
-  background-color: #eee;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  color: black;
 }
 
 @media (max-width: 899px) {

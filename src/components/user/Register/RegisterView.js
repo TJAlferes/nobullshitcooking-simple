@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import LoaderButton from '../../LoaderButton/LoaderButton';
 
-import './registerView.css';
+import './register.css';
 
 const RegisterView = ({
   feedback,
@@ -26,9 +26,9 @@ const RegisterView = ({
 }) => {
   const registerForm = () => (
     <form className="register-form">
-      <h1>Create Account</h1>
-      <p className="error-message">{feedback}</p>
-      <label>Username</label>
+      <h1 className="register-heading">Create Account</h1>
+      <p className="register-feedback">{feedback}</p>
+      <label className="register-label">Username</label>
       <input
         className="register-input"
         type="text"
@@ -42,7 +42,7 @@ const RegisterView = ({
         onChange={handleUsernameChange}
         disabled={loading}
       />
-      <label>Email</label>
+      <label className="register-label">Email</label>
       <input
         className="register-input"
         type="email"
@@ -55,7 +55,7 @@ const RegisterView = ({
         onChange={handleEmailChange}
         disabled={loading}
       />
-      <label>Password</label>
+      <label className="register-label">Password</label>
       <input
         className="register-input"
         type="password"
@@ -68,7 +68,7 @@ const RegisterView = ({
         onChange={handlePasswordChange}
         disabled={loading}
       />
-      <label>Password Again</label>
+      <label className="register-label">Password Again</label>
       <input
         className="register-input"
         type="password"
@@ -97,9 +97,9 @@ const RegisterView = ({
 
   const verifyForm = () => (
     <form className="register-confirm-form">
-      <h1>Verify</h1>
-      <p className="error-message">{feedback}</p>
-      <label>Code</label>
+      <h1 className="register-heading">Verify</h1>
+      <p className="register-feedback">{feedback}</p>
+      <label className="register-label">Code</label>
       <input
         className="register-input"
         type="text"

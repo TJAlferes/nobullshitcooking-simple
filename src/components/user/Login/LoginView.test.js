@@ -29,7 +29,7 @@ describe('LoginView', () => {
   });
 
   it('displays feedback', () => {
-    expect(wrapper.find('p.error-message').text()).toEqual("Some message.");
+    expect(wrapper.find('p.login-feedback').text()).toEqual("Some message.");
   });
 
   it('displays an email input element', () => {
