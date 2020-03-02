@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { DropTarget } from 'react-dnd-cjs';
+import { DropTarget } from 'react-dnd';
 
 import {
   plannerAddRecipeToDay,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import checkPropsTypes from 'check-prop-types';
+//import checkPropsTypes from 'check-prop-types';
 //import { runSaga } from 'redux-saga';
 
 const history = createMemoryHistory();
@@ -26,7 +26,7 @@ export const TestingRouter = ({ Path, ComponentWithRedirection, RedirectUrl }) =
   </Router>
 );
 
-export const checkProps = (component, conformingProps) => {
+/*export const checkProps = (component, conformingProps) => {
   const propError = checkPropsTypes(
     component.propTypes,
     conformingProps,
@@ -34,7 +34,7 @@ export const checkProps = (component, conformingProps) => {
     component.name
   );
   expect(propError).toBeUndefined();
-};
+};*/
 
 // use this? or use redux-saga-test-plan's expectSaga?
 //export const recordSaga = async (saga, initialAction) => {};

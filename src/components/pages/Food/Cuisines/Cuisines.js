@@ -44,7 +44,7 @@ export const Cuisines = ({ oneColumnATheme, cuisines }) => {
               <div className="cuisine-nav-nation" key={nation}>
                 <Link
                   className="cuisine-nav-nation-link"
-                  to={`/food/cuisines/${cuisines[i].cuisine_id - 1}`}
+                  to={`/food/cuisines/${cuisines[i - 1].cuisine_id}`}
                 >
                   {nation}
                 </Link>

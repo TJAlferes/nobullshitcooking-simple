@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { DropTarget } from 'react-dnd-cjs';
+import { DropTarget } from 'react-dnd';
 
 import {
   plannerClickDay,
@@ -30,7 +30,7 @@ function collect(connect, monitor) {
   };
 }
 
-const PlannerDay = ({
+const Day = ({
   day,
   list,
   expanded,

@@ -12,8 +12,10 @@ import createSagaMiddleware from 'redux-saga';
 
 import { SearchProvider } from '@elastic/react-search-ui';
 
-import { DndProvider } from 'react-dnd-cjs';
-import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
+//import { DndProvider } from 'react-dnd-cjs';
+import { DndProvider } from 'react-dnd';
+//import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
 import MultiBackend from 'react-dnd-multi-backend';
 //import HTML5Backend from 'react-dnd-html5-backend-cjs';
 //import TouchBackend from 'react-dnd-touch-backend-cjs';

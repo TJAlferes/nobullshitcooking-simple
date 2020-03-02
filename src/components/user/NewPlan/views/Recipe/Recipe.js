@@ -1,6 +1,6 @@
 import React, { forwardRef, useRef, useImperativeHandle } from 'react';
 import { connect } from 'react-redux';
-import { DragSource, DropTarget } from 'react-dnd-cjs';
+import { DragSource, DropTarget } from 'react-dnd';
 
 import {
   plannerRemoveRecipeFromDay,
