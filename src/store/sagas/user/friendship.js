@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { call, put, delay } from 'redux-saga/effects';
+import axios from 'axios';
 
 import {
   userMessageClear,

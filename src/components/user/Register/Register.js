@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { authUserRegister, authUserVerify } from '../../../store/actions/index';
@@ -7,12 +7,13 @@ import { authUserRegister, authUserVerify } from '../../../store/actions/index';
 import RegisterView from './RegisterView';
 
 export const Register = ({
-  history,
   message,
   authUserRegister,
   authUserVerify,
   childProps
 }) => {
+  const history = useHistory();
+
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ confirmingUser, setConfirmingUser ] = useState(false);

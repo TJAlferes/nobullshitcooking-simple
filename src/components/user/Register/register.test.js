@@ -11,11 +11,10 @@ let wrapper;
 beforeEach(() => {
   wrapper = shallow(
     <Register
-      //history={}
-      //isAuthenticated={}
-      //message={}
+      message="Some message."
       authUserRegister={authUserRegister}
       authUserVerify={authUserVerify}
+      childProps={{confirmingUser: "false"}}
     />
   );
 });
