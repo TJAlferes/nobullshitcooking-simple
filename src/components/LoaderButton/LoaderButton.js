@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default ({
+  className,
   type,
   name,
   id,
-  className,
   text,
   loadingText,
   isLoading,
