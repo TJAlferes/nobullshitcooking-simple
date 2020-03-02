@@ -1,5 +1,6 @@
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 
 import { Login } from './Login';
 
@@ -8,42 +9,69 @@ const authUserLogin = jest.fn();
 let wrapper;
 
 beforeEach(() => {
-  wrapper = shallow(
-    <Login message="Some message." authUserLogin={authUserLogin} />
+  wrapper = mount(
+    <MemoryRouter>
+      <Login message="Some message." authUserLogin={authUserLogin} />
+    </MemoryRouter>
   );
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
 });
 
 describe('Login', () => {
   it('should submit user login info', () => {
-    wrapper.setState({email: "person@place.com"});
-    wrapper.setState({password: "secret"});
-    wrapper.find('#login-button').simulate('click');
+    wrapper.find('input[name="email"]')
+    .simulate('change', {target: {name: "email", value: "person@place.com"}});
+    
+    wrapper.find('input[name="password"]')
+    .simulate('change', {target: {name: "password", value: "secret"}});
+
+    //wrapper.update();  // not needed I guess
+    wrapper.find('#login-button').at(1).simulate('click');
+
     expect(authUserLogin).toBeCalledTimes(1);
   });
 
   it('should not submit when no email is given', () => {
-    wrapper.setState({password: "secret"});
-    wrapper.find('#login-button').simulate('click');
+    wrapper.find('input[name="password"]')
+    .simulate('change', {target: {name: "password", value: "secret"}});
+
+    wrapper.find('#login-button').at(1).simulate('click');
+
     expect(authUserLogin).toBeCalledTimes(0);
   });
 
   it('should not submit when no password is given', () => {
-    wrapper.setState({email: "person@place.com"});
-    wrapper.find('#login-button').simulate('click');
+    wrapper.find('input[name="email"]')
+    .simulate('change', {target: {name: "email", value: "person@place.com"}});
+
+    wrapper.find('#login-button').at(1).simulate('click');
+
     expect(authUserLogin).toBeCalledTimes(0);
   });
 
   it('should not submit when email is less than 5 characters', () => {
-    wrapper.setState({email: "p@p."});
-    wrapper.setState({password: "secret"});
-    wrapper.find('#create_account_button').simulate('click');
+    wrapper.find('input[name="email"]')
+    .simulate('change', {target: {name: "email", value: "p@p."}});
+    
+    wrapper.find('input[name="password"]')
+    .simulate('change', {target: {name: "password", value: "secret"}});
+
+    wrapper.find('#login-button').at(1).simulate('click');
+
     expect(authUserLogin).toBeCalledTimes(0);
   });
 
   it('should not submit when password is less than 6 characters', () => {
-    wrapper.setState({email: "person@place.com"});
-    wrapper.setState({password: "secre"});
-    wrapper.find('#create_account_button').simulate('click');
+    wrapper.find('input[name="email"]')
+    .simulate('change', {target: {name: "email", value: "person@place.com"}});
+    
+    wrapper.find('input[name="password"]')
+    .simulate('change', {target: {name: "password", value: "secre"}});
+
+    wrapper.find('#login-button').at(1).simulate('click');
     expect(authUserLogin).toBeCalledTimes(0);
   });
 });

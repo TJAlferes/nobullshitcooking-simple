@@ -30,7 +30,7 @@ export const Login = ({ message, authUserLogin }) => {
   
   const handleLogin = e => {
     if (loading) return;
-    if (!validate()) return;
+    if (!validateLoginInfo()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
     authUserLogin(email, password);
