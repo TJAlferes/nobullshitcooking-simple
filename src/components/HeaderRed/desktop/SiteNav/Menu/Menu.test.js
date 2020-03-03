@@ -1,7 +1,23 @@
-import Menu from './Menu';
+import { mount, shallow } from 'enzyme';
+import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 
-describe('what needs testing', () => {
-  it('needs testing', () => {
-    expect(1).toEqual(1);
+import { Menu } from './Menu';
+
+const menuData = [];
+
+const wrapper = mount(
+  <MemoryRouter>
+    <Menu theme="drop-down-menu-light" menuData={menuData} />
+  </MemoryRouter>
+);
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
+describe('Menu', () => {
+  it('?', () => {
+    
   });
 });

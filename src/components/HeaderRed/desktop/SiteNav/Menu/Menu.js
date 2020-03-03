@@ -19,8 +19,8 @@ function offset(el) {
   if (!el) return {left: 0, top: 0};
   let rect = el.getBoundingClientRect();
   return {
+    left: rect.left + document.body.scrollLeft,
     top: rect.top + document.body.scrollTop,
-    left: rect.left + document.body.scrollLeft
   };
 }
 
@@ -38,28 +38,26 @@ function outerHeight(el) {
   return _height;
 }
 
+export const Menu = ({ theme, menuData }) => {
+  const [ activeMenuIndex, setActiveMenuIndex ] = useState();
 
-
-export const Menu = ({
-  theme,
-  menuData,
-  submenuDirection
-}) => {
-  const [activeMenuIndex, setActiveMenuIndex] = useState();
-
-  let __reactMenuAimConfig;
-  let __mouseMoveDocumentHandler;
-  let __reactMenuAimTimer;
+  let menuConfig = {delay: 300, tolerance: 75};
+  let menuTimer;
   let _lastDelayLoc;
   let mouseLocs = [];
 
-  function handleMouseMoveDocument(e) {  // Mousemove handler on document
-    mouseLocs.push({x: e.pageX, y: e.pageY});
-    if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
-  }
-  
+  useLayoutEffect(() => {
+    document.addEventListener('mousemove', handleMouseMoveDocument, false);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMoveDocument);
+      mouseLocs = [];
+      clearTimeout(menuTimer);
+      menuTimer = null;
+    };
+  });
+
   function getActivateDelay(config) {
-    let menu = config.menuSelector && document.querySelector(config.menuSelector);  // do you need findDOMNode? or a ref?
+    let menu = document.querySelector('.menu');  // do you need findDOMNode? or a ref?
 
     let menuOffset = offset(menu);
 
@@ -125,73 +123,33 @@ export const Menu = ({
     
     return 0;
   }
-  
-  function activate(rowIdentifier, handler) {
-    handler.call(this, rowIdentifier);
-  }
-  
+
   function possiblyActivate(rowIdentifier, handler, config) {
-    let delay = getActivateDelay.call(this, config);
+    const delay = getActivateDelay(config);
+
     if (delay) {
-      __reactMenuAimTimer = setTimeout(() => {
+      menuTimer = setTimeout(() => {
         possiblyActivate.call(this, rowIdentifier, handler, config);
       }, delay);
-    } else {
-      activate.call(this, rowIdentifier, handler);
+      return;
     }
+
+    handler(rowIdentifier);
   }
 
-  function initMenuAim(options) {
-    __reactMenuAimConfig = options;
-  }
-  
-  function __getMouseMoveDocumentHandler() {
-    if (!__mouseMoveDocumentHandler) {
-      __mouseMoveDocumentHandler = handleMouseMoveDocument.bind(this);
-    }
-    return __mouseMoveDocumentHandler;
-  }
-  
-  function handleMouseLeaveMenu(handler, e) {
-    if (__reactMenuAimTimer) clearTimeout(__reactMenuAimTimer);
-    if (typeof handler === 'function') handler.call(this, e);
+  const handleMouseMoveDocument = e => {
+    mouseLocs.push({x: e.pageX, y: e.pageY});
+    if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
   }
   
   const handleMouseEnterRow = (rowIdentifier, handler) => {
-    if (__reactMenuAimTimer) clearTimeout(__reactMenuAimTimer);
-    possiblyActivate(rowIdentifier, handler, __reactMenuAimConfig);
+    if (menuTimer) clearTimeout(menuTimer);
+    possiblyActivate(rowIdentifier, handler, menuConfig);
   }
 
-  useLayoutEffect(() => {
-    // config
-    initMenuAim({
-      submenuDirection: submenuDirection,
-      menuSelector: '.menu',
-      delay: 300,
-      tolerance: 75
-    });
-
-    // setup
-    let mousemoveListener = 0;
-    if (mousemoveListener === 0) {
-      document
-      .addEventListener('mousemove', __getMouseMoveDocumentHandler(), false);
-    }
-    mousemoveListener += 1;
-
-    // cleanup
-    return () => {
-      mousemoveListener -= 1;
-      if (mousemoveListener === 0) {
-        document
-        .removeEventListener('mousemove', __getMouseMoveDocumentHandler());
-        mouseLocs = [];
-      }
-      clearTimeout(__reactMenuAimTimer);
-      __reactMenuAimTimer = null;
-      __mouseMoveDocumentHandler = null;
-    };
-  });
+  const handleMouseLeaveMenu = () => {
+    if (menuTimer) clearTimeout(menuTimer);
+  }
 
   const handleSwitchMenuIndex = index => setActiveMenuIndex(index);
 
@@ -199,7 +157,6 @@ export const Menu = ({
     <MenuView
       theme={theme}
       menuData={menuData}
-      submenuDirection={submenuDirection}
       activeMenuIndex={activeMenuIndex}
       handleMouseEnterRow={handleMouseEnterRow}
       handleMouseLeaveMenu={handleMouseLeaveMenu}

@@ -40,7 +40,7 @@ export class SiteNav extends Component {
           <Link className="site-nav-link" to="/food">Food</Link>
           {
             (expanded && expandedDropdown === 'Food')
-            ? <Menu menuData={foodMenuData} submenuDirection="right" />
+            ? <Menu menuData={foodMenuData} />
             : false
           }
         </li>
@@ -53,7 +53,7 @@ export class SiteNav extends Component {
           <Link className="site-nav-link" to="/fitness">Fitness</Link>
           {
             (expanded && expandedDropdown === 'Fitness')
-            ? <Menu menuData={fitnessMenuData} submenuDirection="right" />
+            ? <Menu menuData={fitnessMenuData} />
             : false
           }
         </li>
@@ -62,7 +62,7 @@ export class SiteNav extends Component {
           <Link className="site-nav-link" to="/store/storefront">Supply</Link>
           {
             (expanded && expandedDropdown === 'Supply')
-            ? <Menu menuData={supplyMenuData} submenuDirection="right" />
+            ? <Menu menuData={supplyMenuData} />
             : false
           }
         </li>

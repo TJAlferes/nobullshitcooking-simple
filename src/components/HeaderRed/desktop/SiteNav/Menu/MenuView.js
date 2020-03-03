@@ -25,15 +25,18 @@ import './menu.css';
 const MenuView = ({
   theme,
   menuData,
-  submenuDirection,
   activeMenuIndex,
   handleMouseEnterRow,
   handleMouseLeaveMenu,
   handleSwitchMenuIndex
 }) => (
-  <div className={`menu-container ${submenuDirection} ${theme}`}>
+  <div className={`menu-container ${theme}`}>
 
-    <div className={`menu ${theme}`} onMouseLeave={handleMouseLeaveMenu}>
+    <div
+      className={`menu ${theme}`}
+      onMouseLeave={handleMouseLeaveMenu}
+      data-test="menu"
+    >
       <ul>
         {menuData.map((menu, index) => {
           let className = 'menu-item';
