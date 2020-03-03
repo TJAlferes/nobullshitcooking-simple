@@ -9,6 +9,16 @@ import { Equipment } from './Equipment';
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+const dataEquipmentTypes = [
+  {equipment_type_id: 2, equipment_type_name: "Preparing"},
+  {equipment_type_id: 3, equipment_type_name: "Cooking"}
+];
+
+const dataEquipment = [
+  {equipment_id: 1, equipment_type_id: 3, equipment_name: "Metal Spatula"},
+  {equipment_id: 2, equipment_type_id: 2, equipment_name: "Cutting Board"}
+];
+
 const mockHistoryPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({
@@ -35,14 +45,8 @@ describe('Equipment', () => {
         <Equipment
           match={{params: {}}}
           twoColumnBTheme="light"
-          dataEquipmentTypes={[
-            {equipment_type_id: 1, equipment_type_name: "Preparing"},
-            {equipment_type_id: 2, equipment_type_name: "Cooking"}
-          ]}
-          dataEquipment={[
-            {equipment_id: 1, equipment_type_id: 2, equipment_name: "Equipment One"},
-            {equipment_id: 2, equipment_type_id: 1, equipment_name: "Equipment Two"}
-          ]}
+          dataEquipmentTypes={dataEquipmentTypes}
+          dataEquipment={dataEquipment}
           dataMyPrivateEquipment={[]}
         />
       </MemoryRouter>
@@ -57,14 +61,8 @@ describe('Equipment', () => {
         <Equipment
           match={{params: {id: "999"}}}
           twoColumnBTheme="light"
-          dataEquipmentTypes={[
-            {equipment_type_id: 1, equipment_type_name: "Preparing"},
-            {equipment_type_id: 2, equipment_type_name: "Cooking"}
-          ]}
-          dataEquipment={[
-            {equipment_id: 1, equipment_type_id: 2, equipment_name: "Equipment One"},
-            {equipment_id: 2, equipment_type_id: 1, equipment_name: "Equipment Two"}
-          ]}
+          dataEquipmentTypes={dataEquipmentTypes}
+          dataEquipment={dataEquipment}
           dataMyPrivateEquipment={[]}
         />
       </MemoryRouter>
@@ -79,14 +77,8 @@ describe('Equipment', () => {
         <Equipment
           match={{params: {id: "1"}}}
           twoColumnBTheme="light"
-          dataEquipmentTypes={[
-            {equipment_type_id: 1, equipment_type_name: "Preparing"},
-            {equipment_type_id: 2, equipment_type_name: "Cooking"}
-          ]}
-          dataEquipment={[
-            {equipment_id: 1, equipment_type_id: 2, equipment_name: "Equipment One"},
-            {equipment_id: 2, equipment_type_id: 1, equipment_name: "Equipment Two"}
-          ]}
+          dataEquipmentTypes={dataEquipmentTypes}
+          dataEquipment={dataEquipment}
           dataMyPrivateEquipment={[]}
         />
       </MemoryRouter>
@@ -101,21 +93,15 @@ describe('Equipment', () => {
         <Equipment
           match={{params: {id: "1"}}}
           twoColumnBTheme="light"
-          dataEquipmentTypes={[
-            {equipment_type_id: 1, equipment_type_name: "Preparing"},
-            {equipment_type_id: 2, equipment_type_name: "Cooking"}
-          ]}
-          dataEquipment={[
-            {equipment_id: 1, equipment_type_id: 2, equipment_name: "Equipment One"},
-            {equipment_id: 2, equipment_type_id: 1, equipment_name: "Equipment Two"}
-          ]}
+          dataEquipmentTypes={dataEquipmentTypes}
+          dataEquipment={dataEquipment}
           dataMyPrivateEquipment={[]}
         />
       </MemoryRouter>
     );
     await act(async () => Promise.resolve(() => {
       setImmediate(() => wrapper.update());
-      expect(wrapper.find('.equipment-view')).toHaveLength(1);
+      expect(wrapper.find('[data-test="equipment-view"]')).toHaveLength(1);
       expect(wrapper.find(EquipmentView).props().equipment.equipment_id)
       .toEqual(1);
     }));

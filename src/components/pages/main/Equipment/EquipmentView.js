@@ -13,7 +13,10 @@ const EquipmentView = ({
 
     <div><EquipmentBreadcrumbs equipment={equipment} /></div>
 
-    <div className={`equipment-view two-column-b ${twoColumnBTheme}`}>
+    <div
+      className={`equipment-view two-column-b ${twoColumnBTheme}`}
+      data-test="equipment-view"
+    >
 
       <div className="left-column">
         <div className="equipment-details">

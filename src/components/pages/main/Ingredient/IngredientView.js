@@ -13,7 +13,10 @@ const IngredientView = ({
 
     <div><IngredientBreadcrumbs ingredient={ingredient} /></div>
 
-    <div className={`ingredient-view two-column-b ${twoColumnBTheme}`}>
+    <div
+      className={`ingredient-view two-column-b ${twoColumnBTheme}`}
+      data-test="ingredient-view"
+    >
 
       <div className="left-column">
         <div className="ingredient-details">
