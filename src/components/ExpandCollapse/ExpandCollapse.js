@@ -14,8 +14,8 @@ const ExpandCollapse = ({
   const toggle = () => setExpanded(prevState => !prevState);
 
   let headingWhenExpanded = headingWhileExpanded || "(Click here to collapse)";
-  let headingWhenCollapsed = headingWhileCollapsed ||
-  "More info (Click here to expand)";
+
+  let headingWhenCollapsed = headingWhileCollapsed || "More info (Click here to expand)";
 
   return (
     <ExpandCollapseView
