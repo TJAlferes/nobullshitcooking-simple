@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-//import { useHistory } from 'react-router';
 import { useHistory, useParams, withRouter } from 'react-router-dom';
 import axios from 'axios';
+
+import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
 
 import CuisineView from './CuisineView';
 
@@ -19,7 +20,7 @@ export const Cuisine = ({
   dataCuisines
 }) => {
   const history = useHistory();
-  const { id } = useParams;
+  //const { id } = useParams;
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);  // set spinner?
@@ -31,19 +32,17 @@ export const Cuisine = ({
   const [ tab, setTab ] = useState("intro");
 
   useEffect(() => {
-    const { id } = match.params;
-    //const { id } = useParams;
-    console.log('id: ', id);
+    const { id } = match.params;  //= useParams;
+
     if (!id) {
       history.push('/food/cuisines');
-      console.log(history);
       return;
     }
 
     const isCuisine = dataCuisines.find(cui=> cui.cuisine_id == id);
+
     if (!isCuisine) {
       history.push('/food/cuisines');
-      console.log(history);
       return;
     }
 
@@ -75,23 +74,25 @@ export const Cuisine = ({
     });
   };
 
+  const handleTabChange = value => setTab(value);
+
   const handleShowNearbyStoresClick = () => {
     setNearbyStoresClicked(true);
     getLocation();
   };
 
-  const handleTabChange = value => setTab(value);
-
-  return !cuisine ? <div></div> : (
+  return !cuisine
+  ? <LoaderSpinner />
+  : (
     <CuisineView
       oneColumnATheme={oneColumnATheme}
       cuisine={cuisine}
       tab={tab}
-      handleTabChange={handleTabChange}
       nearbyStoresClicked={nearbyStoresClicked}
       address={address}
       latitude={latitude}
       longitude={longitude}
+      handleTabChange={handleTabChange}
       handleShowNearbyStoresClick={handleShowNearbyStoresClick}
     />
   );

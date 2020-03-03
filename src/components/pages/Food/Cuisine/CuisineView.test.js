@@ -1,7 +1,5 @@
-import { render, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
-
-import { TestingRouter } from '../../../../../test/testUtils';
 
 import CuisineView from './CuisineView';
 
@@ -38,33 +36,6 @@ let cuisine = {
 
 let wrapper;
 
-describe('CuisineView Redirect', () => {
-  it('should redirect to cuisines route if cuisineId not specified', () => {
-    const container = render(
-      <TestingRouter
-        Path={'/food/cuisines/1'}
-        ComponentWithRedirection={() => (
-          <CuisineView
-            oneColumnATheme="light"
-            redirect={false}
-            cuisine={cuisine}
-            tab="intro"
-            handleTabChange={handleTabChange}
-            nearbyStoresClicked={false}
-            address=""
-            latitude=""
-            longitude=""
-            handleShowNearbyStoresClick={handleShowNearbyStoresClick}
-          />
-        )}
-        RedirectUrl={'/'}
-      />
-    );
-    console.log(container);
-    expect(container[0].children[0].data).toEqual('/');
-  });
-});
-
 describe('CuisineView', () => {
   beforeEach(() => {
     wrapper = shallow(
@@ -73,11 +44,11 @@ describe('CuisineView', () => {
         redirect={false}
         cuisine={cuisine}
         tab="intro"
-        handleTabChange={handleTabChange}
         nearbyStoresClicked={false}
         address=""
         latitude=""
         longitude=""
+        handleTabChange={handleTabChange}
         handleShowNearbyStoresClick={handleShowNearbyStoresClick}
       />
     );

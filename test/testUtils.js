@@ -4,6 +4,8 @@ import { createMemoryHistory } from 'history';
 //import checkPropsTypes from 'check-prop-types';
 //import { runSaga } from 'redux-saga';
 
+// remove?
+
 const history = createMemoryHistory();
 //path="/user/login"
 export const TestingRouter = ({ Path, ComponentWithRedirection, RedirectUrl }) => (

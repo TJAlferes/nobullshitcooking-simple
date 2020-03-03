@@ -15,11 +15,11 @@ const CuisineView = ({
   oneColumnATheme,
   cuisine,
   tab,
-  handleTabChange,
   nearbyStoresClicked,
   address,
   latitude,
   longitude,
+  handleTabChange,
   handleShowNearbyStoresClick
 }) => (
   <div className="cuisine-view">
