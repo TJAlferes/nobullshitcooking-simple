@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import './feed.css';
 
+// TO DO: Make news/blog/CMS
+
 export const Feed = ({ theme }) => (
   <div className={`feed ${theme}`}>
     <div className="news_item">

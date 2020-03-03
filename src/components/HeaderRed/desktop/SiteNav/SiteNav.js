@@ -11,11 +11,8 @@ import fitnessMenuData from './Menu/fitnessMenuData';
 
 import './siteNav.css';
 
-class SiteNav extends Component {
-  state = {
-    expanded: false,
-    expandedDropdown: "none"
-  };
+export class SiteNav extends Component {
+  state = {expanded: false, expandedDropdown: "none"};
 
   handleMouseEnter = dropdown => {
     const { expandedDropdown } = this.state;
@@ -31,9 +28,15 @@ class SiteNav extends Component {
 
   render() {
     const { expanded, expandedDropdown } = this.state;
+
     return (
       <div className="site-nav">
-        <li onMouseEnter={() => this.handleMouseEnter('Food')} onMouseLeave={this.handleMouseLeave}>
+
+        <li
+          onMouseEnter={() => this.handleMouseEnter('Food')}
+          onMouseLeave={this.handleMouseLeave}
+          data-test="food-area"
+        >
           <Link className="site-nav-link" to="/food">Food</Link>
           {
             (expanded && expandedDropdown === 'Food')
@@ -41,7 +44,12 @@ class SiteNav extends Component {
             : false
           }
         </li>
-        <li onMouseEnter={() => this.handleMouseEnter('Fitness')} onMouseLeave={this.handleMouseLeave}>
+
+        <li
+          onMouseEnter={() => this.handleMouseEnter('Fitness')}
+          onMouseLeave={this.handleMouseLeave}
+          data-test="fitness-area"
+        >
           <Link className="site-nav-link" to="/fitness">Fitness</Link>
           {
             (expanded && expandedDropdown === 'Fitness')
@@ -49,6 +57,7 @@ class SiteNav extends Component {
             : false
           }
         </li>
+
         {/*<li onMouseEnter={() => this.handleMouseEnter('Supply')} onMouseLeave={this.handleMouseLeave}>
           <Link className="site-nav-link" to="/store/storefront">Supply</Link>
           {
@@ -60,6 +69,7 @@ class SiteNav extends Component {
         <li>
           <Link className="site-nav-link" to="/site/welcome">New? Start Here</Link>
         </li>*/}
+        
       </div>
     );
   }

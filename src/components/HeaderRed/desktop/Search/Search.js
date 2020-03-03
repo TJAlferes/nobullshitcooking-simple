@@ -37,6 +37,7 @@ const Search = ({
   let otherLetters = `${currentIndex}`.slice(1, currentIndex.length).toLowerCase();
   let facadeText = `${capitalizedFirstLetter}${otherLetters}`;
   let field;
+
   if (currentIndex === "recipes") field = "title";
   if (currentIndex === "ingredients") field = "ingredientName";
   if (currentIndex === "equipment") field = "equipmentName";
@@ -153,10 +154,6 @@ export default withRouter(
   connect(
     mapStateToProps, mapDispatchToProps
   )(
-    withSearch(
-      mapContextToProps
-    )(
-      Search
-    )
+    withSearch(mapContextToProps)(Search)
   )
 );
