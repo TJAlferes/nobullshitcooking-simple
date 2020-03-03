@@ -5,16 +5,14 @@ import MenuView from './MenuView';
 
 const handleMouseEnterRow = jest.fn();
 const handleMouseLeaveMenu = jest.fn();
-const handleSwitchMenuIndex = jest.fn();
 
 const wrapper = shallow(
   <MenuView
     theme="drop-down-menu-light"
     menuData={[]}
-    activeMenuIndex={undefined}
+    activeMenuRow={undefined}
     handleMouseEnterRow={handleMouseEnterRow}
     handleMouseLeaveMenu={handleMouseLeaveMenu}
-    handleSwitchMenuIndex={handleSwitchMenuIndex}
   />
 );
 

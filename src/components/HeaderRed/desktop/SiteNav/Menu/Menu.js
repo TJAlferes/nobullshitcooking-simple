@@ -39,12 +39,13 @@ function outerHeight(el) {
 }
 
 export const Menu = ({ theme, menuData }) => {
-  const [ activeMenuIndex, setActiveMenuIndex ] = useState();
+  const [ activeMenuRow, setActiveMenuRow ] = useState();
 
-  let menuConfig = {delay: 300, tolerance: 75};
+  const menuConfig = {delay: 300, tolerance: 75};
+
   let menuTimer;
-  let _lastDelayLoc;
   let mouseLocs = [];
+  let lastDelayLoc;
 
   useLayoutEffect(() => {
     document.addEventListener('mousemove', handleMouseMoveDocument, false);
@@ -57,7 +58,7 @@ export const Menu = ({ theme, menuData }) => {
   });
 
   function getActivateDelay(config) {
-    let menu = document.querySelector('.menu');  // do you need findDOMNode? or a ref?
+    let menu = document.querySelector('.menu');  // findDOMNode? ref?
 
     let menuOffset = offset(menu);
 
@@ -93,9 +94,9 @@ export const Menu = ({ theme, menuData }) => {
     }
 
     if (
-      _lastDelayLoc &&
-      loc.x === _lastDelayLoc.x &&
-      loc.y === _lastDelayLoc.y
+      lastDelayLoc &&
+      loc.x === lastDelayLoc.x &&
+      loc.y === lastDelayLoc.y
     ) {
       return 0;
     }
@@ -115,26 +116,26 @@ export const Menu = ({ theme, menuData }) => {
       decreasingSlope < prevDecreasingSlope &&
       increasingSlope > prevIncreasingSlope
     ) {
-      _lastDelayLoc = loc;
+      lastDelayLoc = loc;
       return config.delay || DELAY;
     }
 
-    _lastDelayLoc = null;
+    lastDelayLoc = null;
     
     return 0;
   }
 
-  function possiblyActivate(rowIdentifier, handler, config) {
-    const delay = getActivateDelay(config);
+  function possiblyActivate(row) {
+    const delay = getActivateDelay(menuConfig);
 
     if (delay) {
       menuTimer = setTimeout(() => {
-        possiblyActivate.call(this, rowIdentifier, handler, config);
+        possiblyActivate(row);
       }, delay);
       return;
     }
 
-    handler(rowIdentifier);
+    setActiveMenuRow(row);
   }
 
   const handleMouseMoveDocument = e => {
@@ -142,25 +143,22 @@ export const Menu = ({ theme, menuData }) => {
     if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
   }
   
-  const handleMouseEnterRow = (rowIdentifier, handler) => {
+  const handleMouseEnterRow = row => {
     if (menuTimer) clearTimeout(menuTimer);
-    possiblyActivate(rowIdentifier, handler, menuConfig);
+    possiblyActivate(row);
   }
 
   const handleMouseLeaveMenu = () => {
     if (menuTimer) clearTimeout(menuTimer);
   }
 
-  const handleSwitchMenuIndex = index => setActiveMenuIndex(index);
-
   return (
     <MenuView
       theme={theme}
       menuData={menuData}
-      activeMenuIndex={activeMenuIndex}
+      activeMenuRow={activeMenuRow}
       handleMouseEnterRow={handleMouseEnterRow}
       handleMouseLeaveMenu={handleMouseLeaveMenu}
-      handleSwitchMenuIndex={handleSwitchMenuIndex}
     />
   );
 };

@@ -20,15 +20,12 @@ const KitchenEquipmentSlideImageDark = `${s3Path}kitchen-equipment-slide-dark.pn
 
 import './menu.css';
 
-// TO DO: DRY the JSX
-
 const MenuView = ({
   theme,
   menuData,
-  activeMenuIndex,
+  activeMenuRow,
   handleMouseEnterRow,
-  handleMouseLeaveMenu,
-  handleSwitchMenuIndex
+  handleMouseLeaveMenu
 }) => (
   <div className={`menu-container ${theme}`}>
 
@@ -37,147 +34,110 @@ const MenuView = ({
       onMouseLeave={handleMouseLeaveMenu}
       data-test="menu"
     >
-      <ul>
-        {menuData.map((menu, index) => {
-          let className = 'menu-item';
-          if (activeMenuIndex !== undefined && index === activeMenuIndex) {
-            className += ' active';
-          }
-          return (
-            <li
-              className={className}
-              key={index}
-              onMouseEnter={() => { handleMouseEnterRow(index, handleSwitchMenuIndex) }}
-            >
-              <Link className={theme} to={menu.link}>{menu.name}</Link>
-            </li>
-          );
-        })}
+      <ul className="menu-items">
+        {menuData.map((menu, index) => (
+          <li
+            className={`
+              menu-item
+              ${
+                (activeMenuRow !== undefined && index === activeMenuRow) &&
+                ' active'
+              }
+            `}
+            key={index}
+            onMouseEnter={() => handleMouseEnterRow(index)}
+          >
+            <Link className={`menu-item-link ${theme}`} to={menu.link}>
+              {menu.name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
 
-    <div className={`sub-menu ${theme}`}>
-      {
-        activeMenuIndex !== undefined &&
-        <h3>
-          <Link className={theme} to={menuData[activeMenuIndex].link}>
-            {menuData[activeMenuIndex].name}
+    {activeMenuRow !== undefined && (
+      <div className={`sub-menu ${theme}`}>
+
+        <h3 className="sub-menu-heading">
+          <Link
+            className={`sub-menu-heading-link ${theme}`}
+            to={menuData[activeMenuRow].link}
+          >
+            {menuData[activeMenuRow].name}
           </Link>
         </h3>
-      }
-      <ul>
-        {
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].subMenu.map((subMenu, index) => 
+
+        <ul className="sub-menu-items">
+          {menuData[activeMenuRow].subMenu.map((subMenu, index) => 
             <li className="sub-menu-item" key={index}>
-              <Link className={theme} to={menuData[activeMenuIndex].subMenuLinks[index]}>
+              <Link
+                className={`sub-menu-item-link ${theme}`}
+                to={menuData[activeMenuRow].subMenuLinks[index]}
+              >
                 {subMenu}
               </Link>
             </li>
-          )
-        }
-      </ul>
-      {
-        (
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].image === 'recipes'
-        ) &&
-        (
-          theme === "drop-down-menu-light"
-          ? <img src={IngredientsSlideImage} />
-          : <img src={IngredientsSlideImageDark} />
-        )
-      }
-      {
-        (
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].image === 'cuisines'
-        ) &&
-        (
-          theme === "drop-down-menu-light"
-          ? <img src={CuisinesSlideImage} />
-          : <img src={CuisinesSlideImageDark} />
-        )
-      }
-      {
-        (
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].image === 'ingredients'
-        ) &&
-        (
-          theme === "drop-down-menu-light"
-          ? <img src={IngredientsSlideImage} />
-          : <img src={IngredientsSlideImageDark} />
-        )
-      }
-      {
-        (
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].image === 'nutrition'
-        ) &&
-        (
-          theme === "drop-down-menu-light"
-          ? <img src={NutritionSlideImage} />
-          : <img src={NutritionSlideImageDark} />
-        )
-      }
-      {
-        (
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].image === 'equipment'
-        ) &&
-        (
-          theme === "drop-down-menu-light"
-          ? <img src={IngredientsSlideImage} />
-          : <img src={IngredientsSlideImageDark} />
-        )
-      }
-      {
-        (
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].image === 'methods'
-        ) &&
-        (
-          theme === "drop-down-menu-light"
-          ? <img src={MethodsSlideImage} />
-          : <img src={MethodsSlideImageDark} />
-        )
-      }
+          )}
+        </ul>
 
-      {
-        (
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].image === 'principles'
-        ) && 
-        (
-          theme === "drop-down-menu-light"
-          ? <img src={PrinciplesSlideImage} />
-          : <img src={PrinciplesSlideImageDark} />
-        )
-      }
-      {
-        (
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].image === 'exercises'
-        ) &&
-        (
-          theme === "drop-down-menu-light"
-          ? <img src={ExercisesSlideImage} />
-          : <img src={ExercisesSlideImageDark} />
-        )
-      }
-      {
-        (
-          activeMenuIndex !== undefined &&
-          menuData[activeMenuIndex].image === 'kitchen-equipment'
-        ) &&
-        (
-          theme === "drop-down-menu-light"
-          ? <img src={KitchenEquipmentSlideImage} />
-          : <img src={KitchenEquipmentSlideImageDark} />
-        )
-      }
-    </div>
+        <div className="sub-menu-images">
+          {menuData[activeMenuRow].image === 'recipes' && (
+            theme === "drop-down-menu-light"
+            ? <img className="sub-menu-image" src={IngredientsSlideImage} />
+            : <img className="sub-menu-image" src={IngredientsSlideImageDark} />
+          )}
+
+          {menuData[activeMenuRow].image === 'cuisines' && (
+            theme === "drop-down-menu-light"
+            ? <img className="sub-menu-image" src={CuisinesSlideImage} />
+            : <img className="sub-menu-image" src={CuisinesSlideImageDark} />
+          )}
+
+          {menuData[activeMenuRow].image === 'ingredients' && (
+            theme === "drop-down-menu-light"
+            ? <img className="sub-menu-image" src={IngredientsSlideImage} />
+            : <img className="sub-menu-image" src={IngredientsSlideImageDark} />
+          )}
+
+          {menuData[activeMenuRow].image === 'nutrition' && (
+            theme === "drop-down-menu-light"
+            ? <img className="sub-menu-image" src={NutritionSlideImage} />
+            : <img className="sub-menu-image" src={NutritionSlideImageDark} />
+          )}
+
+          {menuData[activeMenuRow].image === 'equipment' && (
+            theme === "drop-down-menu-light"
+            ? <img className="sub-menu-image" src={IngredientsSlideImage} />
+            : <img className="sub-menu-image" src={IngredientsSlideImageDark} />
+          )}
+
+          {menuData[activeMenuRow].image === 'methods' && (
+            theme === "drop-down-menu-light"
+            ? <img className="sub-menu-image" src={MethodsSlideImage} />
+            : <img className="sub-menu-image" src={MethodsSlideImageDark} />
+          )}
+
+          {menuData[activeMenuRow].image === 'principles' && (
+            theme === "drop-down-menu-light"
+            ? <img className="sub-menu-image" src={PrinciplesSlideImage} />
+            : <img className="sub-menu-image" src={PrinciplesSlideImageDark} />
+          )}
+
+          {menuData[activeMenuRow].image === 'exercises' && (
+            theme === "drop-down-menu-light"
+            ? <img className="sub-menu-image" src={ExercisesSlideImage} />
+            : <img className="sub-menu-image" src={ExercisesSlideImageDark} />
+          )}
+          
+          {menuData[activeMenuRow].image === 'kitchen-equipment' && (
+            theme === "drop-down-menu-light"
+            ? <img className="sub-menu-image" src={KitchenEquipmentSlideImage} />
+            : <img className="sub-menu-image" src={KitchenEquipmentSlideImageDark} />
+          )}
+        </div>
+
+      </div>
+    )}
 
   </div>
 );
