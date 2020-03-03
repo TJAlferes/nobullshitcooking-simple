@@ -29,7 +29,7 @@ const IngredientView = ({
                 ing => ing.ingredient_id === ingredient.ingredient_id
               )
               ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${ingredient.ingredient_image}`} />
-              : <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`} />
+              : <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}`} />
             }
           </div>
           <div className="ingredient-details-type">
