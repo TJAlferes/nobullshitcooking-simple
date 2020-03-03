@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
-import { withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
+
+import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
 
 import IngredientView from './IngredientView';
 
@@ -18,22 +19,33 @@ export const Ingredient = ({
 
   useEffect(() => {
     const { id } = match.params;
-    if (!id) history.push('/home');
+    
+    if (!id) {
+      history.push('/ingredients');
+      return;
+    }
 
     const localIngredient = (
       dataIngredients.find(ing => ing.ingredient_id == id) ||
       dataMyPrivateIngredients.find(ing => ing.ingredient_id == id)
     );
-    if (!localIngredient) history.push('/ingredients');
+
+    if (!localIngredient) {
+      history.push('/ingredients');
+      return;
+    }
 
     const localIngredientType = dataIngredientTypes
     .find(ing => ing.ingredient_type_id == localIngredient.ingredient_type_id);
 
     localIngredient.ingredient_type_name = localIngredientType.ingredient_type_name;
+    
     setIngredient(localIngredient);
   }, []);
 
-  return (
+  return !ingredient
+  ? <LoaderSpinner />
+  : (
     <IngredientView
       twoColumnBTheme={twoColumnBTheme}
       ingredient={ingredient}

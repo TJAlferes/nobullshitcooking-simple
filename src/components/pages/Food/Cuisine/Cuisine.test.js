@@ -1,7 +1,6 @@
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 
@@ -9,7 +8,7 @@ import CuisineView from './CuisineView';
 
 import { Cuisine } from './Cuisine';
 
-let cuisine = {
+const cuisine = {
   cuisine: {
     cuisine_id: 1,
     cuisine_name: "Italian",
@@ -43,14 +42,13 @@ const mockHistoryPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({push: mockHistoryPush})
+  useHistory: () => ({push: mockHistoryPush}),
+  //useParams: () => ({id: })
 }));
 
 jest.mock('axios');
 
 axios.get.mockImplementation(() => Promise.resolve({data: cuisine}));
-
-
 
 jest.mock(
   '../../../../routing/breadcrumbs/Breadcrumbs',
@@ -78,7 +76,7 @@ describe('Cuisine', () => {
       </MemoryRouter>
     );
     await wait(3000);
-    expect(mockHistoryPush).toHaveBeenCalled();
+    expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 
   it('should redirect to /food/cuisines if given an invalid cuisine', async () => {
@@ -95,7 +93,7 @@ describe('Cuisine', () => {
       </MemoryRouter>
     );
     await wait(3000);
-    expect(mockHistoryPush).toHaveBeenCalled();
+    expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 
   it('should not redirect if given a valid cuisine', async () => {
@@ -111,14 +109,12 @@ describe('Cuisine', () => {
         />
       </MemoryRouter>
     );
-
     await act(async () => Promise.resolve(() => {
       setImmediate(() => wrapper.update());
-
       expect(mockHistoryPush).not.toHaveBeenCalled();
     }));
   });
-
+  
   it('should load the appropriate cuisine', async () => {
     const wrapper = mount(
       <MemoryRouter>
@@ -132,12 +128,9 @@ describe('Cuisine', () => {
         />
       </MemoryRouter>
     );
-
     await act(async () => Promise.resolve(() => {
       setImmediate(() => wrapper.update());
-
       expect(wrapper.find('.cuisine-view')).toHaveLength(1);
-
       expect(wrapper.find(CuisineView).props().cuisine.cuisine.cuisine_id)
       .toEqual(1);
     }));

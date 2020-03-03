@@ -32,7 +32,7 @@ export const Cuisine = ({
   const [ tab, setTab ] = useState("intro");
 
   useEffect(() => {
-    const { id } = match.params;  //= useParams;
+    const { id } = match.params;  //= useParams; is this testable? mock?
 
     if (!id) {
       history.push('/food/cuisines');

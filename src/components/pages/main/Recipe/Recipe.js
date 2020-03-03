@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
-import { withRouter, Link } from 'react-router-dom';
+import { useHistory, useLocation, withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import {
   userFavoriteRecipe,
   userSaveRecipe
 } from '../../../../store/actions/index';
+
+import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
 
 import RecipeView from './RecipeView';
 
@@ -52,7 +53,11 @@ export const Recipe = ({
 
   useEffect(() => {
     const { id } = match.params;
-    if (!id) history.push('/home');
+    
+    if (!id) {
+      history.push('/home');
+      return;
+    }
 
     const getPrivateRecipe = async (id) => {
       const res = await axios.post(
@@ -101,7 +106,9 @@ export const Recipe = ({
     );
   };
 
-  return (
+  return !recipe
+  ? <LoaderSpinner />
+  : (
     <RecipeView
       match={match}
       twoColumnBTheme={twoColumnBTheme}
