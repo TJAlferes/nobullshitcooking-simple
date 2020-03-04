@@ -2,7 +2,7 @@
 
 }*/
 
-.friends .error-message {
+.friends-feedback {
   width: 100%;
   height: 31px;
   color: #c10006;
@@ -166,8 +166,6 @@
 .friends-list-item-delete {
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
-
-
 
 @media (max-width: 1209px) {
   .friends-list-menu-tab {

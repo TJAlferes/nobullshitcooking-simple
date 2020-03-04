@@ -35,9 +35,6 @@
   background-image: linear-gradient(to bottom, #eee, #bbb);
 }
 
-
-
-
 .profile-content-none {
   font-size: 13px;
 }
@@ -82,8 +79,6 @@
 .profile-list-item-name a:visited {
   color: #68abe6;
 }
-
-
 
 @media (max-width: 1209px) {
   .profile {

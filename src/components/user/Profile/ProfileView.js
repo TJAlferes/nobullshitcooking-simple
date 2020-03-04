@@ -17,8 +17,7 @@ const ProfileView = ({
   userPublicRecipes,
   userFavoriteRecipes,
   handleFriendRequestClick,
-  handlePublicTabClick,
-  handleFavoriteTabClick
+  handleTabChange
 }) => (
   <div className={`profile one-column-a ${oneColumnATheme}`}>
     <h1>{match.params.username}</h1>
@@ -59,7 +58,7 @@ const ProfileView = ({
           ? "profile-list-menu-tab active"
           : "profile-list-menu-tab inactive"
         }
-        onClick={handlePublicTabClick}
+        onClick={() => handleTabChange("public")}
       >
         Public
       </button>
@@ -69,7 +68,7 @@ const ProfileView = ({
           ? "profile-list-menu-tab active"
           : "profile-list-menu-tab inactive"
         }
-        onClick={handleFavoriteTabClick}
+        onClick={() => handleTabChange("favorite")}
       >
         Favorite
       </button>

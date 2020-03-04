@@ -12,6 +12,8 @@ import {
 
 import FriendsView from './FriendsView';
 
+// TO DO: SERVER SENT EVENTS HTTP2
+
 export const Friends = ({
   twoColumnATheme,
   message,
@@ -38,10 +40,6 @@ export const Friends = ({
     }
     return () => isSubscribed = false;
   }, [message]);
-
-  //const handleCurrentTabClick = () => setTab("accepted");
-  //const handlePendingTabClick = () => setTab("pending-received");
-  //const handleBlockedTabClick = () => setTab("blocked");
 
   const handleTabChange = value => setTab(value);
 

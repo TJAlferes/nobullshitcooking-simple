@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import { userRequestFriendship } from '../../../store/actions/index';
@@ -42,12 +42,17 @@ export const Profile = ({
   }, [message]);
 
   useEffect(() => {
-    const { username } = match.params;  // withRouter?
-    if (!username) history.push('/');  // change (to what?)
+    const { username } = match.params;
+
+    if (!username) {
+      history.push('/');
+      return;
+    }
 
     const getUserProfile = async (username) => {
-      const res = await axios.get(`${endpoint}/user/profile/${username}`);
-      if (res.data.avatar !== "nobsc-user-default") setUserAvatar(username);
+      const trimmed = username.trim();
+      const res = await axios.get(`${endpoint}/user/profile/${trimmed}`);
+      if (res.data.avatar !== "nobsc-user-default") setUserAvatar(trimmed);
       setUserPublicRecipes(res.data.publicRecipes);
       setUserFavoriteRecipes(res.data.favoriteRecipes);
     };
@@ -55,9 +60,7 @@ export const Profile = ({
     getUserProfile(username);
   }, []);
 
-  const handleFavoriteTabClick = () => setTab("favorite");
-
-  const handlePublicTabClick = () => setTab("public");
+  const handleTabChange = value => setTab(value);
 
   const handleFriendRequestClick = () => {
     const { username } = match.params;
@@ -82,8 +85,7 @@ export const Profile = ({
       userPublicRecipes={userPublicRecipes}
       userFavoriteRecipes={userFavoriteRecipes}
       handleFriendRequestClick={handleFriendRequestClick}
-      handlePublicTabClick={handlePublicTabClick}
-      handleFavoriteTabClick={handleFavoriteTabClick}
+      handleTabChange={handleTabChange}
     />
   );
 };
@@ -100,4 +102,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(userRequestFriendship(friendName))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));

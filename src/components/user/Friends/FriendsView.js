@@ -29,7 +29,7 @@ const FriendsView = ({
 
       <h1>Friends</h1>
 
-      <p className="error-message">{feedback}</p>
+      <p className="friends-feedback">{feedback}</p>
 
       <div className="friends-find">
         <label className="friends-find-label" htmlFor="friends-find-user">
