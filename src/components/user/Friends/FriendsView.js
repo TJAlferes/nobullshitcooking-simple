@@ -12,9 +12,7 @@ const FriendsView = ({
   dataMyFriendships,
   userToFind,
   tab,
-  handleCurrentTabClick,
-  handlePendingTabClick,
-  handleBlockedTabClick,
+  handleTabChange,
   handleFindUserInputChange,
   handleFriendRequestClick,
   handleFriendAcceptClick,
@@ -68,7 +66,7 @@ const FriendsView = ({
             ? "friends-list-menu-tab active"
             : "friends-list-menu-tab inactive"
           }
-          onClick={handleCurrentTabClick}
+          onClick={() => handleTabChange("accepted")}
         >
           Current
         </button>
@@ -78,7 +76,7 @@ const FriendsView = ({
             ? "friends-list-menu-tab active"
             : "friends-list-menu-tab inactive"
           }
-          onClick={handlePendingTabClick}
+          onClick={() => handleTabChange("pending-received")}
         >
           Pending
         </button>
@@ -88,7 +86,7 @@ const FriendsView = ({
             ? "friends-list-menu-tab active"
             : "friends-list-menu-tab inactive"
           }
-          onClick={handleBlockedTabClick}
+          onClick={() => handleTabChange("blocked")}
         >
           Blocked
         </button>

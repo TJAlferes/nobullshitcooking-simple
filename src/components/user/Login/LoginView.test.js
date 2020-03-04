@@ -33,11 +33,11 @@ describe('LoginView', () => {
   });
 
   it('displays an email input element', () => {
-    expect(wrapper.find('input.login-input[name="email"]')).toHaveLength(1);
+    expect(wrapper.find('input[name="email"]')).toHaveLength(1);
   });
 
   it('displays a password input element', () => {
-    expect(wrapper.find('input.login-input[name="password"]')).toHaveLength(1);
+    expect(wrapper.find('input[name="password"]')).toHaveLength(1);
   });
 
   it('displays a LoaderButton component with text Sign In', () => {

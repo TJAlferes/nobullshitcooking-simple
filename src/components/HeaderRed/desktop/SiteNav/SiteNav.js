@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 
 import { menuShadowShow, menuShadowHide } from '../../../../store/actions/index';
 
+import fitnessMenuData from './data/fitnessMenuData';
+import foodMenuData from './data/foodMenuData';
+//import supplyMenuData from './data/supplyMenuData';
+
 import Menu from './Menu/Menu';
-import foodMenuData from './Menu/foodMenuData';
-import fitnessMenuData from './Menu/fitnessMenuData';
-//import supplyMenuData from './Menu/supplyMenuData';
 
 import './siteNav.css';
 

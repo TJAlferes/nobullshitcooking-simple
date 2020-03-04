@@ -27,9 +27,41 @@ afterEach(() => {
 });
 
 describe('Register', () => {
+  it('should record and display changes to username', () => {
+    wrapper.find('input[name="username"]')
+    .simulate('change', {target: {name: "username", value: "Person"}});
+
+    expect(wrapper.find('input[name="username"]').props().value)
+    .toEqual("Person");
+  });
+
+  it('should record and display changes to email', () => {
+    wrapper.find('input[name="email"]')
+    .simulate('change', {target: {name: "email", value: "person@place.com"}});
+
+    expect(wrapper.find('input[name="email"]').props().value)
+    .toEqual("person@place.com");
+  });
+
+  it('should record and display changes to password', () => {
+    wrapper.find('input[name="password"]')
+    .simulate('change', {target: {name: "password", value: "secret"}});
+
+    expect(wrapper.find('input[name="password"]').props().value)
+    .toEqual("secret");
+  });
+
+  it('should record and display changes to passwordAgain', () => {
+    wrapper.find('input[name="passwordAgain"]')
+    .simulate('change', {target: {name: "passwordAgain", value: "secret"}});
+
+    expect(wrapper.find('input[name="passwordAgain"]').props().value)
+    .toEqual("secret");
+  });
+
   it('should submit user registration info', () => {
     wrapper.find('input[name="username"]')
-    .simulate('change', {target: {name: "email", value: "Person"}});
+    .simulate('change', {target: {name: "username", value: "Person"}});
 
     wrapper.find('input[name="email"]')
     .simulate('change', {target: {name: "email", value: "person@place.com"}});
@@ -62,7 +94,7 @@ describe('Register', () => {
 
   it('should not submit when no email is given', () => {
     wrapper.find('input[name="username"]')
-    .simulate('change', {target: {name: "email", value: "Person"}});
+    .simulate('change', {target: {name: "username", value: "Person"}});
     
     wrapper.find('input[name="password"]')
     .simulate('change', {target: {name: "password", value: "secret"}});
@@ -77,7 +109,7 @@ describe('Register', () => {
 
   it('should not submit when no password is given', () => {
     wrapper.find('input[name="username"]')
-    .simulate('change', {target: {name: "email", value: "Person"}});
+    .simulate('change', {target: {name: "username", value: "Person"}});
 
     wrapper.find('input[name="email"]')
     .simulate('change', {target: {name: "email", value: "person@place.com"}});
@@ -89,7 +121,7 @@ describe('Register', () => {
 
   it('should not submit when given passwords are different', () => {
     wrapper.find('input[name="username"]')
-    .simulate('change', {target: {name: "email", value: "Person"}});
+    .simulate('change', {target: {name: "username", value: "Person"}});
 
     wrapper.find('input[name="email"]')
     .simulate('change', {target: {name: "email", value: "person@place.com"}});
@@ -107,7 +139,7 @@ describe('Register', () => {
 
   it('should not submit when username is less than 2 characters', () => {
     wrapper.find('input[name="username"]')
-    .simulate('change', {target: {name: "email", value: "P"}});
+    .simulate('change', {target: {name: "username", value: "P"}});
 
     wrapper.find('input[name="email"]')
     .simulate('change', {target: {name: "email", value: "person@place.com"}});
@@ -125,7 +157,7 @@ describe('Register', () => {
 
   it('should not submit when email is less than 5 characters', () => {
     wrapper.find('input[name="username"]')
-    .simulate('change', {target: {name: "email", value: "Person"}});
+    .simulate('change', {target: {name: "username", value: "Person"}});
 
     wrapper.find('input[name="email"]')
     .simulate('change', {target: {name: "email", value: "p@p."}});
@@ -143,7 +175,7 @@ describe('Register', () => {
 
   it('should not submit when password is less than 6 characters', () => {
     wrapper.find('input[name="username"]')
-    .simulate('change', {target: {name: "email", value: "Person"}});
+    .simulate('change', {target: {name: "username", value: "Person"}});
 
     wrapper.find('input[name="email"]')
     .simulate('change', {target: {name: "email", value: "person@place.com"}});

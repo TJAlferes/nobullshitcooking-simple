@@ -47,19 +47,19 @@ describe('RegisterView account creation / registration', () => {
   });
 
   it('displays a username input element', () => {
-    expect(wrapper.find('input.register-input[name="username"]')).toHaveLength(1);
+    expect(wrapper.find('input[name="username"]')).toHaveLength(1);
   });
 
   it('displays an email input element', () => {
-    expect(wrapper.find('input.register-input[name="email"]')).toHaveLength(1);
+    expect(wrapper.find('input[name="email"]')).toHaveLength(1);
   });
 
   it('displays a password input element', () => {
-    expect(wrapper.find('input.register-input[name="password"]')).toHaveLength(1);
+    expect(wrapper.find('input[name="password"]')).toHaveLength(1);
   });
 
   it('displays a password again input element', () => {
-    expect(wrapper.find('input.register-input[name="passwordAgain"]')).toHaveLength(1);
+    expect(wrapper.find('input[name="passwordAgain"]')).toHaveLength(1);
   });
 
   it('displays a LoaderButton component with text Create Account', () => {
@@ -67,7 +67,7 @@ describe('RegisterView account creation / registration', () => {
   });
 });
 
-describe('RegisterView confirmation/verification', () => {
+describe('RegisterView account confirmation / verification', () => {
   beforeEach(() => {
     wrapper = shallow(
       <RegisterView
@@ -97,7 +97,7 @@ describe('RegisterView confirmation/verification', () => {
   });
 
   it('displays a password again input element', () => {
-    expect(wrapper.find('input.register-input[name="confirmationCode"]')).toHaveLength(1);
+    expect(wrapper.find('input[name="confirmationCode"]')).toHaveLength(1);
   });
 
   it('displays a LoaderButton component with text Verify', () => {

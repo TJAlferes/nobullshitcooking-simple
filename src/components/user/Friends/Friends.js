@@ -39,11 +39,11 @@ export const Friends = ({
     return () => isSubscribed = false;
   }, [message]);
 
-  const handleCurrentTabClick = () => setTab("accepted");
+  //const handleCurrentTabClick = () => setTab("accepted");
+  //const handlePendingTabClick = () => setTab("pending-received");
+  //const handleBlockedTabClick = () => setTab("blocked");
 
-  const handlePendingTabClick = () => setTab("pending-received");
-
-  const handleBlockedTabClick = () => setTab("blocked");
+  const handleTabChange = value => setTab(value);
 
   const handleFindUserInputChange = e => setUsertoFind(e.target.value);
 
@@ -95,9 +95,7 @@ export const Friends = ({
       dataMyFriendships={dataMyFriendships}
       userToFind={userToFind}
       tab={tab}
-      handleCurrentTabClick={handleCurrentTabClick}
-      handlePendingTabClick={handlePendingTabClick}
-      handleBlockedTabClick={handleBlockedTabClick}
+      handleTabChange={handleTabChange}
       handleFindUserInputChange={handleFindUserInputChange}
       handleFriendRequestClick={handleFriendRequestClick}
       handleFriendAcceptClick={handleFriendAcceptClick}

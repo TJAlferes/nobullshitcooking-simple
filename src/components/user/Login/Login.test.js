@@ -21,6 +21,22 @@ afterEach(() => {
 });
 
 describe('Login', () => {
+  it('should record and display changes to email', () => {
+    wrapper.find('input[name="email"]')
+    .simulate('change', {target: {name: "email", value: "person@place.com"}});
+
+    expect(wrapper.find('input[name="email"]').props().value)
+    .toEqual("person@place.com");
+  });
+
+  it('should record and display changes to password', () => {
+    wrapper.find('input[name="password"]')
+    .simulate('change', {target: {name: "password", value: "secret"}});
+
+    expect(wrapper.find('input[name="password"]').props().value)
+    .toEqual("secret");
+  });
+
   it('should submit user login info', () => {
     wrapper.find('input[name="email"]')
     .simulate('change', {target: {name: "email", value: "person@place.com"}});
