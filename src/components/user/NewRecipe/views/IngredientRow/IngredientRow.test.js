@@ -1,6 +1,6 @@
 import IngredientRow from './IngredientRow';
 
-describe('what needs testing', () => {
+describe('IngredientRow', () => {
   it('needs testing', () => {
     expect(1).toEqual(1);
   });

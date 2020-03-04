@@ -15,11 +15,11 @@ const EquipmentRow = ({
     ...(dataMyPrivateEquipment.length ? dataMyPrivateEquipment : [])
   ];
   return (
-    <div className="equipment-row"> 
+    <div className="equipment-row">
 
-      <label className="equipment-row__label">Amount:</label>
+      <label className="equipment-row-label">Amount:</label>
       <select
-        className="equipment-row__select-amount"
+        className="equipment-row-select-amount"
         name="amount"
         required
         value={amount}
@@ -33,9 +33,9 @@ const EquipmentRow = ({
         <option value="5">5</option>
       </select>
 
-      <label className="equipment-row__label">Type:</label>
+      <label className="equipment-row-label">Type:</label>
       <select
-        className="equipment-row__select-equipment-type"
+        className="equipment-row-select-equipment-type"
         name="type"
         required
         value={type}
@@ -46,9 +46,9 @@ const EquipmentRow = ({
         <option value="3">Cooking</option>
       </select>
 
-      <label className="equipment-row__label">Equipment:</label>
+      <label className="equipment-row-label">Equipment:</label>
       <select
-        className="equipment-row__select-equipment"
+        className="equipment-row-select-equipment"
         name="equipment"
         required
         value={equipment}
@@ -67,7 +67,7 @@ const EquipmentRow = ({
       </select>
 
       <button
-        className="equipment-row__remove-row"
+        className="equipment-row-remove-row"
         onClick={() => removeEquipmentRow(rowKey)}
       >
         Remove

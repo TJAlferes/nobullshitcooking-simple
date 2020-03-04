@@ -46,9 +46,9 @@ const SubrecipeRow = ({
   return (
     <div className="subrecipe-row">
 
-      <label className="subrecipe-row__label">Amount:</label>
+      <label className="subrecipe-row-label">Amount:</label>
       <input
-        className="subrecipe-row__manual-amount"
+        className="subrecipe-row-manual-amount"
         type="number"
         name="amount"
         step="any"
@@ -59,9 +59,9 @@ const SubrecipeRow = ({
         onChange={(e) => handleSubrecipeRowChange(e, rowKey)}
       />
 
-      <label className="subrecipe-row__label">Unit:</label>
+      <label className="subrecipe-row-label">Unit:</label>
       <select
-        className="subrecipe-row__select-unit"
+        className="subrecipe-row-select-unit"
         name="unit"
         required
         value={unit}
@@ -75,9 +75,9 @@ const SubrecipeRow = ({
         ))}
       </select>
 
-      <label className="subrecipe-row__label">Type:</label>
+      <label className="subrecipe-row-label">Type:</label>
       <select
-        className="subrecipe-ro__select-subrecipe-type"
+        className="subrecipe-ro-select-subrecipe-type"
         name="type"
         required
         value={type}
@@ -91,9 +91,9 @@ const SubrecipeRow = ({
         ))}
       </select>
 
-      <label className="subrecipe-row__label">Cuisine:</label>
+      <label className="subrecipe-row-label">Cuisine:</label>
       <select
-        className="subrecipe-row__select-cuisine"
+        className="subrecipe-row-select-cuisine"
         name="cuisine"
         required
         value={cuisine}
@@ -107,9 +107,9 @@ const SubrecipeRow = ({
         ))}
       </select>
 
-      <label className="subrecipe-row__label">Subrecipe:</label>
+      <label className="subrecipe-row-label">Subrecipe:</label>
       <select
-        className="subrecipe-row__select-subrecipe"
+        className="subrecipe-row-select-subrecipe"
         name="subrecipe"
         required
         value={subrecipe}
@@ -129,7 +129,7 @@ const SubrecipeRow = ({
       </select>
 
       <button
-        className="subrecipe-row__remove-row"
+        className="subrecipe-row-remove-row"
         onClick={() => removeSubrecipeRow(rowKey)}
       >
         Remove

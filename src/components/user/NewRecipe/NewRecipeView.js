@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
@@ -105,7 +105,7 @@ const NewRecipeView = ({
 
   handleSubmit
 }) => (
-  <div className={`submit-recipe one-column-a ${oneColumnATheme}`}>
+  <div className={`new-recipe one-column-a ${oneColumnATheme}`}>
 
     <h1>
       {
@@ -115,10 +115,10 @@ const NewRecipeView = ({
       }
     </h1>
 
-    <p className="submit-recipe__error-message">{feedback}</p>
+    <p className="new-recipe-feedback">{feedback}</p>
 
-    <div className="submit-recipe__section-ownership">
-      <h2 className="submit-recipe__heading-two">Ownership</h2>
+    <div className="new-recipe-section-ownership">
+      <h2 className="new-recipe-heading-two">Ownership</h2>
       <ExpandCollapse>
         <div>
           <p>Once submitted, a recipe's ownership can't be changed.</p>
@@ -163,8 +163,8 @@ const NewRecipeView = ({
       </div>
     </div>
 
-    <div className="submit-recipe__section-recipe-type">
-      <h2 className="submit-recipe__heading-two">Type of Recipe</h2>
+    <div className="new-recipe-section-recipe-type">
+      <h2 className="new-recipe-heading-two">Type of Recipe</h2>
       <select
         id="recipe_type_id"
         required
@@ -180,8 +180,8 @@ const NewRecipeView = ({
       </select>
     </div>
 
-    <div className="submit-recipe__section-cuisine">
-      <h2 className="submit-recipe__heading-two">Cuisine</h2>
+    <div className="new-recipe-section-cuisine">
+      <h2 className="new-recipe-heading-two">Cuisine</h2>
       <select
         id="cuisine_id"
         required
@@ -197,10 +197,10 @@ const NewRecipeView = ({
       </select>
     </div>
 
-    <div className="submit-recipe__section-title">
-      <h2 className="submit-recipe__heading-two">Title</h2>
+    <div className="new-recipe-section-title">
+      <h2 className="new-recipe-heading-two">Title</h2>
       <input
-        className="submit-recipe__title"
+        className="new-recipe-title"
         type="text"
         id="recipe_title"
         onChange={handleTitleChange}
@@ -208,10 +208,10 @@ const NewRecipeView = ({
       />
     </div>
 
-    <div className="submit-recipe__section-description">
-      <h2 className="submit-recipe__heading-two">Description / Author Note</h2>
+    <div className="new-recipe-section-description">
+      <h2 className="new-recipe-heading-two">Description / Author Note</h2>
       <input
-        className="submit-recipe__description"
+        className="new-recipe-description"
         type="text"
         id="recipe_description"
         onChange={handleDescriptionChange}
@@ -219,8 +219,8 @@ const NewRecipeView = ({
       />
     </div>
 
-    <div className="submit-recipe__section-required-methods">
-      <h2 className="submit-recipe__heading-two">Methods</h2>
+    <div className="new-recipe-section-required-methods">
+      <h2 className="new-recipe-heading-two">Methods</h2>
       <div className="method-spans">
         {dataMethods.map(method => (
           <span className="method-span" key={method.method_id}>
@@ -237,8 +237,8 @@ const NewRecipeView = ({
       </div>
     </div>
 
-    <div className="submit-recipe__section-required-equipment">
-      <h2 className="submit-recipe__heading-two">Equipment</h2>
+    <div className="new-recipe-section-required-equipment">
+      <h2 className="new-recipe-heading-two">Equipment</h2>
       <div id="equipment_rows_container">
         {equipmentRows.map(equipmentRow => (
           <EquipmentRow
@@ -262,8 +262,8 @@ const NewRecipeView = ({
       </button>
     </div>
 
-    <div className="submit-recipe__section-required-ingredients">
-      <h2 className="submit-recipe__heading-two">Ingredients</h2>
+    <div className="new-recipe-section-required-ingredients">
+      <h2 className="new-recipe-heading-two">Ingredients</h2>
       <div id="ingredient_rows_container">
         {ingredientRows.map(ingredientRow => (
           <IngredientRow
@@ -291,8 +291,8 @@ const NewRecipeView = ({
       </button>
     </div>
 
-    <div className="submit-recipe__section-required-subrecipes">
-      <h2 className="submit-recipe__heading-two">Subrecipes</h2>
+    <div className="new-recipe-section-required-subrecipes">
+      <h2 className="new-recipe-heading-two">Subrecipes</h2>
       <div id="subrecipe_rows_container">
         {subrecipeRows.map(subrecipeRow => (
           <SubrecipeRow
@@ -327,10 +327,10 @@ const NewRecipeView = ({
       </button>
     </div>
 
-    <div className="submit-recipe__section-directions">
-      <h2 className="submit-recipe__heading-two">Directions</h2>
+    <div className="new-recipe-section-directions">
+      <h2 className="new-recipe-heading-two">Directions</h2>
       <textarea
-        className="submit-recipe__directions"
+        className="new-recipe-directions"
         id="recipe_directions"
         onChange={handleDirectionsChange}
         value={directions}
@@ -380,15 +380,15 @@ const NewRecipeView = ({
       cancelRecipeCookingImage={cancelRecipeCookingImage}
     />
 
-    <div className="submit-recipe__finish-area">
+    <div className="new-recipe-finish-area">
       <Link
-        className="submit-recipe__cancel-button"
+        className="new-recipe-cancel-button"
         to="/user/dashboard"
       >
         Cancel
       </Link>
       <LoaderButton
-        className="submit-recipe__submit-button"
+        className="new-recipe-submit-button"
         id="user_submit_recipe_button"
         type="button"
         name="submit"

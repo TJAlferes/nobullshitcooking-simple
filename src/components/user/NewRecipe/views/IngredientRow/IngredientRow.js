@@ -20,9 +20,9 @@ const IngredientRow = ({
   return (
     <div className="ingredient-row">
 
-      <label className="ingredient-row__label">Amount:</label>
+      <label className="ingredient-row-label">Amount:</label>
       <input
-        className="ingredient-row__manual-amount"
+        className="ingredient-row-manual-amount"
         type="number"
         name="amount"
         step="any"
@@ -33,9 +33,9 @@ const IngredientRow = ({
         onChange={(e) => handleIngredientRowChange(e, rowKey)}
       />
 
-      <label className="ingredient-row__label">Unit:</label>
+      <label className="ingredient-row-label">Unit:</label>
       <select
-        className="ingredient-row__select-unit"
+        className="ingredient-row-select-unit"
         name="unit"
         required
         value={unit}
@@ -49,9 +49,9 @@ const IngredientRow = ({
         ))}
       </select>
 
-      <label className="ingredient-row__label">Type:</label>
+      <label className="ingredient-row-label">Type:</label>
       <select
-        className="ingredient-row__select-ingredient-type"
+        className="ingredient-row-select-ingredient-type"
         name="type"
         required
         value={type}
@@ -65,9 +65,9 @@ const IngredientRow = ({
         ))}
       </select>
 
-      <label className="ingredient-row__label">Ingredient:</label>
+      <label className="ingredient-row-label">Ingredient:</label>
       <select
-        className="ingredient-row__select-ingredient"
+        className="ingredient-row-select-ingredient"
         name="ingredient"
         required
         value={ingredient}
@@ -86,7 +86,7 @@ const IngredientRow = ({
       </select>
 
       <button
-        className="ingredient-row__remove-row"
+        className="ingredient-row-remove-row"
         onClick={() => removeIngredientRow(rowKey)}
       >
         Remove

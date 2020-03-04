@@ -1,6 +1,6 @@
-import SubmitRecipeView from './SubmitRecipeView';
+import NewRecipeView from './NewRecipeView';
 
-describe('what needs testing', () => {
+describe('NewRecipeView', () => {
   it('needs testing', () => {
     expect(1).toEqual(1);
   });
