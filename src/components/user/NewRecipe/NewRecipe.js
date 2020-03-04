@@ -19,7 +19,7 @@ import {
 import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-import { valid } from './validation/valid';
+import validRecipeInfo from './validation/validRecipeInfo';
 
 import NewRecipeView from './NewRecipeView';
 
@@ -616,7 +616,7 @@ export const NewRecipe = ({
     };
 
     if (
-      !valid(
+      !validRecipeInfo({
         ownership,
         recipeTypeId,
         cuisineId,
@@ -628,7 +628,7 @@ export const NewRecipe = ({
         subrecipeRows,
         directions,
         setFeedback
-      )
+      })
     ) {
       return;
     }

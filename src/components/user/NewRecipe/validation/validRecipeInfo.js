@@ -1,4 +1,4 @@
-export const valid = (
+const validRecipeInfo = ({
   ownership,
   recipeTypeId,
   cuisineId,
@@ -10,7 +10,7 @@ export const valid = (
   subrecipeRows,
   directions,
   setFeedback
-) => {
+}) => {
   // bare minimum validation, finish up,
   // but also finish up on back end, where it actually matters
   let validOwnership = ownership === "private" || ownership === "public";
@@ -128,3 +128,5 @@ export const valid = (
     directions.trim() !== ""
   );
 };
+
+export default validRecipeInfo;
