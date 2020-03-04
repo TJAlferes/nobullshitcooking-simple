@@ -1,34 +1,33 @@
+/*
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-//import checkPropsTypes from 'check-prop-types';
-//import { runSaga } from 'redux-saga';
-
-// remove?
+import { createMemoryHistory } from 'history';  // MemoryRouter?
 
 const history = createMemoryHistory();
-//path="/user/login"
-export const TestingRouter = ({ Path, ComponentWithRedirection, RedirectUrl }) => (
+
+export const TestingRouter = ({
+  Path,
+  ComponentWithRedirection,
+  RedirectUrl
+}) => (
   <Router history={history}>
     <Route
       path={Path}
       exact={true}
-      render={() => {
-        console.log('WTF1!');
-        return <ComponentWithRedirection />
-      }}
+      render={() => <ComponentWithRedirection />}
     />
     <Route
       path={RedirectUrl}
-      render={() => {
-        console.log('WTF2!');
-        return <div>{RedirectUrl}</div>
-      }}
+      render={() => <div>{RedirectUrl}</div>}
     />
   </Router>
 );
+*/
 
-/*export const checkProps = (component, conformingProps) => {
+/*
+import checkPropsTypes from 'check-prop-types';  // not maintained?
+
+export const checkProps = (component, conformingProps) => {
   const propError = checkPropsTypes(
     component.propTypes,
     conformingProps,
@@ -36,7 +35,5 @@ export const TestingRouter = ({ Path, ComponentWithRedirection, RedirectUrl }) =
     component.name
   );
   expect(propError).toBeUndefined();
-};*/
-
-// use this? or use redux-saga-test-plan's expectSaga?
-//export const recordSaga = async (saga, initialAction) => {};
+};
+*/

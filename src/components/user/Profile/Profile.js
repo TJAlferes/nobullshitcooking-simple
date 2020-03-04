@@ -45,9 +45,16 @@ export const Profile = ({
     const { username } = match.params;
 
     if (!username) {
-      history.push('/');
+      history.push('/home');
       return;
     }
+
+    if (username.length < 6 || username.length > 20) {
+      history.push('/home');
+      return;
+    }
+
+    // WHAT HAPPENS IF THE USER IS NOT FOUND?
 
     const getUserProfile = async (username) => {
       const trimmed = username.trim();
@@ -60,8 +67,6 @@ export const Profile = ({
     getUserProfile(username);
   }, []);
 
-  const handleTabChange = value => setTab(value);
-
   const handleFriendRequestClick = () => {
     const { username } = match.params;
     if (!username) return;
@@ -69,6 +74,8 @@ export const Profile = ({
     setLoading(true);
     userRequestFriendship(username);
   };
+
+  const handleTabChange = value => setTab(value);
 
   return (
     <ProfileView

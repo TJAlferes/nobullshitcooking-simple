@@ -7,7 +7,7 @@ import IngredientView from './IngredientView';
 
 import { Ingredient } from './Ingredient';
 
-const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+//const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const dataIngredientTypes = [
   {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
@@ -39,7 +39,7 @@ afterEach(() => {
 });
 
 describe('Ingredient', () => {
-  it('should redirect to /ingredients if given no ingredient', async () => {
+  it('should redirect to /ingredients if given no ingredient', () => {
     mount(
       <MemoryRouter>
         <Ingredient
@@ -51,11 +51,10 @@ describe('Ingredient', () => {
         />
       </MemoryRouter>
     );
-    await wait(3000);
     expect(mockHistoryPush).toHaveBeenCalledWith("/ingredients");
   });
 
-  it('should redirect to /ingredients if given an invalid ingredient', async () => {
+  it('should redirect to /ingredients if given an invalid ingredient', () => {
     mount(
       <MemoryRouter>
         <Ingredient
@@ -67,7 +66,6 @@ describe('Ingredient', () => {
         />
       </MemoryRouter>
     );
-    await wait(3000);
     expect(mockHistoryPush).toHaveBeenCalledWith("/ingredients");
   });
 
@@ -83,8 +81,10 @@ describe('Ingredient', () => {
         />
       </MemoryRouter>
     );
-    await wait(3000);
-    expect(mockHistoryPush).not.toHaveBeenCalled();
+    await act(async () => Promise.resolve(() => {
+      setImmediate(() => wrapper.update());
+      expect(mockHistoryPush).not.toHaveBeenCalled();
+    }));
   });
 
   it('should get the appropriate ingredient', async () => {

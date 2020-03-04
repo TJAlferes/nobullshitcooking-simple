@@ -62,7 +62,7 @@ afterEach(() => {
 });
 
 describe('Cuisine', () => {
-  it('should redirect to /food/cuisines if given no cuisine', async () => {
+  it('should redirect to /food/cuisines if given no cuisine', () => {
     mount(
       <MemoryRouter>
         <Cuisine
@@ -75,11 +75,10 @@ describe('Cuisine', () => {
         />
       </MemoryRouter>
     );
-    await wait(3000);
     expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 
-  it('should redirect to /food/cuisines if given an invalid cuisine', async () => {
+  it('should redirect to /food/cuisines if given an invalid cuisine', () => {
     mount(
       <MemoryRouter>
         <Cuisine
@@ -92,7 +91,6 @@ describe('Cuisine', () => {
         />
       </MemoryRouter>
     );
-    await wait(3000);
     expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 

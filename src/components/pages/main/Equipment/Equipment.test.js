@@ -7,8 +7,6 @@ import EquipmentView from './EquipmentView';
 
 import { Equipment } from './Equipment';
 
-const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 const dataEquipmentTypes = [
   {equipment_type_id: 2, equipment_type_name: "Preparing"},
   {equipment_type_id: 3, equipment_type_name: "Cooking"}
@@ -39,7 +37,7 @@ afterEach(() => {
 });
 
 describe('Equipment', () => {
-  it('should redirect to /equipment if given no equipment', async () => {
+  it('should redirect to /equipment if given no equipment', () => {
     mount(
       <MemoryRouter>
         <Equipment
@@ -51,11 +49,10 @@ describe('Equipment', () => {
         />
       </MemoryRouter>
     );
-    await wait(3000);
     expect(mockHistoryPush).toHaveBeenCalledWith("/equipment");
   });
 
-  it('should redirect to /equipment if given an invalid equipment', async () => {
+  it('should redirect to /equipment if given an invalid equipment', () => {
     mount(
       <MemoryRouter>
         <Equipment
@@ -67,7 +64,6 @@ describe('Equipment', () => {
         />
       </MemoryRouter>
     );
-    await wait(3000);
     expect(mockHistoryPush).toHaveBeenCalledWith("/equipment");
   });
 
@@ -83,8 +79,10 @@ describe('Equipment', () => {
         />
       </MemoryRouter>
     );
-    await wait(3000);
-    expect(mockHistoryPush).not.toHaveBeenCalled();
+    await act(async () => Promise.resolve(() => {
+      setImmediate(() => wrapper.update());
+      expect(mockHistoryPush).not.toHaveBeenCalled();
+    }));
   });
 
   it('should get the appropriate equipment', async () => {

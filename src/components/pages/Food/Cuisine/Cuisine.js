@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory, useParams, withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
@@ -20,7 +20,6 @@ export const Cuisine = ({
   dataCuisines
 }) => {
   const history = useHistory();
-  //const { id } = useParams;
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);  // set spinner?
