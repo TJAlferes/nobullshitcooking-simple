@@ -1,48 +1,27 @@
 import React from 'react';
 
-const SubtabsView = ({ subTab, handleSubTabClick }) => (
-  <div className="dashboard-menu-subtabs">
+const SubtabsView = ({ subTab, handleSubTabClick }) => {
+  const SubtabButton = ({ subTabName, displayText }) => (
     <button
-      className={(subTab === "private")
+      className={(subTab === subTabName)
         ? "dashboard-menu-subtab active"
         : "dashboard-menu-subtab inactive"
       }
-      name="private"
+      name={subTabName}
       onClick={e => handleSubTabClick(e)}
     >
-      Private
+      {displayText}
     </button>
-    <button
-      className={(subTab === "public")
-        ? "dashboard-menu-subtab active"
-        : "dashboard-menu-subtab inactive"
-      }
-      name="public"
-      onClick={e => handleSubTabClick(e)}
-    >
-      Public
-    </button>
-    <button
-      className={(subTab === "favorite")
-        ? "dashboard-menu-subtab active"
-        : "dashboard-menu-subtab inactive"
-      }
-      name="favorite"
-      onClick={e => handleSubTabClick(e)}
-    >
-      Favorite
-    </button>
-    <button
-      className={(subTab === "saved")
-        ? "dashboard-menu-subtab active"
-        : "dashboard-menu-subtab inactive"
-      }
-      name="saved"
-      onClick={e => handleSubTabClick(e)}
-    >
-      Saved
-    </button>
-  </div>
-);
+  );
+
+  return (
+    <div className="dashboard-menu-subtabs">
+      <SubtabButton subTabName="private" displayText="Private" />
+      <SubtabButton subTabName="public" displayText="Public" />
+      <SubtabButton subTabName="favorite" displayText="Favorite" />
+      <SubtabButton subTabName="saved" displayText="Saved" />
+    </div>
+  );
+};
 
 export default SubtabsView;

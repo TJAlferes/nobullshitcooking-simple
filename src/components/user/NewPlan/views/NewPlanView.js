@@ -86,13 +86,14 @@ const NewPlanView = ({
   }, [recipeListsInsideDays, expanded, expandedDay]);
 
   const memoizedRecipesLists = useMemo(() => {
-    let list;
-
-    if (tab === "official") list = dataRecipes;
-    if (tab === "private") list = dataMyPrivateRecipes;
-    if (tab === "public") list = dataMyPublicRecipes;
-    if (tab === "favorite") list = dataMyFavoriteRecipes;
-    if (tab === "saved") list = dataMySavedRecipes;
+    const tabToList = {
+      "official": dataRecipes,
+      "private": dataMyPrivateRecipes,
+      "public": dataMyPublicRecipes,
+      "favorite": dataMyFavoriteRecipes,
+      "saved": dataMySavedRecipes
+    };
+    const list = tabToList[tab];
 
     return (
       <RecipesList
@@ -107,6 +108,19 @@ const NewPlanView = ({
       />
     );
   }, [tab]);
+
+  const TabButton = ({ tabName, displayText }) => (
+    <button
+      className={(tab === tabName)
+        ? "planner-recipes-list-tab active"
+        : "planner-recipes-list-tab inactive"
+      }
+      name={tabName}
+      onClick={e => handleTabClick(e)}
+    >
+      {displayText}
+    </button>
+  );
 
   return (
     <div className={`new-plan two-column-a ${twoColumnATheme}`}> 
@@ -136,56 +150,11 @@ const NewPlanView = ({
           {memoizedMonthlyPlan}
 
           <div className="planner-recipes-list-tabs">
-            <button
-              className={(tab === "official")
-                ? "planner-recipes-list-tab active"
-                : "planner-recipes-list-tab inactive"
-              }
-              name="official"
-              onClick={e => handleTabClick(e)}
-            >
-              All Official
-            </button>
-            <button
-              className={(tab === "private")
-                ? "planner-recipes-list-tab active"
-                : "planner-recipes-list-tab inactive"
-              }
-              name="private"
-              onClick={e => handleTabClick(e)}
-            >
-              My Private
-            </button>
-            <button
-              className={(tab === "public")
-                ? "planner-recipes-list-tab active"
-                : "planner-recipes-list-tab inactive"
-              }
-              name="public"
-              onClick={e => handleTabClick(e)}
-            >
-              My Public
-            </button>
-            <button
-              className={(tab === "favorite")
-                ? "planner-recipes-list-tab active"
-                : "planner-recipes-list-tab inactive"
-              }
-              name="favorite"
-              onClick={e => handleTabClick(e)}
-            >
-              My Favorite
-            </button>
-            <button
-              className={(tab === "saved")
-                ? "planner-recipes-list-tab active"
-                : "planner-recipes-list-tab inactive"
-              }
-              name="saved"
-              onClick={e => handleTabClick(e)}
-            >
-              My Saved
-            </button>
+            <TabButton tabName="official" displayText="All Official" />
+            <TabButton tabName="private" displayText="My Private" />
+            <TabButton tabName="public" displayText="My Public" />
+            <TabButton tabName="favorite" displayText="My Favorite" />
+            <TabButton tabName="saved" displayText="My Saved" />
           </div>
 
           {memoizedRecipesLists}
