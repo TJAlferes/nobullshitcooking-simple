@@ -48,6 +48,7 @@ export const Menu = ({ theme, menuData }) => {
   let lastDelayLoc;
 
   useLayoutEffect(() => {
+    // useRef? forwardRef?
     document.addEventListener('mousemove', handleMouseMoveDocument, false);
     return () => {
       document.removeEventListener('mousemove', handleMouseMoveDocument);
@@ -58,7 +59,8 @@ export const Menu = ({ theme, menuData }) => {
   });
 
   function getActivateDelay(config) {
-    let menu = document.querySelector('.menu');  // findDOMNode? ref?
+    // findDOMNode? ref? useRef? forwardRef?
+    let menu = document.querySelector('.menu');
 
     let menuOffset = offset(menu);
 

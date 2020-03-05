@@ -1,8 +1,8 @@
-/*.user-new-plan {
+/*.new-plan {
 
 }*/
 
-.user-new-plan__error-message {
+.new-plan__feedback {
   display: block;
   width: 100%;
   height: 31px;
@@ -12,14 +12,14 @@
   font-size: 14px;
 }
 
-.user-new-plan__hr {
+.new-plan__hr {
   width: 100%;
   height: 1px;
   border: 0 none;
   margin-bottom: 10px;
 }
 
-.user-new-plan__name {
+.new-plan__name {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -27,7 +27,7 @@
   margin-bottom: 10px;
 }
 
-.user-new-plan__name-label {
+.new-plan__name-label {
   order: 1;
   display: block;
   margin-right: 5px;
@@ -36,7 +36,7 @@
   font-weight: 900;
 }
 
-.user-new-plan__name-input {
+.new-plan__name-input {
   order: 2;
   display: block;
   width: 685px;
@@ -47,13 +47,13 @@
   padding: 3px 7px 3px 7px;
 }
 
-.user-new-plan__calendar-container {
+.new-plan__calendar-container {
   width: 100%;
   height: 480px;
   margin: 0 auto 0 auto;
 }
 
-.user-new-plan__monthly-plan {
+.new-plan__monthly-plan {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

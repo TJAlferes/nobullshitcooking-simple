@@ -78,20 +78,24 @@ export const NewPlan = ({
 
   useEffect(() => {
     let isSubscribed = true;
+
     if (isSubscribed) {
       if (message !== "") window.scrollTo(0,0);
+      
       setFeedback(message);
-      if (
-        message === "Plan created." ||
-        message === "Plan updated."
-      ) {
+
+      if (message === "Plan created." || message === "Plan updated.") {
         setTimeout(() => {
           plannerClearWork();
           history.push('/user/dashboard');
         }, 3000);
+        // remove?
+        return;
       }
+
       setLoading(false);
     }
+
     return () => isSubscribed = false;
   }, [message]);
 
