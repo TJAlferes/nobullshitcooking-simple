@@ -5,7 +5,6 @@ import LeftNav from '../../LeftNav/LeftNav';
 import AvatarView from './views/AvatarView';
 import AvatarEditView from './views/AvatarEditView';
 import TabsView from './views/TabsView';
-import SubtabsView from './views/SubtabsView';
 import PlansTabView from './views/PlansTabView';
 import PrivateRecipesTabView from './views/PrivateRecipesTabView';
 import PublicRecipesTabView from './views/PublicRecipesTabView';
@@ -83,46 +82,37 @@ const DashboardView = ({
 
       <h1>{authname}</h1>
 
-      <p className="error-message">{feedback}</p>
+      <p className="dashboard-feedback">{feedback}</p>
 
-      <div className="dashboard-avatar">
-        {!avatar && (
-          <AvatarView
-            authname={authname}
-            currentAvatar={currentAvatar}
-            onSelectFile={onSelectFile}
-          />
-        )}
-        {avatar && (
-          <AvatarEditView
-            avatar={avatar}
-            crop={crop}
-            onImageLoaded={onImageLoaded}
-            onCropChange={onCropChange}
-            onCropComplete={onCropComplete}
-            cropFullSizePreview={cropFullSizePreview}
-            cropTinySizePreview={cropTinySizePreview}
-            loading={loading}
-            cancelAvatar={cancelAvatar}
-            submitAvatar={submitAvatar}
-          />
-        )}
-      </div>
-
-      {!avatar && <hr className="dashboard-hr" />}
+      {/*!avatar && <hr className="dashboard-hr" />*/}
 
       {!avatar && <TabsView tab={tab} handleTabClick={handleTabClick} />}
 
-      {(!avatar && tab == "recipes") && (
-        <SubtabsView subTab={subTab} handleSubTabClick={handleSubTabClick} />
+      {(tab === "avatar") && (
+        <div className="dashboard-avatar">
+          {!avatar && (
+            <AvatarView
+              authname={authname}
+              currentAvatar={currentAvatar}
+              onSelectFile={onSelectFile}
+            />
+          )}
+          {avatar && (
+            <AvatarEditView
+              avatar={avatar}
+              crop={crop}
+              onImageLoaded={onImageLoaded}
+              onCropChange={onCropChange}
+              onCropComplete={onCropComplete}
+              cropFullSizePreview={cropFullSizePreview}
+              cropTinySizePreview={cropTinySizePreview}
+              loading={loading}
+              cancelAvatar={cancelAvatar}
+              submitAvatar={submitAvatar}
+            />
+          )}
+        </div>
       )}
-
-      {/*
-        tab == "notifications" && (
-          <div className="dashboard-content">
-          </div>
-        )
-      */}
 
       {(!avatar && tab == "plans") && (
         <PlansTabView
@@ -147,6 +137,8 @@ const DashboardView = ({
           handleDeletePrivateRecipe={handleDeletePrivateRecipe}
           myPrivateRecipes={myPrivateRecipes}
           activateDeleteRecipeModal={activateDeleteRecipeModal}
+          subTab={subTab}
+          handleSubTabClick={handleSubTabClick}
         />
       )}
 
@@ -159,6 +151,8 @@ const DashboardView = ({
           handleDisownPublicRecipe={handleDisownPublicRecipe}
           myPublicRecipes={myPublicRecipes}
           activateDisownRecipeModal={activateDisownRecipeModal}
+          subTab={subTab}
+          handleSubTabClick={handleSubTabClick}
         />
       )}
 
@@ -166,6 +160,8 @@ const DashboardView = ({
         <FavoriteRecipesTabView
           myFavoriteRecipes={myFavoriteRecipes}
           handleUnfavoriteRecipe={handleUnfavoriteRecipe}
+          subTab={subTab}
+          handleSubTabClick={handleSubTabClick}
         />
       )}
 
@@ -173,6 +169,8 @@ const DashboardView = ({
         <SavedRecipesTabView
           mySavedRecipes={mySavedRecipes}
           handleUnsaveRecipe={handleUnsaveRecipe}
+          subTab={subTab}
+          handleSubTabClick={handleSubTabClick}
         />
       )}
 

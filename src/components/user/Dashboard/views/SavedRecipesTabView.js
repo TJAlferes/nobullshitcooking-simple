@@ -1,12 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import SubtabsView from './SubtabsView';
+
 const SavedRecipesTabView = ({
   mySavedRecipes,
-  handleUnsaveRecipe
+  handleUnsaveRecipe,
+  subTab,
+  handleSubTabClick
 }) => (
   <div className="dashboard-content">
-    <h2>Saved Recipes</h2>
+    <h2 className="dashboard-content-heading--tall">Saved Recipes</h2>
+
+    <SubtabsView subTab={subTab} handleSubTabClick={handleSubTabClick} />
+
     {
       mySavedRecipes.length
       ? mySavedRecipes.map(recipe => (

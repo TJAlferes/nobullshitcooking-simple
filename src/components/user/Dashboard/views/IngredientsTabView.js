@@ -6,7 +6,7 @@ const IngredientsTabView = ({
   handleDeletePrivateIngredient
 }) => (
   <div className="dashboard-content">
-    <h2>Private Ingredients</h2>
+    <h2 className="dashboard-content-heading">Private Ingredients</h2>
     <Link className="create-new-entity" to="/user/ingredients/submit">
       Create New Ingredient
     </Link>

@@ -16,6 +16,7 @@ const TabsView = ({ tab, handleTabClick }) => {
 
   return (
     <div className="dashboard-menu-tabs">
+      <TabButton tabName="avatar" displayText="Avatar" />
       <TabButton tabName="plans" displayText="Plans" />
       <TabButton tabName="recipes" displayText="Recipes" />
       <TabButton tabName="ingredients" displayText="Ingredients" />

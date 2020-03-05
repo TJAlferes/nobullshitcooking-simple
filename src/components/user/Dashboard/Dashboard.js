@@ -59,7 +59,7 @@ export const Dashboard = ({
   const [ fullAvatar, setFullAvatar ] = useState(null);
   const [ tinyAvatar, setTinyAvatar ] = useState(null);
 
-  const [ tab, setTab ] = useState("plans");
+  const [ tab, setTab ] = useState("avatar");
   const [ subTab, setSubTab ] = useState("private");
 
   const [ deletePlanId, setDeletePlanId ] = useState("");

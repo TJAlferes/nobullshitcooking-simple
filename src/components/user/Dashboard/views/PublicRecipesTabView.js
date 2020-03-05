@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AriaModal from 'react-aria-modal';
 
+import SubtabsView from './SubtabsView';
+
 const PublicRecipesTabView = ({
   disownRecipeModalActive,
   deactivateDisownRecipeModal,
@@ -9,10 +11,12 @@ const PublicRecipesTabView = ({
   disownRecipeName,
   handleDisownPublicRecipe,
   myPublicRecipes,
-  activateDisownRecipeModal
+  activateDisownRecipeModal,
+  subTab,
+  handleSubTabClick
 }) => (
   <div className="dashboard-content">
-    <h2>Public Recipes</h2>
+    <h2 className="dashboard-content-heading">Public Recipes</h2>
     <Link className="create-new-entity" to="/user/recipes/public/submit">
       Create New Public Recipe
     </Link>
@@ -47,6 +51,9 @@ const PublicRecipesTabView = ({
       )
       : false
     }
+
+    <SubtabsView subTab={subTab} handleSubTabClick={handleSubTabClick} />
+
     {
       myPublicRecipes.length
       ? myPublicRecipes.map(recipe => (

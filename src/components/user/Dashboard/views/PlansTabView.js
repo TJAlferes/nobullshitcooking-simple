@@ -14,7 +14,7 @@ const PlansTabView = ({
   activateDeletePlanModal
 }) => (
   <div className="dashboard-content">
-    <h2>Plans</h2>
+    <h2 className="dashboard-content-heading">Plans</h2>
     {
       (!creatingPlan && !editingId) &&
       <Link className="create-new-entity" to="/user/plan/submit">

@@ -6,7 +6,7 @@ const EquipmentTabView = ({
   handleDeletePrivateEquipment
 }) => (
   <div className="dashboard-content">
-    <h2>Private Equipment</h2>
+    <h2 className="dashboard-content-heading">Private Equipment</h2>
     <Link className="create-new-entity" to="/user/equipment/submit">
       Create New Equipment
     </Link>

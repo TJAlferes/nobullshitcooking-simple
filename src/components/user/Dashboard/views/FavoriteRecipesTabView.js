@@ -1,12 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import SubtabsView from './SubtabsView';
+
 const FavoriteRecipesTabView = ({
   myFavoriteRecipes,
-  handleUnfavoriteRecipe
+  handleUnfavoriteRecipe,
+  subTab,
+  handleSubTabClick
 }) => (
   <div className="dashboard-content">
-    <h2>Favorite Recipes</h2>
+    <h2 className="dashboard-content-heading--tall">Favorite Recipes</h2>
+
+    <SubtabsView subTab={subTab} handleSubTabClick={handleSubTabClick} />
+
     {
       myFavoriteRecipes.length
       ? myFavoriteRecipes.map(recipe => (

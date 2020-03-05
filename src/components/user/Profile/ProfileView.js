@@ -22,7 +22,7 @@ const ProfileView = ({
   <div className={`profile one-column-a ${oneColumnATheme}`}>
     <h1>{match.params.username}</h1>
 
-    <p className="error-message">{feedback}</p>
+    <p className="profile-feedback">{feedback}</p>
 
     {
       userAvatar !== "nobsc-user-default" &&

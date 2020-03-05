@@ -147,6 +147,8 @@ const unauthRoute = (path, component, childProps = null) =>
 const appRoute = (path, component) =>
   <AppliedRoute path={path} exact component={component} />;
 
+// TO DO: just make Verify its own component..?
+
 const RoutesList = () => (
   <Suspense fallback={<LoaderSpinner />}>
     <Switch>
@@ -154,7 +156,8 @@ const RoutesList = () => (
       {unauthRoute("/user/verify", Register, {confirmingUser: "true"})}
       {unauthRoute("/user/login", Login)}
       
-      {authRoute("/user/profile/:username", Profile)}
+      {unauthRoute("/user/profile/:username", Profile)}
+
       {authRoute("/user/dashboard", Dashboard)}
       {authRoute("/user", Dashboard)}
       {authRoute("/user/friends", Friends)}

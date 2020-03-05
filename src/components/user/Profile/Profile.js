@@ -57,7 +57,7 @@ export const Profile = ({
     // WHAT HAPPENS IF THE USER IS NOT FOUND?
 
     const getUserProfile = async (username) => {
-      const trimmed = username.trim();
+      const trimmed = username.trim();  // already done?
       const res = await axios.get(`${endpoint}/user/profile/${trimmed}`);
       if (res.data.avatar !== "nobsc-user-default") setUserAvatar(trimmed);
       setUserPublicRecipes(res.data.publicRecipes);
