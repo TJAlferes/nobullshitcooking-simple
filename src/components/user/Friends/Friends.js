@@ -12,8 +12,6 @@ import {
 
 import FriendsView from './FriendsView';
 
-// TO DO: SERVER SENT EVENTS HTTP2
-
 export const Friends = ({
   twoColumnATheme,
   message,

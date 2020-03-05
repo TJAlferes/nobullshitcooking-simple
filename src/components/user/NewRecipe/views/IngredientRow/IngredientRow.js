@@ -88,6 +88,7 @@ const IngredientRow = ({
       <button
         className="ingredient-row-remove-row"
         onClick={() => removeIngredientRow(rowKey)}
+        data-test="ingredient-row-remove-row"
       >
         Remove
       </button>

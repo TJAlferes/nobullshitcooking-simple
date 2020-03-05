@@ -69,6 +69,7 @@ const EquipmentRow = ({
       <button
         className="equipment-row-remove-row"
         onClick={() => removeEquipmentRow(rowKey)}
+        data-test="equipment-row-remove-row"
       >
         Remove
       </button>

@@ -131,6 +131,7 @@ const SubrecipeRow = ({
       <button
         className="subrecipe-row-remove-row"
         onClick={() => removeSubrecipeRow(rowKey)}
+        data-test="subrecipe-row-remove-row"
       >
         Remove
       </button>
