@@ -232,21 +232,82 @@ describe('NewRecipeView', () => {
       .toEqual("Some message.");
     });
 
+    it('displays an ExpandCollapse component', () => {
+      expect(wrapper.find(ExpandCollapse)).toHaveLength(1);
+    });
+
     it('displays a h2 element with text Ownership', () => {
       expect(wrapper.find('[data-test="ownership-heading"]').text())
       .toEqual("Ownership");
     });
 
-    it('displays an ExpandCollapse component', () => {
-      expect(wrapper.find(ExpandCollapse)).toHaveLength(1);
+    it('displays a h2 element with text Type Of Recipe', () => {
+      expect(wrapper.find('[data-test="recipe-type-heading"]').text())
+      .toEqual("Type of Recipe");
+    });
+
+    it('displays a h2 element with text Cuisine', () => {
+      expect(wrapper.find('[data-test="cuisine-heading"]').text())
+      .toEqual("Cuisine");
+    });
+
+    it('displays a h2 element with text Title', () => {
+      expect(wrapper.find('[data-test="title-heading"]').text())
+      .toEqual("Title");
+    });
+
+    it('displays a h2 element with text Description / Author Note', () => {
+      expect(wrapper.find('[data-test="description-heading"]').text())
+      .toEqual("Description / Author Note");
+    });
+
+    it('displays a h2 element with text Methods', () => {
+      expect(wrapper.find('[data-test="methods-heading"]').text())
+      .toEqual("Methods");
+    });
+
+    it('displays a h2 element with text Equipment', () => {
+      expect(wrapper.find('[data-test="equipment-heading"]').text())
+      .toEqual("Equipment");
+    });
+
+    it('displays a h2 element with text Ingredients', () => {
+      expect(wrapper.find('[data-test="ingredients-heading"]').text())
+      .toEqual("Ingredients");
+    });
+
+    it('displays a h2 element with text Subrecipes', () => {
+      expect(wrapper.find('[data-test="subrecipes-heading"]').text())
+      .toEqual("Subrecipes");
+    });
+
+    it('displays a h2 element with text Directions', () => {
+      expect(wrapper.find('[data-test="directions-heading"]').text())
+      .toEqual("Directions");
+    });
+
+    it('displays a recipe type select element', () => {
+      expect(wrapper.find('select[name="recipeType"]')).toHaveLength(1);
+    });
+
+    it('displays a cuisine select element', () => {
+      expect(wrapper.find('select[name="cuisine"]')).toHaveLength(1);
+    });
+
+    it('displays a title input element', () => {
+      expect(wrapper.find('input[name="title"]')).toHaveLength(1);
+    });
+
+    it('displays a description input element', () => {
+      expect(wrapper.find('input[name="description"]')).toHaveLength(1);
+    });
+
+    it('displays a directions textarea element', () => {
+      expect(wrapper.find('textarea[name="directions"]')).toHaveLength(1);
     });
 
     /*it('displays ', () => {
-      expect(wrapper.find(''))
-    });
-
-    it('displays ', () => {
-      expect(wrapper.find(''))
+      expect(wrapper.find('')).toHaveLength(1);
     });*/
   });
 

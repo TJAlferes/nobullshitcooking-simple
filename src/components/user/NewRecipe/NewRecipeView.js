@@ -171,8 +171,14 @@ const NewRecipeView = ({
     </div>
 
     <div className="new-recipe-section-recipe-type">
-      <h2 className="new-recipe-heading-two">Type of Recipe</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="recipe-type-heading"
+      >
+        Type of Recipe
+      </h2>
       <select
+        name="recipeType"
         id="recipe_type_id"
         required
         onChange={handleRecipeTypeChange}
@@ -188,8 +194,14 @@ const NewRecipeView = ({
     </div>
 
     <div className="new-recipe-section-cuisine">
-      <h2 className="new-recipe-heading-two">Cuisine</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="cuisine-heading"
+      >
+        Cuisine
+      </h2>
       <select
+        name="cuisine"
         id="cuisine_id"
         required
         onChange={handleCuisineChange}
@@ -205,9 +217,15 @@ const NewRecipeView = ({
     </div>
 
     <div className="new-recipe-section-title">
-      <h2 className="new-recipe-heading-two">Title</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="title-heading"
+      >
+        Title
+      </h2>
       <input
         className="new-recipe-title"
+        name="title"
         type="text"
         id="recipe_title"
         onChange={handleTitleChange}
@@ -216,9 +234,15 @@ const NewRecipeView = ({
     </div>
 
     <div className="new-recipe-section-description">
-      <h2 className="new-recipe-heading-two">Description / Author Note</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="description-heading"
+      >
+        Description / Author Note
+      </h2>
       <input
         className="new-recipe-description"
+        name="description"
         type="text"
         id="recipe_description"
         onChange={handleDescriptionChange}
@@ -227,7 +251,12 @@ const NewRecipeView = ({
     </div>
 
     <div className="new-recipe-section-required-methods">
-      <h2 className="new-recipe-heading-two">Methods</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="methods-heading"
+      >
+        Methods
+      </h2>
       <div className="method-spans">
         {dataMethods.map(method => (
           <span className="method-span" key={method.method_id}>
@@ -245,7 +274,12 @@ const NewRecipeView = ({
     </div>
 
     <div className="new-recipe-section-required-equipment">
-      <h2 className="new-recipe-heading-two">Equipment</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="equipment-heading"
+      >
+        Equipment
+      </h2>
       <div id="equipment_rows_container">
         {equipmentRows.map(equipmentRow => (
           <EquipmentRow
@@ -270,7 +304,12 @@ const NewRecipeView = ({
     </div>
 
     <div className="new-recipe-section-required-ingredients">
-      <h2 className="new-recipe-heading-two">Ingredients</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="ingredients-heading"
+      >
+        Ingredients
+      </h2>
       <div id="ingredient_rows_container">
         {ingredientRows.map(ingredientRow => (
           <IngredientRow
@@ -299,7 +338,12 @@ const NewRecipeView = ({
     </div>
 
     <div className="new-recipe-section-required-subrecipes">
-      <h2 className="new-recipe-heading-two">Subrecipes</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="subrecipes-heading"
+      >
+        Subrecipes
+      </h2>
       <div id="subrecipe_rows_container">
         {subrecipeRows.map(subrecipeRow => (
           <SubrecipeRow
@@ -335,10 +379,16 @@ const NewRecipeView = ({
     </div>
 
     <div className="new-recipe-section-directions">
-      <h2 className="new-recipe-heading-two">Directions</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="directions-heading"
+      >
+        Directions
+      </h2>
       <textarea
         className="new-recipe-directions"
         id="recipe_directions"
+        name="directions"
         onChange={handleDirectionsChange}
         value={directions}
       />
