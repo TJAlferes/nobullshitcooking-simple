@@ -107,7 +107,7 @@ const NewRecipeView = ({
 }) => (
   <div className={`new-recipe one-column-a ${oneColumnATheme}`}>
 
-    <h1>
+    <h1 className="new-recipe-heading">
       {
         editing
         ? ownership === "private" ? 'Edit Private Recipe' : 'Edit Public Recipe'

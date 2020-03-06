@@ -18,8 +18,8 @@ const beginProps = {
   authname: "Person",
   feedback: "Some message.",
   loading: false,
-  editing: true,
-  ownership: "public",
+  editing: false,
+  ownership: "private",
   recipeTypeId: 1,
   cuisineId: 1,
   title: "Title",
@@ -31,12 +31,12 @@ const beginProps = {
     3: false
   },
   equipmentRows: [
-    {key: uuid(), amount: "", type: "", equipment: ""},
-    {key: uuid(), amount: "", type: "", equipment: ""}
+    {key: "XYZ1", amount: "", type: "", equipment: ""},
+    {key: "XYZ2", amount: "", type: "", equipment: ""}
   ],
   ingredientRows: [
-    {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
-    {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""}
+    {key: "XYZ3", amount: 1, unit: "", type: "", ingredient: ""},
+    {key: "XYZ4", amount: 1, unit: "", type: "", ingredient: ""}
   ],
   subrecipeRows: [],
   prevRecipeImage: "nobsc-recipe-default",
@@ -137,20 +137,53 @@ const beginProps = {
   handleSubmit: jest.fn()
 };
 
-let wrapper;
-
-jest.mock(Link);
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  Link: props => <div></div>
+}));
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
 describe('NewRecipeView', () => {
-  beforeEach(() => {
-    wrapper = shallow(<NewRecipeView {...beginProps} />);
+
+  describe('when creating', () => {
+    describe('when ownership is private', () => {
+      it('displays a h1 element with text Submit New Private Recipe', () => {
+        const wrapper = shallow(<NewRecipeView {...beginProps} />);
+        expect(wrapper.find('h1').text()).toEqual("Submit New Private Recipe");
+      });
+    });
+    describe('when ownership is public', () => {
+      it('displays a h1 element with text Submit New Public Recipe', () => {
+        const props = {...beginProps};
+        props.ownership = "public";
+        const wrapper = shallow(<NewRecipeView {...props} />);
+        expect(wrapper.find('h1').text()).toEqual("Submit New Public Recipe");
+      });
+    });
   });
 
-  it('needs testing', () => {
-    expect(1).toEqual(1);
+  describe('when editing', () => {
+    describe('when ownership is private', () => {
+      it('displays a h1 element with text Edit Private Recipe', () => {
+        const props = {...beginProps};
+        props.editing = true;
+        const wrapper = shallow(<NewRecipeView {...props} />);
+        expect(wrapper.find('h1').text()).toEqual("Edit Private Recipe");
+      });
+    });
+    describe('when ownership is public', () => {
+      it('displays a h1 element with text Edit Public Recipe', () => {
+        const props = {...beginProps};
+        props.editing = true;
+        props.ownership = "public";
+        const wrapper = shallow(<NewRecipeView {...props} />);
+        expect(wrapper.find('h1').text()).toEqual("Edit Public Recipe");
+      });
+    });
   });
+
+
 });
