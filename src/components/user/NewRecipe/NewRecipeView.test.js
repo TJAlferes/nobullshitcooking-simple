@@ -43,14 +43,35 @@ const beginProps = {
   prevEquipmentImage: "nobsc-recipe-equipment-default",
   prevIngredientsImage: "nobsc-recipe-ingredients-default",
   prevCookingImage: "nobsc-recipe-cooking-default",
-  dataRecipeTypes: [],
-  dataCuisines: [],
-  dataMethods: [],
-  dataEquipment: [],
+  dataRecipeTypes: [
+    {recipe_type_id: 1, recipe_type_name: "Drink"},
+    {recipe_type_id: 2, recipe_type_name: "Appetizer"},
+  ],
+  dataCuisines: [
+    {cuisine_id: 1, cuisine_name: "American"},
+    {cuisine_id: 2, cuisine_name: "Japanese"},
+  ],
+  dataMethods: [
+    {method_id: 1, method_name: "Steam"},
+    {method_id: 2, method_name: "Freeze"}
+  ],
+  dataEquipment: [
+    {equipment_id: 1, equipment_name: "Cutting Board", equipment_type_id: 2},
+    {equipment_id: 2, equipment_name: "Metal Spatula", equipment_type_id: 3},
+  ],
   dataMyPrivateEquipment: [],
-  dataMeasurements: [],
-  dataIngredientTypes: [],
-  dataIngredients: [],
+  dataMeasurements: [
+    {measurement_id: 1, measurement_name: "teaspoon"},
+    {measurement_id: 2, measurement_name: "Tablespoon"}
+  ],
+  dataIngredientTypes: [
+    {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
+    {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
+  ],
+  dataIngredients: [
+    {ingredient_id: 1, ingredient_name: "Apple", ingredient_type_id: 12,},
+    {ingredient_id: 2, ingredient_name: "Spinach", ingredient_type_id: 11}
+  ],
   dataMyPrivateIngredients: [],
   dataRecipes: [],
   dataMyPrivateRecipes: [],
@@ -306,6 +327,67 @@ describe('NewRecipeView', () => {
       expect(wrapper.find('textarea[name="directions"]')).toHaveLength(1);
     });
 
+    it('displays a button element with text Add Equipment', () => {
+      expect(wrapper.find('button[data-test="add-equipment"]').text())
+      .toEqual("Add Equipment");
+    });
+
+    it('displays a button element with text Add Ingredient', () => {
+      expect(wrapper.find('button[data-test="add-ingredient"]').text())
+      .toEqual("Add Ingredient");
+    });
+
+    it('displays a button element with text Add Subrecipe', () => {
+      expect(wrapper.find('button[data-test="add-subrecipe"]').text())
+      .toEqual("Add Subrecipe");
+    });
+
+    it('displays an ImageUploads component', () => {
+      expect(wrapper.find(ImageUploads)).toHaveLength(1);
+    });
+
+    // dynamic elements
+
+    it('displays recipe type options', () => {
+      expect(wrapper.find('[data-test="Drink"]').props().children)
+      .toEqual("Drink");
+
+      expect(wrapper.find('[data-test="Appetizer"]').props().children)
+      .toEqual("Appetizer");
+    });
+
+    it('displays cuisine options', () => {
+      expect(wrapper.find('[data-test="American"]').props().children)
+      .toEqual("American");
+
+      expect(wrapper.find('[data-test="Japanese"]').props().children)
+      .toEqual("Japanese");
+    });
+
+    it('displays method inputs and labels', () => {
+      expect(wrapper.find('[data-test="1-Steam"]').props().id)
+      .toEqual(1);
+
+      expect(wrapper.find('[data-test="2-Freeze"]').props().id)
+      .toEqual(2);
+
+      expect(wrapper.find('[data-test="Steam"]').props().children)
+      .toEqual("Steam");
+
+      expect(wrapper.find('[data-test="Freeze"]').props().children)
+      .toEqual("Freeze");
+    });
+
+    it('displays EquipmentRows', () => {
+      expect(wrapper.find(EquipmentRow).at(0).props().rowKey).toEqual("XYZ1");
+      expect(wrapper.find(EquipmentRow).at(1).props().rowKey).toEqual("XYZ2");
+    });
+
+    it('displays IngredientRows', () => {
+      expect(wrapper.find(IngredientRow).at(0).props().rowKey).toEqual("XYZ3");
+      expect(wrapper.find(IngredientRow).at(1).props().rowKey).toEqual("XYZ4");
+    });
+    
     /*it('displays ', () => {
       expect(wrapper.find('')).toHaveLength(1);
     });*/

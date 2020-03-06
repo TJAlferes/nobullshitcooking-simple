@@ -186,7 +186,11 @@ const NewRecipeView = ({
       >
         <option value=""></option>
         {dataRecipeTypes.map(recipeType => (
-          <option key={recipeType.recipe_type_id} value={recipeType.recipe_type_id}>
+          <option
+            key={recipeType.recipe_type_id}
+            value={recipeType.recipe_type_id}
+            data-test={recipeType.recipe_type_name}
+          >
             {recipeType.recipe_type_name}
           </option>
         ))}
@@ -209,7 +213,11 @@ const NewRecipeView = ({
       >
         <option value=""></option>
         {dataCuisines.map(cuisine => (
-          <option key={cuisine.cuisine_id} value={cuisine.cuisine_id}>
+          <option
+            key={cuisine.cuisine_id}
+            value={cuisine.cuisine_id}
+            data-test={cuisine.cuisine_name}
+          >
             {cuisine.cuisine_name}
           </option>
         ))}
@@ -266,8 +274,14 @@ const NewRecipeView = ({
               id={method.method_id}
               checked={methods[method.method_id] === true ? true : false}
               onChange={e => handleMethodsChange(e)}
+              data-test={`${method.method_id}-${method.method_name}`}
             />
-            <label className="method-span-label">{method.method_name}</label>
+            <label
+              className="method-span-label"
+              data-test={method.method_name}
+            >
+              {method.method_name}
+            </label>
           </span>
         ))}
       </div>
@@ -298,7 +312,11 @@ const NewRecipeView = ({
             removeEquipmentRow={removeEquipmentRow} />
         ))}
       </div>
-      <button className="add-row" onClick={addEquipmentRow}>
+      <button
+        className="add-row"
+        onClick={addEquipmentRow}
+        data-test="add-equipment"
+      >
         Add Equipment
       </button>
     </div>
@@ -332,7 +350,11 @@ const NewRecipeView = ({
           />
         ))}
       </div>
-      <button className="add-row" onClick={addIngredientRow}>
+      <button
+        className="add-row"
+        onClick={addIngredientRow}
+        data-test="add-ingredient"
+      >
         Add Ingredient
       </button>
     </div>
@@ -373,7 +395,11 @@ const NewRecipeView = ({
           />
         ))}
       </div>
-      <button className="add-row" onClick={addSubrecipeRow}>
+      <button
+        className="add-row"
+        onClick={addSubrecipeRow}
+        data-test="add-subrecipe"
+      >
         Add Subrecipe
       </button>
     </div>
