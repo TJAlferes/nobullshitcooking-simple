@@ -149,23 +149,60 @@ afterEach(() => {
 describe('NewRecipeView', () => {
 
   describe('when creating', () => {
+
     describe('when ownership is private', () => {
+      const wrapper = shallow(<NewRecipeView {...beginProps} />);
+
       it('displays a h1 element with text Submit New Private Recipe', () => {
-        const wrapper = shallow(<NewRecipeView {...beginProps} />);
         expect(wrapper.find('h1').text()).toEqual("Submit New Private Recipe");
       });
+
+      it('displays an input element with the following properties', () => {
+        const props = wrapper.find('input[name="private"]').props();
+        expect(props.type).toEqual("radio");
+        expect(props.checked).toEqual(true);
+        expect(props.value).toEqual("private");
+        expect(props.disabled).toEqual(true);
+      });
+  
+      it('displays another input element with the following properties', () => {
+        const props = wrapper.find('input[name="public"]').props();
+        expect(props.type).toEqual("radio");
+        expect(props.checked).toEqual(false);
+        expect(props.value).toEqual("public");
+        expect(props.disabled).toEqual(true);
+      });
     });
+
     describe('when ownership is public', () => {
+      const beginPropsCopy = {...beginProps};
+      beginPropsCopy.ownership = "public";
+      const wrapper = shallow(<NewRecipeView {...beginPropsCopy} />);
+
       it('displays a h1 element with text Submit New Public Recipe', () => {
-        const props = {...beginProps};
-        props.ownership = "public";
-        const wrapper = shallow(<NewRecipeView {...props} />);
         expect(wrapper.find('h1').text()).toEqual("Submit New Public Recipe");
+      });
+
+      it('displays an input element with the following properties', () => {
+        const props = wrapper.find('input[name="private"]').props();
+        expect(props.type).toEqual("radio");
+        expect(props.checked).toEqual(false);
+        expect(props.value).toEqual("private");
+        expect(props.disabled).toEqual(true);
+      });
+  
+      it('displays another input element with the following properties', () => {
+        const props = wrapper.find('input[name="public"]').props();
+        expect(props.type).toEqual("radio");
+        expect(props.checked).toEqual(true);
+        expect(props.value).toEqual("public");
+        expect(props.disabled).toEqual(true);
       });
     });
   });
 
   describe('when editing', () => {
+
     describe('when ownership is private', () => {
       it('displays a h1 element with text Edit Private Recipe', () => {
         const props = {...beginProps};
@@ -174,6 +211,7 @@ describe('NewRecipeView', () => {
         expect(wrapper.find('h1').text()).toEqual("Edit Private Recipe");
       });
     });
+
     describe('when ownership is public', () => {
       it('displays a h1 element with text Edit Public Recipe', () => {
         const props = {...beginProps};
@@ -183,7 +221,48 @@ describe('NewRecipeView', () => {
         expect(wrapper.find('h1').text()).toEqual("Edit Public Recipe");
       });
     });
+
   });
 
+  describe('content', () => {
+    const wrapper = shallow(<NewRecipeView {...beginProps} />);
 
+    it('displays feedback', () => {
+      expect(wrapper.find('p.new-recipe-feedback').text())
+      .toEqual("Some message.");
+    });
+
+    it('displays a h2 element with text Ownership', () => {
+      expect(wrapper.find('[data-test="ownership-heading"]').text())
+      .toEqual("Ownership");
+    });
+
+    it('displays an ExpandCollapse component', () => {
+      expect(wrapper.find(ExpandCollapse)).toHaveLength(1);
+    });
+
+    /*it('displays ', () => {
+      expect(wrapper.find(''))
+    });
+
+    it('displays ', () => {
+      expect(wrapper.find(''))
+    });*/
+  });
+
+  describe('finish area', () => {
+    const wrapper = shallow(<NewRecipeView {...beginProps} />);
+
+    it('displays a Link to /user/dashboard', () => {
+      expect(wrapper.find(Link).props().to).toEqual("/user/dashboard");
+    });
+
+    it('displays a Link with text Cancel', () => {
+      expect(wrapper.find(Link).props().children).toEqual("Cancel");
+    });
+
+    it('displays a LoaderButton with text Submit Recipe', () => {
+      expect(wrapper.find(LoaderButton).props().text).toEqual("Submit Recipe");
+    });
+  });
 });

@@ -118,7 +118,12 @@ const NewRecipeView = ({
     <p className="new-recipe-feedback">{feedback}</p>
 
     <div className="new-recipe-section-ownership">
-      <h2 className="new-recipe-heading-two">Ownership</h2>
+      <h2
+        className="new-recipe-heading-two"
+        data-test="ownership-heading"
+      >
+        Ownership
+      </h2>
       <ExpandCollapse>
         <div>
           <p>Once submitted, a recipe's ownership can't be changed.</p>
@@ -144,6 +149,7 @@ const NewRecipeView = ({
           <input
             className="ownership-span-input"
             type="radio"
+            name="private"
             checked={ownership === "private"}
             value="private"
             disabled={true}
@@ -154,6 +160,7 @@ const NewRecipeView = ({
           <input
             className="ownership-span-input"
             type="radio"
+            name="public"
             checked={ownership === "public"}
             value="public"
             disabled={true}
