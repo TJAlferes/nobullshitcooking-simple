@@ -17,7 +17,7 @@ const PrivateRecipesTabView = ({
 }) => (
   <div className="dashboard-content">
     <h2 className="dashboard-content-heading">Private Recipes</h2>
-    <Link className="create-new-entity" to="/user/recipes/private/submit">
+    <Link className="create-new-entity" to="/user-recipes/private/submit">
       Create New Private Recipe
     </Link>
     {
@@ -66,12 +66,12 @@ const PrivateRecipesTabView = ({
             }
           </span>
           <span className="dashboard-content-item-name">
-            <Link to={`/user/recipes/${recipe.recipe_id}`}>
+            <Link to={`/user-recipes/${recipe.recipe_id}`}>
               {recipe.title}
             </Link>
           </span>
           <span className="dashboard-content-item-action">
-            <Link to={`/user/recipes/private/edit/${recipe.recipe_id}`}>
+            <Link to={`/user-recipes/private/edit/${recipe.recipe_id}`}>
               Edit
             </Link>
           </span>

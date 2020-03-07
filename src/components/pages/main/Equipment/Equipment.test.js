@@ -37,7 +37,7 @@ afterEach(() => {
 });
 
 describe('Equipment', () => {
-  it('should redirect to /equipment if given no equipment', () => {
+  it('should redirect to /home if given no equipment', () => {
     mount(
       <MemoryRouter>
         <Equipment
@@ -49,10 +49,10 @@ describe('Equipment', () => {
         />
       </MemoryRouter>
     );
-    expect(mockHistoryPush).toHaveBeenCalledWith("/equipment");
+    expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
-  it('should redirect to /equipment if given an invalid equipment', () => {
+  it('should redirect to /home if given an invalid equipment', () => {
     mount(
       <MemoryRouter>
         <Equipment
@@ -64,7 +64,7 @@ describe('Equipment', () => {
         />
       </MemoryRouter>
     );
-    expect(mockHistoryPush).toHaveBeenCalledWith("/equipment");
+    expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
   it('should not redirect if given a valid equipment', async () => {

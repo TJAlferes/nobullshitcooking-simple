@@ -85,7 +85,7 @@ export const NewEquipment = ({
         message === "Equipment created." ||
         message === "Equipment updated."
       ) {
-        setTimeout(() => history.push('/user/dashboard'), 3000);
+        setTimeout(() => history.push('/dashboard'), 3000);
       }
       setLoading(false);
     }

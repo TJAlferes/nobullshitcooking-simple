@@ -19,7 +19,7 @@ export const LeftNav = ({ theme, isAuthenticated, authname }) => {
 
   return (
     <nav className={`left-nav ${theme}`}>
-      {isAuthenticated && <LeftNavLink to="/user/dashboard" text={authname} />}
+      {isAuthenticated && <LeftNavLink to="/dashboard" text={authname} />}
       {isAuthenticated && <hr />}
       <NavLink
         className="left-nav-link"
@@ -29,8 +29,8 @@ export const LeftNav = ({ theme, isAuthenticated, authname }) => {
       >
         News
       </NavLink>
-      {isAuthenticated && <LeftNavLink to="/user/messenger" text="Messenger" />}
-      {isAuthenticated && <LeftNavLink to="/user/friends" text="Friends" />}
+      {isAuthenticated && <LeftNavLink to="/messenger" text="Messenger" />}
+      {isAuthenticated && <LeftNavLink to="/friends" text="Friends" />}
       <hr />
       <LeftNavLink to="/food/nutrition/supplements" text="Supplements" />
       <LeftNavLink to="/supply/kitchen-equipment" text="Equipment" />

@@ -191,7 +191,7 @@ export const CuisineBreadcrumbsView = ({
     ))}
     <Link
       className="crumb_link"
-      to={`/cuisines/${cuisine && cuisine.cuisine_id}`}
+      to={`/food/cuisines/${cuisine && cuisine.cuisine_id}`}
     >
       {cuisine && cuisine.cuisine_name}
     </Link>

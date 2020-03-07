@@ -21,7 +21,7 @@ export const Equipment = ({
     const { id } = match.params;
 
     if (!id) {
-      history.push('/equipment');
+      history.push('/home');
       return;
     }
 
@@ -31,7 +31,7 @@ export const Equipment = ({
     );
 
     if (!localEquipment) {
-      history.push('/equipment');
+      history.push('/home');
       return;
     }
 

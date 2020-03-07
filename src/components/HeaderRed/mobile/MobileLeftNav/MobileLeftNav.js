@@ -28,8 +28,8 @@ export const MobileLeftNav = ({ theme, isAuthenticated, authname, closeNav }) =>
       <hr />
       {/*<MobileLeftNavLink to="/welcome" text="New? Start Here" closeNav={closeNav} />*/}
       <MobileLeftNavLink to="/site/help" text="Help" closeNav={closeNav} />
-      {!isAuthenticated && <MobileLeftNavLink to="/user/register" text="Create Account" closeNav={closeNav} />}
-      {isAuthenticated && <MobileLeftNavLink to="/user/dashboard" text={authname} closeNav={closeNav} />}
+      {!isAuthenticated && <MobileLeftNavLink to="/register" text="Create Account" closeNav={closeNav} />}
+      {isAuthenticated && <MobileLeftNavLink to="/dashboard" text={authname} closeNav={closeNav} />}
       <hr />
       <NavLink
         className="mobile-left-nav-link"
@@ -42,8 +42,8 @@ export const MobileLeftNav = ({ theme, isAuthenticated, authname, closeNav }) =>
       >
         News
       </NavLink>
-      {isAuthenticated && <MobileLeftNavLink to="/user/messenger" text="Messenger" closeNav={closeNav} />}
-      {isAuthenticated && <MobileLeftNavLink to="/user/friends" text="Friends" closeNav={closeNav} />}
+      {isAuthenticated && <MobileLeftNavLink to="/messenger" text="Messenger" closeNav={closeNav} />}
+      {isAuthenticated && <MobileLeftNavLink to="/friends" text="Friends" closeNav={closeNav} />}
       <hr />
       <MobileLeftNavLink to="/food/nutrition/supplements" text="Supplements" closeNav={closeNav} />
       {/*<MobileLeftNavLink to="/supply/kitchen-equipment" text="Equipment" closeNav={closeNav} />*/}

@@ -16,10 +16,9 @@ export const App = ({ headerTheme, footerTheme }) => {
 
   const userIsAtAuthPage = location.pathname &&
   (
-    location.pathname.match(/^\/staff\/register/) ||
-    location.pathname.match(/^\/staff\/login/) ||
-    location.pathname.match(/^\/user\/register/) ||
-    location.pathname.match(/^\/user\/login/)
+    location.pathname.match(/^\/register/) ||
+    location.pathname.match(/^\/verify/) ||
+    location.pathname.match(/^\/login/)
   );
 
   return userIsAtAuthPage

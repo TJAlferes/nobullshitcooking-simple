@@ -17,13 +17,13 @@ const PlansTabView = ({
     <h2 className="dashboard-content-heading">Plans</h2>
     {
       (!creatingPlan && !editingId) &&
-      <Link className="create-new-entity" to="/user/plan/submit">
+      <Link className="create-new-entity" to="/user-plan/submit">
         Create New Plan
       </Link>
     }
     {
       (creatingPlan && !editingId) &&
-      <Link className="create-new-entity" to="/user/plan/submit">
+      <Link className="create-new-entity" to="/user-plan/submit">
         Finish Creating Plan
       </Link>
     }
@@ -31,7 +31,7 @@ const PlansTabView = ({
       (!creatingPlan && editingId) &&
       <Link
         className="create-new-entity"
-        to={`/user/plan/edit/${editingId}`}
+        to={`/user-plan/edit/${editingId}`}
       >
         Finish Updating Plan
       </Link>
@@ -72,14 +72,14 @@ const PlansTabView = ({
       ? myPlans.map(plan => (
         <div className="dashboard-content-item" key={plan.plan_id}>
           <span className="dashboard-content-item-name">
-            <Link to={`/user/plan/${plan.plan_id}`}>
+            <Link to={`/user-plan/${plan.plan_id}`}>
               {plan.plan_name}
             </Link>
           </span>
           {
             (!creatingPlan && !editingId) &&
             <span className="dashboard-content-item-action">
-              <Link to={`/user/plan/edit/${plan.plan_id}`}>
+              <Link to={`/user-plan/edit/${plan.plan_id}`}>
                 Edit
               </Link>
             </span>

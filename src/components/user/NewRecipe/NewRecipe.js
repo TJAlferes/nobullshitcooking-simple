@@ -256,7 +256,7 @@ export const NewRecipe = ({
     } else if (childProps && childProps.submittingOwnership) {
       setOwnership(childProps.submittingOwnership);
     } else {
-      history.push('/user/dashboard');
+      history.push('/dashboard');
     }
   }, []);
 
@@ -269,7 +269,7 @@ export const NewRecipe = ({
         message === "Recipe created." ||
         message === "Recipe updated."
       ) {
-        setTimeout(() => history.push('/user/dashboard'), 3000);
+        setTimeout(() => history.push('/dashboard'), 3000);
       }
       setLoading(false);
     }
@@ -297,13 +297,6 @@ export const NewRecipe = ({
   const handleEquipmentRowChange = (e, rowKey) => {
     const newEquipmentRows = Array.from(equipmentRows);
     const elToUpdate = newEquipmentRows.findIndex(el => el.key === rowKey);
-    /*if (e.target.name === 'amount') {
-      newEquipmentRows[elToUpdate].amount = e.target.value;
-    } else if (e.target.name === 'type') {
-      newEquipmentRows[elToUpdate].type = e.target.value;
-    } else if (e.target.name === 'equipment') {
-      newEquipmentRows[elToUpdate].equipment = e.target.value;
-    }*/
     newEquipmentRows[elToUpdate][e.target.name] = e.target.value;
     setEquipmentRows(newEquipmentRows);
   };
@@ -311,15 +304,6 @@ export const NewRecipe = ({
   const handleIngredientRowChange = (e, rowKey) => {
     const newIngredientRows = Array.from(ingredientRows);
     const elToUpdate = newIngredientRows.findIndex(el => el.key === rowKey);
-    /*if (e.target.name === 'amount') {
-      newIngredientRows[elToUpdate].amount = e.target.value;
-    } else if (e.target.name === 'unit') {
-      newIngredientRows[elToUpdate].unit = e.target.value;
-    } else if (e.target.name === 'type') {
-      newIngredientRows[elToUpdate].type = e.target.value;
-    } else if (e.target.name === 'ingredient') {
-      newIngredientRows[elToUpdate].ingredient = e.target.value;
-    }*/
     newIngredientRows[elToUpdate][e.target.name] = e.target.value;
     setIngredientRows(newIngredientRows);
   };
@@ -327,17 +311,6 @@ export const NewRecipe = ({
   const handleSubrecipeRowChange = (e, rowKey) => {
     const newSubrecipeRows = Array.from(subrecipeRows);
     const elToUpdate = newSubrecipeRows.findIndex(el => el.key === rowKey);
-    /*if (e.target.name === 'amount') {
-      newSubrecipeRows[elToUpdate].amount = e.target.value;
-    } else if (e.target.name === 'unit') {
-      newSubrecipeRows[elToUpdate].unit = e.target.value;
-    } else if (e.target.name === 'type') {
-      newSubrecipeRows[elToUpdate].type = e.target.value;
-    } else if (e.target.name === 'cuisine') {
-      newSubrecipeRows[elToUpdate].cuisine = e.target.value;
-    } else if (e.target.name === 'subrecipe') {
-      newSubrecipeRows[elToUpdate].subrecipe = e.target.value;
-    }*/
     newSubrecipeRows[elToUpdate][e.target.name] = e.target.value;
     setSubrecipeRows(newSubrecipeRows);
   };
@@ -387,35 +360,31 @@ export const NewRecipe = ({
   };
 
   const onSelectFile = e => {
-    if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => setRecipeImage(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
-    }
+    if (!e.target.files && !(e.target.files.length > 0)) return;
+    const reader = new FileReader();
+    reader.addEventListener("load", () => setRecipeImage(reader.result));
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const onSelectEquipmentFile = e => {
-    if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => setRecipeEquipmentImage(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
-    }
+    if (!e.target.files && !(e.target.files.length > 0)) return;
+    const reader = new FileReader();
+    reader.addEventListener("load", () => setRecipeEquipmentImage(reader.result));
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const onSelectIngredientsFile = e => {
-    if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => setRecipeIngredientsImage(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
-    }
+    if (!e.target.files && !(e.target.files.length > 0)) return;
+    const reader = new FileReader();
+    reader.addEventListener("load", () => setRecipeIngredientsImage(reader.result));
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const onSelectCookingFile = e => {
-    if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => setRecipeCookingImage(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
-    }
+    if (!e.target.files && !(e.target.files.length > 0)) return;
+    const reader = new FileReader();
+    reader.addEventListener("load", () => setRecipeCookingImage(reader.result));
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const onImageLoaded = image => imageRef.current = image;

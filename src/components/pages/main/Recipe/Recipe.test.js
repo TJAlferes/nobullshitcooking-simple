@@ -41,7 +41,7 @@ afterEach(() => {
 });
 
 describe('Recipe', () => {
-  it('should redirect to /recipes if given no recipe', async () => {
+  it('should redirect to /home if given no recipe', async () => {
     mount(
       <MemoryRouter>
         <Recipe
@@ -61,10 +61,10 @@ describe('Recipe', () => {
       </MemoryRouter>
     );
     await wait(3000);
-    expect(mockHistoryPush).toHaveBeenCalledWith("/recipes");
+    expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
-  it('should redirect to /recipes if given an invalid recipe', async () => {
+  it('should redirect to /home if given an invalid recipe', async () => {
     mount(
       <MemoryRouter>
         <Recipe
@@ -84,7 +84,7 @@ describe('Recipe', () => {
       </MemoryRouter>
     );
     await wait(3000);
-    expect(mockHistoryPush).toHaveBeenCalledWith("/recipes");
+    expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
   it('should not redirect if given a valid recipe', async () => {

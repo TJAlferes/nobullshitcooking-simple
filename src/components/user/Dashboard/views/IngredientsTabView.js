@@ -7,7 +7,7 @@ const IngredientsTabView = ({
 }) => (
   <div className="dashboard-content">
     <h2 className="dashboard-content-heading">Private Ingredients</h2>
-    <Link className="create-new-entity" to="/user/ingredients/submit">
+    <Link className="create-new-entity" to="/user-ingredients/submit">
       Create New Ingredient
     </Link>
     {
@@ -25,12 +25,12 @@ const IngredientsTabView = ({
             }
           </span>
           <span className="dashboard-content-item-name">
-            <Link to={`/user/ingredients/${ingredient.ingredient_id}`}>
+            <Link to={`/user-ingredients/${ingredient.ingredient_id}`}>
               {ingredient.ingredient_name}
             </Link>
           </span>
           <span className="dashboard-content-item-action">
-            <Link to={`/user/ingredients/edit/${ingredient.ingredient_id}`}>
+            <Link to={`/user-ingredients/edit/${ingredient.ingredient_id}`}>
               Edit
             </Link>
           </span>

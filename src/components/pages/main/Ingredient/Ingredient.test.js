@@ -39,7 +39,7 @@ afterEach(() => {
 });
 
 describe('Ingredient', () => {
-  it('should redirect to /ingredients if given no ingredient', () => {
+  it('should redirect to /home if given no ingredient', () => {
     mount(
       <MemoryRouter>
         <Ingredient
@@ -51,10 +51,10 @@ describe('Ingredient', () => {
         />
       </MemoryRouter>
     );
-    expect(mockHistoryPush).toHaveBeenCalledWith("/ingredients");
+    expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
-  it('should redirect to /ingredients if given an invalid ingredient', () => {
+  it('should redirect to /home if given an invalid ingredient', () => {
     mount(
       <MemoryRouter>
         <Ingredient
@@ -66,7 +66,7 @@ describe('Ingredient', () => {
         />
       </MemoryRouter>
     );
-    expect(mockHistoryPush).toHaveBeenCalledWith("/ingredients");
+    expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
   it('should not redirect if given a valid ingredient', async () => {

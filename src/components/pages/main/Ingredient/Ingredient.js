@@ -21,7 +21,7 @@ export const Ingredient = ({
     const { id } = match.params;
     
     if (!id) {
-      history.push('/ingredients');
+      history.push('/home');
       return;
     }
 
@@ -31,7 +31,7 @@ export const Ingredient = ({
     );
 
     if (!localIngredient) {
-      history.push('/ingredients');
+      history.push('/home');
       return;
     }
 

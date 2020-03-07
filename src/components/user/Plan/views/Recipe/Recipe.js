@@ -12,7 +12,7 @@ const Recipe = ({ recipe }) => (
       <Link
         to={Number(recipe.owner) === 1
           ? `/recipes/${recipe.id}`
-          : `/user/recipes/${recipe.id}`
+          : `/user-recipes/${recipe.id}`
         }
       >
         {recipe.text}

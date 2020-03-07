@@ -102,7 +102,7 @@ const FriendsView = ({
                 <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${friend.avatar}-tiny`} />
               </span>
               <span className="friends-list-item-username">
-                <Link to={`/user/profile/${friend.username}`}>{friend.username}</Link>
+                <Link to={`/profile/${friend.username}`}>{friend.username}</Link>
               </span>
               {
                 (friend.status === "pending-received") &&

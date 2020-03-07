@@ -17,7 +17,7 @@ const PlanPage = ({ twoColumnATheme }) => (
         <Plan
           className="desktop_display"
           twoColumnATheme={twoColumnATheme}
-          planView={desktop}
+          planView="desktop"
         />
       </Suspense>
     </div>

@@ -74,7 +74,7 @@ export const Recipe = ({
     };
 
     let isPrivateUserRecipe = location.pathname
-    .match(/^(\/user\/recipes\/([1-9][0-9]*))$/);
+    .match(/^(\/user-recipes\/([1-9][0-9]*))$/);
     
     if (isPrivateUserRecipe) getPrivateRecipe(Number(id));
     else getPublicRecipe(Number(id));

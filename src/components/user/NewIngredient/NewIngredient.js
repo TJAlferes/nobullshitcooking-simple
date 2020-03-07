@@ -85,7 +85,7 @@ export const NewIngredient = ({
         message === "Ingredient created." ||
         message === "Ingredient updated."
       ) {
-        setTimeout(() => history.push('/user/dashboard'), 3000);
+        setTimeout(() => history.push('/dashboard'), 3000);
       }
       setLoading(false);
     }

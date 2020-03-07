@@ -152,50 +152,49 @@ const appRoute = (path, component) =>
 const RoutesList = () => (
   <Suspense fallback={<LoaderSpinner />}>
     <Switch>
-      {unauthRoute("/user/register", Register)}
-      {unauthRoute("/user/verify", Register, {confirmingUser: "true"})}
-      {unauthRoute("/user/login", Login)}
+      {unauthRoute("/register", Register)}
+      {unauthRoute("/verify", Register, {confirmingUser: "true"})}
+      {unauthRoute("/login", Login)}
       
-      {unauthRoute("/user/profile/:username", Profile)}
+      {appRoute("/profile/:username", Profile)}
 
-      {authRoute("/user/dashboard", Dashboard)}
-      {authRoute("/user", Dashboard)}
-      {authRoute("/user/friends", Friends)}
-      {authRoute("/user/messenger", MessengerPage)}
-      {authRoute("/user/plan/edit/:id", NewPlanPage, {editing: "true"})}
-      {authRoute("/user/plan/submit", NewPlanPage)}
-      {authRoute("/user/plan/:id", PlanPage)}
+      {authRoute("/dashboard", Dashboard)}
+      {authRoute("/friends", Friends)}
+      {authRoute("/messenger", MessengerPage)}
+      {authRoute("/user-plan/edit/:id", NewPlanPage, {editing: "true"})}
+      {authRoute("/user-plan/submit", NewPlanPage)}
+      {authRoute("/user-plan/:id", PlanPage)}
       {authRoute(
-        "/user/recipes/private/submit",
+        "/user-recipes/private/submit",
         NewRecipe,
         {submittingOwnership: "private"}
       )}
       {authRoute(
-        "/user/recipes/public/submit",
+        "/user-recipes/public/submit",
         NewRecipe,
         {submittingOwnership: "public"}
       )}
       {authRoute(
-        "/user/recipes/private/edit/:id",
+        "/user-recipes/private/edit/:id",
         NewRecipe,
         {editing: "true", editingOwnership: "private"}
       )}
       {authRoute(
-        "/user/recipes/public/edit/:id",
+        "/user-recipes/public/edit/:id",
         NewRecipe,
         {editing: "true", editingOwnership: "public"}
       )}
-      {authRoute("/user/recipes/:id", Recipe)}
-      {authRoute("/user/equipment/submit", NewEquipment)}
-      {authRoute("/user/equipment/edit/:id", NewEquipment, {editing: "true"})}
-      {authRoute("/user/equipment/:id", Equipment)}
-      {authRoute("/user/ingredients/submit", NewIngredient)}
+      {authRoute("/user-recipes/:id", Recipe)}
+      {authRoute("/user-equipment/submit", NewEquipment)}
+      {authRoute("/user-equipment/edit/:id", NewEquipment, {editing: "true"})}
+      {authRoute("/user-equipment/:id", Equipment)}
+      {authRoute("/user-ingredients/submit", NewIngredient)}
       {authRoute(
-        "/user/ingredients/edit/:id",
+        "/user-ingredients/edit/:id",
         NewIngredient,
         {editing: "true"}
       )}
-      {authRoute("/user/ingredients/:id", Ingredient)}
+      {authRoute("/user-ingredients/:id", Ingredient)}
 
       {appRoute("/recipes/:id", Recipe)}
       {appRoute("/ingredients/:id", Ingredient)}

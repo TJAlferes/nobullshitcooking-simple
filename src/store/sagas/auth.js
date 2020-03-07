@@ -46,8 +46,8 @@ export function* authUserRegisterSaga(action) {
       yield put(authUserRegisterSucceeded(res.data.message));
       yield delay(2000);
       yield put(authMessageClear());
-      //yield call([history, history.push], '/user/verify');
-      yield call([history, history.push], '/user/login');
+      //yield call([history, history.push], '/verify');
+      yield call([history, history.push], '/login');
     } else {
       yield put(authUserRegisterFailed(res.data.message));
       yield delay(4000);
@@ -78,7 +78,7 @@ export function* authUserVerifySaga(action) {
       yield put(authUserVerifySucceeded(res.data.message));
       yield delay(2000);
       yield put(authMessageClear());
-      yield call([history, history.push], '/user/login');
+      yield call([history, history.push], '/login');
     } else {
       yield put(authUserVerifyFailed(res.data.message));
       yield delay(4000);

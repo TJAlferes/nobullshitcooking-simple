@@ -466,7 +466,7 @@ const NewRecipeView = ({
     <div className="new-recipe-finish-area">
       <Link
         className="new-recipe-cancel-button"
-        to="/user/dashboard"
+        to="/dashboard"
       >
         Cancel
       </Link>

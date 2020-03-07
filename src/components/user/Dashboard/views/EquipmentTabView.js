@@ -7,7 +7,7 @@ const EquipmentTabView = ({
 }) => (
   <div className="dashboard-content">
     <h2 className="dashboard-content-heading">Private Equipment</h2>
-    <Link className="create-new-entity" to="/user/equipment/submit">
+    <Link className="create-new-entity" to="/user-equipment/submit">
       Create New Equipment
     </Link>
     {
@@ -25,12 +25,12 @@ const EquipmentTabView = ({
             }
           </span>
           <span className="dashboard-content-item-name">
-            <Link to={`/user/equipment/${equipment.equipment_id}`}>
+            <Link to={`/user-equipment/${equipment.equipment_id}`}>
               {equipment.equipment_name}
             </Link>
           </span>
           <span className="dashboard-content-item-action">
-            <Link to={`/user/equipment/edit/${equipment.equipment_id}`}>
+            <Link to={`/user-equipment/edit/${equipment.equipment_id}`}>
               Edit
             </Link>
           </span>

@@ -58,6 +58,7 @@ const ImageUploads = ({
           <h4 className="change-default">Change</h4>
           <input
             className="new-recipe-image-input"
+            name="image-input"
             type="file"
             accept="image/*"
             onChange={onSelectFile}
@@ -113,6 +114,7 @@ const ImageUploads = ({
           <h4 className="change-default">Change</h4>
           <input
             className="new-recipe-equipment-image-input"
+            name="equipment-image-input"
             type="file"
             accept="image/*"
             onChange={onSelectEquipmentFile}
@@ -162,6 +164,7 @@ const ImageUploads = ({
           <h4 className="change-default">Change</h4>
           <input
             className="new-recipe-ingredients-image-input"
+            name="ingredients-image-input"
             type="file"
             accept="image/*"
             onChange={onSelectIngredientsFile}
@@ -211,7 +214,9 @@ const ImageUploads = ({
           <h4 className="change-default">Change</h4>
           <input
             className="new-recipe-cooking-image-input"
-            type="file" accept="image/*"
+            name="cooking-image-input"
+            type="file"
+            accept="image/*"
             onChange={onSelectCookingFile}
           />
         </div>

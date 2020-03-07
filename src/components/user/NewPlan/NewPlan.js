@@ -87,7 +87,7 @@ export const NewPlan = ({
       if (message === "Plan created." || message === "Plan updated.") {
         setTimeout(() => {
           plannerClearWork();
-          history.push('/user/dashboard');
+          history.push('/dashboard');
         }, 3000);
         // remove?
         return;
@@ -124,7 +124,7 @@ export const NewPlan = ({
   const discardChanges = () => {
     setModalActive(false);
     plannerClearWork();
-    history.push('/user/dashboard');
+    history.push('/dashboard');
   };
 
   const getPlanData = () => {

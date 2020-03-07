@@ -17,7 +17,7 @@ const PublicRecipesTabView = ({
 }) => (
   <div className="dashboard-content">
     <h2 className="dashboard-content-heading">Public Recipes</h2>
-    <Link className="create-new-entity" to="/user/recipes/public/submit">
+    <Link className="create-new-entity" to="/user-recipes/public/submit">
       Create New Public Recipe
     </Link>
     {
@@ -71,7 +71,7 @@ const PublicRecipesTabView = ({
             </Link>
           </span>
           <span className="dashboard-content-item-action">
-            <Link to={`/user/recipes/public/edit/${recipe.recipe_id}`}>
+            <Link to={`/user-recipes/public/edit/${recipe.recipe_id}`}>
               Edit
             </Link>
           </span>

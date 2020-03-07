@@ -1,67 +1,80 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-//import CartIcon from '../CartIcon/CartIcon';
 import {
   authUserLogout,
   themeDarkTrigger,
   themeLightTrigger
 } from '../../../../store/actions/index';
 
+//import CartIcon from '../CartIcon/CartIcon';
+
 import './mobileUserNav.css';
 
-class MobileUserNav extends Component {
-  handleLogout = async () => {
-    await this.props.authUserLogout();
-    this.props.history.push('/');  // decide: move these to the sagas! (?)
+export const MobileUserNav = ({
+  theme,
+  isAuthenticated,
+  authname,
+  authUserLogout,
+  themeDarkTrigger,
+  themeLightTrigger
+}) => {
+  const history = useHistory();
+
+  const handleLogout = () => {
+    authUserLogout();
+    history.push('/home');
   }
 
-  render() {
-    const { isAuthenticated, themeDarkTrigger, themeLightTrigger, theme } = this.props;
-    return (
-      <div className="mobile-user-nav">
+  return (
+    <div className="mobile-user-nav">
+      <li>
+        {theme === 'header-light' ? (
+          <span
+            className="mode-button"
+            onClick={() => themeDarkTrigger()}
+          >
+            <i className="moon-symbol">☾</i> Night
+          </span>
+        ) : (
+          <span
+            className="mode-button"
+            onClick={() => themeLightTrigger()}
+          >
+            <i className="sun-symbol">☀︎</i> Day
+          </span>
+        )}
+      </li>
+
+      {!isAuthenticated ? (
         <li>
-          {
-            theme === 'header-light'
-            ? (
-              <span className="mode-button" onClick={() => themeDarkTrigger()}>
-                <i className="moon-symbol">☾</i> Dark
-              </span>
-            )
-            : (
-              <span className="mode-button" onClick={() => themeLightTrigger()}>
-                <i className="sun-symbol">☀︎</i> Light
-              </span>
-            )
-          }
-        </li>
-        {
-          !isAuthenticated
-          ? (
-            <li>
-              <Link className="mobile-user-nav-link mobile_text" to="/user/login">
-                Sign In
-              </Link>
-            </li>
-          )
-          : (
-            <li>
-              <span className="signed-in-nav-span mobile_text" onClick={this.handleLogout}>
-                Sign Out
-              </span>
-            </li>
-          )
-        }
-        {/*<li>
-          <Link className="mobile-user-nav-link" to="/store/view_cart">
-            <CartIcon />
+          <Link
+            className="mobile-user-nav-link mobile_text"
+            to="/login"
+          >
+            Sign In
           </Link>
-        </li>*/}
-      </div>
-    );
-  }
-}
+        </li>
+      ) : (
+        <li>
+          <span
+            className="signed-in-nav-span mobile_text"
+            onClick={handleLogout}
+          >
+            Sign Out
+          </span>
+        </li>
+      )}
+
+      {/*<li>
+        <Link className="mobile-user-nav-link" to="/store/view_cart">
+          <CartIcon />
+        </Link>
+      </li>*/}
+    </div>
+  );
+};
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
@@ -74,4 +87,4 @@ const mapDispatchToProps = dispatch => ({
   themeLightTrigger: () => dispatch(themeLightTrigger())
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MobileUserNav));
+export default connect(mapStateToProps, mapDispatchToProps)(MobileUserNav);

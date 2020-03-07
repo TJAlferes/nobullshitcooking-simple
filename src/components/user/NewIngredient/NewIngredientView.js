@@ -127,7 +127,7 @@ const NewIngredientView = ({
     <div className="new-ingredient__finish-area">
       <Link
         className="new-ingredient__cancel-button"
-        to="/user/dashboard"
+        to="/dashboard"
       >
         Cancel
       </Link>
