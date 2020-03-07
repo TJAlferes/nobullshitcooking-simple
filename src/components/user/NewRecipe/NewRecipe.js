@@ -31,7 +31,6 @@ export const NewRecipe = ({
 
   dataMeasurements,
   dataEquipment,
-  dataEquipmentTypes,
   dataIngredients,
   dataIngredientTypes,
   dataRecipes,
@@ -252,6 +251,7 @@ export const NewRecipe = ({
       childProps.editing &&
       childProps.editing === "true"
     ) {
+      // TO DO: check match.params.id redirect to dashboard if none/invalid
       getExistingRecipeToEdit();
     } else if (childProps && childProps.submittingOwnership) {
       setOwnership(childProps.submittingOwnership);
@@ -297,20 +297,21 @@ export const NewRecipe = ({
   const handleEquipmentRowChange = (e, rowKey) => {
     const newEquipmentRows = Array.from(equipmentRows);
     const elToUpdate = newEquipmentRows.findIndex(el => el.key === rowKey);
-    if (e.target.name === 'amount') {
+    /*if (e.target.name === 'amount') {
       newEquipmentRows[elToUpdate].amount = e.target.value;
     } else if (e.target.name === 'type') {
       newEquipmentRows[elToUpdate].type = e.target.value;
     } else if (e.target.name === 'equipment') {
       newEquipmentRows[elToUpdate].equipment = e.target.value;
-    }
+    }*/
+    newEquipmentRows[elToUpdate][e.target.name] = e.target.value;
     setEquipmentRows(newEquipmentRows);
   };
 
   const handleIngredientRowChange = (e, rowKey) => {
     const newIngredientRows = Array.from(ingredientRows);
     const elToUpdate = newIngredientRows.findIndex(el => el.key === rowKey);
-    if (e.target.name === 'amount') {
+    /*if (e.target.name === 'amount') {
       newIngredientRows[elToUpdate].amount = e.target.value;
     } else if (e.target.name === 'unit') {
       newIngredientRows[elToUpdate].unit = e.target.value;
@@ -318,15 +319,15 @@ export const NewRecipe = ({
       newIngredientRows[elToUpdate].type = e.target.value;
     } else if (e.target.name === 'ingredient') {
       newIngredientRows[elToUpdate].ingredient = e.target.value;
-    }
+    }*/
+    newIngredientRows[elToUpdate][e.target.name] = e.target.value;
     setIngredientRows(newIngredientRows);
   };
 
   const handleSubrecipeRowChange = (e, rowKey) => {
     const newSubrecipeRows = Array.from(subrecipeRows);
     const elToUpdate = newSubrecipeRows.findIndex(el => el.key === rowKey);
-    //newSubrecipeRows[elToUpdate].[e.target.name]
-    if (e.target.name === 'amount') {
+    /*if (e.target.name === 'amount') {
       newSubrecipeRows[elToUpdate].amount = e.target.value;
     } else if (e.target.name === 'unit') {
       newSubrecipeRows[elToUpdate].unit = e.target.value;
@@ -336,7 +337,8 @@ export const NewRecipe = ({
       newSubrecipeRows[elToUpdate].cuisine = e.target.value;
     } else if (e.target.name === 'subrecipe') {
       newSubrecipeRows[elToUpdate].subrecipe = e.target.value;
-    }
+    }*/
+    newSubrecipeRows[elToUpdate][e.target.name] = e.target.value;
     setSubrecipeRows(newSubrecipeRows);
   };
 
@@ -755,7 +757,6 @@ const mapStateToProps = state => ({
   message: state.user.message,
   dataMeasurements: state.data.measurements,
   dataEquipment: state.data.equipment,
-  dataEquipmentTypes: state.data.equipmentTypes,
   dataIngredients: state.data.ingredients,
   dataIngredientTypes: state.data.ingredientTypes,
   dataRecipes: state.data.recipes,

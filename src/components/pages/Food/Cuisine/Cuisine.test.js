@@ -36,7 +36,7 @@ const cuisine = {
   ]
 };
 
-const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+//const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const mockHistoryPush = jest.fn();
 

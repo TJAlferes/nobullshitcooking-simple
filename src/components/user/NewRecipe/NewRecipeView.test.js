@@ -45,11 +45,11 @@ const beginProps = {
   prevCookingImage: "nobsc-recipe-cooking-default",
   dataRecipeTypes: [
     {recipe_type_id: 1, recipe_type_name: "Drink"},
-    {recipe_type_id: 2, recipe_type_name: "Appetizer"},
+    {recipe_type_id: 2, recipe_type_name: "Appetizer"}
   ],
   dataCuisines: [
     {cuisine_id: 1, cuisine_name: "American"},
-    {cuisine_id: 2, cuisine_name: "Japanese"},
+    {cuisine_id: 2, cuisine_name: "Japanese"}
   ],
   dataMethods: [
     {method_id: 1, method_name: "Steam"},
@@ -57,7 +57,7 @@ const beginProps = {
   ],
   dataEquipment: [
     {equipment_id: 1, equipment_name: "Cutting Board", equipment_type_id: 2},
-    {equipment_id: 2, equipment_name: "Metal Spatula", equipment_type_id: 3},
+    {equipment_id: 2, equipment_name: "Metal Spatula", equipment_type_id: 3}
   ],
   dataMyPrivateEquipment: [],
   dataMeasurements: [
