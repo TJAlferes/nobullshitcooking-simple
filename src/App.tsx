@@ -27,15 +27,14 @@ export const App = ({
   const location = useLocation();
 
   const userIsAtAuthPage = location.pathname &&
-  (
-    location.pathname.match(/^\/register/) ||
-    location.pathname.match(/^\/verify/) ||
-    location.pathname.match(/^\/login/)
-  );
+  location.pathname == ("/register" || "/verify" || "/login");
 
   return userIsAtAuthPage
-  ? <div><RoutesList /></div>
-  : (
+  ? (
+    <div data-test="auth-page">
+      <RoutesList />
+    </div>
+  ) : (
     <div id="app">
       <div>
         <div className="mobile_display">

@@ -1,4 +1,4 @@
-import { mount } from 'enzyme';
+import { mount, render } from 'enzyme';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -6,10 +6,10 @@ import { createStore } from 'redux';
 import { SearchProvider } from '@elastic/react-search-ui';
 
 import rootReducer from './store/reducers/index';
-import searchConfig from './config/searchConfig';
+//import searchConfig from './config/searchConfig';
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
 import HeaderRed from './components/HeaderRed/desktop/HeaderRed';
-import { MainWhite } from './components/MainWhite/MainWhite';
+import MainWhite from './components/MainWhite/MainWhite';
 import FooterGray from './components/FooterGray/FooterGray';
 
 import RoutesList from './routing/Routes';
@@ -35,18 +35,19 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-let wrapper;
+//let wrapper;
+
+const store = storeFactory({});
 
 describe('App', () => {
   jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useLocation: () => ({pathname: "/"})
   }));
-  const store = storeFactory({});
-  wrapper = mount(
+  const wrapper = mount(
     <Provider store={store}>
       <MemoryRouter>
-        <SearchProvider config={searchConfig}>
+        <SearchProvider config={{}}>
           <App {...beginProps} />
         </SearchProvider>
       </MemoryRouter>
@@ -74,20 +75,40 @@ describe('App', () => {
   });
 });
 
-/*describe('when pathname is /register', () => {
+describe('when pathname is /register', () => {
   jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useLocation: () => ({pathname: "/register"})
   }));
 
-  wrapper = mount(<MemoryRouter><App {...beginProps} /></MemoryRouter>);
+  const wrapper = render(
+    <Provider store={store}>
+      <MemoryRouter>
+        <SearchProvider config={{}}>
+          <App {...beginProps} />
+        </SearchProvider>
+      </MemoryRouter>
+    </Provider>
+  );
+
+  it('does not display a MobileHeaderRed component', () => {
+    expect(wrapper.find('.mobile-header-red')).toHaveLength(0);
+  });
 
   it('does not display a HeaderRed component', () => {
-    expect(wrapper.find(HeaderRed)).toHaveLength(0);
+    expect(wrapper.find('.header-red')).toHaveLength(0);
+  });
+
+  it('does not display a MainWhite component', () => {
+    expect(wrapper.find('.main-white')).toHaveLength(0);
   });
 
   it('does not display a FooterGray component', () => {
-    expect(wrapper.find(FooterGray)).toHaveLength(0);
+    expect(wrapper.find('.footer-gray')).toHaveLength(0);
+  });
+
+  it('does not display the normal elements', () => {
+    expect(wrapper.find('div#app')).toHaveLength(0);
   });
 });
 
@@ -97,14 +118,34 @@ describe('when pathname is /verify', () => {
     useLocation: () => ({pathname: "/verify"})
   }));
 
-  wrapper = mount(<MemoryRouter><App {...beginProps} /></MemoryRouter>);
+  const wrapper = render(
+    <Provider store={store}>
+      <MemoryRouter>
+        <SearchProvider config={{}}>
+          <App {...beginProps} />
+        </SearchProvider>
+      </MemoryRouter>
+    </Provider>
+  );
+
+  it('does not display a MobileHeaderRed component', () => {
+    expect(wrapper.find('.mobile-header-red')).toHaveLength(0);
+  });
 
   it('does not display a HeaderRed component', () => {
-    expect(wrapper.find(HeaderRed)).toHaveLength(0);
+    expect(wrapper.find('.header-red')).toHaveLength(0);
+  });
+
+  it('does not display a MainWhite component', () => {
+    expect(wrapper.find('.main-white')).toHaveLength(0);
   });
 
   it('does not display a FooterGray component', () => {
-    expect(wrapper.find(FooterGray)).toHaveLength(0);
+    expect(wrapper.find('.footer-gray')).toHaveLength(0);
+  });
+
+  it('does not display the normal elements', () => {
+    expect(wrapper.find('div#app')).toHaveLength(0);
   });
 });
 
@@ -114,13 +155,33 @@ describe('when pathname is /login', () => {
     useLocation: () => ({pathname: "/login"})
   }));
 
-  wrapper = mount(<MemoryRouter><App {...beginProps} /></MemoryRouter>);
+  const wrapper = render(
+    <Provider store={store}>
+      <MemoryRouter>
+        <SearchProvider config={{}}>
+          <App {...beginProps} />
+        </SearchProvider>
+      </MemoryRouter>
+    </Provider>
+  );
+
+  it('does not display a MobileHeaderRed component', () => {
+    expect(wrapper.find('.mobile-header-red')).toHaveLength(0);
+  });
 
   it('does not display a HeaderRed component', () => {
-    expect(wrapper.find(HeaderRed)).toHaveLength(0);
+    expect(wrapper.find('.header-red')).toHaveLength(0);
+  });
+
+  it('does not display a MainWhite component', () => {
+    expect(wrapper.find('.main-white')).toHaveLength(0);
   });
 
   it('does not display a FooterGray component', () => {
-    expect(wrapper.find(FooterGray)).toHaveLength(0);
+    expect(wrapper.find('.footer-gray')).toHaveLength(0);
   });
-});*/
+
+  it('does not display the normal elements', () => {
+    expect(wrapper.find('div#app')).toHaveLength(0);
+  });
+});
