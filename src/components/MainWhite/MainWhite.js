@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { Breadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
 
 import './mainWhite.css';
 
-export const MainWhite = ({ location, theme, shadow, children }) => {
+const MainWhite = ({ location, theme, shadow, children }) => {
   // so that breadcrumbs aren't displayed at all on the home page:
   let isHome = location.pathname.match(/^\/$/);
 
@@ -58,11 +57,6 @@ export const MainWhite = ({ location, theme, shadow, children }) => {
       {children}
     </main>
   );
-}
+};
 
-const mapStateToProps = state => ({
-  shadow: state.menu.shadow,
-  theme: state.theme.mainTheme
-});
-
-export default connect(mapStateToProps)(MainWhite);
+export default MainWhite;

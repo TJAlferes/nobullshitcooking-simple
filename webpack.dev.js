@@ -9,7 +9,6 @@ module.exports = {
   mode: 'development',
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    //contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
     overlay: {warnings: true, errors: true},
     proxy: {
@@ -23,7 +22,6 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map', // or cheap-module-source-map ?
   entry: './src/index.js',
-  //entry: './src/devServer/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -37,6 +35,11 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        loader: "ts-loader"
       },
       {
         test: /\.(scss|css)$/,
@@ -66,8 +69,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: __dirname + '/public/index.html',
       filename: 'index.html',
-      inject: 'body',
-      //favicon: "./src/nobsc-normal-favicon.png"
+      inject: 'body'
     }),
     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 7}),
     //new BundleAnalyzerPlugin({generateStatsFile: true})

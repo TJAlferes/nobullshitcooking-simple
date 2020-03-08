@@ -11,6 +11,12 @@
     "test": "jest --color"
   },
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "babelConfig": true
+      }
+    },
+    "preset": "ts-jest/presets/js-with-babel",
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|scss|sass|less)$": "identity-obj-proxy"
@@ -18,6 +24,10 @@
     "setupFilesAfterEnv": [
       "jest-enzyme"
     ],
+    "transform": {
+      "^.+\\.[t]sx?$": "ts-jest",
+      "^.+\\.[j]sx?$": "babel-jest"
+    },
     "testEnvironment": "enzyme",
     "testEnvironmentOptions": {
       "enzymeAdapter": "react16"
@@ -42,7 +52,7 @@
     "@types/react-dom": "^16.9.5",
     "autoprefixer": "^8.6.5",
     "axios-mock-adapter": "^1.17.0",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
     "brotli-webpack-plugin": "^1.1.0",
     "core-js": "^3.6.4",

@@ -14,11 +14,15 @@ import './app.css';
 export interface AppProps {
   headerTheme: string;
   footerTheme: string;
+  mainTheme: string;
+  shadow: boolean;
 }
 
 export const App = ({
   headerTheme,
-  footerTheme
+  footerTheme,
+  mainTheme,
+  shadow
 }: AppProps): JSX.Element => {
   const location = useLocation();
 
@@ -41,7 +45,7 @@ export const App = ({
           <HeaderRed theme={headerTheme} />
         </div>
       </div>
-      <MainWhite location={location}>
+      <MainWhite location={location} theme={mainTheme} shadow={shadow}>
         <RoutesList />
       </MainWhite>
       <FooterGray theme={footerTheme} />
@@ -51,7 +55,9 @@ export const App = ({
 
 const mapStateToProps = state => ({
   headerTheme: state.theme.headerTheme,
-  footerTheme: state.theme.footerTheme
+  footerTheme: state.theme.footerTheme,
+  mainTheme: state.theme.mainTheme,
+  shadow: state.menu.shadow
 });
 
 export default connect(mapStateToProps)(App);
