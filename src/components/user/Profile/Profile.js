@@ -45,13 +45,11 @@ export const Profile = ({
     const { username } = match.params;
 
     if (!username) {
-      console.log('HERE');
       history.push('/home');
       return;
     }
 
     if ((username.length < 6) || (username.length > 20)) {
-      //console.log('HERE');
       history.push('/home');
       return;
     }

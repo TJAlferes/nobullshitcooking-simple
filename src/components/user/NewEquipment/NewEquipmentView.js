@@ -39,10 +39,14 @@ const NewEquipmentView = ({
 
     <div>
       <span>
+        <Link to="/home">Home</Link>
+        <i> > </i>
+      </span>
+      <span>
         <Link to="/dashboard">Dashboard</Link>
         <i> > </i>
       </span>
-      <Link to="/user-equipment/submit">Create New Private Equipment</Link>
+      <span>Create New Private Equipment</span>
     </div>
 
     <div className={`new-equipment one-column-a ${oneColumnATheme}`}>
@@ -51,7 +55,7 @@ const NewEquipmentView = ({
         {editing ? 'Edit Private Equipment' : 'Create New Private Equipment'}
       </h1>
 
-      <p className="new-equipment__error-message">{feedback}</p>
+      <p className="new-equipment__feedback">{feedback}</p>
 
       <h2 className="new-equipment__heading-two">Type of Equipment</h2>
       <select

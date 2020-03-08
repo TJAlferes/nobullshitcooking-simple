@@ -123,110 +123,126 @@ const NewPlanView = ({
   );
 
   return (
-    <div className={`new-plan two-column-a ${twoColumnATheme}`}> 
+    <div className="new-plan-view">
 
-      <LeftNav />
+      <div>
+        <span>
+          <Link to="/home">Home</Link>
+          <i> > </i>
+        </span>
+        <span>
+          <Link to="/dashboard">Dashboard</Link>
+          <i> > </i>
+        </span>
+        <span>{editing ? 'Edit Plan' : 'Create New Plan'}</span>
+      </div>
 
-      <section>
+      <div className={`new-plan two-column-a ${twoColumnATheme}`}> 
 
-        <div className="new-plan__heading">
-          <h1>{editing ? 'Edit Plan' : 'Create New Plan'}</h1>
-          <p className="new-plan__feedback">{feedback}</p>
-          <div className="new-plan__name">
-            <label className="new-plan__name-label">Plan Name:</label>
-            <input
-              className="new-plan__name-input"
-              type="text"
-              onChange={handlePlanNameChange}
-              value={planName}
+        <LeftNav />
+
+        <section>
+
+          <div className="new-plan__heading">
+            <h1>{editing ? 'Edit Plan' : 'Create New Plan'}</h1>
+            <p className="new-plan__feedback">{feedback}</p>
+            <div className="new-plan__name">
+              <label className="new-plan__name-label">Plan Name:</label>
+              <input
+                className="new-plan__name-input"
+                type="text"
+                onChange={handlePlanNameChange}
+                value={planName}
+              />
+            </div>
+          </div>
+
+          <hr className="new-plan__hr" />
+
+          <div className="new-plan__calendar-container">
+
+            {memoizedMonthlyPlan}
+
+            <div className="planner-recipes-list-tabs">
+              <TabButton tabName="official" displayText="All Official" />
+              <TabButton tabName="private" displayText="My Private" />
+              <TabButton tabName="public" displayText="My Public" />
+              <TabButton tabName="favorite" displayText="My Favorite" />
+              <TabButton tabName="saved" displayText="My Saved" />
+            </div>
+
+            {memoizedRecipesLists}
+
+          </div>
+
+          <div>
+            <ExpandCollapse>
+              <div>
+                <p>- To add a recipe to your plan, drag it from the recipe list and drop it on a day</p>
+                <p>- To use the same recipe more than once, simply drag from the recipe list again</p>
+                <p>- To remove a recipe from your plan, drag and drop it back into the recipe list</p>
+                <br />
+                <p>Tip: Remember that you can make multiple plans.</p>
+                <br />
+                <p>- To move a recipe to a different day, drag it from its current day and drop it on your desired day</p>
+                <p>- Click on a day to expand it</p>
+                <p>- While a day is expanded, you may reorder its recipes by dragging them up or down</p>
+                <br />
+                <p>Tip: You don't have to cook every day, especially when just starting out. It's best to make a plan you can follow through on.</p>
+                <br />
+              </div>
+            </ExpandCollapse>
+          </div>
+
+          <div className="planner-finish-area">
+            <button className="planner-cancel-button" onClick={activateModal}>
+              Cancel
+            </button>
+            {
+              modalActive
+              ? (
+                <AriaModal
+                  dialogClass="planner-cancel-modal"
+                  titleText="Cancel?"
+                  onExit={deactivateModal}
+                  focusDialog="true"
+                  getApplicationNode={getApplicationNode}
+                  focusTrapOptions={{returnFocusOnDeactivate: false}}
+                  underlayClickExits={false}
+                >
+                  <p className="planner-cancel-prompt">
+                    Cancel new plan? Changes will not be saved.
+                  </p>
+                  <button
+                    className="planner-cancel-cancel-button"
+                    onClick={deactivateModal}
+                  >
+                    No, Keep Working
+                  </button>
+                  <button
+                    className="planner-cancel-button"
+                    onClick={discardChanges}
+                  >
+                    Yes, Discard Changes
+                  </button>
+                </AriaModal>
+              )
+              : false
+            }
+            <LoaderButton
+              className="planner-submit-button"
+              type="button"
+              name="submit"
+              text="Save Plan"
+              loadingText="Saving Plan..."
+              isLoading={loading}
+              onClick={handleSubmit}
             />
           </div>
-        </div>
 
-        <hr className="new-plan__hr" />
+        </section>
 
-        <div className="new-plan__calendar-container">
-
-          {memoizedMonthlyPlan}
-
-          <div className="planner-recipes-list-tabs">
-            <TabButton tabName="official" displayText="All Official" />
-            <TabButton tabName="private" displayText="My Private" />
-            <TabButton tabName="public" displayText="My Public" />
-            <TabButton tabName="favorite" displayText="My Favorite" />
-            <TabButton tabName="saved" displayText="My Saved" />
-          </div>
-
-          {memoizedRecipesLists}
-
-        </div>
-
-        <div>
-          <ExpandCollapse>
-            <div>
-              <p>- To add a recipe to your plan, drag it from the recipe list and drop it on a day</p>
-              <p>- To use the same recipe more than once, simply drag from the recipe list again</p>
-              <p>- To remove a recipe from your plan, drag and drop it back into the recipe list</p>
-              <br />
-              <p>Tip: Remember that you can make multiple plans.</p>
-              <br />
-              <p>- To move a recipe to a different day, drag it from its current day and drop it on your desired day</p>
-              <p>- Click on a day to expand it</p>
-              <p>- While a day is expanded, you may reorder its recipes by dragging them up or down</p>
-              <br />
-              <p>Tip: You don't have to cook every day, especially when just starting out. It's best to make a plan you can follow through on.</p>
-              <br />
-            </div>
-          </ExpandCollapse>
-        </div>
-
-        <div className="planner-finish-area">
-          <button className="planner-cancel-button" onClick={activateModal}>
-            Cancel
-          </button>
-          {
-            modalActive
-            ? (
-              <AriaModal
-                dialogClass="planner-cancel-modal"
-                titleText="Cancel?"
-                onExit={deactivateModal}
-                focusDialog="true"
-                getApplicationNode={getApplicationNode}
-                focusTrapOptions={{returnFocusOnDeactivate: false}}
-                underlayClickExits={false}
-              >
-                <p className="planner-cancel-prompt">
-                  Cancel new plan? Changes will not be saved.
-                </p>
-                <button
-                  className="planner-cancel-cancel-button"
-                  onClick={deactivateModal}
-                >
-                  No, Keep Working
-                </button>
-                <button
-                  className="planner-cancel-button"
-                  onClick={discardChanges}
-                >
-                  Yes, Discard Changes
-                </button>
-              </AriaModal>
-            )
-            : false
-          }
-          <LoaderButton
-            className="planner-submit-button"
-            type="button"
-            name="submit"
-            text="Save Plan"
-            loadingText="Saving Plan..."
-            isLoading={loading}
-            onClick={handleSubmit}
-          />
-        </div>
-
-      </section>
+      </div>
 
     </div>
   );

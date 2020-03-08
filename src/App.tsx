@@ -11,7 +11,15 @@ import RoutesList from './routing/Routes';
 
 import './app.css';
 
-export const App = ({ headerTheme, footerTheme }) => {
+export interface AppProps {
+  headerTheme: string;
+  footerTheme: string;
+}
+
+export const App = ({
+  headerTheme,
+  footerTheme
+}: AppProps): JSX.Element => {
   const location = useLocation();
 
   const userIsAtAuthPage = location.pathname &&
