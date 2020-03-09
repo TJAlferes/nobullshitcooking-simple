@@ -4,11 +4,17 @@ import ExpandCollapseView from './ExpandCollapseView';
 
 import './expandCollapse.css';
 
+interface ExpandCollapseProps {
+  children: any;
+  headingWhileCollapsed: string;
+  headingWhileExpanded: string;
+}
+
 const ExpandCollapse = ({
   children,
   headingWhileCollapsed,
   headingWhileExpanded
-}) => {
+}: ExpandCollapseProps): JSX.Element => {
   const [ expanded, setExpanded ] = useState(false);
 
   const toggle = () => setExpanded(prevState => !prevState);

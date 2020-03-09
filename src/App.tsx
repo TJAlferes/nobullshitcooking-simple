@@ -31,7 +31,7 @@ export const App = ({
 
   return userIsAtAuthPage
   ? (
-    <div data-test="auth-page">
+    <div>
       <RoutesList />
     </div>
   ) : (

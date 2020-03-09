@@ -44,6 +44,7 @@ describe('App', () => {
     ...jest.requireActual('react-router-dom'),
     useLocation: () => ({pathname: "/"})
   }));
+  
   const wrapper = mount(
     <Provider store={store}>
       <MemoryRouter>

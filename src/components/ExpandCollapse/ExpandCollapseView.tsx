@@ -1,12 +1,20 @@
 import React from 'react';
 
+interface ExpandCollapseViewProps {
+  children: object;
+  expanded: boolean;
+  toggle(): void;
+  headingWhenCollapsed: string;
+  headingWhenExpanded: string;
+}
+
 const ExpandCollapseView = ({
   children,
   expanded,
   toggle,
   headingWhenCollapsed,
   headingWhenExpanded
-}) => (
+}: ExpandCollapseViewProps): JSX.Element => (
   <div className="expand-collapse">
     {
       !expanded
