@@ -1,47 +1,48 @@
 import React from 'react';
+import PropTypes, { InferProps } from "prop-types";
 
-interface ExpandCollapseViewProps {
-  children: object;
-  expanded: boolean;
-  toggle(): void;
-  headingWhenCollapsed: string;
-  headingWhenExpanded: string;
-}
-
-const ExpandCollapseView = ({
+export default function ExpandCollapseView({
   children,
   expanded,
   toggle,
-  headingWhenCollapsed,
-  headingWhenExpanded
-}: ExpandCollapseViewProps): JSX.Element => (
-  <div className="expand-collapse">
-    {
-      !expanded
-      ? (
-        <div
-          className="expand-collapse-heading"
-          onClick={toggle}
-          data-test="expand"
-        >
-          {headingWhenCollapsed}
-        </div>
-      )
-      : (
-        <div>
+  headingWhileCollapsed,
+  headingWhileExpanded
+}: InferProps<typeof ExpandCollapseView.propTypes>): JSX.Element {
+  return (
+    <div className="expand-collapse">
+      {
+        !expanded
+        ? (
           <div
             className="expand-collapse-heading"
             onClick={toggle}
-            data-test="collapse"
+            data-test="expand"
           >
-            {headingWhenExpanded}
+            {headingWhileCollapsed}
           </div>
-          <br />
-          {children}
-        </div>
-      )
-    }
-  </div>
-);
+        )
+        : (
+          <div>
+            <div
+              className="expand-collapse-heading"
+              onClick={toggle}
+              data-test="collapse"
+            >
+              {headingWhileExpanded}
+            </div>
+            <br />
+            {children}
+          </div>
+        )
+      }
+    </div>
+  );
+}
 
-export default ExpandCollapseView;
+ExpandCollapseView.propTypes = {
+  children: PropTypes.element.isRequired,
+  expanded: PropTypes.bool.isRequired,
+  toggle: PropTypes.func.isRequired,
+  headingWhileCollapsed: PropTypes.string,
+  headingWhileExpanded: PropTypes.string
+};

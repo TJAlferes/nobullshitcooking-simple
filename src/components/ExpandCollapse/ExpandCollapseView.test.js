@@ -12,8 +12,8 @@ describe('ExpandCollapseView', () => {
         children="Howdy!"
         expanded={false}
         toggle={toggle}
-        headingWhenCollapsed="Click Here To Expand"
-        headingWhenExpanded="Click Here To Collapse"
+        headingWhileCollapsed="Click Here To Expand"
+        headingWhileExpanded="Click Here To Collapse"
       />
     );
 
@@ -31,8 +31,8 @@ describe('ExpandCollapseView', () => {
         children="Howdy!"
         expanded={true}
         toggle={toggle}
-        headingWhenCollapsed="Click Here To Expand"
-        headingWhenExpanded="Click Here To Collapse"
+        headingWhileCollapsed="Click Here To Expand"
+        headingWhileExpanded="Click Here To Collapse"
       />
     );
 
