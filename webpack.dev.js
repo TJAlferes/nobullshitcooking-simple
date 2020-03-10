@@ -20,7 +20,8 @@ module.exports = {
       }
     }
   },
-  devtool: 'cheap-module-eval-source-map', // or cheap-module-source-map ?
+  //devtool: 'cheap-module-eval-source-map', // or cheap-module-source-map ?
+  devtool: 'source-map',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -28,7 +29,7 @@ module.exports = {
     chunkFilename: '[id].js',
     publicPath: '/'
   },
-  resolve: {extensions: ['.js', '.jsx']},
+  resolve: {extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss']},
   module: {
     rules: [
       {
@@ -46,7 +47,6 @@ module.exports = {
         use: [
           {loader: 'style-loader'},
           {loader: 'css-loader', options: {importLoaders: 1}},
-          //{loader: 'sass-loader'},
           {
             loader: 'postcss-loader',
             options: {
