@@ -1,21 +1,38 @@
 import React from 'react';
+import PropTypes, { InferProps } from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
+
+import { RootState } from '../../store/reducers/index';
 
 import './leftNav.css';
 
-export const LeftNav = ({ theme, isAuthenticated, authname }) => {
+export function LeftNav({
+  theme,
+  isAuthenticated,
+  authname
+}: InferProps<typeof LeftNav.propTypes>): JSX.Element {
   const backgroundColor = (theme === "left-nav-light") ? "#ddd" : "#444";
 
-  const LeftNavLink = ({ to, text }) => (
-    <NavLink
-      className="left-nav-link"
-      activeStyle={{backgroundColor}}
-      to={to}
-    >
-      {`${text}`}
-    </NavLink>
-  );
+  function LeftNavLink({
+    to,
+    text
+  }: InferProps<typeof LeftNavLink.propTypes>): JSX.Element {
+    return (
+      <NavLink
+        className="left-nav-link"
+        activeStyle={{backgroundColor}}
+        to={to}
+      >
+        {`${text}`}
+      </NavLink>
+    );
+  }
+
+  LeftNavLink.propTypes = {
+    to: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
+  };
 
   return (
     <nav className={`left-nav ${theme}`}>
@@ -53,10 +70,22 @@ export const LeftNav = ({ theme, isAuthenticated, authname }) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   authname: state.auth.authname,
   isAuthenticated: state.auth.isAuthenticated,
   theme: state.theme.leftNavTheme
 });
+
+LeftNav.propTypes = {
+  authname: PropTypes.string.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  theme: PropTypes.string.isRequired
+};
+
+//const connector = connect(mapStateToProps);
+
+//type PropsFromRedux = ConnectedProps<typeof connector>;
+
+//export default connector(LeftNav);
 
 export default connect(mapStateToProps)(LeftNav);

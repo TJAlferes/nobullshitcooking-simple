@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { InferProps } from "prop-types";
+import PropTypes, { InferProps } from 'prop-types';
 
 export default function ExpandCollapseView({
   children,
