@@ -31,8 +31,16 @@ const beforeState = {
 
 describe('the auth reducer', () => {
   it('returns initial state', () => {
-    const actual = authReducer(undefined, {});
-    const expected = initialState;
+    const actual = authReducer(undefined, {
+      type: AUTH_USER_REGISTER_SUCCEEDED,
+      message: 'Registration successful.'
+    });
+    const expected = {
+      message: 'Registration successful.',
+      isAuthenticated: false,
+      authname: '',
+      avatar: ''
+    };
     expect(actual).toEqual(expected);
   });
 

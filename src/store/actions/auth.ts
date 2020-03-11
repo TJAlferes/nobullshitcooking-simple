@@ -24,24 +24,19 @@ import {
   AUTH_USER_LOGOUT_FAILED
 } from './actionTypes';
 
-import { AuthActions } from '../types/auth';
-
-export const authDisplay = (
-  authname: string,
-  avatar: string
-): AuthActions => ({
+export const authDisplay = (authname: string, avatar: string) => ({
   type: AUTH_DISPLAY,
   authname,
   avatar
 });
 
-export const authReset = (): AuthActions => ({type: AUTH_RESET});
+export const authReset = () => ({type: AUTH_RESET});
 
-export const authCheckState = (): AuthActions => ({type: AUTH_CHECK_STATE});
+export const authCheckState = () => ({type: AUTH_CHECK_STATE});
 
-export const authMessageClear = (): AuthActions => ({type: AUTH_MESSAGE_CLEAR});
+export const authMessageClear = () => ({type: AUTH_MESSAGE_CLEAR});
 
-export const authUpdateLocalAvatar = (avatar: string): AuthActions => ({
+export const authUpdateLocalAvatar = (avatar: string) => ({
   type: AUTH_UPDATE_LOCAL_AVATAR,
   avatar
 });
@@ -51,7 +46,7 @@ export const authUserRegister = (
   password: string,
   username: string,
   history: {}
-): AuthActions => ({
+) => ({
   type: AUTH_USER_REGISTER,
   email,
   password,
@@ -59,12 +54,12 @@ export const authUserRegister = (
   history
 });
 
-export const authUserRegisterSucceeded = (message: string): AuthActions => ({
+export const authUserRegisterSucceeded = (message: string) => ({
   type: AUTH_USER_REGISTER_SUCCEEDED,
   message
 });
 
-export const authUserRegisterFailed = (message: string): AuthActions => ({
+export const authUserRegisterFailed = (message: string) => ({
   type: AUTH_USER_REGISTER_FAILED,
   message
 });
@@ -73,8 +68,8 @@ export const authUserVerify = (
   email: string,
   password: string,
   confirmationCode: string,
-  history: string
-): AuthActions => ({
+  history: {}
+) => ({
   type: AUTH_USER_VERIFY,
   email,
   password,
@@ -82,12 +77,12 @@ export const authUserVerify = (
   history
 });
 
-export const authUserVerifySucceeded = (message: string): AuthActions => ({
+export const authUserVerifySucceeded = (message: string) => ({
   type: AUTH_USER_VERIFY_SUCCEEDED,
   message
 });
 
-export const authUserVerifyFailed = (message: string): AuthActions => ({
+export const authUserVerifyFailed = (message: string) => ({
   type: AUTH_USER_VERIFY_FAILED,
   message
 });
@@ -104,33 +99,30 @@ export const authUserVerifyFailed = (message: string): AuthActions => ({
 
 //export const authGoogleLogout = () => ({type: AUTH_GOOGLE_LOGOUT});
 
-export const authUserLogin = (
-  email: string,
-  password: string
-): AuthActions => ({
+export const authUserLogin = (email: string, password: string) => ({
   type: AUTH_USER_LOGIN,
   email,
   password
 });
 
-export const authUserLoginSucceeded = (message: string): AuthActions => ({
+export const authUserLoginSucceeded = (message: string) => ({
   type: AUTH_USER_LOGIN_SUCCEEDED,
   message
 });
 
-export const authUserLoginFailed = (message: string): AuthActions => ({
+export const authUserLoginFailed = (message: string) => ({
   type: AUTH_USER_LOGIN_FAILED,
   message
 });
 
-export const authUserLogout = (): AuthActions => ({type: AUTH_USER_LOGOUT});
+export const authUserLogout = () => ({type: AUTH_USER_LOGOUT});
 
-export const authUserLogoutSucceeded = (message: string): AuthActions => ({
+export const authUserLogoutSucceeded = (message: string) => ({
   type: AUTH_USER_LOGOUT_SUCCEEDED,
   message
 });
 
-export const authUserLogoutFailed = (message: string): AuthActions => ({
+export const authUserLogoutFailed = (message: string) => ({
   type: AUTH_USER_LOGOUT_FAILED,
   message
 });

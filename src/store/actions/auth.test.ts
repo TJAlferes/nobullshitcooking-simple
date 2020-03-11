@@ -34,7 +34,7 @@ describe('authDisplay action creator', () => {
 
 describe('authUpdateLocalAvatar action creator', () => {
   it('returns the correct action type', () => {
-    const actual = authUpdateLocalAvatar().type;
+    const actual = authUpdateLocalAvatar('Leeroy').type;
     const expected = AUTH_UPDATE_LOCAL_AVATAR;
     expect(actual).toEqual(expected);
   });
@@ -90,7 +90,7 @@ describe('authUserRegister action creator', () => {
 
 describe('authUserVerify action creator', () => {
   it('returns the correct action type', () => {
-    const actual = auth(
+    const actual = authUserVerify(
       'coolperson@coolplace.com',
       'supersecret',
       'SOMERANDOMCODE',

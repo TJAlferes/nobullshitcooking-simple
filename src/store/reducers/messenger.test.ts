@@ -289,9 +289,14 @@ describe('the messenger reducer', () => {
         },
         {
           chatMessageId: 'admin' + clientTimeStr,
-          ts: `${clientTimeStr}`,
           chatMessageText: "Bubbles has joined the room.",
-          user: {username: "messengerstatus"}
+          room: "GrillNChill",
+          user: {
+            userId: 'messengerstatus',
+            username: "messengerstatus",
+            avatar: 'messengerstatus'
+          },
+          ts: `${clientTimeStr}`,
         }
       ],
       users: [
@@ -366,9 +371,14 @@ describe('the messenger reducer', () => {
         },
         {
           chatMessageId: 'admin' + clientTimeStr,
-          ts: `${clientTimeStr}`,
           chatMessageText: `Jane888 has left the room.`,
-          user: {username: "messengerstatus"}
+          room: "GrillNChill",
+          user: {
+            userId: 'messengerstatus',
+            username: "messengerstatus",
+            avatar: 'messengerstatus'
+          },
+          ts: `${clientTimeStr}`,
         }
       ],
       users: [
@@ -524,9 +534,14 @@ describe('the messenger reducer', () => {
       messages: [
         {
           whisperId: 'admin' + clientTimeStr,
-          ts: `${clientTimeStr}`,
           whisperText: 'User not found.',
-          user: {username: "messengerstatus"}
+          to: '',
+          user: {
+            userId: 'messengerstatus',
+            username: "messengerstatus",
+            avatar: 'messengerstatus'
+          },
+          ts: `${clientTimeStr}`,
         }
       ],
       users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],

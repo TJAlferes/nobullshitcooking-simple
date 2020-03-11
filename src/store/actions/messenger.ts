@@ -18,21 +18,21 @@ import {
   MESSENGER_FAILED_WHISPER
 } from './actionTypes';
 
-import { Message, Whisper, User, MessengerActions } from '../types/messenger';
+import { Message, Whisper, User } from '../types/messenger';
 
-export const messengerConnect = (): MessengerActions => ({
+export const messengerConnect = () => ({
   type: MESSENGER_CONNECT
 });
 
-export const messengerConnected = (): MessengerActions => ({
+export const messengerConnected = () => ({
   type: MESSENGER_CONNECTED
 });
 
-export const messengerDisconnect = (): MessengerActions => ({
+export const messengerDisconnect = () => ({
   type: MESSENGER_DISCONNECT
 });
 
-export const messengerDisconnected = (): MessengerActions => ({
+export const messengerDisconnected = () => ({
   type: MESSENGER_DISCONNECTED
 });
 
@@ -59,7 +59,7 @@ export const messengerChangeChannel = (channel: string) => ({
 export const messengerChangedChannel = (
   users: User[],
   channel: string
-): MessengerActions => ({
+) => ({
   type: MESSENGER_CHANGED_CHANNEL,
   users,
   channel
@@ -68,7 +68,7 @@ export const messengerChangedChannel = (
 export const messengerRejoinedChannel = (
   users: User[],
   channel: string
-): MessengerActions => ({
+) => ({
   type: MESSENGER_REJOINED_CHANNEL,
   users,
   channel
@@ -99,7 +99,7 @@ export const messengerSendMessage = (message: string) => ({
 
 export const messengerReceivedMessage = (
   message: Message
-): MessengerActions => {
+) => {
   const ts = `${(new Date).toLocaleTimeString()}`;
   return {
     type: MESSENGER_RECEIVED_MESSAGE,
@@ -111,7 +111,7 @@ export const messengerReceivedMessage = (
 export const messengerSendWhisper = (
   whisper: string,
   to: string
-): MessengerActions => ({
+) => ({
   type: MESSENGER_SEND_WHISPER,
   whisper,
   to
