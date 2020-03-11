@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes, { InferProps } from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { connect, ConnectedProps } from 'react-redux';
+import { connect } from 'react-redux';
+//import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../store/reducers/index';
 

@@ -21,7 +21,27 @@ import {
   MESSENGER_FAILED_WHISPER
 } from './actionTypes';
 
+export type MessengerActions =
+MessengerConnect |
+MessengerConnected |
+MessengerDisconnect |
+MessengerDisconnected;
 
+interface MessengerConnect {
+  type: typeof MESSENGER_CONNECT
+}
+
+interface MessengerConnected {
+  type: typeof MESSENGER_CONNECTED
+}
+
+interface MessengerDisconnect {
+  type: typeof MESSENGER_DISCONNECT
+}
+
+interface MessengerDisconnected {
+  type: typeof MESSENGER_DISCONNECTED
+}
 
 export const messengerConnect = () => ({type: MESSENGER_CONNECT});
 

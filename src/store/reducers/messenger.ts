@@ -14,10 +14,14 @@ import {
   MESSENGER_GET_ONLINE
 } from '../actions/actionTypes';
 
+import { MessengerActions } from '../actions/messenger';
+
+import { MessengerState } from '../types/messenger';
+
 // NORMALIZE STATE, USE OBJECTS/MAPS, NOT ARRAYS
 // remember Nir Kofman's actions patterns (maybe)
 
-const initialState = {
+const initialState: MessengerState = {
   channel: "",
   messages: [],
   users: [],
@@ -27,7 +31,7 @@ const initialState = {
   disconnectButtonDisabled: true,
 };
 
-const connected = (state, action) => ({
+const connected = (state: MessengerState, action) => ({
   ...state,
   ...{
     status: "Connected",
@@ -36,7 +40,7 @@ const connected = (state, action) => ({
   }
 });
 
-const disconnected = (state, action) => ({
+const disconnected = (state: MessengerState, action) => ({
   ...state,
   ...{
     status: "Disconnected",
@@ -45,19 +49,19 @@ const disconnected = (state, action) => ({
   }
 });
 
-const showOnline = (state, action) => ({
+const showOnline = (state: MessengerState, action) => ({
   ...state,
   ...{onlineFriends: state.onlineFriends.concat(action.user)}
 });
 
-const showOffline = (state, action) => ({
+const showOffline = (state: MessengerState, action) => ({
   ...state,
   ...{
     onlineFriends: state.onlineFriends.filter(friend => friend.userId !== action.user.userId)
   }
 });
 
-const changedChannel = (state, action) => ({
+const changedChannel = (state: MessengerState, action) => ({
   ...state,
   ...{
     channel: action.channel,
@@ -66,7 +70,7 @@ const changedChannel = (state, action) => ({
   }
 });
 
-const rejoinedChannel = (state, action) => ({
+const rejoinedChannel = (state: MessengerState, action) => ({
   ...state,
   ...{
     channel: action.channel,
@@ -74,7 +78,7 @@ const rejoinedChannel = (state, action) => ({
   }
 });
 
-const joinedUser = (state, action) => ({
+const joinedUser = (state: MessengerState, action) => ({
   ...state,
   ...{
     messages: state.messages.concat({
@@ -87,7 +91,7 @@ const joinedUser = (state, action) => ({
   }
 });
 
-const leftUser = (state, action) => ({
+const leftUser = (state: MessengerState, action) => ({
   ...state,
   ...{
     messages: state.messages.concat({
@@ -100,7 +104,7 @@ const leftUser = (state, action) => ({
   }
 });
 
-const receivedMessage = (state, action) => {
+const receivedMessage = (state: MessengerState, action) => {
   action.message.ts = action.ts;
   return {
     ...state,
@@ -108,7 +112,7 @@ const receivedMessage = (state, action) => {
   };
 };
 
-const receivedWhisper = (state, action) => {
+const receivedWhisper = (state: MessengerState, action) => {
   action.whisper.ts = action.ts;
   return {
     ...state,
@@ -116,7 +120,7 @@ const receivedWhisper = (state, action) => {
   };
 };
 
-const failedWhisper = (state, action) => ({
+const failedWhisper = (state: MessengerState, action) => ({
   ...state,
   ...{
     messages: state.messages.concat({
@@ -128,12 +132,15 @@ const failedWhisper = (state, action) => ({
   }
 });
 
-const getOnline = (state, action) => ({
+const getOnline = (state: MessengerState, action) => ({
   ...state,
   ...{onlineFriends: action.online}
 });
 
-const messengerReducer = (state = initialState, action) => {
+const messengerReducer = (
+  state = initialState,
+  action: MessengerActions
+): MessengerState => {
   switch (action.type) {
     case MESSENGER_CONNECTED: return connected(state, action);
     case MESSENGER_DISCONNECTED: return disconnected(state, action);

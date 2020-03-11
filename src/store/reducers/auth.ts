@@ -14,14 +14,16 @@ import {
   AUTH_USER_LOGOUT
 } from '../actions/actionTypes';
 
-const initialState = {
+import { AuthState, AuthActions } from '../types/auth';
+
+const initialState: AuthState = {
   message: '',
   isAuthenticated: false,
   authname: '',
   avatar: ''
 };
 
-const authMessage = (state, action) => ({
+const authMessage = (state: AuthState, action) => ({
   ...state,
   ...{message: action.message}
 });
@@ -41,7 +43,10 @@ const updateLocalAvatar = (state, action) => ({
   ...{avatar: action.avatar}
 });
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (
+  state = initialState,
+  action: AuthActions
+): AuthState => {
   switch (action.type) {
     case AUTH_USER_LOGIN_SUCCEEDED: return authMessage(state, action);
     case AUTH_USER_LOGIN_FAILED: return authMessage(state, action);
