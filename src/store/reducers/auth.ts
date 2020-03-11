@@ -23,52 +23,48 @@ const initialState: AuthState = {
   avatar: ''
 };
 
-const authMessage = (state: AuthState, action) => ({
-  ...state,
-  ...{message: action.message}
-});
-
-const authMessageClear = (state, action) => ({
-  ...state,
-  ...{message: ''}
-});
-
-const authDisplay = (state, action) => ({
-  ...state,
-  ...{isAuthenticated: true, authname: action.authname, avatar: action.avatar}
-});
-
-const updateLocalAvatar = (state, action) => ({
-  ...state,
-  ...{avatar: action.avatar}
-});
-
 const authReducer = (
   state = initialState,
   action: AuthActions
 ): AuthState => {
   switch (action.type) {
-    case AUTH_USER_LOGIN_SUCCEEDED: return authMessage(state, action);
-    case AUTH_USER_LOGIN_FAILED: return authMessage(state, action);
-
-    case AUTH_USER_LOGOUT_SUCCEEDED: return authMessage(state, action);
-    case AUTH_USER_LOGOUT_FAILED: return authMessage(state, action);
-
-    case AUTH_USER_REGISTER_SUCCEEDED: return authMessage(state, action);
-    case AUTH_USER_REGISTER_FAILED: return authMessage(state, action);
-
-    case AUTH_USER_VERIFY_SUCCEEDED: return authMessage(state, action);
-    case AUTH_USER_VERIFY_FAILED: return authMessage(state, action);
-
-    case AUTH_MESSAGE_CLEAR: return authMessageClear(state, action);
-
-    case AUTH_DISPLAY: return authDisplay(state, action);
-
-    case AUTH_UPDATE_LOCAL_AVATAR: return updateLocalAvatar(state, action);
-
-    case AUTH_RESET: return {...state, ...initialState};
-
-    case AUTH_USER_LOGOUT: return {...state, ...initialState};
+    case AUTH_USER_LOGIN_SUCCEEDED:
+    case AUTH_USER_LOGIN_FAILED:
+    case AUTH_USER_LOGOUT_SUCCEEDED:
+    case AUTH_USER_LOGOUT_FAILED:
+    case AUTH_USER_REGISTER_SUCCEEDED:
+    case AUTH_USER_REGISTER_FAILED:
+    case AUTH_USER_VERIFY_SUCCEEDED:
+    case AUTH_USER_VERIFY_FAILED:
+      return {
+        ...state,
+        ...{message: action.message}
+      };
+    case AUTH_MESSAGE_CLEAR:
+      return {
+        ...state,
+        ...{message: ''}
+      };
+    case AUTH_DISPLAY:
+      return {
+        ...state,
+        ...{
+          isAuthenticated: true,
+          authname: action.authname,
+          avatar: action.avatar
+        }
+      };
+    case AUTH_UPDATE_LOCAL_AVATAR:
+      return {
+        ...state,
+        ...{avatar: action.avatar}
+      };
+    case AUTH_RESET:
+    case AUTH_USER_LOGOUT:
+      return {
+        ...state,
+        ...initialState
+      };
   }
   return state;
 };

@@ -3,17 +3,14 @@ import {
   MESSENGER_CONNECTED,
   MESSENGER_DISCONNECT,
   MESSENGER_DISCONNECTED,
-
   MESSENGER_GET_ONLINE,
   MESSENGER_SHOW_ONLINE,
   MESSENGER_SHOW_OFFLINE,
-
   MESSENGER_CHANGE_CHANNEL,
   MESSENGER_CHANGED_CHANNEL,
   MESSENGER_REJOINED_CHANNEL,
   MESSENGER_JOINED_USER,
   MESSENGER_LEFT_USER,
-
   MESSENGER_SEND_MESSAGE,
   MESSENGER_RECEIVED_MESSAGE,
   MESSENGER_SEND_WHISPER,
@@ -21,92 +18,86 @@ import {
   MESSENGER_FAILED_WHISPER
 } from './actionTypes';
 
-export type MessengerActions =
-MessengerConnect |
-MessengerConnected |
-MessengerDisconnect |
-MessengerDisconnected;
+import { Message, Whisper, User, MessengerActions } from '../types/messenger';
 
-interface MessengerConnect {
-  type: typeof MESSENGER_CONNECT
-}
+export const messengerConnect = (): MessengerActions => ({
+  type: MESSENGER_CONNECT
+});
 
-interface MessengerConnected {
-  type: typeof MESSENGER_CONNECTED
-}
+export const messengerConnected = (): MessengerActions => ({
+  type: MESSENGER_CONNECTED
+});
 
-interface MessengerDisconnect {
-  type: typeof MESSENGER_DISCONNECT
-}
+export const messengerDisconnect = (): MessengerActions => ({
+  type: MESSENGER_DISCONNECT
+});
 
-interface MessengerDisconnected {
-  type: typeof MESSENGER_DISCONNECTED
-}
+export const messengerDisconnected = (): MessengerActions => ({
+  type: MESSENGER_DISCONNECTED
+});
 
-export const messengerConnect = () => ({type: MESSENGER_CONNECT});
-
-export const messengerConnected = () => ({type: MESSENGER_CONNECTED});
-
-export const messengerDisconnect = () => ({type: MESSENGER_DISCONNECT});
-
-export const messengerDisconnected = () => ({type: MESSENGER_DISCONNECTED});
-
-
-
-export const messengerGetOnline = online => ({
+export const messengerGetOnline = (online: User[]) => ({
   type: MESSENGER_GET_ONLINE,
   online
 });
 
-export const messengerShowOnline = user => ({
+export const messengerShowOnline = (user: User) => ({
   type: MESSENGER_SHOW_ONLINE,
   user
 });
 
-export const messengerShowOffline = user => ({
+export const messengerShowOffline = (user: User) => ({
   type: MESSENGER_SHOW_OFFLINE,
   user
 });
 
-
-
-export const messengerChangeChannel = channel => ({
+export const messengerChangeChannel = (channel: string) => ({
   type: MESSENGER_CHANGE_CHANNEL,
   channel
 });
 
-export const messengerChangedChannel = (users, channel) => ({
+export const messengerChangedChannel = (
+  users: User[],
+  channel: string
+): MessengerActions => ({
   type: MESSENGER_CHANGED_CHANNEL,
   users,
   channel
 });
- 
-export const messengerRejoinedChannel = (users, channel) => ({
+
+export const messengerRejoinedChannel = (
+  users: User[],
+  channel: string
+): MessengerActions => ({
   type: MESSENGER_REJOINED_CHANNEL,
   users,
   channel
 });
 
-export const messengerJoinedUser = user => ({
-  type: MESSENGER_JOINED_USER,
-  user,
-  ts: `${(new Date).toLocaleTimeString()}`
-});
+export const messengerJoinedUser = (user: User) => {
+  const ts = `${(new Date).toLocaleTimeString()}`;
+  return {
+    type: MESSENGER_JOINED_USER,
+    user,
+    ts
+  };
+};
 
-export const messengerLeftUser = user => ({
-  type: MESSENGER_LEFT_USER,
-  user,
-  ts: `${(new Date).toLocaleTimeString()}`
-});
+export const messengerLeftUser = (user: User) => {
+  const ts = `${(new Date).toLocaleTimeString()}`;
+  return {
+    type: MESSENGER_LEFT_USER,
+    user,
+    ts
+  };
+};
 
-
-
-export const messengerSendMessage = message => ({
+export const messengerSendMessage = (message: string) => ({
   type: MESSENGER_SEND_MESSAGE,
   message
 });
 
-export const messengerReceivedMessage = message => {
+export const messengerReceivedMessage = (message: Message) => {
   const ts = `${(new Date).toLocaleTimeString()}`;
   return {
     type: MESSENGER_RECEIVED_MESSAGE,
@@ -115,13 +106,16 @@ export const messengerReceivedMessage = message => {
   };
 };
 
-export const messengerSendWhisper = (whisper, to) => ({
+export const messengerSendWhisper = (
+  whisper: string,
+  to: string
+): MessengerActions => ({
   type: MESSENGER_SEND_WHISPER,
   whisper,
   to
 });
 
-export const messengerReceivedWhisper = whisper => {
+export const messengerReceivedWhisper = (whisper: Whisper) => {
   const ts = `${(new Date).toLocaleTimeString()}`;
   return {
     type: MESSENGER_RECEIVED_WHISPER,
@@ -130,8 +124,11 @@ export const messengerReceivedWhisper = whisper => {
   };
 };
 
-export const messengerFailedWhisper = feedback => ({
-  type: MESSENGER_FAILED_WHISPER,
-  feedback,
-  ts: `${(new Date).toLocaleTimeString()}`
-});
+export const messengerFailedWhisper = (feedback: string) => {
+  const ts = `${(new Date).toLocaleTimeString()}`;
+  return {
+    type: MESSENGER_FAILED_WHISPER,
+    feedback,
+    ts
+  };
+};

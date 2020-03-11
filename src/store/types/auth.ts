@@ -52,7 +52,8 @@ AuthUserLogoutFailed;
 
 interface AuthDisplay {
   type: typeof AUTH_DISPLAY
-  
+  authname: string
+  avatar: string
 }
 
 interface AuthReset {
@@ -69,6 +70,7 @@ interface AuthMessageClear {
 
 interface AuthUpdateLocalAvatar {
   type: typeof AUTH_UPDATE_LOCAL_AVATAR
+  avatar: string
 }
 
 interface AuthUserRegister {
@@ -81,34 +83,46 @@ interface AuthUserRegister {
 
 interface AuthUserRegisterSucceeded {
   type: typeof AUTH_USER_REGISTER_SUCCEEDED
+  message: string
 }
 
 interface AuthUserRegisterFailed {
   type: typeof AUTH_USER_REGISTER_FAILED
+  message: string
 }
 
 interface AuthUserVerify {
   type: typeof AUTH_USER_VERIFY
+  email: string
+  password: string
+  confirmationCode: string
+  history: {}
 }
 
 interface AuthUserVerifySucceeded {
   type: typeof AUTH_USER_VERIFY_SUCCEEDED
+  message: string
 }
 
 interface AuthUserVerifyFailed {
   type: typeof AUTH_USER_VERIFY_FAILED
+  message: string
 }
 
 interface AuthUserLogin {
   type: typeof AUTH_USER_LOGIN
+  email: string
+  password: string
 }
 
 interface AuthUserLoginSucceeded {
   type: typeof AUTH_USER_LOGIN_SUCCEEDED
+  message: string
 }
 
 interface AuthUserLoginFailed {
   type: typeof AUTH_USER_LOGIN_FAILED
+  message: string
 }
 
 interface AuthUserLogout {
@@ -117,8 +131,10 @@ interface AuthUserLogout {
 
 interface AuthUserLogoutSucceeded {
   type: typeof AUTH_USER_LOGOUT_SUCCEEDED
+  message: string
 }
 
 interface AuthUserLogoutFailed {
   type: typeof AUTH_USER_LOGOUT_FAILED
+  message: string
 }
