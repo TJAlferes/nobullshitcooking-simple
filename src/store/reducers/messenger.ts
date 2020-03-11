@@ -41,7 +41,7 @@ const receivedMessage = (
   action.message.ts = action.ts;
   return {
     ...state,
-    ...{messages: state.messages.concat(action.message)}
+    messages: state.messages.concat(action.message)
   };
 };
 
@@ -117,9 +117,14 @@ const messengerReducer = (
         ...{
           messages: state.messages.concat({
             chatMessageId: 'admin' + action.ts,
-            ts: action.ts,
             chatMessageText: `${action.user.username} has joined the room.`,
-            user: {username: "messengerstatus"}
+            room: state.channel,
+            user: {
+              userId: 'messengerstatus',
+              username: "messengerstatus",
+              avatar: 'messengerstatus'
+            },
+            ts: action.ts,
           }),
           users: state.users.concat(action.user)
         }
@@ -130,9 +135,14 @@ const messengerReducer = (
         ...{
           messages: state.messages.concat({
             chatMessageId: 'admin' + action.ts,
-            ts: action.ts,
             chatMessageText: `${action.user.username} has left the room.`,
-            user: {username: "messengerstatus"}
+            room: state.channel,
+            user: {
+              userId: 'messengerstatus',
+              username: "messengerstatus",
+              avatar: 'messengerstatus'
+            },
+            ts: action.ts,
           }),
           users: state.users.filter(user => user.userId !== action.user.userId)
         }
@@ -147,9 +157,14 @@ const messengerReducer = (
         ...{
           messages: state.messages.concat({
             whisperId: 'admin' + action.ts,
-            ts: action.ts,
             whisperText: action.feedback,
-            user: {username: "messengerstatus"}
+            to: '',
+            user: {
+              userId: 'messengerstatus',
+              username: "messengerstatus",
+              avatar: 'messengerstatus'
+            },
+            ts: action.ts,
           })
         }
       };

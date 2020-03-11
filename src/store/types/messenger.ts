@@ -1,4 +1,5 @@
 import {
+  AUTH_USER_LOGOUT,
   MESSENGER_CONNECT,
   MESSENGER_CONNECTED,
   MESSENGER_DISCONNECT,
@@ -20,7 +21,7 @@ import {
 
 export interface MessengerState {
   channel: string
-  messages: Message[] | Whisper[]
+  messages: Array<Message | Whisper>
   users: User[]
   onlineFriends: User[]
   status: string
@@ -33,6 +34,7 @@ export interface Message {
   chatMessageText: string
   room: string
   user: User
+  ts: string
 }
 
 export interface Whisper {
@@ -40,6 +42,7 @@ export interface Whisper {
   whisperText: string
   to: string
   user: User
+  ts: string
 }
 
 export interface User {
@@ -49,6 +52,7 @@ export interface User {
 }
 
 export type MessengerActions =
+AuthUserLogout |
 MessengerConnect |
 MessengerConnected |
 MessengerDisconnect |
@@ -66,6 +70,10 @@ MessengerReceivedMessage |
 MessengerSendWhisper |
 MessengerReceivedWhisper |
 MessengerFailedWhisper;
+
+interface AuthUserLogout {
+  type: typeof AUTH_USER_LOGOUT
+}
 
 interface MessengerConnect {
   type: typeof MESSENGER_CONNECT

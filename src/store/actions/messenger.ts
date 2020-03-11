@@ -97,7 +97,9 @@ export const messengerSendMessage = (message: string) => ({
   message
 });
 
-export const messengerReceivedMessage = (message: Message) => {
+export const messengerReceivedMessage = (
+  message: Message
+): MessengerActions => {
   const ts = `${(new Date).toLocaleTimeString()}`;
   return {
     type: MESSENGER_RECEIVED_MESSAGE,
