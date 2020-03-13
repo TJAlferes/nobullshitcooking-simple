@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes, { InferProps } from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-//import { connect, ConnectedProps } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../store/reducers/index';
 
@@ -12,7 +11,7 @@ export function LeftNav({
   theme,
   isAuthenticated,
   authname
-}: InferProps<typeof LeftNav.propTypes>): JSX.Element {
+}: PropsFromRedux): JSX.Element {
   const backgroundColor = (theme === "left-nav-light") ? "#ddd" : "#444";
 
   function LeftNavLink({
@@ -77,16 +76,8 @@ const mapStateToProps = (state: RootState) => ({
   theme: state.theme.leftNavTheme
 });
 
-LeftNav.propTypes = {
-  authname: PropTypes.string.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  theme: PropTypes.string.isRequired
-};
+const connector = connect(mapStateToProps);
 
-//const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-//type PropsFromRedux = ConnectedProps<typeof connector>;
-
-//export default connector(LeftNav);
-
-export default connect(mapStateToProps)(LeftNav);
+export default connector(LeftNav);

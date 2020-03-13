@@ -1,6 +1,14 @@
 import {
   DATA_INIT,
 
+  DATA_GET_POSTS,
+  DATA_GET_POSTS_SUCCEEDED,
+  DATA_GET_POSTS_FAILED,
+
+  DATA_GET_POST_PREVIEWS,
+  DATA_GET_POST_PREVIEWS_SUCCEEDED,
+  DATA_GET_POST_PREVIEWS_FAILED,
+
   DATA_GET_MEASUREMENTS,
   DATA_GET_MEASUREMENTS_SUCCEEDED,
   DATA_GET_MEASUREMENTS_FAILED,
@@ -71,6 +79,28 @@ import {
 } from './actionTypes';
 
 export const dataInit = () => ({type: DATA_INIT});
+
+export const dataGetPosts = (posts) => ({
+  type: DATA_GET_POSTS,
+  posts
+});
+
+export const dataGetPostsSucceeded = () => ({type: DATA_GET_POSTS_SUCCEEDED});
+
+export const dataGetPostsFailed = () => ({type: DATA_GET_POSTS_FAILED});
+
+export const dataGetPostPreviews = (postPreviews) => ({
+  type: DATA_GET_POST_PREVIEWS,
+  postPreviews
+});
+
+export const dataGetPostPreviewsSucceeded = () => ({
+  type: DATA_GET_POST_PREVIEWS_SUCCEEDED
+});
+
+export const dataGetPostPreviewsFailed = () => ({
+  type: DATA_GET_POST_PREVIEWS_FAILED
+});
 
 export const dataGetMeasurements = measurements => ({
   type: DATA_GET_MEASUREMENTS,

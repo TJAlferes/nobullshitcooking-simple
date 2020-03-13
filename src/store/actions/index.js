@@ -29,6 +29,14 @@ export { cartAddItem, cartRemoveItem, cartEmpty } from './cart';
 export {
   dataInit,
 
+  dataGetPosts,
+  dataGetPostsSucceeded,
+  dataGetPostsFailed,
+
+  dataGetPostPreviews,
+  dataGetPostPreviewsSucceeded,
+  dataGetPostPreviewsFailed,
+
   dataGetMeasurements,
   dataGetMeasurementsSucceeded,
   dataGetMeasurementsFailed,
