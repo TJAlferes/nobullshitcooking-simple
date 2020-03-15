@@ -9,7 +9,7 @@ import {
   authUserLoginSaga,
   authUserLogoutSaga,
   authUserRegisterSaga
-} from './auth';
+} from './sagas';
 
 import {
   authMessageClear,
@@ -37,7 +37,7 @@ import {
   //authGoogleCheckState,
   //authGoogleLogin,
   //authGoogleLogout,
-} from '../actions/index';
+} from './actions';
 
 import { removeStorageItem } from '../../utils/storageHelpers';
 

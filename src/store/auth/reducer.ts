@@ -11,10 +11,10 @@ import {
   AUTH_DISPLAY,
   AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_RESET,
-  AUTH_USER_LOGOUT
-} from '../actions/actionTypes';
-
-import { AuthState, AuthActions } from '../types/auth';
+  AUTH_USER_LOGOUT,
+  AuthState,
+  AuthActions
+} from './types';
 
 const initialState: AuthState = {
   message: '',

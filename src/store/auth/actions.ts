@@ -22,7 +22,7 @@ import {
   AUTH_USER_LOGOUT,
   AUTH_USER_LOGOUT_SUCCEEDED,
   AUTH_USER_LOGOUT_FAILED
-} from './actionTypes';
+} from './types';
 
 export const authDisplay = (authname: string, avatar: string) => ({
   type: AUTH_DISPLAY,

@@ -10,9 +10,9 @@ import {
   AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_RESET,
   AUTH_USER_LOGOUT
-} from '../actions/actionTypes';
+} from './types';
 
-import authReducer from './auth';
+import authReducer from './reducer';
 
 const initialState = {
   message: '',

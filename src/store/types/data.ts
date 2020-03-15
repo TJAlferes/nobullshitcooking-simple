@@ -56,11 +56,55 @@ export interface PostPreview {
   snippet: string
 }
 
+export interface Measurements {
+
+}
+
+export interface Equipments {
+
+}
+
+export interface EquipmentTypes {
+
+}
+
+export interface Ingredients {
+
+}
+
+export interface IngredientTypes {
+
+}
+
+export interface Recipes {
+
+}
+
+export interface RecipeTypes {
+
+}
+
+export interface Cuisines {
+
+}
+
+export interface Methods {
+
+}
+
+export interface MyPlans {
+
+}
+
+export interface MyFriendships {
+
+}
+
 export type DataActions =
 DataGetPosts |
 DataGetPostPreviews |
 DataGetMeasurements |
-DataGetEquipment |
+DataGetEquipments |
 DataGetEquipmentTypes |
 DataGetIngredients |
 DataGetIngredientTypes |
@@ -79,23 +123,95 @@ DataGetMyFriendships;
 
 export interface DataGetPosts {
   type: typeof DATA_GET_POSTS
-  posts: 
+  posts: Post[]
 }
-DataGetPostPreviews
-DataGetMeasurements
-DataGetEquipment
-DataGetEquipmentTypes
-DataGetIngredients
-DataGetIngredientTypes
-DataGetRecipes
-DataGetRecipeTypes
-DataGetCuisines
-DataGetMethods
-DataGetMyPublicRecipes
-DataGetMyPrivateEquipments
-DataGetMyPrivateIngredients
-DataGetMyPrivateRecipes
-DataGetMyFavoriteRecipes
-DataGetMySavedRecipes
-DataGetMyPlans
-DataGetMyFriendships
+
+export interface DataGetPostPreviews {
+  type: typeof DATA_GET_POST_PREVIEWS
+
+}
+
+export interface DataGetMeasurements {
+  type: typeof DATA_GET_MEASUREMENTS
+  
+}
+
+export interface DataGetEquipments {
+  type: typeof DATA_GET_EQUIPMENTS
+  
+}
+
+export interface DataGetEquipmentTypes {
+  type: typeof DATA_GET_EQUIPMENT_TYPES
+  
+}
+
+export interface DataGetIngredients {
+  type: typeof DATA_GET_INGREDIENTS
+  
+}
+
+export interface DataGetIngredientTypes {
+  type: typeof DATA_GET_INGREDIENT_TYPES
+  
+}
+
+export interface DataGetRecipes {
+  type: typeof DATA_GET_RECIPES
+  
+}
+
+export interface DataGetRecipeTypes {
+  type: typeof DATA_GET_RECIPE_TYPES
+  
+}
+
+export interface DataGetCuisines {
+  type: typeof DATA_GET_CUISINES
+  
+}
+
+export interface DataGetMethods {
+  type: typeof DATA_GET_METHODS
+  
+}
+
+export interface DataGetMyPublicRecipes {
+  type: typeof DATA_GET_MY_PUBLIC_RECIPES
+  
+}
+
+export interface DataGetMyPrivateEquipments {
+  type: typeof DATA_GET_MY_PRIVATE_EQUIPMENTS
+  
+}
+
+export interface DataGetMyPrivateIngredients {
+  type: typeof DATA_GET_MY_PRIVATE_INGREDIENTS
+  
+}
+
+export interface DataGetMyPrivateRecipes {
+  type: typeof DATA_GET_MY_PRIVATE_RECIPES
+  
+}
+
+export interface DataGetMyFavoriteRecipes {
+  type: typeof DATA_GET_MY_FAVORITE_RECIPES
+  
+}
+
+export interface DataGetMySavedRecipes {
+  type: typeof DATA_GET_MY_SAVED_RECIPES
+  
+}
+
+export interface DataGetMyPlans {
+  type: typeof DATA_GET_MY_PLANS
+  
+}
+
+export interface DataGetMyFriendships {
+  type: typeof DATA_GET_MY_FRIENDSHIPS
+  
+}

@@ -18,7 +18,7 @@ import {
   authUserLoginFailed,
   authUserLogoutSucceeded,
   authUserLogoutFailed
-} from '../actions/index';
+} from './actions';
 
 import { removeStorageItem } from '../../utils/storageHelpers';
 

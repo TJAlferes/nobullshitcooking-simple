@@ -4,7 +4,7 @@ import {
   AUTH_USER_REGISTER,
   AUTH_USER_VERIFY,
   AUTH_USER_LOGIN
-} from './actionTypes';
+} from './types';
 
 import {
   authDisplay,
@@ -12,7 +12,7 @@ import {
   authUserRegister,
   authUserVerify,
   authUserLogin
-} from './auth';
+} from './actions';
 
 describe('authDisplay action creator', () => {
   it('returns the correct action type', () => {
