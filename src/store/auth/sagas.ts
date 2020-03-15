@@ -20,6 +20,10 @@ import {
   authUserLogoutFailed
 } from './actions';
 
+import {
+  AuthUserRegister
+} from './types';
+
 import { removeStorageItem } from '../../utils/storageHelpers';
 
 import {
@@ -28,7 +32,7 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* authUserRegisterSaga(action) {
+export function* authUserRegisterSaga(action: AuthUserRegister) {
   try {
     const { history } = action;
     const res = yield call(

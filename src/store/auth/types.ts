@@ -129,7 +129,7 @@ interface AuthUserLoginFailed {
   message: string
 }
 
-interface AuthUserLogout {
+export interface AuthUserLogout {
   type: typeof AUTH_USER_LOGOUT
 }
 
