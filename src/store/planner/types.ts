@@ -4,8 +4,6 @@ export const PLANNER_REMOVE_RECIPE_FROM_DAY = 'PLANNER_REMOVE_RECIPE_FROM_DAY';
 export const PLANNER_REORDER_RECIPE_IN_DAY = 'PLANNER_REORDER_RECIPE_IN_DAY';
 //export const PLANNER_PUBLIC_SAVE_TO_URL = 'PLANNER_PUBLIC_SAVE_TO_URL';
 //export const PLANNER_PUBLIC_LOAD_FROM_URL = 'PLANNER_PUBLIC_LOAD_FROM_URL';
-export const PLANNER_VIEW_CLICK_DAY = 'PLANNER_VIEW_CLICK_DAY';
-export const PLANNER_PRIVATE_LOAD = 'PLANNER_PRIVATE_LOAD';
 export const PLANNER_CLEAR_WORK = 'PLANNER_CLEAR_WORK';
 export const PLANNER_SET_CREATING = 'PLANNER_SET_CREATING';
 export const PLANNER_SET_EDITING_ID = 'PLANNER_SET_EDITING_ID';
@@ -15,11 +13,11 @@ export const PLANNER_SET_PLAN_DATA = 'PLANNER_SET_PLAN_DATA';
 export interface PlannerState {
   isLoading: boolean
   creating: boolean
-  editingId: string,
-  publicUrl: string,
-  expanded: boolean,
-  expandedDay: string,
-  planName: string,
+  editingId: string
+  publicUrl: string
+  expanded: boolean
+  expandedDay: string|number
+  planName: string
   recipeListsInsideDays: PlannerData
 }
 
@@ -65,8 +63,6 @@ PlannerClickDay |
 PlannerAddRecipeToDay |
 PlannerRemoveRecipeFromDay |
 PlannerReorderRecipeInDay |
-PlannerViewClickDay |
-PlannerPrivateLoad |
 PlannerClearWork |
 PlannerSetCreating |
 PlannerSetEditingId |
@@ -103,17 +99,6 @@ export interface PlannerReorderRecipeInDay {
 /*interface Planner {
   type: typeof PLANNER_
 }*/
-
-interface PlannerViewClickDay {
-  type: typeof PLANNER_VIEW_CLICK_DAY
-  day: number
-}
-
-interface PlannerPrivateLoad {
-  type: typeof PLANNER_PRIVATE_LOAD
-  planName: string
-  planData: PlannerData
-}
 
 interface PlannerClearWork {
   type: typeof PLANNER_CLEAR_WORK

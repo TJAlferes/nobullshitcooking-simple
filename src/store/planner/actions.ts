@@ -7,8 +7,6 @@ import {
   PLANNER_REORDER_RECIPE_IN_DAY,
   //PLANNER_PUBLIC_LOAD_FROM_URL,
   //PLANNER_PUBLIC_SAVE_TO_URL,
-  PLANNER_VIEW_CLICK_DAY,
-  PLANNER_PRIVATE_LOAD,
   PLANNER_CLEAR_WORK,
   PLANNER_SET_CREATING,
   PLANNER_SET_EDITING_ID,
@@ -52,17 +50,6 @@ export const plannerReorderRecipeInDay = (
 
 // NOTE: Be careful that this doesn't trigger an unterminating loop.
 //export const plannerPublicSaveToUrl = () => ({type: PLANNER_PUBLIC_SAVE_TO_URL});
-
-export const plannerViewClickDay = (day: number) => ({
-  type: PLANNER_VIEW_CLICK_DAY,
-  day
-});
-
-export const plannerPrivateLoad = (planName: string, planData: PlannerData) => ({
-  type: PLANNER_PRIVATE_LOAD,
-  planName,
-  planData
-});
 
 export const plannerClearWork = () => ({type: PLANNER_CLEAR_WORK});
 
