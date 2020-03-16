@@ -5,13 +5,16 @@ import { call, put, delay } from 'redux-saga/effects';
 //import * as matchers from 'redux-saga-test-plan/matchers';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
-import { userSubmitAvatarSaga } from './avatar';
+import { USER_SUBMIT_AVATAR } from './types';
+
+import { userSubmitAvatarSaga } from './sagas';
 
 import {
-  userMessageClear,
   userSubmitAvatarSucceeded,
   userSubmitAvatarFailed
-} from '../actions';
+} from './actions';
+
+import { userMessageClear } from '../actions';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -28,6 +31,7 @@ describe('the userSubmitAvatarSaga', () => {
   });*/
 
   const action = {
+    type: USER_SUBMIT_AVATAR,
     fullAvatar: {type: "jpeg"},
     tinyAvatar: {type: "jpeg"}
   };

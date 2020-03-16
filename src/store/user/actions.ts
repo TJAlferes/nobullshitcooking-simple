@@ -1,18 +1,6 @@
 import {
   USER_MESSAGE_CLEAR,
 
-  USER_CREATE_NEW_PRIVATE_EQUIPMENT,
-  USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
-  USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED,
-
-  USER_EDIT_PRIVATE_EQUIPMENT,
-  USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
-  USER_EDIT_PRIVATE_EQUIPMENT_FAILED,
-
-  USER_DELETE_PRIVATE_EQUIPMENT,
-  USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
-  USER_DELETE_PRIVATE_EQUIPMENT_FAILED,
-
   USER_CREATE_NEW_PRIVATE_INGREDIENT,
   USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
   USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED,
@@ -100,89 +88,11 @@ import {
   USER_UNBLOCK_USER,
   USER_UNBLOCK_USER_SUCCEEDED,
   USER_UNBLOCK_USER_FAILED,
-
-  USER_SUBMIT_AVATAR,
-  USER_SUBMIT_AVATAR_SUCCEEDED,
-  USER_SUBMIT_AVATAR_FAILED
 } from './types';
 
 
 
 export const userMessageClear = () => ({type: USER_MESSAGE_CLEAR});
-
-
-
-/*
-An opportunity to DRY your code...
-You may want to abstract all of this into just three functions...
-(same with store/actions/data.js)
-
-export const userCreateEntity = (entityType, entityInfo) => ({
-  type: USER_CREATE_ENTITY,
-  entityType,  // PRIVATE_EQUIPMENT
-  entityInfo  // equipmentInfo
-});
-export const userUpdateEntity = (entityType, entityInfo) => ({
-  type: USER_UPDATE_ENTITY,
-  entityType,  // PRIVATE_EQUIPMENT
-  entityInfo  // equipmentInfo
-});
-export const userDeleteEntity = (entityType, entityId) => ({
-  type: USER_DELETE_ENTITY,
-  entityType,  // PRIVATE_EQUIPMENT
-  entityId  // equipmentId
-});
-
-... But then you'd have to redo your saga...
-... And you'd still basically need a big ass switch statement...
-... So would this DRYing actually help you that much?
-... Maybe... think about it.
-*/
-
-
-
-export const userCreateNewPrivateEquipment = equipmentInfo => ({
-  type: USER_CREATE_NEW_PRIVATE_EQUIPMENT,
-  equipmentInfo
-});
-export const userCreateNewPrivateEquipmentSucceeded = (message: string) => ({
-  type: USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
-  message
-});
-export const userCreateNewPrivateEquipmentFailed = (message: string) => ({
-  type: USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED,
-  message
-});
-
-
-
-export const userEditPrivateEquipment = equipmentInfo => ({
-  type: USER_EDIT_PRIVATE_EQUIPMENT,
-  equipmentInfo
-});
-export const userEditPrivateEquipmentSucceeded = (message: string) => ({
-  type: USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
-  message
-});
-export const userEditPrivateEquipmentFailed = (message: string) => ({
-  type: USER_EDIT_PRIVATE_EQUIPMENT_FAILED,
-  message
-});
-
-
-
-export const userDeletePrivateEquipment = equipmentId => ({
-  type: USER_DELETE_PRIVATE_EQUIPMENT,
-  equipmentId
-});
-export const userDeletePrivateEquipmentSucceeded = (message: string) => ({
-  type: USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
-  message
-});
-export const userDeletePrivateEquipmentFailed = (message: string) => ({
-  type: USER_DELETE_PRIVATE_EQUIPMENT_FAILED,
-  message
-});
 
 
 
@@ -336,7 +246,7 @@ export const userCreateNewPlanFailed = (message: string) => ({
 
 
 
-export const userEditPlan = planInfo => ({
+export const userEditPlan = (planInfo: ) => ({
   type: USER_EDIT_PLAN,
   planInfo
 });
@@ -351,7 +261,7 @@ export const userEditPlanFailed = (message: string) => ({
 
 
 
-export const userDeletePlan = planId => ({
+export const userDeletePlan = (planId: number) => ({
   type: USER_DELETE_PLAN,
   planId
 });
@@ -366,7 +276,7 @@ export const userDeletePlanFailed = (message: string) => ({
 
 
 
-export const userFavoriteRecipe = recipeId => ({
+export const userFavoriteRecipe = (recipeId: number) => ({
   type: USER_FAVORITE_RECIPE,
   recipeId
 });
@@ -381,7 +291,7 @@ export const userFavoriteRecipeFailed = (message: string) => ({
 
 
 
-export const userUnfavoriteRecipe = recipeId => ({
+export const userUnfavoriteRecipe = (recipeId: number) => ({
   type: USER_UNFAVORITE_RECIPE,
   recipeId
 });
@@ -396,7 +306,7 @@ export const userUnfavoriteRecipeFailed = (message: string) => ({
 
 
 
-export const userSaveRecipe = recipeId => ({
+export const userSaveRecipe = (recipeId: number) => ({
   type: USER_SAVE_RECIPE,
   recipeId
 });
@@ -411,7 +321,7 @@ export const userSaveRecipeFailed = (message: string) => ({
 
 
 
-export const userUnsaveRecipe = recipeId => ({
+export const userUnsaveRecipe = (recipeId: number) => ({
   type: USER_UNSAVE_RECIPE,
   recipeId
 });
@@ -426,7 +336,7 @@ export const userUnsaveRecipeFailed = (message: string) => ({
 
 
 
-export const userRequestFriendship = friendName => ({
+export const userRequestFriendship = (friendName: string) => ({
   type: USER_REQUEST_FRIENDSHIP,
   friendName
 });
@@ -441,7 +351,7 @@ export const userRequestFriendshipFailed = (message: string) => ({
 
 
 
-export const userAcceptFriendship = friendName => ({
+export const userAcceptFriendship = (friendName: string) => ({
   type: USER_ACCEPT_FRIENDSHIP,
   friendName
 });
@@ -456,7 +366,7 @@ export const userAcceptFriendshipFailed = (message: string) => ({
 
 
 
-export const userRejectFriendship = friendName => ({
+export const userRejectFriendship = (friendName: string) => ({
   type: USER_REJECT_FRIENDSHIP,
   friendName
 });
@@ -471,7 +381,7 @@ export const userRejectFriendshipFailed = (message: string) => ({
 
 
 
-export const userDeleteFriendship = friendName => ({
+export const userDeleteFriendship = (friendName: string) => ({
   type: USER_DELETE_FRIENDSHIP,
   friendName
 });
@@ -486,7 +396,7 @@ export const userDeleteFriendshipFailed = (message: string) => ({
 
 
 
-export const userBlockUser = friendName => ({
+export const userBlockUser = (friendName: string) => ({
   type: USER_BLOCK_USER,
   friendName
 });
@@ -501,7 +411,7 @@ export const userBlockUserFailed = (message: string) => ({
 
 
 
-export const userUnblockUser = friendName => ({
+export const userUnblockUser = (friendName: string) => ({
   type: USER_UNBLOCK_USER,
   friendName
 });
@@ -511,21 +421,5 @@ export const userUnblockUserSucceeded = (message: string) => ({
 });
 export const userUnblockUserFailed = (message: string) => ({
   type: USER_UNBLOCK_USER_FAILED,
-  message
-});
-
-
-
-export const userSubmitAvatar = (fullAvatar, tinyAvatar) => ({
-  type: USER_SUBMIT_AVATAR,
-  fullAvatar,
-  tinyAvatar
-});
-export const userSubmitAvatarSucceeded = (message: string) => ({
-  type: USER_SUBMIT_AVATAR_SUCCEEDED,
-  message
-});
-export const userSubmitAvatarFailed = (message: string) => ({
-  type: USER_SUBMIT_AVATAR_FAILED,
   message
 });

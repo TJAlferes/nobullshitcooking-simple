@@ -1,11 +1,14 @@
 import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
+import { UserSubmitAvatar } from './types';
+
 import {
-  userMessageClear,
   userSubmitAvatarSucceeded,
   userSubmitAvatarFailed
-} from '../actions';
+} from './actions';
+
+import { userMessageClear } from '../actions';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -13,7 +16,7 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* userSubmitAvatarSaga(action) {
+export function* userSubmitAvatarSaga(action: UserSubmitAvatar) {
   try {
     let avatarUrl;
     if (action.fullAvatar && action.tinyAvatar) {
