@@ -22,92 +22,92 @@ export const USER_UNBLOCK_USER = 'USER_UNBLOCK_USER';
 export const USER_UNBLOCK_USER_SUCCEEDED = 'USER_UNBLOCK_USER_SUCCEEDED';
 export const USER_UNBLOCK_USER_FAILED = 'USER_UNBLOCK_USER_FAILED';
 
-interface UserRequestFriendship {
+export interface UserRequestFriendship {
   type: typeof USER_REQUEST_FRIENDSHIP
   friendName: string
 }
 
-interface UserRequestFriendshipSucceeded {
+export interface UserRequestFriendshipSucceeded {
   type: typeof USER_REQUEST_FRIENDSHIP_SUCCEEDED
   message: string
 }
 
-interface UserRequestFriendshipFailed {
+export interface UserRequestFriendshipFailed {
   type: typeof USER_REQUEST_FRIENDSHIP_FAILED
   message: string
 }
 
-interface UserAcceptFriendship {
+export interface UserAcceptFriendship {
   type: typeof USER_ACCEPT_FRIENDSHIP
   friendName: string
 }
 
-interface UserAcceptFriendshipSucceeded {
+export interface UserAcceptFriendshipSucceeded {
   type: typeof USER_ACCEPT_FRIENDSHIP_SUCCEEDED
   message: string
 }
 
-interface UserAcceptFriendshipFailed {
+export interface UserAcceptFriendshipFailed {
   type: typeof USER_ACCEPT_FRIENDSHIP_FAILED
   message: string
 }
 
-interface UserRejectFriendship {
+export interface UserRejectFriendship {
   type: typeof USER_REJECT_FRIENDSHIP
   friendName: string
 }
 
-interface UserRejectFriendshipSucceeded {
+export interface UserRejectFriendshipSucceeded {
   type: typeof USER_REJECT_FRIENDSHIP_SUCCEEDED
   message: string
 }
 
-interface UserRejectFriendshipFailed {
+export interface UserRejectFriendshipFailed {
   type: typeof USER_REJECT_FRIENDSHIP_FAILED
   message: string
 }
 
-interface UserDeleteFriendship {
+export interface UserDeleteFriendship {
   type: typeof USER_DELETE_FRIENDSHIP
   friendName: string
 }
 
-interface UserDeleteFriendshipSucceeded {
+export interface UserDeleteFriendshipSucceeded {
   type: typeof USER_DELETE_FRIENDSHIP_SUCCEEDED
   message: string
 }
 
-interface UserDeleteFriendshipFailed {
+export interface UserDeleteFriendshipFailed {
   type: typeof USER_DELETE_FRIENDSHIP_FAILED
   message: string
 }
 
-interface UserBlockUser {
+export interface UserBlockUser {
   type: typeof USER_BLOCK_USER
   friendName: string
 }
 
-interface UserBlockUserSucceeded {
+export interface UserBlockUserSucceeded {
   type: typeof USER_BLOCK_USER_SUCCEEDED
   message: string
 }
 
-interface UserBlockUserFailed {
+export interface UserBlockUserFailed {
   type: typeof USER_BLOCK_USER_FAILED
   message: string
 }
 
-interface UserUnblockUser {
+export interface UserUnblockUser {
   type: typeof USER_UNBLOCK_USER
   friendName: string
 }
 
-interface UserUnblockUserSucceeded {
+export interface UserUnblockUserSucceeded {
   type: typeof USER_UNBLOCK_USER_SUCCEEDED
   message: string
 }
 
-interface UserUnblockUserFailed {
+export interface UserUnblockUserFailed {
   type: typeof USER_UNBLOCK_USER_FAILED
   message: string
 }

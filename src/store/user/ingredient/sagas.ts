@@ -9,7 +9,7 @@ import {
   userEditPrivateIngredientFailed,
   userDeletePrivateIngredientSucceeded,
   userDeletePrivateIngredientFailed
-} from '../actions';
+} from './actions';
 
 import {
   NOBSCBackendAPIEndpointOne

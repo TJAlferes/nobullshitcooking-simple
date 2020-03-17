@@ -8,47 +8,47 @@ export const USER_DELETE_PRIVATE_EQUIPMENT = 'USER_DELETE_PRIVATE_EQUIPMENT';
 export const USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED = 'USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED';
 export const USER_DELETE_PRIVATE_EQUIPMENT_FAILED = 'USER_DELETE_PRIVATE_EQUIPMENT_FAILED';
 
-interface UserCreateNewPrivateEquipment {
+export interface UserCreateNewPrivateEquipment {
   type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT
   equipmentInfo: CreatingEquipmentInfo
 }
 
-interface UserCreateNewPrivateEquipmentSucceeded {
+export interface UserCreateNewPrivateEquipmentSucceeded {
   type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED
   message: string
 }
 
-interface UserCreateNewPrivateEquipmentFailed {
+export interface UserCreateNewPrivateEquipmentFailed {
   type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED
   message: string
 }
 
-interface UserEditPrivateEquipment {
+export interface UserEditPrivateEquipment {
   type: typeof USER_EDIT_PRIVATE_EQUIPMENT
   equipmentInfo: EditingEquipmentInfo
 }
 
-interface UserEditPrivateEquipmentSucceeded {
+export interface UserEditPrivateEquipmentSucceeded {
   type: typeof USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED
   message: string
 }
 
-interface UserEditPrivateEquipmentFailed {
+export interface UserEditPrivateEquipmentFailed {
   type: typeof USER_EDIT_PRIVATE_EQUIPMENT_FAILED
   message: string
 }
 
-interface UserDeletePrivateEquipment {
+export interface UserDeletePrivateEquipment {
   type: typeof USER_DELETE_PRIVATE_EQUIPMENT
   equipmentId: string
 }
 
-interface UserDeletePrivateEquipmentSucceeded {
+export interface UserDeletePrivateEquipmentSucceeded {
   type: typeof USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED
   message: string
 }
 
-interface UserDeletePrivateEquipmentFailed {
+export interface UserDeletePrivateEquipmentFailed {
   type: typeof USER_DELETE_PRIVATE_EQUIPMENT_FAILED
   message: string
 }

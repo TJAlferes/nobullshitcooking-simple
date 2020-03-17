@@ -10,47 +10,47 @@ export const USER_DELETE_PLAN = 'USER_DELETE_PLAN';
 export const USER_DELETE_PLAN_SUCCEEDED = 'USER_DELETE_PLAN_SUCCEEDED';
 export const USER_DELETE_PLAN_FAILED = 'USER_DELETE_PLAN_FAILED';
 
-interface UserCreatePlan {
+export interface UserCreatePlan {
   type: typeof USER_CREATE_NEW_PLAN
   planInfo: CreatingPlanInfo
 }
 
-interface UserCreatePlanSucceeded {
+export interface UserCreatePlanSucceeded {
   type: typeof USER_CREATE_NEW_PLAN_SUCCEEDED
   message: string
 }
 
-interface UserCreatePlanFailed {
+export interface UserCreatePlanFailed {
   type: typeof USER_CREATE_NEW_PLAN_FAILED
   message: string
 }
 
-interface UserEditPlan {
+export interface UserEditPlan {
   type: typeof USER_EDIT_PLAN
   planInfo: EditingPlanInfo
 }
 
-interface UserEditPlanSucceeded {
+export interface UserEditPlanSucceeded {
   type: typeof USER_EDIT_PLAN_SUCCEEDED
   message: string
 }
 
-interface UserEditPlanFailed {
+export interface UserEditPlanFailed {
   type: typeof USER_EDIT_PLAN_FAILED
   message: string
 }
 
-interface UserDeletePlan {
+export interface UserDeletePlan {
   type: typeof USER_DELETE_PLAN
   planId: number
 }
 
-interface UserDeletePlanSucceeded {
+export interface UserDeletePlanSucceeded {
   type: typeof USER_DELETE_PLAN_SUCCEEDED
   message: string
 }
 
-interface UserDeletePlanFailed {
+export interface UserDeletePlanFailed {
   type: typeof USER_DELETE_PLAN_FAILED
   message: string
 }
