@@ -21,7 +21,10 @@ import {
 } from './actions';
 
 import {
-  AuthUserRegister
+  AuthUserRegister,
+  AuthUserVerify,
+  AuthUserLogin,
+  AuthUserLogout
 } from './types';
 
 import { removeStorageItem } from '../../utils/storageHelpers';
@@ -50,8 +53,7 @@ export function* authUserRegisterSaga(action: AuthUserRegister) {
       yield put(authUserRegisterSucceeded(res.data.message));
       yield delay(2000);
       yield put(authMessageClear());
-      //yield call([history, history.push], '/verify');
-      yield call([history, history.push], '/login');
+      yield call([history, history.push], '/verify');
     } else {
       yield put(authUserRegisterFailed(res.data.message));
       yield delay(4000);
@@ -64,7 +66,7 @@ export function* authUserRegisterSaga(action: AuthUserRegister) {
   }
 }
 
-export function* authUserVerifySaga(action) {
+export function* authUserVerifySaga(action: AuthUserVerify) {
   try {
     const { history } = action;
     const res = yield call(
@@ -95,7 +97,7 @@ export function* authUserVerifySaga(action) {
   }
 }
 
-export function* authUserLoginSaga(action) {
+export function* authUserLoginSaga(action: AuthUserLogin) {
   try {
     const res = yield call(
       [axios, axios.post],
@@ -118,7 +120,7 @@ export function* authUserLoginSaga(action) {
   }
 }
 
-export function* authUserLogoutSaga() {
+export function* authUserLogoutSaga(action: AuthUserLogout) {
   try {
     const res = yield call(
       [axios, axios.post],

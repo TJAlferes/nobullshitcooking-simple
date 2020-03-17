@@ -1,4 +1,4 @@
-export const SEARCH_SET_INDEX = 'SEARCH_SET_INDEX';
+export const SEARCH_SET_INDEX = 'SEARCH_SET_INDEX' as const;
 
 export interface SearchState {
   currentIndex: string

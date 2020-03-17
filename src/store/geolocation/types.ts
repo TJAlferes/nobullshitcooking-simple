@@ -1,7 +1,7 @@
-export const GEO_LATITUDE = 'GEO_LATITUDE';
-export const GEO_LONGITUDE = 'GEO_LONGITUDE';
-export const GEO_ADDRESS = 'GEO_ADDRESS';
-export const GEO_NEARBY_STORES_CLICKED = 'GEO_NEARBY_STORES_CLICKED';
+export const GEO_LATITUDE = 'GEO_LATITUDE' as const;
+export const GEO_LONGITUDE = 'GEO_LONGITUDE' as const;
+export const GEO_ADDRESS = 'GEO_ADDRESS' as const;
+export const GEO_NEARBY_STORES_CLICKED = 'GEO_NEARBY_STORES_CLICKED' as const;
 
 export interface GeoState {
   latitude: string

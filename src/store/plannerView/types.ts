@@ -1,5 +1,5 @@
-export const PLANNER_VIEW_CLICK_DAY = 'PLANNER_VIEW_CLICK_DAY';
-export const PLANNER_VIEW_LOAD = 'PLANNER_VIEW_LOAD';
+export const PLANNER_VIEW_CLICK_DAY = 'PLANNER_VIEW_CLICK_DAY' as const;
+export const PLANNER_VIEW_LOAD = 'PLANNER_VIEW_LOAD' as const;
 
 export interface PlannerViewState {
   isLoading: boolean

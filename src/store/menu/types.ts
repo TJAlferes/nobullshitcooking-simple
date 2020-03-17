@@ -1,5 +1,5 @@
-export const MENU_SHADOW_SHOW = 'MENU_SHADOW_SHOW';
-export const MENU_SHADOW_HIDE = 'MENU_SHADOW_HIDE';
+export const MENU_SHADOW_SHOW = 'MENU_SHADOW_SHOW' as const;
+export const MENU_SHADOW_HIDE = 'MENU_SHADOW_HIDE' as const;
 
 export interface MenuState {
   shadow: boolean

@@ -74,7 +74,7 @@ import {
   UserUnsaveRecipeFailed
 } from './save/types';
 
-export const USER_MESSAGE_CLEAR = 'USER_MESSAGE_CLEAR';
+export const USER_MESSAGE_CLEAR = 'USER_MESSAGE_CLEAR' as const;
 
 export interface UserMessageClear {
   type: typeof USER_MESSAGE_CLEAR

@@ -69,16 +69,11 @@ const clickDay = (
 ): PlannerState => {
   const { expandedDay } = state;
   const { day } = action;
+
   if (day === expandedDay) {
-    return {...state, ...{
-      expanded: false,
-      expandedDay: "none"
-    }};
+    return {...state, ...{expanded: false, expandedDay: "none"}};
   } else {
-    return {...state, ...{
-      expanded: true,
-      expandedDay: action.day
-    }};
+    return {...state, ...{expanded: true, expandedDay: day}};
   }
 };
 
@@ -87,6 +82,7 @@ const addRecipeToDay = (
   action: PlannerAddRecipeToDay
 ): PlannerState => {
   const { day, recipe } = action;
+
   return update(state, {
     recipeListsInsideDays: {
       [day]: {
@@ -101,6 +97,7 @@ const removeRecipeFromDay = (
   action: PlannerRemoveRecipeFromDay
 ): PlannerState => {
   const { day, index } = action;
+
   return update(state, {
     recipeListsInsideDays: {
       [day]: {
@@ -117,6 +114,7 @@ const reorderRecipeInDay = (
   const { expandedDay, recipeListsInsideDays } = state;
   const { dragIndex, hoverIndex } = action;
   const draggedRecipe = recipeListsInsideDays[expandedDay][dragIndex];  // because "none" as initial
+  
   return update(state, {
     recipeListsInsideDays: {
       [expandedDay]: {

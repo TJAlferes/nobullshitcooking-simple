@@ -1,9 +1,11 @@
 import {
   THEME_DARK_TRIGGER,
-  THEME_LIGHT_TRIGGER
+  THEME_LIGHT_TRIGGER,
+  ThemeState,
+  ThemeActions
 } from './types';
 
-const initialState = {
+const initialState: ThemeState = {
   headerTheme: "header-light",
   mainTheme: "main-light",
   footerTheme: "footer-light",
@@ -19,27 +21,36 @@ const initialState = {
   feedTheme: "feed-light"
 };
 
-const themeReducer = (state = initialState, action) => {
+const themeReducer = (
+  state = initialState,
+  action: ThemeActions
+): ThemeState => {
   switch (action.type) {
     case THEME_DARK_TRIGGER:
-      return {...state, ...{
-        headerTheme: "header-dark",
-        mainTheme: "main-dark",
-        footerTheme: "footer-dark",
-        dropDownMenuTheme: "drop-down-menu-dark",
-        navGridATheme: "nav-grid-a-dark",
-        oneColumnATheme: "one-column-a-dark",
-        twoColumnATheme: "two-column-a-dark",
-        twoColumnBTheme: "two-column-b-dark",
-        tableATheme: "table-a-dark",
-        breadCrumbsTheme: "bread-crumbs-dark",
-        leftNavTheme: "left-nav-dark",
-        suggestionsTheme: "suggestions-dark",
-        feedTheme: "feed-dark"
-      }};
-    case THEME_LIGHT_TRIGGER: return {...state, ...initialState};
+      return {
+        ...state,
+        ...{
+          headerTheme: "header-dark",
+          mainTheme: "main-dark",
+          footerTheme: "footer-dark",
+          dropDownMenuTheme: "drop-down-menu-dark",
+          navGridATheme: "nav-grid-a-dark",
+          oneColumnATheme: "one-column-a-dark",
+          twoColumnATheme: "two-column-a-dark",
+          twoColumnBTheme: "two-column-b-dark",
+          tableATheme: "table-a-dark",
+          breadCrumbsTheme: "bread-crumbs-dark",
+          leftNavTheme: "left-nav-dark",
+          suggestionsTheme: "suggestions-dark",
+          feedTheme: "feed-dark"
+        }
+      };
+
+    case THEME_LIGHT_TRIGGER:
+      return {...state, ...initialState};
+
+    default: return state;
   }
-  return state;
 };
 
 export default themeReducer;

@@ -21,7 +21,8 @@ import {
   AUTH_USER_LOGIN_FAILED,
   AUTH_USER_LOGOUT,
   AUTH_USER_LOGOUT_SUCCEEDED,
-  AUTH_USER_LOGOUT_FAILED
+  AUTH_USER_LOGOUT_FAILED,
+  AuthUserRegister
 } from './types';
 
 export const authDisplay = (authname: string, avatar: string) => ({
@@ -46,7 +47,7 @@ export const authUserRegister = (
   password: string,
   username: string,
   history: {}
-) => ({
+): AuthUserRegister => ({
   type: AUTH_USER_REGISTER,
   email,
   password,

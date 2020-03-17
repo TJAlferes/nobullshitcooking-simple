@@ -36,15 +36,11 @@ const authReducer = (
     case AUTH_USER_REGISTER_FAILED:
     case AUTH_USER_VERIFY_SUCCEEDED:
     case AUTH_USER_VERIFY_FAILED:
-      return {
-        ...state,
-        ...{message: action.message}
-      };
+      return {...state, ...{message: action.message}};
+
     case AUTH_MESSAGE_CLEAR:
-      return {
-        ...state,
-        ...{message: ''}
-      };
+      return {...state, ...{message: ''}};
+
     case AUTH_DISPLAY:
       return {
         ...state,
@@ -54,17 +50,14 @@ const authReducer = (
           avatar: action.avatar
         }
       };
+
     case AUTH_UPDATE_LOCAL_AVATAR:
-      return {
-        ...state,
-        ...{avatar: action.avatar}
-      };
+      return {...state, ...{avatar: action.avatar}};
+
     case AUTH_RESET:
     case AUTH_USER_LOGOUT:
-      return {
-        ...state,
-        ...initialState
-      };
+      return {...state, ...initialState};
+      
     default: return state;
   }
 };
