@@ -95,15 +95,22 @@ const NewPlanView = ({
     };
     const list = tabToList[tab];
 
+    /*
+    Note: even though recipe_id and owner_id
+    are not used when creating/editing a plan (NewPlan-),
+    they are set at this stage because
+    they are used when viewing a plan (Plan-)
+    */
+
     return (
       <RecipesList
         day="0"
         list={list.map(recipe => ({
           key: uuidv4(),
-          id: recipe.recipe_id,
-          text: recipe.title,
-          image: recipe.recipe_image,
-          owner: recipe.owner_id
+          recipe_id: recipe.recipe_id,
+          title: recipe.title,
+          recipe_image: recipe.recipe_image,
+          owner_id: recipe.owner_id
         }))}
       />
     );

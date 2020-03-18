@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { plannerPrivateLoad } from '../../../store/actions/index';
+import { plannerViewLoad } from '../../../store/plannerView/actions';
 
 import MobilePlanView from './views/MobilePlanView';
 import PlanView from './views/PlanView';
@@ -17,7 +17,7 @@ export const Plan = ({
   expandedDay,
   planName,
   recipeListsInsideDays,
-  plannerPrivateLoad
+  plannerViewLoad
 }) => {
   const history = useHistory();
 
@@ -28,7 +28,7 @@ export const Plan = ({
       const [ prev ] = dataMyPlans
       .filter(plan => plan.plan_id === Number(match.params.id));
       
-      plannerPrivateLoad(prev.plan_name, prev.plan_data);
+      plannerViewLoad(prev.plan_name, prev.plan_data);
     };
 
     if (match.params.id) getPlan();
@@ -59,8 +59,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  plannerPrivateLoad: (planName, planData) =>
-    dispatch(plannerPrivateLoad(planName, planData))
+  plannerViewLoad: (planName, planData) =>
+    dispatch(plannerViewLoad(planName, planData))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Plan));

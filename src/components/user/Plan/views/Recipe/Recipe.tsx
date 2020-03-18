@@ -6,16 +6,16 @@ import './recipe.css';  // use BEM
 const Recipe = ({ recipe }) => (
   <div className="plan_recipe">
     <div className="planner_recipe_image">
-      <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.image}-tiny`} />
+      <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
     </div>
     <div className="planner_recipe_text">
       <Link
-        to={Number(recipe.owner) === 1
-          ? `/recipes/${recipe.id}`
-          : `/user-recipes/${recipe.id}`
+        to={Number(recipe.owner_id) === 1
+          ? `/recipes/${recipe.recipe_id}`
+          : `/user-recipes/${recipe.recipe_id}`
         }
       >
-        {recipe.text}
+        {recipe.title}
       </Link>
     </div>
   </div>

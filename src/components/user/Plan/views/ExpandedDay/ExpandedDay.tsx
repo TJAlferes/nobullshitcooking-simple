@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { plannerViewClickDay } from '../../../../../store/actions/index';
+import { plannerViewClickDay } from '../../../../../store/plannerView/actions';
 
 import Recipe from '../Recipe/Recipe';
 

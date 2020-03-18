@@ -5,7 +5,7 @@ import { DropTarget } from 'react-dnd';
 import {
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay
-} from '../../../../../store/actions/index';
+} from '../../../../../store/planner/actions';
 
 import Recipe from '../Recipe/Recipe';
 

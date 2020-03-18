@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import { userRequestFriendship } from '../../../store/actions/index';
+import { userRequestFriendship } from '../../../store/user/friendship/actions';
 
 import {
   NOBSCBackendAPIEndpointOne

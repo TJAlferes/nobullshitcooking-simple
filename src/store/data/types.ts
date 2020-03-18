@@ -89,16 +89,16 @@ export interface DataState {
   equipmentTypes: EquipmentType[]
   ingredients: Ingredient[]
   ingredientTypes: IngredientType[]
-  recipes: Recipe[]
+  recipes: WorkRecipe[]
   recipeTypes: RecipeType[]
   cuisines: Cuisine[]
   methods: Method[]
-  myPublicRecipes: Recipe[]
+  myPublicRecipes: WorkRecipe[]
   myPrivateEquipment: Equipment[]
   myPrivateIngredients: Ingredient[]
-  myPrivateRecipes: Recipe[]
-  myFavoriteRecipes: MarkedRecipe[]
-  mySavedRecipes: MarkedRecipe[]
+  myPrivateRecipes: WorkRecipe[]
+  myFavoriteRecipes: WorkRecipe[]
+  mySavedRecipes: WorkRecipe[]
   myPlans: Plan[]
   myFriendships: Friendship[]
 }
@@ -158,6 +158,15 @@ export interface Recipe {
   cooking_image: string
 }
 
+export interface WorkRecipe {
+  recipe_id: number
+  owner_id: number
+  recipe_type_id: number
+  cuisine_id: number
+  title: string
+  recipe_image: string
+}
+
 export interface RecipeType {
   recipe_type_id: number
   recipe_type_name: string
@@ -171,11 +180,6 @@ export interface Cuisine {
 export interface Method {
   method_id: number
   method_name: string
-}
-
-export interface MarkedRecipe {
-  recipe_id: number
-  title: string
 }
 
 export interface Plan {

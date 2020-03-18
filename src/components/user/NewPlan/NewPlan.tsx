@@ -8,10 +8,13 @@ import {
   plannerSetCreating,
   plannerSetEditingId,
   plannerSetPlanName,
-  plannerSetPlanData,
+  plannerSetPlanData
+} from '../../../store/planner/actions';
+
+import {
   userCreateNewPlan,
   userEditPlan
-} from '../../../store/actions/index';
+} from '../../../store/user/plan/actions';
 
 import MobileNewPlanView from './views/MobileNewPlanView';
 import NewPlanView from './views/NewPlanView';

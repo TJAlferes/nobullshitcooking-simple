@@ -5,7 +5,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
-} from '../../../../../store/actions/index';
+} from '../../../../../store/planner/actions';
 
 import './recipe.css';
 
@@ -85,17 +85,19 @@ const Recipe = forwardRef(
     return (
       <div className="planner_recipe" ref={elementRef}>
         <div className="planner_recipe_image">
-          <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.image}-tiny`} />
+          <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
         </div>
-        <div className="planner_recipe_text">{recipe.text}</div>
+        <div className="planner_recipe_text">{recipe.title}</div>
       </div>
     );
   }
 );
 
 const mapDispatchToProps = dispatch => ({
-  plannerRemoveRecipeFromDay: (day, index) => dispatch(plannerRemoveRecipeFromDay(day, index)),
-  plannerReorderRecipeInDay: (dragIndex, hoverIndex) => dispatch(plannerReorderRecipeInDay(dragIndex, hoverIndex))
+  plannerRemoveRecipeFromDay: (day, index) =>
+    dispatch(plannerRemoveRecipeFromDay(day, index)),
+  plannerReorderRecipeInDay: (dragIndex, hoverIndex) =>
+    dispatch(plannerReorderRecipeInDay(dragIndex, hoverIndex))
 });
 
 export default connect(
