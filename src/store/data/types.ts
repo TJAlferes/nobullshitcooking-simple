@@ -1,3 +1,5 @@
+import { PlannerData } from '../planner/types';
+
 export const DATA_INIT = 'DATA_INIT' as const;
 
 export const DATA_GET_POSTS = 'DATA_GET_POSTS' as const;
@@ -81,87 +83,113 @@ export const DATA_GET_MY_FRIENDSHIPS_SUCCEEDED = 'DATA_GET_MY_FRIENDSHIPS_SUCCEE
 export const DATA_GET_MY_FRIENDSHIPS_FAILED = 'DATA_GET_MY_FRIENDSHIPS_FAILED' as const;
 
 export interface DataState {
-  posts: Post[]
   postPreviews: PostPreview[]
-  measurements: []
-  equipment: []
-  equipmentTypes: []
-  ingredients: []
-  ingredientTypes: []
-  recipes: []
-  recipeTypes: []
-  cuisines: []
-  methods: []
-  myPublicRecipes: []
-  myPrivateEquipment: []
-  myPrivateIngredients: []
-  myPrivateRecipes: []
-  myFavoriteRecipes: []
-  mySavedRecipes: []
-  myPlans: []
-  myFriendships: []
-}
-
-export interface Post {
-  postId: number
-  title: string
-  author: string
-  body: string
+  measurements: Measurement[]
+  equipment: Equipment[]
+  equipmentTypes: EquipmentType[]
+  ingredients: Ingredient[]
+  ingredientTypes: IngredientType[]
+  recipes: Recipe[]
+  recipeTypes: RecipeType[]
+  cuisines: Cuisine[]
+  methods: Method[]
+  myPublicRecipes: Recipe[]
+  myPrivateEquipment: Equipment[]
+  myPrivateIngredients: Ingredient[]
+  myPrivateRecipes: Recipe[]
+  myFavoriteRecipes: MarkedRecipe[]
+  mySavedRecipes: MarkedRecipe[]
+  myPlans: Plan[]
+  myFriendships: Friendship[]
 }
 
 export interface PostPreview {
   postId: number
   title: string
   author: string
+  thumbnail: string
   snippet: string
 }
 
-export interface Measurements {
-
+export interface Measurement {
+  measurement_id: number
+  measurement_name: string
 }
 
-export interface Equipments {
-
+export interface Equipment {
+  equipment_id: number
+  equipment_type_id: number
+  equipment_name: string
+  equipment_description: string
+  equipment_image: string
 }
 
-export interface EquipmentTypes {
-
+export interface EquipmentType {
+  equipment_type_id: number
+  equipment_type_name: string
 }
 
-export interface Ingredients {
-
+export interface Ingredient {
+  ingredient_id: number
+  ingredient_type_id: number
+  ingredient_name: string
+  ingredient_description: string
+  ingredient_image: string
 }
 
-export interface IngredientTypes {
-
+export interface IngredientType {
+  ingredient_type_id: number
+  ingredient_type_name: string
 }
 
-export interface Recipes {
+// TO DO: finish (remember you have both mysql and elasticsearch)
+export interface Recipe {
+  recipe_id: number
+  recipe_type_id: number
+  cuisine_id: number
+  author_id: number
 
+  title: string
+  description: string
+  directions: string
+  recipe_image: string
+  equipment_image: string
+  ingredients_image: string
+  cooking_image: string
 }
 
-export interface RecipeTypes {
-
+export interface RecipeType {
+  recipe_type_id: number
+  recipe_type_name: string
 }
 
-export interface Cuisines {
-
+export interface Cuisine {
+  cuisine_id: number
+  cuisine_name: string
 }
 
-export interface Methods {
-
+export interface Method {
+  method_id: number
+  method_name: string
 }
 
-export interface MyPlans {
-
+export interface MarkedRecipe {
+  recipe_id: number
+  title: string
 }
 
-export interface MyFriendships {
+export interface Plan {
+  plan_id: number
+  plan_name: string
+  plan_data: PlannerData
+}
 
+export interface Friendship {
+  friend_id: number
+  status: string
 }
 
 export type DataActions =
-DataGetPosts |
 DataGetPostPreviews |
 DataGetMeasurements |
 DataGetEquipments |
@@ -180,11 +208,6 @@ DataGetMyFavoriteRecipes |
 DataGetMySavedRecipes |
 DataGetMyPlans |
 DataGetMyFriendships;
-
-export interface DataGetPosts {
-  type: typeof DATA_GET_POSTS
-  posts: Post[]
-}
 
 export interface DataGetPostPreviews {
   type: typeof DATA_GET_POST_PREVIEWS
