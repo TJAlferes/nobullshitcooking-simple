@@ -15,7 +15,7 @@ import {
   userUnsaveRecipe,
   userDeletePrivateEquipment,
   userDeletePrivateIngredient
-} from '../../../store/actions/index';
+} from '../../../store/user/actions';
 
 import DashboardView from './DashboardView';
 
