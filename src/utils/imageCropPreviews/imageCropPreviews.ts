@@ -1,9 +1,16 @@
+interface Crop {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
 export const getCroppedImage = async (
-  imageWidth,
-  imageHeight,
-  image,
-  crop,
-  fileName
+  imageWidth: number,
+  imageHeight: number,
+  image: HTMLImageElement,
+  crop: Crop,
+  fileName: string
 ) => {
   const canvas = document.createElement("canvas");
   const scaleX = image.naturalWidth / image.width;

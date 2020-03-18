@@ -22,14 +22,15 @@ import {
   initWindowBlurHandler,
   initWindowFocusHandler
 } from './utils/nobscappWindow';
+
 import {
   loadFromLocalStorage,
   saveToLocalStorage
 } from './utils/storageHelpers';
 
-import { dataInit } from './store/actions/index';
+import { dataInit } from './store/data/actions';
 
-import rootReducer from './store/reducers/index';
+import rootReducer from './store/rootReducer';
 
 import {
   watchAuth,
@@ -43,7 +44,7 @@ import {
   watchUserPlan,
   watchUserRecipe,
   watchUserSave
-} from './store/sagas/index';
+} from './store/watcherSagas';
 
 import App from './App';
 
