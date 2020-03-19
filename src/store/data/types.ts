@@ -119,6 +119,8 @@ export interface Measurement {
 export interface Equipment {
   equipment_id: number
   equipment_type_id: number
+  owner_id: number
+  equipment_type_name: string
   equipment_name: string
   equipment_description: string
   equipment_image: string
@@ -132,6 +134,8 @@ export interface EquipmentType {
 export interface Ingredient {
   ingredient_id: number
   ingredient_type_id: number
+  owner_id: number
+  ingredient_type_name: string
   ingredient_name: string
   ingredient_description: string
   ingredient_image: string
