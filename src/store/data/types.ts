@@ -146,22 +146,6 @@ export interface IngredientType {
   ingredient_type_name: string
 }
 
-// TO DO: finish (remember you have both mysql and elasticsearch)
-export interface Recipe {
-  recipe_id: number
-  recipe_type_id: number
-  cuisine_id: number
-  author_id: number
-
-  title: string
-  description: string
-  directions: string
-  recipe_image: string
-  equipment_image: string
-  ingredients_image: string
-  cooking_image: string
-}
-
 export interface WorkRecipe {
   recipe_id: number
   owner_id: number

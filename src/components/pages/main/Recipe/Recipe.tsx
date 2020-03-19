@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes, { InferProps } from 'prop-types';
 import { connect } from 'react-redux';
-import { useHistory, useLocation, withRouter, Link } from 'react-router-dom';
+import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import {
-  userFavoriteRecipe,
-  userSaveRecipe
-} from '../../../../store/actions/index';
+import { userFavoriteRecipe } from '../../../../store/user/favorite/actions';
+import { userSaveRecipe } from '../../../../store/user/save/actions';
 
 import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
-
 import RecipeView from './RecipeView';
 
 import {
@@ -18,37 +16,81 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export const Recipe = ({
+export interface RecipeInterface {
+  recipe_id: number
+  recipe_type_id: number
+  cuisine_id: number
+  author_id: number
+  owner_id: number
+  title: string
+  recipe_type_name: string
+  cuisine_name: string
+  author: string
+  description: string
+  directions: string
+  recipe_image: string
+  equipment_image: string
+  ingredients_image: string
+  cooking_image: string
+  required_methods: RequiredMethod[]
+  required_equipment: RequiredEquipment[]
+  required_ingredients: RequiredIngredient[]
+  required_subrecipes: RequiredSubrecipe[]
+}
+
+export interface RequiredMethod {
+  method_name: string
+}
+
+export interface RequiredEquipment {
+  amount: number
+  equipment_name: string
+}
+
+export interface RequiredIngredient {
+  amount: number
+  measurement_name: string
+  ingredient_name: string
+}
+
+export interface RequiredSubrecipe {
+  amount: number
+  measurement_name: string
+  subrecipe_title: string
+}
+
+export function Recipe({
   match,
   twoColumnBTheme,
   isAuthenticated,
   message,
   //dataRecipes,
-  //dataPublicRecipes,
   dataMyPublicRecipes,
   dataMyPrivateRecipes,
   dataMyFavoriteRecipes,
   dataMySavedRecipes,
   userFavoriteRecipe,
   userSaveRecipe
-}) => {
+}: InferProps<typeof Recipe.propTypes>): JSX.Element {
   const history = useHistory();
   const location = useLocation();
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ favoriteClicked, setFavoriteClicked ] = useState(false);  // Make sure they can't favorite their own recipes (whether public or private)
-  const [ saveClicked, setSaveClicked ] = useState(false);  // Make sure they can't save their own recipes (whether public or private)
-  const [ recipe, setRecipe ] = useState("");
+  const [ favoriteClicked, setFavoriteClicked ] = useState(false);
+  const [ saveClicked, setSaveClicked ] = useState(false);
+  const [ recipe, setRecipe ] = useState<RecipeInterface>();
 
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
-      if (message !== "") window.scrollTo(0,0);
+      if (message !== "") window.scrollTo(0, 0);
       setFeedback(message);
       setLoading(false);
     }
-    return () => isSubscribed = false;
+    return () => {
+      isSubscribed = false;
+    };
   }, [message]);
 
   useEffect(() => {
@@ -59,7 +101,7 @@ export const Recipe = ({
       return;
     }
 
-    const getPrivateRecipe = async (id) => {
+    const getPrivateRecipe = async (id: number) => {
       const res = await axios.post(
         `${endpoint}/user/recipe/private/one`,
         {recipeId: id},
@@ -68,7 +110,7 @@ export const Recipe = ({
       if (res.data) setRecipe(res.data);
     };
 
-    const getPublicRecipe = async (id) => {
+    const getPublicRecipe = async (id: number) => {
       const res = await axios.get(`${endpoint}/recipe/${id}`);
       if (res.data) setRecipe(res.data);
     };
@@ -94,18 +136,6 @@ export const Recipe = ({
     setSaveClicked(true);
   };
 
-  const recipeBy = () => {
-    if (recipe.recipe[0].authorName === "Unknown") return "Unknown";
-    return (
-      <Link
-        className="recipe-details__author-name"
-        to={`/user/profile/${recipe.recipe[0].authorName}`}
-      >
-        {recipe.recipe[0].authorName}
-      </Link>
-    );
-  };
-
   return !recipe
   ? <LoaderSpinner />
   : (
@@ -117,8 +147,6 @@ export const Recipe = ({
       loading={loading}
 
       recipe={recipe}
-
-      recipeBy={recipeBy}
 
       dataMyPrivateRecipes={dataMyPrivateRecipes}
       dataMyPublicRecipes={dataMyPublicRecipes}
@@ -133,9 +161,22 @@ export const Recipe = ({
   );
 };
 
+Recipe.propTypes = {
+  match: PropTypes.object.isRequired,
+  twoColumnBTheme: PropTypes.string.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
+  //dataRecipes,
+  dataMyPublicRecipes: PropTypes.array.isRequired,
+  dataMyPrivateRecipes: PropTypes.array.isRequired,
+  dataMyFavoriteRecipes: PropTypes.array.isRequired,
+  dataMySavedRecipes: PropTypes.array.isRequired,
+  userFavoriteRecipe: PropTypes.func.isRequired,
+  userSaveRecipe: PropTypes.func.isRequired
+}
+
 const mapStateToProps = state => ({
   //dataRecipes: state.data.recipes,
-  //dataPublicRecipes: state.data.publicRecipes,
   dataMyPublicRecipes: state.data.myPublicRecipes,
   dataMyPrivateRecipes: state.data.myPrivateRecipes,
   dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
@@ -145,8 +186,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userFavoriteRecipe: id => dispatch(userFavoriteRecipe(id)),
-  userSaveRecipe: id => dispatch(userSaveRecipe(id))
+  userFavoriteRecipe: (id: number) => dispatch(userFavoriteRecipe(id)),
+  userSaveRecipe: (id: number) => dispatch(userSaveRecipe(id))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Recipe));
