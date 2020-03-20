@@ -26,6 +26,7 @@ export interface RecipeInterface {
   recipe_type_name: string
   cuisine_name: string
   author: string
+  author_avatar: string
   description: string
   directions: string
   recipe_image: string

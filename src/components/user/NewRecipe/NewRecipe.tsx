@@ -13,9 +13,12 @@ import {
   userCreateNewPublicRecipe,
   userEditPrivateRecipe,
   userEditPublicRecipe
-} from '../../../store/actions/index';
+} from '../../../store/user/recipe/actions';
 
-import { NOBSCBackendAPIEndpointOne } from '../../../config/NOBSCBackendAPIEndpointOne';
+import {
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 import validRecipeInfo from './validation/validRecipeInfo';
@@ -184,47 +187,49 @@ export const NewRecipe = ({
         {withCredentials: true}
       );
 
+      const { recipe } = res.data;
+
       setOwnership(childProps.editingOwnership);
-      setEditingId(res.data.recipe.recipeId);
-      setRecipeTypeId(res.data.recipe.recipeTypeId);
-      setCuisineId(res.data.recipe.cuisineId);
-      setTitle(res.data.recipe.title);
-      setDescription(res.data.recipe.description);
-      setDirections(res.data.recipe.directions);
+      setEditingId(recipe.recipe_id);
+      setRecipeTypeId(recipe.recipe_type_id);
+      setCuisineId(recipe.cuisine_id);
+      setTitle(recipe.title);
+      setDescription(recipe.description);
+      setDirections(recipe.directions);
 
       let methodsToSet = [];
       let equipmentToSet = [];
       let ingredientsToSet = [];
       let subrecipesToSet = [];
 
-      res.data.requiredMethods.length &&
-      res.data.requiredMethods.map(method => methodsToSet.push(method.methodId));
+      recipe.requiredMethods.length &&
+      recipe.requiredMethods.map(met => methodsToSet.push(met.method_id));
 
-      res.data.requiredEquipment.length &&
-      res.data.requiredEquipment.map(equ => equipmentToSet.push({
+      recipe.requiredEquipment.length &&
+      recipe.requiredEquipment.map(equ => equipmentToSet.push({
         key: uuid(),
         amount: equ.amount,
-        type: equ.equipmentTypeId,
-        equipment: equ.equipmentId
+        type: equ.equipmentType_id,
+        equipment: equ.equipment_id
       }));
 
-      res.data.requiredIngredients.length &&
-      res.data.requiredIngredients.map(ing => ingredientsToSet.push({
+      recipe.requiredIngredients.length &&
+      recipe.requiredIngredients.map(ing => ingredientsToSet.push({
         key: uuid(),
         amount: 1,
-        unit: ing.measurementId,
-        type: ing.ingredientTypeId,
-        ingredient: ing.ingredientId
+        unit: ing.measurement_id,
+        type: ing.ingredientType_id,
+        ingredient: ing.ingredient_id
       }));
 
-      res.data.requiredSubrecipes.length &&
-      res.data.requiredSubrecipes.map(sub => subrecipesToSet.push({
+      recipe.requiredSubrecipes.length &&
+      recipe.requiredSubrecipes.map(sub => subrecipesToSet.push({
         key: uuid(),
         amount: 1,
-        unit: sub.measurementId,
-        type: sub.recipeTypeId,
-        cuisine: sub.cuisineId,
-        subrecipe: sub.subrecipeId
+        unit: sub.measurement_id,
+        type: sub.recipeType_id,
+        cuisine: sub.cuisine_id,
+        subrecipe: sub.subrecipe_id
       }))
 
       setMethods(prevState => {
@@ -238,10 +243,10 @@ export const NewRecipe = ({
       setIngredientRows(ingredientsToSet);
       setSubrecipeRows(subrecipesToSet);
 
-      setPrevRecipeImage(res.data.recipe.recipeImage);
-      setPrevEquipmentImage(res.data.recipe.recipeEquipmentImage);
-      setPrevIngredientsImage(res.data.recipe.recipeIngredientsImage);
-      setPrevCookingImage(res.data.recipe.recipeCookingImage);
+      setPrevRecipeImage(recipe.recipe_image);
+      setPrevEquipmentImage(recipe.recipe_equipment_image);
+      setPrevIngredientsImage(recipe.recipe_ingredients_image);
+      setPrevCookingImage(recipe.recipe_cooking_image);
 
       setLoading(false);
     };
@@ -273,7 +278,9 @@ export const NewRecipe = ({
       }
       setLoading(false);
     }
-    return () => isSubscribed = false;
+    return () => {
+      isSubscribed = false;
+    };
   }, [message]);
 
   const handleRecipeTypeChange = e => setRecipeTypeId(e.target.value);
@@ -656,7 +663,6 @@ export const NewRecipe = ({
       dataIngredientTypes={dataIngredientTypes}
       dataIngredients={dataIngredients}
       dataMyPrivateIngredients={dataMyPrivateIngredients}
-      dataRecipeTypes={dataRecipeTypes}
       dataRecipes={dataRecipes}
       dataMyPrivateRecipes={dataMyPrivateRecipes}
       dataMyPublicRecipes={dataMyPublicRecipes}
