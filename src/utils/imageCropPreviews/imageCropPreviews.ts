@@ -34,7 +34,7 @@ export const getCroppedImage = async (
   const resizedPreview = await new Promise((resolve, reject) => {
     canvas.toBlob(blob => {
       if (!blob) return;
-      blob.name = fileName;
+      blob.name = fileName;  // necessary?
       const fileUrl = window.URL.createObjectURL(blob);
       resolve(fileUrl);
     }, 'image/jpeg', 1);
@@ -43,7 +43,7 @@ export const getCroppedImage = async (
   const resizedFinal = await new Promise((resolve, reject) => {
     canvas.toBlob(blob => {
       if (!blob) return;
-      blob.name = fileName;
+      blob.name = fileName;  // necessary?
       const image = new File([blob], "resizedFinal", {type: "image/jpeg"});
       resolve(image);
     }, 'image/jpeg', 1);

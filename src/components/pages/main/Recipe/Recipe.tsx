@@ -65,7 +65,6 @@ export function Recipe({
   twoColumnBTheme,
   isAuthenticated,
   message,
-  //dataRecipes,
   dataMyPublicRecipes,
   dataMyPrivateRecipes,
   dataMyFavoriteRecipes,
@@ -167,7 +166,6 @@ Recipe.propTypes = {
   twoColumnBTheme: PropTypes.string.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
-  //dataRecipes,
   dataMyPublicRecipes: PropTypes.array.isRequired,
   dataMyPrivateRecipes: PropTypes.array.isRequired,
   dataMyFavoriteRecipes: PropTypes.array.isRequired,
@@ -177,7 +175,6 @@ Recipe.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  //dataRecipes: state.data.recipes,
   dataMyPublicRecipes: state.data.myPublicRecipes,
   dataMyPrivateRecipes: state.data.myPrivateRecipes,
   dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
