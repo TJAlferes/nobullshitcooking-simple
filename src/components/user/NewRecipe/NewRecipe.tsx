@@ -525,13 +525,11 @@ export const NewRecipe = ({
     Object.entries(methods).forEach(([key, value]) => {
       if (value === true) checkedMethods.push({methodId: Number(key)});
     });
-    if (checkedMethods.length) return checkedMethods;
-    checkedMethods = "none";
     return checkedMethods;
   };
 
   const getRequiredEquipment = () => {
-    if (!equipmentRows.length) return "none";
+    if (!equipmentRows.length) return [];
     let requiredEquipment = [];
     equipmentRows.map(eR => {
       requiredEquipment.push({
@@ -543,7 +541,7 @@ export const NewRecipe = ({
   };
 
   const getRequiredIngredients = () => {
-    if (!ingredientRows.length) return "none";
+    if (!ingredientRows.length) return [];
     let requiredIngredients = [];
     ingredientRows.map(iR => {
       requiredIngredients.push({
@@ -556,7 +554,7 @@ export const NewRecipe = ({
   };
 
   const getRequiredSubrecipes = () => {
-    if (subrecipeRows.length) return "none";
+    if (subrecipeRows.length) return [];
     let requiredSubrecipes = [];
     subrecipeRows.map(sR => {
       requiredSubrecipes.push({
