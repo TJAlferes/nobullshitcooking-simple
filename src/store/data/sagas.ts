@@ -156,7 +156,7 @@ export function* dataGetCuisinesSaga() {
   try {
     const res = yield call([axios, axios.get], `${endpoint}/cuisine`);
     yield put(dataGetCuisines(res.data));
-    yield put(dataGetCuisinesSucceeded('Cuisines loaded.'));
+    yield put(dataGetCuisinesSucceeded());
   } catch (err) {
     yield put(dataGetCuisinesFailed());
   }

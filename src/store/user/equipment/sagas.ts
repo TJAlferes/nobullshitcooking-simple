@@ -1,16 +1,15 @@
 import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
   userCreateNewPrivateEquipmentSucceeded,
   userCreateNewPrivateEquipmentFailed,
   userEditPrivateEquipmentSucceeded,
   userEditPrivateEquipmentFailed,
   userDeletePrivateEquipmentSucceeded,
   userDeletePrivateEquipmentFailed
-} from '../actions';
-
+} from './actions';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';

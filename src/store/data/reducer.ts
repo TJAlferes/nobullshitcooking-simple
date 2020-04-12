@@ -17,12 +17,14 @@ import {
   DATA_GET_MY_FAVORITE_RECIPES,
   DATA_GET_MY_SAVED_RECIPES,
   DATA_GET_MY_PLANS,
-  DATA_GET_MY_FRIENDSHIPS
+  DATA_GET_MY_FRIENDSHIPS,
+  DataState,
+  DataActions
 } from './types';
 
-import 
+//import 
 
-const initialState = {
+const initialState: DataState = {
   posts: [],
   postPreviews: [],
   measurements: [],
@@ -44,7 +46,7 @@ const initialState = {
   myFriendships: []
 };
 
-const dataReducer = (state = initialState, action) => {
+const dataReducer = (state = initialState, action: DataActions): DataState => {
   switch (action.type) {
     case DATA_GET_POSTS:
       return {...state, ...{posts: action.posts}};

@@ -83,6 +83,7 @@ export const DATA_GET_MY_FRIENDSHIPS_SUCCEEDED = 'DATA_GET_MY_FRIENDSHIPS_SUCCEE
 export const DATA_GET_MY_FRIENDSHIPS_FAILED = 'DATA_GET_MY_FRIENDSHIPS_FAILED' as const;
 
 export interface DataState {
+  posts: []
   postPreviews: PostPreview[]
   measurements: Measurement[]
   equipment: Equipment[]
@@ -102,6 +103,8 @@ export interface DataState {
   myPlans: Plan[]
   myFriendships: Friendship[]
 }
+
+//export interface Post {}
 
 export interface PostPreview {
   postId: number
@@ -182,6 +185,7 @@ export interface Friendship {
 }
 
 export type DataActions =
+DataGetPosts |
 DataGetPostPreviews |
 DataGetMeasurements |
 DataGetEquipments |
@@ -201,92 +205,97 @@ DataGetMySavedRecipes |
 DataGetMyPlans |
 DataGetMyFriendships;
 
+export interface DataGetPosts {
+  type: typeof DATA_GET_POST_PREVIEWS
+  posts: []
+}
+
 export interface DataGetPostPreviews {
   type: typeof DATA_GET_POST_PREVIEWS
-
+  postPreviews: PostPreview[]
 }
 
 export interface DataGetMeasurements {
   type: typeof DATA_GET_MEASUREMENTS
-  
+  measurements: Measurement[]
 }
 
 export interface DataGetEquipments {
   type: typeof DATA_GET_EQUIPMENTS
-  
+  equipment: Equipment[]
 }
 
 export interface DataGetEquipmentTypes {
   type: typeof DATA_GET_EQUIPMENT_TYPES
-  
+  equipmentTypes: EquipmentType[]
 }
 
 export interface DataGetIngredients {
   type: typeof DATA_GET_INGREDIENTS
-  
+  ingredients: Ingredient[]
 }
 
 export interface DataGetIngredientTypes {
   type: typeof DATA_GET_INGREDIENT_TYPES
-  
+  ingredientTypes: IngredientType[]
 }
 
 export interface DataGetRecipes {
   type: typeof DATA_GET_RECIPES
-  
+  recipes: WorkRecipe[]
 }
 
 export interface DataGetRecipeTypes {
   type: typeof DATA_GET_RECIPE_TYPES
-  
+  recipeTypes: RecipeType[]
 }
 
 export interface DataGetCuisines {
   type: typeof DATA_GET_CUISINES
-  
+  cuisines: Cuisine[]
 }
 
 export interface DataGetMethods {
   type: typeof DATA_GET_METHODS
-  
+  methods: Method[]
 }
 
 export interface DataGetMyPublicRecipes {
   type: typeof DATA_GET_MY_PUBLIC_RECIPES
-  
+  myPublicRecipes: WorkRecipe[]
 }
 
 export interface DataGetMyPrivateEquipments {
   type: typeof DATA_GET_MY_PRIVATE_EQUIPMENTS
-  
+  myPrivateEquipment: Equipment[]
 }
 
 export interface DataGetMyPrivateIngredients {
   type: typeof DATA_GET_MY_PRIVATE_INGREDIENTS
-  
+  myPrivateIngredients: Ingredient[]
 }
 
 export interface DataGetMyPrivateRecipes {
   type: typeof DATA_GET_MY_PRIVATE_RECIPES
-  
+  myPrivateRecipes: WorkRecipe[]
 }
 
 export interface DataGetMyFavoriteRecipes {
   type: typeof DATA_GET_MY_FAVORITE_RECIPES
-  
+  myFavoriteRecipes: WorkRecipe[]
 }
 
 export interface DataGetMySavedRecipes {
   type: typeof DATA_GET_MY_SAVED_RECIPES
-  
+  mySavedRecipes: WorkRecipe[]
 }
 
 export interface DataGetMyPlans {
   type: typeof DATA_GET_MY_PLANS
-  
+  myPlans: Plan[]
 }
 
 export interface DataGetMyFriendships {
   type: typeof DATA_GET_MY_FRIENDSHIPS
-  
+  myFriendships: Friendship[]
 }

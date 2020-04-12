@@ -23,7 +23,7 @@ export const UserNav = ({
   const handleLogout = () => {
     authUserLogout();
     history.push('/home');
-  }
+  };
 
   return (
     <div className="user-nav">
