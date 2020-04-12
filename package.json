@@ -90,6 +90,7 @@
     "react-dnd-test-backend": "^7.7.0",
     "react-hot-loader": "^4.12.20",
     "react-test-renderer": "^16.13.1",
+    "redux-devtools-extension": "^2.13.8",
     "responsive-loader": "^1.2.0",
     "rimraf": "^2.7.1",
     "sass": "^1.26.3",
