@@ -1,4 +1,4 @@
-import { AuthUserLogout } from '../auth/types';
+import { IAuthUserLogout } from '../auth/types';
 
 export const MESSENGER_CONNECT = 'MESSENGER_CONNECT' as const;
 export const MESSENGER_CONNECTED = 'MESSENGER_CONNECTED' as const;
@@ -24,142 +24,142 @@ export const MESSENGER_JOINED_USER = 'MESSENGER_JOINED_USER' as const;
 export const MESSENGER_LEFT_USER = 'MESSENGER_LEFT_USER' as const;
 export const MESSENGER_GET_ONLINE = 'MESSENGER_GET_ONLINE' as const;
 
-export interface MessengerState {
+export interface IMessengerState {
   channel: string
-  messages: Array<Message | Whisper>
-  users: User[]
-  onlineFriends: User[]
+  messages: Array<IMessage | IWhisper>
+  users: IUser[]
+  onlineFriends: IUser[]
   status: string
   connectButtonDisabled: boolean
   disconnectButtonDisabled: boolean
 }
 
-export interface Message {
+export interface IMessage {
   chatMessageId: string
   chatMessageText: string
   room: string
-  user: User
+  user: IUser
   ts: string
 }
 
-export interface Whisper {
+export interface IWhisper {
   whisperId: string
   whisperText: string
   to: string
-  user: User
+  user: IUser
   ts: string
 }
 
-export interface User {
+export interface IUser {
   userId: string
   username: string
   avatar: string
 }
 
 export type MessengerActions =
-AuthUserLogout |
-MessengerConnect |
-MessengerConnected |
-MessengerDisconnect |
-MessengerDisconnected |
-MessengerGetOnline |
-MessengerShowOnline |
-MessengerShowOffline |
-MessengerChangeChannel |
-MessengerChangedChannel |
-MessengerRejoinedChannel |
-MessengerJoinedUser |
-MessengerLeftUser |
-MessengerSendMessage |
-MessengerReceivedMessage |
-MessengerSendWhisper |
-MessengerReceivedWhisper |
-MessengerFailedWhisper;
+IAuthUserLogout |
+IMessengerConnect |
+IMessengerConnected |
+IMessengerDisconnect |
+IMessengerDisconnected |
+IMessengerGetOnline |
+IMessengerShowOnline |
+IMessengerShowOffline |
+IMessengerChangeChannel |
+IMessengerChangedChannel |
+IMessengerRejoinedChannel |
+IMessengerJoinedUser |
+IMessengerLeftUser |
+IMessengerSendMessage |
+IMessengerReceivedMessage |
+IMessengerSendWhisper |
+IMessengerReceivedWhisper |
+IMessengerFailedWhisper;
 
-interface MessengerConnect {
+interface IMessengerConnect {
   type: typeof MESSENGER_CONNECT
 }
 
-interface MessengerConnected {
+interface IMessengerConnected {
   type: typeof MESSENGER_CONNECTED
 }
 
-interface MessengerDisconnect {
+interface IMessengerDisconnect {
   type: typeof MESSENGER_DISCONNECT
 }
 
-interface MessengerDisconnected {
+interface IMessengerDisconnected {
   type: typeof MESSENGER_DISCONNECTED
 }
 
-interface MessengerGetOnline {
+interface IMessengerGetOnline {
   type: typeof MESSENGER_GET_ONLINE
-  online: User[]
+  online: IUser[]
 }
 
-interface MessengerShowOnline {
+interface IMessengerShowOnline {
   type: typeof MESSENGER_SHOW_ONLINE
-  user: User
+  user: IUser
 }
 
-interface MessengerShowOffline {
+interface IMessengerShowOffline {
   type: typeof MESSENGER_SHOW_OFFLINE
-  user: User
+  user: IUser
 }
 
-interface MessengerChangeChannel {
+interface IMessengerChangeChannel {
   type: typeof MESSENGER_CHANGE_CHANNEL
   channel: string
 }
 
-interface MessengerChangedChannel {
+interface IMessengerChangedChannel {
   type: typeof MESSENGER_CHANGED_CHANNEL
-  users: User[]
+  users: IUser[]
   channel: string
 }
 
-interface MessengerRejoinedChannel {
+interface IMessengerRejoinedChannel {
   type: typeof MESSENGER_REJOINED_CHANNEL
-  users: User[],
+  users: IUser[],
   channel: string
 }
 
-interface MessengerJoinedUser {
+interface IMessengerJoinedUser {
   type: typeof MESSENGER_JOINED_USER
-  user: User
+  user: IUser
   ts: string
 }
 
-interface MessengerLeftUser {
+interface IMessengerLeftUser {
   type: typeof MESSENGER_LEFT_USER
-  user: User
+  user: IUser
   ts: string
 }
 
-interface MessengerSendMessage {
+interface IMessengerSendMessage {
   type: typeof MESSENGER_SEND_MESSAGE
   message: string
 }
 
-export interface MessengerReceivedMessage {
+export interface IMessengerReceivedMessage {
   type: typeof MESSENGER_RECEIVED_MESSAGE
-  message: Message
+  message: IMessage
   ts: string
 }
 
-interface MessengerSendWhisper {
+interface IMessengerSendWhisper {
   type: typeof MESSENGER_SEND_WHISPER
   whisper: string
   to: string
 }
 
-export interface MessengerReceivedWhisper {
+export interface IMessengerReceivedWhisper {
   type: typeof MESSENGER_RECEIVED_WHISPER
-  whisper: Whisper
+  whisper: IWhisper
   ts: string
 }
 
-interface MessengerFailedWhisper {
+interface IMessengerFailedWhisper {
   type: typeof MESSENGER_FAILED_WHISPER
   feedback: string
   ts: string

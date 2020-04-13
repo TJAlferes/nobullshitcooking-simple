@@ -1,34 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
+import { ICuisine } from '../../../../store/data/types';
 import './cuisines.css';
 
-function alphabetizeCuisines(cuisines) {
-  if (cuisines.length === 0) return [];
-
-  const alphabetizedCuisines = cuisines.reduce((acc, cuisine) => {
+export function Cuisines({ oneColumnATheme, cuisines }: Props): JSX.Element {
+  const alphabetized = cuisines.reduce((acc, cuisine) => {
     const firstLetter = cuisine['cuisine_nation'][0].toLocaleUpperCase();
     if (acc[firstLetter]) acc[firstLetter].push(cuisine['cuisine_nation']);
     else acc[firstLetter] = [cuisine['cuisine_nation']];
     return acc;
   }, {});
 
-  const letterKeys = Object.keys(alphabetizedCuisines);
-  const nationValues = Object.values(alphabetizedCuisines);
-  return {letterKeys, nationValues};
-}
-
-export const Cuisines = ({ oneColumnATheme, cuisines }) => {
-  const [ letters, setLetters ] = useState([]);
-  const [ nations, setNations ] = useState([]);
-
-  useEffect(() => {
-    const { letterKeys, nationValues } = alphabetizeCuisines(cuisines);
-    setLetters(letterKeys);
-    setNations(nationValues);
-  }, []);
-
+  const letters = Object.keys(alphabetized);
+  const nations = Object.values(alphabetized).map(val => String(val));
   let i = 0;
 
   return (
@@ -38,7 +24,7 @@ export const Cuisines = ({ oneColumnATheme, cuisines }) => {
       {letters.length && nations.length && letters.map((letter, index) => (
         <div className="cuisine-nav-group" key={letter}>
           <div className="cuisine-nav-letter">{letter}</div>
-          {nations[index].map(nation => {
+          {nations[index].map((nation: string) => {
             i++;
             return (
               <div className="cuisine-nav-nation" key={nation}>
@@ -55,8 +41,22 @@ export const Cuisines = ({ oneColumnATheme, cuisines }) => {
       ))}
     </div>
   );
+}
+
+interface RootState {
+  data: {
+    cuisines: ICuisine[]
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  oneColumnATheme: string
 };
 
-const mapStateToProps = state => ({cuisines: state.data.cuisines});
+const mapStateToProps = (state: RootState) => ({cuisines: state.data.cuisines});
 
-export default connect(mapStateToProps)(Cuisines);
+const connector = connect(mapStateToProps);
+
+export default connector(Cuisines);

@@ -10,7 +10,7 @@ export const PLANNER_SET_EDITING_ID = 'PLANNER_SET_EDITING_ID' as const;
 export const PLANNER_SET_PLAN_NAME = 'PLANNER_SET_PLAN_NAME' as const;
 export const PLANNER_SET_PLAN_DATA = 'PLANNER_SET_PLAN_DATA' as const;
 
-export interface PlannerState {
+export interface IPlannerState {
   isLoading: boolean
   creating: boolean
   editingId: string
@@ -18,107 +18,107 @@ export interface PlannerState {
   expanded: boolean
   expandedDay: string|number
   planName: string
-  recipeListsInsideDays: PlannerData
+  recipeListsInsideDays: IPlannerData
 }
 
-export interface PlannerData {
-  1: PlannerRecipe[],
-  2: PlannerRecipe[],
-  3: PlannerRecipe[],
-  4: PlannerRecipe[],
-  5: PlannerRecipe[],
-  6: PlannerRecipe[],
-  7: PlannerRecipe[],
-  8: PlannerRecipe[],
-  9: PlannerRecipe[],
-  10: PlannerRecipe[],
-  11: PlannerRecipe[],
-  12: PlannerRecipe[],
-  13: PlannerRecipe[],
-  14: PlannerRecipe[],
-  15: PlannerRecipe[],
-  16: PlannerRecipe[],
-  17: PlannerRecipe[],
-  18: PlannerRecipe[],
-  19: PlannerRecipe[],
-  20: PlannerRecipe[],
-  21: PlannerRecipe[],
-  22: PlannerRecipe[],
-  23: PlannerRecipe[],
-  24: PlannerRecipe[],
-  25: PlannerRecipe[],
-  26: PlannerRecipe[],
-  27: PlannerRecipe[],
-  28: PlannerRecipe[]
+export interface IPlannerData {
+  1: IPlannerRecipe[],
+  2: IPlannerRecipe[],
+  3: IPlannerRecipe[],
+  4: IPlannerRecipe[],
+  5: IPlannerRecipe[],
+  6: IPlannerRecipe[],
+  7: IPlannerRecipe[],
+  8: IPlannerRecipe[],
+  9: IPlannerRecipe[],
+  10: IPlannerRecipe[],
+  11: IPlannerRecipe[],
+  12: IPlannerRecipe[],
+  13: IPlannerRecipe[],
+  14: IPlannerRecipe[],
+  15: IPlannerRecipe[],
+  16: IPlannerRecipe[],
+  17: IPlannerRecipe[],
+  18: IPlannerRecipe[],
+  19: IPlannerRecipe[],
+  20: IPlannerRecipe[],
+  21: IPlannerRecipe[],
+  22: IPlannerRecipe[],
+  23: IPlannerRecipe[],
+  24: IPlannerRecipe[],
+  25: IPlannerRecipe[],
+  26: IPlannerRecipe[],
+  27: IPlannerRecipe[],
+  28: IPlannerRecipe[]
 }
 
-export interface PlannerRecipe {
+export interface IPlannerRecipe {
   key: string
   image: string
   text: string
 }
 
 export type PlannerActions =
-PlannerClickDay |
-PlannerAddRecipeToDay |
-PlannerRemoveRecipeFromDay |
-PlannerReorderRecipeInDay |
-PlannerClearWork |
-PlannerSetCreating |
-PlannerSetEditingId |
-PlannerSetPlanName |
-PlannerSetPlanData;
+IPlannerClickDay |
+IPlannerAddRecipeToDay |
+IPlannerRemoveRecipeFromDay |
+IPlannerReorderRecipeInDay |
+IPlannerClearWork |
+IPlannerSetCreating |
+IPlannerSetEditingId |
+IPlannerSetPlanName |
+IPlannerSetPlanData;
 
-export interface PlannerClickDay {
+export interface IPlannerClickDay {
   type: typeof PLANNER_CLICK_DAY
   day: number
 }
 
-export interface PlannerAddRecipeToDay {
+export interface IPlannerAddRecipeToDay {
   type: typeof PLANNER_ADD_RECIPE_TO_DAY
   day: number
-  recipe: PlannerRecipe
+  recipe: IPlannerRecipe
 }
 
-export interface PlannerRemoveRecipeFromDay {
+export interface IPlannerRemoveRecipeFromDay {
   type: typeof PLANNER_REMOVE_RECIPE_FROM_DAY
   day: number
   index: number
 }
 
-export interface PlannerReorderRecipeInDay {
+export interface IPlannerReorderRecipeInDay {
   type: typeof PLANNER_REORDER_RECIPE_IN_DAY
   dragIndex: number
   hoverIndex: number
 }
 
-/*interface Planner {
+/*interface IPlanner {
   type: typeof PLANNER_
 }*/
 
-/*interface Planner {
+/*interface IPlanner {
   type: typeof PLANNER_
 }*/
 
-interface PlannerClearWork {
+interface IPlannerClearWork {
   type: typeof PLANNER_CLEAR_WORK
 }
 
-interface PlannerSetCreating {
+interface IPlannerSetCreating {
   type: typeof PLANNER_SET_CREATING
 }
 
-interface PlannerSetEditingId {
+interface IPlannerSetEditingId {
   type: typeof PLANNER_SET_EDITING_ID
   id: string
 }
 
-interface PlannerSetPlanName {
+interface IPlannerSetPlanName {
   type: typeof PLANNER_SET_PLAN_NAME
   name: string
 }
 
-interface PlannerSetPlanData {
+interface IPlannerSetPlanData {
   type: typeof PLANNER_SET_PLAN_DATA
-  data: PlannerData
+  data: IPlannerData
 }

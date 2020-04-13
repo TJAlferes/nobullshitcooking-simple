@@ -1,61 +1,61 @@
 export const PLANNER_VIEW_CLICK_DAY = 'PLANNER_VIEW_CLICK_DAY' as const;
 export const PLANNER_VIEW_LOAD = 'PLANNER_VIEW_LOAD' as const;
 
-export interface PlannerViewState {
+export interface IPlannerViewState {
   isLoading: boolean
   expanded: boolean
   expandedDay: string|number
   planName: string
-  recipeListsInsideDays: PlannerViewData
+  recipeListsInsideDays: IPlannerViewData
 }
 
-export interface PlannerViewData {
-  1: PlannerViewRecipe[],
-  2: PlannerViewRecipe[],
-  3: PlannerViewRecipe[],
-  4: PlannerViewRecipe[],
-  5: PlannerViewRecipe[],
-  6: PlannerViewRecipe[],
-  7: PlannerViewRecipe[],
-  8: PlannerViewRecipe[],
-  9: PlannerViewRecipe[],
-  10: PlannerViewRecipe[],
-  11: PlannerViewRecipe[],
-  12: PlannerViewRecipe[],
-  13: PlannerViewRecipe[],
-  14: PlannerViewRecipe[],
-  15: PlannerViewRecipe[],
-  16: PlannerViewRecipe[],
-  17: PlannerViewRecipe[],
-  18: PlannerViewRecipe[],
-  19: PlannerViewRecipe[],
-  20: PlannerViewRecipe[],
-  21: PlannerViewRecipe[],
-  22: PlannerViewRecipe[],
-  23: PlannerViewRecipe[],
-  24: PlannerViewRecipe[],
-  25: PlannerViewRecipe[],
-  26: PlannerViewRecipe[],
-  27: PlannerViewRecipe[],
-  28: PlannerViewRecipe[]
+export interface IPlannerViewData {
+  1: IPlannerViewRecipe[],
+  2: IPlannerViewRecipe[],
+  3: IPlannerViewRecipe[],
+  4: IPlannerViewRecipe[],
+  5: IPlannerViewRecipe[],
+  6: IPlannerViewRecipe[],
+  7: IPlannerViewRecipe[],
+  8: IPlannerViewRecipe[],
+  9: IPlannerViewRecipe[],
+  10: IPlannerViewRecipe[],
+  11: IPlannerViewRecipe[],
+  12: IPlannerViewRecipe[],
+  13: IPlannerViewRecipe[],
+  14: IPlannerViewRecipe[],
+  15: IPlannerViewRecipe[],
+  16: IPlannerViewRecipe[],
+  17: IPlannerViewRecipe[],
+  18: IPlannerViewRecipe[],
+  19: IPlannerViewRecipe[],
+  20: IPlannerViewRecipe[],
+  21: IPlannerViewRecipe[],
+  22: IPlannerViewRecipe[],
+  23: IPlannerViewRecipe[],
+  24: IPlannerViewRecipe[],
+  25: IPlannerViewRecipe[],
+  26: IPlannerViewRecipe[],
+  27: IPlannerViewRecipe[],
+  28: IPlannerViewRecipe[]
 }
 
 // url
-export interface PlannerViewRecipe {
+export interface IPlannerViewRecipe {
   key: string
   image: string
   text: string
 }
 
-export type PlannerViewActions = PlannerViewClickDay | PlannerViewLoad;
+export type PlannerViewActions = IPlannerViewClickDay|IPlannerViewLoad;
 
-export interface PlannerViewClickDay {
+export interface IPlannerViewClickDay {
   type: typeof PLANNER_VIEW_CLICK_DAY
   day: number
 }
 
-interface PlannerViewLoad {
+interface IPlannerViewLoad {
   type: typeof PLANNER_VIEW_LOAD
   planName: string
-  planData: PlannerViewData
+  planData: IPlannerViewData
 }

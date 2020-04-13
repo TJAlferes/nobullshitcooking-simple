@@ -1,12 +1,12 @@
 export const NOBSCAPP_WINDOW_FOCUSED = 'NOBSCAPP_WINDOW_FOCUSED' as const;
 
-export interface NOBSCAppState {
+export interface INOBSCAppState {
   windowFocused: boolean
 }
 
-export type NOBSCAppActions = NOBSCAppWindowFocused;
+export type NOBSCAppActions = INOBSCAppWindowFocused;
 
-interface NOBSCAppWindowFocused {
+interface INOBSCAppWindowFocused {
   type: typeof NOBSCAPP_WINDOW_FOCUSED
   condition: boolean
 }

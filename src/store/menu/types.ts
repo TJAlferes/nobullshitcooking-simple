@@ -1,16 +1,16 @@
 export const MENU_SHADOW_SHOW = 'MENU_SHADOW_SHOW' as const;
 export const MENU_SHADOW_HIDE = 'MENU_SHADOW_HIDE' as const;
 
-export interface MenuState {
+export interface IMenuState {
   shadow: boolean
 }
 
-export type MenuActions = MenuShadowShow|MenuShadowHide;
+export type MenuActions = IMenuShadowShow|IMenuShadowHide;
 
-interface MenuShadowShow {
+interface IMenuShadowShow {
   type: typeof MENU_SHADOW_SHOW
 }
 
-interface MenuShadowHide {
+interface IMenuShadowHide {
   type: typeof MENU_SHADOW_HIDE
 }

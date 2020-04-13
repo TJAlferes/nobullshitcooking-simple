@@ -28,7 +28,7 @@ export const AUTH_USER_LOGOUT = "AUTH_USER_LOGOUT" as const;
 export const AUTH_USER_LOGOUT_SUCCEEDED = "AUTH_USER_LOGOUT_SUCCEEDED" as const;
 export const AUTH_USER_LOGOUT_FAILED = "AUTH_USER_LOGOUT_FAILED" as const;
 
-export interface AuthState {
+export interface IAuthState {
   message: string
   isAuthenticated: boolean
   authname: string
@@ -36,48 +36,48 @@ export interface AuthState {
 }
 
 export type AuthActions =
-AuthDisplay |
-AuthReset |
-AuthCheckState |
-AuthMessageClear |
-AuthUpdateLocalAvatar |
-AuthUserRegister |
-AuthUserRegisterSucceeded |
-AuthUserRegisterFailed |
-AuthUserVerify |
-AuthUserVerifySucceeded |
-AuthUserVerifyFailed |
-AuthUserLogin |
-AuthUserLoginSucceeded |
-AuthUserLoginFailed |
-AuthUserLogout |
-AuthUserLogoutSucceeded |
-AuthUserLogoutFailed;
+IAuthDisplay |
+IAuthReset |
+IAuthCheckState |
+IAuthMessageClear |
+IAuthUpdateLocalAvatar |
+IAuthUserRegister |
+IAuthUserRegisterSucceeded |
+IAuthUserRegisterFailed |
+IAuthUserVerify |
+IAuthUserVerifySucceeded |
+IAuthUserVerifyFailed |
+IAuthUserLogin |
+IAuthUserLoginSucceeded |
+IAuthUserLoginFailed |
+IAuthUserLogout |
+IAuthUserLogoutSucceeded |
+IAuthUserLogoutFailed;
 
-export interface AuthDisplay {
+export interface IAuthDisplay {
   type: typeof AUTH_DISPLAY
   authname: string
   avatar: string
 }
 
-export interface AuthReset {
+export interface IAuthReset {
   type: typeof AUTH_RESET
 }
 
-export interface AuthCheckState {
+export interface IAuthCheckState {
   type: typeof AUTH_CHECK_STATE
 }
 
-export interface AuthMessageClear {
+export interface IAuthMessageClear {
   type: typeof AUTH_MESSAGE_CLEAR
 }
 
-export interface AuthUpdateLocalAvatar {
+export interface IAuthUpdateLocalAvatar {
   type: typeof AUTH_UPDATE_LOCAL_AVATAR
   avatar: string
 }
 
-export interface AuthUserRegister {
+export interface IAuthUserRegister {
   type: typeof AUTH_USER_REGISTER
   email: string
   password: string
@@ -85,17 +85,17 @@ export interface AuthUserRegister {
   history: {}
 }
 
-export interface AuthUserRegisterSucceeded {
+export interface IAuthUserRegisterSucceeded {
   type: typeof AUTH_USER_REGISTER_SUCCEEDED
   message: string
 }
 
-export interface AuthUserRegisterFailed {
+export interface IAuthUserRegisterFailed {
   type: typeof AUTH_USER_REGISTER_FAILED
   message: string
 }
 
-export interface AuthUserVerify {
+export interface IAuthUserVerify {
   type: typeof AUTH_USER_VERIFY
   email: string
   password: string
@@ -103,42 +103,42 @@ export interface AuthUserVerify {
   history: {}
 }
 
-export interface AuthUserVerifySucceeded {
+export interface IAuthUserVerifySucceeded {
   type: typeof AUTH_USER_VERIFY_SUCCEEDED
   message: string
 }
 
-export interface AuthUserVerifyFailed {
+export interface IAuthUserVerifyFailed {
   type: typeof AUTH_USER_VERIFY_FAILED
   message: string
 }
 
-export interface AuthUserLogin {
+export interface IAuthUserLogin {
   type: typeof AUTH_USER_LOGIN
   email: string
   password: string
 }
 
-export interface AuthUserLoginSucceeded {
+export interface IAuthUserLoginSucceeded {
   type: typeof AUTH_USER_LOGIN_SUCCEEDED
   message: string
 }
 
-export interface AuthUserLoginFailed {
+export interface IAuthUserLoginFailed {
   type: typeof AUTH_USER_LOGIN_FAILED
   message: string
 }
 
-export interface AuthUserLogout {
+export interface IAuthUserLogout {
   type: typeof AUTH_USER_LOGOUT
 }
 
-export interface AuthUserLogoutSucceeded {
+export interface IAuthUserLogoutSucceeded {
   type: typeof AUTH_USER_LOGOUT_SUCCEEDED
   message: string
 }
 
-export interface AuthUserLogoutFailed {
+export interface IAuthUserLogoutFailed {
   type: typeof AUTH_USER_LOGOUT_FAILED
   message: string
 }

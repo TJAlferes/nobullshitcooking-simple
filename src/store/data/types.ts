@@ -82,31 +82,31 @@ export const DATA_GET_MY_FRIENDSHIPS = 'DATA_GET_MY_FRIENDSHIPS' as const;
 export const DATA_GET_MY_FRIENDSHIPS_SUCCEEDED = 'DATA_GET_MY_FRIENDSHIPS_SUCCEEDED' as const;
 export const DATA_GET_MY_FRIENDSHIPS_FAILED = 'DATA_GET_MY_FRIENDSHIPS_FAILED' as const;
 
-export interface DataState {
+export interface IDataState {
   posts: []
-  postPreviews: PostPreview[]
-  measurements: Measurement[]
-  equipment: Equipment[]
-  equipmentTypes: EquipmentType[]
-  ingredients: Ingredient[]
-  ingredientTypes: IngredientType[]
-  recipes: WorkRecipe[]
-  recipeTypes: RecipeType[]
-  cuisines: Cuisine[]
-  methods: Method[]
-  myPublicRecipes: WorkRecipe[]
-  myPrivateEquipment: Equipment[]
-  myPrivateIngredients: Ingredient[]
-  myPrivateRecipes: WorkRecipe[]
-  myFavoriteRecipes: WorkRecipe[]
-  mySavedRecipes: WorkRecipe[]
-  myPlans: Plan[]
-  myFriendships: Friendship[]
+  postPreviews: IPostPreview[]
+  measurements: IMeasurement[]
+  equipment: IEquipment[]
+  equipmentTypes: IEquipmentType[]
+  ingredients: IIngredient[]
+  ingredientTypes: IIngredientType[]
+  recipes: IWorkRecipe[]
+  recipeTypes: IRecipeType[]
+  cuisines: ICuisine[]
+  methods: IMethod[]
+  myPublicRecipes: IWorkRecipe[]
+  myPrivateEquipment: IEquipment[]
+  myPrivateIngredients: IIngredient[]
+  myPrivateRecipes: IWorkRecipe[]
+  myFavoriteRecipes: IWorkRecipe[]
+  mySavedRecipes: IWorkRecipe[]
+  myPlans: IPlan[]
+  myFriendships: IFriendship[]
 }
 
-//export interface Post {}
+//export interface IPost {}
 
-export interface PostPreview {
+export interface IPostPreview {
   postId: number
   title: string
   author: string
@@ -114,12 +114,12 @@ export interface PostPreview {
   snippet: string
 }
 
-export interface Measurement {
+export interface IMeasurement {
   measurement_id: number
   measurement_name: string
 }
 
-export interface Equipment {
+export interface IEquipment {
   equipment_id: number
   equipment_type_id: number
   owner_id: number
@@ -129,12 +129,12 @@ export interface Equipment {
   equipment_image: string
 }
 
-export interface EquipmentType {
+export interface IEquipmentType {
   equipment_type_id: number
   equipment_type_name: string
 }
 
-export interface Ingredient {
+export interface IIngredient {
   ingredient_id: number
   ingredient_type_id: number
   owner_id: number
@@ -144,12 +144,12 @@ export interface Ingredient {
   ingredient_image: string
 }
 
-export interface IngredientType {
+export interface IIngredientType {
   ingredient_type_id: number
   ingredient_type_name: string
 }
 
-export interface WorkRecipe {
+export interface IWorkRecipe {
   recipe_id: number
   owner_id: number
   recipe_type_id: number
@@ -158,144 +158,145 @@ export interface WorkRecipe {
   recipe_image: string
 }
 
-export interface RecipeType {
+export interface IRecipeType {
   recipe_type_id: number
   recipe_type_name: string
 }
 
-export interface Cuisine {
+export interface ICuisine {
   cuisine_id: number
   cuisine_name: string
+  cuisine_nation: string
 }
 
-export interface Method {
+export interface IMethod {
   method_id: number
   method_name: string
 }
 
-export interface Plan {
+export interface IPlan {
   plan_id: number
   plan_name: string
   plan_data: PlannerData
 }
 
-export interface Friendship {
+export interface IFriendship {
   friend_id: number
   status: string
 }
 
 export type DataActions =
-DataGetPosts |
-DataGetPostPreviews |
-DataGetMeasurements |
-DataGetEquipments |
-DataGetEquipmentTypes |
-DataGetIngredients |
-DataGetIngredientTypes |
-DataGetRecipes |
-DataGetRecipeTypes |
-DataGetCuisines |
-DataGetMethods |
-DataGetMyPublicRecipes |
-DataGetMyPrivateEquipments |
-DataGetMyPrivateIngredients |
-DataGetMyPrivateRecipes |
-DataGetMyFavoriteRecipes |
-DataGetMySavedRecipes |
-DataGetMyPlans |
-DataGetMyFriendships;
+IDataGetPosts |
+IDataGetPostPreviews |
+IDataGetMeasurements |
+IDataGetEquipments |
+IDataGetEquipmentTypes |
+IDataGetIngredients |
+IDataGetIngredientTypes |
+IDataGetRecipes |
+IDataGetRecipeTypes |
+IDataGetCuisines |
+IDataGetMethods |
+IDataGetMyPublicRecipes |
+IDataGetMyPrivateEquipments |
+IDataGetMyPrivateIngredients |
+IDataGetMyPrivateRecipes |
+IDataGetMyFavoriteRecipes |
+IDataGetMySavedRecipes |
+IDataGetMyPlans |
+IDataGetMyFriendships;
 
-export interface DataGetPosts {
+export interface IDataGetPosts {
   type: typeof DATA_GET_POST_PREVIEWS
   posts: []
 }
 
-export interface DataGetPostPreviews {
+export interface IDataGetPostPreviews {
   type: typeof DATA_GET_POST_PREVIEWS
-  postPreviews: PostPreview[]
+  postPreviews: IPostPreview[]
 }
 
-export interface DataGetMeasurements {
+export interface IDataGetMeasurements {
   type: typeof DATA_GET_MEASUREMENTS
-  measurements: Measurement[]
+  measurements: IMeasurement[]
 }
 
-export interface DataGetEquipments {
+export interface IDataGetEquipments {
   type: typeof DATA_GET_EQUIPMENTS
-  equipment: Equipment[]
+  equipment: IEquipment[]
 }
 
-export interface DataGetEquipmentTypes {
+export interface IDataGetEquipmentTypes {
   type: typeof DATA_GET_EQUIPMENT_TYPES
-  equipmentTypes: EquipmentType[]
+  equipmentTypes: IEquipmentType[]
 }
 
-export interface DataGetIngredients {
+export interface IDataGetIngredients {
   type: typeof DATA_GET_INGREDIENTS
-  ingredients: Ingredient[]
+  ingredients: IIngredient[]
 }
 
-export interface DataGetIngredientTypes {
+export interface IDataGetIngredientTypes {
   type: typeof DATA_GET_INGREDIENT_TYPES
-  ingredientTypes: IngredientType[]
+  ingredientTypes: IIngredientType[]
 }
 
-export interface DataGetRecipes {
+export interface IDataGetRecipes {
   type: typeof DATA_GET_RECIPES
-  recipes: WorkRecipe[]
+  recipes: IWorkRecipe[]
 }
 
-export interface DataGetRecipeTypes {
+export interface IDataGetRecipeTypes {
   type: typeof DATA_GET_RECIPE_TYPES
-  recipeTypes: RecipeType[]
+  recipeTypes: IRecipeType[]
 }
 
-export interface DataGetCuisines {
+export interface IDataGetCuisines {
   type: typeof DATA_GET_CUISINES
-  cuisines: Cuisine[]
+  cuisines: ICuisine[]
 }
 
-export interface DataGetMethods {
+export interface IDataGetMethods {
   type: typeof DATA_GET_METHODS
-  methods: Method[]
+  methods: IMethod[]
 }
 
-export interface DataGetMyPublicRecipes {
+export interface IDataGetMyPublicRecipes {
   type: typeof DATA_GET_MY_PUBLIC_RECIPES
-  myPublicRecipes: WorkRecipe[]
+  myPublicRecipes: IWorkRecipe[]
 }
 
-export interface DataGetMyPrivateEquipments {
+export interface IDataGetMyPrivateEquipments {
   type: typeof DATA_GET_MY_PRIVATE_EQUIPMENTS
-  myPrivateEquipment: Equipment[]
+  myPrivateEquipment: IEquipment[]
 }
 
-export interface DataGetMyPrivateIngredients {
+export interface IDataGetMyPrivateIngredients {
   type: typeof DATA_GET_MY_PRIVATE_INGREDIENTS
-  myPrivateIngredients: Ingredient[]
+  myPrivateIngredients: IIngredient[]
 }
 
-export interface DataGetMyPrivateRecipes {
+export interface IDataGetMyPrivateRecipes {
   type: typeof DATA_GET_MY_PRIVATE_RECIPES
-  myPrivateRecipes: WorkRecipe[]
+  myPrivateRecipes: IWorkRecipe[]
 }
 
-export interface DataGetMyFavoriteRecipes {
+export interface IDataGetMyFavoriteRecipes {
   type: typeof DATA_GET_MY_FAVORITE_RECIPES
-  myFavoriteRecipes: WorkRecipe[]
+  myFavoriteRecipes: IWorkRecipe[]
 }
 
-export interface DataGetMySavedRecipes {
+export interface IDataGetMySavedRecipes {
   type: typeof DATA_GET_MY_SAVED_RECIPES
-  mySavedRecipes: WorkRecipe[]
+  mySavedRecipes: IWorkRecipe[]
 }
 
-export interface DataGetMyPlans {
+export interface IDataGetMyPlans {
   type: typeof DATA_GET_MY_PLANS
-  myPlans: Plan[]
+  myPlans: IPlan[]
 }
 
-export interface DataGetMyFriendships {
+export interface IDataGetMyFriendships {
   type: typeof DATA_GET_MY_FRIENDSHIPS
-  myFriendships: Friendship[]
+  myFriendships: IFriendship[]
 }

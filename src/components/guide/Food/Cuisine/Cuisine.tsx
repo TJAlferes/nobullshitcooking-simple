@@ -4,9 +4,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
-
 import CuisineView from './CuisineView';
-
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../../config/NOBSCBackendAPIEndpointOne';
@@ -14,15 +12,13 @@ import {
 const endpoint = NOBSCBackendAPIEndpointOne;
 const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';
 
-export const Cuisine = ({
+export function Cuisine({
   match,
   oneColumnATheme,
   dataCuisines
-}) => {
+}): JSX.Element {
   const history = useHistory();
 
-  const [ feedback, setFeedback ] = useState("");
-  const [ loading, setLoading ] = useState(false);  // set spinner?
   const [ cuisine, setCuisine ] = useState(null);
   const [ nearbyStoresClicked, setNearbyStoresClicked ] = useState(false);
   const [ address, setAddress ] = useState("");
@@ -31,7 +27,7 @@ export const Cuisine = ({
   const [ tab, setTab ] = useState("intro");
 
   useEffect(() => {
-    const { id } = match.params;  //= useParams; is this testable? mock?
+    const { id } = match.params;
 
     if (!id) {
       history.push('/food/cuisines');
@@ -73,7 +69,7 @@ export const Cuisine = ({
     });
   };
 
-  const handleTabChange = value => setTab(value);
+  const handleTabChange = (value: string) => setTab(value);
 
   const handleShowNearbyStoresClick = () => {
     setNearbyStoresClicked(true);
@@ -95,6 +91,14 @@ export const Cuisine = ({
       handleShowNearbyStoresClick={handleShowNearbyStoresClick}
     />
   );
+}
+
+export interface ICuisineDetail {
+  cuisine_id: number
+  cuisine_name: string
+  cuisine_nation: string
+  cuisine_wiki: string
+  cuisine_intro: string
 }
 
 const mapStateToProps = state => ({dataCuisines: state.data.cuisines});

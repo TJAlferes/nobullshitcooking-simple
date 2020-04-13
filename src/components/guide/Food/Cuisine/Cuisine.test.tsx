@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import CuisineView from './CuisineView';
-
 import { Cuisine } from './Cuisine';
 
 const cuisine = {

@@ -2,31 +2,31 @@ export const CART_ADD_ITEM = 'CART_ADD_ITEM' as const;
 export const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM' as const;
 export const CART_EMPTY = 'CART_EMPTY' as const;
 
-export interface CartState {
-  items: CartItem[]
+export interface ICartState {
+  items: ICartItem[]
 }
 
-export interface CartItem {
+export interface ICartItem {
   itemId: string
   itemTypeId: string
   itemName: string
 }
 
 export type CartActions =
-CartAddItem |
-CartRemoveItem |
-CartEmpty;
+ICartAddItem |
+ICartRemoveItem |
+ICartEmpty;
 
-interface CartAddItem {
+interface ICartAddItem {
   type: typeof CART_ADD_ITEM
-  item: CartItem
+  item: ICartItem
 }
 
-interface CartRemoveItem {
+interface ICartRemoveItem {
   type: typeof CART_REMOVE_ITEM
-  item: CartItem
+  item: ICartItem
 }
 
-interface CartEmpty {
+interface ICartEmpty {
   type: typeof CART_EMPTY
 }
