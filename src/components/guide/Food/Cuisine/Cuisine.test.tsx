@@ -4,19 +4,17 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import CuisineView from './CuisineView';
+import { CuisineView } from './CuisineView';
 import { Cuisine } from './Cuisine';
 
 const cuisine = {
-  cuisine: {
-    cuisine_id: 1,
-    cuisine_name: "Italian",
-    cuisine_nation: "Italy",
-    //cuisine_banner: "",  // AWS S3  cuisine/banner/${cuisine.cuisine_nation}
-    //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation}
-    cuisine_wiki: "Italian_cuisine",
-    cuisine_intro: ""
-  },
+  cuisine_id: 1,
+  cuisine_name: "Italian",
+  cuisine_nation: "Italy",
+  //cuisine_banner: "",  // AWS S3  cuisine/banner/${cuisine.cuisine_nation} don't put in here, just put in markup
+  //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation} don't put in here, just put in markup
+  cuisine_wiki: "Italian_cuisine",
+  cuisine_intro: "",
   cuisine_suppliers: [
     {supplier_id: 14, supplier_name: "Amazing Italian Foods"}
   ],
@@ -29,9 +27,6 @@ const cuisine = {
   cuisine_recipes: [
     {recipe_id: 1, title: "Something"},
     {recipe_id: 2, title: "Something Else"}
-  ],
-  cuisine_plans: [
-    {plan_id: 3320, plan_name: "Italian Plan", author_id: 1}
   ]
 };
 

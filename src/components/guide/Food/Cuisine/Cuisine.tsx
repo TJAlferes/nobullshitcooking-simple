@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { useHistory, withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 
+import { ICuisine } from '../../../../store/data/types';
 import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
-import CuisineView from './CuisineView';
+import { CuisineView } from './CuisineView';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../../config/NOBSCBackendAPIEndpointOne';
@@ -12,14 +13,11 @@ import {
 const endpoint = NOBSCBackendAPIEndpointOne;
 const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';
 
-export function Cuisine({
-  match,
-  oneColumnATheme,
-  dataCuisines
-}): JSX.Element {
+export function Cuisine({ oneColumnATheme, dataCuisines }: Props): JSX.Element {
   const history = useHistory();
+  const { id } = useParams();
 
-  const [ cuisine, setCuisine ] = useState(null);
+  const [ cuisine, setCuisine ] = useState<ICuisineDetail>();
   const [ nearbyStoresClicked, setNearbyStoresClicked ] = useState(false);
   const [ address, setAddress ] = useState("");
   const [ latitude, setLatitude ] = useState("");
@@ -27,21 +25,20 @@ export function Cuisine({
   const [ tab, setTab ] = useState("intro");
 
   useEffect(() => {
-    const { id } = match.params;
-
     if (!id) {
       history.push('/food/cuisines');
       return;
     }
 
-    const isCuisine = dataCuisines.find(cui=> cui.cuisine_id == id);
+    const isCuisine = dataCuisines
+    .find((cui: ICuisine) => cui.cuisine_id === Number(id));
 
     if (!isCuisine) {
       history.push('/food/cuisines');
       return;
     }
 
-    const getCuisineDetail = async (id) => {
+    const getCuisineDetail = async (id: number) => {
       const res = await axios.get(`${endpoint}/cuisine/detail/${id}`);
       if (res.data) setCuisine(res.data);
     };
@@ -99,8 +96,48 @@ export interface ICuisineDetail {
   cuisine_nation: string
   cuisine_wiki: string
   cuisine_intro: string
+  cuisine_suppliers: ICuisineSupplier[],
+  cuisine_equipment: ICuisineEquipment[],
+  cuisine_ingredients: ICuisineIngredient[],
+  cuisine_recipes: ICuisineRecipe[]
 }
 
-const mapStateToProps = state => ({dataCuisines: state.data.cuisines});
+interface ICuisineSupplier {
+  supplier_id: number
+  supplier_name: string
+}
 
-export default withRouter(connect(mapStateToProps)(Cuisine));
+interface ICuisineEquipment {
+  equipment_id: number
+  equipment_name: string
+}
+
+interface ICuisineIngredient {
+  ingredient_id: number
+  ingredient_name: string
+}
+
+interface ICuisineRecipe {
+  recipe_id: number
+  title: string
+}
+
+interface RootState {
+  data: {
+    cuisines: ICuisine[]
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  oneColumnATheme: string
+};
+
+const mapStateToProps = (state: RootState) => ({
+  dataCuisines: state.data.cuisines
+});
+
+const connector = connect(mapStateToProps);
+
+export default connector(Cuisine);

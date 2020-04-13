@@ -5,8 +5,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import { ICuisine } from '../../../../store/data/types';
 import './cuisines.css';
 
-export function Cuisines({ oneColumnATheme, cuisines }: Props): JSX.Element {
-  const alphabetized = cuisines.reduce((acc, cuisine) => {
+export function Cuisines({ oneColumnATheme, dataCuisines }: Props): JSX.Element {
+  const alphabetized = dataCuisines.reduce((acc, cuisine) => {
     const firstLetter = cuisine['cuisine_nation'][0].toLocaleUpperCase();
     if (acc[firstLetter]) acc[firstLetter].push(cuisine['cuisine_nation']);
     else acc[firstLetter] = [cuisine['cuisine_nation']];
@@ -30,7 +30,7 @@ export function Cuisines({ oneColumnATheme, cuisines }: Props): JSX.Element {
               <div className="cuisine-nav-nation" key={nation}>
                 <Link
                   className="cuisine-nav-nation-link"
-                  to={`/food/cuisines/${cuisines[i - 1].cuisine_id}`}
+                  to={`/food/cuisines/${dataCuisines[i - 1].cuisine_id}`}
                 >
                   {nation}
                 </Link>
@@ -55,7 +55,9 @@ type Props = PropsFromRedux & {
   oneColumnATheme: string
 };
 
-const mapStateToProps = (state: RootState) => ({cuisines: state.data.cuisines});
+const mapStateToProps = (state: RootState) => ({
+  dataCuisines: state.data.cuisines
+});
 
 const connector = connect(mapStateToProps);
 
