@@ -17,97 +17,97 @@ export const USER_DISOWN_PUBLIC_RECIPE = 'USER_DISOWN_PUBLIC_RECIPE' as const;
 export const USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED = 'USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED' as const;
 export const USER_DISOWN_PUBLIC_RECIPE_FAILED = 'USER_DISOWN_PUBLIC_RECIPE_FAILED' as const;
 
-export interface UserCreateNewPrivateRecipe {
+export interface IUserCreateNewPrivateRecipe {
   type: typeof USER_CREATE_NEW_PRIVATE_RECIPE
-  recipeInfo: CreatingRecipeInfo
+  recipeInfo: ICreatingRecipeInfo
 }
 
-export interface UserCreateNewPrivateRecipeSucceeded {
+export interface IUserCreateNewPrivateRecipeSucceeded {
   type: typeof USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserCreateNewPrivateRecipeFailed {
+export interface IUserCreateNewPrivateRecipeFailed {
   type: typeof USER_CREATE_NEW_PRIVATE_RECIPE_FAILED
   message: string
 }
 
-export interface UserEditPrivateRecipe {
+export interface IUserEditPrivateRecipe {
   type: typeof USER_EDIT_PRIVATE_RECIPE
-  recipeInfo: EditingRecipeInfo
+  recipeInfo: IEditingRecipeInfo
 }
 
-export interface UserEditPrivateRecipeSucceeded {
+export interface IUserEditPrivateRecipeSucceeded {
   type: typeof USER_EDIT_PRIVATE_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserEditPrivateRecipeFailed {
+export interface IUserEditPrivateRecipeFailed {
   type: typeof USER_EDIT_PRIVATE_RECIPE_FAILED
   message: string
 }
 
-export interface UserDeletePrivateRecipe {
+export interface IUserDeletePrivateRecipe {
   type: typeof USER_DELETE_PRIVATE_RECIPE
   recipeId: number
 }
 
-export interface UserDeletePrivateRecipeSucceeded {
+export interface IUserDeletePrivateRecipeSucceeded {
   type: typeof USER_DELETE_PRIVATE_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserDeletePrivateRecipeFailed {
+export interface IUserDeletePrivateRecipeFailed {
   type: typeof USER_DELETE_PRIVATE_RECIPE_FAILED
   message: string
 }
 
-export interface UserCreateNewPublicRecipe {
+export interface IUserCreateNewPublicRecipe {
   type: typeof USER_CREATE_NEW_PUBLIC_RECIPE
-  recipeInfo: CreatingRecipeInfo
+  recipeInfo: ICreatingRecipeInfo
 }
 
-export interface UserCreateNewPublicRecipeSucceeded {
+export interface IUserCreateNewPublicRecipeSucceeded {
   type: typeof USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserCreateNewPublicRecipeFailed {
+export interface IUserCreateNewPublicRecipeFailed {
   type: typeof USER_CREATE_NEW_PUBLIC_RECIPE_FAILED
   message: string
 }
 
-export interface UserEditPublicRecipe {
+export interface IUserEditPublicRecipe {
   type: typeof USER_EDIT_PUBLIC_RECIPE
-  recipeInfo: EditingRecipeInfo
+  recipeInfo: IEditingRecipeInfo
 }
 
-export interface UserEditPublicRecipeSucceeded {
+export interface IUserEditPublicRecipeSucceeded {
   type: typeof USER_EDIT_PUBLIC_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserEditPublicRecipeFailed {
+export interface IUserEditPublicRecipeFailed {
   type: typeof USER_EDIT_PUBLIC_RECIPE_FAILED
   message: string
 }
 
-export interface UserDisownPublicRecipe {
+export interface IUserDisownPublicRecipe {
   type: typeof USER_DISOWN_PUBLIC_RECIPE
   recipeId: number
 }
 
-export interface UserDisownPublicRecipeSucceeded {
+export interface IUserDisownPublicRecipeSucceeded {
   type: typeof USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserDisownPublicRecipeFailed {
+export interface IUserDisownPublicRecipeFailed {
   type: typeof USER_DISOWN_PUBLIC_RECIPE_FAILED
   message: string
 }
 
-export interface CreatingRecipeInfo {
+export interface ICreatingRecipeInfo {
   ownership: string
   recipeTypeId: number
   cuisineId: number
@@ -118,19 +118,19 @@ export interface CreatingRecipeInfo {
   requiredEquipment: []
   requiredIngredients: []
   requiredSubrecipes: []
-  recipeImage: RecipeImage
-  fullRecipeImage: RecipeImage
-  thumbRecipeImage: RecipeImage
-  tinyRecipeImage: RecipeImage
-  recipeEquipmentImage: RecipeImage
-  fullRecipeEquipmentImage: RecipeImage
-  recipeIngredientsImage: RecipeImage
-  fullRecipeIngredientsImage: RecipeImage
-  recipeCookingImage: RecipeImage
-  fullRecipeCookingImage: RecipeImage
+  recipeImage: string
+  fullRecipeImage: IRecipeImage
+  thumbRecipeImage: IRecipeImage
+  tinyRecipeImage: IRecipeImage
+  recipeEquipmentImage: string
+  fullRecipeEquipmentImage: IRecipeImage
+  recipeIngredientsImage: string
+  fullRecipeIngredientsImage: IRecipeImage
+  recipeCookingImage: string
+  fullRecipeCookingImage: IRecipeImage
 }
 
-export interface EditingRecipeInfo {
+export interface IEditingRecipeInfo {
   recipeId: number
   prevRecipeImage: string
   prevEquipmentImage: string
@@ -146,18 +146,18 @@ export interface EditingRecipeInfo {
   requiredEquipment: []
   requiredIngredients: []
   requiredSubrecipes: []
-  recipeImage: RecipeImage
-  fullRecipeImage: RecipeImage
-  thumbRecipeImage: RecipeImage
-  tinyRecipeImage: RecipeImage
-  recipeEquipmentImage: RecipeImage
-  fullRecipeEquipmentImage: RecipeImage
-  recipeIngredientsImage: RecipeImage
-  fullRecipeIngredientsImage: RecipeImage
-  recipeCookingImage: RecipeImage
-  fullRecipeCookingImage: RecipeImage
+  recipeImage: string
+  fullRecipeImage: IRecipeImage
+  thumbRecipeImage: IRecipeImage
+  tinyRecipeImage: IRecipeImage
+  recipeEquipmentImage: string
+  fullRecipeEquipmentImage: IRecipeImage
+  recipeIngredientsImage: string
+  fullRecipeIngredientsImage: IRecipeImage
+  recipeCookingImage: string
+  fullRecipeCookingImage: IRecipeImage
 }
 
-interface RecipeImage {
+interface IRecipeImage {
   type: string
 }

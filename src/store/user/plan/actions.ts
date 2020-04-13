@@ -8,11 +8,11 @@ import {
   USER_DELETE_PLAN,
   USER_DELETE_PLAN_SUCCEEDED,
   USER_DELETE_PLAN_FAILED,
-  CreatingPlanInfo,
-  EditingPlanInfo
+  ICreatingPlanInfo,
+  IEditingPlanInfo
 } from './types';
 
-export const userCreateNewPlan = (planInfo: CreatingPlanInfo) => ({
+export const userCreateNewPlan = (planInfo: ICreatingPlanInfo) => ({
   type: USER_CREATE_NEW_PLAN,
   planInfo
 });
@@ -27,7 +27,7 @@ export const userCreateNewPlanFailed = (message: string) => ({
   message
 });
 
-export const userEditPlan = (planInfo: EditingPlanInfo) => ({
+export const userEditPlan = (planInfo: IEditingPlanInfo) => ({
   type: USER_EDIT_PLAN,
   planInfo
 });

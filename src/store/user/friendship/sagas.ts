@@ -1,8 +1,8 @@
 import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
   userRequestFriendshipSucceeded,
   userRequestFriendshipFailed,
   userAcceptFriendshipSucceeded,
@@ -15,15 +15,22 @@ import {
   userBlockUserFailed,
   userUnblockUserSucceeded,
   userUnblockUserFailed
-} from '../actions';
-
+} from './actions';
+import {
+  IUserRequestFriendship,
+  IUserAcceptFriendship,
+  IUserRejectFriendship,
+  IUserDeleteFriendship,
+  IUserBlockUser,
+  IUserUnblockUser
+} from './types';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* userRequestFriendshipSaga(action) {
+export function* userRequestFriendshipSaga(action: IUserRequestFriendship) {
   try {
     const res = yield call(
       [axios, axios.post],
@@ -46,7 +53,7 @@ export function* userRequestFriendshipSaga(action) {
   }
 }
 
-export function* userAcceptFriendshipSaga(action) {
+export function* userAcceptFriendshipSaga(action: IUserAcceptFriendship) {
   try {
     const res = yield call(
       [axios, axios.put],
@@ -69,7 +76,7 @@ export function* userAcceptFriendshipSaga(action) {
   }
 }
 
-export function* userRejectFriendshipSaga(action) {
+export function* userRejectFriendshipSaga(action: IUserRejectFriendship) {
   try {
     const res = yield call(
       [axios, axios.put],
@@ -92,7 +99,7 @@ export function* userRejectFriendshipSaga(action) {
   }
 }
 
-export function* userDeleteFriendshipSaga(action) {
+export function* userDeleteFriendshipSaga(action: IUserDeleteFriendship) {
   try {
     const res = yield call(
       [axios, axios.delete],
@@ -114,7 +121,7 @@ export function* userDeleteFriendshipSaga(action) {
   }
 }
 
-export function* userBlockUserSaga(action) {
+export function* userBlockUserSaga(action: IUserBlockUser) {
   try {
     const res = yield call(
       [axios, axios.post],
@@ -137,7 +144,7 @@ export function* userBlockUserSaga(action) {
   }
 }
 
-export function* userUnblockUserSaga(action) {
+export function* userUnblockUserSaga(action: IUserUnblockUser) {
   try {
     const res = yield call(
       [axios, axios.delete],

@@ -1,12 +1,12 @@
 export const SEARCH_SET_INDEX = 'SEARCH_SET_INDEX' as const;
 
-export interface SearchState {
+export interface ISearchState {
   currentIndex: string
 }
 
-export type SearchActions = SetSearchIndex;
+export type ISearchActions = ISetSearchIndex;
 
-interface SetSearchIndex {
+interface ISetSearchIndex {
   type: typeof SEARCH_SET_INDEX
   index: string
 }

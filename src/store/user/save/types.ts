@@ -5,32 +5,32 @@ export const USER_UNSAVE_RECIPE = 'USER_UNSAVE_RECIPE' as const;
 export const USER_UNSAVE_RECIPE_SUCCEEDED = 'USER_UNSAVE_RECIPE_SUCCEEDED' as const;
 export const USER_UNSAVE_RECIPE_FAILED = 'USER_UNSAVE_RECIPE_FAILED' as const;
 
-export interface UserSaveRecipe {
+export interface IUserSaveRecipe {
   type: typeof USER_SAVE_RECIPE
   recipeId: number
 }
 
-export interface UserSaveRecipeSucceeded {
+export interface IUserSaveRecipeSucceeded {
   type: typeof USER_SAVE_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserSaveRecipeFailed {
+export interface IUserSaveRecipeFailed {
   type: typeof USER_SAVE_RECIPE_FAILED
   message: string
 }
 
-export interface UserUnsaveRecipe {
+export interface IUserUnsaveRecipe {
   type: typeof USER_UNSAVE_RECIPE
   recipeId: number
 }
 
-export interface UserUnsaveRecipeSucceeded {
+export interface IUserUnsaveRecipeSucceeded {
   type: typeof USER_UNSAVE_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserUnsaveRecipeFailed {
+export interface IUserUnsaveRecipeFailed {
   type: typeof USER_UNSAVE_RECIPE_FAILED
   message: string
 }

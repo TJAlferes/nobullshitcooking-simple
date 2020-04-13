@@ -6,7 +6,6 @@ import {
   USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
   USER_DELETE_PRIVATE_EQUIPMENT_FAILED,
 } from './equipment/types';
-
 import {
   USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
   USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED,
@@ -15,7 +14,6 @@ import {
   USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED,
   USER_DELETE_PRIVATE_INGREDIENT_FAILED,
 } from './ingredient/types';
-
 import {
   USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
   USER_CREATE_NEW_PRIVATE_RECIPE_FAILED,
@@ -30,7 +28,6 @@ import {
   USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED,
   USER_DISOWN_PUBLIC_RECIPE_FAILED,
 } from './recipe/types';
-
 import {
   USER_CREATE_NEW_PLAN_SUCCEEDED,
   USER_CREATE_NEW_PLAN_FAILED,
@@ -39,21 +36,18 @@ import {
   USER_DELETE_PLAN_SUCCEEDED,
   USER_DELETE_PLAN_FAILED,
 } from './plan/types';
-
 import {
   USER_FAVORITE_RECIPE_SUCCEEDED,
   USER_FAVORITE_RECIPE_FAILED,
   USER_UNFAVORITE_RECIPE_SUCCEEDED,
   USER_UNFAVORITE_RECIPE_FAILED,
 } from './favorite/types';
-
 import {
   USER_SAVE_RECIPE_SUCCEEDED,
   USER_SAVE_RECIPE_FAILED,
   USER_UNSAVE_RECIPE_SUCCEEDED,
   USER_UNSAVE_RECIPE_FAILED,
 } from './save/types';
-
 import {
   USER_REQUEST_FRIENDSHIP_SUCCEEDED,
   USER_REQUEST_FRIENDSHIP_FAILED,
@@ -68,21 +62,22 @@ import {
   USER_UNBLOCK_USER_SUCCEEDED,
   USER_UNBLOCK_USER_FAILED,
 } from './friendship/types';
-
 import {
   USER_SUBMIT_AVATAR_SUCCEEDED,
   USER_SUBMIT_AVATAR_FAILED
 } from './avatar/types';
-
 import {
   USER_MESSAGE_CLEAR,
-  UserState,
-  UserActions
+  IUserState,
+  IUserActions
 } from './types';
 
-const initialState: UserState = {message: ''};
+const initialState: IUserState = {message: ''};
 
-const userReducer = (state = initialState, action: UserActions): UserState => {
+const userReducer = (
+  state = initialState,
+  action: IUserActions
+): IUserState => {
   switch (action.type) {
     case USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED:
     case USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED:

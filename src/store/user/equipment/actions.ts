@@ -8,12 +8,12 @@ import {
   USER_DELETE_PRIVATE_EQUIPMENT,
   USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
   USER_DELETE_PRIVATE_EQUIPMENT_FAILED,
-  CreatingEquipmentInfo,
-  EditingEquipmentInfo
+  ICreatingEquipmentInfo,
+  IEditingEquipmentInfo
 } from './types';
 
 export const userCreateNewPrivateEquipment = (
-  equipmentInfo: CreatingEquipmentInfo
+  equipmentInfo: ICreatingEquipmentInfo
 ) => ({
   type: USER_CREATE_NEW_PRIVATE_EQUIPMENT,
   equipmentInfo
@@ -30,7 +30,7 @@ export const userCreateNewPrivateEquipmentFailed = (message: string) => ({
 });
 
 export const userEditPrivateEquipment = (
-  equipmentInfo: EditingEquipmentInfo
+  equipmentInfo: IEditingEquipmentInfo
 ) => ({
   type: USER_EDIT_PRIVATE_EQUIPMENT,
   equipmentInfo

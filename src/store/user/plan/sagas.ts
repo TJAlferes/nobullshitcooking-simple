@@ -1,23 +1,23 @@
 import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
   userCreateNewPlanSucceeded,
   userCreateNewPlanFailed,
   userEditPlanSucceeded,
   userEditPlanFailed,
   userDeletePlanSucceeded,
   userDeletePlanFailed
-} from '../actions';
-
+} from './actions';
+import { IUserCreatePlan, IUserEditPlan, IUserDeletePlan } from './types';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* userCreateNewPlanSaga(action) {
+export function* userCreateNewPlanSaga(action: IUserCreatePlan) {
   try {
     const res = yield call(
       [axios, axios.post],
@@ -40,7 +40,7 @@ export function* userCreateNewPlanSaga(action) {
   }
 }
 
-export function* userEditPlanSaga(action) {
+export function* userEditPlanSaga(action: IUserEditPlan) {
   try {
     const res = yield call(
       [axios, axios.put],
@@ -63,7 +63,7 @@ export function* userEditPlanSaga(action) {
   }
 }
 
-export function* userDeletePlanSaga(action) {
+export function* userDeletePlanSaga(action: IUserDeletePlan) {
   try {
     const res = yield call(
       [axios, axios.delete],

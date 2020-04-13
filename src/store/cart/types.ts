@@ -12,7 +12,7 @@ export interface ICartItem {
   itemName: string
 }
 
-export type CartActions =
+export type ICartActions =
 ICartAddItem |
 ICartRemoveItem |
 ICartEmpty;

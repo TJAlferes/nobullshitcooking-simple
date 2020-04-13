@@ -8,12 +8,12 @@ import {
   USER_DELETE_PRIVATE_INGREDIENT,
   USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED,
   USER_DELETE_PRIVATE_INGREDIENT_FAILED,
-  CreatingIngredientInfo,
-  EditingIngredientInfo
+  ICreatingIngredientInfo,
+  IEditingIngredientInfo
 } from './types';
 
 export const userCreateNewPrivateIngredient = (
-  ingredientInfo: CreatingIngredientInfo
+  ingredientInfo: ICreatingIngredientInfo
 ) => ({
   type: USER_CREATE_NEW_PRIVATE_INGREDIENT,
   ingredientInfo
@@ -30,7 +30,7 @@ export const userCreateNewPrivateIngredientFailed = (message: string) => ({
 });
 
 export const userEditPrivateIngredient = (
-  ingredientInfo: EditingIngredientInfo
+  ingredientInfo: IEditingIngredientInfo
 ) => ({
   type: USER_EDIT_PRIVATE_INGREDIENT,
   ingredientInfo

@@ -2,7 +2,6 @@ import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 import { userMessageClear } from '../actions';
-
 import {
   userCreateNewPrivateRecipeSucceeded,
   userCreateNewPrivateRecipeFailed,
@@ -10,7 +9,6 @@ import {
   userEditPrivateRecipeFailed,
   userDeletePrivateRecipeSucceeded,
   userDeletePrivateRecipeFailed,
-
   userCreateNewPublicRecipeSucceeded,
   userCreateNewPublicRecipeFailed,
   userEditPublicRecipeSucceeded,
@@ -18,14 +16,23 @@ import {
   userDisownPublicRecipeSucceeded,
   userDisownPublicRecipeFailed
 } from './actions';
-
+import {
+  IUserCreateNewPrivateRecipe,
+  IUserEditPrivateRecipe,
+  IUserDeletePrivateRecipe,
+  IUserCreateNewPublicRecipe,
+  IUserEditPublicRecipe,
+  IUserDisownPublicRecipe
+} from './types';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* userCreateNewRecipeSaga(action) {
+export function* userCreateNewRecipeSaga(
+  action: (IUserCreateNewPrivateRecipe|IUserCreateNewPublicRecipe)
+) {
   try {
     // 1
     if (
@@ -156,7 +163,7 @@ export function* userCreateNewRecipeSaga(action) {
   }
 }
 
-export function* userDeletePrivateRecipeSaga(action) {
+export function* userDeletePrivateRecipeSaga(action: IUserDeletePrivateRecipe) {
   try {
     const res = yield call(
       [axios, axios.delete],
@@ -179,7 +186,7 @@ export function* userDeletePrivateRecipeSaga(action) {
   }
 }
 
-export function* userDisownPublicRecipeSaga(action) {
+export function* userDisownPublicRecipeSaga(action: IUserDisownPublicRecipe) {
   try {
     const res = yield call(
       [axios, axios.delete],
@@ -202,7 +209,9 @@ export function* userDisownPublicRecipeSaga(action) {
   }
 }
 
-export function* userEditRecipeSaga(action) {
+export function* userEditRecipeSaga(
+  action: (IUserEditPrivateRecipe|IUserEditPublicRecipe)
+) {
   try {
     // 1
     if (

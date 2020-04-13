@@ -1,21 +1,21 @@
 import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
   userSaveRecipeSucceeded,
   userSaveRecipeFailed,
   userUnsaveRecipeSucceeded,
   userUnsaveRecipeFailed
-} from '../actions';
-
+} from './actions';
+import { IUserSaveRecipe, IUserUnsaveRecipe } from './types';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* userSaveRecipeSaga(action) {
+export function* userSaveRecipeSaga(action: IUserSaveRecipe) {
   try {
     const res = yield call(
       [axios, axios.post],
@@ -37,7 +37,7 @@ export function* userSaveRecipeSaga(action) {
   }
 }
 
-export function* userUnsaveRecipeSaga(action) {
+export function* userUnsaveRecipeSaga(action: IUserUnsaveRecipe) {
   try {
     const res = yield call(
       [axios, axios.delete],

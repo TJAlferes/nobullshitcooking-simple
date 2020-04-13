@@ -12,11 +12,11 @@ import {
   AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_RESET,
   AUTH_USER_LOGOUT,
-  AuthState,
-  AuthActions
+  IAuthState,
+  IAuthActions
 } from './types';
 
-const initialState: AuthState = {
+const initialState: IAuthState = {
   message: '',
   isAuthenticated: false,
   authname: '',
@@ -25,8 +25,8 @@ const initialState: AuthState = {
 
 const authReducer = (
   state = initialState,
-  action: AuthActions
-): AuthState => {
+  action: IAuthActions
+): IAuthState => {
   switch (action.type) {
     case AUTH_USER_LOGIN_SUCCEEDED:
     case AUTH_USER_LOGIN_FAILED:

@@ -11,12 +11,19 @@ import {
   userDeletePrivateEquipmentFailed
 } from './actions';
 import {
+  IUserCreateNewPrivateEquipment,
+  IUserEditPrivateEquipment,
+  IUserDeletePrivateEquipment
+} from './types';
+import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* userCreateNewPrivateEquipmentSaga(action) {
+export function* userCreateNewPrivateEquipmentSaga(
+  action: IUserCreateNewPrivateEquipment
+) {
   try {
     if (
       action.equipmentInfo.fullEquipmentImage &&
@@ -68,7 +75,9 @@ export function* userCreateNewPrivateEquipmentSaga(action) {
   }
 }
 
-export function* userEditPrivateEquipmentSaga(action) {
+export function* userEditPrivateEquipmentSaga(
+  action: IUserEditPrivateEquipment
+) {
   try {
     if (
       action.equipmentInfo.fullEquipmentImage &&
@@ -120,7 +129,9 @@ export function* userEditPrivateEquipmentSaga(action) {
   }
 }
 
-export function* userDeletePrivateEquipmentSaga(action) {
+export function* userDeletePrivateEquipmentSaga(
+  action: IUserDeletePrivateEquipment
+) {
   try {
     const res = yield call(
       [axios, axios.delete],

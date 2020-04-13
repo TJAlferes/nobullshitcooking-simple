@@ -1,140 +1,140 @@
 import {
-  UserSubmitAvatarSucceeded,
-  UserSubmitAvatarFailed
+  IUserSubmitAvatarSucceeded,
+  IUserSubmitAvatarFailed
 } from './avatar/types';
 
 import {
-  UserCreateNewPrivateEquipmentSucceeded,
-  UserCreateNewPrivateEquipmentFailed,
-  UserEditPrivateEquipmentSucceeded,
-  UserEditPrivateEquipmentFailed,
-  UserDeletePrivateEquipmentSucceeded,
-  UserDeletePrivateEquipmentFailed
+  IUserCreateNewPrivateEquipmentSucceeded,
+  IUserCreateNewPrivateEquipmentFailed,
+  IUserEditPrivateEquipmentSucceeded,
+  IUserEditPrivateEquipmentFailed,
+  IUserDeletePrivateEquipmentSucceeded,
+  IUserDeletePrivateEquipmentFailed
 } from './equipment/types';
 
 import {
-  UserFavoriteRecipeSucceeded,
-  UserFavoriteRecipeFailed,
-  UserUnfavoriteRecipeSucceeded,
-  UserUnfavoriteRecipeFailed
+  IUserFavoriteRecipeSucceeded,
+  IUserFavoriteRecipeFailed,
+  IUserUnfavoriteRecipeSucceeded,
+  IUserUnfavoriteRecipeFailed
 } from './favorite/types';
 
 import {
-  UserRequestFriendshipSucceeded,
-  UserRequestFriendshipFailed,
-  UserAcceptFriendshipSucceeded,
-  UserAcceptFriendshipFailed,
-  UserRejectFriendshipSucceeded,
-  UserRejectFriendshipFailed,
-  UserDeleteFriendshipSucceeded,
-  UserDeleteFriendshipFailed,
-  UserBlockUserSucceeded,
-  UserBlockUserFailed,
-  UserUnblockUserSucceeded,
-  UserUnblockUserFailed
+  IUserRequestFriendshipSucceeded,
+  IUserRequestFriendshipFailed,
+  IUserAcceptFriendshipSucceeded,
+  IUserAcceptFriendshipFailed,
+  IUserRejectFriendshipSucceeded,
+  IUserRejectFriendshipFailed,
+  IUserDeleteFriendshipSucceeded,
+  IUserDeleteFriendshipFailed,
+  IUserBlockUserSucceeded,
+  IUserBlockUserFailed,
+  IUserUnblockUserSucceeded,
+  IUserUnblockUserFailed
 } from './friendship/types';
 
 import {
-  UserCreateNewPrivateIngredientSucceeded,
-  UserCreateNewPrivateIngredientFailed,
-  UserEditPrivateIngredientSucceeded,
-  UserEditPrivateIngredientFailed,
-  UserDeletePrivateIngredientSucceeded,
-  UserDeletePrivateIngredientFailed
+  IUserCreateNewPrivateIngredientSucceeded,
+  IUserCreateNewPrivateIngredientFailed,
+  IUserEditPrivateIngredientSucceeded,
+  IUserEditPrivateIngredientFailed,
+  IUserDeletePrivateIngredientSucceeded,
+  IUserDeletePrivateIngredientFailed
 } from './ingredient/types';
 
 import {
-  UserCreatePlanSucceeded,
-  UserCreatePlanFailed,
-  UserEditPlanSucceeded,
-  UserEditPlanFailed,
-  UserDeletePlanSucceeded,
-  UserDeletePlanFailed
+  IUserCreatePlanSucceeded,
+  IUserCreatePlanFailed,
+  IUserEditPlanSucceeded,
+  IUserEditPlanFailed,
+  IUserDeletePlanSucceeded,
+  IUserDeletePlanFailed
 } from './plan/types';
 
 import {
-  UserCreateNewPrivateRecipeSucceeded,
-  UserCreateNewPrivateRecipeFailed,
-  UserEditPrivateRecipeSucceeded,
-  UserEditPrivateRecipeFailed,
-  UserDeletePrivateRecipeSucceeded,
-  UserDeletePrivateRecipeFailed,
-  UserCreateNewPublicRecipeSucceeded,
-  UserCreateNewPublicRecipeFailed,
-  UserEditPublicRecipeSucceeded,
-  UserEditPublicRecipeFailed,
-  UserDisownPublicRecipeSucceeded,
-  UserDisownPublicRecipeFailed
+  IUserCreateNewPrivateRecipeSucceeded,
+  IUserCreateNewPrivateRecipeFailed,
+  IUserEditPrivateRecipeSucceeded,
+  IUserEditPrivateRecipeFailed,
+  IUserDeletePrivateRecipeSucceeded,
+  IUserDeletePrivateRecipeFailed,
+  IUserCreateNewPublicRecipeSucceeded,
+  IUserCreateNewPublicRecipeFailed,
+  IUserEditPublicRecipeSucceeded,
+  IUserEditPublicRecipeFailed,
+  IUserDisownPublicRecipeSucceeded,
+  IUserDisownPublicRecipeFailed
 } from './recipe/types';
 
 import {
-  UserSaveRecipeSucceeded,
-  UserSaveRecipeFailed,
-  UserUnsaveRecipeSucceeded,
-  UserUnsaveRecipeFailed
+  IUserSaveRecipeSucceeded,
+  IUserSaveRecipeFailed,
+  IUserUnsaveRecipeSucceeded,
+  IUserUnsaveRecipeFailed
 } from './save/types';
 
 export const USER_MESSAGE_CLEAR = 'USER_MESSAGE_CLEAR' as const;
 
-export interface UserMessageClear {
+export interface IUserMessageClear {
   type: typeof USER_MESSAGE_CLEAR
 }
 
-export interface UserState {
+export interface IUserState {
   message: string
 }
 
-export type UserActions =
-UserMessageClear |
-UserSubmitAvatarSucceeded |
-UserSubmitAvatarFailed |
-UserCreateNewPrivateEquipmentSucceeded |
-UserCreateNewPrivateEquipmentFailed |
-UserEditPrivateEquipmentSucceeded |
-UserEditPrivateEquipmentFailed |
-UserDeletePrivateEquipmentSucceeded |
-UserDeletePrivateEquipmentFailed |
-UserFavoriteRecipeSucceeded |
-UserFavoriteRecipeFailed |
-UserUnfavoriteRecipeSucceeded |
-UserUnfavoriteRecipeFailed |
-UserRequestFriendshipSucceeded |
-UserRequestFriendshipFailed |
-UserAcceptFriendshipSucceeded |
-UserAcceptFriendshipFailed |
-UserRejectFriendshipSucceeded |
-UserRejectFriendshipFailed |
-UserDeleteFriendshipSucceeded |
-UserDeleteFriendshipFailed |
-UserBlockUserSucceeded |
-UserBlockUserFailed |
-UserUnblockUserSucceeded |
-UserUnblockUserFailed |
-UserCreateNewPrivateIngredientSucceeded |
-UserCreateNewPrivateIngredientFailed |
-UserEditPrivateIngredientSucceeded |
-UserEditPrivateIngredientFailed |
-UserDeletePrivateIngredientSucceeded |
-UserDeletePrivateIngredientFailed |
-UserCreatePlanSucceeded |
-UserCreatePlanFailed |
-UserEditPlanSucceeded |
-UserEditPlanFailed |
-UserDeletePlanSucceeded |
-UserDeletePlanFailed |
-UserCreateNewPrivateRecipeSucceeded |
-UserCreateNewPrivateRecipeFailed |
-UserEditPrivateRecipeSucceeded |
-UserEditPrivateRecipeFailed |
-UserDeletePrivateRecipeSucceeded |
-UserDeletePrivateRecipeFailed |
-UserCreateNewPublicRecipeSucceeded |
-UserCreateNewPublicRecipeFailed |
-UserEditPublicRecipeSucceeded |
-UserEditPublicRecipeFailed |
-UserDisownPublicRecipeSucceeded |
-UserDisownPublicRecipeFailed |
-UserSaveRecipeSucceeded |
-UserSaveRecipeFailed |
-UserUnsaveRecipeSucceeded |
-UserUnsaveRecipeFailed;
+export type IUserActions =
+IUserMessageClear |
+IUserSubmitAvatarSucceeded |
+IUserSubmitAvatarFailed |
+IUserCreateNewPrivateEquipmentSucceeded |
+IUserCreateNewPrivateEquipmentFailed |
+IUserEditPrivateEquipmentSucceeded |
+IUserEditPrivateEquipmentFailed |
+IUserDeletePrivateEquipmentSucceeded |
+IUserDeletePrivateEquipmentFailed |
+IUserFavoriteRecipeSucceeded |
+IUserFavoriteRecipeFailed |
+IUserUnfavoriteRecipeSucceeded |
+IUserUnfavoriteRecipeFailed |
+IUserRequestFriendshipSucceeded |
+IUserRequestFriendshipFailed |
+IUserAcceptFriendshipSucceeded |
+IUserAcceptFriendshipFailed |
+IUserRejectFriendshipSucceeded |
+IUserRejectFriendshipFailed |
+IUserDeleteFriendshipSucceeded |
+IUserDeleteFriendshipFailed |
+IUserBlockUserSucceeded |
+IUserBlockUserFailed |
+IUserUnblockUserSucceeded |
+IUserUnblockUserFailed |
+IUserCreateNewPrivateIngredientSucceeded |
+IUserCreateNewPrivateIngredientFailed |
+IUserEditPrivateIngredientSucceeded |
+IUserEditPrivateIngredientFailed |
+IUserDeletePrivateIngredientSucceeded |
+IUserDeletePrivateIngredientFailed |
+IUserCreatePlanSucceeded |
+IUserCreatePlanFailed |
+IUserEditPlanSucceeded |
+IUserEditPlanFailed |
+IUserDeletePlanSucceeded |
+IUserDeletePlanFailed |
+IUserCreateNewPrivateRecipeSucceeded |
+IUserCreateNewPrivateRecipeFailed |
+IUserEditPrivateRecipeSucceeded |
+IUserEditPrivateRecipeFailed |
+IUserDeletePrivateRecipeSucceeded |
+IUserDeletePrivateRecipeFailed |
+IUserCreateNewPublicRecipeSucceeded |
+IUserCreateNewPublicRecipeFailed |
+IUserEditPublicRecipeSucceeded |
+IUserEditPublicRecipeFailed |
+IUserDisownPublicRecipeSucceeded |
+IUserDisownPublicRecipeFailed |
+IUserSaveRecipeSucceeded |
+IUserSaveRecipeFailed |
+IUserUnsaveRecipeSucceeded |
+IUserUnsaveRecipeFailed;

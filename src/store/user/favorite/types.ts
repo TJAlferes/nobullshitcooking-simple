@@ -5,32 +5,32 @@ export const USER_UNFAVORITE_RECIPE = 'USER_UNFAVORITE_RECIPE' as const;
 export const USER_UNFAVORITE_RECIPE_SUCCEEDED = 'USER_UNFAVORITE_RECIPE_SUCCEEDED' as const;
 export const USER_UNFAVORITE_RECIPE_FAILED = 'USER_UNFAVORITE_RECIPE_FAILED' as const;
 
-export interface UserFavoriteRecipe {
+export interface IUserFavoriteRecipe {
   type: typeof USER_FAVORITE_RECIPE
   recipeId: number
 }
 
-export interface UserFavoriteRecipeSucceeded {
+export interface IUserFavoriteRecipeSucceeded {
   type: typeof USER_FAVORITE_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserFavoriteRecipeFailed {
+export interface IUserFavoriteRecipeFailed {
   type: typeof USER_FAVORITE_RECIPE_FAILED
   message: string
 }
 
-export interface UserUnfavoriteRecipe {
+export interface IUserUnfavoriteRecipe {
   type: typeof USER_UNFAVORITE_RECIPE
   recipeId: number
 }
 
-export interface UserUnfavoriteRecipeSucceeded {
+export interface IUserUnfavoriteRecipeSucceeded {
   type: typeof USER_UNFAVORITE_RECIPE_SUCCEEDED
   message: string
 }
 
-export interface UserUnfavoriteRecipeFailed {
+export interface IUserUnfavoriteRecipeFailed {
   type: typeof USER_UNFAVORITE_RECIPE_FAILED
   message: string
 }

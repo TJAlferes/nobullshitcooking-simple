@@ -1,22 +1,16 @@
 import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
-import { UserSubmitAvatar } from './types';
-
-import {
-  userSubmitAvatarSucceeded,
-  userSubmitAvatarFailed
-} from './actions';
-
 import { userMessageClear } from '../actions';
-
+import { userSubmitAvatarSucceeded, userSubmitAvatarFailed } from './actions';
+import { IUserSubmitAvatar } from './types';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* userSubmitAvatarSaga(action: UserSubmitAvatar) {
+export function* userSubmitAvatarSaga(action: IUserSubmitAvatar) {
   try {
     let avatarUrl;
     if (action.fullAvatar && action.tinyAvatar) {
@@ -55,7 +49,8 @@ export function* userSubmitAvatarSaga(action: UserSubmitAvatar) {
       yield put(userSubmitAvatarSucceeded(res.data.message));
       yield delay(2000);
       yield put(userMessageClear());
-      yield call([location, location.reload]);
+      //yield call([location, location.reload]);
+      yield call(() => location.reload());
     } else {
       yield put(userSubmitAvatarFailed(res.data.message));
       yield delay(4000);

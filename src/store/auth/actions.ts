@@ -1,3 +1,5 @@
+import { MemoryHistory } from 'history';
+
 import {
   AUTH_DISPLAY,
   AUTH_RESET,
@@ -21,8 +23,7 @@ import {
   AUTH_USER_LOGIN_FAILED,
   AUTH_USER_LOGOUT,
   AUTH_USER_LOGOUT_SUCCEEDED,
-  AUTH_USER_LOGOUT_FAILED,
-  AuthUserRegister
+  AUTH_USER_LOGOUT_FAILED
 } from './types';
 
 export const authDisplay = (authname: string, avatar: string) => ({
@@ -46,8 +47,8 @@ export const authUserRegister = (
   email: string,
   password: string,
   username: string,
-  history: {}
-): AuthUserRegister => ({
+  history: MemoryHistory
+) => ({
   type: AUTH_USER_REGISTER,
   email,
   password,
@@ -69,7 +70,7 @@ export const authUserVerify = (
   email: string,
   password: string,
   confirmationCode: string,
-  history: {}
+  history: MemoryHistory
 ) => ({
   type: AUTH_USER_VERIFY,
   email,

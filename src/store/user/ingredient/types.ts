@@ -8,71 +8,71 @@ export const USER_DELETE_PRIVATE_INGREDIENT = 'USER_DELETE_PRIVATE_INGREDIENT' a
 export const USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED = 'USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED' as const;
 export const USER_DELETE_PRIVATE_INGREDIENT_FAILED = 'USER_DELETE_PRIVATE_INGREDIENT_FAILED' as const;
 
-export interface UserCreateNewPrivateIngredient {
+export interface IUserCreateNewPrivateIngredient {
   type: typeof USER_CREATE_NEW_PRIVATE_INGREDIENT
-  ingredientInfo: CreatingIngredientInfo
+  ingredientInfo: ICreatingIngredientInfo
 }
 
-export interface UserCreateNewPrivateIngredientSucceeded {
+export interface IUserCreateNewPrivateIngredientSucceeded {
   type: typeof USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED
   message: string
 }
 
-export interface UserCreateNewPrivateIngredientFailed {
+export interface IUserCreateNewPrivateIngredientFailed {
   type: typeof USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED
   message: string
 }
 
-export interface UserEditPrivateIngredient {
+export interface IUserEditPrivateIngredient {
   type: typeof USER_EDIT_PRIVATE_INGREDIENT
-  ingredientInfo: EditingIngredientInfo
+  ingredientInfo: IEditingIngredientInfo
 }
 
-export interface UserEditPrivateIngredientSucceeded {
+export interface IUserEditPrivateIngredientSucceeded {
   type: typeof USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED
   message: string
 }
 
-export interface UserEditPrivateIngredientFailed {
+export interface IUserEditPrivateIngredientFailed {
   type: typeof USER_EDIT_PRIVATE_INGREDIENT_FAILED
   message: string
 }
 
-export interface UserDeletePrivateIngredient {
+export interface IUserDeletePrivateIngredient {
   type: typeof USER_DELETE_PRIVATE_INGREDIENT
   ingredientId: string
 }
 
-export interface UserDeletePrivateIngredientSucceeded {
+export interface IUserDeletePrivateIngredientSucceeded {
   type: typeof USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED
   message: string
 }
 
-export interface UserDeletePrivateIngredientFailed {
+export interface IUserDeletePrivateIngredientFailed {
   type: typeof USER_DELETE_PRIVATE_INGREDIENT_FAILED
   message: string
 }
 
-export interface CreatingIngredientInfo {
+export interface ICreatingIngredientInfo {
   ingredientTypeId: number
   ingredientName: string
   ingredientDescription: string
-  ingredientImage: IngredientImage
-  fullIngredientImage: IngredientImage
-  tinyIngredientImage: IngredientImage
+  ingredientImage: string
+  fullIngredientImage: IIngredientImage
+  tinyIngredientImage: IIngredientImage
 }
 
-export interface EditingIngredientInfo {
+export interface IEditingIngredientInfo {
   ingredientId: number
   ingredientTypeId: number
   ingredientName: string
   ingredientDescription: string
   prevIngredientImage: string
-  ingredientImage: IngredientImage
-  fullIngredientImage: IngredientImage
-  tinyIngredientImage: IngredientImage
+  ingredientImage: string
+  fullIngredientImage: IIngredientImage
+  tinyIngredientImage: IIngredientImage
 }
 
-interface IngredientImage {
+interface IIngredientImage {
   type: string
 }

@@ -1,11 +1,11 @@
-import { SEARCH_SET_INDEX, SearchState, SearchActions } from './types';
+import { SEARCH_SET_INDEX, ISearchState, ISearchActions } from './types';
 
-const initialState: SearchState = {currentIndex: "recipes"};
+const initialState: ISearchState = {currentIndex: "recipes"};
 
 const searchReducer = (
   state = initialState,
-  action: SearchActions
-): SearchState => {
+  action: ISearchActions
+): ISearchState => {
   switch (action.type) {
     case SEARCH_SET_INDEX: return {...state, ...{currentIndex: action.index}};
     default: return state;

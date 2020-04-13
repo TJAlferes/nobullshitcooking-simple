@@ -17,12 +17,12 @@ import {
   USER_DISOWN_PUBLIC_RECIPE,
   USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED,
   USER_DISOWN_PUBLIC_RECIPE_FAILED,
-  CreatingRecipeInfo,
-  EditingRecipeInfo
+  ICreatingRecipeInfo,
+  IEditingRecipeInfo
 } from './types';
 
 export const userCreateNewPrivateRecipe = (
-  recipeInfo: CreatingRecipeInfo
+  recipeInfo: ICreatingRecipeInfo
 ) => ({
   type: USER_CREATE_NEW_PRIVATE_RECIPE,
   recipeInfo
@@ -39,7 +39,7 @@ export const userCreateNewPrivateRecipeFailed = (message: string) => ({
 });
 
 export const userEditPrivateRecipe = (
-  recipeInfo: EditingRecipeInfo
+  recipeInfo: IEditingRecipeInfo
 ) => ({
   type: USER_EDIT_PRIVATE_RECIPE,
   recipeInfo
@@ -71,7 +71,7 @@ export const userDeletePrivateRecipeFailed = (message: string) => ({
 });
 
 export const userCreateNewPublicRecipe = (
-  recipeInfo: CreatingRecipeInfo
+  recipeInfo: ICreatingRecipeInfo
 ) => ({
   type: USER_CREATE_NEW_PUBLIC_RECIPE,
   recipeInfo
@@ -88,7 +88,7 @@ export const userCreateNewPublicRecipeFailed = (message: string) => ({
 });
 
 export const userEditPublicRecipe = (
-  recipeInfo: EditingRecipeInfo
+  recipeInfo: IEditingRecipeInfo
 ) => ({
   type: USER_EDIT_PUBLIC_RECIPE,
   recipeInfo

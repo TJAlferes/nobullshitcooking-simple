@@ -8,71 +8,71 @@ export const USER_DELETE_PRIVATE_EQUIPMENT = 'USER_DELETE_PRIVATE_EQUIPMENT' as 
 export const USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED = 'USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED' as const;
 export const USER_DELETE_PRIVATE_EQUIPMENT_FAILED = 'USER_DELETE_PRIVATE_EQUIPMENT_FAILED' as const;
 
-export interface UserCreateNewPrivateEquipment {
+export interface IUserCreateNewPrivateEquipment {
   type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT
-  equipmentInfo: CreatingEquipmentInfo
+  equipmentInfo: ICreatingEquipmentInfo
 }
 
-export interface UserCreateNewPrivateEquipmentSucceeded {
+export interface IUserCreateNewPrivateEquipmentSucceeded {
   type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED
   message: string
 }
 
-export interface UserCreateNewPrivateEquipmentFailed {
+export interface IUserCreateNewPrivateEquipmentFailed {
   type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED
   message: string
 }
 
-export interface UserEditPrivateEquipment {
+export interface IUserEditPrivateEquipment {
   type: typeof USER_EDIT_PRIVATE_EQUIPMENT
-  equipmentInfo: EditingEquipmentInfo
+  equipmentInfo: IEditingEquipmentInfo
 }
 
-export interface UserEditPrivateEquipmentSucceeded {
+export interface IUserEditPrivateEquipmentSucceeded {
   type: typeof USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED
   message: string
 }
 
-export interface UserEditPrivateEquipmentFailed {
+export interface IUserEditPrivateEquipmentFailed {
   type: typeof USER_EDIT_PRIVATE_EQUIPMENT_FAILED
   message: string
 }
 
-export interface UserDeletePrivateEquipment {
+export interface IUserDeletePrivateEquipment {
   type: typeof USER_DELETE_PRIVATE_EQUIPMENT
   equipmentId: string
 }
 
-export interface UserDeletePrivateEquipmentSucceeded {
+export interface IUserDeletePrivateEquipmentSucceeded {
   type: typeof USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED
   message: string
 }
 
-export interface UserDeletePrivateEquipmentFailed {
+export interface IUserDeletePrivateEquipmentFailed {
   type: typeof USER_DELETE_PRIVATE_EQUIPMENT_FAILED
   message: string
 }
 
-export interface CreatingEquipmentInfo {
+export interface ICreatingEquipmentInfo {
   equipmentTypeId: number
   equipmentName: string
   equipmentDescription: string
-  equipmentImage: EquipmentImage
-  fullEquipmentImage: EquipmentImage
-  tinyEquipmentImage: EquipmentImage
+  equipmentImage: string
+  fullEquipmentImage: IEquipmentImage
+  tinyEquipmentImage: IEquipmentImage
 }
 
-export interface EditingEquipmentInfo {
+export interface IEditingEquipmentInfo {
   equipmentId: number
   equipmentTypeId: number
   equipmentName: string
   equipmentDescription: string
   prevEquipmentImage: string
-  equipmentImage: EquipmentImage
-  fullEquipmentImage: EquipmentImage
-  tinyEquipmentImage: EquipmentImage
+  equipmentImage: string
+  fullEquipmentImage: IEquipmentImage
+  tinyEquipmentImage: IEquipmentImage
 }
 
-interface EquipmentImage {
+interface IEquipmentImage {
   type: string
 }

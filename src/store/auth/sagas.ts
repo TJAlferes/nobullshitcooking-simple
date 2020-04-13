@@ -19,23 +19,20 @@ import {
   authUserLogoutSucceeded,
   authUserLogoutFailed
 } from './actions';
-
 import {
-  AuthUserRegister,
-  AuthUserVerify,
-  AuthUserLogin,
-  AuthUserLogout
+  IAuthUserRegister,
+  IAuthUserVerify,
+  IAuthUserLogin,
+  IAuthUserLogout
 } from './types';
-
 import { removeStorageItem } from '../../utils/storageHelpers';
-
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* authUserRegisterSaga(action: AuthUserRegister) {
+export function* authUserRegisterSaga(action: IAuthUserRegister) {
   try {
     const { history } = action;
     const res = yield call(
@@ -53,7 +50,8 @@ export function* authUserRegisterSaga(action: AuthUserRegister) {
       yield put(authUserRegisterSucceeded(res.data.message));
       yield delay(2000);
       yield put(authMessageClear());
-      yield call([history, history.push], '/verify');
+      //yield call([history, history.push], '/verify');
+      yield call(() => history.push('/verify'));
     } else {
       yield put(authUserRegisterFailed(res.data.message));
       yield delay(4000);
@@ -66,7 +64,7 @@ export function* authUserRegisterSaga(action: AuthUserRegister) {
   }
 }
 
-export function* authUserVerifySaga(action: AuthUserVerify) {
+export function* authUserVerifySaga(action: IAuthUserVerify) {
   try {
     const { history } = action;
     const res = yield call(
@@ -84,7 +82,8 @@ export function* authUserVerifySaga(action: AuthUserVerify) {
       yield put(authUserVerifySucceeded(res.data.message));
       yield delay(2000);
       yield put(authMessageClear());
-      yield call([history, history.push], '/login');
+      //yield call([history, history.push], '/login');
+      yield call(() => history.push('/login'));
     } else {
       yield put(authUserVerifyFailed(res.data.message));
       yield delay(4000);
@@ -97,7 +96,7 @@ export function* authUserVerifySaga(action: AuthUserVerify) {
   }
 }
 
-export function* authUserLoginSaga(action: AuthUserLogin) {
+export function* authUserLoginSaga(action: IAuthUserLogin) {
   try {
     const res = yield call(
       [axios, axios.post],
@@ -120,7 +119,7 @@ export function* authUserLoginSaga(action: AuthUserLogin) {
   }
 }
 
-export function* authUserLogoutSaga(action: AuthUserLogout) {
+export function* authUserLogoutSaga(action: IAuthUserLogout) {
   try {
     const res = yield call(
       [axios, axios.post],

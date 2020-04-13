@@ -8,57 +8,57 @@ export const USER_DELETE_PLAN = 'USER_DELETE_PLAN' as const;
 export const USER_DELETE_PLAN_SUCCEEDED = 'USER_DELETE_PLAN_SUCCEEDED' as const;
 export const USER_DELETE_PLAN_FAILED = 'USER_DELETE_PLAN_FAILED' as const;
 
-export interface UserCreatePlan {
+export interface IUserCreatePlan {
   type: typeof USER_CREATE_NEW_PLAN
-  planInfo: CreatingPlanInfo
+  planInfo: ICreatingPlanInfo
 }
 
-export interface UserCreatePlanSucceeded {
+export interface IUserCreatePlanSucceeded {
   type: typeof USER_CREATE_NEW_PLAN_SUCCEEDED
   message: string
 }
 
-export interface UserCreatePlanFailed {
+export interface IUserCreatePlanFailed {
   type: typeof USER_CREATE_NEW_PLAN_FAILED
   message: string
 }
 
-export interface UserEditPlan {
+export interface IUserEditPlan {
   type: typeof USER_EDIT_PLAN
-  planInfo: EditingPlanInfo
+  planInfo: IEditingPlanInfo
 }
 
-export interface UserEditPlanSucceeded {
+export interface IUserEditPlanSucceeded {
   type: typeof USER_EDIT_PLAN_SUCCEEDED
   message: string
 }
 
-export interface UserEditPlanFailed {
+export interface IUserEditPlanFailed {
   type: typeof USER_EDIT_PLAN_FAILED
   message: string
 }
 
-export interface UserDeletePlan {
+export interface IUserDeletePlan {
   type: typeof USER_DELETE_PLAN
   planId: number
 }
 
-export interface UserDeletePlanSucceeded {
+export interface IUserDeletePlanSucceeded {
   type: typeof USER_DELETE_PLAN_SUCCEEDED
   message: string
 }
 
-export interface UserDeletePlanFailed {
+export interface IUserDeletePlanFailed {
   type: typeof USER_DELETE_PLAN_FAILED
   message: string
 }
 
-export interface CreatingPlanInfo {
+export interface ICreatingPlanInfo {
   planName: string
   planData: string
 }
 
-export interface EditingPlanInfo {
+export interface IEditingPlanInfo {
   planId: number
   planName: string
   planData: string

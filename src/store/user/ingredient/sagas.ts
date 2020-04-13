@@ -1,8 +1,8 @@
 import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
   userCreateNewPrivateIngredientSucceeded,
   userCreateNewPrivateIngredientFailed,
   userEditPrivateIngredientSucceeded,
@@ -10,14 +10,20 @@ import {
   userDeletePrivateIngredientSucceeded,
   userDeletePrivateIngredientFailed
 } from './actions';
-
+import {
+  IUserCreateNewPrivateIngredient,
+  IUserEditPrivateIngredient,
+  IUserDeletePrivateIngredient
+} from './types';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* userCreateNewPrivateIngredientSaga(action) {
+export function* userCreateNewPrivateIngredientSaga(
+  action: IUserCreateNewPrivateIngredient
+) {
   try {
     if (
       action.ingredientInfo.fullIngredientImage &&
@@ -69,7 +75,9 @@ export function* userCreateNewPrivateIngredientSaga(action) {
   }
 }
 
-export function* userEditPrivateIngredientSaga(action) {
+export function* userEditPrivateIngredientSaga(
+  action: IUserEditPrivateIngredient
+) {
   try {
     if (
       action.ingredientInfo.fullIngredientImage &&
@@ -121,7 +129,9 @@ export function* userEditPrivateIngredientSaga(action) {
   }
 }
 
-export function* userDeletePrivateIngredientSaga(action) {
+export function* userDeletePrivateIngredientSaga(
+  action: IUserDeletePrivateIngredient
+) {
   try {
     const res = yield call(
       [axios, axios.delete],
