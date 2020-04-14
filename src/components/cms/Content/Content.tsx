@@ -46,25 +46,28 @@ interface Props {
 
 const res = {
   data: {
-    contents: [
-      {
-        index: 0,
-        key: "uuid/v4",
-        element: "h1",
-        attributes: {
-          className: "content-h1"
+    content: {
+      content_id: 987,
+      content_items: [
+        {
+          index: 0,
+          key: "uuid/v4",
+          element: "h1",
+          attributes: {
+            className: "content-h1"
+          },
+          children: "Appetizers"
         },
-        children: "Appetizers"
-      },
-      {
-        index: 1,
-        key: "uuid/v4",
-        element: "p",
-        attributes: {
-          className: "content-p"
-        },
-        children: "Appetizers are great for..."
-      }
-    ]
+        {
+          index: 1,
+          key: "uuid/v4",
+          element: "p",
+          attributes: {
+            className: "content-p"
+          },
+          children: "Appetizers are great for..."
+        }
+      ]
+    }
   }
 };
