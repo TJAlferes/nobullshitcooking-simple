@@ -2,22 +2,23 @@ import React from 'react';
 
 // spreading on DOM elements is most likely an anti-pattern
 
-function parseContent(contentItem: IDataContentItem) {
+function parseContent(contentItem: IContentItem) {
   const elements: any = {
-    "h1": <h1 {...contentItem.attributes}></h1>,
-    "p": <p></p>,
+    "h1": <h1 {...contentItem.attributes}>{contentItem.children}</h1>,
+    "p": <p {...contentItem.attributes}>{contentItem.children}</p>,
   };
   const element = elements[contentItem.element];
+  return element;
 }
 
 export function ContentView({
   oneColumnATheme,
-  dataContentItems
+  contents
 }: Props): JSX.Element {
   return (
-    <div className={`content-view one-column-a ${oneColumnATheme}`}>
-      {dataContentItems.map(
-        (dataContentItem: IDataContentItem) => parseContent(dataContentItem)
+    <div className={`cms-content one-column-a ${oneColumnATheme}`}>
+      {contents.map(
+        (contentItem: IContentItem) => parseContent(contentItem)
       )}
     </div>
   );
@@ -25,28 +26,13 @@ export function ContentView({
 
 interface Props {
   oneColumnATheme: string
-  dataContentItems: IDataContentItem[]
+  contents: IContentItem[]
 }
 
-interface IDataContentItem {
+export interface IContentItem {
   key: string
+  index: number
   element: string
   attributes: object
+  children: (object|string)
 }
-
-const dataContentItems = [
-  {
-    key: "uuid/v4",
-    element: "h1",
-    attributes: {
-      
-    }
-  },
-  {
-    key: "uuid/v4",
-    element: "p",
-    attributes: {
-
-    }
-  }
-];

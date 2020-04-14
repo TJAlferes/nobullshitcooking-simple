@@ -11,7 +11,7 @@ export function NavigationView({
   dataNavItems
 }: Props): JSX.Element {
   return (
-    <div className={`navigation-view one-column-a ${oneColumnATheme}`}>
+    <div className={`cms-navigation one-column-a ${oneColumnATheme}`}>
       <h1>Food</h1>
       <div className={`nav-grid-a ${navGridATheme}`}>
         {dataNavItems.map((dataNavItem: IDataNavItem) => (
