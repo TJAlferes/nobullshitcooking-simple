@@ -23,16 +23,18 @@ const NewRecipe = lazy(() => import('../components/user/NewRecipe/NewRecipe'));
 const NewEquipment = lazy(() => import('../components/user/NewEquipment/NewEquipment'));
 const NewIngredient = lazy(() => import('../components/user/NewIngredient/NewIngredient'));
 
-//const SearchResultsAll = lazy(() => import('../components/pages/main/SearchResults/SearchResultsAll'));
-const SearchResultsRecipes = lazy(() => import('../components/pages/main/SearchResultsRecipes/SearchResultsRecipes'));
-const SearchResultsIngredients = lazy(() => import('../components/pages/main/SearchResultsIngredients/SearchResultsIngredients'));
-const SearchResultsEquipment = lazy(() => import('../components/pages/main/SearchResultsEquipment/SearchResultsEquipment'));
-const Recipe = lazy(() => import('../components/pages/main/Recipe/Recipe'));
-const Ingredient = lazy(() => import('../components/pages/main/Ingredient/Ingredient'));
-const Equipment = lazy(() => import('../components/pages/main/Equipment/Equipment'));
+//const SearchResultsAll = lazy(() => import('../components/search/SearchResults/SearchResultsAll'));
+const SearchResultsRecipes = lazy(() => import('../components/search/SearchResultsRecipes/SearchResultsRecipes'));
+const SearchResultsIngredients = lazy(() => import('../components/search/SearchResultsIngredients/SearchResultsIngredients'));
+const SearchResultsEquipment = lazy(() => import('../components/search/SearchResultsEquipment/SearchResultsEquipment'));
+const Recipe = lazy(() => import('../components/Recipe/Recipe'));
+const Ingredient = lazy(() => import('../components/Ingredient/Ingredient'));
+const Equipment = lazy(() => import('../components/Equipment/Equipment'));
 
-import Food from '../components/pages/Food/Food';
+import { Food } from '../components/guide/Food/Food';
+
 import SiteNavRecipes from '../components/pages/Food/SiteNavRecipes/SiteNavRecipes';
+
 import Drinks from '../components/pages/Food/SiteNavRecipes/Drinks/Drinks';
 import Appetizers from '../components/pages/Food/SiteNavRecipes/Appetizers/Appetizers';
 import Mains from '../components/pages/Food/SiteNavRecipes/Mains/Mains';
@@ -50,26 +52,33 @@ import Cuisines from '../components/pages/Food/Cuisines/Cuisines';
 import Cuisine from '../components/pages/Food/Cuisine/Cuisine';
 
 import SiteNavIngredients from '../components/pages/Food/SiteNavIngredients/SiteNavIngredients';
+
 import FishAndShellfish from '../components/pages/Food/SiteNavIngredients/FishAndShellfish/FishAndShellfish';
 import MeatAndPoultry from '../components/pages/Food/SiteNavIngredients/MeatAndPoultry/MeatAndPoultry';
 import EggsAndDairy from '../components/pages/Food/SiteNavIngredients/EggsAndDairy/EggsAndDairy';
 import BeansAndVegetables from '../components/pages/Food/SiteNavIngredients/BeansAndVegetables/BeansAndVegetables';
 import Fruit from '../components/pages/Food/SiteNavIngredients/Fruit/Fruit';
-import SeedsAndGrains from '../components/pages/Food/SiteNavIngredients/SeedsAndGrains/SeedsAndGrains';  // Nuts?
+import SeedsAndGrains from '../components/pages/Food/SiteNavIngredients/SeedsAndGrains/SeedsAndGrains';  // Nuts also!
 import FatsAndOils from '../components/pages/Food/SiteNavIngredients/FatsAndOils/FatsAndOils';
 import AcidsHerbsAndSpices from '../components/pages/Food/SiteNavIngredients/AcidsHerbsAndSpices/AcidsHerbsAndSpices';
+
 import Nutrition from '../components/pages/Food/Nutrition/Nutrition';
+
 import Calories from '../components/pages/Food/Nutrition/Calories/Calories';
 import Macronutrients from '../components/pages/Food/Nutrition/Macronutrients/Macronutrients';
 import Micronutrients from '../components/pages/Food/Nutrition/Micronutrients/Micronutrients';
 import Supplements from '../components/pages/Food/Nutrition/Supplements/Supplements';
+
 import SiteNavEquipment from '../components/pages/Food/SiteNavEquipment/SiteNavEquipment';
+
 import Cleaning from '../components/pages/Food/SiteNavEquipment/Cleaning/Cleaning';
 import Preparing from '../components/pages/Food/SiteNavEquipment/Preparing/Preparing';
 import Cooking from '../components/pages/Food/SiteNavEquipment/Cooking/Cooking';
 import Dining from '../components/pages/Food/SiteNavEquipment/Dining/Dining';
 import Storage from '../components/pages/Food/SiteNavEquipment/Storage/Storage';
+
 import Methods from '../components/pages/Food/Methods/Methods';
+
 import ChillAndFreeze from '../components/pages/Food/Methods/ChillAndFreeze/ChillAndFreeze';
 import SteamPoachSimmerBoilAndBlanch from '../components/pages/Food/Methods/SteamPoachSimmerBoilAndBlanch/SteamPoachSimmerBoilAndBlanch';
 import StewAndBraise from '../components/pages/Food/Methods/StewAndBraise/StewAndBraise';
@@ -77,8 +86,10 @@ import BakeRoastToastAndBroil from '../components/pages/Food/Methods/BakeRoastTo
 import SauteFryAndGlaze from '../components/pages/Food/Methods/SauteFryAndGlaze/SauteFryAndGlaze';
 import BBQGrillAndSmoke from '../components/pages/Food/Methods/BBQGrillAndSmoke/BBQGrillAndSmoke';
 
-import Fitness from '../components/pages/Fitness/Fitness';
+import { Fitness } from '../components/guide/Fitness/Fitness';
+
 import Principles from '../components/pages/Fitness/Principles/Principles';
+
 import Composition from '../components/pages/Fitness/Principles/Composition/Composition';
 import Balance from '../components/pages/Fitness/Principles/Balance/Balance';
 import Strength from '../components/pages/Fitness/Principles/Strength/Strength';
@@ -86,7 +97,9 @@ import Speed from '../components/pages/Fitness/Principles/Speed/Speed';
 import Agility from '../components/pages/Fitness/Principles/Agility/Agility';
 import Endurance from '../components/pages/Fitness/Principles/Endurance/Endurance';
 import Flexibility from '../components/pages/Fitness/Principles/Flexibility/Flexibility';
+
 import Exercises from '../components/pages/Fitness/Exercises/Exercises';
+
 import Walk from '../components/pages/Fitness/Exercises/Walk/Walk';
 import Bike from '../components/pages/Fitness/Exercises/Bike/Bike';
 import Run from '../components/pages/Fitness/Exercises/Run/Run';
@@ -94,9 +107,8 @@ import Squat from '../components/pages/Fitness/Exercises/Squat/Squat';
 import Pushup from '../components/pages/Fitness/Exercises/Pushup/Pushup';
 import Pullup from '../components/pages/Fitness/Exercises/Pullup/Pullup';
 
-import Supply from '../components/supply/Supply';
-
 import Promo from '../components/pages/promo/Promo';
+
 import WaterFiltration from '../components/pages/promo/WaterFiltration/WaterFiltration';
 import Tea from '../components/pages/promo/Tea/Tea';
 import Coffee from '../components/pages/promo/Coffee/Coffee';
@@ -105,6 +117,7 @@ import Garden from '../components/pages/promo/Garden/Garden';
 import Tools from '../components/pages/promo/Tools/Tools';
 
 import Site from '../components/pages/site/Site';
+
 import Contests from '../components/pages/site/Contests/Contests';
 import Charity from '../components/pages/site/Charity/Charity';
 import Sitemap from '../components/pages/site/Sitemap/Sitemap';
@@ -113,6 +126,8 @@ import TermsOfUse from '../components/pages/site/TermsOfUse/TermsOfUse';
 import PrivacyPolicy from '../components/pages/site/PrivacyPolicy/PrivacyPolicy';
 import Help from '../components/pages/site/Help/Help';
 import Welcome from '../components/pages/site/Welcome/Welcome';
+
+import Supply from '../components/supply/Supply';
 
 import Home from '../components/pages/Home/Home';
 
