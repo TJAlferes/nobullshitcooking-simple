@@ -48,6 +48,7 @@ const res = {
   data: {
     content: {
       content_id: 987,
+      content_type_id: 18,
       content_items: [
         {
           index: 0,
