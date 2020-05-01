@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useHistory, useLocation, withRouter, RouteComponentProps } from 'react-router-dom';
+import { useHistory, useLocation, useParams, RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 
+import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 import { userFavoriteRecipe } from '../../store/user/favorite/actions';
 import { userSaveRecipe } from '../../store/user/save/actions';
 import LoaderSpinner from '../LoaderSpinner/LoaderSpinner';
-import RecipeView from './RecipeView';
+import { RecipeView } from './RecipeView';
 import { IRecipe } from './types';
-import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function Recipe({
-  match,
   twoColumnBTheme,
   isAuthenticated,
   message,
@@ -26,6 +25,7 @@ export function Recipe({
 }: Props): JSX.Element {
   const history = useHistory();
   const location = useLocation();
+  const { id } = useParams();
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
@@ -46,8 +46,6 @@ export function Recipe({
   }, [message]);
 
   useEffect(() => {
-    const { id } = match.params;
-    
     if (!id) {
       history.push('/home');
       return;
@@ -75,14 +73,12 @@ export function Recipe({
   }, []);
 
   const handleFavoriteClick = () => {
-    const { id } = match.params;
     setLoading(true);
     userFavoriteRecipe(Number(id));
     setFavoriteClicked(true);
   };
 
   const handleSaveClick = () => {
-    const { id } = match.params;
     setLoading(true);
     userSaveRecipe(Number(id));
     setSaveClicked(true);
@@ -92,7 +88,6 @@ export function Recipe({
   ? <LoaderSpinner />
   : (
     <RecipeView
-      match={match}
       twoColumnBTheme={twoColumnBTheme}
       isAuthenticated={isAuthenticated}
       feedback={feedback}
@@ -147,4 +142,4 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default withRouter(connector(Recipe));
+export default connector(Recipe);

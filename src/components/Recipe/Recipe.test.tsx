@@ -4,19 +4,15 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import RecipeView from './RecipeView';
-
 import { Recipe } from './Recipe';
+import { RecipeView } from './RecipeView';
 
 const recipe = {
   recipe: [{title: "Some Recipe",}],
 };
-
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 const userFavoriteRecipe = jest.fn();
 const userSaveRecipe = jest.fn();
-
 const mockHistoryPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({

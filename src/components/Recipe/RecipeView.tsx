@@ -5,15 +5,14 @@ import { RecipeBreadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
 import { IWorkRecipe } from '../../store/data/types';
 import {
   IRecipe,
-  RequiredMethod,
-  RequiredEquipment,
-  RequiredIngredient,
-  RequiredSubrecipe
-} from './Recipe';
+  IRequiredMethod,
+  IRequiredEquipment,
+  IRequiredIngredient,
+  IRequiredSubrecipe
+} from './types';
 import './recipe.css';
 
-const RecipeView = ({
-  match,
+export function RecipeView({
   twoColumnBTheme,
   isAuthenticated,
   feedback,
@@ -27,7 +26,7 @@ const RecipeView = ({
   handleFavoriteClick,
   saveClicked,
   handleSaveClick
-}) => {
+}: Props): JSX.Element {
   const recipeBy = () => {
     if (recipe.author === "Unknown") return "Unknown";
     return (
@@ -134,7 +133,7 @@ const RecipeView = ({
             <h2 className="recipe-heading-two">Required Methods</h2>
             <div className="recipe-required-methods">
               {recipe.required_methods &&
-              recipe.required_methods.map((met: RequiredMethod) => (
+              recipe.required_methods.map((met: IRequiredMethod) => (
                 <div
                   className="recipe-required-method"
                   key={met.method_name}
@@ -152,7 +151,7 @@ const RecipeView = ({
             </div>
             <div className="recipe-required-equipments">
               {recipe.required_equipment &&
-              recipe.required_equipment.map((equ: RequiredEquipment) => (
+              recipe.required_equipment.map((equ: IRequiredEquipment) => (
                 <div
                   className="recipe-required-equipment"
                   key={equ.equipment_name}
@@ -170,7 +169,7 @@ const RecipeView = ({
             </div>
             <div className="recipe-required-ingredients">
               {recipe.required_ingredients &&
-              recipe.required_ingredients.map((ing: RequiredIngredient) => (
+              recipe.required_ingredients.map((ing: IRequiredIngredient) => (
                 <div
                   className="recipe-required-ingredient"
                   key={ing.ingredient_name}
@@ -183,7 +182,7 @@ const RecipeView = ({
             <div className="recipe-required-subrecipes">
               {recipe.required_subrecipes.length > 0 && <h2>Required Subrecipes</h2>}
               {recipe.required_subrecipes.length > 0 &&
-              recipe.required_subrecipes.map((sub: RequiredSubrecipe) => (
+              recipe.required_subrecipes.map((sub: IRequiredSubrecipe) => (
                 <div
                   className="recipe-required-subrecipe"
                   key={sub.subrecipe_title}
@@ -214,6 +213,20 @@ const RecipeView = ({
 
     </div>
   );
-};
+}
 
-export default RecipeView;
+type Props = {
+  twoColumnBTheme: string;
+  isAuthenticated: boolean;
+  feedback: string;
+  loading: boolean;
+  recipe: IRecipe;
+  dataMyPrivateRecipes: [];
+  dataMyPublicRecipes: [];
+  dataMyFavoriteRecipes: [];
+  dataMySavedRecipes: [];
+  favoriteClicked: boolean;
+  handleFavoriteClick(): void;
+  saveClicked: boolean;
+  handleSaveClick(): void;
+};
