@@ -1,44 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { useHistory, withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 
-import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
+import { IEquipment } from '../../store/data/types';
+import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
+import { EquipmentView } from './EquipmentView';
 
-import EquipmentView from './EquipmentView';
-
-export const Equipment = ({
-  match,
+export function Equipment({
+  breadCrumbsTheme,
   twoColumnBTheme,
-  dataEquipmentTypes,
   dataEquipment,
   dataMyPrivateEquipment
-}) => {
+}: Props): JSX.Element {
   const history = useHistory();
+  const { id } = useParams();
 
-  const [ equipment, setEquipment ] = useState("");
+  const [ equipment, setEquipment ] = useState<IEquipment>();
 
   useEffect(() => {
-    const { id } = match.params;
-
     if (!id) {
       history.push('/home');
       return;
     }
 
     const localEquipment = (
-      dataEquipment.find(equ=> equ.equipment_id == id) ||
-      dataMyPrivateEquipment.find(equ=> equ.equipment_id == id)
+      dataEquipment.find((equ: IEquipment) => equ.equipment_id == Number(id)) ||
+      dataMyPrivateEquipment.find((equ: IEquipment) => equ.equipment_id == Number(id))
     );
 
     if (!localEquipment) {
       history.push('/home');
       return;
     }
-
-    const localEquipmentType = dataEquipmentTypes
-    .find(equ => equ.equipment_type_id == localEquipment.equipment_type_id);
-    
-    localEquipment.equipment_type_name = localEquipmentType.equipment_type_name;
     
     setEquipment(localEquipment);
   }, []);
@@ -47,6 +40,7 @@ export const Equipment = ({
   ? <LoaderSpinner />
   : (
     <EquipmentView
+      breadCrumbsTheme={breadCrumbsTheme}
       twoColumnBTheme={twoColumnBTheme}
       equipment={equipment}
       dataMyPrivateEquipment={dataMyPrivateEquipment}
@@ -54,10 +48,26 @@ export const Equipment = ({
   );
 }
 
-const mapStateToProps = state => ({
-  dataEquipmentTypes: state.data.equipmentTypes,
+interface RootState {
+  data: {
+    equipmentTypes: [];
+    equipment: [];
+    myPrivateEquipment: [];
+  }
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  breadCrumbsTheme: string;
+  twoColumnBTheme: string;
+};
+
+const mapStateToProps = (state: RootState) => ({
   dataEquipment: state.data.equipment,
   dataMyPrivateEquipment: state.data.myPrivateEquipment
 });
 
-export default withRouter(connect(mapStateToProps)(Equipment));
+const connector = connect(mapStateToProps);
+
+export default connector(Equipment);

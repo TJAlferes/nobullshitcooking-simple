@@ -1,25 +1,57 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import { connect } from 'react-redux';
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
 
-export const AuthenticatedRoute = ({
+/*
+component: Component,
+props: childProps,
+<Route
+  {...rest}
+  render={props =>
+    isAuthenticated
+    ? <Component {...props} {...childProps} {...rest} />
+    : <Redirect to='/' />
+  }
+/>
+*/
+
+export function AuthenticatedRoute({
   isAuthenticated,
-  component: Component,
-  props: childProps,
+  children,
   ...rest
-}) => (
-  <Route
-    {...rest}
-    render={props =>
-      isAuthenticated
-      ? <Component {...props} {...childProps} {...rest} />
-      : <Redirect to='/' />
-    }
-  />
-);
+}: Props) {
+  return (
+    <Route {...rest}>
+      {isAuthenticated ? children : <Redirect to='/' />}
+    </Route>
+  );
+}
 
-const mapStateToProps = state => ({
+interface RootState {
+  auth: {
+    isAuthenticated: boolean;
+  };
+  theme: {
+    breadCrumbsTheme: string;
+    navGridATheme: string;
+    oneColumnATheme: string;
+    twoColumnATheme: string;
+    twoColumnBTheme: string;
+    tableATheme: string;
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  //component: any;
+  //props: any;
+  children: any;
+}
+
+const mapStateToProps = (state: RootState) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  breadCrumbsTheme: state.theme.breadCrumbsTheme,
   navGridATheme: state.theme.navGridATheme,
   oneColumnATheme: state.theme.oneColumnATheme,
   twoColumnATheme: state.theme.twoColumnATheme,
@@ -27,4 +59,6 @@ const mapStateToProps = state => ({
   tableATheme: state.theme.tableATheme
 });
 
-export default connect(mapStateToProps)(AuthenticatedRoute);
+const connector = connect(mapStateToProps);
+
+export default connector(AuthenticatedRoute);

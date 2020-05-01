@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LoaderButton from '../../LoaderButton/LoaderButton';
-
+import { LoaderButton } from '../../LoaderButton/LoaderButton';
 import './register.css';
 
-const RegisterView = ({
+// TO DO: fix onKeyUp situation
+
+export function RegisterView({
   feedback,
   loading,
   confirmingUser,
@@ -23,7 +24,7 @@ const RegisterView = ({
   handleVerify,
   validateRegistrationInfo,
   validateConfirmationCode
-}) => {
+}): JSX.Element {
   const registerForm = () => (
     <form className="register-form">
       <h1 className="register-heading">Create Account</h1>
@@ -34,8 +35,8 @@ const RegisterView = ({
         type="text"
         name="username"
         id="username"
-        size="20"
-        maxLength="20"
+        size={20}
+        maxLength={20}
         autoFocus
         autoComplete="username"
         value={username}
@@ -48,8 +49,8 @@ const RegisterView = ({
         type="email"
         name="email"
         id="email"
-        size="20"
-        maxLength="60"
+        size={20}
+        maxLength={60}
         autoComplete="email"
         value={email}
         onChange={handleEmailChange}
@@ -61,8 +62,8 @@ const RegisterView = ({
         type="password"
         name="password"
         id="password"
-        size="20"
-        maxLength="20"
+        size={20}
+        maxLength={20}
         autoComplete="current-password"
         value={password}
         onChange={handlePasswordChange}
@@ -74,8 +75,8 @@ const RegisterView = ({
         type="password"
         name="passwordAgain"
         id="passwordAgain"
-        size="20"
-        maxLength="20"
+        size={20}
+        maxLength={20}
         autoComplete="current-password"
         value={passwordAgain}
         onChange={handlePasswordAgainChange}
@@ -161,6 +162,4 @@ const RegisterView = ({
 
     </div>
   );
-};
-
-export default RegisterView;
+}

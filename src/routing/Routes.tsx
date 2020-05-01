@@ -1,16 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-/* helpers */
-
-import AppliedRoute from './AppliedRoute';
-import AuthenticatedRoute from './AuthenticatedRoute';
-import UnauthenticatedRoute from './UnauthenticatedRoute';
-
-import LoaderSpinner from '../components/LoaderSpinner/LoaderSpinner';
-
-/* routes */
-
+import { LoaderSpinner } from '../components/LoaderSpinner/LoaderSpinner';
 const Register = lazy(() => import('../components/user/Register/Register'));
 const Login = lazy(() => import('../components/user/Login/Login'));
 const Profile = lazy(() => import('../components/user/Profile/Profile'));
@@ -22,7 +13,6 @@ const NewPlanPage = lazy(() => import('../components/user/NewPlan/NewPlanPage'))
 const NewRecipe = lazy(() => import('../components/user/NewRecipe/NewRecipe'));
 const NewEquipment = lazy(() => import('../components/user/NewEquipment/NewEquipment'));
 const NewIngredient = lazy(() => import('../components/user/NewIngredient/NewIngredient'));
-
 //const SearchResultsAll = lazy(() => import('../components/search/SearchResults/SearchResultsAll'));
 const SearchResultsRecipes = lazy(() => import('../components/search/SearchResultsRecipes/SearchResultsRecipes'));
 const SearchResultsIngredients = lazy(() => import('../components/search/SearchResultsIngredients/SearchResultsIngredients'));
@@ -30,7 +20,16 @@ const SearchResultsEquipment = lazy(() => import('../components/search/SearchRes
 const Recipe = lazy(() => import('../components/Recipe/Recipe'));
 const Ingredient = lazy(() => import('../components/Ingredient/Ingredient'));
 const Equipment = lazy(() => import('../components/Equipment/Equipment'));
-
+// import Content, import Navigation
+//
+//
+//
+//
+//
+//
+//
+//
+//
 import { Food } from '../components/guide/Food/Food';
 
 import SiteNavRecipes from '../components/pages/Food/SiteNavRecipes/SiteNavRecipes';
@@ -126,12 +125,22 @@ import TermsOfUse from '../components/pages/site/TermsOfUse/TermsOfUse';
 import PrivacyPolicy from '../components/pages/site/PrivacyPolicy/PrivacyPolicy';
 import Help from '../components/pages/site/Help/Help';
 import Welcome from '../components/pages/site/Welcome/Welcome';
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 import Supply from '../components/supply/Supply';
-
-import Home from '../components/pages/Home/Home';
-
+import Home from '../components/Home/Home';
 import NotFound from '../components/NotFound/NotFound';
+import AppliedRoute from './AppliedRoute';
+import AuthenticatedRoute from './AuthenticatedRoute';
+import UnauthenticatedRoute from './UnauthenticatedRoute';
 
 const authRoute = (path, component, childProps = null) =>
   !childProps ? (
@@ -144,6 +153,7 @@ const authRoute = (path, component, childProps = null) =>
       component={component}
       childProps={childProps}
     />
+    </AuthenticatedRoute>
   );
 
 const unauthRoute = (path, component, childProps = null) =>
@@ -167,7 +177,13 @@ const appRoute = (path, component) =>
 const RoutesList = () => (
   <Suspense fallback={<LoaderSpinner />}>
     <Switch>
+      <UnauthenticatedRoute path="/register" >
+        <Register />
+      </UnauthenticatedRoute>
       {unauthRoute("/register", Register)}
+      <UnauthenticatedRoute path="/register" >
+        <Register confirmingUser={true} />
+      </UnauthenticatedRoute>
       {unauthRoute("/verify", Register, {confirmingUser: "true"})}
       {unauthRoute("/login", Login)}
       

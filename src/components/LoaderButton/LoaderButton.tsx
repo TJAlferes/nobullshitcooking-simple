@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes, { InferProps } from 'prop-types';
 
-export default function LoaderButton({
+export function LoaderButton({
   className,
   type,
   name,

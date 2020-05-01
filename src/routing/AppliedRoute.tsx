@@ -1,15 +1,35 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
-const AppliedRoute = ({ component: Component, props: childProps, ...rest }) => (
-  <Route
-    {...rest}
-    render={props => <Component {...props} {...childProps} {...rest} />} 
-  />
-);
+export function AppliedRoute({ children, ...rest }: Props) {
+  return <Route {...rest}>{children}</Route>;
+}
 
-const mapStateToProps = state => ({
+interface RootState {
+  auth: {
+    isAuthenticated: boolean;
+  };
+  theme: {
+    breadCrumbsTheme: string;
+    navGridATheme: string;
+    oneColumnATheme: string;
+    twoColumnATheme: string;
+    twoColumnBTheme: string;
+    tableATheme: string;
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  //component: any;
+  //props: any;
+  children: any;
+};
+
+const mapStateToProps = (state: RootState) => ({
+  breadCrumbsTheme: state.theme.breadCrumbsTheme,
   navGridATheme: state.theme.navGridATheme,
   oneColumnATheme: state.theme.oneColumnATheme,
   twoColumnATheme: state.theme.twoColumnATheme,
@@ -17,4 +37,6 @@ const mapStateToProps = state => ({
   tableATheme: state.theme.tableATheme
 });
 
-export default connect(mapStateToProps)(AppliedRoute);
+const connector = connect(mapStateToProps);
+
+export default connector(AppliedRoute);

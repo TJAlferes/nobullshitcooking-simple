@@ -1,4 +1,4 @@
-import { PlannerData } from '../planner/types';
+import { IPlannerData } from '../planner/types';
 
 export const DATA_INIT = 'DATA_INIT' as const;
 
@@ -177,7 +177,7 @@ export interface IMethod {
 export interface IPlan {
   plan_id: number
   plan_name: string
-  plan_data: PlannerData
+  plan_data: IPlannerData
 }
 
 export interface IFriendship {

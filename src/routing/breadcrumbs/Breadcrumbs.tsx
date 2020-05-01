@@ -1,54 +1,36 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
-import withBreadcrumbs, { BreadcrumbsProps, InjectedProps } from 'react-router-breadcrumbs-hoc';
+import withBreadcrumbs, { BreadcrumbsProps } from 'react-router-breadcrumbs-hoc';
 
 import './breadcrumbs.css';
 
-interface RootState {
-  theme: {
-    breadCrumbsTheme: string;
-  };
+export function Breadcrumbs({ breadCrumbsTheme }: Props) {
+  function BreadcrumbsComponent({ breadcrumbs }: any) {
+    return (
+      <div className={`crumbs ${breadCrumbsTheme}`}>
+        {breadcrumbs.map(
+          ({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
+          <span className="crumb" key={match.url}>
+            <Link className="crumb_link" to={match.url}>
+              {breadcrumb}
+            </Link>
+            {
+              (index < breadcrumbs.length - 1) &&
+              <i className="crumb_pointer"> > </i>
+            }
+          </span>
+          )
+        )}
+      </div>
+    );
+  }
+
+  return withBreadcrumbs()(BreadcrumbsComponent);
 }
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-const mapStateToProps = (state: RootState) => ({
-  breadCrumbsTheme: state.theme.breadCrumbsTheme
-});
-
-const connector = connect(mapStateToProps);
-
-
-
-export function BreadcrumbsComponent({
-  breadCrumbsTheme,
-  breadcrumbs
-}: BreadcrumbsComponentProps) {
-  return (
-    <div className={`crumbs ${breadCrumbsTheme}`}>
-      {breadcrumbs.map(
-        ({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
-        <span className="crumb" key={match.url}>
-          <Link className="crumb_link" to={match.url}>
-            {breadcrumb}
-          </Link>
-          {
-            (index < breadcrumbs.length - 1) &&
-            <i className="crumb_pointer"> > </i>
-          }
-        </span>
-        )
-      )}
-    </div>
-  );
+interface Props {
+  breadCrumbsTheme: string;
 }
-
-type BreadcrumbsComponentProps = PropsFromRedux & {
-  breadcrumbs: any;
-};
-
-export const Breadcrumbs = withBreadcrumbs()(connector(BreadcrumbsComponent));
 
 
 
@@ -84,7 +66,8 @@ export function RecipeBreadcrumbs({
   return withBreadcrumbs()(RecipeBreadcrumbsComponent);
 }
 
-type RecipeBreadcrumbsProps = PropsFromRedux & {
+interface RecipeBreadcrumbsProps {
+  breadCrumbsTheme: string;
   recipeId: number;
   title: string; 
 }
@@ -123,7 +106,8 @@ export function IngredientBreadcrumbs({
   return withBreadcrumbs()(IngredientBreadcrumbsComponent);
 }
 
-type IngredientBreadcrumbsProps = PropsFromRedux & {
+interface IngredientBreadcrumbsProps {
+  breadCrumbsTheme: string;
   ingredientId: number;
   ingredientName: string; 
 }
@@ -162,7 +146,8 @@ export function EquipmentBreadcrumbs({
   return withBreadcrumbs()(EquipmentBreadcrumbsComponent);
 }
 
-type EquipmentBreadcrumbsProps = PropsFromRedux & {
+interface EquipmentBreadcrumbsProps {
+  breadCrumbsTheme: string;
   equipmentId: number;
   equipmentName: string; 
 }
@@ -201,7 +186,8 @@ export function CuisineBreadcrumbs({
   return withBreadcrumbs()(CuisineBreadcrumbsComponent);
 }
 
-type CuisineBreadcrumbsProps = PropsFromRedux & {
+interface CuisineBreadcrumbsProps {
+  breadCrumbsTheme: string;
   cuisineId: number;
   cuisineName: string; 
 }

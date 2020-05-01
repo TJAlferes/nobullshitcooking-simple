@@ -2,6 +2,6 @@ import React from 'react';
 
 import './loaderSpinner.css';
 
-const LoaderSpinner = (): JSX.Element => <div className="loader-spinner"></div>;
-
-export default LoaderSpinner;
+export function LoaderSpinner(): JSX.Element {
+  return <div className="loader-spinner"></div>;
+}
