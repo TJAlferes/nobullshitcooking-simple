@@ -1,4 +1,4 @@
-import RecipeView from './RecipeView';
+import { RecipeView } from './RecipeView';
 
 describe('what needs testing', () => {
   it('needs testing', () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useHistory, useLocation, useParams, RouteComponentProps } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
@@ -122,7 +122,10 @@ interface RootState {
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = RouteComponentProps & PropsFromRedux & {
+/*type Props = RouteComponentProps & PropsFromRedux & {
+  twoColumnBTheme: string;
+};*/
+type Props = PropsFromRedux & {
   twoColumnBTheme: string;
 };
 

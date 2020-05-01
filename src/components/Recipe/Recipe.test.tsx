@@ -6,29 +6,30 @@ import axios from 'axios';
 
 import { Recipe } from './Recipe';
 import { RecipeView } from './RecipeView';
+import { IRecipe } from './types';
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));  // don't use, if possible
 
 const recipe = {
   recipe: [{title: "Some Recipe",}],
-};
-const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+};  // fix
 const userFavoriteRecipe = jest.fn();
 const userSaveRecipe = jest.fn();
-const mockHistoryPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({push: mockHistoryPush}),
-  //useParams: () => ({id: })
+  useHistory: () => ({push: mockHistoryPush})
 }));
+const mockHistoryPush = jest.fn();
 
 jest.mock('axios');
-
-axios.get.mockImplementation(() => Promise.resolve({data: recipe}));
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.get.mockReturnValueOnce(Promise.resolve({data: recipe}));
 
 jest.mock(
   '../../../../routing/breadcrumbs/Breadcrumbs',
   () => ({
-    RecipeBreadcrumbs: ({ recipe }) => <div>{recipe.recipe[0].title}</div>
+    RecipeBreadcrumbs: (recipe: IRecipe) => <div>{recipe.title}</div>
   })
 );
 
@@ -38,15 +39,16 @@ afterEach(() => {
 
 describe('Recipe', () => {
   it('should redirect to /home if given no recipe', async () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({})
+    }));
     mount(
       <MemoryRouter>
         <Recipe
-          match={{params: {}}}
           twoColumnBTheme="light"
-          isAuthenticated="false"
+          isAuthenticated={false}
           message="Some message."
-          //dataRecipes,
-          //dataPublicRecipes,
           dataMyPublicRecipes={[]}
           dataMyPrivateRecipes={[]}
           dataMyFavoriteRecipes={[]}
@@ -61,15 +63,16 @@ describe('Recipe', () => {
   });
 
   it('should redirect to /home if given an invalid recipe', async () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({id: "!@#"})
+    }));
     mount(
       <MemoryRouter>
         <Recipe
-          match={{params: {id: "!@#"}}}
           twoColumnBTheme="light"
-          isAuthenticated="false"
+          isAuthenticated={false}
           message="Some message."
-          //dataRecipes,
-          //dataPublicRecipes,
           dataMyPublicRecipes={[]}
           dataMyPrivateRecipes={[]}
           dataMyFavoriteRecipes={[]}
@@ -84,15 +87,16 @@ describe('Recipe', () => {
   });
 
   it('should not redirect if given a valid recipe', async () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({id: "1"})
+    }));
     mount(
       <MemoryRouter>
         <Recipe
-          match={{params: {id: "1"}}}
           twoColumnBTheme="light"
-          isAuthenticated="false"
+          isAuthenticated={false}
           message="Some message."
-          //dataRecipes,
-          //dataPublicRecipes,
           dataMyPublicRecipes={[]}
           dataMyPrivateRecipes={[]}
           dataMyFavoriteRecipes={[]}
@@ -107,15 +111,16 @@ describe('Recipe', () => {
   });
 
   it('should load the appropriate recipe', async () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({id: "1"})
+    }));
     const wrapper = mount(
       <MemoryRouter>
         <Recipe
-          match={{params: {id: "1"}}}
           twoColumnBTheme="light"
-          isAuthenticated="false"
+          isAuthenticated={false}
           message="Some message."
-          //dataRecipes,
-          //dataPublicRecipes,
           dataMyPublicRecipes={[]}
           dataMyPrivateRecipes={[]}
           dataMyFavoriteRecipes={[]}
@@ -125,12 +130,14 @@ describe('Recipe', () => {
         />
       </MemoryRouter>
     );
-    await act(async () => Promise.resolve(() => {
-      setImmediate(() => wrapper.update());
-      expect(wrapper.find('.cuisine-view')).toHaveLength(1);
-      expect(wrapper.find(RecipeView).props().recipe.recipe.recipe_id)
-      .toEqual(1);
-    }));
+    await act(async () => {
+      Promise.resolve(() => {
+        setImmediate(() => wrapper.update());
+        expect(wrapper.find('.cuisine-view')).toHaveLength(1);
+        expect(wrapper.find(RecipeView).props().recipe.recipe_id)
+        .toEqual(1);
+      });
+    });
   });
 
   // TO DO:
