@@ -1,18 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';  // what is this for?
 
-import { RecipeBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
-
-import { WorkRecipe } from '../../../../store/data/types';
-
+import { RecipeBreadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
+import { IWorkRecipe } from '../../store/data/types';
 import {
-  RecipeInterface,
+  IRecipe,
   RequiredMethod,
   RequiredEquipment,
   RequiredIngredient,
   RequiredSubrecipe
 } from './Recipe';
-
 import './recipe.css';
 
 const RecipeView = ({
@@ -63,11 +60,11 @@ const RecipeView = ({
             <div className="recipe-favorite-save-outer">
               {(
                 isAuthenticated &&
-                !dataMyPrivateRecipes.find((rec: WorkRecipe) => rec.recipe_id == recipe.recipe_id) &&
-                !dataMyPublicRecipes.find((rec: WorkRecipe) => rec.recipe_id == recipe.recipe_id)
+                !dataMyPrivateRecipes.find((rec: IWorkRecipe) => rec.recipe_id == recipe.recipe_id) &&
+                !dataMyPublicRecipes.find((rec: IWorkRecipe) => rec.recipe_id == recipe.recipe_id)
               ) ? (
                 dataMyFavoriteRecipes
-                .find((rec: WorkRecipe) => rec.recipe_id == recipe.recipe_id) ? (
+                .find((rec: IWorkRecipe) => rec.recipe_id == recipe.recipe_id) ? (
                   <span className="recipe-favorited-saved">
                     Favorited
                   </span>
@@ -90,11 +87,11 @@ const RecipeView = ({
 
               {(
                 isAuthenticated &&
-                !dataMyPrivateRecipes.find((rec: WorkRecipe) => rec.recipe_id == recipe.recipe_id) &&
-                !dataMyPublicRecipes.find((rec: WorkRecipe) => rec.recipe_id == recipe.recipe_id)
+                !dataMyPrivateRecipes.find((rec: IWorkRecipe) => rec.recipe_id == recipe.recipe_id) &&
+                !dataMyPublicRecipes.find((rec: IWorkRecipe) => rec.recipe_id == recipe.recipe_id)
               ) ? (
                 dataMySavedRecipes
-                .find((rec: WorkRecipe) => rec.recipe_id == recipe.recipe_id) ? (
+                .find((rec: IWorkRecipe) => rec.recipe_id == recipe.recipe_id) ? (
                   <span className="recipe-favorited-saved">
                     Saved
                   </span>

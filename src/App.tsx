@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
 import HeaderRed from './components/HeaderRed/desktop/HeaderRed';
@@ -9,19 +9,12 @@ import FooterGray from './components/FooterGray/FooterGray';
 import RoutesList from './routing/Routes';
 import './app.css';
 
-export interface AppProps {
-  headerTheme: string;
-  footerTheme: string;
-  mainTheme: string;
-  shadow: boolean;
-}
-
-export const App = ({
+export function App({
   headerTheme,
   footerTheme,
   mainTheme,
   shadow
-}: AppProps): JSX.Element => {
+}: Props): JSX.Element {
   const location = useLocation();
 
   const userIsAtAuthPage = location.pathname &&
@@ -50,11 +43,28 @@ export const App = ({
   );
 }
 
-const mapStateToProps = state => ({
+interface RootState {
+  theme: {
+    headerTheme: string;
+    footerTheme: string;
+    mainTheme: string;
+  };
+  menu: {
+    shadow: boolean;
+  }
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux;
+
+const mapStateToProps = (state: RootState) => ({
   headerTheme: state.theme.headerTheme,
   footerTheme: state.theme.footerTheme,
   mainTheme: state.theme.mainTheme,
   shadow: state.menu.shadow
 });
 
-export default connect(mapStateToProps)(App);
+const connector = connect(mapStateToProps);
+
+export default connector(App);

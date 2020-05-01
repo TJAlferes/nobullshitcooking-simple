@@ -4,15 +4,15 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import createSagaMiddleware from 'redux-saga';
-import { SearchProvider } from '@elastic/react-search-ui';
+//import { SearchProvider } from '@elastic/react-search-ui';
 import { DndProvider } from 'react-dnd';
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
 import MultiBackend from 'react-dnd-multi-backend';
 
-import searchConfig from './config/searchConfig';
+//import searchConfig from './config/searchConfig';
 import {
   initWindowBlurHandler,
   initWindowFocusHandler
@@ -38,7 +38,6 @@ import {
 } from './store/watcherSagas';
 import App from './App';
 import './global.css';
-//import './main.css';
 import './themes/navGridA.css';
 import './themes/oneColumnA.css';
 import './themes/twoColumnA.css';
@@ -78,7 +77,7 @@ store.subscribe(() => saveToLocalStorage(store.getState()));
 initWindowBlurHandler(store);
 initWindowFocusHandler(store);
 
-const app = (
+/*const app = (
   <Provider store={store}>
     <BrowserRouter>
       <SearchProvider config={searchConfig}>
@@ -86,6 +85,16 @@ const app = (
           <App />
         </DndProvider>
       </SearchProvider>
+    </BrowserRouter>
+  </Provider>
+);*/
+
+const app = (
+  <Provider store={store}>
+    <BrowserRouter>
+      <DndProvider backend={MultiBackend} options={HTML5toTouch}>
+        <App />
+      </DndProvider>
     </BrowserRouter>
   </Provider>
 );

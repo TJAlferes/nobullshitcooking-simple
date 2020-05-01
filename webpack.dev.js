@@ -22,7 +22,7 @@ module.exports = {
   },
   //devtool: 'cheap-module-eval-source-map', // or cheap-module-source-map ?
   devtool: 'source-map',
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',

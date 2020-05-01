@@ -1,64 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes, { InferProps } from 'prop-types';
-import { connect } from 'react-redux';
-import { useHistory, useLocation, withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { useHistory, useLocation, withRouter, RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 
-import { userFavoriteRecipe } from '../../../../store/user/favorite/actions';
-import { userSaveRecipe } from '../../../../store/user/save/actions';
-
-import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
+import { userFavoriteRecipe } from '../../store/user/favorite/actions';
+import { userSaveRecipe } from '../../store/user/save/actions';
+import LoaderSpinner from '../LoaderSpinner/LoaderSpinner';
 import RecipeView from './RecipeView';
-
-import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../../config/NOBSCBackendAPIEndpointOne';
+import { IRecipe } from './types';
+import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
-export interface RecipeInterface {
-  recipe_id: number
-  recipe_type_id: number
-  cuisine_id: number
-  author_id: number
-  owner_id: number
-  title: string
-  recipe_type_name: string
-  cuisine_name: string
-  author: string
-  author_avatar: string
-  description: string
-  directions: string
-  recipe_image: string
-  equipment_image: string
-  ingredients_image: string
-  cooking_image: string
-  required_methods: RequiredMethod[]
-  required_equipment: RequiredEquipment[]
-  required_ingredients: RequiredIngredient[]
-  required_subrecipes: RequiredSubrecipe[]
-}
-
-export interface RequiredMethod {
-  method_name: string
-}
-
-export interface RequiredEquipment {
-  amount: number
-  equipment_name: string
-}
-
-export interface RequiredIngredient {
-  amount: number
-  measurement_name: string
-  ingredient_name: string
-}
-
-export interface RequiredSubrecipe {
-  amount: number
-  measurement_name: string
-  subrecipe_title: string
-}
 
 export function Recipe({
   match,
@@ -71,7 +23,7 @@ export function Recipe({
   dataMySavedRecipes,
   userFavoriteRecipe,
   userSaveRecipe
-}: InferProps<typeof Recipe.propTypes>): JSX.Element {
+}: Props): JSX.Element {
   const history = useHistory();
   const location = useLocation();
 
@@ -79,7 +31,7 @@ export function Recipe({
   const [ loading, setLoading ] = useState(false);
   const [ favoriteClicked, setFavoriteClicked ] = useState(false);
   const [ saveClicked, setSaveClicked ] = useState(false);
-  const [ recipe, setRecipe ] = useState<RecipeInterface>();
+  const [ recipe, setRecipe ] = useState<IRecipe>();
 
   useEffect(() => {
     let isSubscribed = true;
@@ -145,14 +97,11 @@ export function Recipe({
       isAuthenticated={isAuthenticated}
       feedback={feedback}
       loading={loading}
-
       recipe={recipe}
-
       dataMyPrivateRecipes={dataMyPrivateRecipes}
       dataMyPublicRecipes={dataMyPublicRecipes}
       dataMyFavoriteRecipes={dataMyFavoriteRecipes}
       dataMySavedRecipes={dataMySavedRecipes}
-
       favoriteClicked={favoriteClicked}
       handleFavoriteClick={handleFavoriteClick}
       saveClicked={saveClicked}
@@ -161,20 +110,28 @@ export function Recipe({
   );
 };
 
-Recipe.propTypes = {
-  match: PropTypes.object.isRequired,
-  twoColumnBTheme: PropTypes.string.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
-  dataMyPublicRecipes: PropTypes.array.isRequired,
-  dataMyPrivateRecipes: PropTypes.array.isRequired,
-  dataMyFavoriteRecipes: PropTypes.array.isRequired,
-  dataMySavedRecipes: PropTypes.array.isRequired,
-  userFavoriteRecipe: PropTypes.func.isRequired,
-  userSaveRecipe: PropTypes.func.isRequired
+interface RootState {
+  data: {
+    myPublicRecipes: [];
+    myPrivateRecipes: [];
+    myFavoriteRecipes: [];
+    mySavedRecipes: [];
+  };
+  auth: {
+    isAuthenticated: boolean;
+  };
+  user: {
+    message: string;
+  };
 }
 
-const mapStateToProps = state => ({
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = RouteComponentProps & PropsFromRedux & {
+  twoColumnBTheme: string;
+};
+
+const mapStateToProps = (state: RootState) => ({
   dataMyPublicRecipes: state.data.myPublicRecipes,
   dataMyPrivateRecipes: state.data.myPrivateRecipes,
   dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
@@ -183,9 +140,11 @@ const mapStateToProps = state => ({
   message: state.user.message
 });
 
-const mapDispatchToProps = dispatch => ({
-  userFavoriteRecipe: (id: number) => dispatch(userFavoriteRecipe(id)),
-  userSaveRecipe: (id: number) => dispatch(userSaveRecipe(id))
-});
+const mapDispatchToProps = {
+  userFavoriteRecipe: (id: number) => userFavoriteRecipe(id),
+  userSaveRecipe: (id: number) => userSaveRecipe(id)
+};
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Recipe));
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default withRouter(connector(Recipe));
