@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { LoaderButton } from '../../LoaderButton/LoaderButton';
 import './register.css';
 
-// TO DO: fix onKeyUp situation
-
 export function RegisterView({
   feedback,
   loading,
@@ -26,7 +24,7 @@ export function RegisterView({
   handleVerifyKeyUp,
   validateRegistrationInfo,
   validateConfirmationCode
-}): JSX.Element {
+}: Props): JSX.Element {
   const registerForm = () => (
     <form className="register-form">
       <h1 className="register-heading">Create Account</h1>
@@ -134,7 +132,7 @@ export function RegisterView({
   );
 
   return (
-    <div className="register" onKeyUp={(e) => handleRegisterKeyUp(e)}>
+    <div className="register" onKeyUp={e => handleRegisterKeyUp(e)}>
       <Link className="auth-img-link" to="/">
         <img
           className="auth-img-desktop"
@@ -167,3 +165,25 @@ export function RegisterView({
     </div>
   );
 }
+
+type Props = {
+  feedback: string;
+  loading: boolean;
+  confirmingUser: boolean;
+  confirmationCode: string;
+  username: string;
+  email: string;
+  password: string;
+  passwordAgain: string;
+  handleConfirmationCodeChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleUsernameChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleEmailChange(e: React.SyntheticEvent<EventTarget>): void;
+  handlePasswordChange(e: React.SyntheticEvent<EventTarget>): void;
+  handlePasswordAgainChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleRegisterClick(): void;
+  handleRegisterKeyUp(e: React.KeyboardEvent): void;
+  handleVerifyClick(): void;
+  handleVerifyKeyUp(e: React.KeyboardEvent): void;
+  validateRegistrationInfo(): boolean;
+  validateConfirmationCode(): boolean;
+};

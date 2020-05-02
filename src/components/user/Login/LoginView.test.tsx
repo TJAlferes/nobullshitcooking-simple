@@ -1,16 +1,16 @@
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 
-import LoaderButton from '../../LoaderButton/LoaderButton';
-
-import LoginView from './LoginView';
+import { LoaderButton } from '../../LoaderButton/LoaderButton';
+import { LoginView } from './LoginView';
 
 const handleEmailChange = jest.fn();
 const handlePasswordChange = jest.fn();
 const validateLoginInfo = jest.fn();
-const handleLogin = jest.fn();
+const handleLoginClick = jest.fn();
+const handleLoginKeyUp = jest.fn();
 
-let wrapper;
+let wrapper: ShallowWrapper;
 
 describe('LoginView', () => {
   beforeEach(() => {
@@ -22,7 +22,8 @@ describe('LoginView', () => {
         password=""
         handleEmailChange={handleEmailChange}
         handlePasswordChange={handlePasswordChange}
-        handleLogin={handleLogin}
+        handleLoginClick={handleLoginClick}
+        handleLoginKeyUp={handleLoginKeyUp}
         validateLoginInfo={validateLoginInfo}
       />
     );

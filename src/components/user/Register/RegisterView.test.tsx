@@ -1,21 +1,22 @@
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 
-import LoaderButton from '../../LoaderButton/LoaderButton';
-
-import RegisterView from './RegisterView';
+import { LoaderButton } from '../../LoaderButton/LoaderButton';
+import { RegisterView } from './RegisterView';
 
 const handleConfirmationCodeChange = jest.fn();
 const handleUsernameChange = jest.fn();
 const handleEmailChange = jest.fn();
 const handlePasswordChange = jest.fn();
 const handlePasswordAgainChange = jest.fn();
-const handleRegister = jest.fn();
-const handleVerify = jest.fn();
+const handleRegisterClick = jest.fn();
+const handleRegisterKeyUp = jest.fn();
+const handleVerifyClick = jest.fn();
+const handleVerifyKeyUp = jest.fn();
 const validateRegistrationInfo = jest.fn();
 const validateConfirmationCode = jest.fn();
 
-let wrapper;
+let wrapper: ShallowWrapper;
 
 describe('RegisterView account creation / registration', () => {
   beforeEach(() => {
@@ -34,8 +35,10 @@ describe('RegisterView account creation / registration', () => {
         handleEmailChange={handleEmailChange}
         handlePasswordChange={handlePasswordChange}
         handlePasswordAgainChange={handlePasswordAgainChange}
-        handleRegister={handleRegister}
-        handleVerify={handleVerify}
+        handleRegisterClick={handleRegisterClick}
+        handleRegisterKeyUp={handleRegisterKeyUp}
+        handleVerifyClick={handleVerifyClick}
+        handleVerifyKeyUp={handleVerifyKeyUp}
         validateRegistrationInfo={validateRegistrationInfo}
         validateConfirmationCode={validateConfirmationCode}
       />
@@ -84,8 +87,10 @@ describe('RegisterView account confirmation / verification', () => {
         handleEmailChange={handleEmailChange}
         handlePasswordChange={handlePasswordChange}
         handlePasswordAgainChange={handlePasswordAgainChange}
-        handleRegister={handleRegister}
-        handleVerify={handleVerify}
+        handleRegisterClick={handleRegisterClick}
+        handleRegisterKeyUp={handleRegisterKeyUp}
+        handleVerifyClick={handleVerifyClick}
+        handleVerifyKeyUp={handleVerifyKeyUp}
         validateRegistrationInfo={validateRegistrationInfo}
         validateConfirmationCode={validateConfirmationCode}
       />

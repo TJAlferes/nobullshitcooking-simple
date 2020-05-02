@@ -1,4 +1,4 @@
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ import { Login } from './Login';
 
 const authUserLogin = jest.fn();
 
-let wrapper;
+let wrapper: ReactWrapper;
 
 beforeEach(() => {
   wrapper = mount(
