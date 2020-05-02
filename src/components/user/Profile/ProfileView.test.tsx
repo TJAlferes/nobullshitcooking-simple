@@ -1,4 +1,4 @@
-import ProfileView from './ProfileView';
+import { ProfileView } from './ProfileView';
 
 describe('what needs testing', () => {
   it('needs testing', () => {

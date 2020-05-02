@@ -1,36 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { useHistory, withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
-
-import { userRequestFriendship } from '../../../store/user/friendship/actions';
 
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userRequestFriendship } from '../../../store/user/friendship/actions';
+import { LoaderSpinner } from '../../LoaderSpinner/LoaderSpinner';
+import { ProfileView } from './ProfileView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-import ProfileView from './ProfileView';
-
-export const Profile = ({
-  match,
+export function Profile({
   oneColumnATheme,
   message,
   isAuthenticated,
   authname,
   dataMyFriendships,
   userRequestFriendship
-}) => {
+}: Props): JSX.Element {
   const history = useHistory();
+  const { username } = useParams();
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ clicked, setClicked ] = useState(false);
   const [ tab, setTab ] = useState("public");
   const [ userAvatar, setUserAvatar ] = useState("nobsc-user-default");
-  const [ userPublicRecipes, setUserPublicRecipes ]= useState([]);
   const [ userFavoriteRecipes, setUserFavoriteRecipes ]= useState([]);
+  const [ userPublicRecipes, setUserPublicRecipes ]= useState([]);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -38,12 +37,12 @@ export const Profile = ({
       if (message !== "") window.scrollTo(0,0);
       setFeedback(message);
     }
-    return () => isSubscribed = false;
+    return () => {
+      isSubscribed = false;
+    };
   }, [message]);
 
   useEffect(() => {
-    const { username } = match.params;
-
     if (!username) {
       history.push('/home');
       return;
@@ -56,30 +55,31 @@ export const Profile = ({
 
     // WHAT HAPPENS IF THE USER IS NOT FOUND?
 
-    const getUserProfile = async (username) => {
+    const getUserProfile = async (username: string) => {
       const trimmed = username.trim();  // already done?
       const res = await axios.get(`${endpoint}/user/profile/${trimmed}`);
       if (res.data.avatar !== "nobsc-user-default") setUserAvatar(trimmed);
-      setUserPublicRecipes(res.data.publicRecipes);
       setUserFavoriteRecipes(res.data.favoriteRecipes);
+      setUserPublicRecipes(res.data.publicRecipes);
     };
 
     getUserProfile(username);
   }, []);
 
   const handleFriendRequestClick = () => {
-    const { username } = match.params;
     if (!username) return;
     setClicked(true);
     setLoading(true);
     userRequestFriendship(username);
   };
 
-  const handleTabChange = value => setTab(value);
+  const handleTabChange = (value: string) => setTab(value);
 
-  return (
+  return !username
+  ? <LoaderSpinner />
+  : (
     <ProfileView
-      match={match}
+      username={username}
       oneColumnATheme={oneColumnATheme}
       feedback={feedback}
       loading={loading}
@@ -97,16 +97,37 @@ export const Profile = ({
   );
 };
 
-const mapStateToProps = state => ({
-  message: state.user.message,
-  isAuthenticated: state.auth.isAuthenticated,
+interface RootState {
+  auth: {
+    authname: string;
+    isAuthenticated: boolean;
+  };
+  data: {
+    myFriendships: [];
+  };
+  user: {
+    message: string;
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  oneColumnATheme: string;
+};
+
+const mapStateToProps = (state: RootState) => ({
   authname: state.auth.authname,
-  dataMyFriendships: state.data.myFriendships
+  isAuthenticated: state.auth.isAuthenticated,
+  dataMyFriendships: state.data.myFriendships,
+  message: state.user.message
 });
 
-const mapDispatchToProps = dispatch => ({
-  userRequestFriendship: friendName =>
-    dispatch(userRequestFriendship(friendName))
-});
+const mapDispatchToProps = {
+  userRequestFriendship: (friendName: string) =>
+    userRequestFriendship(friendName)
+};
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Profile);

@@ -57,18 +57,18 @@ import {
   DATA_GET_MY_FRIENDSHIPS,
   DATA_GET_MY_FRIENDSHIPS_SUCCEEDED,
   DATA_GET_MY_FRIENDSHIPS_FAILED,
-  PostPreview,
-  Measurement,
-  Equipment,
-  EquipmentType,
-  Ingredient,
-  IngredientType,
-  WorkRecipe,
-  RecipeType,
-  Cuisine,
-  Method,
-  Plan,
-  Friendship
+  IPostPreview,
+  IMeasurement,
+  IEquipment,
+  IEquipmentType,
+  IIngredient,
+  IIngredientType,
+  IWorkRecipe,
+  IRecipeType,
+  ICuisine,
+  IMethod,
+  IPlan,
+  IFriendship
 } from './types';
 
 export const dataInit = () => ({type: DATA_INIT});
@@ -82,7 +82,7 @@ export const dataGetPostsSucceeded = () => ({type: DATA_GET_POSTS_SUCCEEDED});
 
 export const dataGetPostsFailed = () => ({type: DATA_GET_POSTS_FAILED});
 
-export const dataGetPostPreviews = (postPreviews: PostPreview[]) => ({
+export const dataGetPostPreviews = (postPreviews: IPostPreview[]) => ({
   type: DATA_GET_POST_PREVIEWS,
   postPreviews
 });
@@ -95,7 +95,7 @@ export const dataGetPostPreviewsFailed = () => ({
   type: DATA_GET_POST_PREVIEWS_FAILED
 });
 
-export const dataGetMeasurements = (measurements: Measurement[]) => ({
+export const dataGetMeasurements = (measurements: IMeasurement[]) => ({
   type: DATA_GET_MEASUREMENTS,
   measurements
 });
@@ -108,7 +108,7 @@ export const dataGetMeasurementsFailed = () => ({
   type: DATA_GET_MEASUREMENTS_FAILED
 });
 
-export const dataGetEquipments = (equipment: Equipment[]) => ({
+export const dataGetEquipments = (equipment: IEquipment[]) => ({
   type: DATA_GET_EQUIPMENTS,
   equipment
 });
@@ -121,7 +121,7 @@ export const dataGetEquipmentsFailed = () => ({
   type: DATA_GET_EQUIPMENTS_FAILED
 });
 
-export const dataGetEquipmentTypes = (equipmentTypes: EquipmentType[]) => ({
+export const dataGetEquipmentTypes = (equipmentTypes: IEquipmentType[]) => ({
   type: DATA_GET_EQUIPMENT_TYPES,
   equipmentTypes
 });
@@ -134,7 +134,7 @@ export const dataGetEquipmentTypesFailed = () => ({
   type: DATA_GET_EQUIPMENT_TYPES_FAILED
 });
 
-export const dataGetIngredients = (ingredients: Ingredient[]) => ({
+export const dataGetIngredients = (ingredients: IIngredient[]) => ({
   type: DATA_GET_INGREDIENTS,
   ingredients
 });
@@ -147,7 +147,7 @@ export const dataGetIngredientsFailed = () => ({
   type: DATA_GET_INGREDIENTS_FAILED
 });
 
-export const dataGetIngredientTypes = (ingredientTypes: IngredientType[]) => ({
+export const dataGetIngredientTypes = (ingredientTypes: IIngredientType[]) => ({
   type: DATA_GET_INGREDIENT_TYPES,
   ingredientTypes
 });
@@ -160,7 +160,7 @@ export const dataGetIngredientTypesFailed = () => ({
   type: DATA_GET_INGREDIENT_TYPES_FAILED
 });
 
-export const dataGetRecipes = (recipes: WorkRecipe[]) => ({
+export const dataGetRecipes = (recipes: IWorkRecipe[]) => ({
   type: DATA_GET_RECIPES,
   recipes
 });
@@ -171,7 +171,7 @@ export const dataGetRecipesSucceeded = () => ({
 
 export const dataGetRecipesFailed = () => ({type: DATA_GET_RECIPES_FAILED});
 
-export const dataGetRecipeTypes = (recipeTypes: RecipeType[]) => ({
+export const dataGetRecipeTypes = (recipeTypes: IRecipeType[]) => ({
   type: DATA_GET_RECIPE_TYPES,
   recipeTypes
 });
@@ -184,7 +184,7 @@ export const dataGetRecipeTypesFailed = () => ({
   type: DATA_GET_RECIPE_TYPES_FAILED
 });
 
-export const dataGetCuisines = (cuisines: Cuisine[]) => ({
+export const dataGetCuisines = (cuisines: ICuisine[]) => ({
   type: DATA_GET_CUISINES,
   cuisines
 });
@@ -195,7 +195,7 @@ export const dataGetCuisinesSucceeded = () => ({
 
 export const dataGetCuisinesFailed = () => ({type: DATA_GET_CUISINES_FAILED});
 
-export const dataGetMethods = (methods: Method[]) => ({
+export const dataGetMethods = (methods: IMethod[]) => ({
   type: DATA_GET_METHODS,
   methods
 });
@@ -206,7 +206,7 @@ export const dataGetMethodsSucceeded = () => ({
 
 export const dataGetMethodsFailed = () => ({type: DATA_GET_METHODS_FAILED});
 
-export const dataGetMyPublicRecipes = (myPublicRecipes: WorkRecipe[]) => ({
+export const dataGetMyPublicRecipes = (myPublicRecipes: IWorkRecipe[]) => ({
   type: DATA_GET_MY_PUBLIC_RECIPES,
   myPublicRecipes
 });
@@ -220,7 +220,7 @@ export const dataGetMyPublicRecipesFailed = () => ({
 });
 
 export const dataGetMyPrivateEquipments = (
-  myPrivateEquipment: Equipment[]
+  myPrivateEquipment: IEquipment[]
 ) => ({
   type: DATA_GET_MY_PRIVATE_EQUIPMENTS,
   myPrivateEquipment
@@ -235,7 +235,7 @@ export const dataGetMyPrivateEquipmentsFailed = () => ({
 });
 
 export const dataGetMyPrivateIngredients = (
-  myPrivateIngredients: Ingredient[]
+  myPrivateIngredients: IIngredient[]
 ) => ({
   type: DATA_GET_MY_PRIVATE_INGREDIENTS,
   myPrivateIngredients
@@ -249,7 +249,7 @@ export const dataGetMyPrivateIngredientsFailed = () => ({
   type: DATA_GET_MY_PRIVATE_INGREDIENTS_FAILED
 });
 
-export const dataGetMyPrivateRecipes = (myPrivateRecipes: WorkRecipe[]) => ({
+export const dataGetMyPrivateRecipes = (myPrivateRecipes: IWorkRecipe[]) => ({
   type: DATA_GET_MY_PRIVATE_RECIPES,
   myPrivateRecipes
 });
@@ -262,7 +262,7 @@ export const dataGetMyPrivateRecipesFailed = () => ({
   type: DATA_GET_MY_PRIVATE_RECIPES_FAILED
 });
 
-export const dataGetMyFavoriteRecipes = (myFavoriteRecipes: WorkRecipe[]) => ({
+export const dataGetMyFavoriteRecipes = (myFavoriteRecipes: IWorkRecipe[]) => ({
   type: DATA_GET_MY_FAVORITE_RECIPES,
   myFavoriteRecipes
 });
@@ -275,7 +275,7 @@ export const dataGetMyFavoriteRecipesFailed = () => ({
   type: DATA_GET_MY_FAVORITE_RECIPES_FAILED
 });
 
-export const dataGetMySavedRecipes = (mySavedRecipes: WorkRecipe[]) => ({
+export const dataGetMySavedRecipes = (mySavedRecipes: IWorkRecipe[]) => ({
   type: DATA_GET_MY_SAVED_RECIPES,
   mySavedRecipes
 });
@@ -288,7 +288,7 @@ export const dataGetMySavedRecipesFailed = () => ({
   type: DATA_GET_MY_SAVED_RECIPES_FAILED
 });
 
-export const dataGetMyPlans = (myPlans: Plan[]) => ({
+export const dataGetMyPlans = (myPlans: IPlan[]) => ({
   type: DATA_GET_MY_PLANS,
   myPlans
 });
@@ -299,7 +299,7 @@ export const dataGetMyPlansSucceeded = () => ({
 
 export const dataGetMyPlansFailed = () => ({type: DATA_GET_MY_PLANS_FAILED});
 
-export const dataGetMyFriendships = (myFriendships: Friendship[]) => ({
+export const dataGetMyFriendships = (myFriendships: IFriendship[]) => ({
   type: DATA_GET_MY_FRIENDSHIPS,
   myFriendships
 });

@@ -181,8 +181,10 @@ export interface IPlan {
 }
 
 export interface IFriendship {
-  friend_id: number
-  status: string
+  user_id: number;
+  username: string;
+  avatar: string;
+  status: string;
 }
 
 export type DataActions =
@@ -207,7 +209,7 @@ IDataGetMyPlans |
 IDataGetMyFriendships;
 
 export interface IDataGetPosts {
-  type: typeof DATA_GET_POST_PREVIEWS
+  type: typeof DATA_GET_POSTS
   posts: []
 }
 
