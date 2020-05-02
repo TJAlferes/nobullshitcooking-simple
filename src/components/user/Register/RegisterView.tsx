@@ -20,8 +20,10 @@ export function RegisterView({
   handleEmailChange,
   handlePasswordChange,
   handlePasswordAgainChange,
-  handleRegister,
-  handleVerify,
+  handleRegisterClick,
+  handleRegisterKeyUp,
+  handleVerifyClick,
+  handleVerifyKeyUp,
   validateRegistrationInfo,
   validateConfirmationCode
 }): JSX.Element {
@@ -91,7 +93,8 @@ export function RegisterView({
         loadingText="Creating Account..."
         isLoading={loading}
         disabled={!validateRegistrationInfo()}
-        onClick={handleRegister}
+        onClick={handleRegisterClick}
+        onKeyUp={handleRegisterKeyUp}
       />
     </form>
   );
@@ -106,8 +109,8 @@ export function RegisterView({
         type="text"
         name="confirmationCode"
         id="confirmationCode"
-        size="20"
-        maxLength="20"
+        size={20}
+        maxLength={20}
         autoFocus
         autoComplete="confirmation-code"
         value={confirmationCode}
@@ -124,13 +127,14 @@ export function RegisterView({
         loadingText="Verifying..."
         isLoading={loading}
         disabled={!validateConfirmationCode()}
-        onClick={handleVerify}
+        onClick={handleVerifyClick}
+        onKeyUp={handleRegisterKeyUp}
       />
     </form>
   );
 
   return (
-    <div className="register" onKeyUp={(e) => handleRegisterSubmit(e)}>
+    <div className="register" onKeyUp={(e) => handleRegisterKeyUp(e)}>
       <Link className="auth-img-link" to="/">
         <img
           className="auth-img-desktop"
