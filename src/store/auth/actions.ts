@@ -1,4 +1,4 @@
-import { MemoryHistory } from 'history';
+import { History } from 'history';
 
 import {
   AUTH_DISPLAY,
@@ -47,7 +47,7 @@ export const authUserRegister = (
   email: string,
   password: string,
   username: string,
-  history: MemoryHistory
+  history: History
 ) => ({
   type: AUTH_USER_REGISTER,
   email,
@@ -70,7 +70,7 @@ export const authUserVerify = (
   email: string,
   password: string,
   confirmationCode: string,
-  history: MemoryHistory
+  history: History
 ) => ({
   type: AUTH_USER_VERIFY,
   email,

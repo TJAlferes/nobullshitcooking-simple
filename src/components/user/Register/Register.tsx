@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { MemoryHistory} from 'history';
+import { History } from 'history';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { authUserRegister, authUserVerify } from '../../../store/auth/actions';
@@ -35,34 +35,53 @@ export function Register({
 
   const handleConfirmationCodeChange = (
     e: React.SyntheticEvent<EventTarget>
-  ) => {
-    let target = e.target as HTMLInputElement;
-    setConfirmationCode(target.value);
+  ) => setConfirmationCode((e.target as HTMLInputElement).value);
+
+  const handleUsernameChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => setUsername((e.target as HTMLInputElement).value);
+
+  const handleEmailChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => setEmail((e.target as HTMLInputElement).value);
+
+  const handlePasswordChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => setPassword((e.target as HTMLInputElement).value);
+
+  const handlePasswordAgainChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => setPasswordAgain((e.target as HTMLInputElement).value);
+
+  const handleRegisterClick = () => {
+    if (loading) return;
+    if (!validateRegistrationInfo()) return;
+    setLoading(true);
+    authUserRegister(email, password, username, history);
   };
 
-  const handleUsernameChange = e => setUsername(e.target.value);
-
-  const handleEmailChange = e => setEmail(e.target.value);
-
-  const handlePasswordChange = e => setPassword(e.target.value);
-
-  const handlePasswordAgainChange = e => setPasswordAgain(e.target.value);
-
-  const handleRegister = e => {
+  const handleRegisterKeyUp = (e: React.KeyboardEvent) => {
     if (loading) return;
     if (!validateRegistrationInfo()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
     authUserRegister(email, password, username, history);
-  }
+  };
 
-  const handleVerify = e => {
+  const handleVerifyClick = () => {
+    if (loading) return;
+    if (!validateConfirmationCode()) return;
+    setLoading(true);
+    authUserVerify(email, password, confirmationCode, history);
+  };
+
+  const handleVerifyKeyUp = (e: React.KeyboardEvent) => {
     if (loading) return;
     if (!validateConfirmationCode()) return;
     if (e.key && (e.key !== "Enter")) return;
     setLoading(true);
     authUserVerify(email, password, confirmationCode, history);
-  }
+  };
   
   const validateRegistrationInfo = () => (
     (username.length > 1) &&
@@ -88,8 +107,10 @@ export function Register({
       handleEmailChange={handleEmailChange}
       handlePasswordChange={handlePasswordChange}
       handlePasswordAgainChange={handlePasswordAgainChange}
-      handleRegister={handleRegister}
-      handleVerify={handleVerify}
+      handleRegisterClick={handleRegisterClick}
+      handleRegisterKeyUp={handleRegisterKeyUp}
+      handleVerifyClick={handleVerifyClick}
+      handleVerifyKeyUp={handleVerifyKeyUp}
       validateRegistrationInfo={validateRegistrationInfo}
       validateConfirmationCode={validateConfirmationCode}
     />
@@ -105,7 +126,7 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-
+  confirmingUser: boolean
 };
 
 const mapStateToProps = (state: RootState) => ({message: state.auth.message});
@@ -115,13 +136,13 @@ const mapDispatchToProps = {
     email: string,
     pass: string,
     username: string,
-    history: MemoryHistory
+    history: History
   ) => authUserRegister(email, pass, username, history),
   authUserVerify: (
     email: string,
     pass: string,
     confirmationCode: string,
-    history: MemoryHistory
+    history: History
   ) => authUserVerify(email, pass, confirmationCode, history)
 };
 
