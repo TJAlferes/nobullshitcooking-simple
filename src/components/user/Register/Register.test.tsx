@@ -1,4 +1,4 @@
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import { Register } from './Register';
 const authUserRegister = jest.fn();
 const authUserVerify = jest.fn();
 
-let wrapper;
+let wrapper: ReactWrapper;
 
 beforeEach(() => {
   wrapper = mount(
@@ -16,7 +16,7 @@ beforeEach(() => {
         message="Some message."
         authUserRegister={authUserRegister}
         authUserVerify={authUserVerify}
-        childProps={{confirmingUser: "false"}}
+        confirmingUser={false}
       />
     </MemoryRouter>
   );
