@@ -137,58 +137,45 @@ import Welcome from '../components/pages/site/Welcome/Welcome';
 //
 import Supply from '../components/supply/Supply';
 import Home from '../components/Home/Home';
-import NotFound from '../components/NotFound/NotFound';
+import { NotFound } from '../components/NotFound/NotFound';
 import AppliedRoute from './AppliedRoute';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import UnauthenticatedRoute from './UnauthenticatedRoute';
 
-const authRoute = (path, component, childProps = null) =>
-  !childProps ? (
-    <AuthenticatedRoute path={path} exact component={component} />
-  )
-  : (
-    <AuthenticatedRoute
-      path={path}
-      exact
-      component={component}
-      childProps={childProps}
-    />
-    </AuthenticatedRoute>
-  );
-
-const unauthRoute = (path, component, childProps = null) =>
-  !childProps ? (
-    <UnauthenticatedRoute path={path} exact component={component} />
-  )
-  : (
-    <UnauthenticatedRoute
-      path={path}
-      exact
-      component={component}
-      childProps={childProps}
-    />
-  );
-
-const appRoute = (path, component) =>
-  <AppliedRoute path={path} exact component={component} />;
-
 // TO DO: just make Verify its own component..?
+
+const authRoute = (
+  path: string,
+  component: any,
+  childProps: any = null
+) =>
+  <AuthenticatedRoute
+    path={path}
+    component={component}
+    childProps={childProps}
+  />;
+
+const unauthRoute = (
+  path: string,
+  component: any,
+  childProps: any = null
+) =>
+  <UnauthenticatedRoute
+    path={path}
+    component={component}
+    childProps={childProps}
+  />;
+
+const appRoute = (path: string, component: any) =>
+  <AppliedRoute path={path} component={component} />;
 
 const RoutesList = () => (
   <Suspense fallback={<LoaderSpinner />}>
     <Switch>
-      <UnauthenticatedRoute path="/register" >
-        <Register />
-      </UnauthenticatedRoute>
-      {unauthRoute("/register", Register)}
-      <UnauthenticatedRoute path="/register" >
-        <Register confirmingUser={true} />
-      </UnauthenticatedRoute>
-      {unauthRoute("/verify", Register, {confirmingUser: "true"})}
+      {unauthRoute("/register", Register, {confirmingUser: false})}
+      {unauthRoute("/verify", Register, {confirmingUser: true})}
       {unauthRoute("/login", Login)}
-      
       {appRoute("/profile/:username", Profile)}
-
       {authRoute("/dashboard", Dashboard)}
       {authRoute("/friends", Friends)}
       {authRoute("/messenger", MessengerPage)}
@@ -226,7 +213,6 @@ const RoutesList = () => (
         {editing: "true"}
       )}
       {authRoute("/user-ingredients/:id", Ingredient)}
-
       {appRoute("/recipes/:id", Recipe)}
       {appRoute("/ingredients/:id", Ingredient)}
       {appRoute("/equipment/:id", Equipment)}
@@ -234,6 +220,10 @@ const RoutesList = () => (
       {appRoute("/recipes", SearchResultsRecipes)}
       {appRoute("/ingredients", SearchResultsIngredients)}
       {appRoute("/equipment", SearchResultsEquipment)}
+
+
+
+
 
       {appRoute("/food", Food)}
       {appRoute("/food/recipes", SiteNavRecipes)}
@@ -330,11 +320,13 @@ const RoutesList = () => (
       {appRoute("/site/help", Help)}
       {appRoute("/site/welcome", Welcome)}
 
+
+
+
+
       {appRoute("/home", Home)}
       {appRoute("/", Home)}
-
-      <Route render={props => <NotFound {...props} />} />
-
+      {appRoute("*", NotFound)}
     </Switch>
   </Suspense>
 );

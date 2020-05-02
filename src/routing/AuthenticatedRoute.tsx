@@ -2,28 +2,25 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
-/*
-component: Component,
-props: childProps,
-<Route
-  {...rest}
-  render={props =>
-    isAuthenticated
-    ? <Component {...props} {...childProps} {...rest} />
-    : <Redirect to='/' />
-  }
-/>
-*/
+//{...(childProps && childProps)}
 
 export function AuthenticatedRoute({
   isAuthenticated,
-  children,
+  path,
+  component: Component,
+  childProps,
   ...rest
 }: Props) {
   return (
-    <Route {...rest}>
-      {isAuthenticated ? children : <Redirect to='/' />}
-    </Route>
+    <Route
+      exact
+      {...rest}
+      render={props =>
+        isAuthenticated
+        ? <Component {...props} {...childProps} {...rest} />
+        : <Redirect to='/' />
+      }
+    />
   );
 }
 
@@ -44,9 +41,9 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  //component: any;
-  //props: any;
-  children: any;
+  path: string;
+  component: any;
+  childProps?: any;
 }
 
 const mapStateToProps = (state: RootState) => ({

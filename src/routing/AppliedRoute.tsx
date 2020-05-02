@@ -2,14 +2,23 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
-export function AppliedRoute({ children, ...rest }: Props) {
-  return <Route {...rest}>{children}</Route>;
+export function AppliedRoute({
+  path,
+  component: Component,
+  childProps,
+  ...rest
+}: Props) {
+  return (
+    <Route
+      exact
+      path={path}
+      {...rest}
+      render={props => <Component {...props} {...childProps} {...rest} />}
+    />
+  );
 }
 
 interface RootState {
-  auth: {
-    isAuthenticated: boolean;
-  };
   theme: {
     breadCrumbsTheme: string;
     navGridATheme: string;
@@ -23,9 +32,9 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  //component: any;
-  //props: any;
-  children: any;
+  path: string;
+  component: any;
+  childProps?: any;
 };
 
 const mapStateToProps = (state: RootState) => ({
