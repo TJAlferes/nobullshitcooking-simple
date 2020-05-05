@@ -15,6 +15,18 @@ const myFriendships = [
     username: "Jill",
     avatar: "Jill",
     status: "accepted"
+  },
+  {
+    user_id: 4,
+    username: "John",
+    avatar: "John",
+    status: "pending-received"
+  },
+  {
+    user_id: 5,
+    username: "Jane",
+    avatar: "Jane",
+    status: "blocked"
   }
 ];
 const handleTabChange = jest.fn();
@@ -88,7 +100,55 @@ describe('FriendsView', () => {
     .toEqual("Blocked");
   });
 
-  it('displays a button element with text Unfriend for each friend', () => {
+  it('displays an unfriend button element for each accepted friend', () => {
     expect(wrapper.find('button[name="unfriend"]')).toHaveLength(2);
+  });
+
+  it(
+    'displays accept and reject button elements for each pending friend',
+    () => {
+      wrapper = shallow(
+        <FriendsView
+          twoColumnATheme="light"
+          feedback="Some message."
+          loading={false}
+          dataMyFriendships={myFriendships}
+          userToFind="Person2"
+          tab="pending-received"
+          handleTabChange={handleTabChange}
+          handleFindUserInputChange={handleFindUserInputChange}
+          handleFriendRequestClick={handleFriendRequestClick}
+          handleFriendAcceptClick={handleFriendAcceptClick}
+          handleFriendRejectClick={handleFriendRejectClick}
+          handleFriendDeleteClick={handleFriendDeleteClick}
+          handleUserBlockClick={handleUserBlockClick}
+          handleUserUnblockClick={handleUserUnblockClick}
+        />
+      );
+      expect(wrapper.find('button[name="accept"]')).toHaveLength(1);
+      expect(wrapper.find('button[name="reject"]')).toHaveLength(1);
+    }
+  );
+  
+  it('displays an unblock button element for each blocked user', () => {
+    wrapper = shallow(
+      <FriendsView
+        twoColumnATheme="light"
+        feedback="Some message."
+        loading={false}
+        dataMyFriendships={myFriendships}
+        userToFind="Person2"
+        tab="blocked"
+        handleTabChange={handleTabChange}
+        handleFindUserInputChange={handleFindUserInputChange}
+        handleFriendRequestClick={handleFriendRequestClick}
+        handleFriendAcceptClick={handleFriendAcceptClick}
+        handleFriendRejectClick={handleFriendRejectClick}
+        handleFriendDeleteClick={handleFriendDeleteClick}
+        handleUserBlockClick={handleUserBlockClick}
+        handleUserUnblockClick={handleUserUnblockClick}
+      />
+    );
+    expect(wrapper.find('button[name="unblock"]')).toHaveLength(1);
   });
 });
