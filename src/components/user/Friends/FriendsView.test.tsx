@@ -5,13 +5,13 @@ import { FriendsView } from './FriendsView';
 
 const myFriendships = [
   {
-    user_id: 1,
+    user_id: 2,
     username: "Jack",
     avatar: "Jack",
     status: "accepted"
   },
   {
-    user_id: 2,
+    user_id: 3,
     username: "Jill",
     avatar: "Jill",
     status: "accepted"
@@ -64,12 +64,31 @@ describe('FriendsView', () => {
   });
 
   it('displays a button element with text Send Friend Request', () => {
-    expect(wrapper.find('button[name="friends-find-request]').text)
+    expect(wrapper.find('button[name="friends-find-request"]').text())
     .toEqual("Send Friend Request");
   });
 
   it('displays a button element with text Block User', () => {
-    expect(wrapper.find('button[name="friends-find-block]').text)
+    expect(wrapper.find('button[name="friends-find-block"]').text())
     .toEqual("Block User");
+  });
+
+  it('displays a button element with text Current', () => {
+    expect(wrapper.find('button[name="current"]').text())
+    .toEqual("Current");
+  });
+
+  it('displays a button element with text Pending', () => {
+    expect(wrapper.find('button[name="pending"]').text())
+    .toEqual("Pending");
+  });
+
+  it('displays a button element with text Blocked', () => {
+    expect(wrapper.find('button[name="blocked"]').text())
+    .toEqual("Blocked");
+  });
+
+  it('displays a button element with text Unfriend for each friend', () => {
+    expect(wrapper.find('button[name="unfriend"]')).toHaveLength(2);
   });
 });

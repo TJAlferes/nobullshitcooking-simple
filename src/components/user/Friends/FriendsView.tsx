@@ -69,6 +69,7 @@ export function FriendsView({
               ? "friends-list-menu-tab active"
               : "friends-list-menu-tab inactive"
             }
+            name="current"
             onClick={() => handleTabChange("accepted")}
           >
             Current
@@ -79,6 +80,7 @@ export function FriendsView({
               ? "friends-list-menu-tab active"
               : "friends-list-menu-tab inactive"
             }
+            name="pending"
             onClick={() => handleTabChange("pending-received")}
           >
             Pending
@@ -89,6 +91,7 @@ export function FriendsView({
               ? "friends-list-menu-tab active"
               : "friends-list-menu-tab inactive"
             }
+            name="blocked"
             onClick={() => handleTabChange("blocked")}
           >
             Blocked
@@ -111,6 +114,7 @@ export function FriendsView({
                   (friend.status === "pending-received") &&
                   <button
                     className="friends-list-item-action"
+                    name="accept"
                     disabled={loading}
                     value={friend.username}
                     onClick={handleFriendAcceptClick}
@@ -122,6 +126,7 @@ export function FriendsView({
                   (friend.status === "pending-received") &&
                   <button
                     className="friends-list-item-delete"
+                    name="reject"
                     disabled={loading}
                     value={friend.username}
                     onClick={handleFriendRejectClick}
@@ -133,6 +138,7 @@ export function FriendsView({
                   (friend.status === "accepted") &&
                   <button
                     className="friends-list-item-delete"
+                    name="unfriend"
                     disabled={loading}
                     value={friend.username}
                     onClick={handleFriendDeleteClick}
@@ -144,6 +150,7 @@ export function FriendsView({
                   (friend.status === "blocked") &&
                   <button
                     className="friends-list-item-delete"
+                    name="unblock"
                     disabled={loading}
                     value={friend.username}
                     onClick={handleUserUnblockClick}
