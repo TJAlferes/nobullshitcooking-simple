@@ -25,6 +25,10 @@ const userDeleteFriendship = jest.fn();
 const userBlockUser = jest.fn();
 const userUnblockUser = jest.fn();
 
+window.scrollTo = jest.fn();
+
+jest.mock('../../LeftNav/LeftNav');
+
 let wrapper: ReactWrapper;
 
 beforeEach(() => {
@@ -64,7 +68,7 @@ describe('Friends', () => {
     wrapper.find('input[name="friends-find-user"]')
     .simulate('change', {target: {name: "friends-find-user", value: "Person2"}});
 
-    wrapper.find('button[name="friends-find-request"]').at(1).simulate('click');
+    wrapper.find('button[name="friends-find-request"]').simulate('click');
 
     expect(userRequestFriendship).toBeCalledTimes(1);
   });
@@ -73,7 +77,7 @@ describe('Friends', () => {
     wrapper.find('input[name="friends-find-user"]')
     .simulate('change', {target: {name: "friends-find-user", value: ""}});
 
-    wrapper.find('button[name="friends-find-request"]').at(1).simulate('click');
+    wrapper.find('button[name="friends-find-request"]').simulate('click');
 
     expect(userRequestFriendship).toBeCalledTimes(0);
   });
@@ -82,7 +86,7 @@ describe('Friends', () => {
     wrapper.find('input[name="friends-find-user"]')
     .simulate('change', {target: {name: "friends-find-user", value: "Person"}});
 
-    wrapper.find('button[name="friends-find-request"]').at(1).simulate('click');
+    wrapper.find('button[name="friends-find-request"]').simulate('click');
 
     expect(userRequestFriendship).toBeCalledTimes(0);
   });
@@ -91,7 +95,7 @@ describe('Friends', () => {
     wrapper.find('input[name="friends-find-user"]')
     .simulate('change', {target: {name: "friends-find-user", value: "Person2"}});
 
-    wrapper.find('button[name="friends-find-block"]').at(1).simulate('click');
+    wrapper.find('button[name="friends-find-block"]').simulate('click');
 
     expect(userBlockUser).toBeCalledTimes(1);
   });
@@ -100,7 +104,7 @@ describe('Friends', () => {
     wrapper.find('input[name="friends-find-user"]')
     .simulate('change', {target: {name: "friends-find-user", value: ""}});
 
-    wrapper.find('button[name="friends-find-block"]').at(1).simulate('click');
+    wrapper.find('button[name="friends-find-block"]').simulate('click');
 
     expect(userBlockUser).toBeCalledTimes(0);
   });
@@ -109,7 +113,7 @@ describe('Friends', () => {
     wrapper.find('input[name="friends-find-user"]')
     .simulate('change', {target: {name: "friends-find-user", value: "Person"}});
 
-    wrapper.find('button[name="friends-find-block"]').at(1).simulate('click');
+    wrapper.find('button[name="friends-find-block"]').simulate('click');
 
     expect(userBlockUser).toBeCalledTimes(0);
   });
