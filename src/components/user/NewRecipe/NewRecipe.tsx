@@ -31,11 +31,12 @@ import {
   getCroppedImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
 import validRecipeInfo from './validation/validRecipeInfo';
-import NewRecipeView from './NewRecipeView';
+import { NewRecipeView } from './NewRecipeView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function NewRecipe({
+  childProps,
   oneColumnATheme,
   authname,
   message,
@@ -71,7 +72,7 @@ export function NewRecipe({
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
   const [ directions, setDirections ] = useState("");
-  const [ methods, setMethods ] = useState({
+  const [ methods, setMethods ] = useState<IMethods>({
     1: false,
     2: false,
     3: false,
@@ -102,12 +103,12 @@ export function NewRecipe({
     {key: uuid(), amount: "", type: "", equipment: ""},
     {key: uuid(), amount: "", type: "", equipment: ""},
   ]);
-  const [ ingredientRows, setIngredientRows ] = useState([
+  const [ ingredientRows, setIngredientRows ] = useState<IIngredientRow[]>([
     {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
     {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
     {key: uuid(), amount: 1, unit: "", type: "", ingredient: ""},
   ]);
-  const [ subrecipeRows, setSubrecipeRows ] = useState([]);
+  const [ subrecipeRows, setSubrecipeRows ] = useState<ISubrecipeRow[]>([]);
   const [
     prevRecipeImage,
     setPrevRecipeImage
@@ -259,7 +260,7 @@ export function NewRecipe({
     };
     
     if (childProps && childProps.editing) {
-      // TO DO: check match.params.id redirect to dashboard if none/invalid
+      // TO DO: check id redirect to dashboard if none/invalid
       getExistingRecipeToEdit();
     } else if (childProps && childProps.submittingOwnership) {
       setOwnership(childProps.submittingOwnership);
@@ -310,7 +311,7 @@ export function NewRecipe({
     const id = (e.target as HTMLInputElement).id;
     setMethods(prevState => ({
       ...prevState,
-      [id]: !prevState[[id]]
+      [id]: !prevState[id]
     }));
   };
 
@@ -334,7 +335,7 @@ export function NewRecipe({
     const elToUpdate = newIngredientRows.findIndex(el => el.key === rowKey);
     const targetName = (e.target as HTMLInputElement).name;
     const targetValue = (e.target as HTMLInputElement).value;
-    newIngredientRows[elToUpdate][e.target.name] = e.target.value;
+    newIngredientRows[elToUpdate][targetName] = targetValue;
     setIngredientRows(newIngredientRows);
   };
 
@@ -346,7 +347,7 @@ export function NewRecipe({
     const elToUpdate = newSubrecipeRows.findIndex(el => el.key === rowKey);
     const targetName = (e.target as HTMLInputElement).name;
     const targetValue = (e.target as HTMLInputElement).value;
-    newSubrecipeRows[elToUpdate][e.target.name] = e.target.value;
+    newSubrecipeRows[elToUpdate][targetName] = targetValue;
     setSubrecipeRows(newSubrecipeRows);
   };
 
@@ -595,29 +596,6 @@ export function NewRecipe({
   };
 
   const handleSubmit = () => {
-    const recipeInfo = {
-      ownership,
-      recipeTypeId,
-      cuisineId,
-      title,
-      description,
-      directions,
-      requiredMethods: getCheckedMethods(),
-      requiredEquipment: getRequiredEquipment(),
-      requiredIngredients: getRequiredIngredients(),
-      requiredSubrecipes: getRequiredSubrecipes(),
-      recipeImage,
-      fullRecipeImage,
-      thumbRecipeImage,
-      tinyRecipeImage,
-      recipeEquipmentImage,
-      fullRecipeEquipmentImage,
-      recipeIngredientsImage,
-      fullRecipeIngredientsImage,
-      recipeCookingImage,
-      fullRecipeCookingImage
-    };
-
     if (
       !validRecipeInfo({
         ownership,
@@ -636,22 +614,69 @@ export function NewRecipe({
       return;
     }
 
-    if (editing) {
-      recipeInfo.recipeId = editingId;  // change?
-      recipeInfo.prevRecipeImage = prevRecipeImage;
-      recipeInfo.prevEquipmentImage = prevEquipmentImage;
-      recipeInfo.prevIngredientsImage = prevIngredientsImage;
-      recipeInfo.prevCookingImage = prevCookingImage;
-    }
-
-    setLoading(true);  // move up one?
+    setLoading(true);
 
     if (editing) {
+
+      const recipeInfo: IEditingRecipeInfo = {
+        ownership,
+        recipeTypeId,
+        cuisineId,
+        title,
+        description,
+        directions,
+        requiredMethods: getCheckedMethods(),
+        requiredEquipment: getRequiredEquipment(),
+        requiredIngredients: getRequiredIngredients(),
+        requiredSubrecipes: getRequiredSubrecipes(),
+        recipeImage,
+        fullRecipeImage,
+        thumbRecipeImage,
+        tinyRecipeImage,
+        recipeEquipmentImage,
+        fullRecipeEquipmentImage,
+        recipeIngredientsImage,
+        fullRecipeIngredientsImage,
+        recipeCookingImage,
+        fullRecipeCookingImage,
+        recipeId: editingId,  // change?
+        prevRecipeImage,
+        prevEquipmentImage,
+        prevIngredientsImage,
+        prevCookingImage
+      };
+
       if (ownership === "private") userEditPrivateRecipe(recipeInfo);
       else if (ownership === "public") userEditPublicRecipe(recipeInfo);
+
     } else {
+
+      const recipeInfo: ICreatingRecipeInfo = {
+        ownership,
+        recipeTypeId,
+        cuisineId,
+        title,
+        description,
+        directions,
+        requiredMethods: getCheckedMethods(),
+        requiredEquipment: getRequiredEquipment(),
+        requiredIngredients: getRequiredIngredients(),
+        requiredSubrecipes: getRequiredSubrecipes(),
+        recipeImage,
+        fullRecipeImage,
+        thumbRecipeImage,
+        tinyRecipeImage,
+        recipeEquipmentImage,
+        fullRecipeEquipmentImage,
+        recipeIngredientsImage,
+        fullRecipeIngredientsImage,
+        recipeCookingImage,
+        fullRecipeCookingImage
+      };
+
       if (ownership === "private") userCreateNewPrivateRecipe(recipeInfo);
       else if (ownership === "public") userCreateNewPublicRecipe(recipeInfo);
+
     }
   };
 
@@ -777,7 +802,11 @@ interface RootState {
   };
 }
 
-interface IEquipmentRow {
+interface IMethods {
+  [index: string]: any;
+}
+
+export interface IEquipmentRow {
   [index: string]: string;
   key: string;
   amount: string;
@@ -785,9 +814,29 @@ interface IEquipmentRow {
   equipment: string;
 }
 
+export interface IIngredientRow {
+  [index: string]: any;
+  key: string;
+  amount: number;
+  unit: string;
+  type: string;
+  ingredient: string;
+}
+
+export interface ISubrecipeRow {
+  [index: string]: any;
+  key: string;
+  amount: number;
+  unit: string;
+  //type
+  //cuisine
+  subrecipe: string;
+}
+
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
+  childProps: any;
   oneColumnATheme: string;
 };
 
