@@ -1,37 +1,44 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
-import { useHistory, withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import uuid from 'uuid/v4';
 import axios from 'axios';
 
 import {
-  getCroppedImage
-} from '../../../utils/imageCropPreviews/imageCropPreviews';
-
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+import {
+  IMeasurement,
+  IEquipment,
+  IIngredient,
+  IIngredientType,
+  IWorkRecipe,
+  IRecipeType,
+  ICuisine,
+  IMethod
+} from '../../../store/data/types';
+import {
+  ICreatingRecipeInfo,
+  IEditingRecipeInfo
+} from '../../../store/user/recipe/types';
 import {
   userCreateNewPrivateRecipe,
   userCreateNewPublicRecipe,
   userEditPrivateRecipe,
   userEditPublicRecipe
 } from '../../../store/user/recipe/actions';
-
 import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+  getCroppedImage
+} from '../../../utils/imageCropPreviews/imageCropPreviews';
+import validRecipeInfo from './validation/validRecipeInfo';
+import NewRecipeView from './NewRecipeView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-import validRecipeInfo from './validation/validRecipeInfo';
-
-import NewRecipeView from './NewRecipeView';
-
-export const NewRecipe = ({
-  match,
+export function NewRecipe({
   oneColumnATheme,
   authname,
   message,
-  childProps,
-
   dataMeasurements,
   dataEquipment,
   dataIngredients,
@@ -46,13 +53,13 @@ export const NewRecipe = ({
   dataMyPrivateRecipes,
   dataMyFavoriteRecipes,
   dataMySavedRecipes,
-
   userCreateNewPrivateRecipe,
   userCreateNewPublicRecipe,
   userEditPrivateRecipe,
   userEditPublicRecipe
-}) => {
+}: Props): JSX.Element {
   const history = useHistory();
+  const { id } = useParams();
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
@@ -90,7 +97,7 @@ export const NewRecipe = ({
     23: false,
     24: false
   });
-  const [ equipmentRows, setEquipmentRows ] = useState([
+  const [ equipmentRows, setEquipmentRows ] = useState<IEquipmentRow[]>([
     {key: uuid(), amount: "", type: "", equipment: ""},
     {key: uuid(), amount: "", type: "", equipment: ""},
     {key: uuid(), amount: "", type: "", equipment: ""},
@@ -183,7 +190,7 @@ export const NewRecipe = ({
 
       const res = await axios.post(
         `${endpoint}/user/recipe/edit/${childProps.editingOwnership}`,
-        {recipeId: match.params.id},
+        {recipeId: id},
         {withCredentials: true}
       );
 
@@ -251,11 +258,7 @@ export const NewRecipe = ({
       setLoading(false);
     };
     
-    if (
-      childProps &&
-      childProps.editing &&
-      childProps.editing === "true"
-    ) {
+    if (childProps && childProps.editing) {
       // TO DO: check match.params.id redirect to dashboard if none/invalid
       getExistingRecipeToEdit();
     } else if (childProps && childProps.submittingOwnership) {
@@ -283,41 +286,66 @@ export const NewRecipe = ({
     };
   }, [message]);
 
-  const handleRecipeTypeChange = e => setRecipeTypeId(e.target.value);
+  const handleRecipeTypeChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setRecipeTypeId((e.target as HTMLInputElement).value);
+  };
 
-  const handleCuisineChange = e => setCuisineId(e.target.value);
+  const handleCuisineChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setCuisineId((e.target as HTMLInputElement).value);
+  };
 
-  const handleTitleChange = e => setTitle(e.target.value);
+  const handleTitleChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setTitle((e.target as HTMLInputElement).value);
+  };
 
-  const handleDescriptionChange = e => setDescription(e.target.value);
+  const handleDescriptionChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setDescription((e.target as HTMLInputElement).value);
+  };
 
-  const handleDirectionsChange = e => setDirections(e.target.value);
+  const handleDirectionsChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setDirections((e.target as HTMLInputElement).value);
+  };
 
-  const handleMethodsChange = e => {
-    const id = e.target.id;
+  const handleMethodsChange = (e: React.SyntheticEvent<EventTarget>) => {
+    const id = (e.target as HTMLInputElement).id;
     setMethods(prevState => ({
       ...prevState,
       [id]: !prevState[[id]]
     }));
   };
 
-  const handleEquipmentRowChange = (e, rowKey) => {
+  const handleEquipmentRowChange = (
+    e: React.SyntheticEvent<EventTarget>,
+    rowKey: string
+  ) => {
     const newEquipmentRows = Array.from(equipmentRows);
     const elToUpdate = newEquipmentRows.findIndex(el => el.key === rowKey);
-    newEquipmentRows[elToUpdate][e.target.name] = e.target.value;
+    const targetName = (e.target as HTMLInputElement).name;
+    const targetValue = (e.target as HTMLInputElement).value;
+    newEquipmentRows[elToUpdate][targetName] = targetValue;
     setEquipmentRows(newEquipmentRows);
   };
 
-  const handleIngredientRowChange = (e, rowKey) => {
+  const handleIngredientRowChange = (
+    e: React.SyntheticEvent<EventTarget>,
+    rowKey: string
+  ) => {
     const newIngredientRows = Array.from(ingredientRows);
     const elToUpdate = newIngredientRows.findIndex(el => el.key === rowKey);
+    const targetName = (e.target as HTMLInputElement).name;
+    const targetValue = (e.target as HTMLInputElement).value;
     newIngredientRows[elToUpdate][e.target.name] = e.target.value;
     setIngredientRows(newIngredientRows);
   };
 
-  const handleSubrecipeRowChange = (e, rowKey) => {
+  const handleSubrecipeRowChange = (
+    e: React.SyntheticEvent<EventTarget>,
+    rowKey: string
+  ) => {
     const newSubrecipeRows = Array.from(subrecipeRows);
     const elToUpdate = newSubrecipeRows.findIndex(el => el.key === rowKey);
+    const targetName = (e.target as HTMLInputElement).name;
+    const targetValue = (e.target as HTMLInputElement).value;
     newSubrecipeRows[elToUpdate][e.target.name] = e.target.value;
     setSubrecipeRows(newSubrecipeRows);
   };
@@ -629,7 +657,6 @@ export const NewRecipe = ({
 
   return (
     <NewRecipeView
-      match={match}
       oneColumnATheme={oneColumnATheme}
       authname={authname}
       feedback={feedback}
@@ -725,7 +752,46 @@ export const NewRecipe = ({
   );
 };
 
-const mapStateToProps = state => ({
+interface RootState {
+  auth: {
+    authname: string;
+  };
+  user: {
+    message: string;
+  };
+  data: {
+    measurements: IMeasurement[];
+    equipment: IEquipment[];
+    ingredients: IIngredient[];
+    ingredientTypes: IIngredientType[];
+    recipes: IWorkRecipe[];
+    recipeTypes: IRecipeType[];
+    cuisines: ICuisine[];
+    methods: IMethod[];
+    myPublicRecipes: IWorkRecipe[];
+    myPrivateEquipment: IEquipment[];
+    myPrivateIngredients: IIngredient[];
+    myPrivateRecipes: IWorkRecipe[];
+    myFavoriteRecipes: IWorkRecipe[];
+    mySavedRecipes: IWorkRecipe[];
+  };
+}
+
+interface IEquipmentRow {
+  [index: string]: string;
+  key: string;
+  amount: string;
+  type: string;
+  equipment: string;
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  oneColumnATheme: string;
+};
+
+const mapStateToProps = (state: RootState) => ({
   authname: state.auth.authname,
   message: state.user.message,
   dataMeasurements: state.data.measurements,
@@ -744,17 +810,17 @@ const mapStateToProps = state => ({
   dataMySavedRecipes: state.data.mySavedRecipes
 });
 
-const mapDispatchToProps = dispatch => ({
-  userCreateNewPrivateRecipe: (recipeInfo) =>
-    dispatch(userCreateNewPrivateRecipe(recipeInfo)),
-  userCreateNewPublicRecipe: (recipeInfo) =>
-    dispatch(userCreateNewPublicRecipe(recipeInfo)),
-  userEditPrivateRecipe: (recipeInfo) =>
-    dispatch(userEditPrivateRecipe(recipeInfo)),
-  userEditPublicRecipe: (recipeInfo) =>
-    dispatch(userEditPublicRecipe(recipeInfo))
-});
+const mapDispatchToProps = {
+  userCreateNewPrivateRecipe: (recipeInfo: ICreatingRecipeInfo) =>
+    userCreateNewPrivateRecipe(recipeInfo),
+  userCreateNewPublicRecipe: (recipeInfo: ICreatingRecipeInfo) =>
+    userCreateNewPublicRecipe(recipeInfo),
+  userEditPrivateRecipe: (recipeInfo: IEditingRecipeInfo) =>
+    userEditPrivateRecipe(recipeInfo),
+  userEditPublicRecipe: (recipeInfo: IEditingRecipeInfo) =>
+    userEditPublicRecipe(recipeInfo)
+};
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(NewRecipe)
-);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(NewRecipe);

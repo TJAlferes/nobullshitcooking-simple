@@ -179,7 +179,7 @@ const RoutesList = () => (
       {authRoute("/dashboard", Dashboard)}
       {authRoute("/friends", Friends)}
       {authRoute("/messenger", MessengerPage)}
-      {authRoute("/user-plan/edit/:id", NewPlanPage, {editing: "true"})}
+      {authRoute("/user-plan/edit/:id", NewPlanPage, {editing: true})}
       {authRoute("/user-plan/submit", NewPlanPage)}
       {authRoute("/user-plan/:id", PlanPage)}
       {authRoute(
@@ -195,22 +195,22 @@ const RoutesList = () => (
       {authRoute(
         "/user-recipes/private/edit/:id",
         NewRecipe,
-        {editing: "true", editingOwnership: "private"}
+        {editing: true, editingOwnership: "private"}
       )}
       {authRoute(
         "/user-recipes/public/edit/:id",
         NewRecipe,
-        {editing: "true", editingOwnership: "public"}
+        {editing: true, editingOwnership: "public"}
       )}
       {authRoute("/user-recipes/:id", Recipe)}
       {authRoute("/user-equipment/submit", NewEquipment)}
-      {authRoute("/user-equipment/edit/:id", NewEquipment, {editing: "true"})}
+      {authRoute("/user-equipment/edit/:id", NewEquipment, {editing: true})}
       {authRoute("/user-equipment/:id", Equipment)}
       {authRoute("/user-ingredients/submit", NewIngredient)}
       {authRoute(
         "/user-ingredients/edit/:id",
         NewIngredient,
-        {editing: "true"}
+        {editing: true}
       )}
       {authRoute("/user-ingredients/:id", Ingredient)}
       {appRoute("/recipes/:id", Recipe)}

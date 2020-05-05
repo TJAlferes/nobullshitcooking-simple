@@ -102,10 +102,12 @@ describe('NewRecipe', () => {
       );
       
       it('needs testing', async () => {
-        await act(async () => Promise.resolve(() => {
-          setImmediate(() => wrapper.update());
-          expect(mockHistoryPush).not.toHaveBeenCalled();
-        }));
+        await act(async () => {
+          Promise.resolve(() => {
+            setImmediate(() => wrapper.update());
+            expect(mockHistoryPush).not.toHaveBeenCalled();
+          });
+        });
       });
     });
 
@@ -119,10 +121,12 @@ describe('NewRecipe', () => {
       );
 
       it('needs testing', async () => {
-        await act(async () => Promise.resolve(() => {
-          setImmediate(() => wrapper.update());
-          expect(mockHistoryPush).not.toHaveBeenCalled();
-        }));
+        await act(async () => {
+          Promise.resolve(() => {
+            setImmediate(() => wrapper.update());
+            expect(mockHistoryPush).not.toHaveBeenCalled();
+          });
+        });
       });
     });
 
@@ -132,7 +136,7 @@ describe('NewRecipe', () => {
 
     describe('when ownership is private', () => {
       const beginPropsCopy = {...beginProps};
-      beginPropsCopy.childProps.editing = "true";
+      beginPropsCopy.childProps.editing = true;
       beginPropsCopy.childProps.editingOwnership = "private";
       const wrapper = mount(
         <MemoryRouter>
@@ -141,16 +145,18 @@ describe('NewRecipe', () => {
       );
 
       it('needs testing', async () => {
-        await act(async () => Promise.resolve(() => {
-          setImmediate(() => wrapper.update());
-          expect(mockHistoryPush).not.toHaveBeenCalled();
-        }));
+        await act(async () => {
+          Promise.resolve(() => {
+            setImmediate(() => wrapper.update());
+            expect(mockHistoryPush).not.toHaveBeenCalled();
+          });
+        });
       });
     });
 
     describe('when ownership is public', () => {
       const beginPropsCopy = {...beginProps};
-      beginPropsCopy.childProps.editing = "true";
+      beginPropsCopy.childProps.editing = true;
       beginPropsCopy.childProps.editingOwnership = "public";
       const wrapper = mount(
         <MemoryRouter>
