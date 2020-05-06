@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { Crop } from "react-image-crop";
 import uuid from 'uuid/v4';
 import axios from 'axios';
 
@@ -65,10 +66,11 @@ export function NewRecipe({
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ editing, setEditing ] = useState(false);
-  const [ editingId, setEditingId ] = useState("");
+
+  const [ editingId, setEditingId ] = useState<number>();
   const [ ownership, setOwnership ] = useState("");
-  const [ recipeTypeId, setRecipeTypeId ] = useState("");
-  const [ cuisineId, setCuisineId ] = useState("");
+  const [ recipeTypeId, setRecipeTypeId ] = useState<number>();
+  const [ cuisineId, setCuisineId ] = useState<number>();
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
   const [ directions, setDirections ] = useState("");
@@ -195,7 +197,7 @@ export function NewRecipe({
         {withCredentials: true}
       );
 
-      const { recipe } = res.data;
+      const recipe: IExistingRecipeToEdit = res.data.recipe;
 
       setOwnership(childProps.editingOwnership);
       setEditingId(recipe.recipe_id);
@@ -205,37 +207,37 @@ export function NewRecipe({
       setDescription(recipe.description);
       setDirections(recipe.directions);
 
-      let methodsToSet = [];
-      let equipmentToSet = [];
-      let ingredientsToSet = [];
-      let subrecipesToSet = [];
+      let methodsToSet: IMethods[] = [];
+      let equipmentToSet: IEquipmentRow[] = [];
+      let ingredientsToSet: IIngredientRow[] = [];
+      let subrecipesToSet: ISubrecipeRow[] = [];
 
-      recipe.requiredMethods.length &&
-      recipe.requiredMethods.map(met => methodsToSet.push(met.method_id));
+      recipe.required_methods.length &&
+      recipe.required_methods.map(met => methodsToSet.push(met.method_id));
 
-      recipe.requiredEquipment.length &&
-      recipe.requiredEquipment.map(equ => equipmentToSet.push({
+      recipe.required_equipment.length &&
+      recipe.required_equipment.map(equ => equipmentToSet.push({
         key: uuid(),
         amount: equ.amount,
-        type: equ.equipmentType_id,
+        type: equ.equipment_type_id,
         equipment: equ.equipment_id
       }));
 
-      recipe.requiredIngredients.length &&
-      recipe.requiredIngredients.map(ing => ingredientsToSet.push({
+      recipe.required_ingredients.length &&
+      recipe.required_ingredients.map(ing => ingredientsToSet.push({
         key: uuid(),
-        amount: 1,
+        amount: ing.amount,
         unit: ing.measurement_id,
-        type: ing.ingredientType_id,
+        type: ing.ingredient_type_id,
         ingredient: ing.ingredient_id
       }));
 
-      recipe.requiredSubrecipes.length &&
-      recipe.requiredSubrecipes.map(sub => subrecipesToSet.push({
+      recipe.required_subrecipes.length &&
+      recipe.required_subrecipes.map(sub => subrecipesToSet.push({
         key: uuid(),
-        amount: 1,
+        amount: sub.amount,
         unit: sub.measurement_id,
-        type: sub.recipeType_id,
+        type: sub.recipe_type_id,
         cuisine: sub.cuisine_id,
         subrecipe: sub.subrecipe_id
       }))
@@ -252,9 +254,9 @@ export function NewRecipe({
       setSubrecipeRows(subrecipesToSet);
 
       setPrevRecipeImage(recipe.recipe_image);
-      setPrevEquipmentImage(recipe.recipe_equipment_image);
-      setPrevIngredientsImage(recipe.recipe_ingredients_image);
-      setPrevCookingImage(recipe.recipe_cooking_image);
+      setPrevEquipmentImage(recipe.equipment_image);
+      setPrevIngredientsImage(recipe.ingredients_image);
+      setPrevCookingImage(recipe.cooking_image);
 
       setLoading(false);
     };
@@ -355,12 +357,13 @@ export function NewRecipe({
     const newEquipmentRows = equipmentRows.concat({
       key: uuid(),
       amount: "",
+      type: "",
       equipment: ""
     });
     setEquipmentRows(newEquipmentRows);
   };
 
-  const removeEquipmentRow = rowKey => {
+  const removeEquipmentRow = (rowKey: string) => {
     const newEquipmentRows = equipmentRows.filter(row => row.key !== rowKey);
     setEquipmentRows(newEquipmentRows);
   };
@@ -370,12 +373,13 @@ export function NewRecipe({
       key: uuid(),
       amount: "",
       unit: "",
+      type: "",
       ingredient: ""
     });
     setIngredientRows(newIngredientRows);
   };
 
-  const removeIngredientRow = rowKey => {
+  const removeIngredientRow = (rowKey: string) => {
     const newIngredientRows = ingredientRows.filter(row => row.key !== rowKey);
     setIngredientRows(newIngredientRows);
   };
@@ -385,38 +389,40 @@ export function NewRecipe({
       key: uuid(),
       amount: "",
       unit: "",
+      type: "",
+      cuisine: "",
       subrecipe: ""
     });
     setSubrecipeRows(newSubrecipeRows);
   };
 
-  const removeSubrecipeRow = rowKey => {
+  const removeSubrecipeRow = (rowKey: string) => {
     const newSubrecipeRows = subrecipeRows.filter(row => row.key !== rowKey);
     setSubrecipeRows(newSubrecipeRows);
   };
 
-  const onSelectFile = e => {
+  const onSelectFile = (e: React.SyntheticEvent<EventTarget>) => {
     if (!e.target.files && !(e.target.files.length > 0)) return;
     const reader = new FileReader();
     reader.addEventListener("load", () => setRecipeImage(reader.result));
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  const onSelectEquipmentFile = e => {
+  const onSelectEquipmentFile = (e: React.SyntheticEvent<EventTarget>) => {
     if (!e.target.files && !(e.target.files.length > 0)) return;
     const reader = new FileReader();
     reader.addEventListener("load", () => setRecipeEquipmentImage(reader.result));
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  const onSelectIngredientsFile = e => {
+  const onSelectIngredientsFile = (e: React.SyntheticEvent<EventTarget>) => {
     if (!e.target.files && !(e.target.files.length > 0)) return;
     const reader = new FileReader();
     reader.addEventListener("load", () => setRecipeIngredientsImage(reader.result));
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  const onSelectCookingFile = e => {
+  const onSelectCookingFile = (e: React.SyntheticEvent<EventTarget>) => {
     if (!e.target.files && !(e.target.files.length > 0)) return;
     const reader = new FileReader();
     reader.addEventListener("load", () => setRecipeCookingImage(reader.result));
@@ -431,45 +437,33 @@ export function NewRecipe({
 
   const onCookingImageLoaded = image => cookingImageRef.current = image;
 
-  const onCropOneChange = crop => setCropOne(crop);
+  const onCropOneChange = (crop: Crop) => setCropOne(crop);
 
-  const onCropTwoChange = crop => setCropTwo(crop);
+  const onCropTwoChange = (crop: Crop) => setCropTwo(crop);
 
-  const onCropThreeChange = crop => setCropThree(crop);
+  const onCropThreeChange = (crop: Crop) => setCropThree(crop);
 
-  const onCropFourChange = crop => setCropFour(crop);
+  const onCropFourChange = (crop: Crop) => setCropFour(crop);
 
-  const onCropComplete = crop => makeClientCrops(crop);
+  const onCropComplete = (crop: Crop) => makeClientCrops(crop);
 
-  const onEquipmentCropComplete = crop => makeClientEquipmentCrops(crop);
+  const onEquipmentCropComplete = (crop: Crop) => makeClientEquipmentCrops(crop);
 
-  const onIngredientsCropComplete = crop => makeClientIngredientsCrops(crop);
+  const onIngredientsCropComplete = (crop: Crop) => makeClientIngredientsCrops(crop);
 
-  const onCookingCropComplete = crop => makeClientCookingCrops(crop);
+  const onCookingCropComplete = (crop: Crop) => makeClientCookingCrops(crop);
 
-  const makeClientCrops = async (crop) => {
+  const makeClientCrops = async (crop: Crop) => {
     if (!imageRef) return;
     if (!crop.width) return;
     const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
-      280,
-      172,
-      imageRef.current,
-      crop,
-      "newFile.jpeg"
+      280, 172, imageRef.current, crop, "newFile.jpeg"
     );
     const { resizedThumbPreview, resizedThumbFinal } = await getCroppedImage(
-      100,
-      62,
-      imageRef.current,
-      crop,
-      "newFile.jpeg"
+      100, 62, imageRef.current, crop, "newFile.jpeg"
     );
     const { resizedTinyPreview, resizedTinyFinal } = await getCroppedImage(
-      28,
-      18,
-      imageRef.current,
-      crop,
-      "newFile.jpeg"
+      28, 18, imageRef.current, crop, "newFile.jpeg"
     );
     setCropFullSizePreview(resizedFullPreview);
     setCropThumbSizePreview(resizedThumbPreview);
@@ -479,43 +473,31 @@ export function NewRecipe({
     setTinyRecipeImage(resizedTinyFinal);
   };
 
-  const makeClientEquipmentCrops = async (crop) => {
+  const makeClientEquipmentCrops = async (crop: Crop) => {
     if (!equipmentImageRef) return;
     if (!crop.width) return;
     const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
-      280,
-      172,
-      equipmentImageRef.current,
-      crop,
-      "newFile.jpeg"
+      280, 172, equipmentImageRef.current, crop, "newFile.jpeg"
     );
     setEquipmentCropFullSizePreview(resizedFullPreview);
     setFullRecipeEquipmentImage(resizedFullFinal);
   };
 
-  const makeClientIngredientsCrops = async (crop) => {
+  const makeClientIngredientsCrops = async (crop: Crop) => {
     if (!ingredientsImageRef) return;
     if (!crop.width) return;
     const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
-      280,
-      172,
-      ingredientsImageRef.current,
-      crop,
-      "newFile.jpeg"
+      280, 172, ingredientsImageRef.current, crop, "newFile.jpeg"
     );
     setIngredientsCropFullSizePreview(resizedFullPreview);
     setFullRecipeIngredientsImage(resizedFullFinal);
   };
 
-  const makeClientCookingCrops = async (crop) => {
+  const makeClientCookingCrops = async (crop: Crop) => {
     if (!cookingImageRef) return;
     if (!crop.width) return;
     const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
-      280,
-      172,
-      cookingImageRef.current,
-      crop,
-      "newFile.jpeg"
+      280, 172, cookingImageRef.current, crop, "newFile.jpeg"
     );
     setCookingCropFullSizePreview(resizedFullPreview);
     setFullRecipeCookingImage(resizedFullFinal);
@@ -802,35 +784,78 @@ interface RootState {
   };
 }
 
+export interface IExistingRecipeToEdit {
+  recipe_id: number;
+  recipe_type_id: number;
+  cuisine_id: number;
+  owner_id: number;
+  title: string;
+  description: string;
+  directions: string;
+  required_methods: IExistingRequiredMethod[];
+  required_equipment: IExistingRequiredEquipment[];
+  required_ingredients: IExistingRequiredIngredient[];
+  required_subrecipes: IExistingRequiredSubrecipe[];
+  recipe_image: string;
+  equipment_image: string;
+  ingredients_image: string;
+  cooking_image: string;
+}
+
+export interface IExistingRequiredMethod {
+  method_id: number;
+}
+
+export interface IExistingRequiredEquipment {
+  amount: number;
+  equipment_type_id: number;
+  equipment_id: number;
+}
+
+export interface IExistingRequiredIngredient {
+  amount: number;
+  measurement_id: number;
+  ingredient_type_id: number;
+  ingredient_id: number;
+}
+
+export interface IExistingRequiredSubrecipe {
+  amount: number;
+  measurement_id: number;
+  recipe_type_id: number;
+  cuisine_id: number;
+  subrecipe_id: number;
+}
+
 interface IMethods {
   [index: string]: any;
 }
 
 export interface IEquipmentRow {
-  [index: string]: string;
+  [index: string]: any;
   key: string;
-  amount: string;
-  type: string;
-  equipment: string;
+  amount: string|number;
+  type: string|number;
+  equipment: string|number;
 }
 
 export interface IIngredientRow {
   [index: string]: any;
   key: string;
-  amount: number;
-  unit: string;
-  type: string;
-  ingredient: string;
+  amount: string|number;
+  unit: string|number;
+  type: string|number;
+  ingredient: string|number;
 }
 
 export interface ISubrecipeRow {
   [index: string]: any;
   key: string;
-  amount: number;
-  unit: string;
-  //type
-  //cuisine
-  subrecipe: string;
+  amount: string|number;
+  unit: string|number;
+  type: string|number;
+  cuisine: string|number;
+  subrecipe: string|number;
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

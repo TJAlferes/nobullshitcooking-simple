@@ -114,10 +114,10 @@ export interface ICreatingRecipeInfo {
   title: string
   description: string
   directions: string
-  requiredMethods: []
-  requiredEquipment: []
-  requiredIngredients: []
-  requiredSubrecipes: []
+  requiredMethods: IRequiredMethod[]
+  requiredEquipment: IRequiredEquipment[]
+  requiredIngredients: IRequiredIngredient[]
+  requiredSubrecipes: IRequiredSubrecipe[]
   recipeImage: string
   fullRecipeImage: IRecipeImage
   thumbRecipeImage: IRecipeImage
@@ -142,10 +142,10 @@ export interface IEditingRecipeInfo {
   title: string
   description: string
   directions: string
-  requiredMethods: []
-  requiredEquipment: []
-  requiredIngredients: []
-  requiredSubrecipes: []
+  requiredMethods: IRequiredMethod[]
+  requiredEquipment: IRequiredEquipment[]
+  requiredIngredients: IRequiredIngredient[]
+  requiredSubrecipes: IRequiredSubrecipe[]
   recipeImage: string
   fullRecipeImage: IRecipeImage
   thumbRecipeImage: IRecipeImage
@@ -156,6 +156,27 @@ export interface IEditingRecipeInfo {
   fullRecipeIngredientsImage: IRecipeImage
   recipeCookingImage: string
   fullRecipeCookingImage: IRecipeImage
+}
+
+export interface IRequiredMethod {
+  methodId: number;
+}
+
+export interface IRequiredEquipment {
+  amount: number;
+  equipment: number;
+}
+
+export interface IRequiredIngredient {
+  amount: number;
+  unit: number;
+  ingredient: number;
+}
+
+export interface IRequiredSubrecipe {
+  amount: number;
+  unit: number;
+  subrecipe: number;
 }
 
 interface IRecipeImage {

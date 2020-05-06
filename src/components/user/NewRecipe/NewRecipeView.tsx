@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { IRecipeType, ICuisine, IMethod } from '../../../store/data/types';
+import {
+  IMeasurement,
+  IEquipment,
+  IIngredient,
+  IIngredientType,
+  IWorkRecipe,
+  IRecipeType,
+  ICuisine,
+  IMethod
+} from '../../../store/data/types';
 import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
 import { LoaderButton } from '../../LoaderButton/LoaderButton';
 import EquipmentRow from './views/EquipmentRow/EquipmentRow';
@@ -508,35 +517,35 @@ type Props = {
   authname: string;
   feedback: string;
   loading: boolean;
-  editing,
-  ownership,
+  editing: boolean;
+  ownership: string;
   recipeTypeId,
   cuisineId,
   title,
   description,
   directions,
   methods,
-  equipmentRows,
-  ingredientRows,
-  subrecipeRows,
+  equipmentRows: IEquipmentRow[];
+  ingredientRows: IIngredientRow[];
+  subrecipeRows: ISubrecipeRow[];
   prevRecipeImage,
   prevEquipmentImage,
   prevIngredientsImage,
   prevCookingImage,
-  dataRecipeTypes,
-  dataCuisines,
-  dataMethods,
-  dataEquipment,
-  dataMyPrivateEquipment,
-  dataMeasurements,
-  dataIngredientTypes,
-  dataIngredients,
-  dataMyPrivateIngredients,
-  dataRecipes,
-  dataMyPrivateRecipes,
-  dataMyPublicRecipes,
-  dataMyFavoriteRecipes,
-  dataMySavedRecipes,
+  dataRecipeTypes: IRecipeType[];
+  dataCuisines: ICuisine[];
+  dataMethods: IMethod[];
+  dataEquipment: IEquipment[];
+  dataMyPrivateEquipment: IEquipment[];
+  dataMeasurements: IMeasurement[];
+  dataIngredientTypes: IIngredientType[];
+  dataIngredients: IIngredient[];
+  dataMyPrivateIngredients: IIngredient[];
+  dataRecipes: IWorkRecipe[];
+  dataMyPrivateRecipes: IWorkRecipe[];
+  dataMyPublicRecipes: IWorkRecipe[];
+  dataMyFavoriteRecipes: IWorkRecipe[];
+  dataMySavedRecipes: IWorkRecipe[];
   recipeImage,
   recipeEquipmentImage,
   recipeIngredientsImage,
@@ -551,12 +560,12 @@ type Props = {
   ingredientsCropFullSizePreview,
   cropFour,
   cookingCropFullSizePreview,
-  handleRecipeTypeChange,
-  handleCuisineChange,
-  handleTitleChange,
-  handleDescriptionChange,
-  handleDirectionsChange,
-  handleMethodsChange,
+  handleRecipeTypeChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleCuisineChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleTitleChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleDescriptionChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleDirectionsChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleMethodsChange(e: React.SyntheticEvent<EventTarget>): void;
   handleEquipmentRowChange(
     e: React.SyntheticEvent<EventTarget>,
     rowKey: string
@@ -591,9 +600,9 @@ type Props = {
   onEquipmentCropComplete,
   onIngredientsCropComplete,
   onCookingCropComplete,
-  cancelRecipeImage,
-  cancelRecipeEquipmentImage,
-  cancelRecipeIngredientsImage,
-  cancelRecipeCookingImage,
+  cancelRecipeImage(): void;
+  cancelRecipeEquipmentImage(): void;
+  cancelRecipeIngredientsImage(): void;
+  cancelRecipeCookingImage(): void;
   handleSubmit(): void
 };
