@@ -118,15 +118,15 @@ export interface ICreatingRecipeInfo {
   requiredEquipment: IRequiredEquipment[]
   requiredIngredients: IRequiredIngredient[]
   requiredSubrecipes: IRequiredSubrecipe[]
-  recipeImage: string
+  recipeImage: string | ArrayBuffer | null
   fullRecipeImage: IRecipeImage
   thumbRecipeImage: IRecipeImage
   tinyRecipeImage: IRecipeImage
-  recipeEquipmentImage: string
+  recipeEquipmentImage: string | ArrayBuffer | null
   fullRecipeEquipmentImage: IRecipeImage
-  recipeIngredientsImage: string
+  recipeIngredientsImage: string | ArrayBuffer | null
   fullRecipeIngredientsImage: IRecipeImage
-  recipeCookingImage: string
+  recipeCookingImage: string | ArrayBuffer | null
   fullRecipeCookingImage: IRecipeImage
 }
 
@@ -146,15 +146,15 @@ export interface IEditingRecipeInfo {
   requiredEquipment: IRequiredEquipment[]
   requiredIngredients: IRequiredIngredient[]
   requiredSubrecipes: IRequiredSubrecipe[]
-  recipeImage: string
+  recipeImage: string | ArrayBuffer | null
   fullRecipeImage: IRecipeImage
   thumbRecipeImage: IRecipeImage
   tinyRecipeImage: IRecipeImage
-  recipeEquipmentImage: string
+  recipeEquipmentImage: string | ArrayBuffer | null
   fullRecipeEquipmentImage: IRecipeImage
-  recipeIngredientsImage: string
+  recipeIngredientsImage: string | ArrayBuffer | null
   fullRecipeIngredientsImage: IRecipeImage
-  recipeCookingImage: string
+  recipeCookingImage: string | ArrayBuffer | null
   fullRecipeCookingImage: IRecipeImage
 }
 

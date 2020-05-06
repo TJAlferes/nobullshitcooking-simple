@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Crop } from 'react-image-crop';
 
 import {
   IMeasurement,
@@ -16,8 +17,13 @@ import { LoaderButton } from '../../LoaderButton/LoaderButton';
 import EquipmentRow from './views/EquipmentRow/EquipmentRow';
 import IngredientRow from './views/IngredientRow/IngredientRow';
 import SubrecipeRow from './views/SubrecipeRow/SubrecipeRow';
-import ImageUploads from './views/ImageUploads';
-import { IEquipmentRow, IIngredientRow, ISubrecipeRow } from './NewRecipe';
+import { ImageUploads } from './views/ImageUploads';
+import {
+  IMethods,
+  IEquipmentRow,
+  IIngredientRow,
+  ISubrecipeRow
+} from './NewRecipe';
 import './newRecipe.css';
 
 export function NewRecipeView({
@@ -293,7 +299,7 @@ export function NewRecipeView({
                 <input
                   className="method-span-input"
                   type="checkbox"
-                  id={method.method_id}
+                  id={`${method.method_id}`}
                   checked={methods[method.method_id] === true ? true : false}
                   onChange={e => handleMethodsChange(e)}
                   data-test={`${method.method_id}-${method.method_name}`}
@@ -512,26 +518,26 @@ export function NewRecipeView({
 }
 
 type Props = {
-  id,
+  id: number;
   oneColumnATheme: string;
   authname: string;
   feedback: string;
   loading: boolean;
   editing: boolean;
   ownership: string;
-  recipeTypeId,
-  cuisineId,
-  title,
-  description,
-  directions,
-  methods,
+  recipeTypeId: number;
+  cuisineId: number;
+  title: string;
+  description: string;
+  directions: string;
+  methods: IMethods;
   equipmentRows: IEquipmentRow[];
   ingredientRows: IIngredientRow[];
   subrecipeRows: ISubrecipeRow[];
-  prevRecipeImage,
-  prevEquipmentImage,
-  prevIngredientsImage,
-  prevCookingImage,
+  prevRecipeImage: string;
+  prevEquipmentImage: string;
+  prevIngredientsImage: string;
+  prevCookingImage: string;
   dataRecipeTypes: IRecipeType[];
   dataCuisines: ICuisine[];
   dataMethods: IMethod[];
@@ -546,19 +552,19 @@ type Props = {
   dataMyPublicRecipes: IWorkRecipe[];
   dataMyFavoriteRecipes: IWorkRecipe[];
   dataMySavedRecipes: IWorkRecipe[];
-  recipeImage,
-  recipeEquipmentImage,
-  recipeIngredientsImage,
-  recipeCookingImage,
-  cropOne,
+  recipeImage: string | ArrayBuffer | null;
+  recipeEquipmentImage: string | ArrayBuffer | null;
+  recipeIngredientsImage: string | ArrayBuffer | null;
+  recipeCookingImage: string | ArrayBuffer | null;
+  cropOne: Crop;
   cropFullSizePreview,
   cropThumbSizePreview,
   cropTinySizePreview,
-  cropTwo,
+  cropTwo: Crop;
   equipmentCropFullSizePreview,
-  cropThree,
+  cropThree: Crop;
   ingredientsCropFullSizePreview,
-  cropFour,
+  cropFour: Crop;
   cookingCropFullSizePreview,
   handleRecipeTypeChange(e: React.SyntheticEvent<EventTarget>): void;
   handleCuisineChange(e: React.SyntheticEvent<EventTarget>): void;
@@ -578,31 +584,31 @@ type Props = {
     e: React.SyntheticEvent<EventTarget>,
     rowKey: string
   ): void;
-  addEquipmentRow,
-  removeEquipmentRow,
-  addIngredientRow,
-  removeIngredientRow,
-  addSubrecipeRow,
-  removeSubrecipeRow,
-  onSelectFile,
-  onSelectEquipmentFile,
-  onSelectIngredientsFile,
-  onSelectCookingFile,
-  onImageLoaded,
-  onEquipmentImageLoaded,
-  onIngredientsImageLoaded,
-  onCookingImageLoaded,
-  onCropOneChange,
-  onCropTwoChange,
-  onCropThreeChange,
-  onCropFourChange,
-  onCropComplete,
-  onEquipmentCropComplete,
-  onIngredientsCropComplete,
-  onCookingCropComplete,
+  addEquipmentRow(): void;
+  removeEquipmentRow(rowKey: string): void;
+  addIngredientRow(): void;
+  removeIngredientRow(rowKey: string): void;
+  addSubrecipeRow(): void;
+  removeSubrecipeRow(rowKey: string): void;
+  onSelectFile(e: React.ChangeEvent<HTMLInputElement>): void;
+  onSelectEquipmentFile(e: React.ChangeEvent<HTMLInputElement>): void;
+  onSelectIngredientsFile(e: React.ChangeEvent<HTMLInputElement>): void;
+  onSelectCookingFile(e: React.ChangeEvent<HTMLInputElement>): void;
+  onImageLoaded(image: HTMLImageElement): void;
+  onEquipmentImageLoaded(image: HTMLImageElement): void;
+  onIngredientsImageLoaded(image: HTMLImageElement): void;
+  onCookingImageLoaded(image: HTMLImageElement): void;
+  onCropOneChange(crop: Crop): void;
+  onCropTwoChange(crop: Crop): void;
+  onCropThreeChange(crop: Crop): void;
+  onCropFourChange(crop: Crop): void;
+  onCropComplete(crop: Crop): void;
+  onEquipmentCropComplete(crop: Crop): void;
+  onIngredientsCropComplete(crop: Crop): void;
+  onCookingCropComplete(crop: Crop): void;
   cancelRecipeImage(): void;
   cancelRecipeEquipmentImage(): void;
   cancelRecipeIngredientsImage(): void;
   cancelRecipeCookingImage(): void;
-  handleSubmit(): void
+  handleSubmit(): void;
 };

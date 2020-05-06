@@ -1,4 +1,9 @@
-import { IEquipmentRow, IIngredientRow, ISubrecipeRow } from '../NewRecipe';
+import {
+  IMethods,
+  IEquipmentRow,
+  IIngredientRow,
+  ISubrecipeRow
+} from '../NewRecipe';
 
 export function validRecipeInfo({
   ownership,
@@ -137,7 +142,7 @@ type RecipeInfo = {
   cuisineId: number;
   title: string;
   description: string;
-  methods: number[];
+  methods: IMethods;
   equipmentRows: IEquipmentRow[];
   ingredientRows: IIngredientRow[];
   subrecipeRows: ISubrecipeRow[];
