@@ -31,7 +31,7 @@ import {
 import {
   getCroppedImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
-import validRecipeInfo from './validation/validRecipeInfo';
+import { validRecipeInfo } from './validation/validRecipeInfo';
 import { NewRecipeView } from './NewRecipeView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
@@ -69,8 +69,8 @@ export function NewRecipe({
 
   const [ editingId, setEditingId ] = useState<number>();
   const [ ownership, setOwnership ] = useState("");
-  const [ recipeTypeId, setRecipeTypeId ] = useState<number>();
-  const [ cuisineId, setCuisineId ] = useState<number>();
+  const [ recipeTypeId, setRecipeTypeId ] = useState<number>(0);
+  const [ cuisineId, setCuisineId ] = useState<number>(0);
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
   const [ directions, setDirections ] = useState("");
@@ -207,7 +207,7 @@ export function NewRecipe({
       setDescription(recipe.description);
       setDirections(recipe.directions);
 
-      let methodsToSet: IMethods[] = [];
+      let methodsToSet: number[] = [];
       let equipmentToSet: IEquipmentRow[] = [];
       let ingredientsToSet: IIngredientRow[] = [];
       let subrecipesToSet: ISubrecipeRow[] = [];
@@ -245,7 +245,7 @@ export function NewRecipe({
       setMethods(prevState => {
         const nextState = {...prevState};
         methodsToSet.map(method => {
-          nextState[[method]] = true;
+          nextState[method] = true;
         });
         return nextState;
       });
@@ -290,11 +290,11 @@ export function NewRecipe({
   }, [message]);
 
   const handleRecipeTypeChange = (e: React.SyntheticEvent<EventTarget>) => {
-    setRecipeTypeId((e.target as HTMLInputElement).value);
+    setRecipeTypeId(Number((e.target as HTMLInputElement).value));
   };
 
   const handleCuisineChange = (e: React.SyntheticEvent<EventTarget>) => {
-    setCuisineId((e.target as HTMLInputElement).value);
+    setCuisineId(Number((e.target as HTMLInputElement).value));
   };
 
   const handleTitleChange = (e: React.SyntheticEvent<EventTarget>) => {

@@ -1,4 +1,6 @@
-const validRecipeInfo = ({
+import { IEquipmentRow, IIngredientRow, ISubrecipeRow } from '../NewRecipe';
+
+export function validRecipeInfo({
   ownership,
   recipeTypeId,
   cuisineId,
@@ -10,12 +12,12 @@ const validRecipeInfo = ({
   subrecipeRows,
   directions,
   setFeedback
-}) => {
+}: RecipeInfo): boolean {
   // bare minimum validation, finish up,
   // but also finish up on back end, where it actually matters
   let validOwnership = ownership === "private" || ownership === "public";
-  let validRecipeTypeId = recipeTypeId !== "";
-  let validCuisineId = cuisineId !== "";
+  let validRecipeTypeId = recipeTypeId !== 0;
+  let validCuisineId = cuisineId !== 0;
   let validTitle = title.trim() !== "";
   let validDescription = description.trim() !== "";
   let validMethods = Object.values(methods).filter(method => method === true);
@@ -117,8 +119,8 @@ const validRecipeInfo = ({
 
   return (
     validOwnership &&
-    recipeTypeId !== "" &&
-    cuisineId !== "" &&
+    recipeTypeId !== 0 &&
+    cuisineId !== 0 &&
     title.trim() !== "" &&
     description.trim() !== "" &&
     validMethods &&
@@ -127,6 +129,18 @@ const validRecipeInfo = ({
     validSubrecipeRows &&
     directions.trim() !== ""
   );
-};
+}
 
-export default validRecipeInfo;
+type RecipeInfo = {
+  ownership: string;
+  recipeTypeId: number;
+  cuisineId: number;
+  title: string;
+  description: string;
+  methods: number[];
+  equipmentRows: IEquipmentRow[];
+  ingredientRows: IIngredientRow[];
+  subrecipeRows: ISubrecipeRow[];
+  directions: string;
+  setFeedback(feedback: string): void;
+};
