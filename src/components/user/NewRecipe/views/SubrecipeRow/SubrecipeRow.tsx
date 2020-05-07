@@ -1,6 +1,13 @@
 import React from 'react';
 
-const SubrecipeRow = ({
+import {
+  IMeasurement,
+  IWorkRecipe,
+  IRecipeType,
+  ICuisine
+} from '../../../../../store/data/types';
+
+export function SubrecipeRow({
   rowKey,
   amount,
   unit,
@@ -19,13 +26,13 @@ const SubrecipeRow = ({
   selfId,
   handleSubrecipeRowChange,
   removeSubrecipeRow
-}) => {
+}: Props): JSX.Element {
   let availableRecipes = [
     ...dataRecipes,
     ...(
       dataMyPrivateRecipes.length
       ? (
-        editing === "true"
+        editing
         ? dataMyPrivateRecipes.filter((rec) => rec.recipe_id != selfId)
         : dataMyPrivateRecipes
       )
@@ -34,7 +41,7 @@ const SubrecipeRow = ({
     ...(
       dataMyPublicRecipes.length
       ? (
-        editing === "true"
+        editing
         ? dataMyPublicRecipes.filter((rec) => rec.recipe_id != selfId)
         : dataMyPublicRecipes
       )
@@ -138,6 +145,28 @@ const SubrecipeRow = ({
 
     </div>
   );
-};
+}
 
-export default SubrecipeRow;
+type Props = {
+  rowKey: string;
+  amount: string|number;
+  unit: string|number;
+  type: string|number;
+  cuisine: string|number;
+  subrecipe: string|number;
+  dataMeasurements: IMeasurement[];
+  dataRecipeTypes: IRecipeType[];
+  dataCuisines: ICuisine[];
+  dataRecipes: IWorkRecipe[];
+  dataMyPrivateRecipes: IWorkRecipe[];
+  dataMyPublicRecipes: IWorkRecipe[];
+  dataMyFavoriteRecipes: IWorkRecipe[];
+  dataMySavedRecipes: IWorkRecipe[];
+  editing: boolean;
+  selfId?: number;
+  handleSubrecipeRowChange(
+    e: React.SyntheticEvent<EventTarget>,
+    rowKey: string
+  ): void;
+  removeSubrecipeRow(rowKey: string): void;
+};

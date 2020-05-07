@@ -14,9 +14,9 @@ import {
 } from '../../../store/data/types';
 import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
 import { LoaderButton } from '../../LoaderButton/LoaderButton';
-import EquipmentRow from './views/EquipmentRow/EquipmentRow';
-import IngredientRow from './views/IngredientRow/IngredientRow';
-import SubrecipeRow from './views/SubrecipeRow/SubrecipeRow';
+import { EquipmentRow } from './views/EquipmentRow/EquipmentRow';
+import { IngredientRow } from './views/IngredientRow/IngredientRow';
+import { SubrecipeRow } from './views/SubrecipeRow/SubrecipeRow';
 import { ImageUploads } from './views/ImageUploads';
 import {
   IMethods,
@@ -416,7 +416,7 @@ export function NewRecipeView({
                 dataMyPublicRecipes={dataMyPublicRecipes}
                 dataMyFavoriteRecipes={dataMyFavoriteRecipes}
                 dataMySavedRecipes={dataMySavedRecipes}
-                editing={editing === true ? "true" : "false"}
+                editing={editing}
                 selfId={id}
                 handleSubrecipeRowChange={handleSubrecipeRowChange}
                 removeSubrecipeRow={removeSubrecipeRow}
@@ -557,15 +557,15 @@ type Props = {
   recipeIngredientsImage: string | ArrayBuffer | null;
   recipeCookingImage: string | ArrayBuffer | null;
   cropOne: Crop;
-  cropFullSizePreview,
-  cropThumbSizePreview,
-  cropTinySizePreview,
+  cropFullSizePreview: string;
+  cropThumbSizePreview: string;
+  cropTinySizePreview: string;
   cropTwo: Crop;
-  equipmentCropFullSizePreview,
+  equipmentCropFullSizePreview: string;
   cropThree: Crop;
-  ingredientsCropFullSizePreview,
+  ingredientsCropFullSizePreview: string;
   cropFour: Crop;
-  cookingCropFullSizePreview,
+  cookingCropFullSizePreview: string;
   handleRecipeTypeChange(e: React.SyntheticEvent<EventTarget>): void;
   handleCuisineChange(e: React.SyntheticEvent<EventTarget>): void;
   handleTitleChange(e: React.SyntheticEvent<EventTarget>): void;

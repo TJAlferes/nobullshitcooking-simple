@@ -119,15 +119,15 @@ export interface ICreatingRecipeInfo {
   requiredIngredients: IRequiredIngredient[]
   requiredSubrecipes: IRequiredSubrecipe[]
   recipeImage: string | ArrayBuffer | null
-  fullRecipeImage: IRecipeImage
-  thumbRecipeImage: IRecipeImage
-  tinyRecipeImage: IRecipeImage
+  fullRecipeImage: File | null
+  thumbRecipeImage: File | null
+  tinyRecipeImage: File | null
   recipeEquipmentImage: string | ArrayBuffer | null
-  fullRecipeEquipmentImage: IRecipeImage
+  fullRecipeEquipmentImage: File | null
   recipeIngredientsImage: string | ArrayBuffer | null
-  fullRecipeIngredientsImage: IRecipeImage
+  fullRecipeIngredientsImage: File | null
   recipeCookingImage: string | ArrayBuffer | null
-  fullRecipeCookingImage: IRecipeImage
+  fullRecipeCookingImage: File | null
 }
 
 export interface IEditingRecipeInfo {
@@ -147,15 +147,15 @@ export interface IEditingRecipeInfo {
   requiredIngredients: IRequiredIngredient[]
   requiredSubrecipes: IRequiredSubrecipe[]
   recipeImage: string | ArrayBuffer | null
-  fullRecipeImage: IRecipeImage
-  thumbRecipeImage: IRecipeImage
-  tinyRecipeImage: IRecipeImage
+  fullRecipeImage: File | null
+  thumbRecipeImage: File | null
+  tinyRecipeImage: File | null
   recipeEquipmentImage: string | ArrayBuffer | null
-  fullRecipeEquipmentImage: IRecipeImage
+  fullRecipeEquipmentImage: File | null
   recipeIngredientsImage: string | ArrayBuffer | null
-  fullRecipeIngredientsImage: IRecipeImage
+  fullRecipeIngredientsImage: File | null
   recipeCookingImage: string | ArrayBuffer | null
-  fullRecipeCookingImage: IRecipeImage
+  fullRecipeCookingImage: File | null
 }
 
 export interface IRequiredMethod {
@@ -177,8 +177,4 @@ export interface IRequiredSubrecipe {
   amount: number;
   unit: number;
   subrecipe: number;
-}
-
-interface IRecipeImage {
-  type: string
 }

@@ -1,6 +1,8 @@
 import React from 'react';
-  
-const EquipmentRow = ({
+
+import { IEquipment } from '../../../../../store/data/types';
+
+export function EquipmentRow({
   rowKey,
   amount,
   type,
@@ -9,7 +11,7 @@ const EquipmentRow = ({
   dataMyPrivateEquipment,
   handleEquipmentRowChange,
   removeEquipmentRow
-}) => {
+}: Props): JSX.Element {
   let availableEquipment = [
     ...dataEquipment,
     ...(dataMyPrivateEquipment.length ? dataMyPrivateEquipment : [])
@@ -75,6 +77,18 @@ const EquipmentRow = ({
       </button>
     </div>
   );
-};
+}
 
-export default EquipmentRow;
+type Props = {
+  rowKey: string;
+  amount: string|number;
+  type: string|number;
+  equipment: string|number;
+  dataEquipment: IEquipment[];
+  dataMyPrivateEquipment: IEquipment[];
+  handleEquipmentRowChange(
+    e: React.SyntheticEvent<EventTarget>,
+    rowKey: string
+  ): void;
+  removeEquipmentRow(rowKey: string): void;
+};

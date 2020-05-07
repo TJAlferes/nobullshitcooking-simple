@@ -72,11 +72,13 @@ export function ImageUploads({
               className="new-recipe-image-crop-tool"
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
-              src={recipeImage}
+              src={recipeImage as string}
               crop={cropOne}
               onImageLoaded={onImageLoaded}
               onChange={onCropOneChange}
               onComplete={onCropComplete}
+              disabled={true}
+              locked={true}
             />
             <span className="new-recipe-image-crop-tool-tip">
               Move the crop to your desired position. These three images will be saved for you:
@@ -128,11 +130,13 @@ export function ImageUploads({
               className="new-recipe-image-crop-tool"
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
-              src={recipeEquipmentImage}
+              src={recipeEquipmentImage as string}
               crop={cropTwo}
               onImageLoaded={onEquipmentImageLoaded}
               onChange={onCropTwoChange}
               onComplete={onEquipmentCropComplete}
+              disabled={true}
+              locked={true}
             />
             <span className="new-recipe-image-crop-tool-tip">
               Move the crop to your desired position. This image will be saved for you:
@@ -178,11 +182,13 @@ export function ImageUploads({
               className="new-recipe-image-crop-tool"
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
-              src={recipeIngredientsImage}
+              src={recipeIngredientsImage as string}
               crop={cropThree}
               onImageLoaded={onIngredientsImageLoaded}
               onChange={onCropThreeChange}
               onComplete={onIngredientsCropComplete}
+              disabled={true}
+              locked={true}
             />
             <span className="new-recipe-image-crop-tool-tip">
               Move the crop to your desired position. This image will be saved for you:
@@ -228,11 +234,13 @@ export function ImageUploads({
               className="new-recipe-image-crop-tool"
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
-              src={recipeCookingImage}
+              src={recipeCookingImage as string}
               crop={cropFour}
               onImageLoaded={onCookingImageLoaded}
               onChange={onCropFourChange}
               onComplete={onCookingCropComplete}
+              disabled={true}
+              locked={true}
             />
             <span className="new-recipe-image-crop-tool-tip">
               Move the crop to your desired position. This image will be saved for you:
@@ -287,12 +295,12 @@ type Props = {
   onEquipmentCropComplete(crop: Crop): void;
   onIngredientsCropComplete(crop: Crop): void;
   onCookingCropComplete(crop: Crop): void;
-  cropFullSizePreview,
-  cropThumbSizePreview,
-  cropTinySizePreview,
-  equipmentCropFullSizePreview,
-  ingredientsCropFullSizePreview,
-  cookingCropFullSizePreview,
+  cropFullSizePreview: string;
+  cropThumbSizePreview: string;
+  cropTinySizePreview: string;
+  equipmentCropFullSizePreview: string;
+  ingredientsCropFullSizePreview: string;
+  cookingCropFullSizePreview: string;
   loading: boolean;
   cancelRecipeImage(): void;
   cancelRecipeEquipmentImage(): void;

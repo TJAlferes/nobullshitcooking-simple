@@ -133,27 +133,23 @@ export function NewRecipe({
   ] = useState("nobsc-recipe-cooking-default");
 
   const [ cropOne, setCropOne ] = useState<Crop>({
-    disabled: true,
-    locked: true,
     minWidth: 280,
     maxWidth: 280,
     minHeight: 172,
     maxHeight: 172
   });
-  const [ cropFullSizePreview, setCropFullSizePreview ] = useState(null);
-  const [ cropThumbSizePreview, setCropThumbSizePreview ] = useState(null);
-  const [ cropTinySizePreview, setCropTinySizePreview ] = useState(null);
+  const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
+  const [ cropThumbSizePreview, setCropThumbSizePreview ] = useState("");
+  const [ cropTinySizePreview, setCropTinySizePreview ] = useState("");
   const [
     recipeImage,
     setRecipeImage
   ] = useState<string | ArrayBuffer | null>(null);
-  const [ fullRecipeImage, setFullRecipeImage ] = useState(null);
-  const [ thumbRecipeImage, setThumbRecipeImage ] = useState(null);
-  const [ tinyRecipeImage, setTinyRecipeImage ] = useState(null);
+  const [ fullRecipeImage, setFullRecipeImage ] = useState<File | null>(null);
+  const [ thumbRecipeImage, setThumbRecipeImage ] = useState<File | null>(null);
+  const [ tinyRecipeImage, setTinyRecipeImage ] = useState<File | null>(null);
 
   const [ cropTwo, setCropTwo ] = useState<Crop>({
-    disabled: true,
-    locked: true,
     width: 280,
     maxWidth: 280,
     height: 172,
@@ -162,7 +158,7 @@ export function NewRecipe({
   const [
     equipmentCropFullSizePreview,
     setEquipmentCropFullSizePreview
-  ] = useState(null);
+  ] = useState("");
   const [
     recipeEquipmentImage,
     setRecipeEquipmentImage
@@ -170,11 +166,9 @@ export function NewRecipe({
   const [
     fullRecipeEquipmentImage,
     setFullRecipeEquipmentImage
-  ] = useState(null);
+  ] = useState<File | null>(null);
 
   const [ cropThree, setCropThree ] = useState<Crop>({
-    disabled: true,
-    locked: true,
     width: 280,
     maxWidth: 280,
     height: 172,
@@ -183,7 +177,7 @@ export function NewRecipe({
   const [
     ingredientsCropFullSizePreview,
     setIngredientsCropFullSizePreview
-  ] = useState(null);
+  ] = useState("");
   const [
     recipeIngredientsImage,
     setRecipeIngredientsImage
@@ -191,11 +185,9 @@ export function NewRecipe({
   const [
     fullRecipeIngredientsImage,
     setFullRecipeIngredientsImage
-  ] = useState(null);
+  ] = useState<File | null>(null);
 
   const [ cropFour, setCropFour ] = useState<Crop>({
-    disabled: true,
-    locked: true,
     width: 280,
     maxWidth: 280,
     height: 172,
@@ -204,12 +196,15 @@ export function NewRecipe({
   const [
     cookingCropFullSizePreview,
     setCookingCropFullSizePreview
-  ] = useState(null);
+  ] = useState("");
   const [
     recipeCookingImage,
     setRecipeCookingImage
   ] = useState<string | ArrayBuffer | null>(null);
-  const [ fullRecipeCookingImage, setFullRecipeCookingImage ] = useState(null);
+  const [
+    fullRecipeCookingImage,
+    setFullRecipeCookingImage
+  ] = useState<File | null>(null);
 
   const imageRef = useRef<HTMLImageElement>();
   const equipmentImageRef = useRef<HTMLImageElement>();
@@ -498,57 +493,61 @@ export function NewRecipe({
   const makeClientCrops = async (crop: Crop) => {
     if (!imageRef || !imageRef.current) return;
     if (!crop.width) return;
-    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+    const full = await getCroppedImage(
       280, 172, imageRef.current, crop, "newFile.jpeg"
     );
-    const { resizedThumbPreview, resizedThumbFinal } = await getCroppedImage(
+    const thumb = await getCroppedImage(
       100, 62, imageRef.current, crop, "newFile.jpeg"
     );
-    const { resizedTinyPreview, resizedTinyFinal } = await getCroppedImage(
+    const tiny = await getCroppedImage(
       28, 18, imageRef.current, crop, "newFile.jpeg"
     );
-    setCropFullSizePreview(resizedFullPreview);
-    setCropThumbSizePreview(resizedThumbPreview);
-    setCropTinySizePreview(resizedTinyPreview);
-    setFullRecipeImage(resizedFullFinal);
-    setThumbRecipeImage(resizedThumbFinal);
-    setTinyRecipeImage(resizedTinyFinal);
+    if (!full || !thumb || !tiny) return;
+    setCropFullSizePreview(full.resizedPreview);
+    setCropThumbSizePreview(thumb.resizedPreview);
+    setCropTinySizePreview(tiny.resizedPreview);
+    setFullRecipeImage(full.resizedFinal);
+    setThumbRecipeImage(thumb.resizedFinal);
+    setTinyRecipeImage(tiny.resizedFinal);
   };
 
   const makeClientEquipmentCrops = async (crop: Crop) => {
     if (!equipmentImageRef || !equipmentImageRef.current) return;
     if (!crop.width) return;
-    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+    const full = await getCroppedImage(
       280, 172, equipmentImageRef.current, crop, "newFile.jpeg"
     );
-    setEquipmentCropFullSizePreview(resizedFullPreview);
-    setFullRecipeEquipmentImage(resizedFullFinal);
+    if (!full) return;
+    setEquipmentCropFullSizePreview(full.resizedPreview);
+    setFullRecipeEquipmentImage(full.resizedFinal);
   };
 
   const makeClientIngredientsCrops = async (crop: Crop) => {
     if (!ingredientsImageRef || !ingredientsImageRef.current) return;
     if (!crop.width) return;
-    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+    const full = await getCroppedImage(
       280, 172, ingredientsImageRef.current, crop, "newFile.jpeg"
     );
-    setIngredientsCropFullSizePreview(resizedFullPreview);
-    setFullRecipeIngredientsImage(resizedFullFinal);
+    if (!full) return;
+    setIngredientsCropFullSizePreview(full.resizedPreview);
+    setFullRecipeIngredientsImage(full.resizedFinal);
   };
 
   const makeClientCookingCrops = async (crop: Crop) => {
     if (!cookingImageRef || !cookingImageRef.current) return;
     if (!crop.width) return;
-    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
+    const full = await getCroppedImage(
       280, 172, cookingImageRef.current, crop, "newFile.jpeg"
     );
-    setCookingCropFullSizePreview(resizedFullPreview);
-    setFullRecipeCookingImage(resizedFullFinal);
+    if (!full) return;
+    setCookingCropFullSizePreview(full.resizedPreview);
+    setFullRecipeCookingImage(full.resizedFinal);
   };
 
   const cancelRecipeImage = () => {
-    setCropFullSizePreview(null);
-    setCropThumbSizePreview(null);
-    setCropTinySizePreview(null);
+    setCropFullSizePreview("");
+    setCropThumbSizePreview("");
+    setCropTinySizePreview("");
     setRecipeImage(null);
     setFullRecipeImage(null);
     setThumbRecipeImage(null);
@@ -556,19 +555,19 @@ export function NewRecipe({
   };
 
   const cancelRecipeEquipmentImage = () => {
-    setEquipmentCropFullSizePreview(null);
+    setEquipmentCropFullSizePreview("");
     setRecipeEquipmentImage(null);
     setFullRecipeEquipmentImage(null);
   };
 
   const cancelRecipeIngredientsImage = () => {
-    setIngredientsCropFullSizePreview(null);
+    setIngredientsCropFullSizePreview("");
     setRecipeIngredientsImage(null);
     setFullRecipeIngredientsImage(null);
   };
 
   const cancelRecipeCookingImage = () => {
-    setCookingCropFullSizePreview(null);
+    setCookingCropFullSizePreview("");
     setRecipeCookingImage(null);
     setFullRecipeCookingImage(null);
   };

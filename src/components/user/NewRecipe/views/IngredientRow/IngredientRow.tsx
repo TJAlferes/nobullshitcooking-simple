@@ -1,6 +1,12 @@
 import React from 'react';
 
-const IngredientRow = ({
+import {
+  IMeasurement,
+  IIngredient,
+  IIngredientType
+} from '../../../../../store/data/types';
+
+export function IngredientRow({
   rowKey,
   amount,
   unit,
@@ -12,7 +18,7 @@ const IngredientRow = ({
   dataMyPrivateIngredients,
   handleIngredientRowChange,
   removeIngredientRow
-}) => {
+}: Props): JSX.Element {
   let availableIngredients = [
     ...dataIngredients,
     ...(dataMyPrivateIngredients.length ? dataMyPrivateIngredients : [])
@@ -95,6 +101,21 @@ const IngredientRow = ({
 
     </div>
   );
-};
+}
 
-export default IngredientRow;
+type Props = {
+  rowKey: string;
+  amount: string|number;
+  unit: string|number;
+  type: string|number;
+  ingredient: string|number;
+  dataMeasurements: IMeasurement[];
+  dataIngredientTypes: IIngredientType[];
+  dataIngredients: IIngredient[];
+  dataMyPrivateIngredients: IIngredient[];
+  handleIngredientRowChange(
+    e: React.SyntheticEvent<EventTarget>,
+    rowKey: string
+  ): void;
+  removeIngredientRow(rowKey: string): void;
+};

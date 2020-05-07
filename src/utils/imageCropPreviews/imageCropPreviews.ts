@@ -34,7 +34,7 @@ export async function getCroppedImage(
     imageHeight
   );
 
-  const resizedPreview = await new Promise((resolve, reject) => {
+  const resizedPreview: string = await new Promise((resolve, reject) => {
     canvas.toBlob(blob => {
       if (!blob) return;
       //blob.name = fileName;  // necessary?
@@ -43,7 +43,7 @@ export async function getCroppedImage(
     }, 'image/jpeg', 1);
   });
 
-  const resizedFinal = await new Promise((resolve, reject) => {
+  const resizedFinal: File = await new Promise((resolve, reject) => {
     canvas.toBlob(blob => {
       if (!blob) return;
       //blob.name = fileName;  // necessary?
