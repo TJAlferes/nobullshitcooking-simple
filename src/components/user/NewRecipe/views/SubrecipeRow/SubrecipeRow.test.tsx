@@ -1,7 +1,8 @@
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 
-import SubrecipeRow from './SubrecipeRow';
+import { IWorkRecipe } from '../../../../../store/data/types';
+import { SubrecipeRow } from './SubrecipeRow';
 
 const rowKey = "XYZ";
 const amount = 1;
@@ -20,27 +21,55 @@ const dataRecipeTypes = [
   {recipe_type_id: 4, recipe_type_name: "Side"}
 ];
 const dataCuisines = [
-  {cuisine_id: 1, cuisine_name: "American"},
-  {cuisine_id: 2, cuisine_name: "Japanese"},
-  {cuisine_id: 3, cuisine_name: "Mexican"},
-  {cuisine_id: 4, cuisine_name: "Italian"}
+  {cuisine_id: 1, cuisine_name: "American", cuisine_nation: "America"},
+  {cuisine_id: 2, cuisine_name: "Japanese", cuisine_nation: "Japan"},
+  {cuisine_id: 3, cuisine_name: "Mexican", cuisine_nation: "Mexico"},
+  {cuisine_id: 4, cuisine_name: "Italian", cuisine_nation: "Italy"}
 ];
 const dataRecipes = [
-  {recipe_id: 1, title: "Mixed Drink", recipe_type_id: 1, cuisine_id: 1},
-  {recipe_id: 2, title: "Zucchini Tempura", recipe_type_id: 2, cuisine_id: 2},
-  {recipe_id: 3, title: "Steak Tacos", recipe_type_id: 3, cuisine_id: 3},
-  {recipe_id: 4, title: "Green Beans", recipe_type_id: 4, cuisine_id: 4}
+  {
+    recipe_id: 1,
+    title: "Mixed Drink",
+    recipe_type_id: 1,
+    cuisine_id: 1,
+    owner_id: 1,
+    recipe_image: "nobsc-mixed-drink"
+  },
+  {
+    recipe_id: 2,
+    title: "Zucchini Tempura",
+    recipe_type_id: 2,
+    cuisine_id: 2,
+    owner_id: 1,
+    recipe_image: "nobsc-zucchini-tempura"
+  },
+  {
+    recipe_id: 3,
+    title: "Steak Tacos",
+    recipe_type_id: 3,
+    cuisine_id: 3,
+    owner_id: 1,
+    recipe_image: "nobsc-steak-tacos"
+  },
+  {
+    recipe_id: 4,
+    title: "Green Beans",
+    recipe_type_id: 4,
+    cuisine_id: 4,
+    owner_id: 1,
+    recipe_image: "nobsc-green-beans"
+  }
 ];
-const dataMyPrivateRecipes = [];
-const dataMyPublicRecipes = [];
-const dataMyFavoriteRecipes = [];
-const dataMySavedRecipes = [];
-const editing = "true";
+const dataMyPrivateRecipes: IWorkRecipe[] = [];
+const dataMyPublicRecipes: IWorkRecipe[] = [];
+const dataMyFavoriteRecipes: IWorkRecipe[] = [];
+const dataMySavedRecipes: IWorkRecipe[] = [];
+const editing = true;
 const selfId = 1;
 const handleSubrecipeRowChange = jest.fn();
 const removeSubrecipeRow = jest.fn();
 
-let wrapper;
+let wrapper: ShallowWrapper;
 
 describe('SubrecipeRow', () => {
   beforeEach(() => {

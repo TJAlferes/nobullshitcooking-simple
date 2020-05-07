@@ -1,7 +1,8 @@
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 
-import IngredientRow from './IngredientRow';
+import { IIngredient } from '../../../../../store/data/types';
+import { IngredientRow } from './IngredientRow';
 
 const rowKey = "XYZ";
 const amount = 1;
@@ -17,14 +18,30 @@ const dataIngredientTypes = [
   {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
 ];
 const dataIngredients = [
-  {ingredient_id: 1, ingredient_name: "Apple", ingredient_type_id: 12,},
-  {ingredient_id: 2, ingredient_name: "Spinach", ingredient_type_id: 11}
+  {
+    ingredient_id: 1,
+    ingredient_name: "Apple",
+    ingredient_type_id: 12,
+    owner_id: 1,
+    ingredient_type_name: "Fruit",
+    ingredient_description: "Energizing",
+    ingredient_image: "nobsc-apple"
+  },
+  {
+    ingredient_id: 2,
+    ingredient_name: "Spinach",
+    ingredient_type_id: 11,
+    owner_id: 1,
+    ingredient_type_name: "Vegetable",
+    ingredient_description: "Strengthening",
+    ingredient_image: "nobsc-spinach"
+  }
 ];
-const dataMyPrivateIngredients = [];
+const dataMyPrivateIngredients: IIngredient[] = [];
 const handleIngredientRowChange = jest.fn();
 const removeIngredientRow = jest.fn();
 
-let wrapper;
+let wrapper: ShallowWrapper;
 
 describe('IngredientRow', () => {
   beforeEach(() => {

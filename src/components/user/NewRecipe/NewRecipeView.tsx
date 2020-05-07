@@ -518,7 +518,7 @@ export function NewRecipeView({
 }
 
 type Props = {
-  id: number;
+  id?: number;
   oneColumnATheme: string;
   authname: string;
   feedback: string;

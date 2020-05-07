@@ -1,21 +1,38 @@
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 
-import EquipmentRow from './EquipmentRow';
+import { IEquipment } from '../../../../../store/data/types';
+import { EquipmentRow } from './EquipmentRow';
 
 const rowKey = "XYZ";
 const amount = 1;
 const type = 2;
 const equipment = "Cutting Board";
 const dataEquipment = [
-  {equipment_id: 1, equipment_name: "Cutting Board", equipment_type_id: 2},
-  {equipment_id: 2, equipment_name: "Metal Spatula", equipment_type_id: 3},
+  {
+    equipment_id: 1,
+    equipment_name: "Cutting Board",
+    equipment_type_id: 2,
+    owner_id: 1,
+    equipment_type_name: "Preparing",
+    equipment_description: "You need one.",
+    equipment_image: "nobsc-cutting-board"
+  },
+  {
+    equipment_id: 2,
+    equipment_name: "Metal Spatula",
+    equipment_type_id: 3,
+    owner_id: 1,
+    equipment_type_name: "Cooking",
+    equipment_description: "You need one.",
+    equipment_image: "nobsc-metal-spatula"
+  },
 ];
-const dataMyPrivateEquipment = [];
+const dataMyPrivateEquipment: IEquipment[] = [];
 const handleEquipmentRowChange = jest.fn();
 const removeEquipmentRow = jest.fn();
 
-let wrapper;
+let wrapper: ShallowWrapper;
 
 describe('EquipmentRow', () => {
   beforeEach(() => {

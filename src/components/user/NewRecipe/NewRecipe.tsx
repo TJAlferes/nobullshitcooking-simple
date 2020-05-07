@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { Crop } from 'react-image-crop';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 
 import {
@@ -133,10 +133,7 @@ export function NewRecipe({
   ] = useState("nobsc-recipe-cooking-default");
 
   const [ cropOne, setCropOne ] = useState<Crop>({
-    minWidth: 280,
-    maxWidth: 280,
-    minHeight: 172,
-    maxHeight: 172
+    aspect: 280 / 172
   });
   const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
   const [ cropThumbSizePreview, setCropThumbSizePreview ] = useState("");
@@ -150,10 +147,7 @@ export function NewRecipe({
   const [ tinyRecipeImage, setTinyRecipeImage ] = useState<File | null>(null);
 
   const [ cropTwo, setCropTwo ] = useState<Crop>({
-    width: 280,
-    maxWidth: 280,
-    height: 172,
-    maxHeight: 172
+    aspect: 280 / 172
   });
   const [
     equipmentCropFullSizePreview,
@@ -169,10 +163,7 @@ export function NewRecipe({
   ] = useState<File | null>(null);
 
   const [ cropThree, setCropThree ] = useState<Crop>({
-    width: 280,
-    maxWidth: 280,
-    height: 172,
-    maxHeight: 172
+    aspect: 280 / 172
   });
   const [
     ingredientsCropFullSizePreview,
@@ -188,10 +179,7 @@ export function NewRecipe({
   ] = useState<File | null>(null);
 
   const [ cropFour, setCropFour ] = useState<Crop>({
-    width: 280,
-    maxWidth: 280,
-    height: 172,
-    maxHeight: 172
+    aspect: 280 / 172
   });
   const [
     cookingCropFullSizePreview,
@@ -213,6 +201,11 @@ export function NewRecipe({
 
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
+      if (!childProps?.editingOwnership) {
+        history.push('/dashboard');
+        return;
+      }
+
       window.scrollTo(0,0);
       setLoading(true);
       setEditing(true);
@@ -225,7 +218,12 @@ export function NewRecipe({
 
       const recipe: IExistingRecipeToEdit = res.data.recipe;
 
-      setOwnership(childProps.editingOwnership);
+      if (!recipe) {
+        history.push('/dashboard');
+        return;
+      }
+
+      setOwnership(childProps.editingOwnership);  // change?
       setEditingId(recipe.recipe_id);
       setRecipeTypeId(recipe.recipe_type_id);
       setCuisineId(recipe.cuisine_id);
@@ -639,7 +637,7 @@ export function NewRecipe({
 
     setLoading(true);
 
-    if (editing) {
+    if (editing && editingId) {
 
       const recipeInfo: IEditingRecipeInfo = {
         ownership,
@@ -919,7 +917,11 @@ export interface ISubrecipeRow {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  childProps: any;
+  childProps?: {
+    editing?: boolean;
+    editingOwnership?: string;
+    submittingOwnership?: string;
+  };
   oneColumnATheme: string;
 };
 

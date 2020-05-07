@@ -6,6 +6,7 @@ import axios from 'axios';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
+import { IFriendship } from '../../../store/data/types';
 import { userRequestFriendship } from '../../../store/user/friendship/actions';
 import { LoaderSpinner } from '../../LoaderSpinner/LoaderSpinner';
 import { ProfileView } from './ProfileView';
@@ -103,7 +104,7 @@ interface RootState {
     isAuthenticated: boolean;
   };
   data: {
-    myFriendships: [];
+    myFriendships: IFriendship[];
   };
   user: {
     message: string;

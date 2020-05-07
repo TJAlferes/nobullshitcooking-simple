@@ -70,6 +70,10 @@ export function ImageUploads({
           <div>
             <ReactCrop
               className="new-recipe-image-crop-tool"
+              minWidth={280}
+              maxWidth={280}
+              minHeight={172}
+              maxHeight={172}
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
               src={recipeImage as string}
@@ -128,6 +132,10 @@ export function ImageUploads({
           <div>
             <ReactCrop
               className="new-recipe-image-crop-tool"
+              minWidth={280}
+              maxWidth={280}
+              minHeight={172}
+              maxHeight={172}
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
               src={recipeEquipmentImage as string}
@@ -180,6 +188,10 @@ export function ImageUploads({
           <div>
             <ReactCrop
               className="new-recipe-image-crop-tool"
+              minWidth={280}
+              maxWidth={280}
+              minHeight={172}
+              maxHeight={172}
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
               src={recipeIngredientsImage as string}
@@ -232,6 +244,10 @@ export function ImageUploads({
           <div>
             <ReactCrop
               className="new-recipe-image-crop-tool"
+              minWidth={280}
+              maxWidth={280}
+              minHeight={172}
+              maxHeight={172}
               style={{minHeight: "300px"}}
               imageStyle={{minHeight: "300px"}}
               src={recipeCookingImage as string}
