@@ -1,17 +1,25 @@
 import React from 'react';
 
-import { IngredientBreadcrumbs } from '../../../../routing/breadcrumbs/Breadcrumbs';
-
+import { IngredientBreadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
+import { IIngredient } from '../../store/data/types';
 import './ingredient.css';
 
-const IngredientView = ({
+export function IngredientView({
+  breadCrumbsTheme,
   twoColumnBTheme,
   ingredient,
   dataMyPrivateIngredients
-}) => (
+}: Props): JSX.Element {
+  return (
   <div className="ingredient">
 
-    <div><IngredientBreadcrumbs ingredient={ingredient} /></div>
+    <div>
+      {IngredientBreadcrumbs({
+        breadCrumbsTheme,
+        ingredientId: ingredient.ingredient_id,
+        ingredientName: ingredient.ingredient_name
+      })}
+    </div>
 
     <div
       className={`ingredient-view two-column-b ${twoColumnBTheme}`}
@@ -45,5 +53,11 @@ const IngredientView = ({
 
   </div>
 );
+}
 
-export default IngredientView;
+type Props = {
+  breadCrumbsTheme: string;
+  twoColumnBTheme: string;
+  ingredient: IIngredient;
+  dataMyPrivateIngredients: IIngredient[];
+}

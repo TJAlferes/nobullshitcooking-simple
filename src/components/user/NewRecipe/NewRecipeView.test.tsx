@@ -11,7 +11,7 @@ import { ImageUploads } from './views/ImageUploads';
 import { NewRecipeView } from './NewRecipeView';
 
 const beginProps = {
-  match: {params: {id: "1"}},
+  id: 0,
   oneColumnATheme: "one-column-a-light",
   authname: "Person",
   feedback: "Some message.",

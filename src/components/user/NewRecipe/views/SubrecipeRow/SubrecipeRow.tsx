@@ -32,7 +32,7 @@ export function SubrecipeRow({
     ...(
       dataMyPrivateRecipes.length
       ? (
-        editing
+        editing && selfId !== 0
         ? dataMyPrivateRecipes.filter((rec) => rec.recipe_id != selfId)
         : dataMyPrivateRecipes
       )
@@ -41,7 +41,7 @@ export function SubrecipeRow({
     ...(
       dataMyPublicRecipes.length
       ? (
-        editing
+        editing && selfId !== 0
         ? dataMyPublicRecipes.filter((rec) => rec.recipe_id != selfId)
         : dataMyPublicRecipes
       )
@@ -163,7 +163,7 @@ type Props = {
   dataMyFavoriteRecipes: IWorkRecipe[];
   dataMySavedRecipes: IWorkRecipe[];
   editing: boolean;
-  selfId?: number;
+  selfId: number;
   handleSubrecipeRowChange(
     e: React.SyntheticEvent<EventTarget>,
     rowKey: string

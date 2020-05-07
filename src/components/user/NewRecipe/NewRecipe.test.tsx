@@ -3,7 +3,7 @@ import { act } from 'react-dom/test-utils';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
-//import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import { NewRecipe } from './NewRecipe';
 //import { NewRecipeView } from './NewRecipeView';
@@ -29,11 +29,10 @@ const data = {
 };
 
 const beginProps: any = {
-  match: {params: {id: "1"}},
   oneColumnATheme: "one-column-a-light",
   authname: "Person",
   message: "Some message.",
-  childProps: {submittingOwnership: "private"},
+  childProps: {},
   dataMeasurements: [
     {measurement_id: 1, measurement_name: "teaspoon"},
     {measurement_id: 2, measurement_name: "Tablespoon"}
@@ -120,7 +119,7 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.post.mockReturnValueOnce(Promise.resolve({data}));
 
-//jest.mock('uuid/v4');
+jest.mock('uuid/v4');
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -131,38 +130,30 @@ describe('NewRecipe', () => {
   describe('when creating', () => {
 
     describe('when ownership is private', () => {
-      const wrapper = mount(
-        <MemoryRouter>
-          <NewRecipe {...beginProps} />
-        </MemoryRouter>
-      );
-      
-      it('needs testing', async () => {
-        await act(async () => {
-          Promise.resolve(() => {
-            setImmediate(() => wrapper.update());
-            expect(mockHistoryPush).not.toHaveBeenCalled();
-          });
-        });
+      const beginPropsCopy = {...beginProps};
+      beginPropsCopy.childProps = {submittingOwnership: "private"};
+
+      it('should not redirect to /dashboard if given no id', () => {
+        jest.mock('react-router-dom', () => ({
+          ...jest.requireActual('react-router-dom'),
+          useParams: () => ({})
+        }));
+        mount(<MemoryRouter><NewRecipe {...beginPropsCopy} /></MemoryRouter>);
+        expect(mockHistoryPush).not.toHaveBeenCalled();
       });
     });
 
     describe('when ownership is public', () => {
       const beginPropsCopy = {...beginProps};
-      beginPropsCopy.childProps.submittingOwnership = "public";
-      const wrapper = mount(
-        <MemoryRouter>
-          <NewRecipe {...beginPropsCopy} />
-        </MemoryRouter>
-      );
+      beginPropsCopy.childProps = {submittingOwnership: "public"};
 
-      it('needs testing', async () => {
-        await act(async () => {
-          Promise.resolve(() => {
-            setImmediate(() => wrapper.update());
-            expect(mockHistoryPush).not.toHaveBeenCalled();
-          });
-        });
+      it('should not redirect to /dashboard if given no id', () => {
+        jest.mock('react-router-dom', () => ({
+          ...jest.requireActual('react-router-dom'),
+          useParams: () => ({})
+        }));
+        mount(<MemoryRouter><NewRecipe {...beginPropsCopy} /></MemoryRouter>);
+        expect(mockHistoryPush).not.toHaveBeenCalled();
       });
     });
 
@@ -172,44 +163,41 @@ describe('NewRecipe', () => {
 
     describe('when ownership is private', () => {
       const beginPropsCopy = {...beginProps};
-      beginPropsCopy.childProps.editing = true;
-      beginPropsCopy.childProps.editingOwnership = "private";
-      const wrapper = mount(
-        <MemoryRouter>
-          <NewRecipe {...beginPropsCopy} />
-        </MemoryRouter>
-      );
+      beginPropsCopy.childProps = {editing: true, editingOwnership: "private"};
 
-      it('needs testing', async () => {
-        await act(async () => {
-          Promise.resolve(() => {
-            setImmediate(() => wrapper.update());
-            expect(mockHistoryPush).not.toHaveBeenCalled();
-          });
-        });
+      it('should redirect to /dashboard if given no id', () => {
+        jest.mock('react-router-dom', () => ({
+          ...jest.requireActual('react-router-dom'),
+          useParams: () => ({})
+        }));
+        mount(<MemoryRouter><NewRecipe {...beginPropsCopy} /></MemoryRouter>);
+        expect(mockHistoryPush).toHaveBeenCalledWith("/dashboard");
       });
     });
 
     describe('when ownership is public', () => {
       const beginPropsCopy = {...beginProps};
-      beginPropsCopy.childProps.editing = true;
-      beginPropsCopy.childProps.editingOwnership = "public";
-      const wrapper = mount(
-        <MemoryRouter>
-          <NewRecipe {...beginPropsCopy} />
-        </MemoryRouter>
-      );
+      beginPropsCopy.childProps = {editing: true, editingOwnership: "public"};
 
-      it('needs testing', async () => {
-        await act(async () => {
-          Promise.resolve(() => {
-            setImmediate(() => wrapper.update());
-            expect(mockHistoryPush).not.toHaveBeenCalled();
-          });
-        });
+      it('should redirect to /dashboard if given no id', () => {
+        jest.mock('react-router-dom', () => ({
+          ...jest.requireActual('react-router-dom'),
+          useParams: () => ({})
+        }));
+        mount(<MemoryRouter><NewRecipe {...beginPropsCopy} /></MemoryRouter>);
+        expect(mockHistoryPush).toHaveBeenCalledWith("/dashboard");
       });
     });
 
   });
 
 });
+
+/*it('needs testing', async () => {
+  await act(async () => {
+    Promise.resolve(() => {
+      setImmediate(() => wrapper.update());
+      expect(mockHistoryPush).not.toHaveBeenCalled();
+    });
+  });
+});*/

@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { IEquipment } from '../../store/data/types';
 import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { EquipmentView } from './EquipmentView';
-
+ 
 export function Equipment({
   breadCrumbsTheme,
   twoColumnBTheme,
@@ -24,8 +24,10 @@ export function Equipment({
     }
 
     const localEquipment = (
-      dataEquipment.find((equ: IEquipment) => equ.equipment_id == Number(id)) ||
-      dataMyPrivateEquipment.find((equ: IEquipment) => equ.equipment_id == Number(id))
+      dataEquipment
+      .find((equ: IEquipment) => equ.equipment_id == Number(id)) ||
+      dataMyPrivateEquipment
+      .find((equ: IEquipment) => equ.equipment_id == Number(id))
     );
 
     if (!localEquipment) {
@@ -50,9 +52,8 @@ export function Equipment({
 
 interface RootState {
   data: {
-    equipmentTypes: [];
-    equipment: [];
-    myPrivateEquipment: [];
+    equipment: IEquipment[];
+    myPrivateEquipment: IEquipment[];
   }
 }
 

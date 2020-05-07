@@ -37,6 +37,7 @@ import {
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
 import { validRecipeInfo } from './validation/validRecipeInfo';
 import { NewRecipeView } from './NewRecipeView';
+import { string } from 'prop-types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
@@ -71,7 +72,7 @@ export function NewRecipe({
   const [ loading, setLoading ] = useState(false);
   const [ editing, setEditing ] = useState(false);
 
-  const [ editingId, setEditingId ] = useState<number>();
+  const [ editingId, setEditingId ] = useState<number>(0);
   const [ ownership, setOwnership ] = useState("");
   const [ recipeTypeId, setRecipeTypeId ] = useState<number>(0);
   const [ cuisineId, setCuisineId ] = useState<number>(0);
@@ -201,7 +202,7 @@ export function NewRecipe({
 
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
-      if (!childProps?.editingOwnership) {
+      if (!id || !childProps?.editingOwnership) {
         history.push('/dashboard');
         return;
       }
@@ -285,10 +286,16 @@ export function NewRecipe({
       setLoading(false);
     };
     
-    if (childProps && childProps.editing) {
-      // TO DO: check id redirect to dashboard if none/invalid
+    if (
+      childProps &&
+      childProps.hasOwnProperty('editing') &&
+      childProps.hasOwnProperty('editingOwnership')
+    ) {
       getExistingRecipeToEdit();
-    } else if (childProps && childProps.submittingOwnership) {
+    } else if (
+      childProps &&
+      childProps.hasOwnProperty('submittingOwnership')
+    ) {
       setOwnership(childProps.submittingOwnership);
     } else {
       history.push('/dashboard');
@@ -917,12 +924,19 @@ export interface ISubrecipeRow {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  childProps?: {
-    editing?: boolean;
-    editingOwnership?: string;
-    submittingOwnership?: string;
-  };
+  childProps: any;
   oneColumnATheme: string;
+};
+
+type ChildProps = EditingChildProps | SubmittingChildProps
+
+type EditingChildProps = {
+  editing: boolean;
+  editingOwnership: string;
+};
+
+type SubmittingChildProps = {
+  submittingOwnership: string;
 };
 
 const mapStateToProps = (state: RootState) => ({

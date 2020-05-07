@@ -3,30 +3,40 @@ import { act } from 'react-dom/test-utils';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import EquipmentView from './EquipmentView';
-
+import { IEquipment } from '../../store/data/types';
 import { Equipment } from './Equipment';
-
-const dataEquipmentTypes = [
-  {equipment_type_id: 2, equipment_type_name: "Preparing"},
-  {equipment_type_id: 3, equipment_type_name: "Cooking"}
-];
+import { EquipmentView } from './EquipmentView';
 
 const dataEquipment = [
-  {equipment_id: 1, equipment_type_id: 3, equipment_name: "Metal Spatula"},
-  {equipment_id: 2, equipment_type_id: 2, equipment_name: "Cutting Board"}
+  {
+    equipment_id: 1,
+    owner_id: 1,
+    equipment_type_id: 3,
+    equipment_name: "Metal Spatula",
+    equipment_type_name: "Cooking",
+    equipment_description: "Some note.",
+    equipment_image: "nobsc-metal-spatula"
+  },
+  {
+    equipment_id: 1,
+    owner_id: 1,
+    equipment_type_id: 2,
+    equipment_name: "Cutting Board",
+    equipment_type_name: "Preparing",
+    equipment_description: "Some note.",
+    equipment_image: "nobsc-cutting-board"
+  }
 ];
-
+const dataMyPrivateEquipment: IEquipment[] = [];
 const mockHistoryPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({push: mockHistoryPush}),
-  //useParams: () => ({id: })
+  useHistory: () => ({push: mockHistoryPush})
 }));
 
 jest.mock(
-  '../../../../routing/breadcrumbs/Breadcrumbs',
+  '../../routing/breadcrumbs/Breadcrumbs',
   () => ({
     EquipmentBreadcrumbs: ({ equipment }) => <div>{equipment.equipment_name}</div>
   })
@@ -38,14 +48,17 @@ afterEach(() => {
 
 describe('Equipment', () => {
   it('should redirect to /home if given no equipment', () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({})
+    }));
     mount(
       <MemoryRouter>
         <Equipment
-          match={{params: {}}}
+          breadCrumbsTheme="light"
           twoColumnBTheme="light"
-          dataEquipmentTypes={dataEquipmentTypes}
           dataEquipment={dataEquipment}
-          dataMyPrivateEquipment={[]}
+          dataMyPrivateEquipment={dataMyPrivateEquipment}
         />
       </MemoryRouter>
     );
@@ -53,12 +66,15 @@ describe('Equipment', () => {
   });
 
   it('should redirect to /home if given an invalid equipment', () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({id: "999"})
+    }));
     mount(
       <MemoryRouter>
         <Equipment
-          match={{params: {id: "999"}}}
+          breadCrumbsTheme="light"
           twoColumnBTheme="light"
-          dataEquipmentTypes={dataEquipmentTypes}
           dataEquipment={dataEquipment}
           dataMyPrivateEquipment={[]}
         />
@@ -67,41 +83,51 @@ describe('Equipment', () => {
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
-  it('should not redirect if given a valid equipment', async () => {
+  it('should not redirect if given a valid equipment', () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({id: "1"})
+    }));
     mount(
       <MemoryRouter>
         <Equipment
-          match={{params: {id: "1"}}}
+          breadCrumbsTheme="light"
           twoColumnBTheme="light"
-          dataEquipmentTypes={dataEquipmentTypes}
           dataEquipment={dataEquipment}
           dataMyPrivateEquipment={[]}
         />
       </MemoryRouter>
     );
-    await act(async () => Promise.resolve(() => {
-      setImmediate(() => wrapper.update());
-      expect(mockHistoryPush).not.toHaveBeenCalled();
-    }));
+    expect(mockHistoryPush).not.toHaveBeenCalled();
   });
 
   it('should get the appropriate equipment', async () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({id: "1"})
+    }));
     const wrapper = mount(
       <MemoryRouter>
         <Equipment
-          match={{params: {id: "1"}}}
+          breadCrumbsTheme="light"
           twoColumnBTheme="light"
-          dataEquipmentTypes={dataEquipmentTypes}
           dataEquipment={dataEquipment}
           dataMyPrivateEquipment={[]}
         />
       </MemoryRouter>
     );
-    await act(async () => Promise.resolve(() => {
-      setImmediate(() => wrapper.update());
-      expect(wrapper.find('[data-test="equipment-view"]')).toHaveLength(1);
-      expect(wrapper.find(EquipmentView).props().equipment.equipment_id)
-      .toEqual(1);
-    }));
+    await act(async () => {
+      Promise.resolve(() => {
+        setImmediate(() => wrapper.update());
+        expect(wrapper.find('[data-test="equipment-view"]')).toHaveLength(1);
+        expect(wrapper.find(EquipmentView).props().equipment.equipment_id)
+        .toEqual(1);
+      });
+    });
   });
 });
+
+/*await act(async () => Promise.resolve(() => {
+  setImmediate(() => wrapper.update());
+  expect(mockHistoryPush).not.toHaveBeenCalled();
+}));*/
