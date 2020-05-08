@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
 
+import { IPlan, IWorkRecipe } from '../../../store/data/types'
+import { IPlannerData } from '../../../store/planner/types'
 import {
   plannerClearWork,
   plannerSetCreating,
@@ -10,35 +11,32 @@ import {
   plannerSetPlanName,
   plannerSetPlanData
 } from '../../../store/planner/actions';
-
+import {
+  ICreatingPlanInfo,
+  IEditingPlanInfo
+} from '../../../store/user/plan/types';
 import {
   userCreateNewPlan,
   userEditPlan
 } from '../../../store/user/plan/actions';
-
 import MobileNewPlanView from './views/MobileNewPlanView';
 import NewPlanView from './views/NewPlanView';
 
-export const NewPlan = ({
-  match,
+export function NewPlan({
   twoColumnATheme,
   planView,
   message,
-
   dataMyPlans,
-
   dataRecipes,
   dataMyPublicRecipes,
   dataMyPrivateRecipes,
   dataMyFavoriteRecipes,
   dataMySavedRecipes,
-
   expanded,
   expandedDay,
   editingId,
   planName,
   recipeListsInsideDays,
-
   plannerClearWork,
   plannerSetCreating,
   plannerSetEditingId,
@@ -46,8 +44,9 @@ export const NewPlan = ({
   plannerSetPlanData,
   userCreateNewPlan,
   userEditPlan
-}) => {
+}: Props): JSX.Element {
   const history = useHistory();
+  const { id } = useParams();
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
@@ -62,7 +61,7 @@ export const NewPlan = ({
       setEditing(true);
 
       const [ prev ] = dataMyPlans
-      .filter(plan => plan.plan_id === Number(match.params.id));
+      .filter(plan => plan.plan_id === Number(id));
 
       plannerSetEditingId(Number(prev.plan_id));
       plannerSetPlanName(prev.plan_name);
@@ -70,7 +69,7 @@ export const NewPlan = ({
       setLoading(false);
     };
 
-    if (editing && editing === "true") {
+    if (editing) {
       plannerClearWork();
       getExistingPlanToEdit();
     } else {
@@ -93,16 +92,18 @@ export const NewPlan = ({
           history.push('/dashboard');
         }, 3000);
         // remove?
-        return;
+        //return;
       }
 
       setLoading(false);
     }
 
-    return () => isSubscribed = false;
+    return () => {
+      isSubscribed = false;
+    };
   }, [message]);
 
-  const handlePlanNameChange = e => {
+  const handlePlanNameChange = (e: ) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -116,7 +117,9 @@ export const NewPlan = ({
     plannerSetPlanName(e.target.value);
   };
 
-  const handleTabClick = e => setTab(e.target.name);
+  const handleTabClick = (e: ) => {
+    setTab(e.target.name);
+  };
 
   const activateModal = () => setModalActive(true);
 
@@ -176,23 +179,18 @@ export const NewPlan = ({
       feedback={feedback}
       loading={loading}
       editing={editing}
-    
       planName={planName}
       handlePlanNameChange={handlePlanNameChange}
-    
       recipeListsInsideDays={recipeListsInsideDays}
       expandedDay={expandedDay}
       expanded={expanded}
-    
       dataRecipes={dataRecipes}
       dataMyPrivateRecipes={dataMyPrivateRecipes}
       dataMyPublicRecipes={dataMyPublicRecipes}
       dataMyFavoriteRecipes={dataMyFavoriteRecipes}
       dataMySavedRecipes={dataMySavedRecipes}
-
       tab={tab}
       handleTabClick={handleTabClick}
-    
       modalActive={modalActive}
       activateModal={activateModal}
       deactivateModal={deactivateModal}
@@ -203,17 +201,43 @@ export const NewPlan = ({
   );
 }
 
-const mapStateToProps = state => ({
+interface RootState {
+  user: {
+    message: string;
+  };
+  data: {
+    myPlans: IPlan[];
+    recipes: IWorkRecipe[];
+    myPublicRecipes: IWorkRecipe[];
+    myPrivateRecipes: IWorkRecipe[];
+    myFavoriteRecipes: IWorkRecipe[];
+    mySavedRecipes: IWorkRecipe[];
+  };
+  planner: {
+    expanded: boolean;
+    expandedDay: number;
+    editingId: number;
+    planName: string;
+    recipeListsInsideDays: IPlannerData[];
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  twoColumnATheme: string;
+  planView: string;
+  //editingId
+};
+
+const mapStateToProps = (state: RootState) => ({
   message: state.user.message,
-
   dataMyPlans: state.data.myPlans,
-
   dataRecipes: state.data.recipes,
   dataMyPublicRecipes: state.data.myPublicRecipes,
   dataMyPrivateRecipes: state.data.myPrivateRecipes,
   dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
   dataMySavedRecipes: state.data.mySavedRecipes,
-
   expanded: state.planner.expanded,
   expandedDay: state.planner.expandedDay,
   editingId: state.planner.editingId,
@@ -221,16 +245,16 @@ const mapStateToProps = state => ({
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
-const mapDispatchToProps = dispatch => ({
-  userCreateNewPlan: (planInfo) => dispatch(userCreateNewPlan(planInfo)),
-  userEditPlan: (planInfo) => dispatch(userEditPlan(planInfo)),
-  plannerClearWork: () => dispatch(plannerClearWork()),
-  plannerSetCreating: () => dispatch(plannerSetCreating()),
-  plannerSetEditingId: (id) => dispatch(plannerSetEditingId(id)),
-  plannerSetPlanName: (name) => dispatch(plannerSetPlanName(name)),
-  plannerSetPlanData: (data) => dispatch(plannerSetPlanData(data))
-});
+const mapDispatchToProps = {
+  userCreateNewPlan: (planInfo: ICreatingPlanInfo) => userCreateNewPlan(planInfo),
+  userEditPlan: (planInfo: IEditingPlanInfo) => userEditPlan(planInfo),
+  plannerClearWork: () => plannerClearWork(),
+  plannerSetCreating: () => plannerSetCreating(),
+  plannerSetEditingId: (id: number) => plannerSetEditingId(id),
+  plannerSetPlanName: (name: string) => plannerSetPlanName(name),
+  plannerSetPlanData: (data: IPlannerData[]) => plannerSetPlanData(data)
+};
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(NewPlan)
-);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(NewPlan);

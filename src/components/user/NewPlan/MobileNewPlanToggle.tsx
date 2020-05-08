@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import AriaModal from 'react-aria-modal';
 
 import NewPlan from './NewPlan';
-
 import './mobileNewPlanToggle.css'
 
-class MobileNewPlanToggle extends Component {
+export class MobileNewPlanToggle extends Component {
   state = {modalActive: false};
 
   activateModal = () => this.setState({modalActive: true});
@@ -43,5 +42,3 @@ class MobileNewPlanToggle extends Component {
     );
   }
 }
-
-export default MobileNewPlanToggle;
