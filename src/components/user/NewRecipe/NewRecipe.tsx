@@ -37,7 +37,6 @@ import {
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
 import { validRecipeInfo } from './validation/validRecipeInfo';
 import { NewRecipeView } from './NewRecipeView';
-import { string } from 'prop-types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 

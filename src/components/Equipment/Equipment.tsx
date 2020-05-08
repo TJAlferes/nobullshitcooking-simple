@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { IEquipment } from '../../store/data/types';
 import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { EquipmentView } from './EquipmentView';
- 
+
 export function Equipment({
   breadCrumbsTheme,
   twoColumnBTheme,

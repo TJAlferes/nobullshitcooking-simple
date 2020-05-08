@@ -57,9 +57,9 @@ export interface ICreatingEquipmentInfo {
   equipmentTypeId: number
   equipmentName: string
   equipmentDescription: string
-  equipmentImage: string
-  fullEquipmentImage: IEquipmentImage
-  tinyEquipmentImage: IEquipmentImage
+  equipmentImage: string | ArrayBuffer | null
+  fullEquipmentImage: File | null
+  tinyEquipmentImage: File | null
 }
 
 export interface IEditingEquipmentInfo {
@@ -68,11 +68,7 @@ export interface IEditingEquipmentInfo {
   equipmentName: string
   equipmentDescription: string
   prevEquipmentImage: string
-  equipmentImage: string
-  fullEquipmentImage: IEquipmentImage
-  tinyEquipmentImage: IEquipmentImage
-}
-
-interface IEquipmentImage {
-  type: string
+  equipmentImage: string | ArrayBuffer | null
+  fullEquipmentImage: File | null
+  tinyEquipmentImage: File | null
 }

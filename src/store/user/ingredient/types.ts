@@ -57,9 +57,9 @@ export interface ICreatingIngredientInfo {
   ingredientTypeId: number
   ingredientName: string
   ingredientDescription: string
-  ingredientImage: string
-  fullIngredientImage: IIngredientImage
-  tinyIngredientImage: IIngredientImage
+  ingredientImage: string | ArrayBuffer | null
+  fullIngredientImage: File | null
+  tinyIngredientImage: File | null
 }
 
 export interface IEditingIngredientInfo {
@@ -68,11 +68,7 @@ export interface IEditingIngredientInfo {
   ingredientName: string
   ingredientDescription: string
   prevIngredientImage: string
-  ingredientImage: string
-  fullIngredientImage: IIngredientImage
-  tinyIngredientImage: IIngredientImage
-}
-
-interface IIngredientImage {
-  type: string
+  ingredientImage: string | ArrayBuffer | null
+  fullIngredientImage: File | null
+  tinyIngredientImage: File | null
 }

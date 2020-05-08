@@ -28,7 +28,15 @@ const dataEquipment = [
   }
 ];
 const dataMyPrivateEquipment: IEquipment[] = [];
+const beforeProps: any = {
+  breadCrumbsTheme: "light",
+  twoColumnBTheme: "light",
+  dataEquipment,
+  dataMyPrivateEquipment
+};
+
 const mockHistoryPush = jest.fn();
+const mockEquipmentBreadcrumbs = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -37,9 +45,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock(
   '../../routing/breadcrumbs/Breadcrumbs',
-  () => ({
-    EquipmentBreadcrumbs: ({ equipment }) => <div>{equipment.equipment_name}</div>
-  })
+  () => ({EquipmentBreadcrumbs: mockEquipmentBreadcrumbs})
 );
 
 afterEach(() => {
@@ -52,16 +58,7 @@ describe('Equipment', () => {
       ...jest.requireActual('react-router-dom'),
       useParams: () => ({})
     }));
-    mount(
-      <MemoryRouter>
-        <Equipment
-          breadCrumbsTheme="light"
-          twoColumnBTheme="light"
-          dataEquipment={dataEquipment}
-          dataMyPrivateEquipment={dataMyPrivateEquipment}
-        />
-      </MemoryRouter>
-    );
+    mount(<MemoryRouter><Equipment {...beforeProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
@@ -70,35 +67,24 @@ describe('Equipment', () => {
       ...jest.requireActual('react-router-dom'),
       useParams: () => ({id: "999"})
     }));
-    mount(
-      <MemoryRouter>
-        <Equipment
-          breadCrumbsTheme="light"
-          twoColumnBTheme="light"
-          dataEquipment={dataEquipment}
-          dataMyPrivateEquipment={[]}
-        />
-      </MemoryRouter>
-    );
+    mount(<MemoryRouter><Equipment {...beforeProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
-  it('should not redirect if given a valid equipment', () => {
+  it('should not redirect if given a valid equipment', async () => {
     jest.mock('react-router-dom', () => ({
       ...jest.requireActual('react-router-dom'),
       useParams: () => ({id: "1"})
     }));
-    mount(
-      <MemoryRouter>
-        <Equipment
-          breadCrumbsTheme="light"
-          twoColumnBTheme="light"
-          dataEquipment={dataEquipment}
-          dataMyPrivateEquipment={[]}
-        />
-      </MemoryRouter>
+    const wrapper = mount(
+      <MemoryRouter><Equipment {...beforeProps} /></MemoryRouter>
     );
-    expect(mockHistoryPush).not.toHaveBeenCalled();
+    await act(async () => {
+      Promise.resolve(() => {
+        setImmediate(() => wrapper.update());
+        expect(mockHistoryPush).not.toHaveBeenCalled();
+      });
+    });
   });
 
   it('should get the appropriate equipment', async () => {
@@ -107,14 +93,7 @@ describe('Equipment', () => {
       useParams: () => ({id: "1"})
     }));
     const wrapper = mount(
-      <MemoryRouter>
-        <Equipment
-          breadCrumbsTheme="light"
-          twoColumnBTheme="light"
-          dataEquipment={dataEquipment}
-          dataMyPrivateEquipment={[]}
-        />
-      </MemoryRouter>
+      <MemoryRouter><Equipment {...beforeProps} /></MemoryRouter>
     );
     await act(async () => {
       Promise.resolve(() => {

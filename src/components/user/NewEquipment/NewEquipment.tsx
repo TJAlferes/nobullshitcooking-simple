@@ -1,59 +1,64 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
-import { withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { Crop } from 'react-image-crop';
 
 import {
   getCroppedImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
-
+import { IEquipment, IEquipmentType } from '../../../store/data/types';
+import {
+  ICreatingEquipmentInfo,
+  IEditingEquipmentInfo
+} from '../../../store/user/equipment/types';
 import {
   userCreateNewPrivateEquipment,
   userEditPrivateEquipment
-} from '../../../store/actions/index';
+} from '../../../store/user/equipment/actions';
+import { NewEquipmentView } from './NewEquipmentView';
 
-import NewEquipmentView from './NewEquipmentView';
-
-export const NewEquipment = ({
-  match,
+export function NewEquipment({
+  childProps,
   oneColumnATheme,
   message,
-  childProps,
   dataEquipmentTypes,
   dataMyPrivateEquipment,
   userCreateNewPrivateEquipment,
   userEditPrivateEquipment
-}) => {
+}: Props): JSX.Element {
   const history = useHistory();
+  const { id } = useParams();
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ editing, setEditing ] = useState(false);
-  const [ editingId, setEditingId ] = useState("");
-  const [ equipmentTypeId, setEquipmentTypeId ] = useState("");
+
+  const [ editingId, setEditingId ] = useState<number>(0);
+  const [ equipmentTypeId, setEquipmentTypeId ] = useState<number>(0);
   const [ equipmentName, setEquipmentName ] = useState("");
   const [ equipmentDescription, setEquipmentDescription ] = useState("");
-  const [ equipmentImage, setEquipmentImage ] = useState("");
   const [
     prevEquipmentImage,
     setPrevEquipmentImage
   ] = useState("nobsc-equipment-default");
 
-  const [ crop, setCrop ] = useState({
-    disabled: true,
-    locked: true,
-    width: 280,
-    maxWidth: 280,
-    height: 172,
-    maxHeight: 172
-  });
-  const [ cropFullSizePreview, setCropFullSizePreview ] = useState(null);
-  const [ cropTinySizePreview, setCropTinySizePreview ] = useState(null);
+  const [ crop, setCrop ] = useState<Crop>({aspect: 280 / 172});
+  const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
+  const [ cropTinySizePreview, setCropTinySizePreview ] = useState("");
+  const [
+    equipmentImage,
+    setEquipmentImage
+  ] = useState<string | ArrayBuffer | null>(null);
+  const [
+    fullEquipmentImage,
+    setFullEquipmentImage
+  ] = useState<File | null>(null);
+  const [
+    tinyEquipmentImage,
+    setTinyEquipmentImage
+  ] = useState<File | null>(null);
 
-  const [ fullEquipmentImage, setFullEquipmentImage ] = useState(null);
-  const [ tinyEquipmentImage, setTinyEquipmentImage ] = useState(null);
-
-  const imageRef = useRef(null);
+  const imageRef = useRef<HTMLImageElement>();
 
   useEffect(() => {
     const getExistingEquipmentToEdit = () => {
@@ -62,7 +67,7 @@ export const NewEquipment = ({
       setEditing(true);
 
       const [ prev ] = dataMyPrivateEquipment
-      .filter((equ) => equ.equipment_id === Number(match.params.id));
+      .filter((equ) => equ.equipment_id === Number(id));
 
       setEditingId(prev.equipment_id);
       setEquipmentTypeId(prev.equipment_type_id);
@@ -71,9 +76,7 @@ export const NewEquipment = ({
       setPrevEquipmentImage(prev.equipment_image);
       setLoading(false);
     };
-    if (childProps && childProps.editing === "true") {
-      getExistingEquipmentToEdit();
-    }
+    if (childProps && childProps.editing) getExistingEquipmentToEdit();
   }, []);
 
   useEffect(() => {
@@ -89,62 +92,69 @@ export const NewEquipment = ({
       }
       setLoading(false);
     }
-    return () => isSubscribed = false;
+    return () => {
+      isSubscribed = false;
+    };
   }, [message]);
 
-  const handleEquipmentTypeChange = e => setEquipmentTypeId(e.target.value);
-
-  const handleEquipmentNameChange = e => setEquipmentName(e.target.value);
-
-  const handleEquipmentDescriptionChange = e => setEquipmentDescription(e.target.value);
-
-  const onSelectFile = e => {
-    if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => setEquipmentImage(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
-    }
+  const handleEquipmentTypeChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => {
+    setEquipmentTypeId(Number((e.target as HTMLInputElement).value));
   };
 
-  const onImageLoaded = image => imageRef.current = image;
+  const handleEquipmentNameChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => {
+    setEquipmentName((e.target as HTMLInputElement).value);
+  };
 
-  const onCropChange = crop => setCrop(crop);
+  const handleEquipmentDescriptionChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => {
+    setEquipmentDescription((e.target as HTMLInputElement).value);
+  };
 
-  const onCropComplete = crop => makeClientCrops(crop);
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (!(target.files && target.files.length > 0)) return;
+    const reader = new FileReader();
+    reader.addEventListener("load", () => setEquipmentImage(reader.result));
+    reader.readAsDataURL(target.files[0]);
+  };
 
-  const makeClientCrops = async (crop) => {
-    if (!imageRef) return;
+  const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
+
+  const onCropChange = (crop: Crop) => setCrop(crop);
+
+  const onCropComplete = (crop: Crop) => makeClientCrops(crop);
+
+  const makeClientCrops = async (crop: Crop) => {
+    if (!imageRef || !imageRef.current) return;
     if (!crop.width) return;
-    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
-      280,
-      172,
-      imageRef.current,
-      crop,
-      "newFile.jpeg"
+    const full = await getCroppedImage(
+      280, 172, imageRef.current, crop, "newFile.jpeg"
     );
-    const { resizedTinyPreview, resizedTinyFinal } = await getCroppedImage(
-      28,
-      18,
-      imageRef.current,
-      crop,
-      "newFile.jpeg"
+    const tiny = await getCroppedImage(
+      28, 18, imageRef.current, crop, "newFile.jpeg"
     );
-    setCropFullSizePreview(resizedFullPreview);
-    setCropTinySizePreview(resizedTinyPreview);
-    setFullEquipmentImage(resizedFullFinal);
-    setTinyEquipmentImage(resizedTinyFinal);
+    if (!full || !tiny) return;
+    setCropFullSizePreview(full.resizedPreview);
+    setCropTinySizePreview(tiny.resizedPreview);
+    setFullEquipmentImage(full.resizedFinal);
+    setTinyEquipmentImage(tiny.resizedFinal);
   };
 
   const cancelEquipmentImage = () => {
-    setCropFullSizePreview(null);
-    setCropTinySizePreview(null);
+    setCropFullSizePreview("");
+    setCropTinySizePreview("");
     setEquipmentImage(null);
     setFullEquipmentImage(null);
     setTinyEquipmentImage(null);
   };
 
   const valid = () => {
-    let validEquipmentTypeId = equipmentTypeId !== "";
+    let validEquipmentTypeId = equipmentTypeId !== 0;
     let validEquipmentName = equipmentName.trim() !== "";
     let validEquipmentDescription = equipmentDescription.trim() !== "";
 
@@ -170,29 +180,38 @@ export const NewEquipment = ({
     }
 
     return (
-      equipmentTypeId !== "" &&
+      equipmentTypeId !== 0 &&
       equipmentName.trim() !== "" &&
       equipmentDescription.trim() !== ""
     );
   };
 
   const handleSubmit = () => {
-    const equipmentInfo = {
-      equipmentTypeId,
-      equipmentName,
-      equipmentDescription,
-      equipmentImage,
-      fullEquipmentImage,
-      tinyEquipmentImage
-    };
     if (!valid()) return;
-    if (editing === true) {
-      equipmentInfo.equipmentId = editingId;
-      equipmentInfo.prevEquipmentImage = prevEquipmentImage;
-    }
     setLoading(true);
-    if (editing === true) userEditPrivateEquipment(equipmentInfo);
-    else userCreateNewPrivateEquipment(equipmentInfo);
+    if (editing && editingId) {
+      const equipmentInfo: IEditingEquipmentInfo = {
+        equipmentId: editingId,
+        equipmentTypeId,
+        equipmentName,
+        equipmentDescription,
+        equipmentImage,
+        fullEquipmentImage,
+        tinyEquipmentImage,
+        prevEquipmentImage
+      };
+      userEditPrivateEquipment(equipmentInfo);
+    } else {
+      const equipmentInfo: ICreatingEquipmentInfo = {
+        equipmentTypeId,
+        equipmentName,
+        equipmentDescription,
+        equipmentImage,
+        fullEquipmentImage,
+        tinyEquipmentImage,
+      };
+      userCreateNewPrivateEquipment(equipmentInfo);
+    }
   };
   
   return (
@@ -200,19 +219,16 @@ export const NewEquipment = ({
       oneColumnATheme={oneColumnATheme}
       feedback={feedback}
       loading={loading}
-
       editing={editing}
       equipmentTypeId={equipmentTypeId}
       equipmentName={equipmentName}
       equipmentDescription={equipmentDescription}
       equipmentImage={equipmentImage}
       prevEquipmentImage={prevEquipmentImage}
-
       dataEquipmentTypes={dataEquipmentTypes}
       handleEquipmentTypeChange={handleEquipmentTypeChange}
       handleEquipmentNameChange={handleEquipmentNameChange}
       handleEquipmentDescriptionChange={handleEquipmentDescriptionChange}
-
       onSelectFile={onSelectFile}
       onImageLoaded={onImageLoaded}
       crop={crop}
@@ -220,26 +236,42 @@ export const NewEquipment = ({
       cropTinySizePreview={cropTinySizePreview}
       onCropChange={onCropChange}
       onCropComplete={onCropComplete}
-
       cancelEquipmentImage={cancelEquipmentImage}
       handleSubmit={handleSubmit}
     />
   );
 };
 
-const mapStateToProps = state => ({
+interface RootState {
+  user: {
+    message: string;
+  };
+  data: {
+    equipmentTypes: IEquipmentType[];
+    myPrivateEquipment: IEquipment[];
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  oneColumnATheme: string;
+  childProps: any;
+};
+
+const mapStateToProps = (state: RootState) => ({
   message: state.user.message,
   dataEquipmentTypes: state.data.equipmentTypes,
   dataMyPrivateEquipment: state.data.myPrivateEquipment
 });
 
-const mapDispatchToProps = dispatch => ({
-  userCreateNewPrivateEquipment: (equipmentInfo) =>
-    dispatch(userCreateNewPrivateEquipment(equipmentInfo)),
-  userEditPrivateEquipment: (equipmentInfo) =>
-    dispatch(userEditPrivateEquipment(equipmentInfo))
-});
+const mapDispatchToProps = {
+  userCreateNewPrivateEquipment: (equipmentInfo: ICreatingEquipmentInfo) =>
+    userCreateNewPrivateEquipment(equipmentInfo),
+  userEditPrivateEquipment: (equipmentInfo: IEditingEquipmentInfo) =>
+    userEditPrivateEquipment(equipmentInfo)
+};
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(NewEquipment)
-);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(NewEquipment);

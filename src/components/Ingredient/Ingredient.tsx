@@ -15,7 +15,7 @@ export function Ingredient({
   const history = useHistory();
   const { id } = useParams();
 
-  const [ ingredient, setIngredient ] = useState<IIngredient>();
+  const [ ingredient, setIngredient ] = useState<IIngredient|null>(null);
 
   useEffect(() => {
     if (!id) {
@@ -42,6 +42,7 @@ export function Ingredient({
   ? <LoaderSpinner />
   : (
     <IngredientView
+      breadCrumbsTheme={breadCrumbsTheme}
       twoColumnBTheme={twoColumnBTheme}
       ingredient={ingredient}
       dataMyPrivateIngredients={dataMyPrivateIngredients}
