@@ -1,84 +1,90 @@
-import React, { Component } from 'react';
+import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
-import { menuShadowShow, menuShadowHide } from '../../../../store/actions/index';
-
+import { menuShadowShow, menuShadowHide } from '../../../../store/menu/actions';
 import fitnessMenuData from './data/fitnessMenuData';
 import foodMenuData from './data/foodMenuData';
 //import supplyMenuData from './data/supplyMenuData';
-
 import Menu from './Menu/Menu';
-
 import './siteNav.css';
 
-export class SiteNav extends Component {
-  state = {expanded: false, expandedDropdown: "none"};
+export function SiteNav({ menuShadowHide, menuShadowShow }: Props): JSX.Element {
+  const [ expanded, setExpanded ] = useState(false);
+  const [ expandedDropdown, setExpandedDropdown ] = useState("none");
 
-  handleMouseEnter = dropdown => {
-    const { expandedDropdown } = this.state;
+  const handleMouseEnter = (dropdown: string) => {
     if (dropdown === expandedDropdown) return;
-    this.setState({expanded: true, expandedDropdown: dropdown});
-    this.props.menuShadowShow();
-  }
+    setExpanded(true);
+    setExpandedDropdown(dropdown)
+    menuShadowShow();
+  };
 
-  handleMouseLeave = () => {
-    this.setState({expanded: false, expandedDropdown: "none"});
-    this.props.menuShadowHide();
-  }
+  const handleMouseLeave = () => {
+    setExpanded(false);
+    setExpandedDropdown("none");
+    menuShadowHide();
+  };
 
-  render() {
-    const { expanded, expandedDropdown } = this.state;
+  return (
+    <div className="site-nav">
 
-    return (
-      <div className="site-nav">
+      <li
+        onMouseEnter={() => handleMouseEnter('Food')}
+        onMouseLeave={handleMouseLeave}
+        data-test="food-area"
+      >
+        <Link className="site-nav-link" to="/food">Food</Link>
+        {
+          (expanded && expandedDropdown === 'Food')
+          ? <Menu menuData={foodMenuData} />
+          : false
+        }
+      </li>
 
-        <li
-          onMouseEnter={() => this.handleMouseEnter('Food')}
-          onMouseLeave={this.handleMouseLeave}
-          data-test="food-area"
-        >
-          <Link className="site-nav-link" to="/food">Food</Link>
-          {
-            (expanded && expandedDropdown === 'Food')
-            ? <Menu menuData={foodMenuData} />
-            : false
-          }
-        </li>
+      <li
+        onMouseEnter={() => handleMouseEnter('Fitness')}
+        onMouseLeave={handleMouseLeave}
+        data-test="fitness-area"
+      >
+        <Link className="site-nav-link" to="/fitness">Fitness</Link>
+        {
+          (expanded && expandedDropdown === 'Fitness')
+          ? <Menu menuData={fitnessMenuData} />
+          : false
+        }
+      </li>
 
-        <li
-          onMouseEnter={() => this.handleMouseEnter('Fitness')}
-          onMouseLeave={this.handleMouseLeave}
-          data-test="fitness-area"
-        >
-          <Link className="site-nav-link" to="/fitness">Fitness</Link>
-          {
-            (expanded && expandedDropdown === 'Fitness')
-            ? <Menu menuData={fitnessMenuData} />
-            : false
-          }
-        </li>
-
-        {/*<li onMouseEnter={() => this.handleMouseEnter('Supply')} onMouseLeave={this.handleMouseLeave}>
-          <Link className="site-nav-link" to="/store/storefront">Supply</Link>
-          {
-            (expanded && expandedDropdown === 'Supply')
-            ? <Menu menuData={supplyMenuData} />
-            : false
-          }
-        </li>
-        <li>
-          <Link className="site-nav-link" to="/site/welcome">New? Start Here</Link>
-        </li>*/}
-        
-      </div>
-    );
-  }
+      {/*
+      <li
+        onMouseEnter={() => handleMouseEnter('Supply')}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Link className="site-nav-link" to="/store/storefront">Supply</Link>
+        {
+          (expanded && expandedDropdown === 'Supply')
+          ? <Menu menuData={supplyMenuData} />
+          : false
+        }
+      </li>
+      <li>
+        <Link className="site-nav-link" to="/site/welcome">New? Start Here</Link>
+      </li>
+      */}
+      
+    </div>
+  );
 }
 
-const mapDispatchToProps = dispatch => ({
-  menuShadowShow: () => dispatch(menuShadowShow()),
-  menuShadowHide: () => dispatch(menuShadowHide())
-});
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connect(null, mapDispatchToProps)(SiteNav);
+type Props = PropsFromRedux;
+
+const mapDispatchToProps = {
+  menuShadowHide: () => menuShadowHide(),
+  menuShadowShow: () => menuShadowShow()
+};
+
+const connector = connect(null, mapDispatchToProps)
+
+export default connector(SiteNav);

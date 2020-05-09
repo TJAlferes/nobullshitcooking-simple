@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
-import MenuView from './MenuView';
+import { MenuView } from './MenuView';
 
 /*
 This Menu component heavily borrows from react-menu-aim
@@ -15,7 +15,7 @@ const MOUSE_LOCS_TRACKED = 3;  // number of past mouse locations to track
 const DELAY = 200;             // ms delay when user appears to be entering submenu
 const TOLERANCE = 50;          // bigger = more forgivey when entering submenu
 
-function offset(el) {
+function offset(el: ) {
   if (!el) return {left: 0, top: 0};
   let rect = el.getBoundingClientRect();
   return {
@@ -24,21 +24,21 @@ function offset(el) {
   };
 }
 
-function outerWidth(el) {
+function outerWidth(el: ) {
   let _width = el.offsetWidth;
   let style = el.currentStyle || getComputedStyle(el);
   _width += (parseInt(style.marginLeft, 10) || 0);
   return _width;
 }
 
-function outerHeight(el) {
+function outerHeight(el: ) {
   let _height = el.offsetHeight;
   let style = el.currentStyle || getComputedStyle(el);
   _height += (parseInt(style.marginLeft, 10) || 0);
   return _height;
 }
 
-export const Menu = ({ theme, menuData }) => {
+export function Menu({ theme, menuData }: Props): JSX.Element {
   const [ activeMenuRow, setActiveMenuRow ] = useState();
 
   const menuConfig = {delay: 300, tolerance: 75};
@@ -127,7 +127,7 @@ export const Menu = ({ theme, menuData }) => {
     return 0;
   }
 
-  function possiblyActivate(row) {
+  function possiblyActivate(row: ) {
     const delay = getActivateDelay(menuConfig);
 
     if (delay) {
@@ -140,12 +140,12 @@ export const Menu = ({ theme, menuData }) => {
     setActiveMenuRow(row);
   }
 
-  const handleMouseMoveDocument = e => {
+  const handleMouseMoveDocument = (e: ) => {
     mouseLocs.push({x: e.pageX, y: e.pageY});
     if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
   }
   
-  const handleMouseEnterRow = row => {
+  const handleMouseEnterRow = (row: ) => {
     if (menuTimer) clearTimeout(menuTimer);
     possiblyActivate(row);
   }
@@ -163,8 +163,32 @@ export const Menu = ({ theme, menuData }) => {
       handleMouseLeaveMenu={handleMouseLeaveMenu}
     />
   );
+}
+
+interface RootState {
+  theme: {
+    dropDownMenuTheme: string;
+  };
+}
+
+interface MenuItem {
+  name: string;
+  link: string;
+  subMenu: string[];
+  subMenuLinks: string[];
+  image: string;
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  menuData: MenuItem[];
 };
 
-const mapStateToProps = state => ({theme: state.theme.dropDownMenuTheme});
+const mapStateToProps = (state: RootState) => ({
+  theme: state.theme.dropDownMenuTheme
+});
 
-export default connect(mapStateToProps)(Menu);
+const connector = connect(mapStateToProps)
+
+export default connector(Menu);

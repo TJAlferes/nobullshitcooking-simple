@@ -3,6 +3,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { withSearch, SearchBox } from '@elastic/react-search-ui';
 
+// they will add types soon https://github.com/elastic/search-ui/issues/289
+
 import { searchSetIndex } from '../../../../store/search/actions';
 import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
 import './search.css';
