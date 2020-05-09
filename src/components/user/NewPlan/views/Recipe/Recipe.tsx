@@ -1,6 +1,8 @@
 import React, { forwardRef, useRef, useImperativeHandle } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import {
+  ConnectDragSource,
+  ConnectDropTarget,
   DragSource,
   DragSourceConnector,
   DragSourceMonitor,
@@ -8,6 +10,7 @@ import {
   DropTargetConnector,
   DropTargetMonitor
 } from 'react-dnd';
+import { XYCoord } from 'dnd-core';
 
 import {
   plannerRemoveRecipeFromDay,
@@ -28,7 +31,7 @@ const plannerRecipeSource = {
       key: props.recipe.key
     };
   },
-  endDrag(props: Props, monitor) {
+  endDrag(props: Props, monitor: DragSourceMonitor) {
     const item = monitor.getItem();
     if (item.day === "0") return;  // to copy from rather than remove from PlannerRecipesList
     const dropResult = monitor.getDropResult();
@@ -39,7 +42,7 @@ const plannerRecipeSource = {
 };
 
 const plannerRecipeTarget = {
-  hover(props: Props, monitor: DropTargetMonitor, component) {
+  hover(props: Props, monitor: DropTargetMonitor, component: RecipeInstance) {
     if (!component) return null;
 
     const node = component.getNode();
@@ -58,7 +61,7 @@ const plannerRecipeTarget = {
     const hoverBoundingRect = node.getBoundingClientRect();
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
     if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
     if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
 
@@ -82,14 +85,16 @@ function collectDropTarget(connect: DropTargetConnector) {
   return {connectDropTarget: connect.dropTarget()};
 }
 
-const Recipe = forwardRef(
-  ({ recipe, connectDragSource, connectDropTarget }, ref) => {
+const Recipe = forwardRef<HTMLDivElement, Props>(
+  ({ recipe, connectDragSource, connectDropTarget }: Props, ref) => {
     const elementRef = useRef(null);
 
     connectDragSource(elementRef);
     connectDropTarget(elementRef);
     
-    useImperativeHandle(ref, () => ({getNode: () => elementRef.current}));
+    useImperativeHandle<{}, RecipeInstance>(ref, () => ({
+      getNode: () => elementRef.current
+    }));
 
     return (
       <div className="planner_recipe" ref={elementRef}>
@@ -110,15 +115,23 @@ export interface INewPlanRecipe {
   owner_id: number;
 }
 
+interface RecipeInstance {
+	getNode(): HTMLDivElement | null
+}
+
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   key: string;
+  id: string;
   day: number;
+  expanded: boolean;
   expandedDay: number;
   index: number;
   listId: number;
   recipe: INewPlanRecipe;
+  connectDragSource: ConnectDragSource,
+  connectDropTarget: ConnectDropTarget
 };
 
 const mapDispatchToProps = {

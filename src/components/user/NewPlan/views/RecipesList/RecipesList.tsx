@@ -1,12 +1,17 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { DropTarget, DropTargetConnector, DropTargetMonitor } from 'react-dnd';
+import {
+  ConnectDropTarget,
+  DropTarget,
+  DropTargetConnector,
+  DropTargetMonitor
+} from 'react-dnd';
 
 import {
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay
 } from '../../../../../store/planner/actions';
-import Recipe from '../Recipe/Recipe';
+import Recipe, { INewPlanRecipe } from '../Recipe/Recipe';
 import './recipesList.css';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
@@ -32,7 +37,7 @@ const RecipesList = ({
   connectDropTarget
 }: Props): JSX.Element => (
   <div className="planner-recipes-list" ref={connectDropTarget}>
-    {list.map((recipe, i) => (
+    {list.map((recipe: INewPlanRecipe, i) => (
       <Recipe
         key={recipe.key}
         id={recipe.key}
@@ -49,14 +54,14 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   day: number;
-  list: [];
-  connectDropTarget
+  list: INewPlanRecipe[];
+  connectDropTarget: ConnectDropTarget;
 };
 
 const mapDispatchToProps = {
-  plannerAddRecipeToDay: (day: , recipe: ) =>
+  plannerAddRecipeToDay: (day: number, recipe: INewPlanRecipe) =>
     plannerAddRecipeToDay(day, recipe),
-  plannerRemoveRecipeFromDay: (day: , index: ) =>
+  plannerRemoveRecipeFromDay: (day: number, index: number) =>
     plannerRemoveRecipeFromDay(day, index)
 };
 
