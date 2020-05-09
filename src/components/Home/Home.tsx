@@ -1,12 +1,11 @@
 import React from 'react';
 
-import LeftNav from '../../LeftNav/LeftNav';
-import Feed from '../../Feed/Feed';
-import Suggestions from '../../Suggestions/Suggestions';
-
+import Feed from '../Feed/Feed';
+import LeftNav from '../LeftNav/LeftNav';
+import Suggestions from '../Suggestions/Suggestions';
 import './home.css';
 
-export default function Home() {
+export function Home(): JSX.Element {
   return (
     <div className="home">
       <div className="home-desktop-tablet">
@@ -20,4 +19,4 @@ export default function Home() {
       </div>
     </div>
   );
-};
+}

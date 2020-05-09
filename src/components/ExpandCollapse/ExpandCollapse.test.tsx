@@ -1,9 +1,8 @@
 import { mount } from 'enzyme';
 import React from 'react';
 
-import ExpandCollapseView from './ExpandCollapseView';
-
-import ExpandCollapse from './ExpandCollapse';
+import { ExpandCollapse } from './ExpandCollapse';
+import { ExpandCollapseView } from './ExpandCollapseView';
 
 describe('ExpandCollapse', () => {
   it('expands and collapses', () => {
@@ -16,11 +15,9 @@ describe('ExpandCollapse', () => {
     );
 
     wrapper.find('[data-test="expand"]').simulate('click');
-
     expect(wrapper.find(ExpandCollapseView).props().expanded).toEqual(true);
 
     wrapper.find('[data-test="collapse"]').simulate('click');
-
     expect(wrapper.find(ExpandCollapseView).props().expanded).toEqual(false);
   });
 });

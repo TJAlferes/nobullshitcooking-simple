@@ -1,13 +1,12 @@
-import React from 'react';
-import PropTypes, { InferProps } from 'prop-types';
+import React, { FunctionComponent } from 'react';
 
-export default function ExpandCollapseView({
+export const ExpandCollapseView: FunctionComponent<Props> = ({
   children,
   expanded,
   toggle,
   headingWhileCollapsed,
   headingWhileExpanded
-}: InferProps<typeof ExpandCollapseView.propTypes>): JSX.Element {
+}): JSX.Element => {
   return (
     <div className="expand-collapse">
       {
@@ -37,12 +36,11 @@ export default function ExpandCollapseView({
       }
     </div>
   );
-}
+};
 
-ExpandCollapseView.propTypes = {
-  children: PropTypes.element.isRequired,
-  expanded: PropTypes.bool.isRequired,
-  toggle: PropTypes.func.isRequired,
-  headingWhileCollapsed: PropTypes.string,
-  headingWhileExpanded: PropTypes.string
+type Props = {
+  expanded: boolean;
+  toggle(): void; 
+  headingWhileCollapsed: string;
+  headingWhileExpanded: string;
 };

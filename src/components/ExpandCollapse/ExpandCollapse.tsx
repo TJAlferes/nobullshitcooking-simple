@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
-import PropTypes, { InferProps } from 'prop-types';
+import React, { useState, FunctionComponent, ReactChildren, ReactChild } from 'react';
 
-import ExpandCollapseView from './ExpandCollapseView';
-
+import { ExpandCollapseView } from './ExpandCollapseView';
 import './expandCollapse.css';
 
-export default function ExpandCollapse({
+export const ExpandCollapse: FunctionComponent<Props> = ({
   children,
-  headingWhileCollapsed,
-  headingWhileExpanded
-}: InferProps<typeof ExpandCollapse.propTypes>): JSX.Element {
+  headingWhileCollapsed = "More info (Click here to expand)",
+  headingWhileExpanded = "(Click here to collapse)"
+}) => {
   const [ expanded, setExpanded ] = useState(false);
 
   const toggle = () => setExpanded(prevState => !prevState);
@@ -26,13 +24,7 @@ export default function ExpandCollapse({
   );
 };
 
-ExpandCollapse.propTypes = {
-  children: PropTypes.element.isRequired,
-  headingWhileCollapsed: PropTypes.string,
-  headingWhileExpanded: PropTypes.string
-};
-
-ExpandCollapse.defaultProps = {
-  headingWhileCollapsed: "More info (Click here to expand)",
-  headingWhileExpanded: "(Click here to collapse)"
+type Props = {
+  headingWhileCollapsed?: string;
+  headingWhileExpanded?: string;
 };

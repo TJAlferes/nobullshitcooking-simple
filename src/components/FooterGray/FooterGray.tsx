@@ -1,12 +1,9 @@
 import React from 'react';
-import PropTypes, { InferProps } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import './footerGray.css';
 
-export default function FooterGray({
-  theme
-}: InferProps<typeof FooterGray.propTypes>): JSX.Element {
+export function FooterGray({ theme }: Props): JSX.Element {
   return (
     <footer className={`footergray ${theme}`}>
       <ul>
@@ -19,6 +16,8 @@ export default function FooterGray({
       <p>Copyright 2015-2020 NoBullshitCooking. All rights reserved.</p>
     </footer>
   );
-};
+}
 
-FooterGray.propTypes = {theme: PropTypes.string.isRequired};
+type Props = {
+  theme: string;
+};

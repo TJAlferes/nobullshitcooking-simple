@@ -53,11 +53,13 @@ export interface IUserDeletePlanFailed {
   message: string
 }
 
+// yes, the planData is supposed to be string
 export interface ICreatingPlanInfo {
   planName: string
   planData: string
 }
 
+// yes, the planData is supposed to be string
 export interface IEditingPlanInfo {
   planId: number
   planName: string

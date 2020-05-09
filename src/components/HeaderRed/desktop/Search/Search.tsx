@@ -1,23 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { withSearch, SearchBox } from '@elastic/react-search-ui';
 
-import { searchSetIndex } from '../../../../store/actions/index';
-
+import { searchSetIndex } from '../../../../store/search/actions';
 import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
-
 import './search.css';
 
-const Search = ({
+export function Search({
   theme,
-  history,
   currentIndex,
   searchSetIndex,
   searchTerm,
   setSearchTerm
-}) => {
-  const changeSearchIndex = e => {  // useEffect? useLayoutEffect?
+}: Props): JSX.Element {
+  const history = useHistory();
+
+  const changeSearchIndex = (e: ) => {  // useEffect? useLayoutEffect?
     const sInsert = document
     .getElementsByClassName("sui-search-box__wrapper")[1].firstChild;
     searchSetIndex(e.target.value);
@@ -139,21 +138,33 @@ const Search = ({
   );
 }
 
+interface RootState {
+  search: {
+    currentIndex: string;
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  theme: string;
+  //searchTerm,
+  //setSearchTerm
+};
+
 const mapContextToProps = ({ searchTerm, setSearchTerm }) => ({
   searchTerm,
   setSearchTerm
 });
 
-const mapStateToProps = state => ({currentIndex: state.search.currentIndex});
-
-const mapDispatchToProps = dispatch => ({
-  searchSetIndex: (index) => dispatch(searchSetIndex(index))
+const mapStateToProps = (state: RootState) => ({
+  currentIndex: state.search.currentIndex
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps, mapDispatchToProps
-  )(
-    withSearch(mapContextToProps)(Search)
-  )
-);
+const mapDispatchToProps = {
+  searchSetIndex: (index: string) => searchSetIndex(index)
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(withSearch(mapContextToProps)(Search));
