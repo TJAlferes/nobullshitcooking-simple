@@ -1,18 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { DropTarget } from 'react-dnd';
+import { connect, ConnectedProps } from 'react-redux';
+import { DropTarget, DropTargetConnector, DropTargetMonitor } from 'react-dnd';
 
 import {
   plannerClickDay,
   plannerAddRecipeToDay
 } from '../../../../../store/planner/actions';
-
 import Recipe from '../Recipe/Recipe';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 const plannerDayTarget = {
-  drop(props, monitor) {
+  drop(props: Props, monitor: DropTargetMonitor) {
     const { day } = props;
     const draggedRecipe = monitor.getItem();
     if (day !== draggedRecipe.day) {
@@ -22,7 +21,7 @@ const plannerDayTarget = {
   }
 };
 
-function collect(connect, monitor) {
+function collect(connect: DropTargetConnector, monitor: DropTargetMonitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
@@ -30,7 +29,7 @@ function collect(connect, monitor) {
   };
 }
 
-const Day = ({
+export function Day({
   day,
   list,
   expanded,
@@ -39,7 +38,7 @@ const Day = ({
   canDrop,
   isOver,
   connectDropTarget
-}) => {
+}: Props): JSX.Element|null {
   const handleClickDay = () => plannerClickDay(day);
 
   let color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
@@ -54,7 +53,6 @@ const Day = ({
       <span className="the_date">{day}</span>
       {list.map((recipe, i) => (
         <Recipe
-          className="planner_recipe"
           key={recipe.key}
           id={recipe.key}
           index={i}
@@ -66,18 +64,31 @@ const Day = ({
       ))}
     </div>
   )
-  : false;
+  : null;
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  day: number;
+  list: [];
+  expanded: boolean;
+  expandedDay: number;
+  plannerClickDay(): void;
+  canDrop: true;
+  isOver: true;
+  connectDropTarget
 };
 
-const mapDispatchToProps = dispatch => ({
-  plannerClickDay: (day) => dispatch(plannerClickDay(day)),
-  plannerAddRecipeToDay: (day, recipe) => dispatch(plannerAddRecipeToDay(day, recipe))
-});
+const mapDispatchToProps = {
+  plannerClickDay: (day: number) => plannerClickDay(day),
+  plannerAddRecipeToDay: (day: number, recipe: ) =>
+    plannerAddRecipeToDay(day, recipe)
+};
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(
   DropTarget(
     Types.PLANNER_RECIPE,
     plannerDayTarget,

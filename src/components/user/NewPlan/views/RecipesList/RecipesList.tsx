@@ -1,26 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { DropTarget } from 'react-dnd';
+import { connect, ConnectedProps } from 'react-redux';
+import { DropTarget, DropTargetConnector, DropTargetMonitor } from 'react-dnd';
 
 import {
   plannerAddRecipeToDay,
   plannerRemoveRecipeFromDay
 } from '../../../../../store/planner/actions';
-
 import Recipe from '../Recipe/Recipe';
-
 import './recipesList.css';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 const plannerRecipesListTarget = {
-  drop(props) {
+  drop(props: Props) {
     const { day } = props;
     return {listId: day};
   }
 };
 
-function collect(connect, monitor) {
+function collect(connect: DropTargetConnector, monitor: DropTargetMonitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
@@ -28,11 +26,14 @@ function collect(connect, monitor) {
   };
 }
 
-const RecipesList = ({ day, list, connectDropTarget }) => (
+const RecipesList = ({
+  day,
+  list,
+  connectDropTarget
+}: Props): JSX.Element => (
   <div className="planner-recipes-list" ref={connectDropTarget}>
     {list.map((recipe, i) => (
       <Recipe
-        className="planner_recipe"
         key={recipe.key}
         id={recipe.key}
         index={i}
@@ -44,17 +45,24 @@ const RecipesList = ({ day, list, connectDropTarget }) => (
   </div>
 );
 
-const mapDispatchToProps = dispatch => ({
-  plannerAddRecipeToDay: (day, recipe) =>
-    dispatch(plannerAddRecipeToDay(day, recipe)),
-  plannerRemoveRecipeFromDay: (day, index) =>
-    dispatch(plannerRemoveRecipeFromDay(day, index))
-});
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(
+type Props = PropsFromRedux & {
+  day: number;
+  list: [];
+  connectDropTarget
+};
+
+const mapDispatchToProps = {
+  plannerAddRecipeToDay: (day: , recipe: ) =>
+    plannerAddRecipeToDay(day, recipe),
+  plannerRemoveRecipeFromDay: (day: , index: ) =>
+    plannerRemoveRecipeFromDay(day, index)
+};
+
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(
   DropTarget(
     Types.PLANNER_RECIPE,
     plannerRecipesListTarget,

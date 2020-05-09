@@ -1,18 +1,24 @@
 import React, { forwardRef, useRef, useImperativeHandle } from 'react';
-import { connect } from 'react-redux';
-import { DragSource, DropTarget } from 'react-dnd';
+import { connect, ConnectedProps } from 'react-redux';
+import {
+  DragSource,
+  DragSourceConnector,
+  DragSourceMonitor,
+  DropTarget,
+  DropTargetConnector,
+  DropTargetMonitor
+} from 'react-dnd';
 
 import {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
 } from '../../../../../store/planner/actions';
-
 import './recipe.css';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 const plannerRecipeSource = {
-  beginDrag(props) {
+  beginDrag(props: Props) {
     return {
       id: props.id,
       index: props.index,
@@ -22,7 +28,7 @@ const plannerRecipeSource = {
       key: props.recipe.key
     };
   },
-  endDrag(props, monitor) {
+  endDrag(props: Props, monitor) {
     const item = monitor.getItem();
     if (item.day === "0") return;  // to copy from rather than remove from PlannerRecipesList
     const dropResult = monitor.getDropResult();
@@ -33,7 +39,7 @@ const plannerRecipeSource = {
 };
 
 const plannerRecipeTarget = {
-  hover(props, monitor, component) {
+  hover(props: Props, monitor: DropTargetMonitor, component) {
     if (!component) return null;
 
     const node = component.getNode();
@@ -62,14 +68,17 @@ const plannerRecipeTarget = {
   }
 };
 
-function collectDragSource(connect, monitor) {
+function collectDragSource(
+  connect: DragSourceConnector,
+  monitor: DragSourceMonitor
+) {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   };
 }
 
-function collectDropTarget(connect) {
+function collectDropTarget(connect: DropTargetConnector) {
   return {connectDropTarget: connect.dropTarget()};
 }
 
@@ -93,17 +102,35 @@ const Recipe = forwardRef(
   }
 );
 
-const mapDispatchToProps = dispatch => ({
-  plannerRemoveRecipeFromDay: (day, index) =>
-    dispatch(plannerRemoveRecipeFromDay(day, index)),
-  plannerReorderRecipeInDay: (dragIndex, hoverIndex) =>
-    dispatch(plannerReorderRecipeInDay(dragIndex, hoverIndex))
-});
+export interface INewPlanRecipe {
+  key: string;
+  recipe_id: number;
+  title: string;
+  recipe_image: string;
+  owner_id: number;
+}
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  key: string;
+  day: number;
+  expandedDay: number;
+  index: number;
+  listId: number;
+  recipe: INewPlanRecipe;
+};
+
+const mapDispatchToProps = {
+  plannerRemoveRecipeFromDay: (day: number, index: number) =>
+    plannerRemoveRecipeFromDay(day, index),
+  plannerReorderRecipeInDay: (dragIndex: number, hoverIndex: number) =>
+    plannerReorderRecipeInDay(dragIndex, hoverIndex)
+};
+
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(
   DropTarget(
     Types.PLANNER_RECIPE,
     plannerRecipeTarget,

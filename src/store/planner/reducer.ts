@@ -2,7 +2,6 @@ import update from 'immutability-helper';
 
 //import convertPlannerToUrl from '../../utils/publicPlanner/convertPlannerToUrl';
 //import { convertUrlToPlannerv2 } from '../../utils/publicPlanner/convertUrlToPlanner';
-
 import {
   PLANNER_CLICK_DAY,
   PLANNER_ADD_RECIPE_TO_DAY,
@@ -15,15 +14,15 @@ import {
   PLANNER_SET_PLAN_NAME,
   PLANNER_SET_EDITING_ID,
   PLANNER_SET_PLAN_DATA,
-  PlannerState,
+  IPlannerState,
   PlannerActions,
-  PlannerClickDay,
-  PlannerAddRecipeToDay,
-  PlannerRemoveRecipeFromDay,
-  PlannerReorderRecipeInDay
+  IPlannerClickDay,
+  IPlannerAddRecipeToDay,
+  IPlannerRemoveRecipeFromDay,
+  IPlannerReorderRecipeInDay
 } from './types';
 
-const initialState: PlannerState = {
+const initialState: IPlannerState = {
   isLoading: false,
   creating: false,
   editingId: "",
@@ -64,9 +63,9 @@ const initialState: PlannerState = {
 };
 
 const clickDay = (
-  state: PlannerState,
-  action: PlannerClickDay
-): PlannerState => {
+  state: IPlannerState,
+  action: IPlannerClickDay
+): IPlannerState => {
   const { expandedDay } = state;
   const { day } = action;
 
@@ -78,9 +77,9 @@ const clickDay = (
 };
 
 const addRecipeToDay = (
-  state: PlannerState,
-  action: PlannerAddRecipeToDay
-): PlannerState => {
+  state: IPlannerState,
+  action: IPlannerAddRecipeToDay
+): IPlannerState => {
   const { day, recipe } = action;
 
   return update(state, {
@@ -93,9 +92,9 @@ const addRecipeToDay = (
 };
 
 const removeRecipeFromDay = (
-  state: PlannerState,
-  action: PlannerRemoveRecipeFromDay
-): PlannerState => {
+  state: IPlannerState,
+  action: IPlannerRemoveRecipeFromDay
+): IPlannerState => {
   const { day, index } = action;
 
   return update(state, {
@@ -108,9 +107,9 @@ const removeRecipeFromDay = (
 };
 
 const reorderRecipeInDay = (
-  state: PlannerState,
-  action: PlannerReorderRecipeInDay
-): PlannerState => {
+  state: IPlannerState,
+  action: IPlannerReorderRecipeInDay
+): IPlannerState => {
   const { expandedDay, recipeListsInsideDays } = state;
   const { dragIndex, hoverIndex } = action;
   const draggedRecipe = recipeListsInsideDays[expandedDay][dragIndex];  // because "none" as initial
@@ -139,7 +138,7 @@ const reorderRecipeInDay = (
 const plannerReducer = (
   state = initialState,
   action: PlannerActions
-): PlannerState => {
+): IPlannerState => {
   switch (action.type) {
     case PLANNER_CLICK_DAY:
       return clickDay(state, action);

@@ -1,46 +1,42 @@
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import AriaModal from 'react-aria-modal';
-const uuidv4 = require('uuid/v4');
+import { v4 as uuidv4 } from 'uuid';
 
+import { IWorkRecipe } from '../../../../store/data/types';
+import { IPlannerData } from '../../../../store/planner/types';
 import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
 import LeftNav from '../../../LeftNav/LeftNav';
-import LoaderButton from '../../../LoaderButton/LoaderButton';
-
+import { LoaderButton } from '../../../LoaderButton/LoaderButton';
 import Day from './Day/Day';
 import ExpandedDay from './ExpandedDay/ExpandedDay';
 import RecipesList from './RecipesList/RecipesList';
-
 import './newPlan.css';
 
-const NewPlanView = ({
+export function NewPlanView({
   twoColumnATheme,
   feedback,
   loading,
   editing,
-
   planName,
   handlePlanNameChange,
-
   recipeListsInsideDays,
   expandedDay,
   expanded,
-
   dataRecipes,
   dataMyPrivateRecipes,
   dataMyPublicRecipes,
   dataMyFavoriteRecipes,
   dataMySavedRecipes,
-
   tab,
   handleTabClick,
-  
   modalActive,
   activateModal,
   deactivateModal,
   getApplicationNode,
   discardChanges,
   handleSubmit
-}) => {
+}: Props): JSX.Element {
   const memoizedMonthlyPlan = useMemo(() => {
     return (
       <div className="new-plan__monthly-plan">
@@ -105,7 +101,7 @@ const NewPlanView = ({
     return (
       <RecipesList
         day="0"
-        list={list.map(recipe => ({
+        list={list.map((recipe: IWorkRecipe) => ({
           key: uuidv4(),
           recipe_id: recipe.recipe_id,
           title: recipe.title,
@@ -116,7 +112,7 @@ const NewPlanView = ({
     );
   }, [tab]);
 
-  const TabButton = ({ tabName, displayText }) => (
+  const TabButton = ({ tabName, displayText }: TabButtonProps) => (
     <button
       className={(tab === tabName)
         ? "planner-recipes-list-tab active"
@@ -238,12 +234,14 @@ const NewPlanView = ({
             }
             <LoaderButton
               className="planner-submit-button"
+              id="planner-submit-button"
               type="button"
               name="submit"
               text="Save Plan"
               loadingText="Saving Plan..."
               isLoading={loading}
               onClick={handleSubmit}
+              onKeyUp={() => {}}
             />
           </div>
 
@@ -253,6 +251,34 @@ const NewPlanView = ({
 
     </div>
   );
+}
+
+type Props = {
+  twoColumnATheme: string;
+  feedback: string;
+  loading: boolean;
+  editing: boolean;
+  planName: string;
+  handlePlanNameChange(e: React.SyntheticEvent<EventTarget>): void;
+  recipeListsInsideDays: IPlannerData[];
+  expandedDay: number; // string|number or 29
+  expanded: boolean;
+  dataRecipes: IWorkRecipe[];
+  dataMyPrivateRecipes: IWorkRecipe[];
+  dataMyPublicRecipes: IWorkRecipe[];
+  dataMyFavoriteRecipes: IWorkRecipe[];
+  dataMySavedRecipes: IWorkRecipe[];
+  tab: string;
+  handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  modalActive(): void;
+  activateModal(): void;
+  deactivateModal(): void;
+  getApplicationNode(): void;
+  discardChanges(): void;
+  handleSubmit(): void;
 };
 
-export default NewPlanView;
+type TabButtonProps = {
+  tabName: string;
+  displayText: string;
+};

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { IPlan, IWorkRecipe } from '../../../store/data/types'
-import { IPlannerData } from '../../../store/planner/types'
+import { IPlan, IWorkRecipe } from '../../../store/data/types';
+import { IPlannerData } from '../../../store/planner/types';
 import {
   plannerClearWork,
   plannerSetCreating,
@@ -20,7 +20,7 @@ import {
   userEditPlan
 } from '../../../store/user/plan/actions';
 import MobileNewPlanView from './views/MobileNewPlanView';
-import NewPlanView from './views/NewPlanView';
+import { NewPlanView } from './views/NewPlanView';
 
 export function NewPlan({
   twoColumnATheme,
@@ -103,22 +103,19 @@ export function NewPlan({
     };
   }, [message]);
 
-  const handlePlanNameChange = (e: ) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (e.target.value.trim().length > 20) {
+  const handlePlanNameChange = (e: React.SyntheticEvent<EventTarget>) => {
+    const nextName = (e.target as HTMLInputElement).value.trim();
+    if (nextName.length > 20) {
       window.scrollTo(0,0);
       setFeedback("Please keep your plan name under 20 characters");
       setTimeout(() => setFeedback(""), 3000);
       return;
     }
-
-    plannerSetPlanName(e.target.value);
+    plannerSetPlanName(nextName);
   };
 
-  const handleTabClick = (e: ) => {
-    setTab(e.target.name);
+  const handleTabClick = (e: React.SyntheticEvent<EventTarget>) => {
+    setTab((e.target as HTMLButtonElement).name);
   };
 
   const activateModal = () => setModalActive(true);
