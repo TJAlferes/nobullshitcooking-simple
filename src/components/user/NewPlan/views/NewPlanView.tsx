@@ -12,6 +12,7 @@ import Day from './Day/Day';
 import ExpandedDay from './ExpandedDay/ExpandedDay';
 import RecipesList from './RecipesList/RecipesList';
 import './newPlan.css';
+import { any } from 'prop-types';
 
 export function NewPlanView({
   twoColumnATheme,
@@ -56,7 +57,7 @@ export function NewPlanView({
                 <div className="body-day__content">
                   <Day
                     day={i + 1}
-                    list={recipeListsInsideDays[recipeList]}
+                    list={recipeListsInsideDays[Number(recipeList)]}
                     expanded={expanded}
                     expandedDay={expandedDay}
                   />
@@ -82,7 +83,7 @@ export function NewPlanView({
   }, [recipeListsInsideDays, expanded, expandedDay]);
 
   const memoizedRecipesLists = useMemo(() => {
-    const tabToList = {
+    const tabToList: ITabToList = {
       "official": dataRecipes,
       "private": dataMyPrivateRecipes,
       "public": dataMyPublicRecipes,
@@ -100,7 +101,7 @@ export function NewPlanView({
 
     return (
       <RecipesList
-        day="0"
+        day={0}
         list={list.map((recipe: IWorkRecipe) => ({
           key: uuidv4(),
           recipe_id: recipe.recipe_id,
@@ -253,6 +254,15 @@ export function NewPlanView({
   );
 }
 
+interface ITabToList {
+  [index: string]: any;
+  "official": IWorkRecipe[];
+  "private": IWorkRecipe[];
+  "public": IWorkRecipe[];
+  "favorite": IWorkRecipe[];
+  "saved": IWorkRecipe[];
+}
+
 type Props = {
   twoColumnATheme: string;
   feedback: string;
@@ -260,7 +270,7 @@ type Props = {
   editing: boolean;
   planName: string;
   handlePlanNameChange(e: React.SyntheticEvent<EventTarget>): void;
-  recipeListsInsideDays: IPlannerData[];
+  recipeListsInsideDays: IPlannerData;
   expandedDay: number; // string|number or 29
   expanded: boolean;
   dataRecipes: IWorkRecipe[];
@@ -270,7 +280,7 @@ type Props = {
   dataMySavedRecipes: IWorkRecipe[];
   tab: string;
   handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
-  modalActive(): void;
+  modalActive: boolean;
   activateModal(): void;
   deactivateModal(): void;
   getApplicationNode(): void;

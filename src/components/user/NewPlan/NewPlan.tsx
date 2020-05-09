@@ -158,20 +158,53 @@ export function NewPlan({
   };
 
   const handleSubmit = () => {
-    const planInfo = {planName: planName, planData: getPlanData()};
     if (!valid()) return;
-    if (editing === true) planInfo.planId = editingId;
     setLoading(true);
-    if (editing === true) userEditPlan(planInfo);
-    else userCreateNewPlan(planInfo);
+    if (editing) {
+      const planInfo: IEditingPlanInfo = {
+        planId: editingId,
+        planName: planName,
+        planData: getPlanData()
+      };
+      userEditPlan(planInfo);
+    } else {
+      const planInfo: ICreatingPlanInfo = {
+        planName: planName,
+        planData: getPlanData()
+      };
+      userCreateNewPlan(planInfo);
+    }
   }
 
-  let ViewComponent;
-  if (planView === "mobile") ViewComponent = MobileNewPlanView;
-  if (planView === "desktop") ViewComponent = NewPlanView;
-
-  return(
-    <ViewComponent
+  return (planView === "mobile")
+  ? (
+    <MobileNewPlanView
+      twoColumnATheme={twoColumnATheme}
+      feedback={feedback}
+      loading={loading}
+      editing={editing}
+      planName={planName}
+      handlePlanNameChange={handlePlanNameChange}
+      recipeListsInsideDays={recipeListsInsideDays}
+      expandedDay={expandedDay}
+      expanded={expanded}
+      dataRecipes={dataRecipes}
+      dataMyPrivateRecipes={dataMyPrivateRecipes}
+      dataMyPublicRecipes={dataMyPublicRecipes}
+      dataMyFavoriteRecipes={dataMyFavoriteRecipes}
+      dataMySavedRecipes={dataMySavedRecipes}
+      tab={tab}
+      handleTabClick={handleTabClick}
+      modalActive={modalActive}
+      activateModal={activateModal}
+      deactivateModal={deactivateModal}
+      getApplicationNode={getApplicationNode}
+      discardChanges={discardChanges}
+      handleSubmit={handleSubmit}
+    />
+  )
+  : (
+    <NewPlanView
       twoColumnATheme={twoColumnATheme}
       feedback={feedback}
       loading={loading}
@@ -215,7 +248,7 @@ interface RootState {
     expandedDay: number;
     editingId: number;
     planName: string;
-    recipeListsInsideDays: IPlannerData[];
+    recipeListsInsideDays: IPlannerData;
   };
 }
 
@@ -249,7 +282,7 @@ const mapDispatchToProps = {
   plannerSetCreating: () => plannerSetCreating(),
   plannerSetEditingId: (id: number) => plannerSetEditingId(id),
   plannerSetPlanName: (name: string) => plannerSetPlanName(name),
-  plannerSetPlanData: (data: IPlannerData[]) => plannerSetPlanData(data)
+  plannerSetPlanData: (data: IPlannerData) => plannerSetPlanData(data)
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -12,8 +12,8 @@ import {
   PLANNER_SET_EDITING_ID,
   PLANNER_SET_PLAN_NAME,
   PLANNER_SET_PLAN_DATA,
-  PlannerData,
-  PlannerRecipe
+  IPlannerData,
+  IPlannerRecipe
 } from './types';
 
 export const plannerClickDay = (day: number) => ({
@@ -21,7 +21,7 @@ export const plannerClickDay = (day: number) => ({
   day
 });
 
-export const plannerAddRecipeToDay = (day: number, recipe: PlannerRecipe) => ({
+export const plannerAddRecipeToDay = (day: number, recipe: IPlannerRecipe) => ({
   type: PLANNER_ADD_RECIPE_TO_DAY,
   day,
   recipe
@@ -55,7 +55,7 @@ export const plannerClearWork = () => ({type: PLANNER_CLEAR_WORK});
 
 export const plannerSetCreating = () => ({type: PLANNER_SET_CREATING});
 
-export const plannerSetEditingId = (id: string) => ({
+export const plannerSetEditingId = (id: number) => ({
   type: PLANNER_SET_EDITING_ID,
   id
 });
@@ -65,7 +65,7 @@ export const plannerSetPlanName = (name: string) => ({
   name
 });
 
-export const plannerSetPlanData = (data: PlannerData) => ({
+export const plannerSetPlanData = (data: IPlannerData) => ({
   type: PLANNER_SET_PLAN_DATA,
   data
 });

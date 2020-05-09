@@ -11,17 +11,18 @@ export const PLANNER_SET_PLAN_NAME = 'PLANNER_SET_PLAN_NAME' as const;
 export const PLANNER_SET_PLAN_DATA = 'PLANNER_SET_PLAN_DATA' as const;
 
 export interface IPlannerState {
-  isLoading: boolean
-  creating: boolean
-  editingId: string
-  publicUrl: string
-  expanded: boolean
-  expandedDay: string|number
-  planName: string
-  recipeListsInsideDays: IPlannerData
+  isLoading: boolean;
+  creating: boolean;
+  editingId: number;
+  publicUrl: string;
+  expanded: boolean;
+  expandedDay: string | number;
+  planName: string;
+  recipeListsInsideDays: IPlannerData;
 }
 
 export interface IPlannerData {
+  [index: number]: any;
   1: IPlannerRecipe[],
   2: IPlannerRecipe[],
   3: IPlannerRecipe[],
@@ -53,9 +54,11 @@ export interface IPlannerData {
 }
 
 export interface IPlannerRecipe {
-  key: string
-  image: string
-  text: string
+  key: string;
+  recipe_id: number;
+  title: string;
+  recipe_image: string;
+  owner_id: number;
 }
 
 export type PlannerActions =

@@ -12,6 +12,7 @@ import {
 } from 'react-dnd';
 import { XYCoord } from 'dnd-core';
 
+import { IPlannerRecipe } from '../../../../../store/planner/types';
 import {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
@@ -107,14 +108,6 @@ const Recipe = forwardRef<HTMLDivElement, Props>(
   }
 );
 
-export interface INewPlanRecipe {
-  key: string;
-  recipe_id: number;
-  title: string;
-  recipe_image: string;
-  owner_id: number;
-}
-
 interface RecipeInstance {
 	getNode(): HTMLDivElement | null
 }
@@ -129,7 +122,7 @@ type Props = PropsFromRedux & {
   expandedDay: number;
   index: number;
   listId: number;
-  recipe: INewPlanRecipe;
+  recipe: IPlannerRecipe;
   connectDragSource: ConnectDragSource,
   connectDropTarget: ConnectDropTarget
 };
