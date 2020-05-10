@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { IMenuItem } from './Menu';
 import './menu.css';
 
 const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/header/dropdowns/';
@@ -22,7 +23,7 @@ const KitchenEquipmentSlideImageDark = `${s3Path}kitchen-equipment-slide-dark.pn
 
 export function MenuView({
   theme,
-  menuData,
+  menuItems,
   activeMenuRow,
   handleMouseEnterRow,
   handleMouseLeaveMenu
@@ -36,7 +37,7 @@ export function MenuView({
         data-test="menu"
       >
         <ul className="menu-items">
-          {menuData.map((menu, index) => (
+          {menuItems.map((menu: IMenuItem, index) => (
             <li
               className={`
                 menu-item
@@ -62,18 +63,18 @@ export function MenuView({
           <h3 className="sub-menu-heading">
             <Link
               className={`sub-menu-heading-link ${theme}`}
-              to={menuData[activeMenuRow].link}
+              to={menuItems[activeMenuRow].link}
             >
-              {menuData[activeMenuRow].name}
+              {menuItems[activeMenuRow].name}
             </Link>
           </h3>
 
           <ul className="sub-menu-items">
-            {menuData[activeMenuRow].subMenu.map((subMenu, index) => 
+            {menuItems[activeMenuRow].subMenu.map((subMenu, index) => 
               <li className="sub-menu-item" key={index}>
                 <Link
                   className={`sub-menu-item-link ${theme}`}
-                  to={menuData[activeMenuRow].subMenuLinks[index]}
+                  to={menuItems[activeMenuRow].subMenuLinks[index]}
                 >
                   {subMenu}
                 </Link>
@@ -82,55 +83,55 @@ export function MenuView({
           </ul>
 
           <div className="sub-menu-images">
-            {menuData[activeMenuRow].image === 'recipes' && (
+            {menuItems[activeMenuRow].image === 'recipes' && (
               theme === "drop-down-menu-light"
               ? <img className="sub-menu-image" src={IngredientsSlideImage} />
               : <img className="sub-menu-image" src={IngredientsSlideImageDark} />
             )}
 
-            {menuData[activeMenuRow].image === 'cuisines' && (
+            {menuItems[activeMenuRow].image === 'cuisines' && (
               theme === "drop-down-menu-light"
               ? <img className="sub-menu-image" src={CuisinesSlideImage} />
               : <img className="sub-menu-image" src={CuisinesSlideImageDark} />
             )}
 
-            {menuData[activeMenuRow].image === 'ingredients' && (
+            {menuItems[activeMenuRow].image === 'ingredients' && (
               theme === "drop-down-menu-light"
               ? <img className="sub-menu-image" src={IngredientsSlideImage} />
               : <img className="sub-menu-image" src={IngredientsSlideImageDark} />
             )}
 
-            {menuData[activeMenuRow].image === 'nutrition' && (
+            {menuItems[activeMenuRow].image === 'nutrition' && (
               theme === "drop-down-menu-light"
               ? <img className="sub-menu-image" src={NutritionSlideImage} />
               : <img className="sub-menu-image" src={NutritionSlideImageDark} />
             )}
 
-            {menuData[activeMenuRow].image === 'equipment' && (
+            {menuItems[activeMenuRow].image === 'equipment' && (
               theme === "drop-down-menu-light"
               ? <img className="sub-menu-image" src={IngredientsSlideImage} />
               : <img className="sub-menu-image" src={IngredientsSlideImageDark} />
             )}
 
-            {menuData[activeMenuRow].image === 'methods' && (
+            {menuItems[activeMenuRow].image === 'methods' && (
               theme === "drop-down-menu-light"
               ? <img className="sub-menu-image" src={MethodsSlideImage} />
               : <img className="sub-menu-image" src={MethodsSlideImageDark} />
             )}
 
-            {menuData[activeMenuRow].image === 'principles' && (
+            {menuItems[activeMenuRow].image === 'principles' && (
               theme === "drop-down-menu-light"
               ? <img className="sub-menu-image" src={PrinciplesSlideImage} />
               : <img className="sub-menu-image" src={PrinciplesSlideImageDark} />
             )}
 
-            {menuData[activeMenuRow].image === 'exercises' && (
+            {menuItems[activeMenuRow].image === 'exercises' && (
               theme === "drop-down-menu-light"
               ? <img className="sub-menu-image" src={ExercisesSlideImage} />
               : <img className="sub-menu-image" src={ExercisesSlideImageDark} />
             )}
             
-            {menuData[activeMenuRow].image === 'kitchen-equipment' && (
+            {menuItems[activeMenuRow].image === 'kitchen-equipment' && (
               theme === "drop-down-menu-light"
               ? <img className="sub-menu-image" src={KitchenEquipmentSlideImage} />
               : <img className="sub-menu-image" src={KitchenEquipmentSlideImageDark} />
@@ -146,8 +147,8 @@ export function MenuView({
 
 type Props = {
   theme: string;
-  menuData,
-  activeMenuRow,
-  handleMouseEnterRow()
-  handleMouseLeaveMenu()
+  menuItems: IMenuItem[];
+  activeMenuRow: undefined|number;
+  handleMouseEnterRow(row: number): void;
+  handleMouseLeaveMenu(): void;
 };

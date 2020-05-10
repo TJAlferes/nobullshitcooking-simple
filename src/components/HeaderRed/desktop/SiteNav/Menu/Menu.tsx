@@ -15,7 +15,7 @@ const MOUSE_LOCS_TRACKED = 3;  // number of past mouse locations to track
 const DELAY = 200;             // ms delay when user appears to be entering submenu
 const TOLERANCE = 50;          // bigger = more forgivey when entering submenu
 
-function offset(el: ) {
+function offset(el: Element|null) {
   if (!el) return {left: 0, top: 0};
   let rect = el.getBoundingClientRect();
   return {
@@ -24,28 +24,32 @@ function offset(el: ) {
   };
 }
 
-function outerWidth(el: ) {
+function outerWidth(el: Element|null) {
+  if (!el) return;
   let _width = el.offsetWidth;
-  let style = el.currentStyle || getComputedStyle(el);
+  //let style = el.currentStyle || getComputedStyle(el);
+  let style = getComputedStyle(el);
   _width += (parseInt(style.marginLeft, 10) || 0);
   return _width;
 }
 
-function outerHeight(el: ) {
+function outerHeight(el: HTMLElement|null) {
+  if (!el) return;
   let _height = el.offsetHeight;
-  let style = el.currentStyle || getComputedStyle(el);
+  //let style = el.currentStyle || getComputedStyle(el);
+  let style = getComputedStyle(el);
   _height += (parseInt(style.marginLeft, 10) || 0);
   return _height;
 }
 
-export function Menu({ theme, menuData }: Props): JSX.Element {
-  const [ activeMenuRow, setActiveMenuRow ] = useState();
+export function Menu({ theme, menuItems }: Props): JSX.Element {
+  const [ activeMenuRow, setActiveMenuRow ] = useState<undefined|number>();
 
-  const menuConfig = {delay: 300, tolerance: 75};
+  const menuConfig: IMenuConfig = {delay: 300, tolerance: 75};
 
   let menuTimer;
-  let mouseLocs = [];
-  let lastDelayLoc;
+  let mouseLocs: IMouseLocation[] = [];
+  let lastDelayLoc: null|IMouseLocation;
 
   useLayoutEffect(() => {
     // useRef? forwardRef?
@@ -60,7 +64,7 @@ export function Menu({ theme, menuData }: Props): JSX.Element {
 
   function getActivateDelay(config) {
     // findDOMNode? ref? useRef? forwardRef?
-    let menu = document.querySelector('.menu');
+    let menu = document.querySelector('.menu');  // change this?
 
     let menuOffset = offset(menu);
 
@@ -103,7 +107,7 @@ export function Menu({ theme, menuData }: Props): JSX.Element {
       return 0;
     }
 
-    function slope(a, b) {
+    function slope(a: IMouseLocation, b: IMouseLocation) {
       return (b.y - a.y) / (b.x - a.x);
     }
   
@@ -127,7 +131,7 @@ export function Menu({ theme, menuData }: Props): JSX.Element {
     return 0;
   }
 
-  function possiblyActivate(row: ) {
+  function possiblyActivate(row: number) {
     const delay = getActivateDelay(menuConfig);
 
     if (delay) {
@@ -140,12 +144,12 @@ export function Menu({ theme, menuData }: Props): JSX.Element {
     setActiveMenuRow(row);
   }
 
-  const handleMouseMoveDocument = (e: ) => {
+  const handleMouseMoveDocument = (e: MouseEvent) => {
     mouseLocs.push({x: e.pageX, y: e.pageY});
     if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
   }
   
-  const handleMouseEnterRow = (row: ) => {
+  const handleMouseEnterRow = (row: number) => {
     if (menuTimer) clearTimeout(menuTimer);
     possiblyActivate(row);
   }
@@ -157,7 +161,7 @@ export function Menu({ theme, menuData }: Props): JSX.Element {
   return (
     <MenuView
       theme={theme}
-      menuData={menuData}
+      menuItems={menuItems}
       activeMenuRow={activeMenuRow}
       handleMouseEnterRow={handleMouseEnterRow}
       handleMouseLeaveMenu={handleMouseLeaveMenu}
@@ -171,7 +175,7 @@ interface RootState {
   };
 }
 
-interface MenuItem {
+export interface IMenuItem {
   name: string;
   link: string;
   subMenu: string[];
@@ -179,10 +183,20 @@ interface MenuItem {
   image: string;
 }
 
+interface IMouseLocation {
+  x: number;
+  y: number;
+}
+
+interface IMenuConfig {
+  delay: number;
+  tolerance: number;
+}
+
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  menuData: MenuItem[];
+  menuItems: IMenuItem[];
 };
 
 const mapStateToProps = (state: RootState) => ({
