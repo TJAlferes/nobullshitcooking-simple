@@ -15,7 +15,7 @@ const MOUSE_LOCS_TRACKED = 3;  // number of past mouse locations to track
 const DELAY = 200;             // ms delay when user appears to be entering submenu
 const TOLERANCE = 50;          // bigger = more forgivey when entering submenu
 
-function offset(el: Element|null) {
+function offset(el: HTMLElement|null) {
   if (!el) return {left: 0, top: 0};
   let rect = el.getBoundingClientRect();
   return {
@@ -24,7 +24,7 @@ function offset(el: Element|null) {
   };
 }
 
-function outerWidth(el: Element|null) {
+function outerWidth(el: HTMLElement|null) {
   if (!el) return;
   let _width = el.offsetWidth;
   //let style = el.currentStyle || getComputedStyle(el);
@@ -38,6 +38,7 @@ function outerHeight(el: HTMLElement|null) {
   let _height = el.offsetHeight;
   //let style = el.currentStyle || getComputedStyle(el);
   let style = getComputedStyle(el);
+  let something = 
   _height += (parseInt(style.marginLeft, 10) || 0);
   return _height;
 }
@@ -47,40 +48,43 @@ export function Menu({ theme, menuItems }: Props): JSX.Element {
 
   const menuConfig: IMenuConfig = {delay: 300, tolerance: 75};
 
-  let menuTimer;
+  let menuTimer: null|ReturnType<typeof setTimeout>;
   let mouseLocs: IMouseLocation[] = [];
   let lastDelayLoc: null|IMouseLocation;
 
-  useLayoutEffect(() => {
-    // useRef? forwardRef?
+  useLayoutEffect(() => {  // useRef? forwardRef?
     document.addEventListener('mousemove', handleMouseMoveDocument, false);
     return () => {
       document.removeEventListener('mousemove', handleMouseMoveDocument);
       mouseLocs = [];
-      clearTimeout(menuTimer);
+      if (menuTimer) clearTimeout(menuTimer);
       menuTimer = null;
     };
   });
 
-  function getActivateDelay(config) {
+  function getActivateDelay(config: IMenuConfig) {
     // findDOMNode? ref? useRef? forwardRef?
-    let menu = document.querySelector('.menu');  // change this?
+    let menu: HTMLElement|null = document.querySelector('.menu');
+    if (!menu) return 0;
 
     let menuOffset = offset(menu);
+    let menuOuterWidth = outerWidth(menu);
+    let menuOuterHeight = outerHeight(menu);
+    if (!menuOuterWidth || !menuOuterHeight) return 0;
 
     let upperLeft = {
       x: menuOffset.left,
       y: menuOffset.top - (config.tolerance || TOLERANCE)
     };
 
-    let upperRight = {x: menuOffset.left + outerWidth(menu), y: upperLeft.y};
+    let upperRight = {x: menuOffset.left + menuOuterWidth, y: upperLeft.y};
 
     let lowerLeft = {
       x: menuOffset.left,
-      y: menuOffset.top + outerHeight(menu) + (config.tolerance || TOLERANCE)
+      y: menuOffset.top + menuOuterHeight + (config.tolerance || TOLERANCE)
     };
 
-    let lowerRight = {x: menuOffset.left + outerWidth(menu), y: lowerLeft.y};
+    let lowerRight = {x: menuOffset.left + menuOuterWidth, y: lowerLeft.y};
 
     let loc = mouseLocs[mouseLocs.length - 1];
 
