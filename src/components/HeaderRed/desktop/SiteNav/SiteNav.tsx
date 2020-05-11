@@ -9,7 +9,10 @@ import foodMenuData from './data/foodMenuData';
 import Menu from './Menu/Menu';
 import './siteNav.css';
 
-export function SiteNav({ menuShadowHide, menuShadowShow }: Props): JSX.Element {
+export function SiteNav({
+  menuShadowHide,
+  menuShadowShow
+}: Props): JSX.Element {
   const [ expanded, setExpanded ] = useState(false);
   const [ expandedDropdown, setExpandedDropdown ] = useState("none");
 
@@ -37,7 +40,7 @@ export function SiteNav({ menuShadowHide, menuShadowShow }: Props): JSX.Element 
         <Link className="site-nav-link" to="/food">Food</Link>
         {
           (expanded && expandedDropdown === 'Food')
-          ? <Menu menuData={foodMenuData} />
+          ? <Menu menuItems={foodMenuData} />
           : false
         }
       </li>
@@ -50,7 +53,7 @@ export function SiteNav({ menuShadowHide, menuShadowShow }: Props): JSX.Element 
         <Link className="site-nav-link" to="/fitness">Fitness</Link>
         {
           (expanded && expandedDropdown === 'Fitness')
-          ? <Menu menuData={fitnessMenuData} />
+          ? <Menu menuItems={fitnessMenuData} />
           : false
         }
       </li>
@@ -63,7 +66,7 @@ export function SiteNav({ menuShadowHide, menuShadowShow }: Props): JSX.Element 
         <Link className="site-nav-link" to="/store/storefront">Supply</Link>
         {
           (expanded && expandedDropdown === 'Supply')
-          ? <Menu menuData={supplyMenuData} />
+          ? <Menu menuItems={supplyMenuData} />
           : false
         }
       </li>

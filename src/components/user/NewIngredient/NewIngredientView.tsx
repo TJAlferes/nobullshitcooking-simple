@@ -144,14 +144,12 @@ export function NewIngredientView({
           </Link>
           <LoaderButton
             className="new-ingredient__submit-button"
-            type="button"
             name="submit"
             id="create_new_private_user_ingredient_button"
             text="Create"
             loadingText="Creating..."
             isLoading={loading}
             onClick={handleSubmit}
-            onKeyUp={() => {}}
           />
         </div>
 

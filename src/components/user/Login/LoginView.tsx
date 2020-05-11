@@ -60,7 +60,6 @@ export function LoginView({
         />
         <LoaderButton
           className="login-button"
-          type="button"
           name="submit"
           id="login-button"
           text="Sign In"

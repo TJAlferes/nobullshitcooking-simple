@@ -84,7 +84,6 @@ export function RegisterView({
       />
       <LoaderButton
         className="create-account-button"
-        type="button"
         name="submit"
         id="create_account_button"
         text="Create Account"
@@ -118,7 +117,6 @@ export function RegisterView({
       <p>Please check your email for the confirmation code.</p>
       <LoaderButton
         className="verify-confirmation-code-button"
-        type="button"
         name="submit"
         id="verify_confirmation_code_button"
         text="Verify"

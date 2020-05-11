@@ -144,14 +144,12 @@ export function NewEquipmentView({
           </Link>
           <LoaderButton
             className="new-equipment__submit-button"
-            type="button"
             name="submit"
             id="create_new_private_user_equipment_button"
             text="Create"
             loadingText="Creating..."
             isLoading={loading}
             onClick={handleSubmit}
-            onKeyUp={() => {}}
           />
         </div>
 

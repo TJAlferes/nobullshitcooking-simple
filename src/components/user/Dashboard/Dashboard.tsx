@@ -1,25 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
+import { Crop } from 'react-image-crop';
 
 import {
   getCroppedImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
-
 import {
-  authUpdateLocalAvatar,
-  userSubmitAvatar,
-  userDeletePlan,
+  authUpdateLocalAvatar
+} from '../../../store/auth/actions';
+import { userSubmitAvatar } from '../../../store/user/avatar/actions';
+import { userDeletePlan } from '../../../store/user/plan/actions';
+import {
   userDeletePrivateRecipe,
-  userDisownPublicRecipe,
-  userUnfavoriteRecipe,
-  userUnsaveRecipe,
-  userDeletePrivateEquipment,
-  userDeletePrivateIngredient
-} from '../../../store/user/actions';
-
+  userDisownPublicRecipe
+} from '../../../store/user/recipe/actions';
+import { userUnfavoriteRecipe } from '../../../store/user/favorite/actions';
+import { userUnsaveRecipe } from '../../../store/user/save/actions';
+import {
+  userDeletePrivateEquipment
+} from '../../../store/user/equipment/actions';
+import { userDeletePrivateIngredient
+} from '../../../store/user/ingredient/actions';
 import DashboardView from './DashboardView';
 
-export const Dashboard = ({
+export function Dashboard({
   twoColumnATheme,
   message,
   authname,
@@ -42,39 +46,39 @@ export const Dashboard = ({
   userUnsaveRecipe,
   userDeletePrivateEquipment,
   userDeletePrivateIngredient
-}) => {
+}: Props): JSX.Element {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
 
-  const [ crop, setCrop ] = useState({
-    disabled: true,
-    locked: true,
-    width: 250,
-    maxWidth: 250,
+  //disabled: true,
+  //locked: true,
+  //width: 250,
+  //maxWidth: 250,
+  const [ crop, setCrop ] = useState<Crop>({
     aspect: 1 / 1
   });
-  const [ cropFullSizePreview, setCropFullSizePreview ] = useState(null);
-  const [ cropTinySizePreview, setCropTinySizePreview ] = useState(null);
-  const [ avatar, setAvatar ] = useState(null);
-  const [ fullAvatar, setFullAvatar ] = useState(null);
-  const [ tinyAvatar, setTinyAvatar ] = useState(null);
+  const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
+  const [ cropTinySizePreview, setCropTinySizePreview ] = useState("");
+  const [ avatar, setAvatar ] = useState<string | ArrayBuffer | null>(null);
+  const [ fullAvatar, setFullAvatar ] = useState<File | null>(null);
+  const [ tinyAvatar, setTinyAvatar ] = useState<File | null>(null);
 
   const [ tab, setTab ] = useState("avatar");
   const [ subTab, setSubTab ] = useState("private");
 
-  const [ deletePlanId, setDeletePlanId ] = useState("");
+  const [ deletePlanId, setDeletePlanId ] = useState<number | undefined>();
   const [ deletePlanName, setDeletePlanName ] = useState("");
   const [ deletePlanModalActive, setDeletePlanModalActive ] = useState(false);
 
-  const [ deleteRecipeId, setDeleteRecipeId ] = useState("");
+  const [ deleteRecipeId, setDeleteRecipeId ] = useState<number | undefined>();
   const [ deleteRecipeName, setDeleteRecipeName ] = useState("");
   const [ deleteRecipeModalActive, setDeleteRecipeModalActive ] = useState(false);
 
-  const [ disownRecipeId, setDisownRecipeId ] = useState("");
+  const [ disownRecipeId, setDisownRecipeId ] = useState<number | undefined>();
   const [ disownRecipeName, setDisownRecipeName ] = useState("");
   const [ disownRecipeModalActive, setDisownRecipeModalActive ] = useState(false);
 
-  const imageRef = useRef(null);
+  const imageRef = useRef<HTMLImageElement>();
 
   useEffect(() => {
     let isSubscribed = true;
@@ -86,7 +90,9 @@ export const Dashboard = ({
       setFeedback(message);
       setLoading(false);
     }
-    return () => isSubscribed = false;
+    return () => {
+      isSubscribed = false;
+    };
   }, [message]);
 
   const onSelectFile = e => {
@@ -141,7 +147,7 @@ export const Dashboard = ({
 
   const handleSubTabClick = e => setSubTab(e.target.name);
 
-  const activateDeletePlanModal = (id, name) => {
+  const activateDeletePlanModal = (id: number, name: string) => {
     setDeletePlanId(Number(id));
     setDeletePlanName(name);
     setDeletePlanModalActive(true);
@@ -153,7 +159,7 @@ export const Dashboard = ({
     setDeletePlanModalActive(false);
   };
 
-  const activateDeleteRecipeModal = (id, name) => {
+  const activateDeleteRecipeModal = (id: number, name: string) => {
     setDeleteRecipeId(Number(id));
     setDeleteRecipeName(name);
     setDeleteRecipeModalActive(true);
@@ -165,7 +171,7 @@ export const Dashboard = ({
     setDeleteRecipeModalActive(false);
   };
 
-  const activateDisownRecipeModal = (id, name) => {
+  const activateDisownRecipeModal = (id: number, name: string) => {
     setDisownRecipeId(Number(id));
     setDisownRecipeName(name);
     setDisownRecipeModalActive(true);
@@ -194,22 +200,22 @@ export const Dashboard = ({
     userDisownPublicRecipe(Number(disownRecipeId));
   };
 
-  const handleUnfavoriteRecipe = id => {
+  const handleUnfavoriteRecipe = (id: number) => {
     setLoading(true);
     userUnfavoriteRecipe(id);
   };
 
-  const handleUnsaveRecipe = id => {
+  const handleUnsaveRecipe = (id: number) => {
     setLoading(true);
     userUnsaveRecipe(id);
   };
 
-  const handleDeletePrivateEquipment = id => {
+  const handleDeletePrivateEquipment = (id: number) => {
     setLoading(true);
     userDeletePrivateEquipment(id);
   };
 
-  const handleDeletePrivateIngredient = id => {
+  const handleDeletePrivateIngredient = (id: number) => {
     setLoading(true);
     userDeletePrivateIngredient(id);
   };
@@ -224,7 +230,6 @@ export const Dashboard = ({
       loading={loading}
       creatingPlan={creatingPlan}
       editingId={editingId}
-
       onSelectFile={onSelectFile}
       onImageLoaded={onImageLoaded}
       crop={crop}
@@ -234,47 +239,60 @@ export const Dashboard = ({
       onCropComplete={onCropComplete}
       submitAvatar={submitAvatar}
       cancelAvatar={cancelAvatar}
-
       tab={tab}
       handleTabClick={handleTabClick}
       subTab={subTab}
       handleSubTabClick={handleSubTabClick}
       getApplicationNode={getApplicationNode}
-
       myPlans={myPlans}
       deletePlanModalActive={deletePlanModalActive}
       activateDeletePlanModal={activateDeletePlanModal}
       deactivateDeletePlanModal={deactivateDeletePlanModal}
       deletePlanName={deletePlanName}
       handleDeletePlan={handleDeletePlan}
-
       myPrivateRecipes={myPrivateRecipes}
       deleteRecipeModalActive={deleteRecipeModalActive}
       activateDeleteRecipeModal={activateDeleteRecipeModal}
       deactivateDeleteRecipeModal={deactivateDeleteRecipeModal}
       deleteRecipeName={deleteRecipeName}
       handleDeletePrivateRecipe={handleDeletePrivateRecipe}
-
       myPublicRecipes={myPublicRecipes}
       disownRecipeModalActive={disownRecipeModalActive}
       activateDisownRecipeModal={activateDisownRecipeModal}
       deactivateDisownRecipeModal={deactivateDisownRecipeModal}
       disownRecipeName={disownRecipeName}
       handleDisownPublicRecipe={handleDisownPublicRecipe}
-
       myFavoriteRecipes={myFavoriteRecipes}
       handleUnfavoriteRecipe={handleUnfavoriteRecipe}
-
       mySavedRecipes={mySavedRecipes}
       handleUnsaveRecipe={handleUnsaveRecipe}
-
       myPrivateIngredients={myPrivateIngredients}
       handleDeletePrivateIngredient={handleDeletePrivateIngredient}
-
       myPrivateEquipment={myPrivateEquipment}
       handleDeletePrivateEquipment={handleDeletePrivateEquipment}
     />
   );
+};
+
+interface RootState {
+  message: state.user.message,
+  authname: state.auth.authname,
+  currentAvatar: state.auth.avatar,
+  myPlans: state.data.myPlans,
+  myPublicRecipes: state.data.myPublicRecipes,
+  myPrivateEquipment: state.data.myPrivateEquipment,
+  myPrivateIngredients: state.data.myPrivateIngredients,
+  myPrivateRecipes: state.data.myPrivateRecipes,
+  myFavoriteRecipes: state.data.myFavoriteRecipes,
+  mySavedRecipes: state.data.mySavedRecipes,
+  creatingPlan: state.planner.creating,
+  editingId: state.planner.editingId
+}
+
+type PropsFromRedux = 
+
+type Props = PropsFromRedux & {
+  twoColumnATheme: string;
 };
 
 const mapStateToProps = state => ({
@@ -292,17 +310,19 @@ const mapStateToProps = state => ({
   editingId: state.planner.editingId
 });
 
-const mapDispatchToProps = dispatch => ({
-  authUpdateLocalAvatar: (name) => dispatch(authUpdateLocalAvatar(name)),
+const mapDispatchToProps = {
+  authUpdateLocalAvatar: (name: string) => authUpdateLocalAvatar(name),
   userSubmitAvatar: (fullAvatar, tinyAvatar) =>
-    dispatch(userSubmitAvatar(fullAvatar, tinyAvatar)),
-  userDeletePlan: (id) => dispatch(userDeletePlan(id)),
-  userDeletePrivateRecipe: (id) => dispatch(userDeletePrivateRecipe(id)),
-  userDisownPublicRecipe: (id) => dispatch(userDisownPublicRecipe(id)),
-  userUnfavoriteRecipe: (id) => dispatch(userUnfavoriteRecipe(id)),
-  userUnsaveRecipe: (id) => dispatch(userUnsaveRecipe(id)),
-  userDeletePrivateEquipment: (id) => dispatch(userDeletePrivateEquipment(id)),
-  userDeletePrivateIngredient: (id) => dispatch(userDeletePrivateIngredient(id))
-});
+    userSubmitAvatar(fullAvatar, tinyAvatar),
+  userDeletePlan: (id: number) => userDeletePlan(id),
+  userDeletePrivateRecipe: (id: number) => userDeletePrivateRecipe(id),
+  userDisownPublicRecipe: (id: number) => userDisownPublicRecipe(id),
+  userUnfavoriteRecipe: (id: number) => userUnfavoriteRecipe(id),
+  userUnsaveRecipe: (id: number) => userUnsaveRecipe(id),
+  userDeletePrivateEquipment: (id: number) => userDeletePrivateEquipment(id),
+  userDeletePrivateIngredient: (id: number) => userDeletePrivateIngredient(id)
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Dashboard);

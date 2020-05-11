@@ -221,10 +221,10 @@ type Props = {
   feedback: string;
   loading: boolean;
   recipe: IRecipe;
-  dataMyPrivateRecipes: [];
-  dataMyPublicRecipes: [];
-  dataMyFavoriteRecipes: [];
-  dataMySavedRecipes: [];
+  dataMyPrivateRecipes: IWorkRecipe[];
+  dataMyPublicRecipes: IWorkRecipe[];
+  dataMyFavoriteRecipes: IWorkRecipe[];
+  dataMySavedRecipes: IWorkRecipe[];
   favoriteClicked: boolean;
   handleFavoriteClick(): void;
   saveClicked: boolean;

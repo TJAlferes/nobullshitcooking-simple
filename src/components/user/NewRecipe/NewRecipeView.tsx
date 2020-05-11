@@ -12,7 +12,7 @@ import {
   ICuisine,
   IMethod
 } from '../../../store/data/types';
-import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
+import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import { LoaderButton } from '../../LoaderButton/LoaderButton';
 import { EquipmentRow } from './views/EquipmentRow/EquipmentRow';
 import { IngredientRow } from './views/IngredientRow/IngredientRow';
@@ -501,13 +501,11 @@ export function NewRecipeView({
           <LoaderButton
             className="new-recipe-submit-button"
             id="user_submit_recipe_button"
-            type="button"
             name="submit"
             text="Submit Recipe"
             loadingText="Submitting Recipe..."
             isLoading={loading}
             onClick={handleSubmit}
-            onKeyUp={() => {}}
           />
         </div>
 

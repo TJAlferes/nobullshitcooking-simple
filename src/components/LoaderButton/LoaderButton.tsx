@@ -1,21 +1,19 @@
 import React from 'react';
-import PropTypes, { InferProps } from 'prop-types';
 
 export function LoaderButton({
   className,
-  type,
   name,
   id,
   text,
   loadingText,
   isLoading,
   onClick,
-  onKeyUp,
+  onKeyUp = (e: React.KeyboardEvent) => {},
   disabled = false
-}: InferProps<typeof LoaderButton.propTypes>): JSX.Element {
+}: Props): JSX.Element {
   return (
     <button
-      type={type}
+      type="button"
       name={name}
       id={id}
       className={`LoaderButton ${className}`}
@@ -28,15 +26,14 @@ export function LoaderButton({
   );
 };
 
-LoaderButton.propTypes = {
-  className: PropTypes.string.isRequired,
-  type: PropTypes.any,  // TO DO: fix this
-  name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  loadingText: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
-  onKeyUp: PropTypes.func.isRequired,
-  disabled: PropTypes.bool
+type Props = {
+  className: string;
+  name: string;
+  id: string;
+  text: string;
+  loadingText: string;
+  isLoading: boolean;
+  onClick(e: React.): void;
+  onKeyUp?(e: React.KeyboardEvent): void;
+  disabled?: boolean;
 };
