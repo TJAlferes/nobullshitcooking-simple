@@ -1,23 +1,22 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
+import { authUserLogout } from '../../../../store/auth/actions';
 import {
-  authUserLogout,
   themeDarkTrigger,
   themeLightTrigger
-} from '../../../../store/actions/index';
-
+} from '../../../../store/theme/actions';
 import './userNav.css';
 
-export const UserNav = ({
+export function UserNav({
   theme,
   isAuthenticated,
   authname,
   authUserLogout,
   themeDarkTrigger,
   themeLightTrigger
-}) => {
+}: Props): JSX.Element {
   const history = useHistory();
 
   const handleLogout = () => {
@@ -90,17 +89,32 @@ export const UserNav = ({
       </li>*/}
     </div>
   );
+}
+
+interface RootState {
+  auth: {
+    isAuthenticated: boolean;
+    authname: string;
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  theme: string;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   isAuthenticated: state.auth.isAuthenticated,
   authname: state.auth.authname
 });
 
-const mapDispatchToProps = dispatch => ({
-  authUserLogout: () => dispatch(authUserLogout()),
-  themeDarkTrigger: () => dispatch(themeDarkTrigger()),
-  themeLightTrigger: () => dispatch(themeLightTrigger())
-});
+const mapDispatchToProps = {
+  authUserLogout: () => authUserLogout(),
+  themeDarkTrigger: () => themeDarkTrigger(),
+  themeLightTrigger: () => themeLightTrigger()
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserNav);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(UserNav);

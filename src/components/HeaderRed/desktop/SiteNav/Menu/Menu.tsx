@@ -27,8 +27,7 @@ function offset(el: HTMLElement|null) {
 function outerWidth(el: HTMLElement|null) {
   if (!el) return;
   let _width = el.offsetWidth;
-  //let style = el.currentStyle || getComputedStyle(el);
-  let style = getComputedStyle(el);
+  let style = getComputedStyle(el);  // el.currentStyle ||
   _width += (parseInt(style.marginLeft, 10) || 0);
   return _width;
 }
@@ -36,8 +35,7 @@ function outerWidth(el: HTMLElement|null) {
 function outerHeight(el: HTMLElement|null) {
   if (!el) return;
   let _height = el.offsetHeight;
-  //let style = el.currentStyle || getComputedStyle(el);
-  let style = getComputedStyle(el);
+  let style = getComputedStyle(el);  // el.currentStyle ||
   let something = 
   _height += (parseInt(style.marginLeft, 10) || 0);
   return _height;
