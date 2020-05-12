@@ -8,6 +8,12 @@ import {
 import {
   authUpdateLocalAvatar
 } from '../../../store/auth/actions';
+import {
+  IEquipment,
+  IIngredient,
+  IPlan,
+  IWorkRecipe
+} from '../../../store/data/types';
 import { userSubmitAvatar } from '../../../store/user/avatar/actions';
 import { userDeletePlan } from '../../../store/user/plan/actions';
 import {
@@ -21,7 +27,7 @@ import {
 } from '../../../store/user/equipment/actions';
 import { userDeletePrivateIngredient
 } from '../../../store/user/ingredient/actions';
-import DashboardView from './DashboardView';
+import { DashboardView } from './DashboardView';
 
 export function Dashboard({
   twoColumnATheme,
@@ -95,38 +101,34 @@ export function Dashboard({
     };
   }, [message]);
 
-  const onSelectFile = e => {
-    if (!e.target.files) return;
-    if (!(e.target.files.length > 0)) return;
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (!(target.files && target.files.length > 0)) return;
     const reader = new FileReader();
     reader.addEventListener("load", () => setAvatar(reader.result));
-    reader.readAsDataURL(e.target.files[0]);
+    reader.readAsDataURL(target.files[0]);
   };
 
-  const onImageLoaded = image => imageRef.current = image;
+  const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
 
-  const onCropChange = crop => setCrop(crop);
+  const onCropChange = (crop: Crop) => setCrop(crop);
 
-  const onCropComplete = crop => makeClientCrops(crop);
+  const onCropComplete = (crop: Crop) => makeClientCrops(crop);
 
-  const makeClientCrops = async (crop) => {
-    if (!imageRef) return;
+  const makeClientCrops = async (crop: Crop) => {
+    if (!imageRef || !imageRef.current) return;
     if (!crop.width) return;
-
-    const {
-      resizedFullPreview,
-      resizedFullFinal
-    } = await getCroppedImage(250, 250, imageRef.current, crop, "newFile.jpeg");
-
-    const {
-      resizedTinyPreview,
-      resizedTinyFinal
-    } = await getCroppedImage(25, 25, imageRef.current, crop, "newFile.jpeg");
-
-    setCropFullSizePreview(resizedFullPreview);
-    setCropTinySizePreview(resizedTinyPreview);
-    setFullAvatar(resizedFullFinal);
-    setTinyAvatar(resizedTinyFinal);
+    const full = await getCroppedImage(
+      250, 250, imageRef.current, crop, "newFile.jpeg"
+    );
+    const tiny = await getCroppedImage(
+      25, 25, imageRef.current, crop, "newFile.jpeg"
+    );
+    if (!full || !tiny) return;
+    setCropFullSizePreview(full.resizedPreview);
+    setCropTinySizePreview(tiny.resizedPreview);
+    setFullAvatar(full.resizedFinal);
+    setTinyAvatar(tiny.resizedFinal);
   };
   
   const submitAvatar = () => {
@@ -136,49 +138,53 @@ export function Dashboard({
   };
 
   const cancelAvatar = () => {
-    setCropFullSizePreview(null);
-    setCropTinySizePreview(null);
+    setCropFullSizePreview("");
+    setCropTinySizePreview("");
     setAvatar(null)
     setFullAvatar(null);
     setTinyAvatar(null);
   };
 
-  const handleTabClick = e => setTab(e.target.name);
+  const handleTabClick = (e: React.SyntheticEvent<EventTarget>) => {
+    setTab((e.target as HTMLInputElement).name);
+  };
 
-  const handleSubTabClick = e => setSubTab(e.target.name);
+  const handleSubTabClick = (e: React.SyntheticEvent<EventTarget>) => {
+    setSubTab((e.target as HTMLInputElement).name);
+  };
 
   const activateDeletePlanModal = (id: number, name: string) => {
-    setDeletePlanId(Number(id));
+    setDeletePlanId(id);
     setDeletePlanName(name);
     setDeletePlanModalActive(true);
   };
 
   const deactivateDeletePlanModal = () => {
-    setDeletePlanId("");
+    setDeletePlanId(undefined);
     setDeletePlanName("");
     setDeletePlanModalActive(false);
   };
 
   const activateDeleteRecipeModal = (id: number, name: string) => {
-    setDeleteRecipeId(Number(id));
+    setDeleteRecipeId(id);
     setDeleteRecipeName(name);
     setDeleteRecipeModalActive(true);
   };
 
   const deactivateDeleteRecipeModal = () => {
-    setDeleteRecipeId("");
+    setDeleteRecipeId(undefined);
     setDeleteRecipeName("");
     setDeleteRecipeModalActive(false);
   };
 
   const activateDisownRecipeModal = (id: number, name: string) => {
-    setDisownRecipeId(Number(id));
+    setDisownRecipeId(id);
     setDisownRecipeName(name);
     setDisownRecipeModalActive(true);
   };
 
   const deactivateDisownRecipeModal = () => {
-    setDisownRecipeId("");
+    setDisownRecipeId(undefined);
     setDisownRecipeName("");
     setDisownRecipeModalActive(false);
   };
@@ -186,18 +192,21 @@ export function Dashboard({
   const getApplicationNode = () => document.getElementById('root');
 
   const handleDeletePlan = () => {
+    if (!deletePlanId) return;
     setLoading(true);
-    userDeletePlan(Number(deletePlanId));
+    userDeletePlan(deletePlanId);
   };
 
   const handleDeletePrivateRecipe = () => {
+    if (!deleteRecipeId) return;
     setLoading(true);
-    userDeletePrivateRecipe(Number(deleteRecipeId));
+    userDeletePrivateRecipe(deleteRecipeId);
   };
 
   const handleDisownPublicRecipe = () => {
+    if (!disownRecipeId) return;
     setLoading(true);
-    userDisownPublicRecipe(Number(disownRecipeId));
+    userDisownPublicRecipe(disownRecipeId);
   };
 
   const handleUnfavoriteRecipe = (id: number) => {
@@ -275,27 +284,35 @@ export function Dashboard({
 };
 
 interface RootState {
-  message: state.user.message,
-  authname: state.auth.authname,
-  currentAvatar: state.auth.avatar,
-  myPlans: state.data.myPlans,
-  myPublicRecipes: state.data.myPublicRecipes,
-  myPrivateEquipment: state.data.myPrivateEquipment,
-  myPrivateIngredients: state.data.myPrivateIngredients,
-  myPrivateRecipes: state.data.myPrivateRecipes,
-  myFavoriteRecipes: state.data.myFavoriteRecipes,
-  mySavedRecipes: state.data.mySavedRecipes,
-  creatingPlan: state.planner.creating,
-  editingId: state.planner.editingId
+  auth: {
+    authname: string;
+    avatar: string;
+  };
+  user: {
+    message: string;
+  };
+  data: {
+    myPlans: IPlan[];
+    myPublicRecipes: IWorkRecipe[];
+    myPrivateEquipment: IEquipment[];
+    myPrivateIngredients: IIngredient[];
+    myPrivateRecipes: IWorkRecipe[];
+    myFavoriteRecipes: IWorkRecipe[];
+    mySavedRecipes: IWorkRecipe[];
+  };
+  planner: {
+    creating: boolean;
+    editingId: number;
+  };
 }
 
-type PropsFromRedux = 
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   twoColumnATheme: string;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   message: state.user.message,
   authname: state.auth.authname,
   currentAvatar: state.auth.avatar,
@@ -312,7 +329,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   authUpdateLocalAvatar: (name: string) => authUpdateLocalAvatar(name),
-  userSubmitAvatar: (fullAvatar, tinyAvatar) =>
+  userSubmitAvatar: (fullAvatar: File | null, tinyAvatar: File | null) =>
     userSubmitAvatar(fullAvatar, tinyAvatar),
   userDeletePlan: (id: number) => userDeletePlan(id),
   userDeletePrivateRecipe: (id: number) => userDeletePrivateRecipe(id),

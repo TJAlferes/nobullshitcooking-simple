@@ -4,8 +4,8 @@ export const USER_SUBMIT_AVATAR_FAILED = 'USER_SUBMIT_AVATAR_FAILED' as const;
 
 export interface IUserSubmitAvatar {
   type: typeof USER_SUBMIT_AVATAR
-  fullAvatar: IFullAvatar
-  tinyAvatar: ITinyAvatar
+  fullAvatar: File | null
+  tinyAvatar: File | null
 }
 
 export interface IUserSubmitAvatarSucceeded {
@@ -16,12 +16,4 @@ export interface IUserSubmitAvatarSucceeded {
 export interface IUserSubmitAvatarFailed {
   type: typeof USER_SUBMIT_AVATAR_FAILED
   message: string
-}
-
-export interface IFullAvatar {
-  type: string
-}
-
-export interface ITinyAvatar {
-  type: string
 }
