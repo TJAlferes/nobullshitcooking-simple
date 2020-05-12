@@ -189,7 +189,9 @@ export function Dashboard({
     setDisownRecipeModalActive(false);
   };
 
-  const getApplicationNode = () => document.getElementById('root');
+  const getApplicationNode = (): Element | Node => {
+    return document.getElementById('root') as Element | Node;
+  };
 
   const handleDeletePlan = () => {
     if (!deletePlanId) return;

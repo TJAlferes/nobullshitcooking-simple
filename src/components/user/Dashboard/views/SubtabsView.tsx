@@ -1,7 +1,7 @@
 import React from 'react';
 
-const SubtabsView = ({ subTab, handleSubTabClick }) => {
-  const SubtabButton = ({ subTabName, displayText }) => (
+export function SubtabsView({ subTab, handleSubTabClick }: Props): JSX.Element {
+  const SubtabButton = ({ subTabName, displayText }: SubtabButtonProps) => (
     <button
       className={(subTab === subTabName)
         ? "dashboard-menu-subtab active"
@@ -22,6 +22,14 @@ const SubtabsView = ({ subTab, handleSubTabClick }) => {
       <SubtabButton subTabName="saved" displayText="Saved" />
     </div>
   );
+}
+
+type Props = {
+  subTab: string;
+  handleSubTabClick(e: React.SyntheticEvent<EventTarget>): void;
 };
 
-export default SubtabsView;
+type SubtabButtonProps = {
+  subTabName: string;
+  displayText: string;
+};

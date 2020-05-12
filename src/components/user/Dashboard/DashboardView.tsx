@@ -8,16 +8,16 @@ import {
   IWorkRecipe
 } from '../../../store/data/types';
 import LeftNav from '../../LeftNav/LeftNav';
-import AvatarView from './views/AvatarView';
-import AvatarEditView from './views/AvatarEditView';
-import TabsView from './views/TabsView';
-import PlansTabView from './views/PlansTabView';
-import PrivateRecipesTabView from './views/PrivateRecipesTabView';
-import PublicRecipesTabView from './views/PublicRecipesTabView';
-import FavoriteRecipesTabView from './views/FavoriteRecipesTabView';
-import SavedRecipesTabView from './views/SavedRecipesTabView';
-import IngredientsTabView from './views/IngredientsTabView';
-import EquipmentTabView from './views/EquipmentTabView';
+import { AvatarView } from './views/AvatarView';
+import { AvatarEditView } from './views/AvatarEditView';
+import { TabsView } from './views/TabsView';
+import { PlansTabView } from './views/PlansTabView';
+import { PrivateRecipesTabView } from './views/PrivateRecipesTabView';
+import { PublicRecipesTabView } from './views/PublicRecipesTabView';
+import { FavoriteRecipesTabView } from './views/FavoriteRecipesTabView';
+import { SavedRecipesTabView } from './views/SavedRecipesTabView';
+import { IngredientsTabView } from './views/IngredientsTabView';
+import { EquipmentTabView } from './views/EquipmentTabView';
 import './dashboard.css';
 
 export function DashboardView({
@@ -213,7 +213,7 @@ type Props = {
   handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
   subTab: string;
   handleSubTabClick(e: React.SyntheticEvent<EventTarget>): void;
-  getApplicationNode(): void;
+  getApplicationNode(): Element | Node;
   myPlans: IPlan[];
   deletePlanModalActive: boolean;
   activateDeletePlanModal(id: number, name: string): void;

@@ -1,14 +1,12 @@
 import {
   USER_SUBMIT_AVATAR,
   USER_SUBMIT_AVATAR_SUCCEEDED,
-  USER_SUBMIT_AVATAR_FAILED,
-  IFullAvatar,
-  ITinyAvatar
+  USER_SUBMIT_AVATAR_FAILED
 } from './types';
 
 export const userSubmitAvatar = (
-  fullAvatar: IFullAvatar,
-  tinyAvatar: ITinyAvatar
+  fullAvatar: File | null,
+  tinyAvatar: File | null
 ) => ({
   type: USER_SUBMIT_AVATAR,
   fullAvatar,

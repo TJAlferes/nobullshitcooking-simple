@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactCrop from "react-image-crop";
+import ReactCrop, { Crop } from 'react-image-crop';
 import "react-image-crop/lib/ReactCrop.scss";
 
 export function AvatarEditView({
@@ -20,7 +20,7 @@ export function AvatarEditView({
         className="avatar-crop-tool"
         style={{minHeight: "300px"}}
         imageStyle={{minHeight: "300px"}}
-        src={avatar}
+        src={avatar as string}
         crop={crop}
         onImageLoaded={onImageLoaded}
         onChange={onCropChange}
@@ -58,14 +58,14 @@ export function AvatarEditView({
 }
 
 type Props = {
-  avatar,
-  crop,
-  onImageLoaded,
-  onCropChange,
-  onCropComplete,
-  cropFullSizePreview,
-  cropTinySizePreview,
-  loading,
-  cancelAvatar,
-  submitAvatar
+  avatar: string | ArrayBuffer | null;
+  crop: Crop;
+  onImageLoaded(image: HTMLImageElement): void;
+  onCropChange(crop: Crop): void;
+  onCropComplete(crop: Crop): void;
+  cropFullSizePreview: string;
+  cropTinySizePreview: string;
+  loading: boolean;
+  cancelAvatar(): void;
+  submitAvatar(): void;
 };

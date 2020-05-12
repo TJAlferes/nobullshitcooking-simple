@@ -1,7 +1,7 @@
 import React from 'react';
 
-const TabsView = ({ tab, handleTabClick }) => {
-  const TabButton = ({ tabName, displayText }) => (
+export function TabsView({ tab, handleTabClick }: Props): JSX.Element {
+  const TabButton = ({ tabName, displayText }: TabButtonProps) => (
     <button
       className={(tab === tabName)
         ? "dashboard-menu-tab active"
@@ -23,6 +23,14 @@ const TabsView = ({ tab, handleTabClick }) => {
       <TabButton tabName="equipment" displayText="Equipment" />
     </div>
   );
+}
+
+type Props = {
+  tab: string;
+  handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
 };
 
-export default TabsView;
+type TabButtonProps = {
+  tabName: string;
+  displayText: string;
+};

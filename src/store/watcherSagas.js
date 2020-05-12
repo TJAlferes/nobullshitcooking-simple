@@ -7,45 +7,38 @@ import {
   USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
   USER_DELETE_PRIVATE_EQUIPMENT,
   USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
-
   USER_CREATE_NEW_PRIVATE_INGREDIENT,
   USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
   USER_EDIT_PRIVATE_INGREDIENT,
   USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED,
   USER_DELETE_PRIVATE_INGREDIENT,
   USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED,
-
   USER_CREATE_NEW_PRIVATE_RECIPE,
   USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
   USER_EDIT_PRIVATE_RECIPE,
   USER_EDIT_PRIVATE_RECIPE_SUCCEEDED,
   USER_DELETE_PRIVATE_RECIPE,
   USER_DELETE_PRIVATE_RECIPE_SUCCEEDED,
-
   USER_CREATE_NEW_PUBLIC_RECIPE,
   USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED,
   USER_EDIT_PUBLIC_RECIPE,
   USER_EDIT_PUBLIC_RECIPE_SUCCEEDED,
   USER_DISOWN_PUBLIC_RECIPE,
   USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED,
-
   USER_CREATE_NEW_PLAN,
   USER_CREATE_NEW_PLAN_SUCCEEDED,
   USER_EDIT_PLAN,
   USER_EDIT_PLAN_SUCCEEDED,
   USER_DELETE_PLAN,
   USER_DELETE_PLAN_SUCCEEDED,
-
   USER_FAVORITE_RECIPE,
   USER_FAVORITE_RECIPE_SUCCEEDED,
   USER_UNFAVORITE_RECIPE,
   USER_UNFAVORITE_RECIPE_SUCCEEDED,
-
   USER_SAVE_RECIPE,
   USER_SAVE_RECIPE_SUCCEEDED,
   USER_UNSAVE_RECIPE,
   USER_UNSAVE_RECIPE_SUCCEEDED,
-
   USER_REQUEST_FRIENDSHIP,
   USER_ACCEPT_FRIENDSHIP,
   USER_ACCEPT_FRIENDSHIP_SUCCEEDED,
@@ -57,10 +50,8 @@ import {
   USER_BLOCK_USER_SUCCEEDED,
   USER_UNBLOCK_USER,
   USER_UNBLOCK_USER_SUCCEEDED,
-
   USER_SUBMIT_AVATAR
 } from './user/types';
-
 import {
   AUTH_USER_LOGIN,
   AUTH_USER_LOGIN_SUCCEEDED,
@@ -68,11 +59,7 @@ import {
   AUTH_USER_REGISTER,
   AUTH_USER_VERIFY
 } from './auth/types';
-
-import {
-  DATA_INIT
-} from './data/types';
-
+import { DATA_INIT } from './data/types';
 import {
   MESSENGER_CONNECT,
   MESSENGER_DISCONNECT,
@@ -80,7 +67,6 @@ import {
   MESSENGER_SEND_MESSAGE,
   MESSENGER_SEND_WHISPER,
 } from './messenger/types';
-
 import { userSubmitAvatarSaga } from './user/sagas/avatar';
 import {
   userCreateNewPrivateEquipmentSaga,
@@ -115,18 +101,13 @@ import {
   userDisownPublicRecipeSaga,
   userEditRecipeSaga
 } from './user/sagas/recipe';
-import {
-  userSaveRecipeSaga,
-  userUnsaveRecipeSaga
-} from './user/sagas/save';
-
+import { userSaveRecipeSaga, userUnsaveRecipeSaga } from './user/sagas/save';
 import {
   authUserLoginSaga,
   authUserLogoutSaga,
   authUserRegisterSaga,
   authUserVerifySaga
 } from './auth/sagas';
-
 import {
   dataGetMeasurementsSaga,
   dataGetEquipmentsSaga,  // official
@@ -146,7 +127,6 @@ import {
   dataGetMyPlansSaga,
   dataGetMyFriendshipsSaga
 } from './data/sagas';
-
 import {
   messengerConnectSaga,
   messengerDisconnectSaga,
@@ -157,9 +137,7 @@ import {
 } from './messenger/sagas';
 
 export function* watchUserAvatar() {
-  yield all([
-    takeEvery(USER_SUBMIT_AVATAR, userSubmitAvatarSaga),
-  ]);
+  yield all([takeEvery(USER_SUBMIT_AVATAR, userSubmitAvatarSaga)]);
 }
 
 export function* watchUserEquipment() {

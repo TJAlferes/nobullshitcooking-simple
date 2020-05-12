@@ -5,7 +5,6 @@ import {
   AUTH_USER_VERIFY,
   AUTH_USER_LOGIN
 } from './types';
-
 import {
   authDisplay,
   authUpdateLocalAvatar,
