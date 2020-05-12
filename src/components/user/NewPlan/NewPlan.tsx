@@ -19,10 +19,11 @@ import {
   userCreateNewPlan,
   userEditPlan
 } from '../../../store/user/plan/actions';
-import MobileNewPlanView from './views/MobileNewPlanView';
+import { MobileNewPlanView } from './views/MobileNewPlanView';
 import { NewPlanView } from './views/NewPlanView';
 
 export function NewPlan({
+  editing,
   twoColumnATheme,
   planView,
   message,
@@ -50,7 +51,6 @@ export function NewPlan({
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ editing, setEditing ] = useState(false);
   const [ tab, setTab ] = useState("official");
   const [ modalActive, setModalActive ] = useState(false);
 
@@ -58,7 +58,6 @@ export function NewPlan({
     const getExistingPlanToEdit = () => {
       window.scrollTo(0,0);
       setLoading(true);
-      setEditing(true);
 
       const [ prev ] = dataMyPlans
       .filter(plan => plan.plan_id === Number(id));
@@ -91,8 +90,6 @@ export function NewPlan({
           plannerClearWork();
           history.push('/dashboard');
         }, 3000);
-        // remove?
-        //return;
       }
 
       setLoading(false);
@@ -122,7 +119,9 @@ export function NewPlan({
 
   const deactivateModal = () => setModalActive(false);
 
-  const getApplicationNode = () => document.getElementById('root');
+  const getApplicationNode = (): Element | Node => {
+    return document.getElementById('root') as Element | Node;
+  };
 
   const discardChanges = () => {
     setModalActive(false);
@@ -179,7 +178,6 @@ export function NewPlan({
   return (planView === "mobile")
   ? (
     <MobileNewPlanView
-      twoColumnATheme={twoColumnATheme}
       feedback={feedback}
       loading={loading}
       editing={editing}
@@ -257,7 +255,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & {
   twoColumnATheme: string;
   planView: string;
-  //editingId
+  editing: boolean;
 };
 
 const mapStateToProps = (state: RootState) => ({
@@ -276,7 +274,8 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
-  userCreateNewPlan: (planInfo: ICreatingPlanInfo) => userCreateNewPlan(planInfo),
+  userCreateNewPlan: (planInfo: ICreatingPlanInfo) =>
+    userCreateNewPlan(planInfo),
   userEditPlan: (planInfo: IEditingPlanInfo) => userEditPlan(planInfo),
   plannerClearWork: () => plannerClearWork(),
   plannerSetCreating: () => plannerSetCreating(),

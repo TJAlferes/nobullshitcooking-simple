@@ -5,14 +5,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { IWorkRecipe } from '../../../../store/data/types';
 import { IPlannerData } from '../../../../store/planner/types';
-import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
+import { ExpandCollapse } from '../../../ExpandCollapse/ExpandCollapse';
 import LeftNav from '../../../LeftNav/LeftNav';
 import { LoaderButton } from '../../../LoaderButton/LoaderButton';
 import Day from './Day/Day';
 import ExpandedDay from './ExpandedDay/ExpandedDay';
 import RecipesList from './RecipesList/RecipesList';
 import './newPlan.css';
-import { any } from 'prop-types';
 
 export function NewPlanView({
   twoColumnATheme,
@@ -109,6 +108,8 @@ export function NewPlanView({
           recipe_image: recipe.recipe_image,
           owner_id: recipe.owner_id
         }))}
+        expanded={expanded}
+        expandedDay={expandedDay}
       />
     );
   }, [tab]);
@@ -209,7 +210,7 @@ export function NewPlanView({
                   dialogClass="planner-cancel-modal"
                   titleText="Cancel?"
                   onExit={deactivateModal}
-                  focusDialog="true"
+                  focusDialog={true}
                   getApplicationNode={getApplicationNode}
                   focusTrapOptions={{returnFocusOnDeactivate: false}}
                   underlayClickExits={false}
@@ -236,13 +237,11 @@ export function NewPlanView({
             <LoaderButton
               className="planner-submit-button"
               id="planner-submit-button"
-              type="button"
               name="submit"
               text="Save Plan"
               loadingText="Saving Plan..."
               isLoading={loading}
               onClick={handleSubmit}
-              onKeyUp={() => {}}
             />
           </div>
 
@@ -283,7 +282,7 @@ type Props = {
   modalActive: boolean;
   activateModal(): void;
   deactivateModal(): void;
-  getApplicationNode(): void;
+  getApplicationNode(): Element | Node;
   discardChanges(): void;
   handleSubmit(): void;
 };

@@ -1,44 +1,56 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import AriaModal from 'react-aria-modal';
 
 import NewPlan from './NewPlan';
-import './mobileNewPlanToggle.css'
+import './mobileNewPlanToggle.css';
 
-export class MobileNewPlanToggle extends Component {
-  state = {modalActive: false};
+export default function MobileNewPlanToggle({
+  twoColumnATheme,
+  editing
+}: Props): JSX.Element {
+  const [ modalActive, setModalActive ] = useState(false);
 
-  activateModal = () => this.setState({modalActive: true});
+  const activateModal = () => setModalActive(true);
 
-  deactivateModal = () => this.setState({modalActive: false});
+  const deactivateModal = () => setModalActive(false);
 
-  getApplicationNode = () => document.getElementById('root');
+  const getApplicationNode = (): Element | Node => {
+    return document.getElementById('root') as Element | Node;
+  };
 
-  render() {
-    let modal = this.state.modalActive
-    ? (
-      <AriaModal
-        dialogClass="planner_modal"
-        titleText="Planner"
-        onExit={this.deactivateModal}
-        focusDialog="true"
-        getApplicationNode={this.getApplicationNode}
-        focusTrapOptions={{returnFocusOnDeactivate: false}}
-      >
-        <button id="close_planner" onClick={this.deactivateModal}>
-          Close Planner
-        </button>
-        <NewPlan planView="mobile" />
-      </AriaModal>
-    )
-    : false;
+  let modal = modalActive
+  ? (
+    <AriaModal
+      dialogClass="planner_modal"
+      titleText="Planner"
+      onExit={deactivateModal}
+      focusDialog={true}
+      getApplicationNode={getApplicationNode}
+      focusTrapOptions={{returnFocusOnDeactivate: false}}
+    >
+      <button id="close_planner" onClick={deactivateModal}>
+        Close Planner
+      </button>
+      <NewPlan
+        twoColumnATheme={twoColumnATheme}
+        editing={editing}
+        planView="mobile"
+      />
+    </AriaModal>
+  )
+  : false;
 
-    return (
-      <div className="mobile_display">
-        <button className="mobile_planner_toggle" onClick={this.activateModal}>
-          Open Planner
-        </button>
-        {modal}
-      </div>
-    );
-  }
+  return (
+    <div className="mobile_display">
+      <button className="mobile_planner_toggle" onClick={activateModal}>
+        Open Planner
+      </button>
+      {modal}
+    </div>
+  );
 }
+
+type Props = {
+  twoColumnATheme: string;
+  editing: boolean;
+};

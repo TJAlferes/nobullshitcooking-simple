@@ -35,6 +35,8 @@ function collect(connect: DropTargetConnector, monitor: DropTargetMonitor) {
 const RecipesList = ({
   day,
   list,
+  expanded,
+  expandedDay,
   connectDropTarget
 }: Props): JSX.Element => (
   <div className="planner-recipes-list" ref={connectDropTarget}>
@@ -45,6 +47,8 @@ const RecipesList = ({
         index={i}
         listId={day}
         day={day}
+        expanded={expanded}
+        expandedDay={expandedDay}
         recipe={recipe}
       />
     ))}
@@ -56,6 +60,8 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & {
   day: number;
   list: IPlannerRecipe[];
+  expanded: boolean;
+  expandedDay: number;
   connectDropTarget: ConnectDropTarget;
 };
 

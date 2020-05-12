@@ -1,40 +1,35 @@
 import React from 'react';
 
+import { IMessage, IWhisper, IUser } from '../../../../store/messenger/types';
 import LeftNav from '../../../LeftNav/LeftNav';
-
 import ChatView from './desktop/ChatView';
 import OptionsView from './desktop/OptionsView';
 import PeopleView from './desktop/PeopleView';
-
 import './messenger.css';
 
-const MessengerView = ({
+export function MessengerView({
   twoColumnATheme,
   authname,
   feedback,
   loading,
-
   status,
   handleConnect,
   handleDisconnect,
-
   channel,
   roomToEnter,
   handleRoomInputChange,
   handleChannelChange,
-
   messagesRef,
   messages,
   messageToSend,
   handleMessageInputChange,
   handleMessageSend,
-
   users,
   onlineFriends,
-
   peopleTab,
   handlePeopleTabChange
-}) => (
+}: Props): JSX.Element {
+  return (
   <div className={`messenger two-column-a ${twoColumnATheme}`}>
 
     <LeftNav />
@@ -81,5 +76,27 @@ const MessengerView = ({
 
   </div>
 );
+}
 
-export default MessengerView;
+type Props = {
+  twoColumnATheme: string;
+  authname: string;
+  feedback: string;
+  loading: boolean;
+  status: string;
+  handleConnect(): void;
+  handleDisconnect(): void;
+  channel: string;
+  roomToEnter: string;
+  handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleChannelChange(): void;
+  messagesRef: React.RefObject<HTMLDivElement>;
+  messages: Array<IMessage | IWhisper>;
+  messageToSend: string;
+  handleMessageInputChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleMessageSend(e: React.KeyboardEvent): void;
+  users: IUser[];
+  onlineFriends: IUser[];
+  peopleTab: string;
+  handlePeopleTabChange(value: string): void;
+};

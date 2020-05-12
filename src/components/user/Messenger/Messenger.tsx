@@ -1,20 +1,20 @@
-import React, { createRef, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { createRef, useEffect, useRef, useState } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 
+import { IMessage, IWhisper, IUser } from '../../../store/messenger/types';
 import {
   messengerConnect,
   messengerDisconnect,
   messengerChangeChannel,
   messengerSendMessage,
   messengerSendWhisper
-} from '../../../store/actions/index';
-
+} from '../../../store/messenger/actions';
 import MobileMessengerView from './views/MobileMessengerView';
-import MessengerView from './views/MessengerView';
+import { MessengerView } from './views/MessengerView';
 
 // TO DO: fix no longer auto scrolling after spam debounce
 
-export const Messenger = ({
+export function Messenger({
   twoColumnATheme,
   messengerView,
   windowFocused,
@@ -30,7 +30,7 @@ export const Messenger = ({
   messengerChangeChannel,
   messengerSendMessage,
   messengerSendWhisper
-}) => {
+}: Props): JSX.Element {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ debounced, setDebounced ] = useState(false);
@@ -41,7 +41,8 @@ export const Messenger = ({
   const [ messageToSend, setMessageToSend ] = useState("");
   //const [ currentFriend, setCurrentFriend ] = useState("");
 
-  const messagesRef = createRef();
+  //const messagesRef = createRef();
+  const messagesRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
     let isSubscribed = true;
@@ -50,7 +51,9 @@ export const Messenger = ({
       setFeedback(message);
       setLoading(false);
     }
-    return () => isSubscribed = false;
+    return () => {
+      isSubscribed = false;
+    };
   }, [message]);
 
   useEffect(() => {
@@ -61,8 +64,10 @@ export const Messenger = ({
 
     // TO DO: fix no longer auto scrolling after spam debounce
     const autoScroll = () => {
+      if (!messagesRef || !messagesRef.current) return;
       const newestMessage = messagesRef.current.lastElementChild;
 
+      // see Menu for example how to fix this!
       const newestMessageHeight = newestMessage.offsetHeight +
         parseInt(getComputedStyle(newestMessage).marginBottom);
 
@@ -103,9 +108,13 @@ export const Messenger = ({
     setLoading(false);
   };
 
-  const handleRoomInputChange = e => setRoomToEnter(e.target.value);
+  const handleRoomInputChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setRoomToEnter((e.target as HTMLInputElement).value.trim());
+  };
 
-  const handleMessageInputChange = e => setMessageToSend(e.target.value);
+  const handleMessageInputChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setMessageToSend((e.target as HTMLInputElement).value.trim());
+  };
 
   const handleChannelChange = () => {
     if (loading) return;
@@ -132,9 +141,9 @@ export const Messenger = ({
     setLoading(false);
   };
 
-  const handleMessageSend = e => {
-    e.stopPropagation();
-    e.preventDefault();
+  const handleMessageSend = (e: React.KeyboardEvent) => {
+    e.stopPropagation();  // needed?
+    e.preventDefault();  // needed?
     if (e.key && (e.key !== "Enter")) return;
     if (loading) return;
     if (debounced) {
@@ -158,7 +167,7 @@ export const Messenger = ({
       // TO DO: MESS AROUND AGAIN WITH "WRONG" WHITESPACES, if return here, or clean
       const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
       const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
-      const trimmedUserToWhisper = userToWhisper[1].substring(3);
+      const trimmedUserToWhisper = userToWhisper[1].substring(3);  // probably what caused the bug
       messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
     } else {
       messengerSendMessage(trimmedMessage);
@@ -172,50 +181,94 @@ export const Messenger = ({
     setLoading(false);
   };
 
-  const handleMobileTabChange = value => setMobileTab(value);
+  const handleMobileTabChange = (value: string) => setMobileTab(value);
 
-  const handlePeopleTabChange = value => setPeopleTab(value);
+  const handlePeopleTabChange = (value: string) => setPeopleTab(value);
 
   //const handleFriendClick = () => setCurrentFriend(e.target.id);
-
-  let ViewComponent;
-  if (messengerView === "mobile") ViewComponent = MobileMessengerView;
-  if (messengerView === "desktop") ViewComponent = MessengerView;
   
-  return (
-    <ViewComponent
+  return (messengerView === "mobile")
+  ? (
+    <MobileMessengerView
       twoColumnATheme={twoColumnATheme}
       authname={authname}
       feedback={feedback}
       loading={loading}
-
       status={status}
       handleConnect={handleConnect}
       handleDisconnect={handleDisconnect}
-
       channel={channel}
       roomToEnter={roomToEnter}
       handleRoomInputChange={handleRoomInputChange}
       handleChannelChange={handleChannelChange}
-
       messagesRef={messagesRef}
       messages={messages}
       messageToSend={messageToSend}
       handleMessageInputChange={handleMessageInputChange}
       handleMessageSend={handleMessageSend}
-
       users={users}
       onlineFriends={onlineFriends}
-
+      peopleTab={peopleTab}
+      mobileTab={mobileTab}
+      handlePeopleTabChange={handlePeopleTabChange}
+      handleMobileTabChange={handleMobileTabChange}
+    />
+  )
+  : (
+    <MessengerView
+      twoColumnATheme={twoColumnATheme}
+      authname={authname}
+      feedback={feedback}
+      loading={loading}
+      status={status}
+      handleConnect={handleConnect}
+      handleDisconnect={handleDisconnect}
+      channel={channel}
+      roomToEnter={roomToEnter}
+      handleRoomInputChange={handleRoomInputChange}
+      handleChannelChange={handleChannelChange}
+      messagesRef={messagesRef}
+      messages={messages}
+      messageToSend={messageToSend}
+      handleMessageInputChange={handleMessageInputChange}
+      handleMessageSend={handleMessageSend}
+      users={users}
+      onlineFriends={onlineFriends}
       peopleTab={peopleTab}
       mobileTab={mobileTab}
       handlePeopleTabChange={handlePeopleTabChange}
       handleMobileTabChange={handleMobileTabChange}
     />
   );
+}
+
+interface RootState {
+  nobscapp: {
+    windowFocused: boolean;
+  };
+  auth: {
+    authname: string;
+  };
+  user: {
+    message: string;
+  };
+  messenger: {
+    status: string;
+    channel: string;
+    messages: Array<IMessage | IWhisper>;
+    users: IUser[];
+    onlineFriends: IUser[];
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  twoColumnATheme: string;
+  messengerView: string;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   windowFocused: state.nobscapp.windowFocused,
   authname: state.auth.authname,
   message: state.user.message,
@@ -226,14 +279,16 @@ const mapStateToProps = state => ({
   onlineFriends: state.messenger.onlineFriends
 });
 
-const mapDispatchToProps = dispatch => ({
-  messengerConnect: () => dispatch(messengerConnect()),
-  messengerDisconnect: () => dispatch(messengerDisconnect()),
-  messengerChangeChannel: (channel) =>
-    dispatch(messengerChangeChannel(channel)),
-  messengerSendMessage: (message) => dispatch(messengerSendMessage(message)),
-  messengerSendWhisper: (whisper, to) =>
-    dispatch(messengerSendWhisper(whisper, to))
-});
+const mapDispatchToProps = {
+  messengerConnect: () => messengerConnect(),
+  messengerDisconnect: () => messengerDisconnect(),
+  messengerChangeChannel: (channel: string) =>
+    messengerChangeChannel(channel),
+  messengerSendMessage: (message: string) => messengerSendMessage(message),
+  messengerSendWhisper: (whisper: string, to: string) =>
+    messengerSendWhisper(whisper, to)
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Messenger);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Messenger);
