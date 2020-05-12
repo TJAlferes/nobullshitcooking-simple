@@ -58,14 +58,17 @@ export function Messenger({
 
   useEffect(() => {
     const setAlertFavicon = () => {
-      const nobscFavicon = document.getElementById('nobsc-favicon');
+      const nobscFavicon: HTMLLinkElement = document
+      .getElementById('nobsc-favicon') as HTMLLinkElement;
       nobscFavicon.href = "/nobsc-alert-favicon.png";
     };
 
     // TO DO: fix no longer auto scrolling after spam debounce
     const autoScroll = () => {
       if (!messagesRef || !messagesRef.current) return;
+
       const newestMessage = messagesRef.current.lastElementChild;
+      if (!newestMessage) return;
 
       // see Menu for example how to fix this!
       const newestMessageHeight = newestMessage.offsetHeight +
@@ -235,9 +238,7 @@ export function Messenger({
       users={users}
       onlineFriends={onlineFriends}
       peopleTab={peopleTab}
-      mobileTab={mobileTab}
       handlePeopleTabChange={handlePeopleTabChange}
-      handleMobileTabChange={handleMobileTabChange}
     />
   );
 }

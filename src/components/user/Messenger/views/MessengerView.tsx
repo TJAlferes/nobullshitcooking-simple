@@ -90,7 +90,7 @@ type Props = {
   roomToEnter: string;
   handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleChannelChange(): void;
-  messagesRef: React.RefObject<HTMLDivElement>;
+  messagesRef: React.RefObject<HTMLDivElement | undefined>;
   messages: Array<IMessage | IWhisper>;
   messageToSend: string;
   handleMessageInputChange(e: React.SyntheticEvent<EventTarget>): void;
