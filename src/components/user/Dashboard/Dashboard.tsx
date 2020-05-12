@@ -84,7 +84,7 @@ export function Dashboard({
   const [ disownRecipeName, setDisownRecipeName ] = useState("");
   const [ disownRecipeModalActive, setDisownRecipeModalActive ] = useState(false);
 
-  const imageRef = useRef<HTMLImageElement>();
+  const imageRef = useRef<HTMLImageElement | null>();
 
   useEffect(() => {
     let isSubscribed = true;

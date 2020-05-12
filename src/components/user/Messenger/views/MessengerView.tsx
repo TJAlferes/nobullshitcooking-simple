@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IMessage, IWhisper, IUser } from '../../../../store/messenger/types';
 import LeftNav from '../../../LeftNav/LeftNav';
-import ChatView from './desktop/ChatView';
+import { ChatView } from './desktop/ChatView';
 import OptionsView from './desktop/OptionsView';
 import PeopleView from './desktop/PeopleView';
 import './messenger.css';
@@ -90,7 +90,7 @@ type Props = {
   roomToEnter: string;
   handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleChannelChange(): void;
-  messagesRef: React.RefObject<HTMLDivElement | undefined>;
+  messagesRef: React.RefObject<HTMLUListElement>;
   messages: Array<IMessage | IWhisper>;
   messageToSend: string;
   handleMessageInputChange(e: React.SyntheticEvent<EventTarget>): void;

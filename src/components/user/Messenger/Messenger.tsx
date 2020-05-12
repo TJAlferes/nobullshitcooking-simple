@@ -9,7 +9,7 @@ import {
   messengerSendMessage,
   messengerSendWhisper
 } from '../../../store/messenger/actions';
-import MobileMessengerView from './views/MobileMessengerView';
+import { MobileMessengerView } from './views/MobileMessengerView';
 import { MessengerView } from './views/MessengerView';
 
 // TO DO: fix no longer auto scrolling after spam debounce
@@ -42,7 +42,7 @@ export function Messenger({
   //const [ currentFriend, setCurrentFriend ] = useState("");
 
   //const messagesRef = createRef();
-  const messagesRef = useRef<HTMLDivElement>();
+  const messagesRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -67,10 +67,11 @@ export function Messenger({
     const autoScroll = () => {
       if (!messagesRef || !messagesRef.current) return;
 
-      const newestMessage = messagesRef.current.lastElementChild;
+      const newestMessage: HTMLUListElement = messagesRef
+      .current.lastElementChild as HTMLUListElement;
+
       if (!newestMessage) return;
 
-      // see Menu for example how to fix this!
       const newestMessageHeight = newestMessage.offsetHeight +
         parseInt(getComputedStyle(newestMessage).marginBottom);
 
@@ -170,7 +171,49 @@ export function Messenger({
       // TO DO: MESS AROUND AGAIN WITH "WRONG" WHITESPACES, if return here, or clean
       const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
       const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
-      const trimmedUserToWhisper = userToWhisper[1].substring(3);  // probably what caused the bug
+      if (!userToWhisper) return;
+      const trimmedUserToWhisper = userToWhisper[1].substring(3);
+      messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
+    } else {
+      messengerSendMessage(trimmedMessage);
+    }
+    /*else if (currentFriend !== "") {
+      const trimmedFriend = currentFriend.trim();
+      messengerSendWhisper(trimmedMessage, trimmedFriend);
+    }*/
+    setMessageToSend("");
+    preventSpam();
+    setLoading(false);
+  };
+
+  const handleMessageSendTouch = (e: React.TouchEvent) => {
+    e.stopPropagation();  // needed?
+    e.preventDefault();  // needed?
+    //if (e.key && (e.key !== "Enter")) return;
+    if (loading) return;
+    if (debounced) {
+      setFeedback("Slow down there partner...");
+      setTimeout(() => setFeedback(""), 6000);
+      return;
+    }
+
+    const trimmedMessage = messageToSend.trim();
+    if (trimmedMessage.length < 1 || trimmedMessage === "") return;
+    if (trimmedMessage.length > 4000) {
+      setFeedback("Please limit message length to 4,000 characters.");
+      setTimeout(() => setFeedback(""), 4000);
+      return;
+    }
+
+    setLoading(true);
+
+    const whispering = trimmedMessage.slice(0, 3) === "/w ";
+    if (whispering) {
+      // TO DO: MESS AROUND AGAIN WITH "WRONG" WHITESPACES, if return here, or clean
+      const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
+      const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
+      if (!userToWhisper) return;
+      const trimmedUserToWhisper = userToWhisper[1].substring(3);
       messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
     } else {
       messengerSendMessage(trimmedMessage);
@@ -193,7 +236,6 @@ export function Messenger({
   return (messengerView === "mobile")
   ? (
     <MobileMessengerView
-      twoColumnATheme={twoColumnATheme}
       authname={authname}
       feedback={feedback}
       loading={loading}
@@ -208,7 +250,7 @@ export function Messenger({
       messages={messages}
       messageToSend={messageToSend}
       handleMessageInputChange={handleMessageInputChange}
-      handleMessageSend={handleMessageSend}
+      handleMessageSendTouch={handleMessageSendTouch}
       users={users}
       onlineFriends={onlineFriends}
       peopleTab={peopleTab}

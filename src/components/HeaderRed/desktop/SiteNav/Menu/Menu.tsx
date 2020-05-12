@@ -36,7 +36,6 @@ function outerHeight(el: HTMLElement|null) {
   if (!el) return;
   let _height = el.offsetHeight;
   let style = getComputedStyle(el);  // el.currentStyle ||
-  let something = 
   _height += (parseInt(style.marginLeft, 10) || 0);
   return _height;
 }
