@@ -3,8 +3,8 @@ import React from 'react';
 import { IMessage, IWhisper, IUser } from '../../../../store/messenger/types';
 import LeftNav from '../../../LeftNav/LeftNav';
 import { ChatView } from './desktop/ChatView';
-import OptionsView from './desktop/OptionsView';
-import PeopleView from './desktop/PeopleView';
+import { OptionsView } from './desktop/OptionsView';
+import { PeopleView } from './desktop/PeopleView';
 import './messenger.css';
 
 export function MessengerView({
@@ -30,52 +30,52 @@ export function MessengerView({
   handlePeopleTabChange
 }: Props): JSX.Element {
   return (
-  <div className={`messenger two-column-a ${twoColumnATheme}`}>
+    <div className={`messenger two-column-a ${twoColumnATheme}`}>
 
-    <LeftNav />
+      <LeftNav />
 
-    <section>
+      <section>
 
-      <h1>Messenger</h1>
+        <h1>Messenger</h1>
 
-      <p className="error-message">{feedback}</p>
+        <p className="error-message">{feedback}</p>
 
-      <OptionsView
-        loading={loading}
-        status={status}
-        channel={channel}
-        roomToEnter={roomToEnter}
-        handleRoomInputChange={handleRoomInputChange}
-        handleChannelChange={handleChannelChange}
-        handleConnect={handleConnect}
-        handleDisconnect={handleDisconnect}
-      />
-
-      <div className="messenger-main">
-
-        <ChatView
-          authname={authname}
+        <OptionsView
+          loading={loading}
           status={status}
-          messagesRef={messagesRef}
-          messages={messages}
-          messageToSend={messageToSend}
-          handleMessageInputChange={handleMessageInputChange}
-          handleMessageSend={handleMessageSend}
+          channel={channel}
+          roomToEnter={roomToEnter}
+          handleRoomInputChange={handleRoomInputChange}
+          handleChannelChange={handleChannelChange}
+          handleConnect={handleConnect}
+          handleDisconnect={handleDisconnect}
         />
 
-        <PeopleView
-          users={users}
-          onlineFriends={onlineFriends}
-          peopleTab={peopleTab}
-          handlePeopleTabChange={handlePeopleTabChange}
-        />
+        <div className="messenger-main">
 
-      </div>
+          <ChatView
+            authname={authname}
+            status={status}
+            messagesRef={messagesRef}
+            messages={messages}
+            messageToSend={messageToSend}
+            handleMessageInputChange={handleMessageInputChange}
+            handleMessageSend={handleMessageSend}
+          />
 
-    </section>
+          <PeopleView
+            users={users}
+            onlineFriends={onlineFriends}
+            peopleTab={peopleTab}
+            handlePeopleTabChange={handlePeopleTabChange}
+          />
 
-  </div>
-);
+        </div>
+
+      </section>
+
+    </div>
+  );
 }
 
 type Props = {
@@ -91,7 +91,7 @@ type Props = {
   handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleChannelChange(): void;
   messagesRef: React.RefObject<HTMLUListElement>;
-  messages: Array<IMessage | IWhisper>;
+  messages: Array<IMessage|IWhisper>;
   messageToSend: string;
   handleMessageInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleMessageSend(e: React.KeyboardEvent): void;

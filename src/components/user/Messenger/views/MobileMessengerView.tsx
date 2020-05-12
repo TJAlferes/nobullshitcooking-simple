@@ -2,8 +2,8 @@ import React from 'react';
 
 import { IMessage, IWhisper, IUser } from '../../../../store/messenger/types';
 import { ChatView } from './mobile/ChatView'
-import OptionsView from './mobile/OptionsView';
-import PeopleView from './mobile/PeopleView';
+import { OptionsView } from './mobile/OptionsView';
+import { PeopleView } from './mobile/PeopleView';
 import './mobileMessenger.css';
 
 export function MobileMessengerView({
@@ -119,7 +119,7 @@ type Props = {
   handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleChannelChange(): void;
   messagesRef: React.RefObject<HTMLUListElement>;
-  messages: Array<IMessage | IWhisper>;
+  messages: Array<IMessage|IWhisper>;
   messageToSend: string;
   handleMessageInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleMessageSendTouch(e: React.TouchEvent): void;

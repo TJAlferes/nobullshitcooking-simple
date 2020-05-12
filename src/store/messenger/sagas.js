@@ -1,6 +1,10 @@
 import io from 'socket.io-client';
 
 import {
+  NOBSCBackendAPIEndpointOne
+} from '../../config/NOBSCBackendAPIEndpointOne';
+import { store } from '../../index';
+import {
   messengerConnected,
   messengerDisconnected,
   messengerShowOnline,
@@ -15,9 +19,6 @@ import {
   messengerGetOnline
 } from './actions';
 
-import { store } from '../../index';
-
-import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 const socket = io.connect(`${endpoint}`, {

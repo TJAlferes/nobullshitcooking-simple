@@ -16,9 +16,10 @@ import {
   MESSENGER_SEND_WHISPER,
   MESSENGER_RECEIVED_WHISPER,
   MESSENGER_FAILED_WHISPER,
-  Message,
-  Whisper,
-  User
+  //Message,
+  IMessage,
+  IWhisper,
+  IUser
 } from './types';
 
 export const messengerConnect = () => ({
@@ -37,17 +38,17 @@ export const messengerDisconnected = () => ({
   type: MESSENGER_DISCONNECTED
 });
 
-export const messengerGetOnline = (online: User[]) => ({
+export const messengerGetOnline = (online: IUser[]) => ({
   type: MESSENGER_GET_ONLINE,
   online
 });
 
-export const messengerShowOnline = (user: User) => ({
+export const messengerShowOnline = (user: IUser) => ({
   type: MESSENGER_SHOW_ONLINE,
   user
 });
 
-export const messengerShowOffline = (user: User) => ({
+export const messengerShowOffline = (user: IUser) => ({
   type: MESSENGER_SHOW_OFFLINE,
   user
 });
@@ -58,7 +59,7 @@ export const messengerChangeChannel = (channel: string) => ({
 });
 
 export const messengerChangedChannel = (
-  users: User[],
+  users: IUser[],
   channel: string
 ) => ({
   type: MESSENGER_CHANGED_CHANNEL,
@@ -67,7 +68,7 @@ export const messengerChangedChannel = (
 });
 
 export const messengerRejoinedChannel = (
-  users: User[],
+  users: IUser[],
   channel: string
 ) => ({
   type: MESSENGER_REJOINED_CHANNEL,
@@ -75,7 +76,7 @@ export const messengerRejoinedChannel = (
   channel
 });
 
-export const messengerJoinedUser = (user: User) => {
+export const messengerJoinedUser = (user: IUser) => {
   const ts = `${(new Date).toLocaleTimeString()}`;
   return {
     type: MESSENGER_JOINED_USER,
@@ -84,7 +85,7 @@ export const messengerJoinedUser = (user: User) => {
   };
 };
 
-export const messengerLeftUser = (user: User) => {
+export const messengerLeftUser = (user: IUser) => {
   const ts = `${(new Date).toLocaleTimeString()}`;
   return {
     type: MESSENGER_LEFT_USER,
@@ -99,7 +100,7 @@ export const messengerSendMessage = (message: string) => ({
 });
 
 export const messengerReceivedMessage = (
-  message: Message
+  message: IMessage
 ) => {
   const ts = `${(new Date).toLocaleTimeString()}`;
   return {
@@ -118,7 +119,7 @@ export const messengerSendWhisper = (
   to
 });
 
-export const messengerReceivedWhisper = (whisper: Whisper) => {
+export const messengerReceivedWhisper = (whisper: IWhisper) => {
   const ts = `${(new Date).toLocaleTimeString()}`;
   return {
     type: MESSENGER_RECEIVED_WHISPER,

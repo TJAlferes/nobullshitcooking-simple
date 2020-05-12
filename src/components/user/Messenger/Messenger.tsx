@@ -298,7 +298,7 @@ interface RootState {
   messenger: {
     status: string;
     channel: string;
-    messages: Array<IMessage | IWhisper>;
+    messages: Array<IMessage|IWhisper>;
     users: IUser[];
     onlineFriends: IUser[];
   };

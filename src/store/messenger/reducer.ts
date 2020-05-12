@@ -11,10 +11,10 @@ import {
   MESSENGER_RECEIVED_WHISPER,
   MESSENGER_FAILED_WHISPER,
   MESSENGER_GET_ONLINE,
-  MessengerState,
+  IMessengerState,
   MessengerActions,
-  MessengerReceivedMessage,
-  MessengerReceivedWhisper
+  IMessengerReceivedMessage,
+  IMessengerReceivedWhisper
 } from './types';
 
 import { AUTH_USER_LOGOUT } from '../auth/types';
@@ -22,7 +22,7 @@ import { AUTH_USER_LOGOUT } from '../auth/types';
 // NORMALIZE STATE, USE OBJECTS/MAPS, NOT ARRAYS
 // remember Nir Kofman's actions patterns (maybe)
 
-const initialState: MessengerState = {
+const initialState: IMessengerState = {
   channel: "",
   messages: [],
   users: [],
@@ -33,9 +33,9 @@ const initialState: MessengerState = {
 };
 
 const receivedMessage = (
-  state: MessengerState,
-  action: MessengerReceivedMessage
-): MessengerState => {
+  state: IMessengerState,
+  action: IMessengerReceivedMessage
+): IMessengerState => {
   action.message.ts = action.ts;
   return {
     ...state,
@@ -44,9 +44,9 @@ const receivedMessage = (
 };
 
 const receivedWhisper = (
-  state: MessengerState,
-  action: MessengerReceivedWhisper
-): MessengerState => {
+  state: IMessengerState,
+  action: IMessengerReceivedWhisper
+): IMessengerState => {
   action.whisper.ts = action.ts;
   return {
     ...state,
@@ -57,7 +57,7 @@ const receivedWhisper = (
 const messengerReducer = (
   state = initialState,
   action: MessengerActions
-): MessengerState => {
+): IMessengerState => {
   switch (action.type) {
     case MESSENGER_CONNECTED:
       return {

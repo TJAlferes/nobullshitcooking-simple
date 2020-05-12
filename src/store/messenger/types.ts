@@ -26,13 +26,15 @@ export const MESSENGER_GET_ONLINE = 'MESSENGER_GET_ONLINE' as const;
 
 export interface IMessengerState {
   channel: string
-  messages: Array<IMessage | IWhisper>
+  messages: Array<IMessage|IWhisper>;
   users: IUser[]
   onlineFriends: IUser[]
   status: string
   connectButtonDisabled: boolean
   disconnectButtonDisabled: boolean
 }
+
+export type Message = IMessage & IWhisper;
 
 export interface IMessage {
   chatMessageId: string

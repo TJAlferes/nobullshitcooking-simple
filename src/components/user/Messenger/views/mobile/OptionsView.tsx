@@ -1,6 +1,6 @@
 import React from 'react';
-
-const OptionsView = ({
+ 
+export function OptionsView({
   loading,
   status,
   channel,
@@ -9,7 +9,7 @@ const OptionsView = ({
   handleChannelChange,
   handleConnect,
   handleDisconnect
-}) => {
+}: Props): JSX.Element {
   // Alternative approach. Outside of JSX. Does this actually have any benefit?
   const StatusButton = () => status === "Connected"
   ? (
@@ -72,4 +72,13 @@ const OptionsView = ({
   );
 };
 
-export default OptionsView;
+type Props = {
+  loading: boolean;
+  status: string;
+  channel: string;
+  roomToEnter: string;
+  handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleChannelChange(): void;
+  handleConnect(): void;
+  handleDisconnect(): void;
+};

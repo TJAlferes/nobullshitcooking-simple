@@ -11,6 +11,62 @@ export function ChatView({
   handleMessageInputChange,
   handleMessageSend
 }: Props): JSX.Element {
+  const displayMessage = (message: IMessage) => {
+    if (message.user.username === "messengerstatus") {
+      return (
+        <li className="messenger-chat-message" key={message.chatMessageId}>
+        <span className="chat-ts">{message.ts}{' '}</span>
+        <span className="chat-display-admin">
+          {message.chatMessageText}
+        </span>
+      </li>
+      );
+    }
+    if (authname === message.user.username) {
+      return (
+        <li className="messenger-chat-message" key={message.chatMessageId}>
+          <span className="chat-ts">{message.ts}{' '}</span>
+          <span className="chat-display-username-self">
+            {message.user.username}:{' '}
+          </span>
+          {message.chatMessageText}
+        </li>
+      );
+    }
+    return (
+      <li className="messenger-chat-message" key={message.chatMessageId}>
+        <span className="chat-ts">{message.ts}{' '}</span>
+        <span className="chat-display-username-other">
+          {message.user.username}:{' '}
+        </span>
+        {message.chatMessageText}
+      </li>
+    );
+  };
+
+  const displayWhisper = (message: IWhisper) => {
+    if (authname === message.user.username) {
+      return (
+        <li className="messenger-chat-message" key={message.whisperId}>
+          <span className="chat-ts">{message.ts}{' '}</span>
+          <span className="chat-display-username-self">
+            You whisper to{' '}{message.to}:{' '}
+          </span>
+          <span className="chat-whisper">{message.whisperText}</span>
+        </li>
+      );
+    }
+    return (
+      <li className="messenger-chat-message" key={message.whisperId}>
+        <span className="chat-ts">{message.ts}{' '}</span>
+        <span className="chat-display-username-other">
+          {message.user.username}{' '}whispers to you:{' '}
+        </span>
+        <span className="chat-whisper">{message.whisperText}</span>
+      </li>
+    );
+  };
+
   return (
     <div className="messenger-chat">
       <ul className="messenger-chat-messages" ref={messagesRef}>
@@ -18,62 +74,15 @@ export function ChatView({
           <span className="chat-display-admin">COOK EAT WIN REPEAT</span>
         </li>
         {
-          messages && messages.map(message => (
-            message.user.username === "messengerstatus"
-            ? (
-              <li className="messenger-chat-message" key={message.chatMessageId}>
-                <span className="chat-ts">{message.ts}{' '}</span>
-                <span className="chat-display-admin">
-                  {message.chatMessageText}
-                </span>
-              </li>
-            )
-            : (
-              authname === message.user.username
-              ? (
-                message.whisperText
-                ? (
-                  <li className="messenger-chat-message" key={message.whisperId}>
-                    <span className="chat-ts">{message.ts}{' '}</span>
-                    <span className="chat-display-username-self">
-                      You whisper to{' '}{message.to}:{' '}
-                    </span>
-                    <span className="chat-whisper">{message.whisperText}</span>
-                  </li>
-                )
-                : (
-                  <li className="messenger-chat-message" key={message.chatMessageId}>
-                    <span className="chat-ts">{message.ts}{' '}</span>
-                    <span className="chat-display-username-self">
-                      {message.user.username}:{' '}
-                    </span>
-                    {message.chatMessageText}
-                  </li>
-                )
-              )
-              : (
-                message.whisperText
-                ? (
-                  <li className="messenger-chat-message" key={message.whisperId}>
-                    <span className="chat-ts">{message.ts}{' '}</span>
-                    <span className="chat-display-username-other">
-                      {message.user.username}{' '}whispers to you:{' '}
-                    </span>
-                    <span className="chat-whisper">{message.whisperText}</span>
-                  </li>
-                )
-                : (
-                  <li className="messenger-chat-message" key={message.chatMessageId}>
-                    <span className="chat-ts">{message.ts}{' '}</span>
-                    <span className="chat-display-username-other">
-                      {message.user.username}:{' '}
-                    </span>
-                    {message.chatMessageText}
-                  </li>
-                )
-              )
-            )
-          ))
+          messages && messages.map((message) => {
+            const messageIntersection = message as MessageIntersection;
+            if (messageIntersection.chatMessageId) {
+              return displayMessage(messageIntersection);
+            }
+            if (messageIntersection.whisperId) {
+              return displayWhisper(messageIntersection);
+            }
+          })
         }
       </ul>
       <div className="messenger-chat-input">
@@ -89,11 +98,13 @@ export function ChatView({
   );
 }
 
+type MessageIntersection = IMessage & IWhisper;
+
 type Props = {
   authname: string;
   status: string;
   messagesRef: React.RefObject<HTMLUListElement>;
-  messages: Array<IMessage | IWhisper>;
+  messages: Array<IMessage|IWhisper>;
   messageToSend: string;
   handleMessageInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleMessageSend(e: React.KeyboardEvent): void;
