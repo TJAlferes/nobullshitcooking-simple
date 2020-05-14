@@ -34,8 +34,8 @@ import {
   authUserLogoutFailed,
   authUserRegisterSucceeded,
   authUserRegisterFailed,
-  //authUserVerifySucceeded,
-  //authUserVerifyFailed,
+  authUserVerifySucceeded,
+  authUserVerifyFailed,
   //authFacebookCheckState,
   //authFacebookLogin,
   //authFacebookLogout,
@@ -168,17 +168,61 @@ describe('the authUserVerifySaga', () => {
 
   it('should dispatch succeeded, then push history', () => {
     const iterator = authUserVerifySaga(action);
+    const { history } = action;
+    const res = {data: {message: 'User account verified.'}};
 
+    expect(iterator.next().value)
+    .toEqual(call(
+      [axios, axios.post],
+      `${endpoint}/user/auth/verify`,
+      {
+        userInfo: {
+          email: action.email,
+          password: action.password,
+          confirmationCode: action.confirmationCode
+        }
+      }
+    ));
+
+    expect(iterator.next(res).value)
+    .toEqual(put(authUserVerifySucceeded(res.data.message)));
+
+    expect(iterator.next().value).toEqual(delay(2000));
+    expect(iterator.next().value).toEqual(put(authMessageClear()));
+
+    expect(JSON.stringify(iterator.next().value))
+    .toEqual(JSON.stringify(call(() => history.push('/login'))));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed', () => {
     const iterator = authUserVerifySaga(action);
+    const res = {data: {message: 'Oops.'}};
 
+    iterator.next();
+
+    expect(iterator.next(res).value)
+    .toEqual(put(authUserVerifyFailed(res.data.message)));
+
+    expect(iterator.next().value).toEqual(delay(4000));
+    expect(iterator.next().value).toEqual(put(authMessageClear()));
+    expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if thrown', () => {
     const iterator = authUserVerifySaga(action);
 
+    iterator.next();
+
+    expect(iterator.throw('error').value)
+    .toEqual(
+      put(authUserVerifyFailed('An error occurred. Please try again.'))
+    );
+
+    expect(iterator.next().value).toEqual(delay(4000));
+    expect(iterator.next().value).toEqual(put(authMessageClear()));
+    expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
 

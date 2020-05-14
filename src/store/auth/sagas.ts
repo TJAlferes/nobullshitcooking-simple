@@ -72,7 +72,7 @@ export function* authUserVerifySaga(action: IAuthUserVerify) {
       {
         userInfo: {
           email: action.email,
-          pass: action.password,
+          password: action.password,
           confirmationCode: action.confirmationCode
         }
       }
