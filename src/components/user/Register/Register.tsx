@@ -27,6 +27,8 @@ export function Register({
     if (isSubscribed) {
       setFeedback(message);
       setLoading(false);
+
+      //if (message === 'User account created.')
     }
     return () => {
       isSubscribed = false;

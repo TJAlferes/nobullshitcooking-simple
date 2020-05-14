@@ -1,25 +1,35 @@
-export const getStorageItem = (key: ) =>
-  JSON.parse(localStorage.getItem(key));
+import { RootState } from '../store/rootReducer';
 
-export const setStorageItem = (key: , value: ) =>
+export function getStorageItem(key: string) {
+  const item = localStorage.getItem(key);
+  if (!item) return undefined;  // sufficient?
+  return JSON.parse(item);
+}
+
+export function setStorageItem(key: any, value: any) {  // is this used?
   localStorage.setItem(JSON.stringify(key), JSON.stringify(value));
+}
 
-export const removeStorageItem = (key: ) =>
+export function removeStorageItem(key: string) {  // this is used
   localStorage.removeItem(JSON.stringify(key));
+}
 
-export const clearStorage = () => localStorage.clear();
+export function clearStorage() {
+  localStorage.clear();
+}
 
 export function loadFromLocalStorage() {
   try {
-    if (localStorage.getItem('appState') === null) return undefined;  // sufficient?
-    return JSON.parse(localStorage.getItem('appState'));
+    const item = localStorage.getItem('appState');
+    if (!item) return undefined;  // sufficient?
+    return JSON.parse(item);
   } catch (err) {
     console.log(err);
     return undefined;
   }
 }
 
-export function saveToLocalStorage(state: ) {
+export function saveToLocalStorage(state: RootState) {  // correct type?
   try {
     localStorage.setItem('appState', JSON.stringify(state));
   } catch (err) {

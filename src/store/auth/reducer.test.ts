@@ -11,7 +11,6 @@ import {
   AUTH_RESET,
   AUTH_USER_LOGOUT
 } from './types';
-
 import authReducer from './reducer';
 
 const initialState = {

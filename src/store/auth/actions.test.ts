@@ -1,10 +1,5 @@
-import {
-  AUTH_DISPLAY,
-  AUTH_UPDATE_LOCAL_AVATAR,
-  AUTH_USER_REGISTER,
-  AUTH_USER_VERIFY,
-  AUTH_USER_LOGIN
-} from './types';
+import { createMemoryHistory } from 'history';
+
 import {
   authDisplay,
   authUpdateLocalAvatar,
@@ -12,6 +7,15 @@ import {
   authUserVerify,
   authUserLogin
 } from './actions';
+import {
+  AUTH_DISPLAY,
+  AUTH_UPDATE_LOCAL_AVATAR,
+  AUTH_USER_REGISTER,
+  AUTH_USER_VERIFY,
+  AUTH_USER_LOGIN
+} from './types';
+
+const history = createMemoryHistory();
 
 describe('authDisplay action creator', () => {
   it('returns the correct action type', () => {
@@ -50,7 +54,7 @@ describe('authUserRegister action creator', () => {
       'coolperson@coolplace.com',
       'supersecret',
       'CoolPerson',
-      {}
+      history
     ).type;
     const expected = AUTH_USER_REGISTER;
     expect(actual).toEqual(expected);
@@ -60,7 +64,7 @@ describe('authUserRegister action creator', () => {
       'coolperson@coolplace.com',
       'supersecret',
       'CoolPerson',
-      {}
+      history
     ).email;
     const expected = 'coolperson@coolplace.com';
     expect(actual).toEqual(expected);
@@ -70,7 +74,7 @@ describe('authUserRegister action creator', () => {
       'coolperson@coolplace.com',
       'supersecret',
       'CoolPerson',
-      {}
+      history
     ).password;
     const expected = 'supersecret';
     expect(actual).toEqual(expected);
@@ -80,7 +84,7 @@ describe('authUserRegister action creator', () => {
       'coolperson@coolplace.com',
       'supersecret',
       'CoolPerson',
-      {}
+      history
     ).username;
     const expected = 'CoolPerson';
     expect(actual).toEqual(expected);
@@ -93,7 +97,7 @@ describe('authUserVerify action creator', () => {
       'coolperson@coolplace.com',
       'supersecret',
       'SOMERANDOMCODE',
-      {}
+      history
     ).type;
     const expected = AUTH_USER_VERIFY;
     expect(actual).toEqual(expected);
@@ -103,7 +107,7 @@ describe('authUserVerify action creator', () => {
       'coolperson@coolplace.com',
       'supersecret',
       'SOMERANDOMCODE',
-      {}
+      history
     ).email;
     const expected = 'coolperson@coolplace.com';
     expect(actual).toEqual(expected);
@@ -113,7 +117,7 @@ describe('authUserVerify action creator', () => {
       'coolperson@coolplace.com',
       'supersecret',
       'SOMERANDOMCODE',
-      {}
+      history
     ).password;
     const expected = 'supersecret';
     expect(actual).toEqual(expected);
@@ -123,7 +127,7 @@ describe('authUserVerify action creator', () => {
       'coolperson@coolplace.com',
       'supersecret',
       'SOMERANDOMCODE',
-      {}
+      history
     ).confirmationCode;
     const expected = 'SOMERANDOMCODE';
     expect(actual).toEqual(expected);

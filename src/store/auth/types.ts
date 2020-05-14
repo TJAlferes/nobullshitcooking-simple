@@ -1,4 +1,5 @@
-import { MemoryHistory} from 'history';
+//import { MemoryHistory} from 'history';
+import { History} from 'history';
 
 export const AUTH_DISPLAY = 'AUTH_DISPLAY' as const;
 export const AUTH_RESET = 'AUTH_RESET' as const;
@@ -37,7 +38,7 @@ export interface IAuthState {
   avatar: string
 }
 
-export type IAuthActions =
+export type AuthActions =
 IAuthDisplay |
 IAuthReset |
 IAuthCheckState |
@@ -84,7 +85,7 @@ export interface IAuthUserRegister {
   email: string
   password: string
   username: string
-  history: MemoryHistory
+  history: History
 }
 
 export interface IAuthUserRegisterSucceeded {
@@ -102,7 +103,7 @@ export interface IAuthUserVerify {
   email: string
   password: string
   confirmationCode: string
-  history: MemoryHistory
+  history: History
 }
 
 export interface IAuthUserVerifySucceeded {

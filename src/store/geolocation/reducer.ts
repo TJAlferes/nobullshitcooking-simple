@@ -3,11 +3,11 @@ import {
   GEO_LATITUDE,
   GEO_LONGITUDE,
   GEO_NEARBY_STORES_CLICKED,
-  GeoState,
+  IGeoState,
   GeoActions
 } from './types';
 
-const initialState: GeoState = {
+const initialState: IGeoState = {
   latitude: "",
   longitude: "",
   address: "",
@@ -17,7 +17,7 @@ const initialState: GeoState = {
 const geolocationReducer = (
   state = initialState,
   action: GeoActions
-): GeoState => {
+): IGeoState => {
   switch (action.type) {
     case GEO_LATITUDE:
       return {

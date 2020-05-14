@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { call, put, delay } from 'redux-saga/effects';
 
+import { removeStorageItem } from '../../utils/storageHelpers';
+import {
+  NOBSCBackendAPIEndpointOne
+} from '../../config/NOBSCBackendAPIEndpointOne';
 import {
   authMessageClear,
   authDisplay,
@@ -25,10 +29,6 @@ import {
   IAuthUserLogin,
   IAuthUserLogout
 } from './types';
-import { removeStorageItem } from '../../utils/storageHelpers';
-import {
-  NOBSCBackendAPIEndpointOne
-} from '../../config/NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
@@ -50,7 +50,6 @@ export function* authUserRegisterSaga(action: IAuthUserRegister) {
       yield put(authUserRegisterSucceeded(res.data.message));
       yield delay(2000);
       yield put(authMessageClear());
-      //yield call([history, history.push], '/verify');
       yield call(() => history.push('/verify'));
     } else {
       yield put(authUserRegisterFailed(res.data.message));

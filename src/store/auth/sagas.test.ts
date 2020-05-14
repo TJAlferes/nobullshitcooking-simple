@@ -1,24 +1,28 @@
 import axios from 'axios';
 //import MockAdapter from 'axios-mock-adapter';
+import { createMemoryHistory } from 'history';
+//import { useHistory } from 'react-router-dom';
 import { call, put, delay } from 'redux-saga/effects';
 //import { expectSaga } from 'redux-saga-test-plan';
 //import * as matchers from 'redux-saga-test-plan/matchers';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
+  NOBSCBackendAPIEndpointOne
+} from '../../config/NOBSCBackendAPIEndpointOne';
+import { removeStorageItem } from '../../utils/storageHelpers';
+import {
   AUTH_USER_LOGIN,
   AUTH_USER_LOGOUT,
   AUTH_USER_REGISTER,
   AUTH_USER_VERIFY
 } from './types';
-
 import {
   authUserLoginSaga,
   authUserLogoutSaga,
   authUserRegisterSaga,
   authUserVerifySaga
 } from './sagas';
-
 import {
   authMessageClear,
   authDisplay,
@@ -40,14 +44,9 @@ import {
   //authGoogleLogout,
 } from './actions';
 
-import { removeStorageItem } from '../../utils/storageHelpers';
-
-import {
-  NOBSCBackendAPIEndpointOne
-} from '../../config/NOBSCBackendAPIEndpointOne';
-
 const endpoint = NOBSCBackendAPIEndpointOne;  // remove in test?
-
+//const history = useHistory();
+const history = createMemoryHistory();
 //const mock = new MockAdapter(axios, {delayResponse: 100});
 
 describe('the authUserRegisterSaga', () => {
@@ -93,9 +92,7 @@ describe('the authUserRegisterSaga', () => {
     email: 'person@place.com',
     password: 'secret',
     username: 'Person',
-    history: {
-      push: function(path) {}
-    }
+    history
   };
 
   it('should dispatch succeeded, then push history', () => {
@@ -122,8 +119,8 @@ describe('the authUserRegisterSaga', () => {
     expect(iterator.next().value).toEqual(delay(2000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
 
-    expect(iterator.next().value)
-    .toEqual(call([history, history.push], '/verify'));
+    expect(JSON.stringify(iterator.next().value))
+    .toEqual(JSON.stringify(call(() => history.push('/verify'))));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
@@ -166,9 +163,7 @@ describe('the authUserVerifySaga', () => {
     email: 'person@place.com',
     password: 'secret',
     confirmationCode: '0123456789',
-    history: {
-      push: function(path) {}
-    }
+    history
   };
 
   it('should dispatch succeeded, then push history', () => {

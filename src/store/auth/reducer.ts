@@ -13,7 +13,7 @@ import {
   AUTH_RESET,
   AUTH_USER_LOGOUT,
   IAuthState,
-  IAuthActions
+  AuthActions
 } from './types';
 
 const initialState: IAuthState = {
@@ -25,7 +25,7 @@ const initialState: IAuthState = {
 
 const authReducer = (
   state = initialState,
-  action: IAuthActions
+  action: AuthActions
 ): IAuthState => {
   switch (action.type) {
     case AUTH_USER_LOGIN_SUCCEEDED:

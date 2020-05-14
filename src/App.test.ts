@@ -5,15 +5,13 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { SearchProvider } from '@elastic/react-search-ui';
 
+import RoutesList from './routing/Routes';
 import rootReducer from './store/reducers/index';
 //import searchConfig from './config/searchConfig';
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
-import HeaderRed from './components/HeaderRed/desktop/HeaderRed';
+import { HeaderRed } from './components/HeaderRed/desktop/HeaderRed';
 import MainWhite from './components/MainWhite/MainWhite';
-import FooterGray from './components/FooterGray/FooterGray';
-
-import RoutesList from './routing/Routes';
-
+import { FooterGray } from './components/FooterGray/FooterGray';
 import { App } from './App';
 
 const storeFactory = initialState => createStore(rootReducer, initialState);

@@ -3,9 +3,9 @@ import { useLocation } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
-import HeaderRed from './components/HeaderRed/desktop/HeaderRed';
+import { HeaderRed } from './components/HeaderRed/desktop/HeaderRed';
 import MainWhite from './components/MainWhite/MainWhite';
-import FooterGray from './components/FooterGray/FooterGray';
+import { FooterGray } from './components/FooterGray/FooterGray';
 import RoutesList from './routing/Routes';
 import './app.css';
 
