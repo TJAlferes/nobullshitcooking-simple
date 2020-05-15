@@ -1,7 +1,6 @@
 import axios from 'axios';
 //import MockAdapter from 'axios-mock-adapter';
 import { createMemoryHistory } from 'history';
-//import { useHistory } from 'react-router-dom';
 import { call, put, delay } from 'redux-saga/effects';
 //import { expectSaga } from 'redux-saga-test-plan';
 //import * as matchers from 'redux-saga-test-plan/matchers';

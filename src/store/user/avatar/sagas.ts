@@ -1,12 +1,12 @@
 import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
-import { userMessageClear } from '../actions';
-import { userSubmitAvatarSucceeded, userSubmitAvatarFailed } from './actions';
-import { IUserSubmitAvatar } from './types';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../actions';
+import { userSubmitAvatarSucceeded, userSubmitAvatarFailed } from './actions';
+import { IUserSubmitAvatar } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 

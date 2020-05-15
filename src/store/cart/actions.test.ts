@@ -1,14 +1,5 @@
-import {
-  CART_ADD_ITEM,
-  CART_REMOVE_ITEM,
-  CART_EMPTY
-} from './types';
-
-import {
-  cartAddItem,
-  cartRemoveItem,
-  cartEmpty
-} from './actions';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY } from './types';
+import { cartAddItem, cartRemoveItem, cartEmpty } from './actions';
 
 describe('the cartItemAdd action creator', () => {
   it('returns the correct action type', () => {

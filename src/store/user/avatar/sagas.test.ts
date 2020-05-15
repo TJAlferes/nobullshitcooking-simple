@@ -5,24 +5,21 @@ import { call, put, delay } from 'redux-saga/effects';
 //import * as matchers from 'redux-saga-test-plan/matchers';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
-import { USER_SUBMIT_AVATAR } from './types';
-
-import { userSubmitAvatarSaga } from './sagas';
-
+import {
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../actions';
 import {
   userSubmitAvatarSucceeded,
   userSubmitAvatarFailed
 } from './actions';
-
-import { userMessageClear } from '../actions';
-
-import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userSubmitAvatarSaga } from './sagas';
+import { USER_SUBMIT_AVATAR } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
 //const mock = new MockAdapter(axios, {delayResponse: 100});
+const fullAvatar = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const tinyAvatar = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
 describe('the userSubmitAvatarSaga', () => {
   /*it('works', () => {
@@ -30,11 +27,7 @@ describe('the userSubmitAvatarSaga', () => {
     return expectSaga(userSubmitAvatarSaga, action).silentRun(50);
   });*/
 
-  const action = {
-    type: USER_SUBMIT_AVATAR,
-    fullAvatar: {type: "jpeg"},
-    tinyAvatar: {type: "jpeg"}
-  };
+  const action = {type: USER_SUBMIT_AVATAR, fullAvatar, tinyAvatar};
   const res1 = {
     data: {
       signedRequestFullSize: "signedUrlString",
@@ -85,7 +78,8 @@ describe('the userSubmitAvatarSaga', () => {
 
     expect(iterator.next().value).toEqual(delay(2000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
-    expect(iterator.next(res).value).toEqual(call([location, location.reload]));
+    expect(JSON.stringify(iterator.next(res).value))
+    .toEqual(JSON.stringify(call(() => location.reload())));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 

@@ -1,5 +1,4 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY } from './types';
-
 import cartReducer from './reducer';
 
 const initialState = {items: []};

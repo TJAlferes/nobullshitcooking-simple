@@ -66,17 +66,13 @@ import {
   USER_SUBMIT_AVATAR_SUCCEEDED,
   USER_SUBMIT_AVATAR_FAILED
 } from './avatar/types';
-import {
-  USER_MESSAGE_CLEAR,
-  IUserState,
-  IUserActions
-} from './types';
+import { USER_MESSAGE_CLEAR, IUserState, UserActions } from './types';
 
 const initialState: IUserState = {message: ''};
 
 const userReducer = (
   state = initialState,
-  action: IUserActions
+  action: UserActions
 ): IUserState => {
   switch (action.type) {
     case USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED:

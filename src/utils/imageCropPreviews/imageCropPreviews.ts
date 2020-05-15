@@ -1,9 +1,3 @@
-/*interface Crop {
-  x: number
-  y: number
-  width: number
-  height: number
-}*/
 import { Crop } from 'react-image-crop'
 
 export async function getCroppedImage(

@@ -3,16 +3,14 @@ import {
   CART_REMOVE_ITEM,
   CART_EMPTY,
   ICartState,
-  ICartActions
+  CartActions
 } from './types';
 
-const initialState: ICartState = {
-  items: []
-};
+const initialState: ICartState = {items: []};
 
 const cartReducer = (
   state = initialState,
-  action: ICartActions
+  action: CartActions
 ): ICartState => {
   switch (action.type) {
     case CART_ADD_ITEM:

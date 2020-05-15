@@ -2,7 +2,6 @@ import {
   IUserSubmitAvatarSucceeded,
   IUserSubmitAvatarFailed
 } from './avatar/types';
-
 import {
   IUserCreateNewPrivateEquipmentSucceeded,
   IUserCreateNewPrivateEquipmentFailed,
@@ -11,14 +10,12 @@ import {
   IUserDeletePrivateEquipmentSucceeded,
   IUserDeletePrivateEquipmentFailed
 } from './equipment/types';
-
 import {
   IUserFavoriteRecipeSucceeded,
   IUserFavoriteRecipeFailed,
   IUserUnfavoriteRecipeSucceeded,
   IUserUnfavoriteRecipeFailed
 } from './favorite/types';
-
 import {
   IUserRequestFriendshipSucceeded,
   IUserRequestFriendshipFailed,
@@ -33,7 +30,6 @@ import {
   IUserUnblockUserSucceeded,
   IUserUnblockUserFailed
 } from './friendship/types';
-
 import {
   IUserCreateNewPrivateIngredientSucceeded,
   IUserCreateNewPrivateIngredientFailed,
@@ -42,7 +38,6 @@ import {
   IUserDeletePrivateIngredientSucceeded,
   IUserDeletePrivateIngredientFailed
 } from './ingredient/types';
-
 import {
   IUserCreatePlanSucceeded,
   IUserCreatePlanFailed,
@@ -51,7 +46,6 @@ import {
   IUserDeletePlanSucceeded,
   IUserDeletePlanFailed
 } from './plan/types';
-
 import {
   IUserCreateNewPrivateRecipeSucceeded,
   IUserCreateNewPrivateRecipeFailed,
@@ -66,7 +60,6 @@ import {
   IUserDisownPublicRecipeSucceeded,
   IUserDisownPublicRecipeFailed
 } from './recipe/types';
-
 import {
   IUserSaveRecipeSucceeded,
   IUserSaveRecipeFailed,
@@ -77,14 +70,14 @@ import {
 export const USER_MESSAGE_CLEAR = 'USER_MESSAGE_CLEAR' as const;
 
 export interface IUserMessageClear {
-  type: typeof USER_MESSAGE_CLEAR
+  type: typeof USER_MESSAGE_CLEAR;
 }
 
 export interface IUserState {
-  message: string
+  message: string;
 }
 
-export type IUserActions =
+export type UserActions =
 IUserMessageClear |
 IUserSubmitAvatarSucceeded |
 IUserSubmitAvatarFailed |
