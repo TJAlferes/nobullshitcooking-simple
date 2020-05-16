@@ -6,17 +6,10 @@ import { call, put, delay } from 'redux-saga/effects';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
-  userRequestFriendshipSaga,
-  userAcceptFriendshipSaga,
-  userRejectFriendshipSaga,
-  userDeleteFriendshipSaga,
-  userBlockUserSaga,
-  userUnblockUserSaga
-} from './friendship';
-
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
-
   userRequestFriendshipSucceeded,
   userRequestFriendshipFailed,
   userAcceptFriendshipSucceeded,
@@ -29,24 +22,34 @@ import {
   userBlockUserFailed,
   userUnblockUserSucceeded,
   userUnblockUserFailed
-} from '../actions';
-
+} from './actions';
 import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+  userRequestFriendshipSaga,
+  userAcceptFriendshipSaga,
+  userRejectFriendshipSaga,
+  userDeleteFriendshipSaga,
+  userBlockUserSaga,
+  userUnblockUserSaga
+} from './sagas';
+import {
+  USER_REQUEST_FRIENDSHIP,
+  USER_ACCEPT_FRIENDSHIP,
+  USER_REJECT_FRIENDSHIP,
+  USER_DELETE_FRIENDSHIP,
+  USER_BLOCK_USER,
+  USER_UNBLOCK_USER
+} from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
 //const mock = new MockAdapter(axios, {delayResponse: 100});
 
 describe('the userRequestFriendshipSaga', () => {
+  const action = {type: USER_REQUEST_FRIENDSHIP, friendName: "Allison"};
   /*it('works', () => {
     const action = {};
     return expectSaga(userRequestFriendshipSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {friendName: "Allison"};
 
   it ('should dispatch succeeded', () => {
     const iterator = userRequestFriendshipSaga(action);
@@ -101,13 +104,12 @@ describe('the userRequestFriendshipSaga', () => {
 
 
 describe('the userAcceptFriendshipSaga', () => {
+  const action = {type: USER_ACCEPT_FRIENDSHIP, friendName: "Allison"};
   /*it('works', () => {
     const action = {};
     return expectSaga(userAcceptFriendshipSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {friendName: "Allison"};
 
   it ('should dispatch succeeded', () => {
     const iterator = userAcceptFriendshipSaga(action);
@@ -162,13 +164,12 @@ describe('the userAcceptFriendshipSaga', () => {
 
 
 describe('the userRejectFriendshipSaga', () => {
+  const action = {type: USER_REJECT_FRIENDSHIP, friendName: "Allison"};
   /*it('works', () => {
     const action = {};
     return expectSaga(userRejectFriendshipSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {friendName: "Allison"};
 
   it ('should dispatch succeeded', () => {
     const iterator = userRejectFriendshipSaga(action);
@@ -223,13 +224,12 @@ describe('the userRejectFriendshipSaga', () => {
 
 
 describe('the userDeleteFriendshipSaga', () => {
+  const action = {type: USER_DELETE_FRIENDSHIP, friendName: "Allison"};
   /*it('works', () => {
     const action = {};
     return expectSaga(userDeleteFriendshipSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {friendName: "Allison"};
 
   it ('should dispatch succeeded', () => {
     const iterator = userDeleteFriendshipSaga(action);
@@ -283,13 +283,12 @@ describe('the userDeleteFriendshipSaga', () => {
 
 
 describe('the userBlockUserSaga', () => {
+  const action = {type: USER_BLOCK_USER, friendName: "Allison"};
   /*it('works', () => {
     const action = {};
     return expectSaga(userBlockUserSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {friendName: "Allison"};
 
   it ('should dispatch succeeded', () => {
     const iterator = userBlockUserSaga(action);
@@ -344,13 +343,12 @@ describe('the userBlockUserSaga', () => {
 
 
 describe('the userUnblockUserSaga', () => {
+  const action = {type: USER_UNBLOCK_USER, friendName: "Allison"};
   /*it('works', () => {
     const action = {};
     return expectSaga(userUnblockUserSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {friendName: "Allison"};
 
   it ('should dispatch succeeded', () => {
     const iterator = userUnblockUserSaga(action);

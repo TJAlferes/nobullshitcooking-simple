@@ -6,74 +6,99 @@ import { call, put, delay } from 'redux-saga/effects';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
-  userCreateNewRecipeSaga,
-  userDeletePrivateRecipeSaga,
-  userDisownPublicRecipeSaga,
-  userEditRecipeSaga
-} from './recipe';
-
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
-
   userCreateNewPrivateRecipeSucceeded,
   userCreateNewPrivateRecipeFailed,
   userEditPrivateRecipeSucceeded,
   userEditPrivateRecipeFailed,
   userDeletePrivateRecipeSucceeded,
   userDeletePrivateRecipeFailed,
-
   userCreateNewPublicRecipeSucceeded,
   userCreateNewPublicRecipeFailed,
   userEditPublicRecipeSucceeded,
   userEditPublicRecipeFailed,
   userDisownPublicRecipeSucceeded,
   userDisownPublicRecipeFailed
-} from '../actions';
-
+} from './actions';
 import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+  userCreateNewRecipeSaga,
+  userDeletePrivateRecipeSaga,
+  userDisownPublicRecipeSaga,
+  userEditRecipeSaga
+} from './sagas';
+import {
+  USER_CREATE_NEW_PRIVATE_RECIPE,
+  USER_DELETE_PRIVATE_RECIPE,
+  USER_DISOWN_PUBLIC_RECIPE,
+  USER_EDIT_PRIVATE_RECIPE
+} from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
 //const mock = new MockAdapter(axios, {delayResponse: 100});
+const creatingRecipeInfo = {
+  ownership: "private",
+  recipeTypeId: 1,
+  cuisineId: 1,
+  title: "My Secret Recipe",
+  description: "Don't worry about it.",
+  directions: "Do nothing.",
+  requiredMethods: [{methodId: 1}, {methodId: 3}],
+  requiredEquipment: [{amount: 1, equipment: 1}],
+  requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
+  requiredSubrecipes: [],
+  recipeImage: null,
+  fullRecipeImage: null,
+  thumbRecipeImage: null,
+  tinyRecipeImage: null,
+  recipeEquipmentImage: null,
+  fullRecipeEquipmentImage: null,
+  recipeIngredientsImage: null,
+  fullRecipeIngredientsImage: null,
+  recipeCookingImage: null,
+  fullRecipeCookingImage: null
+};
+const editingRecipeInfo = {
+  recipeId: 888,
+  prevRecipeImage: "nobsc-recipe-default",
+  prevEquipmentImage: "nobsc-recipe-equipment-default",
+  prevIngredientsImage: "nobsc-recipe-ingredients-default",
+  prevCookingImage: "nobsc-recipe-cooking-default",
+  ownership: "private",
+  recipeTypeId: 1,
+  cuisineId: 1,
+  title: "My Secret Recipe",
+  description: "Don't worry about it.",
+  directions: "Do nothing.",
+  requiredMethods: [{methodId: 1}, {methodId: 3}],
+  requiredEquipment: [{amount: 1, equipment: 1}],
+  requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
+  requiredSubrecipes: [],
+  recipeImage: null,
+  fullRecipeImage: null,
+  thumbRecipeImage: null,
+  tinyRecipeImage: null,
+  recipeEquipmentImage: null,
+  fullRecipeEquipmentImage: null,
+  recipeIngredientsImage: null,
+  fullRecipeIngredientsImage: null,
+  recipeCookingImage: null,
+  fullRecipeCookingImage: null
+};
 
 describe('the userCreateNewRecipeSaga', () => {
+  const action = {
+    type: USER_CREATE_NEW_PRIVATE_RECIPE,
+    recipeInfo: creatingRecipeInfo
+  };
   /*it('works', () => {
     const action = {ownership: "public"};
     return expectSaga(userCreateNewRecipeSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {
-    recipeInfo: {
-      ownership: "private",
-      recipeTypeId: 3,
-      cuisineId: 2,
-      title: "Salmon Stir-Fry",
-      description: "Easy and delicious.",
-      directions: "Do this, then that.",
-
-      requiredMethods: [],
-      requiredEquipment: [],
-      requiredIngredients: [],
-      requiredSubrecipes: [],
-
-      recipeImage: "",
-      fullRecipeImage: {type: "jpeg"},
-      thumbRecipeImage: {type: "jpeg"},
-      tinyRecipeImage: {type: "jpeg"},
-
-      recipeEquipmentImage: "",
-      fullRecipeEquipmentImage: {type: "jpeg"},
-
-      recipeIngredientsImage: "",
-      fullRecipeIngredientsImage: {type: "jpeg"},
-
-      recipeCookingImage: "",
-      fullRecipeCookingImage: {type: "jpeg"}
-    }
-  };
+  
   const res1 = {
     data: {
       signedRequestFullSize: "signedUrlString",

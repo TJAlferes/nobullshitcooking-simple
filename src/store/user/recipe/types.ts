@@ -162,6 +162,14 @@ export interface IRequiredMethod {
   methodId: number;
 }
 
+/*
+NOTE: you should probably change
+equipment to equipmentId
+unit to measurementId
+ingredient to ingredientId
+and subrecipe to subrecipeId
+*/
+
 export interface IRequiredEquipment {
   amount: number;
   equipment: number;

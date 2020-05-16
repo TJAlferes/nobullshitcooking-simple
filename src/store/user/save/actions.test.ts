@@ -1,13 +1,4 @@
 import {
-  USER_SAVE_RECIPE,
-  USER_SAVE_RECIPE_SUCCEEDED,
-  USER_SAVE_RECIPE_FAILED,
-  USER_UNSAVE_RECIPE,
-  USER_UNSAVE_RECIPE_SUCCEEDED,
-  USER_UNSAVE_RECIPE_FAILED
-} from './types';
-
-import {
   userSaveRecipe,
   userSaveRecipeSucceeded,
   userSaveRecipeFailed,
@@ -15,6 +6,14 @@ import {
   userUnsaveRecipeSucceeded,
   userUnsaveRecipeFailed
 } from './actions';
+import {
+  USER_SAVE_RECIPE,
+  USER_SAVE_RECIPE_SUCCEEDED,
+  USER_SAVE_RECIPE_FAILED,
+  USER_UNSAVE_RECIPE,
+  USER_UNSAVE_RECIPE_SUCCEEDED,
+  USER_UNSAVE_RECIPE_FAILED
+} from './types';
 
 describe('the userSaveRecipe action creator', () => {
   it('returns the correct action type', () => {

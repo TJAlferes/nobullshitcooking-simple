@@ -5,27 +5,25 @@ import { call, put, delay } from 'redux-saga/effects';
 //import * as matchers from 'redux-saga-test-plan/matchers';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
-import { userSaveRecipeSaga, userUnsaveRecipeSaga } from './save';
-
 import {
-  userMessageClear,
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+import {
+  userMessageClear } from '../actions';
+import {
   userSaveRecipeSucceeded,
   userSaveRecipeFailed,
   userUnsaveRecipeSucceeded,
   userUnsaveRecipeFailed
-} from '../actions';
-
-import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+} from './actions';
+import { userSaveRecipeSaga, userUnsaveRecipeSaga } from './sagas';
+import { USER_SAVE_RECIPE, USER_UNSAVE_RECIPE } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
 //const mock = new MockAdapter(axios, {delayResponse: 100});
 
-const action = {recipeId: 99};
-
 describe('the userSaveRecipeSaga', () => {
+  const action = {type: USER_SAVE_RECIPE, recipeId: 99};
   /*it('works', () => {
     const action = {};
     return expectSaga(userSaveRecipeSaga, action)
@@ -85,6 +83,7 @@ describe('the userSaveRecipeSaga', () => {
 
 
 describe('the userUnsaveRecipeSaga', () => {
+  const action = {type: USER_UNSAVE_RECIPE, recipeId: 99};
   /*it('works', () => {
     const action = {};
     return expectSaga(userUnsaveRecipeSaga, action)

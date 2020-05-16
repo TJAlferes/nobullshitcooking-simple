@@ -5,27 +5,24 @@ import { call, put, delay } from 'redux-saga/effects';
 //import * as matchers from 'redux-saga-test-plan/matchers';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
-import { userFavoriteRecipeSaga, userUnfavoriteRecipeSaga } from './favorite';
-
 import {
-  userMessageClear,
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear,} from '../actions';
+import {
   userFavoriteRecipeSucceeded,
   userFavoriteRecipeFailed,
   userUnfavoriteRecipeSucceeded,
   userUnfavoriteRecipeFailed
-} from '../actions';
-
-import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+} from './actions';
+import { userFavoriteRecipeSaga, userUnfavoriteRecipeSaga } from './sagas';
+import { USER_FAVORITE_RECIPE, USER_UNFAVORITE_RECIPE } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
 //const mock = new MockAdapter(axios, {delayResponse: 100});
 
-const action = {recipeId: 99};
-
 describe('the userFavoriteRecipeSaga', () => {
+  const action = {type: USER_FAVORITE_RECIPE, recipeId: 99};
   /*it('works', () => {
     const action = {};
     return expectSaga(userFavoriteRecipeSaga, action)
@@ -82,9 +79,8 @@ describe('the userFavoriteRecipeSaga', () => {
   });
 });
 
-
-
 describe('the userUnfavoriteRecipeSaga', () => {
+  const action = {type: USER_UNFAVORITE_RECIPE, recipeId: 99};
   /*it('works', () => {
     const action = {};
     return expectSaga(userUnfavoriteRecipeSaga, action)

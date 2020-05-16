@@ -1,13 +1,4 @@
 import {
-  USER_FAVORITE_RECIPE,
-  USER_FAVORITE_RECIPE_SUCCEEDED,
-  USER_FAVORITE_RECIPE_FAILED,
-  USER_UNFAVORITE_RECIPE,
-  USER_UNFAVORITE_RECIPE_SUCCEEDED,
-  USER_UNFAVORITE_RECIPE_FAILED
-} from './types';
-
-import {
   userFavoriteRecipe,
   userFavoriteRecipeSucceeded,
   userFavoriteRecipeFailed,
@@ -15,6 +6,14 @@ import {
   userUnfavoriteRecipeSucceeded,
   userUnfavoriteRecipeFailed
 } from './actions';
+import {
+  USER_FAVORITE_RECIPE,
+  USER_FAVORITE_RECIPE_SUCCEEDED,
+  USER_FAVORITE_RECIPE_FAILED,
+  USER_UNFAVORITE_RECIPE,
+  USER_UNFAVORITE_RECIPE_SUCCEEDED,
+  USER_UNFAVORITE_RECIPE_FAILED
+} from './types';
 
 describe('the userFavoriteRecipe action creator', () => {
   it('returns the correct action type', () => {

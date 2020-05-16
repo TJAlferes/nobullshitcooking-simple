@@ -1,4 +1,15 @@
 import {
+  userCreateNewPlan,
+  userCreateNewPlanSucceeded,
+  userCreateNewPlanFailed,
+  userEditPlan,
+  userEditPlanSucceeded,
+  userEditPlanFailed,
+  userDeletePlan,
+  userDeletePlanSucceeded,
+  userDeletePlanFailed
+} from './actions';
+import {
   USER_CREATE_NEW_PLAN,
   USER_CREATE_NEW_PLAN_SUCCEEDED,
   USER_CREATE_NEW_PLAN_FAILED,
@@ -10,27 +21,18 @@ import {
   USER_DELETE_PLAN_FAILED
 } from './types';
 
-import {
-  userCreateNewPlan,
-  userCreateNewPlanSucceeded,
-  userCreateNewPlanFailed,
-  userEditPlan,
-  userEditPlanSucceeded,
-  userEditPlanFailed,
-  userDeletePlan,
-  userDeletePlanSucceeded,
-  userDeletePlanFailed
-} from './actions';
+const creatingPlanInfo = {planName: "Plan B", planData: ""};
+const editingPlanInfo = {planId: 2, planName: "Plan B", planData: ""};
 
 describe('the userCreateNewPlan action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPlan({someKey: 'someValue'}).type;
+    const actual = userCreateNewPlan(creatingPlanInfo).type;
     const expected = USER_CREATE_NEW_PLAN;
     expect(actual).toEqual(expected);
   });
   it('returns the correct planInfo', () => {
-    const actual = userCreateNewPlan({someKey: 'someValue'}).planInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userCreateNewPlan(creatingPlanInfo).planInfo;
+    const expected = creatingPlanInfo;
     expect(actual).toEqual(expected);
   });
 });
@@ -62,13 +64,13 @@ describe('the userCreateNewPlanFailed action creator', () => {
 
 describe('the userEditPlan action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPlan({someKey: 'someValue'}).type;
+    const actual = userEditPlan(editingPlanInfo).type;
     const expected = USER_EDIT_PLAN;
     expect(actual).toEqual(expected);
   });
   it('returns the correct planInfo', () => {
-    const actual = userEditPlan({someKey: 'someValue'}).planInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userEditPlan(editingPlanInfo).planInfo;
+    const expected = editingPlanInfo;
     expect(actual).toEqual(expected);
   });
 });

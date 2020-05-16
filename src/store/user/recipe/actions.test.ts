@@ -1,4 +1,24 @@
 import {
+  userCreateNewPrivateRecipe,
+  userCreateNewPrivateRecipeSucceeded,
+  userCreateNewPrivateRecipeFailed,
+  userEditPrivateRecipe,
+  userEditPrivateRecipeSucceeded,
+  userEditPrivateRecipeFailed,
+  userDeletePrivateRecipe,
+  userDeletePrivateRecipeSucceeded,
+  userDeletePrivateRecipeFailed,
+  userCreateNewPublicRecipe,
+  userCreateNewPublicRecipeSucceeded,
+  userCreateNewPublicRecipeFailed,
+  userEditPublicRecipe,
+  userEditPublicRecipeSucceeded,
+  userEditPublicRecipeFailed,
+  userDisownPublicRecipe,
+  userDisownPublicRecipeSucceeded,
+  userDisownPublicRecipeFailed
+} from './actions';
+import {
   USER_CREATE_NEW_PRIVATE_RECIPE,
   USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
   USER_CREATE_NEW_PRIVATE_RECIPE_FAILED,
@@ -19,36 +39,65 @@ import {
   USER_DISOWN_PUBLIC_RECIPE_FAILED,
 } from './types';
 
-import {
-  userCreateNewPrivateRecipe,
-  userCreateNewPrivateRecipeSucceeded,
-  userCreateNewPrivateRecipeFailed,
-  userEditPrivateRecipe,
-  userEditPrivateRecipeSucceeded,
-  userEditPrivateRecipeFailed,
-  userDeletePrivateRecipe,
-  userDeletePrivateRecipeSucceeded,
-  userDeletePrivateRecipeFailed,
-  userCreateNewPublicRecipe,
-  userCreateNewPublicRecipeSucceeded,
-  userCreateNewPublicRecipeFailed,
-  userEditPublicRecipe,
-  userEditPublicRecipeSucceeded,
-  userEditPublicRecipeFailed,
-  userDisownPublicRecipe,
-  userDisownPublicRecipeSucceeded,
-  userDisownPublicRecipeFailed
-} from './actions';
+const creatingRecipeInfo = {
+  ownership: "private",
+  recipeTypeId: 1,
+  cuisineId: 1,
+  title: "My Secret Recipe",
+  description: "Don't worry about it.",
+  directions: "Do nothing.",
+  requiredMethods: [{methodId: 1}, {methodId: 3}],
+  requiredEquipment: [{amount: 1, equipment: 1}],
+  requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
+  requiredSubrecipes: [],
+  recipeImage: null,
+  fullRecipeImage: null,
+  thumbRecipeImage: null,
+  tinyRecipeImage: null,
+  recipeEquipmentImage: null,
+  fullRecipeEquipmentImage: null,
+  recipeIngredientsImage: null,
+  fullRecipeIngredientsImage: null,
+  recipeCookingImage: null,
+  fullRecipeCookingImage: null
+};
+const editingRecipeInfo = {
+  recipeId: 888,
+  prevRecipeImage: "nobsc-recipe-default",
+  prevEquipmentImage: "nobsc-recipe-equipment-default",
+  prevIngredientsImage: "nobsc-recipe-ingredients-default",
+  prevCookingImage: "nobsc-recipe-cooking-default",
+  ownership: "private",
+  recipeTypeId: 1,
+  cuisineId: 1,
+  title: "My Secret Recipe",
+  description: "Don't worry about it.",
+  directions: "Do nothing.",
+  requiredMethods: [{methodId: 1}, {methodId: 3}],
+  requiredEquipment: [{amount: 1, equipment: 1}],
+  requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
+  requiredSubrecipes: [],
+  recipeImage: null,
+  fullRecipeImage: null,
+  thumbRecipeImage: null,
+  tinyRecipeImage: null,
+  recipeEquipmentImage: null,
+  fullRecipeEquipmentImage: null,
+  recipeIngredientsImage: null,
+  fullRecipeIngredientsImage: null,
+  recipeCookingImage: null,
+  fullRecipeCookingImage: null
+};
 
 describe('the userCreateNewPrivateRecipe action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPrivateRecipe({someKey: 'someValue'}).type;
+    const actual = userCreateNewPrivateRecipe(creatingRecipeInfo).type;
     const expected = USER_CREATE_NEW_PRIVATE_RECIPE;
     expect(actual).toEqual(expected);
   });
   it('returns the correct recipeInfo', () => {
-    const actual = userCreateNewPrivateRecipe({someKey: 'someValue'}).recipeInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userCreateNewPrivateRecipe(creatingRecipeInfo).recipeInfo;
+    const expected = creatingRecipeInfo;
     expect(actual).toEqual(expected);
   });
 });
@@ -80,13 +129,13 @@ describe('the userCreateNewPrivateRecipeFailed action creator', () => {
 
 describe('the userEditPrivateRecipe action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPrivateRecipe({someKey: 'someValue'}).type;
+    const actual = userEditPrivateRecipe(editingRecipeInfo).type;
     const expected = USER_EDIT_PRIVATE_RECIPE;
     expect(actual).toEqual(expected);
   });
   it('returns the correct recipeInfo', () => {
-    const actual = userEditPrivateRecipe({someKey: 'someValue'}).recipeInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userEditPrivateRecipe(editingRecipeInfo).recipeInfo;
+    const expected = editingRecipeInfo;
     expect(actual).toEqual(expected);
   });
 });
@@ -159,13 +208,13 @@ describe('the userDeletePrivateRecipeFailed action creator', () => {
 
 describe('the userCreateNewPublicRecipe action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPublicRecipe({someKey: 'someValue'}).type;
+    const actual = userCreateNewPublicRecipe(creatingRecipeInfo).type;
     const expected = USER_CREATE_NEW_PUBLIC_RECIPE;
     expect(actual).toEqual(expected);
   });
   it('returns the correct recipeInfo', () => {
-    const actual = userCreateNewPublicRecipe({someKey: 'someValue'}).recipeInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userCreateNewPublicRecipe(creatingRecipeInfo).recipeInfo;
+    const expected = creatingRecipeInfo;
     expect(actual).toEqual(expected);
   });
 });
@@ -197,13 +246,13 @@ describe('the userFailed action creator', () => {
 
 describe('the userEditPublicRecipe action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPublicRecipe({someKey: 'someValue'}).type;
+    const actual = userEditPublicRecipe(editingRecipeInfo).type;
     const expected = USER_EDIT_PUBLIC_RECIPE;
     expect(actual).toEqual(expected);
   });
   it('returns the correct recipeInfo', () => {
-    const actual = userEditPublicRecipe({someKey: 'someValue'}).recipeInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userEditPublicRecipe(editingRecipeInfo).recipeInfo;
+    const expected = editingRecipeInfo;
     expect(actual).toEqual(expected);
   });
 });

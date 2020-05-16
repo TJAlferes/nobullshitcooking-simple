@@ -6,37 +6,42 @@ import { call, put, delay } from 'redux-saga/effects';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
-  userCreateNewPlanSaga,
-  userEditPlanSaga,
-  userDeletePlanSaga
-} from './plan';
-
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
   userCreateNewPlanSucceeded,
   userCreateNewPlanFailed,
   userEditPlanSucceeded,
   userEditPlanFailed,
   userDeletePlanSucceeded,
   userDeletePlanFailed
-} from '../actions';
-
+} from './actions';
 import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+  userCreateNewPlanSaga,
+  userEditPlanSaga,
+  userDeletePlanSaga
+} from './sagas';
+import {
+  USER_CREATE_NEW_PLAN,
+  USER_EDIT_PLAN,
+  USER_DELETE_PLAN
+} from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
 //const mock = new MockAdapter(axios, {delayResponse: 100});
 
 describe('the userCreateNewPlanSaga', () => {
+  const action = {
+    type: USER_CREATE_NEW_PLAN,
+    planInfo: {planName: "Plan B", planData: ""}
+  };
   /*it('works', () => {
     const action = {};
     return expectSaga(userCreateNewPlanSaga, action)
     .silentRun(50);
   });*/
 
-  const action = {planInfo: {}};
 
   it ('should dispatch succeeded', () => {
     const iterator = userCreateNewPlanSaga(action);
@@ -91,13 +96,15 @@ describe('the userCreateNewPlanSaga', () => {
 
 
 describe('the userEditPlanSaga', () => {
+  const action = {
+    type: USER_EDIT_PLAN,
+    planInfo: {planId: 2, planName: "Plan B", planData: ""}
+  };
   /*it('works', () => {
     const action = {};
     return expectSaga(userEditPlanSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {planInfo: {}};
 
   it ('should dispatch succeeded', () => {
     const iterator = userEditPlanSaga(action);
@@ -152,13 +159,12 @@ describe('the userEditPlanSaga', () => {
 
 
 describe('the userDeletePlanSaga', () => {
+  const action = {type: USER_DELETE_PLAN, planId: 3};
   /*it('works', () => {
     const action = {};
     return expectSaga(userDeletePlanSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {planId: 3};
 
   it ('should dispatch succeeded', () => {
     const iterator = userDeletePlanSaga(action);
