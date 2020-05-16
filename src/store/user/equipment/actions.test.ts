@@ -9,7 +9,6 @@ import {
   USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
   USER_DELETE_PRIVATE_EQUIPMENT_FAILED
 } from './types';
-
 import {
   userCreateNewPrivateEquipment,
   userCreateNewPrivateEquipmentSucceeded,
@@ -22,15 +21,34 @@ import {
   userDeletePrivateEquipmentFailed
 } from './actions';
 
+const creatingEquipmentInfo = {
+  equipmentTypeId: 3,
+  equipmentName: "Metal Spatula",
+  equipmentDescription: "It works.",
+  equipmentImage: "nobsc-metal-spatula",
+  fullEquipmentImage: null,
+  tinyEquipmentImage: null
+};
+const editingEquipmentInfo = {
+  equipmentId: 1,
+  equipmentTypeId: 3,
+  equipmentName: "Metal Spatula",
+  equipmentDescription: "It works.",
+  prevEquipmentImage: "nobsc-metal-spatula",
+  equipmentImage: "nobsc-metal-spatula",
+  fullEquipmentImage: null,
+  tinyEquipmentImage: null
+};
+
 describe('the userCreateNewPrivateEquipment action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPrivateEquipment({someKey: 'someValue'}).type;
+    const actual = userCreateNewPrivateEquipment(creatingEquipmentInfo).type;
     const expected = USER_CREATE_NEW_PRIVATE_EQUIPMENT;
     expect(actual).toEqual(expected);
   });
   it('returns the correct equipmentInfo', () => {
-    const actual = userCreateNewPrivateEquipment({someKey: 'someValue'}).equipmentInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userCreateNewPrivateEquipment(creatingEquipmentInfo).equipmentInfo;
+    const expected = creatingEquipmentInfo;
     expect(actual).toEqual(expected);
   });
 });
@@ -62,13 +80,13 @@ describe('the userCreateNewPrivateEquipmentFailed action creator', () => {
 
 describe('the userEditPrivateEquipment action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPrivateEquipment({someKey: 'someValue'}).type;
+    const actual = userEditPrivateEquipment(editingEquipmentInfo).type;
     const expected = USER_EDIT_PRIVATE_EQUIPMENT;
     expect(actual).toEqual(expected);
   });
   it('returns the correct equipmentInfo', () => {
-    const actual = userEditPrivateEquipment({someKey: 'someValue'}).equipmentInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userEditPrivateEquipment(editingEquipmentInfo).equipmentInfo;
+    const expected = editingEquipmentInfo;
     expect(actual).toEqual(expected);
   });
 });

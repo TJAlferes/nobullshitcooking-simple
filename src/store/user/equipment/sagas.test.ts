@@ -6,28 +6,32 @@ import { call, put, delay } from 'redux-saga/effects';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
-  userCreateNewPrivateEquipmentSaga,
-  userEditPrivateEquipmentSaga,
-  userDeletePrivateEquipmentSaga
-} from './equipment';
-
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
   userCreateNewPrivateEquipmentSucceeded,
   userCreateNewPrivateEquipmentFailed,
   userEditPrivateEquipmentSucceeded,
   userEditPrivateEquipmentFailed,
   userDeletePrivateEquipmentSucceeded,
   userDeletePrivateEquipmentFailed
-} from '../actions';
-
+} from './actions';
 import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+  userCreateNewPrivateEquipmentSaga,
+  userEditPrivateEquipmentSaga,
+  userDeletePrivateEquipmentSaga
+} from './sagas';
+import {
+  USER_CREATE_NEW_PRIVATE_EQUIPMENT,
+  USER_EDIT_PRIVATE_EQUIPMENT,
+  USER_DELETE_PRIVATE_EQUIPMENT
+} from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
 //const mock = new MockAdapter(axios, {delayResponse: 100});
+const fullEquipmentImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const tinyEquipmentImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
 describe('the userCreateNewPrivateEquipmentSaga', () => {
   /*it('works', () => {
@@ -37,13 +41,14 @@ describe('the userCreateNewPrivateEquipmentSaga', () => {
   });*/
 
   const action = {
+    type: USER_CREATE_NEW_PRIVATE_EQUIPMENT,
     equipmentInfo: {
       equipmentTypeId: 3,
       equipmentName: "My Teapot",
       equipmentDescription: "From grandmother.",
-      equipmentImage: "",
-      fullEquipmentImage: {type: "jpeg"},
-      tinyEquipmentImage: {type: "jpeg"}
+      equipmentImage: "my-teapot",
+      fullEquipmentImage,
+      tinyEquipmentImage
     }
   };
   const res1 = {
@@ -143,15 +148,16 @@ describe('the userEditPrivateEquipmentSaga', () => {
   });*/
 
   const action = {
+    type: USER_EDIT_PRIVATE_EQUIPMENT,
     equipmentInfo: {
       equipmentTypeId: 3,
       equipmentName: "My Teapot",
       equipmentDescription: "From grandmother.",
-      equipmentImage: "",
-      fullEquipmentImage: {type: "jpeg"},
-      tinyEquipmentImage: {type: "jpeg"},
+      equipmentImage: "my-teapot",
+      fullEquipmentImage,
+      tinyEquipmentImage,
       equipmentId: 377,
-      prevEquipmentImage: "blah"
+      prevEquipmentImage: "my-teapot"
     }
   };
   const res1 = {
@@ -250,7 +256,7 @@ describe('the userDeletePrivateEquipmentSaga', () => {
     .silentRun(50);
   });*/
 
-  const action = {equipmentId: 4};
+  const action = {type: USER_DELETE_PRIVATE_EQUIPMENT, equipmentId: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = userDeletePrivateEquipmentSaga(action);

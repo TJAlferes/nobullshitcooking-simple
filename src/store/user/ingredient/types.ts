@@ -40,7 +40,7 @@ export interface IUserEditPrivateIngredientFailed {
 
 export interface IUserDeletePrivateIngredient {
   type: typeof USER_DELETE_PRIVATE_INGREDIENT
-  ingredientId: string
+  ingredientId: number
 }
 
 export interface IUserDeletePrivateIngredientSucceeded {

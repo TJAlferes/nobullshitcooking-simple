@@ -6,28 +6,32 @@ import { call, put, delay } from 'redux-saga/effects';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
-  userCreateNewPrivateIngredientSaga,
-  userEditPrivateIngredientSaga,
-  userDeletePrivateIngredientSaga,
-} from './ingredient';
-
+  NOBSCBackendAPIEndpointOne
+} from '../../../config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../actions';
 import {
-  userMessageClear,
   userCreateNewPrivateIngredientSucceeded,
   userCreateNewPrivateIngredientFailed,
   userEditPrivateIngredientSucceeded,
   userEditPrivateIngredientFailed,
   userDeletePrivateIngredientSucceeded,
   userDeletePrivateIngredientFailed
-} from '../actions';
-
+} from './actions';
 import {
-  NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+  userCreateNewPrivateIngredientSaga,
+  userEditPrivateIngredientSaga,
+  userDeletePrivateIngredientSaga,
+} from './sagas';
+import {
+  USER_CREATE_NEW_PRIVATE_INGREDIENT,
+  USER_EDIT_PRIVATE_INGREDIENT,
+  USER_DELETE_PRIVATE_INGREDIENT
+} from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
 //const mock = new MockAdapter(axios, {delayResponse: 100});
+const fullIngredientImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const tinyIngredientImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
 describe('the userCreateNewPrivateIngredientSaga', () => {
   /*it('works', () => {
@@ -37,13 +41,14 @@ describe('the userCreateNewPrivateIngredientSaga', () => {
   });*/
 
   const action = {
+    type: USER_CREATE_NEW_PRIVATE_INGREDIENT,
     ingredientInfo: {
       ingredientTypeId: 3,
       ingredientName: "HOT Sauce",
       ingredientDescription: "From Uncle Bob.",
-      ingredientImage: "",
-      fullIngredientImage: {type: "jpeg"},
-      tinyIngredientImage: {type: "jpeg"}
+      ingredientImage: "hot-sauce",
+      fullIngredientImage,
+      tinyIngredientImage
     }
   };
   const res1 = {
@@ -143,15 +148,16 @@ describe('the userEditPrivateIngredientSaga', () => {
   });*/
 
   const action = {
+    type: USER_EDIT_PRIVATE_INGREDIENT,
     ingredientInfo: {
       ingredientTypeId: 3,
       ingredientName: "HOT Sauce",
       ingredientDescription: "From Uncle Bob.",
-      ingredientImage: "",
-      fullIngredientImage: {type: "jpeg"},
-      tinyIngredientImage: {type: "jpeg"},
+      ingredientImage: "hot-sauce",
+      fullIngredientImage,
+      tinyIngredientImage,
       ingredientId: 377,
-      prevIngredientImage: "blah"
+      prevIngredientImage: "hot-sauce"
     }
   };
   const res1 = {
@@ -250,7 +256,7 @@ describe('the userDeletePrivateIngredientSaga', () => {
     .silentRun(50);
   });*/
 
-  const action = {ingredientId: 4};
+  const action = {type: USER_DELETE_PRIVATE_INGREDIENT, ingredientId: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = userDeletePrivateIngredientSaga(action);

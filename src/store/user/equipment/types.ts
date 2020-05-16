@@ -40,7 +40,7 @@ export interface IUserEditPrivateEquipmentFailed {
 
 export interface IUserDeletePrivateEquipment {
   type: typeof USER_DELETE_PRIVATE_EQUIPMENT
-  equipmentId: string
+  equipmentId: number
 }
 
 export interface IUserDeletePrivateEquipmentSucceeded {

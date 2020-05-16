@@ -9,7 +9,6 @@ import {
   USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED,
   USER_DELETE_PRIVATE_INGREDIENT_FAILED
 } from './types';
-
 import {
   userCreateNewPrivateIngredient,
   userCreateNewPrivateIngredientSucceeded,
@@ -22,15 +21,34 @@ import {
   userDeletePrivateIngredientFailed
 } from './actions';
 
+const creatingIngredientInfo = {
+  ingredientTypeId: 3,
+  ingredientName: "HOT Sauce",
+  ingredientDescription: "From Uncle Bob.",
+  ingredientImage: "hot-sauce",
+  fullIngredientImage: null,
+  tinyIngredientImage: null
+};
+const editingIngredientInfo = {
+  ingredientTypeId: 3,
+  ingredientName: "HOT Sauce",
+  ingredientDescription: "From Uncle Bob.",
+  ingredientImage: "hot-sauce",
+  fullIngredientImage: null,
+  tinyIngredientImage: null,
+  ingredientId: 377,
+  prevIngredientImage: "hot-sauce"
+};
+
 describe('the userCreateNewPrivateIngredient action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPrivateIngredient({someKey: 'someValue'}).type;
+    const actual = userCreateNewPrivateIngredient(creatingIngredientInfo).type;
     const expected = USER_CREATE_NEW_PRIVATE_INGREDIENT;
     expect(actual).toEqual(expected);
   });
   it('returns the correct ingredientInfo', () => {
-    const actual = userCreateNewPrivateIngredient({someKey: 'someValue'}).ingredientInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userCreateNewPrivateIngredient(creatingIngredientInfo).ingredientInfo;
+    const expected = creatingIngredientInfo;
     expect(actual).toEqual(expected);
   });
 });
@@ -62,13 +80,13 @@ describe('the userCreateNewPrivateIngredientFailed action creator', () => {
 
 describe('the userEditPrivateIngredient action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPrivateIngredient({someKey: 'someValue'}).type;
+    const actual = userEditPrivateIngredient(editingIngredientInfo).type;
     const expected = USER_EDIT_PRIVATE_INGREDIENT;
     expect(actual).toEqual(expected);
   });
   it('returns the correct ingredientInfo', () => {
-    const actual = userEditPrivateIngredient({someKey: 'someValue'}).ingredientInfo;
-    const expected = {someKey: 'someValue'};
+    const actual = userEditPrivateIngredient(editingIngredientInfo).ingredientInfo;
+    const expected = editingIngredientInfo;
     expect(actual).toEqual(expected);
   });
 });
