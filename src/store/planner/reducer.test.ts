@@ -13,6 +13,20 @@ import {
   PLANNER_SET_PLAN_DATA
 } from './types';
 
+const recipeOne = {
+  key: "ABC",
+  recipe_id: 503,
+  owner_id: 1,
+  title: "Pho",
+  recipe_image: "nobsc-pho"
+};
+const recipeTwo = {
+  key: "XYZ",
+  recipe_id: 821,
+  owner_id: 1,
+  title: "Coffee Cake",
+  recipe_image: "nobsc-coffee-cake"
+};
 const initialState = {
   isLoading: false,
   creating: false,
@@ -31,7 +45,7 @@ const initialState = {
 
 describe('the planner reducer', () => {
   it('returns initial state', () => {
-    const actual = plannerReducer(undefined, {});
+    const actual = plannerReducer(undefined, {type: PLANNER_CLEAR_WORK});
     const expected = initialState;
     expect(actual).toEqual(expected);
   });
@@ -91,7 +105,7 @@ describe('the planner reducer', () => {
     const actual = plannerReducer(initialState, {
       type: PLANNER_ADD_RECIPE_TO_DAY,
       day: 2,
-      recipe: {recipe_id: 503, title: "Pho"}
+      recipe: recipeOne
     });
     const expected = {
       isLoading: false,
@@ -99,11 +113,11 @@ describe('the planner reducer', () => {
       editingId: null,
       publicUrl: "",
       expanded: false,
-      expandedDay: "none",
+      expandedDay: null,
       planName: "",
       recipeListsInsideDays: {
          1: [],
-         2: [{id: 503, title: "Pho"}],
+         2: [recipeOne],
          3: [],  4: [],  5: [],  6: [],  7: [],
          8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
         15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
@@ -120,11 +134,11 @@ describe('the planner reducer', () => {
       editingId: null,
       publicUrl: "",
       expanded: false,
-      expandedDay: "none",
+      expandedDay: null,
       planName: "",
       recipeListsInsideDays: {
          1: [],
-         2: [{id: 503, title: "Pho"}],
+         2: [recipeOne],
          3: [],  4: [],  5: [],  6: [],  7: [],
          8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
         15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
@@ -151,7 +165,7 @@ describe('the planner reducer', () => {
       planName: "",
       recipeListsInsideDays: {
          1: [],
-         2: [{id: 503, title: "Pho"}, {id: 821, title: "Coffee Cake"}],
+         2: [recipeOne, recipeTwo],
          3: [],  4: [],  5: [],  6: [],  7: [],
          8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
         15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
@@ -173,7 +187,7 @@ describe('the planner reducer', () => {
       planName: "",
       recipeListsInsideDays: {
          1: [],
-         2: [{id: 821, title: "Coffee Cake"}, {id: 503, title: "Pho"}],
+         2: [recipeTwo, recipeOne],
          3: [],  4: [],  5: [],  6: [],  7: [],
          8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
         15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
@@ -216,7 +230,7 @@ describe('the planner reducer', () => {
       planName: "",
       recipeListsInsideDays: {
          1: [],
-         2: [{id: 503, title: "Pho"}, {id: 821, title: "Coffee Cake"}],
+         2: [recipeOne, recipeTwo],
          3: [],  4: [],  5: [],  6: [],  7: [],
          8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
         15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
@@ -298,7 +312,7 @@ describe('the planner reducer', () => {
     const actual = plannerReducer(initialState, {
       type: PLANNER_SET_PLAN_DATA,
       data: {
-        1: [{id: 1, title: "Pumpkin Soup"}],
+        1: [recipeOne],
         2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
         8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
        15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
@@ -314,7 +328,7 @@ describe('the planner reducer', () => {
       expandedDay: null,
       planName: "",
       recipeListsInsideDays: {
-        1: [{id: 1, title: "Pumpkin Soup"}],
+        1: [recipeOne],
         2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
         8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
        15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],

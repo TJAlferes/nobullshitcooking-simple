@@ -1,47 +1,45 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { plannerViewClickDay } from '../../../../../store/plannerView/actions';
+import { IPlannerViewRecipe } from '../../../../../store/plannerView/types';
+import { Recipe } from '../Recipe/Recipe';
 
-import Recipe from '../Recipe/Recipe';
-
-const Day = ({
+export function Day({
   list,
   expanded,
   day,
   expandedDay,
   plannerViewClickDay
-}) => {
+}: Props): JSX.Element|null {
   const handleClickDay = () => plannerViewClickDay(day);
-
-  let color = "planner_day_white";
 
   return (!expanded || (day !== expandedDay))
   ? (
     <div
-      className={`planner_day_collapsed ${color}`}
+      className="planner_day_collapsed planner_day_white"
       onClick={handleClickDay}
     >
       <span className="the_date">{day}</span>
-      {list.map((recipe, i) => (
-        <Recipe
-          className="planner_recipe"
-          key={recipe.key}
-          id={recipe.key}
-          index={i}
-          recipe={recipe}
-          expanded={expanded}
-          day={day}
-          expandedDay={expandedDay}
-        />
-      ))}
+      {list.map((recipe: IPlannerViewRecipe) => <Recipe recipe={recipe} />)}
     </div>
   )
-  : false;
+  : null;
 };
 
-const mapDispatchToProps = dispatch => ({
-  plannerViewClickDay: (day) => dispatch(plannerViewClickDay(day))
-});
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connect(null, mapDispatchToProps)(Day);
+type Props = PropsFromRedux & {
+  day: number;
+  list: IPlannerViewRecipe[];
+  expanded: boolean;
+  expandedDay: number | null;
+};
+
+const mapDispatchToProps = {
+  plannerViewClickDay: (day: number) => plannerViewClickDay(day)
+};
+
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(Day);

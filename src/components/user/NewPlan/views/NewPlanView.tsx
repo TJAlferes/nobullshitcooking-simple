@@ -67,7 +67,7 @@ export function NewPlanView({
         </div>
 
         <div className="expanded-day-container">
-          <ExpandedDay
+          {expandedDay && <ExpandedDay
             day={expandedDay}
             list={(expanded)
               ? recipeListsInsideDays[expandedDay]
@@ -75,7 +75,7 @@ export function NewPlanView({
             }
             expanded={expanded}
             expandedDay={expandedDay}
-          />
+          />}
         </div>
       </div>
     );

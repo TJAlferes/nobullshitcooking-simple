@@ -1,4 +1,8 @@
-import { PLANNER_VIEW_CLICK_DAY, PLANNER_VIEW_LOAD, PlannerViewData } from './types';
+import {
+  PLANNER_VIEW_CLICK_DAY,
+  PLANNER_VIEW_LOAD,
+  IPlannerViewData
+} from './types';
 
 export const plannerViewClickDay = (day: number) => ({
   type: PLANNER_VIEW_CLICK_DAY,
@@ -7,7 +11,7 @@ export const plannerViewClickDay = (day: number) => ({
 
 export const plannerViewLoad = (
   planName: string,
-  planData: PlannerViewData
+  planData: IPlannerViewData
 ) => ({
   type: PLANNER_VIEW_LOAD,
   planName,

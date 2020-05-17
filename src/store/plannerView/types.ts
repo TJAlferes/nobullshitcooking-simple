@@ -4,12 +4,13 @@ export const PLANNER_VIEW_LOAD = 'PLANNER_VIEW_LOAD' as const;
 export interface IPlannerViewState {
   isLoading: boolean
   expanded: boolean
-  expandedDay: string|number
+  expandedDay: number | null
   planName: string
   recipeListsInsideDays: IPlannerViewData
 }
 
 export interface IPlannerViewData {
+  [index: number]: any;
   1: IPlannerViewRecipe[],
   2: IPlannerViewRecipe[],
   3: IPlannerViewRecipe[],
@@ -43,8 +44,10 @@ export interface IPlannerViewData {
 // url
 export interface IPlannerViewRecipe {
   key: string
-  image: string
-  text: string
+  recipe_id: number
+  owner_id: number
+  title: string
+  recipe_image: string
 }
 
 export type PlannerViewActions = IPlannerViewClickDay|IPlannerViewLoad;

@@ -1,15 +1,15 @@
 import {
   PLANNER_VIEW_CLICK_DAY,
   PLANNER_VIEW_LOAD,
-  PlannerViewState,
+  IPlannerViewState,
   PlannerViewActions,
-  PlannerViewClickDay
+  IPlannerViewClickDay
 } from './types';
 
-const initialState: PlannerViewState = {
+const initialState: IPlannerViewState = {
   isLoading: false,
   expanded: false,
-  expandedDay: "none",
+  expandedDay: null,
   planName: "",
   recipeListsInsideDays: {
     1: [],
@@ -44,28 +44,21 @@ const initialState: PlannerViewState = {
 };
 
 const clickDay = (
-  state: PlannerViewState,
-  action: PlannerViewClickDay
-): PlannerViewState => {
+  state: IPlannerViewState,
+  action: IPlannerViewClickDay
+): IPlannerViewState => {
   const { expandedDay } = state;
   const { day } = action;
   if (day === expandedDay) {
-    return {...state, ...{
-      expanded: false,
-      expandedDay: "none"
-    }};
-  } else {
-    return {...state, ...{
-      expanded: true,
-      expandedDay: action.day
-    }};
+    return {...state, ...{expanded: false, expandedDay: null}};
   }
+  return {...state, ...{expanded: true, expandedDay: action.day}};
 };
 
 const plannerViewReducer = (
   state = initialState,
   action: PlannerViewActions
-): PlannerViewState => {
+): IPlannerViewState => {
   switch (action.type) {
     case PLANNER_VIEW_CLICK_DAY:
       return clickDay(state, action);

@@ -1,12 +1,23 @@
 import {
+  plannerClickDay,
+  plannerAddRecipeToDay,
+  plannerRemoveRecipeFromDay,
+  plannerReorderRecipeInDay,
+  //plannerPublicLoadFromUrl,
+  //plannerPublicSaveToUrl,
+  plannerClearWork,
+  plannerSetCreating,
+  plannerSetEditingId,
+  plannerSetPlanName,
+  plannerSetPlanData
+} from './actions';
+import {
   PLANNER_CLICK_DAY,
   PLANNER_ADD_RECIPE_TO_DAY,
   PLANNER_REMOVE_RECIPE_FROM_DAY,
   PLANNER_REORDER_RECIPE_IN_DAY,
   //PLANNER_PUBLIC_LOAD_FROM_URL,
   //PLANNER_PUBLIC_SAVE_TO_URL,
-  PLANNER_VIEW_CLICK_DAY,
-  PLANNER_PRIVATE_LOAD,
   PLANNER_CLEAR_WORK,
   PLANNER_SET_CREATING,
   PLANNER_SET_EDITING_ID,
@@ -14,23 +25,13 @@ import {
   PLANNER_SET_PLAN_DATA
 } from './types';
 
-import {
-  plannerClickDay,
-  plannerAddRecipeToDay,
-  plannerRemoveRecipeFromDay,
-  plannerReorderRecipeInDay,
-  //plannerPublicLoadFromUrl,
-  //plannerPublicSaveToUrl,
-  plannerViewClickDay,
-  plannerPrivateLoad,
-  plannerClearWork,
-  plannerSetCreating,
-  plannerSetEditingId,
-  plannerSetPlanName,
-  plannerSetPlanData
-} from './actions';
-
-
+const recipeOne = {
+  key: "ABC",
+  recipe_id: 503,
+  owner_id: 1,
+  title: "Pho",
+  recipe_image: "nobsc-pho"
+};
 
 describe('the plannerClickDay action creator', () => {
   it('returns the correct action type', () => {
@@ -47,24 +48,18 @@ describe('the plannerClickDay action creator', () => {
 
 describe('the plannerAddRecipeToDay action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerAddRecipeToDay(5, {
-      id: 30, title: "Chicken Noodle Soup"
-    }).type;
+    const actual = plannerAddRecipeToDay(5, recipeOne).type;
     const expected = PLANNER_ADD_RECIPE_TO_DAY;
     expect(actual).toEqual(expected);
   });
   it('returns the correct day', () => {
-    const actual = plannerAddRecipeToDay(5, {
-      id: 30, title: "Chicken Noodle Soup"
-    }).day;
+    const actual = plannerAddRecipeToDay(5, recipeOne).day;
     const expected = 5;
     expect(actual).toEqual(expected);
   });
   it('returns the correct recipe', () => {
-    const actual = plannerAddRecipeToDay(5, {
-      id: 30, title: "Chicken Noodle Soup"
-    }).recipe;
-    const expected = {id: 30, title: "Chicken Noodle Soup"};
+    const actual = plannerAddRecipeToDay(5, recipeOne).recipe;
+    const expected = recipeOne;
     expect(actual).toEqual(expected);
   });
 });
@@ -107,7 +102,7 @@ describe('the plannerReorderRecipeInDay action creator', () => {
 
 
 
-describe('the plannerViewClickDay action creator', () => {
+/*describe('the plannerViewClickDay action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerViewClickDay(14).type;
     const expected = PLANNER_VIEW_CLICK_DAY;
@@ -166,7 +161,7 @@ describe('the plannerPrivateLoad action creator', () => {
     };
     expect(actual).toEqual(expected);
   });
-});
+});*/
 
 describe('the plannerClearWork action creator', () => {
   it('returns the correct action type', () => {
@@ -211,35 +206,22 @@ describe('the plannerSetPlanName action creator', () => {
 });
 
 describe('the plannerSetPlanData action creator', () => {
+  const dataToSet = {
+    1: [],
+    2: [recipeOne],
+    3: [],  4: [],  5: [],  6: [],  7: [],
+    8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
+   15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
+   22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
+ };
   it('returns the correct action type', () => {
-    const actual = plannerSetPlanData({
-       1: [],
-       2: [{id: 503, title: "Pho"}],
-       3: [],  4: [],  5: [],  6: [],  7: [],
-       8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-      15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-      22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-    }).type;
+    const actual = plannerSetPlanData(dataToSet).type;
     const expected = PLANNER_SET_PLAN_DATA;
     expect(actual).toEqual(expected);
   });
   it('returns the correct data', () => {
-    const actual = plannerSetPlanData({
-       1: [],
-       2: [{id: 503, title: "Pho"}],
-       3: [],  4: [],  5: [],  6: [],  7: [],
-       8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-      15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-      22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-    }).data;
-    const expected = {
-       1: [],
-       2: [{id: 503, title: "Pho"}],
-       3: [],  4: [],  5: [],  6: [],  7: [],
-       8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-      15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-      22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-    };
+    const actual = plannerSetPlanData(dataToSet).data;
+    const expected = dataToSet;
     expect(actual).toEqual(expected);
   });
 });

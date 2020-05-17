@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
 
+import { IPlan } from '../../../store/data/types';
 import { plannerViewLoad } from '../../../store/plannerView/actions';
+import { IPlannerViewData } from '../../../store/plannerView/types';
+//import MobilePlanView from './views/MobilePlanView';
+import { PlanView } from './views/PlanView';
 
-import MobilePlanView from './views/MobilePlanView';
-import PlanView from './views/PlanView';
-
-export const Plan = ({
-  match,
+export function Plan({
   twoColumnATheme,
   planView,
   dataMyPlans,
@@ -18,29 +17,29 @@ export const Plan = ({
   planName,
   recipeListsInsideDays,
   plannerViewLoad
-}) => {
+}: Props): JSX.Element {
   const history = useHistory();
+  const { id } = useParams();
 
   useEffect(() => {
     const getPlan = () => {
       window.scrollTo(0,0);
 
       const [ prev ] = dataMyPlans
-      .filter(plan => plan.plan_id === Number(match.params.id));
+      .filter(plan => plan.plan_id === Number(id));
       
       plannerViewLoad(prev.plan_name, prev.plan_data);
     };
 
-    if (match.params.id) getPlan();
+    if (id) getPlan();
     else history.push('/home');
   }, []);
 
-  let ViewComponent;
-  if (planView === "mobile") ViewComponent = MobilePlanView;
-  if (planView === "desktop") ViewComponent = PlanView;
+  //if (planView === "mobile") MobilePlanView;
+  //if (planView === "desktop") PlanView;
 
   return (
-    <ViewComponent
+    <PlanView
       twoColumnATheme={twoColumnATheme}
       planName={planName}
       recipeListsInsideDays={recipeListsInsideDays}
@@ -50,7 +49,26 @@ export const Plan = ({
   );
 };
 
-const mapStateToProps = state => ({
+interface RootState {
+  data: {
+    myPlans: IPlan[];
+  };
+  plannerView: {
+    expanded: boolean;
+    expandedDay: number | null;
+    planName: string;
+    recipeListsInsideDays: IPlannerViewData
+  }
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  twoColumnATheme: string;
+  planView: string;
+}
+
+const mapStateToProps = (state: RootState) => ({
   dataMyPlans: state.data.myPlans,
   expanded: state.plannerView.expanded,
   expandedDay: state.plannerView.expandedDay,
@@ -58,9 +76,11 @@ const mapStateToProps = state => ({
   recipeListsInsideDays: state.plannerView.recipeListsInsideDays
 });
 
-const mapDispatchToProps = dispatch => ({
-  plannerViewLoad: (planName, planData) =>
-    dispatch(plannerViewLoad(planName, planData))
-})
+const mapDispatchToProps = {
+  plannerViewLoad: (planName: string, planData: IPlannerViewData) =>
+    plannerViewLoad(planName, planData)
+};
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Plan));
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Plan);
