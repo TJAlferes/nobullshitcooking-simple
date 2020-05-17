@@ -20,7 +20,6 @@ import {
 } from './actions';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-
 const socket = io.connect(`${endpoint}`, {
   reconnection: true,
   autoConnect: false

@@ -17,7 +17,9 @@ import {
   MESSENGER_RECEIVED_WHISPER,
   MESSENGER_FAILED_WHISPER,
   //Message,
+  IMessageBeforeClientTimestamp,
   IMessage,
+  IWhisperBeforeClientTimestamp,
   IWhisper,
   IUser
 } from './types';
@@ -100,13 +102,15 @@ export const messengerSendMessage = (message: string) => ({
 });
 
 export const messengerReceivedMessage = (
-  message: IMessage
+  message: IMessageBeforeClientTimestamp
 ) => {
-  const ts = `${(new Date).toLocaleTimeString()}`;
+  const messageWithClientTime: IMessage = {
+    ...message,
+    ts: `${(new Date).toLocaleTimeString()}`
+  };
   return {
     type: MESSENGER_RECEIVED_MESSAGE,
-    message,
-    ts
+    message: messageWithClientTime
   };
 };
 
@@ -119,12 +123,16 @@ export const messengerSendWhisper = (
   to
 });
 
-export const messengerReceivedWhisper = (whisper: IWhisper) => {
-  const ts = `${(new Date).toLocaleTimeString()}`;
+export const messengerReceivedWhisper = (
+  whisper: IWhisperBeforeClientTimestamp
+) => {
+  const whisperWithClientTime: IWhisper = {
+    ...whisper,
+    ts: `${(new Date).toLocaleTimeString()}`
+  };
   return {
     type: MESSENGER_RECEIVED_WHISPER,
-    whisper,
-    ts
+    whisper: whisperWithClientTime
   };
 };
 

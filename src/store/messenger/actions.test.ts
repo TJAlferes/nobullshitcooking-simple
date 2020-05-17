@@ -1,49 +1,41 @@
 import {
-  MESSENGER_CONNECT,
-  MESSENGER_CONNECTED,
-  MESSENGER_DISCONNECT,
-  MESSENGER_DISCONNECTED,
-
-  MESSENGER_GET_ONLINE,
-  MESSENGER_SHOW_ONLINE,
-  MESSENGER_SHOW_OFFLINE,
-
-  MESSENGER_CHANGE_CHANNEL,
-  MESSENGER_CHANGED_CHANNEL,
-  MESSENGER_REJOINED_CHANNEL,
-  MESSENGER_JOINED_USER,
-  MESSENGER_LEFT_USER,
-
-  MESSENGER_SEND_MESSAGE,
-  MESSENGER_RECEIVED_MESSAGE,
-  MESSENGER_SEND_WHISPER,
-  MESSENGER_RECEIVED_WHISPER,
-  MESSENGER_FAILED_WHISPER
-} from './types';
-
-import {
   messengerConnect,
   messengerConnected,
   messengerDisconnect,
   messengerDisconnected,
-
   messengerGetOnline,
   messengerShowOnline,
   messengerShowOffline,
-
   messengerChangeChannel,
   messengerChangedChannel,
   messengerRejoinedChannel,
   messengerJoinedUser,
   messengerLeftUser,
-
   messengerSendMessage,
   messengerReceivedMessage,
   messengerSendWhisper,
   messengerReceivedWhisper,
   messengerFailedWhisper
 } from './actions';
-
+import {
+  MESSENGER_CONNECT,
+  MESSENGER_CONNECTED,
+  MESSENGER_DISCONNECT,
+  MESSENGER_DISCONNECTED,
+  MESSENGER_GET_ONLINE,
+  MESSENGER_SHOW_ONLINE,
+  MESSENGER_SHOW_OFFLINE,
+  MESSENGER_CHANGE_CHANNEL,
+  MESSENGER_CHANGED_CHANNEL,
+  MESSENGER_REJOINED_CHANNEL,
+  MESSENGER_JOINED_USER,
+  MESSENGER_LEFT_USER,
+  MESSENGER_SEND_MESSAGE,
+  MESSENGER_RECEIVED_MESSAGE,
+  MESSENGER_SEND_WHISPER,
+  MESSENGER_RECEIVED_WHISPER,
+  MESSENGER_FAILED_WHISPER
+} from './types';
 
 
 describe('the messengerConnect action creator', () => {
@@ -285,8 +277,7 @@ describe('messengerReceivedMessage action creator', () => {
       chatMessageId: '555' + (new Date).getTime().toString(),
       chatMessageText: "Hey! How are you?",
       room: "GrillNChill",
-      user: {userId: '555', username: "Joe555", avatar: "Joe555"},
-      ts: `${(new Date).toLocaleTimeString()}`
+      user: {userId: '555', username: "Joe555", avatar: "Joe555"}
     }).type;
     const expected = MESSENGER_RECEIVED_MESSAGE;
     expect(actual).toEqual(expected);
@@ -296,15 +287,13 @@ describe('messengerReceivedMessage action creator', () => {
       chatMessageId: '555' + (new Date).getTime().toString(),
       chatMessageText: "Hey! How are you?",
       room: "GrillNChill",
-      user: {userId: '555', username: "Joe555", avatar: "Joe555"},
-      ts: `${(new Date).toLocaleTimeString()}`
+      user: {userId: '555', username: "Joe555", avatar: "Joe555"}
     }).message;
     const expected = {
       chatMessageId: '555' + (new Date).getTime().toString(),
       chatMessageText: "Hey! How are you?",
       room: "GrillNChill",
-      user: {userId: '555', username: "Joe555", avatar: "Joe555"},
-      ts: `${(new Date).toLocaleTimeString()}`
+      user: {userId: '555', username: "Joe555", avatar: "Joe555"}
     };
     expect(actual).toEqual(expected);
   });
@@ -334,8 +323,7 @@ describe('messengerReceivedWhisper action creator', () => {
       whisperId: '32873443823428384923',
       whisperText: 'How are you?',
       to: '0923849323432',
-      user: {userId: '90', username: 'Jill', avatar: 'Jill'},
-      ts: `${(new Date).toLocaleTimeString()}`
+      user: {userId: '90', username: 'Jill', avatar: 'Jill'}
     }).type;
     const expected = MESSENGER_RECEIVED_WHISPER;
     expect(actual).toEqual(expected);
@@ -345,15 +333,13 @@ describe('messengerReceivedWhisper action creator', () => {
       whisperId: '32873443823428384923',
       whisperText: 'How are you?',
       to: '0923849323432',
-      user: {userId: '90', username: 'Jill', avatar: 'Jill'},
-      ts: `${(new Date).toLocaleTimeString()}`
+      user: {userId: '90', username: 'Jill', avatar: 'Jill'}
     }).whisper;
     const expected = {
       whisperId: '32873443823428384923',
       whisperText: 'How are you?',
       to: '0923849323432',
-      user: {userId: '90', username: 'Jill', avatar: 'Jill'},
-      ts: `${(new Date).toLocaleTimeString()}`
+      user: {userId: '90', username: 'Jill', avatar: 'Jill'}
     };
     expect(actual).toEqual(expected);  // deep?
   });

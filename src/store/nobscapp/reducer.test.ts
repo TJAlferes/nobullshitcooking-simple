@@ -1,6 +1,5 @@
-import { NOBSCAPP_WINDOW_FOCUSED } from './types';
-
 import nobscappReducer from './reducer';
+import { NOBSCAPP_WINDOW_FOCUSED } from './types';
 
 describe('the nobscapp reducer', () => {
   it('returns initial state', () => {

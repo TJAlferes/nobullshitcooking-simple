@@ -1,3 +1,5 @@
+import { AUTH_USER_LOGOUT } from '../auth/types';
+import messengerReducer from './reducer';
 import {
   MESSENGER_CONNECTED,
   MESSENGER_DISCONNECTED,
@@ -12,10 +14,6 @@ import {
   MESSENGER_FAILED_WHISPER,
   MESSENGER_GET_ONLINE
 } from './types';
-
-import { AUTH_USER_LOGOUT } from '../auth/types';
-
-import messengerReducer from './reducer';
 
 const initialState = {
   channel: "",
@@ -435,8 +433,8 @@ describe('the messenger reducer', () => {
         chatMessageText: "I'm good, thanks! You?",
         room: "GrillNChill",
         user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-      },
-      ts: `${clientTimeStr}`
+        ts: `${clientTimeStr}`
+      }
     });
 
     const expected = {
@@ -492,8 +490,8 @@ describe('the messenger reducer', () => {
         whisperText: "Are you still moving next year?",
         to: "Joe555",
         user: {userId: 888, username: "Jane888", avatar: "Jane888"},
-      },
-      ts: `${clientTimeStr}`
+        ts: `${clientTimeStr}`
+      }
     });
 
     const expected = {

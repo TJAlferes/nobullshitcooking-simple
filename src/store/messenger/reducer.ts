@@ -1,3 +1,4 @@
+import { AUTH_USER_LOGOUT } from '../auth/types';
 import {
   MESSENGER_CONNECTED,
   MESSENGER_DISCONNECTED,
@@ -17,8 +18,6 @@ import {
   IMessengerReceivedWhisper
 } from './types';
 
-import { AUTH_USER_LOGOUT } from '../auth/types';
-
 // NORMALIZE STATE, USE OBJECTS/MAPS, NOT ARRAYS
 // remember Nir Kofman's actions patterns (maybe)
 
@@ -30,28 +29,6 @@ const initialState: IMessengerState = {
   status: "Disconnected",
   connectButtonDisabled: false,
   disconnectButtonDisabled: true,
-};
-
-const receivedMessage = (
-  state: IMessengerState,
-  action: IMessengerReceivedMessage
-): IMessengerState => {
-  action.message.ts = action.ts;
-  return {
-    ...state,
-    messages: state.messages.concat(action.message)
-  };
-};
-
-const receivedWhisper = (
-  state: IMessengerState,
-  action: IMessengerReceivedWhisper
-): IMessengerState => {
-  action.whisper.ts = action.ts;
-  return {
-    ...state,
-    ...{messages: state.messages.concat(action.whisper)}
-  };
 };
 
 const messengerReducer = (
@@ -146,9 +123,15 @@ const messengerReducer = (
         }
       };
     case MESSENGER_RECEIVED_MESSAGE:
-      return receivedMessage(state, action);
+      return {
+        ...state,
+        ...{messages: state.messages.concat(action.message)}
+      };
     case MESSENGER_RECEIVED_WHISPER:
-      return receivedWhisper(state, action);
+      return {
+        ...state,
+        ...{messages: state.messages.concat(action.whisper)}
+      };
     case MESSENGER_FAILED_WHISPER:
       return {
         ...state,

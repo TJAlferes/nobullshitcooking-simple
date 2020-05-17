@@ -1,16 +1,16 @@
 import {
   NOBSCAPP_WINDOW_FOCUSED,
-  NOBSCAppState,
+  INOBSCAppState,
   NOBSCAppActions
 } from './types';
 
 // make false first, have them click on something (Connect button?)
-const initialState: NOBSCAppState = {windowFocused: true};
+const initialState: INOBSCAppState = {windowFocused: true};
 
 const nobscappReducer = (
   state = initialState,
   action: NOBSCAppActions
-): NOBSCAppState => {
+): INOBSCAppState => {
   switch (action.type) {
     case NOBSCAPP_WINDOW_FOCUSED:
       return {...state, ...{windowFocused: action.condition}};

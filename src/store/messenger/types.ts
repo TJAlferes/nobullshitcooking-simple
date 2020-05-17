@@ -2,21 +2,15 @@ import { IAuthUserLogout } from '../auth/types';
 
 export const MESSENGER_CONNECT = 'MESSENGER_CONNECT' as const;
 export const MESSENGER_CONNECTED = 'MESSENGER_CONNECTED' as const;
-
 export const MESSENGER_DISCONNECT = 'MESSENGER_DISCONNECT' as const;
 export const MESSENGER_DISCONNECTED = 'MESSENGER_DISCONNECTED' as const;
-
 export const MESSENGER_SHOW_ONLINE = 'MESSENGER_SHOW_ONLINE' as const;
 export const MESSENGER_SHOW_OFFLINE = 'MESSENGER_SHOW_OFFLINE' as const;
-
 export const MESSENGER_CHANGE_CHANNEL = 'MESSENGER_CHANGE_CHANNEL' as const;
 export const MESSENGER_CHANGED_CHANNEL = 'MESSENGER_CHANGED_CHANNEL' as const;
-
 export const MESSENGER_REJOINED_CHANNEL = 'MESSENGER_REJOINED_CHANNEL' as const;
-
 export const MESSENGER_SEND_MESSAGE = 'MESSENGER_SEND_MESSAGE' as const;
 export const MESSENGER_SEND_WHISPER = 'MESSENGER_SEND_WHISPER' as const;
-
 export const MESSENGER_RECEIVED_MESSAGE = 'MESSENGER_RECEIVED_MESSAGE' as const;
 export const MESSENGER_RECEIVED_WHISPER = 'MESSENGER_RECEIVED_WHISPER' as const;
 export const MESSENGER_FAILED_WHISPER = 'MESSENGER_FAILED_WHISPER' as const;
@@ -36,12 +30,26 @@ export interface IMessengerState {
 
 export type Message = IMessage & IWhisper;
 
+export interface IMessageBeforeClientTimestamp {
+  chatMessageId: string
+  chatMessageText: string
+  room: string
+  user: IUser
+}
+
 export interface IMessage {
   chatMessageId: string
   chatMessageText: string
   room: string
   user: IUser
   ts: string
+}
+
+export interface IWhisperBeforeClientTimestamp {
+  whisperId: string
+  whisperText: string
+  to: string
+  user: IUser
 }
 
 export interface IWhisper {
@@ -53,7 +61,7 @@ export interface IWhisper {
 }
 
 export interface IUser {
-  userId: string
+  userId: number|string
   username: string
   avatar: string
 }
@@ -146,7 +154,6 @@ interface IMessengerSendMessage {
 export interface IMessengerReceivedMessage {
   type: typeof MESSENGER_RECEIVED_MESSAGE
   message: IMessage
-  ts: string
 }
 
 interface IMessengerSendWhisper {
@@ -158,7 +165,6 @@ interface IMessengerSendWhisper {
 export interface IMessengerReceivedWhisper {
   type: typeof MESSENGER_RECEIVED_WHISPER
   whisper: IWhisper
-  ts: string
 }
 
 interface IMessengerFailedWhisper {
