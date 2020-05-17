@@ -2,26 +2,25 @@ import {
   GEO_LATITUDE,
   GEO_LONGITUDE,
   GEO_ADDRESS,
-  GEO_NEARBY_STORES_CLICKED,
-  GeoActions
+  GEO_NEARBY_STORES_CLICKED
 } from './types';
 
-export const geoLatitude = (latitude: string): GeoActions => ({
+export const geoLatitude = (latitude: string) => ({
   type: GEO_LATITUDE,
   latitude
 });
 
-export const geoLongitude = (longitude: string): GeoActions => ({
+export const geoLongitude = (longitude: string) => ({
   type: GEO_LONGITUDE,
   longitude
 });
 
-export const geoAddress = (address: string): GeoActions => ({
+export const geoAddress = (address: string) => ({
   type: GEO_ADDRESS,
   address
 });
 
-export const geoNearbyStoresClicked = (clicked: boolean): GeoActions => ({
+export const geoNearbyStoresClicked = (clicked: boolean) => ({
   type: GEO_NEARBY_STORES_CLICKED,
   clicked
 });

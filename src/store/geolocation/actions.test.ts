@@ -1,39 +1,41 @@
 import {
+  geoLatitude,
+  geoLongitude,
+  geoAddress,
+  geoNearbyStoresClicked
+} from './actions';
+import {
   GEO_LATITUDE,
   GEO_LONGITUDE,
   GEO_ADDRESS,
   GEO_NEARBY_STORES_CLICKED
 } from './types';
 
-import {
-  geoLatitude,
-  geoLongitude,
-  geoAddress,
-  geoNearbyStoresClicked
-} from './actions';
+const latitude = "48.51";
+const longitude = "115.43";
 
 describe('the geoLatitude action creator', () => {
   it('returns the correct action type', () => {
-    const actual = geoLatitude(48.51).type;
+    const actual = geoLatitude(latitude).type;
     const expected = GEO_LATITUDE;
     expect(actual).toEqual(expected);
   });
   it('returns the correct latitude', () => {
-    const actual = geoLatitude(48.51).latitude;
-    const expected = 48.51;
+    const actual = geoLatitude(latitude).latitude;
+    const expected = latitude;
     expect(actual).toEqual(expected);
   });
 });
 
 describe('the geoLongitude action creator', () => {
   it('returns the correct action type', () => {
-    const actual = geoLongitude(115.43).type;
+    const actual = geoLongitude(longitude).type;
     const expected = GEO_LONGITUDE;
     expect(actual).toEqual(expected);
   });
   it('returns the correct longitude', () => {
-    const actual = geoLongitude(115.43).longitude;
-    const expected = 115.43;
+    const actual = geoLongitude(longitude).longitude;
+    const expected = longitude;
     expect(actual).toEqual(expected);
   });
 });

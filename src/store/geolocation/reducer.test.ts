@@ -1,11 +1,10 @@
+import geolocationReducer from './reducer';
 import {
   GEO_ADDRESS,
   GEO_LATITUDE,
   GEO_LONGITUDE,
   GEO_NEARBY_STORES_CLICKED
 } from './types';
-
-import geolocationReducer from './reducer';
 
 const initialState = {
   latitude: "",
@@ -16,7 +15,10 @@ const initialState = {
 
 describe('the geolocation reducer', () => {
   it('returns initial state', () => {
-    const actual = geolocationReducer(undefined, {});
+    const actual = geolocationReducer(undefined, {
+      type: GEO_ADDRESS,
+      address: ""
+    });
     const expected = initialState;
     expect(actual).toEqual(expected);
   });

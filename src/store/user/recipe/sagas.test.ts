@@ -16,10 +16,10 @@ import {
   userEditPrivateRecipeFailed,
   userDeletePrivateRecipeSucceeded,
   userDeletePrivateRecipeFailed,
-  userCreateNewPublicRecipeSucceeded,
-  userCreateNewPublicRecipeFailed,
-  userEditPublicRecipeSucceeded,
-  userEditPublicRecipeFailed,
+  //userCreateNewPublicRecipeSucceeded,
+  //userCreateNewPublicRecipeFailed,
+  //userEditPublicRecipeSucceeded,
+  //userEditPublicRecipeFailed,
   userDisownPublicRecipeSucceeded,
   userDisownPublicRecipeFailed
 } from './actions';
