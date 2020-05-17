@@ -38,6 +38,24 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 //const mock = new MockAdapter(axios, {delayResponse: 100});
+const fullRecipeImage = new File(
+  [(new Blob)], "resizedFinal", {type: "image/jpeg"}
+);
+const thumbRecipeImage = new File(
+  [(new Blob)], "resizedThumb", {type: "image/jpeg"}
+);
+const tinyRecipeImage = new File(
+  [(new Blob)], "resizedTiny", {type: "image/jpeg"}
+);
+const fullRecipeEquipmentImage = new File(
+  [(new Blob)], "resizedFinal", {type: "image/jpeg"}
+);
+const fullRecipeIngredientsImage = new File(
+  [(new Blob)], "resizedFinal", {type: "image/jpeg"}
+);
+const fullRecipeCookingImage = new File(
+  [(new Blob)], "resizedFinal", {type: "image/jpeg"}
+);
 const creatingRecipeInfo = {
   ownership: "private",
   recipeTypeId: 1,
@@ -50,15 +68,15 @@ const creatingRecipeInfo = {
   requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
   requiredSubrecipes: [],
   recipeImage: null,
-  fullRecipeImage: null,
-  thumbRecipeImage: null,
-  tinyRecipeImage: null,
+  fullRecipeImage,
+  thumbRecipeImage,
+  tinyRecipeImage,
   recipeEquipmentImage: null,
-  fullRecipeEquipmentImage: null,
+  fullRecipeEquipmentImage,
   recipeIngredientsImage: null,
-  fullRecipeIngredientsImage: null,
+  fullRecipeIngredientsImage,
   recipeCookingImage: null,
-  fullRecipeCookingImage: null
+  fullRecipeCookingImage
 };
 const editingRecipeInfo = {
   recipeId: 888,
@@ -77,15 +95,15 @@ const editingRecipeInfo = {
   requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
   requiredSubrecipes: [],
   recipeImage: null,
-  fullRecipeImage: null,
-  thumbRecipeImage: null,
-  tinyRecipeImage: null,
+  fullRecipeImage,
+  thumbRecipeImage,
+  tinyRecipeImage,
   recipeEquipmentImage: null,
-  fullRecipeEquipmentImage: null,
+  fullRecipeEquipmentImage,
   recipeIngredientsImage: null,
-  fullRecipeIngredientsImage: null,
+  fullRecipeIngredientsImage,
   recipeCookingImage: null,
-  fullRecipeCookingImage: null
+  fullRecipeCookingImage
 };
 
 describe('the userCreateNewRecipeSaga', () => {
@@ -98,7 +116,7 @@ describe('the userCreateNewRecipeSaga', () => {
     return expectSaga(userCreateNewRecipeSaga, action)
     .silentRun(50);
   });*/
-  
+
   const res1 = {
     data: {
       signedRequestFullSize: "signedUrlString",
@@ -275,13 +293,12 @@ describe('the userCreateNewRecipeSaga', () => {
 
 
 describe('the userDeletePrivateRecipeSaga', () => {
+  const action = {type: USER_DELETE_PRIVATE_RECIPE,recipeId: 4};
   /*it('works', () => {
     const action = {};
     return expectSaga(userDeletePrivateRecipeSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {recipeId: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = userDeletePrivateRecipeSaga(action);
@@ -336,13 +353,12 @@ describe('the userDeletePrivateRecipeSaga', () => {
 
 
 describe('the userDisownPublicRecipeSaga', () => {
+  const action = {type: USER_DISOWN_PUBLIC_RECIPE, recipeId: 4};
   /*it('works', () => {
     const action = {};
     return expectSaga(userDisownPublicRecipeSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {recipeId: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = userDisownPublicRecipeSaga(action);
@@ -397,47 +413,16 @@ describe('the userDisownPublicRecipeSaga', () => {
 
 
 describe('the userEditRecipeSaga', () => {
+  const action = {
+    type: USER_EDIT_PRIVATE_RECIPE,
+    recipeInfo: editingRecipeInfo
+  };
   /*it('works', () => {
     const action = {ownership: "public"};
     return expectSaga(userEditRecipeSaga, action)
     .silentRun(50);
   });*/
-
-  const action = {
-    recipeInfo: {
-      ownership: "private",
-      recipeTypeId: 3,
-      cuisineId: 2,
-      title: "Salmon Stir-Fry",
-      description: "Easy and delicious.",
-      directions: "Do this, then that.",
-
-      requiredMethods: [],
-      requiredEquipment: [],
-      requiredIngredients: [],
-      requiredSubrecipes: [],
-
-      recipeImage: "",
-      fullRecipeImage: {type: "jpeg"},
-      thumbRecipeImage: {type: "jpeg"},
-      tinyRecipeImage: {type: "jpeg"},
-
-      recipeEquipmentImage: "",
-      fullRecipeEquipmentImage: {type: "jpeg"},
-
-      recipeIngredientsImage: "",
-      fullRecipeIngredientsImage: {type: "jpeg"},
-
-      recipeCookingImage: "",
-      fullRecipeCookingImage: {type: "jpeg"},
-
-      recipeId: 745,
-      prevRecipeImage: "blah",
-      prevEquipmentImage: "blahEquipment",
-      prevIngredientsImage: "blahIngredients",
-      prevCookingImage: "blahCooking"
-    }
-  };
+  
   const res1 = {
     data: {
       signedRequestFullSize: "signedUrlString",
