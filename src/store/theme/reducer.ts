@@ -2,7 +2,7 @@ import {
   THEME_DARK_TRIGGER,
   THEME_LIGHT_TRIGGER,
   IThemeState,
-  IThemeActions
+  ThemeActions
 } from './types';
 
 const initialState: IThemeState = {
@@ -23,7 +23,7 @@ const initialState: IThemeState = {
 
 const themeReducer = (
   state = initialState,
-  action: IThemeActions
+  action: ThemeActions
 ): IThemeState => {
   switch (action.type) {
     case THEME_DARK_TRIGGER:

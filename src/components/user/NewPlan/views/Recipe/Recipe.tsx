@@ -119,7 +119,7 @@ type Props = PropsFromRedux & {
   id: string;
   day: number;
   expanded: boolean;
-  expandedDay: number;
+  expandedDay: number | null;
   index: number;
   listId: number;
   recipe: IPlannerRecipe;

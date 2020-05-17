@@ -13,10 +13,10 @@ export const PLANNER_SET_PLAN_DATA = 'PLANNER_SET_PLAN_DATA' as const;
 export interface IPlannerState {
   isLoading: boolean;
   creating: boolean;
-  editingId: number;
+  editingId: number | null;
   publicUrl: string;
   expanded: boolean;
-  expandedDay: string | number;
+  expandedDay: number | null;
   planName: string;
   recipeListsInsideDays: IPlannerData;
 }
@@ -113,7 +113,7 @@ interface IPlannerSetCreating {
 
 interface IPlannerSetEditingId {
   type: typeof PLANNER_SET_EDITING_ID
-  id: string
+  id: number | null
 }
 
 interface IPlannerSetPlanName {

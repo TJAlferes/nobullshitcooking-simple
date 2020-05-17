@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import { LoaderSpinner } from '../components/LoaderSpinner/LoaderSpinner';
 const Register = lazy(() => import('../components/user/Register/Register'));
@@ -136,7 +136,7 @@ import Welcome from '../components/pages/site/Welcome/Welcome';
 //
 //
 import Supply from '../components/supply/Supply';
-import Home from '../components/Home/Home';
+import { Home } from '../components/Home/Home';
 import { NotFound } from '../components/NotFound/NotFound';
 import AppliedRoute from './AppliedRoute';
 import AuthenticatedRoute from './AuthenticatedRoute';

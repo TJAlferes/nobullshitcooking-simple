@@ -243,7 +243,7 @@ interface RootState {
   };
   planner: {
     expanded: boolean;
-    expandedDay: number;
+    expandedDay: number | null;
     editingId: number;
     planName: string;
     recipeListsInsideDays: IPlannerData;

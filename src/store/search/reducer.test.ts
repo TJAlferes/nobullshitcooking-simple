@@ -6,9 +6,9 @@ describe('the search reducer', () => {
   it('returns initial state', () => {
     const actual = searchReducer(undefined, {
       type: SEARCH_SET_INDEX,
-      index: "ingredients"
+      index: "recipes"
     });
-    const expected = {currentIndex: "ingredients"};
+    const expected = {currentIndex: "recipes"};
     expect(actual).toEqual(expected);
   });
 

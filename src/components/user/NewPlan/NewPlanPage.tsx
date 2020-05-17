@@ -4,7 +4,7 @@ const MobileNewPlanToggle = lazy(() => import('./MobileNewPlanToggle'));
 const NewPlan = lazy(() => import('./NewPlan'));
 import './newPlanPage.css'
 
-export function NewPlanPage({
+export default function NewPlanPage({
   twoColumnATheme,
   childProps
 }: Props): JSX.Element {

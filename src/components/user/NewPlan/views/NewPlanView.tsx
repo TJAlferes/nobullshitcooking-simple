@@ -270,7 +270,7 @@ type Props = {
   planName: string;
   handlePlanNameChange(e: React.SyntheticEvent<EventTarget>): void;
   recipeListsInsideDays: IPlannerData;
-  expandedDay: number; // string|number or 29
+  expandedDay: number | null;
   expanded: boolean;
   dataRecipes: IWorkRecipe[];
   dataMyPrivateRecipes: IWorkRecipe[];

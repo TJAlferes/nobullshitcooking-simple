@@ -1,3 +1,4 @@
+import plannerReducer from './reducer';
 import {
   PLANNER_CLICK_DAY,
   PLANNER_ADD_RECIPE_TO_DAY,
@@ -12,15 +13,13 @@ import {
   PLANNER_SET_PLAN_DATA
 } from './types';
 
-import plannerReducer from './reducer';
-
 const initialState = {
   isLoading: false,
   creating: false,
-  editingId: "",
+  editingId: null,
   publicUrl: "",
   expanded: false,
-  expandedDay: "none",
+  expandedDay: null,
   planName: "",
   recipeListsInsideDays: {
      1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
@@ -47,7 +46,7 @@ describe('the planner reducer', () => {
     const expected = {
       isLoading: false,
       creating: false,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: true,
       expandedDay: 1,
@@ -66,7 +65,7 @@ describe('the planner reducer', () => {
     const beforeState = {
       isLoading: false,
       creating: false,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: true,
       expandedDay: 1,
@@ -92,12 +91,12 @@ describe('the planner reducer', () => {
     const actual = plannerReducer(initialState, {
       type: PLANNER_ADD_RECIPE_TO_DAY,
       day: 2,
-      recipe: {id: 503, title: "Pho"}
+      recipe: {recipe_id: 503, title: "Pho"}
     });
     const expected = {
       isLoading: false,
       creating: false,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: false,
       expandedDay: "none",
@@ -118,7 +117,7 @@ describe('the planner reducer', () => {
     const beforeState = {
       isLoading: false,
       creating: false,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: false,
       expandedDay: "none",
@@ -145,7 +144,7 @@ describe('the planner reducer', () => {
     const beforeState = {
       isLoading: false,
       creating: false,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: true,
       expandedDay: 2,
@@ -167,7 +166,7 @@ describe('the planner reducer', () => {
     const expected = {
       isLoading: false,
       creating: false,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: true,
       expandedDay: 2,
@@ -210,7 +209,7 @@ describe('the planner reducer', () => {
     const beforeState = {
       isLoading: false,
       creating: true,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: true,
       expandedDay: 2,
@@ -234,10 +233,10 @@ describe('the planner reducer', () => {
     const expected = {
       isLoading: false,
       creating: true,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: false,
-      expandedDay: "none",
+      expandedDay: null,
       planName: "",
       recipeListsInsideDays: {
          1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
@@ -260,7 +259,7 @@ describe('the planner reducer', () => {
       editingId: 1,
       publicUrl: "",
       expanded: false,
-      expandedDay: "none",
+      expandedDay: null,
       planName: "",
       recipeListsInsideDays: {
          1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
@@ -280,10 +279,10 @@ describe('the planner reducer', () => {
     const expected = {
       isLoading: false,
       creating: false,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: false,
-      expandedDay: "none",
+      expandedDay: null,
       planName: "Plan B",
       recipeListsInsideDays: {
          1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
@@ -309,10 +308,10 @@ describe('the planner reducer', () => {
     const expected = {
       isLoading: false,
       creating: false,
-      editingId: "",
+      editingId: null,
       publicUrl: "",
       expanded: false,
-      expandedDay: "none",
+      expandedDay: null,
       planName: "",
       recipeListsInsideDays: {
         1: [{id: 1, title: "Pumpkin Soup"}],

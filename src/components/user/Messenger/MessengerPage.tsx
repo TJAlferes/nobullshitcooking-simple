@@ -4,7 +4,7 @@ const MobileMessengerToggle = lazy(() => import('./MobileMessengerToggle'));
 const Messenger = lazy(() => import('./Messenger'));
 import './messengerPage.css'
 
-export function MessengerPage({ twoColumnATheme }: Props): JSX.Element {
+export default function MessengerPage({ twoColumnATheme }: Props): JSX.Element {
   return (
     <div id="messenger_page">
       <div className="mobile_display">

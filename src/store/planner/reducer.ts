@@ -25,10 +25,10 @@ import {
 const initialState: IPlannerState = {
   isLoading: false,
   creating: false,
-  editingId: "",
+  editingId: null,
   publicUrl: "",
   expanded: false,
-  expandedDay: "none",
+  expandedDay: null,
   planName: "",
   recipeListsInsideDays: {
     1: [],
@@ -68,9 +68,8 @@ const clickDay = (
 ): IPlannerState => {
   const { expandedDay } = state;
   const { day } = action;
-
   if (day === expandedDay) {
-    return {...state, ...{expanded: false, expandedDay: "none"}};
+    return {...state, ...{expanded: false, expandedDay: null}};
   } else {
     return {...state, ...{expanded: true, expandedDay: day}};
   }
@@ -81,7 +80,6 @@ const addRecipeToDay = (
   action: IPlannerAddRecipeToDay
 ): IPlannerState => {
   const { day, recipe } = action;
-
   return update(state, {
     recipeListsInsideDays: {
       [day]: {
@@ -96,7 +94,6 @@ const removeRecipeFromDay = (
   action: IPlannerRemoveRecipeFromDay
 ): IPlannerState => {
   const { day, index } = action;
-
   return update(state, {
     recipeListsInsideDays: {
       [day]: {
@@ -112,8 +109,8 @@ const reorderRecipeInDay = (
 ): IPlannerState => {
   const { expandedDay, recipeListsInsideDays } = state;
   const { dragIndex, hoverIndex } = action;
-  const draggedRecipe = recipeListsInsideDays[expandedDay][dragIndex];  // because "none" as initial
-  
+  if (!expandedDay) return state;
+  const draggedRecipe = recipeListsInsideDays[expandedDay][dragIndex];
   return update(state, {
     recipeListsInsideDays: {
       [expandedDay]: {

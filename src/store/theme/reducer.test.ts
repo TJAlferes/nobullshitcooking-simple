@@ -1,9 +1,5 @@
-import {
-  THEME_DARK_TRIGGER,
-  THEME_LIGHT_TRIGGER
-} from './types';
-
 import themeReducer from './reducer';
+import { THEME_DARK_TRIGGER, THEME_LIGHT_TRIGGER } from './types';
 
 const initialState = {
   headerTheme: "header-light",
@@ -23,7 +19,7 @@ const initialState = {
 
 describe('the theme reducer', () => {
   it('returns initial state', () => {
-    const actual = themeReducer(undefined, {});
+    const actual = themeReducer(undefined, {type: THEME_LIGHT_TRIGGER});
     const expected = initialState;
     expect(actual).toEqual(expected);
   });

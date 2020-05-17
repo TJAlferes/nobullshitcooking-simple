@@ -61,7 +61,7 @@ type Props = PropsFromRedux & {
   day: number;
   list: IPlannerRecipe[];
   expanded: boolean;
-  expandedDay: number;
+  expandedDay: number | null;
   connectDropTarget: ConnectDropTarget;
 };
 
