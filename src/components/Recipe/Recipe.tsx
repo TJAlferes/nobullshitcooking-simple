@@ -6,6 +6,7 @@ import axios from 'axios';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../config/NOBSCBackendAPIEndpointOne';
+import { IWorkRecipe } from '../../store/data/types';
 import { userFavoriteRecipe } from '../../store/user/favorite/actions';
 import { userSaveRecipe } from '../../store/user/save/actions';
 import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
@@ -16,6 +17,7 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function Recipe({
   twoColumnBTheme,
+  breadCrumbsTheme,
   isAuthenticated,
   message,
   dataMyPublicRecipes,
@@ -91,6 +93,7 @@ export function Recipe({
   : (
     <RecipeView
       twoColumnBTheme={twoColumnBTheme}
+      breadCrumbsTheme={breadCrumbsTheme}
       isAuthenticated={isAuthenticated}
       feedback={feedback}
       loading={loading}
@@ -109,10 +112,10 @@ export function Recipe({
 
 interface RootState {
   data: {
-    myPublicRecipes: [];
-    myPrivateRecipes: [];
-    myFavoriteRecipes: [];
-    mySavedRecipes: [];
+    myPublicRecipes: IWorkRecipe[];
+    myPrivateRecipes: IWorkRecipe[];
+    myFavoriteRecipes: IWorkRecipe[];
+    mySavedRecipes: IWorkRecipe[];
   };
   auth: {
     isAuthenticated: boolean;
@@ -129,6 +132,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 };*/
 type Props = PropsFromRedux & {
   twoColumnBTheme: string;
+  breadCrumbsTheme: string;
 };
 
 const mapStateToProps = (state: RootState) => ({

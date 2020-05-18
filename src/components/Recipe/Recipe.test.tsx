@@ -16,23 +16,33 @@ const recipe = {
 };  // fix
 const userFavoriteRecipe = jest.fn();
 const userSaveRecipe = jest.fn();
+const initialProps = {
+  twoColumnBTheme: "light",
+  breadCrumbsTheme: "light",
+  isAuthenticated: false,
+  message: "Some message.",
+  dataMyPublicRecipes: [],
+  dataMyPrivateRecipes: [],
+  dataMyFavoriteRecipes: [],
+  dataMySavedRecipes: [],
+  userFavoriteRecipe,
+  userSaveRecipe
+};
 
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom');
-  return {
-    ...originalModule,
-    useHistory: () => ({push: mockHistoryPush})
-  };
+  return {...originalModule, useHistory: () => ({push: mockHistoryPush})};
 });
 const mockHistoryPush = jest.fn();
 const mockRecipeBreadcrumbs = jest.fn();
+window.scrollTo = jest.fn();
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.get.mockReturnValueOnce(Promise.resolve({data: recipe}));
 
 jest.mock(
-  '../../../../routing/breadcrumbs/Breadcrumbs',
+  '../../routing/breadcrumbs/Breadcrumbs',
   () => ({RecipeBreadcrumbs: mockRecipeBreadcrumbs})
 );
 
@@ -41,109 +51,47 @@ afterEach(() => {
 });
 
 describe('Recipe', () => {
-  it('should redirect to /home if given no recipe', async () => {
+  it('should redirect to /home if given no recipe', () => {
     jest.mock('react-router-dom', () => {
       const originalModule = jest.requireActual('react-router-dom');
-      return {
-        ...originalModule,
-        useParams: () => ({})
-      };
+      return {...originalModule, useParams: () => ({})};
     });
-    mount(
-      <MemoryRouter>
-        <Recipe
-          twoColumnBTheme="light"
-          isAuthenticated={false}
-          message="Some message."
-          dataMyPublicRecipes={[]}
-          dataMyPrivateRecipes={[]}
-          dataMyFavoriteRecipes={[]}
-          dataMySavedRecipes={[]}
-          userFavoriteRecipe={userFavoriteRecipe}
-          userSaveRecipe={userSaveRecipe}
-        />
-      </MemoryRouter>
-    );
-    await wait(3000);
+    mount(<MemoryRouter><Recipe {...initialProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
-  it('should redirect to /home if given an invalid recipe', async () => {
+  it('should redirect to /home if given an invalid recipe', () => {
     jest.mock('react-router-dom', () => {
       const originalModule = jest.requireActual('react-router-dom');
-      return {
-        ...originalModule,
-        useParams: () => ({id: "!@#"})
-      };
+      return {...originalModule, useParams: () => ({id: "!@#"})};
     });
-    mount(
-      <MemoryRouter>
-        <Recipe
-          twoColumnBTheme="light"
-          isAuthenticated={false}
-          message="Some message."
-          dataMyPublicRecipes={[]}
-          dataMyPrivateRecipes={[]}
-          dataMyFavoriteRecipes={[]}
-          dataMySavedRecipes={[]}
-          userFavoriteRecipe={userFavoriteRecipe}
-          userSaveRecipe={userSaveRecipe}
-        />
-      </MemoryRouter>
-    );
-    await wait(3000);
+    mount(<MemoryRouter><Recipe {...initialProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
   it('should not redirect if given a valid recipe', async () => {
     jest.mock('react-router-dom', () => {
       const originalModule = jest.requireActual('react-router-dom');
-      return {
-        ...originalModule,
-        useParams: () => ({id: "1"})
-      };
+      return {...originalModule, useParams: () => ({id: "1"})};
     });
-    mount(
-      <MemoryRouter>
-        <Recipe
-          twoColumnBTheme="light"
-          isAuthenticated={false}
-          message="Some message."
-          dataMyPublicRecipes={[]}
-          dataMyPrivateRecipes={[]}
-          dataMyFavoriteRecipes={[]}
-          dataMySavedRecipes={[]}
-          userFavoriteRecipe={userFavoriteRecipe}
-          userSaveRecipe={userSaveRecipe}
-        />
-      </MemoryRouter>
+    const wrapper = mount(
+      <MemoryRouter><Recipe {...initialProps} /></MemoryRouter>
     );
-    await wait(3000);
-    expect(mockHistoryPush).not.toHaveBeenCalled();
+    await act(async () => {
+      Promise.resolve(() => {
+        setImmediate(() => wrapper.update());
+        expect(mockHistoryPush).not.toHaveBeenCalled();
+      });
+    });
   });
 
   it('should load the appropriate recipe', async () => {
     jest.mock('react-router-dom', () => {
       const originalModule = jest.requireActual('react-router-dom');
-      return {
-        ...originalModule,
-        useParams: () => ({id: "1"})
-      };
+      return {...originalModule, useParams: () => ({id: "1"})};
     });
     const wrapper = mount(
-      <MemoryRouter>
-        <Recipe
-          twoColumnBTheme="light"
-          isAuthenticated={false}
-          message="Some message."
-          dataMyPublicRecipes={[]}
-          dataMyPrivateRecipes={[]}
-          dataMyFavoriteRecipes={[]}
-          dataMySavedRecipes={[]}
-          userFavoriteRecipe={userFavoriteRecipe}
-          userSaveRecipe={userSaveRecipe}
-        />
-      </MemoryRouter>
+      <MemoryRouter><Recipe {...initialProps} /></MemoryRouter>
     );
     await act(async () => {
       Promise.resolve(() => {

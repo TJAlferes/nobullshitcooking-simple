@@ -144,6 +144,6 @@ const mapStateToProps = (state: RootState) => ({
   dataCuisines: state.data.cuisines
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {});  // why though???
 
 export default connector(Cuisine);
