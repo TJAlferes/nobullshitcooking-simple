@@ -6,6 +6,62 @@ import { call, put } from 'redux-saga/effects';
 //import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
+  NOBSCBackendAPIEndpointOne
+} from '../../config/NOBSCBackendAPIEndpointOne';
+import {
+  dataGetMeasurements,
+  dataGetMeasurementsSucceeded,
+  dataGetMeasurementsFailed,
+  dataGetEquipments,
+  dataGetEquipmentsSucceeded,
+  dataGetEquipmentsFailed,
+  dataGetEquipmentTypes,
+  dataGetEquipmentTypesSucceeded,
+  dataGetEquipmentTypesFailed,
+  dataGetIngredients,
+  dataGetIngredientsSucceeded,
+  dataGetIngredientsFailed,
+  dataGetIngredientTypes,
+  dataGetIngredientTypesSucceeded,
+  dataGetIngredientTypesFailed,
+  dataGetRecipes,
+  dataGetRecipesSucceeded,
+  dataGetRecipesFailed,
+  dataGetRecipeTypes,
+  dataGetRecipeTypesSucceeded,
+  dataGetRecipeTypesFailed,
+  dataGetCuisines,
+  dataGetCuisinesSucceeded,
+  dataGetCuisinesFailed,
+  dataGetMethods,
+  dataGetMethodsSucceeded,
+  dataGetMethodsFailed,
+  dataGetMyPublicRecipes,
+  dataGetMyPublicRecipesSucceeded,
+  dataGetMyPublicRecipesFailed,
+  dataGetMyPrivateEquipments,
+  dataGetMyPrivateEquipmentsSucceeded,
+  dataGetMyPrivateEquipmentsFailed,
+  dataGetMyPrivateIngredients,
+  dataGetMyPrivateIngredientsSucceeded,
+  dataGetMyPrivateIngredientsFailed,
+  dataGetMyPrivateRecipes,
+  dataGetMyPrivateRecipesSucceeded,
+  dataGetMyPrivateRecipesFailed,
+  dataGetMyFavoriteRecipes,
+  dataGetMyFavoriteRecipesSucceeded,
+  dataGetMyFavoriteRecipesFailed,
+  dataGetMySavedRecipes,
+  dataGetMySavedRecipesSucceeded,
+  dataGetMySavedRecipesFailed,
+  dataGetMyPlans,
+  dataGetMyPlansSucceeded,
+  dataGetMyPlansFailed,
+  dataGetMyFriendships,
+  dataGetMyFriendshipsSucceeded,
+  dataGetMyFriendshipsFailed
+} from './actions';
+import {
   dataGetMeasurementsSaga,
   dataGetEquipmentsSaga,
   dataGetEquipmentTypesSaga,
@@ -25,85 +81,8 @@ import {
   dataGetMyFriendshipsSaga
 } from './sagas';
 
-import {
-  dataGetMeasurements,
-  dataGetMeasurementsSucceeded,
-  dataGetMeasurementsFailed,
-
-  dataGetEquipments,
-  dataGetEquipmentsSucceeded,
-  dataGetEquipmentsFailed,
-
-  dataGetEquipmentTypes,
-  dataGetEquipmentTypesSucceeded,
-  dataGetEquipmentTypesFailed,
-
-  dataGetIngredients,
-  dataGetIngredientsSucceeded,
-  dataGetIngredientsFailed,
-
-  dataGetIngredientTypes,
-  dataGetIngredientTypesSucceeded,
-  dataGetIngredientTypesFailed,
-
-  dataGetRecipes,
-  dataGetRecipesSucceeded,
-  dataGetRecipesFailed,
-
-  dataGetRecipeTypes,
-  dataGetRecipeTypesSucceeded,
-  dataGetRecipeTypesFailed,
-
-  dataGetCuisines,
-  dataGetCuisinesSucceeded,
-  dataGetCuisinesFailed,
-
-  dataGetMethods,
-  dataGetMethodsSucceeded,
-  dataGetMethodsFailed,
-
-  dataGetMyPublicRecipes,
-  dataGetMyPublicRecipesSucceeded,
-  dataGetMyPublicRecipesFailed,
-
-  dataGetMyPrivateEquipments,
-  dataGetMyPrivateEquipmentsSucceeded,
-  dataGetMyPrivateEquipmentsFailed,
-
-  dataGetMyPrivateIngredients,
-  dataGetMyPrivateIngredientsSucceeded,
-  dataGetMyPrivateIngredientsFailed,
-
-  dataGetMyPrivateRecipes,
-  dataGetMyPrivateRecipesSucceeded,
-  dataGetMyPrivateRecipesFailed,
-
-  dataGetMyFavoriteRecipes,
-  dataGetMyFavoriteRecipesSucceeded,
-  dataGetMyFavoriteRecipesFailed,
-
-  dataGetMySavedRecipes,
-  dataGetMySavedRecipesSucceeded,
-  dataGetMySavedRecipesFailed,
-
-  dataGetMyPlans,
-  dataGetMyPlansSucceeded,
-  dataGetMyPlansFailed,
-
-  dataGetMyFriendships,
-  dataGetMyFriendshipsSucceeded,
-  dataGetMyFriendshipsFailed
-} from './actions';
-
-import {
-  NOBSCBackendAPIEndpointOne
-} from '../../config/NOBSCBackendAPIEndpointOne';
-
 const endpoint = NOBSCBackendAPIEndpointOne;  // remove in test?
-
 //const mock = new MockAdapter(axios, {delayResponse: 100});
-
-
 
 describe('the dataGetMeasurementsSaga', () => {
   /*it('should hit API', () => {
@@ -134,7 +113,7 @@ describe('the dataGetMeasurementsSaga', () => {
     const iterator = dataGetMeasurementsSaga();
     const res = {
       data: [
-        {"measurement_id": "1", "measurement_name": "teaspoon"}
+        {measurement_id: 1, measurement_name: "teaspoon"}
       ]
     };
 
@@ -161,8 +140,6 @@ describe('the dataGetMeasurementsSaga', () => {
   });
 });
 
-
-
 describe('the dataGetEquipmentsSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetEquipmentsSaga).silentRun(50);
@@ -172,7 +149,15 @@ describe('the dataGetEquipmentsSaga', () => {
     const iterator = dataGetEquipmentsSaga();
     const res = {
       data: [
-        {"equipment_id": 1, "equipment_name": "Chopstick"}
+        {
+          equipment_id: 1,
+          equipment_type_id: 4,
+          owner_id: 1,
+          equipment_name: "Chopstick",
+          equipment_type_name: "Dining",
+          equipment_description: "It works.",
+          equipment_image: "nobsc-chopstick"
+        }
       ]
     };
 
@@ -196,8 +181,6 @@ describe('the dataGetEquipmentsSaga', () => {
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
-
-
 
 describe('the dataGetEquipmentTypesSaga', () => {
   /*it('works', () => {
@@ -237,8 +220,6 @@ describe('the dataGetEquipmentTypesSaga', () => {
   });
 });
 
-
-
 describe('the dataGetIngredientsSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetIngredientsSaga).silentRun(50);
@@ -248,7 +229,15 @@ describe('the dataGetIngredientsSaga', () => {
     const iterator = dataGetIngredientsSaga();
     const res = {
       data: [
-        {"ingredient_id": 1, "ingredient_name": "Salmon"}
+        {
+          ingredient_id: 1,
+          ingredient_type_id: 1,
+          owner_id: 1,
+          ingredient_type_name: "Fish",
+          ingredient_name: "Salmon",
+          ingredient_description: "Tasty.",
+          ingredient_image: "nobsc-salmon"
+        }
       ]
     };
 
@@ -272,8 +261,6 @@ describe('the dataGetIngredientsSaga', () => {
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
-
-
 
 describe('the dataGetIngredientTypesSaga', () => {
   /*it('works', () => {
@@ -313,8 +300,6 @@ describe('the dataGetIngredientTypesSaga', () => {
   });
 });
 
-
-
 describe('the dataGetRecipesSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetRecipesSaga).silentRun(50);
@@ -324,7 +309,14 @@ describe('the dataGetRecipesSaga', () => {
     const iterator = dataGetRecipesSaga();
     const res = {
       data: [
-        {"recipe_id": 1, "title": "Tasty"}
+        {
+          recipe_id: 1,
+          owner_id: 1,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "Tasty",
+          recipe_image: "nobsc-tasty"
+        }
       ]
     };
 
@@ -348,8 +340,6 @@ describe('the dataGetRecipesSaga', () => {
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
-
-
 
 describe('the dataGetRecipeTypesSaga', () => {
   /*it('works', () => {
@@ -385,8 +375,6 @@ describe('the dataGetRecipeTypesSaga', () => {
   });
 });
 
-
-
 describe('the dataGetCuisinesSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetCuisinesSaga).silentRun(50);
@@ -395,9 +383,7 @@ describe('the dataGetCuisinesSaga', () => {
   it('should dispatch cuisines and succeeded if data found', () => {
     const iterator = dataGetCuisinesSaga();
     const res = {
-      data: [
-        {"cuisine_id": 1, "cuisine_name": "Russian"}
-      ]
+      data: [{cuisine_id: 1, cuisine_name: "Russian", cuisine_nation: "Russia"}]
     };
 
     expect(iterator.next().value)
@@ -420,8 +406,6 @@ describe('the dataGetCuisinesSaga', () => {
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
-
-
 
 describe('the dataGetMethodsSaga', () => {
   /*it('works', () => {
@@ -461,8 +445,6 @@ describe('the dataGetMethodsSaga', () => {
   });
 });
 
-
-
 describe('the dataGetMyPlansSaga', () => {
   /*it('works', () => {
     ////return expectSaga(dataGetMyPlansSa.silentRun(50);
@@ -472,7 +454,16 @@ describe('the dataGetMyPlansSaga', () => {
     const iterator = dataGetMyPlansSaga();
     const res = {
       data: [
-        {plan_id: 98234, plan_name: "Plan A"}
+        {
+          plan_id: 98234,
+          plan_name: "Plan A",
+          plan_data: {
+            1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
+            8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
+           15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
+           22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
+         }
+        }
       ]
     };
 
@@ -505,8 +496,6 @@ describe('the dataGetMyPlansSaga', () => {
   });
 });
 
-
-
 describe('the dataGetMyPublicRecipesSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetMyPublicRecipesSaga).silentRun(50);
@@ -516,7 +505,14 @@ describe('the dataGetMyPublicRecipesSaga', () => {
     const iterator = dataGetMyPublicRecipesSaga();
     const res = {
       data: [
-        {recipeId: 841, title: "Tasty"}
+        {
+          recipe_id: 841,
+          owner_id: 3908,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "Tasty",
+          recipe_image: "nobsc-tasty"
+        }
       ]
     };
 
@@ -555,8 +551,6 @@ describe('the dataGetMyPublicRecipesSaga', () => {
   });
 });
 
-
-
 describe('the dataGetMyPrivateRecipesSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetMyPrivateRecipesSaga).silentRun(50);
@@ -566,7 +560,14 @@ describe('the dataGetMyPrivateRecipesSaga', () => {
     const iterator = dataGetMyPrivateRecipesSaga();
     const res = {
       data: [
-        {recipeId: 841, title: "Tasty"}
+        {
+          recipe_id: 841,
+          owner_id: 3908,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "Tasty",
+          recipe_image: "nobsc-tasty"
+        }
       ]
     };
 
@@ -605,8 +606,6 @@ describe('the dataGetMyPrivateRecipesSaga', () => {
   });
 });
 
-
-
 describe('the dataGetMyFavoriteRecipesSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetMyFavoriteRecipesSaga).silentRun(50);
@@ -616,7 +615,14 @@ describe('the dataGetMyFavoriteRecipesSaga', () => {
     const iterator = dataGetMyFavoriteRecipesSaga();
     const res = {
       data: [
-        {recipeId: 841, title: "Tasty"}
+        {
+          recipe_id: 1,
+          owner_id: 1,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "Tasty",
+          recipe_image: "nobsc-tasty"
+        }
       ]
     };
 
@@ -655,8 +661,6 @@ describe('the dataGetMyFavoriteRecipesSaga', () => {
   });
 });
 
-
-
 describe('the dataGetMySavedRecipesSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetMySavedRecipesSaga).silentRun(50);
@@ -666,7 +670,14 @@ describe('the dataGetMySavedRecipesSaga', () => {
     const iterator = dataGetMySavedRecipesSaga();
     const res = {
       data: [
-        {recipeId: 841, title: "Tasty"}
+        {
+          recipe_id: 1,
+          owner_id: 1,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "Tasty",
+          recipe_image: "nobsc-tasty"
+        }
       ]
     };
 
@@ -705,8 +716,6 @@ describe('the dataGetMySavedRecipesSaga', () => {
   });
 });
 
-
-
 describe('the dataGetMyPrivateEquipmentsSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetMyPrivateEquipmentsSaga).silentRun(50);
@@ -716,7 +725,15 @@ describe('the dataGetMyPrivateEquipmentsSaga', () => {
     const iterator = dataGetMyPrivateEquipmentsSaga();
     const res = {
       data: [
-        {equipment_id: 9829, equipment_name: "My Teapot"}
+        {
+          equipment_id: 1,
+          equipment_type_id: 3,
+          owner_id: 3908,
+          equipment_name: "My Teapot",
+          equipment_type_name: "Dining",
+          equipment_description: "From grandmother.",
+          equipment_image: "my-teapot"
+        }
       ]
     };
 
@@ -755,8 +772,6 @@ describe('the dataGetMyPrivateEquipmentsSaga', () => {
   });
 });
 
-
-
 describe('the dataGetMyPrivateIngredientsSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetMyPrivateIngredientsSaga).silentRun(50);
@@ -766,7 +781,15 @@ describe('the dataGetMyPrivateIngredientsSaga', () => {
     const iterator = dataGetMyPrivateIngredientsSaga();
     const res = {
       data: [
-        {ingredient_id: 8927, ingredient_name: "My Basil"}
+        {
+          ingredient_id: 8927,
+          ingredient_type_id: 18,
+          owner_id: 1,
+          ingredient_type_name: "Product",
+          ingredient_name: "HOT Sauce",
+          ingredient_description: "From Uncle Bob.",
+          ingredient_image: "hot-sauce"
+        }
       ]
     };
 
@@ -805,8 +828,6 @@ describe('the dataGetMyPrivateIngredientsSaga', () => {
   });
 });
 
-
-
 describe('the dataGetMyFriendshipsSaga', () => {
   /*it('works', () => {
     //return expectSaga(dataGetMyFriendshipsSaga).silentRun(50);
@@ -816,7 +837,12 @@ describe('the dataGetMyFriendshipsSaga', () => {
     const iterator = dataGetMyFriendshipsSaga();
     const res = {
       data: [
-        {friend_id: 1749, friend_name: "SnowboarderMike"}
+        {
+          user_id: 1749,
+          username: "SnowboarderMike",
+          avatar: "SnowboarderMike",
+          status: "accepted"
+        }
       ]
     };
 
