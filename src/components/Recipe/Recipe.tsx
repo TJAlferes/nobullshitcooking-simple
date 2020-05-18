@@ -6,7 +6,7 @@ import axios from 'axios';
 import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 import { userFavoriteRecipe } from '../../store/user/favorite/actions';
 import { userSaveRecipe } from '../../store/user/save/actions';
-import LoaderSpinner from '../LoaderSpinner/LoaderSpinner';
+import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { RecipeView } from './RecipeView';
 import { IRecipe } from './types';
 

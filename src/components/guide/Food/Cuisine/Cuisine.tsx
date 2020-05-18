@@ -3,12 +3,12 @@ import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import { ICuisine } from '../../../../store/data/types';
-import LoaderSpinner from '../../../LoaderSpinner/LoaderSpinner';
-import { CuisineView } from './CuisineView';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../../config/NOBSCBackendAPIEndpointOne';
+import { ICuisine } from '../../../../store/data/types';
+import { LoaderSpinner } from '../../../LoaderSpinner/LoaderSpinner';
+import { CuisineView } from './CuisineView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';

@@ -8,7 +8,8 @@ import { Recipe } from './Recipe';
 import { RecipeView } from './RecipeView';
 import { IRecipe } from './types';
 
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));  // don't use, if possible
+// don't use, if possible, this is a big anti-pattern, find something better
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 const recipe = {
   recipe: [{title: "Some Recipe",}],

@@ -4,9 +4,13 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 
+import { Cuisine, ICuisineDetail } from './Cuisine';
 import { CuisineView } from './CuisineView';
-import { Cuisine } from './Cuisine';
 
+const dataCuisines = [
+  {cuisine_id: 1, cuisine_name: "Chinese", cuisine_nation: "China"},
+  {cuisine_id: 2, cuisine_name: "Italian", cuisine_nation: "Italy"}
+];
 const cuisine = {
   cuisine_id: 1,
   cuisine_name: "Italian",
@@ -30,24 +34,24 @@ const cuisine = {
   ]
 };
 
-//const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-const mockHistoryPush = jest.fn();
+// don't use, if possible, this is a big anti-pattern, find something better
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({push: mockHistoryPush}),
-  //useParams: () => ({id: })
+  useHistory: () => ({push: mockHistoryPush})
 }));
+const mockHistoryPush = jest.fn();
 
 jest.mock('axios');
-
-axios.get.mockImplementation(() => Promise.resolve({data: cuisine}));
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.get.mockReturnValueOnce(Promise.resolve({data: cuisine}));
 
 jest.mock(
   '../../../../routing/breadcrumbs/Breadcrumbs',
   () => ({
-    CuisineBreadcrumbs: ({ cuisine }) => <div>{cuisine.cuisine_name}</div>
+    CuisineBreadcrumbs: (cuisine: ICuisineDetail) =>
+      <div>{cuisine.cuisine_name}</div>
   })
 );
 
@@ -57,74 +61,66 @@ afterEach(() => {
 
 describe('Cuisine', () => {
   it('should redirect to /food/cuisines if given no cuisine', () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({})
+    }));
     mount(
       <MemoryRouter>
-        <Cuisine
-          match={{params: {}}}
-          oneColumnATheme="light"
-          dataCuisines={[
-            {cuisine_id: 1, cuisine_name: "Chinese"},
-            {cuisine_id: 2, cuisine_name: "Italian"}
-          ]}
-        />
+        <Cuisine oneColumnATheme="light" dataCuisines={dataCuisines} />
       </MemoryRouter>
     );
     expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 
   it('should redirect to /food/cuisines if given an invalid cuisine', () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({id: "999"})
+    }));
     mount(
       <MemoryRouter>
-        <Cuisine
-          match={{params: {id: "999"}}}
-          oneColumnATheme="light"
-          dataCuisines={[
-            {cuisine_id: 1, cuisine_name: "Chinese"},
-            {cuisine_id: 2, cuisine_name: "Italian"}
-          ]}
-        />
+        <Cuisine oneColumnATheme="light" dataCuisines={dataCuisines} />
       </MemoryRouter>
     );
     expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 
   it('should not redirect if given a valid cuisine', async () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({id: "1"})
+    }));
     const wrapper = mount(
       <MemoryRouter>
-        <Cuisine
-          match={{params: {id: "1"}}}
-          oneColumnATheme="light"
-          dataCuisines={[
-            {cuisine_id: 1, cuisine_name: "Chinese"},
-            {cuisine_id: 2, cuisine_name: "Italian"}
-          ]}
-        />
+        <Cuisine oneColumnATheme="light" dataCuisines={dataCuisines} />
       </MemoryRouter>
     );
-    await act(async () => Promise.resolve(() => {
-      setImmediate(() => wrapper.update());
-      expect(mockHistoryPush).not.toHaveBeenCalled();
-    }));
+    await act(async () => {
+      Promise.resolve(() => {
+        setImmediate(() => wrapper.update());
+        expect(mockHistoryPush).not.toHaveBeenCalled();
+      });
+    });
   });
   
   it('should load the appropriate cuisine', async () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useParams: () => ({id: "1"})
+    }));
     const wrapper = mount(
       <MemoryRouter>
-        <Cuisine
-          match={{params: {id: "1"}}}
-          oneColumnATheme="light"
-          dataCuisines={[
-            {cuisine_id: 1, cuisine_name: "Chinese"},
-            {cuisine_id: 2, cuisine_name: "Italian"}
-          ]}
-        />
+        <Cuisine oneColumnATheme="light" dataCuisines={dataCuisines} />
       </MemoryRouter>
     );
-    await act(async () => Promise.resolve(() => {
-      setImmediate(() => wrapper.update());
-      expect(wrapper.find('.cuisine-view')).toHaveLength(1);
-      expect(wrapper.find(CuisineView).props().cuisine.cuisine.cuisine_id)
-      .toEqual(1);
-    }));
+    await act(async () => {
+      Promise.resolve(() => {
+        setImmediate(() => wrapper.update());
+        expect(wrapper.find('.cuisine-view')).toHaveLength(1);
+        expect(wrapper.find(CuisineView).props().cuisine.cuisine_id)
+        .toEqual(1);
+      });
+    });
   });
 });
