@@ -3,7 +3,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
+import {
+  NOBSCBackendAPIEndpointOne
+} from '../../config/NOBSCBackendAPIEndpointOne';
 import { userFavoriteRecipe } from '../../store/user/favorite/actions';
 import { userSaveRecipe } from '../../store/user/save/actions';
 import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';

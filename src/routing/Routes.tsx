@@ -48,7 +48,7 @@ import Dressings from '../components/pages/Food/SiteNavRecipes/Dressings/Dressin
 import Condiments from '../components/pages/Food/SiteNavRecipes/Condiments/Condiments';
 
 import Cuisines from '../components/pages/Food/Cuisines/Cuisines';
-import Cuisine from '../components/pages/Food/Cuisine/Cuisine';
+import Cuisine from '../components/guide/Food/Cuisine/Cuisine';
 
 import SiteNavIngredients from '../components/pages/Food/SiteNavIngredients/SiteNavIngredients';
 

@@ -1,21 +1,19 @@
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 
-import CuisineView from './CuisineView';
+import { CuisineView } from './CuisineView';
 
 const handleShowNearbyStoresClick = jest.fn();
 const handleTabChange = jest.fn();
 
 let cuisine = {
-  cuisine: {
-    cuisine_id: 1,
-    cuisine_name: "Italian",
-    cuisine_nation: "Italy",
-    //cuisine_banner: "",  // AWS S3  cuisine/banner/${cuisine.cuisine_nation}
-    //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation}
-    cuisine_wiki: "Italian_cuisine",
-    cuisine_intro: ""
-  },
+  cuisine_id: 1,
+  cuisine_name: "Italian",
+  cuisine_nation: "Italy",
+  //cuisine_banner: "",  // AWS S3  cuisine/banner/${cuisine.cuisine_nation}
+  //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation}
+  cuisine_wiki: "Italian_cuisine",
+  cuisine_intro: "",
   cuisine_suppliers: [
     {supplier_id: 14, supplier_name: "Amazing Italian Foods"}
   ],
@@ -34,14 +32,14 @@ let cuisine = {
   ]
 };
 
-let wrapper;
+let wrapper: ShallowWrapper;
 
 describe('CuisineView', () => {
   beforeEach(() => {
     wrapper = shallow(
       <CuisineView
         oneColumnATheme="light"
-        redirect={false}
+        breadCrumbsTheme="light"
         cuisine={cuisine}
         tab="intro"
         nearbyStoresClicked={false}

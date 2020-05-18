@@ -1,3 +1,4 @@
+import dataReducer from './reducer';
 import {
   DATA_GET_MEASUREMENTS,
   DATA_GET_EQUIPMENTS,  // official
@@ -8,24 +9,20 @@ import {
   DATA_GET_RECIPE_TYPES,
   DATA_GET_CUISINES,
   DATA_GET_METHODS,
-
   DATA_GET_MY_PUBLIC_RECIPES,
-  
   DATA_GET_MY_PRIVATE_EQUIPMENTS,
   DATA_GET_MY_PRIVATE_INGREDIENTS,
   DATA_GET_MY_PRIVATE_RECIPES,
-
   DATA_GET_MY_FAVORITE_RECIPES,
   DATA_GET_MY_SAVED_RECIPES,
-
   DATA_GET_MY_PLANS,
-
-  DATA_GET_MY_FRIENDSHIPS
+  DATA_GET_MY_FRIENDSHIPS,
+  IDataState,
 } from './types';
 
-import dataReducer from './reducer';
-
-const initialState = {
+const initialState: IDataState = {
+  posts: [],
+  postPreviews: [],
   measurements: [],
   equipment: [],  // official
   equipmentTypes: [],
@@ -35,18 +32,13 @@ const initialState = {
   recipeTypes: [],
   cuisines: [],
   methods: [],
-
   myPublicRecipes: [],
-
   myPrivateEquipment: [],
   myPrivateIngredients: [],
   myPrivateRecipes: [],
-
   myFavoriteRecipes: [],
   mySavedRecipes: [],
-
   myPlans: [],
-
   myFriendships: []
 };
 

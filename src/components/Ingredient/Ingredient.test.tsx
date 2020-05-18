@@ -39,10 +39,13 @@ const beforeProps: any = {
 const mockHistoryPush = jest.fn();
 const mockIngredientBreadcrumbs = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({push: mockHistoryPush})
-}));
+jest.mock('react-router-dom', () => {
+  const originalModule = jest.requireActual('react-router-dom');
+  return {
+    ...originalModule,
+    useHistory: () => ({push: mockHistoryPush})
+  };
+});
 
 jest.mock(
   '../../routing/breadcrumbs/Breadcrumbs',
@@ -55,28 +58,37 @@ afterEach(() => {
 
 describe('Ingredient', () => {
   it('should redirect to /home if given no ingredient', () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({})
+      };
+    });
     mount(<MemoryRouter><Ingredient {...beforeProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
   it('should redirect to /home if given an invalid ingredient', () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({id: "999"})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({id: "999"})
+      };
+    });
     mount(<MemoryRouter><Ingredient {...beforeProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
   it('should not redirect if given a valid ingredient', async () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({id: "1"})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({id: "1"})
+      };
+    });
     const wrapper = mount(
       <MemoryRouter><Ingredient {...beforeProps} /></MemoryRouter>
     );
@@ -89,10 +101,13 @@ describe('Ingredient', () => {
   });
 
   it('should get the appropriate ingredient', async () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({id: "1"})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({id: "1"})
+      };
+    });
     const wrapper = mount(
       <MemoryRouter><Ingredient {...beforeProps} /></MemoryRouter>
     );

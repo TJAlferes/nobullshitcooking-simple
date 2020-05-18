@@ -30,7 +30,7 @@ export function Breadcrumbs({ breadCrumbsTheme }: Props) {
               </Link>
               {
                 (index < breadcrumbs.length - 1) &&
-                <i className="crumb_pointer"> > </i>
+                <i className="crumb_pointer">{`&gt;`}</i>
               }
             </span>
           )
@@ -61,7 +61,10 @@ export function RecipeBreadcrumbs({
               <Link className="crumb_link" to={match.url}>
                 {breadcrumb}
               </Link>
-              {(index < breadcrumbs.length) && <i className="crumb_pointer"> > </i>}
+              {
+                (index < breadcrumbs.length) &&
+                <i className="crumb_pointer">{`&gt;`}</i>
+              }
             </span>
           )
         )}
@@ -101,7 +104,10 @@ export function IngredientBreadcrumbs({
               <Link className="crumb_link" to={match.url}>
                 {breadcrumb}
               </Link>
-              {(index < breadcrumbs.length) && <i className="crumb_pointer"> > </i>}
+              {
+                (index < breadcrumbs.length) &&
+                <i className="crumb_pointer">{`&gt;`}</i>
+              }
             </span>
           )
         )}
@@ -141,7 +147,10 @@ export function EquipmentBreadcrumbs({
               <Link className="crumb_link" to={match.url}>
                 {breadcrumb}
               </Link>
-              {(index < breadcrumbs.length) && <i className="crumb_pointer"> > </i>}
+              {
+                (index < breadcrumbs.length) &&
+                <i className="crumb_pointer">{`&gt;`}</i>
+              }
             </span>
           )
         )}
@@ -171,31 +180,33 @@ export function CuisineBreadcrumbs({
   cuisineId,
   cuisineName
 }: CuisineBreadcrumbsProps) {
-  function CuisineBreadcrumbsComponent({ breadcrumbs }: any) {
-    breadcrumbs.pop();
-    return (
-      <div className={`crumbs ${breadCrumbsTheme}`}>
-        {breadcrumbs.map(
-          ({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
-            <span className="crumb" key={match.url}>
-              <Link className="crumb_link" to={match.url}>
-                {breadcrumb}
-              </Link>
-              {(index < breadcrumbs.length) && <i className="crumb_pointer"> > </i>}
-            </span>
-          )
-        )}
-        <Link
-          className="crumb_link"
-          to={`/food/cuisines/${cuisineId}`}
-        >
-          {cuisineName}
-        </Link>
-      </div>
-    );
-  }
-
-  return withBreadcrumbs()(CuisineBreadcrumbsComponent);
+  return (
+    <div className={`crumbs ${breadCrumbsTheme}`}>
+      {withBreadcrumbs()(({ breadcrumbs }: any) => (
+        <>
+          {breadcrumbs.pop().map(
+            ({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
+              <span className="crumb" key={match.url}>
+                <Link className="crumb_link" to={match.url}>
+                  {breadcrumb}
+                </Link>
+                {
+                  (index < breadcrumbs.length) &&
+                  <i className="crumb_pointer">{`&gt;`}</i>
+                }
+              </span>
+            )
+          )}
+          <Link
+            className="crumb_link"
+            to={`/food/cuisines/${cuisineId}`}
+          >
+            {cuisineName}
+          </Link>
+        </>
+      ))}
+    </div>
+  );
 }
 
 interface CuisineBreadcrumbsProps {

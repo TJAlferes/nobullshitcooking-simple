@@ -4,6 +4,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 
+import { ICuisine } from '../../../../store/data/types';
 import { Cuisine, ICuisineDetail } from './Cuisine';
 import { CuisineView } from './CuisineView';
 
@@ -33,14 +34,26 @@ const cuisine = {
     {recipe_id: 2, title: "Something Else"}
   ]
 };
+const initialProps: {
+  oneColumnATheme: string;
+  breadCrumbsTheme: string;
+  dataCuisines: ICuisine[];
+} = {
+  oneColumnATheme: "light",
+  breadCrumbsTheme: "light",
+  dataCuisines
+};
 
 // don't use, if possible, this is a big anti-pattern, find something better
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({push: mockHistoryPush})
-}));
+jest.mock('react-router-dom', () => {
+  const originalModule = jest.requireActual('react-router-dom');
+  return {
+    ...originalModule,
+    useHistory: () => ({push: mockHistoryPush})
+  };
+});
 const mockHistoryPush = jest.fn();
 
 jest.mock('axios');
@@ -61,40 +74,39 @@ afterEach(() => {
 
 describe('Cuisine', () => {
   it('should redirect to /food/cuisines if given no cuisine', () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({})
-    }));
-    mount(
-      <MemoryRouter>
-        <Cuisine oneColumnATheme="light" dataCuisines={dataCuisines} />
-      </MemoryRouter>
-    );
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({})
+      };
+    });
+    mount(<MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 
   it('should redirect to /food/cuisines if given an invalid cuisine', () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({id: "999"})
-    }));
-    mount(
-      <MemoryRouter>
-        <Cuisine oneColumnATheme="light" dataCuisines={dataCuisines} />
-      </MemoryRouter>
-    );
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({id: "999"})
+      };
+    });
+    mount(<MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 
   it('should not redirect if given a valid cuisine', async () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({id: "1"})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({id: "1"})
+      };
+    });
     const wrapper = mount(
-      <MemoryRouter>
-        <Cuisine oneColumnATheme="light" dataCuisines={dataCuisines} />
-      </MemoryRouter>
+      <MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>
     );
     await act(async () => {
       Promise.resolve(() => {
@@ -105,14 +117,15 @@ describe('Cuisine', () => {
   });
   
   it('should load the appropriate cuisine', async () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({id: "1"})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({id: "1"})
+      };
+    });
     const wrapper = mount(
-      <MemoryRouter>
-        <Cuisine oneColumnATheme="light" dataCuisines={dataCuisines} />
-      </MemoryRouter>
+      <MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>
     );
     await act(async () => {
       Promise.resolve(() => {

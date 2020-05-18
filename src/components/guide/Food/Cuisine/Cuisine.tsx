@@ -13,7 +13,11 @@ import { CuisineView } from './CuisineView';
 const endpoint = NOBSCBackendAPIEndpointOne;
 const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';
 
-export function Cuisine({ oneColumnATheme, dataCuisines }: Props): JSX.Element {
+export function Cuisine({
+  oneColumnATheme,
+  breadCrumbsTheme,
+  dataCuisines
+}: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
 
@@ -78,6 +82,7 @@ export function Cuisine({ oneColumnATheme, dataCuisines }: Props): JSX.Element {
   : (
     <CuisineView
       oneColumnATheme={oneColumnATheme}
+      breadCrumbsTheme={breadCrumbsTheme}
       cuisine={cuisine}
       tab={tab}
       nearbyStoresClicked={nearbyStoresClicked}
@@ -124,14 +129,15 @@ interface ICuisineRecipe {
 
 interface RootState {
   data: {
-    cuisines: ICuisine[]
+    cuisines: ICuisine[];
   };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  oneColumnATheme: string
+  oneColumnATheme: string;
+  breadCrumbsTheme: string;
 };
 
 const mapStateToProps = (state: RootState) => ({

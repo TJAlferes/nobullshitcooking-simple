@@ -13,6 +13,7 @@ const googleMapsAPIKeyOne = 'AIzaSyCULKDLxoF9O413jjvF5Ot2xXXMdgz0Eag';
 
 export function CuisineView({
   oneColumnATheme,
+  breadCrumbsTheme,
   cuisine,
   tab,
   nearbyStoresClicked,
@@ -25,7 +26,13 @@ export function CuisineView({
   return (
     <div className="cuisine-view">
 
-      <div><CuisineBreadcrumbs cuisine={cuisine} /></div>
+      <div>
+        {CuisineBreadcrumbs({
+          breadCrumbsTheme,
+          cuisineId: cuisine.cuisine_id,
+          cuisineName: cuisine.cuisine_name
+        })}
+      </div>
 
       <div className={`cuisine one-column-a ${oneColumnATheme}`}>
 
@@ -138,6 +145,7 @@ export function CuisineView({
 
 interface Props {
   oneColumnATheme: string
+  breadCrumbsTheme: string
   cuisine: ICuisineDetail
   tab: string
   nearbyStoresClicked: boolean

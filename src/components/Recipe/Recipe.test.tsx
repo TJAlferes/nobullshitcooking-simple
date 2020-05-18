@@ -17,11 +17,15 @@ const recipe = {
 const userFavoriteRecipe = jest.fn();
 const userSaveRecipe = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({push: mockHistoryPush})
-}));
+jest.mock('react-router-dom', () => {
+  const originalModule = jest.requireActual('react-router-dom');
+  return {
+    ...originalModule,
+    useHistory: () => ({push: mockHistoryPush})
+  };
+});
 const mockHistoryPush = jest.fn();
+const mockRecipeBreadcrumbs = jest.fn();
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -29,9 +33,7 @@ mockedAxios.get.mockReturnValueOnce(Promise.resolve({data: recipe}));
 
 jest.mock(
   '../../../../routing/breadcrumbs/Breadcrumbs',
-  () => ({
-    RecipeBreadcrumbs: (recipe: IRecipe) => <div>{recipe.title}</div>
-  })
+  () => ({RecipeBreadcrumbs: mockRecipeBreadcrumbs})
 );
 
 afterEach(() => {
@@ -40,10 +42,13 @@ afterEach(() => {
 
 describe('Recipe', () => {
   it('should redirect to /home if given no recipe', async () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({})
+      };
+    });
     mount(
       <MemoryRouter>
         <Recipe
@@ -64,10 +69,13 @@ describe('Recipe', () => {
   });
 
   it('should redirect to /home if given an invalid recipe', async () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({id: "!@#"})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({id: "!@#"})
+      };
+    });
     mount(
       <MemoryRouter>
         <Recipe
@@ -88,10 +96,13 @@ describe('Recipe', () => {
   });
 
   it('should not redirect if given a valid recipe', async () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({id: "1"})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({id: "1"})
+      };
+    });
     mount(
       <MemoryRouter>
         <Recipe
@@ -112,10 +123,13 @@ describe('Recipe', () => {
   });
 
   it('should load the appropriate recipe', async () => {
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useParams: () => ({id: "1"})
-    }));
+    jest.mock('react-router-dom', () => {
+      const originalModule = jest.requireActual('react-router-dom');
+      return {
+        ...originalModule,
+        useParams: () => ({id: "1"})
+      };
+    });
     const wrapper = mount(
       <MemoryRouter>
         <Recipe
