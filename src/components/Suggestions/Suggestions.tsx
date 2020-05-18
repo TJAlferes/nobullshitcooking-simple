@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import axios from 'axios';
 
 import {
@@ -7,13 +7,12 @@ import {
   geoLongitude,
   geoAddress,
   geoNearbyStoresClicked
-} from '../../store/actions/index.js';
-
-import SuggestionsView from './SuggestionsView';
+} from '../../store/geolocation/actions';
+import { SuggestionsView } from './SuggestionsView';
 
 const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';
 
-export const Suggestions = ({
+export function Suggestions({
   theme,
   latitude,
   longitude,
@@ -23,7 +22,7 @@ export const Suggestions = ({
   geoLongitude,
   geoAddress,
   geoNearbyStoresClicked
-}) => {
+}: Props): JSX.Element {
   useEffect(() => {
     const getAddress = async () => {
       if (latitude === "") return;
@@ -61,7 +60,23 @@ export const Suggestions = ({
   );
 };
 
-const mapStateToProps = state => ({
+interface RootState {
+  theme: {
+    suggestionsTheme: string;
+  };
+  geolocation: {
+    latitude: string;
+    longitude: string;
+    address: string;
+    nearbyStoresClicked: boolean;
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux;
+
+const mapStateToProps = (state: RootState) => ({
   theme: state.theme.suggestionsTheme,
   latitude: state.geolocation.latitude,
   longitude: state.geolocation.longitude,
@@ -69,11 +84,13 @@ const mapStateToProps = state => ({
   nearbyStoresClicked: state.geolocation.nearbyStoresClicked
 });
 
-const mapDispatchToProps = dispatch => ({
-  geoLatitude: (latitude) => dispatch(geoLatitude(latitude)),
-  geoLongitude: (longitude) => dispatch(geoLongitude(longitude)),
-  geoAddress: (address) => dispatch(geoAddress(address)),
-  geoNearbyStoresClicked: (clicked) => dispatch(geoNearbyStoresClicked(clicked))
-});
+const mapDispatchToProps = {
+  geoLatitude: (latitude: string) => geoLatitude(latitude),
+  geoLongitude: (longitude: string) => geoLongitude(longitude),
+  geoAddress: (address: string) => geoAddress(address),
+  geoNearbyStoresClicked: (clicked: boolean) => geoNearbyStoresClicked(clicked)
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Suggestions);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Suggestions);

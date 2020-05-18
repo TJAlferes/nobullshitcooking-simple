@@ -1,32 +1,37 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import { useLocation } from 'react-router';
 
 import { Breadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
-
 import './mainWhite.css';
 
-const MainWhite = ({ location, theme, shadow, children }) => {
+export const MainWhite: FunctionComponent<Props> = ({
+  theme,
+  breadCrumbsTheme,
+  shadow,
+  children
+}): JSX.Element => {
+  const location = useLocation();
   // so that breadcrumbs aren't displayed at all on the home page:
-  let isHome = location.pathname.match(/^\/$/);
-
+  const isHome = location.pathname.match(/^\/$/);
   // so that the default breadcrumbs aren't displayed on these pages:
-  let isCuisineDetail = location.pathname.match(/^(\/food\/cuisines\/([1-9][0-9]*))$/);
-  let isRecipe = location.pathname.match(/^(\/recipes\/([1-9][0-9]*))$/);
-  let isIngredient = location.pathname.match(/^(\/ingredients\/([1-9][0-9]*))$/);
-  let isEquipment = location.pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
-  let isUserPlan = location.pathname.match(/^(\/user-plan\/([1-9][0-9]*))$/);
-  let isUserRecipe = location.pathname.match(/^(\/user-recipes\/([1-9][0-9]*))$/);
-  let isUserIngredient = location.pathname.match(/^(\/user-ingredients\/([1-9][0-9]*))$/);
-  let isUserEquipment = location.pathname.match(/^(\/user-equipment\/([1-9][0-9]*))$/);
-  let isNewPlan = location.pathname.match(/^(\/user-plan\/submit)$/);
-  let isEditPlan = location.pathname.match(/^(\/user-plan\/edit\/([1-9][0-9]*))$/);
-  let isNewPrivateRecipe = location.pathname.match(/^(\/user-recipes\/private\/submit)$/);
-  let isEditPrivateRecipe = location.pathname.match(/^(\/user-recipes\/private\/edit\/([1-9][0-9]*))$/);
-  let isNewPublicRecipe = location.pathname.match(/^(\/user-recipes\/public\/submit)$/);
-  let isEditPublicRecipe = location.pathname.match(/^(\/user-recipes\/public\/edit\/([1-9][0-9]*))$/);
-  let isNewPrivateIngredient = location.pathname.match(/^(\/user-ingredients\/submit)$/);
-  let isEditPrivateIngredient = location.pathname.match(/^(\/user-ingredients\/edit\/([1-9][0-9]*))$/);
-  let isNewPrivateEquipment = location.pathname.match(/^(\/user-equipment\/submit)$/);
-  let isEditPrivateEquipment = location.pathname.match(/^(\/user-equipment\/edit\/([1-9][0-9]*))$/);
+  const isCuisineDetail = location.pathname.match(/^(\/food\/cuisines\/([1-9][0-9]*))$/);
+  const isRecipe = location.pathname.match(/^(\/recipes\/([1-9][0-9]*))$/);
+  const isIngredient = location.pathname.match(/^(\/ingredients\/([1-9][0-9]*))$/);
+  const isEquipment = location.pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
+  const isUserPlan = location.pathname.match(/^(\/user-plan\/([1-9][0-9]*))$/);
+  const isUserRecipe = location.pathname.match(/^(\/user-recipes\/([1-9][0-9]*))$/);
+  const isUserIngredient = location.pathname.match(/^(\/user-ingredients\/([1-9][0-9]*))$/);
+  const isUserEquipment = location.pathname.match(/^(\/user-equipment\/([1-9][0-9]*))$/);
+  const isNewPlan = location.pathname.match(/^(\/user-plan\/submit)$/);
+  const isEditPlan = location.pathname.match(/^(\/user-plan\/edit\/([1-9][0-9]*))$/);
+  const isNewPrivateRecipe = location.pathname.match(/^(\/user-recipes\/private\/submit)$/);
+  const isEditPrivateRecipe = location.pathname.match(/^(\/user-recipes\/private\/edit\/([1-9][0-9]*))$/);
+  const isNewPublicRecipe = location.pathname.match(/^(\/user-recipes\/public\/submit)$/);
+  const isEditPublicRecipe = location.pathname.match(/^(\/user-recipes\/public\/edit\/([1-9][0-9]*))$/);
+  const isNewPrivateIngredient = location.pathname.match(/^(\/user-ingredients\/submit)$/);
+  const isEditPrivateIngredient = location.pathname.match(/^(\/user-ingredients\/edit\/([1-9][0-9]*))$/);
+  const isNewPrivateEquipment = location.pathname.match(/^(\/user-equipment\/submit)$/);
+  const isEditPrivateEquipment = location.pathname.match(/^(\/user-equipment\/edit\/([1-9][0-9]*))$/);
 
   return (
     <main className={`mainwhite ${theme}`}>
@@ -52,11 +57,15 @@ const MainWhite = ({ location, theme, shadow, children }) => {
         !isEditPrivateIngredient &&
         !isNewPrivateEquipment &&
         !isEditPrivateEquipment &&
-        <div className="desktop_display" id="breadcrumbs"><Breadcrumbs /></div>
+        <Breadcrumbs breadCrumbsTheme={breadCrumbsTheme} />
       }
       {children}
     </main>
   );
 };
 
-export default MainWhite;
+type Props = {
+  theme: string;
+  breadCrumbsTheme: string;
+  shadow: boolean;
+};

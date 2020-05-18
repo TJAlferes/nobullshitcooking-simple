@@ -5,27 +5,39 @@ import withBreadcrumbs, { BreadcrumbsProps } from 'react-router-breadcrumbs-hoc'
 import './breadcrumbs.css';
 
 export function Breadcrumbs({ breadCrumbsTheme }: Props) {
-  function BreadcrumbsComponent({ breadcrumbs }: any) {
-    return (
-      <div className={`crumbs ${breadCrumbsTheme}`}>
-        {breadcrumbs.map(
+  /*function BreadcrumbsComponent({ breadcrumbs }: any) {
+    return breadcrumbs
+    .map(({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
+      <span className="crumb" key={match.url}>
+        <Link className="crumb_link" to={match.url}>
+          {breadcrumb}
+        </Link>
+        {
+          (index < breadcrumbs.length - 1) &&
+          <i className="crumb_pointer"> > </i>
+        }
+      </span>
+    ));
+  }*/
+  return (
+    <div className={`crumbs ${breadCrumbsTheme}`}>
+      {withBreadcrumbs()(
+        ({ breadcrumbs }: any) => breadcrumbs.map(
           ({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
-          <span className="crumb" key={match.url}>
-            <Link className="crumb_link" to={match.url}>
-              {breadcrumb}
-            </Link>
-            {
-              (index < breadcrumbs.length - 1) &&
-              <i className="crumb_pointer"> > </i>
-            }
-          </span>
+            <span className="crumb" key={match.url}>
+              <Link className="crumb_link" to={match.url}>
+                {breadcrumb}
+              </Link>
+              {
+                (index < breadcrumbs.length - 1) &&
+                <i className="crumb_pointer"> > </i>
+              }
+            </span>
           )
-        )}
-      </div>
-    );
-  }
-
-  return withBreadcrumbs()(BreadcrumbsComponent);
+        )
+      )}
+    </div>
+  );
 }
 
 interface Props {

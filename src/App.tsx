@@ -4,7 +4,7 @@ import { connect, ConnectedProps } from 'react-redux';
 
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
 import { HeaderRed } from './components/HeaderRed/desktop/HeaderRed';
-import MainWhite from './components/MainWhite/MainWhite';
+import { MainWhite } from './components/MainWhite/MainWhite';
 import { FooterGray } from './components/FooterGray/FooterGray';
 import RoutesList from './routing/Routes';
 import './app.css';
@@ -13,6 +13,7 @@ export function App({
   headerTheme,
   footerTheme,
   mainTheme,
+  breadCrumbsTheme,
   shadow
 }: Props): JSX.Element {
   const location = useLocation();
@@ -35,7 +36,11 @@ export function App({
           <HeaderRed theme={headerTheme} />
         </div>
       </div>
-      <MainWhite location={location} theme={mainTheme} shadow={shadow}>
+      <MainWhite
+        theme={mainTheme}
+        breadCrumbsTheme={breadCrumbsTheme}
+        shadow={shadow}
+      >
         <RoutesList />
       </MainWhite>
       <FooterGray theme={footerTheme} />
@@ -48,6 +53,7 @@ interface RootState {
     headerTheme: string;
     footerTheme: string;
     mainTheme: string;
+    breadCrumbsTheme: string;
   };
   menu: {
     shadow: boolean;
@@ -62,6 +68,7 @@ const mapStateToProps = (state: RootState) => ({
   headerTheme: state.theme.headerTheme,
   footerTheme: state.theme.footerTheme,
   mainTheme: state.theme.mainTheme,
+  breadCrumbsTheme: state.theme.breadCrumbsTheme,
   shadow: state.menu.shadow
 });
 
