@@ -46,6 +46,6 @@ const mapStateToProps = (state: RootState) => ({
   tableATheme: state.theme.tableATheme
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {});
 
 export default connector(AppliedRoute);

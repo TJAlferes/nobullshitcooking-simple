@@ -12,6 +12,7 @@ export function UnauthenticatedRoute({
   return (
     <Route
       exact
+      path={path}
       {...rest}
       render={props =>
         !isAuthenticated
@@ -54,6 +55,6 @@ const mapStateToProps = (state: RootState) => ({
   tableATheme: state.theme.tableATheme
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {});
 
 export default connector(UnauthenticatedRoute);
