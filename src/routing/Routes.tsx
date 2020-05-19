@@ -185,22 +185,22 @@ const RoutesList = () => (
       {authRoute(
         "/user-recipes/private/submit",
         NewRecipe,
-        {submittingOwnership: "private"}
+        {editing: false, ownership: "private"}
       )}
       {authRoute(
         "/user-recipes/public/submit",
         NewRecipe,
-        {submittingOwnership: "public"}
+        {editing: false, ownership: "public"}
       )}
       {authRoute(
         "/user-recipes/private/edit/:id",
         NewRecipe,
-        {editing: true, editingOwnership: "private"}
+        {editing: true, ownership: "private"}
       )}
       {authRoute(
         "/user-recipes/public/edit/:id",
         NewRecipe,
-        {editing: true, editingOwnership: "public"}
+        {editing: true, ownership: "public"}
       )}
       {authRoute("/user-recipes/:id", Recipe)}
       {authRoute("/user-equipment/submit", NewEquipment)}

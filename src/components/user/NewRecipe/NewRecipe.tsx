@@ -41,8 +41,9 @@ import { NewRecipeView } from './NewRecipeView';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function NewRecipe({
-  childProps,
   oneColumnATheme,
+  editing,
+  ownership,
   authname,
   message,
   dataMeasurements,
@@ -69,10 +70,8 @@ export function NewRecipe({
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ editing, setEditing ] = useState(false);
 
-  const [ editingId, setEditingId ] = useState<number>(0);
-  const [ ownership, setOwnership ] = useState("");
+  const [ editingId, setEditingId ] = useState<number>(0);  // |null ?
   const [ recipeTypeId, setRecipeTypeId ] = useState<number>(0);
   const [ cuisineId, setCuisineId ] = useState<number>(0);
   const [ title, setTitle ] = useState("");
@@ -201,17 +200,16 @@ export function NewRecipe({
 
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
-      if (!id || !childProps?.editingOwnership) {
+      if (!id || !ownership) {
         history.push('/dashboard');
         return;
       }
 
       window.scrollTo(0,0);
       setLoading(true);
-      setEditing(true);
 
       const res = await axios.post(
-        `${endpoint}/user/recipe/edit/${childProps.editingOwnership}`,
+        `${endpoint}/user/recipe/edit/${ownership}`,
         {recipeId: id},
         {withCredentials: true}
       );
@@ -223,7 +221,6 @@ export function NewRecipe({
         return;
       }
 
-      setOwnership(childProps.editingOwnership);  // change?
       setEditingId(recipe.recipe_id);
       setRecipeTypeId(recipe.recipe_type_id);
       setCuisineId(recipe.cuisine_id);
@@ -285,20 +282,7 @@ export function NewRecipe({
       setLoading(false);
     };
     
-    if (
-      childProps &&
-      childProps.hasOwnProperty('editing') &&
-      childProps.hasOwnProperty('editingOwnership')
-    ) {
-      getExistingRecipeToEdit();
-    } else if (
-      childProps &&
-      childProps.hasOwnProperty('submittingOwnership')
-    ) {
-      setOwnership(childProps.submittingOwnership);
-    } else {
-      history.push('/dashboard');
-    }
+    if (editing) getExistingRecipeToEdit();
   }, []);
 
   useEffect(() => {
@@ -312,7 +296,7 @@ export function NewRecipe({
       ) {
         setTimeout(() => history.push('/dashboard'), 3000);
       }
-      setLoading(false);
+      setLoading(false);  // move?
     }
     return () => {
       isSubscribed = false;
@@ -923,19 +907,9 @@ export interface ISubrecipeRow {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  childProps: any;
   oneColumnATheme: string;
-};
-
-type ChildProps = EditingChildProps | SubmittingChildProps
-
-type EditingChildProps = {
   editing: boolean;
-  editingOwnership: string;
-};
-
-type SubmittingChildProps = {
-  submittingOwnership: string;
+  ownership: string;
 };
 
 const mapStateToProps = (state: RootState) => ({

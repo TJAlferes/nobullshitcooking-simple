@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import { LoaderButton } from '../../LoaderButton/LoaderButton';
@@ -180,16 +179,12 @@ const beginProps = {
   cancelRecipeCookingImage: jest.fn(),
   handleSubmit: jest.fn()
 };
-/*const 
-jest.mock('react-router-dom', () => {
-  const originalModule = jest.requireActual('react-router-dom');
-  return {...originalModule, Link: () => <div></div>};
-});*/
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
+// this needs more thorough tests
 describe('NewRecipeView', () => {
 
   describe('when creating', () => {
