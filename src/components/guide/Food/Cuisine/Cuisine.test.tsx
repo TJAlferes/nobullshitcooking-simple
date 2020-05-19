@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import { ICuisine } from '../../../../store/data/types';
-import { Cuisine, ICuisineDetail } from './Cuisine';
+import { Cuisine } from './Cuisine';
 import { CuisineView } from './CuisineView';
 
 const dataCuisines = [
@@ -45,7 +45,7 @@ const initialProps: {
 };
 
 // don't use, if possible, this is a big anti-pattern, find something better
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+//const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom');

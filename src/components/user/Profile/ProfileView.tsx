@@ -24,10 +24,7 @@ export function ProfileView({
     <div className="profile-view">
 
       <div>
-        <span>
-          <Link to="/home">Home</Link>
-          <i> > </i>
-        </span>
+        <span><Link to="/home">Home</Link><i>{`&gt;`}</i></span>
         <span>{username}</span>
       </div>
 

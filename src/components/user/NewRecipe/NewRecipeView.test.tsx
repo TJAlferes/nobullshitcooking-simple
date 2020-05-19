@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
+import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import { LoaderButton } from '../../LoaderButton/LoaderButton';
 import { EquipmentRow } from './views/EquipmentRow/EquipmentRow';
 import { IngredientRow } from './views/IngredientRow/IngredientRow';
@@ -180,11 +180,11 @@ const beginProps = {
   cancelRecipeCookingImage: jest.fn(),
   handleSubmit: jest.fn()
 };
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  Link: () => <div></div>
-}));
+/*const 
+jest.mock('react-router-dom', () => {
+  const originalModule = jest.requireActual('react-router-dom');
+  return {...originalModule, Link: () => <div></div>};
+});*/
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -389,10 +389,10 @@ describe('NewRecipeView', () => {
 
     it('displays method inputs and labels', () => {
       expect(wrapper.find('[data-test="1-Steam"]').props().id)
-      .toEqual(1);
+      .toEqual("1");
 
       expect(wrapper.find('[data-test="2-Freeze"]').props().id)
-      .toEqual(2);
+      .toEqual("2");
 
       expect(wrapper.find('[data-test="Steam"]').props().children)
       .toEqual("Steam");
@@ -419,12 +419,11 @@ describe('NewRecipeView', () => {
   describe('finish area', () => {
     const wrapper = shallow(<NewRecipeView {...beginProps} />);
 
-    it('displays a Link to /user/dashboard', () => {
-      expect(wrapper.find(Link).props().to).toEqual("/user/dashboard");
-    });
-
-    it('displays a Link with text Cancel', () => {
-      expect(wrapper.find(Link).props().children).toEqual("Cancel");
+    it('displays a Link to /dashboard with text Cancel', () => {
+      expect(wrapper.find('[data-test="cancel-link"]').props().to)
+      .toEqual("/dashboard");
+      expect(wrapper.find('[data-test="cancel-link"]').props().children)
+      .toEqual("Cancel");
     });
 
     it('displays a LoaderButton with text Submit Recipe', () => {

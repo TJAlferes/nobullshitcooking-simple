@@ -6,7 +6,7 @@ import './cuisine.css';
 
 // cuisine banner: <img src={`${s3Path}banner/${cuisine.cuisine.cuisine_id or wiki}`} />
 
-//   cuisine flag: <img src={`${s3Path}flag/${cuisine.cuisine.cuisine_id or wiki}`} />
+// cuisine flag: <img src={`${s3Path}flag/${cuisine.cuisine.cuisine_id or wiki}`} />
 
 //const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content/food/cuisines/';
 const googleMapsAPIKeyOne = 'AIzaSyCULKDLxoF9O413jjvF5Ot2xXXMdgz0Eag';

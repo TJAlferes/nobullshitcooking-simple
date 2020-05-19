@@ -33,7 +33,7 @@ type Props = {
   text: string;
   loadingText: string;
   isLoading: boolean;
-  onClick(e: React.): void;
+  onClick(e?: React.MouseEvent): void;
   onKeyUp?(e: React.KeyboardEvent): void;
   disabled?: boolean;
 };

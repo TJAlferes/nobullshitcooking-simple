@@ -1,4 +1,4 @@
-import Plan from './Plan';
+import { Plan } from './Plan';
 
 describe('what needs testing', () => {
   it('needs testing', () => {

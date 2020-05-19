@@ -116,14 +116,8 @@ export function NewRecipeView({
     <div className="new-recipe-view">
 
       <div>
-        <span>
-          <Link to="/home">Home</Link>
-          <i> > </i>
-        </span>
-        <span>
-          <Link to="/dashboard">Dashboard</Link>
-          <i> > </i>
-        </span>
+        <span><Link to="/home">Home</Link><i>{`&gt;`}</i></span>
+        <span><Link to="/dashboard">Dashboard</Link><i>{`&gt;`}</i></span>
         <span>
           {
             editing
@@ -494,6 +488,7 @@ export function NewRecipeView({
         <div className="new-recipe-finish-area">
           <Link
             className="new-recipe-cancel-button"
+            data-test="cancel-link"
             to="/dashboard"
           >
             Cancel
