@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import LoaderSpinner from '../../LoaderSpinner/LoaderSpinner';
-import { ContentView, IContentItem } from './ContentView';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
+import { LoaderSpinner } from '../../LoaderSpinner/LoaderSpinner';
+import { ContentView, IContentItem } from './ContentView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 

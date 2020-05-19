@@ -1,7 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import MenuView from './MenuView';
+import foodMenuData from '../data/foodMenuData';
+import { MenuView } from './MenuView';
 
 const handleMouseEnterRow = jest.fn();
 const handleMouseLeaveMenu = jest.fn();
@@ -9,7 +10,7 @@ const handleMouseLeaveMenu = jest.fn();
 const wrapper = shallow(
   <MenuView
     theme="drop-down-menu-light"
-    menuData={[]}
+    menuItems={foodMenuData}
     activeMenuRow={undefined}
     handleMouseEnterRow={handleMouseEnterRow}
     handleMouseLeaveMenu={handleMouseLeaveMenu}

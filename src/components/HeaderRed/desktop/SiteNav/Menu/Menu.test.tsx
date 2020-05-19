@@ -1,14 +1,13 @@
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
+import foodMenuData from '../data/foodMenuData';
 import { Menu } from './Menu';
-
-const menuData = [];
 
 const wrapper = mount(
   <MemoryRouter>
-    <Menu theme="drop-down-menu-light" menuData={menuData} />
+    <Menu theme="drop-down-menu-light" menuItems={foodMenuData} />
   </MemoryRouter>
 );
 
@@ -17,7 +16,7 @@ afterEach(() => {
 });
 
 describe('Menu', () => {
-  it('?', () => {
+  it('needs testing', () => {
     
   });
-});
+}); 
