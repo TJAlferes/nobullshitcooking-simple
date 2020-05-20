@@ -2,32 +2,34 @@ import { mount, render } from 'enzyme';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { SearchProvider } from '@elastic/react-search-ui';
+import { createStore, Store } from 'redux';
+//import { SearchProvider } from '@elastic/react-search-ui';
 
 import RoutesList from './routing/Routes';
-import rootReducer from './store/reducers/index';
+import rootReducer from './store/rootReducer';
 //import searchConfig from './config/searchConfig';
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
 import { HeaderRed } from './components/HeaderRed/desktop/HeaderRed';
-import MainWhite from './components/MainWhite/MainWhite';
+import { MainWhite } from './components/MainWhite/MainWhite';
 import { FooterGray } from './components/FooterGray/FooterGray';
 import { App } from './App';
 
-const storeFactory = initialState => createStore(rootReducer, initialState);
+const storeFactory = (initialState = undefined): Store =>
+  createStore(rootReducer, initialState);
 
 const beginProps = {
   headerTheme: 'header-light',
   footerTheme: 'footer-light',
   mainTheme: 'main-light',
-  shadow: false,
-  
+  breadCrumbsTheme: 'breadcrumbs-light',
+  shadow: false
 };
 
-jest.mock(
-  './routing/breadcrumbs/Breadcrumbs',
-  () => ({Breadcrumbs: () => <div></div>})
-);
+const mockBreadcrumbs = jest.fn();
+
+jest.mock('./routing/breadcrumbs/Breadcrumbs', () => ({
+  Breadcrumbs: mockBreadcrumbs
+}));
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -35,20 +37,27 @@ afterEach(() => {
 
 //let wrapper;
 
-const store = storeFactory({});
+const store = storeFactory();
 
 describe('App', () => {
-  jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useLocation: () => ({pathname: "/"})
-  }));
+  jest.mock('react-router-dom', () => {
+    const originalModule = jest.requireActual('react-router-dom');
+    return {...originalModule, useLocation: () => ({pathname: "/"})};
+  });
   
-  const wrapper = mount(
+  /*const wrapper = mount(
     <Provider store={store}>
       <MemoryRouter>
         <SearchProvider config={{}}>
           <App {...beginProps} />
         </SearchProvider>
+      </MemoryRouter>
+    </Provider>
+  );*/
+  const wrapper = mount(
+    <Provider store={store}>
+      <MemoryRouter>
+        <App {...beginProps} />
       </MemoryRouter>
     </Provider>
   );
@@ -75,17 +84,15 @@ describe('App', () => {
 });
 
 describe('when pathname is /register', () => {
-  jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useLocation: () => ({pathname: "/register"})
-  }));
+  jest.mock('react-router-dom', () => {
+    const originalModule = jest.requireActual('react-router-dom');
+    return {...originalModule, useLocation: () => ({pathname: "/register"})};
+  });
 
   const wrapper = render(
     <Provider store={store}>
       <MemoryRouter>
-        <SearchProvider config={{}}>
-          <App {...beginProps} />
-        </SearchProvider>
+        <App {...beginProps} />
       </MemoryRouter>
     </Provider>
   );
@@ -112,17 +119,15 @@ describe('when pathname is /register', () => {
 });
 
 describe('when pathname is /verify', () => {
-  jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useLocation: () => ({pathname: "/verify"})
-  }));
+  jest.mock('react-router-dom', () => {
+    const originalModule = jest.requireActual('react-router-dom');
+    return {...originalModule, useLocation: () => ({pathname: "/verify"})};
+  });
 
   const wrapper = render(
     <Provider store={store}>
       <MemoryRouter>
-        <SearchProvider config={{}}>
-          <App {...beginProps} />
-        </SearchProvider>
+        <App {...beginProps} />
       </MemoryRouter>
     </Provider>
   );
@@ -149,17 +154,15 @@ describe('when pathname is /verify', () => {
 });
 
 describe('when pathname is /login', () => {
-  jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useLocation: () => ({pathname: "/login"})
-  }));
+  jest.mock('react-router-dom', () => {
+    const originalModule = jest.requireActual('react-router-dom');
+    return {...originalModule, useLocation: () => ({pathname: "/login"})};
+  });
 
   const wrapper = render(
     <Provider store={store}>
       <MemoryRouter>
-        <SearchProvider config={{}}>
-          <App {...beginProps} />
-        </SearchProvider>
+        <App {...beginProps} />
       </MemoryRouter>
     </Provider>
   );

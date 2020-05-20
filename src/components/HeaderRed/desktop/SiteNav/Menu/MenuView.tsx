@@ -39,15 +39,16 @@ export function MenuView({
         <ul className="menu-items">
           {menuItems.map((menu: IMenuItem, index) => (
             <li
-              className={`
-                menu-item
-                ${
-                  (activeMenuRow !== undefined && index === activeMenuRow) &&
-                  ' active'
-                }
-              `}
+              className={`menu-item ${
+                (
+                  (activeMenuRow !== undefined) &&
+                  (index === activeMenuRow)
+                ) &&
+                'active'
+              }`}
               key={index}
               onMouseEnter={() => handleMouseEnterRow(index)}
+              data-test="menu-item"
             >
               <Link className={`menu-item-link ${theme}`} to={menu.link}>
                 {menu.name}

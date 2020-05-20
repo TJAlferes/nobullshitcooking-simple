@@ -72,6 +72,6 @@ const mapStateToProps = (state: RootState) => ({
   shadow: state.menu.shadow
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {});
 
 export default connector(App);
