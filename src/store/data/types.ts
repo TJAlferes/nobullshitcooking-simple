@@ -2,6 +2,10 @@ import { IPlannerData } from '../planner/types';
 
 export const DATA_INIT = 'DATA_INIT' as const;
 
+export const DATA_GET_CONTENT_TYPES = 'DATA_GET_CONTENT_TYPES' as const;
+export const DATA_GET_CONTENT_TYPES_SUCCEEDED = 'DATA_GET_CONTENT_TYPES_SUCCEEDED' as const;
+export const DATA_GET_CONTENT_TYPES_FAILED = 'DATA_GET_CONTENT_TYPES_FAILED' as const;
+
 export const DATA_GET_POSTS = 'DATA_GET_POSTS' as const;
 export const DATA_GET_POSTS_SUCCEEDED = 'DATA_GET_POSTS_SUCCEEDED' as const;
 export const DATA_GET_POSTS_FAILED = 'DATA_GET_POSTS_FAILED' as const;
@@ -83,6 +87,7 @@ export const DATA_GET_MY_FRIENDSHIPS_SUCCEEDED = 'DATA_GET_MY_FRIENDSHIPS_SUCCEE
 export const DATA_GET_MY_FRIENDSHIPS_FAILED = 'DATA_GET_MY_FRIENDSHIPS_FAILED' as const;
 
 export interface IDataState {
+  contentTypes: IContentType[],
   posts: []
   postPreviews: IPostPreview[]
   measurements: IMeasurement[]
@@ -102,6 +107,12 @@ export interface IDataState {
   mySavedRecipes: IWorkRecipe[]
   myPlans: IPlan[]
   myFriendships: IFriendship[]
+}
+
+export interface IContentType {
+  content_type_id: number;
+  parent_id: number;
+  content_type_name: string;
 }
 
 //export interface IPost {}
@@ -188,6 +199,7 @@ export interface IFriendship {
 }
 
 export type DataActions =
+IDataGetContentTypes |
 IDataGetPosts |
 IDataGetPostPreviews |
 IDataGetMeasurements |
@@ -207,6 +219,11 @@ IDataGetMyFavoriteRecipes |
 IDataGetMySavedRecipes |
 IDataGetMyPlans |
 IDataGetMyFriendships;
+
+export interface IDataGetContentTypes {
+  type: typeof DATA_GET_CONTENT_TYPES
+  contentTypes: IContentType[]
+}
 
 export interface IDataGetPosts {
   type: typeof DATA_GET_POSTS

@@ -9,6 +9,9 @@ import {
   NOBSCBackendAPIEndpointOne
 } from '../../config/NOBSCBackendAPIEndpointOne';
 import {
+  dataGetContentTypes,
+  dataGetContentTypesSucceeded,
+  dataGetContentTypesFailed,
   dataGetMeasurements,
   dataGetMeasurementsSucceeded,
   dataGetMeasurementsFailed,
@@ -62,6 +65,7 @@ import {
   dataGetMyFriendshipsFailed
 } from './actions';
 import {
+  dataGetContentTypesSaga,
   dataGetMeasurementsSaga,
   dataGetEquipmentsSaga,
   dataGetEquipmentTypesSaga,
@@ -83,6 +87,39 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;  // remove in test?
 //const mock = new MockAdapter(axios, {delayResponse: 100});
+
+describe('the dataGetContentTypesSaga', () => {
+  it('should dispatch contentTypes and succeeded if data found', () => {
+    const iterator = dataGetContentTypesSaga();
+    const res = {
+      data: [
+        {content_type_id: 1, parent_id: 0, content_type_name: "Page"},
+        {content_type_id: 2, parent_id: 0, content_type_name: "Post"}
+      ]
+    };
+
+    expect(iterator.next().value)
+    .toEqual(call([axios, axios.get], `${endpoint}/content-type`));
+
+    expect(iterator.next(res).value)
+    .toEqual(put(dataGetContentTypes(res.data)));
+
+    expect(iterator.next().value).toEqual(put(dataGetContentTypesSucceeded()));
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+
+  it('should dispatch failed if data not found', () => {
+    const iterator = dataGetContentTypesSaga();
+
+    expect(iterator.next().value)
+    .toEqual(call([axios, axios.get], `${endpoint}/content-type`));
+
+    expect(iterator.throw('error').value)
+    .toEqual(put(dataGetContentTypesFailed()));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+});
 
 describe('the dataGetMeasurementsSaga', () => {
   /*it('should hit API', () => {

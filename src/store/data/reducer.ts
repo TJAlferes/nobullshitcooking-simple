@@ -1,4 +1,5 @@
 import {
+  DATA_GET_CONTENT_TYPES,
   DATA_GET_POSTS,
   DATA_GET_POST_PREVIEWS,
   DATA_GET_MEASUREMENTS,
@@ -23,6 +24,7 @@ import {
 } from './types';
 
 const initialState: IDataState = {
+  contentTypes: [],
   posts: [],
   postPreviews: [],
   measurements: [],
@@ -46,6 +48,9 @@ const initialState: IDataState = {
 
 const dataReducer = (state = initialState, action: DataActions): IDataState => {
   switch (action.type) {
+    case DATA_GET_CONTENT_TYPES:
+      return {...state, ...{contentTypes: action.contentTypes}};
+
     case DATA_GET_POSTS:
       return {...state, ...{posts: action.posts}};
 

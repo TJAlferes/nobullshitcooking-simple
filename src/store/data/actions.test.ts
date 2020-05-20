@@ -1,5 +1,8 @@
 import {
   dataInit,
+  dataGetContentTypes,
+  dataGetContentTypesSucceeded,
+  dataGetContentTypesFailed,
   dataGetMeasurements,
   dataGetMeasurementsSucceeded,
   dataGetMeasurementsFailed,
@@ -54,6 +57,9 @@ import {
 } from './actions';
 import {
   DATA_INIT,
+  DATA_GET_CONTENT_TYPES,
+  DATA_GET_CONTENT_TYPES_SUCCEEDED,
+  DATA_GET_CONTENT_TYPES_FAILED,
   DATA_GET_MEASUREMENTS,
   DATA_GET_MEASUREMENTS_SUCCEEDED,
   DATA_GET_MEASUREMENTS_FAILED,
@@ -111,6 +117,39 @@ describe('the dataInit action creator', () => {
   it('returns the correct action type', () => {
     const actual = dataInit().type;
     const expected = DATA_INIT;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe ('the dataGetContentTypes action creator', () => {
+  const contentTypes = [
+    {content_type_id: 1, parent_id: 0, content_type_name: "Page"},
+    {content_type_id: 2, parent_id: 0, content_type_name: "Post"}
+  ];
+  it('returns the correct action type', () => {
+    const actual = dataGetContentTypes(contentTypes).type;
+    const expected = DATA_GET_CONTENT_TYPES;
+    expect(actual).toEqual(expected);
+  });
+  it('returns the correct contentTypes', () => {
+    const actual = dataGetContentTypes(contentTypes).contentTypes;
+    const expected = contentTypes;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('the dataGetContentTypesSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = dataGetContentTypesSucceeded().type;
+    const expected = DATA_GET_CONTENT_TYPES_SUCCEEDED;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('the dataGetContentTypesFailed action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = dataGetContentTypesFailed().type;
+    const expected = DATA_GET_CONTENT_TYPES_FAILED;
     expect(actual).toEqual(expected);
   });
 });

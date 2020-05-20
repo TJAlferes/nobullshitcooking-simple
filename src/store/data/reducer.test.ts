@@ -1,5 +1,6 @@
 import dataReducer from './reducer';
 import {
+  DATA_GET_CONTENT_TYPES,
   DATA_GET_MEASUREMENTS,
   DATA_GET_EQUIPMENTS,  // official
   DATA_GET_EQUIPMENT_TYPES,
@@ -21,6 +22,7 @@ import {
 } from './types';
 
 const initialState: IDataState = {
+  contentTypes: [],
   posts: [],
   postPreviews: [],
   measurements: [],
@@ -49,6 +51,19 @@ describe('the data reducer', () => {
       measurements: []
     });
     const expected = initialState;
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type DATA_GET_CONTENT_TYPES', () => {
+    const contentTypes = [
+      {content_type_id: 1, parent_id: 0, content_type_name: "Page"},
+      {content_type_id: 2, parent_id: 0, content_type_name: "Post"}
+    ];
+    const actual = dataReducer(initialState, {
+      type: DATA_GET_CONTENT_TYPES,
+      contentTypes
+    }).contentTypes;
+    const expected = contentTypes;
     expect(actual).toEqual(expected);
   });
 

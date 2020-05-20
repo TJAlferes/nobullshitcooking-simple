@@ -1,4 +1,4 @@
-import { all, takeEvery } from 'redux-saga/effects';
+import { all, takeEvery, take } from 'redux-saga/effects';
 
 import {
   USER_CREATE_NEW_PRIVATE_EQUIPMENT,
@@ -109,6 +109,7 @@ import {
   authUserVerifySaga
 } from './auth/sagas';
 import {
+  dataGetContentTypesSaga,
   dataGetMeasurementsSaga,
   dataGetEquipmentsSaga,  // official
   dataGetEquipmentTypesSaga,
@@ -247,6 +248,7 @@ export function* watchAuth() {
 
 export function* watchData() {
   yield all([
+    takeEvery(DATA_INIT, dataGetContentTypesSaga),
     takeEvery(DATA_INIT, dataGetMeasurementsSaga),
     takeEvery(DATA_INIT, dataGetEquipmentsSaga),
     takeEvery(DATA_INIT, dataGetEquipmentTypesSaga),

@@ -2,24 +2,27 @@ import { call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
+  NOBSCBackendAPIEndpointOne
+} from '../../config/NOBSCBackendAPIEndpointOne';
+import {
+  dataGetContentTypes,
+  dataGetContentTypesSucceeded,
+  dataGetContentTypesFailed,
   dataGetMeasurements,
   dataGetMeasurementsSucceeded,
   dataGetMeasurementsFailed,
-
   dataGetEquipments,
   dataGetEquipmentsSucceeded,
   dataGetEquipmentsFailed,
   dataGetEquipmentTypes,
   dataGetEquipmentTypesSucceeded,
   dataGetEquipmentTypesFailed,
-
   dataGetIngredients,
   dataGetIngredientsSucceeded,
   dataGetIngredientsFailed,
   dataGetIngredientTypes,
   dataGetIngredientTypesSucceeded,
   dataGetIngredientTypesFailed,
-
   dataGetRecipes,
   dataGetRecipesSucceeded,
   dataGetRecipesFailed,
@@ -32,7 +35,6 @@ import {
   dataGetMethods,
   dataGetMethodsSucceeded,
   dataGetMethodsFailed,
-
   dataGetMyPublicRecipes,
   dataGetMyPublicRecipesSucceeded,
   dataGetMyPublicRecipesFailed,
@@ -45,27 +47,31 @@ import {
   dataGetMyPrivateRecipes,
   dataGetMyPrivateRecipesSucceeded,
   dataGetMyPrivateRecipesFailed,
-
   dataGetMyFavoriteRecipes,
   dataGetMyFavoriteRecipesSucceeded,
   dataGetMyFavoriteRecipesFailed,
   dataGetMySavedRecipes,
   dataGetMySavedRecipesSucceeded,
   dataGetMySavedRecipesFailed,
-
   dataGetMyPlans,
   dataGetMyPlansSucceeded,
   dataGetMyPlansFailed,
-
   dataGetMyFriendships,
   dataGetMyFriendshipsSucceeded,
   dataGetMyFriendshipsFailed
 } from './actions';
 
-import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-
+export function* dataGetContentTypesSaga() {
+  try {
+    const res = yield call ([axios, axios.get], `${endpoint}/content-type`);
+    yield put(dataGetContentTypes(res.data));
+    yield put (dataGetContentTypesSucceeded());
+  } catch (err) {
+    yield put (dataGetContentTypesFailed());
+  }
+}
 
 export function* dataGetMeasurementsSaga() {
   try {
@@ -76,8 +82,6 @@ export function* dataGetMeasurementsSaga() {
     yield put(dataGetMeasurementsFailed());
   }
 }
-
-
 
 export function* dataGetEquipmentsSaga() {
   try {
@@ -102,8 +106,6 @@ export function* dataGetEquipmentTypesSaga() {
   }
 }
 
-
-
 export function* dataGetIngredientsSaga() {
   try {
     const res = yield call(
@@ -126,8 +128,6 @@ export function* dataGetIngredientTypesSaga() {
     yield put(dataGetIngredientTypesFailed());
   }
 }
-
-
 
 export function* dataGetRecipesSaga() {
   try {
@@ -303,8 +303,6 @@ export function* dataGetMyPrivateIngredientsSaga() {
     yield put(dataGetMyPrivateIngredientsFailed());
   }
 }
-
-
 
 export function* dataGetMyFriendshipsSaga() {
   try {

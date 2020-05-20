@@ -29,10 +29,15 @@ const Equipment = lazy(() => import('../components/Equipment/Equipment'));
 //
 //
 //
-//
-import { Food } from '../components/guide/Food/Food';
+// IN YOUR DATA INIT, get the records from nobsc_content_types (done)
+// then take those from redux store and input them into a function
+// which outputs them as route paths like so:
+// function makeRoutePathsFromContentTypes(contentTypes) {
+//   
+// }
+import { Food } from '../components/guide/Food/Food';  // NAV
 
-import SiteNavRecipes from '../components/pages/Food/SiteNavRecipes/SiteNavRecipes';
+import RecipesGuide from '../components/guide/Food/RecipesGuide/RecipesGuide';  // NAV
 
 import Drinks from '../components/pages/Food/SiteNavRecipes/Drinks/Drinks';
 import Appetizers from '../components/pages/Food/SiteNavRecipes/Appetizers/Appetizers';
@@ -50,7 +55,7 @@ import Condiments from '../components/pages/Food/SiteNavRecipes/Condiments/Condi
 import Cuisines from '../components/pages/Food/Cuisines/Cuisines';
 import Cuisine from '../components/guide/Food/Cuisine/Cuisine';
 
-import SiteNavIngredients from '../components/pages/Food/SiteNavIngredients/SiteNavIngredients';
+import SiteNavIngredients from '../components/pages/Food/SiteNavIngredients/SiteNavIngredients';  // NAV
 
 import FishAndShellfish from '../components/pages/Food/SiteNavIngredients/FishAndShellfish/FishAndShellfish';
 import MeatAndPoultry from '../components/pages/Food/SiteNavIngredients/MeatAndPoultry/MeatAndPoultry';
@@ -61,14 +66,14 @@ import SeedsAndGrains from '../components/pages/Food/SiteNavIngredients/SeedsAnd
 import FatsAndOils from '../components/pages/Food/SiteNavIngredients/FatsAndOils/FatsAndOils';
 import AcidsHerbsAndSpices from '../components/pages/Food/SiteNavIngredients/AcidsHerbsAndSpices/AcidsHerbsAndSpices';
 
-import Nutrition from '../components/pages/Food/Nutrition/Nutrition';
+import Nutrition from '../components/pages/Food/Nutrition/Nutrition';  // NAV
 
 import Calories from '../components/pages/Food/Nutrition/Calories/Calories';
 import Macronutrients from '../components/pages/Food/Nutrition/Macronutrients/Macronutrients';
 import Micronutrients from '../components/pages/Food/Nutrition/Micronutrients/Micronutrients';
 import Supplements from '../components/pages/Food/Nutrition/Supplements/Supplements';
 
-import SiteNavEquipment from '../components/pages/Food/SiteNavEquipment/SiteNavEquipment';
+import SiteNavEquipment from '../components/pages/Food/SiteNavEquipment/SiteNavEquipment';  // NAV
 
 import Cleaning from '../components/pages/Food/SiteNavEquipment/Cleaning/Cleaning';
 import Preparing from '../components/pages/Food/SiteNavEquipment/Preparing/Preparing';
@@ -76,7 +81,7 @@ import Cooking from '../components/pages/Food/SiteNavEquipment/Cooking/Cooking';
 import Dining from '../components/pages/Food/SiteNavEquipment/Dining/Dining';
 import Storage from '../components/pages/Food/SiteNavEquipment/Storage/Storage';
 
-import Methods from '../components/pages/Food/Methods/Methods';
+import Methods from '../components/pages/Food/Methods/Methods';  // NAV
 
 import ChillAndFreeze from '../components/pages/Food/Methods/ChillAndFreeze/ChillAndFreeze';
 import SteamPoachSimmerBoilAndBlanch from '../components/pages/Food/Methods/SteamPoachSimmerBoilAndBlanch/SteamPoachSimmerBoilAndBlanch';
@@ -85,9 +90,9 @@ import BakeRoastToastAndBroil from '../components/pages/Food/Methods/BakeRoastTo
 import SauteFryAndGlaze from '../components/pages/Food/Methods/SauteFryAndGlaze/SauteFryAndGlaze';
 import BBQGrillAndSmoke from '../components/pages/Food/Methods/BBQGrillAndSmoke/BBQGrillAndSmoke';
 
-import { Fitness } from '../components/guide/Fitness/Fitness';
+import { Fitness } from '../components/guide/Fitness/Fitness';  // NAV
 
-import Principles from '../components/pages/Fitness/Principles/Principles';
+import Principles from '../components/pages/Fitness/Principles/Principles';  // NAV
 
 import Composition from '../components/pages/Fitness/Principles/Composition/Composition';
 import Balance from '../components/pages/Fitness/Principles/Balance/Balance';
@@ -97,7 +102,7 @@ import Agility from '../components/pages/Fitness/Principles/Agility/Agility';
 import Endurance from '../components/pages/Fitness/Principles/Endurance/Endurance';
 import Flexibility from '../components/pages/Fitness/Principles/Flexibility/Flexibility';
 
-import Exercises from '../components/pages/Fitness/Exercises/Exercises';
+import Exercises from '../components/pages/Fitness/Exercises/Exercises';  // NAV
 
 import Walk from '../components/pages/Fitness/Exercises/Walk/Walk';
 import Bike from '../components/pages/Fitness/Exercises/Bike/Bike';
@@ -106,7 +111,7 @@ import Squat from '../components/pages/Fitness/Exercises/Squat/Squat';
 import Pushup from '../components/pages/Fitness/Exercises/Pushup/Pushup';
 import Pullup from '../components/pages/Fitness/Exercises/Pullup/Pullup';
 
-import Promo from '../components/pages/promo/Promo';
+import Promo from '../components/pages/promo/Promo';  // NAV
 
 import WaterFiltration from '../components/pages/promo/WaterFiltration/WaterFiltration';
 import Tea from '../components/pages/promo/Tea/Tea';
@@ -115,7 +120,7 @@ import Outdoors from '../components/pages/promo/Outdoors/Outdoors';
 import Garden from '../components/pages/promo/Garden/Garden';
 import Tools from '../components/pages/promo/Tools/Tools';
 
-import Site from '../components/pages/site/Site';
+import Site from '../components/pages/site/Site';  // NAV
 
 import Contests from '../components/pages/site/Contests/Contests';
 import Charity from '../components/pages/site/Charity/Charity';
