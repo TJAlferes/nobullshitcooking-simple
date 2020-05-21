@@ -1,7 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch } from 'react-router-dom';
 
+import { IContentType } from '../store/data/types';
 import { LoaderSpinner } from '../components/LoaderSpinner/LoaderSpinner';
+const Content = lazy(() => import('../components/cms/Content/Content'));
+const Navigation = lazy(() => import('../components/cms/Navigation/Navigation'));
 const Register = lazy(() => import('../components/user/Register/Register'));
 const Login = lazy(() => import('../components/user/Login/Login'));
 const Profile = lazy(() => import('../components/user/Profile/Profile'));
@@ -20,7 +23,8 @@ const SearchResultsEquipment = lazy(() => import('../components/search/SearchRes
 const Recipe = lazy(() => import('../components/Recipe/Recipe'));
 const Ingredient = lazy(() => import('../components/Ingredient/Ingredient'));
 const Equipment = lazy(() => import('../components/Equipment/Equipment'));
-// import Content, import Navigation
+
+// 
 //
 //
 //
@@ -29,12 +33,161 @@ const Equipment = lazy(() => import('../components/Equipment/Equipment'));
 //
 //
 //
-// IN YOUR DATA INIT, get the records from nobsc_content_types (done)
+// 
 // then take those from redux store and input them into a function
 // which outputs them as route paths like so:
-// function makeRoutePathsFromContentTypes(contentTypes) {
-//   
-// }
+// (instead of going through each record, first put them into a tree?)
+function unflatten(contentTypes: IContentType[]) {
+  let nodes: any = [...contentTypes];
+  let map: any = {};
+  let node;
+  let roots = [];
+  for (let i = 0; i < nodes.length; i += 1) {
+    node = nodes[i];
+    node.children = [];
+    map[node.content_type_id] = i;
+    if (node.parent_id !== 0) {
+      if (nodes[map[node.parent_id]].children !== undefined) {
+        nodes[map[node.parent_id]].children.push(node);
+      }
+    } else {
+      roots.push(node);
+    }
+  }
+  return roots[0];
+}
+
+function makeRoutesFromContentTypes(contentTypes: IContentType[]) {
+  const pageTypes = contentTypes
+  .filter(contentType => contentType.content_type_id !== 2);
+
+  const unflattedPageTypes = unflatten(pageTypes);
+
+  const pageTypesTreeFinished = {
+    content_type_id: 1,
+    parent_id: 0,
+    content_type_name: "Page",
+    //path: "/",
+    //content_type_image: "",
+    children: [
+      {
+        content_type_id: 3,
+        parent_id: 1,
+        content_type_name: "Guide",
+        //path: "/",
+        //content_type_image: "",
+        children: [
+          {
+            content_type_id: 6,
+            parent_id: 3,
+            content_type_name: "Fitness",
+            //path: "/",
+            //content_type_image: "",
+            children: [
+              {
+                content_type_id: 8,
+                parent_id: 6,
+                content_type_name: "Exercises",
+                //path: "/",
+                //content_type_image: "",
+                children: []
+              },
+              {
+                content_type_id: 9,
+                parent_id: 6,
+                content_type_name: "Principles",
+                //path: "/",
+                //content_type_image: "",
+                children: []
+              }
+            ]
+          },
+          {
+            content_type_id: 7,
+            parent_id: 3,
+            content_type_name: "Food",
+            //path: "/",
+            //content_type_image: "",
+            children: [
+              {
+                content_type_id: 10,
+                parent_id: 7,
+                content_type_name: "Recipes",
+                //path: "/",
+                //content_type_image: "",
+                children: []
+              },
+              {
+                content_type_id: 11,
+                parent_id: 7,
+                content_type_name: "Cuisines",
+                //path: "/",
+                //content_type_image: "",
+                children: []
+              },
+              {
+                content_type_id: 12,
+                parent_id: 7,
+                content_type_name: "Ingredients",
+                //path: "/",
+                //content_type_image: "",
+                children: []
+              },
+              {
+                content_type_id: 13,
+                parent_id: 7,
+                content_type_name: "Nutrition",
+                //path: "/",
+                //content_type_image: "",
+                children: []
+              },
+              {
+                content_type_id: 14,
+                parent_id: 7,
+                content_type_name: "Equipment",
+                //path: "/",
+                //content_type_image: "",
+                children: []
+              },
+              {
+                content_type_id: 15,
+                parent_id: 7,
+                content_type_name: "Methods",
+                //path: "/",
+                //content_type_image: "",
+                children: []
+              },
+            ]
+          }
+        ]
+      },
+      {
+        content_type_id: 4,
+        parent_id: 1,
+        content_type_name: "Promo",
+        //path: "/",
+        //content_type_image: "",
+        children: []
+      },
+      {
+        content_type_id: 5,
+        parent_id: 1,
+        content_type_name: "Site",
+        //path: "/",
+        //content_type_image: "",
+        children: []
+      }
+    ]
+  };
+
+  return pageTypes.map((contentType) => {
+    const path = contentType
+    appRoute('')
+    appRoute("/guide/food", Navigation);
+    appRoute("/guide/food/recipes", Navigation);
+  });
+}
+
 import { Food } from '../components/guide/Food/Food';  // NAV
 
 import RecipesGuide from '../components/guide/Food/RecipesGuide/RecipesGuide';  // NAV
@@ -229,7 +382,7 @@ const RoutesList = () => (
 
 
 
-
+      {appRoute("/content/:slug/:id", Content)}
       {appRoute("/food", Food)}
       {appRoute("/food/recipes", SiteNavRecipes)}
       {appRoute("/food/recipes/drinks", Drinks)}

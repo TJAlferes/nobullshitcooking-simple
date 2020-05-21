@@ -10,7 +10,7 @@ import { ContentView, IContentItem } from './ContentView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function Content({ oneColumnATheme }: Props): JSX.Element {
+export default function Content({ oneColumnATheme }: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
 

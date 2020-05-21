@@ -10,28 +10,28 @@ export const MainWhite: FunctionComponent<Props> = ({
   shadow,
   children
 }): JSX.Element => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   // so that breadcrumbs aren't displayed at all on the home page:
-  const isHome = location.pathname.match(/^\/$/);
+  const isHome = pathname.match(/^\/$/);
   // so that the default breadcrumbs aren't displayed on these pages:
-  const isCuisineDetail = location.pathname.match(/^(\/food\/cuisines\/([1-9][0-9]*))$/);
-  const isRecipe = location.pathname.match(/^(\/recipes\/([1-9][0-9]*))$/);
-  const isIngredient = location.pathname.match(/^(\/ingredients\/([1-9][0-9]*))$/);
-  const isEquipment = location.pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
-  const isUserPlan = location.pathname.match(/^(\/user-plan\/([1-9][0-9]*))$/);
-  const isUserRecipe = location.pathname.match(/^(\/user-recipes\/([1-9][0-9]*))$/);
-  const isUserIngredient = location.pathname.match(/^(\/user-ingredients\/([1-9][0-9]*))$/);
-  const isUserEquipment = location.pathname.match(/^(\/user-equipment\/([1-9][0-9]*))$/);
-  const isNewPlan = location.pathname.match(/^(\/user-plan\/submit)$/);
-  const isEditPlan = location.pathname.match(/^(\/user-plan\/edit\/([1-9][0-9]*))$/);
-  const isNewPrivateRecipe = location.pathname.match(/^(\/user-recipes\/private\/submit)$/);
-  const isEditPrivateRecipe = location.pathname.match(/^(\/user-recipes\/private\/edit\/([1-9][0-9]*))$/);
-  const isNewPublicRecipe = location.pathname.match(/^(\/user-recipes\/public\/submit)$/);
-  const isEditPublicRecipe = location.pathname.match(/^(\/user-recipes\/public\/edit\/([1-9][0-9]*))$/);
-  const isNewPrivateIngredient = location.pathname.match(/^(\/user-ingredients\/submit)$/);
-  const isEditPrivateIngredient = location.pathname.match(/^(\/user-ingredients\/edit\/([1-9][0-9]*))$/);
-  const isNewPrivateEquipment = location.pathname.match(/^(\/user-equipment\/submit)$/);
-  const isEditPrivateEquipment = location.pathname.match(/^(\/user-equipment\/edit\/([1-9][0-9]*))$/);
+  const isCuisineDetail = pathname.match(/^(\/food\/cuisines\/([1-9][0-9]*))$/);
+  const isRecipe = pathname.match(/^(\/recipes\/([1-9][0-9]*))$/);
+  const isIngredient = pathname.match(/^(\/ingredients\/([1-9][0-9]*))$/);
+  const isEquipment = pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
+  const isUserPlan = pathname.match(/^(\/user-plan\/([1-9][0-9]*))$/);
+  const isUserRecipe = pathname.match(/^(\/user-recipes\/([1-9][0-9]*))$/);
+  const isUserIngredient = pathname.match(/^(\/user-ingredients\/([1-9][0-9]*))$/);
+  const isUserEquipment = pathname.match(/^(\/user-equipment\/([1-9][0-9]*))$/);
+  const isNewPlan = pathname.match(/^(\/user-plan\/submit)$/);
+  const isEditPlan = pathname.match(/^(\/user-plan\/edit\/([1-9][0-9]*))$/);
+  const isNewPrivateRecipe = pathname.match(/^(\/user-recipes\/private\/submit)$/);
+  const isEditPrivateRecipe = pathname.match(/^(\/user-recipes\/private\/edit\/([1-9][0-9]*))$/);
+  const isNewPublicRecipe = pathname.match(/^(\/user-recipes\/public\/submit)$/);
+  const isEditPublicRecipe = pathname.match(/^(\/user-recipes\/public\/edit\/([1-9][0-9]*))$/);
+  const isNewPrivateIngredient = pathname.match(/^(\/user-ingredients\/submit)$/);
+  const isEditPrivateIngredient = pathname.match(/^(\/user-ingredients\/edit\/([1-9][0-9]*))$/);
+  const isNewPrivateEquipment = pathname.match(/^(\/user-equipment\/submit)$/);
+  const isEditPrivateEquipment = pathname.match(/^(\/user-equipment\/edit\/([1-9][0-9]*))$/);
 
   return (
     <main className={`mainwhite ${theme}`}>
