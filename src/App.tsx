@@ -6,10 +6,12 @@ import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
 import { HeaderRed } from './components/HeaderRed/desktop/HeaderRed';
 import { MainWhite } from './components/MainWhite/MainWhite';
 import { FooterGray } from './components/FooterGray/FooterGray';
-import RoutesList from './routing/Routes';
+import { RoutesList } from './routing/Routes';
+import { IContentType } from './store/data/types';
 import './app.css';
 
 export function App({
+  dataContentTypes,
   headerTheme,
   footerTheme,
   mainTheme,
@@ -24,7 +26,7 @@ export function App({
   return userIsAtAuthPage
   ? (
     <div>
-      <RoutesList />
+      <RoutesList contentTypes={dataContentTypes} />
     </div>
   ) : (
     <div id="app">
@@ -41,7 +43,7 @@ export function App({
         breadCrumbsTheme={breadCrumbsTheme}
         shadow={shadow}
       >
-        <RoutesList />
+        <RoutesList contentTypes={dataContentTypes}  />
       </MainWhite>
       <FooterGray theme={footerTheme} />
     </div>
@@ -49,6 +51,9 @@ export function App({
 }
 
 interface RootState {
+  data: {
+    contentTypes: IContentType[];
+  };
   theme: {
     headerTheme: string;
     footerTheme: string;
@@ -65,6 +70,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 const mapStateToProps = (state: RootState) => ({
+  dataContentTypes: state.data.contentTypes,
   headerTheme: state.theme.headerTheme,
   footerTheme: state.theme.footerTheme,
   mainTheme: state.theme.mainTheme,
