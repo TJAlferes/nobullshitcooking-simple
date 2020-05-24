@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
 //import { SearchProvider } from '@elastic/react-search-ui';
 
-import RoutesList from './routing/Routes';
+import { RoutesList } from './routing/Routes';
 import rootReducer from './store/rootReducer';
 //import searchConfig from './config/searchConfig';
 import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';

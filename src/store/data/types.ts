@@ -87,7 +87,7 @@ export const DATA_GET_MY_FRIENDSHIPS_SUCCEEDED = 'DATA_GET_MY_FRIENDSHIPS_SUCCEE
 export const DATA_GET_MY_FRIENDSHIPS_FAILED = 'DATA_GET_MY_FRIENDSHIPS_FAILED' as const;
 
 export interface IDataState {
-  contentTypes: IContentType[],
+  contentTypes: IContentType[]
   posts: []
   postPreviews: IPostPreview[]
   measurements: IMeasurement[]
@@ -113,6 +113,7 @@ export interface IContentType {
   content_type_id: number;
   parent_id: number;
   content_type_name: string;
+  content_type_path: string;
 }
 
 //export interface IPost {}
