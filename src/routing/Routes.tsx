@@ -17,10 +17,10 @@ const NewPlanPage = lazy(() => import('../components/user/NewPlan/NewPlanPage'))
 const NewRecipe = lazy(() => import('../components/user/NewRecipe/NewRecipe'));
 const NewEquipment = lazy(() => import('../components/user/NewEquipment/NewEquipment'));
 const NewIngredient = lazy(() => import('../components/user/NewIngredient/NewIngredient'));
-//const SearchResultsAll = lazy(() => import('../components/search/SearchResults/SearchResultsAll'));
-const SearchResultsRecipes = lazy(() => import('../components/search/SearchResultsRecipes/SearchResultsRecipes'));
-const SearchResultsIngredients = lazy(() => import('../components/search/SearchResultsIngredients/SearchResultsIngredients'));
-const SearchResultsEquipment = lazy(() => import('../components/search/SearchResultsEquipment/SearchResultsEquipment'));
+//const All = lazy(() => import('../components/search/All/All'));
+const Recipes = lazy(() => import('../components/search/Recipes/Recipes'));
+const Ingredients = lazy(() => import('../components/search/Ingredients/Ingredients'));
+const Equipments = lazy(() => import('../components/search/Equipments/Equipments'));
 const Recipe = lazy(() => import('../components/Recipe/Recipe'));
 const Ingredient = lazy(() => import('../components/Ingredient/Ingredient'));
 const Equipment = lazy(() => import('../components/Equipment/Equipment'));
@@ -115,21 +115,25 @@ export function RoutesList({ contentTypes }: Props) {
           {editing: true}
         )}
         {authRoute("/user-ingredients/:id", Ingredient)}
+
         {appRoute("/recipes/:id", Recipe)}
         {appRoute("/ingredients/:id", Ingredient)}
         {appRoute("/equipment/:id", Equipment)}
-        {/*{appRoute("/all", SearchResultsAll)}*/}
-        {appRoute("/recipes", SearchResultsRecipes)}
-        {appRoute("/ingredients", SearchResultsIngredients)}
-        {appRoute("/equipment", SearchResultsEquipment)}
+        {/*{appRoute("/all", All)}*/}
+        {appRoute("/recipes", Recipes)}
+        {appRoute("/ingredients", Ingredients)}
+        {appRoute("/equipment", Equipment)}
+
         {appRoute("/food/cuisines/:id", Cuisine)}
         {appRoute("/food/cuisines", Cuisines)}
         {routesFromContentTypes.map((route) => {
           appRoute(route.path, Navigation, route.childProps);
         })}
         {appRoute("/content/:slug/:id", Content)}
+
         {appRoute("/home", Home)}
         {appRoute("/", Home)}
+        
         {appRoute("*", NotFound)}
       </Switch>
     </Suspense>

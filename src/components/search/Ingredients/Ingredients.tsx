@@ -8,9 +8,8 @@ import {
   ResultsPerPage
 } from '@elastic/react-search-ui';
 
-import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
-
-import './searchResultsIngredients.css';
+import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
+import './ingredients.css';
 
 // TO DO: finish styling
 

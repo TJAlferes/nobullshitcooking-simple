@@ -6,11 +6,10 @@ import {
   PagingInfo,
   Paging,
   ResultsPerPage
-} from '@elastic/react-search-ui';
+} from '@elastic/react-search-ui';  // Jason should release typings soon
 
-import ExpandCollapse from '../../../ExpandCollapse/ExpandCollapse';
-
-import './searchResultsEquipment.css';
+import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
+import './equipments.css';
 
 // TO DO: finish styling
 
