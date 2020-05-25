@@ -5,11 +5,16 @@ import {
   AUTH_USER_LOGIN_FAILED,
   AUTH_USER_LOGOUT_SUCCEEDED,
   AUTH_USER_LOGOUT_FAILED,
+  AUTH_STAFF_LOGIN_SUCCEEDED,
+  AUTH_STAFF_LOGIN_FAILED,
+  AUTH_STAFF_LOGOUT_SUCCEEDED,
+  AUTH_STAFF_LOGOUT_FAILED,
   AUTH_MESSAGE_CLEAR,
   AUTH_DISPLAY,
   AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_RESET,
-  AUTH_USER_LOGOUT
+  AUTH_USER_LOGOUT,
+  AUTH_STAFF_LOGOUT
 } from './types';
 import authReducer from './reducer';
 
@@ -127,6 +132,62 @@ describe('the auth reducer', () => {
     expect(actual).toEqual(expected);
   });
 
+  it('handles actions of type AUTH_STAFF_LOGIN_SUCCEEDED', () => {
+    const actual = authReducer(initialState, {
+      type: AUTH_STAFF_LOGIN_SUCCEEDED,
+      message: 'Login successful.'
+    });
+    const expected = {
+      message: 'Login successful.',
+      isAuthenticated: false,
+      authname: '',
+      avatar: ''
+    };
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type AUTH_STAFF_LOGIN_FAILED', () => {
+    const actual = authReducer(initialState, {
+      type: AUTH_STAFF_LOGIN_FAILED,
+      message: 'Login failed.'
+    });
+    const expected = {
+      message: 'Login failed.',
+      isAuthenticated: false,
+      authname: '',
+      avatar: ''
+    };
+    expect(actual).toEqual(expected);
+  });
+  
+  it('handles actions of type AUTH_STAFF_LOGOUT_SUCCEEDED', () => {
+    const actual = authReducer(initialState, {
+      type: AUTH_STAFF_LOGOUT_SUCCEEDED,
+      message: 'Logout successful.'
+    });
+    const expected = {
+      message: 'Logout successful.',
+      isAuthenticated: false,
+      authname: '',
+      avatar: ''
+    };
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type AUTH_STAFF_LOGOUT_FAILED', () => {
+    const actual = authReducer(initialState, {
+      type: AUTH_STAFF_LOGOUT_FAILED,
+      message: 'Logout failed.'
+    });
+    const expected = {
+      message: 'Logout failed.',
+      isAuthenticated: false,
+      authname: '',
+      avatar: ''
+    };
+    expect(actual).toEqual(expected);
+  });
+
   it('handles actions of type AUTH_MESSAGE_CLEAR', () => {
     const actual = authReducer({
       message: 'Incorrect email or password.',
@@ -180,6 +241,12 @@ describe('the auth reducer', () => {
 
   it('handles actions of type AUTH_USER_LOGOUT', () => {
     const actual = authReducer(beforeState, {type: AUTH_USER_LOGOUT});
+    const expected = initialState;
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type AUTH_STAFF_LOGOUT', () => {
+    const actual = authReducer(beforeState, {type: AUTH_STAFF_LOGOUT});
     const expected = initialState;
     expect(actual).toEqual(expected);
   });

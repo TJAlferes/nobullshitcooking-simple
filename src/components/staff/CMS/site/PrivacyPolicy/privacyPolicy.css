@@ -1,0 +1,15 @@
+.privacy-policy {
+  min-width: 300px;
+  max-width: 1000px;
+}
+
+.privacy-policy__heading {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.privacy-policy__text {
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}

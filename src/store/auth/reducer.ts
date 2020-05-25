@@ -7,11 +7,16 @@ import {
   AUTH_USER_REGISTER_FAILED,
   AUTH_USER_VERIFY_SUCCEEDED,
   AUTH_USER_VERIFY_FAILED,
+  AUTH_STAFF_LOGIN_SUCCEEDED,
+  AUTH_STAFF_LOGIN_FAILED,
+  AUTH_STAFF_LOGOUT_SUCCEEDED,
+  AUTH_STAFF_LOGOUT_FAILED,
   AUTH_MESSAGE_CLEAR,
   AUTH_DISPLAY,
   AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_RESET,
   AUTH_USER_LOGOUT,
+  AUTH_STAFF_LOGOUT,
   IAuthState,
   AuthActions
 } from './types';
@@ -36,6 +41,10 @@ const authReducer = (
     case AUTH_USER_REGISTER_FAILED:
     case AUTH_USER_VERIFY_SUCCEEDED:
     case AUTH_USER_VERIFY_FAILED:
+    case AUTH_STAFF_LOGIN_SUCCEEDED:
+    case AUTH_STAFF_LOGIN_FAILED:
+    case AUTH_STAFF_LOGOUT_SUCCEEDED:
+    case AUTH_STAFF_LOGOUT_FAILED:
       return {...state, ...{message: action.message}};
 
     case AUTH_MESSAGE_CLEAR:
@@ -56,6 +65,7 @@ const authReducer = (
 
     case AUTH_RESET:
     case AUTH_USER_LOGOUT:
+    case AUTH_STAFF_LOGOUT:
       return {...state, ...initialState};
       
     default: return state;

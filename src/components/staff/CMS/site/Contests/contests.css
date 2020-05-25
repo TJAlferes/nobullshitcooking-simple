@@ -1,0 +1,15 @@
+.contests {
+  min-width: 300px;
+  max-width: 1000px;
+}
+
+.contests__heading {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.contests__text {
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}

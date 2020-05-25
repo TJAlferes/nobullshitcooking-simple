@@ -31,6 +31,14 @@ export const AUTH_USER_LOGOUT = "AUTH_USER_LOGOUT" as const;
 export const AUTH_USER_LOGOUT_SUCCEEDED = "AUTH_USER_LOGOUT_SUCCEEDED" as const;
 export const AUTH_USER_LOGOUT_FAILED = "AUTH_USER_LOGOUT_FAILED" as const;
 
+export const AUTH_STAFF_LOGIN = "AUTH_STAFF_LOGIN" as const;
+export const AUTH_STAFF_LOGIN_SUCCEEDED = "AUTH_STAFF_LOGIN_SUCCEEDED" as const;
+export const AUTH_STAFF_LOGIN_FAILED = "AUTH_STAFF_LOGIN_FAILED" as const;
+
+export const AUTH_STAFF_LOGOUT = "AUTH_STAFF_LOGOUT" as const;
+export const AUTH_STAFF_LOGOUT_SUCCEEDED = "AUTH_STAFF_LOGOUT_SUCCEEDED" as const;
+export const AUTH_STAFF_LOGOUT_FAILED = "AUTH_STAFF_LOGOUT_FAILED" as const;
+
 export interface IAuthState {
   message: string
   isAuthenticated: boolean
@@ -55,7 +63,13 @@ IAuthUserLoginSucceeded |
 IAuthUserLoginFailed |
 IAuthUserLogout |
 IAuthUserLogoutSucceeded |
-IAuthUserLogoutFailed;
+IAuthUserLogoutFailed |
+IAuthStaffLogin |
+IAuthStaffLoginSucceeded |
+IAuthStaffLoginFailed |
+IAuthStaffLogout |
+IAuthStaffLogoutSucceeded |
+IAuthStaffLogoutFailed;
 
 export interface IAuthDisplay {
   type: typeof AUTH_DISPLAY
@@ -143,5 +157,35 @@ export interface IAuthUserLogoutSucceeded {
 
 export interface IAuthUserLogoutFailed {
   type: typeof AUTH_USER_LOGOUT_FAILED
+  message: string
+}
+
+export interface IAuthStaffLogin {
+  type: typeof AUTH_STAFF_LOGIN
+  email: string
+  password: string
+}
+
+export interface IAuthStaffLoginSucceeded {
+  type: typeof AUTH_STAFF_LOGIN_SUCCEEDED
+  message: string
+}
+
+export interface IAuthStaffLoginFailed {
+  type: typeof AUTH_STAFF_LOGIN_FAILED
+  message: string
+}
+
+export interface IAuthStaffLogout {
+  type: typeof AUTH_STAFF_LOGOUT
+}
+
+export interface IAuthStaffLogoutSucceeded {
+  type: typeof AUTH_STAFF_LOGOUT_SUCCEEDED
+  message: string
+}
+
+export interface IAuthStaffLogoutFailed {
+  type: typeof AUTH_STAFF_LOGOUT_FAILED
   message: string
 }

@@ -23,7 +23,13 @@ import {
   AUTH_USER_LOGIN_FAILED,
   AUTH_USER_LOGOUT,
   AUTH_USER_LOGOUT_SUCCEEDED,
-  AUTH_USER_LOGOUT_FAILED
+  AUTH_USER_LOGOUT_FAILED,
+  AUTH_STAFF_LOGIN,
+  AUTH_STAFF_LOGIN_SUCCEEDED,
+  AUTH_STAFF_LOGIN_FAILED,
+  AUTH_STAFF_LOGOUT,
+  AUTH_STAFF_LOGOUT_SUCCEEDED,
+  AUTH_STAFF_LOGOUT_FAILED
 } from './types';
 
 export const authDisplay = (authname: string, avatar: string) => ({
@@ -126,5 +132,33 @@ export const authUserLogoutSucceeded = (message: string) => ({
 
 export const authUserLogoutFailed = (message: string) => ({
   type: AUTH_USER_LOGOUT_FAILED,
+  message
+});
+
+export const authStaffLogin = (email: string, password: string) => ({
+  type: AUTH_STAFF_LOGIN,
+  email,
+  password
+});
+
+export const authStaffLoginSucceeded = (message: string) => ({
+  type: AUTH_STAFF_LOGIN_SUCCEEDED,
+  message
+});
+
+export const authStaffLoginFailed = (message: string) => ({
+  type: AUTH_STAFF_LOGIN_FAILED,
+  message
+});
+
+export const authStaffLogout = () => ({type: AUTH_STAFF_LOGOUT});
+
+export const authStaffLogoutSucceeded = (message: string) => ({
+  type: AUTH_STAFF_LOGOUT_SUCCEEDED,
+  message
+});
+
+export const authStaffLogoutFailed = (message: string) => ({
+  type: AUTH_STAFF_LOGOUT_FAILED,
   message
 });

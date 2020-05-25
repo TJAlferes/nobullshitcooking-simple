@@ -21,13 +21,19 @@ import {
   authUserLoginSucceeded,
   authUserLoginFailed,
   authUserLogoutSucceeded,
-  authUserLogoutFailed
+  authUserLogoutFailed,
+  authStaffLoginSucceeded,
+  authStaffLoginFailed,
+  authStaffLogoutSucceeded,
+  authStaffLogoutFailed
 } from './actions';
 import {
   IAuthUserRegister,
   IAuthUserVerify,
   IAuthUserLogin,
-  IAuthUserLogout
+  IAuthUserLogout,
+  IAuthStaffLogin,
+  IAuthStaffLogout
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
@@ -182,3 +188,50 @@ export function* authFacebookLogoutSaga() {
 }*/
 
 /* Google OAuth */
+
+export function* authStaffLoginSaga(action: IAuthStaffLogin) {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/staff/auth/login`,
+      {staffInfo: {email: action.email, password: action.password}},
+      {withCredentials: true}
+    );
+    if (res.data.message == 'Signed in.') {
+      yield put(authDisplay(res.data.staffname, res.data.avatar));
+      yield put(authStaffLoginSucceeded(res.data.message));
+    } else {
+      yield put(authStaffLoginFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(authMessageClear());
+  } catch(err) {
+    yield put(authStaffLoginFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
+  }
+}
+
+export function* authStaffLogoutSaga(action: IAuthStaffLogout) {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/staff/auth/logout`,
+      {},
+      {withCredentials: true}
+    );
+    if (res.data.message == 'Signed out.') {
+      yield call(removeStorageItem, 'appState');
+      yield put(authStaffLogoutSucceeded(res.data.message));
+    } else {
+      yield call(removeStorageItem, 'appState');  // clear their browser anyway
+      yield put(authStaffLogoutFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(authMessageClear());
+  } catch(err) {
+    yield put(authStaffLogoutFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
+  }
+}

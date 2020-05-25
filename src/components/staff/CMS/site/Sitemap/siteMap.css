@@ -1,0 +1,15 @@
+.site-map {
+  min-width: 300px;
+  max-width: 1000px;
+}
+
+.site-map__heading {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.site-map__text {
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}
