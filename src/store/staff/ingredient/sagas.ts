@@ -4,25 +4,25 @@ import axios from 'axios';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
-import { userMessageClear } from '../actions';
+import { staffMessageClear } from '../actions';
 import {
-  userCreateNewPrivateIngredientSucceeded,
-  userCreateNewPrivateIngredientFailed,
-  userEditPrivateIngredientSucceeded,
-  userEditPrivateIngredientFailed,
-  userDeletePrivateIngredientSucceeded,
-  userDeletePrivateIngredientFailed
+  staffCreateNewIngredientSucceeded,
+  staffCreateNewIngredientFailed,
+  staffEditIngredientSucceeded,
+  staffEditIngredientFailed,
+  staffDeleteIngredientSucceeded,
+  staffDeleteIngredientFailed
 } from './actions';
 import {
-  IUserCreateNewPrivateIngredient,
-  IUserEditPrivateIngredient,
-  IUserDeletePrivateIngredient
+  IStaffCreateNewIngredient,
+  IStaffEditIngredient,
+  IStaffDeleteIngredient
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function* userCreateNewPrivateIngredientSaga(
-  action: IUserCreateNewPrivateIngredient
+export function* staffCreateNewIngredientSaga(
+  action: IStaffCreateNewIngredient
 ) {
   try {
     if (
@@ -31,7 +31,7 @@ export function* userCreateNewPrivateIngredientSaga(
     ) {
       const res1 = yield call(
         [axios, axios.post],
-        `${endpoint}/user/get-signed-url/ingredient`,
+        `${endpoint}/staff/get-signed-url/ingredient`,
         {fileType: action.ingredientInfo.fullIngredientImage.type},
         {withCredentials: true}
       );
@@ -54,30 +54,28 @@ export function* userCreateNewPrivateIngredientSaga(
 
     const res = yield call(
       [axios, axios.post],
-      `${endpoint}/user/ingredient/create`,
+      `${endpoint}/staff/ingredient/create`,
       {ingredientInfo: action.ingredientInfo},
       {withCredentials: true}
     );
 
     if (res.data.message == 'Ingredient created.') {
-      yield put(userCreateNewPrivateIngredientSucceeded(res.data.message));
+      yield put(staffCreateNewIngredientSucceeded(res.data.message));
     } else {
-      yield put(userCreateNewPrivateIngredientFailed(res.data.message));
+      yield put(staffCreateNewIngredientFailed(res.data.message));
     }
     yield delay(4000);
-    yield put(userMessageClear());
+    yield put(staffMessageClear());
   } catch(err) {
-    yield put(userCreateNewPrivateIngredientFailed(
+    yield put(staffCreateNewIngredientFailed(
       'An error occurred. Please try again.'
     ));
     yield delay(4000);
-    yield put(userMessageClear());
+    yield put(staffMessageClear());
   }
 }
 
-export function* userEditPrivateIngredientSaga(
-  action: IUserEditPrivateIngredient
-) {
+export function* staffEditIngredientSaga(action: IStaffEditIngredient) {
   try {
     if (
       action.ingredientInfo.fullIngredientImage &&
@@ -85,7 +83,7 @@ export function* userEditPrivateIngredientSaga(
     ) {
       const res1 = yield call(
         [axios, axios.post],
-        `${endpoint}/user/get-signed-url/ingredient`,
+        `${endpoint}/staff/get-signed-url/ingredient`,
         {fileType: action.ingredientInfo.fullIngredientImage.type},
         {withCredentials: true}
       );
@@ -108,48 +106,46 @@ export function* userEditPrivateIngredientSaga(
 
     const res = yield call(
       [axios, axios.put],
-      `${endpoint}/user/ingredient/update`,
+      `${endpoint}/staff/ingredient/update`,
       {ingredientInfo: action.ingredientInfo},
       {withCredentials: true}
     );
 
     if (res.data.message == 'Ingredient updated.') {
-      yield put(userEditPrivateIngredientSucceeded(res.data.message));
+      yield put(staffEditIngredientSucceeded(res.data.message));
     } else {
-      yield put(userEditPrivateIngredientFailed(res.data.message));
+      yield put(staffEditIngredientFailed(res.data.message));
     }
     yield delay(4000);
-    yield put(userMessageClear());
+    yield put(staffMessageClear());
   } catch(err) {
-    yield put(userEditPrivateIngredientFailed(
+    yield put(staffEditIngredientFailed(
       'An error occurred. Please try again.'
     ));
     yield delay(4000);
-    yield put(userMessageClear());
+    yield put(staffMessageClear());
   }
 }
 
-export function* userDeletePrivateIngredientSaga(
-  action: IUserDeletePrivateIngredient
-) {
+export function* staffDeleteIngredientSaga(action: IStaffDeleteIngredient) {
   try {
     const res = yield call(
       [axios, axios.delete],
-      `${endpoint}/user/ingredient/delete`,
+      `${endpoint}/staff/ingredient/delete`,
       {withCredentials: true, data: {ingredientId: action.ingredientId}}
     );
     if (res.data.message == 'Ingredient deleted.') {
-      yield put(userDeletePrivateIngredientSucceeded(res.data.message));
+      yield put(staffDeleteIngredientSucceeded(res.data.message));
     } else {
-      yield put(userDeletePrivateIngredientFailed(res.data.message));
+      yield put(staffDeleteIngredientFailed(res.data.message));
     }
     yield delay(4000);
-    yield put(userMessageClear());
+    yield put(staffMessageClear());
   } catch(err) {
-    yield put(userDeletePrivateIngredientFailed(
+    yield put(staffDeleteIngredientFailed(
       'An error occurred. Please try again.'
     ));
     yield delay(4000);
-    yield put(userMessageClear());
+    yield put(staffMessageClear());
   }
 }
