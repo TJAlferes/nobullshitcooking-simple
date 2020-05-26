@@ -15,9 +15,8 @@ const StaffDashboard = lazy(() => import('../components/staff/Dashboard/Dashboar
 const StaffNewRecipe = lazy(() => import('../components/staff/NewRecipe/NewRecipe'));
 const StaffNewEquipment = lazy(() => import('../components/staff/NewEquipment/NewEquipment'));
 const StaffNewIngredient = lazy(() => import('../components/staff/NewIngredient/NewIngredient'));
-const StaffNewCategory = lazy(() => import('../components/staff/NewCategory/NewCategory'));
-const StaffNewPage = lazy(() => import('../components/staff/NewPage/NewPage'));
-const StaffNewPost = lazy(() => import('../components/staff/NewPost/NewPost'));
+const Categories = lazy(() => import('../components/staff/Categories/Categories'));
+const NewContent = lazy(() => import('../components/staff/NewContent/NewContent'));
 
 // user routes
 
@@ -36,10 +35,10 @@ const NewPost = lazy(() => import('../components/user/NewPost/NewPost'));
 
 // general routes
 
-const Content = lazy(() => import('../components/cms/Content/Content'));
-const Navigation = lazy(() => import('../components/cms/Navigation/Navigation'));
-import Cuisines from '../components/guide/Food/Cuisines/Cuisines';
-import Cuisine from '../components/guide/Food/Cuisine/Cuisine';
+const Content = lazy(() => import('../components/Content/Content'));
+const Navigation = lazy(() => import('../components/Navigation/Navigation'));
+import Cuisines from '../components/Cuisines/Cuisines';
+import Cuisine from '../components/Cuisine/Cuisine';
 //const All = lazy(() => import('../components/search/All/All'));
 const Recipes = lazy(() => import('../components/search/Recipes/Recipes'));
 const Ingredients = lazy(() => import('../components/search/Ingredients/Ingredients'));
@@ -113,6 +112,9 @@ export function RoutesList({ contentTypes }: Props) {
           StaffNewIngredient,
           {editing: true}
         )}
+        {authRoute("/staff-content/submit", NewContent, {editing: false})}
+        {authRoute("/staff-content/edit/:id", NewContent, {editing: true})}
+        {authRoute("/staff-content-categories", Categories)}
 
         {/* user routes */}
 
