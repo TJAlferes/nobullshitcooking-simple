@@ -1,4 +1,4 @@
-import { all, takeEvery, take } from 'redux-saga/effects';
+import { all, takeEvery } from 'redux-saga/effects';
 
 import {
   authUserLoginSaga,

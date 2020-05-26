@@ -2,10 +2,25 @@ import React, { lazy, Suspense } from 'react';
 import { Switch } from 'react-router-dom';
 
 import { LoaderSpinner } from '../components/LoaderSpinner/LoaderSpinner';
-const Content = lazy(() => import('../components/cms/Content/Content'));
-const Navigation = lazy(() => import('../components/cms/Navigation/Navigation'));
-import Cuisines from '../components/guide/Food/Cuisines/Cuisines';
-import Cuisine from '../components/guide/Food/Cuisine/Cuisine';
+import { IContentType } from '../store/data/types';
+import AppliedRoute from './AppliedRoute';
+import AuthenticatedRoute from './AuthenticatedRoute';
+import UnauthenticatedRoute from './UnauthenticatedRoute';
+import { makeRoutesFromContentTypes } from './CMSNavigationRoutes';
+
+// staff routes
+
+const StaffLogin = lazy(() => import('../components/staff/Login/Login'));
+const StaffDashboard = lazy(() => import('../components/staff/Dashboard/Dashboard'));
+const StaffNewRecipe = lazy(() => import('../components/staff/NewRecipe/NewRecipe'));
+const StaffNewEquipment = lazy(() => import('../components/staff/NewEquipment/NewEquipment'));
+const StaffNewIngredient = lazy(() => import('../components/staff/NewIngredient/NewIngredient'));
+const StaffNewCategory = lazy(() => import('../components/staff/NewCategory/NewCategory'));
+const StaffNewPage = lazy(() => import('../components/staff/NewPage/NewPage'));
+const StaffNewPost = lazy(() => import('../components/staff/NewPost/NewPost'));
+
+// user routes
+
 const Register = lazy(() => import('../components/user/Register/Register'));
 const Login = lazy(() => import('../components/user/Login/Login'));
 const Profile = lazy(() => import('../components/user/Profile/Profile'));
@@ -17,6 +32,14 @@ const NewPlanPage = lazy(() => import('../components/user/NewPlan/NewPlanPage'))
 const NewRecipe = lazy(() => import('../components/user/NewRecipe/NewRecipe'));
 const NewEquipment = lazy(() => import('../components/user/NewEquipment/NewEquipment'));
 const NewIngredient = lazy(() => import('../components/user/NewIngredient/NewIngredient'));
+const NewPost = lazy(() => import('../components/user/NewPost/NewPost'));
+
+// general routes
+
+const Content = lazy(() => import('../components/cms/Content/Content'));
+const Navigation = lazy(() => import('../components/cms/Navigation/Navigation'));
+import Cuisines from '../components/guide/Food/Cuisines/Cuisines';
+import Cuisine from '../components/guide/Food/Cuisine/Cuisine';
 //const All = lazy(() => import('../components/search/All/All'));
 const Recipes = lazy(() => import('../components/search/Recipes/Recipes'));
 const Ingredients = lazy(() => import('../components/search/Ingredients/Ingredients'));
@@ -27,13 +50,6 @@ const Equipment = lazy(() => import('../components/Equipment/Equipment'));
 //import Supply from '../components/supply/Supply';
 import { Home } from '../components/Home/Home';
 import { NotFound } from '../components/NotFound/NotFound';
-import { IContentType } from '../store/data/types';
-import AppliedRoute from './AppliedRoute';
-import AuthenticatedRoute from './AuthenticatedRoute';
-import UnauthenticatedRoute from './UnauthenticatedRoute';
-import { makeRoutesFromContentTypes } from './CMSNavigationRoutes';
-
-// TO DO: just make Verify its own component..?
 
 const authRoute = (
   path: string,
@@ -68,12 +84,38 @@ const appRoute = (
     childProps={childProps}
   />;
 
+// TO DO: just make Verify its own component?
 export function RoutesList({ contentTypes }: Props) {
   const routesFromContentTypes = makeRoutesFromContentTypes(contentTypes);
 
   return (
     <Suspense fallback={<LoaderSpinner />}>
       <Switch>
+        {/* staff routes */}
+
+        {unauthRoute("/staff-login", StaffLogin)}
+        {authRoute("/staff-dashboard", StaffDashboard)}
+        {authRoute("/official-recipes/submit", StaffNewRecipe)}
+        {authRoute(
+          "/official-recipes/edit/:id",
+          StaffNewRecipe,
+          {editing: true}
+        )}
+        {authRoute("/official-equipment/submit", StaffNewEquipment)}
+        {authRoute(
+          "/official-equipment/edit/:id",
+          StaffNewEquipment,
+          {editing: true}
+        )}
+        {authRoute("/official-ingredients/submit", StaffNewIngredient)}
+        {authRoute(
+          "/official-ingredients/edit/:id",
+          StaffNewIngredient,
+          {editing: true}
+        )}
+
+        {/* user routes */}
+
         {unauthRoute("/register", Register, {confirmingUser: false})}
         {unauthRoute("/verify", Register, {confirmingUser: true})}
         {unauthRoute("/login", Login)}
@@ -116,13 +158,15 @@ export function RoutesList({ contentTypes }: Props) {
         )}
         {authRoute("/user-ingredients/:id", Ingredient)}
 
+        {/* general routes */}
+
         {appRoute("/recipes/:id", Recipe)}
         {appRoute("/ingredients/:id", Ingredient)}
         {appRoute("/equipment/:id", Equipment)}
         {/*{appRoute("/all", All)}*/}
         {appRoute("/recipes", Recipes)}
         {appRoute("/ingredients", Ingredients)}
-        {appRoute("/equipment", Equipment)}
+        {appRoute("/equipment", Equipments)}
 
         {appRoute("/food/cuisines/:id", Cuisine)}
         {appRoute("/food/cuisines", Cuisines)}
@@ -130,10 +174,8 @@ export function RoutesList({ contentTypes }: Props) {
           appRoute(route.path, Navigation, route.childProps);
         })}
         {appRoute("/content/:slug/:id", Content)}
-
         {appRoute("/home", Home)}
         {appRoute("/", Home)}
-        
         {appRoute("*", NotFound)}
       </Switch>
     </Suspense>

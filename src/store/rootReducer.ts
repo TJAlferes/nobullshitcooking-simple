@@ -10,6 +10,7 @@ import nobscappReducer from './nobscapp/reducer';
 import plannerReducer from './planner/reducer';
 import plannerViewReducer from './plannerView/reducer';
 import searchReducer from './search/reducer';
+import { staffReducer } from './staff/reducer';
 import themeReducer from './theme/reducer';
 import userReducer from './user/reducer';
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   planner: plannerReducer,
   plannerView: plannerViewReducer,
   search: searchReducer,
+  staff: staffReducer,
   theme: themeReducer,
   user: userReducer,
 });
