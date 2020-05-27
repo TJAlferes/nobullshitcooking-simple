@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent, ReactChildren, ReactChild } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 
 import { ExpandCollapseView } from './ExpandCollapseView';
 import './expandCollapse.css';

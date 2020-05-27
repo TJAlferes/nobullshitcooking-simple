@@ -1,10 +1,17 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 import { createEditor, Editor, Node, Range, Transforms } from 'slate';
 import {
   Editable,
   Slate,
   useEditor,
-  useFocus,
+  useFocused,
+  useSelected,
   useSlate,
   withReact
 } from 'slate-react';
@@ -26,7 +33,7 @@ const initialValue = [
   }
 ];
 
-function toggleBlock(editor, format) {
+function toggleBlock(editor: Editor, format: string) {
   const isActive = isBlockActive(editor, format);
   const isList = LIST_TYPES.includes(format);
   Transforms.unwrapNodes(editor, {
@@ -41,23 +48,23 @@ function toggleBlock(editor, format) {
   }
 }
 
-function toggleMark(editor, format) {
+function toggleMark(editor: Editor, format: string) {
   const isActive = isMarkActive(editor, format);
   if (isActive) Editor.removeMark(editor, format);
   else Editor.addMark(editor, format, true);
 }
 
-function isBlockActive(editor, format) {
+function isBlockActive(editor: Editor, format: string) {
   const [ match ] = Editor.nodes(editor, {match: n => n.type === format});
   return !!match;
 }
 
-function isMarkActive(editor, format) {
+function isMarkActive(editor: Editor, format: string) {
   const marks = Editor.marks(editor);
   return marks ? marks[format] === true : false;
 }
 
-function withImages(editor) {
+function withImages(editor: Editor) {
   const { insertData, isVoid } = editor;
   editor.isVoid = (element) =>
     element.type === "image" ? true : isVoid(element);
@@ -85,18 +92,18 @@ function withImages(editor) {
   return editor;
 }
 
-function insertImage(editor, url) {
+function insertImage(editor: Editor, url: string) {
   Transforms.insertNodes(editor, {type: "image", url, children: [{text: ""}]});
 }
 
-function isImageUrl(url) {
+function isImageUrl(url: string) {
   if (!url) return false;
   if (!isUrl(url)) return false;
   const ext = new URL(url).pathname.split('.').pop();
   return imageExtensions.includes(ext);
 }
 
-function withLinks(editor) {
+function withLinks(editor: Editor) {
   const { insertData, insertText, isInline } = editor;
   editor.isInline = (element) =>
     element.type === "link" ? true : isInline(element);
@@ -107,20 +114,20 @@ function withLinks(editor) {
   return editor;
 }
 
-function insertLink(editor, url) {
+function insertLink(editor: Editor, url: string) {
   if (editor.selection) wrapLink(editor, url);
 }
 
-function isLinkActive(editor) {
+function isLinkActive(editor: Editor) {
   const [ link ] = Editor.nodes(editor, {match: n => n.type === "link"});
   return !!link;
 }
 
-function unwrapLink(editor) {
+function unwrapLink(editor: Editor) {
   Transforms.unwrapNodes(editor, {match: n => n.type === "link"});
 }
 
-function wrapLink(editor, url) {
+function wrapLink(editor: Editor, url: string) {
   if (isLinkActive(editor)) unwrapLink(editor);
   const { selection } = editor;
   const isCollapsed = selection && Range.isCollapsed(selection);
@@ -133,7 +140,11 @@ function wrapLink(editor, url) {
   }
 }
 
-function ImageElement({ attributes, children, element }) {
+const ImageElement: FunctionComponent<ElementProps> = ({
+  attributes,
+  children,
+  element
+}) => {
   const selected = useSelected();
   const focused = useFocused();
   return (
@@ -152,9 +163,13 @@ function ImageElement({ attributes, children, element }) {
       {children}
     </div>
   );
-}
+};
 
-function Element({ attributes, children, element }) {
+const Element: FunctionComponent<ElementProps> = ({
+  attributes,
+  children,
+  element
+}) => {
   switch (element.type) {
     case 'heading-one': return <h1 {...attributes}>{children}</h1>;
     case 'heading-two': return <h2 {...attributes}>{children}</h2>;
@@ -171,15 +186,19 @@ function Element({ attributes, children, element }) {
       );
     default: return <p {...attributes}>{children}</p>;
   }
-}
+};
 
-function Leaf({ attributes, children, leaf }) {
+const Leaf: FunctionComponent<ElementProps> = ({
+  attributes,
+  children,
+  leaf
+}) => {
   if (leaf.bold) children = <strong>{children}</strong>;
   if (leaf.italic) children = <em>{children}</em>;
   return <span {...attributes}>{children}</span>;
 }
 
-function BlockButton({ format, icon }) {
+function BlockButton({ format, icon }: ButtonProps) {
   const editor = useSlate();
   return (
     <Button
@@ -194,7 +213,7 @@ function BlockButton({ format, icon }) {
   );
 }
 
-function MarkButton({ format, icon }) {
+function MarkButton({ format, icon }: ButtonProps) {
   const editor = useSlate();
   return (
     <Button
@@ -288,3 +307,16 @@ export default function NewContent(): JSX.Element {
     </Slate>
   );
 }
+
+type Props = {};
+
+type ButtonProps = {
+  format: string;
+  icon: string;
+};
+
+type ElementProps = {
+  attributes: any;
+  element: any;
+  leaf: any;
+};
