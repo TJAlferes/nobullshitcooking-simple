@@ -8,6 +8,7 @@ import React, {
 import { createEditor, Editor, Node, Range, Transforms } from 'slate';
 import {
   Editable,
+  ReactEditor,
   Slate,
   useEditor,
   useFocused,
@@ -16,14 +17,13 @@ import {
   withReact
 } from 'slate-react';
 import { withHistory } from 'slate-history';
-import imageExtensions from 'image-extensions';
+const imageExtensions = require('image-extensions');
 import isHotKey from 'is-hotkey';
 import isUrl from 'is-url';
 
 import { Button} from './views/Button';
 import { Icon } from './views/Icon';
 import { Toolbar } from './views/Toolbar';
-import { any, string } from 'prop-types';
 
 const HOTKEYS: IHotKeys = {'mod+b': 'bold', 'mod+i': 'italic'};
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
@@ -38,7 +38,7 @@ function toggleBlock(editor: Editor, format: string) {
   const isActive = isBlockActive(editor, format);
   const isList = LIST_TYPES.includes(format);
   Transforms.unwrapNodes(editor, {
-    match: n => LIST_TYPES.includes(n.type),
+    match: n => typeof n.type === "string" && LIST_TYPES.includes(n.type),
     split: true
   });
   Transforms.setNodes(editor, {
@@ -65,11 +65,8 @@ function isMarkActive(editor: Editor, format: string) {
   return marks ? marks[format] === true : false;
 }
 
-function withImages(editor: Editor) {
-  const { insertData, isVoid } = editor;
-  editor.isVoid = (element) =>
-    element.type === "image" ? true : isVoid(element);
-  editor.insertData = (data) => {
+function withImages(editor: ReactEditor) {
+  const insertData = (data: DataTransfer) => {
     const text = data.getData('text/plain');
     const { files } = data;
     if (files && files.length) {
@@ -90,6 +87,12 @@ function withImages(editor: Editor) {
       insertData(data);
     }
   };
+
+  editor.insertData = insertData;
+
+  editor.isVoid = (element) =>
+    element.type === "image" ? true : editor.isVoid(element);
+
   return editor;
 }
 
@@ -104,14 +107,23 @@ function isImageUrl(url: string) {
   return imageExtensions.includes(ext);
 }
 
-function withLinks(editor: Editor) {
-  const { insertData, insertText, isInline } = editor;
+function withLinks(editor: ReactEditor) {
+  const insertData = (data: DataTransfer) => {
+    const text = data.getData('text/plain');
+    if (text && isUrl(text)) wrapLink(editor, text);
+    else insertData(data);
+  };
+
+  editor.insertData = insertData;
+
   editor.isInline = (element) =>
-    element.type === "link" ? true : isInline(element);
+    element.type === "link" ? true : editor.isInline(element);
+  
   editor.insertText = (text) => {
     if (text && isUrl(text)) wrapLink(editor, text);
-    else insertText(text);
+    else editor.insertText(text);
   };
+
   return editor;
 }
 
@@ -309,7 +321,7 @@ export default function NewContent(): JSX.Element {
   );
 }
 
-type Props = {};
+//type Props = {};
 
 type ButtonProps = {
   format: string;
