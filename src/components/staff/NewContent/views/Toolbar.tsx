@@ -1,7 +1,13 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, FunctionComponent, Ref } from 'react';
 
-export const Toolbar = forwardRef(
-  ({ className, ...props }, ref) => (
+export const Toolbar: FunctionComponent<Props> = forwardRef(
+  (
+    {
+      className,
+      ...props
+    },
+    ref: Ref<HTMLDivElement>
+  ) => (
     <div
       {...props}
       ref={ref}
@@ -22,3 +28,7 @@ export const Toolbar = forwardRef(
     />
   )
 );
+
+type Props = {
+  className: string;
+};

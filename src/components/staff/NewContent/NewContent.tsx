@@ -23,8 +23,9 @@ import isUrl from 'is-url';
 import { Button} from './views/Button';
 import { Icon } from './views/Icon';
 import { Toolbar } from './views/Toolbar';
+import { any, string } from 'prop-types';
 
-const HOTKEYS = {'mod+b': 'bold', 'mod+i': 'italic'};
+const HOTKEYS: IHotKeys = {'mod+b': 'bold', 'mod+i': 'italic'};
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 const initialValue = [
   {
@@ -92,7 +93,7 @@ function withImages(editor: Editor) {
   return editor;
 }
 
-function insertImage(editor: Editor, url: string) {
+function insertImage(editor: Editor, url: string|ArrayBuffer|null) {
   Transforms.insertNodes(editor, {type: "image", url, children: [{text: ""}]});
 }
 
@@ -114,7 +115,7 @@ function withLinks(editor: Editor) {
   return editor;
 }
 
-function insertLink(editor: Editor, url: string) {
+function insertLink(editor: Editor, url: string|ArrayBuffer|null) {
   if (editor.selection) wrapLink(editor, url);
 }
 
@@ -127,14 +128,15 @@ function unwrapLink(editor: Editor) {
   Transforms.unwrapNodes(editor, {match: n => n.type === "link"});
 }
 
-function wrapLink(editor: Editor, url: string) {
+function wrapLink(editor: Editor, url: string|ArrayBuffer|null) {
   if (isLinkActive(editor)) unwrapLink(editor);
   const { selection } = editor;
   const isCollapsed = selection && Range.isCollapsed(selection);
-  const link = {type: 'link', url, children: isCollapsed ? [{text: url}] : []};
   if (isCollapsed) {
+    const link = {type: "link", url, children: [{text: `${url}`}]};
     Transforms.insertNodes(editor, link);
   } else {
+    const link = {type: "link", url, children: [{text: ""}]};
     Transforms.wrapNodes(editor, link, {split: true});
     Transforms.collapse(editor, {edge: 'end'});
   }
@@ -196,7 +198,7 @@ const Leaf: FunctionComponent<ElementProps> = ({
   if (leaf.bold) children = <strong>{children}</strong>;
   if (leaf.italic) children = <em>{children}</em>;
   return <span {...attributes}>{children}</span>;
-}
+};
 
 function BlockButton({ format, icon }: ButtonProps) {
   const editor = useSlate();
@@ -208,7 +210,7 @@ function BlockButton({ format, icon }: ButtonProps) {
         toggleBlock(editor, format);
       }}
     >
-      <Icon>{icon}</Icon>
+      <Icon className="link-icon">{icon}</Icon>
     </Button>
   );
 }
@@ -223,7 +225,7 @@ function MarkButton({ format, icon }: ButtonProps) {
         toggleMark(editor, format);
       }}
     >
-      <Icon>{icon}</Icon>
+      <Icon className="link-icon">{icon}</Icon>
     </Button>
   );
 }
@@ -239,7 +241,7 @@ function InsertImageButton() {
         insertImage(editor, url);
       }}
     >
-      <Icon>image</Icon>
+      <Icon className="link-icon">image</Icon>
     </Button>
   );
 }
@@ -256,7 +258,7 @@ function LinkButton() {
         insertLink(editor, url);
       }}
     >
-      <Icon>link</Icon>
+      <Icon className="link-icon">link</Icon>
     </Button>
   );
 }
@@ -275,10 +277,9 @@ export default function NewContent(): JSX.Element {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     for (const hotkey in HOTKEYS) {
-      if (!isHotKey(hotkey, e.key)) return;
+      if (!isHotKey(hotkey)) return;  //isHotKey(hotkey, e.key)
       e.preventDefault();
-      const mark = HOTKEYS[hotkey];  // ?
-      toggleMark(editor, mark);
+      toggleMark(editor, HOTKEYS[hotkey]);
     }
   };
 
@@ -288,7 +289,7 @@ export default function NewContent(): JSX.Element {
       value={value}
       onChange={value => setValue(value)}
     >
-      <Toolbar>
+      <Toolbar className="toolbar">
         <MarkButton format="bold" icon="format_bold" />
         <MarkButton format="italic" icon="format_italic" />
         <BlockButton format="heading-one" icon="looks_one" />
@@ -320,3 +321,9 @@ type ElementProps = {
   element: any;
   leaf: any;
 };
+
+interface IHotKeys {
+  [index: string]: any;
+  'mod+b': string;
+  'mod+i': string;
+}

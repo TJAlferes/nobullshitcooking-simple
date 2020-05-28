@@ -1,7 +1,13 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, FunctionComponent, Ref } from 'react';
 
-export const Icon = forwardRef(
-  ({ className, ...props }, ref) => (
+export const Icon: FunctionComponent<Props> = forwardRef(
+  (
+    {
+      className,
+      ...props
+    },
+    ref: Ref<HTMLSpanElement>
+  ) => (
     <span
       {...props}
       ref={ref}
@@ -10,3 +16,7 @@ export const Icon = forwardRef(
     />
   )
 );
+
+type Props = {
+  className: string;
+};
