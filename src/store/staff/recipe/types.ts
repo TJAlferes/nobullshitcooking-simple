@@ -56,7 +56,6 @@ export interface IStaffDeleteRecipeFailed {
 }
 
 export interface ICreatingRecipeInfo {
-  ownership: string
   recipeTypeId: number
   cuisineId: number
   title: string
@@ -84,7 +83,6 @@ export interface IEditingRecipeInfo {
   prevEquipmentImage: string
   prevIngredientsImage: string
   prevCookingImage: string
-  ownership: string
   recipeTypeId: number
   cuisineId: number
   title: string

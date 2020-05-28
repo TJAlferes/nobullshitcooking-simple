@@ -81,7 +81,7 @@ type Props = {
   password: string;
   handleEmailChange(e: React.SyntheticEvent<EventTarget>): void;
   handlePasswordChange(e: React.SyntheticEvent<EventTarget>): void;
-  handleLoginClick(e: React.SyntheticEvent<EventTarget>): void;
+  handleLoginClick(e: React.MouseEvent): void;
   handleLoginKeyUp(e: React.KeyboardEvent): void;
   validateLoginInfo(): boolean;
 };

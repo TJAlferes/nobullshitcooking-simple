@@ -1,5 +1,31 @@
-import validRecipeInfo from './validRecipeInfo';
+import { validRecipeInfo } from './validRecipeInfo';
 
+const methods = {
+  1: false,
+  2: false,
+  3: false,
+  4: false,
+  5: false,
+  6: false,
+  7: false,
+  8: false,
+  9: false,
+  10: false,
+  11: false,
+  12: false,
+  13: false,
+  14: false,
+  15: false,
+  16: false,
+  17: false,
+  18: false,
+  19: false,
+  20: false,
+  21: false,
+  22: false,
+  23: false,
+  24: false
+};
 const setFeedback = jest.fn();
 
 window.scrollTo = jest.fn();
@@ -12,7 +38,7 @@ afterEach(() => {
 
 describe('validRecipeInfo', () => {
   describe('when given valid recipe info', () => {
-    let actual;
+    let actual: boolean;
     beforeEach(() => {
       actual = validRecipeInfo({
         ownership: "private",
@@ -20,7 +46,7 @@ describe('validRecipeInfo', () => {
         cuisineId: 1,
         title: "Sweet Potatoes Roasted With Olive Oil",
         description: "Very tasty!",
-        methods: [],
+        methods,
         equipmentRows: [],
         ingredientRows: [],
         subrecipeRows: [],
@@ -47,7 +73,7 @@ describe('validRecipeInfo', () => {
   });
 
   describe('when given invalid recipe info', () => {
-    let actual;
+    let actual: boolean;
     beforeEach(() => {
       actual = validRecipeInfo({
         ownership: "",  // <-- !
@@ -55,7 +81,7 @@ describe('validRecipeInfo', () => {
         cuisineId: 1,
         title: "Sweet Potatoes Roasted With Olive Oil",
         description: "Very tasty!",
-        methods: [],
+        methods,
         equipmentRows: [],
         ingredientRows: [],
         subrecipeRows: [],

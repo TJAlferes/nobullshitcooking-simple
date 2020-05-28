@@ -34,7 +34,7 @@ const initialValue = [
   }
 ];
 
-function toggleBlock(editor: Editor, format: string) {
+function toggleBlock(editor: ReactEditor, format: string) {
   const isActive = isBlockActive(editor, format);
   const isList = LIST_TYPES.includes(format);
   Transforms.unwrapNodes(editor, {
@@ -49,18 +49,18 @@ function toggleBlock(editor: Editor, format: string) {
   }
 }
 
-function toggleMark(editor: Editor, format: string) {
+function toggleMark(editor: ReactEditor, format: string) {
   const isActive = isMarkActive(editor, format);
   if (isActive) Editor.removeMark(editor, format);
   else Editor.addMark(editor, format, true);
 }
 
-function isBlockActive(editor: Editor, format: string) {
+function isBlockActive(editor: ReactEditor, format: string) {
   const [ match ] = Editor.nodes(editor, {match: n => n.type === format});
   return !!match;
 }
 
-function isMarkActive(editor: Editor, format: string) {
+function isMarkActive(editor: ReactEditor, format: string) {
   const marks = Editor.marks(editor);
   return marks ? marks[format] === true : false;
 }
@@ -96,7 +96,7 @@ function withImages(editor: ReactEditor) {
   return editor;
 }
 
-function insertImage(editor: Editor, url: string|ArrayBuffer|null) {
+function insertImage(editor: ReactEditor, url: string|ArrayBuffer|null) {
   Transforms.insertNodes(editor, {type: "image", url, children: [{text: ""}]});
 }
 
@@ -127,20 +127,20 @@ function withLinks(editor: ReactEditor) {
   return editor;
 }
 
-function insertLink(editor: Editor, url: string|ArrayBuffer|null) {
+function insertLink(editor: ReactEditor, url: string|ArrayBuffer|null) {
   if (editor.selection) wrapLink(editor, url);
 }
 
-function isLinkActive(editor: Editor) {
+function isLinkActive(editor: ReactEditor) {
   const [ link ] = Editor.nodes(editor, {match: n => n.type === "link"});
   return !!link;
 }
 
-function unwrapLink(editor: Editor) {
+function unwrapLink(editor: ReactEditor) {
   Transforms.unwrapNodes(editor, {match: n => n.type === "link"});
 }
 
-function wrapLink(editor: Editor, url: string|ArrayBuffer|null) {
+function wrapLink(editor: ReactEditor, url: string|ArrayBuffer|null) {
   if (isLinkActive(editor)) unwrapLink(editor);
   const { selection } = editor;
   const isCollapsed = selection && Range.isCollapsed(selection);
@@ -296,28 +296,31 @@ export default function NewContent(): JSX.Element {
   };
 
   return (
-    <Slate
-      editor={editor}
-      value={value}
-      onChange={value => setValue(value)}
-    >
-      <Toolbar className="toolbar">
-        <MarkButton format="bold" icon="format_bold" />
-        <MarkButton format="italic" icon="format_italic" />
-        <BlockButton format="heading-one" icon="looks_one" />
-        <BlockButton format="heading-two" icon="looks_two" />
-        <LinkButton />
-        <InsertImageButton />
-      </Toolbar>
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        spellCheck
-        autoFocus
-        onKeyDown={handleKeyDown}
-        placeholder="COOK EAT WIN REPEAT"
-      />
-    </Slate>
+    <div className="new-content">
+      <h1 className="new-content-heading">New Content</h1>
+      <Slate
+        editor={editor}
+        value={value}
+        onChange={value => setValue(value)}
+      >
+        <Toolbar className="toolbar">
+          <MarkButton format="bold" icon="format_bold" />
+          <MarkButton format="italic" icon="format_italic" />
+          <BlockButton format="heading-one" icon="looks_one" />
+          <BlockButton format="heading-two" icon="looks_two" />
+          <LinkButton />
+          <InsertImageButton />
+        </Toolbar>
+        <Editable
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          spellCheck
+          autoFocus
+          onKeyDown={handleKeyDown}
+          placeholder="COOK EAT WIN REPEAT"
+        />
+      </Slate>
+    </div>
   );
 }
 

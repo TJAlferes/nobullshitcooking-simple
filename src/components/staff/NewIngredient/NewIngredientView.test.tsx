@@ -1,6 +1,6 @@
-import NewIngredientView from './NewIngredientView';
+import { NewIngredientView } from './NewIngredientView';
 
-describe('what needs testing', () => {
+describe('NewIngredientView', () => {
   it('needs testing', () => {
     expect(1).toEqual(1);
   });

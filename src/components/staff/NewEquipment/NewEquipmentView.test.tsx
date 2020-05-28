@@ -1,6 +1,6 @@
-import NewEquipmentView from './NewEquipmentView';
+import { NewEquipmentView } from './NewEquipmentView';
 
-describe('what needs testing', () => {
+describe('NewEquipmentView', () => {
   it('needs testing', () => {
     expect(1).toEqual(1);
   });

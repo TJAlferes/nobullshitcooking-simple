@@ -1,6 +1,13 @@
 import React from 'react';
 
-const IngredientRow = ({
+import {
+  IMeasurement,
+  IIngredient,
+  IIngredientType
+} from '../../../../../store/data/types';
+
+export function IngredientRow({
+  key,
   rowKey,
   amount,
   unit,
@@ -9,16 +16,11 @@ const IngredientRow = ({
   dataMeasurements,
   dataIngredientTypes,
   dataIngredients,
-  dataMyPrivateIngredients,
   handleIngredientRowChange,
   removeIngredientRow
-}) => {
-  let availableIngredients = [
-    ...dataIngredients,
-    ...(dataMyPrivateIngredients.length ? dataMyPrivateIngredients : [])
-  ];
+}: Props): JSX.Element {
   return (
-    <div className="ingredient-row">
+    <div className="ingredient-row" key={key}>
 
       <label className="ingredient-row-label">Amount:</label>
       <input
@@ -75,7 +77,7 @@ const IngredientRow = ({
       >
         <option value=""></option>
         {
-          availableIngredients
+          dataIngredients
           .filter((ing) => ing.ingredient_type_id == type)
           .map((ingredient, index) => (
             <option key={index} value={ingredient.ingredient_id}>
@@ -95,6 +97,21 @@ const IngredientRow = ({
 
     </div>
   );
-};
+}
 
-export default IngredientRow;
+type Props = {
+  key: string;
+  rowKey: string;
+  amount: string|number;
+  unit: string|number;
+  type: string|number;
+  ingredient: string|number;
+  dataMeasurements: IMeasurement[];
+  dataIngredientTypes: IIngredientType[];
+  dataIngredients: IIngredient[];
+  handleIngredientRowChange(
+    e: React.SyntheticEvent<EventTarget>,
+    rowKey: string
+  ): void;
+  removeIngredientRow(rowKey: string): void;
+};

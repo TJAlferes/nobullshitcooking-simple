@@ -1,19 +1,16 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import ExpandCollapse from '../../ExpandCollapse/ExpandCollapse';
-import LoaderButton from '../../LoaderButton/LoaderButton';
-
-import EquipmentRow from './views/EquipmentRow/EquipmentRow';
-import IngredientRow from './views/IngredientRow/IngredientRow';
-import SubrecipeRow from './views/SubrecipeRow/SubrecipeRow';
-import ImageUploads from './views/ImageUploads';
-
-import NewRecipeView from './NewRecipeView';
+import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
+import { LoaderButton } from '../../LoaderButton/LoaderButton';
+import { EquipmentRow } from './views/EquipmentRow/EquipmentRow';
+import { IngredientRow } from './views/IngredientRow/IngredientRow';
+//import { SubrecipeRow } from './views/SubrecipeRow/SubrecipeRow';
+import { ImageUploads } from './views/ImageUploads';
+import { NewRecipeView } from './NewRecipeView';
 
 const beginProps = {
-  match: {params: {id: "1"}},
+  id: 0,
   oneColumnATheme: "one-column-a-light",
   authname: "Person",
   feedback: "Some message.",
@@ -28,7 +25,28 @@ const beginProps = {
   methods: {
     1: false,
     2: false,
-    3: false
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+    19: false,
+    20: false,
+    21: false,
+    22: false,
+    23: false,
+    24: false
   },
   equipmentRows: [
     {key: "XYZ1", amount: "", type: "", equipment: ""},
@@ -48,16 +66,32 @@ const beginProps = {
     {recipe_type_id: 2, recipe_type_name: "Appetizer"}
   ],
   dataCuisines: [
-    {cuisine_id: 1, cuisine_name: "American"},
-    {cuisine_id: 2, cuisine_name: "Japanese"}
+    {cuisine_id: 1, cuisine_name: "American", cuisine_nation: "America"},
+    {cuisine_id: 2, cuisine_name: "Japanese", cuisine_nation: "Japan"}
   ],
   dataMethods: [
     {method_id: 1, method_name: "Steam"},
     {method_id: 2, method_name: "Freeze"}
   ],
   dataEquipment: [
-    {equipment_id: 1, equipment_name: "Cutting Board", equipment_type_id: 2},
-    {equipment_id: 2, equipment_name: "Metal Spatula", equipment_type_id: 3}
+    {
+      equipment_id: 1,
+      equipment_name: "Cutting Board",
+      equipment_type_id: 2,
+      owner_id: 1,
+      equipment_type_name: "Preparing",
+      equipment_description: "You need one.",
+      equipment_image: "nobsc-cutting-board"
+    },
+    {
+      equipment_id: 2,
+      equipment_name: "Metal Spatula",
+      equipment_type_id: 3,
+      owner_id: 1,
+      equipment_type_name: "Cooking",
+      equipment_description: "You need one.",
+      equipment_image: "nobsc-metal-spatula"
+    }
   ],
   dataMyPrivateEquipment: [],
   dataMeasurements: [
@@ -69,8 +103,24 @@ const beginProps = {
     {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
   ],
   dataIngredients: [
-    {ingredient_id: 1, ingredient_name: "Apple", ingredient_type_id: 12,},
-    {ingredient_id: 2, ingredient_name: "Spinach", ingredient_type_id: 11}
+    {
+      ingredient_id: 1,
+      ingredient_name: "Apple",
+      ingredient_type_id: 12,
+      owner_id: 1,
+      ingredient_type_name: "Fruit",
+      ingredient_description: "Energizing",
+      ingredient_image: "nobsc-apple"
+    },
+    {
+      ingredient_id: 2,
+      ingredient_name: "Spinach",
+      ingredient_type_id: 11,
+      owner_id: 1,
+      ingredient_type_name: "Vegetable",
+      ingredient_description: "Strengthening",
+      ingredient_image: "nobsc-spinach"
+    }
   ],
   dataMyPrivateIngredients: [],
   dataRecipes: [],
@@ -82,44 +132,16 @@ const beginProps = {
   recipeEquipmentImage: null,
   recipeIngredientsImage: null,
   recipeCookingImage: null,
-  cropOne: {
-    disabled: true,
-    locked: true,
-    width: 280,
-    maxWidth: 280,
-    height: 172,
-    maxHeight: 172
-  },
-  cropFullSizePreview: null,
-  cropThumbSizePreview: null,
-  cropTinySizePreview: null,
-  cropTwo: {
-    disabled: true,
-    locked: true,
-    width: 280,
-    maxWidth: 280,
-    height: 172,
-    maxHeight: 172
-  },
-  equipmentCropFullSizePreview: null,
-  cropThree: {
-    disabled: true,
-    locked: true,
-    width: 280,
-    maxWidth: 280,
-    height: 172,
-    maxHeight: 172
-  },
-  ingredientsCropFullSizePreview: null,
-  cropFour: {
-    disabled: true,
-    locked: true,
-    width: 280,
-    maxWidth: 280,
-    height: 172,
-    maxHeight: 172
-  },
-  cookingCropFullSizePreview: null,
+  cropOne: {aspect: 280 / 172},
+  cropFullSizePreview: "",
+  cropThumbSizePreview: "",
+  cropTinySizePreview: "",
+  cropTwo: {aspect: 280 / 172},
+  equipmentCropFullSizePreview: "",
+  cropThree: {aspect: 280 / 172},
+  ingredientsCropFullSizePreview: "",
+  cropFour: {aspect: 280 / 172},
+  cookingCropFullSizePreview: "",
   handleRecipeTypeChange: jest.fn(),
   handleCuisineChange: jest.fn(),
   handleTitleChange: jest.fn(),
@@ -158,15 +180,11 @@ const beginProps = {
   handleSubmit: jest.fn()
 };
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  Link: props => <div></div>
-}));
-
 afterEach(() => {
   jest.clearAllMocks();
 });
 
+// this needs more thorough tests
 describe('NewRecipeView', () => {
 
   describe('when creating', () => {
@@ -366,10 +384,10 @@ describe('NewRecipeView', () => {
 
     it('displays method inputs and labels', () => {
       expect(wrapper.find('[data-test="1-Steam"]').props().id)
-      .toEqual(1);
+      .toEqual("1");
 
       expect(wrapper.find('[data-test="2-Freeze"]').props().id)
-      .toEqual(2);
+      .toEqual("2");
 
       expect(wrapper.find('[data-test="Steam"]').props().children)
       .toEqual("Steam");
@@ -396,12 +414,11 @@ describe('NewRecipeView', () => {
   describe('finish area', () => {
     const wrapper = shallow(<NewRecipeView {...beginProps} />);
 
-    it('displays a Link to /user/dashboard', () => {
-      expect(wrapper.find(Link).props().to).toEqual("/user/dashboard");
-    });
-
-    it('displays a Link with text Cancel', () => {
-      expect(wrapper.find(Link).props().children).toEqual("Cancel");
+    it('displays a Link to /dashboard with text Cancel', () => {
+      expect(wrapper.find('[data-test="cancel-link"]').props().to)
+      .toEqual("/dashboard");
+      expect(wrapper.find('[data-test="cancel-link"]').props().children)
+      .toEqual("Cancel");
     });
 
     it('displays a LoaderButton with text Submit Recipe', () => {

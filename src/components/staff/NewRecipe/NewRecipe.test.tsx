@@ -3,44 +3,76 @@ import { act } from 'react-dom/test-utils';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
-import uuid from 'uuid/v4';
-
-import NewRecipeView from './NewRecipeView';
 
 import { NewRecipe } from './NewRecipe';
 
 const data = {
   recipe: {
-    recipeId: 1,
-    recipeTypeId: 1,
-    cuisineId: 1,
+    recipe_id: 1,
+    recipe_type_id: 1,
+    cuisine_id: 1,
+    owner_id: 1,
     title: "Mixed Drink",
     description: "An inticing description.",
-    directions: "Easy to follow directions."
+    directions: "Easy to follow directions.",
+    required_methods: [],
+    required_equipment: [],
+    required_ingredients: [],
+    required_subrecipes: [],
+    recipe_image: "nobsc-mixed-drink",
+    equipment_image: "nobsc-mixed-drink-equipment",
+    ingredients_image: "nobsc-mixed-drink-ingredients",
+    cooking_image: "nobsc-mixed-drink-cooking",
   },
-  requiredMethods: [],
-  requiredEquipment: [],
-  requiredIngredients: [],
-  requiredSubrecipes: []
 };
 
 const beginProps = {
-  match: {params: {id: "1"}},
   oneColumnATheme: "one-column-a-light",
   authname: "Person",
   message: "Some message.",
-  childProps: {submittingOwnership: "private"},
   dataMeasurements: [
     {measurement_id: 1, measurement_name: "teaspoon"},
     {measurement_id: 2, measurement_name: "Tablespoon"}
   ],
   dataEquipment: [
-    {equipment_id: 1, equipment_name: "Cutting Board", equipment_type_id: 2},
-    {equipment_id: 2, equipment_name: "Metal Spatula", equipment_type_id: 3},
+    {
+      equipment_id: 1,
+      equipment_name: "Cutting Board",
+      equipment_type_id: 2,
+      owner_id: 1,
+      equipment_type_name: "Preparing",
+      equipment_description: "You need one.",
+      equipment_image: "nobsc-cutting-board"
+    },
+    {
+      equipment_id: 2,
+      equipment_name: "Metal Spatula",
+      equipment_type_id: 3,
+      owner_id: 1,
+      equipment_type_name: "Cooking",
+      equipment_description: "You need one.",
+      equipment_image: "nobsc-metal-spatula"
+    },
   ],
   dataIngredients: [
-    {ingredient_id: 1, ingredient_name: "Apple", ingredient_type_id: 12,},
-    {ingredient_id: 2, ingredient_name: "Spinach", ingredient_type_id: 11}
+    {
+      ingredient_id: 1,
+      ingredient_name: "Apple",
+      ingredient_type_id: 12,
+      owner_id: 1,
+      ingredient_type_name: "Fruit",
+      ingredient_description: "Energizing",
+      ingredient_image: "nobsc-apple"
+    },
+    {
+      ingredient_id: 2,
+      ingredient_name: "Spinach",
+      ingredient_type_id: 11,
+      owner_id: 1,
+      ingredient_type_name: "Vegetable",
+      ingredient_description: "Strengthening",
+      ingredient_image: "nobsc-spinach"
+    }
   ],
   dataIngredientTypes: [
     {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
@@ -52,8 +84,8 @@ const beginProps = {
     {recipe_type_id: 2, recipe_type_name: "Appetizer"}
   ],
   dataCuisines: [
-    {cuisine_id: 1, cuisine_name: "American"},
-    {cuisine_id: 2, cuisine_name: "Japanese"},
+    {cuisine_id: 1, cuisine_name: "American", cuisine_nation: "America"},
+    {cuisine_id: 2, cuisine_name: "Japanese", cuisine_nation: "Japan"},
   ],
   dataMethods: [
     {method_id: 1, method_name: "Steam"},
@@ -74,55 +106,51 @@ const beginProps = {
 window.scrollTo = jest.fn();
 
 const mockHistoryPush = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({push: mockHistoryPush})
-}));
+jest.mock('react-router-dom', () => {
+  const originalModule = jest.requireActual('react-router-dom');
+  return {...originalModule, useHistory: () => ({push: mockHistoryPush})};
+});
 
 jest.mock('axios');
-
-axios.post.mockImplementation(() => Promise.resolve({data}));
-
-//jest.mock('uuid/v4');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.post.mockReturnValueOnce(Promise.resolve({data}));
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
+// this needs more thorough tests
 describe('NewRecipe', () => {
 
   describe('when creating', () => {
 
     describe('when ownership is private', () => {
-      const wrapper = mount(
-        <MemoryRouter>
-          <NewRecipe {...beginProps} />
-        </MemoryRouter>
-      );
-      
-      it('needs testing', async () => {
-        await act(async () => Promise.resolve(() => {
-          setImmediate(() => wrapper.update());
-          expect(mockHistoryPush).not.toHaveBeenCalled();
-        }));
+      it('should not redirect to /dashboard if given no id', () => {
+        jest.mock('react-router-dom', () => {
+          const originalModule = jest.requireActual('react-router-dom');
+          return {...originalModule, useParams: () => ({})};
+        });
+        mount(
+          <MemoryRouter>
+            <NewRecipe editing={false} ownership="private" {...beginProps} />
+          </MemoryRouter>
+        );
+        expect(mockHistoryPush).not.toHaveBeenCalled();
       });
     });
 
     describe('when ownership is public', () => {
-      const beginPropsCopy = {...beginProps};
-      beginPropsCopy.childProps.submittingOwnership = "public";
-      const wrapper = mount(
-        <MemoryRouter>
-          <NewRecipe {...beginPropsCopy} />
-        </MemoryRouter>
-      );
-
-      it('needs testing', async () => {
-        await act(async () => Promise.resolve(() => {
-          setImmediate(() => wrapper.update());
-          expect(mockHistoryPush).not.toHaveBeenCalled();
-        }));
+      it('should not redirect to /dashboard if given no id', () => {
+        jest.mock('react-router-dom', () => {
+          const originalModule = jest.requireActual('react-router-dom');
+          return {...originalModule, useParams: () => ({})};
+        });
+        mount(
+          <MemoryRouter>
+            <NewRecipe editing={false} ownership="public" {...beginProps} />
+          </MemoryRouter>
+        );
+        expect(mockHistoryPush).not.toHaveBeenCalled();
       });
     });
 
@@ -131,38 +159,37 @@ describe('NewRecipe', () => {
   describe('when editing', () => {
 
     describe('when ownership is private', () => {
-      const beginPropsCopy = {...beginProps};
-      beginPropsCopy.childProps.editing = "true";
-      beginPropsCopy.childProps.editingOwnership = "private";
-      const wrapper = mount(
-        <MemoryRouter>
-          <NewRecipe {...beginPropsCopy} />
-        </MemoryRouter>
-      );
-
-      it('needs testing', async () => {
-        await act(async () => Promise.resolve(() => {
-          setImmediate(() => wrapper.update());
-          expect(mockHistoryPush).not.toHaveBeenCalled();
-        }));
+      it('should redirect to /dashboard if given no id', () => {
+        jest.mock('react-router-dom', () => {
+          const originalModule = jest.requireActual('react-router-dom');
+          return {...originalModule, useParams: () => ({})};
+        });
+        mount(
+          <MemoryRouter>
+            <NewRecipe editing={true} ownership="private" {...beginProps} />
+          </MemoryRouter>
+        );
+        expect(mockHistoryPush).toHaveBeenCalledWith("/dashboard");
       });
     });
 
     describe('when ownership is public', () => {
-      const beginPropsCopy = {...beginProps};
-      beginPropsCopy.childProps.editing = "true";
-      beginPropsCopy.childProps.editingOwnership = "public";
-      const wrapper = mount(
-        <MemoryRouter>
-          <NewRecipe {...beginPropsCopy} />
-        </MemoryRouter>
-      );
-
-      it('needs testing', async () => {
-        await act(async () => Promise.resolve(() => {
-          setImmediate(() => wrapper.update());
-          expect(mockHistoryPush).not.toHaveBeenCalled();
-        }));
+      it('should redirect to /dashboard if given no id', async () => {
+        jest.mock('react-router-dom', () => {
+          const originalModule = jest.requireActual('react-router-dom');
+          return {...originalModule, useParams: () => ({})};
+        });
+        const wrapper = mount(
+          <MemoryRouter>
+            <NewRecipe editing={false} ownership="public" {...beginProps} />
+          </MemoryRouter>
+        );
+        await act(async () => {
+          Promise.resolve(() => {
+            setImmediate(() => wrapper.update());
+            expect(mockHistoryPush).toHaveBeenCalledWith("/dashboard");
+          });
+        });
       });
     });
 

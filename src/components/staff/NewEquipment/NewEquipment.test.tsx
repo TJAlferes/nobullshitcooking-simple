@@ -1,6 +1,6 @@
 import NewEquipment from './NewEquipment';
 
-describe('what needs testing', () => {
+describe('NewEquipment', () => {
   it('needs testing', () => {
     expect(1).toEqual(1);
   });

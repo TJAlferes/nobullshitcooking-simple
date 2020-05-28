@@ -1,59 +1,64 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
-import { withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { Crop } from 'react-image-crop';
 
 import {
   getCroppedImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
-
+import { IIngredient, IIngredientType } from '../../../store/data/types';
+import {
+  ICreatingIngredientInfo,
+  IEditingIngredientInfo
+} from '../../../store/user/ingredient/types';
 import {
   userCreateNewPrivateIngredient,
   userEditPrivateIngredient
-} from '../../../store/actions/index';
+} from '../../../store/user/ingredient/actions';
+import { NewIngredientView } from './NewIngredientView';
 
-import NewIngredientView from './NewIngredientView';
-
-export const NewIngredient = ({
-  match,
+export function NewIngredient({
+  childProps,
   oneColumnATheme,
   message,
-  childProps,
   dataIngredientTypes,
   dataMyPrivateIngredients,
   userCreateNewPrivateIngredient,
   userEditPrivateIngredient
-}) => {
+}: Props): JSX.Element {
   const history = useHistory();
+  const { id } = useParams();
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ editing, setEditing ] = useState(false);
-  const [ editingId, setEditingId ] = useState("");
-  const [ ingredientTypeId, setIngredientTypeId ] = useState("");
+
+  const [ editingId, setEditingId ] = useState<number>(0);
+  const [ ingredientTypeId, setIngredientTypeId ] = useState<number>(0);
   const [ ingredientName, setIngredientName ] = useState("");
   const [ ingredientDescription, setIngredientDescription ] = useState("");
-  const [ ingredientImage, setIngredientImage ] = useState("");
   const [
     prevIngredientImage,
     setPrevIngredientImage
   ] = useState("nobsc-ingredient-default");
 
-  const [ crop, setCrop ] = useState({
-    disabled: true,
-    locked: true,
-    width: 280,
-    maxWidth: 280,
-    height: 172,
-    maxHeight: 172
-  });
-  const [ cropFullSizePreview, setCropFullSizePreview ] = useState(null);
-  const [ cropTinySizePreview, setCropTinySizePreview ] = useState(null);
+  const [ crop, setCrop ] = useState<Crop>({aspect: 280 / 172});
+  const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
+  const [ cropTinySizePreview, setCropTinySizePreview ] = useState("");
+  const [
+    ingredientImage,
+    setIngredientImage
+  ] = useState<string | ArrayBuffer | null>(null);
+  const [
+    fullIngredientImage,
+    setFullIngredientImage
+  ] = useState<File | null>(null);
+  const [
+    tinyIngredientImage,
+    setTinyIngredientImage
+  ] = useState<File | null>(null);
 
-  const [ fullIngredientImage, setFullIngredientImage ] = useState(null);
-  const [ tinyIngredientImage, setTinyIngredientImage ] = useState(null);
-
-  const imageRef = useRef(null);
+  const imageRef = useRef<HTMLImageElement>();
 
   useEffect(() => {
     const getExistingIngredientToEdit = () => {
@@ -62,18 +67,16 @@ export const NewIngredient = ({
       setEditing(true);
 
       const [ prev ] = dataMyPrivateIngredients
-      .filter((ing) => ing.ingredient_id === Number(match.params.id));
+      .filter((ing) => ing.ingredient_id === Number(id));
 
       setEditingId(prev.ingredient_id);
       setIngredientTypeId(prev.ingredient_type_id);
       setIngredientName(prev.ingredient_name);
       setIngredientDescription(prev.ingredient_description);
-      setPrevIngredientImage(prev.equipment_image);
+      setPrevIngredientImage(prev.ingredient_image);
       setLoading(false);
     };
-    if (childProps && childProps.editing === "true") {
-      getExistingIngredientToEdit();
-    }
+    if (childProps && childProps.editing) getExistingIngredientToEdit();
   }, []);
 
   useEffect(() => {
@@ -89,62 +92,69 @@ export const NewIngredient = ({
       }
       setLoading(false);
     }
-    return () => isSubscribed = false;
+    return () => {
+      isSubscribed = false;
+    };
   }, [message]);
 
-  const handleIngredientTypeChange = e => setIngredientTypeId(e.target.value);
-
-  const handleIngredientNameChange = e => setIngredientName(e.target.value);
-
-  const handleIngredientDescriptionChange = e => setIngredientDescription(e.target.value);
-
-  const onSelectFile = e => {
-    if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => setIngredientImage(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
-    }
+  const handleIngredientTypeChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => {
+    setIngredientTypeId(Number((e.target as HTMLInputElement).value));
   };
 
-  const onImageLoaded = image => imageRef.current = image;
+  const handleIngredientNameChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => {
+    setIngredientName((e.target as HTMLInputElement).value);
+  };
 
-  const onCropChange = crop => setCrop(crop);
+  const handleIngredientDescriptionChange = (
+    e: React.SyntheticEvent<EventTarget>
+  ) => {
+    setIngredientDescription((e.target as HTMLInputElement).value);
+  };
 
-  const onCropComplete = crop => makeClientCrops(crop);
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (!(target.files && target.files.length > 0)) return;
+    const reader = new FileReader();
+    reader.addEventListener("load", () => setIngredientImage(reader.result));
+    reader.readAsDataURL(target.files[0]);
+  };
 
-  const makeClientCrops = async (crop) => {
-    if (!imageRef) return;
+  const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
+
+  const onCropChange = (crop: Crop) => setCrop(crop);
+
+  const onCropComplete = (crop: Crop) => makeClientCrops(crop);
+
+  const makeClientCrops = async (crop: Crop) => {
+    if (!imageRef || !imageRef.current) return;
     if (!crop.width) return;
-    const { resizedFullPreview, resizedFullFinal } = await getCroppedImage(
-      280,
-      172,
-      imageRef.current,
-      crop,
-      "newFile.jpeg"
+    const full = await getCroppedImage(
+      280, 172, imageRef.current, crop, "newFile.jpeg"
     );
-    const { resizedTinyPreview, resizedTinyFinal } = await getCroppedImage(
-      28,
-      18,
-      imageRef.current,
-      crop,
-      "newFile.jpeg"
+    const tiny = await getCroppedImage(
+      28, 18, imageRef.current, crop, "newFile.jpeg"
     );
-    setCropFullSizePreview(resizedFullPreview);
-    setCropTinySizePreview(resizedTinyPreview);
-    setFullIngredientImage(resizedFullFinal);
-    setTinyIngredientImage(resizedTinyFinal);
+    if (!full || !tiny) return;
+    setCropFullSizePreview(full.resizedPreview);
+    setCropTinySizePreview(tiny.resizedPreview);
+    setFullIngredientImage(full.resizedFinal);
+    setTinyIngredientImage(tiny.resizedFinal);
   };
 
   const cancelIngredientImage = () => {
-    setCropFullSizePreview(null);
-    setCropTinySizePreview(null);
+    setCropFullSizePreview("");
+    setCropTinySizePreview("");
     setIngredientImage(null);
     setFullIngredientImage(null);
     setTinyIngredientImage(null);
   };
 
   const valid = () => {
-    let validIngredientTypeId = ingredientTypeId !== "";
+    let validIngredientTypeId = ingredientTypeId !== 0;
     let validIngredientName = ingredientName.trim() !== "";
     let validIngredientDescription = ingredientDescription.trim() !== "";
 
@@ -170,29 +180,38 @@ export const NewIngredient = ({
     }
 
     return (
-      ingredientTypeId !== "" &&
+      ingredientTypeId !== 0 &&
       ingredientName.trim() !== "" &&
       ingredientDescription.trim() !== ""
     );
   };
 
   const handleSubmit = () => {
-    const ingredientInfo = {
-      ingredientTypeId,
-      ingredientName,
-      ingredientDescription,
-      ingredientImage,
-      fullIngredientImage,
-      tinyIngredientImage
-    };
     if (!valid()) return;
-    if (editing === true) {
-      ingredientInfo.ingredientId = editingId;
-      ingredientInfo.prevIngredientImage = prevIngredientImage;
-    }
     setLoading(true);
-    if (editing === true) userEditPrivateIngredient(ingredientInfo);
-    else userCreateNewPrivateIngredient(ingredientInfo);
+    if (editing && editingId) {
+      const ingredientInfo: IEditingIngredientInfo = {
+        ingredientId: editingId,
+        ingredientTypeId,
+        ingredientName,
+        ingredientDescription,
+        ingredientImage,
+        fullIngredientImage,
+        tinyIngredientImage,
+        prevIngredientImage
+      };
+      userEditPrivateIngredient(ingredientInfo);
+    } else {
+      const ingredientInfo: ICreatingIngredientInfo = {
+        ingredientTypeId,
+        ingredientName,
+        ingredientDescription,
+        ingredientImage,
+        fullIngredientImage,
+        tinyIngredientImage
+      };
+      userCreateNewPrivateIngredient(ingredientInfo);
+    }
   };
 
   return (
@@ -200,19 +219,16 @@ export const NewIngredient = ({
       oneColumnATheme={oneColumnATheme}
       feedback={feedback}
       loading={loading}
-
       editing={editing}
       ingredientTypeId={ingredientTypeId}
       ingredientName={ingredientName}
       ingredientDescription={ingredientDescription}
       ingredientImage={ingredientImage}
       prevIngredientImage={prevIngredientImage}
-
       dataIngredientTypes={dataIngredientTypes}
       handleIngredientTypeChange={handleIngredientTypeChange}
       handleIngredientNameChange={handleIngredientNameChange}
       handleIngredientDescriptionChange={handleIngredientDescriptionChange}
-
       onSelectFile={onSelectFile}
       onImageLoaded={onImageLoaded}
       crop={crop}
@@ -220,26 +236,42 @@ export const NewIngredient = ({
       cropTinySizePreview={cropTinySizePreview}
       onCropChange={onCropChange}
       onCropComplete={onCropComplete}
-
       cancelIngredientImage={cancelIngredientImage}
       handleSubmit={handleSubmit}
     />
   );
 };
 
-const mapStateToProps = state => ({
+interface RootState {
+  user: {
+    message: string;
+  };
+  data: {
+    ingredientTypes: IIngredientType[];
+    myPrivateIngredients: IIngredient[];
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  oneColumnATheme: string;
+  childProps: any;
+};
+
+const mapStateToProps = (state: RootState) => ({
   message: state.user.message,
   dataIngredientTypes: state.data.ingredientTypes,
   dataMyPrivateIngredients: state.data.myPrivateIngredients
 });
 
-const mapDispatchToProps = dispatch => ({
-  userCreateNewPrivateIngredient: (ingredientInfo) =>
-    dispatch(userCreateNewPrivateIngredient(ingredientInfo)),
-  userEditPrivateIngredient: (ingredientInfo) =>
-    dispatch(userEditPrivateIngredient(ingredientInfo))
-});
+const mapDispatchToProps = {
+  userCreateNewPrivateIngredient: (ingredientInfo: ICreatingIngredientInfo) =>
+    userCreateNewPrivateIngredient(ingredientInfo),
+  userEditPrivateIngredient: (ingredientInfo: IEditingIngredientInfo) =>
+    userEditPrivateIngredient(ingredientInfo)
+};
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(NewIngredient)
-);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(NewIngredient);

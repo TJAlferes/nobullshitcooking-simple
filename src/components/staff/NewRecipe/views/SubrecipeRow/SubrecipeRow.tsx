@@ -1,6 +1,14 @@
 import React from 'react';
 
-const SubrecipeRow = ({
+import {
+  IMeasurement,
+  IWorkRecipe,
+  IRecipeType,
+  ICuisine
+} from '../../../../../store/data/types';
+
+export function SubrecipeRow({
+  key,
   rowKey,
   amount,
   unit,
@@ -11,40 +19,16 @@ const SubrecipeRow = ({
   dataRecipeTypes,
   dataCuisines,
   dataRecipes,
-  dataMyPrivateRecipes,
-  dataMyPublicRecipes,
-  dataMyFavoriteRecipes,
-  dataMySavedRecipes,
   editing,
   selfId,
   handleSubrecipeRowChange,
   removeSubrecipeRow
-}) => {
-  let availableRecipes = [
-    ...dataRecipes,
-    ...(
-      dataMyPrivateRecipes.length
-      ? (
-        editing === "true"
-        ? dataMyPrivateRecipes.filter((rec) => rec.recipe_id != selfId)
-        : dataMyPrivateRecipes
-      )
-      : []
-    ),
-    ...(
-      dataMyPublicRecipes.length
-      ? (
-        editing === "true"
-        ? dataMyPublicRecipes.filter((rec) => rec.recipe_id != selfId)
-        : dataMyPublicRecipes
-      )
-      : []
-    ),
-    ...(dataMyFavoriteRecipes.length ? dataMyFavoriteRecipes : []),
-    ...(dataMySavedRecipes.length ? dataMySavedRecipes : [])
-  ];
+}: Props): JSX.Element {
+  let availableRecipes = editing && selfId !== 0
+  ? dataRecipes.filter((rec) => rec.recipe_id != selfId)
+  : dataRecipes;
   return (
-    <div className="subrecipe-row">
+    <div className="subrecipe-row" key={key}>
 
       <label className="subrecipe-row-label">Amount:</label>
       <input
@@ -138,6 +122,25 @@ const SubrecipeRow = ({
 
     </div>
   );
-};
+}
 
-export default SubrecipeRow;
+type Props = {
+  key: string;
+  rowKey: string;
+  amount: string|number;
+  unit: string|number;
+  type: string|number;
+  cuisine: string|number;
+  subrecipe: string|number;
+  dataMeasurements: IMeasurement[];
+  dataRecipeTypes: IRecipeType[];
+  dataCuisines: ICuisine[];
+  dataRecipes: IWorkRecipe[];
+  editing: boolean;
+  selfId: number;
+  handleSubrecipeRowChange(
+    e: React.SyntheticEvent<EventTarget>,
+    rowKey: string
+  ): void;
+  removeSubrecipeRow(rowKey: string): void;
+};
