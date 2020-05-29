@@ -34,14 +34,13 @@ import {
   getCroppedImage
 } from '../../../utils/imageCropPreviews/imageCropPreviews';
 import { validRecipeInfo } from './validation/validRecipeInfo';
-import { NewRecipeView } from './NewRecipeView';
+import { StaffNewRecipeView } from './NewRecipeView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-export function NewRecipe({
+export function StaffNewRecipe({
   oneColumnATheme,
   editing,
-  ownership,
   authname,
   message,
   dataMeasurements,
@@ -62,8 +61,8 @@ export function NewRecipe({
   const [ loading, setLoading ] = useState(false);
 
   const [ editingId, setEditingId ] = useState<number>(0);  // |null ?
-  const [ recipeTypeId, setRecipeTypeId ] = useState<number>(0);
-  const [ cuisineId, setCuisineId ] = useState<number>(0);
+  const [ recipeTypeId, setRecipeTypeId ] = useState<number>(0);  // |null ?
+  const [ cuisineId, setCuisineId ] = useState<number>(0);  // |null ?
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
   const [ directions, setDirections ] = useState("");
@@ -190,8 +189,8 @@ export function NewRecipe({
 
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
-      if (!id || !ownership) {
-        history.push('/dashboard');
+      if (!id) {
+        history.push('/staff-dashboard');
         return;
       }
 
@@ -199,7 +198,7 @@ export function NewRecipe({
       setLoading(true);
 
       const res = await axios.post(
-        `${endpoint}/user/recipe/edit/${ownership}`,
+        `${endpoint}/staff/recipe/edit`,
         {recipeId: id},
         {withCredentials: true}
       );
@@ -207,7 +206,7 @@ export function NewRecipe({
       const recipe: IExistingRecipeToEdit = res.data.recipe;
 
       if (!recipe) {
-        history.push('/dashboard');
+        history.push('/staff-dashboard');
         return;
       }
 
@@ -284,7 +283,7 @@ export function NewRecipe({
         message === "Recipe created." ||
         message === "Recipe updated."
       ) {
-        setTimeout(() => history.push('/dashboard'), 3000);
+        setTimeout(() => history.push('/staff-dashboard'), 3000);
       }
       setLoading(false);  // move?
     }
@@ -677,7 +676,7 @@ export function NewRecipe({
   };
 
   return (
-    <NewRecipeView
+    <StaffNewRecipeView
       id={editingId}
       oneColumnATheme={oneColumnATheme}
       authname={authname}
@@ -763,7 +762,7 @@ interface RootState {
   auth: {
     authname: string;
   };
-  user: {
+  staff: {
     message: string;
   };
   data: {
@@ -881,12 +880,11 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & {
   oneColumnATheme: string;
   editing: boolean;
-  ownership: string;
 };
 
 const mapStateToProps = (state: RootState) => ({
   authname: state.auth.authname,
-  message: state.user.message,
+  message: state.staff.message,
   dataMeasurements: state.data.measurements,
   dataEquipment: state.data.equipment,
   dataIngredients: state.data.ingredients,
@@ -906,4 +904,4 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(NewRecipe);
+export default connector(StaffNewRecipe);

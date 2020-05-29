@@ -40,17 +40,15 @@ export function NewEquipmentView({
           <i> > </i>
         </span>
         <span>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/staff-dashboard">Dashboard</Link>
           <i> > </i>
         </span>
-        <span>Create New Private Equipment</span>
+        <span>{editing ? 'Edit Equipment' : 'Create New Equipment'}</span>
       </div>
 
       <div className={`new-equipment one-column-a ${oneColumnATheme}`}>
         
-        <h1>
-          {editing ? 'Edit Private Equipment' : 'Create New Private Equipment'}
-        </h1>
+        <h1>{editing ? 'Edit Equipment' : 'Create New Equipment'}</h1>
 
         <p className="new-equipment__feedback">{feedback}</p>
 
@@ -145,7 +143,7 @@ export function NewEquipmentView({
           <LoaderButton
             className="new-equipment__submit-button"
             name="submit"
-            id="create_new_private_user_equipment_button"
+            id="create_new_equipment_button"
             text="Create"
             loadingText="Creating..."
             isLoading={loading}

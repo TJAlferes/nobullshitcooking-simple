@@ -10,31 +10,30 @@ import { IIngredient, IIngredientType } from '../../../store/data/types';
 import {
   ICreatingIngredientInfo,
   IEditingIngredientInfo
-} from '../../../store/user/ingredient/types';
+} from '../../../store/staff/ingredient/types';
 import {
-  userCreateNewPrivateIngredient,
-  userEditPrivateIngredient
-} from '../../../store/user/ingredient/actions';
-import { NewIngredientView } from './NewIngredientView';
+  staffCreateNewIngredient,
+  staffEditIngredient
+} from '../../../store/staff/ingredient/actions';
+import { StaffNewIngredientView } from './NewIngredientView';
 
-export function NewIngredient({
-  childProps,
+export function StaffNewIngredient({
   oneColumnATheme,
+  editing,
   message,
   dataIngredientTypes,
-  dataMyPrivateIngredients,
-  userCreateNewPrivateIngredient,
-  userEditPrivateIngredient
+  dataIngredients,
+  staffCreateNewIngredient,
+  staffEditIngredient
 }: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ editing, setEditing ] = useState(false);
 
-  const [ editingId, setEditingId ] = useState<number>(0);
-  const [ ingredientTypeId, setIngredientTypeId ] = useState<number>(0);
+  const [ editingId, setEditingId ] = useState<number>(0);  // null?
+  const [ ingredientTypeId, setIngredientTypeId ] = useState<number>(0);  // null?
   const [ ingredientName, setIngredientName ] = useState("");
   const [ ingredientDescription, setIngredientDescription ] = useState("");
   const [
@@ -64,9 +63,8 @@ export function NewIngredient({
     const getExistingIngredientToEdit = () => {
       window.scrollTo(0,0);
       setLoading(true);
-      setEditing(true);
 
-      const [ prev ] = dataMyPrivateIngredients
+      const [ prev ] = dataIngredients
       .filter((ing) => ing.ingredient_id === Number(id));
 
       setEditingId(prev.ingredient_id);
@@ -76,7 +74,7 @@ export function NewIngredient({
       setPrevIngredientImage(prev.ingredient_image);
       setLoading(false);
     };
-    if (childProps && childProps.editing) getExistingIngredientToEdit();
+    if (editing) getExistingIngredientToEdit();
   }, []);
 
   useEffect(() => {
@@ -88,7 +86,7 @@ export function NewIngredient({
         message === "Ingredient created." ||
         message === "Ingredient updated."
       ) {
-        setTimeout(() => history.push('/dashboard'), 3000);
+        setTimeout(() => history.push('/staff-dashboard'), 3000);
       }
       setLoading(false);
     }
@@ -200,7 +198,7 @@ export function NewIngredient({
         tinyIngredientImage,
         prevIngredientImage
       };
-      userEditPrivateIngredient(ingredientInfo);
+      staffEditIngredient(ingredientInfo);
     } else {
       const ingredientInfo: ICreatingIngredientInfo = {
         ingredientTypeId,
@@ -210,12 +208,12 @@ export function NewIngredient({
         fullIngredientImage,
         tinyIngredientImage
       };
-      userCreateNewPrivateIngredient(ingredientInfo);
+      staffCreateNewIngredient(ingredientInfo);
     }
   };
 
   return (
-    <NewIngredientView
+    <StaffNewIngredientView
       oneColumnATheme={oneColumnATheme}
       feedback={feedback}
       loading={loading}
@@ -243,12 +241,12 @@ export function NewIngredient({
 };
 
 interface RootState {
-  user: {
+  staff: {
     message: string;
   };
   data: {
     ingredientTypes: IIngredientType[];
-    myPrivateIngredients: IIngredient[];
+    ingredients: IIngredient[];
   };
 }
 
@@ -256,22 +254,22 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   oneColumnATheme: string;
-  childProps: any;
+  editing: boolean;
 };
 
 const mapStateToProps = (state: RootState) => ({
-  message: state.user.message,
+  message: state.staff.message,
   dataIngredientTypes: state.data.ingredientTypes,
-  dataMyPrivateIngredients: state.data.myPrivateIngredients
+  dataIngredients: state.data.ingredients
 });
 
 const mapDispatchToProps = {
-  userCreateNewPrivateIngredient: (ingredientInfo: ICreatingIngredientInfo) =>
-    userCreateNewPrivateIngredient(ingredientInfo),
-  userEditPrivateIngredient: (ingredientInfo: IEditingIngredientInfo) =>
-    userEditPrivateIngredient(ingredientInfo)
+  staffCreateNewIngredient: (ingredientInfo: ICreatingIngredientInfo) =>
+    staffCreateNewIngredient(ingredientInfo),
+  staffEditIngredient: (ingredientInfo: IEditingIngredientInfo) =>
+    staffEditIngredient(ingredientInfo)
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(NewIngredient);
+export default connector(StaffNewIngredient);

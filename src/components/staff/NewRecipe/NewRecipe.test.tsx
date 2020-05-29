@@ -4,7 +4,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import { NewRecipe } from './NewRecipe';
+import { StaffNewRecipe } from './NewRecipe';
 
 const data = {
   recipe: {
@@ -91,16 +91,8 @@ const beginProps = {
     {method_id: 1, method_name: "Steam"},
     {method_id: 2, method_name: "Freeze"}
   ],
-  dataMyPublicRecipes: [],
-  dataMyPrivateEquipment: [],
-  dataMyPrivateIngredients: [],
-  dataMyPrivateRecipes: [],
-  dataMyFavoriteRecipes: [],
-  dataMySavedRecipes: [],
-  userCreateNewPrivateRecipe: jest.fn(),
-  userCreateNewPublicRecipe: jest.fn(),
-  userEditPrivateRecipe: jest.fn(),
-  userEditPublicRecipe: jest.fn()
+  staffCreateNewRecipe: jest.fn(),
+  staffEditRecipe: jest.fn()
 };
 
 window.scrollTo = jest.fn();
@@ -120,19 +112,19 @@ afterEach(() => {
 });
 
 // this needs more thorough tests
-describe('NewRecipe', () => {
+describe('StaffNewRecipe', () => {
 
   describe('when creating', () => {
 
     describe('when ownership is private', () => {
-      it('should not redirect to /dashboard if given no id', () => {
+      it('should not redirect to /staff-dashboard if given no id', () => {
         jest.mock('react-router-dom', () => {
           const originalModule = jest.requireActual('react-router-dom');
           return {...originalModule, useParams: () => ({})};
         });
         mount(
           <MemoryRouter>
-            <NewRecipe editing={false} ownership="private" {...beginProps} />
+            <StaffNewRecipe editing={false} {...beginProps} />
           </MemoryRouter>
         );
         expect(mockHistoryPush).not.toHaveBeenCalled();
@@ -140,14 +132,14 @@ describe('NewRecipe', () => {
     });
 
     describe('when ownership is public', () => {
-      it('should not redirect to /dashboard if given no id', () => {
+      it('should not redirect to /staff-dashboard if given no id', () => {
         jest.mock('react-router-dom', () => {
           const originalModule = jest.requireActual('react-router-dom');
           return {...originalModule, useParams: () => ({})};
         });
         mount(
           <MemoryRouter>
-            <NewRecipe editing={false} ownership="public" {...beginProps} />
+            <StaffNewRecipe editing={false} {...beginProps} />
           </MemoryRouter>
         );
         expect(mockHistoryPush).not.toHaveBeenCalled();
@@ -159,35 +151,35 @@ describe('NewRecipe', () => {
   describe('when editing', () => {
 
     describe('when ownership is private', () => {
-      it('should redirect to /dashboard if given no id', () => {
+      it('should redirect to /staff-dashboard if given no id', () => {
         jest.mock('react-router-dom', () => {
           const originalModule = jest.requireActual('react-router-dom');
           return {...originalModule, useParams: () => ({})};
         });
         mount(
           <MemoryRouter>
-            <NewRecipe editing={true} ownership="private" {...beginProps} />
+            <StaffNewRecipe editing={true} {...beginProps} />
           </MemoryRouter>
         );
-        expect(mockHistoryPush).toHaveBeenCalledWith("/dashboard");
+        expect(mockHistoryPush).toHaveBeenCalledWith("/staff-dashboard");
       });
     });
 
     describe('when ownership is public', () => {
-      it('should redirect to /dashboard if given no id', async () => {
+      it('should redirect to /staff-dashboard if given no id', async () => {
         jest.mock('react-router-dom', () => {
           const originalModule = jest.requireActual('react-router-dom');
           return {...originalModule, useParams: () => ({})};
         });
         const wrapper = mount(
           <MemoryRouter>
-            <NewRecipe editing={false} ownership="public" {...beginProps} />
+            <StaffNewRecipe editing={false} {...beginProps} />
           </MemoryRouter>
         );
         await act(async () => {
           Promise.resolve(() => {
             setImmediate(() => wrapper.update());
-            expect(mockHistoryPush).toHaveBeenCalledWith("/dashboard");
+            expect(mockHistoryPush).toHaveBeenCalledWith("/staff-dashboard");
           });
         });
       });

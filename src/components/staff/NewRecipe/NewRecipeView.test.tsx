@@ -1,13 +1,12 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import { LoaderButton } from '../../LoaderButton/LoaderButton';
 import { EquipmentRow } from './views/EquipmentRow/EquipmentRow';
 import { IngredientRow } from './views/IngredientRow/IngredientRow';
 //import { SubrecipeRow } from './views/SubrecipeRow/SubrecipeRow';
 import { ImageUploads } from './views/ImageUploads';
-import { NewRecipeView } from './NewRecipeView';
+import { StaffNewRecipeView } from './NewRecipeView';
 
 const beginProps = {
   id: 0,
@@ -15,8 +14,6 @@ const beginProps = {
   authname: "Person",
   feedback: "Some message.",
   loading: false,
-  editing: false,
-  ownership: "private",
   recipeTypeId: 1,
   cuisineId: 1,
   title: "Title",
@@ -65,6 +62,9 @@ const beginProps = {
     {recipe_type_id: 1, recipe_type_name: "Drink"},
     {recipe_type_id: 2, recipe_type_name: "Appetizer"}
   ],
+  dataRecipes: [
+
+  ],
   dataCuisines: [
     {cuisine_id: 1, cuisine_name: "American", cuisine_nation: "America"},
     {cuisine_id: 2, cuisine_name: "Japanese", cuisine_nation: "Japan"}
@@ -93,7 +93,6 @@ const beginProps = {
       equipment_image: "nobsc-metal-spatula"
     }
   ],
-  dataMyPrivateEquipment: [],
   dataMeasurements: [
     {measurement_id: 1, measurement_name: "teaspoon"},
     {measurement_id: 2, measurement_name: "Tablespoon"}
@@ -122,12 +121,6 @@ const beginProps = {
       ingredient_image: "nobsc-spinach"
     }
   ],
-  dataMyPrivateIngredients: [],
-  dataRecipes: [],
-  dataMyPrivateRecipes: [],
-  dataMyPublicRecipes: [],
-  dataMyFavoriteRecipes: [],
-  dataMySavedRecipes: [],
   recipeImage: null,
   recipeEquipmentImage: null,
   recipeIngredientsImage: null,
@@ -185,99 +178,34 @@ afterEach(() => {
 });
 
 // this needs more thorough tests
-describe('NewRecipeView', () => {
+describe('StaffNewRecipeView', () => {
 
   describe('when creating', () => {
-
-    describe('when ownership is private', () => {
-      const wrapper = shallow(<NewRecipeView {...beginProps} />);
-
-      it('displays a h1 element with text Submit New Private Recipe', () => {
-        expect(wrapper.find('h1').text()).toEqual("Submit New Private Recipe");
-      });
-
-      it('displays an input element with the following properties', () => {
-        const props = wrapper.find('input[name="private"]').props();
-        expect(props.type).toEqual("radio");
-        expect(props.checked).toEqual(true);
-        expect(props.value).toEqual("private");
-        expect(props.disabled).toEqual(true);
-      });
-  
-      it('displays another input element with the following properties', () => {
-        const props = wrapper.find('input[name="public"]').props();
-        expect(props.type).toEqual("radio");
-        expect(props.checked).toEqual(false);
-        expect(props.value).toEqual("public");
-        expect(props.disabled).toEqual(true);
-      });
-    });
-
-    describe('when ownership is public', () => {
-      const beginPropsCopy = {...beginProps};
-      beginPropsCopy.ownership = "public";
-      const wrapper = shallow(<NewRecipeView {...beginPropsCopy} />);
-
-      it('displays a h1 element with text Submit New Public Recipe', () => {
-        expect(wrapper.find('h1').text()).toEqual("Submit New Public Recipe");
-      });
-
-      it('displays an input element with the following properties', () => {
-        const props = wrapper.find('input[name="private"]').props();
-        expect(props.type).toEqual("radio");
-        expect(props.checked).toEqual(false);
-        expect(props.value).toEqual("private");
-        expect(props.disabled).toEqual(true);
-      });
-  
-      it('displays another input element with the following properties', () => {
-        const props = wrapper.find('input[name="public"]').props();
-        expect(props.type).toEqual("radio");
-        expect(props.checked).toEqual(true);
-        expect(props.value).toEqual("public");
-        expect(props.disabled).toEqual(true);
-      });
+    it('displays a h1 element with text Submit New Recipe', () => {
+      const wrapper = shallow(
+        <StaffNewRecipeView editing={false} {...beginProps} />
+      );
+      expect(wrapper.find('h1').text()).toEqual("Submit New Recipe");
     });
   });
 
   describe('when editing', () => {
-
-    describe('when ownership is private', () => {
-      it('displays a h1 element with text Edit Private Recipe', () => {
-        const props = {...beginProps};
-        props.editing = true;
-        const wrapper = shallow(<NewRecipeView {...props} />);
-        expect(wrapper.find('h1').text()).toEqual("Edit Private Recipe");
-      });
+    it('displays a h1 element with text Edit Recipe', () => {
+      const wrapper = shallow(
+        <StaffNewRecipeView editing={true} {...beginProps} />
+      );
+      expect(wrapper.find('h1').text()).toEqual("Edit Recipe");
     });
-
-    describe('when ownership is public', () => {
-      it('displays a h1 element with text Edit Public Recipe', () => {
-        const props = {...beginProps};
-        props.editing = true;
-        props.ownership = "public";
-        const wrapper = shallow(<NewRecipeView {...props} />);
-        expect(wrapper.find('h1').text()).toEqual("Edit Public Recipe");
-      });
-    });
-
   });
 
   describe('content', () => {
-    const wrapper = shallow(<NewRecipeView {...beginProps} />);
+    const wrapper = shallow(
+      <StaffNewRecipeView editing={false} {...beginProps} />
+    );
 
     it('displays feedback', () => {
       expect(wrapper.find('p.new-recipe-feedback').text())
       .toEqual("Some message.");
-    });
-
-    it('displays an ExpandCollapse component', () => {
-      expect(wrapper.find(ExpandCollapse)).toHaveLength(1);
-    });
-
-    it('displays a h2 element with text Ownership', () => {
-      expect(wrapper.find('[data-test="ownership-heading"]').text())
-      .toEqual("Ownership");
     });
 
     it('displays a h2 element with text Type Of Recipe', () => {
@@ -412,11 +340,11 @@ describe('NewRecipeView', () => {
   });
 
   describe('finish area', () => {
-    const wrapper = shallow(<NewRecipeView {...beginProps} />);
+    const wrapper = shallow(<StaffNewRecipeView editing={false} {...beginProps} />);
 
     it('displays a Link to /dashboard with text Cancel', () => {
       expect(wrapper.find('[data-test="cancel-link"]').props().to)
-      .toEqual("/dashboard");
+      .toEqual("/staff-dashboard");
       expect(wrapper.find('[data-test="cancel-link"]').props().children)
       .toEqual("Cancel");
     });

@@ -7,7 +7,7 @@ import { IIngredientType } from '../../../store/data/types';
 import { LoaderButton } from '../../LoaderButton/LoaderButton';
 import './newIngredient.css';
 
-export function NewIngredientView({
+export function StaffNewIngredientView({
   oneColumnATheme,
   feedback,
   loading,
@@ -40,17 +40,15 @@ export function NewIngredientView({
           <i> > </i>
         </span>
         <span>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/staff-dashboard">Dashboard</Link>
           <i> > </i>
         </span>
-        <span>Create New Private Ingredient</span>
+        <span>{editing ? 'Edit Ingredient' : 'Create New Ingredient'}</span>
       </div>
 
       <div className={`new-ingredient one-column-a ${oneColumnATheme}`}>
 
-        <h1>
-          {editing ? 'Edit Private Ingredient' : 'Create New Private Ingredient'}
-        </h1>
+        <h1>{editing ? 'Edit Ingredient' : 'Create New Ingredient'}</h1>
 
         <p className="new-ingredient__feedback">{feedback}</p>
 
@@ -145,7 +143,7 @@ export function NewIngredientView({
           <LoaderButton
             className="new-ingredient__submit-button"
             name="submit"
-            id="create_new_private_user_ingredient_button"
+            id="create_new_ingredient_button"
             text="Create"
             loadingText="Creating..."
             isLoading={loading}

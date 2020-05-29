@@ -25,7 +25,7 @@ import {
 } from './NewRecipe';
 import './newRecipe.css';
 
-export function NewRecipeView({
+export function StaffNewRecipeView({
   id,
   oneColumnATheme,
   authname,
