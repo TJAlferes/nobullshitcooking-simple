@@ -8,13 +8,14 @@ const beginProps = {
   oneColumnATheme: "one-column-a-light",
   feedback: "Some message.",
   loading: false,
-  ingredientTypeId: ,
+  ingredientTypeId: 1,
   ingredientName: "",
   ingredientDescription: "",
-  ingredientImage: ,
-  prevIngredientImage: ,
+  ingredientImage: null,
+  prevIngredientImage: "nobsc-ingredient-default",
   dataIngredientTypes: [
-
+    {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
+    {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
   ],
   handleIngredientTypeChange: jest.fn(),
   handleIngredientNameChange: jest.fn(),
@@ -91,7 +92,7 @@ describe('StaffNewIngredientView', () => {
       .toEqual("Image of Ingredient");
     });
 
-    //
+    // finish
 
     it('displays a Link to /staff-dashboard with text Cancel', () => {
       expect(wrapper.find('[data-test="cancel-link"]').props().to)

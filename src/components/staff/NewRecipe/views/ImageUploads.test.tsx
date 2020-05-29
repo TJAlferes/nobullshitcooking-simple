@@ -49,8 +49,11 @@ describe ('ImageUploads', () => {
   const wrapper = shallow(
     <ImageUploads editing={false} {...beginProps} />
   );
+
   it('displays a h2 element with text Image of Finished Recipe', () => {
     expect(wrapper.find('[data-test="image-heading"]').text())
     .toEqual("Image of Finished Recipe");
   });
+
+  // finish
 });

@@ -18,8 +18,8 @@ import {
 import { NewEquipmentView } from './NewEquipmentView';
 
 export function NewEquipment({
-  childProps,
   oneColumnATheme,
+  editing,
   message,
   dataEquipmentTypes,
   dataMyPrivateEquipment,
@@ -31,10 +31,9 @@ export function NewEquipment({
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ editing, setEditing ] = useState(false);
 
-  const [ editingId, setEditingId ] = useState<number>(0);
-  const [ equipmentTypeId, setEquipmentTypeId ] = useState<number>(0);
+  const [ editingId, setEditingId ] = useState<number>(0);  // null?
+  const [ equipmentTypeId, setEquipmentTypeId ] = useState<number>(0);  // null?
   const [ equipmentName, setEquipmentName ] = useState("");
   const [ equipmentDescription, setEquipmentDescription ] = useState("");
   const [
@@ -64,7 +63,6 @@ export function NewEquipment({
     const getExistingEquipmentToEdit = () => {
       window.scrollTo(0,0);
       setLoading(true);
-      setEditing(true);
 
       const [ prev ] = dataMyPrivateEquipment
       .filter((equ) => equ.equipment_id === Number(id));
@@ -76,7 +74,7 @@ export function NewEquipment({
       setPrevEquipmentImage(prev.equipment_image);
       setLoading(false);
     };
-    if (childProps && childProps.editing) getExistingEquipmentToEdit();
+    if (editing) getExistingEquipmentToEdit();
   }, []);
 
   useEffect(() => {
@@ -256,7 +254,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   oneColumnATheme: string;
-  childProps: any;
+  editing: boolean;
 };
 
 const mapStateToProps = (state: RootState) => ({

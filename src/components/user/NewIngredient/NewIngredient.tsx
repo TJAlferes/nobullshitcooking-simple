@@ -18,8 +18,8 @@ import {
 import { NewIngredientView } from './NewIngredientView';
 
 export function NewIngredient({
-  childProps,
   oneColumnATheme,
+  editing,
   message,
   dataIngredientTypes,
   dataMyPrivateIngredients,
@@ -31,7 +31,6 @@ export function NewIngredient({
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ editing, setEditing ] = useState(false);
 
   const [ editingId, setEditingId ] = useState<number>(0);
   const [ ingredientTypeId, setIngredientTypeId ] = useState<number>(0);
@@ -64,7 +63,6 @@ export function NewIngredient({
     const getExistingIngredientToEdit = () => {
       window.scrollTo(0,0);
       setLoading(true);
-      setEditing(true);
 
       const [ prev ] = dataMyPrivateIngredients
       .filter((ing) => ing.ingredient_id === Number(id));
@@ -76,7 +74,7 @@ export function NewIngredient({
       setPrevIngredientImage(prev.ingredient_image);
       setLoading(false);
     };
-    if (childProps && childProps.editing) getExistingIngredientToEdit();
+    if (editing) getExistingIngredientToEdit();
   }, []);
 
   useEffect(() => {
@@ -256,7 +254,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   oneColumnATheme: string;
-  childProps: any;
+  editing: boolean;
 };
 
 const mapStateToProps = (state: RootState) => ({

@@ -8,13 +8,14 @@ const beginProps = {
   oneColumnATheme: "one-column-a-light",
   feedback: "Some message.",
   loading: false,
-  equipmentTypeId: ,
+  equipmentTypeId: 1,
   equipmentName: "",
   equipmentDescription: "",
-  equipmentImage: ,
-  prevEquipmentImage: ,
+  equipmentImage: null,
+  prevEquipmentImage: "nobsc-equipment-default",
   dataEquipmentTypes: [
-
+    {equipment_type_id: 2, equipment_type_name: "Preparing"},
+    {equipment_type_id: 3, equipment_type_name: "Cooking"}
   ],
   handleEquipmentTypeChange: jest.fn(),
   handleEquipmentNameChange: jest.fn(),
@@ -91,7 +92,7 @@ describe('StaffNewEquipmentView', () => {
       .toEqual("Image of Equipment");
     });
 
-    //
+    // finish
 
     it('displays a Link to /staff-dashboard with text Cancel', () => {
       expect(wrapper.find('[data-test="cancel-link"]').props().to)
