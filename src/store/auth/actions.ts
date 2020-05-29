@@ -1,11 +1,11 @@
 import { History } from 'history';
 
 import {
-  AUTH_DISPLAY,
   AUTH_RESET,
   AUTH_CHECK_STATE,
   AUTH_MESSAGE_CLEAR,
   AUTH_UPDATE_LOCAL_AVATAR,
+  AUTH_USER_DISPLAY,
   AUTH_USER_REGISTER,
   AUTH_USER_REGISTER_SUCCEEDED,
   AUTH_USER_REGISTER_FAILED,
@@ -24,6 +24,7 @@ import {
   AUTH_USER_LOGOUT,
   AUTH_USER_LOGOUT_SUCCEEDED,
   AUTH_USER_LOGOUT_FAILED,
+  AUTH_STAFF_DISPLAY,
   AUTH_STAFF_LOGIN,
   AUTH_STAFF_LOGIN_SUCCEEDED,
   AUTH_STAFF_LOGIN_FAILED,
@@ -32,8 +33,14 @@ import {
   AUTH_STAFF_LOGOUT_FAILED
 } from './types';
 
-export const authDisplay = (authname: string, avatar: string) => ({
-  type: AUTH_DISPLAY,
+export const authStaffDisplay = (authname: string, avatar: string) => ({
+  type: AUTH_STAFF_DISPLAY,
+  authname,
+  avatar
+});
+
+export const authUserDisplay = (authname: string, avatar: string) => ({
+  type: AUTH_USER_DISPLAY,
   authname,
   avatar
 });

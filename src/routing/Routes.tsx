@@ -4,8 +4,10 @@ import { Switch } from 'react-router-dom';
 import { LoaderSpinner } from '../components/LoaderSpinner/LoaderSpinner';
 import { IContentType } from '../store/data/types';
 import AppliedRoute from './AppliedRoute';
-import AuthenticatedRoute from './AuthenticatedRoute';
-import UnauthenticatedRoute from './UnauthenticatedRoute';
+import AuthenticatedStaffRoute from './AuthenticatedStaffRoute';
+import AuthenticatedUserRoute from './AuthenticatedUserRoute';
+import UnauthenticatedStaffRoute from './UnauthenticatedStaffRoute';
+import UnauthenticatedUserRoute from './UnauthenticatedUserRoute';
 import { makeRoutesFromContentTypes } from './CMSNavigationRoutes';
 
 // staff routes
@@ -50,23 +52,45 @@ const Equipment = lazy(() => import('../components/Equipment/Equipment'));
 import { Home } from '../components/Home/Home';
 import { NotFound } from '../components/NotFound/NotFound';
 
-const authRoute = (
+const authStaffRoute = (
   path: string,
   component: any,
   childProps: any = null
 ) =>
-  <AuthenticatedRoute
+  <AuthenticatedStaffRoute
     path={path}
     component={component}
     childProps={childProps}
   />;
 
-const unauthRoute = (
+const authUserRoute = (
   path: string,
   component: any,
   childProps: any = null
 ) =>
-  <UnauthenticatedRoute
+  <AuthenticatedUserRoute
+    path={path}
+    component={component}
+    childProps={childProps}
+  />;
+
+const unauthStaffRoute = (
+  path: string,
+  component: any,
+  childProps: any = null
+) =>
+  <UnauthenticatedStaffRoute
+    path={path}
+    component={component}
+    childProps={childProps}
+  />;
+
+const unauthUserRoute = (
+  path: string,
+  component: any,
+  childProps: any = null
+) =>
+  <UnauthenticatedUserRoute
     path={path}
     component={component}
     childProps={childProps}
@@ -92,73 +116,73 @@ export function RoutesList({ contentTypes }: Props) {
       <Switch>
         {/* staff routes */}
 
-        {unauthRoute("/staff-login", StaffLogin)}
-        {authRoute("/staff-dashboard", StaffDashboard)}
-        {authRoute("/official-recipes/submit", StaffNewRecipe)}
-        {authRoute(
+        {unauthStaffRoute("/staff-login", StaffLogin)}
+        {authStaffRoute("/staff-dashboard", StaffDashboard)}
+        {authStaffRoute("/official-recipes/submit", StaffNewRecipe)}
+        {authStaffRoute(
           "/official-recipes/edit/:id",
           StaffNewRecipe,
           {editing: true}
         )}
-        {authRoute("/official-equipment/submit", StaffNewEquipment)}
-        {authRoute(
+        {authStaffRoute("/official-equipment/submit", StaffNewEquipment)}
+        {authStaffRoute(
           "/official-equipment/edit/:id",
           StaffNewEquipment,
           {editing: true}
         )}
-        {authRoute("/official-ingredients/submit", StaffNewIngredient)}
-        {authRoute(
+        {authStaffRoute("/official-ingredients/submit", StaffNewIngredient)}
+        {authStaffRoute(
           "/official-ingredients/edit/:id",
           StaffNewIngredient,
           {editing: true}
         )}
-        {authRoute("/staff-content/submit", NewContent, {editing: false})}
-        {authRoute("/staff-content/edit/:id", NewContent, {editing: true})}
-        {authRoute("/staff-content-categories", Categories)}
+        {authStaffRoute("/staff-content/submit", NewContent, {editing: false})}
+        {authStaffRoute("/staff-content/edit/:id", NewContent, {editing: true})}
+        {authStaffRoute("/staff-content-categories", Categories)}
 
         {/* user routes */}
 
-        {unauthRoute("/register", Register, {confirmingUser: false})}
-        {unauthRoute("/verify", Register, {confirmingUser: true})}
-        {unauthRoute("/login", Login)}
+        {unauthUserRoute("/register", Register, {confirmingUser: false})}
+        {unauthUserRoute("/verify", Register, {confirmingUser: true})}
+        {unauthUserRoute("/login", Login)}
         {appRoute("/profile/:username", Profile)}
-        {authRoute("/dashboard", Dashboard)}
-        {authRoute("/friends", Friends)}
-        {authRoute("/messenger", MessengerPage)}
-        {authRoute("/user-plan/edit/:id", NewPlanPage, {editing: true})}
-        {authRoute("/user-plan/submit", NewPlanPage)}
-        {authRoute("/user-plan/:id", PlanPage)}
-        {authRoute(
+        {authUserRoute("/dashboard", Dashboard)}
+        {authUserRoute("/friends", Friends)}
+        {authUserRoute("/messenger", MessengerPage)}
+        {authUserRoute("/user-plan/edit/:id", NewPlanPage, {editing: true})}
+        {authUserRoute("/user-plan/submit", NewPlanPage)}
+        {authUserRoute("/user-plan/:id", PlanPage)}
+        {authUserRoute(
           "/user-recipes/private/submit",
           NewRecipe,
           {editing: false, ownership: "private"}
         )}
-        {authRoute(
+        {authUserRoute(
           "/user-recipes/public/submit",
           NewRecipe,
           {editing: false, ownership: "public"}
         )}
-        {authRoute(
+        {authUserRoute(
           "/user-recipes/private/edit/:id",
           NewRecipe,
           {editing: true, ownership: "private"}
         )}
-        {authRoute(
+        {authUserRoute(
           "/user-recipes/public/edit/:id",
           NewRecipe,
           {editing: true, ownership: "public"}
         )}
-        {authRoute("/user-recipes/:id", Recipe)}
-        {authRoute("/user-equipment/submit", NewEquipment)}
-        {authRoute("/user-equipment/edit/:id", NewEquipment, {editing: true})}
-        {authRoute("/user-equipment/:id", Equipment)}
-        {authRoute("/user-ingredients/submit", NewIngredient)}
-        {authRoute(
+        {authUserRoute("/user-recipes/:id", Recipe)}
+        {authUserRoute("/user-equipment/submit", NewEquipment)}
+        {authUserRoute("/user-equipment/edit/:id", NewEquipment, {editing: true})}
+        {authUserRoute("/user-equipment/:id", Equipment)}
+        {authUserRoute("/user-ingredients/submit", NewIngredient)}
+        {authUserRoute(
           "/user-ingredients/edit/:id",
           NewIngredient,
           {editing: true}
         )}
-        {authRoute("/user-ingredients/:id", Ingredient)}
+        {authUserRoute("/user-ingredients/:id", Ingredient)}
 
         {/* general routes */}
 

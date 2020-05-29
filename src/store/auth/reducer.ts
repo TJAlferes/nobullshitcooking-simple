@@ -1,29 +1,34 @@
 import {
+  AUTH_STAFF_DISPLAY,
+  AUTH_STAFF_LOGIN_SUCCEEDED,
+  AUTH_STAFF_LOGIN_FAILED,
+  AUTH_STAFF_LOGOUT,
+  AUTH_STAFF_LOGOUT_SUCCEEDED,
+  AUTH_STAFF_LOGOUT_FAILED,
+
+  AUTH_USER_DISPLAY,
   AUTH_USER_LOGIN_SUCCEEDED,
   AUTH_USER_LOGIN_FAILED,
+  AUTH_USER_LOGOUT,
   AUTH_USER_LOGOUT_SUCCEEDED,
   AUTH_USER_LOGOUT_FAILED,
   AUTH_USER_REGISTER_SUCCEEDED,
   AUTH_USER_REGISTER_FAILED,
   AUTH_USER_VERIFY_SUCCEEDED,
   AUTH_USER_VERIFY_FAILED,
-  AUTH_STAFF_LOGIN_SUCCEEDED,
-  AUTH_STAFF_LOGIN_FAILED,
-  AUTH_STAFF_LOGOUT_SUCCEEDED,
-  AUTH_STAFF_LOGOUT_FAILED,
+
   AUTH_MESSAGE_CLEAR,
-  AUTH_DISPLAY,
-  AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_RESET,
-  AUTH_USER_LOGOUT,
-  AUTH_STAFF_LOGOUT,
+  AUTH_UPDATE_LOCAL_AVATAR,
+  
   IAuthState,
   AuthActions
 } from './types';
 
 const initialState: IAuthState = {
   message: '',
-  isAuthenticated: false,
+  staffIsAuthenticated: false,
+  userIsAuthenticated: false,
   authname: '',
   avatar: ''
 };
@@ -50,11 +55,20 @@ const authReducer = (
     case AUTH_MESSAGE_CLEAR:
       return {...state, ...{message: ''}};
 
-    case AUTH_DISPLAY:
+    case AUTH_STAFF_DISPLAY:
       return {
         ...state,
         ...{
-          isAuthenticated: true,
+          staffIsAuthenticated: true,
+          authname: action.authname,
+          avatar: action.avatar
+        }
+      };
+    case AUTH_USER_DISPLAY:
+      return {
+        ...state,
+        ...{
+          userIsAuthenticated: true,
           authname: action.authname,
           avatar: action.avatar
         }

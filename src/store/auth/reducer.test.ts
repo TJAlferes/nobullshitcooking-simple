@@ -1,26 +1,28 @@
 import {
+  AUTH_USER_DISPLAY,
   AUTH_USER_REGISTER_SUCCEEDED,
   AUTH_USER_REGISTER_FAILED,
   AUTH_USER_LOGIN_SUCCEEDED,
   AUTH_USER_LOGIN_FAILED,
+  AUTH_USER_LOGOUT,
   AUTH_USER_LOGOUT_SUCCEEDED,
   AUTH_USER_LOGOUT_FAILED,
+  AUTH_STAFF_DISPLAY,
   AUTH_STAFF_LOGIN_SUCCEEDED,
   AUTH_STAFF_LOGIN_FAILED,
+  AUTH_STAFF_LOGOUT,
   AUTH_STAFF_LOGOUT_SUCCEEDED,
   AUTH_STAFF_LOGOUT_FAILED,
   AUTH_MESSAGE_CLEAR,
-  AUTH_DISPLAY,
-  AUTH_UPDATE_LOCAL_AVATAR,
   AUTH_RESET,
-  AUTH_USER_LOGOUT,
-  AUTH_STAFF_LOGOUT
+  AUTH_UPDATE_LOCAL_AVATAR
 } from './types';
 import authReducer from './reducer';
 
 const initialState = {
   message: '',
-  isAuthenticated: false,
+  staffIsAuthenticated: false,
+  userIsAuthenticated: false,
   authname: '',
   avatar: ''
 };
@@ -28,7 +30,8 @@ const initialState = {
 // move
 const beforeState = {
   message: '',
-  isAuthenticated: true,
+  staffIsAuthenticated: false,
+  userIsAuthenticated: true,
   authname: 'Spongebob',
   avatar: 'Spongebob'
 };
@@ -41,7 +44,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Registration successful.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -55,7 +59,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Registration successful.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -69,7 +74,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Registration failed.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -83,7 +89,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Login successful.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -97,7 +104,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Login failed.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -111,7 +119,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Logout successful.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -125,7 +134,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Logout failed.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -139,7 +149,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Login successful.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -153,7 +164,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Login failed.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -167,7 +179,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Logout successful.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -181,7 +194,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: 'Logout failed.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
@@ -191,28 +205,31 @@ describe('the auth reducer', () => {
   it('handles actions of type AUTH_MESSAGE_CLEAR', () => {
     const actual = authReducer({
       message: 'Incorrect email or password.',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     }, {type: AUTH_MESSAGE_CLEAR});
     const expected = {
       message: '',
-      isAuthenticated: false,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: false,
       authname: '',
       avatar: ''
     };
     expect(actual).toEqual(expected);
   });
 
-  it('handles actions of type AUTH_DISPLAY', () => {
+  it('handles actions of type AUTH_USER_DISPLAY', () => {
     const actual = authReducer(initialState, {
-      type: AUTH_DISPLAY,
+      type: AUTH_USER_DISPLAY,
       authname: 'Squidward',
       avatar: 'Squidward-123123123'
     });
     const expected = {
       message: '',
-      isAuthenticated: true,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: true,
       authname: 'Squidward',
       avatar: 'Squidward-123123123'
     };
@@ -226,7 +243,8 @@ describe('the auth reducer', () => {
     });
     const expected = {
       message: '',
-      isAuthenticated: true,
+      staffIsAuthenticated: false,
+      userIsAuthenticated: true,
       authname: 'Spongebob',
       avatar: 'Squidward-456456456'
     };

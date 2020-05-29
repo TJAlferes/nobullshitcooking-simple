@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
-export function UnauthenticatedRoute({
-  isAuthenticated,
+export function UnauthenticatedUserRoute({
+  userIsAuthenticated,
   path,
   component: Component,
   childProps,
@@ -15,7 +15,7 @@ export function UnauthenticatedRoute({
       path={path}
       {...rest}
       render={props =>
-        !isAuthenticated
+        !userIsAuthenticated
         ? <Component {...props} {...childProps} {...rest} />
         : <Redirect to='/' />
       }
@@ -25,7 +25,7 @@ export function UnauthenticatedRoute({
 
 interface RootState {
   auth: {
-    isAuthenticated: boolean;
+    userIsAuthenticated: boolean;
   };
   theme: {
     breadCrumbsTheme: string;
@@ -46,7 +46,7 @@ type Props = PropsFromRedux & {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  userIsAuthenticated: state.auth.userIsAuthenticated,
   breadCrumbsTheme: state.theme.breadCrumbsTheme,
   navGridATheme: state.theme.navGridATheme,
   oneColumnATheme: state.theme.oneColumnATheme,
@@ -57,4 +57,4 @@ const mapStateToProps = (state: RootState) => ({
 
 const connector = connect(mapStateToProps, {});
 
-export default connector(UnauthenticatedRoute);
+export default connector(UnauthenticatedUserRoute);

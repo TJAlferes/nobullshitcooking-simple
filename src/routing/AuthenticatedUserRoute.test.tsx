@@ -2,7 +2,7 @@ import { mount } from 'enzyme';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { AuthenticatedRoute } from './AuthenticatedRoute';
+import { AuthenticatedUserRoute } from './AuthenticatedUserRoute';
 
 const ExampleComponent = ({ someProp }: any): JSX.Element =>
   <div className="test-example">{someProp}</div>;
@@ -19,11 +19,11 @@ const initialProps = {
   tableATheme: "light"
 };
 
-describe('AuthenticatedRoute', () => {
+describe('AuthenticatedUserRoute', () => {
   it('should not render component if user is not authenticated', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={["/example"]}>
-        <AuthenticatedRoute isAuthenticated={false} {...initialProps} />
+        <AuthenticatedUserRoute userIsAuthenticated={false} {...initialProps} />
       </MemoryRouter>
     );
     expect(wrapper.find('.test-example')).toHaveLength(0);
@@ -32,7 +32,7 @@ describe('AuthenticatedRoute', () => {
   it('should render component if user is authenticated', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={["/example"]}>
-        <AuthenticatedRoute isAuthenticated={true} {...initialProps} />
+        <AuthenticatedUserRoute userIsAuthenticated={true} {...initialProps} />
       </MemoryRouter>
     );
     expect(wrapper.find('.test-example')).toHaveLength(1);
@@ -41,7 +41,7 @@ describe('AuthenticatedRoute', () => {
   it('should pass down childProps', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={["/example"]}>
-        <AuthenticatedRoute isAuthenticated={true} {...initialProps} />
+        <AuthenticatedUserRoute userIsAuthenticated={true} {...initialProps} />
       </MemoryRouter>
     );
     expect(wrapper.find('.test-example').text()).toEqual("Some text.");

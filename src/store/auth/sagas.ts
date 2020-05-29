@@ -7,7 +7,7 @@ import {
 import { removeStorageItem } from '../../utils/storageHelpers';
 import {
   authMessageClear,
-  authDisplay,
+  authUserDisplay,
   authUserRegisterSucceeded,
   authUserRegisterFailed,
   authUserVerifySucceeded,
@@ -22,6 +22,7 @@ import {
   authUserLoginFailed,
   authUserLogoutSucceeded,
   authUserLogoutFailed,
+  authStaffDisplay,
   authStaffLoginSucceeded,
   authStaffLoginFailed,
   authStaffLogoutSucceeded,
@@ -110,7 +111,7 @@ export function* authUserLoginSaga(action: IAuthUserLogin) {
       {withCredentials: true}
     );
     if (res.data.message == 'Signed in.') {
-      yield put(authDisplay(res.data.username, res.data.avatar));
+      yield put(authUserDisplay(res.data.username, res.data.avatar));
       yield put(authUserLoginSucceeded(res.data.message));
     } else {
       yield put(authUserLoginFailed(res.data.message));
@@ -198,7 +199,7 @@ export function* authStaffLoginSaga(action: IAuthStaffLogin) {
       {withCredentials: true}
     );
     if (res.data.message == 'Signed in.') {
-      yield put(authDisplay(res.data.staffname, res.data.avatar));
+      yield put(authStaffDisplay(res.data.staffname, res.data.avatar));
       yield put(authStaffLoginSucceeded(res.data.message));
     } else {
       yield put(authStaffLoginFailed(res.data.message));

@@ -12,9 +12,9 @@ import {
 import { removeStorageItem } from '../../utils/storageHelpers';
 import {
   authMessageClear,
-  authDisplay,
   //authCheckState,
   //authReset,
+  authUserDisplay,
   authUserLoginSucceeded,
   authUserLoginFailed,
   authUserLogoutSucceeded,
@@ -23,6 +23,7 @@ import {
   authUserRegisterFailed,
   authUserVerifySucceeded,
   authUserVerifyFailed,
+  authStaffDisplay,
   authStaffLoginSucceeded,
   authStaffLoginFailed,
   authStaffLogoutSucceeded,
@@ -298,7 +299,7 @@ describe('the authUserLoginSaga', () => {
     ));
 
     expect(iterator.next(res).value)
-    .toEqual(put(authDisplay(res.data.username, res.data.avatar)));
+    .toEqual(put(authUserDisplay(res.data.username, res.data.avatar)));
 
     expect(iterator.next(res).value)
     .toEqual(put(authUserLoginSucceeded(res.data.message)));
@@ -443,7 +444,7 @@ describe('the authStaffLoginSaga', () => {
     ));
 
     expect(iterator.next(res).value)
-    .toEqual(put(authDisplay(res.data.staffname, res.data.avatar)));
+    .toEqual(put(authStaffDisplay(res.data.staffname, res.data.avatar)));
 
     expect(iterator.next(res).value)
     .toEqual(put(authStaffLoginSucceeded(res.data.message)));
