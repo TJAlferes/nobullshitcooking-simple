@@ -48,7 +48,12 @@ export function ImageUploads({
     <div className="new-recipe-section-images">
 
       <div className="new-recipe-section-recipe-image">
-        <h2 className="new-recipe-heading-two">Image of Finished Recipe</h2>
+        <h2
+          className="new-recipe-heading-two"
+          data-test="image-heading"
+        >
+          Image of Finished Recipe
+        </h2>
         {!recipeImage && (
           <div>
             {

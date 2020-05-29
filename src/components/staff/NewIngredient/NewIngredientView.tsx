@@ -52,37 +52,62 @@ export function StaffNewIngredientView({
 
         <p className="new-ingredient__feedback">{feedback}</p>
 
-        <h2 className="new-ingredient__heading-two">Type of Ingredient</h2>
+        <h2
+          className="new-ingredient__heading-two"
+          data-test="ingredient-type-heading"
+        >
+          Type of Ingredient
+        </h2>
         <select
+          name="ingredientType"
+          id="ingredient_type_id"
           required
           onChange={handleIngredientTypeChange}
           value={ingredientTypeId}
         >
           <option value=""></option>
           {dataIngredientTypes.map((type: IIngredientType) => (
-            <option key={type.ingredient_type_id} value={type.ingredient_type_id}>
+            <option
+              key={type.ingredient_type_id}
+              value={type.ingredient_type_id}
+              data-test={type.ingredient_type_name}
+            >
               {type.ingredient_type_name}
             </option>
           ))}
         </select>
 
-        <h2 className="new-ingredient__heading-two">Name</h2>
+        <h2 className="new-ingredient__heading-two" data-test="name-heading">
+          Name
+        </h2>
         <input
           className="new-ingredient__name"
+          name="name"
           type="text"
           onChange={handleIngredientNameChange}
           value={ingredientName}
         />
 
-        <h2 className="new-ingredient__heading-two">Description</h2>
+        <h2
+          className="new-ingredient__heading-two"
+          data-test="description-heading"
+        >
+          Description
+        </h2>
         <textarea
           className="new-ingredient__description"
+          name="description"
           onChange={handleIngredientDescriptionChange}
           value={ingredientDescription}
         />
 
         <div className="new-ingredient__image">
-          <h2 className="new-ingredient__heading-two">Image of Ingredient</h2>
+          <h2
+            className="new-ingredient__heading-two"
+            data-test="image-heading"
+          >
+            Image of Ingredient
+          </h2>
           {!ingredientImage && (
             <div>
               {
@@ -136,7 +161,7 @@ export function StaffNewIngredientView({
         <div className="new-ingredient__finish-area">
           <Link
             className="new-ingredient__cancel-button"
-            to="/dashboard"
+            to="/staff-dashboard"
           >
             Cancel
           </Link>

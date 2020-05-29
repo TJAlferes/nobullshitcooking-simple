@@ -15,7 +15,7 @@ import {
   staffCreateNewEquipment,
   staffEditEquipment
 } from '../../../store/staff/equipment/actions';
-import { NewEquipmentView } from './NewEquipmentView';
+import { StaffNewEquipmentView } from './NewEquipmentView';
 
 export function StaffNewEquipment({
   oneColumnATheme,
@@ -213,7 +213,7 @@ export function StaffNewEquipment({
   };
   
   return (
-    <NewEquipmentView
+    <StaffNewEquipmentView
       oneColumnATheme={oneColumnATheme}
       feedback={feedback}
       loading={loading}

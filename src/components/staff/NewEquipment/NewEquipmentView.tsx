@@ -7,7 +7,7 @@ import { IEquipmentType } from '../../../store/data/types';
 import { LoaderButton } from '../../LoaderButton/LoaderButton';
 import './newEquipment.css';
 
-export function NewEquipmentView({
+export function StaffNewEquipmentView({
   oneColumnATheme,
   feedback,
   loading,
@@ -52,37 +52,62 @@ export function NewEquipmentView({
 
         <p className="new-equipment__feedback">{feedback}</p>
 
-        <h2 className="new-equipment__heading-two">Type of Equipment</h2>
+        <h2
+          className="new-equipment__heading-two"
+          data-test="equipment-type-heading"
+        >
+          Type of Equipment
+        </h2>
         <select
+          name="equipmentType"
+          id="equipment_type_id"
           required
           onChange={handleEquipmentTypeChange}
           value={equipmentTypeId}
         >
           <option value=""></option>
           {dataEquipmentTypes.map((type: IEquipmentType) => (
-            <option key={type.equipment_type_id} value={type.equipment_type_id}>
+            <option
+              key={type.equipment_type_id}
+              value={type.equipment_type_id}
+              data-test={type.equipment_type_name}
+            >
               {type.equipment_type_name}
             </option>
           ))}
         </select>
 
-        <h2 className="new-equipment__heading-two">Name</h2>
+        <h2 className="new-equipment__heading-two" data-test="name-heading">
+          Name
+        </h2>
         <input
           className="new-equipment__name"
+          name="name"
           type="text"
           onChange={handleEquipmentNameChange}
           value={equipmentName}
         />
 
-        <h2 className="new-equipment__heading-two">Description</h2>
+        <h2
+          className="new-equipment__heading-two"
+          data-test="description-heading"
+        >
+          Description
+        </h2>
         <textarea
           className="new-equipment__description"
+          name="description"
           onChange={handleEquipmentDescriptionChange}
           value={equipmentDescription}
         />
 
         <div className="new-equipment__image">
-          <h2 className="new-equipment__heading-two">Image of Equipment</h2>
+          <h2
+            className="new-equipment__heading-two"
+            data-test="image-heading"
+          >
+            Image of Equipment
+          </h2>
           {!equipmentImage && (
             <div>
               {
@@ -136,7 +161,7 @@ export function NewEquipmentView({
         <div className="new-equipment__finish-area">
           <Link
             className="new-equipment__cancel-button"
-            to="/dashboard"
+            to="/staff-dashboard"
           >
             Cancel
           </Link>

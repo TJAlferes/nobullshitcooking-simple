@@ -9,7 +9,7 @@ import { ImageUploads } from './views/ImageUploads';
 import { StaffNewRecipeView } from './NewRecipeView';
 
 const beginProps = {
-  id: 0,
+  id: 0,  // ???
   oneColumnATheme: "one-column-a-light",
   authname: "Person",
   feedback: "Some message.",
@@ -340,7 +340,9 @@ describe('StaffNewRecipeView', () => {
   });
 
   describe('finish area', () => {
-    const wrapper = shallow(<StaffNewRecipeView editing={false} {...beginProps} />);
+    const wrapper = shallow(
+      <StaffNewRecipeView editing={false} {...beginProps} />
+    );
 
     it('displays a Link to /dashboard with text Cancel', () => {
       expect(wrapper.find('[data-test="cancel-link"]').props().to)

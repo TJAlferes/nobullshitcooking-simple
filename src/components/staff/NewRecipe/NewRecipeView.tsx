@@ -402,7 +402,7 @@ export function StaffNewRecipeView({
           <Link
             className="new-recipe-cancel-button"
             data-test="cancel-link"
-            to="/dashboard"
+            to="/staff-dashboard"
           >
             Cancel
           </Link>
