@@ -35,16 +35,16 @@ export default function NavigationView({
 //.png
 
 interface Props {
-  oneColumnATheme: string
-  navGridATheme: string
-  dataNavItems: IDataNavItem[]
+  oneColumnATheme: string;
+  navGridATheme: string;
+  dataNavItems: IDataNavItem[];
 }
 
 interface IDataNavItem {
-  category: string
-  path: string
-  title: string
-  image: string
+  category: string;
+  path: string;
+  title: string;
+  image: string;
 }
 
 const dataNavItems = [

@@ -1,8 +1,14 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 const nop = () => {};
 
-const Star = ({ full, index, readOnly, setOverride, setRating }) => {
+export function Star({
+  full,
+  index,
+  readOnly,
+  setOverride,
+  setRating
+}: Props): JSX.Element {
   const [ down, setDown ] = useState(false);
 
   const handleMouseDown = useCallback(() => {
@@ -52,6 +58,12 @@ const Star = ({ full, index, readOnly, setOverride, setRating }) => {
       </g>
     </svg>
   );
-};
+}
 
-export default Star;
+type Props = {
+  full: boolean;
+  index: number;
+  readOnly: boolean;
+  setOverride(index: number|null): void; // change
+  setRating(index: number): void; // change
+};

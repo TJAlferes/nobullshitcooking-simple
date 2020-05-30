@@ -3,43 +3,46 @@ import React from 'react';
 
 import { EquipmentView } from './EquipmentView';
 
-const dataMyPrivateEquipment = [
-  {
-    equipment_id: 600,
-    owner_id: 88,
-    equipment_type_id: 3,
-    equipment_name: "My Spatula",
-    equipment_type_name: "Cooking",
-    equipment_description: "Some note.",
-    equipment_image: "0123456789"
-  },
-  {
-    equipment_id: 605,
-    owner_id: 88,
-    equipment_type_id: 2,
-    equipment_name: "My Cutting Board",
-    equipment_type_name: "Preparing",
-    equipment_description: "Some note.",
-    equipment_image: "0123456790"
-  }
-];
+const initialProps = {
+  breadCrumbsTheme: "light",
+  twoColumnBTheme: "light",
+  dataMyPrivateEquipment: [
+    {
+      equipment_id: 600,
+      owner_id: 88,
+      equipment_type_id: 3,
+      equipment_name: "My Spatula",
+      equipment_type_name: "Cooking",
+      equipment_description: "Some note.",
+      equipment_image: "0123456789"
+    },
+    {
+      equipment_id: 605,
+      owner_id: 88,
+      equipment_type_id: 2,
+      equipment_name: "My Cutting Board",
+      equipment_type_name: "Preparing",
+      equipment_description: "Some note.",
+      equipment_image: "0123456790"
+    }
+  ]
+};
+const equipment = {
+  equipment_id: 1,
+  owner_id: 1,
+  equipment_type_id: 2,
+  equipment_name: "Cutting Board",
+  equipment_type_name: "Preparing",
+  equipment_description: "Some note.",
+  equipment_image: "nobsc-cutting-board"
+};
 
 describe('EquipmentView', () => {
   it('displays a private user equipment', () => {
     const wrapper = shallow(
       <EquipmentView
-        breadCrumbsTheme="light"
-        twoColumnBTheme="light"
-        equipment={{
-          equipment_id: 600,
-          owner_id: 88,
-          equipment_type_id: 3,
-          equipment_name: "My Spatula",
-          equipment_type_name: "Cooking",
-          equipment_description: "Some note.",
-          equipment_image: "0123456789"
-        }}
-        dataMyPrivateEquipment={dataMyPrivateEquipment}
+        equipment={initialProps.dataMyPrivateEquipment[0]}
+        {...initialProps}
       />
     );
     expect(wrapper.find(
@@ -52,20 +55,7 @@ describe('EquipmentView', () => {
 
   it('displays a public official equipment', () => {
     const wrapper = shallow(
-      <EquipmentView
-        breadCrumbsTheme="light"
-        twoColumnBTheme="light"
-        equipment={{
-          equipment_id: 1,
-          owner_id: 1,
-          equipment_type_id: 2,
-          equipment_name: "Cutting Board",
-          equipment_type_name: "Preparing",
-          equipment_description: "Some note.",
-          equipment_image: "nobsc-cutting-board"
-        }}
-        dataMyPrivateEquipment={dataMyPrivateEquipment}
-      />
+      <EquipmentView equipment={equipment} {...initialProps} />
     );
     expect(wrapper.find(
       'img[src="https://s3.amazonaws.com/nobsc-user-equipment/nobsc-cutting-board"]'

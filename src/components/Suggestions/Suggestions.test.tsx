@@ -1,4 +1,4 @@
-import Suggestions from './Suggestions';
+import { Suggestions } from './Suggestions';
 
 describe('Suggestions', () => {
   it('needs testing', () => {

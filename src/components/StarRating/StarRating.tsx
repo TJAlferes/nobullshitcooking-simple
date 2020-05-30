@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 
-import Star from './Star';
+import { Star } from './Star';
 import './starRating.css';
 
-const StarRating = ({ onChange, rating, readOnly = false }) => {
-  const [ override, setOverride ] = useState(null);
+export function StarRating ({
+  onChange,
+  rating,
+  readOnly = false
+}: Props): JSX.Element {
+  const [ override, setOverride ] = useState<number|null>(null);
+
   return (
-    <span className="star_rating">
+    <span className="star-rating">
       {[1, 2, 3, 4, 5].map(i =>
         <Star
           key={i}
@@ -19,6 +24,10 @@ const StarRating = ({ onChange, rating, readOnly = false }) => {
       )}
     </span>
   );
-};
+}
 
-export default StarRating;
+type Props = {
+  onChange(): void;  // change
+  rating: number;
+  readOnly: boolean;
+};

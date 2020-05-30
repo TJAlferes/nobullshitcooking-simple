@@ -1,4 +1,4 @@
-import SuggestionsView from './SuggestionsView';
+import { SuggestionsView } from './SuggestionsView';
 
 describe('what needs testing', () => {
   it('needs testing', () => {

@@ -10,7 +10,6 @@ describe('LoaderButton component', () => {
     const wrapper = shallow(
       <LoaderButton
         className="something"
-        type="submit"
         name="something"
         id="something"
         text="Some Text"
@@ -27,7 +26,6 @@ describe('LoaderButton component', () => {
     const wrapper = shallow(
       <LoaderButton
         className="something"
-        type="submit"
         name="something"
         id="something"
         text="Some Text"
@@ -44,7 +42,6 @@ describe('LoaderButton component', () => {
     const wrapper = shallow(
       <LoaderButton
         className="something"
-        type="submit"
         name="something"
         id="something"
         text="Some Text"
