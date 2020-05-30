@@ -5,9 +5,9 @@ import axios from 'axios';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../../../config/NOBSCBackendAPIEndpointOne';
-import { ICuisine } from '../../../../store/data/types';
-import { LoaderSpinner } from '../../../LoaderSpinner/LoaderSpinner';
+} from '../../config/NOBSCBackendAPIEndpointOne';
+import { ICuisine } from '../../store/data/types';
+import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { CuisineView } from './CuisineView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;

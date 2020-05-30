@@ -4,8 +4,8 @@ import axios from 'axios';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
-import { LoaderSpinner } from '../../LoaderSpinner/LoaderSpinner';
+} from '../../config/NOBSCBackendAPIEndpointOne';
+import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { ContentView, IContentItem } from './ContentView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;

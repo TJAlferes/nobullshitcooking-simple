@@ -2,26 +2,29 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { ICuisine } from '../../../../store/data/types';
+import { ICuisine } from '../../store/data/types';
 import './cuisines.css';
 
-export function Cuisines({ oneColumnATheme, dataCuisines }: Props): JSX.Element {
-  const alphabetized = dataCuisines.reduce((acc, cuisine) => {
+export function Cuisines({
+  oneColumnATheme,
+  dataCuisines
+}: Props): JSX.Element {
+  const alphabetizedCuisines = dataCuisines
+  .reduce((acc: AlphabetizedCuisines, cuisine) => {
     const firstLetter = cuisine['cuisine_nation'][0].toLocaleUpperCase();
     if (acc[firstLetter]) acc[firstLetter].push(cuisine['cuisine_nation']);
     else acc[firstLetter] = [cuisine['cuisine_nation']];
     return acc;
   }, {});
-
-  const letters = Object.keys(alphabetized);
-  const nations = Object.values(alphabetized).map(val => String(val));
+  const letters = Object.keys(alphabetizedCuisines);
+  const nations: any[] = Object.values(alphabetizedCuisines);
   let i = 0;
 
   return (
     <div className={`cuisines one-column-a ${oneColumnATheme}`}>
       <h1 className="cuisine-nav-title">Cuisines</h1>
 
-      {letters.length && nations.length && letters.map((letter, index) => (
+      {letters.length && letters.map((letter, index) => (
         <div className="cuisine-nav-group" key={letter}>
           <div className="cuisine-nav-letter">{letter}</div>
           {nations[index].map((nation: string) => {
@@ -53,6 +56,10 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   oneColumnATheme: string
+};
+
+type AlphabetizedCuisines = {
+  [index: string]: any;
 };
 
 const mapStateToProps = (state: RootState) => ({

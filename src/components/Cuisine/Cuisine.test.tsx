@@ -4,7 +4,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import { ICuisine } from '../../../../store/data/types';
+import { ICuisine } from '../../store/data/types';
 import { Cuisine } from './Cuisine';
 import { CuisineView } from './CuisineView';
 
