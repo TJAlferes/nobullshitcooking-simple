@@ -37,29 +37,27 @@ const handleFriendRejectClick = jest.fn();
 const handleFriendDeleteClick = jest.fn();
 const handleUserBlockClick = jest.fn();
 const handleUserUnblockClick = jest.fn();
+const initialProps = {
+  twoColumnATheme: "light",
+  feedback: "Some message.",
+  loading: false,
+  dataMyFriendships: myFriendships,
+  userToFind: "Person2",
+  handleTabChange,
+  handleFindUserInputChange,
+  handleFriendRequestClick,
+  handleFriendAcceptClick,
+  handleFriendRejectClick,
+  handleFriendDeleteClick,
+  handleUserBlockClick,
+  handleUserUnblockClick
+};
 
-let wrapper: ShallowWrapper;
+/*let wrapper: ShallowWrapper;
 
 beforeEach(() => {
-  wrapper = shallow(
-    <FriendsView
-      twoColumnATheme="light"
-      feedback="Some message."
-      loading={false}
-      dataMyFriendships={myFriendships}
-      userToFind="Person2"
-      tab="accepted"
-      handleTabChange={handleTabChange}
-      handleFindUserInputChange={handleFindUserInputChange}
-      handleFriendRequestClick={handleFriendRequestClick}
-      handleFriendAcceptClick={handleFriendAcceptClick}
-      handleFriendRejectClick={handleFriendRejectClick}
-      handleFriendDeleteClick={handleFriendDeleteClick}
-      handleUserBlockClick={handleUserBlockClick}
-      handleUserUnblockClick={handleUserUnblockClick}
-    />
-  );
-});
+  wrapper = shallow(<FriendsView tab="accepted" {...initialProps} />);
+});*/
 
 afterEach(() => {
   //jest.resetModules();
@@ -67,6 +65,8 @@ afterEach(() => {
 });
 
 describe('FriendsView', () => {
+  const wrapper = shallow(<FriendsView tab="accepted" {...initialProps} />);
+
   it('displays feedback', () => {
     expect(wrapper.find('p.friends-feedback').text()).toEqual("Some message.");
   });
@@ -103,52 +103,24 @@ describe('FriendsView', () => {
   it('displays an unfriend button element for each accepted friend', () => {
     expect(wrapper.find('button[name="unfriend"]')).toHaveLength(2);
   });
+});
 
+describe('when on Pending tab', () => {
   it(
     'displays accept and reject button elements for each pending friend',
     () => {
-      wrapper = shallow(
-        <FriendsView
-          twoColumnATheme="light"
-          feedback="Some message."
-          loading={false}
-          dataMyFriendships={myFriendships}
-          userToFind="Person2"
-          tab="pending-received"
-          handleTabChange={handleTabChange}
-          handleFindUserInputChange={handleFindUserInputChange}
-          handleFriendRequestClick={handleFriendRequestClick}
-          handleFriendAcceptClick={handleFriendAcceptClick}
-          handleFriendRejectClick={handleFriendRejectClick}
-          handleFriendDeleteClick={handleFriendDeleteClick}
-          handleUserBlockClick={handleUserBlockClick}
-          handleUserUnblockClick={handleUserUnblockClick}
-        />
+      const wrapper = shallow(
+        <FriendsView tab="pending-received" {...initialProps} />
       );
       expect(wrapper.find('button[name="accept"]')).toHaveLength(1);
       expect(wrapper.find('button[name="reject"]')).toHaveLength(1);
     }
   );
-  
+});
+
+describe('when on Blocked tab', () => {
   it('displays an unblock button element for each blocked user', () => {
-    wrapper = shallow(
-      <FriendsView
-        twoColumnATheme="light"
-        feedback="Some message."
-        loading={false}
-        dataMyFriendships={myFriendships}
-        userToFind="Person2"
-        tab="blocked"
-        handleTabChange={handleTabChange}
-        handleFindUserInputChange={handleFindUserInputChange}
-        handleFriendRequestClick={handleFriendRequestClick}
-        handleFriendAcceptClick={handleFriendAcceptClick}
-        handleFriendRejectClick={handleFriendRejectClick}
-        handleFriendDeleteClick={handleFriendDeleteClick}
-        handleUserBlockClick={handleUserBlockClick}
-        handleUserUnblockClick={handleUserUnblockClick}
-      />
-    );
+    const wrapper = shallow(<FriendsView tab="blocked" {...initialProps} />);
     expect(wrapper.find('button[name="unblock"]')).toHaveLength(1);
   });
 });

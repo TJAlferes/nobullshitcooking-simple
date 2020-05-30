@@ -304,7 +304,7 @@ interface RootState {
   };
   planner: {
     creating: boolean;
-    editingId: number;
+    editingId: number|null;
   };
 }
 

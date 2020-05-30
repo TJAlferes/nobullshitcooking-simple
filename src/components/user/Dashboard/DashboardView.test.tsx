@@ -1,6 +1,9 @@
-import DashboardView from './DashboardView';
+import { shallow } from 'enzyme';
+import React from 'react';
 
-describe('what needs testing', () => {
+import { DashboardView } from './DashboardView';
+
+describe('DashboardView', () => {
   it('needs testing', () => {
     expect(1).toEqual(1);
   });

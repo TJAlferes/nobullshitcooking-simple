@@ -1,14 +1,15 @@
 import React from 'react';
-import { connect } from 'redux';
+import { connect, ConnectedProps } from 'react-redux';
 
+import { cartAddItem } from '../../../store/cart/actions';
+import { ICartItem } from '../../../store/cart/types';
 import './addToCartButton.css';
-import { cartAddItem } from '../../../../store/actions/index';
 
-const AddToCartButton = ({
-  itemId,
+export function AddToCartButton({
+  item,
   cartAddItem
-}) => {
-  const handleClick = () => cartAddItem(itemId);
+}: Props): JSX.Element {
+  const handleClick = () => cartAddItem(item);
   return (
     <button
       className="add-to-cart-button"
@@ -19,8 +20,17 @@ const AddToCartButton = ({
   );
 }
 
-const mapDispatchToProps = dispatch => ({
-  cartAddItem: (itemId) => dispatch(cartAddItem(itemId))
-});
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connect(null, mapDispatchToProps)(AddToCartButton);
+type Props = PropsFromRedux & {
+  item: ICartItem;
+};
+
+// just move up?
+const mapDispatchToProps = {
+  cartAddItem: (item: ICartItem) => cartAddItem(item)
+};
+
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(AddToCartButton);

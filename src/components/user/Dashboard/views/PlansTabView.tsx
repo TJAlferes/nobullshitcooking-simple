@@ -110,7 +110,7 @@ export function PlansTabView({
 
 type Props = {
   creatingPlan: boolean;
-  editingId: number;
+  editingId: number|null;
   deletePlanModalActive: boolean;
   deactivateDeletePlanModal(): void;
   getApplicationNode(): Element | Node;

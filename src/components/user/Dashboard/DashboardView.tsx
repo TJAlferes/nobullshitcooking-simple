@@ -199,7 +199,7 @@ type Props = {
   feedback: string;
   loading: boolean;
   creatingPlan: boolean;
-  editingId: number;
+  editingId: number|null;
   onSelectFile(e: React.ChangeEvent<HTMLInputElement>): void;
   onImageLoaded(image: HTMLImageElement): void;
   crop: Crop;

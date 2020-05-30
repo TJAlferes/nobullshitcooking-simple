@@ -1,10 +1,9 @@
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import DashboardView from './DashboardView';
-
 import { Dashboard } from './Dashboard';
+import { DashboardView } from './DashboardView';
 
 const authUpdateLocalAvatar = jest.fn();
 const userSubmitAvatar = jest.fn();
@@ -16,6 +15,29 @@ const userUnsaveRecipe = jest.fn();
 const userDeletePrivateEquipment = jest.fn();
 const userDeletePrivateIngredient = jest.fn();
 
+const initialProps = {
+  twoColumnATheme: "light",
+  message: "Some message.",
+  authname: "Person",
+  currentAvatar: "Person",
+  myPlans: [],
+  myPublicRecipes: [],
+  myPrivateEquipment: [],
+  myPrivateIngredients: [],
+  myPrivateRecipes: [],
+  myFavoriteRecipes: [],
+  mySavedRecipes: [],
+  authUpdateLocalAvatar,
+  userSubmitAvatar,
+  userDeletePlan,
+  userDeletePrivateRecipe,
+  userDisownPublicRecipe,
+  userUnfavoriteRecipe,
+  userUnsaveRecipe,
+  userDeletePrivateEquipment,
+  userDeletePrivateIngredient
+};
+
 window.scrollTo = jest.fn();
 
 jest.mock(
@@ -23,35 +45,12 @@ jest.mock(
   () => () => <div></div>
 );
 
-let wrapper;
+let wrapper: ReactWrapper;
 
 beforeEach(() => {
   wrapper = mount(
     <MemoryRouter>
-      <Dashboard
-        twoColumnATheme="light"
-        message="Some message."
-        authname="Person"
-        currentAvatar="Person"
-        myPlans={[]}
-        myPublicRecipes={[]}
-        myPrivateEquipment={[]}
-        myPrivateIngredients={[]}
-        myPrivateRecipes={[]}
-        myFavoriteRecipes={[]}
-        mySavedRecipes={[]}
-        creatingPlan={false}
-        editingId=""
-        authUpdateLocalAvatar={authUpdateLocalAvatar}
-        userSubmitAvatar={userSubmitAvatar}
-        userDeletePlan={userDeletePlan}
-        userDeletePrivateRecipe={userDeletePrivateRecipe}
-        userDisownPublicRecipe={userDisownPublicRecipe}
-        userUnfavoriteRecipe={userUnfavoriteRecipe}
-        userUnsaveRecipe={userUnsaveRecipe}
-        userDeletePrivateEquipment={userDeletePrivateEquipment}
-        userDeletePrivateIngredient={userDeletePrivateIngredient}
-      />
+      <Dashboard creatingPlan={false} editingId={null} {...initialProps} />
     </MemoryRouter>
   );
 });
@@ -60,6 +59,7 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
+// finish testing!
 describe('Dashboard', () => {
   it('should change tab to plans', () => {
     wrapper.find('button[name="plans"]').simulate('click');
