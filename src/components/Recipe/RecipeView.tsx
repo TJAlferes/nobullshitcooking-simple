@@ -26,7 +26,7 @@ export function RecipeView({
     if (recipe.author === "Unknown") return "Unknown";
     return (
       <Link
-        className="recipe-details__author-name"
+        className="recipe__author-name"
         to={`/profile/${recipe.author}`}
       >
         {recipe.author}
@@ -51,9 +51,7 @@ export function RecipeView({
 
           <div className="recipe-details">
 
-            <div className="recipe-details-title">
-              <h1>{recipe.title}</h1>
-            </div>
+            <h1 className="recipe-title">{recipe.title}</h1>
 
             <p className="recipe-feedback">{feedback}</p>
 
@@ -74,13 +72,17 @@ export function RecipeView({
                       !favoriteClicked ? (
                         <button
                           className="recipe-favorite-save"
+                          name="favorite-button"
                           onClick={handleFavoriteClick}
                           disabled={loading}
                         >
                           Favorite
                         </button>
                       ) : (
-                        <span className="recipe-favorited-saved">
+                        <span
+                          className="recipe-favorited-saved"
+                          data-test="favorited-span"
+                        >
                           Favorited
                         </span>
                       )
@@ -96,13 +98,17 @@ export function RecipeView({
                       !saveClicked ? (
                         <button
                           className="recipe-favorite-save"
+                          name="save-button"
                           onClick={handleSaveClick}
                           disabled={loading}
                         >
                           Save
                         </button>
                       ) : (
-                        <span className="recipe-favorited-saved">
+                        <span
+                          className="recipe-favorited-saved"
+                          data-test="saved-span"
+                        >
                           Saved
                         </span>
                       )
@@ -112,22 +118,40 @@ export function RecipeView({
               ) : false}
             </div>
 
-            <div className="recipe-details-image">
+            <div className="recipe-image">
               {recipe.recipe_image !== "nobsc-recipe-default"
               ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}`} />
-              : <div className="image-default-280-172"></div>}
+              : (
+                <div
+                  className="image-default-280-172"
+                  data-test="recipe-default"
+                >
+                </div>
+              )}
             </div>
-            <div className="recipe-details-author">
-              <b>Author:</b>{' '}{recipeBy()}
+
+            <div className="recipe-author-outer">
+              <b>Author:</b>
+              {' '}
+              <span className="recipe-author">{recipeBy()}</span>
             </div>
-            <div className="recipe-details-description">
-              <b>Author's note:</b>{' '}<i>{`"${recipe.description}"`}</i>
+
+            <div className="recipe-description-outer">
+              <b>Author's note:</b>
+              {' '}
+              <em className="recipe-description">{recipe.description}</em>
             </div>
-            <div className="recipe-details-cuisine">
-              <b>Cuisine:</b>{' '}{recipe.cuisine_name}
+
+            <div className="recipe-cuisine-outer">
+              <b>Cuisine:</b>
+              {' '}
+              <span className="recipe-cuisine">{recipe.cuisine_name}</span>
             </div>
-            <div className="recipe-details-recipe-type">
-              <b>Recipe type:</b>{' '}{recipe.recipe_type_name}
+
+            <div className="recipe-type-outer">
+              <b>Recipe type:</b>
+              {' '}
+              <span className="recipe-type">{recipe.recipe_type_name}</span>
             </div>
 
             <h2 className="recipe-heading-two" data-test="methods-heading">
@@ -151,7 +175,13 @@ export function RecipeView({
             <div className="recipe-equipment-image">
               {recipe.equipment_image !== "nobsc-recipe-equipment-default"
               ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${recipe.equipment_image}`} />
-              : <div className="image-default-280-172"></div>}
+              : (
+                <div
+                  className="image-default-280-172"
+                  data-test="recipe-equipment-default"
+                >
+                </div>
+              )}
             </div>
             <div className="recipe-required-equipments">
               {recipe.required_equipment &&
@@ -171,7 +201,13 @@ export function RecipeView({
             <div className="recipe-ingredients-image">
               {recipe.ingredients_image !== "nobsc-recipe-ingredients-default"
               ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-ingredients/${recipe.ingredients_image}`} />
-              : <div className="image-default-280-172"></div>}
+              : (
+                <div
+                  className="image-default-280-172"
+                  data-test="recipe-ingredients-default"
+                >
+                </div>
+              )}
             </div>
             <div className="recipe-required-ingredients">
               {recipe.required_ingredients &&
@@ -209,7 +245,13 @@ export function RecipeView({
             <div className="recipe-cooking-image">
               {recipe.cooking_image !== "nobsc-recipe-cooking-default"
               ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-cooking/${recipe.cooking_image}`} />
-              : <div className="image-default-280-172"></div>}
+              : (
+                <div
+                  className="image-default-280-172"
+                  data-test="recipe-cooking-default"
+                >
+                </div>
+              )}
             </div>
             <div className="recipe-directions">
               {recipe.directions}

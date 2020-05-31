@@ -18,7 +18,7 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 export function Recipe({
   twoColumnBTheme,
   breadCrumbsTheme,
-  isAuthenticated,
+  userIsAuthenticated,
   message,
   dataMyPublicRecipes,
   dataMyPrivateRecipes,
@@ -77,15 +77,19 @@ export function Recipe({
   }, []);
 
   const handleFavoriteClick = () => {
+    if (!userIsAuthenticated) return;
+    if (favoriteClicked) return;
+    setFavoriteClicked(true);
     setLoading(true);
     userFavoriteRecipe(Number(id));
-    setFavoriteClicked(true);
   };
 
   const handleSaveClick = () => {
+    if (!userIsAuthenticated) return;
+    if (saveClicked) return;
+    setSaveClicked(true);
     setLoading(true);
     userSaveRecipe(Number(id));
-    setSaveClicked(true);
   };
 
   return !recipe
@@ -94,7 +98,7 @@ export function Recipe({
     <RecipeView
       twoColumnBTheme={twoColumnBTheme}
       breadCrumbsTheme={breadCrumbsTheme}
-      isAuthenticated={isAuthenticated}
+      userIsAuthenticated={userIsAuthenticated}
       feedback={feedback}
       loading={loading}
       recipe={recipe}
@@ -118,7 +122,7 @@ interface RootState {
     mySavedRecipes: IWorkRecipe[];
   };
   auth: {
-    isAuthenticated: boolean;
+    userIsAuthenticated: boolean;
   };
   user: {
     message: string;
@@ -140,7 +144,7 @@ const mapStateToProps = (state: RootState) => ({
   dataMyPrivateRecipes: state.data.myPrivateRecipes,
   dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
   dataMySavedRecipes: state.data.mySavedRecipes,
-  isAuthenticated: state.auth.isAuthenticated,
+  userIsAuthenticated: state.auth.userIsAuthenticated,
   message: state.user.message
 });
 

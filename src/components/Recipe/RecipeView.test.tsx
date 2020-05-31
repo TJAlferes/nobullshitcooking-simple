@@ -51,18 +51,126 @@ const initialProps = {
 };
 
 describe('RecipeView', () => {
-  describe('when user is ', () => {});
+  describe('content', () => {
+    const wrapper = shallow(
+      <RecipeView
+        userIsAuthenticated={false}
+        favoriteClicked={false}
+        saveClicked={false}
+        {...initialProps}
+      />
+    );
 
+    it('displays an h1 element with text Some Title', () => {
+      expect(wrapper.find('h1.recipe-title').text()).toEqual("Some Title");
+    });
 
-  const wrapper = shallow(
-    <RecipeView
-      userIsAuthenticated={false}
-      favoriteClicked={false}
-      saveClicked={false}
-      {...initialProps}
-    />
-  );
-  it('needs testing', () => {
-    expect(1).toEqual(1);
+    it('displays a p element with text Some message.', () => {
+      expect(wrapper.find('p.recipe-feedback').text()).toEqual("Some message.");
+    });
+
+    it('displays an em element with text A descriptive description.', () => {
+      expect(wrapper.find('em.recipe-description').text())
+      .toEqual("A descriptive description.");
+    });
+
+    it('displays a span element with text Afghan', () => {
+      expect(wrapper.find('span.recipe-cuisine').text()).toEqual("Afghan");
+    });
+
+    it('displays a span element with text Appetizer', () => {
+      expect(wrapper.find('span.recipe-type').text()).toEqual("Appetizer");
+    });
+
+    // move
+
+    it('displays a div element with className image-default-280-172', () => {
+      expect(wrapper.find('div[data-test="recipe-default"]')).toHaveLength(1);
+    });
+
+    it('displays a div element with className image-default-280-172', () => {
+      expect(wrapper.find('div[data-test="recipe-equipment-default"]'))
+      .toHaveLength(1);
+    });
+
+    it('displays a div element with className image-default-280-172', () => {
+      expect(wrapper.find('div[data-test="recipe-ingredients-default"]'))
+      .toHaveLength(1);
+    });
+
+    it('displays a div element with className image-default-280-172', () => {
+      expect(wrapper.find('div[data-test="recipe-cooking-default"]'))
+      .toHaveLength(1);
+    });
+  });
+
+  //describe('user images', () => {});
+
+  //describe('author', () => {});
+
+  describe('when user is authenticated', () => {
+    describe ('when favorite not clicked', () => {
+      const wrapper = shallow(
+        <RecipeView
+          userIsAuthenticated={true}
+          favoriteClicked={false}
+          saveClicked={false}
+          {...initialProps}
+        />
+      );
+  
+      it('displays a button with text Favorite', () => {
+        expect(wrapper.find('button[name="favorite-button"]').text())
+        .toEqual("Favorite");
+      });
+    });
+
+    describe ('when favorite clicked', () => {
+      const wrapper = shallow(
+        <RecipeView
+          userIsAuthenticated={true}
+          favoriteClicked={true}
+          saveClicked={false}
+          {...initialProps}
+        />
+      );
+  
+      it('displays a span with text Favorited', () => {
+        expect(wrapper.find('span[data-test="favorited-span"]').text())
+        .toEqual("Favorited");
+      });
+    });
+
+    describe ('when save not clicked', () => {
+      const wrapper = shallow(
+        <RecipeView
+          userIsAuthenticated={true}
+          favoriteClicked={false}
+          saveClicked={false}
+          {...initialProps}
+        />
+      );
+  
+      it('displays a button with text Save', () => {
+        expect(wrapper.find('button[name="save-button"]').text())
+        .toEqual("Save");
+      });
+    });
+
+    describe ('when save clicked', () => {
+      const wrapper = shallow(
+        <RecipeView
+          userIsAuthenticated={true}
+          favoriteClicked={false}
+          saveClicked={true}
+          {...initialProps}
+        />
+      );
+  
+      it('displays a span with text Saved', () => {
+        expect(wrapper.find('span[data-test="saved-span"]').text())
+        .toEqual("Saved");
+      });
+    });
   });
 });
