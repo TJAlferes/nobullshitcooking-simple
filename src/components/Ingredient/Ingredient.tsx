@@ -24,10 +24,8 @@ export function Ingredient({
     }
 
     const localIngredient = (
-      dataIngredients
-      .find((ing: IIngredient) => ing.ingredient_id == Number(id)) ||
-      dataMyPrivateIngredients
-      .find((ing: IIngredient) => ing.ingredient_id == Number(id))
+      dataIngredients.find(ing => ing.ingredient_id == Number(id)) ||
+      dataMyPrivateIngredients.find(ing => ing.ingredient_id == Number(id))
     );
 
     if (!localIngredient) {

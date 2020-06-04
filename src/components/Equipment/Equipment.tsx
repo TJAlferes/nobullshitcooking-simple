@@ -24,10 +24,8 @@ export function Equipment({
     }
 
     const localEquipment = (
-      dataEquipment
-      .find((equ: IEquipment) => equ.equipment_id == Number(id)) ||
-      dataMyPrivateEquipment
-      .find((equ: IEquipment) => equ.equipment_id == Number(id))
+      dataEquipment.find(equ => equ.equipment_id == Number(id)) ||
+      dataMyPrivateEquipment.find(equ => equ.equipment_id == Number(id))
     );
 
     if (!localEquipment) {

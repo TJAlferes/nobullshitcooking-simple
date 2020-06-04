@@ -57,7 +57,7 @@
   font-size: 1.7rem;
 }
 
-.recipe-details__author-name {
+.recipe__author-name {
   text-decoration: none;
   font-weight: 900;
   color: #68abe6;

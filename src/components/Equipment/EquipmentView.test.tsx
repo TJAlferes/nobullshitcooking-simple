@@ -38,30 +38,62 @@ const equipment = {
 };
 
 describe('EquipmentView', () => {
-  it('displays a private user equipment', () => {
+  describe('when the equipment is a private user equipment', () => {
     const wrapper = shallow(
       <EquipmentView
         equipment={initialProps.dataMyPrivateEquipment[0]}
         {...initialProps}
       />
     );
-    expect(wrapper.find(
-      'img[src="https://s3.amazonaws.com/nobsc-user-equipment/0123456789"]'
-    )).toHaveLength(1);
-    expect(wrapper.find(
-      'img[src="https://s3.amazonaws.com/nobsc-images-01/equipment/0123456789"]'
-    )).toHaveLength(0);
+
+    it('displays a h1 element with text My Spatula', () => {
+      expect(wrapper.find('.equipment-name').text()).toEqual("My Spatula");
+    });
+
+    it('displays the correct equipment image', () => {
+      expect(wrapper.find(
+        'img[src="https://s3.amazonaws.com/nobsc-user-equipment/0123456789"]'
+      )).toHaveLength(1);
+      expect(wrapper.find(
+        'img[src="https://s3.amazonaws.com/nobsc-images-01/equipment/0123456789"]'
+      )).toHaveLength(0);
+    });
+
+    it('displays a span element with text Cooking', () => {
+      expect(wrapper.find('.equipment-type').text()).toEqual("Cooking");
+    });
+
+    it('displays a div element with text Some note.', () => {
+      expect(wrapper.find('.equipment-description').text())
+      .toEqual("Some note.");
+    });
   });
 
-  it('displays a public official equipment', () => {
+  describe('when the equipment is an official equipment', () => {
     const wrapper = shallow(
       <EquipmentView equipment={equipment} {...initialProps} />
     );
-    expect(wrapper.find(
-      'img[src="https://s3.amazonaws.com/nobsc-user-equipment/nobsc-cutting-board"]'
-    )).toHaveLength(0);
-    expect(wrapper.find(
-      'img[src="https://s3.amazonaws.com/nobsc-images-01/equipment/nobsc-cutting-board"]'
-    )).toHaveLength(1);
+
+    it('displays a h1 element with text Cutting Board', () => {
+      expect(wrapper.find('.equipment-name').text()).toEqual("Cutting Board");
+    });
+
+    it('displays the correct equipment image', () => {
+      expect(wrapper.find(
+        'img[src="https://s3.amazonaws.com/nobsc-user-equipment/nobsc-cutting-board"]'
+      )).toHaveLength(0);
+      expect(wrapper.find(
+        'img[src="https://s3.amazonaws.com/nobsc-images-01/equipment/nobsc-cutting-board"]'
+      )).toHaveLength(1);
+    });
+
+    it('displays a span element with text Preparing', () => {
+      expect(wrapper.find('.equipment-type').text()).toEqual("Preparing");
+    });
+
+    it('displays a div element with text Some note.', () => {
+      expect(wrapper.find('.equipment-description').text())
+      .toEqual("Some note.");
+    });
   });
 });

@@ -27,11 +27,12 @@ export function EquipmentView({
       >
 
         <div className="left-column">
+
           <div className="equipment-details">
-            <div className="equipment-details-name">
-              <h1>{equipment.equipment_name}</h1>
-            </div>
-            <div className="equipment-details-image">
+
+            <h1 className="equipment-name">{equipment.equipment_name}</h1>
+
+            <div className="equipment-image">
               {
                 dataMyPrivateEquipment.find(
                   equ => equ.equipment_id === equipment.equipment_id
@@ -40,10 +41,25 @@ export function EquipmentView({
                 : <img src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.equipment_image}`} />
               }
             </div>
-            <div className="equipment-details-type">
-              <b>Equipment Type:</b> {equipment.equipment_type_name}
+
+            <div className="equipment-type-outer">
+              <b>Equipment Type:</b>
+              {' '}
+              <span className="equipment-type">
+                {equipment.equipment_type_name}
+              </span>
             </div>
+            
+            <div className="equipment-description-outer">
+              <b>Equipment Description:</b>
+              {' '}
+              <div className="equipment-description">
+                {equipment.equipment_description}
+              </div>
+            </div>
+
           </div>
+
         </div>
 
         <div className="right-column">
