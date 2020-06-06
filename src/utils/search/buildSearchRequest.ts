@@ -3,7 +3,7 @@ This module was adapted from code written by Jason Stoltz & team at Elastic:
 https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
 
-function buildMatch(searchTerm, currentIndex) {
+function buildMatch(searchTerm: string, currentIndex: string) {
   if (currentIndex === "recipes") {
     return searchTerm
     ? {match: {title: {query: searchTerm}}}
@@ -19,24 +19,24 @@ function buildMatch(searchTerm, currentIndex) {
   }
 }
 
-function buildFrom(current, resultsPerPage) {
+function buildFrom(current: number, resultsPerPage: number) {
   if (!current || !resultsPerPage) return;
   return (current - 1) * resultsPerPage;
 }
 
-function getTermFilterValue(field, fieldValue) {
+function getTermFilterValue(field: any, fieldValue: any) {
   //if (fieldValue === "false" || fieldValue === "true") {
   //  return {[field]: fieldValue === "true"};
   //}
   return {[`${field}`]: fieldValue};
 }
 
-function getTermFilter(filter) {
+function getTermFilter(filter: any) {
   if (filter.type === "any") {
     return {
       bool: {
         should: [
-          filter.values.map(filterValue => ({
+          filter.values.map((filterValue: any) => ({
             term: getTermFilterValue(filter.field, filterValue)
           }))
         ],
@@ -47,7 +47,7 @@ function getTermFilter(filter) {
     return {
       bool: {
         filter: [
-          filter.values.map(filterValue => ({
+          filter.values.map((filterValue: any) => ({
             term: getTermFilterValue(filter.field, filterValue)
           }))
         ]
@@ -56,9 +56,9 @@ function getTermFilter(filter) {
   }
 }
 
-function buildRequestFilter(filters, currentIndex) {
+function buildRequestFilter(filters: any, currentIndex: string) {
   if (!filters) return;
-  filters = filters.reduce((acc, filter) => {
+  filters = filters.reduce((acc: any, filter: any) => {
     if (currentIndex === "recipes") {
       // TO DO: also add methodNames, allergy ingredients, etc. (index them first)
       if (["recipeTypeName", "cuisineName"].includes(filter.field)) { 
@@ -78,7 +78,7 @@ function buildRequestFilter(filters, currentIndex) {
   return filters;
 }
 
-export function buildSearchRequest(state, currentIndex) {
+export function buildSearchRequest(state: any, currentIndex: string) {
   const { searchTerm, filters, current, resultsPerPage } = state;
 
   const match = buildMatch(searchTerm, currentIndex);

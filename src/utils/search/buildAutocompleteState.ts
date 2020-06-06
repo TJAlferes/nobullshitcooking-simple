@@ -3,7 +3,7 @@ This module was adapted from code written by Jason Stoltz & team at Elastic:
 https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
 
-function getHighlight(hit, fieldName) {
+function getHighlight(hit: any, fieldName: string) {
   if (
     !hit.highlight ||
     !hit.highlight[fieldName] ||
@@ -14,10 +14,10 @@ function getHighlight(hit, fieldName) {
   return hit.highlight[fieldName][0];
 }
 
-function buildResults(hits, currentIndex) {
-  let builtResults = [];
+function buildResults(hits: any, currentIndex: string) {
+  let builtResults: any = [];
 
-  hits.map(record => {
+  hits.map((record: any) => {
     let field;
     if (currentIndex === "recipes") field = record._source.title;
     if (currentIndex === "ingredients") field = record._source.ingredientName;
@@ -28,7 +28,7 @@ function buildResults(hits, currentIndex) {
     if (currentIndex === "ingredients") fieldString = "ingredientName";
     if (currentIndex === "equipment") fieldString = "equipmentName";
 
-    let snippet = getHighlight(record, fieldString);
+    let snippet = getHighlight(record, fieldString as string);
 
     builtResults.push({id: {raw: field, ...(snippet && {snippet})}});
   });
@@ -36,7 +36,7 @@ function buildResults(hits, currentIndex) {
   return builtResults;
 }
 
-export function buildAutocompleteState(response, currentIndex) {
+export function buildAutocompleteState(response: any, currentIndex: string) {
   const results = buildResults(response.hits.hits, currentIndex);
   return {results};
 }

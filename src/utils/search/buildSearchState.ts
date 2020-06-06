@@ -3,7 +3,7 @@ This module was adapted from code written by Jason Stoltz & team at Elastic:
 https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
 
-function getHighlight(hit, fieldName) {
+function getHighlight(hit: any, fieldName: string) {
   if (
     !hit.highlight ||
     !hit.highlight[fieldName] ||
@@ -14,33 +14,36 @@ function getHighlight(hit, fieldName) {
   return hit.highlight[fieldName][0];
 }
 
-function buildResults(hits) {
-  const addEachKeyValueToObject = (acc, [key, value]) => ({
+// this is a damn mess... re do this...
+function buildResults(hits: any) {
+  const addEachKeyValueToObject = (
+    acc: any,
+    [key, value]: (string | { snippet: any; raw: any; })[]
+  ) => ({
     ...acc,
-    [key]: value
+    [key as string]: value
   });
 
-  const toObject = (value, snippet) => {
-    return { raw: value, ...(snippet && { snippet }) };
+  const toObject = (value: any, snippet: any) => {
+    return {raw: value, ...(snippet && { snippet })};
   };
 
-  return hits.map(record => {
-    return Object.entries(record._source)
-      .map(([fieldName, fieldValue]) => [
-        fieldName,
-        toObject(fieldValue, getHighlight(record, fieldName))
-      ])
-      .reduce(addEachKeyValueToObject, {});
-  });
+  return hits.map((record: any) =>
+    Object.entries(record._source).map(([fieldName, fieldValue]) => [
+      fieldName,
+      toObject(fieldValue, getHighlight(record, fieldName))
+    ])
+    .reduce(addEachKeyValueToObject, {})
+  );
 }
 
-function buildTotalPages(resultsPerPage, totalResults) {
+function buildTotalPages(resultsPerPage: number, totalResults: number) {
   if (!resultsPerPage) return 0;
   if (totalResults === 0) return 1;
   return Math.ceil(totalResults / resultsPerPage);
 }
 
-function getValueFacet(aggregations, fieldName) {
+function getValueFacet(aggregations: any, fieldName: string) {
   if (
    aggregations &&
    aggregations[fieldName] &&
@@ -50,7 +53,7 @@ function getValueFacet(aggregations, fieldName) {
     return [{
       field: fieldName,
       type: "value",
-      data: aggregations[fieldName].buckets.map(bucket => ({ 
+      data: aggregations[fieldName].buckets.map((bucket: any) => ({ 
         // Note: boolean & date require key_as_string
         value: bucket.key_as_string || bucket.key,
         count: bucket.doc_count
@@ -59,7 +62,7 @@ function getValueFacet(aggregations, fieldName) {
   }
 }
 
-function buildStateFacets(aggregations, currentIndex) {
+function buildStateFacets(aggregations: any, currentIndex: string) {
   if (currentIndex === "recipes") {
     const recipeTypeName = getValueFacet(aggregations, "recipeTypeName");
     const cuisineName = getValueFacet(aggregations, "cuisineName");
@@ -80,9 +83,9 @@ function buildStateFacets(aggregations, currentIndex) {
 }
 
 export function buildSearchState(
-  response,
-  resultsPerPage,
-  currentIndex
+  response: any,
+  resultsPerPage: number,
+  currentIndex: string
 ) {
   const results = buildResults(response.hits.hits);
   const totalResults = response.hits.total.value;

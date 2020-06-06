@@ -46,7 +46,7 @@ export const searchConfig = {
   onAutocompleteResultClick: function() {
     //console.log('clicked!');
   },
-  onAutocomplete: async function({ searchTerm }) {  // JSON.stringify()?
+  onAutocomplete: async function({ searchTerm }: {searchTerm: string;}) {  // JSON.stringify()?
     const { search } = store.getState();
     const res = await axios.post(
       `${endpoint}/search/autocomplete/${search.currentIndex}`,
@@ -56,7 +56,7 @@ export const searchConfig = {
     const newState = buildAutocompleteState(res.data.found, search.currentIndex);
     return {autocompletedResults: newState.results};
   },
-  onSearch: async function(state) {  // JSON.stringify()?
+  onSearch: async function(state: any) {  // JSON.stringify()?
     const { search } = store.getState();
 
     if (search.currentIndex === "recipes") {

@@ -12,34 +12,37 @@ https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-function combineAggregationsFromResponses(responses) {
+function combineAggregationsFromResponses(responses: any) {
   return responses.reduce(
-    (acc, response) => ({...acc, ...response.aggregations}),
+    (acc: any, response: any) => ({...acc, ...response.aggregations}),
     {}
   );
 }
 
-function removeFilterByName(state, facetName) {
-  return {...state, filters: state.filters.filter(f => f.field !== facetName)};
+function removeFilterByName(state: any, facetName: string) {
+  return {
+    ...state,
+    filters: state.filters.filter((f: any) => f.field !== facetName)
+  };
 }
 
-function removeAllFacetsExcept(body, facetName) {
+function removeAllFacetsExcept(body: any, facetName: string) {
   return {...body, aggs: {[facetName]: body.aggs[facetName]}};
 }
 
-function changeSizeToZero(body) {
+function changeSizeToZero(body: any) {
   return {...body, size: 0};
 }
 
 async function getDisjunctiveFacetCounts(
-  state,
-  disjunctiveFacetNames,
-  currentIndex
+  state: any,
+  disjunctiveFacetNames: any,
+  currentIndex: string
 ) {
-  let responses = [];
+  let responses: any = [];
 
   // TO DO: don't make request if "not" filter is currently applied
-  disjunctiveFacetNames.map(async facetName => {
+  disjunctiveFacetNames.map(async (facetName: string) => {
     let newState = removeFilterByName(state, facetName);
     let body = buildSearchRequest(newState, currentIndex);
     body = changeSizeToZero(body);
@@ -56,10 +59,10 @@ async function getDisjunctiveFacetCounts(
 }
 
 export async function applyDisjunctiveFaceting(
-  json,
-  state,
-  disjunctiveFacetNames,
-  currentIndex
+  json: any,
+  state: any,
+  disjunctiveFacetNames: any,
+  currentIndex: string
 ) {
   const disjunctiveFacetCounts = await getDisjunctiveFacetCounts(
     state,
