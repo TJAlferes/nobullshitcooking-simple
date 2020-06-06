@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
-const MobileNewPlanToggle = lazy(() => import('./MobileNewPlanToggle'));
+//const MobileNewPlanToggle = lazy(() => import('./MobileNewPlanToggle'));
 const NewPlan = lazy(() => import('./NewPlan'));
 import './newPlanPage.css'
 
@@ -10,14 +10,14 @@ export default function NewPlanPage({
 }: Props): JSX.Element {
   return (
     <div className="new-plan-page">
-      <div className="mobile_display">
+      {/*<div className="mobile_display">
         <Suspense fallback={<div>Loading...</div>} >
           <MobileNewPlanToggle
             twoColumnATheme={twoColumnATheme}
             editing={(childProps && childProps.editing) && childProps.editing}
           />
         </Suspense>
-      </div>
+      </div>*/}
       <div className="desktop_display">
         <Suspense fallback={<div>Loading...</div>} >
           <NewPlan

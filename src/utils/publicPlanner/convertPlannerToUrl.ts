@@ -1,4 +1,6 @@
-const convertPlannerToUrl = recipeListsInsideDays => {
+/*import { IPlannerData } from '../../store/planner/types';
+
+export function convertPlannerToUrl(recipeListsInsideDays: IPlannerData) {
   // TO DO: validate here too
   let plannerString = '';
   Object.keys(recipeListsInsideDays).map(list => {
@@ -12,6 +14,4 @@ const convertPlannerToUrl = recipeListsInsideDays => {
   });
   plannerString = plannerString.slice(0, -1);  // This removes the last '!'
   return plannerString;
-};
-
-export default convertPlannerToUrl;
+}*/

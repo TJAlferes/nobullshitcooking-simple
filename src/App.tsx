@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
-import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
+//import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
 import { HeaderRed } from './components/HeaderRed/desktop/HeaderRed';
 import { MainWhite } from './components/MainWhite/MainWhite';
 import { FooterGray } from './components/FooterGray/FooterGray';
@@ -20,10 +20,10 @@ export function App({
 }: Props): JSX.Element {
   const location = useLocation();
 
-  const userIsAtAuthPage = location.pathname &&
+  const atAuthPage = location.pathname &&
   location.pathname == ("/register" || "/verify" || "/login");
 
-  return userIsAtAuthPage
+  return atAuthPage
   ? (
     <div>
       <RoutesList contentTypes={dataContentTypes} />
@@ -31,9 +31,9 @@ export function App({
   ) : (
     <div id="app">
       <div>
-        <div className="mobile_display">
+        {/*<div className="mobile_display">
           <MobileHeaderRed theme={headerTheme} />
-        </div>
+        </div>*/}
         <div className="desktop_display">
           <HeaderRed theme={headerTheme} />
         </div>

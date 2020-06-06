@@ -1,14 +1,16 @@
-import axios from 'axios';
+/*import axios from 'axios';
 
-import buildSearchRequest from './buildSearchRequest';
-
-import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
-const endpoint = NOBSCBackendAPIEndpointOne;
+import {
+  NOBSCBackendAPIEndpointOne
+} from '../../config/NOBSCBackendAPIEndpointOne';
+import buildSearchRequest from './buildSearchRequest';*/
 
 /*
 This module was adapted from code written by Jason Stoltz & team at Elastic:
 https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
+
+/*const endpoint = NOBSCBackendAPIEndpointOne;
 
 function combineAggregationsFromResponses(responses) {
   return responses.reduce(
@@ -72,4 +74,4 @@ export default async function applyDisjunctiveFaceting(
       ...disjunctiveFacetCounts
     }
   };
-}
+}*/

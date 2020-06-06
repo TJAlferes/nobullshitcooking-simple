@@ -3,9 +3,9 @@ import {
   DATA_GET_CONTENT_TYPES,
   DATA_GET_CONTENT_TYPES_SUCCEEDED,
   DATA_GET_CONTENT_TYPES_FAILED,
-  DATA_GET_POSTS,
-  DATA_GET_POSTS_SUCCEEDED,
-  DATA_GET_POSTS_FAILED,
+  //DATA_GET_POSTS,
+  //DATA_GET_POSTS_SUCCEEDED,
+  //DATA_GET_POSTS_FAILED,
   DATA_GET_POST_PREVIEWS,
   DATA_GET_POST_PREVIEWS_SUCCEEDED,
   DATA_GET_POST_PREVIEWS_FAILED,
@@ -90,14 +90,14 @@ export const dataGetContentTypesFailed = () => ({
   type: DATA_GET_CONTENT_TYPES_FAILED
 });
 
-export const dataGetPosts = (posts: []) => ({
+/*export const dataGetPosts = (posts: []) => ({
   type: DATA_GET_POSTS,
   posts
 });
 
 export const dataGetPostsSucceeded = () => ({type: DATA_GET_POSTS_SUCCEEDED});
 
-export const dataGetPostsFailed = () => ({type: DATA_GET_POSTS_FAILED});
+export const dataGetPostsFailed = () => ({type: DATA_GET_POSTS_FAILED});*/
 
 export const dataGetPostPreviews = (postPreviews: IPostPreview[]) => ({
   type: DATA_GET_POST_PREVIEWS,

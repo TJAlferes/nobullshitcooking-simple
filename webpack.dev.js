@@ -40,7 +40,10 @@ module.exports = {
       {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        loader: "ts-loader"
+        //loader: "ts-loader"
+        use: [
+          {loader: "ts-loader", options: {onlyCompileBundledFiles: true}}
+        ]
       },
       {
         test: /\.(scss|css)$/,

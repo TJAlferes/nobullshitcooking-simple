@@ -37,11 +37,11 @@ export function NewIngredientView({
       <div>
         <span>
           <Link to="/home">Home</Link>
-          <i> > </i>
+          <i>{`&gt;`}</i>
         </span>
         <span>
           <Link to="/dashboard">Dashboard</Link>
-          <i> > </i>
+          <i>{`&gt;`}</i>
         </span>
         <span>Create New Private Ingredient</span>
       </div>

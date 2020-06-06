@@ -38,6 +38,7 @@ describe('EquipmentRow', () => {
   beforeEach(() => {
     wrapper = shallow(
       <EquipmentRow
+        key={rowKey}
         rowKey={rowKey}
         amount={amount}
         type={type}

@@ -3,7 +3,7 @@ This module was adapted from code written by Jason Stoltz & team at Elastic:
 https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
 
-function getHighlight(hit, fieldName) {
+/*function getHighlight(hit, fieldName) {
   if (
     !hit.highlight ||
     !hit.highlight[fieldName] ||
@@ -79,7 +79,11 @@ function buildStateFacets(aggregations, currentIndex) {
   }
 }
 
-export default function buildSearchState(response, resultsPerPage, currentIndex) {
+export default function buildSearchState(
+  response,
+  resultsPerPage,
+  currentIndex
+) {
   const results = buildResults(response.hits.hits);
   const totalResults = response.hits.total.value;
   const totalPages = buildTotalPages(resultsPerPage, totalResults);
@@ -90,4 +94,4 @@ export default function buildSearchState(response, resultsPerPage, currentIndex)
     totalResults,
     ...(facets && {facets})
   };
-}
+}*/

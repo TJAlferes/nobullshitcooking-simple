@@ -93,8 +93,18 @@ describe('the dataGetContentTypesSaga', () => {
     const iterator = dataGetContentTypesSaga();
     const res = {
       data: [
-        {content_type_id: 1, parent_id: 0, content_type_name: "Page"},
-        {content_type_id: 2, parent_id: 0, content_type_name: "Post"}
+        {
+          content_type_id: 1,
+          parent_id: 0,
+          content_type_name: "Page",
+          content_type_path: "/page"
+        },
+        {
+          content_type_id: 2,
+          parent_id: 0,
+          content_type_name: "Post",
+          content_type_path: "/post"
+        }
       ]
     };
 

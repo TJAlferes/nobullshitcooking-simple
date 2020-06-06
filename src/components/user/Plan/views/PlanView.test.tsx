@@ -1,4 +1,4 @@
-import PlanView from './PlanView';
+import { PlanView } from './PlanView';
 
 describe('what needs testing', () => {
   it('needs testing', () => {

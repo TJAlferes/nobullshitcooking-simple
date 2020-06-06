@@ -1,14 +1,16 @@
-import React, { forwardRef, useRef, useImperativeHandle } from 'react';
+import React, { FC, useRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import {
   ConnectDragSource,
   ConnectDropTarget,
-  DragSource,
-  DragSourceConnector,
+  //DragSource,
+  //DragSourceConnector,
   DragSourceMonitor,
-  DropTarget,
-  DropTargetConnector,
-  DropTargetMonitor
+  //DropTarget,
+  //DropTargetConnector,
+  DropTargetMonitor,
+  useDrag,
+  useDrop
 } from 'react-dnd';
 import { XYCoord } from 'dnd-core';
 
@@ -21,7 +23,7 @@ import './recipe.css';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
-const plannerRecipeSource = {
+/*const plannerRecipeSource = {
   beginDrag(props: Props) {
     return {
       id: props.id,
@@ -34,7 +36,9 @@ const plannerRecipeSource = {
   },
   endDrag(props: Props, monitor: DragSourceMonitor) {
     const item = monitor.getItem();
-    if (item.day === "0") return;  // to copy from rather than remove from PlannerRecipesList
+    // to copy from rather than remove from PlannerRecipesList
+    if (item.day === "0") return;
+
     const dropResult = monitor.getDropResult();
     if (dropResult && (dropResult.listId !== item.day)) {
       props.plannerRemoveRecipeFromDay(item.day, item.index);
@@ -43,7 +47,7 @@ const plannerRecipeSource = {
 };
 
 const plannerRecipeTarget = {
-  hover(props: Props, monitor: DropTargetMonitor, component: RecipeInstance) {
+  hover(props: Props, monitor: DropTargetMonitor, component: IRecipeInstance) {
     if (!component) return null;
 
     const node = component.getNode();
@@ -84,33 +88,90 @@ function collectDragSource(
 
 function collectDropTarget(connect: DropTargetConnector) {
   return {connectDropTarget: connect.dropTarget()};
-}
+}*/
 
-const Recipe = forwardRef<HTMLDivElement, Props>(
-  ({ recipe, connectDragSource, connectDropTarget }: Props, ref) => {
-    const elementRef = useRef(null);
+const Recipe: FC<Props> = ({
+  key,
+  id,
+  day,
+  expanded,
+  expandedDay,
+  index,
+  listId,
+  recipe,
+  plannerRemoveRecipeFromDay,
+  plannerReorderRecipeInDay
+  //connectDragSource: ConnectDragSource,
+  //connectDropTarget: ConnectDropTarget
+}: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
 
-    connectDragSource(elementRef);
-    connectDropTarget(elementRef);
-    
-    useImperativeHandle<{}, RecipeInstance>(ref, () => ({
-      getNode: () => elementRef.current
-    }));
+  const [ { isDragging }, drag ] = useDrag({
+    item: {
+      type: Types.PLANNER_RECIPE,
+      id,
+      index,
+      listId,
+      recipe,
+      day,
+      key: recipe.key
+    },
+    end: (dropResult: any, monitor: DragSourceMonitor) => {
+      const item = monitor.getItem();
+      if (item.day === 0) return;
+      if (dropResult && (dropResult.listId !== item.day)) {
+        plannerRemoveRecipeFromDay(item.day, item.index);
+      }
+    },
+    collect: (monitor: any) => ({isDragging: monitor.isDragging()}),
+  });
 
-    return (
-      <div className="planner_recipe" ref={elementRef}>
-        <div className="planner_recipe_image">
-          <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
-        </div>
-        <div className="planner_recipe_text">{recipe.title}</div>
+  const [ , drop ] = useDrop({
+    accept: Types.PLANNER_RECIPE,
+    hover: (item: IDragItem, monitor: DropTargetMonitor) => {
+      if(!item) return;  // ?
+      if (!ref.current) return;
+      if (day !== expandedDay) return;
+      const sourceDay = monitor.getItem().day;  //item.day;
+      if (sourceDay !== expandedDay) return;
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      if (dragIndex === hoverIndex) return;
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+      if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
+      if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
+      plannerReorderRecipeInDay(dragIndex, hoverIndex);
+      item.index = hoverIndex;
+    },
+    //collect: (monitor: any, ) => ({})
+  });
+
+  drag(drop(ref));
+  //drop(drag(ref));
+
+  return (
+    <div className="planner_recipe" ref={ref}>
+      <div className="planner_recipe_image">
+        <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
       </div>
-    );
-  }
-);
+      <div className="planner_recipe_text">{recipe.title}</div>
+    </div>
+  );
+};
 
-interface RecipeInstance {
-	getNode(): HTMLDivElement | null
+interface IDragItem {
+  index: number;
+  id: string;
+  type: string;
 }
+
+/*interface IRecipeInstance {
+	getNode(): HTMLDivElement|null;
+}*/
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -136,16 +197,4 @@ const mapDispatchToProps = {
 
 const connector = connect(null, mapDispatchToProps);
 
-export default connector(
-  DropTarget(
-    Types.PLANNER_RECIPE,
-    plannerRecipeTarget,
-    collectDropTarget
-  )(
-    DragSource(
-      Types.PLANNER_RECIPE,
-      plannerRecipeSource,
-      collectDragSource
-    )(Recipe)
-  )
-);
+export default connector(Recipe);

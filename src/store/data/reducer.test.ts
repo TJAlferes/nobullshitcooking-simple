@@ -23,7 +23,7 @@ import {
 
 const initialState: IDataState = {
   contentTypes: [],
-  posts: [],
+  //posts: [],
   postPreviews: [],
   measurements: [],
   equipment: [],  // official
@@ -56,8 +56,18 @@ describe('the data reducer', () => {
 
   it('handles actions of type DATA_GET_CONTENT_TYPES', () => {
     const contentTypes = [
-      {content_type_id: 1, parent_id: 0, content_type_name: "Page"},
-      {content_type_id: 2, parent_id: 0, content_type_name: "Post"}
+      {
+        content_type_id: 1,
+        parent_id: 0,
+        content_type_name: "Page",
+        content_type_path: "/page"
+      },
+      {
+        content_type_id: 2,
+        parent_id: 0,
+        content_type_name: "Post",
+        content_type_path: "/post"
+      }
     ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_CONTENT_TYPES,

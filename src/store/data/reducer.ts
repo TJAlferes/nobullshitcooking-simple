@@ -1,6 +1,6 @@
 import {
   DATA_GET_CONTENT_TYPES,
-  DATA_GET_POSTS,
+  //DATA_GET_POSTS,
   DATA_GET_POST_PREVIEWS,
   DATA_GET_MEASUREMENTS,
   DATA_GET_EQUIPMENTS,  // official
@@ -25,7 +25,7 @@ import {
 
 const initialState: IDataState = {
   contentTypes: [],
-  posts: [],
+  //posts: [],
   postPreviews: [],
   measurements: [],
   equipment: [],  // official
@@ -51,8 +51,7 @@ const dataReducer = (state = initialState, action: DataActions): IDataState => {
     case DATA_GET_CONTENT_TYPES:
       return {...state, ...{contentTypes: action.contentTypes}};
 
-    case DATA_GET_POSTS:
-      return {...state, ...{posts: action.posts}};
+    //case DATA_GET_POSTS: return {...state, ...{posts: action.posts}};
 
     case DATA_GET_POST_PREVIEWS:
       return {...state, ...{postPreviews: action.postPreviews}};

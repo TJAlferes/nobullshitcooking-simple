@@ -123,8 +123,18 @@ describe('the dataInit action creator', () => {
 
 describe ('the dataGetContentTypes action creator', () => {
   const contentTypes = [
-    {content_type_id: 1, parent_id: 0, content_type_name: "Page"},
-    {content_type_id: 2, parent_id: 0, content_type_name: "Post"}
+    {
+      content_type_id: 1,
+      parent_id: 0,
+      content_type_name: "Page",
+      content_type_path: "/page"
+    },
+    {
+      content_type_id: 2,
+      parent_id: 0,
+      content_type_name: "Post",
+      content_type_path: "/post"
+    }
   ];
   it('returns the correct action type', () => {
     const actual = dataGetContentTypes(contentTypes).type;

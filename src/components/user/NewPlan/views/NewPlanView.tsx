@@ -133,11 +133,11 @@ export function NewPlanView({
       <div>
         <span>
           <Link to="/home">Home</Link>
-          <i> > </i>
+          <i>{`&gt;`}</i>
         </span>
         <span>
           <Link to="/dashboard">Dashboard</Link>
-          <i> > </i>
+          <i>{`&gt;`}</i>
         </span>
         <span>{editing ? 'Edit Plan' : 'Create New Plan'}</span>
       </div>

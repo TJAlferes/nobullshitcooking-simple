@@ -1,15 +1,13 @@
-import axios from 'axios';
+/*import axios from 'axios';
 
+import { store } from '../index';
 import buildAutocompleteState from '../utils/search/buildAutocompleteState';
 import buildSearchRequest from '../utils/search/buildSearchRequest';
 import applyDisjunctiveFaceting from '../utils/search/applyDisjunctiveFaceting';
 import buildSearchState from '../utils/search/buildSearchState';
-
-import { store } from '../index';
-
 import { NOBSCBackendAPIEndpointOne } from './NOBSCBackendAPIEndpointOne';
 
-const endpoint = NOBSCBackendAPIEndpointOne;
+const endpoint = NOBSCBackendAPIEndpointOne;*/
 
 // TO DO: put currentIndex on window?
 
@@ -39,7 +37,7 @@ function getDisjunctiveFacetsConfig() {
   }
 }*/
 
-const searchConfig = {
+/*const searchConfig = {
   //debug: true,
   trackUrlState: false,  // ?
   onResultClick: function() {
@@ -134,4 +132,4 @@ const searchConfig = {
   }
 };
 
-export default searchConfig;
+export default searchConfig;*/

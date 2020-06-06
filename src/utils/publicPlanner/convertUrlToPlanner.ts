@@ -1,8 +1,11 @@
-import axios from 'axios';
-const uuidv4 = require('uuid/v4');
+/*import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
-import { NOBSCBackendAPIEndpointOne } from '../../config/NOBSCBackendAPIEndpointOne';
-const endpoint = NOBSCBackendAPIEndpointOne;
+import {
+  NOBSCBackendAPIEndpointOne
+} from '../../config/NOBSCBackendAPIEndpointOne';
+
+const endpoint = NOBSCBackendAPIEndpointOne;*/
 
 /*
 We could have done the following with one large regex,
@@ -13,7 +16,7 @@ The urlString is split up into its parts,
 and those parts are tested against the respective regex.
 */
 
-async function convertUrlToPlanner(urlString) {
+/*export async function convertUrlToPlanner(urlString) {
   // 1. Check if the provided url is okay
   if (typeof urlString !== 'string') return 'not a string';
 
@@ -57,12 +60,10 @@ async function convertUrlToPlanner(urlString) {
     toMerge[[str]] = [];
   });
 
-  /*
-  This would turn
-  ['2-44-345', '33', '543-1-10']
-  into
-  [[2, 44, 345], [33], [543, 1, 10]]
-  */
+  // This would turn
+  // ['2-44-345', '33', '543-1-10']
+  // into
+  // [[2, 44, 345], [33], [543, 1, 10]]
   let recipesStringsSplitToNum = [];
   recipesStrings.map(str => {
     let toNum = [];
@@ -101,6 +102,4 @@ async function convertUrlToPlanner(urlString) {
   });
 
   return toMerge;
-};
-
-export default convertUrlToPlanner;
+}*/

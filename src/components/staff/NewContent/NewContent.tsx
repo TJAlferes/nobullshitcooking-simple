@@ -6,6 +6,7 @@ import React, {
   useState
 } from 'react';
 import { createEditor, Editor, Node, Range, Transforms } from 'slate';
+import { withHistory } from 'slate-history';
 import {
   Editable,
   ReactEditor,
@@ -16,7 +17,6 @@ import {
   useSlate,
   withReact
 } from 'slate-react';
-import { withHistory } from 'slate-history';
 const imageExtensions = require('image-extensions');
 import isHotKey from 'is-hotkey';
 import isUrl from 'is-url';
@@ -27,12 +27,51 @@ import { Toolbar } from './views/Toolbar';
 
 const HOTKEYS: IHotKeys = {'mod+b': 'bold', 'mod+i': 'italic'};
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
-const initialValue = [
+// put in redux? use helpers?
+const initialValue = localStorage.getItem('newContent')
+? JSON.parse(localStorage.getItem('newContent') as string)
+: [
   {
     type: 'paragraph',
     children: [{text: 'A line of text in a paragraph.'}],
   }
 ];
+
+// =============================================================================
+
+function insertImage(editor: ReactEditor, url: string|ArrayBuffer|null) {
+  Transforms.insertNodes(editor, {type: "image", url, children: [{text: ""}]});
+}
+
+function insertLink(editor: ReactEditor, url: string|ArrayBuffer|null) {
+  if (editor.selection) wrapLink(editor, url);
+}
+
+
+
+function isBlockActive(editor: ReactEditor, format: string) {
+  const [ match ] = Editor.nodes(editor, {match: n => n.type === format});
+  return !!match;
+}
+
+function isImageUrl(url: string) {
+  if (!url) return false;
+  if (!isUrl(url)) return false;
+  const ext = new URL(url).pathname.split('.').pop();
+  return imageExtensions.includes(ext);
+}
+
+function isLinkActive(editor: ReactEditor) {
+  const [ link ] = Editor.nodes(editor, {match: n => n.type === "link"});
+  return !!link;
+}
+
+function isMarkActive(editor: ReactEditor, format: string) {
+  const marks = Editor.marks(editor);
+  return marks ? marks[format] === true : false;
+}
+
+
 
 function toggleBlock(editor: ReactEditor, format: string) {
   const isActive = isBlockActive(editor, format);
@@ -55,15 +94,7 @@ function toggleMark(editor: ReactEditor, format: string) {
   else Editor.addMark(editor, format, true);
 }
 
-function isBlockActive(editor: ReactEditor, format: string) {
-  const [ match ] = Editor.nodes(editor, {match: n => n.type === format});
-  return !!match;
-}
 
-function isMarkActive(editor: ReactEditor, format: string) {
-  const marks = Editor.marks(editor);
-  return marks ? marks[format] === true : false;
-}
 
 function withImages(editor: ReactEditor) {
   const insertData = (data: DataTransfer) => {
@@ -96,17 +127,6 @@ function withImages(editor: ReactEditor) {
   return editor;
 }
 
-function insertImage(editor: ReactEditor, url: string|ArrayBuffer|null) {
-  Transforms.insertNodes(editor, {type: "image", url, children: [{text: ""}]});
-}
-
-function isImageUrl(url: string) {
-  if (!url) return false;
-  if (!isUrl(url)) return false;
-  const ext = new URL(url).pathname.split('.').pop();
-  return imageExtensions.includes(ext);
-}
-
 function withLinks(editor: ReactEditor) {
   const insertData = (data: DataTransfer) => {
     const text = data.getData('text/plain');
@@ -127,14 +147,7 @@ function withLinks(editor: ReactEditor) {
   return editor;
 }
 
-function insertLink(editor: ReactEditor, url: string|ArrayBuffer|null) {
-  if (editor.selection) wrapLink(editor, url);
-}
 
-function isLinkActive(editor: ReactEditor) {
-  const [ link ] = Editor.nodes(editor, {match: n => n.type === "link"});
-  return !!link;
-}
 
 function unwrapLink(editor: ReactEditor) {
   Transforms.unwrapNodes(editor, {match: n => n.type === "link"});
@@ -153,6 +166,8 @@ function wrapLink(editor: ReactEditor, url: string|ArrayBuffer|null) {
     Transforms.collapse(editor, {edge: 'end'});
   }
 }
+
+// =============================================================================
 
 const ImageElement: FunctionComponent<ElementProps> = ({
   attributes,
@@ -211,6 +226,8 @@ const Leaf: FunctionComponent<ElementProps> = ({
   if (leaf.italic) children = <em>{children}</em>;
   return <span {...attributes}>{children}</span>;
 };
+
+// =============================================================================
 
 function BlockButton({ format, icon }: ButtonProps) {
   const editor = useSlate();
@@ -275,6 +292,8 @@ function LinkButton() {
   );
 }
 
+// =============================================================================
+
 export default function NewContent(): JSX.Element {
   const [ value, setValue ] = useState<Node[]>(initialValue);
 
@@ -286,6 +305,12 @@ export default function NewContent(): JSX.Element {
   const renderElement = useCallback(props => <Element {...props} />, []);
 
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
+
+  const handleChange = (value: Node[]) => {
+    setValue(value);
+    // put in redux? use helpers?
+    localStorage.setItem('newContent', JSON.stringify(value));
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     for (const hotkey in HOTKEYS) {
@@ -301,7 +326,7 @@ export default function NewContent(): JSX.Element {
       <Slate
         editor={editor}
         value={value}
-        onChange={value => setValue(value)}
+        onChange={handleChange}
       >
         <Toolbar className="toolbar">
           <MarkButton format="bold" icon="format_bold" />

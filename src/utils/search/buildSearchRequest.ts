@@ -3,7 +3,7 @@ This module was adapted from code written by Jason Stoltz & team at Elastic:
 https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
 
-function buildMatch(searchTerm, currentIndex) {
+/*function buildMatch(searchTerm, currentIndex) {
   if (currentIndex === "recipes") {
     return searchTerm
     ? {match: {title: {query: searchTerm}}}
@@ -25,9 +25,9 @@ function buildFrom(current, resultsPerPage) {
 }
 
 function getTermFilterValue(field, fieldValue) {
-  /*if (fieldValue === "false" || fieldValue === "true") {
-    return {[field]: fieldValue === "true"};
-  }*/
+  //if (fieldValue === "false" || fieldValue === "true") {
+  //  return {[field]: fieldValue === "true"};
+  //}
   return {[`${field}`]: fieldValue};
 }
 
@@ -123,4 +123,4 @@ export default function buildSearchRequest(state, currentIndex) {
   };
   
   return body;
-}
+}*/

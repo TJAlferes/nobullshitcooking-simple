@@ -1,7 +1,7 @@
-import convertUrlToPlanner from './convertUrlToPlanner';
+/*import { convertUrlToPlanner } from './convertUrlToPlanner';
 
 describe('convertUrlToPlanner', () => {
-  /*it('should correctly convert url string to plan object', () => {
+  it('should correctly convert url string to plan object', () => {
     const url = 'd1_15-226.d22_3';
     const actual = convertUrlToPlanner(url);
     const expected = {
@@ -14,9 +14,8 @@ describe('convertUrlToPlanner', () => {
       ]
     };
     expect(actual).toEqual(expected);
-  });*/
-
+  });
   it('CHANGE ME', () => {
     expect(1).toEqual(1);
   });
-});
+});*/

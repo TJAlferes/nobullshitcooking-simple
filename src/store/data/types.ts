@@ -6,9 +6,9 @@ export const DATA_GET_CONTENT_TYPES = 'DATA_GET_CONTENT_TYPES' as const;
 export const DATA_GET_CONTENT_TYPES_SUCCEEDED = 'DATA_GET_CONTENT_TYPES_SUCCEEDED' as const;
 export const DATA_GET_CONTENT_TYPES_FAILED = 'DATA_GET_CONTENT_TYPES_FAILED' as const;
 
-export const DATA_GET_POSTS = 'DATA_GET_POSTS' as const;
-export const DATA_GET_POSTS_SUCCEEDED = 'DATA_GET_POSTS_SUCCEEDED' as const;
-export const DATA_GET_POSTS_FAILED = 'DATA_GET_POSTS_FAILED' as const;
+//export const DATA_GET_POSTS = 'DATA_GET_POSTS' as const;
+//export const DATA_GET_POSTS_SUCCEEDED = 'DATA_GET_POSTS_SUCCEEDED' as const;
+//export const DATA_GET_POSTS_FAILED = 'DATA_GET_POSTS_FAILED' as const;
 
 export const DATA_GET_POST_PREVIEWS = 'DATA_GET_POST_PREVIEWS' as const;
 export const DATA_GET_POST_PREVIEWS_SUCCEEDED = 'DATA_GET_POST_PREVIEWS_SUCCEEDED' as const;
@@ -88,7 +88,7 @@ export const DATA_GET_MY_FRIENDSHIPS_FAILED = 'DATA_GET_MY_FRIENDSHIPS_FAILED' a
 
 export interface IDataState {
   contentTypes: IContentType[]
-  posts: []
+  //posts: []  // remove?
   postPreviews: IPostPreview[]
   measurements: IMeasurement[]
   equipment: IEquipment[]
@@ -201,7 +201,7 @@ export interface IFriendship {
 
 export type DataActions =
 IDataGetContentTypes |
-IDataGetPosts |
+//IDataGetPosts |
 IDataGetPostPreviews |
 IDataGetMeasurements |
 IDataGetEquipments |
@@ -226,10 +226,10 @@ export interface IDataGetContentTypes {
   contentTypes: IContentType[]
 }
 
-export interface IDataGetPosts {
+/*export interface IDataGetPosts {
   type: typeof DATA_GET_POSTS
   posts: []
-}
+}*/
 
 export interface IDataGetPostPreviews {
   type: typeof DATA_GET_POST_PREVIEWS
