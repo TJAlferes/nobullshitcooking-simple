@@ -9,14 +9,14 @@ import {
   messengerSendMessage,
   messengerSendWhisper
 } from '../../../store/messenger/actions';
-import { MobileMessengerView } from './views/MobileMessengerView';
+//import { MobileMessengerView } from './views/MobileMessengerView';
 import { MessengerView } from './views/MessengerView';
 
 // TO DO: fix no longer auto scrolling after spam debounce
 
 export function Messenger({
   twoColumnATheme,
-  messengerView,
+  //messengerView,
   windowFocused,
   authname,
   message,
@@ -36,7 +36,7 @@ export function Messenger({
   const [ debounced, setDebounced ] = useState(false);
   const [ spamCount, setSpamCount ] = useState(1);
   const [ peopleTab, setPeopleTab ] = useState("Room");
-  const [ mobileTab, setMobileTab ] = useState("Options");
+  //const [ mobileTab, setMobileTab ] = useState("Options");
   const [ roomToEnter, setRoomToEnter ] = useState("");
   const [ messageToSend, setMessageToSend ] = useState("");
   //const [ currentFriend, setCurrentFriend ] = useState("");
@@ -227,13 +227,13 @@ export function Messenger({
     setLoading(false);
   };
 
-  const handleMobileTabChange = (value: string) => setMobileTab(value);
+  //const handleMobileTabChange = (value: string) => setMobileTab(value);
 
   const handlePeopleTabChange = (value: string) => setPeopleTab(value);
 
   //const handleFriendClick = () => setCurrentFriend(e.target.id);
   
-  return (messengerView === "mobile")
+  /*return (messengerView === "mobile")
   ? (
     <MobileMessengerView
       authname={authname}
@@ -259,7 +259,8 @@ export function Messenger({
       handleMobileTabChange={handleMobileTabChange}
     />
   )
-  : (
+  :*/
+  return (
     <MessengerView
       twoColumnATheme={twoColumnATheme}
       authname={authname}

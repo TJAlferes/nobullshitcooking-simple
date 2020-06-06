@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  withSearch,
   Facet,
   PagingInfo,
   Paging,
-  ResultsPerPage
-} from '@elastic/react-search-ui';
+  ResultsPerPage,
+  withSearch,
+} from '@elastic/react-search-ui';  // Jason should release typings soon
 
 import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
-import './searchResultsRecipes.css';
+import './recipes.css';
 
-// TO DO: finish styling
+// TO DO: finish typing and styling
 
-export const SearchResultsRecipes = ({
+export function SearchResultsRecipes({
   twoColumnBTheme,
-  wasSearched,
   facets,  // ?
   filters,  // ?
-  results
-}) => {
+  results,
+  wasSearched
+}: Props) {
   return (
     <div className={`search-results two-column-b ${twoColumnBTheme}`}>
 
@@ -161,8 +161,8 @@ export const SearchResultsRecipes = ({
         <Paging />
 
         <div className="search-results-list">
-          {results.map(result => {
-            let rows = Object.entries(result);
+          {results.map((result: any) => {
+            const rows = Object.entries<any>(result);
             return (
               <div className="search-result-recipe" key={rows[0][1].raw}>
                 <Link
@@ -188,7 +188,7 @@ export const SearchResultsRecipes = ({
 
                     <div className="search-result-recipe-text__tags">
                       <div className="search-result-recipe-text__tags-methods">
-                        {rows[8] && rows[8][1].raw.map(method => (
+                        {rows[8] && rows[8][1].raw.map((method: any) => (
                           <span
                             className="search-result-recipe-text__tags-method"
                             key={method}
@@ -198,7 +198,7 @@ export const SearchResultsRecipes = ({
                         ))}
                       </div>
                       <div className="search-result-recipe-text__tags-ingredients">
-                        {rows[10] && rows[10][1].raw.map(ingredient => (
+                        {rows[10] && rows[10][1].raw.map((ingredient: any) => (
                           <span
                             className="search-result-recipe-text__tags-ingredient"
                             key={ingredient}
@@ -235,13 +235,29 @@ export const SearchResultsRecipes = ({
       
     </div>
   );
+}
+
+type PropsFromContext = {
+  facets: any;
+  filters: any;
+  results: any;
+  wasSearched: boolean;
+}
+
+type Props = PropsFromContext & {
+  twoColumnBTheme: string;
 };
 
-const mapContextToProps = ({ wasSearched, facets, filters, results }) => ({
-  wasSearched,
+const mapContextToProps = ({
   facets,
   filters,
-  results
+  results,
+  wasSearched
+}: PropsFromContext) => ({
+  facets,
+  filters,
+  results,
+  wasSearched
 });
 
 export default withSearch(mapContextToProps)(SearchResultsRecipes);

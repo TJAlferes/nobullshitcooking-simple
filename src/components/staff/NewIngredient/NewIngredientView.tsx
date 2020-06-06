@@ -37,11 +37,11 @@ export function StaffNewIngredientView({
       <div>
         <span>
           <Link to="/home">Home</Link>
-          <i> > </i>
+          <i>{`&gt;`}</i>
         </span>
         <span>
           <Link to="/staff-dashboard">Dashboard</Link>
-          <i> > </i>
+          <i>{`&gt;`}</i>
         </span>
         <span>{editing ? 'Edit Ingredient' : 'Create New Ingredient'}</span>
       </div>

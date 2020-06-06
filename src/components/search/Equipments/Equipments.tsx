@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  withSearch,
   Facet,
   PagingInfo,
   Paging,
-  ResultsPerPage
+  ResultsPerPage,
+  withSearch
 } from '@elastic/react-search-ui';  // Jason should release typings soon
 
 import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import './equipments.css';
 
-// TO DO: finish styling
+// TO DO: finish typing and styling
 
-export const SearchResultsEquipment = ({
+export function SearchResultsEquipment({
   twoColumnBTheme,
-  wasSearched,
   facets,  // ?
   filters,  // ?
-  results
-}) => {
+  results,
+  wasSearched
+}: Props) {
   if (!results) return false;
   return (
     <div className={`search-results two-column-b ${twoColumnBTheme}`}>
@@ -66,8 +66,8 @@ export const SearchResultsEquipment = ({
         <Paging />
 
         <div className="search-results-list">
-          {results.map(result => {
-            let rows = Object.entries(result);
+          {results.map((result: any) => {
+            const rows = Object.entries<any>(result);
             return (
               <div className="search-result-equipment" key={rows[0][1].raw}>
                 <Link
@@ -98,13 +98,29 @@ export const SearchResultsEquipment = ({
       
     </div>
   );
+}
+
+type PropsFromContext = {
+  facets: any;
+  filters: any;
+  results: any;
+  wasSearched: boolean;
+}
+
+type Props = PropsFromContext & {
+  twoColumnBTheme: string;
 };
 
-const mapContextToProps = ({ wasSearched, facets, filters, results }) => ({
-  wasSearched,
+const mapContextToProps = ({
   facets,
   filters,
-  results
+  results,
+  wasSearched
+}: PropsFromContext) => ({
+  facets,
+  filters,
+  results,
+  wasSearched
 });
 
 export default withSearch(mapContextToProps)(SearchResultsEquipment);

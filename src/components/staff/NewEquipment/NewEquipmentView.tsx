@@ -37,11 +37,11 @@ export function StaffNewEquipmentView({
       <div>
         <span>
           <Link to="/home">Home</Link>
-          <i> > </i>
+          <i>{`&gt;`}</i>
         </span>
         <span>
           <Link to="/staff-dashboard">Dashboard</Link>
-          <i> > </i>
+          <i>{`&gt;`}</i>
         </span>
         <span>{editing ? 'Edit Equipment' : 'Create New Equipment'}</span>
       </div>

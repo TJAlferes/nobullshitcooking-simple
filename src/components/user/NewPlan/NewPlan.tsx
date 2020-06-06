@@ -19,13 +19,13 @@ import {
   userCreateNewPlan,
   userEditPlan
 } from '../../../store/user/plan/actions';
-import { MobileNewPlanView } from './views/MobileNewPlanView';
+//import { MobileNewPlanView } from './views/MobileNewPlanView';
 import { NewPlanView } from './views/NewPlanView';
 
 export function NewPlan({
   editing,
   twoColumnATheme,
-  planView,
+  //planView,
   message,
   dataMyPlans,
   dataRecipes,
@@ -175,7 +175,7 @@ export function NewPlan({
     }
   }
 
-  return (planView === "mobile")
+  /*return (planView === "mobile")
   ? (
     <MobileNewPlanView
       feedback={feedback}
@@ -201,7 +201,8 @@ export function NewPlan({
       handleSubmit={handleSubmit}
     />
   )
-  : (
+  :*/
+  return (
     <NewPlanView
       twoColumnATheme={twoColumnATheme}
       feedback={feedback}

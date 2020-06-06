@@ -200,6 +200,7 @@ export interface IFriendship {
 }
 
 export type DataActions =
+IDataInit |
 IDataGetContentTypes |
 //IDataGetPosts |
 IDataGetPostPreviews |
@@ -220,6 +221,10 @@ IDataGetMyFavoriteRecipes |
 IDataGetMySavedRecipes |
 IDataGetMyPlans |
 IDataGetMyFriendships;
+
+export interface IDataInit {
+  type: typeof DATA_INIT;
+}
 
 export interface IDataGetContentTypes {
   type: typeof DATA_GET_CONTENT_TYPES

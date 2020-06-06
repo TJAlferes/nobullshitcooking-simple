@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { withSearch, SearchBox } from '@elastic/react-search-ui';
-
-// they will add types soon https://github.com/elastic/search-ui/issues/289
+ // Jason should release typings soon
+ // https://github.com/elastic/search-ui/issues/289
+import { SearchBox, withSearch } from '@elastic/react-search-ui';
 
 import { searchSetIndex } from '../../../../store/search/actions';
 import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
@@ -54,7 +54,7 @@ export function Search({
         <select
           name="search_prefilter"
           id="search_prefilter"
-          type="select-one"
+          //type="select-one" ?
           onChange={changeSearchIndex}
         >
           {/*
@@ -98,11 +98,11 @@ export function Search({
             urlField: field,
             shouldTrackClickThrough: true
           }}
-          autocompleteView={props => {
+          autocompleteView={(props: any) => {
             return (
               <div className="sui-search-box__autocomplete">
                 <ul className="sui-search-box__results-list">
-                  {props.autocompletedResults.map(res => {
+                  {props.autocompletedResults.map((res: any) => {
                     return (
                       <li
                         key={res.id.raw}
@@ -146,15 +146,21 @@ interface RootState {
   };
 }
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  theme: string;
-  //searchTerm,
-  //setSearchTerm
+type PropsFromContext = {
+  searchTerm: string;
+  setSearchTerm: any;
 };
 
-const mapContextToProps = ({ searchTerm, setSearchTerm }) => ({
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromContext & PropsFromRedux & {
+  theme: string;
+};
+
+const mapContextToProps = ({
+  searchTerm,
+  setSearchTerm
+}: PropsFromContext) => ({
   searchTerm,
   setSearchTerm
 });

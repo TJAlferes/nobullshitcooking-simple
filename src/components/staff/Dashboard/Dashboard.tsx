@@ -1,16 +1,30 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
-//import './dashboard.css';
+import './dashboard.css';
 
-const Dashboard = ({ authname }) => (
-  <div className="dashboard">
-    <p>{authname}</p>
-  </div>
-);
+export function StaffDashboard({ authname }: Props): JSX.Element {
+  return (
+    <div className="staff-dashboard">
+      <p>{authname}</p>
+    </div>
+  );
+}
 
-const mapStateToProps = state => ({
+interface RootState {
+  auth: {
+    authname: string;
+  };
+}
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux;
+
+const mapStateToProps = (state: RootState) => ({
   authname: state.auth.authname
-})
+});
 
-export default connect(mapStateToProps)(Dashboard);
+const connector = connect(mapStateToProps);
+
+export default connector(StaffDashboard);
