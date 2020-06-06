@@ -1,17 +1,17 @@
-/*import axios from 'axios';
+import axios from 'axios';
 
 import { store } from '../index';
-import buildAutocompleteState from '../utils/search/buildAutocompleteState';
-import buildSearchRequest from '../utils/search/buildSearchRequest';
-import applyDisjunctiveFaceting from '../utils/search/applyDisjunctiveFaceting';
-import buildSearchState from '../utils/search/buildSearchState';
+import { buildAutocompleteState } from '../utils/search/buildAutocompleteState';
+import { buildSearchRequest } from '../utils/search/buildSearchRequest';
+import { applyDisjunctiveFaceting } from '../utils/search/applyDisjunctiveFaceting';
+import { buildSearchState } from '../utils/search/buildSearchState';
 import { NOBSCBackendAPIEndpointOne } from './NOBSCBackendAPIEndpointOne';
 
-const endpoint = NOBSCBackendAPIEndpointOne;*/
+const endpoint = NOBSCBackendAPIEndpointOne;
 
 // TO DO: put currentIndex on window?
 
-/*function getSearchState() {
+function getSearchState() {
   const { search } = store.getState();
   return search;
 }
@@ -35,9 +35,9 @@ function getDisjunctiveFacetsConfig() {
   } else if (getSearchState().currentIndex === "ingredients") {
     return ["ingredientTypeName"];
   }
-}*/
+}
 
-/*const searchConfig = {
+export const searchConfig = {
   //debug: true,
   trackUrlState: false,  // ?
   onResultClick: function() {
@@ -131,5 +131,3 @@ function getDisjunctiveFacetsConfig() {
     disjunctiveFacets: ["recipeTypeName", "cuisineName"]  // "ingredientTypeName", "equipmentTypeName"
   }
 };
-
-export default searchConfig;*/

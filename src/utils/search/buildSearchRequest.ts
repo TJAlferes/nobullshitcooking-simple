@@ -3,7 +3,7 @@ This module was adapted from code written by Jason Stoltz & team at Elastic:
 https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 */
 
-/*function buildMatch(searchTerm, currentIndex) {
+function buildMatch(searchTerm, currentIndex) {
   if (currentIndex === "recipes") {
     return searchTerm
     ? {match: {title: {query: searchTerm}}}
@@ -78,7 +78,7 @@ function buildRequestFilter(filters, currentIndex) {
   return filters;
 }
 
-export default function buildSearchRequest(state, currentIndex) {
+export function buildSearchRequest(state, currentIndex) {
   const { searchTerm, filters, current, resultsPerPage } = state;
 
   const match = buildMatch(searchTerm, currentIndex);
@@ -123,4 +123,4 @@ export default function buildSearchRequest(state, currentIndex) {
   };
   
   return body;
-}*/
+}
