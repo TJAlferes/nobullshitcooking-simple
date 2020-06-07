@@ -38,7 +38,6 @@ export function SearchResultsEquipment({
               label="Equipment Types"
               filterType="any"
               isFilterable={true}
-              showSearch={false}
               show={5}
               facets={{
                 equipmentTypeName: [

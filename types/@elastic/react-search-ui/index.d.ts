@@ -122,7 +122,6 @@ declare module "@elastic/react-search-ui" {
 
   interface FacetProps {
     // Props
-
     className?: string;
     field: string;
     label: string;
@@ -132,12 +131,10 @@ declare module "@elastic/react-search-ui" {
     isFilterable?: boolean;
 
     // State
-
     filters?: Filter[];
     facets?: { [key: string]: FacetT[] };
 
     // Actions
-
     addFilter?: func;
     removeFilter?: func;
     setFilter?: func;
@@ -148,7 +145,6 @@ declare module "@elastic/react-search-ui" {
 
   interface ResultProps {
     // Props
-
     className?: string;
     clickThroughTags?: string[];
     titleField?: string;
@@ -158,7 +154,6 @@ declare module "@elastic/react-search-ui" {
     shouldTrackClickThrough?: boolean;
 
     // Actions
-
     trackClickThrough?: func;
   }
 
@@ -166,7 +161,6 @@ declare module "@elastic/react-search-ui" {
 
   interface ResultsContainerProps {
     // Props
-
     className?: string;
     clickThroughTags?: string[];
     resultView?: renderFunc;
@@ -176,7 +170,6 @@ declare module "@elastic/react-search-ui" {
     shouldTrackClickThrough?: boolean;
 
     // State
-
     results: ResultT[];
   }
 
@@ -184,7 +177,6 @@ declare module "@elastic/react-search-ui" {
 
   interface SearchBoxProps {
     // Props
-
     autocompleteMinimumCharacters?: number;
     autocompleteResults?: boolean | {
     clickThroughTags?: string[];
@@ -207,13 +199,11 @@ declare module "@elastic/react-search-ui" {
     view?: renderFunc;
 
     // State
-
     autocompletedResults?: ResultT[];
     autocompletedSuggestions?: { [key: string]: Suggestion[] };
     searchTerm?: string;
 
     // Actions
-
     setSearchTerm?: func;
     trackAutocompleteClickThrough?: func;
   }
@@ -222,12 +212,10 @@ declare module "@elastic/react-search-ui" {
 
   interface PagingInfoProps {
     // Props
-
     className?: string;
     view?: renderFunc;
 
     // State
-
     pagingStart?: number;
     pagingEnd?: number;
     resultSearchTerm?: string;
@@ -238,18 +226,15 @@ declare module "@elastic/react-search-ui" {
 
   interface PagingProps {
     // Props
-
     className?: string;
     view?: renderFunc;
 
     // State
-
     current?: number;
     resultsPerPage?: number;
     totalPages?: number;
 
     // Action
-
     setCurrent?: func;
   }
 
@@ -257,17 +242,14 @@ declare module "@elastic/react-search-ui" {
 
   interface ResultsPerPageProps {
     // Props
-
     className?: string;
     view?: renderFunc;
     options?: number[];
 
     // State
-
     resultsPerPage?: number;
 
     // Actions
-
     setResultsPerPage?: func;
   }
 
@@ -275,19 +257,16 @@ declare module "@elastic/react-search-ui" {
 
   interface SortingProps {
     // Props
-
     className?: string;
     label?: string;
     sortOptions: SortOption[];
     view?: renderFunc;
 
     // State
-
     sortDirection?: "asc" | "desc" | "";
     sortField?: string;
 
     // Actions
-
     setSort?: func;
   }
 
@@ -301,7 +280,6 @@ declare module "@elastic/react-search-ui" {
    */
   export interface Context {
     // Search State
-
     current: number;
     filters?: Filter[];
     resultsPerPage?: number;
@@ -310,7 +288,6 @@ declare module "@elastic/react-search-ui" {
     sortField?: string;
 
     // Response State
-
     autocompletedResults: Result[]; // An array of results items fetched for an autocomplete dropdown.
     autocompletedResultsRequestId: string; // A unique ID for the current autocompleted search results.
     autocompletedSuggestions: {[key: string]: Suggestion[] }; // A keyed object of query suggestions. It's keyed by type since multiple types of query suggestions can be set here.
@@ -322,7 +299,6 @@ declare module "@elastic/react-search-ui" {
     totalResults: number; // Total number of results found for the current query.
 
     // Application State
-
     error?: string; // Error message, if an error was thrown.
     isLoading: boolean; // Whether or not a search is currently being performed.
     wasSearched: boolean; // Has any query been performed since this driver was created? Can be useful for displaying initial states in the UI.;
@@ -334,6 +310,8 @@ declare module "@elastic/react-search-ui" {
   }
 
   export class WithSearch extends Component<WithSearchProps> {}
+
+  export function withSearch(mapContextToProps: func): any;
 
   interface SearchProviderProps {
     config?: object;  // Matches the shape of SearchDriver, which needs to be typed

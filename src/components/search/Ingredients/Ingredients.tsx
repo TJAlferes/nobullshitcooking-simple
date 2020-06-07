@@ -37,7 +37,6 @@ export function SearchResultsIngredients({
               label="Ingredient Types"
               filterType="any"
               isFilterable={true}
-              showSearch={false}
               show={18}
               facets={{
                 ingredientTypeName: [

@@ -40,7 +40,6 @@ export function SearchResultsRecipes({
               label="Recipe Types"
               filterType="any"
               isFilterable={true}
-              showSearch={false}
               show={12}
               facets={{
                 recipeTypeName: [
@@ -71,7 +70,6 @@ export function SearchResultsRecipes({
               label="Cuisines"
               filterType="any"
               isFilterable={true}
-              showSearch={false}
               show={24}
               facets={{
                 cuisineName: [
@@ -114,7 +112,6 @@ export function SearchResultsRecipes({
               label="Methods"
               filterType="any"
               isFilterable={true}
-              showSearch={false}
               show={24}
               facets={{
                 methodNames: [

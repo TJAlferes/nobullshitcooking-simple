@@ -18,9 +18,10 @@ export function Search({
 }: Props): JSX.Element {
   const history = useHistory();
 
-  const changeSearchIndex = (e: ) => {  // useEffect? useLayoutEffect?
+  const changeSearchIndex = (e: React.ChangeEvent<HTMLSelectElement>) => {  // useEffect? useLayoutEffect?
     const sInsert = document
-    .getElementsByClassName("sui-search-box__wrapper")[1].firstChild;
+    .getElementsByClassName("sui-search-box__wrapper")[1]
+    .firstChild as HTMLElement;
     searchSetIndex(e.target.value);
     sInsert.focus();
   }
@@ -87,58 +88,40 @@ export function Search({
 
       <div className="search-insert">
         <SearchBox
-          onSubmit={handleSubmit}
-          inputProps={{
-            placeholder: ""
-          }}
-          useAutocomplete={true}
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
-            titleField: field,
-            urlField: field,
+            titleField: field as string,
+            urlField: field as string,
             shouldTrackClickThrough: true
           }}
-          autocompleteView={(props: any) => {
-            return (
-              <div className="sui-search-box__autocomplete">
-                <ul className="sui-search-box__results-list">
-                  {props.autocompletedResults.map((res: any) => {
-                    return (
-                      <li
-                        key={res.id.raw}
-                        dangerouslySetInnerHTML={{__html: res.id.snippet}}
-                        onClick={() => {
-                          props.setSearchTerm(res.id.raw);
-                          props.closeMenu();
-                          redirectToSearchPage();
-                        }}
-                      >
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            );
-          }}
-          /*inputView={({ getAutocomplete, getInputProps, getButtonProps }) => (
-            <>
-              <div className="desktop-sui-search-box__wrapper">
-                <input
-                  {...getInputProps()}
-                />
-                {getAutocomplete()}
-              </div>
-              <button className="sui-search-box__submit" {...getButtonProps()}>
-                Search
-              </button>
-            </>
-          )}*/
+          autocompleteView={(props: any): JSX.Element => (
+            <div className="sui-search-box__autocomplete">
+              <ul className="sui-search-box__results-list">
+                {props.autocompletedResults.map((res: any) => (
+                    <li
+                      key={res.id.raw}
+                      dangerouslySetInnerHTML={{__html: res.id.snippet}}
+                      onClick={() => {
+                        props.setSearchTerm(res.id.raw);
+                        props.closeMenu();
+                        redirectToSearchPage();
+                      }}
+                    >
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          )}
+          inputProps={{placeholder: ""}}
+          onSubmit={handleSubmit}
         />
       </div>
 
     </div>
   );
 }
+
+//useAutocomplete={true}
 
 interface RootState {
   search: {

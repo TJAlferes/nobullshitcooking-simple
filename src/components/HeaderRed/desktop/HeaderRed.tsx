@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Logo from './Logo/Logo';
+import { Logo } from './Logo/Logo';
 import Promo from './Promo/Promo';
 import Search from './Search/Search';
 import SiteNav from './SiteNav/SiteNav';

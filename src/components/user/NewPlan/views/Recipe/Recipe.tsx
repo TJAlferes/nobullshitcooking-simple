@@ -184,8 +184,8 @@ type Props = PropsFromRedux & {
   index: number;
   listId: number;
   recipe: IPlannerRecipe;
-  connectDragSource: ConnectDragSource,
-  connectDropTarget: ConnectDropTarget
+  //connectDragSource: ConnectDragSource;
+  //connectDropTarget: ConnectDropTarget;
 };
 
 const mapDispatchToProps = {
