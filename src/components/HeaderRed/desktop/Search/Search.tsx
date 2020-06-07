@@ -123,27 +123,29 @@ export function Search({
 
 //useAutocomplete={true}
 
+interface RootContext {
+  searchTerm: string;
+  setSearchTerm: any;
+}
+
 interface RootState {
   search: {
     currentIndex: string;
   };
 }
 
-type PropsFromContext = {
-  searchTerm: string;
-  setSearchTerm: any;
-};
-
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromContext & PropsFromRedux & {
+type Props = PropsFromRedux & {
   theme: string;
+  searchTerm: string;
+  setSearchTerm: any;
 };
 
 const mapContextToProps = ({
   searchTerm,
   setSearchTerm
-}: PropsFromContext) => ({
+}: RootContext) => ({
   searchTerm,
   setSearchTerm
 });
@@ -158,4 +160,4 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(withSearch(mapContextToProps)(Search));
+export default withSearch(mapContextToProps)(connector(Search));
