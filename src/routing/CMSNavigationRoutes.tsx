@@ -5,10 +5,12 @@ function unflattenPageTypes(pageTypes: IContentType[]) {
   let map: any = {};
   let node;
   let roots = [];
+
   for (let i = 0; i < nodes.length; i += 1) {
     node = nodes[i];
     node.children = [];
     map[node.content_type_id] = i;
+
     if (
       node.parent_id !== 0 &&
       nodes[map[node.parent_id]].children !== undefined
@@ -18,6 +20,7 @@ function unflattenPageTypes(pageTypes: IContentType[]) {
       roots.push(node);
     }
   }
+
   return roots[0];
 }
 
@@ -41,6 +44,7 @@ export function makeRoutesFromContentTypes(contentTypes: IContentType[]) {
 
     while (currentPageType.children.length) {
       let current = currentPageType.children.shift();
+      
       childProps.links.push({
         name: current.content_type_name,
         path: current.path

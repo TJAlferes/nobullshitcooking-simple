@@ -107,11 +107,15 @@ const appRoute = (
     childProps={childProps}
   />;
 
-// TO DO: just make Verify its own component?
 export function RoutesList({ contentTypes }: Props) {
-  const routesFromContentTypes = makeRoutesFromContentTypes(contentTypes);
+  let routesFromContentTypes;
+  if (contentTypes.length) routesFromContentTypes = makeRoutesFromContentTypes(contentTypes);
+  else routesFromContentTypes = null;
+  //useEffect?
 
-  return (
+  return !routesFromContentTypes
+  ? <LoaderSpinner />
+  : (
     <Suspense fallback={<LoaderSpinner />}>
       <Switch>
         {/* staff routes */}
