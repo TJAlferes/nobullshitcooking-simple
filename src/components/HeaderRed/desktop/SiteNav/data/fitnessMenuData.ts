@@ -1,24 +1,24 @@
 export default [
   {
     name: 'Principles',
-    link: '/fitness/principles',
+    link: '/page/guide/fitness/principles',
     subMenu: [
       'Composition', 'Balance', 'Strength', 'Speed', 'Agility', 'Endurance', 'Flexibility'
     ],
     subMenuLinks: [
-      '/fitness/principles/composition',
-      '/fitness/principles/balance',
-      '/fitness/principles/strength',
-      '/fitness/principles/speed',
-      '/fitness/principles/agility',
-      '/fitness/principles/endurance',
-      '/fitness/principles/flexibility'
+      '/page/guide/fitness/principles/composition',
+      '/page/guide/fitness/principles/balance',
+      '/page/guide/fitness/principles/strength',
+      '/page/guide/fitness/principles/speed',
+      '/page/guide/fitness/principles/agility',
+      '/page/guide/fitness/principles/endurance',
+      '/page/guide/fitness/principles/flexibility'
     ],
     image: 'principles'
   },
   {
     name: 'Exercises',
-    link: '/fitness/exercises',
+    link: '/page/guide/fitness/exercises',
     subMenu: [
       'Walk',
       'Squat',
@@ -26,10 +26,10 @@ export default [
       'Pullup'
     ],
     subMenuLinks: [
-      '/fitness/exercises/walk',
-      '/fitness/exercises/squat',
-      '/fitness/exercises/pushup',
-      '/fitness/exercises/pullup'
+      '/page/guide/fitness/exercises/walk',
+      '/page/guide/fitness/exercises/squat',
+      '/page/guide/fitness/exercises/pushup',
+      '/page/guide/fitness/exercises/pullup'
     ],
     image: 'exercises'
   }

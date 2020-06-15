@@ -1,29 +1,29 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './navigation.css';
 
 const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content';
 
-export default function NavigationView({
+export default function Navigation({
   oneColumnATheme,
   navGridATheme,
-  dataNavItems
+  name,
+  path,
+  links
 }: Props): JSX.Element {
-  const { pathname } = useLocation();  // "/guide/food"
-
   return (
     <div className={`cms-navigation one-column-a ${oneColumnATheme}`}>
-      <h1>Food</h1>
+      <h1>{name}</h1>
       <div className={`nav-grid-a ${navGridATheme}`}>
-        {dataNavItems.map((dataNavItem: IDataNavItem) => (
-          <div className="nav-grid-a-item">
-            <Link to={`${dataNavItem.path}`}>
-              <span className="nav-grid-a-item-text">{dataNavItem.title}</span>
-              <img
+        {links.map((link: any) => (
+          <div className="nav-grid-a-item" key={link.path}>
+            <Link to={`${link.path}`}>
+              <span className="nav-grid-a-item-text">{link.name}</span>
+              {/*<img
                 className="nav-grid-a-item-image"
-                src={`${s3Path}/${dataNavItem.category}/${dataNavItem.image}`}
-              />
+                src={`${s3Path}/${link.category}/${link.image}`}
+              />*/}
             </Link>
           </div>
         ))}
@@ -37,7 +37,10 @@ export default function NavigationView({
 interface Props {
   oneColumnATheme: string;
   navGridATheme: string;
-  dataNavItems: IDataNavItem[];
+  //dataNavItems: IDataNavItem[];
+  name: string;
+  path: string;
+  links: any[];
 }
 
 interface IDataNavItem {

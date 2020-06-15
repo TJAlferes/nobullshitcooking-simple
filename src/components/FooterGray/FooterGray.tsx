@@ -7,11 +7,11 @@ export function FooterGray({ theme }: Props): JSX.Element {
   return (
     <footer className={`footergray ${theme}`}>
       <ul>
-        <li><Link to="/site/sitemap">Sitemap</Link></li>
-        <li><Link to="/site/disclaimer">Disclaimer</Link></li>
-        <li><Link to="/site/terms">Terms of Use</Link></li>
-        <li><Link to="/site/privacy">Privacy Policy</Link></li>
-        <li><Link to="/site/help">Help</Link></li>
+        <li><Link to="/page/site/page/sitemap">Sitemap</Link></li>
+        <li><Link to="/page/site/disclaimer">Disclaimer</Link></li>
+        <li><Link to="/page/site/terms">Terms of Use</Link></li>
+        <li><Link to="/page/site/privacy">Privacy Policy</Link></li>
+        <li><Link to="/page/site/help">Help</Link></li>
       </ul>
       <p>Copyright 2015-2020 NoBullshitCooking. All rights reserved.</p>
     </footer>

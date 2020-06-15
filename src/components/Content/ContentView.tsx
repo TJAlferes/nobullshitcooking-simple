@@ -17,9 +17,10 @@ export function ContentView({
 }: Props): JSX.Element {
   return (
     <div className={`cms-content one-column-a ${oneColumnATheme}`}>
-      {contents.map(
+      {/*contents.map(
         (contentItem: IContentItem) => parseContent(contentItem)
-      )}
+      )*/}
+      howdy
     </div>
   );
 }

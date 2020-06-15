@@ -57,7 +57,7 @@ export const MainWhite: FunctionComponent<Props> = ({
         !isEditPrivateIngredient &&
         !isNewPrivateEquipment &&
         !isEditPrivateEquipment &&
-        <Breadcrumbs breadCrumbsTheme={breadCrumbsTheme} />
+        Breadcrumbs({breadCrumbsTheme})
       }
       {children}
     </main>

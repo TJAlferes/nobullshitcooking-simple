@@ -102,6 +102,7 @@ const appRoute = (
   childProps: any = null
 ) =>
   <AppliedRoute
+    key={path}
     path={path}
     component={component}
     childProps={childProps}
@@ -200,9 +201,9 @@ export function RoutesList({ contentTypes }: Props) {
 
         {appRoute("/food/cuisines/:id", Cuisine)}
         {appRoute("/food/cuisines", Cuisines)}
-        {routesFromContentTypes.map((route) => {
-          appRoute(route.path, Navigation, route.childProps);
-        })}
+        {routesFromContentTypes.map(route => 
+          appRoute(route.path, Navigation, route.childProps)
+        )}
         {appRoute("/content/:slug/:id", Content)}
         {appRoute("/home", Home)}
         {appRoute("/", Home)}

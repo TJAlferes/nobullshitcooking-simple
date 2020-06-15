@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { menuShadowShow, menuShadowHide } from '../../../../store/menu/actions';
+// TO DO: this menu data needs to also come dynamically from content types
 import fitnessMenuData from './data/fitnessMenuData';
 import foodMenuData from './data/foodMenuData';
 //import supplyMenuData from './data/supplyMenuData';
@@ -37,7 +38,7 @@ export function SiteNav({
         onMouseLeave={handleMouseLeave}
         data-test="food-area"
       >
-        <Link className="site-nav-link" to="/food">Food</Link>
+        <Link className="site-nav-link" to="/page/guide/food">Food</Link>
         {
           (expanded && expandedDropdown === 'Food')
           ? <Menu menuItems={foodMenuData} />
@@ -50,7 +51,7 @@ export function SiteNav({
         onMouseLeave={handleMouseLeave}
         data-test="fitness-area"
       >
-        <Link className="site-nav-link" to="/fitness">Fitness</Link>
+        <Link className="site-nav-link" to="/page/guide/fitness">Fitness</Link>
         {
           (expanded && expandedDropdown === 'Fitness')
           ? <Menu menuItems={fitnessMenuData} />

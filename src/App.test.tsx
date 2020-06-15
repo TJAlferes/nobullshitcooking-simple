@@ -3,12 +3,11 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
-//import { SearchProvider } from '@elastic/react-search-ui';
+import { SearchProvider } from '@elastic/react-search-ui';
 
 import { RoutesList } from './routing/Routes';
 import rootReducer from './store/rootReducer';
-//import searchConfig from './config/searchConfig';
-import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
+import { searchConfig } from './config/searchConfig';
 import { HeaderRed } from './components/HeaderRed/desktop/HeaderRed';
 import { MainWhite } from './components/MainWhite/MainWhite';
 import { FooterGray } from './components/FooterGray/FooterGray';
@@ -18,6 +17,7 @@ const storeFactory = (initialState = undefined): Store =>
   createStore(rootReducer, initialState);
 
 const beginProps = {
+  dataContentTypes: [],
   headerTheme: 'header-light',
   footerTheme: 'footer-light',
   mainTheme: 'main-light',
@@ -62,10 +62,6 @@ describe('App', () => {
     </Provider>
   );
 
-  it('displays a MobileHeaderRed component', () => {
-    expect(wrapper.find(MobileHeaderRed)).toHaveLength(1);
-  });
-
   it('displays a HeaderRed component', () => {
     expect(wrapper.find(HeaderRed)).toHaveLength(1);
   });
@@ -96,10 +92,6 @@ describe('when pathname is /register', () => {
       </MemoryRouter>
     </Provider>
   );
-
-  it('does not display a MobileHeaderRed component', () => {
-    expect(wrapper.find('.mobile-header-red')).toHaveLength(0);
-  });
 
   it('does not display a HeaderRed component', () => {
     expect(wrapper.find('.header-red')).toHaveLength(0);
@@ -132,10 +124,6 @@ describe('when pathname is /verify', () => {
     </Provider>
   );
 
-  it('does not display a MobileHeaderRed component', () => {
-    expect(wrapper.find('.mobile-header-red')).toHaveLength(0);
-  });
-
   it('does not display a HeaderRed component', () => {
     expect(wrapper.find('.header-red')).toHaveLength(0);
   });
@@ -166,10 +154,6 @@ describe('when pathname is /login', () => {
       </MemoryRouter>
     </Provider>
   );
-
-  it('does not display a MobileHeaderRed component', () => {
-    expect(wrapper.find('.mobile-header-red')).toHaveLength(0);
-  });
 
   it('does not display a HeaderRed component', () => {
     expect(wrapper.find('.header-red')).toHaveLength(0);

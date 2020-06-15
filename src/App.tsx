@@ -18,10 +18,12 @@ export function App({
   breadCrumbsTheme,
   shadow
 }: Props): JSX.Element {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  const atAuthPage = location.pathname &&
-  location.pathname == ("/register" || "/verify" || "/login");
+  const atAuthPage =
+  pathname.match(/\/login/) ||
+  pathname.match(/\/register/) ||
+  pathname.match(/\/verify/);
 
   return atAuthPage
   ? (
