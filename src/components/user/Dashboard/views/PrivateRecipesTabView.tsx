@@ -68,12 +68,12 @@ export function PrivateRecipesTabView({
               }
             </span>
             <span className="dashboard-content-item-name">
-              <Link to={`/user-recipes/${recipe.recipe_id}`}>
+              <Link to={`/user-recipe/${recipe.recipe_id}`}>
                 {recipe.title}
               </Link>
             </span>
             <span className="dashboard-content-item-action">
-              <Link to={`/user-recipes/private/edit/${recipe.recipe_id}`}>
+              <Link to={`/user-recipe/private/edit/${recipe.recipe_id}`}>
                 Edit
               </Link>
             </span>

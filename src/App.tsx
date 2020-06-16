@@ -15,7 +15,6 @@ export function App({
   headerTheme,
   footerTheme,
   mainTheme,
-  breadCrumbsTheme,
   shadow
 }: Props): JSX.Element {
   const { pathname } = useLocation();
@@ -40,11 +39,7 @@ export function App({
           <HeaderRed theme={headerTheme} />
         </div>
       </div>
-      <MainWhite
-        theme={mainTheme}
-        breadCrumbsTheme={breadCrumbsTheme}
-        shadow={shadow}
-      >
+      <MainWhite theme={mainTheme} shadow={shadow} >
         <RoutesList contentTypes={dataContentTypes}  />
       </MainWhite>
       <FooterGray theme={footerTheme} />
@@ -60,7 +55,6 @@ interface RootState {
     headerTheme: string;
     footerTheme: string;
     mainTheme: string;
-    breadCrumbsTheme: string;
   };
   menu: {
     shadow: boolean;
@@ -76,7 +70,6 @@ const mapStateToProps = (state: RootState) => ({
   headerTheme: state.theme.headerTheme,
   footerTheme: state.theme.footerTheme,
   mainTheme: state.theme.mainTheme,
-  breadCrumbsTheme: state.theme.breadCrumbsTheme,
   shadow: state.menu.shadow
 });
 

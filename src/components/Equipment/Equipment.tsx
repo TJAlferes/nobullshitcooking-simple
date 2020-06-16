@@ -7,7 +7,6 @@ import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { EquipmentView } from './EquipmentView';
 
 export function Equipment({
-  breadCrumbsTheme,
   twoColumnBTheme,
   dataEquipment,
   dataMyPrivateEquipment
@@ -40,7 +39,6 @@ export function Equipment({
   ? <LoaderSpinner />
   : (
     <EquipmentView
-      breadCrumbsTheme={breadCrumbsTheme}
       twoColumnBTheme={twoColumnBTheme}
       equipment={equipment}
       dataMyPrivateEquipment={dataMyPrivateEquipment}
@@ -58,7 +56,6 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  breadCrumbsTheme: string;
   twoColumnBTheme: string;
 };
 

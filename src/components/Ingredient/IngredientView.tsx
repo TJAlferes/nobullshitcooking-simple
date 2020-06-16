@@ -5,7 +5,6 @@ import { IIngredient } from '../../store/data/types';
 import './ingredient.css';
 
 export function IngredientView({
-  breadCrumbsTheme,
   twoColumnBTheme,
   ingredient,
   dataMyPrivateIngredients
@@ -13,13 +12,10 @@ export function IngredientView({
   return (
   <div className="ingredient">
 
-    <div>
-      {IngredientBreadcrumbs({
-        breadCrumbsTheme,
-        ingredientId: ingredient.ingredient_id,
-        ingredientName: ingredient.ingredient_name
-      })}
-    </div>
+    <IngredientBreadcrumbs
+      ingredientId={ingredient.ingredient_id}
+      ingredientName={ingredient.ingredient_name}
+    />
 
     <div
       className={`ingredient-view two-column-b ${twoColumnBTheme}`}
@@ -72,7 +68,6 @@ export function IngredientView({
 }
 
 type Props = {
-  breadCrumbsTheme: string;
   twoColumnBTheme: string;
   ingredient: IIngredient;
   dataMyPrivateIngredients: IIngredient[];

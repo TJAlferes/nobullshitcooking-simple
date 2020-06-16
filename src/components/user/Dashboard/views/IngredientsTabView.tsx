@@ -28,12 +28,12 @@ export function IngredientsTabView({
               }
             </span>
             <span className="dashboard-content-item-name">
-              <Link to={`/user-ingredients/${ingredient.ingredient_id}`}>
+              <Link to={`/user-ingredient/${ingredient.ingredient_id}`}>
                 {ingredient.ingredient_name}
               </Link>
             </span>
             <span className="dashboard-content-item-action">
-              <Link to={`/user-ingredients/edit/${ingredient.ingredient_id}`}>
+              <Link to={`/user-ingredient/edit/${ingredient.ingredient_id}`}>
                 Edit
               </Link>
             </span>

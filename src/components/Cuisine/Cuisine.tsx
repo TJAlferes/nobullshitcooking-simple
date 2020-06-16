@@ -15,7 +15,6 @@ const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';
 
 export function Cuisine({
   oneColumnATheme,
-  breadCrumbsTheme,
   dataCuisines
 }: Props): JSX.Element {
   const history = useHistory();
@@ -30,7 +29,7 @@ export function Cuisine({
 
   useEffect(() => {
     if (!id) {
-      history.push('/food/cuisines');
+      history.push('/page/guide/food/cuisines');
       return;
     }
 
@@ -38,7 +37,7 @@ export function Cuisine({
     .find((cui: ICuisine) => cui.cuisine_id === Number(id));
 
     if (!isCuisine) {
-      history.push('/food/cuisines');
+      history.push('/page/guide/food/cuisines');
       return;
     }
 
@@ -82,7 +81,6 @@ export function Cuisine({
   : (
     <CuisineView
       oneColumnATheme={oneColumnATheme}
-      breadCrumbsTheme={breadCrumbsTheme}
       cuisine={cuisine}
       tab={tab}
       nearbyStoresClicked={nearbyStoresClicked}
@@ -137,7 +135,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   oneColumnATheme: string;
-  breadCrumbsTheme: string;
 };
 
 const mapStateToProps = (state: RootState) => ({

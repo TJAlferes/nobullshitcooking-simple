@@ -35,7 +35,6 @@ const recipe = {
 };
 const initialProps = {
   twoColumnBTheme: "light",
-  breadCrumbsTheme: "light",
   //userIsAuthenticated,
   feedback: "Some message.",
   loading: false,

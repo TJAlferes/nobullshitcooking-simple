@@ -21,7 +21,6 @@ const beginProps = {
   headerTheme: 'header-light',
   footerTheme: 'footer-light',
   mainTheme: 'main-light',
-  breadCrumbsTheme: 'breadcrumbs-light',
   shadow: false
 };
 

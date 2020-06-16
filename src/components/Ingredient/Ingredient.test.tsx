@@ -30,7 +30,6 @@ const dataIngredients = [
 ];
 const dataMyPrivateIngredients: IIngredient[] = [];
 const beforeProps: any = {
-  breadCrumbsTheme: "light",
   twoColumnBTheme: "light",
   dataIngredients,
   dataMyPrivateIngredients

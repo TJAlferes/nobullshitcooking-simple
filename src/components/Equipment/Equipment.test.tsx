@@ -29,7 +29,6 @@ const dataEquipment = [
 ];
 const dataMyPrivateEquipment: IEquipment[] = [];
 const beforeProps: any = {
-  breadCrumbsTheme: "light",
   twoColumnBTheme: "light",
   dataEquipment,
   dataMyPrivateEquipment

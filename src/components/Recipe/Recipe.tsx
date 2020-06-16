@@ -17,7 +17,6 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function Recipe({
   twoColumnBTheme,
-  breadCrumbsTheme,
   userIsAuthenticated,
   message,
   dataMyPublicRecipes,
@@ -70,7 +69,7 @@ export function Recipe({
     };
 
     let isPrivateUserRecipe = location.pathname
-    .match(/^(\/user-recipes\/([1-9][0-9]*))$/);
+    .match(/^(\/user-recipe\/([1-9][0-9]*))$/);
     
     if (isPrivateUserRecipe) getPrivateRecipe(Number(id));
     else getPublicRecipe(Number(id));
@@ -97,7 +96,6 @@ export function Recipe({
   : (
     <RecipeView
       twoColumnBTheme={twoColumnBTheme}
-      breadCrumbsTheme={breadCrumbsTheme}
       userIsAuthenticated={userIsAuthenticated}
       feedback={feedback}
       loading={loading}
@@ -136,7 +134,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 };*/
 type Props = PropsFromRedux & {
   twoColumnBTheme: string;
-  breadCrumbsTheme: string;
 };
 
 const mapStateToProps = (state: RootState) => ({

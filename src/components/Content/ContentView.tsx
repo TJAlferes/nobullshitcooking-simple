@@ -1,15 +1,14 @@
 import React from 'react';
 
 // spreading on DOM elements is most likely an anti-pattern
-
-function parseContent(contentItem: IContentItem) {
+/*function parseContent(contentItem: IContentItem) {
   const elements: any = {
     "h1": <h1 {...contentItem.attributes}>{contentItem.children}</h1>,
     "p": <p {...contentItem.attributes}>{contentItem.children}</p>,
   };
   const element = elements[contentItem.element];
   return element;
-}
+}*/
 
 export function ContentView({
   oneColumnATheme,

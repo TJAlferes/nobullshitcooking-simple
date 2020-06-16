@@ -38,23 +38,23 @@ export function LeftNav({
       {isAuthenticated && <LeftNavLink to="/messenger" text="Messenger" />}
       {isAuthenticated && <LeftNavLink to="/friends" text="Friends" />}
       <hr />
-      <LeftNavLink to="/food/nutrition/supplements" text="Supplements" />
+      <LeftNavLink to="/page/guide/food/nutrition/supplements" text="Supplements" />
       <LeftNavLink to="/supply/kitchen-equipment" text="Equipment" />
       <hr />
-      <LeftNavLink to="/promo/water-filtration" text="Water Filtration" />
-      <LeftNavLink to="/promo/tea" text="Tea" />
-      <LeftNavLink to="/promo/coffee" text="Coffee" />
+      <LeftNavLink to="/page/promo/water-filtration" text="Water Filtration" />
+      <LeftNavLink to="/page/promo/tea" text="Tea" />
+      <LeftNavLink to="/page/promo/coffee" text="Coffee" />
       <hr />
-      <LeftNavLink to="/promo/outdoors" text="Outdoors" />
-      <LeftNavLink to="/promo/garden" text="Garden" />
-      <LeftNavLink to="/promo/tools" text="Tools" />
+      <LeftNavLink to="/page/promo/outdoors" text="Outdoors" />
+      <LeftNavLink to="/page/promo/garden" text="Garden" />
+      <LeftNavLink to="/page/promo/tools" text="Tools" />
       <hr />
       {/*
         <LeftNavLink to="/contests" text="Contest Winners" />
         <LeftNavLink to="/seasonal" text="Seasonal" />
         <hr />
       */}
-      <LeftNavLink to="/charity" text="Charity" />
+      <LeftNavLink to="/page/site/charity" text="Charity" />
     </nav>
   );
 };

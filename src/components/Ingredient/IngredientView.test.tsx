@@ -4,7 +4,6 @@ import React from 'react';
 import { IngredientView } from './IngredientView';
 
 const initialProps = {
-  breadCrumbsTheme: "light",
   twoColumnBTheme: "light",
   dataMyPrivateIngredients: [
     {

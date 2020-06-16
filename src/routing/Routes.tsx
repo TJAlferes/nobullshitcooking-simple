@@ -17,7 +17,7 @@ const StaffDashboard = lazy(() => import('../components/staff/Dashboard/Dashboar
 const StaffNewRecipe = lazy(() => import('../components/staff/NewRecipe/NewRecipe'));
 const StaffNewEquipment = lazy(() => import('../components/staff/NewEquipment/NewEquipment'));
 const StaffNewIngredient = lazy(() => import('../components/staff/NewIngredient/NewIngredient'));
-const Categories = lazy(() => import('../components/staff/Categories/Categories'));
+const ContentTypes = lazy(() => import('../components/staff/ContentTypes/ContentTypes'));
 const NewContent = lazy(() => import('../components/staff/NewContent/NewContent'));
 
 // user routes
@@ -143,7 +143,7 @@ export function RoutesList({ contentTypes }: Props) {
         )}
         {authStaffRoute("/staff-content/submit", NewContent, {editing: false})}
         {authStaffRoute("/staff-content/edit/:id", NewContent, {editing: true})}
-        {authStaffRoute("/staff-content-categories", Categories)}
+        {authStaffRoute("/staff-content-types", ContentTypes, {contentTypes})}
 
         {/* user routes */}
 
@@ -158,49 +158,47 @@ export function RoutesList({ contentTypes }: Props) {
         {authUserRoute("/user-plan/submit", NewPlanPage)}
         {authUserRoute("/user-plan/:id", PlanPage)}
         {authUserRoute(
-          "/user-recipes/private/submit",
+          "/user-recipe/private/submit",
           NewRecipe,
           {editing: false, ownership: "private"}
         )}
         {authUserRoute(
-          "/user-recipes/public/submit",
+          "/user-recipe/public/submit",
           NewRecipe,
           {editing: false, ownership: "public"}
         )}
         {authUserRoute(
-          "/user-recipes/private/edit/:id",
+          "/user-recipe/private/edit/:id",
           NewRecipe,
           {editing: true, ownership: "private"}
         )}
         {authUserRoute(
-          "/user-recipes/public/edit/:id",
+          "/user-recipe/public/edit/:id",
           NewRecipe,
           {editing: true, ownership: "public"}
         )}
-        {authUserRoute("/user-recipes/:id", Recipe)}
+        {authUserRoute("/user-recipe/:id", Recipe)}
         {authUserRoute("/user-equipment/submit", NewEquipment)}
         {authUserRoute("/user-equipment/edit/:id", NewEquipment, {editing: true})}
         {authUserRoute("/user-equipment/:id", Equipment)}
-        {authUserRoute("/user-ingredients/submit", NewIngredient)}
+        {authUserRoute("/user-ingredient/submit", NewIngredient)}
         {authUserRoute(
-          "/user-ingredients/edit/:id",
+          "/user-ingredient/edit/:id",
           NewIngredient,
           {editing: true}
         )}
-        {authUserRoute("/user-ingredients/:id", Ingredient)}
+        {authUserRoute("/user-ingredient/:id", Ingredient)}
 
         {/* general routes */}
 
-        {appRoute("/recipes/:id", Recipe)}
-        {appRoute("/ingredients/:id", Ingredient)}
         {appRoute("/equipment/:id", Equipment)}
-        {/*{appRoute("/all", All)}*/}
-        {appRoute("/recipes", Recipes)}
-        {appRoute("/ingredients", Ingredients)}
         {appRoute("/equipment", Equipments)}
-
-        {appRoute("/food/cuisines/:id", Cuisine)}
-        {appRoute("/food/cuisines", Cuisines)}
+        {appRoute("/ingredient/:id", Ingredient)}
+        {appRoute("/ingredients", Ingredients)}
+        {appRoute("/recipe/:id", Recipe)}
+        {appRoute("/recipes", Recipes)}
+        {appRoute("/page/guide/food/cuisine/:id", Cuisine)}
+        {appRoute("/page/guide/food/cuisines", Cuisines)}
         {routesFromContentTypes.map(route => 
           appRoute(route.path, Navigation, route.childProps)
         )}

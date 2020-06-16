@@ -36,11 +36,9 @@ const cuisine = {
 };
 const initialProps: {
   oneColumnATheme: string;
-  breadCrumbsTheme: string;
   dataCuisines: ICuisine[];
 } = {
   oneColumnATheme: "light",
-  breadCrumbsTheme: "light",
   dataCuisines
 };
 

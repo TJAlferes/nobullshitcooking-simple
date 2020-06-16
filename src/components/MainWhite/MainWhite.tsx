@@ -6,7 +6,6 @@ import './mainWhite.css';
 
 export const MainWhite: FunctionComponent<Props> = ({
   theme,
-  breadCrumbsTheme,
   shadow,
   children
 }): JSX.Element => {
@@ -14,22 +13,22 @@ export const MainWhite: FunctionComponent<Props> = ({
   // so that breadcrumbs aren't displayed at all on the home page:
   const isHome = pathname.match(/^\/$/);
   // so that the default breadcrumbs aren't displayed on these pages:
-  const isCuisineDetail = pathname.match(/^(\/food\/cuisines\/([1-9][0-9]*))$/);
-  const isRecipe = pathname.match(/^(\/recipes\/([1-9][0-9]*))$/);
-  const isIngredient = pathname.match(/^(\/ingredients\/([1-9][0-9]*))$/);
+  const isCuisineDetail = pathname.match(/^(\/page\/guide\/food\/cuisine\/([1-9][0-9]*))$/);
+  const isRecipe = pathname.match(/^(\/recipe\/([1-9][0-9]*))$/);
+  const isIngredient = pathname.match(/^(\/ingredient\/([1-9][0-9]*))$/);
   const isEquipment = pathname.match(/^(\/equipment\/([1-9][0-9]*))$/);
   const isUserPlan = pathname.match(/^(\/user-plan\/([1-9][0-9]*))$/);
-  const isUserRecipe = pathname.match(/^(\/user-recipes\/([1-9][0-9]*))$/);
-  const isUserIngredient = pathname.match(/^(\/user-ingredients\/([1-9][0-9]*))$/);
+  const isUserRecipe = pathname.match(/^(\/user-recipe\/([1-9][0-9]*))$/);
+  const isUserIngredient = pathname.match(/^(\/user-ingredient\/([1-9][0-9]*))$/);
   const isUserEquipment = pathname.match(/^(\/user-equipment\/([1-9][0-9]*))$/);
   const isNewPlan = pathname.match(/^(\/user-plan\/submit)$/);
   const isEditPlan = pathname.match(/^(\/user-plan\/edit\/([1-9][0-9]*))$/);
-  const isNewPrivateRecipe = pathname.match(/^(\/user-recipes\/private\/submit)$/);
-  const isEditPrivateRecipe = pathname.match(/^(\/user-recipes\/private\/edit\/([1-9][0-9]*))$/);
-  const isNewPublicRecipe = pathname.match(/^(\/user-recipes\/public\/submit)$/);
-  const isEditPublicRecipe = pathname.match(/^(\/user-recipes\/public\/edit\/([1-9][0-9]*))$/);
-  const isNewPrivateIngredient = pathname.match(/^(\/user-ingredients\/submit)$/);
-  const isEditPrivateIngredient = pathname.match(/^(\/user-ingredients\/edit\/([1-9][0-9]*))$/);
+  const isNewPrivateRecipe = pathname.match(/^(\/user-recipe\/private\/submit)$/);
+  const isEditPrivateRecipe = pathname.match(/^(\/user-recipe\/private\/edit\/([1-9][0-9]*))$/);
+  const isNewPublicRecipe = pathname.match(/^(\/user-recipe\/public\/submit)$/);
+  const isEditPublicRecipe = pathname.match(/^(\/user-recipe\/public\/edit\/([1-9][0-9]*))$/);
+  const isNewPrivateIngredient = pathname.match(/^(\/user-ingredient\/submit)$/);
+  const isEditPrivateIngredient = pathname.match(/^(\/user-ingredient\/edit\/([1-9][0-9]*))$/);
   const isNewPrivateEquipment = pathname.match(/^(\/user-equipment\/submit)$/);
   const isEditPrivateEquipment = pathname.match(/^(\/user-equipment\/edit\/([1-9][0-9]*))$/);
 
@@ -57,7 +56,7 @@ export const MainWhite: FunctionComponent<Props> = ({
         !isEditPrivateIngredient &&
         !isNewPrivateEquipment &&
         !isEditPrivateEquipment &&
-        Breadcrumbs({breadCrumbsTheme})
+        <Breadcrumbs />
       }
       {children}
     </main>
@@ -66,6 +65,5 @@ export const MainWhite: FunctionComponent<Props> = ({
 
 type Props = {
   theme: string;
-  breadCrumbsTheme: string;
   shadow: boolean;
 };

@@ -8,7 +8,6 @@ import './recipe.css';
 
 export function RecipeView({
   twoColumnBTheme,
-  breadCrumbsTheme,
   userIsAuthenticated,
   feedback,
   loading,
@@ -37,13 +36,7 @@ export function RecipeView({
   return (
     <div className="recipe">
 
-      <div>
-        {RecipeBreadcrumbs({
-          breadCrumbsTheme,
-          recipeId: recipe.recipe_id,
-          title: recipe.title
-        })}
-      </div>
+      <RecipeBreadcrumbs recipeId={recipe.recipe_id} title={recipe.title} />
 
       <div className={`recipe-view two-column-b ${twoColumnBTheme}`}>
 
@@ -272,7 +265,6 @@ export function RecipeView({
 
 type Props = {
   twoColumnBTheme: string;
-  breadCrumbsTheme: string;
   userIsAuthenticated: boolean;
   feedback: string;
   loading: boolean;

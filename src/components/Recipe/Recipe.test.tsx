@@ -44,7 +44,6 @@ const userFavoriteRecipe = jest.fn();
 const userSaveRecipe = jest.fn();
 const initialProps = {
   twoColumnBTheme: "light",
-  breadCrumbsTheme: "light",
   //userIsAuthenticated: false,
   message: "Some message.",
   dataMyPublicRecipes: [],

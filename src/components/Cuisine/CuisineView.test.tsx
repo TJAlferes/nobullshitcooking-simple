@@ -39,7 +39,6 @@ describe('CuisineView', () => {
     wrapper = shallow(
       <CuisineView
         oneColumnATheme="light"
-        breadCrumbsTheme="light"
         cuisine={cuisine}
         tab="intro"
         nearbyStoresClicked={false}

@@ -5,7 +5,6 @@ import { IEquipment } from '../../store/data/types';
 import './equipment.css';
 
 export function EquipmentView({
-  breadCrumbsTheme,
   twoColumnBTheme,
   equipment,
   dataMyPrivateEquipment
@@ -13,13 +12,10 @@ export function EquipmentView({
   return (
     <div className="equipment">
 
-      <div>
-        {EquipmentBreadcrumbs({
-          breadCrumbsTheme,
-          equipmentId: equipment.equipment_id,
-          equipmentName: equipment.equipment_name
-        })}
-      </div>
+      <EquipmentBreadcrumbs
+        equipmentId={equipment.equipment_id}
+        equipmentName={equipment.equipment_name}
+      />
 
       <div
         className={`equipment-view two-column-b ${twoColumnBTheme}`}
@@ -72,7 +68,6 @@ export function EquipmentView({
 }
 
 type Props = {
-  breadCrumbsTheme: string;
   twoColumnBTheme: string;
   equipment: IEquipment;
   dataMyPrivateEquipment: IEquipment[];

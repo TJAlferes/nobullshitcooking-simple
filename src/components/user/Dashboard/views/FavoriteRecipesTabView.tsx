@@ -28,7 +28,7 @@ export function FavoriteRecipesTabView({
               }
             </span>
             <span className="dashboard-content-item-name">
-              <Link to={`/recipes/${recipe.recipe_id}`}>
+              <Link to={`/recipe/${recipe.recipe_id}`}>
                 {recipe.title}
               </Link>
             </span>

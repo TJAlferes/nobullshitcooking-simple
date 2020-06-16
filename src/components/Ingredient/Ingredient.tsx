@@ -7,7 +7,6 @@ import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { IngredientView } from './IngredientView';
 
 export function Ingredient({
-  breadCrumbsTheme,
   twoColumnBTheme,
   dataIngredients,
   dataMyPrivateIngredients
@@ -40,7 +39,6 @@ export function Ingredient({
   ? <LoaderSpinner />
   : (
     <IngredientView
-      breadCrumbsTheme={breadCrumbsTheme}
       twoColumnBTheme={twoColumnBTheme}
       ingredient={ingredient}
       dataMyPrivateIngredients={dataMyPrivateIngredients}
@@ -58,7 +56,6 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  breadCrumbsTheme: string;
   twoColumnBTheme: string;
 };
 

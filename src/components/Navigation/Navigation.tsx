@@ -43,20 +43,4 @@ interface Props {
   links: any[];
 }
 
-interface IDataNavItem {
-  category: string;
-  path: string;
-  title: string;
-  image: string;
-}
-
-const dataNavItems = [
-  {category: "food", path: "/food/recipes", title: "Recipes", image: "sitenavrecipes"},
-  {category: "food", path: "/food/cuisines", title: "Cuisines", image: "cuisines"},
-  {category: "food", path: "/food/ingredients", title: "Ingredients", image: "sitenavingredients"},
-  {category: "food", path: "food/nutrition", title: "Nutrition", image: "nutrition"},
-  {category: "food", path: "/food/equipment", title: "Equipment", image: "sitenavequipment"},
-  {category: "food", path: "/food/methods", title: "Methods", image: "methods"}
-];
-
 // use .find or something to get to the level of cms nav you want

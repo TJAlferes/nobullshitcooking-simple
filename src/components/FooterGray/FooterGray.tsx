@@ -7,7 +7,7 @@ export function FooterGray({ theme }: Props): JSX.Element {
   return (
     <footer className={`footergray ${theme}`}>
       <ul>
-        <li><Link to="/page/site/page/sitemap">Sitemap</Link></li>
+        <li><Link to="/page/site/sitemap">Sitemap</Link></li>
         <li><Link to="/page/site/disclaimer">Disclaimer</Link></li>
         <li><Link to="/page/site/terms">Terms of Use</Link></li>
         <li><Link to="/page/site/privacy">Privacy Policy</Link></li>
