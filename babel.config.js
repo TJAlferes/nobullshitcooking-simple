@@ -6,7 +6,7 @@ module.exports = function(api) {
       {
         targets: {"browsers": ["> 1%", "last 2 versions"]},
         useBuiltIns: "usage",
-        "corejs": "3"
+        "corejs": "3.6"
       }
     ],
     "@babel/preset-react"
