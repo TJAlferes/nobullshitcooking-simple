@@ -11,7 +11,7 @@ import './userNav.css';
 
 export function UserNav({
   theme,
-  isAuthenticated,
+  userIsAuthenticated,
   authname,
   authUserLogout,
   themeDarkTrigger,
@@ -50,36 +50,34 @@ export function UserNav({
         </Link>
       </li>
 
-      {!isAuthenticated && (
-        <li>
-          <Link className="user-nav-link" to="/register">
-            Create Account
-          </Link>
-        </li>
+      {!userIsAuthenticated && (
+        <>
+          <li>
+            <Link className="user-nav-link" to="/register">
+              Create Account
+            </Link>
+          </li>
+          <li>
+            <Link className="user-nav-link" to="/login">
+              Sign In
+            </Link>
+          </li>
+        </>
       )}
 
-      {!isAuthenticated && (
-        <li>
-          <Link className="user-nav-link" to="/login">
-            Sign In
-          </Link>
-        </li>
-      )}
-
-      {isAuthenticated && (
-        <li>
-          <Link className="signed-in-nav-span" to="/dashboard">
-            {`Hello, ${authname}`}
-          </Link>
-        </li>
-      )}
-
-      {isAuthenticated && (
-        <li>
-          <span className="signed-in-nav-span" onClick={handleLogout}>
-            Sign Out
-          </span>
-        </li>
+      {userIsAuthenticated && (
+        <>
+          <li>
+            <Link className="signed-in-nav-span" to="/dashboard">
+              {`Hello, ${authname}`}
+            </Link>
+          </li>
+          <li>
+            <span className="signed-in-nav-span" onClick={handleLogout}>
+              Sign Out
+            </span>
+          </li>
+        </>
       )}
 
       {/*<li>
@@ -93,7 +91,7 @@ export function UserNav({
 
 interface RootState {
   auth: {
-    isAuthenticated: boolean;
+    userIsAuthenticated: boolean;
     authname: string;
   };
 }
@@ -105,7 +103,7 @@ type Props = PropsFromRedux & {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  userIsAuthenticated: state.auth.userIsAuthenticated,
   authname: state.auth.authname
 });
 
