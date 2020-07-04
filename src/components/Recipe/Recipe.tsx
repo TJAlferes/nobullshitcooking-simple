@@ -123,6 +123,8 @@ export interface IRecipe {
   author: string
   author_avatar: string
   description: string
+  active_time: string
+  total_time: string
   directions: string
   recipe_image: string
   equipment_image: string

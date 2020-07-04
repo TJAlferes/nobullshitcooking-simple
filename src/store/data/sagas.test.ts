@@ -9,6 +9,9 @@ import {
   NOBSCBackendAPIEndpointOne
 } from '../../config/NOBSCBackendAPIEndpointOne';
 import {
+  dataGetInitialData,
+  dataGetInitialDataSucceeded,
+  dataGetInitialDataFailed,
   dataGetContentTypes,
   dataGetContentTypesSucceeded,
   dataGetContentTypesFailed,
@@ -65,6 +68,7 @@ import {
   dataGetMyFriendshipsFailed
 } from './actions';
 import {
+  dataGetInitialDataSaga,
   dataGetContentTypesSaga,
   dataGetMeasurementsSaga,
   dataGetEquipmentsSaga,
@@ -87,6 +91,95 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;  // remove in test?
 //const mock = new MockAdapter(axios, {delayResponse: 100});
+
+describe('the dataGetInitialDataSaga', () => {
+  it('should dispatch initialData and succeeded if data found', () => {
+    const iterator = dataGetInitialDataSaga();
+    const res = {
+      data: {
+        contentTypes: [
+          {
+            content_type_id: 1,
+            parent_id: 0,
+            content_type_name: "Page",
+            content_type_path: "/page"
+          }
+        ],
+        measurements: [
+          {"measurement_id": 1, "measurement_name": "teaspoon"}
+        ],
+        officialEquipment: [
+          {
+            equipment_id: 1,
+            equipment_type_id: 4,
+            owner_id: 1,
+            equipment_name: "Chopstick",
+            equipment_type_name: "Dining",
+            equipment_description: "It works.",
+            equipment_image: "nobsc-chopstick"
+          }
+        ],
+        equipmentTypes: [
+          {"equipment_type_id": 1, "equipment_type_name": "Cleaning"}
+        ],
+        officialIngredients: [
+          {
+            ingredient_id: 1,
+            ingredient_type_id: 1,
+            owner_id: 1,
+            ingredient_type_name: "Fish",
+            ingredient_name: "Salmon",
+            ingredient_description: "Tasty.",
+            ingredient_image: "nobsc-salmon"
+          }
+        ],
+        ingredientTypes: [
+          {"ingredient_type_id": 1, "ingredient_type_name": "Fish"}
+        ],
+        officialRecipes: [
+          {
+            recipe_id: 1,
+            owner_id: 1,
+            recipe_type_id: 1,
+            cuisine_id: 1,
+            title: "Tasty",
+            recipe_image: "nobsc-tasty"
+          }
+        ],
+        recipeTypes: [
+          {"recipe_type_id": 1, "recipe_type_name": "Drink"}
+        ],
+        cuisines: [
+          {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"}
+        ],
+        methods: [
+          {"method_id": 1, "method_name": "No-Cook"}
+        ]
+      }
+    };
+
+    expect(iterator.next().value)
+    .toEqual(call([axios, axios.get], `${endpoint}/data-init`));
+
+    expect(iterator.next(res).value)
+    .toEqual(put(dataGetInitialData(res.data)));
+
+    expect(iterator.next().value).toEqual(put(dataGetInitialDataSucceeded()));
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+
+  it('should dispatch failed if data not found', () => {
+    const iterator = dataGetInitialDataSaga();
+
+    expect(iterator.next().value)
+    .toEqual(call([axios, axios.get], `${endpoint}/data-init`));
+
+    expect(iterator.throw('error').value)
+    .toEqual(put(dataGetInitialDataFailed()));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+});
 
 describe('the dataGetContentTypesSaga', () => {
   it('should dispatch contentTypes and succeeded if data found', () => {

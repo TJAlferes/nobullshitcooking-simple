@@ -1,5 +1,8 @@
 import {
   dataInit,
+  dataGetInitialData,
+  dataGetInitialDataSucceeded,
+  dataGetInitialDataFailed,
   dataGetContentTypes,
   dataGetContentTypesSucceeded,
   dataGetContentTypesFailed,
@@ -57,6 +60,9 @@ import {
 } from './actions';
 import {
   DATA_INIT,
+  DATA_GET_INITIAL_DATA,
+  DATA_GET_INITIAL_DATA_SUCCEEDED,
+  DATA_GET_INITIAL_DATA_FAILED,
   DATA_GET_CONTENT_TYPES,
   DATA_GET_CONTENT_TYPES_SUCCEEDED,
   DATA_GET_CONTENT_TYPES_FAILED,
@@ -117,6 +123,95 @@ describe('the dataInit action creator', () => {
   it('returns the correct action type', () => {
     const actual = dataInit().type;
     const expected = DATA_INIT;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe ('the dataGetInitialData action creator', () => {
+  const initialData = {
+    contentTypes: [
+      {
+        content_type_id: 1,
+        parent_id: 0,
+        content_type_name: "Page",
+        content_type_path: "/page"
+      }
+    ],
+    measurements: [
+      {"measurement_id": 1, "measurement_name": "teaspoon"}
+    ],
+    officialEquipment: [
+      {
+        equipment_id: 1,
+        equipment_type_id: 4,
+        owner_id: 1,
+        equipment_name: "Chopstick",
+        equipment_type_name: "Dining",
+        equipment_description: "It works.",
+        equipment_image: "nobsc-chopstick"
+      }
+    ],
+    equipmentTypes: [
+      {"equipment_type_id": 1, "equipment_type_name": "Cleaning"}
+    ],
+    officialIngredients: [
+      {
+        ingredient_id: 1,
+        ingredient_type_id: 1,
+        owner_id: 1,
+        ingredient_type_name: "Fish",
+        ingredient_name: "Salmon",
+        ingredient_description: "Tasty.",
+        ingredient_image: "nobsc-salmon"
+      }
+    ],
+    ingredientTypes: [
+      {"ingredient_type_id": 1, "ingredient_type_name": "Fish"}
+    ],
+    officialRecipes: [
+      {
+        recipe_id: 1,
+        owner_id: 1,
+        recipe_type_id: 1,
+        cuisine_id: 1,
+        title: "Tasty",
+        recipe_image: "nobsc-tasty"
+      }
+    ],
+    recipeTypes: [
+      {"recipe_type_id": 1, "recipe_type_name": "Drink"}
+    ],
+    cuisines: [
+      {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"}
+    ],
+    methods: [
+      {"method_id": 1, "method_name": "No-Cook"}
+    ]
+  };
+  it('returns the correct action type', () => {
+    const actual = dataGetInitialData(initialData).type;
+    const expected = DATA_GET_INITIAL_DATA;
+    expect(actual).toEqual(expected);
+  });
+  it('returns the correct initialData', () => {
+    const actual = dataGetInitialData(initialData).initialData;
+    const expected = initialData;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('the dataGetInitialDataSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = dataGetInitialDataSucceeded().type;
+    const expected = DATA_GET_INITIAL_DATA_SUCCEEDED;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('the dataGetInitialDataFailed action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = dataGetInitialDataFailed().type;
+    const expected = DATA_GET_INITIAL_DATA_FAILED;
     expect(actual).toEqual(expected);
   });
 });

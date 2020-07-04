@@ -1,5 +1,6 @@
 import dataReducer from './reducer';
 import {
+  DATA_GET_INITIAL_DATA,
   DATA_GET_CONTENT_TYPES,
   DATA_GET_MEASUREMENTS,
   DATA_GET_EQUIPMENTS,  // official
@@ -52,6 +53,83 @@ describe('the data reducer', () => {
     });
     const expected = initialState;
     expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type DATA_GET_INITIAL_DATA', () => {
+    const initialData = {
+      contentTypes: [
+        {
+          content_type_id: 1,
+          parent_id: 0,
+          content_type_name: "Page",
+          content_type_path: "/page"
+        }
+      ],
+      measurements: [
+        {"measurement_id": 1, "measurement_name": "teaspoon"}
+      ],
+      officialEquipment: [
+        {
+          equipment_id: 1,
+          equipment_type_id: 4,
+          owner_id: 1,
+          equipment_name: "Chopstick",
+          equipment_type_name: "Dining",
+          equipment_description: "It works.",
+          equipment_image: "nobsc-chopstick"
+        }
+      ],
+      equipmentTypes: [
+        {"equipment_type_id": 1, "equipment_type_name": "Cleaning"}
+      ],
+      officialIngredients: [
+        {
+          ingredient_id: 1,
+          ingredient_type_id: 1,
+          owner_id: 1,
+          ingredient_type_name: "Fish",
+          ingredient_name: "Salmon",
+          ingredient_description: "Tasty.",
+          ingredient_image: "nobsc-salmon"
+        }
+      ],
+      ingredientTypes: [
+        {"ingredient_type_id": 1, "ingredient_type_name": "Fish"}
+      ],
+      officialRecipes: [
+        {
+          recipe_id: 1,
+          owner_id: 1,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "Tasty",
+          recipe_image: "nobsc-tasty"
+        }
+      ],
+      recipeTypes: [
+        {"recipe_type_id": 1, "recipe_type_name": "Drink"}
+      ],
+      cuisines: [
+        {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"}
+      ],
+      methods: [
+        {"method_id": 1, "method_name": "No-Cook"}
+      ]
+    };
+    const actual = dataReducer(initialState, {
+      type: DATA_GET_INITIAL_DATA,
+      initialData
+    });
+    expect(actual.contentTypes).toEqual(initialData.contentTypes);
+    expect(actual.measurements).toEqual(initialData.measurements);
+    expect(actual.equipment).toEqual(initialData.officialEquipment);
+    expect(actual.equipmentTypes).toEqual(initialData.equipmentTypes);
+    expect(actual.ingredients).toEqual(initialData.officialIngredients);
+    expect(actual.ingredientTypes).toEqual(initialData.ingredientTypes);
+    expect(actual.recipes).toEqual(initialData.officialRecipes);
+    expect(actual.recipeTypes).toEqual(initialData.recipeTypes);
+    expect(actual.cuisines).toEqual(initialData.cuisines);
+    expect(actual.methods).toEqual(initialData.methods);
   });
 
   it('handles actions of type DATA_GET_CONTENT_TYPES', () => {

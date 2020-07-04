@@ -15,6 +15,8 @@ const recipe = {
   author: "NOBSC",
   author_avatar: "NOBSC",
   description: "A descriptive description.",
+  active_time: "0:10:00",
+  total_time: "0:10:00",
   directions: "Do this, then that.",
   recipe_image: "nobsc-recipe-default",
   equipment_image: "nobsc-recipe-equipment-default",

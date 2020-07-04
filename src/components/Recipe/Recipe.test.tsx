@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Recipe } from './Recipe';
 import { RecipeView } from './RecipeView';
 
-// don't use, if possible, this is a big anti-pattern, find something better
+// don't use, this is an anti-pattern
 //const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 const recipe = {
@@ -22,6 +22,8 @@ const recipe = {
   author: "NOBSC",
   author_avatar: "NOBSC",
   description: "A descriptive description.",
+  active_time: "0:10:00",
+  total_time: "0:10:00",
   directions: "Do this, then that.",
   recipe_image: "nobsc-recipe-default",
   equipment_image: "nobsc-recipe-equipment-default",
