@@ -113,9 +113,7 @@ export function RoutesList({ contentTypes }: Props) {
   ? makeRoutesFromContentTypes(contentTypes)
   : null;
 
-  return !routesFromContentTypes
-  ? <LoaderSpinner />
-  : (
+  return (
     <Suspense fallback={<LoaderSpinner />}>
       <Switch>
 
@@ -185,7 +183,7 @@ export function RoutesList({ contentTypes }: Props) {
 
         {appRoute("/page/guide/food/cuisine/:id", Cuisine)}
         {appRoute("/page/guide/food/cuisines", Cuisines)}
-        {routesFromContentTypes.map(route => 
+        {routesFromContentTypes && routesFromContentTypes.map(route => 
           appRoute(route.path, Navigation, route.childProps)
         )}
         {appRoute("/content/:slug/:id", Content)}

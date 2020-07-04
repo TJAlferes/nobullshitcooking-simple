@@ -19,6 +19,7 @@ import {
   AUTH_STAFF_LOGOUT
 } from './auth/types';
 import {
+  dataGetInitialDataSaga,
   dataGetContentTypesSaga,
   dataGetMeasurementsSaga,
   dataGetEquipmentsSaga,  // official
@@ -225,7 +226,8 @@ export function* watchAuth() {
 // You're making 10 (really 20) network trips. Consolidate into 1 (2) trips?
 export function* watchData() {
   yield all([
-    takeEvery(DATA_INIT, dataGetContentTypesSaga),
+    takeEvery(DATA_INIT, dataGetInitialDataSaga)
+    /*takeEvery(DATA_INIT, dataGetContentTypesSaga),
     takeEvery(DATA_INIT, dataGetMeasurementsSaga),
     takeEvery(DATA_INIT, dataGetEquipmentsSaga),
     takeEvery(DATA_INIT, dataGetEquipmentTypesSaga),
@@ -234,7 +236,7 @@ export function* watchData() {
     takeEvery(DATA_INIT, dataGetRecipesSaga),
     takeEvery(DATA_INIT, dataGetRecipeTypesSaga),
     takeEvery(DATA_INIT, dataGetCuisinesSaga),
-    takeEvery(DATA_INIT, dataGetMethodsSaga)
+    takeEvery(DATA_INIT, dataGetMethodsSaga)*/
   ]);
 }
 

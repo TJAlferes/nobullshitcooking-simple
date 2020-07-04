@@ -5,6 +5,9 @@ import {
   NOBSCBackendAPIEndpointOne
 } from '../../config/NOBSCBackendAPIEndpointOne';
 import {
+  dataGetInitialData,
+  dataGetInitialDataSucceeded,
+  dataGetInitialDataFailed,
   dataGetContentTypes,
   dataGetContentTypesSucceeded,
   dataGetContentTypesFailed,
@@ -63,13 +66,23 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
+export function* dataGetInitialDataSaga() {
+  try {
+    const res = yield call([axios, axios.get], `${endpoint}/data-init`);
+    yield put(dataGetInitialData(res.data));
+    yield put(dataGetInitialDataSucceeded());
+  } catch (err) {
+    yield put(dataGetInitialDataFailed());
+  }
+}
+
 export function* dataGetContentTypesSaga() {
   try {
-    const res = yield call ([axios, axios.get], `${endpoint}/content-type`);
+    const res = yield call([axios, axios.get], `${endpoint}/content-type`);
     yield put(dataGetContentTypes(res.data));
-    yield put (dataGetContentTypesSucceeded());
+    yield put(dataGetContentTypesSucceeded());
   } catch (err) {
-    yield put (dataGetContentTypesFailed());
+    yield put(dataGetContentTypesFailed());
   }
 }
 

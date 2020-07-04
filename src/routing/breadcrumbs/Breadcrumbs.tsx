@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import withBreadcrumbs, { BreadcrumbsProps } from 'react-router-breadcrumbs-hoc';
+import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
 import { connect, ConnectedProps } from 'react-redux';
 
 import './breadcrumbs.css';
@@ -46,7 +46,7 @@ function BreadcrumbsComponent({
     ({ breadcrumbs }: any): JSX.Element => (
       <>
         {breadcrumbs.map((
-          { breadcrumb, match }: BreadcrumbsProps,
+          { breadcrumb, match }: any,
           index: number
         ) => (
           <span className="crumb" key={match.url}>
@@ -77,7 +77,7 @@ function CuisineBreadcrumbsComponent({
     ({ breadcrumbs }: any): JSX.Element => (
       <>
         {breadcrumbs.pop().map(
-          ({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
+          ({ breadcrumb, match }: any, index: number) => (
             <span className="crumb" key={match.url}>
               <Link className="crumb_link" to={match.url}>
                 {breadcrumb}
@@ -117,7 +117,7 @@ function EquipmentBreadcrumbsComponent({
       return (
         <>
           {breadcrumbs.map(
-            ({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
+            ({ breadcrumb, match }: any, index: number) => (
               <span className="crumb" key={match.url}>
                 <Link className="crumb_link" to={match.url}>
                   {breadcrumb}
@@ -158,7 +158,7 @@ function IngredientBreadcrumbsComponent({
       return (
         <>
           {breadcrumbs.map(
-            ({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
+            ({ breadcrumb, match }: any, index: number) => (
               <span className="crumb" key={match.url}>
                 <Link className="crumb_link" to={match.url}>
                   {breadcrumb}
@@ -199,7 +199,7 @@ function RecipeBreadcrumbsComponent({
       return (
         <div className={`crumbs ${breadCrumbsTheme}`}>
           {breadcrumbs.map(
-            ({ breadcrumb, match }: BreadcrumbsProps, index: number) => (
+            ({ breadcrumb, match }: any, index: number) => (
               <span className="crumb" key={match.url}>
                 <Link className="crumb_link" to={match.url}>
                   {breadcrumb}

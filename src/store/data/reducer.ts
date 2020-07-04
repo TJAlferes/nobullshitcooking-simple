@@ -1,4 +1,5 @@
 import {
+  DATA_GET_INITIAL_DATA,
   DATA_GET_CONTENT_TYPES,
   //DATA_GET_POSTS,
   DATA_GET_POST_PREVIEWS,
@@ -48,6 +49,23 @@ const initialState: IDataState = {
 
 const dataReducer = (state = initialState, action: DataActions): IDataState => {
   switch (action.type) {
+    case DATA_GET_INITIAL_DATA:
+      return {
+        ...state,
+        ...{
+          contentTypes: action.initialData.contentTypes,
+          measurements: action.initialData.measurements,
+          equipment: action.initialData.officialEquipment,
+          equipmentTypes: action.initialData.equipmentTypes,
+          ingredients: action.initialData.officialIngredients,
+          ingredientTypes: action.initialData.ingredientTypes,
+          recipes: action.initialData.officialRecipes,
+          recipeTypes: action.initialData.recipeTypes,
+          cuisines: action.initialData.cuisines,
+          methods: action.initialData.methods
+        }
+      };
+
     case DATA_GET_CONTENT_TYPES:
       return {...state, ...{contentTypes: action.contentTypes}};
 
