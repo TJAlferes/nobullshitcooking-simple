@@ -10,29 +10,21 @@ import UnauthenticatedStaffRoute from './UnauthenticatedStaffRoute';
 import UnauthenticatedUserRoute from './UnauthenticatedUserRoute';
 import { makeRoutesFromContentTypes } from './CMSNavigationRoutes';
 
-// staff routes
+// auth routes
 
-const StaffLogin = lazy(() => import('../components/staff/Login/Login'));
 const StaffDashboard = lazy(() => import('../components/staff/Dashboard/Dashboard'));
 const ContentTypes = lazy(() => import('../components/staff/ContentTypes/ContentTypes'));
 const NewContent = lazy(() => import('../components/staff/NewContent/NewContent'));
-const StaffNewEquipment = lazy(() => import('../components/staff/NewEquipment/NewEquipment'));
-const StaffNewIngredient = lazy(() => import('../components/staff/NewIngredient/NewIngredient'));
-const StaffNewRecipe = lazy(() => import('../components/staff/NewRecipe/NewRecipe'));
-
-// user routes
 
 const Register = lazy(() => import('../components/user/Register/Register'));
-const Login = lazy(() => import('../components/user/Login/Login'));
-const Profile = lazy(() => import('../components/user/Profile/Profile'));
 const Dashboard = lazy(() => import('../components/user/Dashboard/Dashboard'));
 const Friends = lazy(() => import('../components/user/Friends/Friends'));
 const MessengerPage = lazy(() => import('../components/user/Messenger/MessengerPage'));
 const PlanPage = lazy(() => import('../components/user/Plan/PlanPage'));
-const NewEquipment = lazy(() => import('../components/user/NewEquipment/NewEquipment'));
-const NewIngredient = lazy(() => import('../components/user/NewIngredient/NewIngredient'));
+const NewEquipment = lazy(() => import('../components/NewEquipment/NewEquipment'));
+const NewIngredient = lazy(() => import('../components/NewIngredient/NewIngredient'));
 const NewPlanPage = lazy(() => import('../components/user/NewPlan/NewPlanPage'));
-const NewRecipe = lazy(() => import('../components/user/NewRecipe/NewRecipe'));
+const NewRecipe = lazy(() => import('../components/NewRecipe/NewRecipe'));
 const NewPost = lazy(() => import('../components/user/NewPost/NewPost'));
 
 // general routes
@@ -47,6 +39,8 @@ const Equipments = lazy(() => import('../components/search/Equipments/Equipments
 const Recipe = lazy(() => import('../components/Recipe/Recipe'));
 const Ingredient = lazy(() => import('../components/Ingredient/Ingredient'));
 const Equipment = lazy(() => import('../components/Equipment/Equipment'));
+const Login = lazy(() => import('../components/Login/Login'));
+const Profile = lazy(() => import('../components/Profile/Profile'));
 //import Supply from '../components/supply/Supply';
 import { Home } from '../components/Home/Home';
 import { NotFound } from '../components/NotFound/NotFound';
@@ -119,7 +113,7 @@ export function RoutesList({ contentTypes }: Props) {
 
         {/* staff routes */}
 
-        {unauthStaffRoute("/staff-login", StaffLogin)}
+        {unauthStaffRoute("/staff-login", Login)}
 
         {authStaffRoute("/staff-dashboard", StaffDashboard)}
 
@@ -128,14 +122,14 @@ export function RoutesList({ contentTypes }: Props) {
         {authStaffRoute("/staff-content/submit", NewContent, {editing: false})}
         {authStaffRoute("/staff-content/edit/:id", NewContent, {editing: true})}
 
-        {authStaffRoute("/staff-equipment/submit", StaffNewEquipment)}
-        {authStaffRoute("/staff-equipment/edit/:id", StaffNewEquipment, {editing: true})}
+        {authStaffRoute("/staff-equipment/submit", NewEquipment)}
+        {authStaffRoute("/staff-equipment/edit/:id", NewEquipment, {editing: true})}
 
-        {authStaffRoute("/staff-ingredients/submit", StaffNewIngredient)}
-        {authStaffRoute("/staff-ingredients/edit/:id", StaffNewIngredient, {editing: true})}
+        {authStaffRoute("/staff-ingredients/submit", NewIngredient)}
+        {authStaffRoute("/staff-ingredients/edit/:id", NewIngredient, {editing: true})}
 
-        {authStaffRoute("/staff-recipes/submit", StaffNewRecipe)}
-        {authStaffRoute("/staff-recipes/edit/:id", StaffNewRecipe, {editing: true})}
+        {authStaffRoute("/staff-recipes/submit", NewRecipe, {editing: false, ownership: "private"})}
+        {authStaffRoute("/staff-recipes/edit/:id", NewRecipe, {editing: true, ownership: "private"})}
 
         {/* user routes */}
 
