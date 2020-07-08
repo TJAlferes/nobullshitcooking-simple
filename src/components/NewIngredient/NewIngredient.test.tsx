@@ -6,7 +6,9 @@ import { NewIngredient } from './NewIngredient';
 
 const beginProps = {
   oneColumnATheme: "one-column-a-light",
-  message: "Some message.",
+  staffMessage: "",
+  userMessage: "Some message.",
+  dataIngredients: [],
   dataIngredientTypes: [
     {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
     {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
@@ -22,6 +24,8 @@ const beginProps = {
       ingredient_image: "nobsc-spinach"
     }
   ],
+  staffCreateNewIngredient: jest.fn(),
+  staffEditIngredient: jest.fn(),
   userCreateNewPrivateIngredient: jest.fn(),
   userEditPrivateIngredient: jest.fn()
 };

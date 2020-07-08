@@ -29,7 +29,8 @@ const data = {
 const beginProps = {
   oneColumnATheme: "one-column-a-light",
   authname: "Person",
-  message: "Some message.",
+  staffMessage: "",
+  userMessage: "Some message.",
   dataMeasurements: [
     {measurement_id: 1, measurement_name: "teaspoon"},
     {measurement_id: 2, measurement_name: "Tablespoon"}
@@ -97,6 +98,8 @@ const beginProps = {
   dataMyPrivateRecipes: [],
   dataMyFavoriteRecipes: [],
   dataMySavedRecipes: [],
+  staffCreateNewRecipe: jest.fn(),
+  staffEditRecipe: jest.fn(),
   userCreateNewPrivateRecipe: jest.fn(),
   userCreateNewPublicRecipe: jest.fn(),
   userEditPrivateRecipe: jest.fn(),

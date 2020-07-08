@@ -16,15 +16,15 @@
   color: #aaa;
 }
 
-.news_item {
+.post-preview {
   padding: 10px;
 }
 
-.feed-light .news_item {
+.feed-light .post-preview {
   border-bottom: 20px solid #eee;
 }
 
-.feed-dark .news_item {
+.feed-dark .post-preview {
   border-bottom: 20px solid #111;
 }
 

@@ -2,9 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { useLocation } from 'react-router';
 
 import { Breadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
-import './mainWhite.css';
+import './main.css';
 
-export const MainWhite: FunctionComponent<Props> = ({
+export const Main: FunctionComponent<Props> = ({
   theme,
   shadow,
   children

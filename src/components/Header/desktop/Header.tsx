@@ -5,9 +5,9 @@ import { Promo } from './Promo/Promo';
 import Search from './Search/Search';
 import SiteNav from './SiteNav/SiteNav';
 import UserNav from './UserNav/UserNav';
-import './headerRed.css';
+import './header.css';
 
-export function HeaderRed({ theme }: Props): JSX.Element {
+export function Header({ theme }: Props): JSX.Element {
   return (
     <header className={`headerred ${theme}`}>
       <div className="header-row-1">

@@ -43,15 +43,15 @@ describe('App', () => {
       </Provider>
     );
 
-    it('does not display a HeaderRed component', () => {
+    it('does not display a Header component', () => {
       expect(wrapper.find('.headerred')).toHaveLength(0);
     });
 
-    it('does not display a MainWhite component', () => {
+    it('does not display a Main component', () => {
       expect(wrapper.find('.mainwhite')).toHaveLength(0);
     });
 
-    it('does not display a FooterGray component', () => {
+    it('does not display a Footer component', () => {
       expect(wrapper.find('.footergray')).toHaveLength(0);
     });
   });
@@ -67,15 +67,15 @@ describe('App', () => {
       </Provider>
     );
 
-    it('does not display a HeaderRed component', () => {
+    it('does not display a Header component', () => {
       expect(wrapper.find('.headerred')).toHaveLength(0);
     });
 
-    it('does not display a MainWhite component', () => {
+    it('does not display a Main component', () => {
       expect(wrapper.find('.mainwhite')).toHaveLength(0);
     });
 
-    it('does not display a FooterGray component', () => {
+    it('does not display a Footer component', () => {
       expect(wrapper.find('.footergray')).toHaveLength(0);
     });
   });
@@ -91,15 +91,15 @@ describe('App', () => {
       </Provider>
     );
 
-    it('does not display a HeaderRed component', () => {
+    it('does not display a Header component', () => {
       expect(wrapper.find('.headerred')).toHaveLength(0);
     });
 
-    it('does not display a MainWhite component', () => {
+    it('does not display a Main component', () => {
       expect(wrapper.find('.mainwhite')).toHaveLength(0);
     });
 
-    it('does not display a FooterGray component', () => {
+    it('does not display a Footer component', () => {
       expect(wrapper.find('.footergray')).toHaveLength(0);
     });
   });
@@ -115,15 +115,15 @@ describe('App', () => {
       </Provider>
     );
 
-    it('displays a HeaderRed component', () => {
+    it('displays a Header component', () => {
       expect(wrapper.find('.headerred')).toHaveLength(1);
     });
 
-    it('displays a MainWhite component', () => {
+    it('displays a Main component', () => {
       expect(wrapper.find('.mainwhite')).toHaveLength(1);
     });
 
-    it('displays a FooterGray component', () => {
+    it('displays a Footer component', () => {
       expect(wrapper.find('.footergray')).toHaveLength(1);
     });
   });

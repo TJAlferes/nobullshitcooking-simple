@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import { LoaderButton } from '../../LoaderButton/LoaderButton';
+import { LoaderButton } from '../LoaderButton/LoaderButton';
 import { NewEquipmentView } from './NewEquipmentView';
 
 const beginProps = {

@@ -6,7 +6,9 @@ import { NewEquipment } from './NewEquipment';
 
 const beginProps = {
   oneColumnATheme: "one-column-a-light",
-  message: "Some message.",
+  staffMessage: "",
+  userMessage: "Some message.",
+  dataEquipment: [],
   dataEquipmentTypes: [
     {equipment_type_id: 2, equipment_type_name: "Preparing"},
     {equipment_type_id: 3, equipment_type_name: "Cooking"}
@@ -22,6 +24,8 @@ const beginProps = {
       equipment_image: "my-teapot"
     }
   ],
+  staffCreateNewEquipment: jest.fn(),
+  staffEditEquipment: jest.fn(),
   userCreateNewPrivateEquipment: jest.fn(),
   userEditPrivateEquipment: jest.fn()
 };

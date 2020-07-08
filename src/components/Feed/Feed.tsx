@@ -8,11 +8,19 @@ export function Feed({ theme, postPreviews }: Props): JSX.Element {
   return (
     <div className={`feed ${theme}`}>
       {postPreviews.map((postPreview: IPostPreview) => (
-        <div className="feed__post-preview" key={postPreview.postId}>
+        <div className="post-preview" key={postPreview.postId}>
+
           <h1 className="post-preview__title">{postPreview.title}</h1>
+
           <span className="post-preview__author">{postPreview.author}</span>
-          <img src={postPreview.thumbnail} />
-          <p className="post-preview__text">{postPreview.snippet}</p>
+
+          <img
+            className="post-preview__thumbnail"
+            src={postPreview.thumbnail}
+          />
+          
+          <p className="post-preview__snippet">{postPreview.snippet}</p>
+
         </div>
       ))}
     </div>
@@ -37,6 +45,6 @@ const mapStateToProps = (state: RootState) => ({
   postPreviews: state.data.postPreviews
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {});
 
 export default connector(Feed);

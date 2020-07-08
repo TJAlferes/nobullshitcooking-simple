@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
-import { LoaderButton } from '../../LoaderButton/LoaderButton';
+import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
+import { LoaderButton } from '../LoaderButton/LoaderButton';
 import { EquipmentRow } from './views/EquipmentRow/EquipmentRow';
 import { IngredientRow } from './views/IngredientRow/IngredientRow';
 //import { SubrecipeRow } from './views/SubrecipeRow/SubrecipeRow';

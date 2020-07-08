@@ -2,10 +2,10 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
-//import MobileHeaderRed from './components/HeaderRed/mobile/MobileHeaderRed';
-import { HeaderRed } from './components/HeaderRed/desktop/HeaderRed';
-import { MainWhite } from './components/MainWhite/MainWhite';
-import { FooterGray } from './components/FooterGray/FooterGray';
+//import MobileHeader from './components/Header/mobile/MobileHeader';
+import { Header } from './components/Header/desktop/Header';
+import { Main } from './components/Main/Main';
+import { Footer } from './components/Footer/Footer';
 import { RoutesList } from './routing/Routes';
 import { IContentType } from './store/data/types';
 import './app.css';
@@ -33,16 +33,16 @@ export function App({
     <div id="app">
       <div>
         {/*<div className="mobile_display">
-          <MobileHeaderRed theme={headerTheme} />
+          <MobileHeader theme={headerTheme} />
         </div>*/}
         <div className="desktop_display">
-          <HeaderRed theme={headerTheme} />
+          <Header theme={headerTheme} />
         </div>
       </div>
-      <MainWhite theme={mainTheme} shadow={shadow} >
+      <Main theme={mainTheme} shadow={shadow} >
         <RoutesList contentTypes={dataContentTypes}  />
-      </MainWhite>
-      <FooterGray theme={footerTheme} />
+      </Main>
+      <Footer theme={footerTheme} />
     </div>
   );
 }

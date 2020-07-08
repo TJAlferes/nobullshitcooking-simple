@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './footerGray.css';
+import './footer.css';
 
-export function FooterGray({ theme }: Props): JSX.Element {
+export function Footer({ theme }: Props): JSX.Element {
   return (
     <footer className={`footergray ${theme}`}>
       <ul>
