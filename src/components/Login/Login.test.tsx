@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { Login } from './Login';
 
+const authStaffLogin = jest.fn();
 const authUserLogin = jest.fn();
 
 let wrapper: ReactWrapper;
@@ -11,7 +12,11 @@ let wrapper: ReactWrapper;
 beforeEach(() => {
   wrapper = mount(
     <MemoryRouter>
-      <Login message="Some message." authUserLogin={authUserLogin} />
+      <Login
+        message="Some message."
+        authStaffLogin={authStaffLogin}
+        authUserLogin={authUserLogin}
+      />
     </MemoryRouter>
   );
 });
