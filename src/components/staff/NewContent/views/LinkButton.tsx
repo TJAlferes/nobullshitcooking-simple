@@ -16,10 +16,7 @@ export function LinkButton() {
   };
 
   return (
-    <Button
-      active={isLinkActive(editor)}
-      onMouseDown={handleMouseDown}
-    >
+    <Button active={isLinkActive(editor)} onMouseDown={handleMouseDown}>
       <Icon className="link-icon">link</Icon>
     </Button>
   );

@@ -39,11 +39,7 @@ export const Element: FunctionComponent<Props> = ({
     case 'link': return <a {...attributes} href={element.url}>{children}</a>;
     case 'image':
       return (
-        <ImageElement
-          {...attributes}
-          children={children}
-          element={element}
-        />
+        <ImageElement {...attributes} children={children} element={element} />
       );
     default: return <p {...attributes}>{children}</p>;
   }

@@ -14,10 +14,7 @@ export function MarkButton({ format, icon }: Props) {
   };
   
   return (
-    <Button
-      active={isMarkActive(editor, format)}
-      onMouseDown={handleMouseDown}
-    >
+    <Button active={isMarkActive(editor, format)} onMouseDown={handleMouseDown}>
       <Icon className="link-icon">{icon}</Icon>
     </Button>
   );
