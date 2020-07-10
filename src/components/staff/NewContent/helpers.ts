@@ -63,7 +63,9 @@ export function toggleMark(editor: ReactEditor, format: string) {
 }
 
 export function withImages(editor: ReactEditor) {
-  const insertData = (data: DataTransfer) => {
+  const { insertData, isVoid } = editor;
+
+  editor.insertData = (data: DataTransfer) => {
     const isImageUrl = (url: string) => {
       if (!url) return false;
       if (!isUrl(url)) return false;
@@ -109,30 +111,27 @@ export function withImages(editor: ReactEditor) {
     }
   };
 
-  editor.insertData = insertData;
-
-  editor.isVoid = (element) =>
-    element.type === "image" ? true : editor.isVoid(element);
+  editor.isVoid = element => element.type === "image" ? true : isVoid(element);
 
   return editor;
 }
 
 export function withLinks(editor: ReactEditor) {
-  const insertData = (data: DataTransfer) => {
+  const { insertData, insertText, isInline } = editor;
+
+  editor.insertData = (data: DataTransfer) => {
     const text = data.getData('text/plain');
     if (text && isUrl(text)) wrapLink(editor, text);
     else insertData(data);
   };
 
-  editor.insertData = insertData;
-
-  editor.isInline = (element) =>
-    element.type === "link" ? true : editor.isInline(element);
-  
-  editor.insertText = (text) => {
+  editor.insertText = text => {
     if (text && isUrl(text)) wrapLink(editor, text);
-    else editor.insertText(text);
+    else insertText(text);
   };
+
+  editor.isInline = element =>
+    element.type === "link" ? true : isInline(element);
 
   return editor;
 }

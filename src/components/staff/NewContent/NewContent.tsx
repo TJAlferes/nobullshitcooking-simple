@@ -26,13 +26,13 @@ const HOTKEYS: {
 
 const initialValue = localStorage.getItem('newContent')
 ? JSON.parse(localStorage.getItem('newContent') as string)
-: [{type: 'paragraph', children: [{text: 'A line of text.'}]}];  // use redux
+: [{type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}];  // use redux
 
 export default function NewContent(): JSX.Element {
   const [ value, setValue ] = useState<Node[]>(initialValue);
-
+  
   const editor = useMemo(
-    () => withImages(withLinks(withHistory(withReact(createEditor())))),
+    () => withHistory(withImages(withLinks(withReact(createEditor())))),
     []
   );
 
@@ -42,12 +42,12 @@ export default function NewContent(): JSX.Element {
 
   const handleChange = (value: Node[]) => {
     setValue(value);
-    localStorage.setItem('newContent', JSON.stringify(value));  // use redux
+    //localStorage.setItem('newContent', JSON.stringify(value));  // use redux
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     for (const hotkey in HOTKEYS) {
-      if (!isHotKey(hotkey)) return;  //isHotKey(hotkey, e.key)
+      if (!isHotKey(hotkey)(e as unknown as KeyboardEvent)) continue;
       e.preventDefault();
       toggleMark(editor, HOTKEYS[hotkey]);
     }
@@ -55,17 +55,17 @@ export default function NewContent(): JSX.Element {
 
   return (
     <div className="new-content">
-      <h1 className="new-content-heading">New Content</h1>
+      <h1 className="new-content__heading">New Content</h1>
       <Slate
         editor={editor}
         value={value}
         onChange={handleChange}
       >
         <Toolbar className="toolbar">
-          <MarkButton format="bold" icon="format_bold" />
-          <MarkButton format="italic" icon="format_italic" />
-          <BlockButton format="heading-one" icon="looks_one" />
-          <BlockButton format="heading-two" icon="looks_two" />
+          <MarkButton format="bold" icon="bold" />
+          <MarkButton format="italic" icon="italic" />
+          <BlockButton format="heading-one" icon="h1" />
+          <BlockButton format="heading-two" icon="h2" />
           <LinkButton />
           <InsertImageButton />
         </Toolbar>

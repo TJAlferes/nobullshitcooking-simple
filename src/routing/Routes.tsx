@@ -3,12 +3,14 @@ import { Switch } from 'react-router-dom';
 
 import { LoaderSpinner } from '../components/LoaderSpinner/LoaderSpinner';
 import { IContentType } from '../store/data/types';
-import AppliedRoute from './AppliedRoute';
-import AuthenticatedStaffRoute from './AuthenticatedStaffRoute';
-import AuthenticatedUserRoute from './AuthenticatedUserRoute';
-import UnauthenticatedStaffRoute from './UnauthenticatedStaffRoute';
-import UnauthenticatedUserRoute from './UnauthenticatedUserRoute';
-import { makeRoutesFromContentTypes } from './CMSNavigationRoutes';
+import {
+  appRoute,
+  authStaffRoute,
+  authUserRoute,
+  unauthStaffRoute,
+  unauthUserRoute,
+  makeRoutesFromContentTypes
+} from './helpers';
 
 // auth routes
 
@@ -44,62 +46,6 @@ const Profile = lazy(() => import('../components/Profile/Profile'));
 //import Supply from '../components/supply/Supply';
 import { Home } from '../components/Home/Home';
 import { NotFound } from '../components/NotFound/NotFound';
-
-const authStaffRoute = (
-  path: string,
-  component: any,
-  childProps: any = null
-) =>
-  <AuthenticatedStaffRoute
-    path={path}
-    component={component}
-    childProps={childProps}
-  />;
-
-const authUserRoute = (
-  path: string,
-  component: any,
-  childProps: any = null
-) =>
-  <AuthenticatedUserRoute
-    path={path}
-    component={component}
-    childProps={childProps}
-  />;
-
-const unauthStaffRoute = (
-  path: string,
-  component: any,
-  childProps: any = null
-) =>
-  <UnauthenticatedStaffRoute
-    path={path}
-    component={component}
-    childProps={childProps}
-  />;
-
-const unauthUserRoute = (
-  path: string,
-  component: any,
-  childProps: any = null
-) =>
-  <UnauthenticatedUserRoute
-    path={path}
-    component={component}
-    childProps={childProps}
-  />;
-
-const appRoute = (
-  path: string,
-  component: any,
-  childProps: any = null
-) =>
-  <AppliedRoute
-    key={path}
-    path={path}
-    component={component}
-    childProps={childProps}
-  />;
 
 export function RoutesList({ contentTypes }: Props) {
   //useEffect?

@@ -1,4 +1,11 @@
+import React from 'react';
+
 import { IContentType } from '../store/data/types';
+import AppliedRoute from './components/AppliedRoute';
+import AuthenticatedStaffRoute from './components/AuthenticatedStaffRoute';
+import AuthenticatedUserRoute from './components/AuthenticatedUserRoute';
+import UnauthenticatedStaffRoute from './components/UnauthenticatedStaffRoute';
+import UnauthenticatedUserRoute from './components/UnauthenticatedUserRoute';
 
 function unflattenPageTypes(pageTypes: IContentType[]) {
   let nodes: any = [...pageTypes];
@@ -61,3 +68,59 @@ export function makeRoutesFromContentTypes(contentTypes: IContentType[]) {
 
   return routes.reverse();
 }
+
+export const appRoute = (
+  path: string,
+  component: any,
+  childProps: any = null
+) =>
+  <AppliedRoute
+    key={path}
+    path={path}
+    component={component}
+    childProps={childProps}
+  />;
+
+export const authStaffRoute = (
+  path: string,
+  component: any,
+  childProps: any = null
+) =>
+  <AuthenticatedStaffRoute
+    path={path}
+    component={component}
+    childProps={childProps}
+  />;
+
+export const authUserRoute = (
+  path: string,
+  component: any,
+  childProps: any = null
+) =>
+  <AuthenticatedUserRoute
+    path={path}
+    component={component}
+    childProps={childProps}
+  />;
+
+export const unauthStaffRoute = (
+  path: string,
+  component: any,
+  childProps: any = null
+) =>
+  <UnauthenticatedStaffRoute
+    path={path}
+    component={component}
+    childProps={childProps}
+  />;
+
+export const unauthUserRoute = (
+  path: string,
+  component: any,
+  childProps: any = null
+) =>
+  <UnauthenticatedUserRoute
+    path={path}
+    component={component}
+    childProps={childProps}
+  />;
