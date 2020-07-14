@@ -6,12 +6,11 @@ import {
   Paging,
   ResultsPerPage,
   withSearch,
-} from '@elastic/react-search-ui';  // Jason should release typings soon
+} from '@elastic/react-search-ui';
 
 import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import './recipes.css';
-
-// TO DO: finish typing and styling
+import { IngredientRow } from '../../NewRecipe/views/IngredientRow/IngredientRow';
 
 export function SearchResultsRecipes({
   twoColumnBTheme,
@@ -30,19 +29,20 @@ export function SearchResultsRecipes({
         {/* Note to self: the `facets` props below are set incorrectly, fix them */}
         {/*<p>{"props.facets: "}{JSON.stringify(props.facets)}</p>*/}
 
-        <ExpandCollapse headingWhileCollapsed="Filter Results (Click here to expand)">
+        <ExpandCollapse
+          headingWhileCollapsed="Filter Results (Click here to expand)"
+        >
           <div className="search-results-filters">
-
-            <span className="search-results-filter-title">Filter recipes by:</span>
-
+            <span className="search-results-filter-title">
+              Filter recipes by:
+            </span>
             <Facet
-              field="recipeTypeName"
+              field="recipe_type_name"
               label="Recipe Types"
               filterType="any"
-              isFilterable={true}
               show={12}
               facets={{
-                recipeTypeName: [
+                recipe_type_name: [
                   {
                     data: [
                       {count: 1, value: "Drink"},
@@ -58,21 +58,19 @@ export function SearchResultsRecipes({
                       {count: 1, value: "Dressing"},
                       {count: 1, value: "Condiment"}
                     ],
-                    field: "recipeTypeName",
+                    field: "recipe_type_name",
                     type: "value"
                   }
                 ]
               }}
             />
-
             <Facet
-              field="cuisineName"
+              field="cuisine_name"
               label="Cuisines"
               filterType="any"
-              isFilterable={true}
               show={24}
               facets={{
-                cuisineName: [
+                cuisine_name: [
                   {
                     data: [
                       {count: 1, value: "Russian"},
@@ -100,21 +98,19 @@ export function SearchResultsRecipes({
                       {count: 1, value: "Nigerian"},
                       {count: 1, value: "Other"}
                     ],
-                    field: "cuisineName",
+                    field: "cuisine_name",
                     type: "value"
                   },
                 ]
               }}
             />
-
             <Facet
-              field="methodNames"
+              field="method_names"
               label="Methods"
               filterType="any"
-              isFilterable={true}
               show={24}
               facets={{
-                methodNames: [
+                method_names: [
                   {
                     data: [
                       {count: 1, value: "No-Cook"},
@@ -142,84 +138,79 @@ export function SearchResultsRecipes({
                       {count: 1, value: "Grill"},
                       {count: 1, value: "Smoke"}
                     ],
-                    field: "methodNames",
+                    field: "method_names",
                     type: "value"
                   },
                 ]
               }}
             />
-
           </div>
         </ExpandCollapse>
 
-        {wasSearched && <ResultsPerPage />}
-
+        {wasSearched && <ResultsPerPage options={[25, 50, 100]} />}
         {wasSearched && <PagingInfo />}
         <Paging />
 
         <div className="search-results-list">
-          {results.map((result: any) => {
-            const rows = Object.entries<any>(result);
-            return (
-              <div className="search-result-recipe" key={rows[0][1].raw}>
-                <Link
-                  className="search-result-recipe-link"
-                  to={`/recipes/${rows[0][1].raw}`}
-                >
-                  <div className="search-result-recipe-text">
-                    <div className="search-result-recipe-text__title">
-                      {rows[4] && rows[4][1].raw}
-                    </div>
-                    <div className="search-result-recipe-text__author">
-                      {rows[1][1].raw}
-                    </div>
+          {results && results.map((rec: any) => rec && (
+            <div className="search-result-recipe" key={rec.recipe_id.raw}>
+              <Link
+                className="search-result-recipe-link"
+                to={`/recipes/${rec.recipe_id.raw}`}
+              >
+                <div className="search-result-recipe-text">
+                  <div className="search-result-recipe-text__title">
+                    {rec.title.raw}
+                  </div>
+                  <div className="search-result-recipe-text__author">
+                    {rec.author.raw}
+                  </div>
 
-                    <div className="search-result-recipe-text__types">
-                      <div className="search-result-recipe-text__types-cuisine">
-                        {rows[3][1].raw}
-                      </div>
-                      <div className="search-result-recipe-text__types-recipe-type">
-                        {rows[2][1].raw}
-                      </div>
+                  <div className="search-result-recipe-text__types">
+                    <div className="search-result-recipe-text__types-cuisine">
+                      {rec.cuisine_name.raw}
                     </div>
-
-                    <div className="search-result-recipe-text__tags">
-                      <div className="search-result-recipe-text__tags-methods">
-                        {rows[8] && rows[8][1].raw.map((method: any) => (
-                          <span
-                            className="search-result-recipe-text__tags-method"
-                            key={method}
-                          >
-                            {method}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="search-result-recipe-text__tags-ingredients">
-                        {rows[10] && rows[10][1].raw.map((ingredient: any) => (
-                          <span
-                            className="search-result-recipe-text__tags-ingredient"
-                            key={ingredient}
-                          >
-                            {ingredient}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="search-result-recipe-text__types-recipe-type">
+                      {rec.recipe_type_name.raw}
                     </div>
                   </div>
-                  {
-                    (rows[7] && (rows[7][1].raw !== "nobsc-recipe-default"))
-                    ? (
-                      <img
-                        className="search-result-recipe-image"
-                        src={`https://s3.amazonaws.com/nobsc-user-recipe/${rows[7] && rows[7][1].raw}-thumb`}
-                      />
-                    )
-                    : <div className="image-default-100-62"></div>
-                  }
-                </Link>
-              </div>
-            );
-          })}
+
+                  <div className="search-result-recipe-text__tags">
+                    <div className="search-result-recipe-text__tags-methods">
+                      {rec.method_names.raw.map((method: any) => (
+                        <span
+                          className="search-result-recipe-text__tags-method"
+                          key={method}
+                        >
+                          {method}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="search-result-recipe-text__tags-ingredients">
+                      {rec.ingredient_names.raw.map((ingredient: any) => (
+                        <span
+                          className="search-result-recipe-text__tags-ingredient"
+                          key={ingredient}
+                        >
+                          {ingredient}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                {
+                  (rec.recipe_image.raw !== "nobsc-recipe-default")
+                  ? (
+                    <img
+                      className="search-result-recipe-image"
+                      src={`https://s3.amazonaws.com/nobsc-user-recipe/${rec.recipe_image.raw}-thumb`}
+                    />
+                  )
+                  : <div className="image-default-100-62"></div>
+                }
+              </Link>
+            </div>
+          ))}
         </div>
 
         {wasSearched && <PagingInfo />}

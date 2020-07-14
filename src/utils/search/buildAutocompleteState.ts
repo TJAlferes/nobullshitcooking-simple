@@ -20,17 +20,22 @@ function buildResults(hits: any, currentIndex: string) {
   hits.map((record: any) => {
     let field;
     if (currentIndex === "recipes") field = record._source.title;
-    if (currentIndex === "ingredients") field = record._source.ingredientName;
-    if (currentIndex === "equipment") field = record._source.equipmentName;
+    if (currentIndex === "ingredients") field = record._source.ingredient_name;
+    if (currentIndex === "equipment") field = record._source.equipment_name;
 
     let fieldString;
     if (currentIndex === "recipes") fieldString = "title";
-    if (currentIndex === "ingredients") fieldString = "ingredientName";
-    if (currentIndex === "equipment") fieldString = "equipmentName";
+    if (currentIndex === "ingredients") fieldString = "ingredient_name";
+    if (currentIndex === "equipment") fieldString = "equipment_name";
 
     let snippet = getHighlight(record, fieldString as string);
 
-    builtResults.push({id: {raw: field, ...(snippet && {snippet})}});
+    builtResults.push({
+      id: {
+        raw: field,
+        ...(snippet && {snippet})
+      }
+    });
   });
 
   return builtResults;

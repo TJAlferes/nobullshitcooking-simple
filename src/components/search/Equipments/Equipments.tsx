@@ -6,12 +6,10 @@ import {
   Paging,
   ResultsPerPage,
   withSearch
-} from '@elastic/react-search-ui';  // Jason should release typings soon
+} from '@elastic/react-search-ui';
 
 import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import './equipments.css';
-
-// TO DO: finish typing and styling
 
 export function SearchResultsEquipment({
   twoColumnBTheme,
@@ -28,19 +26,20 @@ export function SearchResultsEquipment({
 
         <h1>Equipment</h1>
 
-        <ExpandCollapse headingWhileCollapsed="Filter Results (Click here to expand)">
+        <ExpandCollapse
+          headingWhileCollapsed="Filter Results (Click here to expand)"
+        >
           <div className="search-results-filters">
-
-            <span className="search-results-filter-title">Filter equipment by:</span>
-
+            <span className="search-results-filter-title">
+              Filter equipment by:
+            </span>
             <Facet
-              field="equipmentTypeName"
+              field="equipment_type_name"
               label="Equipment Types"
               filterType="any"
-              isFilterable={true}
               show={5}
               facets={{
-                equipmentTypeName: [
+                equipment_type_name: [
                   {
                     data: [
                       {count: 1, value: "Cleaning"},
@@ -49,42 +48,41 @@ export function SearchResultsEquipment({
                       {count: 1, value: "Dining"},
                       {count: 1, value: "Storage"}
                     ],
-                    field: "equipmentTypeName",
+                    field: "equipment_type_name",
                     type: "value"
                   }
                 ]
               }}
             />
-
           </div>
         </ExpandCollapse>
 
-        {wasSearched && <ResultsPerPage />}
-
+        {wasSearched && <ResultsPerPage options={[25, 50, 100]} />}
         {wasSearched && <PagingInfo />}
         <Paging />
 
         <div className="search-results-list">
-          {results.map((result: any) => {
-            const rows = Object.entries<any>(result);
-            return (
-              <div className="search-result-equipment" key={rows[0][1].raw}>
-                <Link
-                  className="search-result-equipment-link"
-                  to={`/equipment/${rows[0][1].raw}`}
-                >
-                  <div className="search-result-equipment-text">
-                    <div className="search-result-equipment-text__name">{rows[2][1].raw}</div>
-                    <div className="search-result-equipment-text__type">{rows[1][1].raw}</div>
+          {results && results.map((equ: any) => equ && (
+            <div className="search-result-equipment" key={equ.equipment_id.raw}>
+              <Link
+                className="search-result-equipment-link"
+                to={`/equipment/${equ.equipment_id.raw}`}
+              >
+                <div className="search-result-equipment-text">
+                  <div className="search-result-equipment-text__name">
+                    {equ.equipment_name.raw}
                   </div>
-                  <img
-                    className="search-result-equipment-image"
-                    src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${rows[3][1].raw}.jpg`}
-                  />
-                </Link>
-              </div>
-            );
-          })}
+                  <div className="search-result-equipment-text__type">
+                    {equ.equipment_type_name.raw}
+                  </div>
+                </div>
+                <img
+                  className="search-result-equipment-image"
+                  src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equ.equipment_image.raw}.jpg`}
+                />
+              </Link>
+            </div>
+          ))}
         </div>
 
         {wasSearched && <PagingInfo />}

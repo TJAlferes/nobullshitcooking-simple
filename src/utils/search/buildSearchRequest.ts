@@ -8,13 +8,17 @@ function buildMatch(searchTerm: string, currentIndex: string) {
     return searchTerm
     ? {match: {title: {query: searchTerm}}}
     : {match_all: {}};
-  } else if (currentIndex === "ingredients") {
+  }
+  
+  if (currentIndex === "ingredients") {
     return searchTerm
-    ? {match: {ingredientName: {query: searchTerm}}}
+    ? {match: {ingredient_name: {query: searchTerm}}}
     : {match_all: {}};
-  } else if (currentIndex === "equipment") {
+  }
+  
+  if (currentIndex === "equipment") {
     return searchTerm
-    ? {match: {equipmentName: {query: searchTerm}}}
+    ? {match: {equipment_name: {query: searchTerm}}}
     : {match_all: {}};
   }
 }
@@ -32,6 +36,18 @@ function getTermFilterValue(field: any, fieldValue: any) {
 }
 
 function getTermFilter(filter: any) {
+  if (filter.type === "all") {
+    return {
+      bool: {
+        filter: [
+          filter.values.map((filterValue: any) => ({
+            term: getTermFilterValue(filter.field, filterValue)
+          }))
+        ]
+      }
+    };
+  }
+
   if (filter.type === "any") {
     return {
       bool: {
@@ -43,38 +59,38 @@ function getTermFilter(filter: any) {
         minimum_should_match: 1
       }
     };
-  } else if (filter.type === "all") {
-    return {
-      bool: {
-        filter: [
-          filter.values.map((filterValue: any) => ({
-            term: getTermFilterValue(filter.field, filterValue)
-          }))
-        ]
-      }
-    };
   }
 }
 
 function buildRequestFilter(filters: any, currentIndex: string) {
   if (!filters) return;
+
   filters = filters.reduce((acc: any, filter: any) => {
-    if (currentIndex === "recipes") {
-      // TO DO: also add methodNames, allergy ingredients, etc. (index them first)
-      if (["recipeTypeName", "cuisineName"].includes(filter.field)) { 
-        return [...acc, getTermFilter(filter)];
-      }
-    } else if (currentIndex === "ingredients") {
-      if (["ingredientTypeName"].includes(filter.field)) { 
-        return [...acc, getTermFilter(filter)];
-      }
-    } else if (currentIndex === "equipment") {
-      if (["equipmentTypeName"].includes(filter.field)) { 
-        return [...acc, getTermFilter(filter)];
-      }
+    // also add methodNames, allergy ingredients, etc. (index them first)
+    if (
+      currentIndex === "recipes" &&
+      ["recipe_type_name", "cuisine_name"].includes(filter.field)
+    ) {
+      return [...acc, getTermFilter(filter)];
+    }
+    
+    if (
+      currentIndex === "ingredients" &&
+      ["ingredient_type_name"].includes(filter.field)
+    ) {
+      return [...acc, getTermFilter(filter)];
+    }
+    
+    if (
+      currentIndex === "equipment" &&
+      ["equipment_type_name"].includes(filter.field)
+    ) {
+      return [...acc, getTermFilter(filter)];
     }
   }, []);
+
   if (filters.length < 1) return;
+
   return filters;
 }
 
@@ -86,32 +102,37 @@ export function buildSearchRequest(state: any, currentIndex: string) {
   const from = buildFrom(current, resultsPerPage);  // starting
   const size = resultsPerPage;  // limit
 
-  let highlightFields;
   let aggs;
+  let highlightFields;
+
   if (currentIndex === "recipes") {
-    highlightFields = {title: {}};
     aggs = {
-      recipeTypeName: {terms: {field: "recipeTypeName"}},
-      cuisineName: {terms: {field: "cuisineName"}},
+      cuisine_name: {terms: {field: "cuisine_name"}},
+      recipe_type_name: {terms: {field: "recipe_type_name"}},
       //ingredientTypes: {terms: {fields: "ingredientTypes"}},
       //methodName: {terms: {fields: "methodNames"}}  ???
       //methodName: {terms: {fields: ["methodName"]}}
     };
-  } else if (currentIndex === "ingredients") {
-    highlightFields = {ingredientName: {}};
-    aggs = {ingredientTypeName: {terms: {field: "ingredientTypeName"}}};
-  } else if (currentIndex === "equipment") {
-    highlightFields = {equipmentName: {}};
-    aggs = {equipmentTypeName: {terms: {field: "equipmentTypeName"}}};
+    highlightFields = {title: {}};
+  }
+
+  if (currentIndex === "ingredients") {
+    aggs = {ingredient_type_name: {terms: {field: "ingredient_type_name"}}};
+    highlightFields = {ingredient_name: {}};
+  }
+
+  if (currentIndex === "equipment") {
+    aggs = {equipment_type_name: {terms: {field: "equipment_type_name"}}};
+    highlightFields = {equipment_name: {}};
   }
 
   const body = {
+    aggs,
     highlight: {
       fragment_size: 200,  // less?
       number_of_fragments: 1,
       fields: highlightFields
     },
-    aggs,
     query: {
       bool: {
         must: [match],

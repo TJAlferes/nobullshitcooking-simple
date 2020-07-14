@@ -79,21 +79,21 @@ export function withImages(editor: ReactEditor) {
     if (files && files.length) {
 
       for (const file of files) {
-        const reader = new FileReader();
         const [ mime ] = file.type.split('/');
 
-        if (mime === 'image') {
-          reader.addEventListener('load', () => {
-            const url = reader.result;
-            Transforms.insertNodes(editor, {
-              type: "image",
-              url,
-              children: [{text: ""}]
-            });
-          });
+        if (mime !== 'image') continue;
 
-          reader.readAsDataURL(file);
-        }
+        const reader = new FileReader();
+
+        reader.addEventListener('load', () => {
+          Transforms.insertNodes(editor, {
+            type: "image",
+            url: reader.result,
+            children: [{text: ""}]
+          });
+        });
+
+        reader.readAsDataURL(file);
       }
 
     } else if (isImageUrl(text)) {

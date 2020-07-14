@@ -19,21 +19,21 @@ function getSearchState() {
 function getFacetsConfig() {
   if (getSearchState().currentIndex === "recipes") {
     return {
-      recipeTypeName: {type: "value", size: 12},
-      cuisineName: {type: "value", size: 24},
+      recipe_type_name: {type: "value", size: 12},
+      cuisine_name: {type: "value", size: 24},
       //methods,
       //ingredientTypes (for allergies)
     };
   } else if (getSearchState().currentIndex === "ingredients") {
-    return {ingredientTypeName: {type: "value", size: 18}};
+    return {ingredient_type_name: {type: "value", size: 18}};
   }
 }
 
 function getDisjunctiveFacetsConfig() {
   if (getSearchState().currentIndex === "recipes") {
-    return ["recipeTypeName", "cuisineName"];
+    return ["recipe_type_name", "cuisineName"];
   } else if (getSearchState().currentIndex === "ingredients") {
-    return ["ingredientTypeName"];
+    return ["ingredient_type_name"];
   }
 }
 
@@ -69,7 +69,7 @@ export const searchConfig = {
       const resWithDisjunctiveFacetCounts = await applyDisjunctiveFaceting(
         res.data.found,
         state,
-        ["recipeTypeName", "cuisineName"],
+        ["recipe_type_name", "cuisine_name"],
         "recipes"
       );
       const newState = buildSearchState(
@@ -89,7 +89,7 @@ export const searchConfig = {
       const resWithDisjunctiveFacetCounts = await applyDisjunctiveFaceting(
         res.data.found,
         state,
-        ["ingredientTypeName"],
+        ["ingredient_type_name"],
         "ingredients"
       );
       const newState = buildSearchState(
@@ -109,7 +109,7 @@ export const searchConfig = {
       const resWithDisjunctiveFacetCounts = await applyDisjunctiveFaceting(
         res.data.found,
         state,
-        ["equipmentTypeName"],
+        ["equipment_type_name"],
         "equipment"
       );
       const newState = buildSearchState(
@@ -123,11 +123,11 @@ export const searchConfig = {
   },
   searchQuery: {
     facets: {
-      recipeTypeName: {type: "value", size: 12},
-      cuisineName: {type: "value", size: 24},
+      recipe_type_name: {type: "value", size: 12},
+      cuisine_name: {type: "value", size: 24},
       //methods,
       //ingredientTypes (for allergies)
     },
-    disjunctiveFacets: ["recipeTypeName", "cuisineName"]  // "ingredientTypeName", "equipmentTypeName"
+    disjunctiveFacets: ["recipe_type_name", "cuisine_name"]  // "ingredientTypeName", "equipmentTypeName"
   }
 };

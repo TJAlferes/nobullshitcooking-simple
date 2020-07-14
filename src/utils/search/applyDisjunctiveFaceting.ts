@@ -13,10 +13,10 @@ https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 function combineAggregationsFromResponses(responses: any) {
-  return responses.reduce(
-    (acc: any, response: any) => ({...acc, ...response.aggregations}),
-    {}
-  );
+  return responses.reduce((acc: any, response: any) => ({
+    ...acc,
+    ...response.aggregations
+  }), {});
 }
 
 function removeFilterByName(state: any, facetName: string) {
@@ -27,7 +27,12 @@ function removeFilterByName(state: any, facetName: string) {
 }
 
 function removeAllFacetsExcept(body: any, facetName: string) {
-  return {...body, aggs: {[facetName]: body.aggs[facetName]}};
+  return {
+    ...body,
+    aggs: {
+      [facetName]: body.aggs[facetName]
+    }
+  };
 }
 
 function changeSizeToZero(body: any) {
@@ -42,16 +47,19 @@ async function getDisjunctiveFacetCounts(
   let responses: any = [];
 
   // TO DO: don't make request if "not" filter is currently applied
+  // TO DO: await Promise.all([])
   disjunctiveFacetNames.map(async (facetName: string) => {
     let newState = removeFilterByName(state, facetName);
     let body = buildSearchRequest(newState, currentIndex);
     body = changeSizeToZero(body);
     body = removeAllFacetsExcept(body, facetName);
+
     const res = await axios.post(
       `${endpoint}/search/find/${currentIndex}`,
       {body},
       {withCredentials: true}
     );
+
     responses.push(res.data.found);
   });
 

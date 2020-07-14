@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
- // Jason should release typings soon
- // https://github.com/elastic/search-ui/issues/289
 import { SearchBox, withSearch } from '@elastic/react-search-ui';
 
 import { searchSetIndex } from '../../../../store/search/actions';
@@ -19,8 +17,9 @@ export function Search({
   const history = useHistory();
 
   const changeSearchIndex = (e: React.ChangeEvent<HTMLSelectElement>) => {  // useEffect? useLayoutEffect?
+    //.getElementsByClassName("sui-search-box__wrapper")[1]
     const sInsert = document
-    .getElementsByClassName("sui-search-box__wrapper")[1]
+    .getElementsByClassName("sui-search-box__wrapper")[0]
     .firstChild as HTMLElement;
     searchSetIndex(e.target.value);
     sInsert.focus();
@@ -35,14 +34,13 @@ export function Search({
     redirectToSearchPage();
   };
 
-  let capitalizedFirstLetter = `${currentIndex}`.slice(0, 1).toUpperCase();
-  let otherLetters = `${currentIndex}`.slice(1, currentIndex.length).toLowerCase();
-  let facadeText = `${capitalizedFirstLetter}${otherLetters}`;
-  let field;
+  const facadeText =
+  currentIndex.charAt(0).toUpperCase() + currentIndex.slice(1);
 
+  let field;
   if (currentIndex === "recipes") field = "title";
-  if (currentIndex === "ingredients") field = "ingredientName";
-  if (currentIndex === "equipment") field = "equipmentName";
+  if (currentIndex === "ingredients") field = "ingredient_name";
+  if (currentIndex === "equipment") field = "equipment_name";
 
   return (
     <div className={`search ${theme}`} id="search_form">

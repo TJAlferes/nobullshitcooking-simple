@@ -6,12 +6,10 @@ import {
   Paging,
   ResultsPerPage,
   withSearch,
-} from '@elastic/react-search-ui';  // Jason should release typings soon
+} from '@elastic/react-search-ui';
 
 import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import './ingredients.css';
-
-// TO DO: finish typing and styling
 
 export function SearchResultsIngredients({
   twoColumnBTheme,
@@ -27,19 +25,20 @@ export function SearchResultsIngredients({
 
         <h1>Ingredients</h1>
 
-        <ExpandCollapse headingWhileCollapsed="Filter Results (Click here to expand)">
+        <ExpandCollapse
+          headingWhileCollapsed="Filter Results (Click here to expand)"
+        >
           <div className="search-results-filters">
-
-            <span className="search-results-filter-title">Filter ingredients by:</span>
-
+            <span className="search-results-filter-title">
+              Filter ingredients by:
+            </span>
             <Facet
-              field="ingredientTypeName"
+              field="ingredient_type_name"
               label="Ingredient Types"
               filterType="any"
-              isFilterable={true}
               show={18}
               facets={{
-                ingredientTypeName: [
+                ingredient_type_name: [
                   {
                     data: [
                       {count: 1, value: "Fish"},
@@ -61,42 +60,45 @@ export function SearchResultsIngredients({
                       {count: 1, value: "Acid"},
                       {count: 1, value: "Product"}
                     ],
-                    field: "ingredientTypeName",
+                    field: "ingredient_type_name",
                     type: "value"
                   }
                 ]
               }}
             />
-
           </div>
         </ExpandCollapse>
 
-        {wasSearched && <ResultsPerPage />}
-
+        {wasSearched && <ResultsPerPage options={[25, 50, 100]} />}
         {wasSearched && <PagingInfo />}
         <Paging />
 
         <div className="search-results-list">
-          {results.map((result: any) => {
-            const rows = Object.entries<any>(result);
-            return (
-              <div className="search-result-ingredient" key={rows[0][1].raw}>
-                <Link
-                  className="search-result-ingredient-link"
-                  to={`/ingredients/${rows[0][1].raw}`}
-                >
-                  <div className="search-result-ingredient-text">
-                    <div className="search-result-ingredient-text__name">{rows[2][1].raw}</div>
-                    <div className="search-result-ingredient-text__type">{rows[1][1].raw}</div>
+          {results && results.map((ing: any) => ing && (
+            <div className="search-result-ingredient" key={ing.ingredient_id.raw}>
+              <Link
+                className="search-result-ingredient-link"
+                to={`/ingredients/${ing.ingredient_id.raw}`}
+              >
+                <div className="search-result-ingredient-text">
+                  <div className="search-result-ingredient-text__name">
+                    {ing.ingredient_brand.raw && ing.ingredient_brand.raw}
+                    {' '}
+                    {ing.ingredient_variety.raw && ing.ingredient_variety.raw}
+                    {' '}
+                    {ing.ingredient_name.raw}
                   </div>
-                  <img
-                    className="search-result-ingredient-image"
-                    src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${rows[3][1].raw}.jpg`}
-                  />
-                </Link>
-              </div>
-            );
-          })}
+                  <div className="search-result-ingredient-text__type">
+                    {ing.ingredient_type_name.raw}
+                  </div>
+                </div>
+                <img
+                  className="search-result-ingredient-image"
+                  src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ing.ingredient_image.raw}.jpg`}
+                />
+              </Link>
+            </div>
+          ))}
         </div>
 
         {wasSearched && <PagingInfo />}

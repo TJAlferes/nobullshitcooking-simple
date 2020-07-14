@@ -11,8 +11,13 @@ import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
 import {
-
-} from '../../../store/staff/';
+  ICreatingContentInfo,
+  IEditingContentInfo
+} from '../../../store/staff/content/types';
+import {
+  staffCreateNewContent,
+  staffEditContent
+} from '../../../store/staff/content/actions';
 import {
   BlockButton,
   Element,
@@ -104,11 +109,10 @@ export default function NewContent({
 }
 
 interface RootState {
-
+  staff: {
+    message: string;
+  };
 }
-
-interface ICreatingContentInfo {}
-interface IEditingContentInfo {}
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
