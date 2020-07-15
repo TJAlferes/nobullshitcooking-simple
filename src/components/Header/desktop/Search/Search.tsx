@@ -16,7 +16,8 @@ export function Search({
 }: Props): JSX.Element {
   const history = useHistory();
 
-  const changeSearchIndex = (e: React.ChangeEvent<HTMLSelectElement>) => {  // useEffect? useLayoutEffect?
+  const changeSearchIndex = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    // use responsive design instead of adaptive design?
     //.getElementsByClassName("sui-search-box__wrapper")[1]
     const sInsert = document
     .getElementsByClassName("sui-search-box__wrapper")[0]
@@ -27,6 +28,15 @@ export function Search({
 
   const redirectToSearchPage = () => {
     history.push(`/${currentIndex}`);
+  };
+
+  const handleKeyNavigation = (e: React.KeyboardEvent) => {
+    if (e.keyCode !== 40) return;
+    const autocompletedResult = document
+    .getElementsByClassName("sui-search-box__results-list")[0]
+    .firstChild as HTMLElement;
+    autocompletedResult.className = "sui-search-box__result-focused"
+    autocompletedResult.focus();
   };
 
   const handleSubmit = () => {
@@ -43,74 +53,40 @@ export function Search({
   if (currentIndex === "equipment") field = "equipment_name";
 
   return (
-    <div className={`search ${theme}`} id="search_form">
+    <div className={`search ${theme}`}>
 
-      <div id="search_category">
-        <div id="search_facade">
-          <span id="facade_text">{facadeText}</span>
-          <img id="facade_arrow" src={DownArrowGray} />
+      <div className="search-category">
+        <div className="search-facade">
+          <span className="facade-text">{facadeText}</span>
+          <img className="facade-arrow" src={DownArrowGray} />
         </div>
-        <select
-          name="search_prefilter"
-          id="search_prefilter"
-          //type="select-one" ?
-          onChange={changeSearchIndex}
-        >
-          {/*
-          <option id="search_all" value="search-filter-none">
-            All
-          </option>
-          */}
-          <option id="search_recipes" value="recipes">
+        <select className="search-prefilters" onChange={changeSearchIndex}>
+          <option className="search-prefilter" value="recipes">
             Recipes
           </option>
-          <option id="search_ingredients" value="ingredients">
+          <option className="search-prefilter" value="ingredients">
             Ingredients
           </option>
-          <option id="search_kitchen_equipment" value="equipment">
+          <option className="search-prefilter" value="equipment">
             Equipment
           </option>
-          {/*
-          <option id="search_nutrients" value="search-filter-nutrients">
-            Nutrients
-          </option>
-          <option id="search_fitness_gear" value="search-filter-fitness-gear">
-            Fitness Gear
-          </option>
-          <option id="search_exercises" value="search-filter-exercises">
-            Exercises
-          </option>
-          */}
         </select>
       </div>
 
-      <div className="search-insert">
+      <div className="search-insert" onKeyUp={handleKeyNavigation}>
         <SearchBox
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
+            //clickThroughTags: string[],
+            //linkTarget: "",
+            //sectionTitle: "",
+            shouldTrackClickThrough: true,
             titleField: field as string,
-            urlField: field as string,
-            shouldTrackClickThrough: true
+            urlField: field as string
           }}
-          autocompleteView={(props: any): JSX.Element => (
-            <div className="sui-search-box__autocomplete">
-              <ul className="sui-search-box__results-list">
-                {props.autocompletedResults.map((res: any) => (
-                    <li
-                      key={res.id.raw}
-                      dangerouslySetInnerHTML={{__html: res.id.snippet}}
-                      onClick={() => {
-                        props.setSearchTerm(res.id.raw);
-                        props.closeMenu();
-                        redirectToSearchPage();
-                      }}
-                    >
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          )}
+          //className=""
           inputProps={{placeholder: ""}}
+          //onSelectAutocomplete={}
           onSubmit={handleSubmit}
         />
       </div>
@@ -118,8 +94,6 @@ export function Search({
     </div>
   );
 }
-
-//useAutocomplete={true}
 
 interface RootContext {
   searchTerm: string;

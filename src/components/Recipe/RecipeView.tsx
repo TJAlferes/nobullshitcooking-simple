@@ -112,38 +112,36 @@ export function RecipeView({
             </div>
 
             <div className="recipe-image">
-              {recipe.recipe_image !== "nobsc-recipe-default"
-              ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}`} />
-              : (
-                <div
-                  className="image-default-280-172"
-                  data-test="recipe-default"
-                >
-                </div>
-              )}
+              {
+                recipe.recipe_image !== "nobsc-recipe-default"
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}`} />
+                : (
+                  <div
+                    className="image-default-280-172"
+                    data-test="recipe-default"
+                  >
+                  </div>
+                )
+              }
             </div>
 
             <div className="recipe-author-outer">
-              <b>Author:</b>
-              {' '}
+              <b>Author:</b>{' '}
               <span className="recipe-author">{recipeBy()}</span>
             </div>
 
             <div className="recipe-description-outer">
-              <b>Author's note:</b>
-              {' '}
+              <b>Author's note:</b>{' '}
               <em className="recipe-description">{recipe.description}</em>
             </div>
 
             <div className="recipe-cuisine-outer">
-              <b>Cuisine:</b>
-              {' '}
+              <b>Cuisine:</b>{' '}
               <span className="recipe-cuisine">{recipe.cuisine_name}</span>
             </div>
 
             <div className="recipe-type-outer">
-              <b>Recipe type:</b>
-              {' '}
+              <b>Recipe type:</b>{' '}
               <span className="recipe-type">{recipe.recipe_type_name}</span>
             </div>
 
@@ -151,67 +149,77 @@ export function RecipeView({
               Required Methods
             </h2>
             <div className="recipe-required-methods">
-              {recipe.required_methods &&
-              recipe.required_methods.map(met => (
-                <div
-                  className="recipe-required-method"
-                  key={met.method_name}
-                >
-                  {met.method_name}
-                </div>
-              ))}
+              {
+                recipe.required_methods &&
+                recipe.required_methods.map(met => (
+                  <div
+                    className="recipe-required-method"
+                    key={met.method_name}
+                  >
+                    {met.method_name}
+                  </div>
+                ))
+              }
             </div>
 
             <h2 className="recipe-heading-two" data-test="equipment-heading">
               Required Equipment
             </h2>
             <div className="recipe-equipment-image">
-              {recipe.equipment_image !== "nobsc-recipe-equipment-default"
-              ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${recipe.equipment_image}`} />
-              : (
-                <div
-                  className="image-default-280-172"
-                  data-test="recipe-equipment-default"
-                >
-                </div>
-              )}
+              {
+                recipe.equipment_image !== "nobsc-recipe-equipment-default"
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-equipment/${recipe.equipment_image}`} />
+                : (
+                  <div
+                    className="image-default-280-172"
+                    data-test="recipe-equipment-default"
+                  >
+                  </div>
+                )
+              }
             </div>
             <div className="recipe-required-equipments">
-              {recipe.required_equipment &&
-              recipe.required_equipment.map(equ => (
-                <div
-                  className="recipe-required-equipment"
-                  key={equ.equipment_name}
-                >
-                  {equ.amount}{' '}{equ.equipment_name}
-                </div>
-              ))}
+              {
+                recipe.required_equipment &&
+                recipe.required_equipment.map(equ => (
+                  <div
+                    className="recipe-required-equipment"
+                    key={equ.equipment_name}
+                  >
+                    {equ.amount}{' '}{equ.equipment_name}
+                  </div>
+                ))
+              }
             </div>
 
             <h2 className="recipe-heading-two" data-test="ingredients-heading">
               Required Ingredients
             </h2>
             <div className="recipe-ingredients-image">
-              {recipe.ingredients_image !== "nobsc-recipe-ingredients-default"
-              ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-ingredients/${recipe.ingredients_image}`} />
-              : (
-                <div
-                  className="image-default-280-172"
-                  data-test="recipe-ingredients-default"
-                >
-                </div>
-              )}
+              {
+                recipe.ingredients_image !== "nobsc-recipe-ingredients-default"
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-ingredients/${recipe.ingredients_image}`} />
+                : (
+                  <div
+                    className="image-default-280-172"
+                    data-test="recipe-ingredients-default"
+                  >
+                  </div>
+                )
+              }
             </div>
             <div className="recipe-required-ingredients">
-              {recipe.required_ingredients &&
-              recipe.required_ingredients.map(ing => (
-                <div
-                  className="recipe-required-ingredient"
-                  key={ing.ingredient_name}
-                >
-                  {ing.amount}{' '}{ing.measurement_name}{' '}{ing.ingredient_name}
-                </div>
-              ))}
+              {
+                recipe.required_ingredients &&
+                recipe.required_ingredients.map(ing => (
+                  <div
+                    className="recipe-required-ingredient"
+                    key={ing.ingredient_name}
+                  >
+                    {ing.amount}{' '}{ing.measurement_name}{' '}{ing.ingredient_name}
+                  </div>
+                ))
+              }
             </div>
 
             <h2 className="recipe-heading-two" data-test="subrecipes-heading">
@@ -219,7 +227,7 @@ export function RecipeView({
             </h2>
             <div className="recipe-required-subrecipes">
               {
-                recipe.required_subrecipes.length
+                recipe.required_subrecipes
                 ? recipe.required_subrecipes.map(sub => (
                   <div
                     className="recipe-required-subrecipe"
@@ -236,15 +244,17 @@ export function RecipeView({
               Directions
             </h2>
             <div className="recipe-cooking-image">
-              {recipe.cooking_image !== "nobsc-recipe-cooking-default"
-              ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-cooking/${recipe.cooking_image}`} />
-              : (
-                <div
-                  className="image-default-280-172"
-                  data-test="recipe-cooking-default"
-                >
-                </div>
-              )}
+              {
+                recipe.cooking_image !== "nobsc-recipe-cooking-default"
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe-cooking/${recipe.cooking_image}`} />
+                : (
+                  <div
+                    className="image-default-280-172"
+                    data-test="recipe-cooking-default"
+                  >
+                  </div>
+                )
+              }
             </div>
             <div className="recipe-directions">
               {recipe.directions}

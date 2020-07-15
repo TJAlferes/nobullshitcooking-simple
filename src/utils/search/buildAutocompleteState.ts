@@ -20,7 +20,14 @@ function buildResults(hits: any, currentIndex: string) {
   hits.map((record: any) => {
     let field;
     if (currentIndex === "recipes") field = record._source.title;
-    if (currentIndex === "ingredients") field = record._source.ingredient_name;
+    if (currentIndex === "ingredients") {
+      const { _source } = record;
+      const { ingredient_brand, ingredient_variety, ingredient_name } = _source;
+      field =
+      (ingredient_brand ? ingredient_brand + " " : "") +
+      (ingredient_variety ? ingredient_variety + " " : "") +
+      ingredient_name;
+    }
     if (currentIndex === "equipment") field = record._source.equipment_name;
 
     let fieldString;

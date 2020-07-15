@@ -12,7 +12,12 @@ function buildMatch(searchTerm: string, currentIndex: string) {
   
   if (currentIndex === "ingredients") {
     return searchTerm
-    ? {match: {ingredient_name: {query: searchTerm}}}
+    ? {
+      multi_match: {
+        fields: ["ingredient_brand", "ingredient_variety", "ingredient_name"],
+        query: searchTerm
+      }
+    }
     : {match_all: {}};
   }
   

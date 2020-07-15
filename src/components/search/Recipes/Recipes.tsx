@@ -10,7 +10,72 @@ import {
 
 import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import './recipes.css';
-import { IngredientRow } from '../../NewRecipe/views/IngredientRow/IngredientRow';
+
+function listResults(results: any) {
+  if (results && results[0] && results[0].recipe_id) {
+    return results.map((rec: any) => (
+      <div className="search-result-recipe" key={rec.recipe_id.raw}>
+        <Link
+          className="search-result-recipe-link"
+          to={`/recipe/${rec.recipe_id.raw}`}
+        >
+          <div className="search-result-recipe-text">
+            <div className="search-result-recipe-text__title">
+              {rec.title.raw}
+            </div>
+            <div className="search-result-recipe-text__author">
+              {rec.author.raw}
+            </div>
+
+            <div className="search-result-recipe-text__types">
+              <div className="search-result-recipe-text__types-cuisine">
+                {rec.cuisine_name.raw}
+              </div>
+              <div className="search-result-recipe-text__types-recipe-type">
+                {rec.recipe_type_name.raw}
+              </div>
+            </div>
+
+            <div className="search-result-recipe-text__tags">
+              <div className="search-result-recipe-text__tags-methods">
+                {rec.method_names.raw.map((method: any) => (
+                  <span
+                    className="search-result-recipe-text__tags-method"
+                    key={method}
+                  >
+                    {method}
+                  </span>
+                ))}
+              </div>
+              <div className="search-result-recipe-text__tags-ingredients">
+                {rec.ingredient_names.raw.map((ingredient: any) => (
+                  <span
+                    className="search-result-recipe-text__tags-ingredient"
+                    key={ingredient}
+                  >
+                    {ingredient}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          {
+            (rec.recipe_image.raw !== "nobsc-recipe-default")
+            ? (
+              <img
+                className="search-result-recipe-image"
+                src={`https://s3.amazonaws.com/nobsc-user-recipe/${rec.recipe_image.raw}-thumb`}
+              />
+            )
+            : <div className="image-default-100-62"></div>
+          }
+        </Link>
+      </div>
+    ));
+  } else {
+    return <div>Loading...</div>;
+  }
+}
 
 export function SearchResultsRecipes({
   twoColumnBTheme,
@@ -147,70 +212,12 @@ export function SearchResultsRecipes({
           </div>
         </ExpandCollapse>
 
-        {wasSearched && <ResultsPerPage options={[25, 50, 100]} />}
+        {wasSearched && <ResultsPerPage options={[20, 50, 100]} />}
         {wasSearched && <PagingInfo />}
         <Paging />
 
         <div className="search-results-list">
-          {results && results.map((rec: any) => rec && (
-            <div className="search-result-recipe" key={rec.recipe_id.raw}>
-              <Link
-                className="search-result-recipe-link"
-                to={`/recipes/${rec.recipe_id.raw}`}
-              >
-                <div className="search-result-recipe-text">
-                  <div className="search-result-recipe-text__title">
-                    {rec.title.raw}
-                  </div>
-                  <div className="search-result-recipe-text__author">
-                    {rec.author.raw}
-                  </div>
-
-                  <div className="search-result-recipe-text__types">
-                    <div className="search-result-recipe-text__types-cuisine">
-                      {rec.cuisine_name.raw}
-                    </div>
-                    <div className="search-result-recipe-text__types-recipe-type">
-                      {rec.recipe_type_name.raw}
-                    </div>
-                  </div>
-
-                  <div className="search-result-recipe-text__tags">
-                    <div className="search-result-recipe-text__tags-methods">
-                      {rec.method_names.raw.map((method: any) => (
-                        <span
-                          className="search-result-recipe-text__tags-method"
-                          key={method}
-                        >
-                          {method}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="search-result-recipe-text__tags-ingredients">
-                      {rec.ingredient_names.raw.map((ingredient: any) => (
-                        <span
-                          className="search-result-recipe-text__tags-ingredient"
-                          key={ingredient}
-                        >
-                          {ingredient}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                {
-                  (rec.recipe_image.raw !== "nobsc-recipe-default")
-                  ? (
-                    <img
-                      className="search-result-recipe-image"
-                      src={`https://s3.amazonaws.com/nobsc-user-recipe/${rec.recipe_image.raw}-thumb`}
-                    />
-                  )
-                  : <div className="image-default-100-62"></div>
-                }
-              </Link>
-            </div>
-          ))}
+          {listResults(results)}
         </div>
 
         {wasSearched && <PagingInfo />}

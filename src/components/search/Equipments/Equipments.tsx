@@ -11,6 +11,34 @@ import {
 import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import './equipments.css';
 
+function listResults(results: any) {
+  if (results && results[0] && results[0].equipment_id) {
+    return results && results.map((equ: any) => (
+      <div className="search-result-equipment" key={equ.equipment_id.raw}>
+        <Link
+          className="search-result-equipment-link"
+          to={`/equipment/${equ.equipment_id.raw}`}
+        >
+          <div className="search-result-equipment-text">
+            <div className="search-result-equipment-text__name">
+              {equ.equipment_name.raw}
+            </div>
+            <div className="search-result-equipment-text__type">
+              {equ.equipment_type_name.raw}
+            </div>
+          </div>
+          <img
+            className="search-result-equipment-image"
+            src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equ.equipment_image.raw}.jpg`}
+          />
+        </Link>
+      </div>
+    ));
+  } else {
+    return <div>Loading...</div>;
+  }
+}
+
 export function SearchResultsEquipment({
   twoColumnBTheme,
   facets,  // ?
@@ -18,7 +46,6 @@ export function SearchResultsEquipment({
   results,
   wasSearched
 }: Props) {
-  if (!results) return false;
   return (
     <div className={`search-results two-column-b ${twoColumnBTheme}`}>
 
@@ -57,32 +84,12 @@ export function SearchResultsEquipment({
           </div>
         </ExpandCollapse>
 
-        {wasSearched && <ResultsPerPage options={[25, 50, 100]} />}
+        {wasSearched && <ResultsPerPage options={[20, 50, 100]} />}
         {wasSearched && <PagingInfo />}
         <Paging />
 
         <div className="search-results-list">
-          {results && results.map((equ: any) => equ && (
-            <div className="search-result-equipment" key={equ.equipment_id.raw}>
-              <Link
-                className="search-result-equipment-link"
-                to={`/equipment/${equ.equipment_id.raw}`}
-              >
-                <div className="search-result-equipment-text">
-                  <div className="search-result-equipment-text__name">
-                    {equ.equipment_name.raw}
-                  </div>
-                  <div className="search-result-equipment-text__type">
-                    {equ.equipment_type_name.raw}
-                  </div>
-                </div>
-                <img
-                  className="search-result-equipment-image"
-                  src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equ.equipment_image.raw}.jpg`}
-                />
-              </Link>
-            </div>
-          ))}
+          {listResults(results)}
         </div>
 
         {wasSearched && <PagingInfo />}

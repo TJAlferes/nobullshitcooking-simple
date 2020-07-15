@@ -16,23 +16,13 @@
   padding: 0;
 }
 
-
-
 /*
-
-Note:
-
-We use id selectors here (instead of class selectors) so that
-the swapFacadeText function works. There are probably better approaches,
-which would also allow using class selectors. 
-
-TO DO:
-
-Come back to this at a later time, see if a better approach can be done.
-
+Note: We use id selectors here (instead of class selectors) so that the
+swapFacadeText function works. There are probably better approaches, which
+would also allow using class selectors. 
 */
 
-#search_category {
+.search-category {
   position: relative;
   order: 1;
   display: block;
@@ -41,7 +31,7 @@ Come back to this at a later time, see if a better approach can be done.
   height: 30px;
 }
 
-#search_facade {
+.search-facade {
   position: relative;
   float: left;
   height: 30px;
@@ -55,7 +45,7 @@ Come back to this at a later time, see if a better approach can be done.
   background-image: linear-gradient(to bottom, #eee, #bbb);
 }
 
-#facade_text {
+.facade-text {
   margin-right: 21px;
   margin-left: 8px;
   line-height: 30px;
@@ -63,13 +53,13 @@ Come back to this at a later time, see if a better approach can be done.
   color: #666;
 }
 
-#facade_arrow {
+.facade-arrow {
   position: absolute;
   top: 12px;
   right: 7px;
 }
 
-#search_prefilter {
+.search-prefilters {
   position: absolute;
   left: 0;
   height: 30px;
@@ -82,9 +72,9 @@ Come back to this at a later time, see if a better approach can be done.
   opacity: 0;
 }
 
-/*#search-prefilter option {
-
-}*/
+.search-prefilter {
+  font-family: Arial, sans-serif;
+}
 
 .search-insert {
   position: relative;
@@ -93,6 +83,11 @@ Come back to this at a later time, see if a better approach can be done.
   width: 100%;
   height: 30px;
 }
+
+/*
+Note: These "sui-" classnames are from @elastic/react-search-ui
+We are overriding default values / setting new values to get the look we desire.
+*/
 
 .sui-search-box {
   display: flex;
@@ -135,7 +130,6 @@ Come back to this at a later time, see if a better approach can be done.
   background-color: #fff;
 }
 
-.sui-search-box__suggestion-list,
 .sui-search-box__results-list {
   padding-left: 5px;
   overflow: hidden;
@@ -144,20 +138,17 @@ Come back to this at a later time, see if a better approach can be done.
   color: #111;
 }
 
-.sui-search-box__suggestion-list li,
 .sui-search-box__results-list li {
   overflow: hidden;
   font-weight: 700;
   font-style: normal;
 }
 
-.sui-search-box__suggestion-list li em,
 .sui-search-box__results-list li em {
   font-weight: 100;
   font-style: normal;
 }
 
-.sui-search-box__suggestion-list li,
 .sui-search-box__results-list li {
   height: 30px;
   background-color: #fff;
@@ -166,6 +157,10 @@ Come back to this at a later time, see if a better approach can be done.
   font-size: 1.3rem;
   color: #111;
   cursor: pointer;
+}
+
+.sui-search-box__results-list li .sui-search-box__result-focused {
+  background-color: #68abe6;
 }
 
 .sui-search-box__submit {

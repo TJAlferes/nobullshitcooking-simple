@@ -11,6 +11,38 @@ import {
 import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
 import './ingredients.css';
 
+function listResults(results: any) {
+  if (results && results[0] && results[0].ingredient_id) {
+    return results.map((ing: any) => (
+      <div className="search-result-ingredient" key={ing.ingredient_id.raw}>
+        <Link
+          className="search-result-ingredient-link"
+          to={`/ingredient/${ing.ingredient_id.raw}`}
+        >
+          <div className="search-result-ingredient-text">
+            <div className="search-result-ingredient-text__name">
+              {ing.ingredient_brand.raw && ing.ingredient_brand.raw}
+              {' '}
+              {ing.ingredient_variety.raw && ing.ingredient_variety.raw}
+              {' '}
+              {ing.ingredient_name.raw}
+            </div>
+            <div className="search-result-ingredient-text__type">
+              {ing.ingredient_type_name.raw}
+            </div>
+          </div>
+          <img
+            className="search-result-ingredient-image"
+            src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ing.ingredient_image.raw}.jpg`}
+          />
+        </Link>
+      </div>
+    ));
+  } else {
+    return <div>Loading...</div>;
+  }
+}
+
 export function SearchResultsIngredients({
   twoColumnBTheme,
   facets,  // ?
@@ -69,36 +101,12 @@ export function SearchResultsIngredients({
           </div>
         </ExpandCollapse>
 
-        {wasSearched && <ResultsPerPage options={[25, 50, 100]} />}
+        {wasSearched && <ResultsPerPage options={[20, 50, 100]} />}
         {wasSearched && <PagingInfo />}
         <Paging />
 
         <div className="search-results-list">
-          {results && results.map((ing: any) => ing && (
-            <div className="search-result-ingredient" key={ing.ingredient_id.raw}>
-              <Link
-                className="search-result-ingredient-link"
-                to={`/ingredients/${ing.ingredient_id.raw}`}
-              >
-                <div className="search-result-ingredient-text">
-                  <div className="search-result-ingredient-text__name">
-                    {ing.ingredient_brand.raw && ing.ingredient_brand.raw}
-                    {' '}
-                    {ing.ingredient_variety.raw && ing.ingredient_variety.raw}
-                    {' '}
-                    {ing.ingredient_name.raw}
-                  </div>
-                  <div className="search-result-ingredient-text__type">
-                    {ing.ingredient_type_name.raw}
-                  </div>
-                </div>
-                <img
-                  className="search-result-ingredient-image"
-                  src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ing.ingredient_image.raw}.jpg`}
-                />
-              </Link>
-            </div>
-          ))}
+          {listResults(results)}
         </div>
 
         {wasSearched && <PagingInfo />}

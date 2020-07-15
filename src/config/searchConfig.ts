@@ -101,6 +101,7 @@ export const searchConfig = {
 
     } else if (search.currentIndex === "equipment") {
 
+      console.log(JSON.stringify(buildSearchRequest(state, "equipment")));
       const res = await axios.post(
         `${endpoint}/search/find/equipment`,
         {body: buildSearchRequest(state, "equipment")},
