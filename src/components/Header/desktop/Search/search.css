@@ -125,42 +125,69 @@ We are overriding default values / setting new values to get the look we desire.
 
 .sui-search-box__autocomplete {
   border: 1px solid #bfbfbf;
-  background-color: #fff;
 }
 
 .sui-search-box__results-list {
-  padding-left: 5px;
   overflow: hidden;
   list-style-type: none;
-  background-color: #fff;
-  color: #111;
 }
 
 .sui-search-box__results-list li,
 .sui-search-box__results-list li span {
   width: 100%;
   height: 30px;
-  background-color: #fff;
   line-height: 26px;
   font-family: Arial, sans-serif;
   font-size: 1.3rem;
   overflow: hidden;
   font-weight: 100;
   font-style: normal;
-  color: #666;
   cursor: pointer;
 }
 
+.sui-search-box__results-list li {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.header-light .sui-search-box__results-list li,
+.header-light .sui-search-box__results-list li span {
+  background-color: #fff;
+  color: #666;
+}
+
+.header-dark .sui-search-box__results-list li,
+.header-dark .sui-search-box__results-list li span {
+  background-color: #222;
+  color: #aaa;
+}
+
+.sui-search-box__results-list li,
+.sui-search-box__results-list li span {
+  color: #666;
+}
+
 .sui-search-box__results-list li em {
-  color: #111;
   font-weight: 700;
   font-style: normal;
 }
 
-.sui-search-box__results-list li[aria-selected=true],
-.sui-search-box__results-list-focused li[aria-selected=true] span {
-  background-color: #68abe6;
+.header-light .sui-search-box__results-list li em {
   color: #111;
+}
+
+.header-dark .sui-search-box__results-list li em {
+  color: #bcbcbc;
+}
+
+.header-light .sui-search-box__results-list li[aria-selected=true],
+.header-light .sui-search-box__results-list li[aria-selected=true] > * {
+  background-color: #ddd;
+}
+
+.header-dark .sui-search-box__results-list li[aria-selected=true],
+.header-dark .sui-search-box__results-list li[aria-selected=true] > * {
+  background-color: #444;
 }
 
 .sui-search-box__submit {

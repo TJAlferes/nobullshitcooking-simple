@@ -34,7 +34,7 @@ export function EquipmentView({
                   equ => equ.equipment_id === equipment.equipment_id
                 )
                 ? <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${equipment.equipment_image}`} />
-                : <img src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.equipment_image}`} />
+                : <img src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.equipment_image}.jpg`} />
               }
             </div>
 
