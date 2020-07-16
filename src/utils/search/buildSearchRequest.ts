@@ -1,8 +1,3 @@
-/*
-This module was adapted from code written by Jason Stoltz & team at Elastic:
-https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
-*/
-
 function buildMatch(searchTerm: string, currentIndex: string) {
   if (currentIndex === "recipes") {
     return searchTerm
@@ -12,12 +7,7 @@ function buildMatch(searchTerm: string, currentIndex: string) {
   
   if (currentIndex === "ingredients") {
     return searchTerm
-    ? {
-      multi_match: {
-        fields: ["ingredient_brand", "ingredient_variety", "ingredient_name"],
-        query: searchTerm
-      }
-    }
+    ? {match: {ingredient_fullname: {query: searchTerm}}}
     : {match_all: {}};
   }
   
@@ -27,6 +17,15 @@ function buildMatch(searchTerm: string, currentIndex: string) {
     : {match_all: {}};
   }
 }
+
+/*
+{
+  multi_match: {
+    fields: ["ingredient_brand", "ingredient_variety", "ingredient_name"],
+    query: searchTerm
+  }
+}
+*/
 
 function buildFrom(current: number, resultsPerPage: number) {
   if (!current || !resultsPerPage) return;
@@ -123,7 +122,7 @@ export function buildSearchRequest(state: any, currentIndex: string) {
 
   if (currentIndex === "ingredients") {
     aggs = {ingredient_type_name: {terms: {field: "ingredient_type_name"}}};
-    highlightFields = {ingredient_name: {}};
+    highlightFields = {ingredient_fullname: {}};
   }
 
   if (currentIndex === "equipment") {

@@ -5,6 +5,7 @@ import { SearchBox, withSearch } from '@elastic/react-search-ui';
 
 import { searchSetIndex } from '../../../../store/search/actions';
 import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
+import { AutocompleteView } from './views/AutocompleteView';
 import './search.css';
 
 export function Search({
@@ -49,7 +50,7 @@ export function Search({
 
   let field;
   if (currentIndex === "recipes") field = "title";
-  if (currentIndex === "ingredients") field = "ingredient_name";
+  if (currentIndex === "ingredients") field = "ingredient_fullname";
   if (currentIndex === "equipment") field = "equipment_name";
 
   return (
@@ -84,6 +85,7 @@ export function Search({
             titleField: field as string,
             urlField: field as string
           }}
+          autocompleteView={AutocompleteView}
           //className=""
           inputProps={{placeholder: ""}}
           //onSelectAutocomplete={}

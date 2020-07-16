@@ -1,8 +1,3 @@
-/*
-This module was adapted from code written by Jason Stoltz & team at Elastic:
-https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
-*/
-
 function getHighlight(hit: any, fieldName: string) {
   if (
     !hit.highlight ||
@@ -15,40 +10,42 @@ function getHighlight(hit: any, fieldName: string) {
 }
 
 function buildResults(hits: any, currentIndex: string) {
-  let builtResults: any = [];
-
-  hits.map((record: any) => {
-    let field;
-    if (currentIndex === "recipes") field = record._source.title;
-    if (currentIndex === "ingredients") {
-      const { _source } = record;
-      const { ingredient_brand, ingredient_variety, ingredient_name } = _source;
-      field =
-      (ingredient_brand ? ingredient_brand + " " : "") +
-      (ingredient_variety ? ingredient_variety + " " : "") +
-      ingredient_name;
-    }
-    if (currentIndex === "equipment") field = record._source.equipment_name;
-
-    let fieldString;
-    if (currentIndex === "recipes") fieldString = "title";
-    if (currentIndex === "ingredients") fieldString = "ingredient_name";
-    if (currentIndex === "equipment") fieldString = "equipment_name";
-
-    let snippet = getHighlight(record, fieldString as string);
-
-    builtResults.push({
-      id: {
-        raw: field,
-        ...(snippet && {snippet})
-      }
-    });
+  const addEachKeyValueToObject = (
+    acc: any,
+    [key, value]: (Default|string)[]
+  ) => ({
+    ...acc,
+    [key as string]: value
   });
 
-  return builtResults;
+  const toObject = (value: any, snippet: any) => {
+    return {raw: value, ...(snippet && {snippet})};
+  };
+
+  let idValue: string;
+  if (currentIndex === "recipes") idValue = "recipe_id";
+  if (currentIndex === "ingredients") idValue = "ingredient_id";
+  if (currentIndex === "equipment") idValue = "equipment_id";
+
+  return hits.map((record: any) => ({
+    id: {raw: record._source[idValue]},
+    ...(
+      Object.entries(record._source).map(([fieldName, fieldValue]) => [
+        fieldName,
+        toObject(fieldValue, getHighlight(record, fieldName))
+      ])
+      .reduce(addEachKeyValueToObject, {})
+    )
+  }));
 }
 
 export function buildAutocompleteState(response: any, currentIndex: string) {
   const results = buildResults(response.hits.hits, currentIndex);
   return {results};
 }
+
+// rename and finish
+type Default = {
+  raw: any;
+  snippet: any;
+};

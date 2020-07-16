@@ -16,12 +16,6 @@
   padding: 0;
 }
 
-/*
-Note: We use id selectors here (instead of class selectors) so that the
-swapFacadeText function works. There are probably better approaches, which
-would also allow using class selectors. 
-*/
-
 .search-category {
   position: relative;
   order: 1;
@@ -125,6 +119,10 @@ We are overriding default values / setting new values to get the look we desire.
   color: #bbb;
 }
 
+/*.sui-search-box__autocomplete-container {
+  
+}*/
+
 .sui-search-box__autocomplete {
   border: 1px solid #bfbfbf;
   background-color: #fff;
@@ -138,29 +136,31 @@ We are overriding default values / setting new values to get the look we desire.
   color: #111;
 }
 
-.sui-search-box__results-list li {
-  overflow: hidden;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.sui-search-box__results-list li em {
-  font-weight: 100;
-  font-style: normal;
-}
-
-.sui-search-box__results-list li {
+.sui-search-box__results-list li,
+.sui-search-box__results-list li span {
+  width: 100%;
   height: 30px;
   background-color: #fff;
   line-height: 26px;
   font-family: Arial, sans-serif;
   font-size: 1.3rem;
-  color: #111;
+  overflow: hidden;
+  font-weight: 100;
+  font-style: normal;
+  color: #666;
   cursor: pointer;
 }
 
-.sui-search-box__results-list li .sui-search-box__result-focused {
+.sui-search-box__results-list li em {
+  color: #111;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.sui-search-box__results-list-focused li,
+.sui-search-box__results-list-focused li span {
   background-color: #68abe6;
+  color: #111;
 }
 
 .sui-search-box__submit {

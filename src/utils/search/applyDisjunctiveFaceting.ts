@@ -5,11 +5,6 @@ import {
 } from '../../config/NOBSCBackendAPIEndpointOne';
 import { buildSearchRequest } from './buildSearchRequest';
 
-/*
-This module was adapted from code written by Jason Stoltz & team at Elastic:
-https://github.com/elastic/search-ui/tree/master/examples/elasticsearch
-*/
-
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 function combineAggregationsFromResponses(responses: any) {
