@@ -31,13 +31,9 @@ export function Search({
     history.push(`/${currentIndex}`);
   };
 
-  const handleKeyNavigation = (e: React.KeyboardEvent) => {
-    if (e.keyCode !== 40) return;
-    const autocompletedResult = document
-    .getElementsByClassName("sui-search-box__results-list")[0]
-    .firstChild as HTMLElement;
-    autocompletedResult.className = "sui-search-box__result-focused"
-    autocompletedResult.focus();
+  const handleSelectAutocomplete = (selection: any) => {
+    setSearchTerm(selection[field as string].raw);
+    history.push(`/${currentIndex}`);
   };
 
   const handleSubmit = () => {
@@ -48,7 +44,7 @@ export function Search({
   const facadeText =
   currentIndex.charAt(0).toUpperCase() + currentIndex.slice(1);
 
-  let field;
+  let field: string|undefined;
   if (currentIndex === "recipes") field = "title";
   if (currentIndex === "ingredients") field = "ingredient_fullname";
   if (currentIndex === "equipment") field = "equipment_name";
@@ -74,7 +70,7 @@ export function Search({
         </select>
       </div>
 
-      <div className="search-insert" onKeyUp={handleKeyNavigation}>
+      <div className="search-insert">
         <SearchBox
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
@@ -88,7 +84,7 @@ export function Search({
           autocompleteView={AutocompleteView}
           //className=""
           inputProps={{placeholder: ""}}
-          //onSelectAutocomplete={}
+          onSelectAutocomplete={handleSelectAutocomplete}
           onSubmit={handleSubmit}
         />
       </div>

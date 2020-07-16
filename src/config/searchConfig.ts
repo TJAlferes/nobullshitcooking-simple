@@ -9,7 +9,7 @@ import { NOBSCBackendAPIEndpointOne } from './NOBSCBackendAPIEndpointOne';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-// TO DO: put currentIndex on window?
+// put currentIndex on window?
 
 function getSearchState() {
   const { search } = store.getState();
@@ -19,10 +19,10 @@ function getSearchState() {
 function getFacetsConfig() {
   if (getSearchState().currentIndex === "recipes") {
     return {
-      recipe_type_name: {type: "value", size: 12},
-      cuisine_name: {type: "value", size: 24},
-      //methods,
-      //ingredientTypes (for allergies)
+      cuisine_name: {type: "value", size: 24},  // change size
+      //ingredient_type_names, (for allergies)
+      //method_names,
+      recipe_type_name: {type: "value", size: 12}
     };
   } else if (getSearchState().currentIndex === "ingredients") {
     return {ingredient_type_name: {type: "value", size: 18}};
@@ -77,6 +77,7 @@ export const searchConfig = {
         state.resultsPerPage,
         "recipes"
       );
+
       return newState;
 
     } else if (search.currentIndex === "ingredients") {
@@ -97,11 +98,11 @@ export const searchConfig = {
         state.resultsPerPage,
         "ingredients"
       );
+
       return newState;
 
     } else if (search.currentIndex === "equipment") {
 
-      console.log(JSON.stringify(buildSearchRequest(state, "equipment")));
       const res = await axios.post(
         `${endpoint}/search/find/equipment`,
         {body: buildSearchRequest(state, "equipment")},
@@ -118,17 +119,18 @@ export const searchConfig = {
         state.resultsPerPage,
         "equipment"
       );
+
       return newState;
       
     }
   },
   searchQuery: {
     facets: {
-      recipe_type_name: {type: "value", size: 12},
-      cuisine_name: {type: "value", size: 24},
-      //methods,
-      //ingredientTypes (for allergies)
+      cuisine_name: {type: "value", size: 24},  // change size
+      //ingredient_type_names, (for allergies)
+      //method_names,
+      recipe_type_name: {type: "value", size: 12}
     },
-    disjunctiveFacets: ["recipe_type_name", "cuisine_name"]  // "ingredientTypeName", "equipmentTypeName"
+    disjunctiveFacets: ["cuisine_name", "recipe_type_name"]  // any others?
   }
 };

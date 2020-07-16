@@ -157,8 +157,8 @@ We are overriding default values / setting new values to get the look we desire.
   font-style: normal;
 }
 
-.sui-search-box__results-list-focused li,
-.sui-search-box__results-list-focused li span {
+.sui-search-box__results-list li[aria-selected=true],
+.sui-search-box__results-list-focused li[aria-selected=true] span {
   background-color: #68abe6;
   color: #111;
 }
