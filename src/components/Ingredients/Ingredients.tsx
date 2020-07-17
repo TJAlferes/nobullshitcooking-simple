@@ -8,7 +8,7 @@ import {
   withSearch,
 } from '@elastic/react-search-ui';
 
-import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
+import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import './ingredients.css';
 
 function listResults(results: any) {

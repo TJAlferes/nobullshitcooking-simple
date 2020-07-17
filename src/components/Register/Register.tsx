@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { authUserRegister, authUserVerify } from '../../../store/auth/actions';
+import { authUserRegister, authUserVerify } from '../../store/auth/actions';
 import { RegisterView } from './RegisterView';
 
 export function Register({

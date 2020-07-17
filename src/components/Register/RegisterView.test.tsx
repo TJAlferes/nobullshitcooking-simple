@@ -1,7 +1,7 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 
-import { LoaderButton } from '../../LoaderButton/LoaderButton';
+import { LoaderButton } from '../LoaderButton/LoaderButton';
 import { RegisterView } from './RegisterView';
 
 const handleConfirmationCodeChange = jest.fn();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { LoaderButton } from '../../LoaderButton/LoaderButton';
+import { LoaderButton } from '../LoaderButton/LoaderButton';
 import './register.css';
 
 export function RegisterView({
