@@ -10,6 +10,7 @@ import {
 import { staffDeleteContent } from '../../../store/staff/content/actions';
 import { staffDeleteEquipment } from '../../../store/staff/equipment/actions';
 import { staffDeleteIngredient } from '../../../store/staff/ingredient/actions';
+import { staffDeleteRecipe } from '../../../store/staff/recipe/actions';
 import { DashboardView } from './DashboardView';
 import './dashboard.css';
 
@@ -59,6 +60,30 @@ export function StaffDashboard({
     setTab((e.target as HTMLInputElement).name);
   };
 
+  const activateDeleteContentModal = (id: number, name: string) => {
+    setDeleteContentId(id);
+    setDeleteContentName(name);
+    setDeleteContentModalActive(true);
+  };
+
+  const deactivateDeleteContentModal = () => {
+    setDeleteContentId(undefined);
+    setDeleteContentName("");
+    setDeleteContentModalActive(false);
+  };
+
+  const activateDeleteRecipeModal = (id: number, name: string) => {
+    setDeleteRecipeId(id);
+    setDeleteRecipeName(name);
+    setDeleteRecipeModalActive(true);
+  };
+
+  const deactivateDeleteRecipeModal = () => {
+    setDeleteRecipeId(undefined);
+    setDeleteRecipeName("");
+    setDeleteRecipeModalActive(false);
+  };
+
   const getApplicationNode = (): Element | Node => {
     return document.getElementById('root') as Element | Node;
   };
@@ -75,6 +100,16 @@ export function StaffDashboard({
     staffDeleteRecipe(deleteRecipeId);
   };
 
+  const handleDeleteEquipment = (id: number) => {
+    setLoading(true);
+    staffDeleteEquipment(id);
+  };
+
+  const handleDeleteIngredient = (id: number) => {
+    setLoading(true);
+    staffDeleteIngredient(id);
+  };
+
   return (
     <DashboardView
       oneColumnATheme={oneColumnATheme}
@@ -86,22 +121,22 @@ export function StaffDashboard({
       tab={tab}
       handleTabClick={handleTabClick}
       getApplicationNode={getApplicationNode}
-      content,
-      deleteContentModalActive,
-      activateDeleteContentModal,
-      deactivateDeleteContentModal,
-      deleteContentName,
-      handleDeleteContent,
-      recipes,
-      deleteRecipeModalActive,
-      activateDeleteRecipeModal,
-      deactivateDeleteRecipeModal,
-      deleteRecipeName,
-      handleDeleteRecipe,
-      ingredients,
-      handleDeleteIngredient,
-      equipment,
-      handleDeleteEquipment
+      content={content}
+      deleteContentModalActive={deleteContentModalActive}
+      activateDeleteContentModal={activateDeleteContentModal}
+      deactivateDeleteContentModal={deactivateDeleteContentModal}
+      deleteContentName={deleteContentName}
+      handleDeleteContent={handleDeleteContent}
+      recipes={recipes}
+      deleteRecipeModalActive={deleteRecipeModalActive}
+      activateDeleteRecipeModal={activateDeleteRecipeModal}
+      deactivateDeleteRecipeModal={deactivateDeleteRecipeModal}
+      deleteRecipeName={deleteRecipeName}
+      handleDeleteRecipe={handleDeleteRecipe}
+      ingredients={ingredients}
+      handleDeleteIngredient={handleDeleteIngredient}
+      equipment={equipment}
+      handleDeleteEquipment={handleDeleteEquipment}
     />
   );
 }
@@ -129,12 +164,11 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   oneColumnATheme: string;
-
 };
 
 const mapStateToProps = (state: RootState) => ({
   authname: state.auth.authname,
-  staff: state.staff.message,
+  message: state.staff.message,
   content: state.data.content,
   recipes: state.data.recipes,
   equipment: state.data.equipment,
