@@ -818,6 +818,7 @@ export function NewRecipe({
 interface RootState {
   auth: {
     authname: string;
+    staffIsAuthenticated: boolean;
   };
   staff: {
     message: string;
@@ -947,10 +948,10 @@ type Props = PropsFromRedux & {
   oneColumnATheme: string;
   editing: boolean;
   ownership: string;
-  staffIsAuthenticated?: boolean;
 };
 
 const mapStateToProps = (state: RootState) => ({
+  staffIsAuthenticated: state.auth.staffIsAuthenticated,
   authname: state.auth.authname,
   staffMessage: state.staff.message,
   userMessage: state.user.message,

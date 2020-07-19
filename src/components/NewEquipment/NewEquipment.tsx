@@ -269,6 +269,9 @@ export function NewEquipment({
 };
 
 interface RootState {
+  auth: {
+    staffIsAuthenticated: boolean;
+  };
   staff: {
     message: string;
   };
@@ -287,10 +290,10 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & {
   oneColumnATheme: string;
   editing: boolean;
-  staffIsAuthenticated?: boolean;
 };
 
 const mapStateToProps = (state: RootState) => ({
+  staffIsAuthenticated: state.auth.staffIsAuthenticated,
   staffMessage: state.staff.message,
   userMessage: state.user.message,
   dataEquipment: state.data.equipment,

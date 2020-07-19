@@ -31,9 +31,12 @@ const Profile = lazy(() => import('../components/Profile/Profile'));
 const Recipe = lazy(() => import('../components/Recipe/Recipe'));
 const Recipes = lazy(() => import('../components/Recipes/Recipes'));
 const Register = lazy(() => import('../components/Register/Register'));
+
 const ContentTypes = lazy(() => import('../components/staff/ContentTypes/ContentTypes'));
 const StaffDashboard = lazy(() => import('../components/staff/Dashboard/Dashboard'));
+
 //import Supply from '../components/supply/Supply';
+
 const Dashboard = lazy(() => import('../components/user/Dashboard/Dashboard'));
 const Friends = lazy(() => import('../components/user/Friends/Friends'));
 const MessengerPage = lazy(() => import('../components/user/Messenger/MessengerPage'));

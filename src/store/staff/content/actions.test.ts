@@ -25,14 +25,21 @@ const creatingContentInfo = {
   contentTypeId: 13,
   published: null,
   title: "Some Title",
-  contentItems: "[]"
+  contentItems: "[]",
+  contentImage: null,
+  fullContentImage: null,
+  thumbContentImage: null
 };
 const editingContentInfo = {
   contentId: 888,
   contentTypeId: 13,
   published: null,
   title: "Some Title",
-  contentItems: "[]"
+  contentItems: "[]",
+  prevContentImage: "nobsc-content-default",
+  contentImage: null,
+  fullContentImage: null,
+  thumbContentImage: null
 };
 
 describe('the staffCreateNewContent action creator', () => {

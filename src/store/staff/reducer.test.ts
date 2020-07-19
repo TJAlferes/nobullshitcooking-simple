@@ -1,3 +1,11 @@
+import { 
+  STAFF_CREATE_NEW_CONTENT_SUCCEEDED,
+  STAFF_CREATE_NEW_CONTENT_FAILED,
+  STAFF_EDIT_CONTENT_SUCCEEDED,
+  STAFF_EDIT_CONTENT_FAILED,
+  STAFF_DELETE_CONTENT_SUCCEEDED,
+  STAFF_DELETE_CONTENT_FAILED
+} from './content/types';
 import {
   STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED,
   STAFF_CREATE_NEW_EQUIPMENT_FAILED,
@@ -31,6 +39,62 @@ describe('the staff reducer', () => {
   it('returns initial state', () => {
     const actual = staffReducer(undefined, {
       type: STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+
+
+  it('handles actions of type STAFF_CREATE_NEW_CONTENT_SUCCEEDED', () => {
+    const actual = staffReducer(initialState, {
+      type: STAFF_CREATE_NEW_CONTENT_SUCCEEDED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type STAFF_CREATE_NEW_CONTENT_FAILED', () => {
+    const actual = staffReducer(initialState, {
+      type: STAFF_CREATE_NEW_CONTENT_FAILED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type STAFF_EDIT_CONTENT_SUCCEEDED', () => {
+    const actual = staffReducer(initialState, {
+      type: STAFF_EDIT_CONTENT_SUCCEEDED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type STAFF_EDIT_CONTENT_FAILED', () => {
+    const actual = staffReducer(initialState, {
+      type: STAFF_EDIT_CONTENT_FAILED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type STAFF_DELETE_CONTENT_SUCCEEDED', () => {
+    const actual = staffReducer(initialState, {
+      type: STAFF_DELETE_CONTENT_SUCCEEDED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type STAFF_DELETE_CONTENT_FAILED', () => {
+    const actual = staffReducer(initialState, {
+      type: STAFF_DELETE_CONTENT_FAILED,
       message: 'Message.'
     });
     const expected = {message: 'Message.'};

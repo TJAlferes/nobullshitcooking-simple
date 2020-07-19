@@ -4,39 +4,38 @@ import { call, put, delay } from 'redux-saga/effects';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../../config/NOBSCBackendAPIEndpointOne';
-import { staffMessageClear } from '../actions';
+import { userMessageClear } from '../actions';
 import {
-  staffCreateNewContentSucceeded,
-  staffCreateNewContentFailed,
-  staffEditContentSucceeded,
-  staffEditContentFailed,
-  staffDeleteContentSucceeded,
-  staffDeleteContentFailed
+  userCreateNewContentSucceeded,
+  userCreateNewContentFailed,
+  userEditContentSucceeded,
+  userEditContentFailed,
+  userDeleteContentSucceeded,
+  userDeleteContentFailed
 } from './actions';
 import {
-  staffCreateNewContentSaga,
-  staffEditContentSaga,
-  staffDeleteContentSaga
+  userCreateNewContentSaga,
+  userEditContentSaga,
+  userDeleteContentSaga
 } from './sagas';
 import {
-  STAFF_CREATE_NEW_CONTENT,
-  STAFF_EDIT_CONTENT,
-  STAFF_DELETE_CONTENT
+  USER_CREATE_NEW_CONTENT,
+  USER_EDIT_CONTENT,
+  USER_DELETE_CONTENT
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 const fullContentImage =
   new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
 const thumbContentImage =
-  new File([(new Blob)], "resizedthumb", {type: "image/jpeg"});
+  new File([(new Blob)], "resizedThumb", {type: "image/jpeg"});
 
 describe('the userCreateNewContentSaga', () => {
   const action = {
-    type: STAFF_CREATE_NEW_CONTENT,
+    type: USER_CREATE_NEW_CONTENT,
     contentInfo: {
-      contentId: 150,
       contentTypeId: 2,
-      published: "2020-07-17",
+      published: null,
       title: "My Content",
       contentItems: "[]",
       contentImage: "my-content",
@@ -53,13 +52,13 @@ describe('the userCreateNewContentSaga', () => {
   };
 
   it('should dispatch succeeded', () => {
-    const iterator = staffCreateNewContentSaga(action);
+    const iterator = userCreateNewContentSaga(action);
     const res = {data: {message: 'Content created.'}};
 
     expect(iterator.next().value)
     .toEqual(call(
       [axios, axios.post],
-      `${endpoint}/staff/get-signed-url/content`,
+      `${endpoint}/user/get-signed-url/content`,
       {fileType: action.contentInfo.fullContentImage.type},
       {withCredentials: true}
     ));
@@ -83,21 +82,21 @@ describe('the userCreateNewContentSaga', () => {
     expect(iterator.next().value)
     .toEqual(call(
       [axios, axios.post],
-      `${endpoint}/staff/content/create`,
+      `${endpoint}/user/content/create`,
       {contentInfo: action.contentInfo},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res).value)
-    .toEqual(put(staffCreateNewContentSucceeded(res.data.message)));
+    .toEqual(put(userCreateNewContentSucceeded(res.data.message)));
 
     expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed', () => {
-    const iterator = staffCreateNewContentSaga(action);
+    const iterator = userCreateNewContentSaga(action);
     const res = {data: {message: 'Oops.'}};
 
     iterator.next();
@@ -106,34 +105,34 @@ describe('the userCreateNewContentSaga', () => {
     iterator.next();
 
     expect(iterator.next(res).value)
-    .toEqual(put(staffCreateNewContentFailed(res.data.message)));
+    .toEqual(put(userCreateNewContentFailed(res.data.message)));
 
     expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if thrown', () => {
-    const iterator = staffCreateNewContentSaga(action);
+    const iterator = userCreateNewContentSaga(action);
 
     iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(put(
-      staffCreateNewContentFailed(
+      userCreateNewContentFailed(
         'An error occurred. Please try again.'
       )
     ));
 
     expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
 
-describe('the staffEditContentSaga', () => {
+describe('the userEditContentSaga', () => {
   const action = {
-    type: STAFF_EDIT_CONTENT,
+    type: USER_EDIT_CONTENT,
     contentInfo: {
       contentId: 150,
       contentTypeId: 2,
@@ -155,13 +154,13 @@ describe('the staffEditContentSaga', () => {
   };
 
   it('should dispatch succeeded', () => {
-    const iterator = staffEditContentSaga(action);
+    const iterator = userEditContentSaga(action);
     const res = {data: {message: 'Content updated.'}};
 
     expect(iterator.next().value)
     .toEqual(call(
       [axios, axios.post],
-      `${endpoint}/staff/get-signed-url/content`,
+      `${endpoint}/user/get-signed-url/content`,
       {fileType: action.contentInfo.fullContentImage.type},
       {withCredentials: true}
     ));
@@ -185,21 +184,21 @@ describe('the staffEditContentSaga', () => {
     expect(iterator.next().value)
     .toEqual(call(
       [axios, axios.put],
-      `${endpoint}/staff/content/update`,
+      `${endpoint}/user/content/update`,
       {contentInfo: action.contentInfo},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res).value)
-    .toEqual(put(staffEditContentSucceeded(res.data.message)));
+    .toEqual(put(userEditContentSucceeded(res.data.message)));
 
     expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed', () => {
-    const iterator = staffEditContentSaga(action);
+    const iterator = userEditContentSaga(action);
     const res = {data: {message: 'Oops.'}};
 
     iterator.next();
@@ -208,80 +207,80 @@ describe('the staffEditContentSaga', () => {
     iterator.next();
 
     expect(iterator.next(res).value)
-    .toEqual(put(staffEditContentFailed(res.data.message)));
+    .toEqual(put(userEditContentFailed(res.data.message)));
 
     expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if thrown', () => {
-    const iterator = staffEditContentSaga(action);
+    const iterator = userEditContentSaga(action);
 
     iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(put(
-      staffEditContentFailed(
+      userEditContentFailed(
         'An error occurred. Please try again.'
       )
     ));
 
     expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
 
-describe('the staffDeleteContentSaga', () => {
-  const action = {type: STAFF_DELETE_CONTENT, contentId: 4};
+describe('the userDeleteContentSaga', () => {
+  const action = {type: USER_DELETE_CONTENT, contentId: 4};
 
   it('should dispatch succeeded', () => {
-    const iterator = staffDeleteContentSaga(action);
+    const iterator = userDeleteContentSaga(action);
     const res = {data: {message: 'Content deleted.'}};
 
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
-      `${endpoint}/staff/content/delete`,
+      `${endpoint}/user/content/delete`,
       {withCredentials: true, data: {contentId: action.contentId}}
     ));
 
     expect(iterator.next(res).value)
-    .toEqual(put(staffDeleteContentSucceeded(res.data.message)));
+    .toEqual(put(userDeleteContentSucceeded(res.data.message)));
 
     expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed', () => {
-    const iterator = staffDeleteContentSaga(action);
+    const iterator = userDeleteContentSaga(action);
     const res = {data: {message: 'Oops.'}};
 
     iterator.next();
 
     expect(iterator.next(res).value)
-    .toEqual(put(staffDeleteContentFailed(res.data.message)));
+    .toEqual(put(userDeleteContentFailed(res.data.message)));
 
     expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if thrown', () => {
-    const iterator = staffDeleteContentSaga(action);
+    const iterator = userDeleteContentSaga(action);
 
     iterator.next();
 
     expect(iterator.throw('error').value)
     .toEqual(put(
-      staffDeleteContentFailed(
+      userDeleteContentFailed(
         'An error occurred. Please try again.'
       )
     ));
 
     expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
+    expect(iterator.next().value).toEqual(put(userMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });

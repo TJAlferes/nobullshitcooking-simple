@@ -1,4 +1,12 @@
 import {
+  IStaffCreateNewContentSucceeded,
+  IStaffCreateNewContentFailed,
+  IStaffEditContentSucceeded,
+  IStaffEditContentFailed,
+  IStaffDeleteContentSucceeded,
+  IStaffDeleteContentFailed
+} from './content/types';
+import {
   IStaffCreateNewEquipmentSucceeded,
   IStaffCreateNewEquipmentFailed,
   IStaffEditEquipmentSucceeded,
@@ -35,6 +43,12 @@ export interface IStaffState {
 
 export type StaffActions =
 IStaffMessageClear |
+IStaffCreateNewContentSucceeded |
+IStaffCreateNewContentFailed |
+IStaffEditContentSucceeded |
+IStaffEditContentFailed |
+IStaffDeleteContentSucceeded |
+IStaffDeleteContentFailed |
 IStaffCreateNewEquipmentSucceeded |
 IStaffCreateNewEquipmentFailed |
 IStaffEditEquipmentSucceeded |

@@ -91,6 +91,7 @@ export const DATA_GET_MY_FRIENDSHIPS_SUCCEEDED = 'DATA_GET_MY_FRIENDSHIPS_SUCCEE
 export const DATA_GET_MY_FRIENDSHIPS_FAILED = 'DATA_GET_MY_FRIENDSHIPS_FAILED' as const;
 
 export interface IDataState {
+  content: IWorkContent[]
   contentTypes: IContentType[]
   //posts: []  // remove?
   postPreviews: IPostPreview[]
@@ -125,6 +126,11 @@ export interface IInitialData {
   recipeTypes: IRecipeType[]
   cuisines: ICuisine[]
   methods: IMethod[]
+}
+
+export interface IWorkContent {
+  content_id: number;
+  title: string;
 }
 
 export interface IContentType {

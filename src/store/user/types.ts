@@ -3,6 +3,14 @@ import {
   IUserSubmitAvatarFailed
 } from './avatar/types';
 import {
+  IUserCreateNewContentSucceeded,
+  IUserCreateNewContentFailed,
+  IUserEditContentSucceeded,
+  IUserEditContentFailed,
+  IUserDeleteContentSucceeded,
+  IUserDeleteContentFailed
+} from './content/types';
+import {
   IUserCreateNewPrivateEquipmentSucceeded,
   IUserCreateNewPrivateEquipmentFailed,
   IUserEditPrivateEquipmentSucceeded,
@@ -79,6 +87,12 @@ export interface IUserState {
 
 export type UserActions =
 IUserMessageClear |
+IUserCreateNewContentSucceeded |
+IUserCreateNewContentFailed |
+IUserEditContentSucceeded |
+IUserEditContentFailed |
+IUserDeleteContentSucceeded |
+IUserDeleteContentFailed |
 IUserSubmitAvatarSucceeded |
 IUserSubmitAvatarFailed |
 IUserCreateNewPrivateEquipmentSucceeded |

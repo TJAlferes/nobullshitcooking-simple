@@ -9,15 +9,19 @@ import axios from 'axios';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
+} from '../../config/NOBSCBackendAPIEndpointOne';
 import {
   ICreatingContentInfo,
   IEditingContentInfo
-} from '../../../store/staff/content/types';
+} from '../../store/user/content/types';
 import {
   staffCreateNewContent,
   staffEditContent
-} from '../../../store/staff/content/actions';
+} from '../../store/staff/content/actions';
+import {
+  userCreateNewContent,
+  userEditContent
+} from '../../store/user/content/actions';
 import {
   BlockButton,
   Element,
@@ -50,12 +54,71 @@ const initialValue = localStorage.getItem('newContent')
 
 export default function NewContent({
   oneColumnATheme,
+  staffIsAuthenticated,
   editing,
   staffMessage,
+  userMessage,
   staffCreateNewContent,
-  staffEditContent
+  staffEditContent,
+  userCreateNewContent,
+  userEditContent
 }: Props): JSX.Element {
+  const history = useHistory();
+  const { id } = useParams();
+
+  const [ feedback, setFeedback ] = useState("");
+  const [ loading, setLoading ] = useState(false);
+
+  const [ editingId, setEditingId ] = useState<number>(0);  // |null ?
   const [ value, setValue ] = useState<Node[]>(initialValue);
+
+  useEffect(() => {
+    const getExistingContentToEdit = async () => {
+      if (!id || !staffIsAuthenticated) {
+        history.push('/dashboard');
+        return;
+      }
+
+      window.scrollTo(0,0);
+      setLoading(true);
+
+      const url = staffIsAuthenticated
+      ? `${endpoint}/staff/content/edit`
+      : `${endpoint}/user/content/edit`;
+
+      setLoading(false);
+    };
+
+    if (editing) getExistingContentToEdit();
+  }, []);
+
+  useEffect(() => {
+    let isSubscribed = true;
+
+    if (isSubscribed) {
+      const message = staffIsAuthenticated ? staffMessage : userMessage;
+      const redirectPath = staffIsAuthenticated
+      ? '/staff-dashboard'
+      : '/dashboard';
+
+      if (message !== "") window.scrollTo(0,0);
+
+      setFeedback(message);
+
+      if (
+        message === "Content created." ||
+        message === "Content updated."
+      ) {
+        setTimeout(() => history.push(redirectPath), 3000);
+      }
+
+      setLoading(false);  // move?
+    }
+
+    return () => {
+      isSubscribed = false;
+    };
+  }, [staffMessage, userMessage]);
 
   const editor = useMemo(
     () => withHistory(withImages(withLinks(withReact(createEditor())))),
@@ -109,7 +172,13 @@ export default function NewContent({
 }
 
 interface RootState {
+  auth: {
+    staffIsAuthenticated: boolean;
+  };
   staff: {
+    message: string;
+  };
+  user: {
     message: string;
   };
 }
@@ -122,14 +191,20 @@ type Props = PropsFromRedux & {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  staffMessage: state.staff.message
+  staffIsAuthenticated: state.auth.staffIsAuthenticated,
+  staffMessage: state.staff.message,
+  userMessage: state.user.message
 });
 
 const mapDispatchToProps = {
-staffCreateNewContent: (contentInfo: ICreatingContentInfo) =>
-  staffCreateNewContent(contentInfo),
-staffEditContent: (contentInfo: IEditingContentInfo) =>
-  staffEditContent(contentInfo)
+  staffCreateNewContent: (contentInfo: ICreatingContentInfo) =>
+    staffCreateNewContent(contentInfo),
+  staffEditContent: (contentInfo: IEditingContentInfo) =>
+    staffEditContent(contentInfo),
+  userCreateNewContent: (contentInfo: ICreatingContentInfo) =>
+    userCreateNewContent(contentInfo),
+  userEditContent: (contentInfo: IEditingContentInfo) =>
+    userEditContent(contentInfo)
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

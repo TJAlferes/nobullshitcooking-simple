@@ -1,4 +1,12 @@
 import {
+  USER_CREATE_NEW_CONTENT_SUCCEEDED,
+  USER_CREATE_NEW_CONTENT_FAILED,
+  USER_EDIT_CONTENT_SUCCEEDED,
+  USER_EDIT_CONTENT_FAILED,
+  USER_DELETE_CONTENT_SUCCEEDED,
+  USER_DELETE_CONTENT_FAILED,
+} from './content/types';
+import {
   USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
   USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED,
   USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
@@ -77,6 +85,62 @@ describe('the user reducer', () => {
   it('returns initial state', () => {
     const actual = userReducer(undefined, {
       type: USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+
+
+  it('handles actions of type USER_CREATE_NEW_CONTENT_SUCCEEDED', () => {
+    const actual = userReducer(initialState, {
+      type: USER_CREATE_NEW_CONTENT_SUCCEEDED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type USER_CREATE_NEW_CONTENT_FAILED', () => {
+    const actual = userReducer(initialState, {
+      type: USER_CREATE_NEW_CONTENT_FAILED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type USER_EDIT_CONTENT_SUCCEEDED', () => {
+    const actual = userReducer(initialState, {
+      type: USER_EDIT_CONTENT_SUCCEEDED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type USER_EDIT_CONTENT_FAILED', () => {
+    const actual = userReducer(initialState, {
+      type: USER_EDIT_CONTENT_FAILED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type USER_DELETE_CONTENT_SUCCEEDED', () => {
+    const actual = userReducer(initialState, {
+      type: USER_DELETE_CONTENT_SUCCEEDED,
+      message: 'Message.'
+    });
+    const expected = {message: 'Message.'};
+    expect(actual).toEqual(expected);
+  });
+
+  it('handles actions of type USER_DELETE_CONTENT_FAILED', () => {
+    const actual = userReducer(initialState, {
+      type: USER_DELETE_CONTENT_FAILED,
       message: 'Message.'
     });
     const expected = {message: 'Message.'};

@@ -11,55 +11,59 @@ export const STAFF_DELETE_CONTENT_SUCCEEDED = 'STAFF_DELETE_CONTENT_SUCCEEDED' a
 export const STAFF_DELETE_CONTENT_FAILED = 'STAFF_DELETE_CONTENT_FAILED' as const;
 
 export interface IStaffCreateNewContent {
-  type: typeof STAFF_CREATE_NEW_CONTENT
-  contentInfo: ICreatingContentInfo
+  type: typeof STAFF_CREATE_NEW_CONTENT;
+  contentInfo: ICreatingContentInfo;
 }
 
 export interface IStaffCreateNewContentSucceeded {
-  type: typeof STAFF_CREATE_NEW_CONTENT_SUCCEEDED
-  message: string
+  type: typeof STAFF_CREATE_NEW_CONTENT_SUCCEEDED;
+  message: string;
 }
 
 export interface IStaffCreateNewContentFailed {
-  type: typeof STAFF_CREATE_NEW_CONTENT_FAILED
-  message: string
+  type: typeof STAFF_CREATE_NEW_CONTENT_FAILED;
+  message: string;
 }
 
 export interface IStaffEditContent {
-  type: typeof STAFF_EDIT_CONTENT
-  contentInfo: IEditingContentInfo
+  type: typeof STAFF_EDIT_CONTENT;
+  contentInfo: IEditingContentInfo;
 }
 
 export interface IStaffEditContentSucceeded {
-  type: typeof STAFF_EDIT_CONTENT_SUCCEEDED
-  message: string
+  type: typeof STAFF_EDIT_CONTENT_SUCCEEDED;
+  message: string;
 }
 
 export interface IStaffEditContentFailed {
-  type: typeof STAFF_EDIT_CONTENT_FAILED
-  message: string
+  type: typeof STAFF_EDIT_CONTENT_FAILED;
+  message: string;
 }
 
 export interface IStaffDeleteContent {
-  type: typeof STAFF_DELETE_CONTENT
-  contentId: number
+  type: typeof STAFF_DELETE_CONTENT;
+  contentId: number;
 }
 
 export interface IStaffDeleteContentSucceeded {
-  type: typeof STAFF_DELETE_CONTENT_SUCCEEDED
-  message: string
+  type: typeof STAFF_DELETE_CONTENT_SUCCEEDED;
+  message: string;
 }
 
 export interface IStaffDeleteContentFailed {
-  type: typeof STAFF_DELETE_CONTENT_FAILED
-  message: string
+  type: typeof STAFF_DELETE_CONTENT_FAILED;
+  message: string;
 }
 
+// For now, one image per page/post
 export interface ICreatingContentInfo {
   contentTypeId: number;
   published: string|null;
   title: string;
   contentItems: string;
+  contentImage: string | ArrayBuffer | null;
+  fullContentImage: File | null;
+  thumbContentImage: File | null;
 }
 
 export interface IEditingContentInfo {
@@ -68,4 +72,8 @@ export interface IEditingContentInfo {
   published: string|null;
   title: string;
   contentItems: string;
+  prevContentImage: string;
+  contentImage: string | ArrayBuffer | null;
+  fullContentImage: File | null;
+  thumbContentImage: File | null;
 }
