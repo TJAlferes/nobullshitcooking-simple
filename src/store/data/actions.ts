@@ -3,6 +3,9 @@ import {
   DATA_GET_INITIAL_DATA,
   DATA_GET_INITIAL_DATA_SUCCEEDED,
   DATA_GET_INITIAL_DATA_FAILED,
+  DATA_GET_INITIAL_USER_DATA,
+  DATA_GET_INITIAL_USER_DATA_SUCCEEDED,
+  DATA_GET_INITIAL_USER_DATA_FAILED,
   DATA_GET_CONTENT_TYPES,
   DATA_GET_CONTENT_TYPES_SUCCEEDED,
   DATA_GET_CONTENT_TYPES_FAILED,
@@ -64,6 +67,7 @@ import {
   DATA_GET_MY_FRIENDSHIPS_SUCCEEDED,
   DATA_GET_MY_FRIENDSHIPS_FAILED,
   IInitialData,
+  IInitialUserData,
   IContentType,
   IPostPreview,
   IMeasurement,
@@ -92,6 +96,19 @@ export const dataGetInitialDataSucceeded = () => ({
 
 export const dataGetInitialDataFailed = () => ({
   type: DATA_GET_INITIAL_DATA_FAILED
+});
+
+export const dataGetInitialUserData = (initialUserData: IInitialUserData) => ({
+  type: DATA_GET_INITIAL_USER_DATA,
+  initialUserData
+});
+
+export const dataGetInitialUserDataSucceeded = () => ({
+  type: DATA_GET_INITIAL_USER_DATA_SUCCEEDED
+});
+
+export const dataGetInitialUserDataFailed = () => ({
+  type: DATA_GET_INITIAL_USER_DATA_FAILED
 });
 
 export const dataGetContentTypes = (contentTypes: IContentType[]) => ({

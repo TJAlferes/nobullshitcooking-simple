@@ -128,6 +128,17 @@ export interface IInitialData {
   methods: IMethod[]
 }
 
+export interface IInitialUserData {
+  myPublicRecipes: IWorkRecipe[]
+  myPrivateEquipment: IEquipment[]
+  myPrivateIngredients: IIngredient[]
+  myPrivateRecipes: IWorkRecipe[]
+  myFavoriteRecipes: IWorkRecipe[]
+  mySavedRecipes: IWorkRecipe[]
+  myPlans: IPlan[]
+  myFriendships: IFriendship[]
+}
+
 export interface IWorkContent {
   content_id: number;
   title: string;

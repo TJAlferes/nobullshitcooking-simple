@@ -1,25 +1,9 @@
 import { all, takeEvery } from 'redux-saga/effects';
 
-import {
-  authUserLoginSaga,
-  authUserLogoutSaga,
-  authUserRegisterSaga,
-  authUserVerifySaga,
-  authStaffLoginSaga,
-  authStaffLogoutSaga
-} from './auth/sagas';
-import {
-  AUTH_USER_LOGIN,
-  AUTH_USER_LOGIN_SUCCEEDED,
-  AUTH_USER_LOGOUT,
-  AUTH_USER_REGISTER,
-  AUTH_USER_VERIFY,
-  AUTH_STAFF_LOGIN,
-  AUTH_STAFF_LOGIN_SUCCEEDED,
-  AUTH_STAFF_LOGOUT
-} from './auth/types';
+
 import {
   dataGetInitialDataSaga,
+  dataGetInitialUserDataSaga,
   dataGetContentTypesSaga,
   dataGetMeasurementsSaga,
   dataGetEquipmentsSaga,  // official
@@ -41,20 +25,18 @@ import {
 } from './data/sagas';
 import { DATA_INIT } from './data/types';
 import {
-  messengerConnectSaga,
-  messengerDisconnectSaga,
-  messengerChangeChannelSaga,
-  messengerSendMessageSaga,
-  messengerSendWhisperSaga,
-  messengerUpdateOnlineSaga
-} from './messenger/sagas';
+  staffCreateNewContentSaga,
+  staffEditContentSaga,
+  staffDeleteContentSaga
+} from './staff/content/sagas';
 import {
-  MESSENGER_CONNECT,
-  MESSENGER_DISCONNECT,
-  MESSENGER_CHANGE_CHANNEL,
-  MESSENGER_SEND_MESSAGE,
-  MESSENGER_SEND_WHISPER,
-} from './messenger/types';
+  STAFF_CREATE_NEW_CONTENT,
+  STAFF_CREATE_NEW_CONTENT_SUCCEEDED,
+  STAFF_EDIT_CONTENT,
+  STAFF_EDIT_CONTENT_SUCCEEDED,
+  STAFF_DELETE_CONTENT,
+  STAFF_DELETE_CONTENT_SUCCEEDED
+} from './staff/content/types';
 import {
   staffCreateNewEquipmentSaga,
   staffEditEquipmentSaga,
@@ -110,37 +92,6 @@ import {
   USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED
 } from './user/equipment/types';
 import {
-  userFavoriteRecipeSaga,
-  userUnfavoriteRecipeSaga
-} from './user/favorite/sagas';
-import {
-  USER_FAVORITE_RECIPE,
-  USER_FAVORITE_RECIPE_SUCCEEDED,
-  USER_UNFAVORITE_RECIPE,
-  USER_UNFAVORITE_RECIPE_SUCCEEDED
-} from './user/favorite/types';
-import {
-  userRequestFriendshipSaga,
-  userAcceptFriendshipSaga,
-  userRejectFriendshipSaga,
-  userDeleteFriendshipSaga,
-  userBlockUserSaga,
-  userUnblockUserSaga
-} from './user/friendship/sagas';
-import {
-  USER_REQUEST_FRIENDSHIP,
-  USER_ACCEPT_FRIENDSHIP,
-  USER_ACCEPT_FRIENDSHIP_SUCCEEDED,
-  USER_REJECT_FRIENDSHIP,
-  USER_REJECT_FRIENDSHIP_SUCCEEDED,
-  USER_DELETE_FRIENDSHIP,
-  USER_DELETE_FRIENDSHIP_SUCCEEDED,
-  USER_BLOCK_USER,
-  USER_BLOCK_USER_SUCCEEDED,
-  USER_UNBLOCK_USER,
-  USER_UNBLOCK_USER_SUCCEEDED
-} from './user/friendship/types';
-import {
   userCreateNewPrivateIngredientSaga,
   userEditPrivateIngredientSaga,
   userDeletePrivateIngredientSaga
@@ -153,19 +104,6 @@ import {
   USER_DELETE_PRIVATE_INGREDIENT,
   USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED
 } from './user/ingredient/types';
-import {
-  userCreateNewPlanSaga,
-  userEditPlanSaga,
-  userDeletePlanSaga
-} from './user/plan/sagas';
-import {
-  USER_CREATE_NEW_PLAN,
-  USER_CREATE_NEW_PLAN_SUCCEEDED,
-  USER_EDIT_PLAN,
-  USER_EDIT_PLAN_SUCCEEDED,
-  USER_DELETE_PLAN,
-  USER_DELETE_PLAN_SUCCEEDED
-} from './user/plan/types';
 import {
   userCreateNewRecipeSaga,
   userDeletePrivateRecipeSaga,
@@ -186,69 +124,9 @@ import {
   USER_DISOWN_PUBLIC_RECIPE,
   USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED
 } from './user/recipe/types';
-import { userSaveRecipeSaga, userUnsaveRecipeSaga } from './user/save/sagas';
-import {
-  USER_SAVE_RECIPE,
-  USER_SAVE_RECIPE_SUCCEEDED,
-  USER_UNSAVE_RECIPE,
-  USER_UNSAVE_RECIPE_SUCCEEDED
-} from './user/save/types';
 
-// You're making 8 (really 16) network trips. Consolidate into 1 (2) trips?
-export function* watchAuth() {
-  yield all([
-    takeEvery(AUTH_STAFF_LOGIN, authStaffLoginSaga),
-    takeEvery(AUTH_STAFF_LOGIN_SUCCEEDED, dataGetMyPublicRecipesSaga),
-    takeEvery(AUTH_STAFF_LOGIN_SUCCEEDED, dataGetMyPrivateEquipmentsSaga),
-    takeEvery(AUTH_STAFF_LOGIN_SUCCEEDED, dataGetMyPrivateIngredientsSaga),
-    takeEvery(AUTH_STAFF_LOGIN_SUCCEEDED, dataGetMyPrivateRecipesSaga),
-    takeEvery(AUTH_STAFF_LOGIN_SUCCEEDED, dataGetMyFavoriteRecipesSaga),
-    takeEvery(AUTH_STAFF_LOGIN_SUCCEEDED, dataGetMySavedRecipesSaga),
-    takeEvery(AUTH_STAFF_LOGIN_SUCCEEDED, dataGetMyPlansSaga),
-    takeEvery(AUTH_STAFF_LOGIN_SUCCEEDED, dataGetMyFriendshipsSaga),
-    takeEvery(AUTH_STAFF_LOGOUT, authStaffLogoutSaga),
-
-    takeEvery(AUTH_USER_REGISTER, authUserRegisterSaga),
-    takeEvery(AUTH_USER_VERIFY, authUserVerifySaga),
-    takeEvery(AUTH_USER_LOGIN, authUserLoginSaga),
-    takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMyPublicRecipesSaga),
-    takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMyPrivateEquipmentsSaga),
-    takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMyPrivateIngredientsSaga),
-    takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMyPrivateRecipesSaga),
-    takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMyFavoriteRecipesSaga),
-    takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMySavedRecipesSaga),
-    takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMyPlansSaga),
-    takeEvery(AUTH_USER_LOGIN_SUCCEEDED, dataGetMyFriendshipsSaga),
-    takeEvery(AUTH_USER_LOGOUT, authUserLogoutSaga)
-  ]);
-}
-
-// You're making 10 (really 20) network trips. Consolidate into 1 (2) trips?
 export function* watchData() {
-  yield all([
-    takeEvery(DATA_INIT, dataGetInitialDataSaga)
-    /*takeEvery(DATA_INIT, dataGetContentTypesSaga),
-    takeEvery(DATA_INIT, dataGetMeasurementsSaga),
-    takeEvery(DATA_INIT, dataGetEquipmentsSaga),
-    takeEvery(DATA_INIT, dataGetEquipmentTypesSaga),
-    takeEvery(DATA_INIT, dataGetIngredientsSaga),
-    takeEvery(DATA_INIT, dataGetIngredientTypesSaga),
-    takeEvery(DATA_INIT, dataGetRecipesSaga),
-    takeEvery(DATA_INIT, dataGetRecipeTypesSaga),
-    takeEvery(DATA_INIT, dataGetCuisinesSaga),
-    takeEvery(DATA_INIT, dataGetMethodsSaga)*/
-  ]);
-}
-
-export function* watchMessenger() {
-  yield all([
-    takeEvery(MESSENGER_CONNECT, messengerConnectSaga),
-    takeEvery(MESSENGER_DISCONNECT, messengerDisconnectSaga),
-    takeEvery(AUTH_USER_LOGOUT, messengerDisconnectSaga),
-    takeEvery(MESSENGER_CHANGE_CHANNEL, messengerChangeChannelSaga),
-    takeEvery(MESSENGER_SEND_MESSAGE, messengerSendMessageSaga),
-    takeEvery(MESSENGER_SEND_WHISPER, messengerSendWhisperSaga)
-  ]);
+  yield all([takeEvery(DATA_INIT, dataGetInitialDataSaga)]);
 }
 
 export function* watchUserAvatar() {
@@ -257,6 +135,13 @@ export function* watchUserAvatar() {
 
 export function* watchUserEquipment() {
   yield all([
+    takeEvery(STAFF_CREATE_NEW_CONTENT, staffCreateNewContentSaga),
+    takeEvery(STAFF_CREATE_NEW_CONTENT_SUCCEEDED, dataGetContentSaga),
+    takeEvery(STAFF_EDIT_CONTENT, staffEditContentSaga),
+    takeEvery(STAFF_EDIT_CONTENT_SUCCEEDED, dataGetContentSaga),
+    takeEvery(STAFF_DELETE_CONTENT, staffDeleteContentSaga),
+    takeEvery(STAFF_DELETE_CONTENT_SUCCEEDED, dataGetContentSaga),
+
     takeEvery(STAFF_CREATE_NEW_EQUIPMENT, staffCreateNewEquipmentSaga),
     takeEvery(STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED, dataGetEquipmentsSaga),
     takeEvery(STAFF_EDIT_EQUIPMENT, staffEditEquipmentSaga),
@@ -270,34 +155,6 @@ export function* watchUserEquipment() {
     takeEvery(USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED, dataGetMyPrivateEquipmentsSaga),
     takeEvery(USER_DELETE_PRIVATE_EQUIPMENT, userDeletePrivateEquipmentSaga),
     takeEvery(USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED, dataGetMyPrivateEquipmentsSaga)
-  ]);
-}
-
-export function* watchUserFavorite() {
-  yield all([
-    takeEvery(USER_FAVORITE_RECIPE, userFavoriteRecipeSaga),
-    takeEvery(USER_FAVORITE_RECIPE_SUCCEEDED, dataGetMyFavoriteRecipesSaga),
-    takeEvery(USER_UNFAVORITE_RECIPE, userUnfavoriteRecipeSaga),
-    takeEvery(USER_UNFAVORITE_RECIPE_SUCCEEDED, dataGetMyFavoriteRecipesSaga)
-  ]);
-}
-
-export function* watchUserFriendship() {
-  yield all([
-    takeEvery(USER_REQUEST_FRIENDSHIP, userRequestFriendshipSaga),
-    takeEvery(USER_ACCEPT_FRIENDSHIP, userAcceptFriendshipSaga),
-    takeEvery(USER_ACCEPT_FRIENDSHIP_SUCCEEDED, messengerUpdateOnlineSaga),
-    takeEvery(USER_ACCEPT_FRIENDSHIP_SUCCEEDED, dataGetMyFriendshipsSaga),
-    takeEvery(USER_REJECT_FRIENDSHIP, userRejectFriendshipSaga),
-    takeEvery(USER_REJECT_FRIENDSHIP_SUCCEEDED, dataGetMyFriendshipsSaga),
-    takeEvery(USER_DELETE_FRIENDSHIP, userDeleteFriendshipSaga),
-    takeEvery(USER_DELETE_FRIENDSHIP_SUCCEEDED, messengerUpdateOnlineSaga),
-    takeEvery(USER_DELETE_FRIENDSHIP_SUCCEEDED, dataGetMyFriendshipsSaga),
-    takeEvery(USER_BLOCK_USER, userBlockUserSaga),
-    takeEvery(USER_BLOCK_USER_SUCCEEDED, messengerUpdateOnlineSaga),
-    takeEvery(USER_BLOCK_USER_SUCCEEDED, dataGetMyFriendshipsSaga),
-    takeEvery(USER_UNBLOCK_USER, userUnblockUserSaga),
-    takeEvery(USER_UNBLOCK_USER_SUCCEEDED, dataGetMyFriendshipsSaga)
   ]);
 }
 
@@ -316,17 +173,6 @@ export function* watchUserIngredient() {
     takeEvery(USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED, dataGetMyPrivateIngredientsSaga),
     takeEvery(USER_DELETE_PRIVATE_INGREDIENT, userDeletePrivateIngredientSaga),
     takeEvery(USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED, dataGetMyPrivateIngredientsSaga)
-  ]);
-}
-
-export function* watchUserPlan() {
-  yield all([
-    takeEvery(USER_CREATE_NEW_PLAN, userCreateNewPlanSaga),
-    takeEvery(USER_CREATE_NEW_PLAN_SUCCEEDED, dataGetMyPlansSaga),
-    takeEvery(USER_EDIT_PLAN, userEditPlanSaga),
-    takeEvery(USER_EDIT_PLAN_SUCCEEDED, dataGetMyPlansSaga),
-    takeEvery(USER_DELETE_PLAN, userDeletePlanSaga),
-    takeEvery(USER_DELETE_PLAN_SUCCEEDED, dataGetMyPlansSaga)
   ]);
 }
 
@@ -352,14 +198,5 @@ export function* watchUserRecipe() {
     takeEvery(USER_EDIT_PUBLIC_RECIPE_SUCCEEDED, dataGetMyPublicRecipesSaga),
     takeEvery(USER_DISOWN_PUBLIC_RECIPE, userDisownPublicRecipeSaga),
     takeEvery(USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED, dataGetMyPublicRecipesSaga)
-  ]);
-}
-
-export function* watchUserSave() {
-  yield all([
-    takeEvery(USER_SAVE_RECIPE, userSaveRecipeSaga),
-    takeEvery(USER_SAVE_RECIPE_SUCCEEDED, dataGetMySavedRecipesSaga),
-    takeEvery(USER_UNSAVE_RECIPE, userUnsaveRecipeSaga),
-    takeEvery(USER_UNSAVE_RECIPE_SUCCEEDED, dataGetMySavedRecipesSaga)
   ]);
 }

@@ -8,6 +8,9 @@ import {
   dataGetInitialData,
   dataGetInitialDataSucceeded,
   dataGetInitialDataFailed,
+  dataGetInitialUserData,
+  dataGetInitialUserDataSucceeded,
+  dataGetInitialUserDataFailed,
   dataGetContentTypes,
   dataGetContentTypesSucceeded,
   dataGetContentTypesFailed,
@@ -73,6 +76,21 @@ export function* dataGetInitialDataSaga() {
     yield put(dataGetInitialDataSucceeded());
   } catch (err) {
     yield put(dataGetInitialDataFailed());
+  }
+}
+
+export function* dataGetInitialUserDataSaga() {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/data-init`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetInitialUserData(res.data));
+    yield put(dataGetInitialUserDataSucceeded());
+  } catch (err) {
+    yield put(dataGetInitialUserDataFailed());
   }
 }
 
