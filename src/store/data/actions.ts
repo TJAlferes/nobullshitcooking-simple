@@ -6,15 +6,12 @@ import {
   DATA_GET_INITIAL_USER_DATA,
   DATA_GET_INITIAL_USER_DATA_SUCCEEDED,
   DATA_GET_INITIAL_USER_DATA_FAILED,
+  DATA_GET_CONTENT,
+  DATA_GET_CONTENT_SUCCEEDED,
+  DATA_GET_CONTENT_FAILED,
   DATA_GET_CONTENT_TYPES,
   DATA_GET_CONTENT_TYPES_SUCCEEDED,
   DATA_GET_CONTENT_TYPES_FAILED,
-  //DATA_GET_POSTS,
-  //DATA_GET_POSTS_SUCCEEDED,
-  //DATA_GET_POSTS_FAILED,
-  DATA_GET_POST_PREVIEWS,
-  DATA_GET_POST_PREVIEWS_SUCCEEDED,
-  DATA_GET_POST_PREVIEWS_FAILED,
   DATA_GET_MEASUREMENTS,
   DATA_GET_MEASUREMENTS_SUCCEEDED,
   DATA_GET_MEASUREMENTS_FAILED,
@@ -42,6 +39,9 @@ import {
   DATA_GET_METHODS,
   DATA_GET_METHODS_SUCCEEDED,
   DATA_GET_METHODS_FAILED,
+  DATA_GET_MY_CONTENT,
+  DATA_GET_MY_CONTENT_SUCCEEDED,
+  DATA_GET_MY_CONTENT_FAILED,
   DATA_GET_MY_PUBLIC_RECIPES,
   DATA_GET_MY_PUBLIC_RECIPES_SUCCEEDED,
   DATA_GET_MY_PUBLIC_RECIPES_FAILED,
@@ -68,8 +68,8 @@ import {
   DATA_GET_MY_FRIENDSHIPS_FAILED,
   IInitialData,
   IInitialUserData,
+  IWorkContent,
   IContentType,
-  IPostPreview,
   IMeasurement,
   IEquipment,
   IEquipmentType,
@@ -111,6 +111,17 @@ export const dataGetInitialUserDataFailed = () => ({
   type: DATA_GET_INITIAL_USER_DATA_FAILED
 });
 
+export const dataGetContent = (content: IWorkContent[]) => ({
+  type: DATA_GET_CONTENT,
+  content
+});
+
+export const dataGetContentSucceeded = () => ({
+  type: DATA_GET_CONTENT_SUCCEEDED
+});
+
+export const dataGetContentFailed = () => ({type: DATA_GET_CONTENT_FAILED});
+
 export const dataGetContentTypes = (contentTypes: IContentType[]) => ({
   type: DATA_GET_CONTENT_TYPES,
   contentTypes
@@ -122,28 +133,6 @@ export const dataGetContentTypesSucceeded = () => ({
 
 export const dataGetContentTypesFailed = () => ({
   type: DATA_GET_CONTENT_TYPES_FAILED
-});
-
-/*export const dataGetPosts = (posts: []) => ({
-  type: DATA_GET_POSTS,
-  posts
-});
-
-export const dataGetPostsSucceeded = () => ({type: DATA_GET_POSTS_SUCCEEDED});
-
-export const dataGetPostsFailed = () => ({type: DATA_GET_POSTS_FAILED});*/
-
-export const dataGetPostPreviews = (postPreviews: IPostPreview[]) => ({
-  type: DATA_GET_POST_PREVIEWS,
-  postPreviews
-});
-
-export const dataGetPostPreviewsSucceeded = () => ({
-  type: DATA_GET_POST_PREVIEWS_SUCCEEDED
-});
-
-export const dataGetPostPreviewsFailed = () => ({
-  type: DATA_GET_POST_PREVIEWS_FAILED
 });
 
 export const dataGetMeasurements = (measurements: IMeasurement[]) => ({
@@ -256,6 +245,19 @@ export const dataGetMethodsSucceeded = () => ({
 });
 
 export const dataGetMethodsFailed = () => ({type: DATA_GET_METHODS_FAILED});
+
+export const dataGetMyContent = (myContent: IWorkContent[]) => ({
+  type: DATA_GET_MY_CONTENT,
+  myContent
+});
+
+export const dataGetMyContentSucceeded = () => ({
+  type: DATA_GET_MY_CONTENT_SUCCEEDED
+});
+
+export const dataGetMyContentFailed = () => ({
+  type: DATA_GET_MY_CONTENT_FAILED
+});
 
 export const dataGetMyPublicRecipes = (myPublicRecipes: IWorkRecipe[]) => ({
   type: DATA_GET_MY_PUBLIC_RECIPES,

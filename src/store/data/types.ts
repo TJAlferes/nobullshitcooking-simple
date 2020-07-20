@@ -6,17 +6,17 @@ export const DATA_GET_INITIAL_DATA = 'DATA_GET_INITIAL_DATA' as const;
 export const DATA_GET_INITIAL_DATA_SUCCEEDED = 'DATA_GET_INITIAL_DATA_SUCCEEDED' as const;
 export const DATA_GET_INITIAL_DATA_FAILED = 'DATA_GET_INITIAL_DATA_FAILED' as const;
 
+export const DATA_GET_INITIAL_USER_DATA = 'DATA_GET_INITIAL_USER_DATA' as const;
+export const DATA_GET_INITIAL_USER_DATA_SUCCEEDED = 'DATA_GET_INITIAL_USER_DATA_SUCCEEDED' as const;
+export const DATA_GET_INITIAL_USER_DATA_FAILED = 'DATA_GET_INITIAL_USER_DATA_FAILED' as const;
+
+export const DATA_GET_CONTENT = 'DATA_GET_CONTENT' as const;
+export const DATA_GET_CONTENT_SUCCEEDED = 'DATA_GET_CONTENT_SUCCEEDED' as const;
+export const DATA_GET_CONTENT_FAILED = 'DATA_GET_CONTENT_FAILED' as const;
+
 export const DATA_GET_CONTENT_TYPES = 'DATA_GET_CONTENT_TYPES' as const;
 export const DATA_GET_CONTENT_TYPES_SUCCEEDED = 'DATA_GET_CONTENT_TYPES_SUCCEEDED' as const;
 export const DATA_GET_CONTENT_TYPES_FAILED = 'DATA_GET_CONTENT_TYPES_FAILED' as const;
-
-//export const DATA_GET_POSTS = 'DATA_GET_POSTS' as const;
-//export const DATA_GET_POSTS_SUCCEEDED = 'DATA_GET_POSTS_SUCCEEDED' as const;
-//export const DATA_GET_POSTS_FAILED = 'DATA_GET_POSTS_FAILED' as const;
-
-export const DATA_GET_POST_PREVIEWS = 'DATA_GET_POST_PREVIEWS' as const;
-export const DATA_GET_POST_PREVIEWS_SUCCEEDED = 'DATA_GET_POST_PREVIEWS_SUCCEEDED' as const;
-export const DATA_GET_POST_PREVIEWS_FAILED = 'DATA_GET_POST_PREVIEWS_FAILED' as const;
 
 export const DATA_GET_MEASUREMENTS = 'DATA_GET_MEASUREMENTS' as const;
 export const DATA_GET_MEASUREMENTS_SUCCEEDED = 'DATA_GET_MEASUREMENTS_SUCCEEDED' as const;
@@ -58,6 +58,10 @@ export const DATA_GET_PUBLIC_RECIPES = 'DATA_GET_PUBLIC_RECIPES' as const;
 export const DATA_GET_PUBLIC_RECIPES_SUCCEEDED = 'DATA_GET_PUBLIC_RECIPES_SUCCEEDED' as const;
 export const DATA_GET_PUBLIC_RECIPES_FAILED = 'DATA_GET_PUBLIC_RECIPES_FAILED' as const;
 
+export const DATA_GET_MY_CONTENT = 'DATA_GET_MY_CONTENT' as const;
+export const DATA_GET_MY_CONTENT_SUCCEEDED = 'DATA_GET_MY_CONTENT_SUCCEEDED' as const;
+export const DATA_GET_MY_CONTENT_FAILED = 'DATA_GET_MY_CONTENT_FAILED' as const;
+
 export const DATA_GET_MY_PUBLIC_RECIPES = 'DATA_GET_MY_PUBLIC_RECIPES' as const;
 export const DATA_GET_MY_PUBLIC_RECIPES_SUCCEEDED = 'DATA_GET_MY_PUBLIC_RECIPES_SUCCEEDED' as const;
 export const DATA_GET_MY_PUBLIC_RECIPES_FAILED = 'DATA_GET_MY_PUBLIC_RECIPES_FAILED' as const;
@@ -90,53 +94,38 @@ export const DATA_GET_MY_FRIENDSHIPS = 'DATA_GET_MY_FRIENDSHIPS' as const;
 export const DATA_GET_MY_FRIENDSHIPS_SUCCEEDED = 'DATA_GET_MY_FRIENDSHIPS_SUCCEEDED' as const;
 export const DATA_GET_MY_FRIENDSHIPS_FAILED = 'DATA_GET_MY_FRIENDSHIPS_FAILED' as const;
 
-export interface IDataState {
-  content: IWorkContent[]
-  contentTypes: IContentType[]
-  //posts: []  // remove?
-  postPreviews: IPostPreview[]
-  measurements: IMeasurement[]
-  equipment: IEquipment[]
-  equipmentTypes: IEquipmentType[]
-  ingredients: IIngredient[]
-  ingredientTypes: IIngredientType[]
-  recipes: IWorkRecipe[]
-  recipeTypes: IRecipeType[]
-  cuisines: ICuisine[]
-  methods: IMethod[]
-  myPublicRecipes: IWorkRecipe[]
-  myPrivateEquipment: IEquipment[]
-  myPrivateIngredients: IIngredient[]
-  myPrivateRecipes: IWorkRecipe[]
-  myFavoriteRecipes: IWorkRecipe[]
-  mySavedRecipes: IWorkRecipe[]
-  myPlans: IPlan[]
-  myFriendships: IFriendship[]
-}
+/*
+
+State
+
+*/
+
+export interface IDataState extends IInitialData, IInitialUserData {};
 
 export interface IInitialData {
-  contentTypes: IContentType[]
-  //posts: []  // remove?
-  measurements: IMeasurement[]
-  officialEquipment: IEquipment[]
-  equipmentTypes: IEquipmentType[]
-  officialIngredients: IIngredient[]
-  ingredientTypes: IIngredientType[]
-  officialRecipes: IWorkRecipe[]
-  recipeTypes: IRecipeType[]
-  cuisines: ICuisine[]
-  methods: IMethod[]
+  officialContent: IWorkContent[];
+  contentTypes: IContentType[];
+  measurements: IMeasurement[];
+  officialEquipment: IEquipment[];
+  equipmentTypes: IEquipmentType[];
+  officialIngredients: IIngredient[];
+  ingredientTypes: IIngredientType[];
+  officialRecipes: IWorkRecipe[];
+  recipeTypes: IRecipeType[];
+  cuisines: ICuisine[];
+  methods: IMethod[];
 }
 
 export interface IInitialUserData {
-  myPublicRecipes: IWorkRecipe[]
-  myPrivateEquipment: IEquipment[]
-  myPrivateIngredients: IIngredient[]
-  myPrivateRecipes: IWorkRecipe[]
-  myFavoriteRecipes: IWorkRecipe[]
-  mySavedRecipes: IWorkRecipe[]
-  myPlans: IPlan[]
-  myFriendships: IFriendship[]
+  myContent: IWorkContent[];
+  myPublicRecipes: IWorkRecipe[];
+  myPrivateEquipment: IEquipment[];
+  myPrivateIngredients: IIngredient[];
+  myPrivateRecipes: IWorkRecipe[];
+  myFavoriteRecipes: IWorkRecipe[];
+  mySavedRecipes: IWorkRecipe[];
+  myPlans: IPlan[];
+  myFriendships: IFriendship[];
 }
 
 export interface IWorkContent {
@@ -151,34 +140,24 @@ export interface IContentType {
   content_type_path: string;
 }
 
-//export interface IPost {}
-
-export interface IPostPreview {
-  postId: number
-  title: string
-  author: string
-  thumbnail: string
-  snippet: string
-}
-
 export interface IMeasurement {
-  measurement_id: number
-  measurement_name: string
+  measurement_id: number;
+  measurement_name: string;
 }
 
 export interface IEquipment {
-  equipment_id: number
-  equipment_type_id: number
-  owner_id: number
-  equipment_type_name: string
-  equipment_name: string
-  equipment_description: string
-  equipment_image: string
+  equipment_id: number;
+  equipment_type_id: number;
+  owner_id: number;
+  equipment_type_name: string;
+  equipment_name: string;
+  equipment_description: string;
+  equipment_image: string;
 }
 
 export interface IEquipmentType {
-  equipment_type_id: number
-  equipment_type_name: string
+  equipment_type_id: number;
+  equipment_type_name: string;
 }
 
 export interface IIngredient {
@@ -234,12 +213,18 @@ export interface IFriendship {
   status: string;
 }
 
+/*
+
+Actions
+
+*/
+
 export type DataActions =
 IDataInit |
 IDataGetInitialData |
+IDataGetInitialUserData |
+IDataGetContent |
 IDataGetContentTypes |
-//IDataGetPosts |
-IDataGetPostPreviews |
 IDataGetMeasurements |
 IDataGetEquipments |
 IDataGetEquipmentTypes |
@@ -249,6 +234,7 @@ IDataGetRecipes |
 IDataGetRecipeTypes |
 IDataGetCuisines |
 IDataGetMethods |
+IDataGetMyContent |
 IDataGetMyPublicRecipes |
 IDataGetMyPrivateEquipments |
 IDataGetMyPrivateIngredients |
@@ -263,106 +249,111 @@ export interface IDataInit {
 }
 
 export interface IDataGetInitialData {
-  type: typeof DATA_GET_INITIAL_DATA,
-  initialData: IInitialData
+  type: typeof DATA_GET_INITIAL_DATA;
+  initialData: IInitialData;
+}
+
+export interface IDataGetInitialUserData {
+  type: typeof DATA_GET_INITIAL_USER_DATA;
+  initialUserData: IInitialUserData;
+}
+
+export interface IDataGetContent {
+  type: typeof DATA_GET_CONTENT;
+  officialContent: IWorkContent[];
 }
 
 export interface IDataGetContentTypes {
-  type: typeof DATA_GET_CONTENT_TYPES
-  contentTypes: IContentType[]
-}
-
-/*export interface IDataGetPosts {
-  type: typeof DATA_GET_POSTS
-  posts: []
-}*/
-
-export interface IDataGetPostPreviews {
-  type: typeof DATA_GET_POST_PREVIEWS
-  postPreviews: IPostPreview[]
+  type: typeof DATA_GET_CONTENT_TYPES;
+  contentTypes: IContentType[];
 }
 
 export interface IDataGetMeasurements {
-  type: typeof DATA_GET_MEASUREMENTS
-  measurements: IMeasurement[]
+  type: typeof DATA_GET_MEASUREMENTS;
+  measurements: IMeasurement[];
 }
 
 export interface IDataGetEquipments {
-  type: typeof DATA_GET_EQUIPMENTS
-  equipment: IEquipment[]
+  type: typeof DATA_GET_EQUIPMENTS;
+  officialEquipment: IEquipment[];
 }
 
 export interface IDataGetEquipmentTypes {
-  type: typeof DATA_GET_EQUIPMENT_TYPES
-  equipmentTypes: IEquipmentType[]
+  type: typeof DATA_GET_EQUIPMENT_TYPES;
+  equipmentTypes: IEquipmentType[];
 }
 
 export interface IDataGetIngredients {
-  type: typeof DATA_GET_INGREDIENTS
-  ingredients: IIngredient[]
+  type: typeof DATA_GET_INGREDIENTS;
+  officialIngredients: IIngredient[];
 }
 
 export interface IDataGetIngredientTypes {
-  type: typeof DATA_GET_INGREDIENT_TYPES
-  ingredientTypes: IIngredientType[]
+  type: typeof DATA_GET_INGREDIENT_TYPES;
+  ingredientTypes: IIngredientType[];
 }
 
 export interface IDataGetRecipes {
-  type: typeof DATA_GET_RECIPES
-  recipes: IWorkRecipe[]
+  type: typeof DATA_GET_RECIPES;
+  officialRecipes: IWorkRecipe[];
 }
 
 export interface IDataGetRecipeTypes {
-  type: typeof DATA_GET_RECIPE_TYPES
-  recipeTypes: IRecipeType[]
+  type: typeof DATA_GET_RECIPE_TYPES;
+  recipeTypes: IRecipeType[];
 }
 
 export interface IDataGetCuisines {
-  type: typeof DATA_GET_CUISINES
-  cuisines: ICuisine[]
+  type: typeof DATA_GET_CUISINES;
+  cuisines: ICuisine[];
 }
 
 export interface IDataGetMethods {
-  type: typeof DATA_GET_METHODS
-  methods: IMethod[]
+  type: typeof DATA_GET_METHODS;
+  methods: IMethod[];
+}
+
+export interface IDataGetMyContent {
+  type: typeof DATA_GET_MY_CONTENT;
+  myContent: IWorkContent[];
 }
 
 export interface IDataGetMyPublicRecipes {
-  type: typeof DATA_GET_MY_PUBLIC_RECIPES
-  myPublicRecipes: IWorkRecipe[]
+  type: typeof DATA_GET_MY_PUBLIC_RECIPES;
+  myPublicRecipes: IWorkRecipe[];
 }
 
 export interface IDataGetMyPrivateEquipments {
-  type: typeof DATA_GET_MY_PRIVATE_EQUIPMENTS
-  myPrivateEquipment: IEquipment[]
+  type: typeof DATA_GET_MY_PRIVATE_EQUIPMENTS;
+  myPrivateEquipment: IEquipment[];
 }
 
 export interface IDataGetMyPrivateIngredients {
-  type: typeof DATA_GET_MY_PRIVATE_INGREDIENTS
-  myPrivateIngredients: IIngredient[]
+  type: typeof DATA_GET_MY_PRIVATE_INGREDIENTS;
+  myPrivateIngredients: IIngredient[];
 }
 
 export interface IDataGetMyPrivateRecipes {
-  type: typeof DATA_GET_MY_PRIVATE_RECIPES
-  myPrivateRecipes: IWorkRecipe[]
+  type: typeof DATA_GET_MY_PRIVATE_RECIPES;
+  myPrivateRecipes: IWorkRecipe[];
 }
 
 export interface IDataGetMyFavoriteRecipes {
-  type: typeof DATA_GET_MY_FAVORITE_RECIPES
-  myFavoriteRecipes: IWorkRecipe[]
+  type: typeof DATA_GET_MY_FAVORITE_RECIPES;
+  myFavoriteRecipes: IWorkRecipe[];
 }
 
 export interface IDataGetMySavedRecipes {
-  type: typeof DATA_GET_MY_SAVED_RECIPES
-  mySavedRecipes: IWorkRecipe[]
+  type: typeof DATA_GET_MY_SAVED_RECIPES;
+  mySavedRecipes: IWorkRecipe[];
 }
 
 export interface IDataGetMyPlans {
-  type: typeof DATA_GET_MY_PLANS
-  myPlans: IPlan[]
+  type: typeof DATA_GET_MY_PLANS;
+  myPlans: IPlan[];
 }
 
 export interface IDataGetMyFriendships {
-  type: typeof DATA_GET_MY_FRIENDSHIPS
-  myFriendships: IFriendship[]
+  type: typeof DATA_GET_MY_FRIENDSHIPS;
+  myFriendships: IFriendship[];
 }

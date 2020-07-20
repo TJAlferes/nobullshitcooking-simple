@@ -1,8 +1,7 @@
 import {
   DATA_GET_INITIAL_DATA,
+  DATA_GET_CONTENT,  // official
   DATA_GET_CONTENT_TYPES,
-  //DATA_GET_POSTS,
-  DATA_GET_POST_PREVIEWS,
   DATA_GET_MEASUREMENTS,
   DATA_GET_EQUIPMENTS,  // official
   DATA_GET_EQUIPMENT_TYPES,
@@ -12,6 +11,9 @@ import {
   DATA_GET_RECIPE_TYPES,
   DATA_GET_CUISINES,
   DATA_GET_METHODS,
+
+  DATA_GET_INITIAL_USER_DATA,
+  DATA_GET_MY_CONTENT,
   DATA_GET_MY_PUBLIC_RECIPES,
   DATA_GET_MY_PRIVATE_EQUIPMENTS,
   DATA_GET_MY_PRIVATE_INGREDIENTS,
@@ -20,23 +22,25 @@ import {
   DATA_GET_MY_SAVED_RECIPES,
   DATA_GET_MY_PLANS,
   DATA_GET_MY_FRIENDSHIPS,
+
   IDataState,
   DataActions
 } from './types';
 
 const initialState: IDataState = {
+  officialContent: [],  // official
   contentTypes: [],
-  //posts: [],
-  postPreviews: [],
   measurements: [],
-  equipment: [],  // official
+  officialEquipment: [],  // official
   equipmentTypes: [],
-  ingredients: [],  // official
+  officialIngredients: [],  // official
   ingredientTypes: [],
-  recipes: [],  // official
+  officialRecipes: [],  // official
   recipeTypes: [],
   cuisines: [],
   methods: [],
+  
+  myContent: [],
   myPublicRecipes: [],
   myPrivateEquipment: [],
   myPrivateIngredients: [],
@@ -65,32 +69,30 @@ const dataReducer = (state = initialState, action: DataActions): IDataState => {
           methods: action.initialData.methods
         }
       };
+    
+    case DATA_GET_CONTENT:
+      return {...state, ...{officialContent: action.officialContent}};
 
     case DATA_GET_CONTENT_TYPES:
       return {...state, ...{contentTypes: action.contentTypes}};
-
-    //case DATA_GET_POSTS: return {...state, ...{posts: action.posts}};
-
-    case DATA_GET_POST_PREVIEWS:
-      return {...state, ...{postPreviews: action.postPreviews}};
 
     case DATA_GET_MEASUREMENTS:
       return {...state, ...{measurements: action.measurements}};
 
     case DATA_GET_EQUIPMENTS:
-      return {...state, ...{equipment: action.equipment}};
+      return {...state, ...{officialEquipment: action.officialEquipment}};
 
     case DATA_GET_EQUIPMENT_TYPES:
       return {...state, ...{equipmentTypes: action.equipmentTypes}};
 
     case DATA_GET_INGREDIENTS:
-      return {...state, ...{ingredients: action.ingredients}};
+      return {...state, ...{officialIngredients: action.officialIngredients}};
 
     case DATA_GET_INGREDIENT_TYPES:
       return {...state, ...{ingredientTypes: action.ingredientTypes}};
 
     case DATA_GET_RECIPES:
-      return {...state, ...{recipes: action.recipes}};
+      return {...state, ...{officialRecipes: action.officialRecipes}};
 
     case DATA_GET_RECIPE_TYPES:
       return {...state, ...{recipeTypes: action.recipeTypes}};
@@ -100,6 +102,25 @@ const dataReducer = (state = initialState, action: DataActions): IDataState => {
 
     case DATA_GET_METHODS:
       return {...state, ...{methods: action.methods}};
+
+    case DATA_GET_INITIAL_USER_DATA:
+      return {
+        ...state,
+        ...{
+          myContent: action.initialUserData.myContent,
+          myPublicRecipes: action.initialUserData.myPublicRecipes,
+          myPrivateEquipment: action.initialUserData.myPrivateEquipment,
+          myPrivateIngredients: action.initialUserData.myPrivateIngredients,
+          myPrivateRecipes: action.initialUserData.myPrivateRecipes,
+          myFavoriteRecipes: action.initialUserData.myFavoriteRecipes,
+          mySavedRecipes: action.initialUserData.mySavedRecipes,
+          myPlans: action.initialUserData.myPlans,
+          myFriendships: action.initialUserData.myFriendships
+        }
+      };
+
+    case DATA_GET_MY_CONTENT:
+      return {...state, ...{myContent: action.myContent}};
 
     case DATA_GET_MY_PUBLIC_RECIPES:
       return {...state, ...{myPublicRecipes: action.myPublicRecipes}};

@@ -129,6 +129,9 @@ describe('the dataInit action creator', () => {
 
 describe ('the dataGetInitialData action creator', () => {
   const initialData = {
+    officialContent: [
+      
+    ],
     contentTypes: [
       {
         content_type_id: 1,

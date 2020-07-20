@@ -24,7 +24,7 @@ import {
 } from '../user/friendship/types';
 import { messengerUpdateOnlineSaga } from '../messenger/sagas';
 
-export function* watchUserFriendship() {
+export function* watchFriendship() {
   yield all([
     takeEvery(USER_REQUEST_FRIENDSHIP, userRequestFriendshipSaga),
 

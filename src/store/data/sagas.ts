@@ -11,6 +11,9 @@ import {
   dataGetInitialUserData,
   dataGetInitialUserDataSucceeded,
   dataGetInitialUserDataFailed,
+  dataGetContent,
+  dataGetContentSucceeded,
+  dataGetContentFailed,
   dataGetContentTypes,
   dataGetContentTypesSucceeded,
   dataGetContentTypesFailed,
@@ -41,6 +44,9 @@ import {
   dataGetMethods,
   dataGetMethodsSucceeded,
   dataGetMethodsFailed,
+  dataGetMyContent,
+  dataGetMyContentSucceeded,
+  dataGetMyContentFailed,
   dataGetMyPublicRecipes,
   dataGetMyPublicRecipesSucceeded,
   dataGetMyPublicRecipesFailed,
@@ -91,6 +97,16 @@ export function* dataGetInitialUserDataSaga() {
     yield put(dataGetInitialUserDataSucceeded());
   } catch (err) {
     yield put(dataGetInitialUserDataFailed());
+  }
+}
+
+export function* dataGetContentSaga() {
+  try {
+    const res = yield call([axios, axios.get], `${endpoint}/content`);
+    yield put(dataGetContent(res.data));
+    yield put(dataGetContentSucceeded());
+  } catch (err) {
+    yield put(dataGetContentFailed());
   }
 }
 
@@ -229,6 +245,21 @@ export const dataGetMyPlansSaga = postData(
   dataGetMyPlansSucceeded,
   dataGetMyPlansFailed
 );*/
+
+export function* dataGetMyContentSaga() {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/content/all`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetMyContent(res.data));
+    yield put(dataGetMyContentSucceeded());
+  } catch (err) {
+    yield put(dataGetMyContentFailed());
+  }
+}
 
 export function* dataGetMyPlansSaga() {
   try {

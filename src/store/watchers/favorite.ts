@@ -12,7 +12,7 @@ import {
   USER_UNFAVORITE_RECIPE_SUCCEEDED
 } from '../user/favorite/types';
 
-export function* watchUserFavorite() {
+export function* watchFavorite() {
   yield all([
     takeEvery(USER_FAVORITE_RECIPE, userFavoriteRecipeSaga),
     takeEvery(USER_FAVORITE_RECIPE_SUCCEEDED, dataGetMyFavoriteRecipesSaga),

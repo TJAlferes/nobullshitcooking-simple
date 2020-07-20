@@ -9,7 +9,7 @@ import {
   USER_UNSAVE_RECIPE_SUCCEEDED
 } from '../user/save/types';
 
-export function* watchUserSave() {
+export function* watchSave() {
   yield all([
     takeEvery(USER_SAVE_RECIPE, userSaveRecipeSaga),
     takeEvery(USER_SAVE_RECIPE_SUCCEEDED, dataGetMySavedRecipesSaga),

@@ -15,7 +15,7 @@ import {
   USER_DELETE_PLAN_SUCCEEDED
 } from '../user/plan/types';
 
-export function* watchUserPlan() {
+export function* watchPlan() {
   yield all([
     takeEvery(USER_CREATE_NEW_PLAN, userCreateNewPlanSaga),
     takeEvery(USER_CREATE_NEW_PLAN_SUCCEEDED, dataGetMyPlansSaga),

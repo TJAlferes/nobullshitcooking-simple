@@ -23,19 +23,18 @@ import {
 } from './utils/storageHelpers';
 import { dataInit } from './store/data/actions';
 import rootReducer from './store/rootReducer';
-import {
-  watchAuth,
-  watchData,
-  watchMessenger,
-  watchUserAvatar,
-  watchUserEquipment,
-  watchUserFavorite,
-  watchUserFriendship,
-  watchUserIngredient,
-  watchUserPlan,
-  watchUserRecipe,
-  watchUserSave
-} from './store/watcherSagas';
+import { watchAuth } from './store/watchers/auth';
+import { watchAvatar } from './store/watchers/avatar';
+import { watchContent } from './store/watchers/content';
+import { watchData } from './store/watchers/data';
+import { watchEquipment } from './store/watchers/equipment';
+import { watchFavorite } from './store/watchers/favorite';
+import { watchFriendship } from './store/watchers/friendship';
+import { watchIngredient } from './store/watchers/ingredient';
+import { watchMessenger } from './store/watchers/messenger';
+import { watchPlan } from './store/watchers/plan';
+import { watchRecipe } from './store/watchers/recipe';
+import { watchSave } from './store/watchers/save';
 import App from './App';
 import './global.css';
 import './themes/navGridA.css';
@@ -59,16 +58,17 @@ export const store = createStore(
 );
 
 sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchAvatar);
+sagaMiddleware.run(watchContent);
 sagaMiddleware.run(watchData);
+sagaMiddleware.run(watchEquipment);
+sagaMiddleware.run(watchFavorite);
+sagaMiddleware.run(watchFriendship);
+sagaMiddleware.run(watchIngredient);
 sagaMiddleware.run(watchMessenger);
-sagaMiddleware.run(watchUserAvatar);
-sagaMiddleware.run(watchUserEquipment);
-sagaMiddleware.run(watchUserFavorite);
-sagaMiddleware.run(watchUserFriendship);
-sagaMiddleware.run(watchUserIngredient);
-sagaMiddleware.run(watchUserPlan);
-sagaMiddleware.run(watchUserRecipe);
-sagaMiddleware.run(watchUserSave);
+sagaMiddleware.run(watchPlan);
+sagaMiddleware.run(watchRecipe);
+sagaMiddleware.run(watchSave);
 
 store.dispatch(dataInit());
 
