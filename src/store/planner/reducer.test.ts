@@ -1,4 +1,4 @@
-import plannerReducer from './reducer';
+import { plannerReducer } from './reducer';
 import {
   PLANNER_CLICK_DAY,
   PLANNER_ADD_RECIPE_TO_DAY,
@@ -43,14 +43,12 @@ const initialState = {
   }
 };
 
-describe('the planner reducer', () => {
+describe('planner reducer', () => {
   it('returns initial state', () => {
     const actual = plannerReducer(undefined, {type: PLANNER_CLEAR_WORK});
     const expected = initialState;
     expect(actual).toEqual(expected);
   });
-
-
 
   it('handles actions of type PLANNER_CLICK_DAY on a day', () => {
     const actual = plannerReducer(initialState, {
@@ -98,8 +96,6 @@ describe('the planner reducer', () => {
     const expected = initialState;
     expect(actual).toEqual(expected);
   });
-
-
 
   it('handles actions of type PLANNER_ADD_RECIPE_TO_DAY', () => {
     const actual = plannerReducer(initialState, {
@@ -197,8 +193,6 @@ describe('the planner reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-
   /*it('handles actions of type PLANNER_PUBLIC_LOAD_FROM_URL', () => {
     const actual = plannerReducer(, {
       type: PLANNER_PUBLIC_LOAD_FROM_URL
@@ -207,8 +201,6 @@ describe('the planner reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-  
   it('handles actions of type PLANNER_PUBLIC_SAVE_TO_URL', () => {
     const actual = plannerReducer(, {
       type: PLANNER_PUBLIC_SAVE_TO_URL
@@ -216,9 +208,7 @@ describe('the planner reducer', () => {
     const expected = ;
     expect(actual).toEqual(expected);
   });*/
-
-
-
+  
   it('handles actions of type PLANNER_CLEAR_WORK', () => {
     const beforeState = {
       isLoading: false,

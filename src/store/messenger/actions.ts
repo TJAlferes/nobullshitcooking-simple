@@ -16,7 +16,6 @@ import {
   MESSENGER_SEND_WHISPER,
   MESSENGER_RECEIVED_WHISPER,
   MESSENGER_FAILED_WHISPER,
-  //Message,
   IMessageBeforeClientTimestamp,
   IMessage,
   IWhisperBeforeClientTimestamp,
@@ -24,21 +23,13 @@ import {
   IUser
 } from './types';
 
-export const messengerConnect = () => ({
-  type: MESSENGER_CONNECT
-});
+export const messengerConnect = () => ({type: MESSENGER_CONNECT});
 
-export const messengerConnected = () => ({
-  type: MESSENGER_CONNECTED
-});
+export const messengerConnected = () => ({type: MESSENGER_CONNECTED});
 
-export const messengerDisconnect = () => ({
-  type: MESSENGER_DISCONNECT
-});
+export const messengerDisconnect = () => ({type: MESSENGER_DISCONNECT});
 
-export const messengerDisconnected = () => ({
-  type: MESSENGER_DISCONNECTED
-});
+export const messengerDisconnected = () => ({type: MESSENGER_DISCONNECTED});
 
 export const messengerGetOnline = (online: IUser[]) => ({
   type: MESSENGER_GET_ONLINE,

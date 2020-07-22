@@ -22,7 +22,7 @@ import {
   saveToLocalStorage
 } from './utils/storageHelpers';
 import { dataInit } from './store/data/actions';
-import rootReducer from './store/rootReducer';
+import { rootReducer } from './store/rootReducer';
 import {
   watchAuth,
   watchAvatar,

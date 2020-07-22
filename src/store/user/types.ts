@@ -95,14 +95,14 @@ Actions
 
 export type UserActions =
 IUserMessageClear |
+IUserSubmitAvatarSucceeded |
+IUserSubmitAvatarFailed |
 IUserCreateNewContentSucceeded |
 IUserCreateNewContentFailed |
 IUserEditContentSucceeded |
 IUserEditContentFailed |
 IUserDeleteContentSucceeded |
 IUserDeleteContentFailed |
-IUserSubmitAvatarSucceeded |
-IUserSubmitAvatarFailed |
 IUserCreateNewPrivateEquipmentSucceeded |
 IUserCreateNewPrivateEquipmentFailed |
 IUserEditPrivateEquipmentSucceeded |

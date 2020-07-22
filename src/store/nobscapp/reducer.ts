@@ -4,10 +4,10 @@ import {
   NOBSCAppActions
 } from './types';
 
-// make false first, have them click on something (Connect button?)
+// TO DO: make false first, have them click on something (Connect button?)
 const initialState: INOBSCAppState = {windowFocused: true};
 
-const nobscappReducer = (
+export const nobscappReducer = (
   state = initialState,
   action: NOBSCAppActions
 ): INOBSCAppState => {
@@ -17,5 +17,3 @@ const nobscappReducer = (
     default: return state;
   }
 };
-
-export default nobscappReducer;

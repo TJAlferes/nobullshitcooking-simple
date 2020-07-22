@@ -55,14 +55,12 @@ const clickDay = (
   return {...state, ...{expanded: true, expandedDay: action.day}};
 };
 
-const plannerViewReducer = (
+export const plannerViewReducer = (
   state = initialState,
   action: PlannerViewActions
 ): IPlannerViewState => {
   switch (action.type) {
-    case PLANNER_VIEW_CLICK_DAY:
-      return clickDay(state, action);
-
+    case PLANNER_VIEW_CLICK_DAY: return clickDay(state, action);
     case PLANNER_VIEW_LOAD:
       return {
         ...state,
@@ -71,5 +69,3 @@ const plannerViewReducer = (
     default: return state;
   }
 };
-
-export default plannerViewReducer;

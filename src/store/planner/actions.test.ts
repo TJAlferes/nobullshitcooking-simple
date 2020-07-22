@@ -33,7 +33,7 @@ const recipeOne = {
   recipe_image: "nobsc-pho"
 };
 
-describe('the plannerClickDay action creator', () => {
+describe('plannerClickDay action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerClickDay(4).type;
     const expected = PLANNER_CLICK_DAY;
@@ -46,7 +46,7 @@ describe('the plannerClickDay action creator', () => {
   });
 });
 
-describe('the plannerAddRecipeToDay action creator', () => {
+describe('plannerAddRecipeToDay action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerAddRecipeToDay(5, recipeOne).type;
     const expected = PLANNER_ADD_RECIPE_TO_DAY;
@@ -64,7 +64,7 @@ describe('the plannerAddRecipeToDay action creator', () => {
   });
 });
 
-describe('the plannerRemoveRecipeFromDay action creator', () => {
+describe('plannerRemoveRecipeFromDay action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerRemoveRecipeFromDay(5, 0).type;
     const expected = PLANNER_REMOVE_RECIPE_FROM_DAY;
@@ -82,7 +82,7 @@ describe('the plannerRemoveRecipeFromDay action creator', () => {
   });
 });
 
-describe('the plannerReorderRecipeInDay action creator', () => {
+describe('plannerReorderRecipeInDay action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerReorderRecipeInDay(0, 2).type;
     const expected = PLANNER_REORDER_RECIPE_IN_DAY;
@@ -100,70 +100,7 @@ describe('the plannerReorderRecipeInDay action creator', () => {
   });
 });
 
-
-
-/*describe('the plannerViewClickDay action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = plannerViewClickDay(14).type;
-    const expected = PLANNER_VIEW_CLICK_DAY;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct day', () => {
-    const actual = plannerViewClickDay(14).day;
-    const expected = 14;
-    expect(actual).toEqual(expected);
-  });
-});
-
-describe('the plannerPrivateLoad action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = plannerPrivateLoad("A Great Plan", {
-       1: [],
-       2: [{id: 503, title: "Pho"}],
-       3: [],  4: [],  5: [],  6: [],  7: [],
-       8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-      15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-      22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-    }).type;
-    const expected = PLANNER_PRIVATE_LOAD;
-    expect(actual).toEqual(expected);
-  });
-
-  it('returns the correct planName', () => {
-    const actual = plannerPrivateLoad("A Great Plan", {
-       1: [],
-       2: [{id: 503, title: "Pho"}],
-       3: [],  4: [],  5: [],  6: [],  7: [],
-       8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-      15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-      22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-    }).planName;
-    const expected = "A Great Plan";
-    expect(actual).toEqual(expected);
-  });
-
-  it('returns the correct planData', () => {
-    const actual = plannerPrivateLoad("A Great Plan", {
-       1: [],
-       2: [{id: 503, title: "Pho"}],
-       3: [],  4: [],  5: [],  6: [],  7: [],
-       8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-      15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-      22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-    }).planData;
-    const expected = {
-       1: [],
-       2: [{id: 503, title: "Pho"}],
-       3: [],  4: [],  5: [],  6: [],  7: [],
-       8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-      15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-      22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-    };
-    expect(actual).toEqual(expected);
-  });
-});*/
-
-describe('the plannerClearWork action creator', () => {
+describe('plannerClearWork action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerClearWork().type;
     const expected = PLANNER_CLEAR_WORK;
@@ -171,7 +108,7 @@ describe('the plannerClearWork action creator', () => {
   });
 });
 
-describe('the plannerSetCreating action creator', () => {
+describe('plannerSetCreating action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerSetCreating().type;
     const expected = PLANNER_SET_CREATING;
@@ -179,7 +116,7 @@ describe('the plannerSetCreating action creator', () => {
   });
 });
 
-describe('the plannerSetEditingId action creator', () => {
+describe('plannerSetEditingId action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerSetEditingId(7544).type;
     const expected = PLANNER_SET_EDITING_ID;
@@ -192,7 +129,7 @@ describe('the plannerSetEditingId action creator', () => {
   });
 });
 
-describe('the plannerSetPlanName action creator', () => {
+describe('plannerSetPlanName action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerSetPlanName("A Great Plan").type;
     const expected = PLANNER_SET_PLAN_NAME;
@@ -205,7 +142,7 @@ describe('the plannerSetPlanName action creator', () => {
   });
 });
 
-describe('the plannerSetPlanData action creator', () => {
+describe('plannerSetPlanData action creator', () => {
   const dataToSet = {
     1: [],
     2: [recipeOne],

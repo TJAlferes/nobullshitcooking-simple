@@ -1,4 +1,4 @@
-import geolocationReducer from './reducer';
+import { geolocationReducer } from './reducer';
 import {
   GEO_ADDRESS,
   GEO_LATITUDE,
@@ -13,7 +13,7 @@ const initialState = {
   nearbyStoresClicked: false
 };
 
-describe('the geolocation reducer', () => {
+describe('geolocation reducer', () => {
   it('returns initial state', () => {
     const actual = geolocationReducer(undefined, {
       type: GEO_ADDRESS,

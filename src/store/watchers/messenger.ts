@@ -18,11 +18,15 @@ import {
 
 export function* watchMessenger() {
   yield all([
-    takeEvery(AUTH_USER_LOGOUT, messengerDisconnectSaga),
     takeEvery(MESSENGER_CONNECT, messengerConnectSaga),
+
     takeEvery(MESSENGER_DISCONNECT, messengerDisconnectSaga),
+    takeEvery(AUTH_USER_LOGOUT, messengerDisconnectSaga),
+
     takeEvery(MESSENGER_CHANGE_CHANNEL, messengerChangeChannelSaga),
+
     takeEvery(MESSENGER_SEND_MESSAGE, messengerSendMessageSaga),
+
     takeEvery(MESSENGER_SEND_WHISPER, messengerSendWhisperSaga)
   ]);
 }

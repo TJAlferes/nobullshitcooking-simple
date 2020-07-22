@@ -37,8 +37,7 @@ import {
   MESSENGER_FAILED_WHISPER
 } from './types';
 
-
-describe('the messengerConnect action creator', () => {
+describe('messengerConnect action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerConnect().type;
     const expected = MESSENGER_CONNECT;
@@ -46,7 +45,7 @@ describe('the messengerConnect action creator', () => {
   });
 });
 
-describe('the messengerConnected action creator', () => {
+describe('messengerConnected action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerConnected().type;
     const expected = MESSENGER_CONNECTED;
@@ -54,7 +53,7 @@ describe('the messengerConnected action creator', () => {
   });
 });
 
-describe('the messengerDisconnect action creator', () => {
+describe('messengerDisconnect action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerDisconnect().type;
     const expected = MESSENGER_DISCONNECT;
@@ -62,7 +61,7 @@ describe('the messengerDisconnect action creator', () => {
   });
 });
 
-describe('the messengerDisconnected action creator', () => {
+describe('messengerDisconnected action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerDisconnected().type;
     const expected = MESSENGER_DISCONNECTED;
@@ -70,9 +69,7 @@ describe('the messengerDisconnected action creator', () => {
   });
 });
 
-
-
-describe('the messengerGetOnline action creator', () => {
+describe('messengerGetOnline action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerGetOnline([
       {userId: '5', username: 'Alex', avatar: 'Alex'}
@@ -91,7 +88,7 @@ describe('the messengerGetOnline action creator', () => {
   });
 });
 
-describe('the messengerShowOnline action creator', () => {
+describe('messengerShowOnline action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerShowOnline(
       {userId: '5', username: 'Alex', avatar: 'Alex'}
@@ -108,7 +105,7 @@ describe('the messengerShowOnline action creator', () => {
   });
 });
 
-describe('the messengerShowOffline action creator', () => {
+describe('messengerShowOffline action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerShowOffline(
       {userId: '5', username: 'Alex', avatar: 'Alex'}
@@ -125,9 +122,7 @@ describe('the messengerShowOffline action creator', () => {
   });
 });
 
-
-
-describe('the messengerChangeChannel action creator', () => {
+describe('messengerChangeChannel action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerChangeChannel('5067').type;
     const expected = MESSENGER_CHANGE_CHANNEL;
@@ -140,7 +135,7 @@ describe('the messengerChangeChannel action creator', () => {
   });
 });
 
-describe('the messengerChangedChannel action creator', () => {
+describe('messengerChangedChannel action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerChangedChannel(
       [
@@ -181,7 +176,7 @@ describe('the messengerChangedChannel action creator', () => {
   });
 });
 
-describe('the messengerRejoinedChannel action creator', () => {
+describe('messengerRejoinedChannel action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerRejoinedChannel(
       [
@@ -222,7 +217,7 @@ describe('the messengerRejoinedChannel action creator', () => {
   });
 });
 
-describe('the messengerJoinedUser action creator', () => {
+describe('messengerJoinedUser action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerJoinedUser(
       {userId: '5', username: 'Alex', avatar: 'Alex'}
@@ -239,7 +234,7 @@ describe('the messengerJoinedUser action creator', () => {
   });
 });
 
-describe('the messengerLeftUser action creator', () => {
+describe('messengerLeftUser action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerLeftUser(
       {userId: '5', username: 'Alex', avatar: 'Alex'}
@@ -255,8 +250,6 @@ describe('the messengerLeftUser action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-
-
 
 describe('messengerSendMessage action creator', () => {
   it('returns the correct action type', () => {
@@ -345,7 +338,7 @@ describe('messengerReceivedWhisper action creator', () => {
   });
 });
 
-describe('the messengerFailedWhisper action creator', () => {
+describe('messengerFailedWhisper action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerFailedWhisper("User not found.").type;
     const expected = MESSENGER_FAILED_WHISPER;

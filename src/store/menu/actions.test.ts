@@ -1,8 +1,7 @@
+import { menuShadowShow, menuShadowHide } from './actions';
 import { MENU_SHADOW_SHOW, MENU_SHADOW_HIDE } from './types';
 
-import { menuShadowShow, menuShadowHide } from './actions';
-
-describe('the menuShadowShow action creator', () => {
+describe('menuShadowShow action creator', () => {
   it('returns the correct action type', () => {
     const actual = menuShadowShow().type;
     const expected = MENU_SHADOW_SHOW;
@@ -10,7 +9,7 @@ describe('the menuShadowShow action creator', () => {
   });
 });
 
-describe('the menuShadowHide action creator', () => {
+describe('menuShadowHide action creator', () => {
   it('returns the correct action type', () => {
     const actual = menuShadowHide().type;
     const expected = MENU_SHADOW_HIDE;

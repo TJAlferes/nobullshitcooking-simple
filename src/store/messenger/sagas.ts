@@ -7,6 +7,7 @@ import { store } from '../../index';
 import {
   messengerConnected,
   messengerDisconnected,
+  messengerGetOnline,
   messengerShowOnline,
   messengerShowOffline,
   messengerChangedChannel,
@@ -15,9 +16,16 @@ import {
   messengerLeftUser,
   messengerReceivedMessage,
   messengerReceivedWhisper,
-  messengerFailedWhisper,
-  messengerGetOnline
+  messengerFailedWhisper
 } from './actions';
+import {
+  IMessage,
+  IWhisper,
+  IUser,
+  IMessengerChangeChannel,
+  IMessengerSendMessage,
+  IMessengerSendWhisper
+} from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 const socket = io.connect(`${endpoint}`, {
@@ -25,93 +33,85 @@ const socket = io.connect(`${endpoint}`, {
   autoConnect: false
 });
 
+// TO DO: make better event names (server side too)
 
+/*
 
-// +=========+
-// |  Users  |
-// +=========+
+Users
 
-socket.on('GetOnline', online => {
+*/
+
+socket.on('GetOnline', (online: []) => {
   if (!online) return;
-  if (typeof online === "undefined") return;
   store.dispatch(messengerGetOnline(online));
 });
 
-socket.on('ShowOnline', (user) => {
+socket.on('ShowOnline', (user: IUser) => {
   if (!user) return;
-  if (typeof user === "undefined") return;
   store.dispatch(messengerShowOnline(user));
 });
 
-socket.on('ShowOffline', (user) => {
+socket.on('ShowOffline', (user: IUser) => {
   if (!user) return;
-  if (typeof user === "undefined") return;
   store.dispatch(messengerShowOffline(user));
 });
 
+/*
 
+Messages
 
-// +============+
-// |  Messages  |
-// +============+
+*/
 
-socket.on('AddChat', (message) => {
+socket.on('AddChat', (message: IMessage) => {
   if (!message) return;
-  if (typeof message === "undefined") return;
   store.dispatch(messengerReceivedMessage(message));
 });
 
-socket.on('AddWhisper', (whisper) => {
+socket.on('AddWhisper', (whisper: IWhisper) => {
   if (!whisper) return;
-  if (typeof whisper === "undefined") return;
   store.dispatch(messengerReceivedWhisper(whisper));
 });
 
-socket.on('FailedWhisper', (feedback) => {
+socket.on('FailedWhisper', (feedback: string) => {
   if (!feedback) return;
-  if (typeof feedback === "undefined") return;
   store.dispatch(messengerFailedWhisper(feedback));
 });
 
+/*
 
+Rooms
 
-// +=========+
-// |  Rooms  |
-// +=========+
+*/
 
-socket.on('GetUser', (users, roomToAdd) => {
+socket.on('GetUser', (users: [], roomToAdd: string) => {
   if (!users) return;
   if (!roomToAdd) return;
-  if (typeof users === "undefined") return;
-  if (typeof users === "roomToAdd") return;  // ?
+  //if (typeof users === "roomToAdd") return;  // ?
   store.dispatch(messengerChangedChannel(users, roomToAdd));
 });
 
-socket.on('RegetUser', (users, roomToRejoin) => {
+socket.on('RegetUser', (users: [], roomToRejoin: string) => {
   if (!users) return;
   if (!roomToRejoin) return;
-  if (typeof users === "undefined") return;
-  if (typeof users === "roomToRejoin") return;  // ?
+  //if (typeof users === "roomToRejoin") return;  // ?
   store.dispatch(messengerRejoinedChannel(users, roomToRejoin));
 });
 
-socket.on('AddUser', (user) => {
+socket.on('AddUser', (user: IUser) => {
   if (!user) return;
-  if (typeof user === "undefined") return;
   store.dispatch(messengerJoinedUser(user));
 });
 
-socket.on('RemoveUser', (user) => {
+socket.on('RemoveUser', (user: IUser) => {
   if (!user) return;
-  if (typeof user === "undefined") return;
   store.dispatch(messengerLeftUser(user));
 });
 
+/*
 
+SocketIO Events
 
-// +===================+
-// |  SocketIO events  |
-// +===================+
+*/
 
 socket.on('connect', () => {
   store.dispatch(messengerConnected());
@@ -128,44 +128,45 @@ socket.on('reconnect', () => {
   //socket.emit('GetOnline');  Call here again?
 });
 
+/*
 
+Sagas
 
-// +=========+
-// |  Sagas  |
-// +=========+
+*/
 
 // use call([socket, socket.method(), ...args])
-
 // do these even need to be sagas?
+// channels?
 
 export function* messengerConnectSaga() {
   socket.connect();
-  console.log('hey');
 }
 
 export function* messengerDisconnectSaga() {
   socket.disconnect();
 }
 
-export function* messengerChangeChannelSaga(action) {
+export function* messengerChangeChannelSaga(action: IMessengerChangeChannel) {
   socket.emit('AddRoom', action.channel);
 }
 
-export function* messengerSendMessageSaga(action) {
+export function* messengerSendMessageSaga(action: IMessengerSendMessage) {
   socket.emit('AddChat', action.message);
 }
 
-export function* messengerSendWhisperSaga(action) {
+export function* messengerSendWhisperSaga(action: IMessengerSendWhisper) {
   socket.emit('AddWhisper', action.whisper, action.to);
 }
 
 export function* messengerUpdateOnlineSaga() {
   const { messenger } = store.getState();
-  if (store.getState(messenger.status) === "Connected") socket.emit('GetOnline');
+  if (messenger.status === "Connected") {
+    socket.emit('GetOnline');
+  }
 }
 
 export function messengerRejoinRoomSaga() {
   const { messenger } = store.getState();
-  if (store.getState(messenger.channel) === "") return;
+  if (messenger.channel === "") return;
   socket.emit('RejoinRoom', messenger.channel);
 }

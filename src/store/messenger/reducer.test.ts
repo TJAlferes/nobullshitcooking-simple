@@ -1,5 +1,5 @@
 import { AUTH_USER_LOGOUT } from '../auth/types';
-import messengerReducer from './reducer';
+import { messengerReducer } from './reducer';
 import {
   MESSENGER_CONNECTED,
   MESSENGER_DISCONNECTED,
@@ -25,7 +25,7 @@ const initialState = {
   disconnectButtonDisabled: true,
 };
 
-describe('the messenger reducer', () => {
+describe('messenger reducer', () => {
   it('returns initial state', () => {
     const actual = messengerReducer(undefined, {type: MESSENGER_CONNECTED});
     const expected = {
@@ -40,8 +40,6 @@ describe('the messenger reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-
   it('handles actions of type MESSENGER_CONNECTED', () => {
     const actual = messengerReducer(initialState, {type: MESSENGER_CONNECTED});
     const expected = {
@@ -55,8 +53,6 @@ describe('the messenger reducer', () => {
     };
     expect(actual).toEqual(expected);
   });
-
-
 
   it('handles actions of type MESSENGER_DISCONNECTED', () => {
     const beforeState = {
@@ -81,8 +77,6 @@ describe('the messenger reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-
   it('handles actions of type AUTH_USER_LOGOUT', () => {
     const beforeState = {
       channel: "",
@@ -106,7 +100,30 @@ describe('the messenger reducer', () => {
     expect(actual).toEqual(expected);
   });
 
+  it('handles actions of type MESSENGER_GET_ONLINE', () => {
+    const actual = messengerReducer(initialState, {
+      type: MESSENGER_GET_ONLINE,
+      online: [
+        {userId: 43, username: "MrClean", avatar: "MrClean"},
+        {userId: 52, username: "Shabsquash", avatar: "Shabsquash"}
+      ]
+    });
 
+    const expected = {
+      channel: "",
+      messages: [],
+      users: [],
+      onlineFriends: [
+        {userId: 43, username: "MrClean", avatar: "MrClean"},
+        {userId: 52, username: "Shabsquash", avatar: "Shabsquash"}
+      ],
+      status: "Disconnected",
+      connectButtonDisabled: false,
+      disconnectButtonDisabled: true,
+    };
+
+    expect(actual).toEqual(expected);
+  });
 
   it('handles actions of type MESSENGER_SHOW_ONLINE', () => {
     const beforeState = {
@@ -134,8 +151,6 @@ describe('the messenger reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-
   it('handles actions of type MESSENGER_SHOW_OFFLINE', () => {
     const beforeState = {
       channel: "",
@@ -161,8 +176,6 @@ describe('the messenger reducer', () => {
     };
     expect(actual).toEqual(expected);
   });
-
-
 
   it('handles actions of type MESSENGER_CHANGED_CHANNEL', () => {
     const beforeState = {
@@ -190,8 +203,6 @@ describe('the messenger reducer', () => {
     };
     expect(actual).toEqual(expected);
   });
-
-
 
   it('handles actions of type MESSENGER_REJOINED_CHANNEL', () => {
     const clientTimeStr = (new Date).toLocaleTimeString();
@@ -237,8 +248,6 @@ describe('the messenger reducer', () => {
     
     expect(actual).toEqual(expected);
   });
-
-
 
   it('handles actions of type MESSENGER_JOINED_USER', () => {
     const clientTimeStr = (new Date).toLocaleTimeString();
@@ -320,8 +329,6 @@ describe('the messenger reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-
   it('handles actions of type MESSENGER_LEFT_USER', () => {
     const clientTimeStr = (new Date).toLocaleTimeString();
 
@@ -400,8 +407,6 @@ describe('the messenger reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-
   it('handles actions of type MESSENGER_RECEIVED_MESSAGE', () => {
     const clientTimeStr = (new Date).toLocaleTimeString();
 
@@ -468,8 +473,6 @@ describe('the messenger reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-
   it('handles actions of type MESSENGER_RECEIVED_WHISPER', () => {
     const clientTimeStr = (new Date).toLocaleTimeString();
 
@@ -515,8 +518,6 @@ describe('the messenger reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-
   it('handles actions of type MESSENGER_FAILED_WHISPER', () => {
     const clientTimeStr = (new Date).toLocaleTimeString();
 
@@ -556,33 +557,6 @@ describe('the messenger reducer', () => {
       status: "Connected",
       connectButtonDisabled: true,
       disconnectButtonDisabled: false
-    };
-
-    expect(actual).toEqual(expected);
-  });
-
-
-
-  it('handles actions of type MESSENGER_GET_ONLINE', () => {
-    const actual = messengerReducer(initialState, {
-      type: MESSENGER_GET_ONLINE,
-      online: [
-        {userId: 43, username: "MrClean", avatar: "MrClean"},
-        {userId: 52, username: "Shabsquash", avatar: "Shabsquash"}
-      ]
-    });
-
-    const expected = {
-      channel: "",
-      messages: [],
-      users: [],
-      onlineFriends: [
-        {userId: 43, username: "MrClean", avatar: "MrClean"},
-        {userId: 52, username: "Shabsquash", avatar: "Shabsquash"}
-      ],
-      status: "Disconnected",
-      connectButtonDisabled: false,
-      disconnectButtonDisabled: true,
     };
 
     expect(actual).toEqual(expected);

@@ -1,8 +1,7 @@
+import { searchReducer } from './reducer';
 import { SEARCH_SET_INDEX } from './types';
 
-import searchReducer from './reducer';
-
-describe('the search reducer', () => {
+describe('search reducer', () => {
   it('returns initial state', () => {
     const actual = searchReducer(undefined, {
       type: SEARCH_SET_INDEX,

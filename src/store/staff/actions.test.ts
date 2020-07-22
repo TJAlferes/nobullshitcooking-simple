@@ -1,7 +1,7 @@
 import { staffMessageClear } from './actions';
 import { STAFF_MESSAGE_CLEAR } from './types';
 
-describe('the staffMessageClear action creator', () => {
+describe('staffMessageClear action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffMessageClear().type;
     const expected = STAFF_MESSAGE_CLEAR;

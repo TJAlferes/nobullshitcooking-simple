@@ -4,25 +4,31 @@ export const MESSENGER_CONNECT = 'MESSENGER_CONNECT' as const;
 export const MESSENGER_CONNECTED = 'MESSENGER_CONNECTED' as const;
 export const MESSENGER_DISCONNECT = 'MESSENGER_DISCONNECT' as const;
 export const MESSENGER_DISCONNECTED = 'MESSENGER_DISCONNECTED' as const;
-export const MESSENGER_SHOW_ONLINE = 'MESSENGER_SHOW_ONLINE' as const;
-export const MESSENGER_SHOW_OFFLINE = 'MESSENGER_SHOW_OFFLINE' as const;
+
+export const MESSENGER_GET_ONLINE = 'MESSENGER_GET_ONLINE' as const;  // needs a better name
+export const MESSENGER_SHOW_ONLINE = 'MESSENGER_SHOW_ONLINE' as const;  // needs a better name
+export const MESSENGER_SHOW_OFFLINE = 'MESSENGER_SHOW_OFFLINE' as const;  // needs a better name
+
 export const MESSENGER_CHANGE_CHANNEL = 'MESSENGER_CHANGE_CHANNEL' as const;
 export const MESSENGER_CHANGED_CHANNEL = 'MESSENGER_CHANGED_CHANNEL' as const;
 export const MESSENGER_REJOINED_CHANNEL = 'MESSENGER_REJOINED_CHANNEL' as const;
+
+export const MESSENGER_JOINED_USER = 'MESSENGER_JOINED_USER' as const;  // needs a better name
+export const MESSENGER_LEFT_USER = 'MESSENGER_LEFT_USER' as const;  // needs a better name
+
 export const MESSENGER_SEND_MESSAGE = 'MESSENGER_SEND_MESSAGE' as const;
 export const MESSENGER_SEND_WHISPER = 'MESSENGER_SEND_WHISPER' as const;
 export const MESSENGER_RECEIVED_MESSAGE = 'MESSENGER_RECEIVED_MESSAGE' as const;
 export const MESSENGER_RECEIVED_WHISPER = 'MESSENGER_RECEIVED_WHISPER' as const;
 export const MESSENGER_FAILED_WHISPER = 'MESSENGER_FAILED_WHISPER' as const;
-export const MESSENGER_JOINED_USER = 'MESSENGER_JOINED_USER' as const;
-export const MESSENGER_LEFT_USER = 'MESSENGER_LEFT_USER' as const;
-export const MESSENGER_GET_ONLINE = 'MESSENGER_GET_ONLINE' as const;
 
 /*
 
 State
 
 */
+
+// TO DO: double-check times
 
 export interface IMessengerState {
   channel: string
@@ -129,7 +135,7 @@ interface IMessengerShowOffline {
   user: IUser
 }
 
-interface IMessengerChangeChannel {
+export interface IMessengerChangeChannel {
   type: typeof MESSENGER_CHANGE_CHANNEL
   channel: string
 }
@@ -158,7 +164,7 @@ interface IMessengerLeftUser {
   ts: string
 }
 
-interface IMessengerSendMessage {
+export interface IMessengerSendMessage {
   type: typeof MESSENGER_SEND_MESSAGE
   message: string
 }
@@ -168,7 +174,7 @@ export interface IMessengerReceivedMessage {
   message: IMessage
 }
 
-interface IMessengerSendWhisper {
+export interface IMessengerSendWhisper {
   type: typeof MESSENGER_SEND_WHISPER
   whisper: string
   to: string

@@ -14,7 +14,7 @@ const initialState: IGeoState = {
   nearbyStoresClicked: false
 };
 
-const geolocationReducer = (
+export const geolocationReducer = (
   state = initialState,
   action: GeoActions
 ): IGeoState => {
@@ -39,8 +39,6 @@ const geolocationReducer = (
         ...state,
         ...{nearbyStoresClicked: action.clicked}
       };
+    default: return state;
   }
-  return state;
 };
-
-export default geolocationReducer;

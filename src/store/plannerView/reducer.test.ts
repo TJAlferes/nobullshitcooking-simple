@@ -1,4 +1,4 @@
-import plannerViewReducer from './reducer';
+import { plannerViewReducer } from './reducer';
 import { PLANNER_VIEW_CLICK_DAY, PLANNER_VIEW_LOAD } from './types';
 
 const recipeOne = {
@@ -28,7 +28,7 @@ const initialState = {
   }
 };
 
-describe('the plannerView reducer', () => {
+describe('plannerView reducer', () => {
   it('handles actions of type PLANNER_VIEW_CLICK_DAY on a day', () => {
     const actual = plannerViewReducer(initialState, {
       type: PLANNER_VIEW_CLICK_DAY,
@@ -48,8 +48,6 @@ describe('the plannerView reducer', () => {
     };
     expect(actual).toEqual(expected);
   });
-
-
 
   it('handles actions of type PLANNER_VIEW_CLICK_DAY on the expanded day', () => {
     const beforeState = {
@@ -72,9 +70,7 @@ describe('the plannerView reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-
-
-  it('handles actions of type PLANNER_PRIVATE_LOAD', () => {
+  it('handles actions of type PLANNER_VIEW_LOAD', () => {
     const planData = {
       1: [recipeTwo],
       2: [],

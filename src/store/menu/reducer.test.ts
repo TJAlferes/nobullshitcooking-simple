@@ -1,13 +1,9 @@
-import {
-  MENU_SHADOW_SHOW,
-  MENU_SHADOW_HIDE
-} from './types';
-
-import menuReducer from './reducer';
+import { menuReducer } from './reducer';
+import { MENU_SHADOW_SHOW, MENU_SHADOW_HIDE } from './types';
 
 const initialState = {shadow: false};
 
-describe('the menu reducer', () => {
+describe('menu reducer', () => {
   it('returns initial state', () => {
     const actual = menuReducer(undefined, {type: MENU_SHADOW_SHOW});
     const expected = {shadow: true};

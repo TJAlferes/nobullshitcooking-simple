@@ -28,7 +28,7 @@ const planData = {
  22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
 };
 
-describe('the plannerViewClickDay action creator', () => {
+describe('plannerViewClickDay action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerViewClickDay(4).type;
     const expected = PLANNER_VIEW_CLICK_DAY;
@@ -41,7 +41,7 @@ describe('the plannerViewClickDay action creator', () => {
   });
 });
 
-describe('the plannerViewLoad action creator', () => {
+describe('plannerViewLoad action creator', () => {
   it('returns the correct action type', () => {
     const actual = plannerViewLoad(planName, planData).type;
     const expected = PLANNER_VIEW_LOAD;

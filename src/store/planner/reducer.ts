@@ -1,7 +1,5 @@
-import update from 'immutability-helper';
+import update from 'immutability-helper';  // is this really needed?
 
-//import convertPlannerToUrl from '../../utils/publicPlanner/convertPlannerToUrl';
-//import { convertUrlToPlannerv2 } from '../../utils/publicPlanner/convertUrlToPlanner';
 import {
   PLANNER_CLICK_DAY,
   PLANNER_ADD_RECIPE_TO_DAY,
@@ -131,17 +129,14 @@ const reorderRecipeInDay = (
   return {...state, ...{publicUrl: newPublicUrl}}
 };*/
 
-// remember Nir Kofman's actions patterns
-const plannerReducer = (
+export const plannerReducer = (
   state = initialState,
   action: PlannerActions
 ): IPlannerState => {
   switch (action.type) {
-    case PLANNER_CLICK_DAY:
-      return clickDay(state, action);
+    case PLANNER_CLICK_DAY: return clickDay(state, action);
 
-    case PLANNER_ADD_RECIPE_TO_DAY:
-      return addRecipeToDay(state, action);
+    case PLANNER_ADD_RECIPE_TO_DAY: return addRecipeToDay(state, action);
 
     case PLANNER_REMOVE_RECIPE_FROM_DAY:
       return removeRecipeFromDay(state, action);
@@ -153,11 +148,9 @@ const plannerReducer = (
 
     //case PLANNER_PUBLIC_SAVE_TO_URL: return publicSaveToUrl(state, action);
 
-    case PLANNER_CLEAR_WORK:
-      return {...state, ...initialState};
+    case PLANNER_CLEAR_WORK: return {...state, ...initialState};
 
-    case PLANNER_SET_CREATING:
-      return {...state, ...{creating: true}};
+    case PLANNER_SET_CREATING: return {...state, ...{creating: true}};
 
     case PLANNER_SET_PLAN_NAME:
       return {...state, ...{planName: action.name}};
@@ -174,5 +167,3 @@ const plannerReducer = (
     default: return state;
   }
 };
-
-export default plannerReducer;

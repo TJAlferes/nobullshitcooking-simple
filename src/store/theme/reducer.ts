@@ -21,7 +21,7 @@ const initialState: IThemeState = {
   feedTheme: "feed-light"
 };
 
-const themeReducer = (
+export const themeReducer = (
   state = initialState,
   action: ThemeActions
 ): IThemeState => {
@@ -45,12 +45,7 @@ const themeReducer = (
           feedTheme: "feed-dark"
         }
       };
-
-    case THEME_LIGHT_TRIGGER:
-      return {...state, ...initialState};
-
+    case THEME_LIGHT_TRIGGER: return {...state, ...initialState};
     default: return state;
   }
 };
-
-export default themeReducer;

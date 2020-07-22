@@ -1,7 +1,7 @@
 import { themeDarkTrigger, themeLightTrigger } from './actions';
 import { THEME_DARK_TRIGGER, THEME_LIGHT_TRIGGER } from './types';
 
-describe('the themeDarkTrigger action creator', () => {
+describe('themeDarkTrigger action creator', () => {
   it('returns the correct action type', () => {
     const actual = themeDarkTrigger().type;
     const expected = THEME_DARK_TRIGGER;
@@ -9,7 +9,7 @@ describe('the themeDarkTrigger action creator', () => {
   });
 });
 
-describe('the themeLightTrigger action creator', () => {
+describe('themeLightTrigger action creator', () => {
   it('returns the correct action type', () => {
     const actual = themeLightTrigger().type;
     const expected = THEME_LIGHT_TRIGGER;

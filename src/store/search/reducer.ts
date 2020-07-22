@@ -2,7 +2,7 @@ import { SEARCH_SET_INDEX, ISearchState, ISearchActions } from './types';
 
 const initialState: ISearchState = {currentIndex: "recipes"};
 
-const searchReducer = (
+export const searchReducer = (
   state = initialState,
   action: ISearchActions
 ): ISearchState => {
@@ -11,5 +11,3 @@ const searchReducer = (
     default: return state;
   }
 };
-
-export default searchReducer;

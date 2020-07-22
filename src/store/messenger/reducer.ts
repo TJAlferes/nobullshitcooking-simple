@@ -2,6 +2,7 @@ import { AUTH_USER_LOGOUT } from '../auth/types';
 import {
   MESSENGER_CONNECTED,
   MESSENGER_DISCONNECTED,
+  MESSENGER_GET_ONLINE,
   MESSENGER_SHOW_ONLINE,
   MESSENGER_SHOW_OFFLINE,
   MESSENGER_CHANGED_CHANNEL,
@@ -11,14 +12,11 @@ import {
   MESSENGER_RECEIVED_MESSAGE,
   MESSENGER_RECEIVED_WHISPER,
   MESSENGER_FAILED_WHISPER,
-  MESSENGER_GET_ONLINE,
   IMessengerState,
-  MessengerActions,
-  IMessengerReceivedMessage,
-  IMessengerReceivedWhisper
+  MessengerActions
 } from './types';
 
-// NORMALIZE STATE, USE OBJECTS/MAPS, NOT ARRAYS
+// NORMALIZE STATE, USE OBJECTS/MAPS, NOT ARRAYS (maybe)
 // remember Nir Kofman's actions patterns (maybe)
 
 const initialState: IMessengerState = {
@@ -31,7 +29,7 @@ const initialState: IMessengerState = {
   disconnectButtonDisabled: true,
 };
 
-const messengerReducer = (
+export const messengerReducer = (
   state = initialState,
   action: MessengerActions
 ): IMessengerState => {
@@ -45,6 +43,7 @@ const messengerReducer = (
           disconnectButtonDisabled: false
         }
       };
+    
     case MESSENGER_DISCONNECTED:
     case AUTH_USER_LOGOUT:
       return {
@@ -55,11 +54,19 @@ const messengerReducer = (
           disconnectButtonDisabled: true
         }
       };
+    
+    case MESSENGER_GET_ONLINE:
+      return {
+        ...state,
+        ...{onlineFriends: action.online}
+      };
+    
     case MESSENGER_SHOW_ONLINE:
       return {
         ...state,
         ...{onlineFriends: state.onlineFriends.concat(action.user)}
       };
+    
     case MESSENGER_SHOW_OFFLINE:
       return {
         ...state,
@@ -69,6 +76,7 @@ const messengerReducer = (
           )
         }
       };
+    
     case MESSENGER_CHANGED_CHANNEL:
       return {
         ...state,
@@ -78,6 +86,7 @@ const messengerReducer = (
           users: action.users
         }
       };
+    
     case MESSENGER_REJOINED_CHANNEL:
       return {
         ...state,
@@ -86,6 +95,7 @@ const messengerReducer = (
           users: action.users
         }
       };
+    
     case MESSENGER_JOINED_USER:
       return {
         ...state,
@@ -104,6 +114,7 @@ const messengerReducer = (
           users: state.users.concat(action.user)
         }
       };
+    
     case MESSENGER_LEFT_USER:
       return {
         ...state,
@@ -122,16 +133,19 @@ const messengerReducer = (
           users: state.users.filter(user => user.userId !== action.user.userId)
         }
       };
+    
     case MESSENGER_RECEIVED_MESSAGE:
       return {
         ...state,
         ...{messages: state.messages.concat(action.message)}
       };
+    
     case MESSENGER_RECEIVED_WHISPER:
       return {
         ...state,
         ...{messages: state.messages.concat(action.whisper)}
       };
+    
     case MESSENGER_FAILED_WHISPER:
       return {
         ...state,
@@ -149,13 +163,7 @@ const messengerReducer = (
           })
         }
       };
-    case MESSENGER_GET_ONLINE:
-      return {
-        ...state,
-        ...{onlineFriends: action.online}
-      };
+    
+    default: return state;
   }
-  return state;
 };
-
-export default messengerReducer;

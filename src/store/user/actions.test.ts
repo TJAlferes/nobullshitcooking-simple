@@ -1,7 +1,7 @@
 import { userMessageClear } from './actions';
 import { USER_MESSAGE_CLEAR } from './types';
 
-describe('the userMessageClear action creator', () => {
+describe('userMessageClear action creator', () => {
   it('returns the correct action type', () => {
     const actual = userMessageClear().type;
     const expected = USER_MESSAGE_CLEAR;

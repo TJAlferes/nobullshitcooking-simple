@@ -39,39 +39,35 @@ export function staffReducer(
   action: StaffActions
 ): IStaffState {
   switch (action.type) {
-    case STAFF_MESSAGE_CLEAR:
-      return {
-        ...state,
-        ...{message: ''}
-      };
+    case STAFF_MESSAGE_CLEAR: return {...state, ...{message: ''}};
     case STAFF_CREATE_NEW_CONTENT_SUCCEEDED:
     case STAFF_CREATE_NEW_CONTENT_FAILED:
     case STAFF_EDIT_CONTENT_SUCCEEDED:
     case STAFF_EDIT_CONTENT_FAILED:
     case STAFF_DELETE_CONTENT_SUCCEEDED:
     case STAFF_DELETE_CONTENT_FAILED:
+
     case STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED:
     case STAFF_CREATE_NEW_EQUIPMENT_FAILED:
     case STAFF_EDIT_EQUIPMENT_SUCCEEDED:
     case STAFF_EDIT_EQUIPMENT_FAILED:
     case STAFF_DELETE_EQUIPMENT_SUCCEEDED:
     case STAFF_DELETE_EQUIPMENT_FAILED:
+
     case STAFF_CREATE_NEW_INGREDIENT_SUCCEEDED:
     case STAFF_CREATE_NEW_INGREDIENT_FAILED:
     case STAFF_EDIT_INGREDIENT_SUCCEEDED:
     case STAFF_EDIT_INGREDIENT_FAILED:
     case STAFF_DELETE_INGREDIENT_SUCCEEDED:
     case STAFF_DELETE_INGREDIENT_FAILED:
+    
     case STAFF_CREATE_NEW_RECIPE_SUCCEEDED:
     case STAFF_CREATE_NEW_RECIPE_FAILED:
     case STAFF_EDIT_RECIPE_SUCCEEDED:
     case STAFF_EDIT_RECIPE_FAILED:
     case STAFF_DELETE_RECIPE_SUCCEEDED:
     case STAFF_DELETE_RECIPE_FAILED:
-      return {
-        ...state,
-        ...{message: action.message}
-      };
+      return {...state, ...{message: action.message}};
     default: return state;
   }
 }

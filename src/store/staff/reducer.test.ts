@@ -1,3 +1,4 @@
+import { staffReducer } from './reducer';
 import { 
   STAFF_CREATE_NEW_CONTENT_SUCCEEDED,
   STAFF_CREATE_NEW_CONTENT_FAILED,
@@ -31,11 +32,10 @@ import {
   STAFF_DELETE_RECIPE_FAILED,
 } from './recipe/types';
 import { STAFF_MESSAGE_CLEAR } from './types';
-import { staffReducer } from './reducer';
 
 const initialState = {message: ''};
 
-describe('the staff reducer', () => {
+describe('staff reducer', () => {
   it('returns initial state', () => {
     const actual = staffReducer(undefined, {
       type: STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED,
@@ -45,7 +45,11 @@ describe('the staff reducer', () => {
     expect(actual).toEqual(expected);
   });
 
+  /*
 
+  Content
+
+  */
 
   it('handles actions of type STAFF_CREATE_NEW_CONTENT_SUCCEEDED', () => {
     const actual = staffReducer(initialState, {
@@ -101,7 +105,11 @@ describe('the staff reducer', () => {
     expect(actual).toEqual(expected);
   });
 
+  /*
 
+  Equipment
+
+  */
 
   it('handles actions of type STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED', () => {
     const actual = staffReducer(initialState, {
@@ -157,7 +165,11 @@ describe('the staff reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-  
+  /*
+
+  Ingredient
+
+  */
 
   it('handles actions of type STAFF_CREATE_NEW_INGREDIENT_SUCCEEDED', () => {
     const actual = staffReducer(initialState, {
@@ -213,7 +225,11 @@ describe('the staff reducer', () => {
     expect(actual).toEqual(expected);
   });
 
+  /*
 
+  Recipe
+
+  */
 
   it('handles actions of type STAFF_CREATE_NEW_RECIPE_SUCCEEDED', () => {
     const actual = staffReducer(initialState, {
@@ -269,7 +285,11 @@ describe('the staff reducer', () => {
     expect(actual).toEqual(expected);
   });
 
+  /*
 
+  Clear Staff Feedback Message
+
+  */
 
   it('handles action of type STAFF_MESSAGE_CLEAR', () => {
     const beforeState = {message: 'Message.'}

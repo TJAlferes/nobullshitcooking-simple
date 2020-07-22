@@ -1,4 +1,4 @@
-import themeReducer from './reducer';
+import { themeReducer } from './reducer';
 import { THEME_DARK_TRIGGER, THEME_LIGHT_TRIGGER } from './types';
 
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
   feedTheme: "feed-light"
 };
 
-describe('the theme reducer', () => {
+describe('theme reducer', () => {
   it('returns initial state', () => {
     const actual = themeReducer(undefined, {type: THEME_LIGHT_TRIGGER});
     const expected = initialState;

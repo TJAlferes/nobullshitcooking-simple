@@ -14,7 +14,7 @@ import {
 const latitude = "48.51";
 const longitude = "115.43";
 
-describe('the geoLatitude action creator', () => {
+describe('geoLatitude action creator', () => {
   it('returns the correct action type', () => {
     const actual = geoLatitude(latitude).type;
     const expected = GEO_LATITUDE;
@@ -27,7 +27,7 @@ describe('the geoLatitude action creator', () => {
   });
 });
 
-describe('the geoLongitude action creator', () => {
+describe('geoLongitude action creator', () => {
   it('returns the correct action type', () => {
     const actual = geoLongitude(longitude).type;
     const expected = GEO_LONGITUDE;
@@ -40,7 +40,7 @@ describe('the geoLongitude action creator', () => {
   });
 });
 
-describe('the geoAddress action creator', () => {
+describe('geoAddress action creator', () => {
   it('returns the correct action type', () => {
     const actual = geoAddress('123 Pleasant Street, Pleasantville, NP').type;
     const expected = GEO_ADDRESS;
@@ -53,7 +53,7 @@ describe('the geoAddress action creator', () => {
   });
 });
 
-describe('the geoNearbyStoresClicked action creator', () => {
+describe('geoNearbyStoresClicked action creator', () => {
   it('returns the correct action type', () => {
     const actual = geoNearbyStoresClicked(true).type;
     const expected = GEO_NEARBY_STORES_CLICKED;
