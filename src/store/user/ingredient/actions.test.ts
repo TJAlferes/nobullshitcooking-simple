@@ -40,7 +40,7 @@ const editingIngredientInfo = {
   prevIngredientImage: "hot-sauce"
 };
 
-describe('the userCreateNewPrivateIngredient action creator', () => {
+describe('userCreateNewPrivateIngredient action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPrivateIngredient(creatingIngredientInfo).type;
     const expected = USER_CREATE_NEW_PRIVATE_INGREDIENT;
@@ -53,7 +53,7 @@ describe('the userCreateNewPrivateIngredient action creator', () => {
   });
 });
 
-describe('the userCreateNewPrivateIngredientSucceeded action creator', () => {
+describe('userCreateNewPrivateIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPrivateIngredientSucceeded('OK.').type;
     const expected = USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED;
@@ -66,7 +66,7 @@ describe('the userCreateNewPrivateIngredientSucceeded action creator', () => {
   });
 });
 
-describe('the userCreateNewPrivateIngredientFailed action creator', () => {
+describe('userCreateNewPrivateIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPrivateIngredientFailed('Try again.').type;
     const expected = USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED;
@@ -79,7 +79,7 @@ describe('the userCreateNewPrivateIngredientFailed action creator', () => {
   });
 });
 
-describe('the userEditPrivateIngredient action creator', () => {
+describe('userEditPrivateIngredient action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPrivateIngredient(editingIngredientInfo).type;
     const expected = USER_EDIT_PRIVATE_INGREDIENT;
@@ -92,7 +92,7 @@ describe('the userEditPrivateIngredient action creator', () => {
   });
 });
 
-describe('the userEditPrivateIngredientSucceeded action creator', () => {
+describe('userEditPrivateIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPrivateIngredientSucceeded('OK.').type;
     const expected = USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED;
@@ -105,7 +105,7 @@ describe('the userEditPrivateIngredientSucceeded action creator', () => {
   });
 });
 
-describe('the userEditPrivateIngredientFailed action creator', () => {
+describe('userEditPrivateIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPrivateIngredientFailed('Try again.').type;
     const expected = USER_EDIT_PRIVATE_INGREDIENT_FAILED;
@@ -118,7 +118,7 @@ describe('the userEditPrivateIngredientFailed action creator', () => {
   });
 });
 
-describe('the userDeletePrivateIngredient action creator', () => {
+describe('userDeletePrivateIngredient action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePrivateIngredient(7).type;
     const expected = USER_DELETE_PRIVATE_INGREDIENT;
@@ -131,7 +131,7 @@ describe('the userDeletePrivateIngredient action creator', () => {
   });
 });
 
-describe('the userDeletePrivateIngredientSucceeded action creator', () => {
+describe('userDeletePrivateIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePrivateIngredientSucceeded('OK.').type;
     const expected = USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED;
@@ -144,7 +144,7 @@ describe('the userDeletePrivateIngredientSucceeded action creator', () => {
   });
 });
 
-describe('the userDeletePrivateIngredientFailed action creator', () => {
+describe('userDeletePrivateIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePrivateIngredientFailed('Try again.').type;
     const expected = USER_DELETE_PRIVATE_INGREDIENT_FAILED;

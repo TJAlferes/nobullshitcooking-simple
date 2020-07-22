@@ -1,9 +1,5 @@
 import axios from 'axios';
-//import MockAdapter from 'axios-mock-adapter';
 import { call, put, delay } from 'redux-saga/effects';
-//import { expectSaga } from 'redux-saga-test-plan';
-//import * as matchers from 'redux-saga-test-plan/matchers';
-//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -12,10 +8,10 @@ import { staffMessageClear } from '../actions';
 import {
   staffCreateNewRecipeSucceeded,
   staffCreateNewRecipeFailed,
-  staffEditRecipeSucceeded,
-  staffEditRecipeFailed,
   staffDeleteRecipeSucceeded,
-  staffDeleteRecipeFailed
+  staffDeleteRecipeFailed,
+  staffEditRecipeSucceeded,
+  staffEditRecipeFailed
 } from './actions';
 import {
   staffCreateNewRecipeSaga,
@@ -24,12 +20,11 @@ import {
 } from './sagas';
 import {
   STAFF_CREATE_NEW_RECIPE,
-  STAFF_EDIT_RECIPE,
-  STAFF_DELETE_RECIPE
+  STAFF_DELETE_RECIPE,
+  STAFF_EDIT_RECIPE
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-//const mock = new MockAdapter(axios, {delayResponse: 100});
 const fullRecipeImage = new File(
   [(new Blob)], "resizedFinal", {type: "image/jpeg"}
 );
@@ -98,16 +93,11 @@ const editingRecipeInfo = {
   fullRecipeCookingImage
 };
 
-describe('the staffCreateNewRecipeSaga', () => {
+describe('staffCreateNewRecipeSaga', () => {
   const action = {
     type: STAFF_CREATE_NEW_RECIPE,
     recipeInfo: creatingRecipeInfo
   };
-  /*it('works', () => {
-    const action = {ownership: "public"};
-    return expectSaga(userCreateNewRecipeSaga, action)
-    .silentRun(50);
-  });*/
 
   const res1 = {
     data: {
@@ -282,75 +272,8 @@ describe('the staffCreateNewRecipeSaga', () => {
   });
 });
 
-
-
-describe('the userDeletePrivateRecipeSaga', () => {
-  const action = {type: STAFF_DELETE_RECIPE,recipeId: 4};
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userDeletePrivateRecipeSaga, action)
-    .silentRun(50);
-  });*/
-
-  it('should dispatch succeeded', () => {
-    const iterator = staffDeleteRecipeSaga(action);
-    const res = {data: {message: 'Recipe deleted.'}};
-
-    expect(iterator.next().value).toEqual(call(
-      [axios, axios.delete],
-      `${endpoint}/user/recipe/delete/private`,
-      {withCredentials: true, data: {recipeId: action.recipeId}}
-    ));
-
-    expect(iterator.next(res).value)
-    .toEqual(put(staffDeleteRecipeSucceeded(res.data.message)));
-
-    expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-
-  it('should dispatch failed', () => {
-    const iterator = staffDeleteRecipeSaga(action);
-    const res = {data: {message: 'Oops.'}};
-
-    iterator.next();
-
-    expect(iterator.next(res).value)
-    .toEqual(put(staffDeleteRecipeFailed(res.data.message)));
-
-    expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-
-  it('should dispatch failed if thrown', () => {
-    const iterator = staffDeleteRecipeSaga(action);
-
-    iterator.next();
-
-    expect(iterator.throw('error').value)
-    .toEqual(put(
-      staffDeleteRecipeFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
-
-    expect(iterator.next().value).toEqual(delay(4000));
-    expect(iterator.next().value).toEqual(put(staffMessageClear()));
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-});
-
-
-
-describe('the staffDeleteRecipeSaga', () => {
+describe('staffDeleteRecipeSaga', () => {
   const action = {type: STAFF_DELETE_RECIPE, recipeId: 4};
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userDisownPublicRecipeSaga, action)
-    .silentRun(50);
-  });*/
 
   it('should dispatch succeeded', () => {
     const iterator = staffDeleteRecipeSaga(action);
@@ -402,18 +325,11 @@ describe('the staffDeleteRecipeSaga', () => {
   });
 });
 
-
-
 describe('the staffEditRecipeSaga', () => {
   const action = {
     type: STAFF_EDIT_RECIPE,
     recipeInfo: editingRecipeInfo
   };
-  /*it('works', () => {
-    const action = {ownership: "public"};
-    return expectSaga(userEditRecipeSaga, action)
-    .silentRun(50);
-  });*/
   
   const res1 = {
     data: {

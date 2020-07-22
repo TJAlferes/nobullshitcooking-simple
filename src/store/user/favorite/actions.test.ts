@@ -15,7 +15,7 @@ import {
   USER_UNFAVORITE_RECIPE_FAILED
 } from './types';
 
-describe('the userFavoriteRecipe action creator', () => {
+describe('userFavoriteRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userFavoriteRecipe(4).type;
     const expected = USER_FAVORITE_RECIPE;
@@ -27,7 +27,7 @@ describe('the userFavoriteRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userFavoriteRecipeSucceeded action creator', () => {
+describe('userFavoriteRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userFavoriteRecipeSucceeded('OK.').type;
     const expected = USER_FAVORITE_RECIPE_SUCCEEDED;
@@ -39,7 +39,7 @@ describe('the userFavoriteRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userFavoriteRecipeFailed action creator', () => {
+describe('userFavoriteRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userFavoriteRecipeFailed('Try again.').type;
     const expected = USER_FAVORITE_RECIPE_FAILED;
@@ -53,7 +53,7 @@ describe('the userFavoriteRecipeFailed action creator', () => {
 });
 
 
-describe('the userUnfavoriteRecipe action creator', () => {
+describe('userUnfavoriteRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userUnfavoriteRecipe(4).type;
     const expected = USER_UNFAVORITE_RECIPE;
@@ -65,7 +65,7 @@ describe('the userUnfavoriteRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userUnfavoriteRecipeSucceeded action creator', () => {
+describe('userUnfavoriteRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userUnfavoriteRecipeSucceeded('OK.').type;
     const expected = USER_UNFAVORITE_RECIPE_SUCCEEDED;
@@ -77,7 +77,7 @@ describe('the userUnfavoriteRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userUnfavoriteRecipeFailed action creator', () => {
+describe('userUnfavoriteRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userUnfavoriteRecipeFailed('Try again.').type;
     const expected = USER_UNFAVORITE_RECIPE_FAILED;

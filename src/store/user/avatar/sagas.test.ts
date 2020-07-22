@@ -1,9 +1,5 @@
 import axios from 'axios';
-//import MockAdapter from 'axios-mock-adapter';
 import { call, put, delay } from 'redux-saga/effects';
-//import { expectSaga } from 'redux-saga-test-plan';
-//import * as matchers from 'redux-saga-test-plan/matchers';
-//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -17,16 +13,10 @@ import { userSubmitAvatarSaga } from './sagas';
 import { USER_SUBMIT_AVATAR } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-//const mock = new MockAdapter(axios, {delayResponse: 100});
 const fullAvatar = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
 const tinyAvatar = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
-describe('the userSubmitAvatarSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userSubmitAvatarSaga, action).silentRun(50);
-  });*/
-
+describe('userSubmitAvatarSaga', () => {
   const action = {type: USER_SUBMIT_AVATAR, fullAvatar, tinyAvatar};
   const res1 = {
     data: {

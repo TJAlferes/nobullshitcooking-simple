@@ -40,7 +40,7 @@ const editingEquipmentInfo = {
   tinyEquipmentImage: null
 };
 
-describe('the staffCreateNewEquipment action creator', () => {
+describe('staffCreateNewEquipment action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewEquipment(creatingEquipmentInfo).type;
     const expected = STAFF_CREATE_NEW_EQUIPMENT;
@@ -53,7 +53,7 @@ describe('the staffCreateNewEquipment action creator', () => {
   });
 });
 
-describe('the staffCreateNewEquipmentSucceeded action creator', () => {
+describe('staffCreateNewEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewEquipmentSucceeded('OK.').type;
     const expected = STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED;
@@ -66,7 +66,7 @@ describe('the staffCreateNewEquipmentSucceeded action creator', () => {
   });
 });
 
-describe('the staffCreateNewEquipmentFailed action creator', () => {
+describe('staffCreateNewEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewEquipmentFailed('Try again.').type;
     const expected = STAFF_CREATE_NEW_EQUIPMENT_FAILED;
@@ -79,7 +79,7 @@ describe('the staffCreateNewEquipmentFailed action creator', () => {
   });
 });
 
-describe('the staffEditEquipment action creator', () => {
+describe('staffEditEquipment action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditEquipment(editingEquipmentInfo).type;
     const expected = STAFF_EDIT_EQUIPMENT;
@@ -92,7 +92,7 @@ describe('the staffEditEquipment action creator', () => {
   });
 });
 
-describe('the staffEditEquipmentSucceeded action creator', () => {
+describe('staffEditEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditEquipmentSucceeded('OK.').type;
     const expected = STAFF_EDIT_EQUIPMENT_SUCCEEDED;
@@ -105,7 +105,7 @@ describe('the staffEditEquipmentSucceeded action creator', () => {
   });
 });
 
-describe('the staffEditEquipmentFailed action creator', () => {
+describe('staffEditEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditEquipmentFailed('Try again.').type;
     const expected = STAFF_EDIT_EQUIPMENT_FAILED;
@@ -118,7 +118,7 @@ describe('the staffEditEquipmentFailed action creator', () => {
   });
 });
 
-describe('the staffDeleteEquipment action creator', () => {
+describe('staffDeleteEquipment action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteEquipment(7).type;
     const expected = STAFF_DELETE_EQUIPMENT;
@@ -131,7 +131,7 @@ describe('the staffDeleteEquipment action creator', () => {
   });
 });
 
-describe('the staffDeleteEquipmentSucceeded action creator', () => {
+describe('staffDeleteEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteEquipmentSucceeded('OK.').type;
     const expected = STAFF_DELETE_EQUIPMENT_SUCCEEDED;
@@ -144,7 +144,7 @@ describe('the staffDeleteEquipmentSucceeded action creator', () => {
   });
 });
 
-describe('the staffDeleteEquipmentFailed action creator', () => {
+describe('staffDeleteEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteEquipmentFailed('Try again.').type;
     const expected = STAFF_DELETE_EQUIPMENT_FAILED;

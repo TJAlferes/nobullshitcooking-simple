@@ -30,7 +30,7 @@ const fullContentImage =
 const thumbContentImage =
   new File([(new Blob)], "resizedThumb", {type: "image/jpeg"});
 
-describe('the userCreateNewContentSaga', () => {
+describe('userCreateNewContentSaga', () => {
   const action = {
     type: USER_CREATE_NEW_CONTENT,
     contentInfo: {
@@ -130,7 +130,7 @@ describe('the userCreateNewContentSaga', () => {
   });
 });
 
-describe('the userEditContentSaga', () => {
+describe('userEditContentSaga', () => {
   const action = {
     type: USER_EDIT_CONTENT,
     contentInfo: {
@@ -232,7 +232,7 @@ describe('the userEditContentSaga', () => {
   });
 });
 
-describe('the userDeleteContentSaga', () => {
+describe('userDeleteContentSaga', () => {
   const action = {type: USER_DELETE_CONTENT, contentId: 4};
 
   it('should dispatch succeeded', () => {

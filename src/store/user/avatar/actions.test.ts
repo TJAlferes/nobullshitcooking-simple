@@ -12,7 +12,7 @@ import {
 const fullAvatar = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
 const tinyAvatar = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
-describe('the userSubmitAvatar action creator', () => {
+describe('userSubmitAvatar action creator', () => {
   it('returns the correct action type', () => {
     const actual = userSubmitAvatar(fullAvatar, tinyAvatar).type;
     const expected = USER_SUBMIT_AVATAR;
@@ -32,7 +32,7 @@ describe('the userSubmitAvatar action creator', () => {
   });
 });
 
-describe('the userSubmitAvatarSucceeded action creator', () => {
+describe('userSubmitAvatarSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userSubmitAvatarSucceeded('OK.').type;
     const expected = USER_SUBMIT_AVATAR_SUCCEEDED;
@@ -46,7 +46,7 @@ describe('the userSubmitAvatarSucceeded action creator', () => {
   });
 });
 
-describe('the userSubmitAvatarFailed action creator', () => {
+describe('userSubmitAvatarFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userSubmitAvatarFailed('Try again.').type;
     const expected = USER_SUBMIT_AVATAR_FAILED;

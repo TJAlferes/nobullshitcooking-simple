@@ -71,7 +71,7 @@ const editingRecipeInfo = {
   fullRecipeCookingImage: null
 };
 
-describe('the staffCreateNewRecipe action creator', () => {
+describe('staffCreateNewRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewRecipe(creatingRecipeInfo).type;
     const expected = STAFF_CREATE_NEW_RECIPE;
@@ -84,7 +84,7 @@ describe('the staffCreateNewRecipe action creator', () => {
   });
 });
 
-describe('the staffCreateNewRecipeSucceeded action creator', () => {
+describe('staffCreateNewRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewRecipeSucceeded('OK.').type;
     const expected = STAFF_CREATE_NEW_RECIPE_SUCCEEDED;
@@ -97,7 +97,7 @@ describe('the staffCreateNewRecipeSucceeded action creator', () => {
   });
 });
 
-describe('the staffCreateNewRecipeFailed action creator', () => {
+describe('staffCreateNewRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewRecipeFailed('Try again.').type;
     const expected = STAFF_CREATE_NEW_RECIPE_FAILED;
@@ -112,7 +112,7 @@ describe('the staffCreateNewRecipeFailed action creator', () => {
 
 
 
-describe('the staffEditRecipe action creator', () => {
+describe('staffEditRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditRecipe(editingRecipeInfo).type;
     const expected = STAFF_EDIT_RECIPE;
@@ -125,7 +125,7 @@ describe('the staffEditRecipe action creator', () => {
   });
 });
 
-describe('the staffEditRecipeSucceeded action creator', () => {
+describe('staffEditRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditRecipeSucceeded('OK.').type;
     const expected = STAFF_EDIT_RECIPE_SUCCEEDED;
@@ -138,7 +138,7 @@ describe('the staffEditRecipeSucceeded action creator', () => {
   });
 });
 
-describe('the staffEditRecipeFailed action creator', () => {
+describe('staffEditRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditRecipeFailed('Try again.').type;
     const expected = STAFF_EDIT_RECIPE_FAILED;
@@ -153,7 +153,7 @@ describe('the staffEditRecipeFailed action creator', () => {
 
 
 
-describe('the staffDeleteRecipe action creator', () => {
+describe('staffDeleteRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteRecipe(7).type;
     const expected = STAFF_DELETE_RECIPE;
@@ -166,7 +166,7 @@ describe('the staffDeleteRecipe action creator', () => {
   });
 });
 
-describe('the staffDeleteRecipeSucceeded action creator', () => {
+describe('staffDeleteRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteRecipeSucceeded('OK.').type;
     const expected = STAFF_DELETE_RECIPE_SUCCEEDED;
@@ -179,7 +179,7 @@ describe('the staffDeleteRecipeSucceeded action creator', () => {
   });
 });
 
-describe('the staffDeleteRecipeFailed action creator', () => {
+describe('staffDeleteRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteRecipeFailed('Try again.').type;
     const expected = STAFF_DELETE_RECIPE_FAILED;

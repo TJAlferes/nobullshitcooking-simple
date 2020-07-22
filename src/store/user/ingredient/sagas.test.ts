@@ -1,9 +1,5 @@
 import axios from 'axios';
-//import MockAdapter from 'axios-mock-adapter';
 import { call, put, delay } from 'redux-saga/effects';
-//import { expectSaga } from 'redux-saga-test-plan';
-//import * as matchers from 'redux-saga-test-plan/matchers';
-//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -29,17 +25,10 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-//const mock = new MockAdapter(axios, {delayResponse: 100});
 const fullIngredientImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
 const tinyIngredientImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
-describe('the userCreateNewPrivateIngredientSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userCreateNewPrivateIngredientSaga, action)
-    .silentRun(50);
-  });*/
-
+describe('userCreateNewPrivateIngredientSaga', () => {
   const action = {
     type: USER_CREATE_NEW_PRIVATE_INGREDIENT,
     ingredientInfo: {
@@ -140,13 +129,7 @@ describe('the userCreateNewPrivateIngredientSaga', () => {
 
 
 
-describe('the userEditPrivateIngredientSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userEditPrivateIngredientSaga, action)
-    .silentRun(50);
-  });*/
-
+describe('userEditPrivateIngredientSaga', () => {
   const action = {
     type: USER_EDIT_PRIVATE_INGREDIENT,
     ingredientInfo: {
@@ -249,13 +232,7 @@ describe('the userEditPrivateIngredientSaga', () => {
 
 
 
-describe('the userDeletePrivateIngredientSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userDeletePrivateIngredientSaga, action)
-    .silentRun(50);
-  });*/
-
+describe('userDeletePrivateIngredientSaga', () => {
   const action = {type: USER_DELETE_PRIVATE_INGREDIENT, ingredientId: 4};
 
   it('should dispatch succeeded', () => {

@@ -8,6 +8,7 @@ import {
   userDeletePrivateRecipe,
   userDeletePrivateRecipeSucceeded,
   userDeletePrivateRecipeFailed,
+
   userCreateNewPublicRecipe,
   userCreateNewPublicRecipeSucceeded,
   userCreateNewPublicRecipeFailed,
@@ -28,6 +29,7 @@ import {
   USER_DELETE_PRIVATE_RECIPE,
   USER_DELETE_PRIVATE_RECIPE_SUCCEEDED,
   USER_DELETE_PRIVATE_RECIPE_FAILED,
+
   USER_CREATE_NEW_PUBLIC_RECIPE,
   USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED,
   USER_CREATE_NEW_PUBLIC_RECIPE_FAILED,
@@ -89,7 +91,7 @@ const editingRecipeInfo = {
   fullRecipeCookingImage: null
 };
 
-describe('the userCreateNewPrivateRecipe action creator', () => {
+describe('userCreateNewPrivateRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPrivateRecipe(creatingRecipeInfo).type;
     const expected = USER_CREATE_NEW_PRIVATE_RECIPE;
@@ -101,7 +103,7 @@ describe('the userCreateNewPrivateRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userCreateNewPrivateRecipeSucceeded action creator', () => {
+describe('userCreateNewPrivateRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPrivateRecipeSucceeded('OK.').type;
     const expected = USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED;
@@ -113,7 +115,7 @@ describe('the userCreateNewPrivateRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userCreateNewPrivateRecipeFailed action creator', () => {
+describe('userCreateNewPrivateRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPrivateRecipeFailed('Try again.').type;
     const expected = USER_CREATE_NEW_PRIVATE_RECIPE_FAILED;
@@ -127,7 +129,7 @@ describe('the userCreateNewPrivateRecipeFailed action creator', () => {
 });
 
 
-describe('the userEditPrivateRecipe action creator', () => {
+describe('userEditPrivateRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPrivateRecipe(editingRecipeInfo).type;
     const expected = USER_EDIT_PRIVATE_RECIPE;
@@ -139,7 +141,7 @@ describe('the userEditPrivateRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userEditPrivateRecipeSucceeded action creator', () => {
+describe('userEditPrivateRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPrivateRecipeSucceeded('OK.').type;
     const expected = USER_EDIT_PRIVATE_RECIPE_SUCCEEDED;
@@ -151,7 +153,7 @@ describe('the userEditPrivateRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userEditPrivateRecipeFailed action creator', () => {
+describe('userEditPrivateRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPrivateRecipeFailed('Try again.').type;
     const expected = USER_EDIT_PRIVATE_RECIPE_FAILED;
@@ -165,7 +167,7 @@ describe('the userEditPrivateRecipeFailed action creator', () => {
 });
 
 
-describe('the userDeletePrivateRecipe action creator', () => {
+describe('userDeletePrivateRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePrivateRecipe(7).type;
     const expected = USER_DELETE_PRIVATE_RECIPE;
@@ -177,7 +179,7 @@ describe('the userDeletePrivateRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDeletePrivateRecipeSucceeded action creator', () => {
+describe('userDeletePrivateRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePrivateRecipeSucceeded('OK.').type;
     const expected = USER_DELETE_PRIVATE_RECIPE_SUCCEEDED;
@@ -189,7 +191,7 @@ describe('the userDeletePrivateRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDeletePrivateRecipeFailed action creator', () => {
+describe('userDeletePrivateRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePrivateRecipeFailed('Try again.').type;
     const expected = USER_DELETE_PRIVATE_RECIPE_FAILED;
@@ -206,7 +208,7 @@ describe('the userDeletePrivateRecipeFailed action creator', () => {
 
 
 
-describe('the userCreateNewPublicRecipe action creator', () => {
+describe('userCreateNewPublicRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPublicRecipe(creatingRecipeInfo).type;
     const expected = USER_CREATE_NEW_PUBLIC_RECIPE;
@@ -218,7 +220,7 @@ describe('the userCreateNewPublicRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userCreateNewPublicRecipeSucceeded action creator', () => {
+describe('userCreateNewPublicRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPublicRecipeSucceeded('OK.').type;
     const expected = USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED;
@@ -230,7 +232,7 @@ describe('the userCreateNewPublicRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userFailed action creator', () => {
+describe('userFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPublicRecipeFailed('Try again.').type;
     const expected = USER_CREATE_NEW_PUBLIC_RECIPE_FAILED;
@@ -244,7 +246,7 @@ describe('the userFailed action creator', () => {
 });
 
 
-describe('the userEditPublicRecipe action creator', () => {
+describe('userEditPublicRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPublicRecipe(editingRecipeInfo).type;
     const expected = USER_EDIT_PUBLIC_RECIPE;
@@ -256,7 +258,7 @@ describe('the userEditPublicRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userEditPublicRecipeSucceeded action creator', () => {
+describe('userEditPublicRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPublicRecipeSucceeded('OK.').type;
     const expected = USER_EDIT_PUBLIC_RECIPE_SUCCEEDED;
@@ -268,7 +270,7 @@ describe('the userEditPublicRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userEditPublicRecipeFailed action creator', () => {
+describe('userEditPublicRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPublicRecipeFailed('Try again.').type;
     const expected = USER_EDIT_PUBLIC_RECIPE_FAILED;
@@ -282,7 +284,7 @@ describe('the userEditPublicRecipeFailed action creator', () => {
 });
 
 
-describe('the userDisownPublicRecipe action creator', () => {
+describe('userDisownPublicRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDisownPublicRecipe(7).type;
     const expected = USER_DISOWN_PUBLIC_RECIPE;
@@ -294,7 +296,7 @@ describe('the userDisownPublicRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDisownPublicRecipeSucceeded action creator', () => {
+describe('userDisownPublicRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDisownPublicRecipeSucceeded('OK.').type;
     const expected = USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED;
@@ -306,7 +308,7 @@ describe('the userDisownPublicRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDisownPublicRecipeFailed action creator', () => {
+describe('userDisownPublicRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDisownPublicRecipeFailed('Try again.').type;
     const expected = USER_DISOWN_PUBLIC_RECIPE_FAILED;

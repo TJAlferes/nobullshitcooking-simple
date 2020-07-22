@@ -24,7 +24,7 @@ import {
 const creatingPlanInfo = {planName: "Plan B", planData: ""};
 const editingPlanInfo = {planId: 2, planName: "Plan B", planData: ""};
 
-describe('the userCreateNewPlan action creator', () => {
+describe('userCreateNewPlan action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPlan(creatingPlanInfo).type;
     const expected = USER_CREATE_NEW_PLAN;
@@ -36,7 +36,7 @@ describe('the userCreateNewPlan action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userCreateNewPlanSucceeded action creator', () => {
+describe('userCreateNewPlanSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPlanSucceeded('OK.').type;
     const expected = USER_CREATE_NEW_PLAN_SUCCEEDED;
@@ -48,7 +48,7 @@ describe('the userCreateNewPlanSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userCreateNewPlanFailed action creator', () => {
+describe('userCreateNewPlanFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPlanFailed('Try again.').type;
     const expected = USER_CREATE_NEW_PLAN_FAILED;
@@ -62,7 +62,7 @@ describe('the userCreateNewPlanFailed action creator', () => {
 });
 
 
-describe('the userEditPlan action creator', () => {
+describe('userEditPlan action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPlan(editingPlanInfo).type;
     const expected = USER_EDIT_PLAN;
@@ -74,7 +74,7 @@ describe('the userEditPlan action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userEditPlanSucceeded action creator', () => {
+describe('userEditPlanSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPlanSucceeded('OK.').type;
     const expected = USER_EDIT_PLAN_SUCCEEDED;
@@ -86,7 +86,7 @@ describe('the userEditPlanSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userEditPlanFailed action creator', () => {
+describe('userEditPlanFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPlanFailed('Try again.').type;
     const expected = USER_EDIT_PLAN_FAILED;
@@ -100,7 +100,7 @@ describe('the userEditPlanFailed action creator', () => {
 });
 
 
-describe('the userDeletePlan action creator', () => {
+describe('userDeletePlan action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePlan(7).type;
     const expected = USER_DELETE_PLAN;
@@ -112,7 +112,7 @@ describe('the userDeletePlan action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDeletePlanSucceeded action creator', () => {
+describe('userDeletePlanSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePlanSucceeded('OK.').type;
     const expected = USER_DELETE_PLAN_SUCCEEDED;
@@ -124,7 +124,7 @@ describe('the userDeletePlanSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDeletePlanFailed action creator', () => {
+describe('userDeletePlanFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePlanFailed('Try again.').type;
     const expected = USER_DELETE_PLAN_FAILED;

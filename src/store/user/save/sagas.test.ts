@@ -1,9 +1,5 @@
 import axios from 'axios';
-//import MockAdapter from 'axios-mock-adapter';
 import { call, put, delay } from 'redux-saga/effects';
-//import { expectSaga } from 'redux-saga-test-plan';
-//import * as matchers from 'redux-saga-test-plan/matchers';
-//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -20,15 +16,9 @@ import { userSaveRecipeSaga, userUnsaveRecipeSaga } from './sagas';
 import { USER_SAVE_RECIPE, USER_UNSAVE_RECIPE } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-//const mock = new MockAdapter(axios, {delayResponse: 100});
 
-describe('the userSaveRecipeSaga', () => {
+describe('userSaveRecipeSaga', () => {
   const action = {type: USER_SAVE_RECIPE, recipeId: 99};
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userSaveRecipeSaga, action)
-    .silentRun(50);
-  });*/
 
   it ('should dispatch succeeded', () => {
     const iterator = userSaveRecipeSaga(action);
@@ -82,13 +72,8 @@ describe('the userSaveRecipeSaga', () => {
 
 
 
-describe('the userUnsaveRecipeSaga', () => {
+describe('userUnsaveRecipeSaga', () => {
   const action = {type: USER_UNSAVE_RECIPE, recipeId: 99};
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userUnsaveRecipeSaga, action)
-    .silentRun(50);
-  });*/
 
   it ('should dispatch succeeded', () => {
     const iterator = userUnsaveRecipeSaga(action);

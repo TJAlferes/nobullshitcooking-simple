@@ -1,9 +1,5 @@
 import axios from 'axios';
-//import MockAdapter from 'axios-mock-adapter';
 import { call, put, delay } from 'redux-saga/effects';
-//import { expectSaga } from 'redux-saga-test-plan';
-//import * as matchers from 'redux-saga-test-plan/matchers';
-//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -29,19 +25,12 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-//const mock = new MockAdapter(axios, {delayResponse: 100});
 
-describe('the userCreateNewPlanSaga', () => {
+describe('userCreateNewPlanSaga', () => {
   const action = {
     type: USER_CREATE_NEW_PLAN,
     planInfo: {planName: "Plan B", planData: ""}
   };
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userCreateNewPlanSaga, action)
-    .silentRun(50);
-  });*/
-
 
   it ('should dispatch succeeded', () => {
     const iterator = userCreateNewPlanSaga(action);
@@ -95,16 +84,11 @@ describe('the userCreateNewPlanSaga', () => {
 
 
 
-describe('the userEditPlanSaga', () => {
+describe('userEditPlanSaga', () => {
   const action = {
     type: USER_EDIT_PLAN,
     planInfo: {planId: 2, planName: "Plan B", planData: ""}
   };
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userEditPlanSaga, action)
-    .silentRun(50);
-  });*/
 
   it ('should dispatch succeeded', () => {
     const iterator = userEditPlanSaga(action);
@@ -158,13 +142,8 @@ describe('the userEditPlanSaga', () => {
 
 
 
-describe('the userDeletePlanSaga', () => {
+describe('userDeletePlanSaga', () => {
   const action = {type: USER_DELETE_PLAN, planId: 3};
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userDeletePlanSaga, action)
-    .silentRun(50);
-  });*/
 
   it ('should dispatch succeeded', () => {
     const iterator = userDeletePlanSaga(action);

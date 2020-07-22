@@ -1,9 +1,5 @@
 import axios from 'axios';
-//import MockAdapter from 'axios-mock-adapter';
 import { call, put, delay } from 'redux-saga/effects';
-//import { expectSaga } from 'redux-saga-test-plan';
-//import * as matchers from 'redux-saga-test-plan/matchers';
-//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -29,17 +25,10 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-//const mock = new MockAdapter(axios, {delayResponse: 100});
 const fullEquipmentImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
 const tinyEquipmentImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
-describe('the userCreateNewPrivateEquipmentSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userCreateNewPrivateEquipmentSaga, action)
-    .silentRun(50);
-  });*/
-
+describe('userCreateNewPrivateEquipmentSaga', () => {
   const action = {
     type: USER_CREATE_NEW_PRIVATE_EQUIPMENT,
     equipmentInfo: {
@@ -140,13 +129,7 @@ describe('the userCreateNewPrivateEquipmentSaga', () => {
 
 
 
-describe('the userEditPrivateEquipmentSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userEditPrivateEquipmentSaga, action)
-    .silentRun(50);
-  });*/
-
+describe('userEditPrivateEquipmentSaga', () => {
   const action = {
     type: USER_EDIT_PRIVATE_EQUIPMENT,
     equipmentInfo: {
@@ -249,13 +232,7 @@ describe('the userEditPrivateEquipmentSaga', () => {
 
 
 
-describe('the userDeletePrivateEquipmentSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userDeletePrivateEquipmentSaga, action)
-    .silentRun(50);
-  });*/
-
+describe('userDeletePrivateEquipmentSaga', () => {
   const action = {type: USER_DELETE_PRIVATE_EQUIPMENT, equipmentId: 4};
 
   it('should dispatch succeeded', () => {

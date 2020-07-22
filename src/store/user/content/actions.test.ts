@@ -42,7 +42,7 @@ const editingContentInfo = {
   thumbContentImage: null
 };
 
-describe('the userCreateNewContent action creator', () => {
+describe('userCreateNewContent action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewContent(creatingContentInfo).type;
     const expected = USER_CREATE_NEW_CONTENT;
@@ -55,7 +55,7 @@ describe('the userCreateNewContent action creator', () => {
   });
 });
 
-describe('the userCreateNewContentSucceeded action creator', () => {
+describe('userCreateNewContentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewContentSucceeded('OK.').type;
     const expected = USER_CREATE_NEW_CONTENT_SUCCEEDED;
@@ -68,7 +68,7 @@ describe('the userCreateNewContentSucceeded action creator', () => {
   });
 });
 
-describe('the userCreateNewContentFailed action creator', () => {
+describe('userCreateNewContentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewContentFailed('Try again.').type;
     const expected = USER_CREATE_NEW_CONTENT_FAILED;
@@ -83,7 +83,7 @@ describe('the userCreateNewContentFailed action creator', () => {
 
 
 
-describe('the userEditContent action creator', () => {
+describe('userEditContent action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditContent(editingContentInfo).type;
     const expected = USER_EDIT_CONTENT;
@@ -96,7 +96,7 @@ describe('the userEditContent action creator', () => {
   });
 });
 
-describe('the userEditContentSucceeded action creator', () => {
+describe('userEditContentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditContentSucceeded('OK.').type;
     const expected = USER_EDIT_CONTENT_SUCCEEDED;
@@ -109,7 +109,7 @@ describe('the userEditContentSucceeded action creator', () => {
   });
 });
 
-describe('the userEditContentFailed action creator', () => {
+describe('userEditContentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditContentFailed('Try again.').type;
     const expected = USER_EDIT_CONTENT_FAILED;
@@ -124,7 +124,7 @@ describe('the userEditContentFailed action creator', () => {
 
 
 
-describe('the userDeleteContent action creator', () => {
+describe('userDeleteContent action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeleteContent(7).type;
     const expected = USER_DELETE_CONTENT;
@@ -137,7 +137,7 @@ describe('the userDeleteContent action creator', () => {
   });
 });
 
-describe('the userDeleteContentSucceeded action creator', () => {
+describe('userDeleteContentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeleteContentSucceeded('OK.').type;
     const expected = USER_DELETE_CONTENT_SUCCEEDED;
@@ -150,7 +150,7 @@ describe('the userDeleteContentSucceeded action creator', () => {
   });
 });
 
-describe('the userDeleteContentFailed action creator', () => {
+describe('userDeleteContentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeleteContentFailed('Try again.').type;
     const expected = USER_DELETE_CONTENT_FAILED;

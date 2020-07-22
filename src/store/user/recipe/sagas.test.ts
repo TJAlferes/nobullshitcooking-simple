@@ -1,9 +1,5 @@
 import axios from 'axios';
-//import MockAdapter from 'axios-mock-adapter';
 import { call, put, delay } from 'redux-saga/effects';
-//import { expectSaga } from 'redux-saga-test-plan';
-//import * as matchers from 'redux-saga-test-plan/matchers';
-//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -16,10 +12,10 @@ import {
   userEditPrivateRecipeFailed,
   userDeletePrivateRecipeSucceeded,
   userDeletePrivateRecipeFailed,
-  //userCreateNewPublicRecipeSucceeded,
-  //userCreateNewPublicRecipeFailed,
-  //userEditPublicRecipeSucceeded,
-  //userEditPublicRecipeFailed,
+  //userCreateNewPublicRecipeSucceeded,  // TO DO: write tests
+  //userCreateNewPublicRecipeFailed,  // TO DO: write tests
+  //userEditPublicRecipeSucceeded,  // TO DO: write tests
+  //userEditPublicRecipeFailed,  // TO DO: write tests
   userDisownPublicRecipeSucceeded,
   userDisownPublicRecipeFailed
 } from './actions';
@@ -37,7 +33,6 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-//const mock = new MockAdapter(axios, {delayResponse: 100});
 const fullRecipeImage = new File(
   [(new Blob)], "resizedFinal", {type: "image/jpeg"}
 );
@@ -106,16 +101,11 @@ const editingRecipeInfo = {
   fullRecipeCookingImage
 };
 
-describe('the userCreateNewRecipeSaga', () => {
+describe('userCreateNewRecipeSaga', () => {
   const action = {
     type: USER_CREATE_NEW_PRIVATE_RECIPE,
     recipeInfo: creatingRecipeInfo
   };
-  /*it('works', () => {
-    const action = {ownership: "public"};
-    return expectSaga(userCreateNewRecipeSaga, action)
-    .silentRun(50);
-  });*/
 
   const res1 = {
     data: {
@@ -292,13 +282,8 @@ describe('the userCreateNewRecipeSaga', () => {
 
 
 
-describe('the userDeletePrivateRecipeSaga', () => {
+describe('userDeletePrivateRecipeSaga', () => {
   const action = {type: USER_DELETE_PRIVATE_RECIPE,recipeId: 4};
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userDeletePrivateRecipeSaga, action)
-    .silentRun(50);
-  });*/
 
   it('should dispatch succeeded', () => {
     const iterator = userDeletePrivateRecipeSaga(action);
@@ -352,13 +337,8 @@ describe('the userDeletePrivateRecipeSaga', () => {
 
 
 
-describe('the userDisownPublicRecipeSaga', () => {
+describe('userDisownPublicRecipeSaga', () => {
   const action = {type: USER_DISOWN_PUBLIC_RECIPE, recipeId: 4};
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userDisownPublicRecipeSaga, action)
-    .silentRun(50);
-  });*/
 
   it('should dispatch succeeded', () => {
     const iterator = userDisownPublicRecipeSaga(action);
@@ -412,16 +392,11 @@ describe('the userDisownPublicRecipeSaga', () => {
 
 
 
-describe('the userEditRecipeSaga', () => {
+describe('userEditRecipeSaga', () => {
   const action = {
     type: USER_EDIT_PRIVATE_RECIPE,
     recipeInfo: editingRecipeInfo
   };
-  /*it('works', () => {
-    const action = {ownership: "public"};
-    return expectSaga(userEditRecipeSaga, action)
-    .silentRun(50);
-  });*/
   
   const res1 = {
     data: {

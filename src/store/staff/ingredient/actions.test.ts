@@ -40,7 +40,7 @@ const editingIngredientInfo = {
   prevIngredientImage: "hot-sauce"
 };
 
-describe('the staffCreateNewIngredient action creator', () => {
+describe('staffCreateNewIngredient action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewIngredient(creatingIngredientInfo).type;
     const expected = STAFF_CREATE_NEW_INGREDIENT;
@@ -53,7 +53,7 @@ describe('the staffCreateNewIngredient action creator', () => {
   });
 });
 
-describe('the staffCreateNewIngredientSucceeded action creator', () => {
+describe('staffCreateNewIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewIngredientSucceeded('OK.').type;
     const expected = STAFF_CREATE_NEW_INGREDIENT_SUCCEEDED;
@@ -66,7 +66,7 @@ describe('the staffCreateNewIngredientSucceeded action creator', () => {
   });
 });
 
-describe('the staffCreateNewIngredientFailed action creator', () => {
+describe('staffCreateNewIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewIngredientFailed('Try again.').type;
     const expected = STAFF_CREATE_NEW_INGREDIENT_FAILED;
@@ -79,7 +79,7 @@ describe('the staffCreateNewIngredientFailed action creator', () => {
   });
 });
 
-describe('the staffEditIngredient action creator', () => {
+describe('staffEditIngredient action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditIngredient(editingIngredientInfo).type;
     const expected = STAFF_EDIT_INGREDIENT;
@@ -92,7 +92,7 @@ describe('the staffEditIngredient action creator', () => {
   });
 });
 
-describe('the staffEditIngredientSucceeded action creator', () => {
+describe('staffEditIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditIngredientSucceeded('OK.').type;
     const expected = STAFF_EDIT_INGREDIENT_SUCCEEDED;
@@ -105,7 +105,7 @@ describe('the staffEditIngredientSucceeded action creator', () => {
   });
 });
 
-describe('the staffEditIngredientFailed action creator', () => {
+describe('staffEditIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditIngredientFailed('Try again.').type;
     const expected = STAFF_EDIT_INGREDIENT_FAILED;
@@ -118,7 +118,7 @@ describe('the staffEditIngredientFailed action creator', () => {
   });
 });
 
-describe('the staffDeleteIngredient action creator', () => {
+describe('staffDeleteIngredient action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteIngredient(7).type;
     const expected = STAFF_DELETE_INGREDIENT;
@@ -131,7 +131,7 @@ describe('the staffDeleteIngredient action creator', () => {
   });
 });
 
-describe('the staffDeleteIngredientSucceeded action creator', () => {
+describe('staffDeleteIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteIngredientSucceeded('OK.').type;
     const expected = STAFF_DELETE_INGREDIENT_SUCCEEDED;
@@ -144,7 +144,7 @@ describe('the staffDeleteIngredientSucceeded action creator', () => {
   });
 });
 
-describe('the staffDeleteIngredientFailed action creator', () => {
+describe('staffDeleteIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteIngredientFailed('Try again.').type;
     const expected = STAFF_DELETE_INGREDIENT_FAILED;

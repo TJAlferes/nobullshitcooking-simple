@@ -27,8 +27,6 @@ export function* userCreateNewContentSaga(action: IUserCreateNewContent) {
       action.contentInfo.fullContentImage &&
       action.contentInfo.thumbContentImage
     ) {
-      // for (const contentImage of contentImages)
-      // limit to 10 images per page?
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/content`,

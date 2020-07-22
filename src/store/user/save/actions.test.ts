@@ -15,7 +15,7 @@ import {
   USER_UNSAVE_RECIPE_FAILED
 } from './types';
 
-describe('the userSaveRecipe action creator', () => {
+describe('userSaveRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userSaveRecipe(4).type;
     const expected = USER_SAVE_RECIPE;
@@ -27,7 +27,7 @@ describe('the userSaveRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userSaveRecipeSucceeded action creator', () => {
+describe('userSaveRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userSaveRecipeSucceeded('OK.').type;
     const expected = USER_SAVE_RECIPE_SUCCEEDED;
@@ -39,7 +39,7 @@ describe('the userSaveRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userSaveRecipeFailed action creator', () => {
+describe('userSaveRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userSaveRecipeFailed('Try again.').type;
     const expected = USER_SAVE_RECIPE_FAILED;
@@ -53,7 +53,7 @@ describe('the userSaveRecipeFailed action creator', () => {
 });
 
 
-describe('the userUnsaveRecipe action creator', () => {
+describe('userUnsaveRecipe action creator', () => {
   it('returns the correct action type', () => {
     const actual = userUnsaveRecipe(4).type;
     const expected = USER_UNSAVE_RECIPE;
@@ -65,7 +65,7 @@ describe('the userUnsaveRecipe action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userUnsaveRecipeSucceeded action creator', () => {
+describe('userUnsaveRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userUnsaveRecipeSucceeded('OK.').type;
     const expected = USER_UNSAVE_RECIPE_SUCCEEDED;
@@ -77,7 +77,7 @@ describe('the userUnsaveRecipeSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userUnsaveRecipeFailed action creator', () => {
+describe('userUnsaveRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userUnsaveRecipeFailed('Try again.').type;
     const expected = USER_UNSAVE_RECIPE_FAILED;

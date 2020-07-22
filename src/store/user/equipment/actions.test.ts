@@ -40,7 +40,7 @@ const editingEquipmentInfo = {
   tinyEquipmentImage: null
 };
 
-describe('the userCreateNewPrivateEquipment action creator', () => {
+describe('userCreateNewPrivateEquipment action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPrivateEquipment(creatingEquipmentInfo).type;
     const expected = USER_CREATE_NEW_PRIVATE_EQUIPMENT;
@@ -52,7 +52,7 @@ describe('the userCreateNewPrivateEquipment action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userCreateNewPrivateEquipmentSucceeded action creator', () => {
+describe('userCreateNewPrivateEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPrivateEquipmentSucceeded('OK.').type;
     const expected = USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED;
@@ -64,7 +64,7 @@ describe('the userCreateNewPrivateEquipmentSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userCreateNewPrivateEquipmentFailed action creator', () => {
+describe('userCreateNewPrivateEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userCreateNewPrivateEquipmentFailed('Try again.').type;
     const expected = USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED;
@@ -78,7 +78,7 @@ describe('the userCreateNewPrivateEquipmentFailed action creator', () => {
 });
 
 
-describe('the userEditPrivateEquipment action creator', () => {
+describe('userEditPrivateEquipment action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPrivateEquipment(editingEquipmentInfo).type;
     const expected = USER_EDIT_PRIVATE_EQUIPMENT;
@@ -90,7 +90,7 @@ describe('the userEditPrivateEquipment action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userEditPrivateEquipmentSucceeded action creator', () => {
+describe('userEditPrivateEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPrivateEquipmentSucceeded('OK.').type;
     const expected = USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED;
@@ -102,7 +102,7 @@ describe('the userEditPrivateEquipmentSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userEditPrivateEquipmentFailed action creator', () => {
+describe('userEditPrivateEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userEditPrivateEquipmentFailed('Try again.').type;
     const expected = USER_EDIT_PRIVATE_EQUIPMENT_FAILED;
@@ -116,7 +116,7 @@ describe('the userEditPrivateEquipmentFailed action creator', () => {
 });
 
 
-describe('the userDeletePrivateEquipment action creator', () => {
+describe('userDeletePrivateEquipment action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePrivateEquipment(7).type;
     const expected = USER_DELETE_PRIVATE_EQUIPMENT;
@@ -128,7 +128,7 @@ describe('the userDeletePrivateEquipment action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDeletePrivateEquipmentSucceeded action creator', () => {
+describe('userDeletePrivateEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePrivateEquipmentSucceeded('OK.').type;
     const expected = USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED;
@@ -140,7 +140,7 @@ describe('the userDeletePrivateEquipmentSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDeletePrivateEquipmentFailed action creator', () => {
+describe('userDeletePrivateEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeletePrivateEquipmentFailed('Try again.').type;
     const expected = USER_DELETE_PRIVATE_EQUIPMENT_FAILED;

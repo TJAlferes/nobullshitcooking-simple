@@ -1,9 +1,5 @@
 import axios from 'axios';
-//import MockAdapter from 'axios-mock-adapter';
 import { call, put, delay } from 'redux-saga/effects';
-//import { expectSaga } from 'redux-saga-test-plan';
-//import * as matchers from 'redux-saga-test-plan/matchers';
-//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -29,17 +25,10 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-//const mock = new MockAdapter(axios, {delayResponse: 100});
 const fullEquipmentImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
 const tinyEquipmentImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
-describe('the userCreateNewEquipmentSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userCreateNewPrivateEquipmentSaga, action)
-    .silentRun(50);
-  });*/
-
+describe('userCreateNewEquipmentSaga', () => {
   const action = {
     type: STAFF_CREATE_NEW_EQUIPMENT,
     equipmentInfo: {
@@ -138,13 +127,7 @@ describe('the userCreateNewEquipmentSaga', () => {
   });
 });
 
-describe('the staffEditEquipmentSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userEditPrivateEquipmentSaga, action)
-    .silentRun(50);
-  });*/
-
+describe('staffEditEquipmentSaga', () => {
   const action = {
     type: STAFF_EDIT_EQUIPMENT,
     equipmentInfo: {
@@ -245,13 +228,7 @@ describe('the staffEditEquipmentSaga', () => {
   });
 });
 
-describe('the staffDeleteEquipmentSaga', () => {
-  /*it('works', () => {
-    const action = {};
-    return expectSaga(userDeletePrivateEquipmentSaga, action)
-    .silentRun(50);
-  });*/
-
+describe('staffDeleteEquipmentSaga', () => {
   const action = {type: STAFF_DELETE_EQUIPMENT, equipmentId: 4};
 
   it('should dispatch succeeded', () => {

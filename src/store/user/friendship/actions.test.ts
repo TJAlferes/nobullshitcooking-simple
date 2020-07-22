@@ -39,7 +39,7 @@ import {
   USER_UNBLOCK_USER_FAILED
 } from './types';
 
-describe('the userRequestFriendship action creator', () => {
+describe('userRequestFriendship action creator', () => {
   it('returns the correct action type', () => {
     const actual = userRequestFriendship('Juan').type;
     const expected = USER_REQUEST_FRIENDSHIP;
@@ -51,7 +51,7 @@ describe('the userRequestFriendship action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userRequestFriendshipSucceeded action creator', () => {
+describe('userRequestFriendshipSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userRequestFriendshipSucceeded('OK.').type;
     const expected = USER_REQUEST_FRIENDSHIP_SUCCEEDED;
@@ -63,7 +63,7 @@ describe('the userRequestFriendshipSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userRequestFriendshipFailed action creator', () => {
+describe('userRequestFriendshipFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userRequestFriendshipFailed('Try again.').type;
     const expected = USER_REQUEST_FRIENDSHIP_FAILED;
@@ -77,7 +77,7 @@ describe('the userRequestFriendshipFailed action creator', () => {
 });
 
 
-describe('the userAcceptFriendship action creator', () => {
+describe('userAcceptFriendship action creator', () => {
   it('returns the correct action type', () => {
     const actual = userAcceptFriendship('Juan').type;
     const expected = USER_ACCEPT_FRIENDSHIP;
@@ -89,7 +89,7 @@ describe('the userAcceptFriendship action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userAcceptFriendshipSucceeded action creator', () => {
+describe('userAcceptFriendshipSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userAcceptFriendshipSucceeded('OK.').type;
     const expected = USER_ACCEPT_FRIENDSHIP_SUCCEEDED;
@@ -101,7 +101,7 @@ describe('the userAcceptFriendshipSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userAcceptFriendshipFailed action creator', () => {
+describe('userAcceptFriendshipFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userAcceptFriendshipFailed('Try again.').type;
     const expected = USER_ACCEPT_FRIENDSHIP_FAILED;
@@ -115,7 +115,7 @@ describe('the userAcceptFriendshipFailed action creator', () => {
 });
 
 
-describe('the userRejectFriendship action creator', () => {
+describe('userRejectFriendship action creator', () => {
   it('returns the correct action type', () => {
     const actual = userRejectFriendship('Juan').type;
     const expected = USER_REJECT_FRIENDSHIP;
@@ -127,7 +127,7 @@ describe('the userRejectFriendship action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userRejectFriendshipSucceeded action creator', () => {
+describe('userRejectFriendshipSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userRejectFriendshipSucceeded('OK.').type;
     const expected = USER_REJECT_FRIENDSHIP_SUCCEEDED;
@@ -139,7 +139,7 @@ describe('the userRejectFriendshipSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userRejectFriendshipFailed action creator', () => {
+describe('userRejectFriendshipFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userRejectFriendshipFailed('Try again.').type;
     const expected = USER_REJECT_FRIENDSHIP_FAILED;
@@ -153,7 +153,7 @@ describe('the userRejectFriendshipFailed action creator', () => {
 });
 
 
-describe('the userDeleteFriendship action creator', () => {
+describe('userDeleteFriendship action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeleteFriendship('Juan').type;
     const expected = USER_DELETE_FRIENDSHIP;
@@ -165,7 +165,7 @@ describe('the userDeleteFriendship action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDeleteFriendshipSucceeded action creator', () => {
+describe('userDeleteFriendshipSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeleteFriendshipSucceeded('OK.').type;
     const expected = USER_DELETE_FRIENDSHIP_SUCCEEDED;
@@ -177,7 +177,7 @@ describe('the userDeleteFriendshipSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userDeleteFriendshipFailed action creator', () => {
+describe('userDeleteFriendshipFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userDeleteFriendshipFailed('Try again.').type;
     const expected = USER_DELETE_FRIENDSHIP_FAILED;
@@ -191,7 +191,7 @@ describe('the userDeleteFriendshipFailed action creator', () => {
 });
 
 
-describe('the userBlockUser action creator', () => {
+describe('userBlockUser action creator', () => {
   it('returns the correct action type', () => {
     const actual = userBlockUser('Juan').type;
     const expected = USER_BLOCK_USER;
@@ -203,7 +203,7 @@ describe('the userBlockUser action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userBlockUserSucceeded action creator', () => {
+describe('userBlockUserSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userBlockUserSucceeded('OK.').type;
     const expected = USER_BLOCK_USER_SUCCEEDED;
@@ -215,7 +215,7 @@ describe('the userBlockUserSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userBlockUserFailed action creator', () => {
+describe('userBlockUserFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userBlockUserFailed('Try again.').type;
     const expected = USER_BLOCK_USER_FAILED;
@@ -229,7 +229,7 @@ describe('the userBlockUserFailed action creator', () => {
 });
 
 
-describe('the userUnblockUser action creator', () => {
+describe('userUnblockUser action creator', () => {
   it('returns the correct action type', () => {
     const actual = userUnblockUser('Juan').type;
     const expected = USER_UNBLOCK_USER;
@@ -241,7 +241,7 @@ describe('the userUnblockUser action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userUnblockUserSucceeded action creator', () => {
+describe('userUnblockUserSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = userUnblockUserSucceeded('OK.').type;
     const expected = USER_UNBLOCK_USER_SUCCEEDED;
@@ -253,7 +253,7 @@ describe('the userUnblockUserSucceeded action creator', () => {
     expect(actual).toEqual(expected);
   });
 });
-describe('the userUnblockUserFailed action creator', () => {
+describe('userUnblockUserFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = userUnblockUserFailed('Try again.').type;
     const expected = USER_UNBLOCK_USER_FAILED;

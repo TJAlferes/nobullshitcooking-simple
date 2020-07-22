@@ -42,7 +42,7 @@ const editingContentInfo = {
   thumbContentImage: null
 };
 
-describe('the staffCreateNewContent action creator', () => {
+describe('staffCreateNewContent action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewContent(creatingContentInfo).type;
     const expected = STAFF_CREATE_NEW_CONTENT;
@@ -55,7 +55,7 @@ describe('the staffCreateNewContent action creator', () => {
   });
 });
 
-describe('the staffCreateNewContentSucceeded action creator', () => {
+describe('staffCreateNewContentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewContentSucceeded('OK.').type;
     const expected = STAFF_CREATE_NEW_CONTENT_SUCCEEDED;
@@ -68,7 +68,7 @@ describe('the staffCreateNewContentSucceeded action creator', () => {
   });
 });
 
-describe('the staffCreateNewContentFailed action creator', () => {
+describe('staffCreateNewContentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffCreateNewContentFailed('Try again.').type;
     const expected = STAFF_CREATE_NEW_CONTENT_FAILED;
@@ -83,7 +83,7 @@ describe('the staffCreateNewContentFailed action creator', () => {
 
 
 
-describe('the staffEditContent action creator', () => {
+describe('staffEditContent action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditContent(editingContentInfo).type;
     const expected = STAFF_EDIT_CONTENT;
@@ -96,7 +96,7 @@ describe('the staffEditContent action creator', () => {
   });
 });
 
-describe('the staffEditContentSucceeded action creator', () => {
+describe('staffEditContentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditContentSucceeded('OK.').type;
     const expected = STAFF_EDIT_CONTENT_SUCCEEDED;
@@ -109,7 +109,7 @@ describe('the staffEditContentSucceeded action creator', () => {
   });
 });
 
-describe('the staffEditContentFailed action creator', () => {
+describe('staffEditContentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffEditContentFailed('Try again.').type;
     const expected = STAFF_EDIT_CONTENT_FAILED;
@@ -124,7 +124,7 @@ describe('the staffEditContentFailed action creator', () => {
 
 
 
-describe('the staffDeleteContent action creator', () => {
+describe('staffDeleteContent action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteContent(7).type;
     const expected = STAFF_DELETE_CONTENT;
@@ -137,7 +137,7 @@ describe('the staffDeleteContent action creator', () => {
   });
 });
 
-describe('the staffDeleteContentSucceeded action creator', () => {
+describe('staffDeleteContentSucceeded action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteContentSucceeded('OK.').type;
     const expected = STAFF_DELETE_CONTENT_SUCCEEDED;
@@ -150,7 +150,7 @@ describe('the staffDeleteContentSucceeded action creator', () => {
   });
 });
 
-describe('the staffDeleteContentFailed action creator', () => {
+describe('staffDeleteContentFailed action creator', () => {
   it('returns the correct action type', () => {
     const actual = staffDeleteContentFailed('Try again.').type;
     const expected = STAFF_DELETE_CONTENT_FAILED;
