@@ -8,18 +8,15 @@ import {
   dataGetInitialData,
   dataGetInitialDataSucceeded,
   dataGetInitialDataFailed,
-  dataGetInitialUserData,
-  dataGetInitialUserDataSucceeded,
-  dataGetInitialUserDataFailed,
   dataGetContent,
   dataGetContentSucceeded,
   dataGetContentFailed,
   dataGetContentTypes,
   dataGetContentTypesSucceeded,
   dataGetContentTypesFailed,
-  dataGetMeasurements,
-  dataGetMeasurementsSucceeded,
-  dataGetMeasurementsFailed,
+  dataGetCuisines,
+  dataGetCuisinesSucceeded,
+  dataGetCuisinesFailed,
   dataGetEquipments,
   dataGetEquipmentsSucceeded,
   dataGetEquipmentsFailed,
@@ -32,24 +29,34 @@ import {
   dataGetIngredientTypes,
   dataGetIngredientTypesSucceeded,
   dataGetIngredientTypesFailed,
+  dataGetMeasurements,
+  dataGetMeasurementsSucceeded,
+  dataGetMeasurementsFailed,
+  dataGetMethods,
+  dataGetMethodsSucceeded,
+  dataGetMethodsFailed,
   dataGetRecipes,
   dataGetRecipesSucceeded,
   dataGetRecipesFailed,
   dataGetRecipeTypes,
   dataGetRecipeTypesSucceeded,
   dataGetRecipeTypesFailed,
-  dataGetCuisines,
-  dataGetCuisinesSucceeded,
-  dataGetCuisinesFailed,
-  dataGetMethods,
-  dataGetMethodsSucceeded,
-  dataGetMethodsFailed,
+
+  dataGetInitialUserData,
+  dataGetInitialUserDataSucceeded,
+  dataGetInitialUserDataFailed,
   dataGetMyContent,
   dataGetMyContentSucceeded,
   dataGetMyContentFailed,
-  dataGetMyPublicRecipes,
-  dataGetMyPublicRecipesSucceeded,
-  dataGetMyPublicRecipesFailed,
+  dataGetMyFavoriteRecipes,
+  dataGetMyFavoriteRecipesSucceeded,
+  dataGetMyFavoriteRecipesFailed,
+  dataGetMyFriendships,
+  dataGetMyFriendshipsSucceeded,
+  dataGetMyFriendshipsFailed,
+  dataGetMyPlans,
+  dataGetMyPlansSucceeded,
+  dataGetMyPlansFailed,
   dataGetMyPrivateEquipments,
   dataGetMyPrivateEquipmentsSucceeded,
   dataGetMyPrivateEquipmentsFailed,
@@ -59,18 +66,12 @@ import {
   dataGetMyPrivateRecipes,
   dataGetMyPrivateRecipesSucceeded,
   dataGetMyPrivateRecipesFailed,
-  dataGetMyFavoriteRecipes,
-  dataGetMyFavoriteRecipesSucceeded,
-  dataGetMyFavoriteRecipesFailed,
+  dataGetMyPublicRecipes,
+  dataGetMyPublicRecipesSucceeded,
+  dataGetMyPublicRecipesFailed,
   dataGetMySavedRecipes,
   dataGetMySavedRecipesSucceeded,
-  dataGetMySavedRecipesFailed,
-  dataGetMyPlans,
-  dataGetMyPlansSucceeded,
-  dataGetMyPlansFailed,
-  dataGetMyFriendships,
-  dataGetMyFriendshipsSucceeded,
-  dataGetMyFriendshipsFailed
+  dataGetMySavedRecipesFailed
 } from './actions';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
@@ -82,21 +83,6 @@ export function* dataGetInitialDataSaga() {
     yield put(dataGetInitialDataSucceeded());
   } catch (err) {
     yield put(dataGetInitialDataFailed());
-  }
-}
-
-export function* dataGetInitialUserDataSaga() {
-  try {
-    const res = yield call(
-      [axios, axios.post],
-      `${endpoint}/user/data-init`,
-      {},
-      {withCredentials: true}
-    );
-    yield put(dataGetInitialUserData(res.data));
-    yield put(dataGetInitialUserDataSucceeded());
-  } catch (err) {
-    yield put(dataGetInitialUserDataFailed());
   }
 }
 
@@ -120,13 +106,13 @@ export function* dataGetContentTypesSaga() {
   }
 }
 
-export function* dataGetMeasurementsSaga() {
+export function* dataGetCuisinesSaga() {
   try {
-    const res = yield call([axios, axios.get], `${endpoint}/measurement`);
-    yield put(dataGetMeasurements(res.data));
-    yield put(dataGetMeasurementsSucceeded());
+    const res = yield call([axios, axios.get], `${endpoint}/cuisine`);
+    yield put(dataGetCuisines(res.data));
+    yield put(dataGetCuisinesSucceeded());
   } catch (err) {
-    yield put(dataGetMeasurementsFailed());
+    yield put(dataGetCuisinesFailed());
   }
 }
 
@@ -176,6 +162,26 @@ export function* dataGetIngredientTypesSaga() {
   }
 }
 
+export function* dataGetMeasurementsSaga() {
+  try {
+    const res = yield call([axios, axios.get], `${endpoint}/measurement`);
+    yield put(dataGetMeasurements(res.data));
+    yield put(dataGetMeasurementsSucceeded());
+  } catch (err) {
+    yield put(dataGetMeasurementsFailed());
+  }
+}
+
+export function* dataGetMethodsSaga() {
+  try {
+    const res = yield call([axios, axios.get], `${endpoint}/method`);
+    yield put(dataGetMethods(res.data));
+    yield put(dataGetMethodsSucceeded());
+  } catch (err) {
+    yield put(dataGetMethodsFailed());
+  }
+}
+
 export function* dataGetRecipesSaga() {
   try {
     const res = yield call(
@@ -199,52 +205,22 @@ export function* dataGetRecipeTypesSaga() {
   }
 }
 
-export function* dataGetCuisinesSaga() {
+
+
+export function* dataGetInitialUserDataSaga() {
   try {
-    const res = yield call([axios, axios.get], `${endpoint}/cuisine`);
-    yield put(dataGetCuisines(res.data));
-    yield put(dataGetCuisinesSucceeded());
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/data-init`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetInitialUserData(res.data));
+    yield put(dataGetInitialUserDataSucceeded());
   } catch (err) {
-    yield put(dataGetCuisinesFailed());
+    yield put(dataGetInitialUserDataFailed());
   }
 }
-
-export function* dataGetMethodsSaga() {
-  try {
-    const res = yield call([axios, axios.get], `${endpoint}/method`);
-    yield put(dataGetMethods(res.data));
-    yield put(dataGetMethodsSucceeded());
-  } catch (err) {
-    yield put(dataGetMethodsFailed());
-  }
-}
-
-/*
-perhaps too early to abstract
-
-function postData(path, action, succeeded, failed) {
-  return function*() {
-    try {
-      const res = yield call(
-        [axios, axios.post],
-        `${endpoint}/${path}`,
-        {},
-        {withCredentials: true}
-      );
-      yield put(action(res.data));
-      yield put(succeeded());
-    } catch (err) {
-      yield put(failed());
-    }
-  }
-}
-
-export const dataGetMyPlansSaga = postData(
-  'user/plan/all',
-  dataGetMyPlans,
-  dataGetMyPlansSucceeded,
-  dataGetMyPlansFailed
-);*/
 
 export function* dataGetMyContentSaga() {
   try {
@@ -258,51 +234,6 @@ export function* dataGetMyContentSaga() {
     yield put(dataGetMyContentSucceeded());
   } catch (err) {
     yield put(dataGetMyContentFailed());
-  }
-}
-
-export function* dataGetMyPlansSaga() {
-  try {
-    const res = yield call(
-      [axios, axios.post],
-      `${endpoint}/user/plan/all`,
-      {},
-      {withCredentials: true}
-    );
-    yield put(dataGetMyPlans(res.data));
-    yield put(dataGetMyPlansSucceeded());
-  } catch (err) {
-    yield put(dataGetMyPlansFailed());
-  }
-}
-
-export function* dataGetMyPublicRecipesSaga() {
-  try {
-    const res = yield call(
-      [axios, axios.post],
-      `${endpoint}/user/recipe/public/all`,
-      {},
-      {withCredentials: true}
-    );
-    yield put(dataGetMyPublicRecipes(res.data));
-    yield put(dataGetMyPublicRecipesSucceeded());
-  } catch (err) {
-    yield put(dataGetMyPublicRecipesFailed());
-  }
-}
-
-export function* dataGetMyPrivateRecipesSaga() {
-  try {
-    const res = yield call(
-      [axios, axios.post],
-      `${endpoint}/user/recipe/private/all`,
-      {},
-      {withCredentials: true}
-    );
-    yield put(dataGetMyPrivateRecipes(res.data));
-    yield put(dataGetMyPrivateRecipesSucceeded());
-  } catch (err) {
-    yield put(dataGetMyPrivateRecipesFailed());
   }
 }
 
@@ -321,18 +252,33 @@ export function* dataGetMyFavoriteRecipesSaga() {
   }
 }
 
-export function* dataGetMySavedRecipesSaga() {
+export function* dataGetMyFriendshipsSaga() {
   try {
     const res = yield call(
       [axios, axios.post],
-      `${endpoint}/user/saved-recipe`,
+      `${endpoint}/user/friendship`,
       {},
       {withCredentials: true}
     );
-    yield put(dataGetMySavedRecipes(res.data));
-    yield put(dataGetMySavedRecipesSucceeded());
+    yield put(dataGetMyFriendships(res.data));
+    yield put(dataGetMyFriendshipsSucceeded());
   } catch (err) {
-    yield put(dataGetMySavedRecipesFailed());
+    yield put(dataGetMyFriendshipsFailed());
+  }
+}
+
+export function* dataGetMyPlansSaga() {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/plan/all`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetMyPlans(res.data));
+    yield put(dataGetMyPlansSucceeded());
+  } catch (err) {
+    yield put(dataGetMyPlansFailed());
   }
 }
 
@@ -366,17 +312,47 @@ export function* dataGetMyPrivateIngredientsSaga() {
   }
 }
 
-export function* dataGetMyFriendshipsSaga() {
+export function* dataGetMyPrivateRecipesSaga() {
   try {
     const res = yield call(
       [axios, axios.post],
-      `${endpoint}/user/friendship`,
+      `${endpoint}/user/recipe/private/all`,
       {},
       {withCredentials: true}
     );
-    yield put(dataGetMyFriendships(res.data));
-    yield put(dataGetMyFriendshipsSucceeded());
+    yield put(dataGetMyPrivateRecipes(res.data));
+    yield put(dataGetMyPrivateRecipesSucceeded());
   } catch (err) {
-    yield put(dataGetMyFriendshipsFailed());
+    yield put(dataGetMyPrivateRecipesFailed());
+  }
+}
+
+export function* dataGetMyPublicRecipesSaga() {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/recipe/public/all`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetMyPublicRecipes(res.data));
+    yield put(dataGetMyPublicRecipesSucceeded());
+  } catch (err) {
+    yield put(dataGetMyPublicRecipesFailed());
+  }
+}
+
+export function* dataGetMySavedRecipesSaga() {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/saved-recipe`,
+      {},
+      {withCredentials: true}
+    );
+    yield put(dataGetMySavedRecipes(res.data));
+    yield put(dataGetMySavedRecipesSucceeded());
+  } catch (err) {
+    yield put(dataGetMySavedRecipesFailed());
   }
 }

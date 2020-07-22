@@ -1,14 +1,14 @@
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
-  CART_EMPTY,
+  CART_EMPTY_CART,
   ICartState,
   CartActions
 } from './types';
 
 const initialState: ICartState = {items: []};
 
-const cartReducer = (
+export const cartReducer = (
   state = initialState,
   action: CartActions
 ): ICartState => {
@@ -27,13 +27,7 @@ const cartReducer = (
           items: state.items.filter(id => id !== action.item)
         }
       };
-    case CART_EMPTY:
-      return {
-        ...state,
-        ...initialState
-      };
+    case CART_EMPTY_CART: return {...state, ...initialState};
     default: return state;
   }
 };
-
-export default cartReducer;

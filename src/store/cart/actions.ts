@@ -1,7 +1,7 @@
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
-  CART_EMPTY,
+  CART_EMPTY_CART,
   ICartItem
 } from './types';
 
@@ -15,4 +15,4 @@ export const cartRemoveItem = (item: ICartItem) => ({
   item
 });
 
-export const cartEmpty = () => ({type: CART_EMPTY});
+export const cartEmpty = () => ({type: CART_EMPTY_CART});

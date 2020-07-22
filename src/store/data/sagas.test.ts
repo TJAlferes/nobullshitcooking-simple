@@ -1,9 +1,5 @@
 import axios from 'axios';
-//import MockAdapter from 'axios-mock-adapter';
 import { call, put } from 'redux-saga/effects';
-//import { expectSaga } from 'redux-saga-test-plan';
-//import * as matchers from 'redux-saga-test-plan/matchers';
-//import { throwError } from 'redux-saga-test-plan/providers';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -12,12 +8,15 @@ import {
   dataGetInitialData,
   dataGetInitialDataSucceeded,
   dataGetInitialDataFailed,
+  dataGetContent,
+  dataGetContentSucceeded,
+  dataGetContentFailed,
   dataGetContentTypes,
   dataGetContentTypesSucceeded,
   dataGetContentTypesFailed,
-  dataGetMeasurements,
-  dataGetMeasurementsSucceeded,
-  dataGetMeasurementsFailed,
+  dataGetCuisines,
+  dataGetCuisinesSucceeded,
+  dataGetCuisinesFailed,
   dataGetEquipments,
   dataGetEquipmentsSucceeded,
   dataGetEquipmentsFailed,
@@ -30,21 +29,34 @@ import {
   dataGetIngredientTypes,
   dataGetIngredientTypesSucceeded,
   dataGetIngredientTypesFailed,
+  dataGetMeasurements,
+  dataGetMeasurementsSucceeded,
+  dataGetMeasurementsFailed,
+  dataGetMethods,
+  dataGetMethodsSucceeded,
+  dataGetMethodsFailed,
   dataGetRecipes,
   dataGetRecipesSucceeded,
   dataGetRecipesFailed,
   dataGetRecipeTypes,
   dataGetRecipeTypesSucceeded,
   dataGetRecipeTypesFailed,
-  dataGetCuisines,
-  dataGetCuisinesSucceeded,
-  dataGetCuisinesFailed,
-  dataGetMethods,
-  dataGetMethodsSucceeded,
-  dataGetMethodsFailed,
-  dataGetMyPublicRecipes,
-  dataGetMyPublicRecipesSucceeded,
-  dataGetMyPublicRecipesFailed,
+
+  dataGetInitialUserData,
+  dataGetInitialUserDataSucceeded,
+  dataGetInitialUserDataFailed,
+  dataGetMyContent,
+  dataGetMyContentSucceeded,
+  dataGetMyContentFailed,
+  dataGetMyFavoriteRecipes,
+  dataGetMyFavoriteRecipesSucceeded,
+  dataGetMyFavoriteRecipesFailed,
+  dataGetMyFriendships,
+  dataGetMyFriendshipsSucceeded,
+  dataGetMyFriendshipsFailed,
+  dataGetMyPlans,
+  dataGetMyPlansSucceeded,
+  dataGetMyPlansFailed,
   dataGetMyPrivateEquipments,
   dataGetMyPrivateEquipmentsSucceeded,
   dataGetMyPrivateEquipmentsFailed,
@@ -54,49 +66,47 @@ import {
   dataGetMyPrivateRecipes,
   dataGetMyPrivateRecipesSucceeded,
   dataGetMyPrivateRecipesFailed,
-  dataGetMyFavoriteRecipes,
-  dataGetMyFavoriteRecipesSucceeded,
-  dataGetMyFavoriteRecipesFailed,
+  dataGetMyPublicRecipes,
+  dataGetMyPublicRecipesSucceeded,
+  dataGetMyPublicRecipesFailed,
   dataGetMySavedRecipes,
   dataGetMySavedRecipesSucceeded,
-  dataGetMySavedRecipesFailed,
-  dataGetMyPlans,
-  dataGetMyPlansSucceeded,
-  dataGetMyPlansFailed,
-  dataGetMyFriendships,
-  dataGetMyFriendshipsSucceeded,
-  dataGetMyFriendshipsFailed
+  dataGetMySavedRecipesFailed
 } from './actions';
 import {
   dataGetInitialDataSaga,
+  dataGetContentSaga,
   dataGetContentTypesSaga,
-  dataGetMeasurementsSaga,
+  dataGetCuisinesSaga,
   dataGetEquipmentsSaga,
   dataGetEquipmentTypesSaga,
   dataGetIngredientsSaga,
   dataGetIngredientTypesSaga,
+  dataGetMeasurementsSaga,
+  dataGetMethodsSaga,
   dataGetRecipesSaga,
   dataGetRecipeTypesSaga,
-  dataGetCuisinesSaga,
-  dataGetMethodsSaga,
-  dataGetMyPlansSaga,
-  dataGetMyPublicRecipesSaga,
-  dataGetMyPrivateRecipesSaga,
+
+  dataGetInitialUserDataSaga,
+  dataGetMyContentSaga,
   dataGetMyFavoriteRecipesSaga,
-  dataGetMySavedRecipesSaga,
+  dataGetMyFriendshipsSaga,
+  dataGetMyPlansSaga,
   dataGetMyPrivateEquipmentsSaga,
   dataGetMyPrivateIngredientsSaga,
-  dataGetMyFriendshipsSaga
+  dataGetMyPrivateRecipesSaga,
+  dataGetMyPublicRecipesSaga,
+  dataGetMySavedRecipesSaga
 } from './sagas';
 
-const endpoint = NOBSCBackendAPIEndpointOne;  // remove in test?
-//const mock = new MockAdapter(axios, {delayResponse: 100});
+const endpoint = NOBSCBackendAPIEndpointOne;
 
-describe('the dataGetInitialDataSaga', () => {
+describe('dataGetInitialDataSaga', () => {
   it('should dispatch initialData and succeeded if data found', () => {
     const iterator = dataGetInitialDataSaga();
     const res = {
       data: {
+        officialContent: [],
         contentTypes: [
           {
             content_type_id: 1,
@@ -105,8 +115,14 @@ describe('the dataGetInitialDataSaga', () => {
             content_type_path: "/page"
           }
         ],
+        cuisines: [
+          {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"}
+        ],
         measurements: [
           {"measurement_id": 1, "measurement_name": "teaspoon"}
+        ],
+        methods: [
+          {"method_id": 1, "method_name": "No-Cook"}
         ],
         officialEquipment: [
           {
@@ -148,12 +164,6 @@ describe('the dataGetInitialDataSaga', () => {
         ],
         recipeTypes: [
           {"recipe_type_id": 1, "recipe_type_name": "Drink"}
-        ],
-        cuisines: [
-          {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"}
-        ],
-        methods: [
-          {"method_id": 1, "method_name": "No-Cook"}
         ]
       }
     };
@@ -181,7 +191,9 @@ describe('the dataGetInitialDataSaga', () => {
   });
 });
 
-describe('the dataGetContentTypesSaga', () => {
+//describe('dataGetContentSaga', () => {});
+
+describe('dataGetContentTypesSaga', () => {
   it('should dispatch contentTypes and succeeded if data found', () => {
     const iterator = dataGetContentTypesSaga();
     const res = {
@@ -224,67 +236,35 @@ describe('the dataGetContentTypesSaga', () => {
   });
 });
 
-describe('the dataGetMeasurementsSaga', () => {
-  /*it('should hit API', () => {
-    return expectSaga(dataGetMeasurementsSaga)
-    .provide([
-      [call(() => {
-        mock
-        .onGet(`${endpoint}/measurement`)
-        .reply(
-          201,  // change?
-          {data: []}
-        );
-      })]
-    ])
-    .put({
-      type: 'DATA_GET_MEASUREMENTS',
-      data: [{measurement_id: 1, measurement_name: "teaspoon"}]
-    })
-    .put({
-      type: 'DATA_GET_MEASUREMENTS_SUCCEEDED',
-      message: 'Signed in.'
-    })
-    .put({type: 'AUTH_MESSAGE_CLEAR'})
-    .dispatch(action).silentRun(50);
-  });*/
-
-  it('should dispatch measurements and succeeded if data found', () => {
-    const iterator = dataGetMeasurementsSaga();
+describe('dataGetCuisinesSaga', () => {
+  it('should dispatch cuisines and succeeded if data found', () => {
+    const iterator = dataGetCuisinesSaga();
     const res = {
-      data: [
-        {measurement_id: 1, measurement_name: "teaspoon"}
-      ]
+      data: [{cuisine_id: 1, cuisine_name: "Russian", cuisine_nation: "Russia"}]
     };
 
     expect(iterator.next().value)
-    .toEqual(call([axios, axios.get], `${endpoint}/measurement`));
+    .toEqual(call([axios, axios.get], `${endpoint}/cuisine`));
 
-    expect(iterator.next(res).value)
-    .toEqual(put(dataGetMeasurements(res.data)));
-
-    expect(iterator.next().value).toEqual(put(dataGetMeasurementsSucceeded()));
+    expect(iterator.next(res).value).toEqual(put(dataGetCuisines(res.data)));
+    expect(iterator.next().value).toEqual(put(dataGetCuisinesSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if data not found', () => {
-    const iterator = dataGetMeasurementsSaga();
+    const iterator = dataGetCuisinesSaga();
 
     expect(iterator.next().value)
-    .toEqual(call([axios, axios.get], `${endpoint}/measurement`));
+    .toEqual(call([axios, axios.get], `${endpoint}/cuisine`));
 
     expect(iterator.throw('error').value)
-    .toEqual(put(dataGetMeasurementsFailed()));
+    .toEqual(put(dataGetCuisinesFailed()));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
 
-describe('the dataGetEquipmentsSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetEquipmentsSaga).silentRun(50);
-  });*/
-
+describe('dataGetEquipmentsSaga', () => {
   it('should dispatch equipments and succeeded if data found', () => {
     const iterator = dataGetEquipmentsSaga();
     const res = {
@@ -322,11 +302,7 @@ describe('the dataGetEquipmentsSaga', () => {
   });
 });
 
-describe('the dataGetEquipmentTypesSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetEquipmentTypesSaga).silentRun(50);
-  });*/
-
+describe('dataGetEquipmentTypesSaga', () => {
   it('should dispatch equipment types and succeeded if data found', () => {
     const iterator = dataGetEquipmentTypesSaga();
     const res = {
@@ -360,11 +336,7 @@ describe('the dataGetEquipmentTypesSaga', () => {
   });
 });
 
-describe('the dataGetIngredientsSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetIngredientsSaga).silentRun(50);
-  });*/
-
+describe('dataGetIngredientsSaga', () => {
   it('should dispatch ingredients and succeeded if data found', () => {
     const iterator = dataGetIngredientsSaga();
     const res = {
@@ -402,11 +374,7 @@ describe('the dataGetIngredientsSaga', () => {
   });
 });
 
-describe('the dataGetIngredientTypesSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetIngredientTypesSaga).silentRun(50);
-  });*/
-
+describe('dataGetIngredientTypesSaga', () => {
   it('should dispatch ingredient types and succeeded if data found', () => {
     const iterator = dataGetIngredientTypesSaga();
     const res = {
@@ -440,11 +408,73 @@ describe('the dataGetIngredientTypesSaga', () => {
   });
 });
 
-describe('the dataGetRecipesSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetRecipesSaga).silentRun(50);
-  });*/
+describe('dataGetMeasurementsSaga', () => {
+  it('should dispatch measurements and succeeded if data found', () => {
+    const iterator = dataGetMeasurementsSaga();
+    const res = {
+      data: [
+        {measurement_id: 1, measurement_name: "teaspoon"}
+      ]
+    };
 
+    expect(iterator.next().value)
+    .toEqual(call([axios, axios.get], `${endpoint}/measurement`));
+
+    expect(iterator.next(res).value)
+    .toEqual(put(dataGetMeasurements(res.data)));
+
+    expect(iterator.next().value).toEqual(put(dataGetMeasurementsSucceeded()));
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+
+  it('should dispatch failed if data not found', () => {
+    const iterator = dataGetMeasurementsSaga();
+
+    expect(iterator.next().value)
+    .toEqual(call([axios, axios.get], `${endpoint}/measurement`));
+
+    expect(iterator.throw('error').value)
+    .toEqual(put(dataGetMeasurementsFailed()));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+});
+
+describe('dataGetMethodsSaga', () => {
+  it('should dispatch methods and succeeded if data found', () => {
+    const iterator = dataGetMethodsSaga();
+    const res = {
+      data: [
+        {"method_id": 1, "method_name": "No-Cook"}
+      ]
+    };
+
+    expect(iterator.next().value)
+    .toEqual(call([axios, axios.get], `${endpoint}/method`));
+
+    expect(iterator.next(res).value)
+    .toEqual(put(dataGetMethods(res.data)));
+
+    expect(iterator.next().value)
+    .toEqual(put(dataGetMethodsSucceeded()));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+
+  it('should dispatch failed if data not found', () => {
+    const iterator = dataGetMethodsSaga();
+
+    expect(iterator.next().value)
+    .toEqual(call([axios, axios.get], `${endpoint}/method`));
+
+    expect(iterator.throw('error').value)
+    .toEqual(put(dataGetMethodsFailed()));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+});
+
+describe('dataGetRecipesSaga', () => {
   it('should dispatch recipes and succeeded if data found', () => {
     const iterator = dataGetRecipesSaga();
     const res = {
@@ -481,11 +511,7 @@ describe('the dataGetRecipesSaga', () => {
   });
 });
 
-describe('the dataGetRecipeTypesSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetRecipeTypesSaga).silentRun(50);
-  });*/
-
+describe('dataGetRecipeTypesSaga', () => {
   it('should dispatch recipe types and succeeded if data found', () => {
     const iterator = dataGetRecipeTypesSaga();
     const res = {
@@ -515,242 +541,89 @@ describe('the dataGetRecipeTypesSaga', () => {
   });
 });
 
-describe('the dataGetCuisinesSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetCuisinesSaga).silentRun(50);
-  });*/
 
-  it('should dispatch cuisines and succeeded if data found', () => {
-    const iterator = dataGetCuisinesSaga();
+
+describe('dataGetInitialUserDataSaga', () => {
+  it('should dispatch initialUserData and succeeded if data found', () => {
+    const iterator = dataGetInitialUserDataSaga();
     const res = {
-      data: [{cuisine_id: 1, cuisine_name: "Russian", cuisine_nation: "Russia"}]
+      data: {
+        myContent: [],
+        myFavoriteRecipes: [],
+        myFriendships: [],
+        myPlans: [],
+        myPrivateEquipment: [
+          {
+            equipment_id: 1,
+            equipment_type_id: 4,
+            owner_id: 1,
+            equipment_name: "Chopstick",
+            equipment_type_name: "Dining",
+            equipment_description: "It works.",
+            equipment_image: "nobsc-chopstick"
+          }
+        ],
+        myPrivateIngredients: [
+          {
+            ingredient_id: 1,
+            ingredient_type_id: 1,
+            owner_id: 1,
+            ingredient_type_name: "Fish",
+            ingredient_name: "Salmon",
+            ingredient_description: "Tasty.",
+            ingredient_image: "nobsc-salmon"
+          }
+        ],
+        myPrivateRecipes: [
+          {
+            recipe_id: 8,
+            owner_id: 8,
+            recipe_type_id: 4,
+            cuisine_id: 4,
+            title: "My Tasty",
+            recipe_image: "my-tasty"
+          }
+        ],
+        myPublicRecipes: [],
+        mySavedRecipes: [
+          {
+            recipe_id: 1,
+            owner_id: 1,
+            recipe_type_id: 1,
+            cuisine_id: 1,
+            title: "Tasty",
+            recipe_image: "nobsc-tasty"
+          }
+        ],
+      }
     };
 
     expect(iterator.next().value)
-    .toEqual(call([axios, axios.get], `${endpoint}/cuisine`));
-
-    expect(iterator.next(res).value).toEqual(put(dataGetCuisines(res.data)));
-    expect(iterator.next().value).toEqual(put(dataGetCuisinesSucceeded()));
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-
-  it('should dispatch failed if data not found', () => {
-    const iterator = dataGetCuisinesSaga();
-
-    expect(iterator.next().value)
-    .toEqual(call([axios, axios.get], `${endpoint}/cuisine`));
-
-    expect(iterator.throw('error').value)
-    .toEqual(put(dataGetCuisinesFailed()));
-
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-});
-
-describe('the dataGetMethodsSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetMethodsSa.silentRun(50);
-  });*/
-
-  it('should dispatch methods and succeeded if data found', () => {
-    const iterator = dataGetMethodsSaga();
-    const res = {
-      data: [
-        {"method_id": 1, "method_name": "No-Cook"}
-      ]
-    };
-
-    expect(iterator.next().value)
-    .toEqual(call([axios, axios.get], `${endpoint}/method`));
+    .toEqual(call([axios, axios.get], `${endpoint}/user/data-init`));
 
     expect(iterator.next(res).value)
-    .toEqual(put(dataGetMethods(res.data)));
+    .toEqual(put(dataGetInitialUserData(res.data)));
 
-    expect(iterator.next().value)
-    .toEqual(put(dataGetMethodsSucceeded()));
-
+    expect(iterator.next().value).toEqual(put(dataGetInitialUserDataSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if data not found', () => {
-    const iterator = dataGetMethodsSaga();
+    const iterator = dataGetInitialUserDataSaga();
 
     expect(iterator.next().value)
-    .toEqual(call([axios, axios.get], `${endpoint}/method`));
+    .toEqual(call([axios, axios.get], `${endpoint}/user/data-init`));
 
     expect(iterator.throw('error').value)
-    .toEqual(put(dataGetMethodsFailed()));
+    .toEqual(put(dataGetInitialUserDataFailed()));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
 
-describe('the dataGetMyPlansSaga', () => {
-  /*it('works', () => {
-    ////return expectSaga(dataGetMyPlansSa.silentRun(50);
-  });*/
+//describe('dataGetMyContentSaga', () => {});
 
-  it('should dispatch plans and succeeded if data found', () => {
-    const iterator = dataGetMyPlansSaga();
-    const res = {
-      data: [
-        {
-          plan_id: 98234,
-          plan_name: "Plan A",
-          plan_data: {
-            1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
-            8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-           15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-           22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-         }
-        }
-      ]
-    };
-
-    expect(iterator.next().value)
-    .toEqual(call(
-      [axios, axios.post],
-      `${endpoint}/user/plan/all`,
-      {},
-      {withCredentials: true}
-    ));
-
-    expect(iterator.next(res).value).toEqual(put(dataGetMyPlans(res.data)));
-    expect(iterator.next().value).toEqual(put(dataGetMyPlansSucceeded()));
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-
-  it('should dispatch failed if data not found', () => {
-    const iterator = dataGetMyPlansSaga();
-
-    expect(iterator.next().value)
-    .toEqual(call(
-      [axios, axios.post],
-      `${endpoint}/user/plan/all`,
-      {},
-      {withCredentials: true}
-    ));
-
-    expect(iterator.throw('error').value).toEqual(put(dataGetMyPlansFailed()));
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-});
-
-describe('the dataGetMyPublicRecipesSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetMyPublicRecipesSaga).silentRun(50);
-  });*/
-
-  it('should dispatch recipes and succeeded if data found', () => {
-    const iterator = dataGetMyPublicRecipesSaga();
-    const res = {
-      data: [
-        {
-          recipe_id: 841,
-          owner_id: 3908,
-          recipe_type_id: 1,
-          cuisine_id: 1,
-          title: "Tasty",
-          recipe_image: "nobsc-tasty"
-        }
-      ]
-    };
-
-    expect(iterator.next().value)
-    .toEqual(call(
-      [axios, axios.post],
-      `${endpoint}/user/recipe/public/all`,
-      {},
-      {withCredentials: true}
-    ));
-
-    expect(iterator.next(res).value)
-    .toEqual(put(dataGetMyPublicRecipes(res.data)));
-
-    expect(iterator.next().value)
-    .toEqual(put(dataGetMyPublicRecipesSucceeded()));
-
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-
-  it('should dispatch failed if data not found', () => {
-    const iterator = dataGetMyPublicRecipesSaga();
-
-    expect(iterator.next().value)
-    .toEqual(call(
-      [axios, axios.post],
-      `${endpoint}/user/recipe/public/all`,
-      {},
-      {withCredentials: true}
-    ));
-
-    expect(iterator.throw('error').value)
-    .toEqual(put(dataGetMyPublicRecipesFailed()));
-
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-});
-
-describe('the dataGetMyPrivateRecipesSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetMyPrivateRecipesSaga).silentRun(50);
-  });*/
-
-  it('should dispatch recipes and succeeded if data found', () => {
-    const iterator = dataGetMyPrivateRecipesSaga();
-    const res = {
-      data: [
-        {
-          recipe_id: 841,
-          owner_id: 3908,
-          recipe_type_id: 1,
-          cuisine_id: 1,
-          title: "Tasty",
-          recipe_image: "nobsc-tasty"
-        }
-      ]
-    };
-
-    expect(iterator.next().value)
-    .toEqual(call(
-      [axios, axios.post],
-      `${endpoint}/user/recipe/private/all`,
-      {},
-      {withCredentials: true}
-    ));
-
-    expect(iterator.next(res).value)
-    .toEqual(put(dataGetMyPrivateRecipes(res.data)));
-
-    expect(iterator.next().value)
-    .toEqual(put(dataGetMyPrivateRecipesSucceeded()));
-
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-
-  it('should dispatch failed if data not found', () => {
-    const iterator = dataGetMyPrivateRecipesSaga();
-
-    expect(iterator.next().value)
-    .toEqual(call(
-      [axios, axios.post],
-      `${endpoint}/user/recipe/private/all`,
-      {},
-      {withCredentials: true}
-    ));
-
-    expect(iterator.throw('error').value)
-    .toEqual(put(dataGetMyPrivateRecipesFailed()));
-
-    expect(iterator.next()).toEqual({done: true, value: undefined});
-  });
-});
-
-describe('the dataGetMyFavoriteRecipesSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetMyFavoriteRecipesSaga).silentRun(50);
-  });*/
-
+describe('dataGetMyFavoriteRecipesSaga', () => {
   it('should dispatch recipes and succeeded if data found', () => {
     const iterator = dataGetMyFavoriteRecipesSaga();
     const res = {
@@ -801,22 +674,16 @@ describe('the dataGetMyFavoriteRecipesSaga', () => {
   });
 });
 
-describe('the dataGetMySavedRecipesSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetMySavedRecipesSaga).silentRun(50);
-  });*/
-
-  it('should dispatch recipes and succeeded if data found', () => {
-    const iterator = dataGetMySavedRecipesSaga();
+describe('dataGetMyFriendshipsSaga', () => {
+  it('should dispatch friendships and succeeded if data found', () => {
+    const iterator = dataGetMyFriendshipsSaga();
     const res = {
       data: [
         {
-          recipe_id: 1,
-          owner_id: 1,
-          recipe_type_id: 1,
-          cuisine_id: 1,
-          title: "Tasty",
-          recipe_image: "nobsc-tasty"
+          user_id: 1749,
+          username: "SnowboarderMike",
+          avatar: "SnowboarderMike",
+          status: "accepted"
         }
       ]
     };
@@ -824,43 +691,84 @@ describe('the dataGetMySavedRecipesSaga', () => {
     expect(iterator.next().value)
     .toEqual(call(
       [axios, axios.post],
-      `${endpoint}/user/saved-recipe`,
+      `${endpoint}/user/friendship`,
       {},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res).value)
-    .toEqual(put(dataGetMySavedRecipes(res.data)));
+    .toEqual(put(dataGetMyFriendships(res.data)));
 
-    expect(iterator.next().value)
-    .toEqual(put(dataGetMySavedRecipesSucceeded()));
-
+    expect(iterator.next().value).toEqual(put(dataGetMyFriendshipsSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if data not found', () => {
-    const iterator = dataGetMySavedRecipesSaga();
+    const iterator = dataGetMyFriendshipsSaga();
 
     expect(iterator.next().value)
     .toEqual(call(
       [axios, axios.post],
-      `${endpoint}/user/saved-recipe`,
+      `${endpoint}/user/friendship`,
       {},
       {withCredentials: true}
     ));
 
     expect(iterator.throw('error').value)
-    .toEqual(put(dataGetMySavedRecipesFailed()));
+    .toEqual(put(dataGetMyFriendshipsFailed()));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 });
 
-describe('the dataGetMyPrivateEquipmentsSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetMyPrivateEquipmentsSaga).silentRun(50);
-  });*/
+describe('dataGetMyPlansSaga', () => {
+  it('should dispatch plans and succeeded if data found', () => {
+    const iterator = dataGetMyPlansSaga();
+    const res = {
+      data: [
+        {
+          plan_id: 98234,
+          plan_name: "Plan A",
+          plan_data: {
+            1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
+            8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
+           15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
+           22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
+         }
+        }
+      ]
+    };
 
+    expect(iterator.next().value)
+    .toEqual(call(
+      [axios, axios.post],
+      `${endpoint}/user/plan/all`,
+      {},
+      {withCredentials: true}
+    ));
+
+    expect(iterator.next(res).value).toEqual(put(dataGetMyPlans(res.data)));
+    expect(iterator.next().value).toEqual(put(dataGetMyPlansSucceeded()));
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+
+  it('should dispatch failed if data not found', () => {
+    const iterator = dataGetMyPlansSaga();
+
+    expect(iterator.next().value)
+    .toEqual(call(
+      [axios, axios.post],
+      `${endpoint}/user/plan/all`,
+      {},
+      {withCredentials: true}
+    ));
+
+    expect(iterator.throw('error').value).toEqual(put(dataGetMyPlansFailed()));
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+});
+
+describe('dataGetMyPrivateEquipmentsSaga', () => {
   it('should dispatch equipments and succeeded if data found', () => {
     const iterator = dataGetMyPrivateEquipmentsSaga();
     const res = {
@@ -912,11 +820,7 @@ describe('the dataGetMyPrivateEquipmentsSaga', () => {
   });
 });
 
-describe('the dataGetMyPrivateIngredientsSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetMyPrivateIngredientsSaga).silentRun(50);
-  });*/
-
+describe('dataGetMyPrivateIngredientsSaga', () => {
   it('should dispatch ingredients and succeeded if data found', () => {
     const iterator = dataGetMyPrivateIngredientsSaga();
     const res = {
@@ -968,20 +872,18 @@ describe('the dataGetMyPrivateIngredientsSaga', () => {
   });
 });
 
-describe('the dataGetMyFriendshipsSaga', () => {
-  /*it('works', () => {
-    //return expectSaga(dataGetMyFriendshipsSaga).silentRun(50);
-  });*/
-
-  it('should dispatch friendships and succeeded if data found', () => {
-    const iterator = dataGetMyFriendshipsSaga();
+describe('dataGetMyPrivateRecipesSaga', () => {
+  it('should dispatch recipes and succeeded if data found', () => {
+    const iterator = dataGetMyPrivateRecipesSaga();
     const res = {
       data: [
         {
-          user_id: 1749,
-          username: "SnowboarderMike",
-          avatar: "SnowboarderMike",
-          status: "accepted"
+          recipe_id: 841,
+          owner_id: 3908,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "Tasty",
+          recipe_image: "nobsc-tasty"
         }
       ]
     };
@@ -989,31 +891,135 @@ describe('the dataGetMyFriendshipsSaga', () => {
     expect(iterator.next().value)
     .toEqual(call(
       [axios, axios.post],
-      `${endpoint}/user/friendship`,
+      `${endpoint}/user/recipe/private/all`,
       {},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res).value)
-    .toEqual(put(dataGetMyFriendships(res.data)));
+    .toEqual(put(dataGetMyPrivateRecipes(res.data)));
 
-    expect(iterator.next().value).toEqual(put(dataGetMyFriendshipsSucceeded()));
+    expect(iterator.next().value)
+    .toEqual(put(dataGetMyPrivateRecipesSucceeded()));
+
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if data not found', () => {
-    const iterator = dataGetMyFriendshipsSaga();
+    const iterator = dataGetMyPrivateRecipesSaga();
 
     expect(iterator.next().value)
     .toEqual(call(
       [axios, axios.post],
-      `${endpoint}/user/friendship`,
+      `${endpoint}/user/recipe/private/all`,
       {},
       {withCredentials: true}
     ));
 
     expect(iterator.throw('error').value)
-    .toEqual(put(dataGetMyFriendshipsFailed()));
+    .toEqual(put(dataGetMyPrivateRecipesFailed()));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+});
+
+describe('dataGetMyPublicRecipesSaga', () => {
+  it('should dispatch recipes and succeeded if data found', () => {
+    const iterator = dataGetMyPublicRecipesSaga();
+    const res = {
+      data: [
+        {
+          recipe_id: 841,
+          owner_id: 3908,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "Tasty",
+          recipe_image: "nobsc-tasty"
+        }
+      ]
+    };
+
+    expect(iterator.next().value)
+    .toEqual(call(
+      [axios, axios.post],
+      `${endpoint}/user/recipe/public/all`,
+      {},
+      {withCredentials: true}
+    ));
+
+    expect(iterator.next(res).value)
+    .toEqual(put(dataGetMyPublicRecipes(res.data)));
+
+    expect(iterator.next().value)
+    .toEqual(put(dataGetMyPublicRecipesSucceeded()));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+
+  it('should dispatch failed if data not found', () => {
+    const iterator = dataGetMyPublicRecipesSaga();
+
+    expect(iterator.next().value)
+    .toEqual(call(
+      [axios, axios.post],
+      `${endpoint}/user/recipe/public/all`,
+      {},
+      {withCredentials: true}
+    ));
+
+    expect(iterator.throw('error').value)
+    .toEqual(put(dataGetMyPublicRecipesFailed()));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+});
+
+describe('dataGetMySavedRecipesSaga', () => {
+  it('should dispatch recipes and succeeded if data found', () => {
+    const iterator = dataGetMySavedRecipesSaga();
+    const res = {
+      data: [
+        {
+          recipe_id: 1,
+          owner_id: 1,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "Tasty",
+          recipe_image: "nobsc-tasty"
+        }
+      ]
+    };
+
+    expect(iterator.next().value)
+    .toEqual(call(
+      [axios, axios.post],
+      `${endpoint}/user/saved-recipe`,
+      {},
+      {withCredentials: true}
+    ));
+
+    expect(iterator.next(res).value)
+    .toEqual(put(dataGetMySavedRecipes(res.data)));
+
+    expect(iterator.next().value)
+    .toEqual(put(dataGetMySavedRecipesSucceeded()));
+
+    expect(iterator.next()).toEqual({done: true, value: undefined});
+  });
+
+  it('should dispatch failed if data not found', () => {
+    const iterator = dataGetMySavedRecipesSaga();
+
+    expect(iterator.next().value)
+    .toEqual(call(
+      [axios, axios.post],
+      `${endpoint}/user/saved-recipe`,
+      {},
+      {withCredentials: true}
+    ));
+
+    expect(iterator.throw('error').value)
+    .toEqual(put(dataGetMySavedRecipesFailed()));
 
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });

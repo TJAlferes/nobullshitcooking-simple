@@ -1,9 +1,9 @@
 import { cartAddItem, cartRemoveItem, cartEmpty } from './actions';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY } from './types';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY_CART } from './types';
 
 const item = {itemId: 18, itemTypeId: 1, itemName: 'Item 18'}
 
-describe('the cartItemAdd action creator', () => {
+describe('cartItemAdd action creator', () => {
   it('returns the correct action type', () => {
     const actual = cartAddItem(item).type;
     const expected = CART_ADD_ITEM;
@@ -16,7 +16,7 @@ describe('the cartItemAdd action creator', () => {
   });
 });
 
-describe('the cartItemRemove action creator', () => {
+describe('cartItemRemove action creator', () => {
   it('returns the correct action type', () => {
     const actual = cartRemoveItem(item).type;
     const expected = CART_REMOVE_ITEM;
@@ -29,10 +29,10 @@ describe('the cartItemRemove action creator', () => {
   });
 });
 
-describe('the cartEmpty action creator', () => {
+describe('cartEmpty action creator', () => {
   it('returns the correct action type', () => {
     const actual = cartEmpty().type;
-    const expected = CART_EMPTY;
+    const expected = CART_EMPTY_CART;
     expect(actual).toEqual(expected);
   });
 });

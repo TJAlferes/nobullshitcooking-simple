@@ -1,5 +1,5 @@
-import cartReducer from './reducer';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY } from './types';
+import { cartReducer } from './reducer';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY_CART } from './types';
 
 const initialState = {items: []};
 
@@ -69,7 +69,7 @@ describe('the cart reducer', () => {
         {itemId: 16, itemTypeId: 1, itemName: 'Item A'},
       ]
     };
-    const actual = cartReducer(beforeState, {type: CART_EMPTY});
+    const actual = cartReducer(beforeState, {type: CART_EMPTY_CART});
     const expected = initialState;
     expect(actual).toEqual(expected);
   });
