@@ -1,7 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-
-
+import {loadStripe} from '@stripe/stripe-js';
+import {
+  CardElement,
+  Elements,
+  useStripe,
+  useElements,
+} from '@stripe/react-stripe-js';
 
 const onToken = (amount, description) => token =>
   axios.postMessage(PAYMENT_SERVER_URL, {
@@ -13,7 +18,7 @@ const onToken = (amount, description) => token =>
   .then(successPayment)
   .catch(errorPayment);
 
-const Checkout = ({ name, description, amount }) => (
+export const Checkout = ({ name, description, amount }) => (
   <StripeCheckout
     name={name}
     description={description}
@@ -23,5 +28,3 @@ const Checkout = ({ name, description, amount }) => (
     stripeKey={STRIPE_PUBLISHABLE}
   />
 );
-
-export default Checkout;

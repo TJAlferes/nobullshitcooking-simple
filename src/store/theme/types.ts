@@ -1,6 +1,12 @@
 export const THEME_DARK_TRIGGER = 'THEME_DARK_TRIGGER' as const;
 export const THEME_LIGHT_TRIGGER = 'THEME_LIGHT_TRIGGER' as const;
 
+/*
+
+State
+
+*/
+
 export interface IThemeState {
   headerTheme: string
   mainTheme: string
@@ -16,6 +22,12 @@ export interface IThemeState {
   suggestionsTheme: string
   feedTheme: string
 }
+
+/*
+
+Actions
+
+*/
 
 export type ThemeActions = IThemeDarkTrigger|IThemeLightTrigger;
 

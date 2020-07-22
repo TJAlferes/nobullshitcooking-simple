@@ -10,6 +10,12 @@ export const PLANNER_SET_EDITING_ID = 'PLANNER_SET_EDITING_ID' as const;
 export const PLANNER_SET_PLAN_NAME = 'PLANNER_SET_PLAN_NAME' as const;
 export const PLANNER_SET_PLAN_DATA = 'PLANNER_SET_PLAN_DATA' as const;
 
+/*
+
+State
+
+*/
+
 export interface IPlannerState {
   isLoading: boolean;
   creating: boolean;
@@ -60,6 +66,12 @@ export interface IPlannerRecipe {
   recipe_image: string;
   owner_id: number;
 }
+
+/*
+
+Actions
+
+*/
 
 export type PlannerActions =
 IPlannerClickDay |

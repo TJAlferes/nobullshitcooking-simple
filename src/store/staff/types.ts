@@ -33,13 +33,21 @@ import {
 
 export const STAFF_MESSAGE_CLEAR = 'STAFF_MESSAGE_CLEAR' as const;
 
-export interface IStaffMessageClear {
-  type: typeof STAFF_MESSAGE_CLEAR
-}
+/*
+
+State
+
+*/
 
 export interface IStaffState {
   message: string
 }
+
+/*
+
+Actions
+
+*/
 
 export type StaffActions =
 IStaffMessageClear |
@@ -67,3 +75,7 @@ IStaffEditRecipeSucceeded |
 IStaffEditRecipeFailed |
 IStaffDeleteRecipeSucceeded |
 IStaffDeleteRecipeFailed;
+
+export interface IStaffMessageClear {
+  type: typeof STAFF_MESSAGE_CLEAR
+}

@@ -1,6 +1,12 @@
 export const PLANNER_VIEW_CLICK_DAY = 'PLANNER_VIEW_CLICK_DAY' as const;
 export const PLANNER_VIEW_LOAD = 'PLANNER_VIEW_LOAD' as const;
 
+/*
+
+State
+
+*/
+
 export interface IPlannerViewState {
   isLoading: boolean
   expanded: boolean
@@ -49,6 +55,12 @@ export interface IPlannerViewRecipe {
   title: string
   recipe_image: string
 }
+
+/*
+
+Actions
+
+*/
 
 export type PlannerViewActions = IPlannerViewClickDay|IPlannerViewLoad;
 

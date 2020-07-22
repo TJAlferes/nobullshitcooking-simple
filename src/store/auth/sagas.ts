@@ -7,7 +7,16 @@ import {
 import { removeStorageItem } from '../../utils/storageHelpers';
 import {
   authMessageClear,
+  authStaffDisplay,
+  authStaffLoginSucceeded,
+  authStaffLoginFailed,
+  authStaffLogoutSucceeded,
+  authStaffLogoutFailed,
   authUserDisplay,
+  authUserLoginSucceeded,
+  authUserLoginFailed,
+  authUserLogoutSucceeded,
+  authUserLogoutFailed,
   authUserRegisterSucceeded,
   authUserRegisterFailed,
   authUserVerifySucceeded,
@@ -18,15 +27,6 @@ import {
   //authGoogleCheckState,
   //authGoogleLogin,
   //authGoogleLogout,
-  authUserLoginSucceeded,
-  authUserLoginFailed,
-  authUserLogoutSucceeded,
-  authUserLogoutFailed,
-  authStaffDisplay,
-  authStaffLoginSucceeded,
-  authStaffLoginFailed,
-  authStaffLogoutSucceeded,
-  authStaffLogoutFailed
 } from './actions';
 import {
   IAuthUserRegister,
@@ -38,6 +38,100 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
+
+export function* authStaffLoginSaga(action: IAuthStaffLogin) {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/staff/auth/login`,
+      {staffInfo: {email: action.email, password: action.password}},
+      {withCredentials: true}
+    );
+    if (res.data.message == 'Signed in.') {
+      yield put(authStaffDisplay(res.data.staffname, res.data.avatar));
+      yield put(authStaffLoginSucceeded(res.data.message));
+    } else {
+      yield put(authStaffLoginFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(authMessageClear());
+  } catch(err) {
+    yield put(authStaffLoginFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
+  }
+}
+
+export function* authStaffLogoutSaga(action: IAuthStaffLogout) {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/staff/auth/logout`,
+      {},
+      {withCredentials: true}
+    );
+    if (res.data.message == 'Signed out.') {
+      yield call(removeStorageItem, 'appState');
+      yield put(authStaffLogoutSucceeded(res.data.message));
+    } else {
+      yield call(removeStorageItem, 'appState');  // clear their browser anyway
+      yield put(authStaffLogoutFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(authMessageClear());
+  } catch(err) {
+    yield put(authStaffLogoutFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
+  }
+}
+
+export function* authUserLoginSaga(action: IAuthUserLogin) {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/auth/login`,
+      {userInfo: {email: action.email, password: action.password}},
+      {withCredentials: true}
+    );
+    if (res.data.message == 'Signed in.') {
+      yield put(authUserDisplay(res.data.username, res.data.avatar));
+      yield put(authUserLoginSucceeded(res.data.message));
+    } else {
+      yield put(authUserLoginFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(authMessageClear());
+  } catch(err) {
+    yield put(authUserLoginFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
+  }
+}
+
+export function* authUserLogoutSaga(action: IAuthUserLogout) {
+  try {
+    const res = yield call(
+      [axios, axios.post],
+      `${endpoint}/user/auth/logout`,
+      {},
+      {withCredentials: true}
+    );
+    if (res.data.message == 'Signed out.') {
+      yield call(removeStorageItem, 'appState');
+      yield put(authUserLogoutSucceeded(res.data.message));
+    } else {
+      yield call(removeStorageItem, 'appState');  // clear their browser anyway
+      yield put(authUserLogoutFailed(res.data.message));
+    }
+    yield delay(4000);
+    yield put(authMessageClear());
+  } catch(err) {
+    yield put(authUserLogoutFailed('An error occurred. Please try again.'));
+    yield delay(4000);
+    yield put(authMessageClear());
+  }
+}
 
 export function* authUserRegisterSaga(action: IAuthUserRegister) {
   try {
@@ -102,54 +196,11 @@ export function* authUserVerifySaga(action: IAuthUserVerify) {
   }
 }
 
-export function* authUserLoginSaga(action: IAuthUserLogin) {
-  try {
-    const res = yield call(
-      [axios, axios.post],
-      `${endpoint}/user/auth/login`,
-      {userInfo: {email: action.email, password: action.password}},
-      {withCredentials: true}
-    );
-    if (res.data.message == 'Signed in.') {
-      yield put(authUserDisplay(res.data.username, res.data.avatar));
-      yield put(authUserLoginSucceeded(res.data.message));
-    } else {
-      yield put(authUserLoginFailed(res.data.message));
-    }
-    yield delay(4000);
-    yield put(authMessageClear());
-  } catch(err) {
-    yield put(authUserLoginFailed('An error occurred. Please try again.'));
-    yield delay(4000);
-    yield put(authMessageClear());
-  }
-}
+/*
 
-export function* authUserLogoutSaga(action: IAuthUserLogout) {
-  try {
-    const res = yield call(
-      [axios, axios.post],
-      `${endpoint}/user/auth/logout`,
-      {},
-      {withCredentials: true}
-    );
-    if (res.data.message == 'Signed out.') {
-      yield call(removeStorageItem, 'appState');
-      yield put(authUserLogoutSucceeded(res.data.message));
-    } else {
-      yield call(removeStorageItem, 'appState');  // clear their browser anyway
-      yield put(authUserLogoutFailed(res.data.message));
-    }
-    yield delay(4000);
-    yield put(authMessageClear());
-  } catch(err) {
-    yield put(authUserLogoutFailed('An error occurred. Please try again.'));
-    yield delay(4000);
-    yield put(authMessageClear());
-  }
-}
+Facebook OAuth
 
-/* Facebook OAuth */
+*/
 
 /*export function* authFacebookCheckStateSaga() {  // before authFacebookLoginSaga
   yield put(authFacebookCheckState());
@@ -188,51 +239,18 @@ export function* authFacebookLogoutSaga() {
   yield put(authLogoutSucceeded());
 }*/
 
-/* Google OAuth */
+/*
 
-export function* authStaffLoginSaga(action: IAuthStaffLogin) {
-  try {
-    const res = yield call(
-      [axios, axios.post],
-      `${endpoint}/staff/auth/login`,
-      {staffInfo: {email: action.email, password: action.password}},
-      {withCredentials: true}
-    );
-    if (res.data.message == 'Signed in.') {
-      yield put(authStaffDisplay(res.data.staffname, res.data.avatar));
-      yield put(authStaffLoginSucceeded(res.data.message));
-    } else {
-      yield put(authStaffLoginFailed(res.data.message));
-    }
-    yield delay(4000);
-    yield put(authMessageClear());
-  } catch(err) {
-    yield put(authStaffLoginFailed('An error occurred. Please try again.'));
-    yield delay(4000);
-    yield put(authMessageClear());
-  }
-}
+Google OAuth
 
-export function* authStaffLogoutSaga(action: IAuthStaffLogout) {
-  try {
-    const res = yield call(
-      [axios, axios.post],
-      `${endpoint}/staff/auth/logout`,
-      {},
-      {withCredentials: true}
-    );
-    if (res.data.message == 'Signed out.') {
-      yield call(removeStorageItem, 'appState');
-      yield put(authStaffLogoutSucceeded(res.data.message));
-    } else {
-      yield call(removeStorageItem, 'appState');  // clear their browser anyway
-      yield put(authStaffLogoutFailed(res.data.message));
-    }
-    yield delay(4000);
-    yield put(authMessageClear());
-  } catch(err) {
-    yield put(authStaffLogoutFailed('An error occurred. Please try again.'));
-    yield delay(4000);
-    yield put(authMessageClear());
-  }
-}
+*/
+
+// TO DO: Google OAuth
+
+/*
+
+Twitter OAuth
+
+*/
+
+// TO DO: Twitter OAuth

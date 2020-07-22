@@ -2,6 +2,12 @@ export const CART_ADD_ITEM = 'CART_ADD_ITEM' as const;
 export const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM' as const;
 export const CART_EMPTY = 'CART_EMPTY' as const;
 
+/*
+
+State
+
+*/
+
 export interface ICartState {
   items: ICartItem[];
 }
@@ -11,6 +17,12 @@ export interface ICartItem {
   itemTypeId: number;
   itemName: string;
 }
+
+/*
+
+Actions
+
+*/
 
 export type CartActions =
 ICartAddItem |

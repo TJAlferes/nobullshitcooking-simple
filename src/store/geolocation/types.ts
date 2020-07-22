@@ -3,12 +3,24 @@ export const GEO_LONGITUDE = 'GEO_LONGITUDE' as const;
 export const GEO_ADDRESS = 'GEO_ADDRESS' as const;
 export const GEO_NEARBY_STORES_CLICKED = 'GEO_NEARBY_STORES_CLICKED' as const;
 
+/*
+
+State
+
+*/
+
 export interface IGeoState {
   latitude: string
   longitude: string
   address: string
   nearbyStoresClicked: boolean
 }
+
+/*
+
+Actions
+
+*/
 
 export type GeoActions =
 IGeoAddress |

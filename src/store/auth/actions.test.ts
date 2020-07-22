@@ -1,25 +1,38 @@
 import { createMemoryHistory } from 'history';
 
 import {
-  authUserDisplay,
   authUpdateLocalAvatar,
-  authUserRegister,
-  authUserVerify,
-  authUserLogin,
   authStaffDisplay,
-  authStaffLogin
+  authStaffLogin,
+  authUserDisplay,
+  authUserLogin,
+  authUserRegister,
+  authUserVerify
 } from './actions';
 import {
   AUTH_UPDATE_LOCAL_AVATAR,
-  AUTH_USER_DISPLAY,
-  AUTH_USER_REGISTER,
-  AUTH_USER_VERIFY,
-  AUTH_USER_LOGIN,
   AUTH_STAFF_DISPLAY,
-  AUTH_STAFF_LOGIN
+  AUTH_STAFF_LOGIN,
+  AUTH_USER_DISPLAY,
+  AUTH_USER_LOGIN,
+  AUTH_USER_REGISTER,
+  AUTH_USER_VERIFY
 } from './types';
 
 const history = createMemoryHistory();
+
+describe('authUpdateLocalAvatar action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = authUpdateLocalAvatar('Leeroy').type;
+    const expected = AUTH_UPDATE_LOCAL_AVATAR;
+    expect(actual).toEqual(expected);
+  });
+  it('returns the correct avatar', () => {
+    const actual = authUpdateLocalAvatar('Leeroy').avatar;
+    const expected = 'Leeroy';
+    expect(actual).toEqual(expected);
+  });
+});
 
 describe('authStaffDisplay action creator', () => {
   it('returns the correct action type', () => {
@@ -35,6 +48,33 @@ describe('authStaffDisplay action creator', () => {
   it('returns the correct avatar', () => {
     const actual = authStaffDisplay('Allison', 'Allison').avatar;
     const expected = 'Allison';
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('authStaffLogin action creator', () => {
+  it('returns the correct action type', () => {
+    const actual = authStaffLogin(
+      'coolperson@coolplace.com',
+      'supersecret'
+    ).type;
+    const expected = AUTH_STAFF_LOGIN;
+    expect(actual).toEqual(expected);
+  });
+  it('returns the correct email', () => {
+    const actual = authStaffLogin(
+      'coolperson@coolplace.com',
+      'supersecret'
+    ).email;
+    const expected = 'coolperson@coolplace.com';
+    expect(actual).toEqual(expected);
+  });
+  it('returns the correct password', () => {
+    const actual = authStaffLogin(
+      'coolperson@coolplace.com',
+      'supersecret'
+    ).password;
+    const expected = 'supersecret';
     expect(actual).toEqual(expected);
   });
 });
@@ -57,15 +97,29 @@ describe('authUserDisplay action creator', () => {
   });
 });
 
-describe('authUpdateLocalAvatar action creator', () => {
+describe('authUserLogin action creator', () => {
   it('returns the correct action type', () => {
-    const actual = authUpdateLocalAvatar('Leeroy').type;
-    const expected = AUTH_UPDATE_LOCAL_AVATAR;
+    const actual = authUserLogin(
+      'coolperson@coolplace.com',
+      'supersecret'
+    ).type;
+    const expected = AUTH_USER_LOGIN;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct avatar', () => {
-    const actual = authUpdateLocalAvatar('Leeroy').avatar;
-    const expected = 'Leeroy';
+  it('returns the correct email', () => {
+    const actual = authUserLogin(
+      'coolperson@coolplace.com',
+      'supersecret'
+    ).email;
+    const expected = 'coolperson@coolplace.com';
+    expect(actual).toEqual(expected);
+  });
+  it('returns the correct password', () => {
+    const actual = authUserLogin(
+      'coolperson@coolplace.com',
+      'supersecret'
+    ).password;
+    const expected = 'supersecret';
     expect(actual).toEqual(expected);
   });
 });
@@ -152,60 +206,6 @@ describe('authUserVerify action creator', () => {
       history
     ).confirmationCode;
     const expected = 'SOMERANDOMCODE';
-    expect(actual).toEqual(expected);
-  });
-});
-
-describe('authUserLogin action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = authUserLogin(
-      'coolperson@coolplace.com',
-      'supersecret'
-    ).type;
-    const expected = AUTH_USER_LOGIN;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct email', () => {
-    const actual = authUserLogin(
-      'coolperson@coolplace.com',
-      'supersecret'
-    ).email;
-    const expected = 'coolperson@coolplace.com';
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct password', () => {
-    const actual = authUserLogin(
-      'coolperson@coolplace.com',
-      'supersecret'
-    ).password;
-    const expected = 'supersecret';
-    expect(actual).toEqual(expected);
-  });
-});
-
-describe('authStaffLogin action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = authStaffLogin(
-      'coolperson@coolplace.com',
-      'supersecret'
-    ).type;
-    const expected = AUTH_STAFF_LOGIN;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct email', () => {
-    const actual = authStaffLogin(
-      'coolperson@coolplace.com',
-      'supersecret'
-    ).email;
-    const expected = 'coolperson@coolplace.com';
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct password', () => {
-    const actual = authStaffLogin(
-      'coolperson@coolplace.com',
-      'supersecret'
-    ).password;
-    const expected = 'supersecret';
     expect(actual).toEqual(expected);
   });
 });

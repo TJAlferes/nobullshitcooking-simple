@@ -77,13 +77,21 @@ import {
 
 export const USER_MESSAGE_CLEAR = 'USER_MESSAGE_CLEAR' as const;
 
-export interface IUserMessageClear {
-  type: typeof USER_MESSAGE_CLEAR;
-}
+/*
+
+State
+
+*/
 
 export interface IUserState {
   message: string;
 }
+
+/*
+
+Actions
+
+*/
 
 export type UserActions =
 IUserMessageClear |
@@ -145,3 +153,7 @@ IUserSaveRecipeSucceeded |
 IUserSaveRecipeFailed |
 IUserUnsaveRecipeSucceeded |
 IUserUnsaveRecipeFailed;
+
+export interface IUserMessageClear {
+  type: typeof USER_MESSAGE_CLEAR;
+}

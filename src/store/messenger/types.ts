@@ -18,6 +18,12 @@ export const MESSENGER_JOINED_USER = 'MESSENGER_JOINED_USER' as const;
 export const MESSENGER_LEFT_USER = 'MESSENGER_LEFT_USER' as const;
 export const MESSENGER_GET_ONLINE = 'MESSENGER_GET_ONLINE' as const;
 
+/*
+
+State
+
+*/
+
 export interface IMessengerState {
   channel: string
   messages: Array<IMessage|IWhisper>;
@@ -65,6 +71,12 @@ export interface IUser {
   username: string
   avatar: string
 }
+
+/*
+
+Actions
+
+*/
 
 export type MessengerActions =
 IAuthUserLogout |
