@@ -5,6 +5,8 @@ import { connect, ConnectedProps } from 'react-redux';
 
 import './breadcrumbs.css';
 
+// TO DO: split this file up
+
 interface RootState {
   theme: {
     breadCrumbsTheme: string;

@@ -32,7 +32,7 @@ State
 
 export interface IMessengerState {
   channel: string
-  messages: Array<IMessage|IWhisper>;
+  messages: Message[];
   users: IUser[]
   onlineFriends: IUser[]
   status: string
@@ -40,9 +40,13 @@ export interface IMessengerState {
   disconnectButtonDisabled: boolean
 }
 
-export type Message = IMessage & IWhisper;
+export type Message = IMessage|IWhisper;
+
+export const KMessage = "message" as const;
+export const KWhisper = "whisper" as const;
 
 export interface IMessageBeforeClientTimestamp {
+  kind: typeof KMessage
   chatMessageId: string
   chatMessageText: string
   room: string
@@ -50,6 +54,7 @@ export interface IMessageBeforeClientTimestamp {
 }
 
 export interface IMessage {
+  kind: typeof KMessage
   chatMessageId: string
   chatMessageText: string
   room: string
@@ -58,6 +63,7 @@ export interface IMessage {
 }
 
 export interface IWhisperBeforeClientTimestamp {
+  kind: typeof KWhisper
   whisperId: string
   whisperText: string
   to: string
@@ -65,6 +71,7 @@ export interface IWhisperBeforeClientTimestamp {
 }
 
 export interface IWhisper {
+  kind: typeof KWhisper
   whisperId: string
   whisperText: string
   to: string

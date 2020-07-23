@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 
-//{...(childProps && childProps)}
-
 export function AuthenticatedUserRoute({
   userIsAuthenticated,
   path,

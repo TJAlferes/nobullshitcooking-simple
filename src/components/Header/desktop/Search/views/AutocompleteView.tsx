@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function getRaw(result: IResult, value: string) {
   if (!result[value] || !result[value].raw) return "";

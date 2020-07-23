@@ -20,7 +20,9 @@ import {
   IMessage,
   IWhisperBeforeClientTimestamp,
   IWhisper,
-  IUser
+  IUser,
+  KMessage,
+  KWhisper
 } from './types';
 
 export const messengerConnect = () => ({type: MESSENGER_CONNECT});

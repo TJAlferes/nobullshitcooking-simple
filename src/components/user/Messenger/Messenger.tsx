@@ -1,7 +1,7 @@
-import React, { createRef, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { IMessage, IWhisper, IUser } from '../../../store/messenger/types';
+import { Message, IUser } from '../../../store/messenger/types';
 import {
   messengerConnect,
   messengerDisconnect,
@@ -41,7 +41,6 @@ export function Messenger({
   const [ messageToSend, setMessageToSend ] = useState("");
   //const [ currentFriend, setCurrentFriend ] = useState("");
 
-  //const messagesRef = createRef();
   const messagesRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -299,7 +298,7 @@ interface RootState {
   messenger: {
     status: string;
     channel: string;
-    messages: Array<IMessage|IWhisper>;
+    messages: Message[];
     users: IUser[];
     onlineFriends: IUser[];
   };

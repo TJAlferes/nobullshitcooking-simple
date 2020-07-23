@@ -11,8 +11,6 @@
   font-size: 14px;
 }
 
-
-
 .messenger-room {
   display: flex;
   flex-direction: row;
@@ -127,8 +125,6 @@
   border-bottom: 2px solid #6cabe4;
 }
 
-
-
 .messenger-main {
   display: flex;
   flex-direction: row;
@@ -181,8 +177,6 @@
   outline: none;
   border: 2px solid #87c6fd;
 }
-
-
 
 .messenger-people {
   order: 2;
@@ -262,8 +256,6 @@
   overflow: hidden;
 }
 
-
-
 .chat-display-admin {
   font-style: italic;
   color: #c10006;
@@ -280,8 +272,6 @@
 .chat-whisper {
   color: #a100ff;
 }
-
-
 
 @media (max-width: 1279px) {
   .messenger-connect-disconnect-mobile-spacer {

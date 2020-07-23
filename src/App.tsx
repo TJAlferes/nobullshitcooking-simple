@@ -12,10 +12,10 @@ import './app.css';
 
 export function App({
   dataContentTypes,
+  shadow,
   headerTheme,
   footerTheme,
-  mainTheme,
-  shadow
+  mainTheme
 }: Props): JSX.Element {
   const { pathname } = useLocation();
 
@@ -51,14 +51,14 @@ interface RootState {
   data: {
     contentTypes: IContentType[];
   };
+  menu: {
+    shadow: boolean;
+  };
   theme: {
     headerTheme: string;
     footerTheme: string;
     mainTheme: string;
   };
-  menu: {
-    shadow: boolean;
-  }
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -67,10 +67,10 @@ type Props = PropsFromRedux;
 
 const mapStateToProps = (state: RootState) => ({
   dataContentTypes: state.data.contentTypes,
+  shadow: state.menu.shadow,
   headerTheme: state.theme.headerTheme,
   footerTheme: state.theme.footerTheme,
-  mainTheme: state.theme.mainTheme,
-  shadow: state.menu.shadow
+  mainTheme: state.theme.mainTheme
 });
 
 const connector = connect(mapStateToProps, {});

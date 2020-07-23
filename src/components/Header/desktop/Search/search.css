@@ -79,8 +79,13 @@
 }
 
 /*
-Note: These "sui-" classnames are from @elastic/react-search-ui
+
+Note:
+
+Most of these "sui-" classnames are from @elastic/react-search-ui
+
 We are overriding default values / setting new values to get the look we desire.
+
 */
 
 .sui-search-box {

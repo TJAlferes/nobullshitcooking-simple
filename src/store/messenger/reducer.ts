@@ -13,6 +13,8 @@ import {
   MESSENGER_RECEIVED_WHISPER,
   MESSENGER_FAILED_WHISPER,
   IMessengerState,
+  KMessage,
+  KWhisper,
   MessengerActions
 } from './types';
 
@@ -101,6 +103,7 @@ export const messengerReducer = (
         ...state,
         ...{
           messages: state.messages.concat({
+            kind: KMessage,
             chatMessageId: 'admin' + action.ts,
             chatMessageText: `${action.user.username} has joined the room.`,
             room: state.channel,
@@ -120,6 +123,7 @@ export const messengerReducer = (
         ...state,
         ...{
           messages: state.messages.concat({
+            kind: KMessage,
             chatMessageId: 'admin' + action.ts,
             chatMessageText: `${action.user.username} has left the room.`,
             room: state.channel,
@@ -151,6 +155,7 @@ export const messengerReducer = (
         ...state,
         ...{
           messages: state.messages.concat({
+            kind: KWhisper,
             whisperId: 'admin' + action.ts,
             whisperText: action.feedback,
             to: '',

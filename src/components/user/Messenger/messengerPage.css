@@ -1,4 +1,9 @@
-/* desktop */
+/*
+
+desktop
+
+*/
+
 @media (min-width: 900px) {
   /*#messenger_page {
     width: 1200px;
@@ -15,9 +20,12 @@
   }
 }
 
+/*
 
+mobile
 
-/* mobile */
+*/
+
 @media (max-width: 899px) {
   #messenger_page {
     min-width: 300px;

@@ -9,7 +9,8 @@ import './header.css';
 
 export function Header({ theme }: Props): JSX.Element {
   return (
-    <header className={`headerred ${theme}`}>
+    <header className={`header ${theme}`}>
+
       <div className="header-row-1">
         <div className="header-row-1-col-1">
           <Logo theme={theme} />
@@ -21,6 +22,7 @@ export function Header({ theme }: Props): JSX.Element {
           <Promo />
         </div>
       </div>
+
       <div className="header-row-2">
         <div className="header-row-2-col-1">
           <SiteNav />
@@ -31,6 +33,7 @@ export function Header({ theme }: Props): JSX.Element {
           <UserNav theme={theme} />
         </div>
       </div>
+      
     </header>
   );
 }

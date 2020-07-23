@@ -1,4 +1,4 @@
-import { shallow, ShallowWrapper } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 import { FriendsView } from './FriendsView';
@@ -53,14 +53,7 @@ const initialProps = {
   handleUserUnblockClick
 };
 
-/*let wrapper: ShallowWrapper;
-
-beforeEach(() => {
-  wrapper = shallow(<FriendsView tab="accepted" {...initialProps} />);
-});*/
-
 afterEach(() => {
-  //jest.resetModules();
   jest.clearAllMocks();
 });
 

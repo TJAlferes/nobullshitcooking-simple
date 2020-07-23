@@ -10,6 +10,7 @@ export function PeopleView({
 }: Props): JSX.Element {
   return (
     <div className="messenger-people">
+      
       <div className="messenger-people-tabs">
         <button
           className={(peopleTab === "Room")
@@ -30,6 +31,7 @@ export function PeopleView({
           Friends
         </button>
       </div>
+
       {peopleTab === "Room" && (
         <ul className="messenger-users-in-room">
           {users && users.map(user => (
@@ -40,6 +42,7 @@ export function PeopleView({
           ))}
         </ul>
       )}
+
       {peopleTab === "Friends" && (
         <ul className="messenger-friends">
           {onlineFriends && onlineFriends.map(online => (
@@ -50,6 +53,7 @@ export function PeopleView({
           ))}
         </ul>
       )}
+
     </div>
   );
 }

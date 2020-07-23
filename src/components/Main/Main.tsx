@@ -33,7 +33,7 @@ export const Main: FunctionComponent<Props> = ({
   const isEditPrivateEquipment = pathname.match(/^(\/user-equipment\/edit\/([1-9][0-9]*))$/);
 
   return (
-    <main className={`mainwhite ${theme}`}>
+    <main className={`main ${theme}`}>
       <div className={shadow ? 'show-shadow' : 'hide-shadow'}>
       </div>
       {

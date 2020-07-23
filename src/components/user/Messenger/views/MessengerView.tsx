@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IMessage, IWhisper, IUser } from '../../../../store/messenger/types';
+import { Message, IUser } from '../../../../store/messenger/types';
 import LeftNav from '../../../LeftNav/LeftNav';
 import { ChatView } from './desktop/ChatView';
 import { OptionsView } from './desktop/OptionsView';
@@ -38,7 +38,7 @@ export function MessengerView({
 
         <h1>Messenger</h1>
 
-        <p className="error-message">{feedback}</p>
+        <p className="messenger-feedback">{feedback}</p>
 
         <OptionsView
           loading={loading}
@@ -91,7 +91,7 @@ type Props = {
   handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleChannelChange(): void;
   messagesRef: React.RefObject<HTMLUListElement>;
-  messages: Array<IMessage|IWhisper>;
+  messages: Message[];
   messageToSend: string;
   handleMessageInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleMessageSend(e: React.KeyboardEvent): void;

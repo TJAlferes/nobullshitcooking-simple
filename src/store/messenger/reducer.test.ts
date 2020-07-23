@@ -12,7 +12,9 @@ import {
   MESSENGER_RECEIVED_MESSAGE,
   MESSENGER_RECEIVED_WHISPER,
   MESSENGER_FAILED_WHISPER,
-  MESSENGER_GET_ONLINE
+  MESSENGER_GET_ONLINE,
+  KMessage,
+  KWhisper
 } from './types';
 
 const initialState = {
@@ -211,6 +213,7 @@ describe('messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
+          kind: KMessage,
           chatMessageId: 555 + clientTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
@@ -218,6 +221,7 @@ describe('messenger reducer', () => {
           ts: `${clientTimeStr}`
         },
         {
+          kind: KMessage,
           chatMessageId: 888 + clientTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
@@ -256,6 +260,7 @@ describe('messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
+          kind: KMessage,
           chatMessageId: 555 + clientTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
@@ -263,6 +268,7 @@ describe('messenger reducer', () => {
           ts: `${clientTimeStr}`
         },
         {
+          kind: KMessage,
           chatMessageId: 888 + clientTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
@@ -290,6 +296,7 @@ describe('messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
+          kind: KMessage,
           chatMessageId: 555 + clientTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
@@ -297,6 +304,7 @@ describe('messenger reducer', () => {
           ts: `${clientTimeStr}`
         },
         {
+          kind: KMessage,
           chatMessageId: 888 + clientTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
@@ -304,6 +312,7 @@ describe('messenger reducer', () => {
           ts: `${clientTimeStr}`
         },
         {
+          kind: KMessage,
           chatMessageId: 'admin' + clientTimeStr,
           chatMessageText: "Bubbles has joined the room.",
           room: "GrillNChill",
@@ -336,6 +345,7 @@ describe('messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
+          kind: KMessage,
           chatMessageId: 555 + clientTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
@@ -343,6 +353,7 @@ describe('messenger reducer', () => {
           ts: `${clientTimeStr}`
         },
         {
+          kind: KMessage,
           chatMessageId: 888 + clientTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
@@ -370,6 +381,7 @@ describe('messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
+          kind: KMessage,
           chatMessageId: 555 + clientTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
@@ -377,6 +389,7 @@ describe('messenger reducer', () => {
           ts: `${clientTimeStr}`
         },
         {
+          kind: KMessage,
           chatMessageId: 888 + clientTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
@@ -384,6 +397,7 @@ describe('messenger reducer', () => {
           ts: `${clientTimeStr}`
         },
         {
+          kind: KMessage,
           chatMessageId: 'admin' + clientTimeStr,
           chatMessageText: `Jane888 has left the room.`,
           room: "GrillNChill",
@@ -414,6 +428,7 @@ describe('messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
+          kind: KMessage,
           chatMessageId: 555 + clientTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
@@ -434,6 +449,7 @@ describe('messenger reducer', () => {
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_RECEIVED_MESSAGE,
       message: {
+        kind: KMessage,
         chatMessageId: 888 + clientTimeStr,
         chatMessageText: "I'm good, thanks! You?",
         room: "GrillNChill",
@@ -446,6 +462,7 @@ describe('messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
+          kind: KMessage,
           chatMessageId: 555 + clientTimeStr,
           chatMessageText: "Hey! How are you?",
           room: "GrillNChill",
@@ -453,6 +470,7 @@ describe('messenger reducer', () => {
           ts: `${clientTimeStr}`
         },
         {
+          kind: KMessage,
           chatMessageId: 888 + clientTimeStr,
           chatMessageText: "I'm good, thanks! You?",
           room: "GrillNChill",
@@ -489,6 +507,7 @@ describe('messenger reducer', () => {
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_RECEIVED_WHISPER,
       whisper: {
+        kind: KWhisper,
         whisperId: 888 + clientTimeStr,
         whisperText: "Are you still moving next year?",
         to: "Joe555",
@@ -501,6 +520,7 @@ describe('messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
+          kind: KWhisper,
           whisperId: 888 + clientTimeStr,
           whisperText: "Are you still moving next year?",
           to: "Joe555",
@@ -541,6 +561,7 @@ describe('messenger reducer', () => {
       channel: "GrillNChill",
       messages: [
         {
+          kind: KWhisper,
           whisperId: 'admin' + clientTimeStr,
           whisperText: 'User not found.',
           to: '',

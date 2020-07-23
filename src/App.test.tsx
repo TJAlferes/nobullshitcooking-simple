@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
 import { SearchProvider } from '@elastic/react-search-ui';
 
-import rootReducer from './store/rootReducer';
 //import { searchConfig } from './config/searchConfig';
+import { rootReducer } from './store/rootReducer';
 import { App } from './App';
 
 const storeFactory = (initialState = undefined): Store =>

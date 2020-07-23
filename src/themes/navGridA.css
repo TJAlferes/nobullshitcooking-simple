@@ -46,6 +46,12 @@
   text-decoration: underline;
 }
 
+/*
+
+light
+
+*/
+
 .nav-grid-a-light {
   background-color: #fff;
   color: #000;
@@ -58,6 +64,12 @@
 .nav-grid-a-light a:hover {
   color: #c10006;
 }
+
+/*
+
+dark
+
+*/
 
 .nav-grid-a-dark {
   background-color: #222;

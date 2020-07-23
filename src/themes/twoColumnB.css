@@ -34,7 +34,11 @@
   background-color: #fff;
 }
 
-/* light */
+/*
+
+light
+
+*/
 
 .two-column-b-light .left-column,
 .two-column-b-light .right-column {
@@ -110,9 +114,11 @@
   color: #c10006;
 }
 
+/*
 
+dark
 
-/* dark */
+*/
 
 .two-column-b-dark .left-column,
 .two-column-b-dark .right-column {

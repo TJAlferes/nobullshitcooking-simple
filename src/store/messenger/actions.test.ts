@@ -34,7 +34,9 @@ import {
   MESSENGER_RECEIVED_MESSAGE,
   MESSENGER_SEND_WHISPER,
   MESSENGER_RECEIVED_WHISPER,
-  MESSENGER_FAILED_WHISPER
+  MESSENGER_FAILED_WHISPER,
+  KMessage,
+  KWhisper
 } from './types';
 
 describe('messengerConnect action creator', () => {
@@ -267,6 +269,7 @@ describe('messengerSendMessage action creator', () => {
 describe('messengerReceivedMessage action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerReceivedMessage({
+      kind: KMessage,
       chatMessageId: '555' + (new Date).getTime().toString(),
       chatMessageText: "Hey! How are you?",
       room: "GrillNChill",
@@ -277,6 +280,7 @@ describe('messengerReceivedMessage action creator', () => {
   });
   it('returns the correct message', () => {
     const actual = messengerReceivedMessage({
+      kind: KMessage,
       chatMessageId: '555' + (new Date).getTime().toString(),
       chatMessageText: "Hey! How are you?",
       room: "GrillNChill",
@@ -313,6 +317,7 @@ describe('messengerSendWhisper action creator', () => {
 describe('messengerReceivedWhisper action creator', () => {
   it('returns the correct action type', () => {
     const actual = messengerReceivedWhisper({
+      kind: KWhisper,
       whisperId: '32873443823428384923',
       whisperText: 'How are you?',
       to: '0923849323432',
@@ -323,6 +328,7 @@ describe('messengerReceivedWhisper action creator', () => {
   });
   it('returns the correct ', () => {
     const actual = messengerReceivedWhisper({
+      kind: KWhisper,
       whisperId: '32873443823428384923',
       whisperText: 'How are you?',
       to: '0923849323432',

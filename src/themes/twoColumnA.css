@@ -25,8 +25,6 @@
   background-color: #fff;
 }
 
-
-
 @media (max-width: 1209px) {
   .two-column-a,
   .two-column-a section {
@@ -40,7 +38,11 @@
   }
 }
 
+/*
 
+light
+
+*/
 
 .two-column-a-light section {
   background-color: #fff;
@@ -179,9 +181,11 @@
   color: #777;
 }
 
+/*
 
+dark
 
-
+*/
 
 .two-column-a-dark section {
   background-color: #222;

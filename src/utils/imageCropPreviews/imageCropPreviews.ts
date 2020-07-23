@@ -1,4 +1,4 @@
-import { Crop } from 'react-image-crop'
+import { Crop } from 'react-image-crop';
 
 export async function getCroppedImage(
   imageWidth: number,
@@ -47,4 +47,4 @@ export async function getCroppedImage(
   });
 
   return {resizedPreview, resizedFinal};
-};
+}
