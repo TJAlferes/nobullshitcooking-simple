@@ -147,6 +147,7 @@ export function Messenger({
   const handleMessageSend = (e: React.KeyboardEvent) => {
     e.stopPropagation();  // needed?
     e.preventDefault();  // needed?
+
     if (e.key && (e.key !== "Enter")) return;
     if (loading) return;
     if (debounced) {
@@ -156,6 +157,7 @@ export function Messenger({
     }
 
     const trimmedMessage = messageToSend.trim();
+    
     if (trimmedMessage.length < 1 || trimmedMessage === "") return;
     if (trimmedMessage.length > 4000) {
       setFeedback("Please limit message length to 4,000 characters.");
@@ -166,6 +168,7 @@ export function Messenger({
     setLoading(true);
 
     const whispering = trimmedMessage.slice(0, 3) === "/w ";
+
     if (whispering) {
       // TO DO: MESS AROUND AGAIN WITH "WRONG" WHITESPACES, if return here, or clean
       const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
@@ -180,6 +183,7 @@ export function Messenger({
       const trimmedFriend = currentFriend.trim();
       messengerSendWhisper(trimmedMessage, trimmedFriend);
     }*/
+
     setMessageToSend("");
     preventSpam();
     setLoading(false);
@@ -308,7 +312,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   twoColumnATheme: string;
-  messengerView: string;
+  //messengerView: string;
 };
 
 const mapStateToProps = (state: RootState) => ({
