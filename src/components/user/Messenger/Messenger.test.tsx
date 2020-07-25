@@ -1,6 +1,8 @@
 import { mount } from 'enzyme';
 import React from 'react';
 
+import { ChatView } from './views/desktop/ChatView';
+import { PeopleView } from './views/desktop/PeopleView';
 import { Messenger } from './Messenger';
 
 window.scrollTo = jest.fn();
@@ -21,8 +23,14 @@ const initialProps = {
   status: "Connected",
   channel: "5067",
   messages: [],
-  users: [],
-  onlineFriends: [],
+  users: [
+    {userId: "150", username: "Person", avatar: "Person"},
+    {userId: "151", username: "Person2", avatar: "Person2"},
+    {userId: "152", username: "Person3", avatar: "Person3"}
+  ],
+  onlineFriends: [
+    {userId: "151", username: "Person2", avatar: "Person2"}
+  ],
   messengerConnect,
   messengerDisconnect,
   messengerChangeChannel,
@@ -44,6 +52,7 @@ describe('Messenger', () => {
     expect(wrapper.find('input[name="channel-input"]').props().value)
     .toEqual("5068");
   });
+
   it('should submit roomToEnter', () => {
     wrapper.find('input[name="channel-input"]')
     .simulate('change', {target: {name: "channel-input", value: "5068"}});
@@ -102,5 +111,45 @@ describe('Messenger', () => {
     wrapper.find('input[name="chat-input"]').simulate('keyUp', {key: 'Enter'});
 
     expect(messengerSendMessage).not.toHaveBeenCalled();
+  });
+
+  it('should change peopleTab when clicked', () => {
+    expect(wrapper.find(PeopleView).prop("peopleTab")).toEqual("Room");
+
+    wrapper.find('button.messenger-people-tab').at(1).simulate('click');
+
+    expect(wrapper.find(PeopleView).prop("peopleTab")).toEqual("Friends");
+
+    wrapper.find('button.messenger-people-tab').at(0).simulate('click');
+
+    expect(wrapper.find(PeopleView).prop("peopleTab")).toEqual("Room");
+  });
+
+  it('should not focus user in room if self', () => {
+    wrapper.find('li.messenger-user-in-room').at(0).simulate('click');
+
+    expect(wrapper.find(PeopleView).prop("focusedUser")).toEqual(null);
+  });
+
+  it('should focus user in room', () => {
+    wrapper.find('li.messenger-user-in-room').at(1).simulate('click');
+
+    expect(wrapper.find(PeopleView).prop("focusedUser"))
+    .toEqual({userId: "151", username: "Person2", avatar: "Person2"});
+  });
+
+  it('should focus online friend', () => {
+    wrapper.find('button.messenger-people-tab').at(1).simulate('click');
+    
+    wrapper.find('li.messenger-friend').simulate('click');
+
+    expect(wrapper.find(PeopleView).prop("focusedFriend"))
+    .toEqual({userId: "151", username: "Person2", avatar: "Person2"});
+  });
+
+  it('should unfocus person and start whisper with their username', () => {
+    wrapper.find('button.messenger-start-whisper').simulate('click');
+
+    expect(wrapper.find(ChatView).prop("messageToSend")).toEqual("/w Person2");
   });
 });

@@ -27,7 +27,12 @@ export function MessengerView({
   users,
   onlineFriends,
   peopleTab,
-  handlePeopleTabChange
+  handlePeopleTabChange,
+  focusedFriend,
+  handleFriendClick,
+  focusedUser,
+  handleUserClick,
+  startWhisper
 }: Props): JSX.Element {
   return (
     <div className={`messenger two-column-a ${twoColumnATheme}`}>
@@ -68,6 +73,11 @@ export function MessengerView({
             onlineFriends={onlineFriends}
             peopleTab={peopleTab}
             handlePeopleTabChange={handlePeopleTabChange}
+            focusedFriend={focusedFriend}
+            handleFriendClick={handleFriendClick}
+            focusedUser={focusedUser}
+            handleUserClick={handleUserClick}
+            startWhisper={startWhisper}
           />
 
         </div>
@@ -99,4 +109,9 @@ type Props = {
   onlineFriends: IUser[];
   peopleTab: string;
   handlePeopleTabChange(value: string): void;
+  focusedFriend: IUser|null;
+  handleFriendClick(friend: IUser): void;
+  focusedUser: IUser|null;
+  handleUserClick(user: IUser): void;
+  startWhisper(username: string): void;
 };

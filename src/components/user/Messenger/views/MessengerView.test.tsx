@@ -20,6 +20,9 @@ const handleChannelChange = jest.fn();
 const handleMessageInputChange = jest.fn();
 const handleMessageSend = jest.fn();
 const handlePeopleTabChange = jest.fn();
+const handleFriendClick = jest.fn();
+const handleUserClick = jest.fn();
+const startWhisper = jest.fn();
 const initialProps = {
   twoColumnATheme: "light",
   authname: "Person",
@@ -40,7 +43,12 @@ const initialProps = {
   users: [],
   onlineFriends: [],
   peopleTab: "Room",
-  handlePeopleTabChange
+  handlePeopleTabChange,
+  focusedFriend: null,
+  handleFriendClick,
+  focusedUser: null,
+  handleUserClick,
+  startWhisper
 };
 
 afterEach(() => {

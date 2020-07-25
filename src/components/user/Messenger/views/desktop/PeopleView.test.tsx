@@ -4,6 +4,9 @@ import React from 'react';
 import { PeopleView } from './PeopleView';
 
 const handlePeopleTabChange = jest.fn();
+const handleFriendClick = jest.fn();
+const handleUserClick = jest.fn();
+const startWhisper = jest.fn();
 const initialProps = {
   users: [
     {userId: "150", username: "Person", avatar: "Person"},
@@ -13,7 +16,10 @@ const initialProps = {
   onlineFriends: [
     {userId: "151", username: "Person2", avatar: "Person2"}
   ],
-  handlePeopleTabChange
+  handlePeopleTabChange,
+  handleFriendClick,
+  handleUserClick,
+  startWhisper
 };
 
 afterEach(() => {
@@ -24,7 +30,12 @@ describe('PeopleView', () => {
   
   describe('when peopleTab is Room', () => {
     const wrapper = shallow(
-      <PeopleView peopleTab="Room" {...initialProps} />
+      <PeopleView
+        peopleTab="Room"
+        focusedFriend={null}
+        focusedUser={null}
+        {...initialProps}
+      />
     );
 
     it(`
@@ -68,11 +79,39 @@ describe('PeopleView', () => {
       expect(wrapper.find('li.messenger-user-in-room').at(2).key())
       .toEqual('Person3');
     });
+
+    describe('when user in room is focused', () => {
+      const wrapper = shallow(
+        <PeopleView
+          peopleTab="Room"
+          focusedFriend={null}
+          focusedUser={
+            {userId: "151", username: "Person2", avatar: "Person2"}
+          }
+          {...initialProps}
+        />
+      );
+
+      it(`
+        displays a button element
+        with className messenger-start-whisper and
+        with text 'Whisper'
+      `, () => {
+        expect(wrapper.find('button.messenger-start-whisper').text())
+        .toEqual('Whisper');
+      });
+    });
+
   });
 
   describe('when peopleTab is Friends', () => {
     const wrapper = shallow(
-      <PeopleView peopleTab="Friends" {...initialProps} />
+      <PeopleView
+        peopleTab="Friends"
+        focusedFriend={null}
+        focusedUser={null}
+        {...initialProps}
+      />
     );
 
     it(`
@@ -97,6 +136,29 @@ describe('PeopleView', () => {
     `, () => {
       expect(wrapper.find('li.messenger-friend').key()).toEqual('Person2');
     });
+
+    describe('when online friend is focused', () => {
+      const wrapper = shallow(
+        <PeopleView
+          peopleTab="Friends"
+          focusedFriend={
+            {userId: "151", username: "Person2", avatar: "Person2"}
+          }
+          focusedUser={null}
+          {...initialProps}
+        />
+      );
+
+      it(`
+        displays a button element
+        with className messenger-start-whisper and
+        with text 'Whisper'
+      `, () => {
+        expect(wrapper.find('button.messenger-start-whisper').text())
+        .toEqual('Whisper');
+      });
+    });
+
   });
 
 });

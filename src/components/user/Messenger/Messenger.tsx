@@ -39,7 +39,8 @@ export function Messenger({
   //const [ mobileTab, setMobileTab ] = useState("Options");
   const [ roomToEnter, setRoomToEnter ] = useState("");
   const [ messageToSend, setMessageToSend ] = useState("");
-  //const [ currentFriend, setCurrentFriend ] = useState("");
+  const [ focusedFriend, setFocusedFriend ] = useState<IUser|null>(null);
+  const [ focusedUser, setFocusedUser ] = useState<IUser|null>(null);
 
   const messagesRef = useRef<HTMLUListElement>(null);
 
@@ -157,7 +158,7 @@ export function Messenger({
     }
 
     const trimmedMessage = messageToSend.trim();
-    
+
     if (trimmedMessage.length < 1 || trimmedMessage === "") return;
     if (trimmedMessage.length > 4000) {
       setFeedback("Please limit message length to 4,000 characters.");
@@ -234,7 +235,16 @@ export function Messenger({
 
   const handlePeopleTabChange = (value: string) => setPeopleTab(value);
 
-  //const handleFriendClick = () => setCurrentFriend(e.target.id);
+  const handleFriendClick = (friend: IUser) => setFocusedFriend(friend);
+
+  const handleUserClick = (user: IUser) =>
+    user.username !== authname && setFocusedUser(user);
+
+  const startWhisper = (username: string) => {
+    setFocusedFriend(null);
+    setFocusedUser(null);
+    setMessageToSend(`/w ${username}`);
+  };
   
   /*return (messengerView === "mobile")
   ? (
@@ -285,6 +295,11 @@ export function Messenger({
       onlineFriends={onlineFriends}
       peopleTab={peopleTab}
       handlePeopleTabChange={handlePeopleTabChange}
+      focusedFriend={focusedFriend}
+      handleFriendClick={handleFriendClick}
+      focusedUser={focusedUser}
+      handleUserClick={handleUserClick}
+      startWhisper={startWhisper}
     />
   );
 }

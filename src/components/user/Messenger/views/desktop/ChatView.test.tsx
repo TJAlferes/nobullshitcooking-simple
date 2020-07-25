@@ -103,13 +103,22 @@ describe('MessengerView', () => {
     .toEqual(messagesRef);
   });
 
+  it (`
+    displays a starting message: a span element
+    with className chat-display-admin and
+    with text 'COOK EAT WIN REPEAT'
+  `, () => {
+    expect(wrapper.find('span.chat-display-admin').at(0).text())
+    .toEqual('COOK EAT WIN REPEAT');
+  });
+
   describe('when messages contain a status message', () => {
     it(`
-      displays a span
+      displays a span element
       with className chat-display-admin and
-      with text Some status.
+      with text 'Some status.'
     `, () => {
-      expect(wrapper.find('span.chat-display-admin').text())
+      expect(wrapper.find('span.chat-display-admin').at(1).text())
       .toEqual('Some status.');
     });
   });
@@ -127,10 +136,10 @@ describe('MessengerView', () => {
     it(`
       displays an li element
       with className messenger-chat-message
-      with text 'Hey all!'
+      with text 'sometime Person: Hey all!'
     `, () => {
-      expect(wrapper.find('li.messenger-chat-message').at(0).text())
-      .toEqual('Hey all!');
+      expect(wrapper.find('li.messenger-chat-message').at(2).text())
+      .toEqual('sometime Person: Hey all!');
     });
   });
 
@@ -147,10 +156,10 @@ describe('MessengerView', () => {
     it(`
       displays an li element
       with className messenger-chat-message
-      with text 'Hey there!'
+      with text 'sometime Person2: Hey there!'
     `, () => {
-      expect(wrapper.find('li.messenger-chat-message').at(1).text())
-      .toEqual('Hey there!');
+      expect(wrapper.find('li.messenger-chat-message').at(3).text())
+      .toEqual('sometime Person2: Hey there!');
     });
   });
 

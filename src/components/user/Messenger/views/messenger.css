@@ -227,6 +227,7 @@
 
 .messenger-user-in-room,
 .messenger-friend  {
+  position: relative;
   display: flex;
   flex-direction: row;
   height: 30px;
@@ -254,6 +255,12 @@
   margin-left: 9px;
   line-height: 25px;
   overflow: hidden;
+}
+
+.messenger-focused-person {
+  position: absolute;
+  left: -30px;
+  top: 0px;
 }
 
 .chat-display-admin {
