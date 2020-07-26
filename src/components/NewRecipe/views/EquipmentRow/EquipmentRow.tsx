@@ -3,7 +3,6 @@ import React from 'react';
 import { IEquipment } from '../../../../store/data/types';
 
 export function EquipmentRow({
-  key,
   rowKey,
   amount,
   type,
@@ -18,7 +17,7 @@ export function EquipmentRow({
     ...(dataMyPrivateEquipment.length ? dataMyPrivateEquipment : [])
   ];
   return (
-    <div className="equipment-row" key={key}>
+    <div className="equipment-row">
 
       <label className="equipment-row-label">Amount:</label>
       <select
@@ -81,7 +80,6 @@ export function EquipmentRow({
 }
 
 type Props = {
-  key: string;
   rowKey: string;
   amount: string|number;
   type: string|number;

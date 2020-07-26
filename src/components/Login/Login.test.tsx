@@ -11,7 +11,7 @@ let wrapper: ReactWrapper;
 
 beforeEach(() => {
   wrapper = mount(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={["/login"]}>
       <Login
         message="Some message."
         authStaffLogin={authStaffLogin}

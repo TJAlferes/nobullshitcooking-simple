@@ -149,6 +149,8 @@ export interface IIngredient {
   ingredient_type_id: number
   owner_id: number
   ingredient_type_name: string
+  ingredient_brand: string|null
+  ingredient_variety: string|null
   ingredient_name: string
   ingredient_description: string
   ingredient_image: string

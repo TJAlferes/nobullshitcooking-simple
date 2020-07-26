@@ -10,6 +10,8 @@ const initialProps = {
       ingredient_id: 600,
       owner_id: 88,
       ingredient_type_id: 12,
+      ingredient_brand: null,
+      ingredient_variety: null,
       ingredient_name: "My Special Apple",
       ingredient_type_name: "Fruit",
       ingredient_description: "Some note.",
@@ -19,6 +21,8 @@ const initialProps = {
       ingredient_id: 605,
       owner_id: 88,
       ingredient_type_id: 11,
+      ingredient_brand: null,
+      ingredient_variety: null,
       ingredient_name: "My Special Spinach",
       ingredient_type_name: "Vegetable",
       ingredient_description: "Some note.",
@@ -30,6 +34,8 @@ const ingredient = {
   ingredient_id: 1,
   owner_id: 1,
   ingredient_type_id: 1,
+  ingredient_brand: null,
+  ingredient_variety: "Chilean",
   ingredient_name: "Salmon",
   ingredient_type_name: "Fish",
   ingredient_description: "Some note.",
@@ -54,9 +60,6 @@ describe('IngredientView', () => {
       expect(wrapper.find(
         'img[src="https://s3.amazonaws.com/nobsc-user-ingredients/0123456789"]'
       )).toHaveLength(1);
-      expect(wrapper.find(
-        'img[src="https://s3.amazonaws.com/nobsc-images-01/ingredients/0123456789"]'
-      )).toHaveLength(0);
     });
 
     it('displays a span element with text Fruit', () => {
@@ -74,16 +77,13 @@ describe('IngredientView', () => {
       <IngredientView ingredient={ingredient} {...initialProps} />
     );
 
-    it('displays a h1 element with text Salmon', () => {
-      expect(wrapper.find('.ingredient-name').text()).toEqual("Salmon");
+    it('displays a h1 element with text Chilean Salmon', () => {
+      expect(wrapper.find('.ingredient-name').text()).toEqual("Chilean Salmon");
     });
 
     it('displays the correct ingredient image', () => {
       expect(wrapper.find(
-        'img[src="https://s3.amazonaws.com/nobsc-user-ingredients/nobsc-salmon"]'
-      )).toHaveLength(0);
-      expect(wrapper.find(
-        'img[src="https://s3.amazonaws.com/nobsc-images-01/ingredients/nobsc-salmon"]'
+        'img[src="https://s3.amazonaws.com/nobsc-images-01/ingredients/nobsc-salmon.jpg"]'
       )).toHaveLength(1);
     });
 

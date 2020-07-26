@@ -1,1 +1,1 @@
-import AvatarEditView from './AvatarEditView';
+import { AvatarEditView } from './AvatarEditView';

@@ -26,7 +26,11 @@ export function IngredientView({
 
         <div className="ingredient-details">
 
-          <h1 className="ingredient-name">{ingredient.ingredient_name}</h1>
+          <h1 className="ingredient-name">
+            {ingredient.ingredient_brand && (ingredient.ingredient_brand + ' ')}
+            {ingredient.ingredient_variety && (ingredient.ingredient_variety + ' ')}
+            {ingredient.ingredient_name}
+          </h1>
 
           <div className="ingredient-image">
             {

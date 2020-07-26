@@ -1,1 +1,1 @@
-import SubtabsView from './SubtabsView';
+import { SubtabsView } from './SubtabsView';

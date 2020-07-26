@@ -12,6 +12,7 @@ import { NewRecipeView } from './NewRecipeView';
 const beginProps = {
   id: 0,
   oneColumnATheme: "one-column-a-light",
+  staffIsAuthenticated: false,  // test for this
   authname: "Person",
   feedback: "Some message.",
   loading: false,
@@ -105,6 +106,8 @@ const beginProps = {
   dataIngredients: [
     {
       ingredient_id: 1,
+      ingredient_brand: null,
+      ingredient_variety: "Granny Smith",
       ingredient_name: "Apple",
       ingredient_type_id: 12,
       owner_id: 1,
@@ -114,6 +117,8 @@ const beginProps = {
     },
     {
       ingredient_id: 2,
+      ingredient_brand: null,
+      ingredient_variety: "Baby",
       ingredient_name: "Spinach",
       ingredient_type_id: 11,
       owner_id: 1,

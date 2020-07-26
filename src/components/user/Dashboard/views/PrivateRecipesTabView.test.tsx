@@ -1,1 +1,1 @@
-import PrivateRecipesTabView from './PrivateRecipesTabView';
+import { PrivateRecipesTabView } from './PrivateRecipesTabView';

@@ -53,9 +53,6 @@ describe('EquipmentView', () => {
       expect(wrapper.find(
         'img[src="https://s3.amazonaws.com/nobsc-user-equipment/0123456789"]'
       )).toHaveLength(1);
-      expect(wrapper.find(
-        'img[src="https://s3.amazonaws.com/nobsc-images-01/equipment/0123456789"]'
-      )).toHaveLength(0);
     });
 
     it('displays a span element with text Cooking', () => {
@@ -79,10 +76,7 @@ describe('EquipmentView', () => {
 
     it('displays the correct equipment image', () => {
       expect(wrapper.find(
-        'img[src="https://s3.amazonaws.com/nobsc-user-equipment/nobsc-cutting-board"]'
-      )).toHaveLength(0);
-      expect(wrapper.find(
-        'img[src="https://s3.amazonaws.com/nobsc-images-01/equipment/nobsc-cutting-board"]'
+        'img[src="https://s3.amazonaws.com/nobsc-images-01/equipment/nobsc-cutting-board.jpg"]'
       )).toHaveLength(1);
     });
 

@@ -24,7 +24,7 @@ export const cartReducer = (
       return {
         ...state,
         ...{
-          items: state.items.filter(id => id !== action.item)
+          items: state.items.filter(item => item.itemId !== action.item.itemId)
         }
       };
     case CART_EMPTY_CART: return {...state, ...initialState};

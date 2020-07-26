@@ -3,7 +3,7 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY_CART } from './types';
 
 const initialState = {items: []};
 
-describe('the cart reducer', () => {
+describe('cart reducer', () => {
   it('returns initial state', () => {
     const actual = cartReducer(undefined, {
       type: CART_ADD_ITEM,
@@ -50,7 +50,7 @@ describe('the cart reducer', () => {
     };
     const actual = cartReducer(beforeState, {
       type: CART_REMOVE_ITEM,
-      item: {itemId: 18, itemTypeId: 1, itemName: 'Item 18'}
+      item: {itemId: 87, itemTypeId: 1, itemName: 'Item 87'}
     });
     const expected = {
       items: [
@@ -61,7 +61,7 @@ describe('the cart reducer', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('handles actions of type CART_EMPTY', () => {
+  it('handles actions of type CART_EMPTY_CART', () => {
     const beforeState = {
       items: [
         {itemId: 87, itemTypeId: 1, itemName: 'Item A'},

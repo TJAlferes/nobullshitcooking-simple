@@ -95,6 +95,8 @@ describe('data reducer', () => {
           ingredient_type_id: 1,
           owner_id: 1,
           ingredient_type_name: "Fish",
+          ingredient_brand: null,
+          ingredient_variety: "Chilean",
           ingredient_name: "Salmon",
           ingredient_description: "Tasty.",
           ingredient_image: "nobsc-salmon"
@@ -226,6 +228,8 @@ describe('data reducer', () => {
         ingredient_type_id: 1,
         owner_id: 1,
         ingredient_type_name: "Fish",
+        ingredient_brand: null,
+        ingredient_variety: "Chilean",
         ingredient_name: "Salmon",
         ingredient_description: "Tasty.",
         ingredient_image: "nobsc-salmon"
@@ -338,6 +342,8 @@ describe('data reducer', () => {
           ingredient_type_id: 1,
           owner_id: 1,
           ingredient_type_name: "Fish",
+          ingredient_brand: null,
+          ingredient_variety: "Chilean",
           ingredient_name: "Salmon",
           ingredient_description: "Tasty.",
           ingredient_image: "nobsc-salmon"
@@ -467,6 +473,8 @@ describe('data reducer', () => {
         ingredient_type_id: 18,
         owner_id: 1,
         ingredient_type_name: "Product",
+        ingredient_brand: "Uncle Bob",
+        ingredient_variety: "DOUBLE HOT",
         ingredient_name: "HOT Sauce",
         ingredient_description: "From Uncle Bob.",
         ingredient_image: "hot-sauce"

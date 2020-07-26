@@ -1,1 +1,1 @@
-import PlansTabView from './PlansTabView';
+import { PlansTabView } from './PlansTabView';
