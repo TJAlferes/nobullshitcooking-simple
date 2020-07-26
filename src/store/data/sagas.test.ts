@@ -598,21 +598,30 @@ describe('dataGetInitialUserDataSaga', () => {
       }
     };
 
-    expect(iterator.next().value)
-    .toEqual(call([axios, axios.get], `${endpoint}/user/data-init`));
+    expect(iterator.next().value).toEqual(call(
+      [axios, axios.post],
+      `${endpoint}/user/data-init`,
+      {},
+      {withCredentials: true}
+    ));
 
     expect(iterator.next(res).value)
     .toEqual(put(dataGetInitialUserData(res.data)));
 
-    expect(iterator.next().value).toEqual(put(dataGetInitialUserDataSucceeded()));
+    expect(iterator.next().value)
+    .toEqual(put(dataGetInitialUserDataSucceeded()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
   it('should dispatch failed if data not found', () => {
     const iterator = dataGetInitialUserDataSaga();
 
-    expect(iterator.next().value)
-    .toEqual(call([axios, axios.get], `${endpoint}/user/data-init`));
+    expect(iterator.next().value).toEqual(call(
+      [axios, axios.post],
+      `${endpoint}/user/data-init`,
+      {},
+      {withCredentials: true}
+    ));
 
     expect(iterator.throw('error').value)
     .toEqual(put(dataGetInitialUserDataFailed()));

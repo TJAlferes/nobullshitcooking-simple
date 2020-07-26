@@ -140,7 +140,15 @@ describe('data reducer', () => {
     expect(actual.recipeTypes).toEqual(initialData.recipeTypes);
   });
 
-  //it('handles actions of type DATA_GET_CONTENT', () => {});
+  it('handles actions of type DATA_GET_CONTENT', () => {
+    const officialContent = [{content_id: 1, title: "Title"}];
+    const actual = dataReducer(initialState, {
+      type: DATA_GET_CONTENT,
+      officialContent
+    }).officialContent;
+    const expected = officialContent;
+    expect(actual).toEqual(expected);
+  });
 
   it('handles actions of type DATA_GET_CONTENT_TYPES', () => {
     const contentTypes = [
@@ -307,7 +315,73 @@ describe('data reducer', () => {
 
 
 
-  //it('handles actions of type DATA_GET_MY_CONTENT', () => {});
+  it('handles actions of type DATA_GET_INITIAL_USER_DATA', () => {
+    const initialUserData = {
+      myContent: [],
+      myFavoriteRecipes: [],
+      myFriendships: [],
+      myPlans: [],
+      myPrivateEquipment: [
+        {
+          equipment_id: 1988,
+          equipment_type_id: 4,
+          owner_id: 150,
+          equipment_name: "My Chopstick",
+          equipment_type_name: "Dining",
+          equipment_description: "It works.",
+          equipment_image: "my-chopstick"
+        }
+      ],
+      myPrivateIngredients: [
+        {
+          ingredient_id: 1,
+          ingredient_type_id: 1,
+          owner_id: 1,
+          ingredient_type_name: "Fish",
+          ingredient_name: "Salmon",
+          ingredient_description: "Tasty.",
+          ingredient_image: "nobsc-salmon"
+        }
+      ],
+      myPrivateRecipes: [
+        {
+          recipe_id: 1,
+          owner_id: 150,
+          recipe_type_id: 1,
+          cuisine_id: 1,
+          title: "My Tasty",
+          recipe_image: "my-tasty"
+        }
+      ],
+      myPublicRecipes: [],
+      mySavedRecipes: []
+    };
+    const actual = dataReducer(initialState, {
+      type: DATA_GET_INITIAL_USER_DATA,
+      initialUserData
+    });
+    expect(actual.myContent).toEqual(initialUserData.myContent);
+    expect(actual.myFavoriteRecipes).toEqual(initialUserData.myFavoriteRecipes);
+    expect(actual.myFriendships).toEqual(initialUserData.myFriendships);
+    expect(actual.myPlans).toEqual(initialUserData.myPlans);
+    expect(actual.myPrivateEquipment)
+    .toEqual(initialUserData.myPrivateEquipment);
+    expect(actual.myPrivateIngredients)
+    .toEqual(initialUserData.myPrivateIngredients);
+    expect(actual.myPrivateRecipes).toEqual(initialUserData.myPrivateRecipes);
+    expect(actual.myPublicRecipes).toEqual(initialUserData.myPublicRecipes);
+    expect(actual.mySavedRecipes).toEqual(initialUserData.mySavedRecipes);
+  });
+
+  it('handles actions of type DATA_GET_MY_CONTENT', () => {
+    const myContent = [{content_id: 1, title: "Title"}];
+    const actual = dataReducer(initialState, {
+      type: DATA_GET_MY_CONTENT,
+      myContent
+    }).myContent;
+    const expected = myContent;
+    expect(actual).toEqual(expected);
+  });
 
   it('handles actions of type DATA_GET_MY_FAVORITE_RECIPES', () => {
     const myFavoriteRecipes = [

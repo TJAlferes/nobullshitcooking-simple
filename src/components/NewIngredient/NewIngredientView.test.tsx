@@ -6,6 +6,7 @@ import { NewIngredientView } from './NewIngredientView';
 
 const beginProps = {
   oneColumnATheme: "one-column-a-light",
+  staffIsAuthenticated: false,  // test for this
   feedback: "Some message.",
   loading: false,
   ingredientTypeId: 1,
@@ -33,20 +34,21 @@ const beginProps = {
 
 describe('NewIngredientView', () => {
   describe('when creating', () => {
-    it('displays a h1 element with text Submit New Ingredient', () => {
+    it('displays a h1 element with text Create New Private Ingredient', () => {
       const wrapper = shallow(
         <NewIngredientView editing={false} {...beginProps} />
       );
-      expect(wrapper.find('h1').text()).toEqual("Submit New Ingredient");
+      expect(wrapper.find('h1').text())
+      .toEqual("Create New Private Ingredient");
     });
   });
 
   describe('when editing', () => {
-    it('displays a h1 element with text Edit Ingredient', () => {
+    it('displays a h1 element with text Edit Private Ingredient', () => {
       const wrapper = shallow(
         <NewIngredientView editing={true} {...beginProps} />
       );
-      expect(wrapper.find('h1').text()).toEqual("Edit Ingredient");
+      expect(wrapper.find('h1').text()).toEqual("Edit Private Ingredient");
     });
   });
 
@@ -75,7 +77,7 @@ describe('NewIngredientView', () => {
     });
 
     it('displays a name input element', () => {
-      expect(wrapper.find('input[name="name"]')).toHaveLength(1);
+      expect(wrapper.find('input.new-ingredient__name')).toHaveLength(1);
     });
 
     it('displays a h2 element with text Description', () => {
@@ -84,7 +86,8 @@ describe('NewIngredientView', () => {
     });
 
     it('displays a description input element', () => {
-      expect(wrapper.find('input[name="description"]')).toHaveLength(1);
+      expect(wrapper.find('textarea.new-ingredient__description'))
+      .toHaveLength(1);
     });
 
     it('displays a h2 element with text Image of Ingredient', () => {
@@ -94,10 +97,10 @@ describe('NewIngredientView', () => {
 
     // finish
 
-    it('displays a Link to /staff-dashboard with text Cancel', () => {
-      expect(wrapper.find('[data-test="cancel-link"]').props().to)
-      .toEqual("/staff-dashboard");
-      expect(wrapper.find('[data-test="cancel-link"]').props().children)
+    it('displays a Link to /dashboard with text Cancel', () => {
+      expect(wrapper.find('.new-ingredient__cancel-button').props().to)
+      .toEqual("/dashboard");
+      expect(wrapper.find('.new-ingredient__cancel-button').props().children)
       .toEqual("Cancel");
     });
 

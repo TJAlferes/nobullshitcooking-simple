@@ -66,9 +66,15 @@ export function NewEquipmentView({
 
         <p className="new-equipment__feedback">{feedback}</p>
 
-        <h2 className="new-equipment__heading-two">Type of Equipment</h2>
+        <h2
+          className="new-equipment__heading-two"
+          data-test="equipment-type-heading"
+        >
+          Type of Equipment
+        </h2>
         <select
           required
+          name="equipmentType"
           onChange={handleEquipmentTypeChange}
           value={equipmentTypeId}
         >
@@ -80,7 +86,9 @@ export function NewEquipmentView({
           ))}
         </select>
 
-        <h2 className="new-equipment__heading-two">Name</h2>
+        <h2 className="new-equipment__heading-two" data-test="name-heading">
+          Name
+        </h2>
         <input
           className="new-equipment__name"
           type="text"
@@ -88,7 +96,12 @@ export function NewEquipmentView({
           value={equipmentName}
         />
 
-        <h2 className="new-equipment__heading-two">Description</h2>
+        <h2
+          className="new-equipment__heading-two"
+          data-test="description-heading"
+        >
+          Description
+        </h2>
         <textarea
           className="new-equipment__description"
           onChange={handleEquipmentDescriptionChange}
@@ -96,7 +109,9 @@ export function NewEquipmentView({
         />
 
         <div className="new-equipment__image">
-          <h2 className="new-equipment__heading-two">Image of Equipment</h2>
+          <h2 className="new-equipment__heading-two" data-test="image-heading">
+            Image of Equipment
+          </h2>
           {!equipmentImage && (
             <div>
               {

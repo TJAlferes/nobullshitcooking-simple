@@ -28,6 +28,7 @@ const data = {
 
 const beginProps = {
   oneColumnATheme: "one-column-a-light",
+  staffIsAuthenticated: false,  // test for this
   authname: "Person",
   staffMessage: "",
   userMessage: "Some message.",

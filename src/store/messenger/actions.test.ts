@@ -287,12 +287,17 @@ describe('messengerReceivedMessage action creator', () => {
       user: {userId: '555', username: "Joe555", avatar: "Joe555"}
     }).message;
     const expected = {
+      kind: KMessage,
       chatMessageId: '555' + (new Date).getTime().toString(),
       chatMessageText: "Hey! How are you?",
       room: "GrillNChill",
       user: {userId: '555', username: "Joe555", avatar: "Joe555"}
     };
-    expect(actual).toEqual(expected);
+    expect(actual.kind).toEqual(expected.kind);
+    expect(actual.chatMessageId).toEqual(expected.chatMessageId);
+    expect(actual.chatMessageText).toEqual(expected.chatMessageText);
+    expect(actual.room).toEqual(expected.room);
+    expect(actual.user).toEqual(expected.user);
   });
 });
 
@@ -335,12 +340,17 @@ describe('messengerReceivedWhisper action creator', () => {
       user: {userId: '90', username: 'Jill', avatar: 'Jill'}
     }).whisper;
     const expected = {
+      kind: KWhisper,
       whisperId: '32873443823428384923',
       whisperText: 'How are you?',
       to: '0923849323432',
       user: {userId: '90', username: 'Jill', avatar: 'Jill'}
     };
-    expect(actual).toEqual(expected);  // deep?
+    expect(actual.kind).toEqual(expected.kind);
+    expect(actual.whisperId).toEqual(expected.whisperId);
+    expect(actual.whisperText).toEqual(expected.whisperText);
+    expect(actual.to).toEqual(expected.to);
+    expect(actual.user).toEqual(expected.user);
   });
 });
 

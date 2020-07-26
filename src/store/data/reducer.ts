@@ -28,16 +28,16 @@ import {
 } from './types';
 
 const initialState: IDataState = {
-  officialContent: [],  // official
+  officialContent: [],
   contentTypes: [],
   cuisines: [],
-  officialEquipment: [],  // official
+  officialEquipment: [],
   equipmentTypes: [],
-  officialIngredients: [],  // official
+  officialIngredients: [],
   ingredientTypes: [],
   measurements: [],
   methods: [],
-  officialRecipes: [],  // official
+  officialRecipes: [],
   recipeTypes: [],
   
   myContent: [],
@@ -60,15 +60,16 @@ export const dataReducer = (
       return {
         ...state,
         ...{
+          officialContent: action.initialData.officialContent,
           contentTypes: action.initialData.contentTypes,
           cuisines: action.initialData.cuisines,
-          equipment: action.initialData.officialEquipment,
+          officialEquipment: action.initialData.officialEquipment,
           equipmentTypes: action.initialData.equipmentTypes,
-          ingredients: action.initialData.officialIngredients,
+          officialIngredients: action.initialData.officialIngredients,
           ingredientTypes: action.initialData.ingredientTypes,
           measurements: action.initialData.measurements,
           methods: action.initialData.methods,
-          recipes: action.initialData.officialRecipes,
+          officialRecipes: action.initialData.officialRecipes,
           recipeTypes: action.initialData.recipeTypes
         }
       };

@@ -66,9 +66,15 @@ export function NewIngredientView({
 
         <p className="new-ingredient__feedback">{feedback}</p>
 
-        <h2 className="new-ingredient__heading-two">Type of Ingredient</h2>
+        <h2
+          className="new-ingredient__heading-two"
+          data-test="ingredient-type-heading"
+        >
+          Type of Ingredient
+        </h2>
         <select
           required
+          name="ingredientType"
           onChange={handleIngredientTypeChange}
           value={ingredientTypeId}
         >
@@ -80,7 +86,12 @@ export function NewIngredientView({
           ))}
         </select>
 
-        <h2 className="new-ingredient__heading-two">Name</h2>
+        <h2
+          className="new-ingredient__heading-two"
+          data-test="name-heading"
+        >
+          Name
+        </h2>
         <input
           className="new-ingredient__name"
           type="text"
@@ -88,7 +99,12 @@ export function NewIngredientView({
           value={ingredientName}
         />
 
-        <h2 className="new-ingredient__heading-two">Description</h2>
+        <h2
+          className="new-ingredient__heading-two"
+          data-test="description-heading"
+        >
+          Description
+        </h2>
         <textarea
           className="new-ingredient__description"
           onChange={handleIngredientDescriptionChange}
@@ -96,7 +112,9 @@ export function NewIngredientView({
         />
 
         <div className="new-ingredient__image">
-          <h2 className="new-ingredient__heading-two">Image of Ingredient</h2>
+          <h2 className="new-ingredient__heading-two" data-test="image-heading">
+            Image of Ingredient
+          </h2>
           {!ingredientImage && (
             <div>
               {

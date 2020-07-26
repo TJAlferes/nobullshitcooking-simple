@@ -6,6 +6,7 @@ import { NewEquipment } from './NewEquipment';
 
 const beginProps = {
   oneColumnATheme: "one-column-a-light",
+  staffIsAuthenticated: false,  // test for this
   staffMessage: "",
   userMessage: "Some message.",
   dataEquipment: [],

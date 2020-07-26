@@ -6,6 +6,7 @@ import { NewEquipmentView } from './NewEquipmentView';
 
 const beginProps = {
   oneColumnATheme: "one-column-a-light",
+  staffIsAuthenticated: false,  // test for this
   feedback: "Some message.",
   loading: false,
   equipmentTypeId: 1,
@@ -33,20 +34,20 @@ const beginProps = {
 
 describe('NewEquipmentView', () => {
   describe('when creating', () => {
-    it('displays a h1 element with text Submit New Equipment', () => {
+    it('displays a h1 element with text Create New Private Equipment', () => {
       const wrapper = shallow(
         <NewEquipmentView editing={false} {...beginProps} />
       );
-      expect(wrapper.find('h1').text()).toEqual("Submit New Equipment");
+      expect(wrapper.find('h1').text()).toEqual("Create New Private Equipment");
     });
   });
 
   describe('when editing', () => {
-    it('displays a h1 element with text Edit Equipment', () => {
+    it('displays a h1 element with text Edit Private Equipment', () => {
       const wrapper = shallow(
         <NewEquipmentView editing={true} {...beginProps} />
       );
-      expect(wrapper.find('h1').text()).toEqual("Edit Equipment");
+      expect(wrapper.find('h1').text()).toEqual("Edit Private Equipment");
     });
   });
 
@@ -75,7 +76,7 @@ describe('NewEquipmentView', () => {
     });
 
     it('displays a name input element', () => {
-      expect(wrapper.find('input[name="name"]')).toHaveLength(1);
+      expect(wrapper.find('input.new-equipment__name')).toHaveLength(1);
     });
 
     it('displays a h2 element with text Description', () => {
@@ -83,8 +84,9 @@ describe('NewEquipmentView', () => {
       .toEqual("Description");
     });
 
-    it('displays a description input element', () => {
-      expect(wrapper.find('input[name="description"]')).toHaveLength(1);
+    it('displays a description textarea element', () => {
+      expect(wrapper.find('textarea.new-equipment__description'))
+      .toHaveLength(1);
     });
 
     it('displays a h2 element with text Image of Equipment', () => {
@@ -94,10 +96,10 @@ describe('NewEquipmentView', () => {
 
     // finish
 
-    it('displays a Link to /staff-dashboard with text Cancel', () => {
-      expect(wrapper.find('[data-test="cancel-link"]').props().to)
-      .toEqual("/staff-dashboard");
-      expect(wrapper.find('[data-test="cancel-link"]').props().children)
+    it('displays a Link to /dashboard with text Cancel', () => {
+      expect(wrapper.find('.new-equipment__cancel-button').props().to)
+      .toEqual("/dashboard");
+      expect(wrapper.find('.new-equipment__cancel-button').props().children)
       .toEqual("Cancel");
     });
 

@@ -57,7 +57,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.get.mockReturnValueOnce(Promise.resolve({data: cuisine}));
 
 jest.mock(
-  '../../../../routing/breadcrumbs/Breadcrumbs',
+  '../../routing/breadcrumbs/Breadcrumbs',
   () => ({CuisineBreadcrumbs: mockCuisineBreadcrumbs})
 );
 

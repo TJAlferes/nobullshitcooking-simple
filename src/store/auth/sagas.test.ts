@@ -65,7 +65,7 @@ describe('authStaffLoginSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/auth/login`,
-      {userInfo: {email: action.email, password: action.password}},
+      {staffInfo: {email: action.email, password: action.password}},
       {withCredentials: true}
     ));
 
