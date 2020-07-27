@@ -38,7 +38,9 @@ describe('userCreateNewContentSaga', () => {
       contentTypeId: 2,
       published: "2020-07-17",
       title: "My Content",
-      contentItems: "[]",
+      contentItems: [
+        {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
+      ],
       contentImage: "my-content",
       fullContentImage,
       thumbContentImage
@@ -139,7 +141,9 @@ describe('staffEditContentSaga', () => {
       contentTypeId: 2,
       published: "2020-07-17",
       title: "My Content",
-      contentItems: "[]",
+      contentItems: [
+        {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
+      ],
       prevContentImage: "nobsc-content-default",
       contentImage: "my-content",
       fullContentImage,

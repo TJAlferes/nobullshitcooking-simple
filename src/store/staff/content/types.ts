@@ -1,3 +1,5 @@
+import { Node } from 'slate';
+
 export const STAFF_CREATE_NEW_CONTENT = 'STAFF_CREATE_NEW_CONTENT' as const;
 export const STAFF_CREATE_NEW_CONTENT_SUCCEEDED = 'STAFF_CREATE_NEW_CONTENT_SUCCEEDED' as const;
 export const STAFF_CREATE_NEW_CONTENT_FAILED = 'STAFF_CREATE_NEW_CONTENT_FAILED' as const;
@@ -58,22 +60,15 @@ export interface IStaffDeleteContentFailed {
 // For now, one image per page/post
 export interface ICreatingContentInfo {
   contentTypeId: number;
-  published: string|null;
+  published: string | null;
   title: string;
-  contentItems: string;
+  contentItems: Node[];
   contentImage: string | ArrayBuffer | null;
   fullContentImage: File | null;
   thumbContentImage: File | null;
 }
 
-export interface IEditingContentInfo {
+export interface IEditingContentInfo extends ICreatingContentInfo {
   contentId: number;
-  contentTypeId: number;
-  published: string|null;
-  title: string;
-  contentItems: string;
   prevContentImage: string;
-  contentImage: string | ArrayBuffer | null;
-  fullContentImage: File | null;
-  thumbContentImage: File | null;
 }

@@ -25,7 +25,9 @@ const creatingContentInfo = {
   contentTypeId: 13,
   published: null,
   title: "Some Title",
-  contentItems: "[]",
+  contentItems: [
+    {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
+  ],
   contentImage: null,
   fullContentImage: null,
   thumbContentImage: null
@@ -35,7 +37,9 @@ const editingContentInfo = {
   contentTypeId: 13,
   published: null,
   title: "Some Title",
-  contentItems: "[]",
+  contentItems: [
+    {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
+  ],
   prevContentImage: "nobsc-content-default",
   contentImage: null,
   fullContentImage: null,
