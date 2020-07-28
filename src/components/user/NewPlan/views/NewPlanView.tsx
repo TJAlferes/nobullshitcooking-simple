@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import AriaModal from 'react-aria-modal';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import { IWorkRecipe } from '../../../../store/data/types';
@@ -92,10 +92,12 @@ export function NewPlanView({
     const list = tabToList[tab];
 
     /*
+
     Note: even though recipe_id and owner_id
     are not used when creating/editing a plan (NewPlan-),
     they are set at this stage because
     they are used when viewing a plan (Plan-)
+
     */
 
     return (

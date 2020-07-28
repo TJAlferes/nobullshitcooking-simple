@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
 import {
   ConnectDropTarget,
   DropTarget,
   DropTargetConnector,
   DropTargetMonitor
 } from 'react-dnd';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { IPlannerRecipe } from '../../../../../store/planner/types';
 import {
@@ -43,7 +43,7 @@ export function Day({
   plannerClickDay,
   canDrop,
   isOver,
-  connectDropTarget
+  //connectDropTarget
 }: Props): JSX.Element|null {
   const handleClickDay = () => plannerClickDay(day);
 
@@ -54,7 +54,7 @@ export function Day({
     <div
       className={`planner_day_collapsed ${color}`}
       onClick={handleClickDay}
-      ref={connectDropTarget}
+      //ref={connectDropTarget}
     >
       <span className="the_date">{day}</span>
       {list.map((recipe: IPlannerRecipe, i) => (
@@ -83,7 +83,7 @@ type Props = PropsFromRedux & {
   expandedDay: number | null;
   canDrop: boolean;
   isOver: boolean;
-  connectDropTarget: ConnectDropTarget;
+  //connectDropTarget: ConnectDropTarget;
 };
 
 const mapDispatchToProps = {

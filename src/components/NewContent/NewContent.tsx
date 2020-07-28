@@ -1,3 +1,5 @@
+import axios from 'axios';
+import isHotKey from 'is-hotkey';
 import React, {
   useCallback,
   useEffect,
@@ -5,14 +7,12 @@ import React, {
   useRef,
   useState
 } from 'react';
+import { Crop } from 'react-image-crop';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { Crop } from 'react-image-crop';
 import { createEditor, Node } from 'slate';
 import { withHistory } from 'slate-history';
 import { Editable, Slate, withReact } from 'slate-react';
-import isHotKey from 'is-hotkey';
-import axios from 'axios';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -216,6 +216,8 @@ export function NewContent({
   };
 
   const handleSave = () => {
+    // TO DO: validate
+
     if (editing && editingId) {
 
       const editingContentInfo = {

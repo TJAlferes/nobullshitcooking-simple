@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
 import {
   ConnectDropTarget,
   DropTarget,
   DropTargetConnector,
   DropTargetMonitor
 } from 'react-dnd';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { IPlannerRecipe } from '../../../../../store/planner/types';
 import {
@@ -37,9 +37,9 @@ const RecipesList = ({
   list,
   expanded,
   expandedDay,
-  connectDropTarget
+  //connectDropTarget
 }: Props): JSX.Element => (
-  <div className="planner-recipes-list" ref={connectDropTarget}>
+  <div className="planner-recipes-list" /*ref={connectDropTarget}*/>
     {list.map((recipe: IPlannerRecipe, i) => (
       <Recipe
         key={recipe.key}

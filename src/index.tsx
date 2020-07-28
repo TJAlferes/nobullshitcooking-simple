@@ -8,9 +8,9 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import createSagaMiddleware from 'redux-saga';
 import { SearchProvider } from '@elastic/react-search-ui';
-import { DndProvider } from 'react-dnd';
+//import { DndProvider } from 'react-dnd';
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
-import MultiBackend from 'react-dnd-multi-backend';
+import { DndProvider } from 'react-dnd-multi-backend';
 
 import { searchConfig } from './config/searchConfig';
 import {
@@ -83,7 +83,7 @@ const app = (
   <Provider store={store}>
     <BrowserRouter>
       <SearchProvider config={searchConfig}>
-        <DndProvider backend={MultiBackend} options={HTML5toTouch}>
+        <DndProvider options={HTML5toTouch}>
           <App />
         </DndProvider>
       </SearchProvider>
