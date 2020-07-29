@@ -1,1 +1,1 @@
-import { EquipmentTabView } from './EquipmentTabView';
+import { Equipment } from './Equipment';

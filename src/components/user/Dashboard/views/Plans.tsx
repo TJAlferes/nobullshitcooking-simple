@@ -1,19 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AriaModal from 'react-aria-modal';
+import { Link } from 'react-router-dom';
 
 import { IPlan } from '../../../../store/data/types';
 
-export function PlansTabView({
+export function Plans({
+  activateModal,
   creatingPlan,
-  editingId,
-  deletePlanModalActive,
-  deactivateDeletePlanModal,
-  getApplicationNode,
+  deactivateModal,
   deletePlanName,
+  editingId,
+  getApplicationNode,
   handleDeletePlan,
-  myPlans,
-  activateDeletePlanModal
+  modalActive,
+  myPlans
 }: Props): JSX.Element {
   return (
     <div className="dashboard-content">
@@ -40,15 +40,15 @@ export function PlansTabView({
         </Link>
       }
       {
-        deletePlanModalActive
+        modalActive
         ? (
           <AriaModal
             dialogClass="plan-delete-modal"
-            titleText="Cancel?"
-            onExit={deactivateDeletePlanModal}
             focusDialog={true}
-            getApplicationNode={getApplicationNode}
             focusTrapOptions={{returnFocusOnDeactivate: false}}
+            getApplicationNode={getApplicationNode}
+            onExit={deactivateModal}
+            titleText="Cancel?"
             underlayClickExits={false}
           >
             <p className="plan-delete-prompt">
@@ -56,7 +56,7 @@ export function PlansTabView({
             </p>
             <button
               className="plan-delete-cancel-button"
-              onClick={deactivateDeletePlanModal}
+              onClick={deactivateModal}
             >
               No
             </button>
@@ -91,7 +91,7 @@ export function PlansTabView({
               (!creatingPlan && !editingId) &&
               <span
                 className="dashboard-content-item-delete"
-                onClick={() => activateDeletePlanModal(plan.plan_id, plan.plan_name)}
+                onClick={() => activateModal(plan.plan_id, plan.plan_name)}
               >
                 Delete
               </span>
@@ -109,13 +109,13 @@ export function PlansTabView({
 }
 
 type Props = {
+  activateModal(id: number, name: string): void;
   creatingPlan: boolean;
-  editingId: number|null;
-  deletePlanModalActive: boolean;
-  deactivateDeletePlanModal(): void;
-  getApplicationNode(): Element | Node;
+  deactivateModal(): void;
   deletePlanName: string;
+  editingId: number | null;
+  getApplicationNode(): Element | Node;
   handleDeletePlan(): void;
+  modalActive: boolean;
   myPlans: IPlan[];
-  activateDeletePlanModal(id: number, name: string): void;
 };

@@ -2,19 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { IWorkRecipe } from '../../../../store/data/types';
-import { SubtabsView } from './SubtabsView';
+import { Subtabs } from './Subtabs';
 
-export function SavedRecipesTabView({
-  mySavedRecipes,
+export function SavedRecipes({
+  handleSubTabClick,
   handleUnsaveRecipe,
-  subTab,
-  handleSubTabClick
+  mySavedRecipes,
+  subTab
 }: Props): JSX.Element {
   return (
     <div className="dashboard-content">
       <h2 className="dashboard-content-heading--tall">Saved Recipes</h2>
 
-      <SubtabsView subTab={subTab} handleSubTabClick={handleSubTabClick} />
+      <Subtabs handleSubTabClick={handleSubTabClick} subTab={subTab} />
 
       {
         mySavedRecipes.length
@@ -51,8 +51,8 @@ export function SavedRecipesTabView({
 }
 
 type Props = {
-  mySavedRecipes: IWorkRecipe[];
-  handleUnsaveRecipe(id: number): void;
-  subTab: string;
   handleSubTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  handleUnsaveRecipe(id: number): void;
+  mySavedRecipes: IWorkRecipe[];
+  subTab: string;
 };

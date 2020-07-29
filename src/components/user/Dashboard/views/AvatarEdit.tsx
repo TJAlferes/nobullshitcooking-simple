@@ -18,13 +18,13 @@ export function AvatarEdit({
     <div className="dashboard-avatar-edit">
       <ReactCrop
         className="avatar-crop-tool"
-        style={{minHeight: "300px"}}
-        imageStyle={{minHeight: "300px"}}
-        src={avatar as string}
         crop={crop}
+        imageStyle={{minHeight: "300px"}}
         onImageLoaded={onImageLoaded}
         onChange={onCropChange}
         onComplete={onCropComplete}
+        src={avatar as string}
+        style={{minHeight: "300px"}}
       />
       <span className="avatar-crop-tool-tip">
         Move the crop to your desired position, then click "Complete". These two images will be saved for you:
@@ -39,16 +39,16 @@ export function AvatarEdit({
       </div>
       <button
         className="avatar-cancel-button"
-        name="cancel-avatar"
         disabled={loading}
+        name="cancel-avatar"
         onClick={cancelAvatar}
       >
         Cancel
       </button>
       <button
         className="avatar-submit-button"
-        name="submit-avatar"
         disabled={loading}
+        name="submit-avatar"
         onClick={submitAvatar}
       >
         Complete

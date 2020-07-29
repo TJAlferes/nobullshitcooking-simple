@@ -1,1 +1,1 @@
-import { SavedRecipesTabView } from './SavedRecipesTabView';
+import { SavedRecipes } from './SavedRecipes';

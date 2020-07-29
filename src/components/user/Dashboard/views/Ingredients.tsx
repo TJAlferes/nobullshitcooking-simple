@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { IIngredient } from '../../../../store/data/types';
 
-export function IngredientsTabView({
-  myPrivateIngredients,
-  handleDeletePrivateIngredient
+export function Ingredients({
+  handleDeletePrivateIngredient,
+  myPrivateIngredients
 }: Props): JSX.Element {
   return (
     <div className="dashboard-content">
@@ -56,6 +56,6 @@ export function IngredientsTabView({
 }
 
 type Props = {
-  myPrivateIngredients: IIngredient[];
   handleDeletePrivateIngredient(id: number): void;
+  myPrivateIngredients: IIngredient[];
 };

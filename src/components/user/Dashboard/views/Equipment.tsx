@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { IEquipment } from '../../../../store/data/types';
 
-export function EquipmentTabView({
-  myPrivateEquipment,
-  handleDeletePrivateEquipment
+export function Equipment({
+  handleDeletePrivateEquipment,
+  myPrivateEquipment
 }: Props): JSX.Element {
   return (
     <div className="dashboard-content">
@@ -56,6 +56,6 @@ export function EquipmentTabView({
 }
 
 type Props = {
-  myPrivateEquipment: IEquipment[];
   handleDeletePrivateEquipment(id: number): void;
+  myPrivateEquipment: IEquipment[];
 };

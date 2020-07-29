@@ -27,11 +27,11 @@ export function Avatar({
       </div>
       <label className="dashboard-avatar-label">Change</label>
       <input
+        accept="image/*"
         className="avatar-input"
         name="set-avatar"
-        type="file"
-        accept="image/*"
         onChange={onSelectFile}
+        type="file"
       />
     </div>
   );

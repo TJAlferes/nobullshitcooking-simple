@@ -16,11 +16,11 @@ export function Tabs({ handleTabClick, tab }: Props): JSX.Element {
 
   return (
     <div className="dashboard-menu-tabs">
-      <TabButton tabName="avatar" displayText="Avatar" />
-      <TabButton tabName="plans" displayText="Plans" />
-      <TabButton tabName="recipes" displayText="Recipes" />
-      <TabButton tabName="ingredients" displayText="Ingredients" />
-      <TabButton tabName="equipment" displayText="Equipment" />
+      <TabButton displayText="Avatar" tabName="avatar" />
+      <TabButton displayText="Plans" tabName="plans" />
+      <TabButton displayText="Recipes" tabName="recipes" />
+      <TabButton displayText="Ingredients" tabName="ingredients" />
+      <TabButton displayText="Equipment" tabName="equipment" />
     </div>
   );
 }

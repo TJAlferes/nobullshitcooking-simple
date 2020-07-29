@@ -16,10 +16,10 @@ export function Subtabs({ handleSubTabClick, subTab }: Props): JSX.Element {
 
   return (
     <div className="dashboard-menu-subtabs">
-      <SubtabButton subTabName="private" displayText="Private" />
-      <SubtabButton subTabName="public" displayText="Public" />
-      <SubtabButton subTabName="favorite" displayText="Favorite" />
-      <SubtabButton subTabName="saved" displayText="Saved" />
+      <SubtabButton displayText="Private" subTabName="private" />
+      <SubtabButton displayText="Public" subTabName="public" />
+      <SubtabButton displayText="Favorite" subTabName="favorite" />
+      <SubtabButton displayText="Saved" subTabName="saved" />
     </div>
   );
 }

@@ -1,20 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AriaModal from 'react-aria-modal';
+import { Link } from 'react-router-dom';
 
 import { IWorkRecipe } from '../../../../store/data/types';
-import { SubtabsView } from './SubtabsView';
+import { Subtabs } from './Subtabs';
 
-export function PublicRecipesTabView({
-  disownRecipeModalActive,
-  deactivateDisownRecipeModal,
+export function PublicRecipes({
+  activateModal,
+  deactivateModal,
+  deleteName,
   getApplicationNode,
-  disownRecipeName,
   handleDisownPublicRecipe,
+  handleSubTabClick,
+  modalActive,
   myPublicRecipes,
-  activateDisownRecipeModal,
-  subTab,
-  handleSubTabClick
+  subTab
 }: Props): JSX.Element {
   return (
     <div className="dashboard-content">
@@ -23,23 +23,23 @@ export function PublicRecipesTabView({
         Create New Public Recipe
       </Link>
       {
-        disownRecipeModalActive
+        modalActive
         ? (
           <AriaModal
             dialogClass="recipe-disown-modal"
-            titleText="Cancel?"
-            onExit={deactivateDisownRecipeModal}
             focusDialog={true}
-            getApplicationNode={getApplicationNode}
             focusTrapOptions={{returnFocusOnDeactivate: false}}
+            getApplicationNode={getApplicationNode}
+            onExit={deactivateModal}
+            titleText="Cancel?"
             underlayClickExits={false}
           >
             <p className="recipe-disown-prompt">
-              {'Disown Recipe: '}{disownRecipeName}{' ?'}
+              {'Disown Recipe: '}{deleteName}{' ?'}
             </p>
             <button
               className="recipe-disown-cancel-button"
-              onClick={deactivateDisownRecipeModal}
+              onClick={deactivateModal}
             >
               No
             </button>
@@ -54,7 +54,7 @@ export function PublicRecipesTabView({
         : false
       }
 
-      <SubtabsView subTab={subTab} handleSubTabClick={handleSubTabClick} />
+      <Subtabs handleSubTabClick={handleSubTabClick} subTab={subTab} />
 
       {
         myPublicRecipes.length
@@ -79,7 +79,7 @@ export function PublicRecipesTabView({
             </span>
             <span
               className="dashboard-content-item-delete"
-              onClick={() => activateDisownRecipeModal(recipe.recipe_id, recipe.title)}
+              onClick={() => activateModal(recipe.recipe_id, recipe.title)}
             >
               Disown
             </span>
@@ -96,13 +96,13 @@ export function PublicRecipesTabView({
 }
 
 type Props = {
-  disownRecipeModalActive: boolean;
-  deactivateDisownRecipeModal(): void;
+  activateModal(id: number, name: string): void;
+  deactivateModal(): void;
+  deleteName: string;
   getApplicationNode(): Element | Node;
-  disownRecipeName: string;
   handleDisownPublicRecipe(): void;
-  myPublicRecipes: IWorkRecipe[];
-  activateDisownRecipeModal(id: number, name: string): void;
-  subTab: string;
   handleSubTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  myPublicRecipes: IWorkRecipe[];
+  modalActive: boolean;
+  subTab: string;
 };

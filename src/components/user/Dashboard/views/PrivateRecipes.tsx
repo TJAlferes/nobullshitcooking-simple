@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { IWorkRecipe } from '../../../../store/data/types';
 import { Subtabs } from './Subtabs';
 
-export function PrivateRecipesTabView({
+export function PrivateRecipes({
   activateModal,
   deactivateModal,
   deleteName,
@@ -27,11 +27,11 @@ export function PrivateRecipesTabView({
         ? (
           <AriaModal
             dialogClass="recipe-delete-modal"
-            titleText="Cancel?"
-            onExit={deactivateModal}
             focusDialog={true}
-            getApplicationNode={getApplicationNode}
             focusTrapOptions={{returnFocusOnDeactivate: false}}
+            getApplicationNode={getApplicationNode}
+            onExit={deactivateModal}
+            titleText="Cancel?"
             underlayClickExits={false}
           >
             <p className="recipe-delete-prompt">
@@ -54,7 +54,7 @@ export function PrivateRecipesTabView({
         : false
       }
 
-      <Subtabs subTab={subTab} handleSubTabClick={handleSubTabClick} />
+      <Subtabs handleSubTabClick={handleSubTabClick} subTab={subTab} />
 
       {
         myPrivateRecipes.length

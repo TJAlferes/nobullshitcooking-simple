@@ -1,1 +1,1 @@
-import { IngredientsTabView } from './IngredientsTabView';
+import { Ingredients } from './Ingredients';
