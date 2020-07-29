@@ -3,18 +3,19 @@ import React from 'react';
 
 import { OptionsView } from './OptionsView';
 
-const handleRoomInputChange = jest.fn();
 const handleChannelChange = jest.fn();
 const handleConnect = jest.fn();
 const handleDisconnect = jest.fn();
+const handleRoomInputChange = jest.fn();
+
 const initialProps = {
-  loading: false,
   channel: "5067",
-  roomToEnter: "5068",
-  handleRoomInputChange,
   handleChannelChange,
   handleConnect,
-  handleDisconnect
+  handleDisconnect,
+  handleRoomInputChange,
+  loading: false,
+  roomToEnter: "5068"
 };
 
 afterEach(() => {

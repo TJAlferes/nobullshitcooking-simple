@@ -9,33 +9,32 @@ window.scrollTo = jest.fn();
 
 jest.mock('../../LeftNav/LeftNav');
 
+const messengerChangeChannel = jest.fn();
 const messengerConnect = jest.fn();
 const messengerDisconnect = jest.fn();
-const messengerChangeChannel = jest.fn();
 const messengerSendMessage = jest.fn();
 const messengerSendWhisper = jest.fn();
+
 const initialProps = {
-  twoColumnATheme: "light",
-  //messengerView,
-  windowFocused: true,
   authname: "Person",
-  message: "Some message.",
-  status: "Connected",
   channel: "5067",
+  message: "Some message.",
   messages: [],
+  messengerChangeChannel,
+  messengerConnect,
+  messengerDisconnect,
+  messengerSendMessage,
+  messengerSendWhisper,
+  //messengerView,
+  onlineFriends: [{userId: "151", username: "Person2", avatar: "Person2"}],
+  status: "Connected",
+  twoColumnATheme: "light",
   users: [
     {userId: "150", username: "Person", avatar: "Person"},
     {userId: "151", username: "Person2", avatar: "Person2"},
     {userId: "152", username: "Person3", avatar: "Person3"}
   ],
-  onlineFriends: [
-    {userId: "151", username: "Person2", avatar: "Person2"}
-  ],
-  messengerConnect,
-  messengerDisconnect,
-  messengerChangeChannel,
-  messengerSendMessage,
-  messengerSendWhisper
+  windowFocused: true,
 };
 
 afterEach(() => {

@@ -8,12 +8,12 @@ import {
 
 export function ChatView({
   authname,
-  status,
-  messagesRef,
-  messages,
-  messageToSend,
   handleMessageInputChange,
-  handleMessageSend
+  handleMessageSend,
+  messages,
+  messagesRef,
+  messageToSend,
+  status
 }: Props): JSX.Element {
   const displayMessage = (message: IMessage) => {
     // status message
@@ -94,12 +94,12 @@ export function ChatView({
 
       <div className="messenger-chat-input">
         <input
-          type="text"
+          disabled={status !== "Connected"}
           name="chat-input"
-          value={messageToSend}
           onChange={handleMessageInputChange}
           onKeyUp={(e) => handleMessageSend(e)}
-          disabled={status !== "Connected"}
+          type="text"
+          value={messageToSend}
         />
       </div>
 
@@ -109,10 +109,10 @@ export function ChatView({
 
 type Props = {
   authname: string;
-  status: string;
-  messagesRef: React.RefObject<HTMLUListElement>;
-  messages: Message[];
-  messageToSend: string;
   handleMessageInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleMessageSend(e: React.KeyboardEvent): void;
+  messages: Message[];
+  messagesRef: React.RefObject<HTMLUListElement>;
+  messageToSend: string;
+  status: string;
 };

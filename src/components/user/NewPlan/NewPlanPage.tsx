@@ -5,25 +5,25 @@ const NewPlan = lazy(() => import('./NewPlan'));
 import './newPlanPage.css'
 
 export default function NewPlanPage({
-  twoColumnATheme,
-  childProps
+  editing,
+  twoColumnATheme
 }: Props): JSX.Element {
   return (
     <div className="new-plan-page">
       {/*<div className="mobile_display">
         <Suspense fallback={<div>Loading...</div>} >
           <MobileNewPlanToggle
+            editing={editing}
             twoColumnATheme={twoColumnATheme}
-            editing={(childProps && childProps.editing) && childProps.editing}
           />
         </Suspense>
       </div>*/}
       <div className="desktop_display">
         <Suspense fallback={<div>Loading...</div>} >
           <NewPlan
-            twoColumnATheme={twoColumnATheme}
-            editing={(childProps && childProps.editing) && childProps.editing}
+            editing={editing}
             planView="desktop"
+            twoColumnATheme={twoColumnATheme}
           />
         </Suspense>
       </div>
@@ -32,6 +32,6 @@ export default function NewPlanPage({
 }
 
 type Props = {
+  editing: boolean;
   twoColumnATheme: string;
-  childProps: any;
 };

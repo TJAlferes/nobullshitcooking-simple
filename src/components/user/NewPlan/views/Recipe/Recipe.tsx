@@ -18,29 +18,21 @@ import './recipe.css';
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
 const Recipe: FC<Props> = ({
-  key,
-  id,
   day,
   expanded,
   expandedDay,
+  id,
   index,
+  key,
   listId,
-  recipe,
   plannerRemoveRecipeFromDay,
-  plannerReorderRecipeInDay
+  plannerReorderRecipeInDay,
+  recipe
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [ , drag ] = useDrag({
-    item: {
-      type: Types.PLANNER_RECIPE,
-      id,
-      index,
-      listId,
-      recipe,
-      day,
-      key: recipe.key
-    },
+    collect: (monitor: any) => ({isDragging: monitor.isDragging()}),
     end: (dropResult: any, monitor: DragSourceMonitor) => {
       const item = monitor.getItem();
       if (item.day === 0) return;
@@ -48,27 +40,44 @@ const Recipe: FC<Props> = ({
         plannerRemoveRecipeFromDay(item.day, item.index);
       }
     },
-    collect: (monitor: any) => ({isDragging: monitor.isDragging()}),
+    item: {
+      day,
+      id,
+      index,
+      key: recipe.key,
+      listId,
+      recipe,
+      type: Types.PLANNER_RECIPE
+    }
   });
 
   const [ , drop ] = useDrop({
     accept: Types.PLANNER_RECIPE,
     hover: (item: IDragItem, monitor: DropTargetMonitor) => {
       if(!item) return;  // ?
+
       if (!ref.current) return;
+
       if (day !== expandedDay) return;
+
       const sourceDay = monitor.getItem().day;  //item.day;
+
       if (sourceDay !== expandedDay) return;
+
       const dragIndex = item.index;
       const hoverIndex = index;
+
       if (dragIndex === hoverIndex) return;
+
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+
       if ((dragIndex < hoverIndex) && (hoverClientY < hoverMiddleY)) return;
       if ((dragIndex > hoverIndex) && (hoverClientY > hoverMiddleY)) return;
+
       plannerReorderRecipeInDay(dragIndex, hoverIndex);
       item.index = hoverIndex;
     }
@@ -87,20 +96,20 @@ const Recipe: FC<Props> = ({
 };
 
 interface IDragItem {
-  index: number;
   id: string;
+  index: number;
   type: string;
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  key: string;
-  id: string;
   day: number;
   expanded: boolean;
   expandedDay: number | null;
+  id: string;
   index: number;
+  key: string;
   listId: number;
   recipe: IPlannerRecipe;
 };

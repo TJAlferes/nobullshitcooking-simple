@@ -21,17 +21,18 @@ https://github.com/enzymejs/enzyme/issues/1852
 
 */
 
-const plannerClickDay = jest.fn();
 const plannerAddRecipeToDay = jest.fn();
+const plannerClickDay = jest.fn();
+
 const beginProps = {
+  canDrop: false,
   day: 1,
-  list: [],
   expanded: false,
   expandedDay: null,
+  isOver: false,
+  list: [],
   plannerAddRecipeToDay,
-  plannerClickDay,
-  canDrop: false,
-  isOver: false
+  plannerClickDay
 };
 
 describe('Day', () => {

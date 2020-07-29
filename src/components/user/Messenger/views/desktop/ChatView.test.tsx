@@ -13,13 +13,14 @@ jest.mock('react', () => {
   return {...originalModule, useRef: mockUseRef};
 });
 
-const messagesRef = useRef<HTMLUListElement>(null);
 const handleMessageInputChange = jest.fn();
 const handleMessageSend = jest.fn();
+const messagesRef = useRef<HTMLUListElement>(null);
+
 const initialProps = {
   authname: "Person",
-  status: "Online",
-  messagesRef,
+  handleMessageInputChange,
+  handleMessageSend,
   messages: [
     {
       kind: KMessage,
@@ -82,9 +83,9 @@ const initialProps = {
       ts: "sometime"
     }
   ],
+  messagesRef,
   messageToSend: "brb real quick",
-  handleMessageInputChange,
-  handleMessageSend
+  status: "Online"
 };
 
 afterEach(() => {

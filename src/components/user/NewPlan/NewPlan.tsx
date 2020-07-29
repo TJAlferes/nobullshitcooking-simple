@@ -12,37 +12,37 @@ import {
   plannerSetPlanData
 } from '../../../store/planner/actions';
 import {
-  ICreatingPlanInfo,
-  IEditingPlanInfo
-} from '../../../store/user/plan/types';
-import {
   userCreateNewPlan,
   userEditPlan
 } from '../../../store/user/plan/actions';
+import {
+  ICreatingPlanInfo,
+  IEditingPlanInfo
+} from '../../../store/user/plan/types';
 //import { MobileNewPlanView } from './views/MobileNewPlanView';
 import { NewPlanView } from './views/NewPlanView';
 
 export function NewPlan({
-  editing,
-  twoColumnATheme,
-  //planView,
-  message,
-  dataMyPlans,
-  dataRecipes,
-  dataMyPublicRecipes,
-  dataMyPrivateRecipes,
   dataMyFavoriteRecipes,
+  dataMyPlans,
+  dataMyPrivateRecipes,
+  dataMyPublicRecipes,
   dataMySavedRecipes,
+  dataRecipes,
+  editing,
+  editingId,
   expanded,
   expandedDay,
-  editingId,
+  message,
   planName,
-  recipeListsInsideDays,
   plannerClearWork,
   plannerSetCreating,
   plannerSetEditingId,
-  plannerSetPlanName,
   plannerSetPlanData,
+  plannerSetPlanName,
+  //planView,
+  recipeListsInsideDays,
+  twoColumnATheme,
   userCreateNewPlan,
   userEditPlan
 }: Props): JSX.Element {
@@ -51,16 +51,16 @@ export function NewPlan({
 
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ tab, setTab ] = useState("official");
   const [ modalActive, setModalActive ] = useState(false);
+  const [ tab, setTab ] = useState("official");
 
   useEffect(() => {
     const getExistingPlanToEdit = () => {
       window.scrollTo(0,0);
       setLoading(true);
 
-      const [ prev ] = dataMyPlans
-      .filter(plan => plan.plan_id === Number(id));
+      const [ prev ] =
+        dataMyPlans.filter(plan => plan.plan_id === Number(id));
 
       plannerSetEditingId(Number(prev.plan_id));
       plannerSetPlanName(prev.plan_name);
@@ -100,6 +100,23 @@ export function NewPlan({
     };
   }, [message]);
 
+  const activateModal = () => setModalActive(true);
+
+  const deactivateModal = () => setModalActive(false);
+
+  const discardChanges = () => {
+    setModalActive(false);
+    plannerClearWork();
+    history.push('/dashboard');
+  };
+
+  const getApplicationNode = (): Element | Node => {
+    return document.getElementById('root') as Element | Node;
+  };
+
+  // clean/format? *** keys???
+  const getPlanData = () => JSON.stringify(recipeListsInsideDays);
+
   const handlePlanNameChange = (e: React.SyntheticEvent<EventTarget>) => {
     const nextName = (e.target as HTMLInputElement).value.trim();
     if (nextName.length > 20) {
@@ -113,26 +130,6 @@ export function NewPlan({
 
   const handleTabClick = (e: React.SyntheticEvent<EventTarget>) => {
     setTab((e.target as HTMLButtonElement).name);
-  };
-
-  const activateModal = () => setModalActive(true);
-
-  const deactivateModal = () => setModalActive(false);
-
-  const getApplicationNode = (): Element | Node => {
-    return document.getElementById('root') as Element | Node;
-  };
-
-  const discardChanges = () => {
-    setModalActive(false);
-    plannerClearWork();
-    history.push('/dashboard');
-  };
-
-  const getPlanData = () => {
-    // not done; clean/format? *** keys???
-    console.log(JSON.stringify(recipeListsInsideDays));
-    return JSON.stringify(recipeListsInsideDays);
   };
 
   const valid = () => {
@@ -158,19 +155,18 @@ export function NewPlan({
 
   const handleSubmit = () => {
     if (!valid()) return;
+
     setLoading(true);
+
     if (editing) {
-      const planInfo: IEditingPlanInfo = {
+      const planInfo = {
         planId: editingId,
         planName: planName,
         planData: getPlanData()
       };
       userEditPlan(planInfo);
     } else {
-      const planInfo: ICreatingPlanInfo = {
-        planName: planName,
-        planData: getPlanData()
-      };
+      const planInfo = {planName: planName, planData: getPlanData()};
       userCreateNewPlan(planInfo);
     }
   }
@@ -204,85 +200,85 @@ export function NewPlan({
   :*/
   return (
     <NewPlanView
-      twoColumnATheme={twoColumnATheme}
-      feedback={feedback}
-      loading={loading}
-      editing={editing}
-      planName={planName}
-      handlePlanNameChange={handlePlanNameChange}
-      recipeListsInsideDays={recipeListsInsideDays}
-      expandedDay={expandedDay}
-      expanded={expanded}
-      dataRecipes={dataRecipes}
-      dataMyPrivateRecipes={dataMyPrivateRecipes}
-      dataMyPublicRecipes={dataMyPublicRecipes}
-      dataMyFavoriteRecipes={dataMyFavoriteRecipes}
-      dataMySavedRecipes={dataMySavedRecipes}
-      tab={tab}
-      handleTabClick={handleTabClick}
-      modalActive={modalActive}
       activateModal={activateModal}
       deactivateModal={deactivateModal}
-      getApplicationNode={getApplicationNode}
       discardChanges={discardChanges}
+      dataMyFavoriteRecipes={dataMyFavoriteRecipes}
+      dataMyPrivateRecipes={dataMyPrivateRecipes}
+      dataMyPublicRecipes={dataMyPublicRecipes}
+      dataMySavedRecipes={dataMySavedRecipes}
+      dataRecipes={dataRecipes}
+      editing={editing}
+      expanded={expanded}
+      expandedDay={expandedDay}
+      feedback={feedback}
+      getApplicationNode={getApplicationNode}
+      handlePlanNameChange={handlePlanNameChange}
       handleSubmit={handleSubmit}
+      handleTabClick={handleTabClick}
+      loading={loading}
+      modalActive={modalActive}
+      planName={planName}
+      recipeListsInsideDays={recipeListsInsideDays}
+      tab={tab}
+      twoColumnATheme={twoColumnATheme}
     />
   );
 }
 
 interface RootState {
-  user: {
-    message: string;
-  };
   data: {
-    myPlans: IPlan[];
-    recipes: IWorkRecipe[];
-    myPublicRecipes: IWorkRecipe[];
-    myPrivateRecipes: IWorkRecipe[];
     myFavoriteRecipes: IWorkRecipe[];
+    myPlans: IPlan[];
+    myPrivateRecipes: IWorkRecipe[];
+    myPublicRecipes: IWorkRecipe[];
     mySavedRecipes: IWorkRecipe[];
+    officialRecipes: IWorkRecipe[];
   };
   planner: {
+    editingId: number;
     expanded: boolean;
     expandedDay: number | null;
-    editingId: number;
     planName: string;
     recipeListsInsideDays: IPlannerData;
+  };
+  user: {
+    message: string;
   };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  twoColumnATheme: string;
-  planView: string;
   editing: boolean;
+  planView: string;
+  twoColumnATheme: string;
 };
 
 const mapStateToProps = (state: RootState) => ({
-  message: state.user.message,
-  dataMyPlans: state.data.myPlans,
-  dataRecipes: state.data.recipes,
-  dataMyPublicRecipes: state.data.myPublicRecipes,
-  dataMyPrivateRecipes: state.data.myPrivateRecipes,
   dataMyFavoriteRecipes: state.data.myFavoriteRecipes,
+  dataMyPlans: state.data.myPlans,
+  dataMyPrivateRecipes: state.data.myPrivateRecipes,
+  dataMyPublicRecipes: state.data.myPublicRecipes,
   dataMySavedRecipes: state.data.mySavedRecipes,
+  dataRecipes: state.data.officialRecipes,
   expanded: state.planner.expanded,
   expandedDay: state.planner.expandedDay,
   editingId: state.planner.editingId,
+  message: state.user.message,
   planName: state.planner.planName,
   recipeListsInsideDays: state.planner.recipeListsInsideDays
 });
 
 const mapDispatchToProps = {
-  userCreateNewPlan: (planInfo: ICreatingPlanInfo) =>
-    userCreateNewPlan(planInfo),
-  userEditPlan: (planInfo: IEditingPlanInfo) => userEditPlan(planInfo),
   plannerClearWork: () => plannerClearWork(),
   plannerSetCreating: () => plannerSetCreating(),
   plannerSetEditingId: (id: number) => plannerSetEditingId(id),
+  plannerSetPlanData: (data: IPlannerData) => plannerSetPlanData(data),
   plannerSetPlanName: (name: string) => plannerSetPlanName(name),
-  plannerSetPlanData: (data: IPlannerData) => plannerSetPlanData(data)
+  userCreateNewPlan: (planInfo: ICreatingPlanInfo) =>
+    userCreateNewPlan(planInfo),
+  userEditPlan: (planInfo: IEditingPlanInfo) => userEditPlan(planInfo)
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

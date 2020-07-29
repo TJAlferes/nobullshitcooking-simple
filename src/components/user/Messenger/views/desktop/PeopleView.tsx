@@ -3,15 +3,15 @@ import React from 'react';
 import { IUser } from '../../../../../store/messenger/types';
 
 export function PeopleView({
-  users,
+  focusedFriend,
+  focusedUser,
+  handleFriendClick,
+  handlePeopleTabChange,
+  handleUserClick,
   onlineFriends,
   peopleTab,
-  handlePeopleTabChange,
-  focusedFriend,
-  handleFriendClick,
-  focusedUser,
-  handleUserClick,
-  startWhisper
+  startWhisper,
+  users
 }: Props): JSX.Element {
   return (
     <div className="messenger-people">
@@ -94,13 +94,13 @@ export function PeopleView({
 }
 
 type Props = {
-  users: IUser[];
+  focusedFriend: IUser | null;
+  focusedUser: IUser | null;
+  handleFriendClick(friend: IUser): void;
+  handlePeopleTabChange(value: string): void;
+  handleUserClick(user: IUser): void;
   onlineFriends: IUser[];
   peopleTab: string;
-  handlePeopleTabChange(value: string): void;
-  focusedFriend: IUser|null;
-  handleFriendClick(friend: IUser): void;
-  focusedUser: IUser|null;
-  handleUserClick(user: IUser): void;
   startWhisper(username: string): void;
+  users: IUser[];
 };

@@ -23,32 +23,33 @@ const handlePeopleTabChange = jest.fn();
 const handleFriendClick = jest.fn();
 const handleUserClick = jest.fn();
 const startWhisper = jest.fn();
+
 const initialProps = {
-  twoColumnATheme: "light",
   authname: "Person",
+  channel: "5067",
   feedback: "Some message.",
-  loading: false,
-  status: "Disconnected",
+  focusedFriend: null,
+  focusedUser: null,
+  handleChannelChange,
   handleConnect,
   handleDisconnect,
-  channel: "5067",
-  roomToEnter: "",
-  handleRoomInputChange,
-  handleChannelChange,
-  messagesRef,
-  messages: [],
-  messageToSend: "How goes it?",
+  handleFriendClick,
   handleMessageInputChange,
   handleMessageSend,
-  users: [],
+  handlePeopleTabChange,
+  handleRoomInputChange,
+  handleUserClick,
+  loading: false,
+  messages: [],
+  messagesRef,
+  messageToSend: "How goes it?",
   onlineFriends: [],
   peopleTab: "Room",
-  handlePeopleTabChange,
-  focusedFriend: null,
-  handleFriendClick,
-  focusedUser: null,
-  handleUserClick,
-  startWhisper
+  roomToEnter: "",
+  startWhisper,
+  status: "Disconnected",
+  twoColumnATheme: "light",
+  users: []
 };
 
 afterEach(() => {

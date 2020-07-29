@@ -1,14 +1,14 @@
 import React from 'react';
 
 export function OptionsView({
-  loading,
-  status,
   channel,
-  roomToEnter,
-  handleRoomInputChange,
   handleChannelChange,
   handleConnect,
-  handleDisconnect
+  handleDisconnect,
+  handleRoomInputChange,
+  loading,
+  roomToEnter,
+  status
 }: Props): JSX.Element {
   return (
     <div className="messenger-room">
@@ -20,8 +20,8 @@ export function OptionsView({
             ? (
               <button
                 className="messenger-connect-disconnect"
-                onClick={handleDisconnect}
                 disabled={loading}
+                onClick={handleDisconnect}
               >
                 Disconnect
               </button>
@@ -29,8 +29,8 @@ export function OptionsView({
             : (
               <button
                 className="messenger-connect-disconnect"
-                onClick={handleConnect}
                 disabled={loading}
+                onClick={handleConnect}
               >
                 Connect
               </button>
@@ -49,17 +49,17 @@ export function OptionsView({
         <span className="messenger-channel-label">Go To Room:</span>
         <input
           className="messenger-channel-input"
-          type="text"
-          name="channel-input"
-          value={roomToEnter}
-          onChange={handleRoomInputChange}
           disabled={(status !== "Connected") || loading}
+          name="channel-input"
+          onChange={handleRoomInputChange}
+          type="text"
+          value={roomToEnter}
         />
         <div className="messenger-channel-button-container">
           <button
             className="messenger-channel-button"
-            onClick={handleChannelChange}
             disabled={(status !== "Connected") || loading}
+            onClick={handleChannelChange}
           >
             Enter
           </button>
@@ -71,12 +71,12 @@ export function OptionsView({
 }
 
 type Props = {
-  loading: boolean;
-  status: string;
   channel: string;
-  roomToEnter: string;
-  handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleChannelChange(): void;
   handleConnect(): void;
   handleDisconnect(): void;
+  handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
+  loading: boolean;
+  roomToEnter: string;
+  status: string;
 };

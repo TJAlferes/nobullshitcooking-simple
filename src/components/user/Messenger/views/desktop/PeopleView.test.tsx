@@ -3,23 +3,22 @@ import React from 'react';
 
 import { PeopleView } from './PeopleView';
 
-const handlePeopleTabChange = jest.fn();
 const handleFriendClick = jest.fn();
+const handlePeopleTabChange = jest.fn();
 const handleUserClick = jest.fn();
 const startWhisper = jest.fn();
+
 const initialProps = {
+  handleFriendClick,
+  handlePeopleTabChange,
+  handleUserClick,
+  onlineFriends: [{userId: "151", username: "Person2", avatar: "Person2"}],
+  startWhisper,
   users: [
     {userId: "150", username: "Person", avatar: "Person"},
     {userId: "151", username: "Person2", avatar: "Person2"},
     {userId: "152", username: "Person3", avatar: "Person3"}
-  ],
-  onlineFriends: [
-    {userId: "151", username: "Person2", avatar: "Person2"}
-  ],
-  handlePeopleTabChange,
-  handleFriendClick,
-  handleUserClick,
-  startWhisper
+  ]
 };
 
 afterEach(() => {
@@ -31,9 +30,9 @@ describe('PeopleView', () => {
   describe('when peopleTab is Room', () => {
     const wrapper = shallow(
       <PeopleView
-        peopleTab="Room"
         focusedFriend={null}
         focusedUser={null}
+        peopleTab="Room"
         {...initialProps}
       />
     );
@@ -83,11 +82,9 @@ describe('PeopleView', () => {
     describe('when user in room is focused', () => {
       const wrapper = shallow(
         <PeopleView
-          peopleTab="Room"
           focusedFriend={null}
-          focusedUser={
-            {userId: "151", username: "Person2", avatar: "Person2"}
-          }
+          focusedUser={{userId: "151", username: "Person2", avatar: "Person2"}}
+          peopleTab="Room"
           {...initialProps}
         />
       );
@@ -107,9 +104,9 @@ describe('PeopleView', () => {
   describe('when peopleTab is Friends', () => {
     const wrapper = shallow(
       <PeopleView
-        peopleTab="Friends"
         focusedFriend={null}
         focusedUser={null}
+        peopleTab="Friends"
         {...initialProps}
       />
     );
@@ -140,11 +137,11 @@ describe('PeopleView', () => {
     describe('when online friend is focused', () => {
       const wrapper = shallow(
         <PeopleView
-          peopleTab="Friends"
           focusedFriend={
             {userId: "151", username: "Person2", avatar: "Person2"}
           }
           focusedUser={null}
+          peopleTab="Friends"
           {...initialProps}
         />
       );

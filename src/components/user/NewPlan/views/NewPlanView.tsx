@@ -14,28 +14,28 @@ import RecipesList from './RecipesList/RecipesList';
 import './newPlan.css';
 
 export function NewPlanView({
-  twoColumnATheme,
-  feedback,
-  loading,
-  editing,
-  planName,
-  handlePlanNameChange,
-  recipeListsInsideDays,
-  expandedDay,
-  expanded,
-  dataRecipes,
-  dataMyPrivateRecipes,
-  dataMyPublicRecipes,
-  dataMyFavoriteRecipes,
-  dataMySavedRecipes,
-  tab,
-  handleTabClick,
-  modalActive,
   activateModal,
   deactivateModal,
-  getApplicationNode,
   discardChanges,
-  handleSubmit
+  dataMyFavoriteRecipes,
+  dataMyPrivateRecipes,
+  dataMyPublicRecipes,
+  dataMySavedRecipes,
+  dataRecipes,
+  editing,
+  expanded,
+  expandedDay,
+  feedback,
+  getApplicationNode,
+  handlePlanNameChange,
+  handleSubmit,
+  handleTabClick,
+  loading,
+  modalActive,
+  planName,
+  recipeListsInsideDays,
+  tab,
+  twoColumnATheme
 }: Props): JSX.Element {
   const memoizedMonthlyPlan = useMemo(() => {
     return (
@@ -52,13 +52,13 @@ export function NewPlanView({
           </div>
           <div className="monthly-plan__body">
             {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
-              <div key={i} className="monthly-plan__body-day">
+              <div className="monthly-plan__body-day" key={i} >
                 <div className="body-day__content">
                   <Day
                     day={i + 1}
-                    list={recipeListsInsideDays[Number(recipeList)]}
                     expanded={expanded}
                     expandedDay={expandedDay}
+                    list={recipeListsInsideDays[Number(recipeList)]}
                   />
                 </div>
               </div>
@@ -69,12 +69,12 @@ export function NewPlanView({
         <div className="expanded-day-container">
           {expandedDay && <ExpandedDay
             day={expandedDay}
+            expanded={expanded}
+            expandedDay={expandedDay}
             list={(expanded)
               ? recipeListsInsideDays[expandedDay]
               : []
             }
-            expanded={expanded}
-            expandedDay={expandedDay}
           />}
         </div>
       </div>
@@ -103,6 +103,8 @@ export function NewPlanView({
     return (
       <RecipesList
         day={0}
+        expanded={expanded}
+        expandedDay={expandedDay}
         list={list.map((recipe: IWorkRecipe) => ({
           key: uuidv4(),
           recipe_id: recipe.recipe_id,
@@ -110,13 +112,11 @@ export function NewPlanView({
           recipe_image: recipe.recipe_image,
           owner_id: recipe.owner_id
         }))}
-        expanded={expanded}
-        expandedDay={expandedDay}
       />
     );
   }, [tab]);
 
-  const TabButton = ({ tabName, displayText }: TabButtonProps) => (
+  const TabButton = ({ displayText, tabName }: TabButtonProps) => (
     <button
       className={(tab === tabName)
         ? "planner-recipes-list-tab active"
@@ -157,8 +157,8 @@ export function NewPlanView({
               <label className="new-plan__name-label">Plan Name:</label>
               <input
                 className="new-plan__name-input"
-                type="text"
                 onChange={handlePlanNameChange}
+                type="text"
                 value={planName}
               />
             </div>
@@ -171,11 +171,11 @@ export function NewPlanView({
             {memoizedMonthlyPlan}
 
             <div className="planner-recipes-list-tabs">
-              <TabButton tabName="official" displayText="All Official" />
-              <TabButton tabName="private" displayText="My Private" />
-              <TabButton tabName="public" displayText="My Public" />
-              <TabButton tabName="favorite" displayText="My Favorite" />
-              <TabButton tabName="saved" displayText="My Saved" />
+              <TabButton displayText="All Official" tabName="official" />
+              <TabButton displayText="My Private" tabName="private" />
+              <TabButton displayText="My Public" tabName="public" />
+              <TabButton displayText="My Favorite" tabName="favorite" />
+              <TabButton displayText="My Saved" tabName="saved" />
             </div>
 
             {memoizedRecipesLists}
@@ -210,11 +210,11 @@ export function NewPlanView({
               ? (
                 <AriaModal
                   dialogClass="planner-cancel-modal"
-                  titleText="Cancel?"
-                  onExit={deactivateModal}
                   focusDialog={true}
-                  getApplicationNode={getApplicationNode}
                   focusTrapOptions={{returnFocusOnDeactivate: false}}
+                  getApplicationNode={getApplicationNode}
+                  onExit={deactivateModal}
+                  titleText="Cancel?"
                   underlayClickExits={false}
                 >
                   <p className="planner-cancel-prompt">
@@ -239,11 +239,11 @@ export function NewPlanView({
             <LoaderButton
               className="planner-submit-button"
               id="planner-submit-button"
-              name="submit"
-              text="Save Plan"
-              loadingText="Saving Plan..."
               isLoading={loading}
+              loadingText="Saving Plan..."
+              name="submit"
               onClick={handleSubmit}
+              text="Save Plan"
             />
           </div>
 
@@ -265,31 +265,31 @@ interface ITabToList {
 }
 
 type Props = {
-  twoColumnATheme: string;
-  feedback: string;
-  loading: boolean;
-  editing: boolean;
-  planName: string;
-  handlePlanNameChange(e: React.SyntheticEvent<EventTarget>): void;
-  recipeListsInsideDays: IPlannerData;
-  expandedDay: number | null;
-  expanded: boolean;
-  dataRecipes: IWorkRecipe[];
-  dataMyPrivateRecipes: IWorkRecipe[];
-  dataMyPublicRecipes: IWorkRecipe[];
-  dataMyFavoriteRecipes: IWorkRecipe[];
-  dataMySavedRecipes: IWorkRecipe[];
-  tab: string;
-  handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
-  modalActive: boolean;
   activateModal(): void;
   deactivateModal(): void;
-  getApplicationNode(): Element | Node;
   discardChanges(): void;
+  dataMyFavoriteRecipes: IWorkRecipe[];
+  dataMyPrivateRecipes: IWorkRecipe[];
+  dataMyPublicRecipes: IWorkRecipe[];
+  dataMySavedRecipes: IWorkRecipe[];
+  dataRecipes: IWorkRecipe[];
+  editing: boolean;
+  expanded: boolean;
+  expandedDay: number | null;
+  feedback: string;
+  getApplicationNode(): Element | Node;
+  handlePlanNameChange(e: React.SyntheticEvent<EventTarget>): void;
   handleSubmit(): void;
+  handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  loading: boolean;
+  modalActive: boolean;
+  planName: string;
+  recipeListsInsideDays: IPlannerData;
+  tab: string;
+  twoColumnATheme: string;
 };
 
 type TabButtonProps = {
-  tabName: string;
   displayText: string;
+  tabName: string;
 };
