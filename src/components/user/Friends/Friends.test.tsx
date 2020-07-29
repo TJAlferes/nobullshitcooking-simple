@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { Friends } from './Friends';
 
-const myFriendships = [
+const dataMyFriendships = [
   {
     user_id: 1,
     username: "Jack",
@@ -18,12 +18,26 @@ const myFriendships = [
     status: "accepted"
   }
 ];
-const userRequestFriendship = jest.fn();
+
 const userAcceptFriendship = jest.fn();
-const userRejectFriendship = jest.fn();
-const userDeleteFriendship = jest.fn();
 const userBlockUser = jest.fn();
+const userDeleteFriendship = jest.fn();
+const userRejectFriendship = jest.fn();
+const userRequestFriendship = jest.fn();
 const userUnblockUser = jest.fn();
+
+const initialProps = {
+  authname: "Person",
+  dataMyFriendships,
+  message: "Some message.",
+  twoColumnATheme: "light",
+  userAcceptFriendship,
+  userBlockUser,
+  userDeleteFriendship,
+  userRejectFriendship,
+  userRequestFriendship,
+  userUnblockUser
+};
 
 window.scrollTo = jest.fn();
 
@@ -32,26 +46,10 @@ jest.mock('../../LeftNav/LeftNav');
 let wrapper: ReactWrapper;
 
 beforeEach(() => {
-  wrapper = mount(
-    <MemoryRouter>
-      <Friends
-        twoColumnATheme="light"
-        message="Some message."
-        authname="Person"
-        dataMyFriendships={myFriendships}
-        userRequestFriendship={userRequestFriendship}
-        userAcceptFriendship={userAcceptFriendship}
-        userRejectFriendship={userRejectFriendship}
-        userDeleteFriendship={userDeleteFriendship}
-        userBlockUser={userBlockUser}
-        userUnblockUser={userUnblockUser}
-      />
-    </MemoryRouter>
-  );
+  wrapper = mount(<MemoryRouter><Friends {...initialProps} /></MemoryRouter>);
 });
 
 afterEach(() => {
-  //jest.resetModules();
   jest.clearAllMocks();
 });
 

@@ -8,31 +8,31 @@ import { PeopleView } from './desktop/PeopleView';
 import './messenger.css';
 
 export function MessengerView({
-  twoColumnATheme,
   authname,
+  channel,
   feedback,
-  loading,
-  status,
+  focusedFriend,
+  focusedUser,
+  handleChannelChange,
   handleConnect,
   handleDisconnect,
-  channel,
-  roomToEnter,
-  handleRoomInputChange,
-  handleChannelChange,
-  messagesRef,
-  messages,
-  messageToSend,
+  handleFriendClick,
   handleMessageInputChange,
   handleMessageSend,
-  users,
+  handlePeopleTabChange,
+  handleRoomInputChange,
+  handleUserClick,
+  loading,
+  messages,
+  messagesRef,
+  messageToSend,
   onlineFriends,
   peopleTab,
-  handlePeopleTabChange,
-  focusedFriend,
-  handleFriendClick,
-  focusedUser,
-  handleUserClick,
-  startWhisper
+  roomToEnter,
+  startWhisper,
+  status,
+  twoColumnATheme,
+  users
 }: Props): JSX.Element {
   return (
     <div className={`messenger two-column-a ${twoColumnATheme}`}>
@@ -46,38 +46,38 @@ export function MessengerView({
         <p className="messenger-feedback">{feedback}</p>
 
         <OptionsView
-          loading={loading}
-          status={status}
           channel={channel}
-          roomToEnter={roomToEnter}
-          handleRoomInputChange={handleRoomInputChange}
           handleChannelChange={handleChannelChange}
           handleConnect={handleConnect}
           handleDisconnect={handleDisconnect}
+          handleRoomInputChange={handleRoomInputChange}
+          loading={loading}
+          roomToEnter={roomToEnter}
+          status={status}
         />
 
         <div className="messenger-main">
 
           <ChatView
             authname={authname}
-            status={status}
-            messagesRef={messagesRef}
-            messages={messages}
-            messageToSend={messageToSend}
             handleMessageInputChange={handleMessageInputChange}
             handleMessageSend={handleMessageSend}
+            messages={messages}
+            messagesRef={messagesRef}
+            messageToSend={messageToSend}
+            status={status}
           />
 
           <PeopleView
-            users={users}
+            focusedFriend={focusedFriend}
+            focusedUser={focusedUser}
+            handleFriendClick={handleFriendClick}
+            handlePeopleTabChange={handlePeopleTabChange}
+            handleUserClick={handleUserClick}
             onlineFriends={onlineFriends}
             peopleTab={peopleTab}
-            handlePeopleTabChange={handlePeopleTabChange}
-            focusedFriend={focusedFriend}
-            handleFriendClick={handleFriendClick}
-            focusedUser={focusedUser}
-            handleUserClick={handleUserClick}
             startWhisper={startWhisper}
+            users={users}
           />
 
         </div>
@@ -89,29 +89,29 @@ export function MessengerView({
 }
 
 type Props = {
-  twoColumnATheme: string;
   authname: string;
+  channel: string;
   feedback: string;
-  loading: boolean;
-  status: string;
+  focusedFriend: IUser | null;
+  focusedUser: IUser | null;
+  handleChannelChange(): void;
   handleConnect(): void;
   handleDisconnect(): void;
-  channel: string;
-  roomToEnter: string;
-  handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
-  handleChannelChange(): void;
-  messagesRef: React.RefObject<HTMLUListElement>;
-  messages: Message[];
-  messageToSend: string;
+  handleFriendClick(friend: IUser): void;
   handleMessageInputChange(e: React.SyntheticEvent<EventTarget>): void;
   handleMessageSend(e: React.KeyboardEvent): void;
-  users: IUser[];
+  handlePeopleTabChange(value: string): void;
+  handleRoomInputChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleUserClick(user: IUser): void;
+  loading: boolean;
+  messages: Message[];
+  messagesRef: React.RefObject<HTMLUListElement>;
+  messageToSend: string;
   onlineFriends: IUser[];
   peopleTab: string;
-  handlePeopleTabChange(value: string): void;
-  focusedFriend: IUser|null;
-  handleFriendClick(friend: IUser): void;
-  focusedUser: IUser|null;
-  handleUserClick(user: IUser): void;
+  roomToEnter: string;
   startWhisper(username: string): void;
+  status: string;
+  twoColumnATheme: string;
+  users: IUser[];
 };

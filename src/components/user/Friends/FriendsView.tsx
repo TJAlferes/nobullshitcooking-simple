@@ -6,20 +6,20 @@ import LeftNav from '../../LeftNav/LeftNav';
 import './friends.css';
 
 export function FriendsView({
-  twoColumnATheme,
-  feedback,
-  loading,
   dataMyFriendships,
-  userToFind,
-  tab,
+  feedback,
+  handleAcceptClick,
+  handleBlockClick,
+  handleDeleteClick,
+  handleInputChange,
+  handleRejectClick,
+  handleRequestClick,
   handleTabChange,
-  handleFindUserInputChange,
-  handleFriendRequestClick,
-  handleFriendAcceptClick,
-  handleFriendRejectClick,
-  handleFriendDeleteClick,
-  handleUserBlockClick,
-  handleUserUnblockClick
+  handleUnblockClick,
+  loading,
+  tab,
+  twoColumnATheme,
+  userToFind
 }: Props): JSX.Element {
   return (
     <div className={`friends two-column-a ${twoColumnATheme}`}>
@@ -39,22 +39,22 @@ export function FriendsView({
           <input
             className="friends-find-user"
             name="friends-find-user"
+            onChange={handleInputChange}
             value={userToFind}
-            onChange={handleFindUserInputChange}
           />
           <button
             className="friends-find-request"
-            name="friends-find-request"
             disabled={loading}
-            onClick={handleFriendRequestClick}
+            name="friends-find-request"
+            onClick={handleRequestClick}
           >
             Send Friend Request
           </button>
           <button
             className="friends-find-block"
-            name="friends-find-block"
             disabled={loading}
-            onClick={handleUserBlockClick}
+            name="friends-find-block"
+            onClick={handleBlockClick}
           >
             Block User
           </button>
@@ -114,10 +114,10 @@ export function FriendsView({
                   (friend.status === "pending-received") &&
                   <button
                     className="friends-list-item-action"
-                    name="accept"
                     disabled={loading}
+                    name="accept"
+                    onClick={handleAcceptClick}
                     value={friend.username}
-                    onClick={handleFriendAcceptClick}
                   >
                     Accept
                   </button>
@@ -126,10 +126,10 @@ export function FriendsView({
                   (friend.status === "pending-received") &&
                   <button
                     className="friends-list-item-delete"
-                    name="reject"
                     disabled={loading}
+                    name="reject"
+                    onClick={handleRejectClick}
                     value={friend.username}
-                    onClick={handleFriendRejectClick}
                   >
                     Reject
                   </button>
@@ -138,10 +138,10 @@ export function FriendsView({
                   (friend.status === "accepted") &&
                   <button
                     className="friends-list-item-delete"
-                    name="unfriend"
                     disabled={loading}
+                    name="unfriend"
+                    onClick={handleDeleteClick}
                     value={friend.username}
-                    onClick={handleFriendDeleteClick}
                   >
                     Unfriend
                   </button>
@@ -150,10 +150,10 @@ export function FriendsView({
                   (friend.status === "blocked") &&
                   <button
                     className="friends-list-item-delete"
-                    name="unblock"
                     disabled={loading}
+                    name="unblock"
+                    onClick={handleUnblockClick}
                     value={friend.username}
-                    onClick={handleUserUnblockClick}
                   >
                     Unblock
                   </button>
@@ -169,18 +169,18 @@ export function FriendsView({
 }
 
 type Props = {
-  twoColumnATheme: string;
-  feedback: string;
-  loading: boolean;
   dataMyFriendships: IFriendship[];
-  userToFind: string;
-  tab: string;
+  feedback: string;
+  handleAcceptClick(e: React.SyntheticEvent<EventTarget>): void;
+  handleBlockClick(): void;
+  handleDeleteClick(e: React.SyntheticEvent<EventTarget>): void;
+  handleInputChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleRejectClick(e: React.SyntheticEvent<EventTarget>): void;
+  handleRequestClick(): void;
   handleTabChange(value: string): void;
-  handleFindUserInputChange(e: React.SyntheticEvent<EventTarget>): void;
-  handleFriendRequestClick(): void;
-  handleFriendAcceptClick(e: React.SyntheticEvent<EventTarget>): void;
-  handleFriendRejectClick(e: React.SyntheticEvent<EventTarget>): void;
-  handleFriendDeleteClick(e: React.SyntheticEvent<EventTarget>): void;
-  handleUserBlockClick(): void;
-  handleUserUnblockClick(e: React.SyntheticEvent<EventTarget>): void;
+  handleUnblockClick(e: React.SyntheticEvent<EventTarget>): void;
+  loading: boolean;
+  tab: string;
+  twoColumnATheme: string;
+  userToFind: string;
 };

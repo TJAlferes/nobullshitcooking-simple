@@ -3,9 +3,9 @@ import { connect, ConnectedProps } from 'react-redux';
 
 import { Message, IUser } from '../../../store/messenger/types';
 import {
+  messengerChangeChannel,
   messengerConnect,
   messengerDisconnect,
-  messengerChangeChannel,
   messengerSendMessage,
   messengerSendWhisper
 } from '../../../store/messenger/actions';
@@ -15,42 +15,44 @@ import { MessengerView } from './views/MessengerView';
 // TO DO: fix no longer auto scrolling after spam debounce
 
 export function Messenger({
-  twoColumnATheme,
-  //messengerView,
-  windowFocused,
   authname,
-  message,
-  status,
   channel,
+  message,
   messages,
-  users,
-  onlineFriends,
+  messengerChangeChannel,
   messengerConnect,
   messengerDisconnect,
-  messengerChangeChannel,
   messengerSendMessage,
-  messengerSendWhisper
+  messengerSendWhisper,
+  //messengerView,
+  onlineFriends,
+  status,
+  twoColumnATheme,
+  users,
+  windowFocused
 }: Props): JSX.Element {
-  const [ feedback, setFeedback ] = useState("");
-  const [ loading, setLoading ] = useState(false);
   const [ debounced, setDebounced ] = useState(false);
-  const [ spamCount, setSpamCount ] = useState(1);
-  const [ peopleTab, setPeopleTab ] = useState("Room");
-  //const [ mobileTab, setMobileTab ] = useState("Options");
-  const [ roomToEnter, setRoomToEnter ] = useState("");
+  const [ feedback, setFeedback ] = useState("");
+  const [ focusedFriend, setFocusedFriend ] = useState<IUser | null>(null);
+  const [ focusedUser, setFocusedUser ] = useState<IUser | null>(null);
+  const [ loading, setLoading ] = useState(false);
   const [ messageToSend, setMessageToSend ] = useState("");
-  const [ focusedFriend, setFocusedFriend ] = useState<IUser|null>(null);
-  const [ focusedUser, setFocusedUser ] = useState<IUser|null>(null);
+  //const [ mobileTab, setMobileTab ] = useState("Options");
+  const [ peopleTab, setPeopleTab ] = useState("Room");
+  const [ roomToEnter, setRoomToEnter ] = useState("");
+  const [ spamCount, setSpamCount ] = useState(1);
 
   const messagesRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     let isSubscribed = true;
+
     if (isSubscribed) {
       if (message !== "") window.scrollTo(0,0);
       setFeedback(message);
       setLoading(false);
     }
+
     return () => {
       isSubscribed = false;
     };
@@ -58,8 +60,8 @@ export function Messenger({
 
   useEffect(() => {
     const setAlertFavicon = () => {
-      const nobscFavicon: HTMLLinkElement = document
-      .getElementById('nobsc-favicon') as HTMLLinkElement;
+      const nobscFavicon: HTMLLinkElement =
+        document.getElementById('nobsc-favicon') as HTMLLinkElement;
       nobscFavicon.href = "/nobsc-alert-favicon.png";
     };
 
@@ -67,8 +69,8 @@ export function Messenger({
     const autoScroll = () => {
       if (!messagesRef || !messagesRef.current) return;
 
-      const newestMessage: HTMLUListElement = messagesRef
-      .current.lastElementChild as HTMLUListElement;
+      const newestMessage: HTMLUListElement =
+        messagesRef.current.lastElementChild as HTMLUListElement;
 
       if (!newestMessage) return;
 
@@ -77,8 +79,8 @@ export function Messenger({
 
       const containerHeight = messagesRef.current.scrollHeight;
       
-      const scrollOffset = messagesRef.current.scrollTop +
-        messagesRef.current.offsetHeight;
+      const scrollOffset =
+        messagesRef.current.scrollTop + messagesRef.current.offsetHeight;
 
       // cancels autoscroll if user is scrolling up through older messages
       if ((containerHeight - newestMessageHeight) <= scrollOffset) {
@@ -91,37 +93,9 @@ export function Messenger({
     autoScroll();
   }, [messages]);
 
-  const preventSpam = () => {
-    setSpamCount((prev) => prev + 1);
-    setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
-    if (spamCount > 2) {
-      setDebounced(true);
-      setTimeout(() => setDebounced(false), 6000);
-    }
-  };
-
-  const handleConnect = () => {
-    setLoading(true);
-    messengerConnect();
-    setLoading(false);
-  };
-
-  const handleDisconnect = () => {
-    setLoading(true);
-    messengerDisconnect();
-    setLoading(false);
-  };
-
-  const handleRoomInputChange = (e: React.SyntheticEvent<EventTarget>) => {
-    setRoomToEnter((e.target as HTMLInputElement).value.trim());
-  };
-
-  const handleMessageInputChange = (e: React.SyntheticEvent<EventTarget>) => {
-    setMessageToSend((e.target as HTMLInputElement).value.trim());
-  };
-
   const handleChannelChange = () => {
     if (loading) return;
+
     if (debounced) {
       setFeedback("Slow down there partner...");
       setTimeout(() => setFeedback(""), 6000);
@@ -129,7 +103,9 @@ export function Messenger({
     }
 
     const trimmedRoom = roomToEnter.trim();
+
     if (trimmedRoom.length < 1 || trimmedRoom === "") return;
+
     if (trimmedRoom.length > 20) {
       setFeedback("Please limit room name length to 20 characters.");
       setTimeout(() => setFeedback(""), 4000);
@@ -145,12 +121,32 @@ export function Messenger({
     setLoading(false);
   };
 
+  const handleConnect = () => {
+    setLoading(true);
+    messengerConnect();
+    setLoading(false);
+  };
+
+  const handleDisconnect = () => {
+    setLoading(true);
+    messengerDisconnect();
+    setLoading(false);
+  };
+
+  const handleFriendClick = (friend: IUser) => setFocusedFriend(friend);
+
+  const handleMessageInputChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setMessageToSend((e.target as HTMLInputElement).value.trim());
+  };
+
   const handleMessageSend = (e: React.KeyboardEvent) => {
-    e.stopPropagation();  // needed?
     e.preventDefault();  // needed?
+    e.stopPropagation();  // needed?
 
     if (e.key && (e.key !== "Enter")) return;
+
     if (loading) return;
+
     if (debounced) {
       setFeedback("Slow down there partner...");
       setTimeout(() => setFeedback(""), 6000);
@@ -160,6 +156,7 @@ export function Messenger({
     const trimmedMessage = messageToSend.trim();
 
     if (trimmedMessage.length < 1 || trimmedMessage === "") return;
+
     if (trimmedMessage.length > 4000) {
       setFeedback("Please limit message length to 4,000 characters.");
       setTimeout(() => setFeedback(""), 4000);
@@ -174,8 +171,11 @@ export function Messenger({
       // TO DO: MESS AROUND AGAIN WITH "WRONG" WHITESPACES, if return here, or clean
       const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
       const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
+
       if (!userToWhisper) return;
+
       const trimmedUserToWhisper = userToWhisper[1].substring(3);
+
       messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
     } else {
       messengerSendMessage(trimmedMessage);
@@ -191,10 +191,13 @@ export function Messenger({
   };
 
   const handleMessageSendTouch = (e: React.TouchEvent) => {
-    e.stopPropagation();  // needed?
     e.preventDefault();  // needed?
+    e.stopPropagation();  // needed?
+
     //if (e.key && (e.key !== "Enter")) return;
+
     if (loading) return;
+
     if (debounced) {
       setFeedback("Slow down there partner...");
       setTimeout(() => setFeedback(""), 6000);
@@ -202,7 +205,9 @@ export function Messenger({
     }
 
     const trimmedMessage = messageToSend.trim();
+
     if (trimmedMessage.length < 1 || trimmedMessage === "") return;
+
     if (trimmedMessage.length > 4000) {
       setFeedback("Please limit message length to 4,000 characters.");
       setTimeout(() => setFeedback(""), 4000);
@@ -212,12 +217,16 @@ export function Messenger({
     setLoading(true);
 
     const whispering = trimmedMessage.slice(0, 3) === "/w ";
+
     if (whispering) {
       // TO DO: MESS AROUND AGAIN WITH "WRONG" WHITESPACES, if return here, or clean
       const trimmedWhisper = trimmedMessage.replace(/^([\S]+\s){2}/, '');
       const userToWhisper = trimmedMessage.match(/^(\S+? \S+?) ([\s\S]+?)$/);
+
       if (!userToWhisper) return;
+
       const trimmedUserToWhisper = userToWhisper[1].substring(3);
+
       messengerSendWhisper(trimmedWhisper, trimmedUserToWhisper);
     } else {
       messengerSendMessage(trimmedMessage);
@@ -226,6 +235,7 @@ export function Messenger({
       const trimmedFriend = currentFriend.trim();
       messengerSendWhisper(trimmedMessage, trimmedFriend);
     }*/
+
     setMessageToSend("");
     preventSpam();
     setLoading(false);
@@ -235,10 +245,23 @@ export function Messenger({
 
   const handlePeopleTabChange = (value: string) => setPeopleTab(value);
 
-  const handleFriendClick = (friend: IUser) => setFocusedFriend(friend);
+  const handleRoomInputChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setRoomToEnter((e.target as HTMLInputElement).value.trim());
+  };
 
   const handleUserClick = (user: IUser) =>
     user.username !== authname && setFocusedUser(user);
+  
+  const preventSpam = () => {
+    setSpamCount((prev) => prev + 1);
+
+    setTimeout(() => setSpamCount((prev) => prev - 1), 2000);
+
+    if (spamCount > 2) {
+      setDebounced(true);
+      setTimeout(() => setDebounced(false), 6000);
+    }
+  };
 
   const startWhisper = (username: string) => {
     setFocusedFriend(null);
@@ -275,77 +298,77 @@ export function Messenger({
   :*/
   return (
     <MessengerView
-      twoColumnATheme={twoColumnATheme}
       authname={authname}
+      channel={channel}
       feedback={feedback}
-      loading={loading}
-      status={status}
+      focusedFriend={focusedFriend}
+      focusedUser={focusedUser}
+      handleChannelChange={handleChannelChange}
       handleConnect={handleConnect}
       handleDisconnect={handleDisconnect}
-      channel={channel}
-      roomToEnter={roomToEnter}
-      handleRoomInputChange={handleRoomInputChange}
-      handleChannelChange={handleChannelChange}
-      messagesRef={messagesRef}
-      messages={messages}
-      messageToSend={messageToSend}
+      handleFriendClick={handleFriendClick}
       handleMessageInputChange={handleMessageInputChange}
       handleMessageSend={handleMessageSend}
-      users={users}
+      handlePeopleTabChange={handlePeopleTabChange}
+      handleRoomInputChange={handleRoomInputChange}
+      handleUserClick={handleUserClick}
+      loading={loading}
+      messages={messages}
+      messagesRef={messagesRef}
+      messageToSend={messageToSend}
       onlineFriends={onlineFriends}
       peopleTab={peopleTab}
-      handlePeopleTabChange={handlePeopleTabChange}
-      focusedFriend={focusedFriend}
-      handleFriendClick={handleFriendClick}
-      focusedUser={focusedUser}
-      handleUserClick={handleUserClick}
+      roomToEnter={roomToEnter}
       startWhisper={startWhisper}
+      status={status}
+      twoColumnATheme={twoColumnATheme}
+      users={users}
     />
   );
 }
 
 interface RootState {
-  nobscapp: {
-    windowFocused: boolean;
-  };
   auth: {
     authname: string;
   };
-  user: {
-    message: string;
-  };
   messenger: {
-    status: string;
     channel: string;
     messages: Message[];
-    users: IUser[];
     onlineFriends: IUser[];
+    status: string;
+    users: IUser[];
+  };
+  nobscapp: {
+    windowFocused: boolean;
+  };
+  user: {
+    message: string;
   };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  twoColumnATheme: string;
   //messengerView: string;
+  twoColumnATheme: string;
 };
 
 const mapStateToProps = (state: RootState) => ({
-  windowFocused: state.nobscapp.windowFocused,
   authname: state.auth.authname,
-  message: state.user.message,
-  status: state.messenger.status,
   channel: state.messenger.channel,
+  message: state.user.message,
   messages: state.messenger.messages,
+  onlineFriends: state.messenger.onlineFriends,
+  status: state.messenger.status,
   users: state.messenger.users,
-  onlineFriends: state.messenger.onlineFriends
+  windowFocused: state.nobscapp.windowFocused
 });
 
 const mapDispatchToProps = {
-  messengerConnect: () => messengerConnect(),
-  messengerDisconnect: () => messengerDisconnect(),
   messengerChangeChannel: (channel: string) =>
     messengerChangeChannel(channel),
+  messengerConnect: () => messengerConnect(),
+  messengerDisconnect: () => messengerDisconnect(),
   messengerSendMessage: (message: string) => messengerSendMessage(message),
   messengerSendWhisper: (whisper: string, to: string) =>
     messengerSendWhisper(whisper, to)

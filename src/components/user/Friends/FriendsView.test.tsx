@@ -29,28 +29,30 @@ const myFriendships = [
     status: "blocked"
   }
 ];
+
+const handleAcceptClick = jest.fn();
+const handleBlockClick = jest.fn();
+const handleDeleteClick = jest.fn();
+const handleInputChange = jest.fn();
+const handleRejectClick = jest.fn();
+const handleRequestClick = jest.fn();
 const handleTabChange = jest.fn();
-const handleFindUserInputChange = jest.fn();
-const handleFriendRequestClick = jest.fn();
-const handleFriendAcceptClick = jest.fn();
-const handleFriendRejectClick = jest.fn();
-const handleFriendDeleteClick = jest.fn();
-const handleUserBlockClick = jest.fn();
-const handleUserUnblockClick = jest.fn();
+const handleUnblockClick = jest.fn();
+
 const initialProps = {
-  twoColumnATheme: "light",
-  feedback: "Some message.",
-  loading: false,
   dataMyFriendships: myFriendships,
-  userToFind: "Person2",
+  feedback: "Some message.",
+  handleAcceptClick,
+  handleBlockClick,
+  handleDeleteClick,
+  handleInputChange,
+  handleRejectClick,
+  handleRequestClick,
   handleTabChange,
-  handleFindUserInputChange,
-  handleFriendRequestClick,
-  handleFriendAcceptClick,
-  handleFriendRejectClick,
-  handleFriendDeleteClick,
-  handleUserBlockClick,
-  handleUserUnblockClick
+  handleUnblockClick,
+  loading: false,
+  twoColumnATheme: "light",
+  userToFind: "Person2"
 };
 
 afterEach(() => {

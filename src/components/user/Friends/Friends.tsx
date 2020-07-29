@@ -3,25 +3,25 @@ import { connect, ConnectedProps } from 'react-redux';
 
 import { IFriendship } from '../../../store/data/types';
 import {
-  userRequestFriendship,
   userAcceptFriendship,
-  userRejectFriendship,
-  userDeleteFriendship,
   userBlockUser,
+  userDeleteFriendship,
+  userRejectFriendship,
+  userRequestFriendship,
   userUnblockUser
 } from '../../../store/user/friendship/actions';
 import { FriendsView } from './FriendsView';
 
 export function Friends({
-  twoColumnATheme,
-  message,
   authname,
   dataMyFriendships,
-  userRequestFriendship,
+  message,
+  twoColumnATheme,
   userAcceptFriendship,
-  userRejectFriendship,
-  userDeleteFriendship,
   userBlockUser,
+  userDeleteFriendship,
+  userRejectFriendship,
+  userRequestFriendship,
   userUnblockUser
 }: Props): JSX.Element {
   const [ feedback, setFeedback ] = useState("");
@@ -41,38 +41,12 @@ export function Friends({
     };
   }, [message]);
 
-  const handleTabChange = (value: string) => setTab(value);
-
-  const handleFindUserInputChange = (e: React.SyntheticEvent<EventTarget>) => {
-    setUsertoFind((e.target as HTMLInputElement).value);
-  };
-
-  const handleFriendRequestClick = () => {
-    if (loading) return;
-    if (!validateUserToFind()) return;
-    const friendName = userToFind.trim();
-    if (friendName === authname) return;
-    setLoading(true);
-    userRequestFriendship(friendName);
-    setUsertoFind("");
-  };
-
-  const handleFriendAcceptClick = (e: React.SyntheticEvent<EventTarget>) => {
+  const handleAcceptClick = (e: React.SyntheticEvent<EventTarget>) => {
     setLoading(true);
     userAcceptFriendship((e.target as HTMLInputElement).value);
   };
 
-  const handleFriendRejectClick = (e: React.SyntheticEvent<EventTarget>) => {
-    setLoading(true);
-    userRejectFriendship((e.target as HTMLInputElement).value);
-  };
-
-  const handleFriendDeleteClick = (e: React.SyntheticEvent<EventTarget>) => {
-    setLoading(true);
-    userDeleteFriendship((e.target as HTMLInputElement).value);
-  };
-
-  const handleUserBlockClick = () => {
+  const handleBlockClick = () => {
     if (loading) return;
     if (!validateUserToFind()) return;
     const friendName = userToFind.trim();
@@ -82,32 +56,55 @@ export function Friends({
     setUsertoFind("");
   };
 
-  const handleUserUnblockClick = (e: React.SyntheticEvent<EventTarget>) => {
+  const handleDeleteClick = (e: React.SyntheticEvent<EventTarget>) => {
+    setLoading(true);
+    userDeleteFriendship((e.target as HTMLInputElement).value);
+  };
+
+  const handleInputChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setUsertoFind((e.target as HTMLInputElement).value);
+  };
+
+  const handleRejectClick = (e: React.SyntheticEvent<EventTarget>) => {
+    setLoading(true);
+    userRejectFriendship((e.target as HTMLInputElement).value);
+  };
+
+  const handleRequestClick = () => {
+    if (loading) return;
+    if (!validateUserToFind()) return;
+    const friendName = userToFind.trim();
+    if (friendName === authname) return;
+    setLoading(true);
+    userRequestFriendship(friendName);
+    setUsertoFind("");
+  };
+
+  const handleTabChange = (value: string) => setTab(value);
+
+  const handleUnblockClick = (e: React.SyntheticEvent<EventTarget>) => {
     setLoading(true);
     userUnblockUser((e.target as HTMLInputElement).value);
   };
 
-  const validateUserToFind = () => {
-    const friendName = userToFind.trim();
-    return friendName.length > 1;
-  };
+  const validateUserToFind = () => (userToFind.trim()).length > 1;
 
   return (
     <FriendsView
-      twoColumnATheme={twoColumnATheme}
-      feedback={feedback}
-      loading={loading}
       dataMyFriendships={dataMyFriendships}
-      userToFind={userToFind}
-      tab={tab}
+      feedback={feedback}
+      handleAcceptClick={handleAcceptClick}
+      handleBlockClick={handleBlockClick}
+      handleDeleteClick={handleDeleteClick}
+      handleInputChange={handleInputChange}
+      handleRejectClick={handleRejectClick}
+      handleRequestClick={handleRequestClick}
       handleTabChange={handleTabChange}
-      handleFindUserInputChange={handleFindUserInputChange}
-      handleFriendRequestClick={handleFriendRequestClick}
-      handleFriendAcceptClick={handleFriendAcceptClick}
-      handleFriendRejectClick={handleFriendRejectClick}
-      handleFriendDeleteClick={handleFriendDeleteClick}
-      handleUserBlockClick={handleUserBlockClick}
-      handleUserUnblockClick={handleUserUnblockClick}
+      handleUnblockClick={handleUnblockClick}
+      loading={loading}
+      tab={tab}
+      twoColumnATheme={twoColumnATheme}
+      userToFind={userToFind}
     />
   );
 };
@@ -137,11 +134,11 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
-  userRequestFriendship: (friendName: string) => userRequestFriendship(friendName),
   userAcceptFriendship: (friendName: string) => userAcceptFriendship(friendName),
-  userRejectFriendship: (friendName: string) => userRejectFriendship(friendName),
-  userDeleteFriendship: (friendName: string) => userDeleteFriendship(friendName),
   userBlockUser: (friendName: string) => userBlockUser(friendName),
+  userDeleteFriendship: (friendName: string) => userDeleteFriendship(friendName),
+  userRejectFriendship: (friendName: string) => userRejectFriendship(friendName),
+  userRequestFriendship: (friendName: string) => userRequestFriendship(friendName),
   userUnblockUser: (friendName: string) => userUnblockUser(friendName)
 };
 
