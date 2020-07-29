@@ -1,16 +1,16 @@
 //require('@babel/polyfill');
 require("regenerator-runtime/runtime");
+
+import { SearchProvider } from '@elastic/react-search-ui';
 import React from 'react';
+import { DndProvider } from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import createSagaMiddleware from 'redux-saga';
-import { SearchProvider } from '@elastic/react-search-ui';
-//import { DndProvider } from 'react-dnd';
-import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
-import { DndProvider } from 'react-dnd-multi-backend';
 
 import { searchConfig } from './config/searchConfig';
 import {

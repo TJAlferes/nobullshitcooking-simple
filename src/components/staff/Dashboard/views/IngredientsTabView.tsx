@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { IIngredient } from '../../../../store/data/types';
 
 export function IngredientsTabView({
-  ingredients,
-  handleDeleteIngredient
+  handleDeleteIngredient,
+  ingredients
 }: Props): JSX.Element {
   return (
     <div className="staff-dashboard-content">
@@ -13,24 +13,24 @@ export function IngredientsTabView({
       <Link className="create-new-entity" to="/ingredient/submit">
         Create New Ingredient
       </Link>
-      {ingredients.map(ing => (
+      {ingredients.map(i => (
         <div
           className="staff-dashboard-content-item"
-          key={ing.ingredient_id}
+          key={i.ingredient_id}
         >
           <span className="staff-dashboard-content-item-name">
-            <Link to={`/ingredient/${ing.ingredient_id}`}>
-              {ing.ingredient_name}
+            <Link to={`/ingredient/${i.ingredient_id}`}>
+              {i.ingredient_name}
             </Link>
           </span>
           <span className="staff-dashboard-content-item-action">
-            <Link to={`/ingredient/edit/${ing.ingredient_id}`}>
+            <Link to={`/ingredient/edit/${i.ingredient_id}`}>
               Edit
             </Link>
           </span>
           <span
             className="staff-dashboard-content-item-delete"
-            onClick={() => handleDeleteIngredient(ing.ingredient_id)}
+            onClick={() => handleDeleteIngredient(i.ingredient_id)}
           >
             Delete
           </span>
@@ -41,6 +41,6 @@ export function IngredientsTabView({
 }
 
 type Props = {
-  ingredients: IIngredient[];
   handleDeleteIngredient(id: number): void;
+  ingredients: IIngredient[];
 };

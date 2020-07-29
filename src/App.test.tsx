@@ -1,9 +1,9 @@
+import { SearchProvider } from '@elastic/react-search-ui';
 import { mount } from 'enzyme';
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import { createStore, Store } from 'redux';
-import { SearchProvider } from '@elastic/react-search-ui';
 
 //import { searchConfig } from './config/searchConfig';
 import { rootReducer } from './store/rootReducer';

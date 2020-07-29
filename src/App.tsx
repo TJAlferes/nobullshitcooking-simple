@@ -1,6 +1,6 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 //import MobileHeader from './components/Header/mobile/MobileHeader';
 import { Header } from './components/Header/desktop/Header';

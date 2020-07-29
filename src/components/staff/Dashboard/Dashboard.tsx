@@ -15,39 +15,34 @@ import { DashboardView } from './DashboardView';
 import './dashboard.css';
 
 export function StaffDashboard({
-  oneColumnATheme,
-  message,
   authname,
+  creatingContent,
   content,
-  recipes,
+  editingId,
   equipment,
   ingredients,
-  creatingContent,
-  editingId,
+  message,
+  oneColumnATheme,
+  recipes,
   staffDeleteContent,
   staffDeleteEquipment,
   staffDeleteIngredient,
-  staffDeleteRecipe,
+  staffDeleteRecipe
 }: Props): JSX.Element {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
 
   const [ tab, setTab ] = useState("content");
 
-  const [ deleteContentId, setDeleteContentId ] = useState<number | undefined>();
-  const [ deleteContentName, setDeleteContentName ] = useState("");
-  const [ deleteContentModalActive, setDeleteContentModalActive ] = useState(false);
-
-  const [ deleteRecipeId, setDeleteRecipeId ] = useState<number | undefined>();
-  const [ deleteRecipeName, setDeleteRecipeName ] = useState("");
-  const [ deleteRecipeModalActive, setDeleteRecipeModalActive ] = useState(false);
+  const [ deleteId, setDeleteId ] = useState<number | undefined>();
+  const [ deleteName, setDeleteName ] = useState("");
+  const [ modalActive, setModalActive ] = useState(false);
 
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
       if (message !== "") window.scrollTo(0,0);
-      deactivateDeleteContentModal();
-      deactivateDeleteRecipeModal();
+      deactivateModal();
       setFeedback(message);
       setLoading(false);
     }
@@ -60,28 +55,16 @@ export function StaffDashboard({
     setTab((e.target as HTMLInputElement).name);
   };
 
-  const activateDeleteContentModal = (id: number, name: string) => {
-    setDeleteContentId(id);
-    setDeleteContentName(name);
-    setDeleteContentModalActive(true);
+  const activateModal = (id: number, name: string) => {
+    setDeleteId(id);
+    setDeleteName(name);
+    setModalActive(true);
   };
 
-  const deactivateDeleteContentModal = () => {
-    setDeleteContentId(undefined);
-    setDeleteContentName("");
-    setDeleteContentModalActive(false);
-  };
-
-  const activateDeleteRecipeModal = (id: number, name: string) => {
-    setDeleteRecipeId(id);
-    setDeleteRecipeName(name);
-    setDeleteRecipeModalActive(true);
-  };
-
-  const deactivateDeleteRecipeModal = () => {
-    setDeleteRecipeId(undefined);
-    setDeleteRecipeName("");
-    setDeleteRecipeModalActive(false);
+  const deactivateModal = () => {
+    setDeleteId(undefined);
+    setDeleteName("");
+    setModalActive(false);
   };
 
   const getApplicationNode = (): Element | Node => {
@@ -89,15 +72,15 @@ export function StaffDashboard({
   };
 
   const handleDeleteContent = () => {
-    if (!deleteContentId) return;
+    if (!deleteId) return;
     setLoading(true);
-    staffDeleteContent(deleteContentId);
+    staffDeleteContent(deleteId);
   };
 
   const handleDeleteRecipe = () => {
-    if (!deleteRecipeId) return;
+    if (!deleteId) return;
     setLoading(true);
-    staffDeleteRecipe(deleteRecipeId);
+    staffDeleteRecipe(deleteId);
   };
 
   const handleDeleteEquipment = (id: number) => {
@@ -112,31 +95,27 @@ export function StaffDashboard({
 
   return (
     <DashboardView
-      oneColumnATheme={oneColumnATheme}
+      activateModal={activateModal}
       authname={authname}
-      feedback={feedback}
-      loading={loading}
-      creatingContent={creatingContent}
-      editingId={editingId}
-      tab={tab}
-      handleTabClick={handleTabClick}
-      getApplicationNode={getApplicationNode}
       content={content}
-      deleteContentModalActive={deleteContentModalActive}
-      activateDeleteContentModal={activateDeleteContentModal}
-      deactivateDeleteContentModal={deactivateDeleteContentModal}
-      deleteContentName={deleteContentName}
-      handleDeleteContent={handleDeleteContent}
-      recipes={recipes}
-      deleteRecipeModalActive={deleteRecipeModalActive}
-      activateDeleteRecipeModal={activateDeleteRecipeModal}
-      deactivateDeleteRecipeModal={deactivateDeleteRecipeModal}
-      deleteRecipeName={deleteRecipeName}
-      handleDeleteRecipe={handleDeleteRecipe}
-      ingredients={ingredients}
-      handleDeleteIngredient={handleDeleteIngredient}
+      creatingContent={creatingContent}
+      deactivateModal={deactivateModal}
+      deleteName={deleteName}
+      editingId={editingId}
       equipment={equipment}
+      feedback={feedback}
+      getApplicationNode={getApplicationNode}
+      handleDeleteContent={handleDeleteContent}
       handleDeleteEquipment={handleDeleteEquipment}
+      handleDeleteIngredient={handleDeleteIngredient}
+      handleDeleteRecipe={handleDeleteRecipe}
+      handleTabClick={handleTabClick}
+      ingredients={ingredients}
+      loading={loading}
+      modalActive={modalActive}
+      oneColumnATheme={oneColumnATheme}
+      recipes={recipes}
+      tab={tab}
     />
   );
 }
@@ -145,19 +124,19 @@ interface RootState {
   auth: {
     authname: string;
   };
-  staff: {
-    message: string;
-  };
   data: {
-    content: IWorkContent[];
-    recipes: IWorkRecipe[];
-    equipment: IEquipment[];
-    ingredients: IIngredient[];
+    officialContent: IWorkContent[];
+    officialEquipment: IEquipment[];
+    officialIngredients: IIngredient[];
+    officialRecipes: IWorkRecipe[];
   };
   editor: {
     creating: boolean;
     editingId: number|null;
-  }
+  };
+  staff: {
+    message: string;
+  };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -168,13 +147,13 @@ type Props = PropsFromRedux & {
 
 const mapStateToProps = (state: RootState) => ({
   authname: state.auth.authname,
-  message: state.staff.message,
-  content: state.data.content,
-  recipes: state.data.recipes,
-  equipment: state.data.equipment,
-  ingredients: state.data.ingredients,
+  content: state.data.officialContent,
+  equipment: state.data.officialEquipment,
+  ingredients: state.data.officialIngredients,
+  recipes: state.data.officialRecipes,
   creatingContent: state.editor.creating,
-  editingId: state.editor.editingId
+  editingId: state.editor.editingId,
+  message: state.staff.message
 });
 
 const mapDispatchToProps = {

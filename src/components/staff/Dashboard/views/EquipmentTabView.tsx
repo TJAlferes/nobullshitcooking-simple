@@ -13,24 +13,24 @@ export function EquipmentTabView({
       <Link className="create-new-entity" to="/equipment/submit">
         Create New Equipment
       </Link>
-      {equipment.map(equ => (
+      {equipment.map(e => (
         <div
           className="staff-dashboard-content-item"
-          key={equ.equipment_id}
+          key={e.equipment_id}
         >
           <span className="staff-dashboard-content-item-name">
-            <Link to={`/equipment/${equ.equipment_id}`}>
-              {equ.equipment_name}
+            <Link to={`/equipment/${e.equipment_id}`}>
+              {e.equipment_name}
             </Link>
           </span>
           <span className="staff-dashboard-content-item-action">
-            <Link to={`/equipment/edit/${equ.equipment_id}`}>
+            <Link to={`/equipment/edit/${e.equipment_id}`}>
               Edit
             </Link>
           </span>
           <span
             className="staff-dashboard-content-item-delete"
-            onClick={() => handleDeleteEquipment(equ.equipment_id)}
+            onClick={() => handleDeleteEquipment(e.equipment_id)}
           >
             Delete
           </span>

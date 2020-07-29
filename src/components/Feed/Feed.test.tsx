@@ -5,22 +5,8 @@ import { Feed } from './Feed';
 
 const initialProps = {
   theme: 'feed-light',
-  postPreviews: [
-    {
-      postId: 1,
-      title: "Some Title",
-      author: "Laura",
-      thumbnail: "some-image",
-      snippet: "Some snippet..."
-    },
-    {
-      postId: 2,
-      title: "Some Other Title",
-      author: "Larry",
-      thumbnail: "some-other-image",
-      snippet: "Some other snippet..."
-    }
-  ]
+  officialContent: [],
+  myContent: []
 };
 
 describe('Feed', () => {

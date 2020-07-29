@@ -1,17 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AriaModal from 'react-aria-modal';
+import { Link } from 'react-router-dom';
 
 import { IWorkContent } from '../../../../store/data/types';
 
 export function ContentTabView({
-  deleteContentModalActive,
-  deactivateDeleteContentModal,
-  getApplicationNode,
-  deleteContentName,
-  handleDeleteContent,
+  activateModal,
   content,
-  activateDeleteContentModal
+  creatingContent,
+  deactivateModal,
+  deleteName,
+  editingId,
+  getApplicationNode,
+  handleDeleteContent,
+  modalActive
 }: Props): JSX.Element {
   return (
     <div className="staff-dashboard-content">
@@ -22,22 +24,22 @@ export function ContentTabView({
         Create New Content
       </Link>
 
-      {deleteContentModalActive ? (
+      {modalActive ? (
         <AriaModal
           dialogClass="content-delete-modal"
-          titleText="Cancel?"
-          onExit={deactivateDeleteContentModal}
           focusDialog={true}
-          getApplicationNode={getApplicationNode}
           focusTrapOptions={{returnFocusOnDeactivate: false}}
+          getApplicationNode={getApplicationNode}
+          onExit={deactivateModal}
+          titleText="Cancel?"
           underlayClickExits={false}
         >
           <p className="content-delete-prompt">
-            {'Delete Content: '}{deleteContentName}{' ?'}
+            {'Delete Content: '}{deleteName}{' ?'}
           </p>
           <button
             className="content-delete-cancel-button"
-            onClick={deactivateDeleteContentModal}
+            onClick={deactivateModal}
           >
             No
           </button>
@@ -50,17 +52,17 @@ export function ContentTabView({
         </AriaModal>
       ) : false}
 
-      {content.map(con => (
-        <div className="staff-dashboard-content-item" key={con.content_id}>
+      {content && content.map(c => (
+        <div className="staff-dashboard-content-item" key={c.content_id}>
           <span className="staff-dashboard-content-item-name">
-            <Link to={`/content/${con.content_id}`}>{con.title}</Link>
+            <Link to={`/content/${c.content_id}`}>{c.title}</Link>
           </span>
           <span className="staff-dashboard-content-item-action">
-            <Link to={`/staff-content/edit/${con.content_id}`}>Edit</Link>
+            <Link to={`/staff-content/edit/${c.content_id}`}>Edit</Link>
           </span>
           <span
             className="staff-dashboard-content-item-delete"
-            onClick={() => activateDeleteContentModal(con.content_id, con.title)}
+            onClick={() => activateModal(c.content_id, c.title)}
           >
             Delete
           </span>
@@ -72,11 +74,13 @@ export function ContentTabView({
 }
 
 type Props = {
-  deleteContentModalActive: boolean;
-  deactivateDeleteContentModal(): void;
-  getApplicationNode(): Element | Node;
-  deleteContentName: string;
-  handleDeleteContent(): void;
+  activateModal(id: number, name: string): void;
   content: IWorkContent[];
-  activateDeleteContentModal(id: number, name: string): void;
+  creatingContent: boolean;
+  deactivateModal(): void;
+  deleteName: string;
+  editingId: number | null;
+  getApplicationNode(): Element | Node;
+  handleDeleteContent(): void;
+  modalActive: boolean;
 };

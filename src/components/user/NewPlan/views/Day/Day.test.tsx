@@ -1,12 +1,12 @@
 import { mount } from 'enzyme';
 import React from 'react';
+import { DndProvider } from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
-import MultiBackend, { DndProvider } from 'react-dnd-multi-backend';
 import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
 
 import { rootReducer } from '../../../../../store/rootReducer';
-import Day from './Day';
+import { Day } from './Day';
 
 const storeFactory = (initialState = undefined): Store =>
   createStore(rootReducer, initialState);
@@ -37,11 +37,11 @@ const beginProps = {
 describe('Day', () => {
   it('does something', async () => {
     mount(
-      <DndProvider options={HTML5toTouch}>
-        <Provider store={store}>
+      <Provider store={store}>
+        <DndProvider options={HTML5toTouch}>
           <Day {...beginProps} />
-        </Provider>
-      </DndProvider>
+        </DndProvider>
+      </Provider>
     );
     expect(1).toEqual(1);
   });

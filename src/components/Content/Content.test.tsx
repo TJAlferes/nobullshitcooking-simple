@@ -1,16 +1,13 @@
-import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
+import { mount } from 'enzyme';
+import React from 'react';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 
 import Content from './Content';
 import { ContentView } from './ContentView';
 
-const contents = [
-  {},
-  {}
-];
+const contents = [{type: 'paragraph', children: [{text: 'Some text.'}]}];
 
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom');

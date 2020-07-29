@@ -1,12 +1,13 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { Node } from 'slate';
 
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../config/NOBSCBackendAPIEndpointOne';
 import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
-import { ContentView, IContentItem } from './ContentView';
+import { ContentView } from './ContentView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
@@ -14,7 +15,7 @@ export default function Content({ oneColumnATheme }: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
 
-  const [ contents, setContents ] = useState<IContentItem[]|null>(null);
+  const [ contents, setContents ] = useState<Node[]|null>(null);
 
   useEffect(() => {
     if (!id) {

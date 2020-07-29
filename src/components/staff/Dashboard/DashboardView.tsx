@@ -6,44 +6,39 @@ import {
   IWorkContent,
   IWorkRecipe
 } from '../../../store/data/types';
-import LeftNav from '../../LeftNav/LeftNav';
-import { TabsView } from './views/TabsView';
 import { ContentTabView } from './views/ContentTabView';
-import { RecipesTabView } from './views/RecipesTabView';
-import { IngredientsTabView } from './views/IngredientsTabView';
 import { EquipmentTabView } from './views/EquipmentTabView';
+import { IngredientsTabView } from './views/IngredientsTabView';
+import { RecipesTabView } from './views/RecipesTabView';
+import { TabsView } from './views/TabsView';
 import './dashboard.css';
 
 export function DashboardView({
-  oneColumnATheme,
+  activateModal,
   authname,
-  feedback,
-  loading,
-  creatingContent,
-  editingId,
-  tab,
-  handleTabClick,
-  getApplicationNode,
   content,
-  deleteContentModalActive,
-  activateDeleteContentModal,
-  deactivateDeleteContentModal,
-  deleteContentName,
-  handleDeleteContent,
-  recipes,
-  deleteRecipeModalActive,
-  activateDeleteRecipeModal,
-  deactivateDeleteRecipeModal,
-  deleteRecipeName,
-  handleDeleteRecipe,
-  ingredients,
-  handleDeleteIngredient,
+  creatingContent,
+  deactivateModal,
+  deleteName,
+  editingId,
   equipment,
-  handleDeleteEquipment
+  feedback,
+  getApplicationNode,
+  handleDeleteContent,
+  handleDeleteEquipment,
+  handleDeleteIngredient,
+  handleDeleteRecipe,
+  handleTabClick,
+  ingredients,
+  loading,
+  modalActive,
+  oneColumnATheme,
+  recipes,
+  tab
 }: Props): JSX.Element {
   return (
     <div className={`staff-dashboard one-column-a ${oneColumnATheme}`}>
-      <h1>{authname}</h1>
+      <h1 className="staff-dashboard-heading-one">COOK EAT WIN REPEAT</h1>
 
       <p className="staff-dashboard-feedback">{feedback}</p>
 
@@ -51,34 +46,34 @@ export function DashboardView({
 
       {tab === "content" && (
         <ContentTabView
-          creatingContent={creatingContent}
-          editingId={editingId}
-          deleteContentModalActive={deleteContentModalActive}
-          deactivateDeleteContentModal={deactivateDeleteContentModal}
-          getApplicationNode={getApplicationNode}
-          deleteContentName={deleteContentName}
-          handleDeleteContent={handleDeleteContent}
+          activateModal={activateModal}
           content={content}
-          activateDeleteContentModal={activateDeleteContentModal}
+          creatingContent={creatingContent}
+          deactivateModal={deactivateModal}
+          deleteName={deleteName}
+          editingId={editingId}
+          getApplicationNode={getApplicationNode}
+          handleDeleteContent={handleDeleteContent}
+          modalActive={modalActive}
         />
       )}
 
       {tab === "recipes" && (
         <RecipesTabView
-          deleteRecipeModalActive={deleteRecipeModalActive}
-          deactivateDeleteRecipeModal={deactivateDeleteRecipeModal}
+          activateModal={activateModal}
+          deactivateModal={deactivateModal}
+          deleteName={deleteName}
           getApplicationNode={getApplicationNode}
-          deleteRecipeName={deleteRecipeName}
           handleDeleteRecipe={handleDeleteRecipe}
+          modalActive={modalActive}
           recipes={recipes}
-          activateDeleteRecipeModal={activateDeleteRecipeModal}
         />
       )}
 
       {tab === "ingredients" && (
         <IngredientsTabView
-          ingredients={ingredients}
           handleDeleteIngredient={handleDeleteIngredient}
+          ingredients={ingredients}
         />
       )}
 
@@ -93,29 +88,25 @@ export function DashboardView({
 }
 
 type Props = {
-  oneColumnATheme: string;
+  activateModal(id: number, name: string): void;
   authname: string;
-  feedback: string;
-  loading: boolean;
-  creatingContent: boolean;
-  editingId: number|null;
-  tab: string;
-  handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
-  getApplicationNode(): Element | Node;
   content: IWorkContent[];
-  deleteContentModalActive: boolean;
-  activateDeleteContentModal(id: number, name: string): void;
-  deactivateDeleteContentModal(): void;
-  deleteContentName: string;
-  handleDeleteContent(): void;
-  recipes: IWorkRecipe[];
-  deleteRecipeModalActive: boolean;
-  activateDeleteRecipeModal(id: number, name: string): void;
-  deactivateDeleteRecipeModal(): void;
-  deleteRecipeName: string;
-  handleDeleteRecipe(): void;
-  ingredients: IIngredient[];
-  handleDeleteIngredient(id: number): void;
+  creatingContent: boolean;
+  deactivateModal(): void;
+  deleteName: string;
+  editingId: number | null;
   equipment: IEquipment[];
+  feedback: string;
+  getApplicationNode(): Element | Node;
+  handleDeleteContent(): void;
   handleDeleteEquipment(id: number): void;
+  handleDeleteIngredient(id: number): void;
+  handleDeleteRecipe(): void;
+  handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  ingredients: IIngredient[];
+  loading: boolean;
+  modalActive: boolean;
+  oneColumnATheme: string;
+  recipes: IWorkRecipe[];
+  tab: string;
 };

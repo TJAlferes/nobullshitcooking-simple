@@ -1,17 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AriaModal from 'react-aria-modal';
+import { Link } from 'react-router-dom';
 
 import { IWorkRecipe } from '../../../../store/data/types';
 
 export function RecipesTabView({
-  deleteRecipeModalActive,
-  deactivateDeleteRecipeModal,
+  activateModal,
+  deactivateModal,
+  deleteName,
   getApplicationNode,
-  deleteRecipeName,
   handleDeleteRecipe,
-  recipes,
-  activateDeleteRecipeModal
+  modalActive,
+  recipes
 }: Props): JSX.Element {
   return (
     <div className="staff-dashboard-content">
@@ -22,22 +22,22 @@ export function RecipesTabView({
         Create New Recipe
       </Link>
 
-      {deleteRecipeModalActive ? (
+      {modalActive ? (
         <AriaModal
           dialogClass="recipe-delete-modal"
-          titleText="Cancel?"
-          onExit={deactivateDeleteRecipeModal}
           focusDialog={true}
-          getApplicationNode={getApplicationNode}
           focusTrapOptions={{returnFocusOnDeactivate: false}}
+          getApplicationNode={getApplicationNode}
+          onExit={deactivateModal}
+          titleText="Cancel?"
           underlayClickExits={false}
         >
           <p className="recipe-delete-prompt">
-            {'Delete Recipe: '}{deleteRecipeName}{' ?'}
+            {'Delete Recipe: '}{deleteName}{' ?'}
           </p>
           <button
             className="recipe-delete-cancel-button"
-            onClick={deactivateDeleteRecipeModal}
+            onClick={deactivateModal}
           >
             No
           </button>
@@ -47,17 +47,17 @@ export function RecipesTabView({
         </AriaModal>
       ) : false}
 
-      {recipes.map(rec => (
-        <div className="staff-dashboard-content-item" key={rec.recipe_id}>
+      {recipes.map(r => (
+        <div className="staff-dashboard-content-item" key={r.recipe_id}>
           <span className="staff-dashboard-content-item-name">
-            <Link to={`/user-recipe/${rec.recipe_id}`}>{rec.title}</Link>
+            <Link to={`/user-recipe/${r.recipe_id}`}>{r.title}</Link>
           </span>
           <span className="staff-dashboard-content-item-action">
-            <Link to={`/user-recipe/private/edit/${rec.recipe_id}`}>Edit</Link>
+            <Link to={`/user-recipe/private/edit/${r.recipe_id}`}>Edit</Link>
           </span>
           <span
             className="staff-dashboard-content-item-delete"
-            onClick={() => activateDeleteRecipeModal(rec.recipe_id, rec.title)}
+            onClick={() => activateModal(r.recipe_id, r.title)}
           >
             Delete
           </span>
@@ -69,11 +69,11 @@ export function RecipesTabView({
 }
 
 type Props = {
-  deleteRecipeModalActive: boolean;
-  deactivateDeleteRecipeModal(): void;
+  activateModal(id: number, name: string): void;
+  deactivateModal(): void;
+  deleteName: string;
   getApplicationNode(): Element | Node;
-  deleteRecipeName: string;
   handleDeleteRecipe(): void;
+  modalActive: boolean;
   recipes: IWorkRecipe[];
-  activateDeleteRecipeModal(id: number, name: string): void;
 };
