@@ -8,67 +8,59 @@ import {
   IWorkRecipe
 } from '../../../store/data/types';
 import LeftNav from '../../LeftNav/LeftNav';
-import { AvatarView } from './views/AvatarView';
-import { AvatarEditView } from './views/AvatarEditView';
-import { TabsView } from './views/TabsView';
-import { PlansTabView } from './views/PlansTabView';
-import { PrivateRecipesTabView } from './views/PrivateRecipesTabView';
-import { PublicRecipesTabView } from './views/PublicRecipesTabView';
-import { FavoriteRecipesTabView } from './views/FavoriteRecipesTabView';
-import { SavedRecipesTabView } from './views/SavedRecipesTabView';
-import { IngredientsTabView } from './views/IngredientsTabView';
-import { EquipmentTabView } from './views/EquipmentTabView';
+import { Avatar } from './views/Avatar';
+import { AvatarEdit } from './views/AvatarEdit';
+import { Equipment } from './views/Equipment';
+import { FavoriteRecipes } from './views/FavoriteRecipes';
+import { Ingredients } from './views/Ingredients';
+import { Plans } from './views/Plans';
+import { PrivateRecipes } from './views/PrivateRecipes';
+import { PublicRecipes } from './views/PublicRecipes';
+import { SavedRecipes } from './views/SavedRecipes';
+import { Tabs } from './views/Tabs';
 import './dashboard.css';
 
 export function DashboardView({
-  twoColumnATheme,
+  activateModal,
   authname,
   avatar,
-  currentAvatar,
-  feedback,
-  loading,
+  cancelAvatar,
   creatingPlan,
-  editingId,
-  onSelectFile,
-  onImageLoaded,
   crop,
   cropFullSizePreview,
   cropTinySizePreview,
+  currentAvatar,
+  deactivateModal,
+  deleteName,
+  editingId,
+  feedback,
+  getApplicationNode,
+  handleDeletePlan,
+  handleDeletePrivateEquipment,
+  handleDeletePrivateIngredient,
+  handleDeletePrivateRecipe,
+  handleDisownPublicRecipe,
+  handleSubTabClick,
+  handleTabClick,
+  handleUnfavoriteRecipe,
+  handleUnsaveRecipe,
+  loading,
+  modalActive,
+  myFavoriteRecipes,
+  myPlans,
+  myPrivateEquipment,
+  myPrivateIngredients,
+  myPrivateRecipes,
+  myPublicRecipes,
+  mySavedRecipes,
   onCropChange,
   onCropComplete,
+  onImageLoaded,
+  onSelectFile,
   submitAvatar,
-  cancelAvatar,
-  tab,
-  handleTabClick,
   subTab,
-  handleSubTabClick,
-  getApplicationNode,
-  myPlans,
-  deletePlanModalActive,
-  activateDeletePlanModal,
-  deactivateDeletePlanModal,
-  deletePlanName,
-  handleDeletePlan,
-  myPrivateRecipes,
-  deleteRecipeModalActive,
-  activateDeleteRecipeModal,
-  deactivateDeleteRecipeModal,
-  deleteRecipeName,
-  handleDeletePrivateRecipe,
-  myPublicRecipes,
-  disownRecipeModalActive,
-  activateDisownRecipeModal,
-  deactivateDisownRecipeModal,
-  disownRecipeName,
-  handleDisownPublicRecipe,
-  myFavoriteRecipes,
-  handleUnfavoriteRecipe,
-  mySavedRecipes,
-  handleUnsaveRecipe,
-  myPrivateIngredients,
-  handleDeletePrivateIngredient,
-  myPrivateEquipment,
-  handleDeletePrivateEquipment
+  tab,
+  twoColumnATheme
 }: Props): JSX.Element {
   return (
     <div className={`dashboard two-column-a ${twoColumnATheme}`}>
@@ -81,30 +73,28 @@ export function DashboardView({
 
         <p className="dashboard-feedback">{feedback}</p>
 
-        {/*!avatar && <hr className="dashboard-hr" />*/}
-
-        {!avatar && <TabsView tab={tab} handleTabClick={handleTabClick} />}
+        {!avatar && <Tabs tab={tab} handleTabClick={handleTabClick} />}
 
         {(tab === "avatar") && (
           <div className="dashboard-avatar">
             {!avatar && (
-              <AvatarView
+              <Avatar
                 authname={authname}
                 currentAvatar={currentAvatar}
                 onSelectFile={onSelectFile}
               />
             )}
             {avatar && (
-              <AvatarEditView
+              <AvatarEdit
                 avatar={avatar}
+                cancelAvatar={cancelAvatar}
                 crop={crop}
-                onImageLoaded={onImageLoaded}
-                onCropChange={onCropChange}
-                onCropComplete={onCropComplete}
                 cropFullSizePreview={cropFullSizePreview}
                 cropTinySizePreview={cropTinySizePreview}
                 loading={loading}
-                cancelAvatar={cancelAvatar}
+                onImageLoaded={onImageLoaded}
+                onCropChange={onCropChange}
+                onCropComplete={onCropComplete}
                 submitAvatar={submitAvatar}
               />
             )}
@@ -112,76 +102,77 @@ export function DashboardView({
         )}
 
         {(!avatar && tab == "plans") && (
-          <PlansTabView
+          <Plans
+            activateModal={activateModal}
             creatingPlan={creatingPlan}
+            deactivateModal={deactivateModal}
+            deleteName={deleteName}
             editingId={editingId}
-            deletePlanModalActive={deletePlanModalActive}
-            deactivateDeletePlanModal={deactivateDeletePlanModal}
             getApplicationNode={getApplicationNode}
-            deletePlanName={deletePlanName}
             handleDeletePlan={handleDeletePlan}
+            modalActive={modalActive}
             myPlans={myPlans}
-            activateDeletePlanModal={activateDeletePlanModal}
           />
         )}
 
         {(!avatar && tab == "recipes" && subTab == "private") && (
-          <PrivateRecipesTabView
-            deleteRecipeModalActive={deleteRecipeModalActive}
-            deactivateDeleteRecipeModal={deactivateDeleteRecipeModal}
+          <PrivateRecipes
+            activateModal={activateModal}
+            deactivateModal={deactivateModal}
+            deleteName={deleteName}
             getApplicationNode={getApplicationNode}
-            deleteRecipeName={deleteRecipeName}
             handleDeletePrivateRecipe={handleDeletePrivateRecipe}
-            myPrivateRecipes={myPrivateRecipes}
-            activateDeleteRecipeModal={activateDeleteRecipeModal}
-            subTab={subTab}
             handleSubTabClick={handleSubTabClick}
+            modalActive={modalActive}
+            myPrivateRecipes={myPrivateRecipes}
+            subTab={subTab}
           />
         )}
 
         {(!avatar && tab == "recipes" && subTab == "public") && (
-          <PublicRecipesTabView
-            disownRecipeModalActive={disownRecipeModalActive}
-            deactivateDisownRecipeModal={deactivateDisownRecipeModal}
+          <PublicRecipes
+            activateModal={activateModal}
+            deactivateModal={deactivateModal}
+            deleteName={deleteName}
             getApplicationNode={getApplicationNode}
-            disownRecipeName={disownRecipeName}
             handleDisownPublicRecipe={handleDisownPublicRecipe}
-            myPublicRecipes={myPublicRecipes}
-            activateDisownRecipeModal={activateDisownRecipeModal}
-            subTab={subTab}
             handleSubTabClick={handleSubTabClick}
+            modalActive={modalActive}
+            myPublicRecipes={myPublicRecipes}
+            subTab={subTab}
           />
         )}
 
         {(!avatar && tab == "recipes" && subTab == "favorite") && (
-          <FavoriteRecipesTabView
-            myFavoriteRecipes={myFavoriteRecipes}
-            handleUnfavoriteRecipe={handleUnfavoriteRecipe}
-            subTab={subTab}
+          <FavoriteRecipes
             handleSubTabClick={handleSubTabClick}
+            handleUnfavoriteRecipe={handleUnfavoriteRecipe}
+            myFavoriteRecipes={myFavoriteRecipes}
+            subTab={subTab}
+            
           />
         )}
 
         {(!avatar && tab == "recipes" && subTab == "saved") && (
-          <SavedRecipesTabView
-            mySavedRecipes={mySavedRecipes}
-            handleUnsaveRecipe={handleUnsaveRecipe}
-            subTab={subTab}
+          <SavedRecipes
             handleSubTabClick={handleSubTabClick}
+            handleUnsaveRecipe={handleUnsaveRecipe}
+            mySavedRecipes={mySavedRecipes}
+            subTab={subTab}
           />
         )}
 
         {!avatar && tab == "ingredients" && (
-          <IngredientsTabView
-            myPrivateIngredients={myPrivateIngredients}
+          <Ingredients
             handleDeletePrivateIngredient={handleDeletePrivateIngredient}
+            myPrivateIngredients={myPrivateIngredients}
           />
         )}
 
         {!avatar && tab == "equipment" && (
-          <EquipmentTabView
-            myPrivateEquipment={myPrivateEquipment}
+          <Equipment
             handleDeletePrivateEquipment={handleDeletePrivateEquipment}
+            myPrivateEquipment={myPrivateEquipment}
           />
         )}
 
@@ -192,52 +183,44 @@ export function DashboardView({
 }
 
 type Props = {
-  twoColumnATheme: string;
+  activateModal(id: number, name: string): void;
   authname: string;
   avatar: string | ArrayBuffer | null;
-  currentAvatar: string;
-  feedback: string;
-  loading: boolean;
+  cancelAvatar(): void;
   creatingPlan: boolean;
-  editingId: number|null;
-  onSelectFile(e: React.ChangeEvent<HTMLInputElement>): void;
-  onImageLoaded(image: HTMLImageElement): void;
   crop: Crop;
   cropFullSizePreview: string;
   cropTinySizePreview: string;
+  currentAvatar: string;
+  deactivateModal(): void;
+  deleteName: string;
+  editingId: number | null;
+  feedback: string;
+  getApplicationNode(): Element | Node;
+  handleDeletePlan(): void;
+  handleDeletePrivateEquipment(id: number): void;
+  handleDeletePrivateIngredient(id: number): void;
+  handleDeletePrivateRecipe(): void;
+  handleDisownPublicRecipe(): void;
+  handleSubTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  handleUnfavoriteRecipe(id: number): void;
+  handleUnsaveRecipe(id: number): void;
+  loading: boolean;
+  modalActive: boolean;
+  myFavoriteRecipes: IWorkRecipe[];
+  myPlans: IPlan[];
+  myPrivateEquipment: IEquipment[];
+  myPrivateIngredients: IIngredient[];
+  myPrivateRecipes: IWorkRecipe[];
+  myPublicRecipes: IWorkRecipe[];
+  mySavedRecipes: IWorkRecipe[];
+  onImageLoaded(image: HTMLImageElement): void;
   onCropChange(crop: Crop): void;
   onCropComplete(crop: Crop): void;
+  onSelectFile(e: React.ChangeEvent<HTMLInputElement>): void;
   submitAvatar(): void;
-  cancelAvatar(): void;
-  tab: string;
-  handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
   subTab: string;
-  handleSubTabClick(e: React.SyntheticEvent<EventTarget>): void;
-  getApplicationNode(): Element | Node;
-  myPlans: IPlan[];
-  deletePlanModalActive: boolean;
-  activateDeletePlanModal(id: number, name: string): void;
-  deactivateDeletePlanModal(): void;
-  deletePlanName: string;
-  handleDeletePlan(): void;
-  myPrivateRecipes: IWorkRecipe[];
-  deleteRecipeModalActive: boolean;
-  activateDeleteRecipeModal(id: number, name: string): void;
-  deactivateDeleteRecipeModal(): void;
-  deleteRecipeName: string;
-  handleDeletePrivateRecipe(): void;
-  myPublicRecipes: IWorkRecipe[];
-  disownRecipeModalActive: boolean;
-  activateDisownRecipeModal(id: number, name: string): void;
-  deactivateDisownRecipeModal(): void;
-  disownRecipeName: string;
-  handleDisownPublicRecipe(): void;
-  myFavoriteRecipes: IWorkRecipe[];
-  handleUnfavoriteRecipe(id: number): void;
-  mySavedRecipes: IWorkRecipe[];
-  handleUnsaveRecipe(id: number): void;
-  myPrivateIngredients: IIngredient[];
-  handleDeletePrivateIngredient(id: number): void;
-  myPrivateEquipment: IEquipment[];
-  handleDeletePrivateEquipment(id: number): void;
+  tab: string;
+  twoColumnATheme: string;
 };

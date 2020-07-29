@@ -1,11 +1,11 @@
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import axios from 'axios';
 
 import {
+  geoAddress,
   geoLatitude,
   geoLongitude,
-  geoAddress,
   geoNearbyStoresClicked
 } from '../../store/geolocation/actions';
 import { SuggestionsView } from './SuggestionsView';
@@ -13,15 +13,15 @@ import { SuggestionsView } from './SuggestionsView';
 const googleMapsAPIKeyTwo = 'AIzaSyA1caERqL2MD4rv2YmbJ139ToyxgT61v6w';
 
 export function Suggestions({
-  theme,
-  latitude,
-  longitude,
   address,
-  nearbyStoresClicked,
+  geoAddress,
   geoLatitude,
   geoLongitude,
-  geoAddress,
-  geoNearbyStoresClicked
+  geoNearbyStoresClicked,
+  latitude,
+  longitude,
+  nearbyStoresClicked,
+  theme
 }: Props): JSX.Element {
   useEffect(() => {
     const getAddress = async () => {
@@ -50,25 +50,25 @@ export function Suggestions({
 
   return (
     <SuggestionsView
-      theme={theme}
-      nearbyStoresClicked={nearbyStoresClicked}
       address={address}
       latitude={latitude}
       longitude={longitude}
       handleShowNearbyStoresClick={handleShowNearbyStoresClick}
+      nearbyStoresClicked={nearbyStoresClicked}
+      theme={theme}
     />
   );
 };
 
 interface RootState {
-  theme: {
-    suggestionsTheme: string;
-  };
   geolocation: {
+    address: string;
     latitude: string;
     longitude: string;
-    address: string;
     nearbyStoresClicked: boolean;
+  };
+  theme: {
+    suggestionsTheme: string;
   };
 }
 
@@ -77,17 +77,17 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 const mapStateToProps = (state: RootState) => ({
-  theme: state.theme.suggestionsTheme,
+  address: state.geolocation.address,
   latitude: state.geolocation.latitude,
   longitude: state.geolocation.longitude,
-  address: state.geolocation.address,
-  nearbyStoresClicked: state.geolocation.nearbyStoresClicked
+  nearbyStoresClicked: state.geolocation.nearbyStoresClicked,
+  theme: state.theme.suggestionsTheme
 });
 
 const mapDispatchToProps = {
+  geoAddress: (address: string) => geoAddress(address),
   geoLatitude: (latitude: string) => geoLatitude(latitude),
   geoLongitude: (longitude: string) => geoLongitude(longitude),
-  geoAddress: (address: string) => geoAddress(address),
   geoNearbyStoresClicked: (clicked: boolean) => geoNearbyStoresClicked(clicked)
 };
 

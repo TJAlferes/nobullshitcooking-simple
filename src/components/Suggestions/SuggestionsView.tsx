@@ -5,12 +5,12 @@ import './suggestions.css';
 const googleMapsAPIKeyOne = 'AIzaSyCULKDLxoF9O413jjvF5Ot2xXXMdgz0Eag';
 
 export function SuggestionsView({
-  theme,
-  nearbyStoresClicked,
   address,
   latitude,
   longitude,
-  handleShowNearbyStoresClick
+  handleShowNearbyStoresClick,
+  nearbyStoresClicked,
+  theme
 }: Props): JSX.Element {
   return (
     <div className={`suggestions ${theme}`}>
@@ -48,10 +48,10 @@ export function SuggestionsView({
 }
 
 type Props = {
-  theme: string;
-  nearbyStoresClicked: boolean;
   address: string;
   latitude: string;
   longitude: string;
   handleShowNearbyStoresClick(): void;
+  nearbyStoresClicked: boolean;
+  theme: string;
 };

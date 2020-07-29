@@ -1,1 +1,0 @@
-import { AvatarView } from './AvatarView';

@@ -1,20 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AriaModal from 'react-aria-modal';
+import { Link } from 'react-router-dom';
 
 import { IWorkRecipe } from '../../../../store/data/types';
-import { SubtabsView } from './SubtabsView';
+import { Subtabs } from './Subtabs';
 
 export function PrivateRecipesTabView({
-  deleteRecipeModalActive,
-  deactivateDeleteRecipeModal,
+  activateModal,
+  deactivateModal,
+  deleteName,
   getApplicationNode,
-  deleteRecipeName,
   handleDeletePrivateRecipe,
+  handleSubTabClick,
+  modalActive,
   myPrivateRecipes,
-  activateDeleteRecipeModal,
   subTab,
-  handleSubTabClick
 }: Props): JSX.Element {
   return (
     <div className="dashboard-content">
@@ -23,23 +23,23 @@ export function PrivateRecipesTabView({
         Create New Private Recipe
       </Link>
       {
-        deleteRecipeModalActive
+        modalActive
         ? (
           <AriaModal
             dialogClass="recipe-delete-modal"
             titleText="Cancel?"
-            onExit={deactivateDeleteRecipeModal}
+            onExit={deactivateModal}
             focusDialog={true}
             getApplicationNode={getApplicationNode}
             focusTrapOptions={{returnFocusOnDeactivate: false}}
             underlayClickExits={false}
           >
             <p className="recipe-delete-prompt">
-              {'Delete Recipe: '}{deleteRecipeName}{' ?'}
+              {'Delete Recipe: '}{deleteName}{' ?'}
             </p>
             <button
               className="recipe-delete-cancel-button"
-              onClick={deactivateDeleteRecipeModal}
+              onClick={deactivateModal}
             >
               No
             </button>
@@ -54,7 +54,7 @@ export function PrivateRecipesTabView({
         : false
       }
 
-      <SubtabsView subTab={subTab} handleSubTabClick={handleSubTabClick} />
+      <Subtabs subTab={subTab} handleSubTabClick={handleSubTabClick} />
 
       {
         myPrivateRecipes.length
@@ -79,7 +79,7 @@ export function PrivateRecipesTabView({
             </span>
             <span
               className="dashboard-content-item-delete"
-              onClick={() => activateDeleteRecipeModal(recipe.recipe_id, recipe.title)}
+              onClick={() => activateModal(recipe.recipe_id, recipe.title)}
             >
               Delete
             </span>
@@ -96,13 +96,13 @@ export function PrivateRecipesTabView({
 }
 
 type Props = {
-  deleteRecipeModalActive: boolean;
-  deactivateDeleteRecipeModal(): void;
+  activateModal(id: number, name: string): void;
+  deactivateModal(): void;
+  deleteName: string;
   getApplicationNode(): Element | Node;
-  deleteRecipeName: string;
   handleDeletePrivateRecipe(): void;
-  myPrivateRecipes: IWorkRecipe[];
-  activateDeleteRecipeModal(id: number, name: string): void;
-  subTab: string;
   handleSubTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  modalActive: boolean;
+  myPrivateRecipes: IWorkRecipe[];
+  subTab: string;
 };

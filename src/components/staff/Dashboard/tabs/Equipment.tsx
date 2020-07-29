@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 import { IEquipment } from '../../../../store/data/types';
 
-export function EquipmentTabView({
+export function Equipment({
   equipment,
   handleDeleteEquipment
 }: Props): JSX.Element {
   return (
     <div className="staff-dashboard-content">
-      <h2 className="staff-dashboard-content-heading">Official Equipment</h2>
+      <h2 className="staff-dashboard-content-heading">Equipment</h2>
       <Link className="create-new-entity" to="/equipment/submit">
         Create New Equipment
       </Link>

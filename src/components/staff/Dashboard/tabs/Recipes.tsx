@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { IWorkRecipe } from '../../../../store/data/types';
 
-export function RecipesTabView({
+export function Recipes({
   activateModal,
   deactivateModal,
   deleteName,
@@ -16,7 +16,7 @@ export function RecipesTabView({
   return (
     <div className="staff-dashboard-content">
 
-      <h2 className="staff-dashboard-content-heading">Official Recipes</h2>
+      <h2 className="staff-dashboard-content-heading">Recipes</h2>
 
       <Link className="create-new-entity" to="/recipes/private/submit">
         Create New Recipe

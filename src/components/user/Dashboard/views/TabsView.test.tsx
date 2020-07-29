@@ -1,1 +1,0 @@
-import { TabsView } from './TabsView';

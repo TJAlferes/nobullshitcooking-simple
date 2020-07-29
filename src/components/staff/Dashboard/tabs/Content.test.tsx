@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import { ContentTabView } from './ContentTabView';
+import { Content } from './Content';
 
 const activateModal = jest.fn();
 const deactivateModal = jest.fn();
@@ -19,16 +19,16 @@ const initialProps = {
   modalActive
 };
 
-describe('ContentTabView', () => {
-  const wrapper = shallow(<ContentTabView {...initialProps} />);
+describe('Content', () => {
+  const wrapper = shallow(<Content {...initialProps} />);
 
   it(`
     displays a h2 element
     with className staff-dashboard-content-heading and
-    with text 'Official Content'
+    with text 'Content'
   `, () => {
     expect(wrapper.find('h2.staff-dashboard-content-heading').text())
-    .toEqual("Official Content");
+    .toEqual("Content");
   });
 
   describe ('when creating content', () => {

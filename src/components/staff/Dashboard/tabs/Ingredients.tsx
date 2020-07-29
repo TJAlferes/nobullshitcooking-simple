@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 import { IIngredient } from '../../../../store/data/types';
 
-export function IngredientsTabView({
+export function Ingredients({
   handleDeleteIngredient,
   ingredients
 }: Props): JSX.Element {
   return (
     <div className="staff-dashboard-content">
-      <h2 className="staff-dashboard-content-heading">Official Ingredients</h2>
+      <h2 className="staff-dashboard-content-heading">Ingredients</h2>
       <Link className="create-new-entity" to="/ingredient/submit">
         Create New Ingredient
       </Link>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function TabsView({ tab, handleTabClick }: Props): JSX.Element {
+export function Tabs({ tab, handleTabClick }: Props): JSX.Element {
   const TabButton = ({ tabName, displayText }: TabButtonProps) => (
     <button
       className={(tab === tabName)

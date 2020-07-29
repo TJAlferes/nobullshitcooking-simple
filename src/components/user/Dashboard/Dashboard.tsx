@@ -1,13 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
 import { Crop } from 'react-image-crop';
+import { connect, ConnectedProps } from 'react-redux';
 
-import {
-  getCroppedImage
-} from '../../../utils/imageCropPreviews/imageCropPreviews';
-import {
-  authUpdateLocalAvatar
-} from '../../../store/auth/actions';
+import { authUpdateLocalAvatar } from '../../../store/auth/actions';
 import {
   IEquipment,
   IIngredient,
@@ -15,54 +10,52 @@ import {
   IWorkRecipe
 } from '../../../store/data/types';
 import { userSubmitAvatar } from '../../../store/user/avatar/actions';
+import { userUnfavoriteRecipe } from '../../../store/user/favorite/actions';
+import {
+  userDeletePrivateEquipment
+} from '../../../store/user/equipment/actions';
+import {
+  userDeletePrivateIngredient
+} from '../../../store/user/ingredient/actions';
 import { userDeletePlan } from '../../../store/user/plan/actions';
 import {
   userDeletePrivateRecipe,
   userDisownPublicRecipe
 } from '../../../store/user/recipe/actions';
-import { userUnfavoriteRecipe } from '../../../store/user/favorite/actions';
 import { userUnsaveRecipe } from '../../../store/user/save/actions';
 import {
-  userDeletePrivateEquipment
-} from '../../../store/user/equipment/actions';
-import { userDeletePrivateIngredient
-} from '../../../store/user/ingredient/actions';
+  getCroppedImage
+} from '../../../utils/imageCropPreviews/imageCropPreviews';
 import { DashboardView } from './DashboardView';
 
 export function Dashboard({
-  twoColumnATheme,
-  message,
   authname,
+  authUpdateLocalAvatar,
+  creatingPlan,
   currentAvatar,
+  editingId,
+  message,
   myPlans,
+  myFavoriteRecipes,
   myPublicRecipes,
   myPrivateEquipment,
   myPrivateIngredients,
   myPrivateRecipes,
-  myFavoriteRecipes,
   mySavedRecipes,
-  creatingPlan,
-  editingId,
-  authUpdateLocalAvatar,
-  userSubmitAvatar,
+  twoColumnATheme,
   userDeletePlan,
+  userDeletePrivateEquipment,
+  userDeletePrivateIngredient,
   userDeletePrivateRecipe,
   userDisownPublicRecipe,
+  userSubmitAvatar,
   userUnfavoriteRecipe,
   userUnsaveRecipe,
-  userDeletePrivateEquipment,
-  userDeletePrivateIngredient
 }: Props): JSX.Element {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
 
-  //disabled: true,
-  //locked: true,
-  //width: 250,
-  //maxWidth: 250,
-  const [ crop, setCrop ] = useState<Crop>({
-    aspect: 1 / 1
-  });
+  const [ crop, setCrop ] = useState<Crop>({aspect: 1 / 1});
   const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
   const [ cropTinySizePreview, setCropTinySizePreview ] = useState("");
   const [ avatar, setAvatar ] = useState<string | ArrayBuffer | null>(null);
@@ -72,17 +65,9 @@ export function Dashboard({
   const [ tab, setTab ] = useState("avatar");
   const [ subTab, setSubTab ] = useState("private");
 
-  const [ deletePlanId, setDeletePlanId ] = useState<number | undefined>();
-  const [ deletePlanName, setDeletePlanName ] = useState("");
-  const [ deletePlanModalActive, setDeletePlanModalActive ] = useState(false);
-
-  const [ deleteRecipeId, setDeleteRecipeId ] = useState<number | undefined>();
-  const [ deleteRecipeName, setDeleteRecipeName ] = useState("");
-  const [ deleteRecipeModalActive, setDeleteRecipeModalActive ] = useState(false);
-
-  const [ disownRecipeId, setDisownRecipeId ] = useState<number | undefined>();
-  const [ disownRecipeName, setDisownRecipeName ] = useState("");
-  const [ disownRecipeModalActive, setDisownRecipeModalActive ] = useState(false);
+  const [ deleteId, setDeleteId ] = useState<number | undefined>();
+  const [ deleteName, setDeleteName ] = useState("");
+  const [ modalActive, setModalActive ] = useState(false);
 
   const imageRef = useRef<HTMLImageElement | null>();
 
@@ -90,9 +75,7 @@ export function Dashboard({
     let isSubscribed = true;
     if (isSubscribed) {
       if (message !== "") window.scrollTo(0,0);
-      deactivateDeleteRecipeModal();
-      deactivateDisownRecipeModal();
-      deactivateDeletePlanModal();
+      deactivateModal();
       setFeedback(message);
       setLoading(false);
     }
@@ -153,40 +136,16 @@ export function Dashboard({
     setSubTab((e.target as HTMLInputElement).name);
   };
 
-  const activateDeletePlanModal = (id: number, name: string) => {
-    setDeletePlanId(id);
-    setDeletePlanName(name);
-    setDeletePlanModalActive(true);
+  const activateModal = (id: number, name: string) => {
+    setDeleteId(id);
+    setDeleteName(name);
+    setModalActive(true);
   };
 
-  const deactivateDeletePlanModal = () => {
-    setDeletePlanId(undefined);
-    setDeletePlanName("");
-    setDeletePlanModalActive(false);
-  };
-
-  const activateDeleteRecipeModal = (id: number, name: string) => {
-    setDeleteRecipeId(id);
-    setDeleteRecipeName(name);
-    setDeleteRecipeModalActive(true);
-  };
-
-  const deactivateDeleteRecipeModal = () => {
-    setDeleteRecipeId(undefined);
-    setDeleteRecipeName("");
-    setDeleteRecipeModalActive(false);
-  };
-
-  const activateDisownRecipeModal = (id: number, name: string) => {
-    setDisownRecipeId(id);
-    setDisownRecipeName(name);
-    setDisownRecipeModalActive(true);
-  };
-
-  const deactivateDisownRecipeModal = () => {
-    setDisownRecipeId(undefined);
-    setDisownRecipeName("");
-    setDisownRecipeModalActive(false);
+  const deactivateModal = () => {
+    setDeleteId(undefined);
+    setDeleteName("");
+    setModalActive(false);
   };
 
   const getApplicationNode = (): Element | Node => {
@@ -194,31 +153,9 @@ export function Dashboard({
   };
 
   const handleDeletePlan = () => {
-    if (!deletePlanId) return;
+    if (!deleteId) return;
     setLoading(true);
-    userDeletePlan(deletePlanId);
-  };
-
-  const handleDeletePrivateRecipe = () => {
-    if (!deleteRecipeId) return;
-    setLoading(true);
-    userDeletePrivateRecipe(deleteRecipeId);
-  };
-
-  const handleDisownPublicRecipe = () => {
-    if (!disownRecipeId) return;
-    setLoading(true);
-    userDisownPublicRecipe(disownRecipeId);
-  };
-
-  const handleUnfavoriteRecipe = (id: number) => {
-    setLoading(true);
-    userUnfavoriteRecipe(id);
-  };
-
-  const handleUnsaveRecipe = (id: number) => {
-    setLoading(true);
-    userUnsaveRecipe(id);
+    userDeletePlan(deleteId);
   };
 
   const handleDeletePrivateEquipment = (id: number) => {
@@ -229,6 +166,28 @@ export function Dashboard({
   const handleDeletePrivateIngredient = (id: number) => {
     setLoading(true);
     userDeletePrivateIngredient(id);
+  };
+
+  const handleDeletePrivateRecipe = () => {
+    if (!deleteId) return;
+    setLoading(true);
+    userDeletePrivateRecipe(deleteId);
+  };
+
+  const handleDisownPublicRecipe = () => {
+    if (!deleteId) return;
+    setLoading(true);
+    userDisownPublicRecipe(deleteId);
+  };
+
+  const handleUnfavoriteRecipe = (id: number) => {
+    setLoading(true);
+    userUnfavoriteRecipe(id);
+  };
+
+  const handleUnsaveRecipe = (id: number) => {
+    setLoading(true);
+    userUnsaveRecipe(id);
   };
 
   return (
@@ -256,22 +215,14 @@ export function Dashboard({
       handleSubTabClick={handleSubTabClick}
       getApplicationNode={getApplicationNode}
       myPlans={myPlans}
-      deletePlanModalActive={deletePlanModalActive}
-      activateDeletePlanModal={activateDeletePlanModal}
-      deactivateDeletePlanModal={deactivateDeletePlanModal}
+      modalActive={modalActive}
+      activateModal={activateModal}
+      deactivateModal={deactivateModal}
       deletePlanName={deletePlanName}
       handleDeletePlan={handleDeletePlan}
       myPrivateRecipes={myPrivateRecipes}
-      deleteRecipeModalActive={deleteRecipeModalActive}
-      activateDeleteRecipeModal={activateDeleteRecipeModal}
-      deactivateDeleteRecipeModal={deactivateDeleteRecipeModal}
-      deleteRecipeName={deleteRecipeName}
       handleDeletePrivateRecipe={handleDeletePrivateRecipe}
       myPublicRecipes={myPublicRecipes}
-      disownRecipeModalActive={disownRecipeModalActive}
-      activateDisownRecipeModal={activateDisownRecipeModal}
-      deactivateDisownRecipeModal={deactivateDisownRecipeModal}
-      disownRecipeName={disownRecipeName}
       handleDisownPublicRecipe={handleDisownPublicRecipe}
       myFavoriteRecipes={myFavoriteRecipes}
       handleUnfavoriteRecipe={handleUnfavoriteRecipe}

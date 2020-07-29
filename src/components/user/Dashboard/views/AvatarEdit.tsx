@@ -2,16 +2,16 @@ import React from 'react';
 import ReactCrop, { Crop } from 'react-image-crop';
 import "react-image-crop/lib/ReactCrop.scss";
 
-export function AvatarEditView({
+export function AvatarEdit({
   avatar,
+  cancelAvatar,
   crop,
-  onImageLoaded,
-  onCropChange,
-  onCropComplete,
   cropFullSizePreview,
   cropTinySizePreview,
   loading,
-  cancelAvatar,
+  onImageLoaded,
+  onCropChange,
+  onCropComplete,
   submitAvatar
 }: Props): JSX.Element {
   return (
@@ -59,13 +59,13 @@ export function AvatarEditView({
 
 type Props = {
   avatar: string | ArrayBuffer | null;
+  cancelAvatar(): void;
   crop: Crop;
-  onImageLoaded(image: HTMLImageElement): void;
-  onCropChange(crop: Crop): void;
-  onCropComplete(crop: Crop): void;
   cropFullSizePreview: string;
   cropTinySizePreview: string;
   loading: boolean;
-  cancelAvatar(): void;
+  onCropChange(crop: Crop): void;
+  onCropComplete(crop: Crop): void;
+  onImageLoaded(image: HTMLImageElement): void;
   submitAvatar(): void;
 };

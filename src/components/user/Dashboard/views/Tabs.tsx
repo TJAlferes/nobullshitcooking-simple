@@ -1,7 +1,7 @@
 import React from 'react';
 
-export function TabsView({ tab, handleTabClick }: Props): JSX.Element {
-  const TabButton = ({ tabName, displayText }: TabButtonProps) => (
+export function Tabs({ handleTabClick, tab }: Props): JSX.Element {
+  const TabButton = ({ displayText, tabName }: TabButtonProps) => (
     <button
       className={(tab === tabName)
         ? "dashboard-menu-tab active"
@@ -26,11 +26,11 @@ export function TabsView({ tab, handleTabClick }: Props): JSX.Element {
 }
 
 type Props = {
-  tab: string;
   handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  tab: string;
 };
 
 type TabButtonProps = {
-  tabName: string;
   displayText: string;
+  tabName: string;
 };

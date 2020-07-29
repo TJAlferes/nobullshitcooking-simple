@@ -6,11 +6,11 @@ import {
   IWorkContent,
   IWorkRecipe
 } from '../../../store/data/types';
-import { ContentTabView } from './views/ContentTabView';
-import { EquipmentTabView } from './views/EquipmentTabView';
-import { IngredientsTabView } from './views/IngredientsTabView';
-import { RecipesTabView } from './views/RecipesTabView';
-import { TabsView } from './views/TabsView';
+import { Content } from './tabs/Content';
+import { Equipment } from './tabs/Equipment';
+import { Ingredients } from './tabs/Ingredients';
+import { Recipes } from './tabs/Recipes';
+import { Tabs } from './tabs/Tabs';
 import './dashboard.css';
 
 export function DashboardView({
@@ -42,10 +42,10 @@ export function DashboardView({
 
       <p className="staff-dashboard-feedback">{feedback}</p>
 
-      <TabsView tab={tab} handleTabClick={handleTabClick} />
+      <Tabs tab={tab} handleTabClick={handleTabClick} />
 
       {tab === "content" && (
-        <ContentTabView
+        <Content
           activateModal={activateModal}
           content={content}
           creatingContent={creatingContent}
@@ -59,7 +59,7 @@ export function DashboardView({
       )}
 
       {tab === "recipes" && (
-        <RecipesTabView
+        <Recipes
           activateModal={activateModal}
           deactivateModal={deactivateModal}
           deleteName={deleteName}
@@ -71,14 +71,14 @@ export function DashboardView({
       )}
 
       {tab === "ingredients" && (
-        <IngredientsTabView
+        <Ingredients
           handleDeleteIngredient={handleDeleteIngredient}
           ingredients={ingredients}
         />
       )}
 
       {tab === "equipment" && (
-        <EquipmentTabView
+        <Equipment
           equipment={equipment}
           handleDeleteEquipment={handleDeleteEquipment}
         />

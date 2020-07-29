@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { IWorkContent } from '../../../../store/data/types';
 
-export function ContentTabView({
+export function Content({
   activateModal,
   content,
   creatingContent,
@@ -18,7 +18,7 @@ export function ContentTabView({
   return (
     <div className="staff-dashboard-content">
 
-      <h2 className="staff-dashboard-content-heading">Official Content</h2>
+      <h2 className="staff-dashboard-content-heading">Content</h2>
 
       <Link className="create-new-entity" to="/staff-content/submit">
         Create New Content

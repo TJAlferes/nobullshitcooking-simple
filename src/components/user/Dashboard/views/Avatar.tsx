@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export function AvatarView({
+export function Avatar({
   authname,
   currentAvatar,
   onSelectFile
