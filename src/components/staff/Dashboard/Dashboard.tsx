@@ -29,19 +29,17 @@ export function StaffDashboard({
   staffDeleteIngredient,
   staffDeleteRecipe
 }: Props): JSX.Element {
-  const [ feedback, setFeedback ] = useState("");
-  const [ loading, setLoading ] = useState(false);
-
-  const [ tab, setTab ] = useState("content");
-
   const [ deleteId, setDeleteId ] = useState<number | undefined>();
   const [ deleteName, setDeleteName ] = useState("");
+  const [ feedback, setFeedback ] = useState("");
+  const [ loading, setLoading ] = useState(false);
   const [ modalActive, setModalActive ] = useState(false);
+  const [ tab, setTab ] = useState("content");
 
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
-      if (message !== "") window.scrollTo(0,0);
+      if (message !== "") window.scrollTo(0, 0);
       deactivateModal();
       setFeedback(message);
       setLoading(false);
@@ -50,10 +48,6 @@ export function StaffDashboard({
       isSubscribed = false;
     };
   }, [message]);
-
-  const handleTabClick = (e: React.SyntheticEvent<EventTarget>) => {
-    setTab((e.target as HTMLInputElement).name);
-  };
 
   const activateModal = (id: number, name: string) => {
     setDeleteId(id);
@@ -77,12 +71,6 @@ export function StaffDashboard({
     staffDeleteContent(deleteId);
   };
 
-  const handleDeleteRecipe = () => {
-    if (!deleteId) return;
-    setLoading(true);
-    staffDeleteRecipe(deleteId);
-  };
-
   const handleDeleteEquipment = (id: number) => {
     setLoading(true);
     staffDeleteEquipment(id);
@@ -91,6 +79,16 @@ export function StaffDashboard({
   const handleDeleteIngredient = (id: number) => {
     setLoading(true);
     staffDeleteIngredient(id);
+  };
+
+  const handleDeleteRecipe = () => {
+    if (!deleteId) return;
+    setLoading(true);
+    staffDeleteRecipe(deleteId);
+  };
+
+  const handleTabClick = (e: React.SyntheticEvent<EventTarget>) => {
+    setTab((e.target as HTMLInputElement).name);
   };
 
   return (

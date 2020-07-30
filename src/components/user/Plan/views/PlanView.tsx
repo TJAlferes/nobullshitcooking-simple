@@ -7,26 +7,14 @@ import ExpandedDay from './ExpandedDay/ExpandedDay';
 import './plan.css';
 
 export function PlanView({
-  twoColumnATheme,
+  expanded,
+  expandedDay,
   planName,
   recipeListsInsideDays,
-  expanded,
-  expandedDay
+  twoColumnATheme
 }: Props): JSX.Element {
   return (
     <div className="user-plan-view">
-
-      {/*<div>
-        <span>
-          <Link to="/home">Home</Link>
-          <i> > </i>
-        </span>
-        <span>
-          <Link to="/dashboard">Dashboard</Link>
-          <i> > </i>
-        </span>
-        <span>View Plan</span>
-      </div>*/}
 
       <div className={`user-plan two-column-a ${twoColumnATheme}`}>
 
@@ -59,13 +47,13 @@ export function PlanView({
                 </div>
                 <div className="monthly-plan__body">
                   {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
-                    <div key={i} className="monthly-plan__body-day">
+                    <div className="monthly-plan__body-day" key={i}>
                       <div className="body-day__content">
                         <Day
                           day={i + 1}
-                          list={recipeListsInsideDays[Number(recipeList)]}
                           expanded={expanded}
                           expandedDay={expandedDay}
+                          list={recipeListsInsideDays[Number(recipeList)]}
                         />
                       </div>
                     </div>
@@ -76,11 +64,11 @@ export function PlanView({
               <div className="expanded-day-container">
                 {expandedDay && <ExpandedDay
                   day={expandedDay}
+                  expanded={expanded}
                   list={(expanded)
                     ? recipeListsInsideDays[expandedDay]
                     : []
                   }
-                  expanded={expanded}
                 />}
               </div>
             </div>
@@ -96,9 +84,9 @@ export function PlanView({
 }
 
 type Props = {
-  twoColumnATheme: string;
-  planName: string;
-  recipeListsInsideDays: IPlannerViewData;
   expanded: boolean;
   expandedDay: number | null;
+  planName: string;
+  recipeListsInsideDays: IPlannerViewData;
+  twoColumnATheme: string;
 };

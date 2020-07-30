@@ -5,7 +5,7 @@ import { IContentType } from '../../../store/data/types';
 export default function ContentTypes({ contentTypes }: Props): JSX.Element {
   return (
     <div className="cms-content-types">
-      {contentTypes.map((contentType: any) => <div>{contentType}</div>)}
+      {contentTypes.map(contentType => <div>{contentType}</div>)}
     </div>
   );
 }

@@ -1,87 +1,96 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { History } from 'history';
+import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { authUserRegister, authUserVerify } from '../../store/auth/actions';
 import { RegisterView } from './RegisterView';
 
 export function Register({
-  message,
   authUserRegister,
   authUserVerify,
-  confirmingUser
+  confirmingUser,
+  message
 }: Props): JSX.Element {
   const history = useHistory();
 
+  const [ confirmationCode, setConfirmationCode ] = useState("");
+  const [ email, setEmail ] = useState("");
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ confirmationCode, setConfirmationCode ] = useState("");
-  const [ username, setUsername ] = useState("");
-  const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
   const [ passwordAgain, setPasswordAgain ] = useState("");
+  const [ username, setUsername ] = useState("");
 
   useEffect(() => {
     let isSubscribed = true;
+
     if (isSubscribed) {
       setFeedback(message);
       setLoading(false);
     }
+
     return () => {
       isSubscribed = false;
     };
   }, [message]);
 
-  const handleConfirmationCodeChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => setConfirmationCode((e.target as HTMLInputElement).value);
+  const handleConfirmationCodeChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setConfirmationCode((e.target as HTMLInputElement).value);
 
-  const handleUsernameChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => setUsername((e.target as HTMLInputElement).value);
+  const handleEmailChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setEmail((e.target as HTMLInputElement).value);
 
-  const handleEmailChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => setEmail((e.target as HTMLInputElement).value);
+  const handlePasswordChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setPassword((e.target as HTMLInputElement).value);
 
-  const handlePasswordChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => setPassword((e.target as HTMLInputElement).value);
-
-  const handlePasswordAgainChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => setPasswordAgain((e.target as HTMLInputElement).value);
+  const handlePasswordAgainChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setPasswordAgain((e.target as HTMLInputElement).value);
 
   const handleRegisterClick = () => {
     if (loading) return;
+
     if (!validateRegistrationInfo()) return;
+
     setLoading(true);
     authUserRegister(email, password, username, history);
   };
 
   const handleRegisterKeyUp = (e: React.KeyboardEvent) => {
     if (loading) return;
+
     if (!validateRegistrationInfo()) return;
+
     if (e.key && (e.key !== "Enter")) return;
+
     setLoading(true);
     authUserRegister(email, password, username, history);
   };
 
+  const handleUsernameChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setUsername((e.target as HTMLInputElement).value);
+
   const handleVerifyClick = () => {
     if (loading) return;
+
     if (!validateConfirmationCode()) return;
+
     setLoading(true);
     authUserVerify(email, password, confirmationCode, history);
   };
 
   const handleVerifyKeyUp = (e: React.KeyboardEvent) => {
     if (loading) return;
+
     if (!validateConfirmationCode()) return;
+
     if (e.key && (e.key !== "Enter")) return;
+    
     setLoading(true);
     authUserVerify(email, password, confirmationCode, history);
   };
+
+  const validateConfirmationCode = () => confirmationCode.length > 1;
   
   const validateRegistrationInfo = () => (
     (username.length > 1) &&
@@ -89,30 +98,28 @@ export function Register({
     (password.length > 5) &&
     (password == passwordAgain)
   );
-
-  const validateConfirmationCode = () => confirmationCode.length > 1;
   
   return (
     <RegisterView
-      feedback={feedback}
-      loading={loading}
-      confirmingUser={confirmingUser}
       confirmationCode={confirmationCode}
-      username={username}
+      confirmingUser={confirmingUser}
       email={email}
-      password={password}
-      passwordAgain={passwordAgain}
+      feedback={feedback}
       handleConfirmationCodeChange={handleConfirmationCodeChange}
-      handleUsernameChange={handleUsernameChange}
       handleEmailChange={handleEmailChange}
       handlePasswordChange={handlePasswordChange}
       handlePasswordAgainChange={handlePasswordAgainChange}
       handleRegisterClick={handleRegisterClick}
       handleRegisterKeyUp={handleRegisterKeyUp}
+      handleUsernameChange={handleUsernameChange}
       handleVerifyClick={handleVerifyClick}
       handleVerifyKeyUp={handleVerifyKeyUp}
-      validateRegistrationInfo={validateRegistrationInfo}
+      loading={loading}
+      password={password}
+      passwordAgain={passwordAgain}
+      username={username}
       validateConfirmationCode={validateConfirmationCode}
+      validateRegistrationInfo={validateRegistrationInfo}
     />
   );
 }
@@ -126,7 +133,7 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  confirmingUser: boolean
+  confirmingUser: boolean;
 };
 
 const mapStateToProps = (state: RootState) => ({message: state.auth.message});

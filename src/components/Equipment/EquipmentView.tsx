@@ -5,9 +5,9 @@ import { IEquipment } from '../../store/data/types';
 import './equipment.css';
 
 export function EquipmentView({
-  twoColumnBTheme,
+  dataMyPrivateEquipment,
   equipment,
-  dataMyPrivateEquipment
+  twoColumnBTheme
 }: Props): JSX.Element {
   return (
     <div className="equipment">
@@ -68,7 +68,7 @@ export function EquipmentView({
 }
 
 type Props = {
-  twoColumnBTheme: string;
-  equipment: IEquipment;
   dataMyPrivateEquipment: IEquipment[];
+  equipment: IEquipment;
+  twoColumnBTheme: string;
 }

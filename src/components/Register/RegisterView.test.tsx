@@ -5,45 +5,51 @@ import { LoaderButton } from '../LoaderButton/LoaderButton';
 import { RegisterView } from './RegisterView';
 
 const handleConfirmationCodeChange = jest.fn();
-const handleUsernameChange = jest.fn();
 const handleEmailChange = jest.fn();
 const handlePasswordChange = jest.fn();
 const handlePasswordAgainChange = jest.fn();
 const handleRegisterClick = jest.fn();
 const handleRegisterKeyUp = jest.fn();
+const handleUsernameChange = jest.fn();
 const handleVerifyClick = jest.fn();
 const handleVerifyKeyUp = jest.fn();
-const validateRegistrationInfo = jest.fn();
 const validateConfirmationCode = jest.fn();
+const validateRegistrationInfo = jest.fn();
+
+const initialProps = {
+  handleConfirmationCodeChange,
+  handleEmailChange,
+  handlePasswordChange,
+  handlePasswordAgainChange,
+  handleRegisterClick,
+  handleRegisterKeyUp,
+  handleUsernameChange,
+  handleVerifyClick,
+  handleVerifyKeyUp,
+  validateConfirmationCode,
+  validateRegistrationInfo
+};
 
 let wrapper: ShallowWrapper;
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('RegisterView account creation / registration', () => {
-  beforeEach(() => {
-    wrapper = shallow(
-      <RegisterView
-        feedback="Some message."
-        loading={false}
-        confirmingUser={false}
-        confirmationCode=""
-        username=""
-        email=""
-        password=""
-        passwordAgain=""
-        handleConfirmationCodeChange={handleConfirmationCodeChange}
-        handleUsernameChange={handleUsernameChange}
-        handleEmailChange={handleEmailChange}
-        handlePasswordChange={handlePasswordChange}
-        handlePasswordAgainChange={handlePasswordAgainChange}
-        handleRegisterClick={handleRegisterClick}
-        handleRegisterKeyUp={handleRegisterKeyUp}
-        handleVerifyClick={handleVerifyClick}
-        handleVerifyKeyUp={handleVerifyKeyUp}
-        validateRegistrationInfo={validateRegistrationInfo}
-        validateConfirmationCode={validateConfirmationCode}
-      />
-    );
-  });
+  wrapper = shallow(
+    <RegisterView
+      confirmationCode=""
+      confirmingUser={false}
+      email=""
+      feedback="Some message."
+      loading={false}
+      password=""
+      passwordAgain=""
+      username=""
+      {...initialProps}
+    />
+  );
 
   it('displays feedback', () => {
     expect(wrapper.find('p.register-feedback').text()).toEqual("Some message.");
@@ -71,31 +77,19 @@ describe('RegisterView account creation / registration', () => {
 });
 
 describe('RegisterView account confirmation / verification', () => {
-  beforeEach(() => {
-    wrapper = shallow(
-      <RegisterView
-        feedback="Some message."
-        loading={false}
-        confirmingUser={true}
-        confirmationCode=""
-        username=""
-        email=""
-        password=""
-        passwordAgain=""
-        handleConfirmationCodeChange={handleConfirmationCodeChange}
-        handleUsernameChange={handleUsernameChange}
-        handleEmailChange={handleEmailChange}
-        handlePasswordChange={handlePasswordChange}
-        handlePasswordAgainChange={handlePasswordAgainChange}
-        handleRegisterClick={handleRegisterClick}
-        handleRegisterKeyUp={handleRegisterKeyUp}
-        handleVerifyClick={handleVerifyClick}
-        handleVerifyKeyUp={handleVerifyKeyUp}
-        validateRegistrationInfo={validateRegistrationInfo}
-        validateConfirmationCode={validateConfirmationCode}
-      />
-    );
-  });
+  wrapper = shallow(
+    <RegisterView
+      confirmationCode=""
+      confirmingUser={true}
+      email=""
+      feedback="Some message."
+      loading={false}
+      password=""
+      passwordAgain=""
+      username=""
+      {...initialProps}
+    />
+  );
 
   it('displays feedback', () => {
     expect(wrapper.find('p.register-feedback').text()).toEqual("Some message.");

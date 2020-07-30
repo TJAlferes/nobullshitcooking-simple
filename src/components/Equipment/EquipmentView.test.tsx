@@ -4,7 +4,6 @@ import React from 'react';
 import { EquipmentView } from './EquipmentView';
 
 const initialProps = {
-  twoColumnBTheme: "light",
   dataMyPrivateEquipment: [
     {
       equipment_id: 600,
@@ -24,7 +23,8 @@ const initialProps = {
       equipment_description: "Some note.",
       equipment_image: "0123456790"
     }
-  ]
+  ],
+  twoColumnBTheme: "light",
 };
 const equipment = {
   equipment_id: 1,

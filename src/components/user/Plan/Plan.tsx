@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { IPlan } from '../../../store/data/types';
 import { plannerViewLoad } from '../../../store/plannerView/actions';
@@ -9,25 +9,22 @@ import { IPlannerViewData } from '../../../store/plannerView/types';
 import { PlanView } from './views/PlanView';
 
 export function Plan({
-  twoColumnATheme,
-  planView,
   dataMyPlans,
   expanded,
   expandedDay,
   planName,
+  plannerViewLoad,
+  planView,
   recipeListsInsideDays,
-  plannerViewLoad
+  twoColumnATheme
 }: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
 
   useEffect(() => {
     const getPlan = () => {
-      window.scrollTo(0,0);
-
-      const [ prev ] = dataMyPlans
-      .filter(plan => plan.plan_id === Number(id));
-      
+      window.scrollTo(0, 0);
+      const [ prev ] = dataMyPlans.filter(p => p.plan_id === Number(id));
       plannerViewLoad(prev.plan_name, prev.plan_data);
     };
 
@@ -40,11 +37,11 @@ export function Plan({
 
   return (
     <PlanView
-      twoColumnATheme={twoColumnATheme}
+      expanded={expanded}
+      expandedDay={expandedDay}
       planName={planName}
       recipeListsInsideDays={recipeListsInsideDays}
-      expandedDay={expandedDay}
-      expanded={expanded}
+      twoColumnATheme={twoColumnATheme}
     />
   );
 };
@@ -64,8 +61,8 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  twoColumnATheme: string;
   planView: string;
+  twoColumnATheme: string;
 }
 
 const mapStateToProps = (state: RootState) => ({

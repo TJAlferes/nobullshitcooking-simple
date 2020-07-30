@@ -1,23 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { ICuisine } from '../../store/data/types';
 import './cuisines.css';
 
 export function Cuisines({
-  oneColumnATheme,
-  dataCuisines
+  dataCuisines,
+  oneColumnATheme
 }: Props): JSX.Element {
   const alphabetizedCuisines = dataCuisines
   .reduce((acc: AlphabetizedCuisines, cuisine) => {
     const firstLetter = cuisine['cuisine_nation'][0].toLocaleUpperCase();
+
     if (acc[firstLetter]) acc[firstLetter].push(cuisine['cuisine_nation']);
     else acc[firstLetter] = [cuisine['cuisine_nation']];
+
     return acc;
   }, {});
+
   const letters = Object.keys(alphabetizedCuisines);
   const nations: any[] = Object.values(alphabetizedCuisines);
+
   let i = 0;
 
   return (
@@ -48,14 +52,14 @@ export function Cuisines({
 
 interface RootState {
   data: {
-    cuisines: ICuisine[]
+    cuisines: ICuisine[];
   };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  oneColumnATheme: string
+  oneColumnATheme: string;
 };
 
 type AlphabetizedCuisines = {

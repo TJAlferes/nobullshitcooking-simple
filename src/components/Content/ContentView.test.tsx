@@ -4,8 +4,8 @@ import React from 'react';
 import { ContentView } from './ContentView';
 
 const initialProps = {
-  oneColumnATheme: "light",
-  contents: [{type: 'paragraph', children: [{text: 'Some text.'}]}]
+  contents: [{type: 'paragraph', children: [{text: 'Some text.'}]}],
+  oneColumnATheme: "light"
 };
 
 describe ('ContentView', () => {

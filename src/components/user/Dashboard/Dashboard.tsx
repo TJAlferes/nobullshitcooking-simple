@@ -73,51 +73,24 @@ export function Dashboard({
 
   useEffect(() => {
     let isSubscribed = true;
+
     if (isSubscribed) {
-      if (message !== "") window.scrollTo(0,0);
+      if (message !== "") window.scrollTo(0, 0);
+
       deactivateModal();
       setFeedback(message);
       setLoading(false);
     }
+
     return () => {
       isSubscribed = false;
     };
   }, [message]);
 
-  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (!(target.files && target.files.length > 0)) return;
-    const reader = new FileReader();
-    reader.addEventListener("load", () => setAvatar(reader.result));
-    reader.readAsDataURL(target.files[0]);
-  };
-
-  const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
-
-  const onCropChange = (crop: Crop) => setCrop(crop);
-
-  const onCropComplete = (crop: Crop) => makeClientCrops(crop);
-
-  const makeClientCrops = async (crop: Crop) => {
-    if (!imageRef || !imageRef.current) return;
-    if (!crop.width) return;
-    const full = await getCroppedImage(
-      250, 250, imageRef.current, crop, "newFile.jpeg"
-    );
-    const tiny = await getCroppedImage(
-      25, 25, imageRef.current, crop, "newFile.jpeg"
-    );
-    if (!full || !tiny) return;
-    setCropFullSizePreview(full.resizedPreview);
-    setCropTinySizePreview(tiny.resizedPreview);
-    setFullAvatar(full.resizedFinal);
-    setTinyAvatar(tiny.resizedFinal);
-  };
-  
-  const submitAvatar = () => {
-    setLoading(true);
-    userSubmitAvatar(fullAvatar, tinyAvatar);
-    authUpdateLocalAvatar(authname);
+  const activateModal = (id: number, name: string) => {
+    setDeleteId(id);
+    setDeleteName(name);
+    setModalActive(true);
   };
 
   const cancelAvatar = () => {
@@ -126,20 +99,6 @@ export function Dashboard({
     setAvatar(null)
     setFullAvatar(null);
     setTinyAvatar(null);
-  };
-
-  const handleTabClick = (e: React.SyntheticEvent<EventTarget>) => {
-    setTab((e.target as HTMLInputElement).name);
-  };
-
-  const handleSubTabClick = (e: React.SyntheticEvent<EventTarget>) => {
-    setSubTab((e.target as HTMLInputElement).name);
-  };
-
-  const activateModal = (id: number, name: string) => {
-    setDeleteId(id);
-    setDeleteName(name);
-    setModalActive(true);
   };
 
   const deactivateModal = () => {
@@ -180,6 +139,14 @@ export function Dashboard({
     userDisownPublicRecipe(deleteId);
   };
 
+  const handleSubTabClick = (e: React.SyntheticEvent<EventTarget>) => {
+    setSubTab((e.target as HTMLInputElement).name);
+  };
+
+  const handleTabClick = (e: React.SyntheticEvent<EventTarget>) => {
+    setTab((e.target as HTMLInputElement).name);
+  };
+
   const handleUnfavoriteRecipe = (id: number) => {
     setLoading(true);
     userUnfavoriteRecipe(id);
@@ -190,48 +157,92 @@ export function Dashboard({
     userUnsaveRecipe(id);
   };
 
+  const makeClientCrops = async (crop: Crop) => {
+    if (!imageRef || !imageRef.current) return;
+
+    if (!crop.width) return;
+
+    const full = await getCroppedImage(
+      250, 250, imageRef.current, crop, "newFile.jpeg"
+    );
+
+    const tiny = await getCroppedImage(
+      25, 25, imageRef.current, crop, "newFile.jpeg"
+    );
+
+    if (!full || !tiny) return;
+
+    setCropFullSizePreview(full.resizedPreview);
+    setCropTinySizePreview(tiny.resizedPreview);
+    setFullAvatar(full.resizedFinal);
+    setTinyAvatar(tiny.resizedFinal);
+  };
+
+  const onCropChange = (crop: Crop) => setCrop(crop);
+
+  const onCropComplete = (crop: Crop) => makeClientCrops(crop);
+
+  const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
+
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+
+    if (!(target.files && target.files.length > 0)) return;
+
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => setAvatar(reader.result));
+    reader.readAsDataURL(target.files[0]);
+  };
+
+  const submitAvatar = () => {
+    setLoading(true);
+    userSubmitAvatar(fullAvatar, tinyAvatar);
+    authUpdateLocalAvatar(authname);
+  };
+
   return (
     <DashboardView
-      twoColumnATheme={twoColumnATheme}
+      activateModal={activateModal}
       authname={authname}
       avatar={avatar}
-      currentAvatar={currentAvatar}
-      feedback={feedback}
-      loading={loading}
+      cancelAvatar={cancelAvatar}
       creatingPlan={creatingPlan}
-      editingId={editingId}
-      onSelectFile={onSelectFile}
-      onImageLoaded={onImageLoaded}
       crop={crop}
       cropFullSizePreview={cropFullSizePreview}
       cropTinySizePreview={cropTinySizePreview}
+      currentAvatar={currentAvatar}
+      deactivateModal={deactivateModal}
+      deleteName={deleteName}
+      editingId={editingId}
+      feedback={feedback}
+      getApplicationNode={getApplicationNode}
+      handleDeletePlan={handleDeletePlan}
+      handleDeletePrivateEquipment={handleDeletePrivateEquipment}
+      handleDeletePrivateIngredient={handleDeletePrivateIngredient}
+      handleDeletePrivateRecipe={handleDeletePrivateRecipe}
+      handleDisownPublicRecipe={handleDisownPublicRecipe}
+      handleSubTabClick={handleSubTabClick}
+      handleTabClick={handleTabClick}
+      handleUnfavoriteRecipe={handleUnfavoriteRecipe}
+      handleUnsaveRecipe={handleUnsaveRecipe}
+      loading={loading}
+      modalActive={modalActive}
+      myFavoriteRecipes={myFavoriteRecipes}
+      myPlans={myPlans}
+      myPrivateEquipment={myPrivateEquipment}
+      myPrivateIngredients={myPrivateIngredients}
+      myPrivateRecipes={myPrivateRecipes}
+      myPublicRecipes={myPublicRecipes}
+      mySavedRecipes={mySavedRecipes}
       onCropChange={onCropChange}
       onCropComplete={onCropComplete}
+      onImageLoaded={onImageLoaded}
+      onSelectFile={onSelectFile}
       submitAvatar={submitAvatar}
-      cancelAvatar={cancelAvatar}
-      tab={tab}
-      handleTabClick={handleTabClick}
       subTab={subTab}
-      handleSubTabClick={handleSubTabClick}
-      getApplicationNode={getApplicationNode}
-      myPlans={myPlans}
-      modalActive={modalActive}
-      activateModal={activateModal}
-      deactivateModal={deactivateModal}
-      deletePlanName={deletePlanName}
-      handleDeletePlan={handleDeletePlan}
-      myPrivateRecipes={myPrivateRecipes}
-      handleDeletePrivateRecipe={handleDeletePrivateRecipe}
-      myPublicRecipes={myPublicRecipes}
-      handleDisownPublicRecipe={handleDisownPublicRecipe}
-      myFavoriteRecipes={myFavoriteRecipes}
-      handleUnfavoriteRecipe={handleUnfavoriteRecipe}
-      mySavedRecipes={mySavedRecipes}
-      handleUnsaveRecipe={handleUnsaveRecipe}
-      myPrivateIngredients={myPrivateIngredients}
-      handleDeletePrivateIngredient={handleDeletePrivateIngredient}
-      myPrivateEquipment={myPrivateEquipment}
-      handleDeletePrivateEquipment={handleDeletePrivateEquipment}
+      tab={tab}
+      twoColumnATheme={twoColumnATheme}
     />
   );
 };
@@ -245,12 +256,12 @@ interface RootState {
     message: string;
   };
   data: {
+    myFavoriteRecipes: IWorkRecipe[];
     myPlans: IPlan[];
     myPublicRecipes: IWorkRecipe[];
     myPrivateEquipment: IEquipment[];
     myPrivateIngredients: IIngredient[];
     myPrivateRecipes: IWorkRecipe[];
-    myFavoriteRecipes: IWorkRecipe[];
     mySavedRecipes: IWorkRecipe[];
   };
   planner: {
@@ -266,31 +277,31 @@ type Props = PropsFromRedux & {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  message: state.user.message,
   authname: state.auth.authname,
+  creatingPlan: state.planner.creating,
   currentAvatar: state.auth.avatar,
+  editingId: state.planner.editingId,
+  message: state.user.message,
+  myFavoriteRecipes: state.data.myFavoriteRecipes,
   myPlans: state.data.myPlans,
-  myPublicRecipes: state.data.myPublicRecipes,
   myPrivateEquipment: state.data.myPrivateEquipment,
   myPrivateIngredients: state.data.myPrivateIngredients,
   myPrivateRecipes: state.data.myPrivateRecipes,
-  myFavoriteRecipes: state.data.myFavoriteRecipes,
-  mySavedRecipes: state.data.mySavedRecipes,
-  creatingPlan: state.planner.creating,
-  editingId: state.planner.editingId
+  myPublicRecipes: state.data.myPublicRecipes,
+  mySavedRecipes: state.data.mySavedRecipes
 });
 
 const mapDispatchToProps = {
   authUpdateLocalAvatar: (name: string) => authUpdateLocalAvatar(name),
-  userSubmitAvatar: (fullAvatar: File | null, tinyAvatar: File | null) =>
-    userSubmitAvatar(fullAvatar, tinyAvatar),
   userDeletePlan: (id: number) => userDeletePlan(id),
+  userDeletePrivateEquipment: (id: number) => userDeletePrivateEquipment(id),
+  userDeletePrivateIngredient: (id: number) => userDeletePrivateIngredient(id),
   userDeletePrivateRecipe: (id: number) => userDeletePrivateRecipe(id),
   userDisownPublicRecipe: (id: number) => userDisownPublicRecipe(id),
+  userSubmitAvatar: (fullAvatar: File | null, tinyAvatar: File | null) =>
+    userSubmitAvatar(fullAvatar, tinyAvatar),
   userUnfavoriteRecipe: (id: number) => userUnfavoriteRecipe(id),
   userUnsaveRecipe: (id: number) => userUnsaveRecipe(id),
-  userDeletePrivateEquipment: (id: number) => userDeletePrivateEquipment(id),
-  userDeletePrivateIngredient: (id: number) => userDeletePrivateIngredient(id)
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

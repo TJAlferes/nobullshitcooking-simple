@@ -7,23 +7,20 @@ import { Register } from './Register';
 const authUserRegister = jest.fn();
 const authUserVerify = jest.fn();
 
+const initialProps = {
+  authUserRegister,
+  authUserVerify,
+  confirmingUser: false,
+  message: "Some message."
+};
+
 let wrapper: ReactWrapper;
 
 beforeEach(() => {
-  wrapper = mount(
-    <MemoryRouter>
-      <Register
-        message="Some message."
-        authUserRegister={authUserRegister}
-        authUserVerify={authUserVerify}
-        confirmingUser={false}
-      />
-    </MemoryRouter>
-  );
+  wrapper = mount(<MemoryRouter><Register {...initialProps} /></MemoryRouter>);
 });
 
 afterEach(() => {
-  //jest.resetModules();
   jest.clearAllMocks();
 });
 

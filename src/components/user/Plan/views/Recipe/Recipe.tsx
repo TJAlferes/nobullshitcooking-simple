@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { IPlannerViewRecipe } from '../../../../../store/plannerView/types';
-import './recipe.css';  // use BEM
+import './recipe.css';
 
 export function Recipe({ recipe }: Props): JSX.Element {
   return (
@@ -12,7 +12,8 @@ export function Recipe({ recipe }: Props): JSX.Element {
       </div>
       <div className="planner_recipe_text">
         <Link
-          to={Number(recipe.owner_id) === 1
+          to={
+            Number(recipe.owner_id) === 1
             ? `/recipes/${recipe.recipe_id}`
             : `/user-recipes/${recipe.recipe_id}`
           }

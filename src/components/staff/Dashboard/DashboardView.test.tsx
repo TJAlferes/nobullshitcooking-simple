@@ -3,38 +3,44 @@ import React from 'react';
 
 import { DashboardView } from './DashboardView';
 
+const activateModal = jest.fn();
+const deactivateModal = jest.fn();
+const getApplicationNode = jest.fn();
+const handleDeleteContent = jest.fn();
+const handleDeleteEquipment = jest.fn();
+const handleDeleteIngredient = jest.fn();
+const handleDeleteRecipe = jest.fn();
+const handleTabClick = jest.fn();
+
 const initialProps = {
-  oneColumnATheme: "light",
-  authname,
-  feedback,
-  loading,
-  creatingContent,
-  editingId,
-  tab,
-  handleTabClick,
+  activateModal,
+  authname: "Person",
+  content: [],
+  creatingContent: false,
+  deactivateModal,
+  deleteName: "",
+  editingId: null,
+  equipment: [],
+  feedback: "Some message.",
   getApplicationNode,
-  content,
-  deleteContentModalActive,
-  activateDeleteContentModal,
-  deactivateDeleteContentModal,
-  deleteContentName,
   handleDeleteContent,
-  recipes,
-  deleteRecipeModalActive,
-  activateDeleteRecipeModal,
-  deactivateDeleteRecipeModal,
-  deleteRecipeName,
-  handleDeleteRecipe,
-  ingredients,
+  handleDeleteEquipment,
   handleDeleteIngredient,
-  equipment,
-  handleDeleteEquipment
+  handleDeleteRecipe,
+  handleTabClick,
+  ingredients: [],
+  loading: false,
+  modalActive: false,
+  oneColumnATheme: "light",
+  recipes: [],
+  tab: "content"
 };
 
 describe('DashboardView', () => {
   const wrapper = shallow(<DashboardView {...initialProps} />);
 
   it ('displays a h1 element with text COOK EAT WIN REPEAT', () => {
-
+    expect(wrapper.find('h1.staff-dashboard-heading-one').text())
+    .toEqual("COOK EAT WIN REPEAT");
   });
 });

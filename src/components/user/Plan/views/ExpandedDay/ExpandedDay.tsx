@@ -6,11 +6,11 @@ import { IPlannerViewRecipe } from '../../../../../store/plannerView/types';
 import { Recipe } from '../Recipe/Recipe';
 
 export function ExpandedDay({
-  list,
-  expanded,
   day,
+  expanded,
+  list,
   plannerViewClickDay
-}: Props): JSX.Element|null {
+}: Props): JSX.Element | null {
   const handleClickDay = () => plannerViewClickDay(day);
 
   return expanded
@@ -20,7 +20,7 @@ export function ExpandedDay({
       onClick={handleClickDay}
     >
       <span className="the_date">{day}</span>
-      {list.map((recipe: IPlannerViewRecipe) => <Recipe recipe={recipe} />)}
+      {list.map(recipe => <Recipe recipe={recipe} />)}
     </div>
   )
   : null;
@@ -30,8 +30,8 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   day: number;
-  list: IPlannerViewRecipe[];
   expanded: boolean;
+  list: IPlannerViewRecipe[];
 };
 
 const mapDispatchToProps = {

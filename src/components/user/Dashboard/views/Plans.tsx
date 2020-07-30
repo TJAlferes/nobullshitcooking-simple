@@ -8,7 +8,7 @@ export function Plans({
   activateModal,
   creatingPlan,
   deactivateModal,
-  deletePlanName,
+  deleteName,
   editingId,
   getApplicationNode,
   handleDeletePlan,
@@ -52,7 +52,7 @@ export function Plans({
             underlayClickExits={false}
           >
             <p className="plan-delete-prompt">
-              {'Delete Plan: '}{deletePlanName}{' ?'}
+              {'Delete Plan: '}{deleteName}{' ?'}
             </p>
             <button
               className="plan-delete-cancel-button"
@@ -112,7 +112,7 @@ type Props = {
   activateModal(id: number, name: string): void;
   creatingPlan: boolean;
   deactivateModal(): void;
-  deletePlanName: string;
+  deleteName: string;
   editingId: number | null;
   getApplicationNode(): Element | Node;
   handleDeletePlan(): void;

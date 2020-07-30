@@ -33,14 +33,9 @@ export default function Content({ oneColumnATheme }: Props): JSX.Element {
 
   return !contents
   ? <LoaderSpinner />
-  : (
-    <ContentView
-      oneColumnATheme={oneColumnATheme}
-      contents={contents}
-    />
-  );
+  : <ContentView contents={contents} oneColumnATheme={oneColumnATheme} />;
 }
 
-interface Props {
-  oneColumnATheme: string
-}
+type Props = {
+  oneColumnATheme: string;
+};

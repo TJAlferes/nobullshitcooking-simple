@@ -1,12 +1,9 @@
-import { shallow, ShallowWrapper } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 import { CuisineView } from './CuisineView';
 
-const handleShowNearbyStoresClick = jest.fn();
-const handleTabChange = jest.fn();
-
-let cuisine = {
+const cuisine = {
   cuisine_id: 1,
   cuisine_name: "Italian",
   cuisine_nation: "Italy",
@@ -14,42 +11,37 @@ let cuisine = {
   //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation}
   cuisine_wiki: "Italian_cuisine",
   cuisine_intro: "",
-  cuisine_suppliers: [
-    {supplier_id: 14, supplier_name: "Amazing Italian Foods"}
-  ],
-  cuisine_equipment: [
-    {equipment_id: 1, equipment_name: "Pot"}
-  ],
-  cuisine_ingredients: [
-    {ingredient_id: 1, ingredient_name: "White Onion"}
-  ],
+  cuisine_equipment: [{equipment_id: 1, equipment_name: "Pot"}],
+  cuisine_ingredients: [{ingredient_id: 1, ingredient_name: "White Onion"}],
+  cuisine_plans: [{plan_id: 3320, plan_name: "Italian Plan", author_id: 1}],
   cuisine_recipes: [
     {recipe_id: 1, title: "Something"},
     {recipe_id: 2, title: "Something Else"}
   ],
-  cuisine_plans: [
-    {plan_id: 3320, plan_name: "Italian Plan", author_id: 1}
-  ]
+  cuisine_suppliers: [{supplier_id: 14, supplier_name: "Amazing Italian Foods"}]
 };
 
-let wrapper: ShallowWrapper;
+const handleShowNearbyStoresClick = jest.fn();
+const handleTabChange = jest.fn();
+
+const initialProps = {
+  address: "",
+  cuisine,
+  handleShowNearbyStoresClick,
+  handleTabChange,
+  latitude: "",
+  longitude: "",
+  nearbyStoresClicked: false,
+  oneColumnATheme: "light",
+  tab: "intro"
+};
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('CuisineView', () => {
-  beforeEach(() => {
-    wrapper = shallow(
-      <CuisineView
-        oneColumnATheme="light"
-        cuisine={cuisine}
-        tab="intro"
-        nearbyStoresClicked={false}
-        address=""
-        latitude=""
-        longitude=""
-        handleTabChange={handleTabChange}
-        handleShowNearbyStoresClick={handleShowNearbyStoresClick}
-      />
-    );
-  });
+  const wrapper = shallow(<CuisineView {...initialProps} />);
 
   it('displays a button element with text Intro', () => {
     expect(wrapper.find('button.cuisine-tab[name="intro"]').text())

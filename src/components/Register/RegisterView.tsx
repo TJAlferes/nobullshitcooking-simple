@@ -5,25 +5,25 @@ import { LoaderButton } from '../LoaderButton/LoaderButton';
 import './register.css';
 
 export function RegisterView({
+  confirmationCode,
+  confirmingUser,
+  email,
   feedback,
   loading,
-  confirmingUser,
-  confirmationCode,
-  username,
-  email,
-  password,
-  passwordAgain,
   handleConfirmationCodeChange,
-  handleUsernameChange,
   handleEmailChange,
   handlePasswordChange,
   handlePasswordAgainChange,
   handleRegisterClick,
   handleRegisterKeyUp,
+  handleUsernameChange,
   handleVerifyClick,
   handleVerifyKeyUp,
-  validateRegistrationInfo,
-  validateConfirmationCode
+  password,
+  passwordAgain,
+  username,
+  validateConfirmationCode,
+  validateRegistrationInfo
 }: Props): JSX.Element {
   const registerForm = () => (
     <form className="register-form">
@@ -31,67 +31,67 @@ export function RegisterView({
       <p className="register-feedback">{feedback}</p>
       <label className="register-label">Username</label>
       <input
-        className="register-input"
-        type="text"
-        name="username"
-        id="username"
-        size={20}
-        maxLength={20}
-        autoFocus
         autoComplete="username"
-        value={username}
-        onChange={handleUsernameChange}
+        autoFocus
+        className="register-input"
         disabled={loading}
+        id="username"
+        maxLength={20}
+        name="username"
+        onChange={handleUsernameChange}
+        size={20}
+        type="text"
+        value={username}
       />
       <label className="register-label">Email</label>
       <input
-        className="register-input"
-        type="email"
-        name="email"
-        id="email"
-        size={20}
-        maxLength={60}
         autoComplete="email"
-        value={email}
-        onChange={handleEmailChange}
+        className="register-input"
         disabled={loading}
+        id="email"
+        maxLength={60}
+        name="email"
+        onChange={handleEmailChange}
+        size={20}
+        type="email"
+        value={email}
       />
       <label className="register-label">Password</label>
       <input
-        className="register-input"
-        type="password"
-        name="password"
-        id="password"
-        size={20}
-        maxLength={20}
         autoComplete="current-password"
-        value={password}
-        onChange={handlePasswordChange}
+        className="register-input"
         disabled={loading}
+        id="password"
+        maxLength={20}
+        name="password"
+        onChange={handlePasswordChange}
+        size={20}
+        type="password"
+        value={password}
       />
       <label className="register-label">Password Again</label>
       <input
-        className="register-input"
-        type="password"
-        name="passwordAgain"
-        id="passwordAgain"
-        size={20}
-        maxLength={20}
         autoComplete="current-password"
-        value={passwordAgain}
-        onChange={handlePasswordAgainChange}
+        className="register-input"
         disabled={loading}
+        id="passwordAgain"
+        maxLength={20}
+        name="passwordAgain"
+        onChange={handlePasswordAgainChange}
+        size={20}
+        type="password"
+        value={passwordAgain}
       />
       <LoaderButton
         className="create-account-button"
-        name="submit"
-        id="create_account_button"
-        text="Create Account"
-        loadingText="Creating Account..."
-        isLoading={loading}
         disabled={!validateRegistrationInfo()}
+        id="create_account_button"
+        isLoading={loading}
+        loadingText="Creating Account..."
+        name="submit"
         onClick={handleRegisterClick}
         onKeyUp={handleRegisterKeyUp}
+        text="Create Account"
       />
     </form>
   );
@@ -102,29 +102,29 @@ export function RegisterView({
       <p className="register-feedback">{feedback}</p>
       <label className="register-label">Code</label>
       <input
-        className="register-input"
-        type="text"
-        name="confirmationCode"
-        id="confirmationCode"
-        size={20}
-        maxLength={20}
-        autoFocus
         autoComplete="confirmation-code"
-        value={confirmationCode}
-        onChange={handleConfirmationCodeChange}
+        autoFocus
+        className="register-input"
         disabled={loading}
+        id="confirmationCode"
+        maxLength={20}
+        name="confirmationCode"
+        onChange={handleConfirmationCodeChange}
+        size={20}
+        type="text"
+        value={confirmationCode}
       />
       <p>Please check your email for the confirmation code.</p>
       <LoaderButton
         className="verify-confirmation-code-button"
-        name="submit"
-        id="verify_confirmation_code_button"
-        text="Verify"
-        loadingText="Verifying..."
-        isLoading={loading}
         disabled={!validateConfirmationCode()}
+        id="verify_confirmation_code_button"
+        isLoading={loading}
+        loadingText="Verifying..."
+        name="submit"
         onClick={handleVerifyClick}
         onKeyUp={handleRegisterKeyUp}
+        text="Verify"
       />
     </form>
   );
@@ -165,23 +165,23 @@ export function RegisterView({
 }
 
 type Props = {
+  confirmationCode: string;
+  confirmingUser: boolean;
+  email: string;
   feedback: string;
   loading: boolean;
-  confirmingUser: boolean;
-  confirmationCode: string;
-  username: string;
-  email: string;
-  password: string;
-  passwordAgain: string;
   handleConfirmationCodeChange(e: React.SyntheticEvent<EventTarget>): void;
-  handleUsernameChange(e: React.SyntheticEvent<EventTarget>): void;
   handleEmailChange(e: React.SyntheticEvent<EventTarget>): void;
   handlePasswordChange(e: React.SyntheticEvent<EventTarget>): void;
   handlePasswordAgainChange(e: React.SyntheticEvent<EventTarget>): void;
   handleRegisterClick(): void;
   handleRegisterKeyUp(e: React.KeyboardEvent): void;
+  handleUsernameChange(e: React.SyntheticEvent<EventTarget>): void;
   handleVerifyClick(): void;
   handleVerifyKeyUp(e: React.KeyboardEvent): void;
-  validateRegistrationInfo(): boolean;
+  password: string;
+  passwordAgain: string;
+  username: string;
   validateConfirmationCode(): boolean;
+  validateRegistrationInfo(): boolean;
 };

@@ -1,17 +1,12 @@
-import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
+import { mount } from 'enzyme';
+import React from 'react';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 
-import { ICuisine } from '../../store/data/types';
 import { Cuisine } from './Cuisine';
 import { CuisineView } from './CuisineView';
 
-const dataCuisines = [
-  {cuisine_id: 1, cuisine_name: "Chinese", cuisine_nation: "China"},
-  {cuisine_id: 2, cuisine_name: "Italian", cuisine_nation: "Italy"}
-];
 const cuisine = {
   cuisine_id: 1,
   cuisine_name: "Italian",
@@ -20,30 +15,22 @@ const cuisine = {
   //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation} don't put in here, just put in markup
   cuisine_wiki: "Italian_cuisine",
   cuisine_intro: "",
-  cuisine_suppliers: [
-    {supplier_id: 14, supplier_name: "Amazing Italian Foods"}
-  ],
-  cuisine_equipment: [
-    {equipment_id: 1, equipment_name: "Pot"}
-  ],
-  cuisine_ingredients: [
-    {ingredient_id: 1, ingredient_name: "White Onion"}
-  ],
+  cuisine_equipment: [{equipment_id: 1, equipment_name: "Pot"}],
+  cuisine_ingredients: [{ingredient_id: 1, ingredient_name: "White Onion"}],
   cuisine_recipes: [
     {recipe_id: 1, title: "Something"},
     {recipe_id: 2, title: "Something Else"}
-  ]
-};
-const initialProps: {
-  oneColumnATheme: string;
-  dataCuisines: ICuisine[];
-} = {
-  oneColumnATheme: "light",
-  dataCuisines
+  ],
+  cuisine_suppliers: [{supplier_id: 14, supplier_name: "Amazing Italian Foods"}]
 };
 
-// don't use, if possible, this is a big anti-pattern, find something better
-//const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const initialProps = {
+  dataCuisines: [
+    {cuisine_id: 1, cuisine_name: "Chinese", cuisine_nation: "China"},
+    {cuisine_id: 2, cuisine_name: "Italian", cuisine_nation: "Italy"}
+  ],
+  oneColumnATheme: "light"
+};
 
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom');
@@ -71,7 +58,9 @@ describe('Cuisine', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({})};
     });
+
     mount(<MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>);
+
     expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 
@@ -80,7 +69,9 @@ describe('Cuisine', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({id: "999"})};
     });
+
     mount(<MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>);
+
     expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
   });
 
@@ -89,9 +80,11 @@ describe('Cuisine', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({id: "1"})};
     });
+
     const wrapper = mount(
       <MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>
     );
+
     await act(async () => {
       Promise.resolve(() => {
         setImmediate(() => wrapper.update());
@@ -105,9 +98,11 @@ describe('Cuisine', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({id: "1"})};
     });
+
     const wrapper = mount(
       <MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>
     );
+
     await act(async () => {
       Promise.resolve(() => {
         setImmediate(() => wrapper.update());

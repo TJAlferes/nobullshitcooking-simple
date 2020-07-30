@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import {
   Facet,
-  PagingInfo,
   Paging,
+  PagingInfo,
   ResultsPerPage,
   withSearch
 } from '@elastic/react-search-ui';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import './equipments.css';
@@ -61,10 +61,6 @@ export function SearchResultsEquipment({
               Filter equipment by:
             </span>
             <Facet
-              field="equipment_type_name"
-              label="Equipment Types"
-              filterType="any"
-              show={5}
               facets={{
                 equipment_type_name: [
                   {
@@ -80,6 +76,10 @@ export function SearchResultsEquipment({
                   }
                 ]
               }}
+              field="equipment_type_name"
+              filterType="any"
+              label="Equipment Types"
+              show={5}
             />
           </div>
         </ExpandCollapse>

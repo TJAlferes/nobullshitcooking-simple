@@ -7,9 +7,9 @@ import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { EquipmentView } from './EquipmentView';
 
 export function Equipment({
-  twoColumnBTheme,
   dataEquipment,
-  dataMyPrivateEquipment
+  dataMyPrivateEquipment,
+  twoColumnBTheme
 }: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
@@ -23,8 +23,8 @@ export function Equipment({
     }
 
     const localEquipment = (
-      dataEquipment.find(equ => equ.equipment_id == Number(id)) ||
-      dataMyPrivateEquipment.find(equ => equ.equipment_id == Number(id))
+      dataEquipment.find(e => e.equipment_id == Number(id)) ||
+      dataMyPrivateEquipment.find(e => e.equipment_id == Number(id))
     );
 
     if (!localEquipment) {
@@ -39,9 +39,9 @@ export function Equipment({
   ? <LoaderSpinner />
   : (
     <EquipmentView
-      twoColumnBTheme={twoColumnBTheme}
-      equipment={equipment}
       dataMyPrivateEquipment={dataMyPrivateEquipment}
+      equipment={equipment}
+      twoColumnBTheme={twoColumnBTheme}
     />
   );
 }
@@ -50,7 +50,7 @@ interface RootState {
   data: {
     equipment: IEquipment[];
     myPrivateEquipment: IEquipment[];
-  }
+  };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -64,6 +64,6 @@ const mapStateToProps = (state: RootState) => ({
   dataMyPrivateEquipment: state.data.myPrivateEquipment
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {});
 
 export default connector(Equipment);
