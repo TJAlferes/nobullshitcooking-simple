@@ -7,7 +7,7 @@ import { Menu } from './Menu';
 
 const wrapper = mount(
   <MemoryRouter>
-    <Menu theme="drop-down-menu-light" menuItems={foodMenuData} />
+    <Menu menuItems={foodMenuData} theme="drop-down-menu-light" />
   </MemoryRouter>
 );
 
@@ -19,4 +19,4 @@ describe('Menu', () => {
   it('needs testing', () => {
     
   });
-}); 
+});

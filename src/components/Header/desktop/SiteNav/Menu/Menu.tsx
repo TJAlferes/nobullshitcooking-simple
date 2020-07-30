@@ -11,17 +11,17 @@ https://github.com/jasonslyvia/react-menu-aim
 https://github.com/kamens/jQuery-menu-aim
 */
 
-const MOUSE_LOCS_TRACKED = 3;  // number of past mouse locations to track
 const DELAY = 300;  //200      // ms delay when user appears to be entering submenu
+const MOUSE_LOCS_TRACKED = 3;  // number of past mouse locations to track
 const TOLERANCE = 75;  //50    // bigger = more forgivey when entering submenu
 
-let menuTimer: ReturnType<typeof setTimeout>|null;
+let lastDelayLoc: IMouseLocation | null;
 let mouseLocs: IMouseLocation[] = [];
-let lastDelayLoc: IMouseLocation|null;
+let menuTimer: ReturnType<typeof setTimeout> | null;
 
 function offset(el: HTMLElement|null) {
   if (!el) return {left: 0, top: 0};
-  let rect = el.getBoundingClientRect();
+  const rect = el.getBoundingClientRect();
   return {
     left: rect.left + document.body.scrollLeft,
     top: rect.top + document.body.scrollTop,
@@ -30,48 +30,49 @@ function offset(el: HTMLElement|null) {
 
 function outerWidth(el: HTMLElement|null) {
   if (!el) return;
+  const style = getComputedStyle(el);  // el.currentStyle ||
   let _width = el.offsetWidth;
-  let style = getComputedStyle(el);  // el.currentStyle ||
   _width += (parseInt(style.marginLeft, 10) || 0);
   return _width;
 }
 
 function outerHeight(el: HTMLElement|null) {
   if (!el) return;
+  const style = getComputedStyle(el);  // el.currentStyle ||
   let _height = el.offsetHeight;
-  let style = getComputedStyle(el);  // el.currentStyle ||
   _height += (parseInt(style.marginLeft, 10) || 0);
   return _height;
 }
 
 function getActivateDelay() {
   // findDOMNode? ref? useRef? forwardRef?
-  let menu: HTMLElement|null = document.querySelector('.menu');
+  const menu: HTMLElement | null = document.querySelector('.menu');
   if (!menu) return 0;
 
-  let menuOffset = offset(menu);
-  let menuOuterWidth = outerWidth(menu);
-  let menuOuterHeight = outerHeight(menu);
+  const menuOffset = offset(menu);
+  const menuOuterHeight = outerHeight(menu);
+  const menuOuterWidth = outerWidth(menu);
+
   if (!menuOuterWidth || !menuOuterHeight) return 0;
 
-  let upperLeft = {
+  const upperLeft = {
     x: menuOffset.left,
     y: menuOffset.top - TOLERANCE
   };
-  let upperRight = {
+  const upperRight = {
     x: menuOffset.left + menuOuterWidth,
     y: upperLeft.y
   };
-  let lowerLeft = {
+  const lowerLeft = {
     x: menuOffset.left,
     y: menuOffset.top + menuOuterHeight + TOLERANCE
   };
-  let lowerRight = {
+  const lowerRight = {
     x: menuOffset.left + menuOuterWidth,
     y: lowerLeft.y
   };
 
-  let loc = mouseLocs[mouseLocs.length - 1];
+  const loc = mouseLocs[mouseLocs.length - 1];
   if (!loc) return 0;
 
   let prevLoc = mouseLocs[0];
@@ -98,12 +99,12 @@ function getActivateDelay() {
     return (b.y - a.y) / (b.x - a.x);
   }
 
-  let decreasingCorner = upperRight;
-  let increasingCorner = lowerRight;
-  let decreasingSlope = slope(loc, decreasingCorner);
-  let increasingSlope = slope(loc, increasingCorner);
-  let prevDecreasingSlope = slope(prevLoc, decreasingCorner);
-  let prevIncreasingSlope = slope(prevLoc, increasingCorner);
+  const decreasingCorner = upperRight;
+  const increasingCorner = lowerRight;
+  const decreasingSlope = slope(loc, decreasingCorner);
+  const increasingSlope = slope(loc, increasingCorner);
+  const prevDecreasingSlope = slope(prevLoc, decreasingCorner);
+  const prevIncreasingSlope = slope(prevLoc, increasingCorner);
 
   if (
     decreasingSlope < prevDecreasingSlope &&
@@ -118,34 +119,22 @@ function getActivateDelay() {
   return 0;
 }
 
-export function Menu({ theme, menuItems }: Props): JSX.Element {
-  const [ activeMenuRow, setActiveMenuRow ] = useState<undefined|number>();
+export function Menu({ menuItems, theme }: Props): JSX.Element {
+  const [ activeMenuRow, setActiveMenuRow ] = useState<undefined | number>();
 
   useLayoutEffect(() => {  // useRef? forwardRef?
     document.addEventListener('mousemove', handleMouseMoveDocument, false);
+
     return () => {
       document.removeEventListener('mousemove', handleMouseMoveDocument);
+
       mouseLocs = [];
+
       if (menuTimer) clearTimeout(menuTimer);
+
       menuTimer = null;
     };
   });
-
-  const possiblyActivate = (row: number) => {
-    const delay = getActivateDelay();
-    if (delay) {
-      menuTimer = setTimeout(() => {
-        possiblyActivate(row);
-      }, delay);
-      return;
-    }
-    setActiveMenuRow(row);
-  };
-
-  const handleMouseMoveDocument = (e: MouseEvent) => {
-    mouseLocs.push({x: e.pageX, y: e.pageY});
-    if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
-  }
   
   const handleMouseEnterRow = (row: number) => {
     if (menuTimer) clearTimeout(menuTimer);
@@ -156,13 +145,31 @@ export function Menu({ theme, menuItems }: Props): JSX.Element {
     if (menuTimer) clearTimeout(menuTimer);
   }
 
+  const handleMouseMoveDocument = (e: MouseEvent) => {
+    mouseLocs.push({x: e.pageX, y: e.pageY});
+    if (mouseLocs.length > MOUSE_LOCS_TRACKED) mouseLocs.shift();
+  }
+
+  const possiblyActivate = (row: number) => {
+    const delay = getActivateDelay();
+
+    if (delay) {
+      menuTimer = setTimeout(() => {
+        possiblyActivate(row);
+      }, delay);
+      return;
+    }
+
+    setActiveMenuRow(row);
+  };
+
   return (
     <MenuView
-      theme={theme}
-      menuItems={menuItems}
       activeMenuRow={activeMenuRow}
       handleMouseEnterRow={handleMouseEnterRow}
       handleMouseLeaveMenu={handleMouseLeaveMenu}
+      menuItems={menuItems}
+      theme={theme}
     />
   );
 }

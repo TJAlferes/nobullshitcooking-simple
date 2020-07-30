@@ -9,11 +9,11 @@ const handleMouseLeaveMenu = jest.fn();
 
 const wrapper = shallow(
   <MenuView
-    theme="drop-down-menu-light"
-    menuItems={foodMenuData}
     activeMenuRow={undefined}
     handleMouseEnterRow={handleMouseEnterRow}
     handleMouseLeaveMenu={handleMouseLeaveMenu}
+    menuItems={foodMenuData}
+    theme="drop-down-menu-light"
   />
 );
 
@@ -35,11 +35,11 @@ describe('MenuView', () => {
   it('sets only the active menu row className to active', () => {
     const wrapperWithActiveMenuRow = shallow(
       <MenuView
-        theme="drop-down-menu-light"
-        menuItems={foodMenuData}
         activeMenuRow={0}
         handleMouseEnterRow={handleMouseEnterRow}
         handleMouseLeaveMenu={handleMouseLeaveMenu}
+        menuItems={foodMenuData}
+        theme="drop-down-menu-light"
       />
     );
     expect(

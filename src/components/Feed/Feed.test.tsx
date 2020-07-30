@@ -4,9 +4,9 @@ import React from 'react';
 import { Feed } from './Feed';
 
 const initialProps = {
-  theme: 'feed-light',
+  myContent: [],
   officialContent: [],
-  myContent: []
+  theme: 'feed-light'
 };
 
 describe('Feed', () => {

@@ -4,7 +4,11 @@ import { connect, ConnectedProps } from 'react-redux';
 import { IWorkContent } from '../../store/data/types';
 import './feed.css';
 
-export function Feed({ theme, officialContent, myContent }: Props): JSX.Element {
+export function Feed({
+  myContent,
+  officialContent,
+  theme
+}: Props): JSX.Element {
   return (
     <div className={`feed ${theme}`}>
       {officialContent && officialContent.map(c => (
@@ -32,8 +36,8 @@ interface RootState {
     feedTheme: string;
   };
   data: {
-    officialContent: IWorkContent[];
     myContent: IWorkContent[];
+    officialContent: IWorkContent[];
   };
 }
 
@@ -42,8 +46,8 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 const mapStateToProps = (state: RootState) => ({
-  officialContent: state.data.officialContent,
   myContent: state.data.myContent,
+  officialContent: state.data.officialContent,
   theme: state.theme.feedTheme
 });
 

@@ -45,11 +45,7 @@ export function AutocompleteView({
                   })}
                 >
                   {titleSnippet ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: titleSnippet
-                      }}
-                    />
+                    <span dangerouslySetInnerHTML={{__html: titleSnippet}} />
                   ) : (
                     <span>{titleRaw}</span>
                   )}

@@ -5,16 +5,17 @@ import { ExpandCollapseView } from './ExpandCollapseView';
 
 const toggle = jest.fn();
 
+const initialProps = {
+  children: "Howdy!",
+  toggle,
+  headingWhileCollapsed: "Click Here To Expand",
+  headingWhileExpanded: "Click Here To Collapse"
+};
+
 describe('ExpandCollapseView', () => {
   it('displays correct heading when collapsed', () => {
     const wrapper = shallow(
-      <ExpandCollapseView
-        children="Howdy!"
-        expanded={false}
-        toggle={toggle}
-        headingWhileCollapsed="Click Here To Expand"
-        headingWhileExpanded="Click Here To Collapse"
-      />
+      <ExpandCollapseView expanded={false} {...initialProps}/>
     );
 
     expect(wrapper.find('[data-test="expand"]')).toHaveLength(1);
@@ -27,13 +28,7 @@ describe('ExpandCollapseView', () => {
 
   it('displays correct heading when expanded', () => {
     const wrapper = shallow(
-      <ExpandCollapseView
-        children="Howdy!"
-        expanded={true}
-        toggle={toggle}
-        headingWhileCollapsed="Click Here To Expand"
-        headingWhileExpanded="Click Here To Collapse"
-      />
+      <ExpandCollapseView expanded={true} {...initialProps} />
     );
 
     expect(wrapper.find('[data-test="expand"]')).toHaveLength(0);

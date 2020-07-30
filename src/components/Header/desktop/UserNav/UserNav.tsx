@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
-import { authUserLogout } from '../../../../store/auth/actions';
+import {
+  authStaffLogout,
+  authUserLogout
+} from '../../../../store/auth/actions';
 import {
   themeDarkTrigger,
   themeLightTrigger
@@ -10,17 +13,20 @@ import {
 import './userNav.css';
 
 export function UserNav({
-  theme,
-  userIsAuthenticated,
   authname,
+  authStaffLogout,
   authUserLogout,
+  staffIsAuthenticated,
+  theme,
   themeDarkTrigger,
-  themeLightTrigger
+  themeLightTrigger,
+  userIsAuthenticated
 }: Props): JSX.Element {
   const history = useHistory();
 
   const handleLogout = () => {
-    authUserLogout();
+    if (staffIsAuthenticated) authStaffLogout();
+    if (userIsAuthenticated) authUserLogout();
     history.push('/home');
   };
 
@@ -28,47 +34,43 @@ export function UserNav({
     <div className="user-nav">
       <li>
         {theme === 'header-light' ? (
-          <span
-            className="mode-button"
-            onClick={() => themeDarkTrigger()}
-          >
+          <span className="mode-button" onClick={() => themeDarkTrigger()}>
             <i className="moon-symbol">☾</i> Night
           </span>
         ) : (
-          <span
-            className="mode-button"
-            onClick={() => themeLightTrigger()}
-          >
+          <span className="mode-button" onClick={() => themeLightTrigger()}>
             <i className="sun-symbol">☀︎</i> Day
           </span>
         )}
       </li>
 
       <li>
-        <Link className="user-nav-link" to="/help">
-          Help
-        </Link>
+        <Link className="user-nav-link" data-test="help" to="/help">Help</Link>
       </li>
 
-      {!userIsAuthenticated && (
+      {(!staffIsAuthenticated && !userIsAuthenticated) && (
         <>
           <li>
-            <Link className="user-nav-link" to="/register">
+            <Link className="user-nav-link" data-test="register" to="/register">
               Create Account
             </Link>
           </li>
           <li>
-            <Link className="user-nav-link" to="/login">
+            <Link className="user-nav-link" data-test="login" to="/login">
               Sign In
             </Link>
           </li>
         </>
       )}
 
-      {userIsAuthenticated && (
+      {staffIsAuthenticated && (
         <>
           <li>
-            <Link className="signed-in-nav-span" to="/dashboard">
+            <Link
+              className="signed-in-nav-span"
+              data-test="staff-dashboard"
+              to="/staff-dashboard"
+            >
               {`Hello, ${authname}`}
             </Link>
           </li>
@@ -80,19 +82,39 @@ export function UserNav({
         </>
       )}
 
-      {/*<li>
-        <Link className="user-nav-link" to="/store/view_cart">
-          Cart
-        </Link>
-      </li>*/}
+      {userIsAuthenticated && (
+        <>
+          <li>
+            <Link
+              className="signed-in-nav-span"
+              data-test="dashboard"
+              to="/dashboard"
+            >
+              {`Hello, ${authname}`}
+            </Link>
+          </li>
+          <li>
+            <span className="signed-in-nav-span" onClick={handleLogout}>
+              Sign Out
+            </span>
+          </li>
+        </>
+      )}
+
+      {/*
+      <li>
+        <Link className="user-nav-link" to="/store/view_cart">Cart</Link>
+      </li>
+      */}
     </div>
   );
 }
 
 interface RootState {
   auth: {
-    userIsAuthenticated: boolean;
     authname: string;
+    staffIsAuthenticated: boolean;
+    userIsAuthenticated: boolean;
   };
 }
 
@@ -103,11 +125,13 @@ type Props = PropsFromRedux & {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  userIsAuthenticated: state.auth.userIsAuthenticated,
-  authname: state.auth.authname
+  authname: state.auth.authname,
+  staffIsAuthenticated: state.auth.staffIsAuthenticated,
+  userIsAuthenticated: state.auth.userIsAuthenticated
 });
 
 const mapDispatchToProps = {
+  authStaffLogout: () => authStaffLogout(),
   authUserLogout: () => authUserLogout(),
   themeDarkTrigger: () => themeDarkTrigger(),
   themeLightTrigger: () => themeLightTrigger()

@@ -1,19 +1,19 @@
+import { SearchBox, withSearch } from '@elastic/react-search-ui';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { SearchBox, withSearch } from '@elastic/react-search-ui';
 
-import { searchSetIndex } from '../../../../store/search/actions';
 import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
+import { searchSetIndex } from '../../../../store/search/actions';
 import { AutocompleteView } from './views/AutocompleteView';
 import './search.css';
 
 export function Search({
-  theme,
   currentIndex,
   searchSetIndex,
   searchTerm,
-  setSearchTerm
+  setSearchTerm,
+  theme
 }: Props): JSX.Element {
   const history = useHistory();
 
@@ -21,15 +21,13 @@ export function Search({
     // use responsive design instead of adaptive design?
     //.getElementsByClassName("sui-search-box__wrapper")[1]
     const sInsert = document
-    .getElementsByClassName("sui-search-box__wrapper")[0]
-    .firstChild as HTMLElement;
+      .getElementsByClassName("sui-search-box__wrapper")[0]
+      .firstChild as HTMLElement;
+
     searchSetIndex(e.target.value);
+
     sInsert.focus();
   }
-
-  const redirectToSearchPage = () => {
-    history.push(`/${currentIndex}`);
-  };
 
   const handleSelectAutocomplete = (selection: any) => {
     setSearchTerm(selection[field as string].raw);
@@ -41,10 +39,15 @@ export function Search({
     redirectToSearchPage();
   };
 
-  const facadeText =
-  currentIndex.charAt(0).toUpperCase() + currentIndex.slice(1);
+  const redirectToSearchPage = () => {
+    history.push(`/${currentIndex}`);
+  };
 
-  let field: string|undefined;
+  const facadeText =
+    currentIndex.charAt(0).toUpperCase() + currentIndex.slice(1);
+
+  let field: string | undefined;
+
   if (currentIndex === "recipes") field = "title";
   if (currentIndex === "ingredients") field = "ingredient_fullname";
   if (currentIndex === "equipment") field = "equipment_name";
@@ -107,15 +110,12 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  theme: string;
   searchTerm: string;
   setSearchTerm: any;
+  theme: string;
 };
 
-const mapContextToProps = ({
-  searchTerm,
-  setSearchTerm
-}: RootContext) => ({
+const mapContextToProps = ({ searchTerm, setSearchTerm }: RootContext) => ({
   searchTerm,
   setSearchTerm
 });

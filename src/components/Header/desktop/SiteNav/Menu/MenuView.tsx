@@ -22,19 +22,19 @@ const KitchenEquipmentSlideImage = `${s3Path}kitchen-equipment-slide.png`;
 const KitchenEquipmentSlideImageDark = `${s3Path}kitchen-equipment-slide-dark.png`;
 
 export function MenuView({
-  theme,
-  menuItems,
   activeMenuRow,
   handleMouseEnterRow,
-  handleMouseLeaveMenu
+  handleMouseLeaveMenu,
+  menuItems,
+  theme
 }: Props): JSX.Element {
   return (
     <div className={`menu-container ${theme}`}>
 
       <div
         className={`menu ${theme}`}
-        onMouseLeave={handleMouseLeaveMenu}
         data-test="menu"
+        onMouseLeave={handleMouseLeaveMenu}
       >
         <ul className="menu-items">
           {menuItems.map((menu: IMenuItem, index) => (
@@ -46,9 +46,9 @@ export function MenuView({
                 ) &&
                 'active'
               }`}
+              data-test="menu-item"
               key={index}
               onMouseEnter={() => handleMouseEnterRow(index)}
-              data-test="menu-item"
             >
               <Link className={`menu-item-link ${theme}`} to={menu.link}>
                 {menu.name}
@@ -147,9 +147,9 @@ export function MenuView({
 }
 
 type Props = {
-  theme: string;
-  menuItems: IMenuItem[];
   activeMenuRow: undefined|number;
   handleMouseEnterRow(row: number): void;
   handleMouseLeaveMenu(): void;
+  menuItems: IMenuItem[];
+  theme: string;
 };

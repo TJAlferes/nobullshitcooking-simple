@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 
-export const ExpandCollapseView: FunctionComponent<Props> = ({
+export const ExpandCollapseView: FC<Props> = ({
   children,
   expanded,
-  toggle,
   headingWhileCollapsed,
-  headingWhileExpanded
+  headingWhileExpanded,
+  toggle
 }): JSX.Element => {
   return (
     <div className="expand-collapse">
@@ -14,8 +14,8 @@ export const ExpandCollapseView: FunctionComponent<Props> = ({
         ? (
           <div
             className="expand-collapse-heading"
-            onClick={toggle}
             data-test="expand"
+            onClick={toggle}
           >
             {headingWhileCollapsed}
           </div>
@@ -24,8 +24,8 @@ export const ExpandCollapseView: FunctionComponent<Props> = ({
           <div>
             <div
               className="expand-collapse-heading"
-              onClick={toggle}
               data-test="collapse"
+              onClick={toggle}
             >
               {headingWhileExpanded}
             </div>
@@ -40,7 +40,7 @@ export const ExpandCollapseView: FunctionComponent<Props> = ({
 
 type Props = {
   expanded: boolean;
-  toggle(): void; 
   headingWhileCollapsed: string;
   headingWhileExpanded: string;
+  toggle(): void; 
 };

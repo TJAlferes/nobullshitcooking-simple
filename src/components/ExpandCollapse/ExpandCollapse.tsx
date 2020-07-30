@@ -1,9 +1,9 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { FC, useState } from 'react';
 
 import { ExpandCollapseView } from './ExpandCollapseView';
 import './expandCollapse.css';
 
-export const ExpandCollapse: FunctionComponent<Props> = ({
+export const ExpandCollapse: FC<Props> = ({
   children,
   headingWhileCollapsed = "More info (Click here to expand)",
   headingWhileExpanded = "(Click here to collapse)"
