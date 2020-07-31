@@ -17,6 +17,12 @@ const initialProps = {
   themeLightTrigger
 };
 
+const mockHistoryPush = jest.fn();
+jest.mock('react-router-dom', () => {
+  const originalModule = jest.requireActual('react-router-dom');
+  return {...originalModule, useHistory: () => ({push: mockHistoryPush})};
+});
+
 afterEach(() => {
   jest.clearAllMocks();
 });
@@ -67,7 +73,7 @@ describe('UserNav', () => {
 
     it ('changes theme', () => {
       wrapper.find('.mode-button').simulate('click');
-      expect(themeDarkTrigger).toBeCalledTimes(1);
+      expect(themeDarkTrigger).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -95,7 +101,7 @@ describe('UserNav', () => {
 
     it ('changes theme', () => {
       wrapper.find('.mode-button').simulate('click');
-      expect(themeLightTrigger).toBeCalledTimes(1);
+      expect(themeLightTrigger).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -161,6 +167,12 @@ describe('UserNav', () => {
       expect(wrapper.find('span.signed-in-nav-span').text())
       .toEqual("Sign Out");
     });
+
+    it('logs staff out and redirects home', () => {
+      wrapper.find('span.signed-in-nav-span').simulate('click');
+      expect(authStaffLogout).toHaveBeenCalledTimes(1);
+      expect(mockHistoryPush).toHaveBeenCalledWith("/home");
+    });
   });
 
   describe('when user is authenticated', () => {
@@ -191,6 +203,12 @@ describe('UserNav', () => {
     `, () => {
       expect(wrapper.find('span.signed-in-nav-span').text())
       .toEqual("Sign Out");
+    });
+
+    it('logs user out and redirects home', () => {
+      wrapper.find('span.signed-in-nav-span').simulate('click');
+      expect(authUserLogout).toHaveBeenCalledTimes(1);
+      expect(mockHistoryPush).toHaveBeenCalledWith("/home");
     });
   });
 

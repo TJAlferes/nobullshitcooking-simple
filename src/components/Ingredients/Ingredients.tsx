@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import {
   Facet,
-  PagingInfo,
   Paging,
+  PagingInfo,
   ResultsPerPage,
   withSearch,
 } from '@elastic/react-search-ui';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import './ingredients.css';
@@ -44,10 +44,10 @@ function listResults(results: any) {
 }
 
 export function SearchResultsIngredients({
-  twoColumnBTheme,
   facets,  // ?
   filters,  // ?
   results,
+  twoColumnBTheme,
   wasSearched
 }: Props) {
   return (
@@ -137,11 +137,6 @@ const mapContextToProps = ({
   filters,
   results,
   wasSearched
-}: PropsFromContext) => ({
-  facets,
-  filters,
-  results,
-  wasSearched
-});
+}: PropsFromContext) => ({facets, filters, results, wasSearched});
 
 export default withSearch(mapContextToProps)(SearchResultsIngredients);

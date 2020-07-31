@@ -3,6 +3,18 @@ import React from 'react';
 
 import { IngredientView } from './IngredientView';
 
+const ingredient = {
+  ingredient_id: 1,
+  owner_id: 1,
+  ingredient_type_id: 1,
+  ingredient_brand: null,
+  ingredient_variety: "Chilean",
+  ingredient_name: "Salmon",
+  ingredient_type_name: "Fish",
+  ingredient_description: "Some note.",
+  ingredient_image: "nobsc-salmon"
+};
+
 const initialProps = {
   twoColumnBTheme: "light",
   dataMyPrivateIngredients: [
@@ -29,17 +41,6 @@ const initialProps = {
       ingredient_image: "0123456790"
     }
   ]
-};
-const ingredient = {
-  ingredient_id: 1,
-  owner_id: 1,
-  ingredient_type_id: 1,
-  ingredient_brand: null,
-  ingredient_variety: "Chilean",
-  ingredient_name: "Salmon",
-  ingredient_type_name: "Fish",
-  ingredient_description: "Some note.",
-  ingredient_image: "nobsc-salmon"
 };
 
 describe('IngredientView', () => {

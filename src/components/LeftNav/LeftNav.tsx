@@ -1,21 +1,22 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import './leftNav.css';
 
 export function LeftNav({
+  authname,
   theme,
-  isAuthenticated,
-  authname
+  userIsAuthenticated
 }: Props): JSX.Element {
-  const backgroundColor = (theme === "left-nav-light") ? "#ddd" : "#444";
+  const backgroundColor = theme === "left-nav-light" ? "#ddd" : "#444";
 
-  function LeftNavLink({ to, text }: LeftNavLinkProps): JSX.Element {
+  function LeftNavLink({ text, to }: LeftNavLinkProps): JSX.Element {
     return (
       <NavLink
-        className="left-nav-link"
         activeStyle={{backgroundColor}}
+        className="left-nav-link"
+        data-test={to}
         to={to}
       >
         {`${text}`}
@@ -25,44 +26,43 @@ export function LeftNav({
 
   return (
     <nav className={`left-nav ${theme}`}>
-      {isAuthenticated && <LeftNavLink to="/dashboard" text={authname} />}
-      {isAuthenticated && <hr />}
-      <NavLink
-        className="left-nav-link"
-        activeStyle={{backgroundColor}}
-        to="/"
-        exact
-      >
-        News
-      </NavLink>
-      {isAuthenticated && <LeftNavLink to="/messenger" text="Messenger" />}
-      {isAuthenticated && <LeftNavLink to="/friends" text="Friends" />}
+      {userIsAuthenticated && <LeftNavLink text={authname} to="/dashboard" />}
+      {userIsAuthenticated && <hr />}
+
+      <LeftNavLink text="News" to="/home" />
+      {userIsAuthenticated && <LeftNavLink text="Messenger" to="/messenger" />}
+      {userIsAuthenticated && <LeftNavLink text="Friends" to="/friends" />}
       <hr />
-      <LeftNavLink to="/page/guide/food/nutrition/supplements" text="Supplements" />
-      <LeftNavLink to="/supply/kitchen-equipment" text="Equipment" />
+
+      <LeftNavLink
+        text="Supplements"
+        to="/page/guide/food/nutrition/supplements"
+      />
+      <LeftNavLink text="Equipment" to="/supply/kitchen-equipment" />
       <hr />
-      <LeftNavLink to="/page/promo/water-filtration" text="Water Filtration" />
-      <LeftNavLink to="/page/promo/tea" text="Tea" />
-      <LeftNavLink to="/page/promo/coffee" text="Coffee" />
+
+      <LeftNavLink text="Water Filtration" to="/page/promo/water-filtration" />
+      <LeftNavLink text="Tea" to="/page/promo/tea" />
+      <LeftNavLink text="Coffee" to="/page/promo/coffee" />
       <hr />
-      <LeftNavLink to="/page/promo/outdoors" text="Outdoors" />
-      <LeftNavLink to="/page/promo/garden" text="Garden" />
-      <LeftNavLink to="/page/promo/tools" text="Tools" />
+
+      <LeftNavLink text="Outdoors"to="/page/promo/outdoors" />
+      <LeftNavLink text="Garden" to="/page/promo/garden" />
+      <LeftNavLink text="Tools" to="/page/promo/tools" />
       <hr />
-      {/*
-        <LeftNavLink to="/contests" text="Contest Winners" />
-        <LeftNavLink to="/seasonal" text="Seasonal" />
-        <hr />
-      */}
-      <LeftNavLink to="/page/site/charity" text="Charity" />
+
+      <LeftNavLink text="Seasonal" to="/page/promo/seasonal" />
+      <hr />
+
+      <LeftNavLink text="Charity" to="/page/site/charity" />
     </nav>
   );
-};
+}
 
 interface RootState {
   auth: {
     authname: string;
-    isAuthenticated: string;
+    userIsAuthenticated: boolean;
   };
   theme: {
     leftNavTheme: string;
@@ -80,10 +80,10 @@ type LeftNavLinkProps = {
 
 const mapStateToProps = (state: RootState) => ({
   authname: state.auth.authname,
-  isAuthenticated: state.auth.isAuthenticated,
-  theme: state.theme.leftNavTheme
+  theme: state.theme.leftNavTheme,
+  userIsAuthenticated: state.auth.userIsAuthenticated
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {});
 
 export default connector(LeftNav);

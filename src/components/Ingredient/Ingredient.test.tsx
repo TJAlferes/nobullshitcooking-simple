@@ -1,38 +1,38 @@
 import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 
-import { IIngredient } from '../../store/data/types';
 import { Ingredient } from './Ingredient';
 import { IngredientView } from './IngredientView';
 
-//const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-const dataIngredients = [
-  {
-    ingredient_id: 1,
-    owner_id: 1,
-    ingredient_type_id: 12,
-    ingredient_name: "Apple",
-    ingredient_type_name: "Fruit",
-    ingredient_description: "Some note.",
-    ingredient_image: "nobsc-apple"
-  },
-  {
-    ingredient_id: 2,
-    owner_id: 1,
-    ingredient_type_id: 11,
-    ingredient_name: "Spinach",
-    ingredient_type_name: "Vegetable",
-    ingredient_description: "Some note.",
-    ingredient_image: "nobsc-spinach"
-  }
-];
-const dataMyPrivateIngredients: IIngredient[] = [];
-const beforeProps: any = {
-  twoColumnBTheme: "light",
-  dataIngredients,
-  dataMyPrivateIngredients
+const initialProps = {
+  dataIngredients: [
+    {
+      ingredient_id: 1,
+      owner_id: 1,
+      ingredient_type_id: 12,
+      ingredient_brand: null,
+      ingredient_variety: "Granny Smith",
+      ingredient_name: "Apple",
+      ingredient_type_name: "Fruit",
+      ingredient_description: "Some note.",
+      ingredient_image: "nobsc-apple"
+    },
+    {
+      ingredient_id: 2,
+      owner_id: 1,
+      ingredient_type_id: 11,
+      ingredient_brand: null,
+      ingredient_variety: "Baby",
+      ingredient_name: "Spinach",
+      ingredient_type_name: "Vegetable",
+      ingredient_description: "Some note.",
+      ingredient_image: "nobsc-spinach"
+    }
+  ],
+  dataMyPrivateIngredients: [],
+  twoColumnBTheme: "light"
 };
 
 const mockHistoryPush = jest.fn();
@@ -58,7 +58,7 @@ describe('Ingredient', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({})};
     });
-    mount(<MemoryRouter><Ingredient {...beforeProps} /></MemoryRouter>);
+    mount(<MemoryRouter><Ingredient {...initialProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
@@ -67,7 +67,7 @@ describe('Ingredient', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({id: "999"})};
     });
-    mount(<MemoryRouter><Ingredient {...beforeProps} /></MemoryRouter>);
+    mount(<MemoryRouter><Ingredient {...initialProps} /></MemoryRouter>);
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
@@ -77,7 +77,7 @@ describe('Ingredient', () => {
       return {...originalModule, useParams: () => ({id: "1"})};
     });
     const wrapper = mount(
-      <MemoryRouter><Ingredient {...beforeProps} /></MemoryRouter>
+      <MemoryRouter><Ingredient {...initialProps} /></MemoryRouter>
     );
     await act(async () => {
       Promise.resolve(() => {
@@ -93,7 +93,7 @@ describe('Ingredient', () => {
       return {...originalModule, useParams: () => ({id: "1"})};
     });
     const wrapper = mount(
-      <MemoryRouter><Ingredient {...beforeProps} /></MemoryRouter>
+      <MemoryRouter><Ingredient {...initialProps} /></MemoryRouter>
     );
     await act(async () => {
       Promise.resolve(() => {

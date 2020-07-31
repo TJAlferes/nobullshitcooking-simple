@@ -7,14 +7,14 @@ import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { IngredientView } from './IngredientView';
 
 export function Ingredient({
-  twoColumnBTheme,
   dataIngredients,
-  dataMyPrivateIngredients
+  dataMyPrivateIngredients,
+  twoColumnBTheme
 }: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
 
-  const [ ingredient, setIngredient ] = useState<IIngredient|null>(null);
+  const [ ingredient, setIngredient ] = useState<IIngredient | null>(null);
 
   useEffect(() => {
     if (!id) {
@@ -39,17 +39,17 @@ export function Ingredient({
   ? <LoaderSpinner />
   : (
     <IngredientView
-      twoColumnBTheme={twoColumnBTheme}
-      ingredient={ingredient}
       dataMyPrivateIngredients={dataMyPrivateIngredients}
+      ingredient={ingredient}
+      twoColumnBTheme={twoColumnBTheme}
     />
   );
 }
 
 interface RootState {
   data: {
-    ingredients: IIngredient[];
     myPrivateIngredients: IIngredient[];
+    officialIngredients: IIngredient[];
   };
 }
 
@@ -60,10 +60,10 @@ type Props = PropsFromRedux & {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  dataIngredients: state.data.ingredients,
+  dataIngredients: state.data.officialIngredients,
   dataMyPrivateIngredients: state.data.myPrivateIngredients
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps, {});
 
 export default connector(Ingredient);
