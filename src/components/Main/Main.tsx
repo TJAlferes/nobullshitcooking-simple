@@ -1,18 +1,21 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { useLocation } from 'react-router';
 
 import { Breadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
 import './main.css';
 
-export const Main: FunctionComponent<Props> = ({
-  theme,
+export const Main: FC<Props> = ({
+  children,
   shadow,
-  children
+  theme
 }): JSX.Element => {
   const { pathname } = useLocation();
+
   // so that breadcrumbs aren't displayed at all on the home page:
   const isHome = pathname.match(/^\/$/);
+
   // so that the default breadcrumbs aren't displayed on these pages:
+  // TO DO: add staff, alphabetize
   const isCuisineDetail = pathname.match(/^(\/page\/guide\/food\/cuisine\/([1-9][0-9]*))$/);
   const isRecipe = pathname.match(/^(\/recipe\/([1-9][0-9]*))$/);
   const isIngredient = pathname.match(/^(\/ingredient\/([1-9][0-9]*))$/);
@@ -64,6 +67,6 @@ export const Main: FunctionComponent<Props> = ({
 };
 
 type Props = {
-  theme: string;
   shadow: boolean;
+  theme: string;
 };

@@ -13,9 +13,9 @@ beforeEach(() => {
   wrapper = mount(
     <MemoryRouter initialEntries={["/login"]}>
       <Login
-        message="Some message."
         authStaffLogin={authStaffLogin}
         authUserLogin={authUserLogin}
+        message="Some message."
       />
     </MemoryRouter>
   );

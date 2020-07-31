@@ -1,8 +1,8 @@
-import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
+import { mount } from 'enzyme';
+import React from 'react';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 
 import { NewContent } from './NewContent';
 
@@ -17,7 +17,8 @@ const staffCreateNewContent = jest.fn();
 const staffEditContent = jest.fn();
 const userCreateNewContent = jest.fn();
 const userEditContent = jest.fn();
-const beginProps = {
+
+const initialProps = {
   oneColumnATheme: "light",
   staffMessage: "",
   userMessage: "",
@@ -74,7 +75,7 @@ describe('NewContent', () => {
               editingId={null}
               editing={false}
               staffIsAuthenticated={true}
-              {...beginProps}
+              {...initialProps}
             />
           </MemoryRouter>
         );
@@ -95,7 +96,7 @@ describe('NewContent', () => {
               editingId={null}
               editing={false}
               staffIsAuthenticated={false}
-              {...beginProps}
+              {...initialProps}
             />
           </MemoryRouter>
         );
@@ -120,7 +121,7 @@ describe('NewContent', () => {
               editingId={5}
               editing={true}
               staffIsAuthenticated={true}
-              {...beginProps}
+              {...initialProps}
             />
           </MemoryRouter>
         );
@@ -141,7 +142,7 @@ describe('NewContent', () => {
               editingId={5}
               editing={true}
               staffIsAuthenticated={false}
-              {...beginProps}
+              {...initialProps}
             />
           </MemoryRouter>
         );

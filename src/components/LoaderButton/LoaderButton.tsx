@@ -2,24 +2,24 @@ import React from 'react';
 
 export function LoaderButton({
   className,
-  name,
+  disabled = false,
   id,
-  text,
-  loadingText,
   isLoading,
+  loadingText,
+  name,
   onClick,
   onKeyUp = (e: React.KeyboardEvent) => {},
-  disabled = false
+  text
 }: Props): JSX.Element {
   return (
     <button
-      type="button"
-      name={name}
-      id={id}
       className={`LoaderButton ${className}`}
+      disabled={disabled || isLoading}
+      id={id}
+      name={name}
       onClick={(e) => onClick(e)}
       onKeyUp={(e) => onKeyUp(e)}
-      disabled={disabled || isLoading}
+      type="button"
     >
       {!isLoading ? text : loadingText}
     </button>
@@ -28,12 +28,12 @@ export function LoaderButton({
 
 type Props = {
   className: string;
-  name: string;
+  disabled?: boolean;
   id: string;
-  text: string;
-  loadingText: string;
   isLoading: boolean;
+  loadingText: string;
+  name: string;
   onClick(e?: React.MouseEvent): void;
   onKeyUp?(e: React.KeyboardEvent): void;
-  disabled?: boolean;
+  text: string;
 };

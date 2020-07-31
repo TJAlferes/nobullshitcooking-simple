@@ -25,10 +25,6 @@ import {
   editorSetValue
 } from '../../store/editor/actions';
 import {
-  ICreatingContentInfo,
-  IEditingContentInfo
-} from '../../store/user/content/types';
-import {
   staffCreateNewContent,
   staffEditContent
 } from '../../store/staff/content/actions';
@@ -36,6 +32,10 @@ import {
   userCreateNewContent,
   userEditContent
 } from '../../store/user/content/actions';
+import {
+  ICreatingContentInfo,
+  IEditingContentInfo
+} from '../../store/user/content/types';
 import {
   getCroppedImage
 } from '../../utils/imageCropPreviews/imageCropPreviews';
@@ -49,7 +49,7 @@ import {
   MarkButton,
   Toolbar
 } from './components/index';
-import { toggleMark, withImages, withLinks } from './helpers';
+import { toggleMark, withLinks } from './helpers';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 const HOTKEYS: {
@@ -62,23 +62,23 @@ const HOTKEYS: {
 };
 
 export function NewContent({
-  oneColumnATheme,
-  staffIsAuthenticated,
-  editing,
-  staffMessage,
-  userMessage,
-  dataContentTypes,
   creating,
+  dataContentTypes,
+  editing,
   editingId,
-  value,
   editorClearWork,
   editorSetCreating,
   editorSetEditingId,
   editorSetValue,
+  oneColumnATheme,
   staffCreateNewContent,
   staffEditContent,
+  staffIsAuthenticated,
+  staffMessage,
   userCreateNewContent,
-  userEditContent
+  userEditContent,
+  userMessage,
+  value
 }: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
@@ -86,21 +86,18 @@ export function NewContent({
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
 
-  const [ saveType, setSaveType ] = useState("draft");
   const [ contentTypeId, setContentTypeId ] = useState<number>(0);
   const [ published, setPublished ] = useState<string | null>(null);
+  const [ saveType, setSaveType ] = useState("draft");
   const [ title, setTitle ] = useState("");
-  const [ prevContentImage, setPrevContentImage ] =
-    useState("nobsc-content-default");
-  const [ contentImage, setContentImage ] =
-    useState<string | ArrayBuffer | null>(null);
-  const [ fullContentImage, setFullContentImage ] = useState<File | null>(null);
-  const [ thumbContentImage, setThumbContentImage ] =
-    useState<File | null>(null);
+  const [ prevImage, setPrevImage ] = useState("nobsc-content-default");
+  const [ image, setImage ] = useState<string | ArrayBuffer | null>(null);
+  const [ fullImage, setFullImage ] = useState<File | null>(null);
+  const [ thumbImage, setThumbImage ] = useState<File | null>(null);
 
   const [ crop, setCrop ] = useState<Crop>({aspect: 280 / 172});
-  const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
-  const [ cropThumbSizePreview, setCropThumbSizePreview ] = useState("");
+  const [ fullCrop, setFullCrop ] = useState("");
+  const [ thumbCrop, setThumbCrop ] = useState("");
 
   const imageRef = useRef<HTMLImageElement>();
 
@@ -108,8 +105,7 @@ export function NewContent({
     const getExistingContentToEdit = async () => {
       if (!id) {
         const redirectPath = staffIsAuthenticated
-        ? '/staff-dashboard'
-        : '/dashboard';
+          ? '/staff-dashboard' : '/dashboard';
         history.push(redirectPath);
         return;
       }
@@ -118,13 +114,14 @@ export function NewContent({
       setLoading(true);
 
       const url = staffIsAuthenticated
-      ? `${endpoint}/staff/content/edit`
-      : `${endpoint}/user/content/edit`;
+        ? `${endpoint}/staff/content/edit` : `${endpoint}/user/content/edit`;
 
       const { data } = await axios.post(url, {}, {withCredentials: true});
+
       if (data) {
         editorSetEditingId(Number(data.content_id));
         editorSetValue(data.content_items);
+        setPrevImage(data.content_image)
       }
 
       setLoading(false);
@@ -145,8 +142,7 @@ export function NewContent({
     if (isSubscribed) {
       const message = staffIsAuthenticated ? staffMessage : userMessage;
       const redirectPath = staffIsAuthenticated
-      ? '/staff-dashboard'
-      : '/dashboard';
+        ? '/staff-dashboard' : '/dashboard';
 
       if (message !== "") window.scrollTo(0,0);
 
@@ -165,23 +161,23 @@ export function NewContent({
   }, [staffMessage, userMessage]);
 
   const editor = useMemo(
-    () => withHistory(withImages(withLinks(withReact(createEditor())))),
+    () => withHistory(withLinks(withReact(createEditor()))),
     []
   );
+
+  const cancelImage = () => {
+    setFullCrop("");
+    setThumbCrop("");
+    setImage(null);
+    setFullImage(null);
+    setThumbImage(null);
+  };
+
+  const handleChange = (value: Node[]) => editorSetValue(value);
 
   const handleContentTypeChange = (e: React.SyntheticEvent<EventTarget>) => {
     setContentTypeId(Number((e.target as HTMLInputElement).value));
   };
-
-  const handleSaveTypeChange = (e: React.SyntheticEvent<EventTarget>) => {
-    setSaveType((e.target as HTMLInputElement).name)
-  };
-
-  const renderElement = useCallback(props => <Element {...props} />, []);
-
-  const renderLeaf = useCallback(props => <Leaf {...props} />, []);
-
-  const handleChange = (value: Node[]) => editorSetValue(value);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     for (const hotkey in HOTKEYS) {
@@ -189,30 +185,6 @@ export function NewContent({
       e.preventDefault();  // required?
       toggleMark(editor, HOTKEYS[hotkey]);
     }
-  };
-
-  const makeClientCrops = async (crop: Crop) => {
-    if (!imageRef || !imageRef.current) return;
-    if (!crop.width) return;
-    const full = await getCroppedImage(
-      280, 172, imageRef.current, crop, "newFile.jpeg"
-    );
-    const thumb = await getCroppedImage(
-      100, 62, imageRef.current, crop, "newFile.jpeg"
-    );
-    if (!full || !thumb) return;
-    setCropFullSizePreview(full.resizedPreview);
-    setCropThumbSizePreview(thumb.resizedPreview);
-    setFullContentImage(full.resizedFinal);
-    setThumbContentImage(thumb.resizedFinal);
-  };
-
-  const cancelContentImage = () => {
-    setCropFullSizePreview("");
-    setCropThumbSizePreview("");
-    setContentImage(null);
-    setFullContentImage(null);
-    setThumbContentImage(null);
   };
 
   const handleSave = () => {
@@ -226,10 +198,10 @@ export function NewContent({
         published,
         title,
         contentItems: value,
-        prevContentImage,
-        contentImage,
-        fullContentImage,
-        thumbContentImage
+        prevContentImage: prevImage,
+        contentImage: image,
+        fullContentImage: fullImage,
+        thumbContentImage: thumbImage
       };
 
       if (staffIsAuthenticated) staffEditContent(editingContentInfo);
@@ -242,9 +214,9 @@ export function NewContent({
         published: saveType,
         title,
         contentItems: value,
-        contentImage,
-        fullContentImage,
-        thumbContentImage
+        contentImage: image,
+        fullContentImage: fullImage,
+        thumbContentImage: thumbImage
       };
 
       if (staffIsAuthenticated) staffCreateNewContent(creatingContentInfo);
@@ -252,6 +224,34 @@ export function NewContent({
 
     }
   };
+
+  const handleSaveTypeChange = (e: React.SyntheticEvent<EventTarget>) => {
+    setSaveType((e.target as HTMLInputElement).name)
+  };
+
+  const makeClientCrops = async (crop: Crop) => {
+    if (!imageRef || !imageRef.current) return;
+    if (!crop.width) return;
+
+    const full = await getCroppedImage(
+      280, 172, imageRef.current, crop, "newFile.jpeg"
+    );
+
+    const thumb = await getCroppedImage(
+      100, 62, imageRef.current, crop, "newFile.jpeg"
+    );
+
+    if (!full || !thumb) return;
+
+    setFullCrop(full.resizedPreview);
+    setThumbCrop(thumb.resizedPreview);
+    setFullImage(full.resizedFinal);
+    setThumbImage(thumb.resizedFinal);
+  };
+
+  const renderElement = useCallback(props => <Element {...props} />, []);
+
+  const renderLeaf = useCallback(props => <Leaf {...props} />, []);
 
   return loading
   ? <LoaderSpinner />
@@ -275,20 +275,20 @@ export function NewContent({
             Type of Content
           </h2>
           <select
-            name="contentType"
             id="content_type_id"
-            required
+            name="contentType"
             onChange={handleContentTypeChange}
+            required
             value={contentTypeId}
           >
             <option value=""></option>
-            {dataContentTypes.map(contentType => (
+            {dataContentTypes.map(c => (
               <option
-                key={contentType.content_type_id}
-                value={contentType.content_type_id}
-                data-test={contentType.content_type_name}
+                data-test={c.content_type_name}
+                key={c.content_type_id}
+                value={c.content_type_id}
               >
-                {contentType.content_type_name}
+                {c.content_type_name}
               </option>
             ))}
           </select>
@@ -301,35 +301,31 @@ export function NewContent({
       <div className="save-type-spans">
         <span className="save-type-span">
           <input
-            className="save-type-span-input"
-            type="radio"
-            name="draft"
             checked={published === null}
-            onChange={handleSaveTypeChange}
-            value="draft"
+            className="save-type-span-input"
             //disabled={true}
+            name="draft"
+            onChange={handleSaveTypeChange}
+            type="radio"
+            value="draft"
           />
           <label className="save-type-span-label">Draft</label>
         </span>
         <span className="save-type-span">
           <input
+            checked={published === null}
             className="save-type-span-input"
-            type="radio"
-            name="publish"
-            checked={published !== null}
-            onChange={handleSaveTypeChange}
-            value="publish"
             //disabled={true}
+            name="publish"
+            onChange={handleSaveTypeChange}
+            type="radio"
+            value="publish"
           />
           <label className="save-type-span-label">Publish</label>
         </span>
       </div>
       
-      <Slate
-        editor={editor}
-        value={value}
-        onChange={handleChange}
-      >
+      <Slate editor={editor} onChange={handleChange} value={value}>
         <Toolbar className="toolbar">
           <MarkButton format="bold" icon="bold" />
           <MarkButton format="italic" icon="italic" />
@@ -339,12 +335,12 @@ export function NewContent({
           <InsertImageButton />
         </Toolbar>
         <Editable
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          spellCheck
           autoFocus
           onKeyDown={handleKeyDown}
           placeholder="COOK EAT WIN REPEAT"
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          spellCheck
         />
       </Slate>
     </div>
@@ -352,6 +348,9 @@ export function NewContent({
 }
 
 interface RootState {
+  auth: {
+    staffIsAuthenticated: boolean;
+  };
   data: {
     contentTypes: IContentType[];
   };
@@ -359,9 +358,6 @@ interface RootState {
     creating: boolean;
     editingId: number | null;
     value: Node[];
-  };
-  auth: {
-    staffIsAuthenticated: boolean;
   };
   staff: {
     message: string;
@@ -379,13 +375,13 @@ type Props = PropsFromRedux & {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  dataContentTypes: state.data.contentTypes,
   creating: state.editor.creating,
+  dataContentTypes: state.data.contentTypes,
   editingId: state.editor.editingId,
-  value: state.editor.value,
   staffIsAuthenticated: state.auth.staffIsAuthenticated,
   staffMessage: state.staff.message,
-  userMessage: state.user.message
+  userMessage: state.user.message,
+  value: state.editor.value,
 });
 
 const mapDispatchToProps = {

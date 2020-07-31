@@ -1,31 +1,23 @@
+import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import { Crop } from 'react-image-crop';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { Crop } from 'react-image-crop';
 import { v4 as uuid } from 'uuid';
-import axios from 'axios';
 
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../config/NOBSCBackendAPIEndpointOne';
 import {
-  IMeasurement,
+  ICuisine,
   IEquipment,
   IIngredient,
   IIngredientType,
-  IWorkRecipe,
+  IMeasurement,
+  IMethod,
   IRecipeType,
-  ICuisine,
-  IMethod
+  IWorkRecipe,
 } from '../../store/data/types';
-import {
-  ICreatingRecipeInfo,
-  IEditingRecipeInfo,
-  IRequiredMethod,
-  IRequiredEquipment,
-  IRequiredIngredient,
-  IRequiredSubrecipe
-} from '../../store/user/recipe/types';  // ?
 import {
   staffCreateNewRecipe,
   staffEditRecipe,
@@ -36,6 +28,14 @@ import {
   userEditPrivateRecipe,
   userEditPublicRecipe
 } from '../../store/user/recipe/actions';
+import {
+  ICreatingRecipeInfo,
+  IEditingRecipeInfo,
+  IRequiredMethod,
+  IRequiredEquipment,
+  IRequiredIngredient,
+  IRequiredSubrecipe
+} from '../../store/user/recipe/types';  // ?
 import {
   getCroppedImage
 } from '../../utils/imageCropPreviews/imageCropPreviews';

@@ -1,7 +1,7 @@
-import { Editor, Range, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
 const imageExtensions = require('image-extensions');
 import isUrl from 'is-url';
+import { Editor, Range, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 

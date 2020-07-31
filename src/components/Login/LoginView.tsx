@@ -5,14 +5,14 @@ import { LoaderButton } from '../LoaderButton/LoaderButton';
 import './login.css';
 
 export function LoginView({
-  feedback,
-  loading,
   email,
-  password,
+  feedback,
   handleEmailChange,
-  handlePasswordChange,
   handleLoginClick,
   handleLoginKeyUp,
+  handlePasswordChange,
+  loading,
+  password,
   validateLoginInfo
 }: Props): JSX.Element {
   return (
@@ -33,41 +33,41 @@ export function LoginView({
         <p className="login-feedback">{feedback}</p>
         <label className="login-label">Email</label>
         <input
-          className="login-input"
-          type="text"
-          name="email"
-          id="email"
-          size={20}
-          maxLength={50}
-          autoFocus
           autoComplete="email"
-          value={email}
-          onChange={handleEmailChange}
+          autoFocus
+          className="login-input"
           disabled={loading}
+          id="email"
+          maxLength={50}
+          name="email"
+          onChange={handleEmailChange}
+          size={20}
+          type="text"
+          value={email}
         />
         <label className="login-label">Password</label>
         <input
-          className="login-input"
-          type="password"
-          name="password"
-          id="password"
-          size={20}
-          maxLength={20}
           autoComplete="current-password"
-          value={password}
-          onChange={handlePasswordChange}
+          className="login-input"
           disabled={loading}
+          id="password"
+          maxLength={20}
+          name="password"
+          onChange={handlePasswordChange}
+          size={20}
+          type="password"
+          value={password}
         />
         <LoaderButton
           className="login-button"
-          name="submit"
-          id="login-button"
-          text="Sign In"
-          loadingText="Signing In..."
-          isLoading={loading}
           disabled={!validateLoginInfo()}
+          id="login-button"
+          isLoading={loading}
+          loadingText="Signing In..."
+          name="submit"
           onClick={handleLoginClick}
           onKeyUp={handleLoginKeyUp}
+          text="Sign In"
         />
       </form>
     </div>
@@ -75,13 +75,13 @@ export function LoginView({
 }
 
 type Props = {
-  feedback: string;
-  loading: boolean;
   email: string;
-  password: string;
+  feedback: string;
   handleEmailChange(e: React.SyntheticEvent<EventTarget>): void;
-  handlePasswordChange(e: React.SyntheticEvent<EventTarget>): void;
   handleLoginClick(e: React.MouseEvent): void;
   handleLoginKeyUp(e: React.KeyboardEvent): void;
+  handlePasswordChange(e: React.SyntheticEvent<EventTarget>): void;
+  loading: boolean;
+  password: string;
   validateLoginInfo(): boolean;
 };

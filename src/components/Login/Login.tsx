@@ -8,15 +8,15 @@ import { LoginView } from './LoginView';
 // TO DO: make Sign In button css not change color on hover while in Signing In... AKA isloading state
 
 export function Login({
-  message,
   authStaffLogin,
-  authUserLogin
+  authUserLogin,
+  message
 }: Props): JSX.Element {
   const { pathname } = useLocation();
 
+  const [ email, setEmail ] = useState("");
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
 
   useEffect(() => {
@@ -30,13 +30,8 @@ export function Login({
     };
   }, [message]);
 
-  const handleEmailChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => setEmail((e.target as HTMLInputElement).value);
-
-  const handlePasswordChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => setPassword((e.target as HTMLInputElement).value);
+  const handleEmailChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setEmail((e.target as HTMLInputElement).value);
   
   const handleLoginClick = () => {
     if (loading) return;
@@ -55,18 +50,21 @@ export function Login({
     if (pathname === "/login") authUserLogin(email, password);
   }
 
+  const handlePasswordChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setPassword((e.target as HTMLInputElement).value);
+
   const validateLoginInfo = () => ((email.length > 4) && (password.length > 5));
 
   return (
     <LoginView
-      feedback={feedback}
-      loading={loading}
       email={email}
-      password={password}
+      feedback={feedback}
       handleEmailChange={handleEmailChange}
-      handlePasswordChange={handlePasswordChange}
       handleLoginClick={handleLoginClick}
       handleLoginKeyUp={handleLoginKeyUp}
+      handlePasswordChange={handlePasswordChange}
+      loading={loading}
+      password={password}
       validateLoginInfo={validateLoginInfo}
     />
   );

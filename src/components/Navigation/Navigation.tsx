@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -11,19 +11,22 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/content';
 
 export default function Navigation({
-  oneColumnATheme,
-  navGridATheme,
+  links,
   name,
-  path,
-  links
+  navGridATheme,
+  oneColumnATheme,
+  path
 }: Props): JSX.Element {
-  const [ contentLinks, setContentLinks ] = useState<IContentLink[]|null>(null);
+  const [ contentLinks, setContentLinks ] =
+    useState<IContentLink[] | null>(null);
 
   useEffect(() => {
     const getContentLinksByTypeName = async (name: string) => {
       const res = await axios.get(`${endpoint}/content/links/${name}`);
+
       if (res.data) setContentLinks(res.data);
     };
+
     if (!links) getContentLinksByTypeName(name);  // if it was a leaf node
   }, []);
 
@@ -60,13 +63,13 @@ export default function Navigation({
 
 //.png
 
-interface Props {
-  oneColumnATheme: string;
-  navGridATheme: string;
-  name: string;
-  path: string;
+type Props = {
   links: any[];
-}
+  name: string;
+  navGridATheme: string;
+  oneColumnATheme: string;
+  path: string;
+};
 
 interface IContentLink {
   content_id: number;
