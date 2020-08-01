@@ -1,16 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Crop } from 'react-image-crop';
+import { Link } from 'react-router-dom';
 
 import {
-  IMeasurement,
+  ICuisine,
   IEquipment,
   IIngredient,
   IIngredientType,
-  IWorkRecipe,
+  IMeasurement,
+  IMethod,
   IRecipeType,
-  ICuisine,
-  IMethod
+  IWorkRecipe
 } from '../../store/data/types';
 import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import { LoaderButton } from '../LoaderButton/LoaderButton';
@@ -27,104 +27,101 @@ import {
 import './newRecipe.css';
 
 export function NewRecipeView({
-  id,
-  oneColumnATheme,
-  staffIsAuthenticated,
+  addEquipmentRow,
+  addIngredientRow,
+  addSubrecipeRow,
   authname,
-  feedback,
-  loading,
-  editing,
-  ownership,
-  recipeTypeId,
+  cancelCookingImage,
+  cancelEquipmentImage,
+  cancelIngredientsImage,
+  cancelRecipeImage,
+  cookingCrop,
+  cookingFullCrop,
+  cookingImage,
+  cookingPrevImage,
   cuisineId,
-  title,
-  description,
-  directions,
-  methods,
-  equipmentRows,
-  ingredientRows,
-  subrecipeRows,
-  prevRecipeImage,
-  prevEquipmentImage,
-  prevIngredientsImage,
-  prevCookingImage,
-  dataRecipeTypes,
   dataCuisines,
-  dataMethods,
   dataEquipment,
-  dataMyPrivateEquipment,
-  dataMeasurements,
-  dataIngredientTypes,
   dataIngredients,
+  dataIngredientTypes,
+  dataMeasurements,
+  dataMethods,
+  dataMyFavoriteRecipes,
+  dataMyPrivateEquipment,
   dataMyPrivateIngredients,
-  dataRecipes,
   dataMyPrivateRecipes,
   dataMyPublicRecipes,
-  dataMyFavoriteRecipes,
   dataMySavedRecipes,
-  recipeImage,
-  recipeEquipmentImage,
-  recipeIngredientsImage,
-  recipeCookingImage,
-  cropOne,
-  cropFullSizePreview,
-  cropThumbSizePreview,
-  cropTinySizePreview,
-  cropTwo,
-  equipmentCropFullSizePreview,
-  cropThree,
-  ingredientsCropFullSizePreview,
-  cropFour,
-  cookingCropFullSizePreview,
-  handleRecipeTypeChange,
+  dataRecipes,
+  dataRecipeTypes,
+  description,
+  directions,
+  editing,
+  equipmentCrop,
+  equipmentFullCrop,
+  equipmentImage,
+  equipmentPrevImage,
+  equipmentRows,
+  feedback,
   handleCuisineChange,
-  handleTitleChange,
   handleDescriptionChange,
   handleDirectionsChange,
-  handleMethodsChange,
   handleEquipmentRowChange,
   handleIngredientRowChange,
+  handleMethodsChange,
+  handleRecipeTypeChange,
+  handleSubmit,
   handleSubrecipeRowChange,
-  addEquipmentRow,
-  removeEquipmentRow,
-  addIngredientRow,
-  removeIngredientRow,
-  addSubrecipeRow,
-  removeSubrecipeRow,
-  onSelectFile,
+  handleTitleChange,
+  id,
+  ingredientsCrop,
+  ingredientsFullCrop,
+  ingredientsImage,
+  ingredientsPrevImage,
+  ingredientRows,
+  loading,
+  methods,
+  onCookingCropChange,
+  onCookingCropComplete,
+  onCookingImageLoaded,
+  oneColumnATheme,
+  onEquipmentCropChange,
+  onEquipmentCropComplete,
+  onEquipmentImageLoaded,
+  onIngredientsCropChange,
+  onIngredientsCropComplete,
+  onIngredientsImageLoaded,
+  onRecipeCropChange,
+  onRecipeCropComplete,
+  onRecipeImageLoaded,
+  onSelectRecipeFile,
   onSelectEquipmentFile,
   onSelectIngredientsFile,
   onSelectCookingFile,
-  onImageLoaded,
-  onEquipmentImageLoaded,
-  onIngredientsImageLoaded,
-  onCookingImageLoaded,
-  onCropOneChange,
-  onCropTwoChange,
-  onCropThreeChange,
-  onCropFourChange,
-  onCropComplete,
-  onEquipmentCropComplete,
-  onIngredientsCropComplete,
-  onCookingCropComplete,
-  cancelRecipeImage,
-  cancelRecipeEquipmentImage,
-  cancelRecipeIngredientsImage,
-  cancelRecipeCookingImage,
-  handleSubmit
+  ownership,
+  recipeCrop,
+  recipeFullCrop,
+  recipeImage,
+  recipePrevImage,
+  recipeThumbCrop,
+  recipeTinyCrop,
+  recipeTypeId,
+  removeEquipmentRow,
+  removeIngredientRow,
+  removeSubrecipeRow,
+  staffIsAuthenticated,
+  subrecipeRows,
+  title
 }: Props): JSX.Element {
   // move up into parent container NewRecipe component?
   const page = staffIsAuthenticated
     ? editing
-      ? 'Edit Recipe'
-      : 'Create New Recipe'
+      ? 'Edit Recipe' : 'Create New Recipe'
     : editing
       ? ownership === "private"
-        ? 'Edit Private Recipe'
-        : 'Edit Public Recipe'
+        ? 'Edit Private Recipe' : 'Edit Public Recipe'
       : ownership === "private"
-        ? 'Submit New Private Recipe'
-        : 'Submit New Public Recipe'
+        ? 'Submit New Private Recipe' : 'Submit New Public Recipe'
   const path = staffIsAuthenticated ? '/staff-dashboard' : '/dashboard';
 
   return (
@@ -172,23 +169,23 @@ export function NewRecipeView({
           <div className="ownership-spans">
             <span className="ownership-span">
               <input
-                className="ownership-span-input"
-                type="radio"
-                name="private"
                 checked={ownership === "private"}
-                value="private"
+                className="ownership-span-input"
                 disabled={true}
+                name="private"
+                type="radio"
+                value="private"
               />
               <label className="ownership-span-label">Private</label>
             </span>
             <span className="ownership-span">
               <input
-                className="ownership-span-input"
-                type="radio"
-                name="public"
                 checked={ownership === "public"}
-                value="public"
+                className="ownership-span-input"
                 disabled={true}
+                name="public"
+                type="radio"
+                value="public"
               />
               <label className="ownership-span-label">Public</label>
             </span>
@@ -203,20 +200,20 @@ export function NewRecipeView({
             Type of Recipe
           </h2>
           <select
-            name="recipeType"
             id="recipe_type_id"
-            required
+            name="recipeType"
             onChange={handleRecipeTypeChange}
+            required
             value={recipeTypeId}
           >
             <option value=""></option>
-            {dataRecipeTypes.map((recipeType: IRecipeType) => (
+            {dataRecipeTypes.map(r => (
               <option
-                key={recipeType.recipe_type_id}
-                value={recipeType.recipe_type_id}
-                data-test={recipeType.recipe_type_name}
+                key={r.recipe_type_id}
+                data-test={r.recipe_type_name}
+                value={r.recipe_type_id}
               >
-                {recipeType.recipe_type_name}
+                {r.recipe_type_name}
               </option>
             ))}
           </select>
@@ -230,20 +227,20 @@ export function NewRecipeView({
             Cuisine
           </h2>
           <select
-            name="cuisine"
             id="cuisine_id"
-            required
+            name="cuisine"
             onChange={handleCuisineChange}
+            required
             value={cuisineId}
           >
             <option value=""></option>
-            {dataCuisines.map((cuisine: ICuisine) => (
+            {dataCuisines.map(c => (
               <option
-                key={cuisine.cuisine_id}
-                value={cuisine.cuisine_id}
-                data-test={cuisine.cuisine_name}
+                key={c.cuisine_id}
+                value={c.cuisine_id}
+                data-test={c.cuisine_name}
               >
-                {cuisine.cuisine_name}
+                {c.cuisine_name}
               </option>
             ))}
           </select>
@@ -258,10 +255,10 @@ export function NewRecipeView({
           </h2>
           <input
             className="new-recipe-title"
-            name="title"
-            type="text"
             id="recipe_title"
+            name="title"
             onChange={handleTitleChange}
+            type="text"
             value={title}
           />
         </div>
@@ -275,10 +272,10 @@ export function NewRecipeView({
           </h2>
           <input
             className="new-recipe-description"
-            name="description"
-            type="text"
             id="recipe_description"
+            name="description"
             onChange={handleDescriptionChange}
+            type="text"
             value={description}
           />
         </div>
@@ -291,21 +288,21 @@ export function NewRecipeView({
             Methods
           </h2>
           <div className="method-spans">
-            {dataMethods.map((method: IMethod) => (
-              <span className="method-span" key={method.method_id}>
+            {dataMethods.map(m => (
+              <span className="method-span" key={m.method_id}>
                 <input
+                  checked={methods[m.method_id] === true ? true : false}
                   className="method-span-input"
-                  type="checkbox"
-                  id={`${method.method_id}`}
-                  checked={methods[method.method_id] === true ? true : false}
+                  data-test={`${m.method_id}-${m.method_name}`}
+                  id={`${m.method_id}`}
                   onChange={e => handleMethodsChange(e)}
-                  data-test={`${method.method_id}-${method.method_name}`}
+                  type="checkbox"
                 />
                 <label
                   className="method-span-label"
-                  data-test={method.method_name}
+                  data-test={m.method_name}
                 >
-                  {method.method_name}
+                  {m.method_name}
                 </label>
               </span>
             ))}
@@ -320,27 +317,26 @@ export function NewRecipeView({
             Equipment
           </h2>
           <div id="equipment_rows_container">
-            {equipmentRows.map((equipmentRow: IEquipmentRow) => (
+            {equipmentRows.map(e => (
               <EquipmentRow
-                key={equipmentRow.key}
-                rowKey={equipmentRow.key}
-                amount={equipmentRow.amount}
-                type={equipmentRow.type}
-                equipment={equipmentRow.equipment}
+                amount={e.amount}
                 dataEquipment={dataEquipment}
                 dataMyPrivateEquipment={
-                  ownership === "private"
-                  ? dataMyPrivateEquipment
-                  : []
+                  ownership === "private" ? dataMyPrivateEquipment : []
                 }
+                equipment={e.equipment}
                 handleEquipmentRowChange={handleEquipmentRowChange}
-                removeEquipmentRow={removeEquipmentRow} />
+                key={e.key}
+                removeEquipmentRow={removeEquipmentRow}
+                rowKey={e.key}
+                type={e.type}
+              />
             ))}
           </div>
           <button
             className="add-row"
-            onClick={addEquipmentRow}
             data-test="add-equipment"
+            onClick={addEquipmentRow}
           >
             Add Equipment
           </button>
@@ -354,31 +350,29 @@ export function NewRecipeView({
             Ingredients
           </h2>
           <div id="ingredient_rows_container">
-            {ingredientRows.map((ingredientRow: IIngredientRow) => (
+            {ingredientRows.map(i => (
               <IngredientRow
-                key={ingredientRow.key}
-                rowKey={ingredientRow.key}
-                amount={ingredientRow.amount}
-                unit={ingredientRow.unit}
-                type={ingredientRow.type}
-                ingredient={ingredientRow.ingredient}
-                dataMeasurements={dataMeasurements}
-                dataIngredientTypes={dataIngredientTypes}
+                amount={i.amount}
                 dataIngredients={dataIngredients}
+                dataIngredientTypes={dataIngredientTypes}
+                dataMeasurements={dataMeasurements}
                 dataMyPrivateIngredients={
-                  ownership === "private"
-                  ? dataMyPrivateIngredients
-                  : []
+                  ownership === "private" ? dataMyPrivateIngredients : []
                 }
                 handleIngredientRowChange={handleIngredientRowChange}
+                ingredient={i.ingredient}
+                key={i.key}
                 removeIngredientRow={removeIngredientRow}
+                rowKey={i.key}
+                type={i.type}
+                unit={i.unit}
               />
             ))}
           </div>
           <button
             className="add-row"
-            onClick={addIngredientRow}
             data-test="add-ingredient"
+            onClick={addIngredientRow}
           >
             Add Ingredient
           </button>
@@ -392,38 +386,36 @@ export function NewRecipeView({
             Subrecipes
           </h2>
           <div id="subrecipe_rows_container">
-            {subrecipeRows.map((subrecipeRow: ISubrecipeRow) => (
+            {subrecipeRows.map(s => (
               <SubrecipeRow
-                key={subrecipeRow.key}
-                rowKey={subrecipeRow.key}
-                amount={subrecipeRow.amount}
-                unit={subrecipeRow.unit}
-                type={subrecipeRow.type}
-                cuisine={subrecipeRow.cuisine}
-                subrecipe={subrecipeRow.subrecipe}
-                dataMeasurements={dataMeasurements}
-                dataRecipeTypes={dataRecipeTypes}
+                amount={s.amount}
+                cuisine={s.cuisine}
                 dataCuisines={dataCuisines}
-                dataRecipes={dataRecipes}
+                dataMeasurements={dataMeasurements}
+                dataMyFavoriteRecipes={dataMyFavoriteRecipes}
                 dataMyPrivateRecipes={
-                  ownership === "private"
-                  ? dataMyPrivateRecipes
-                  : []
+                  ownership === "private" ? dataMyPrivateRecipes : []
                 }
                 dataMyPublicRecipes={dataMyPublicRecipes}
-                dataMyFavoriteRecipes={dataMyFavoriteRecipes}
                 dataMySavedRecipes={dataMySavedRecipes}
+                dataRecipes={dataRecipes}
+                dataRecipeTypes={dataRecipeTypes}
                 editing={editing}
-                selfId={id}
                 handleSubrecipeRowChange={handleSubrecipeRowChange}
+                key={s.key}
                 removeSubrecipeRow={removeSubrecipeRow}
+                rowKey={s.key}
+                selfId={id}
+                subrecipe={s.subrecipe}
+                type={s.type}
+                unit={s.unit}
               />
             ))}
           </div>
           <button
             className="add-row"
-            onClick={addSubrecipeRow}
             data-test="add-subrecipe"
+            onClick={addSubrecipeRow}
           >
             Add Subrecipe
           </button>
@@ -447,40 +439,40 @@ export function NewRecipeView({
 
         <ImageUploads
           recipeImage={recipeImage}
-          recipeEquipmentImage={recipeEquipmentImage}
-          recipeIngredientsImage={recipeIngredientsImage}
-          recipeCookingImage={recipeCookingImage}
+          equipmentImage={equipmentImage}
+          ingredientsImage={ingredientsImage}
+          cookingImage={cookingImage}
           editing={editing}
-          prevRecipeImage={prevRecipeImage}
-          prevEquipmentImage={prevEquipmentImage}
-          prevIngredientsImage={prevIngredientsImage}
-          prevCookingImage={prevCookingImage}
-          onSelectFile={onSelectFile}
+          recipePrevImage={recipePrevImage}
+          equipmentPrevImage={equipmentPrevImage}
+          ingredientsPrevImage={ingredientsPrevImage}
+          cookingPrevImage={cookingPrevImage}
+          onSelectRecipeFile={onSelectRecipeFile}
           onSelectEquipmentFile={onSelectEquipmentFile}
           onSelectIngredientsFile={onSelectIngredientsFile}
           onSelectCookingFile={onSelectCookingFile}
-          cropOne={cropOne}
-          cropTwo={cropTwo}
-          cropThree={cropThree}
-          cropFour={cropFour}
-          onImageLoaded={onImageLoaded}
+          recipeCrop={recipeCrop}
+          equipmentCrop={equipmentCrop}
+          ingredientsCrop={ingredientsCrop}
+          cookingCrop={cookingCrop}
+          onRecipeImageLoaded={onRecipeImageLoaded}
           onEquipmentImageLoaded={onEquipmentImageLoaded}
           onIngredientsImageLoaded={onIngredientsImageLoaded}
           onCookingImageLoaded={onCookingImageLoaded}
-          onCropOneChange={onCropOneChange}
-          onCropTwoChange={onCropTwoChange}
-          onCropThreeChange={onCropThreeChange}
-          onCropFourChange={onCropFourChange}
-          onCropComplete={onCropComplete}
+          onRecipeCropChange={onRecipeCropChange}
+          onEquipmentCropChange={onEquipmentCropChange}
+          onIngredientsCropChange={onIngredientsCropChange}
+          onCookingCropChange={onCookingCropChange}
+          onRecipeCropComplete={onRecipeCropComplete}
           onEquipmentCropComplete={onEquipmentCropComplete}
           onIngredientsCropComplete={onIngredientsCropComplete}
           onCookingCropComplete={onCookingCropComplete}
-          cropFullSizePreview={cropFullSizePreview}
-          cropThumbSizePreview={cropThumbSizePreview}
-          cropTinySizePreview={cropTinySizePreview}
-          equipmentCropFullSizePreview={equipmentCropFullSizePreview}
-          ingredientsCropFullSizePreview={ingredientsCropFullSizePreview}
-          cookingCropFullSizePreview={cookingCropFullSizePreview}
+          cropFullCrop={cropFullCrop}
+          cropThumbCrop={cropThumbCrop}
+          cropTinyCrop={cropTinyCrop}
+          equipmentCropFullCrop={equipmentCropFullCrop}
+          ingredientsCropFullCrop={ingredientsCropFullCrop}
+          cookingCropFullCrop={cookingCropFullCrop}
           loading={loading}
           cancelRecipeImage={cancelRecipeImage}
           cancelRecipeEquipmentImage={cancelRecipeEquipmentImage}
@@ -514,61 +506,45 @@ export function NewRecipeView({
 }
 
 type Props = {
-  id: number;
-  oneColumnATheme: string;
-  staffIsAuthenticated?: boolean;
+  addEquipmentRow(): void;
+  addIngredientRow(): void;
+  addSubrecipeRow(): void;
   authname: string;
-  feedback: string;
-  loading: boolean;
-  editing: boolean;
-  ownership: string;
-  recipeTypeId: number;
+  cancelCookingImage(): void;
+  cancelEquipmentImage(): void;
+  cancelIngredientsImage(): void;
+  cancelRecipeImage(): void;
+  cookingCrop: Crop;
+  cookingFullCrop: string;
+  cookingImage: string | ArrayBuffer | null;
+  cookingPrevImage: string;
   cuisineId: number;
-  title: string;
-  description: string;
-  directions: string;
-  methods: IMethods;
-  equipmentRows: IEquipmentRow[];
-  ingredientRows: IIngredientRow[];
-  subrecipeRows: ISubrecipeRow[];
-  prevRecipeImage: string;
-  prevEquipmentImage: string;
-  prevIngredientsImage: string;
-  prevCookingImage: string;
-  dataRecipeTypes: IRecipeType[];
   dataCuisines: ICuisine[];
-  dataMethods: IMethod[];
   dataEquipment: IEquipment[];
-  dataMyPrivateEquipment: IEquipment[];
-  dataMeasurements: IMeasurement[];
-  dataIngredientTypes: IIngredientType[];
   dataIngredients: IIngredient[];
+  dataIngredientTypes: IIngredientType[];
+  dataMeasurements: IMeasurement[];
+  dataMethods: IMethod[];
+  dataMyFavoriteRecipes: IWorkRecipe[];
+  dataMyPrivateEquipment: IEquipment[];
   dataMyPrivateIngredients: IIngredient[];
-  dataRecipes: IWorkRecipe[];
   dataMyPrivateRecipes: IWorkRecipe[];
   dataMyPublicRecipes: IWorkRecipe[];
-  dataMyFavoriteRecipes: IWorkRecipe[];
   dataMySavedRecipes: IWorkRecipe[];
-  recipeImage: string | ArrayBuffer | null;
-  recipeEquipmentImage: string | ArrayBuffer | null;
-  recipeIngredientsImage: string | ArrayBuffer | null;
-  recipeCookingImage: string | ArrayBuffer | null;
-  cropOne: Crop;
-  cropFullSizePreview: string;
-  cropThumbSizePreview: string;
-  cropTinySizePreview: string;
-  cropTwo: Crop;
-  equipmentCropFullSizePreview: string;
-  cropThree: Crop;
-  ingredientsCropFullSizePreview: string;
-  cropFour: Crop;
-  cookingCropFullSizePreview: string;
-  handleRecipeTypeChange(e: React.SyntheticEvent<EventTarget>): void;
+  dataRecipes: IWorkRecipe[];
+  dataRecipeTypes: IRecipeType[];
+  description: string;
+  directions: string;
+  editing: boolean;
+  equipmentCrop: Crop;
+  equipmentFullCrop: string;
+  equipmentImage: string | ArrayBuffer | null;
+  equipmentPrevImage: string;
+  equipmentRows: IEquipmentRow[];
+  feedback: string;
   handleCuisineChange(e: React.SyntheticEvent<EventTarget>): void;
-  handleTitleChange(e: React.SyntheticEvent<EventTarget>): void;
   handleDescriptionChange(e: React.SyntheticEvent<EventTarget>): void;
   handleDirectionsChange(e: React.SyntheticEvent<EventTarget>): void;
-  handleMethodsChange(e: React.SyntheticEvent<EventTarget>): void;
   handleEquipmentRowChange(
     e: React.SyntheticEvent<EventTarget>,
     rowKey: string
@@ -577,35 +553,51 @@ type Props = {
     e: React.SyntheticEvent<EventTarget>,
     rowKey: string
   ): void;
+  handleMethodsChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleRecipeTypeChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleSubmit(): void;
   handleSubrecipeRowChange(
     e: React.SyntheticEvent<EventTarget>,
     rowKey: string
   ): void;
-  addEquipmentRow(): void;
-  removeEquipmentRow(rowKey: string): void;
-  addIngredientRow(): void;
-  removeIngredientRow(rowKey: string): void;
-  addSubrecipeRow(): void;
-  removeSubrecipeRow(rowKey: string): void;
-  onSelectFile(e: React.ChangeEvent<HTMLInputElement>): void;
+  handleTitleChange(e: React.SyntheticEvent<EventTarget>): void;
+  id: number;
+  ingredientsCrop: Crop;
+  ingredientsFullCrop: string;
+  ingredientsImage: string | ArrayBuffer | null;
+  ingredientsPrevImage: string;
+  ingredientRows: IIngredientRow[];
+  loading: boolean;
+  methods: IMethods;
+  onCookingCropChange(crop: Crop): void;
+  onCookingCropComplete(crop: Crop): void;
+  onCookingImageLoaded(image: HTMLImageElement): void;
+  oneColumnATheme: string;
+  onEquipmentCropChange(crop: Crop): void;
+  onEquipmentCropComplete(crop: Crop): void;
+  onEquipmentImageLoaded(image: HTMLImageElement): void;
+  onIngredientsCropChange(crop: Crop): void;
+  onIngredientsCropComplete(crop: Crop): void;
+  onIngredientsImageLoaded(image: HTMLImageElement): void;
+  onRecipeCropChange(crop: Crop): void;
+  onRecipeCropComplete(crop: Crop): void;
+  onRecipeImageLoaded(image: HTMLImageElement): void;
+  onSelectRecipeFile(e: React.ChangeEvent<HTMLInputElement>): void;
   onSelectEquipmentFile(e: React.ChangeEvent<HTMLInputElement>): void;
   onSelectIngredientsFile(e: React.ChangeEvent<HTMLInputElement>): void;
   onSelectCookingFile(e: React.ChangeEvent<HTMLInputElement>): void;
-  onImageLoaded(image: HTMLImageElement): void;
-  onEquipmentImageLoaded(image: HTMLImageElement): void;
-  onIngredientsImageLoaded(image: HTMLImageElement): void;
-  onCookingImageLoaded(image: HTMLImageElement): void;
-  onCropOneChange(crop: Crop): void;
-  onCropTwoChange(crop: Crop): void;
-  onCropThreeChange(crop: Crop): void;
-  onCropFourChange(crop: Crop): void;
-  onCropComplete(crop: Crop): void;
-  onEquipmentCropComplete(crop: Crop): void;
-  onIngredientsCropComplete(crop: Crop): void;
-  onCookingCropComplete(crop: Crop): void;
-  cancelRecipeImage(): void;
-  cancelRecipeEquipmentImage(): void;
-  cancelRecipeIngredientsImage(): void;
-  cancelRecipeCookingImage(): void;
-  handleSubmit(): void;
+  ownership: string;
+  recipeCrop: Crop;
+  recipeFullCrop: string;
+  recipeImage: string | ArrayBuffer | null;
+  recipePrevImage: string;
+  recipeThumbCrop: string;
+  recipeTinyCrop: string;
+  recipeTypeId: number;
+  removeEquipmentRow(rowKey: string): void;
+  removeIngredientRow(rowKey: string): void;
+  removeSubrecipeRow(rowKey: string): void;
+  staffIsAuthenticated?: boolean;
+  subrecipeRows: ISubrecipeRow[];
+  title: string;
 };
