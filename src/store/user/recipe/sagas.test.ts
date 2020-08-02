@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { call, put, delay } from 'redux-saga/effects';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -33,24 +33,20 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-const fullRecipeImage = new File(
-  [(new Blob)], "resizedFinal", {type: "image/jpeg"}
-);
-const thumbRecipeImage = new File(
-  [(new Blob)], "resizedThumb", {type: "image/jpeg"}
-);
-const tinyRecipeImage = new File(
-  [(new Blob)], "resizedTiny", {type: "image/jpeg"}
-);
-const fullRecipeEquipmentImage = new File(
-  [(new Blob)], "resizedFinal", {type: "image/jpeg"}
-);
-const fullRecipeIngredientsImage = new File(
-  [(new Blob)], "resizedFinal", {type: "image/jpeg"}
-);
-const fullRecipeCookingImage = new File(
-  [(new Blob)], "resizedFinal", {type: "image/jpeg"}
-);
+
+const recipeFullImage =
+  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const recipeThumbImage =
+  new File([(new Blob)], "resizedThumb", {type: "image/jpeg"});
+const recipeTinyImage =
+  new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+const equipmentFullImage =
+  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const ingredientsFullImage =
+  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const cookingFullImage =
+  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+
 const creatingRecipeInfo = {
   ownership: "private",
   recipeTypeId: 1,
@@ -63,22 +59,23 @@ const creatingRecipeInfo = {
   requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
   requiredSubrecipes: [],
   recipeImage: null,
-  fullRecipeImage,
-  thumbRecipeImage,
-  tinyRecipeImage,
-  recipeEquipmentImage: null,
-  fullRecipeEquipmentImage,
-  recipeIngredientsImage: null,
-  fullRecipeIngredientsImage,
-  recipeCookingImage: null,
-  fullRecipeCookingImage
+  recipeFullImage,
+  recipeThumbImage,
+  recipeTinyImage,
+  equipmentImage: null,
+  equipmentFullImage,
+  ingredientsImage: null,
+  ingredientsFullImage,
+  cookingImage: null,
+  cookingFullImage
 };
+
 const editingRecipeInfo = {
   recipeId: 888,
-  prevRecipeImage: "nobsc-recipe-default",
-  prevEquipmentImage: "nobsc-recipe-equipment-default",
-  prevIngredientsImage: "nobsc-recipe-ingredients-default",
-  prevCookingImage: "nobsc-recipe-cooking-default",
+  recipePrevImage: "nobsc-recipe-default",
+  equipmentPrevImage: "nobsc-recipe-equipment-default",
+  ingredientsPrevImage: "nobsc-recipe-ingredients-default",
+  cookingPrevImage: "nobsc-recipe-cooking-default",
   ownership: "private",
   recipeTypeId: 1,
   cuisineId: 1,
@@ -90,15 +87,15 @@ const editingRecipeInfo = {
   requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
   requiredSubrecipes: [],
   recipeImage: null,
-  fullRecipeImage,
-  thumbRecipeImage,
-  tinyRecipeImage,
-  recipeEquipmentImage: null,
-  fullRecipeEquipmentImage,
-  recipeIngredientsImage: null,
-  fullRecipeIngredientsImage,
-  recipeCookingImage: null,
-  fullRecipeCookingImage
+  recipeFullImage,
+  recipeThumbImage,
+  recipeTinyImage,
+  equipmentImage: null,
+  equipmentFullImage,
+  ingredientsImage: null,
+  ingredientsFullImage,
+  cookingImage: null,
+  cookingFullImage
 };
 
 describe('userCreateNewRecipeSaga', () => {
@@ -119,6 +116,15 @@ describe('userCreateNewRecipeSaga', () => {
   const res3 = res1;
   const res4 = res1;
 
+  const {
+    recipeFullImage,
+    recipeThumbImage,
+    recipeTinyImage,
+    equipmentFullImage,
+    ingredientsFullImage,
+    cookingFullImage
+  } = action.recipeInfo;
+
   it('should dispatch succeeded', () => {
     const iterator = userCreateNewRecipeSaga(action);
     const res = {data: {message: 'Recipe created.'}};
@@ -129,7 +135,7 @@ describe('userCreateNewRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/recipe`,
-      {fileType: action.recipeInfo.fullRecipeImage.type},
+      {fileType: recipeFullImage.type},
       {withCredentials: true}
     ));
 
@@ -137,24 +143,24 @@ describe('userCreateNewRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.recipeInfo.fullRecipeImage,
-      {headers: {'Content-Type': action.recipeInfo.fullRecipeImage.type}}
+      recipeFullImage,
+      {headers: {'Content-Type': recipeFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestThumbSize,
-      action.recipeInfo.thumbRecipeImage,
-      {headers: {'Content-Type': action.recipeInfo.thumbRecipeImage.type}}
+      recipeThumbImage,
+      {headers: {'Content-Type': recipeThumbImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestTinySize,
-      action.recipeInfo.tinyRecipeImage,
-      {headers: {'Content-Type': action.recipeInfo.tinyRecipeImage.type}}
+      recipeTinyImage,
+      {headers: {'Content-Type': recipeTinyImage.type}}
     ));
 
     // 2
@@ -168,7 +174,7 @@ describe('userCreateNewRecipeSaga', () => {
     .toEqual(JSON.stringify(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/recipe-equipment`,
-      {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
+      {fileType: equipmentFullImage.type},
       {withCredentials: true}
     )));
 
@@ -176,8 +182,8 @@ describe('userCreateNewRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res2.data.signedRequestFullSize,
-      action.recipeInfo.fullRecipeEquipmentImage,
-      {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
+      equipmentFullImage,
+      {headers: {'Content-Type': equipmentFullImage.type}}
     ));
 
     // 3
@@ -186,7 +192,7 @@ describe('userCreateNewRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/recipe-ingredients`,
-      {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
+      {fileType: ingredientsFullImage.type},
       {withCredentials: true}
     ));
 
@@ -194,8 +200,8 @@ describe('userCreateNewRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res3.data.signedRequestFullSize,
-      action.recipeInfo.fullRecipeIngredientsImage,
-      {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
+      ingredientsFullImage,
+      {headers: {'Content-Type': ingredientsFullImage.type}}
     ));
 
     // 4
@@ -204,7 +210,7 @@ describe('userCreateNewRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/recipe-cooking`,
-      {fileType: action.recipeInfo.fullRecipeCookingImage.type},
+      {fileType: cookingFullImage.type},
       {withCredentials: true}
     ));
 
@@ -212,8 +218,8 @@ describe('userCreateNewRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res4.data.signedRequestFullSize,
-      action.recipeInfo.fullRecipeCookingImage,
-      {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
+      cookingFullImage,
+      {headers: {'Content-Type': cookingFullImage.type}}
     ));
 
     //
@@ -410,6 +416,15 @@ describe('userEditRecipeSaga', () => {
   const res3 = res1;
   const res4 = res1;
 
+  const {
+    recipeFullImage,
+    recipeThumbImage,
+    recipeTinyImage,
+    equipmentFullImage,
+    ingredientsFullImage,
+    cookingFullImage
+  } = action.recipeInfo;
+
   it('should dispatch succeeded', () => {
     const iterator = userEditRecipeSaga(action);
     const res = {data: {message: 'Recipe updated.'}};
@@ -420,7 +435,7 @@ describe('userEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/recipe`,
-      {fileType: action.recipeInfo.fullRecipeImage.type},
+      {fileType: recipeFullImage.type},
       {withCredentials: true}
     ));
 
@@ -428,24 +443,24 @@ describe('userEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.recipeInfo.fullRecipeImage,
-      {headers: {'Content-Type': action.recipeInfo.fullRecipeImage.type}}
+      recipeFullImage,
+      {headers: {'Content-Type': recipeFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestThumbSize,
-      action.recipeInfo.thumbRecipeImage,
-      {headers: {'Content-Type': action.recipeInfo.thumbRecipeImage.type}}
+      recipeThumbImage,
+      {headers: {'Content-Type': recipeThumbImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestTinySize,
-      action.recipeInfo.tinyRecipeImage,
-      {headers: {'Content-Type': action.recipeInfo.tinyRecipeImage.type}}
+      recipeTinyImage,
+      {headers: {'Content-Type': recipeTinyImage.type}}
     ));
 
     // 2
@@ -454,7 +469,7 @@ describe('userEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/recipe-equipment`,
-      {fileType: action.recipeInfo.fullRecipeEquipmentImage.type},
+      {fileType: equipmentFullImage.type},
       {withCredentials: true}
     ));
 
@@ -462,8 +477,8 @@ describe('userEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res2.data.signedRequestFullSize,
-      action.recipeInfo.fullRecipeEquipmentImage,
-      {headers: {'Content-Type': action.recipeInfo.fullRecipeEquipmentImage.type}}
+      equipmentFullImage,
+      {headers: {'Content-Type': equipmentFullImage.type}}
     ));
 
     // 3
@@ -472,7 +487,7 @@ describe('userEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/recipe-ingredients`,
-      {fileType: action.recipeInfo.fullRecipeIngredientsImage.type},
+      {fileType: ingredientsFullImage.type},
       {withCredentials: true}
     ));
 
@@ -480,8 +495,8 @@ describe('userEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res3.data.signedRequestFullSize,
-      action.recipeInfo.fullRecipeIngredientsImage,
-      {headers: {'Content-Type': action.recipeInfo.fullRecipeIngredientsImage.type}}
+      ingredientsFullImage,
+      {headers: {'Content-Type': ingredientsFullImage.type}}
     ));
 
     // 4
@@ -490,7 +505,7 @@ describe('userEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/recipe-cooking`,
-      {fileType: action.recipeInfo.fullRecipeCookingImage.type},
+      {fileType: cookingFullImage.type},
       {withCredentials: true}
     ));
 
@@ -498,8 +513,8 @@ describe('userEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res4.data.signedRequestFullSize,
-      action.recipeInfo.fullRecipeCookingImage,
-      {headers: {'Content-Type': action.recipeInfo.fullRecipeCookingImage.type}}
+      cookingFullImage,
+      {headers: {'Content-Type': cookingFullImage.type}}
     ));
 
     //

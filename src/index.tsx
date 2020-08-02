@@ -49,9 +49,8 @@ import './nobsc-normal-favicon.png';
 
 // TO DO: code split redux store?
 
-const sagaMiddleware = createSagaMiddleware();
-
 const persistedState = loadFromLocalStorage();
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(
   rootReducer,
@@ -73,7 +72,6 @@ sagaMiddleware.run(watchRecipe);
 sagaMiddleware.run(watchSave);
 
 store.dispatch(dataInit());
-
 store.subscribe(() => saveToLocalStorage(store.getState()));
 
 initWindowBlurHandler(store);

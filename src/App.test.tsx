@@ -14,10 +14,10 @@ const storeFactory = (initialState = undefined): Store =>
 
 const store = storeFactory();
 
-const beginProps = {
+const initialProps = {
   dataContentTypes: [],
-  headerTheme: 'header-light',
   footerTheme: 'footer-light',
+  headerTheme: 'header-light',
   mainTheme: 'main-light',
   shadow: false
 };
@@ -37,7 +37,7 @@ describe('App', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={["/login"]}>
           <SearchProvider config={{}}>
-            <App {...beginProps} />
+            <App {...initialProps} />
           </SearchProvider>
         </MemoryRouter>
       </Provider>
@@ -61,7 +61,7 @@ describe('App', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={["/register"]}>
           <SearchProvider config={{}}>
-            <App {...beginProps} />
+            <App {...initialProps} />
           </SearchProvider>
         </MemoryRouter>
       </Provider>
@@ -85,7 +85,7 @@ describe('App', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={["/verify"]}>
           <SearchProvider config={{}}>
-            <App {...beginProps} />
+            <App {...initialProps} />
           </SearchProvider>
         </MemoryRouter>
       </Provider>
@@ -109,7 +109,7 @@ describe('App', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={["/"]}>
           <SearchProvider config={{}}>
-            <App {...beginProps} />
+            <App {...initialProps} />
           </SearchProvider>
         </MemoryRouter>
       </Provider>

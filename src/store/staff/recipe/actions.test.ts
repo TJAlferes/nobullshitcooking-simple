@@ -33,22 +33,23 @@ const creatingRecipeInfo = {
   requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
   requiredSubrecipes: [],
   recipeImage: null,
-  fullRecipeImage: null,
-  thumbRecipeImage: null,
-  tinyRecipeImage: null,
-  recipeEquipmentImage: null,
-  fullRecipeEquipmentImage: null,
-  recipeIngredientsImage: null,
-  fullRecipeIngredientsImage: null,
-  recipeCookingImage: null,
-  fullRecipeCookingImage: null
+  recipeFullImage: null,
+  recipeThumbImage: null,
+  recipeTinyImage: null,
+  equipmentImage: null,
+  equipmentFullImage: null,
+  ingredientsImage: null,
+  ingredientsFullImage: null,
+  cookingImage: null,
+  cookingFullImage: null
 };
+
 const editingRecipeInfo = {
   recipeId: 888,
-  prevRecipeImage: "nobsc-recipe-default",
-  prevEquipmentImage: "nobsc-recipe-equipment-default",
-  prevIngredientsImage: "nobsc-recipe-ingredients-default",
-  prevCookingImage: "nobsc-recipe-cooking-default",
+  recipePrevImage: "nobsc-recipe-default",
+  equipmentPrevImage: "nobsc-recipe-equipment-default",
+  ingredientsPrevImage: "nobsc-recipe-ingredients-default",
+  cookingPrevImage: "nobsc-recipe-cooking-default",
   ownership: "private",
   recipeTypeId: 1,
   cuisineId: 1,
@@ -60,15 +61,15 @@ const editingRecipeInfo = {
   requiredIngredients: [{amount: 1, unit: 1, ingredient: 1}],
   requiredSubrecipes: [],
   recipeImage: null,
-  fullRecipeImage: null,
-  thumbRecipeImage: null,
-  tinyRecipeImage: null,
-  recipeEquipmentImage: null,
-  fullRecipeEquipmentImage: null,
-  recipeIngredientsImage: null,
-  fullRecipeIngredientsImage: null,
-  recipeCookingImage: null,
-  fullRecipeCookingImage: null
+  recipeFullImage: null,
+  recipeThumbImage: null,
+  recipeTinyImage: null,
+  equipmentImage: null,
+  equipmentFullImage: null,
+  ingredientsImage: null,
+  ingredientsFullImage: null,
+  cookingImage: null,
+  cookingFullImage: null
 };
 
 describe('staffCreateNewRecipe action creator', () => {
