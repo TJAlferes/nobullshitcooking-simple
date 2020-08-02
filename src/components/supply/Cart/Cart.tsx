@@ -7,23 +7,20 @@ import './cart.css';
 
 const endpoint = '';
 
-export function Cart({ oneColumnATheme, cartItems }: Props) {
+export function Cart({ cartItems, oneColumnATheme }: Props) {
   return (
     <div className={`cart one-column-a ${oneColumnATheme}`}>
-      {!cartItems && 'Your cart is empty.'}
-      {cartItems && cartItems.map(cartItem => (
-        <div className="cart-item">
-          <span>
-            <img src={`${endpoint}/${cartItem.itemName}`} />
-          </span>
-          <span>
-            {cartItem.itemName}
-          </span>
-          <span>
-            <RemoveFromCartButton itemId={cartItem.itemId}/>
-          </span>
-        </div>
-      ))}
+      {
+        !cartItems
+        ? 'Your cart is empty.'
+        : cartItems.map(c => (
+          <div className="cart-item">
+            <span><img src={`${endpoint}/${c.itemName}`} /></span>
+            <span>{c.itemName}</span>
+            <span><RemoveFromCartButton itemId={c.itemId}/></span>
+          </div>
+        ))
+      }
     </div>
   );
 }
@@ -31,7 +28,7 @@ export function Cart({ oneColumnATheme, cartItems }: Props) {
 interface RootState {
   cart: {
     items: ICartItem[]
-  }
+  };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -43,9 +40,7 @@ type Props = PropsFromRedux & {
   oneColumnATheme: string;
 };
 
-const mapStateToProps = (state: RootState) => ({
-  cartItems: state.cart.items
-});
+const mapStateToProps = (state: RootState) => ({cartItems: state.cart.items});
 
 const connector = connect(mapStateToProps);
 

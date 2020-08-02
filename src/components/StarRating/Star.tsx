@@ -11,12 +11,12 @@ export function Star({
 }: Props): JSX.Element {
   const [ down, setDown ] = useState(false);
 
+  const handleClick = useCallback(() => {
+    setRating(index);
+  }, [index, setRating]);
+
   const handleMouseDown = useCallback(() => {
     setDown(true);
-  }, []);
-
-  const handleMouseUp = useCallback(() => {
-    setDown(false);
   }, []);
 
   const handleMouseEnter = useCallback(() => {
@@ -28,23 +28,23 @@ export function Star({
     setOverride(null);
   }, [setOverride]);
   
-  const handleClick = useCallback(() => {
-    setRating(index);
-  }, [index, setRating]);
+  const handleMouseUp = useCallback(() => {
+    setDown(false);
+  }, []);
 
   return (
     <svg
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      viewBox="0 0 512 512"
-      height="1.5em"
       className={`star ${readOnly ? 'read_only' : ''}`}
+      height="1.5em"
+      onClick={readOnly ? nop : handleClick}
       onMouseDown={readOnly ? nop : handleMouseDown}
-      onMouseUp={readOnly ? nop : handleMouseUp}
       onMouseEnter={readOnly ? nop : handleMouseEnter}
       onMouseLeave={readOnly ? nop : handleMouseLeave}
-      onClick={readOnly ? nop : handleClick}
+      onMouseUp={readOnly ? nop : handleMouseUp}
+      version="1.1"
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <g transform={`scale(${down ? .95 : 1})`}>
         <g transform="scale(.95) translate(15,15)">
@@ -64,6 +64,6 @@ type Props = {
   full: boolean;
   index: number;
   readOnly: boolean;
-  setOverride(index: number|null): void; // change
+  setOverride(index: number | null): void; // change
   setRating(index: number): void; // change
 };

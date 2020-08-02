@@ -1,8 +1,8 @@
-import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
+import { mount } from 'enzyme';
+import React from 'react';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 
 import { Recipe } from './Recipe';
 import { RecipeView } from './RecipeView';
@@ -42,17 +42,19 @@ const recipe = {
     {amount: 1, measurement_name: "cup", subrecipe_title: "Beef Stock"}
   ]
 };
+
 const userFavoriteRecipe = jest.fn();
 const userSaveRecipe = jest.fn();
+
 const initialProps = {
-  twoColumnBTheme: "light",
-  //userIsAuthenticated: false,
-  message: "Some message.",
-  dataMyPublicRecipes: [],
-  dataMyPrivateRecipes: [],
   dataMyFavoriteRecipes: [],
+  dataMyPrivateRecipes: [],
+  dataMyPublicRecipes: [],
   dataMySavedRecipes: [],
+  message: "Some message.",
+  twoColumnBTheme: "light",
   userFavoriteRecipe,
+  //userIsAuthenticated: false,
   userSaveRecipe
 };
 
@@ -61,13 +63,14 @@ jest.mock('react-router-dom', () => {
   return {...originalModule, useHistory: () => ({push: mockHistoryPush})};
 });
 const mockHistoryPush = jest.fn();
-const mockRecipeBreadcrumbs = jest.fn();
+
 window.scrollTo = jest.fn();
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.get.mockReturnValueOnce(Promise.resolve({data: recipe}));
 
+const mockRecipeBreadcrumbs = jest.fn();
 jest.mock(
   '../../routing/breadcrumbs/Breadcrumbs',
   () => ({RecipeBreadcrumbs: mockRecipeBreadcrumbs})
@@ -83,11 +86,13 @@ describe('Recipe', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({})};
     });
+
     mount(
       <MemoryRouter>
         <Recipe userIsAuthenticated={false} {...initialProps} />
       </MemoryRouter>
     );
+
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
@@ -96,11 +101,13 @@ describe('Recipe', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({id: "!@#"})};
     });
+
     mount(
       <MemoryRouter>
         <Recipe userIsAuthenticated={false} {...initialProps} />
       </MemoryRouter>
     );
+
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
@@ -109,11 +116,13 @@ describe('Recipe', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({id: "1"})};
     });
+
     const wrapper = mount(
       <MemoryRouter>
         <Recipe userIsAuthenticated={false} {...initialProps} />
       </MemoryRouter>
     );
+
     await act(async () => {
       Promise.resolve(() => {
         setImmediate(() => wrapper.update());
@@ -127,11 +136,13 @@ describe('Recipe', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({id: "1"})};
     });
+
     const wrapper = mount(
       <MemoryRouter>
         <Recipe userIsAuthenticated={false} {...initialProps} />
       </MemoryRouter>
     );
+
     await act(async () => {
       Promise.resolve(() => {
         setImmediate(() => wrapper.update());
@@ -147,6 +158,7 @@ describe('Recipe', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({id: "1"})};
     });
+
     const wrapper = mount(
       <MemoryRouter>
         <Recipe userIsAuthenticated={true} {...initialProps} />

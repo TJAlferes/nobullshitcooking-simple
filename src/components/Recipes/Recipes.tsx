@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import {
   Facet,
-  PagingInfo,
   Paging,
+  PagingInfo,
   ResultsPerPage,
   withSearch,
 } from '@elastic/react-search-ui';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import './recipes.css';
@@ -78,10 +78,10 @@ function listResults(results: any) {
 }
 
 export function SearchResultsRecipes({
-  twoColumnBTheme,
   facets,  // ?
   filters,  // ?
   results,
+  twoColumnBTheme,
   wasSearched
 }: Props) {
   return (
@@ -102,10 +102,6 @@ export function SearchResultsRecipes({
               Filter recipes by:
             </span>
             <Facet
-              field="recipe_type_name"
-              label="Recipe Types"
-              filterType="any"
-              show={12}
               facets={{
                 recipe_type_name: [
                   {
@@ -128,12 +124,12 @@ export function SearchResultsRecipes({
                   }
                 ]
               }}
+              field="recipe_type_name"
+              filterType="any"
+              label="Recipe Types"
+              show={12}
             />
             <Facet
-              field="cuisine_name"
-              label="Cuisines"
-              filterType="any"
-              show={24}
               facets={{
                 cuisine_name: [
                   {
@@ -168,12 +164,12 @@ export function SearchResultsRecipes({
                   },
                 ]
               }}
+              field="cuisine_name"
+              filterType="any"
+              label="Cuisines"
+              show={24}
             />
             <Facet
-              field="method_names"
-              label="Methods"
-              filterType="any"
-              show={24}
               facets={{
                 method_names: [
                   {
@@ -208,6 +204,10 @@ export function SearchResultsRecipes({
                   },
                 ]
               }}
+              field="method_names"
+              filterType="any"
+              label="Methods"
+              show={24}
             />
           </div>
         </ExpandCollapse>

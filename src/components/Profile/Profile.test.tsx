@@ -1,8 +1,8 @@
-import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
+import { mount } from 'enzyme';
+import React from 'react';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 
 import { Profile } from './Profile';
 //import { ProfileView } from './ProfileView';
@@ -12,17 +12,19 @@ const data = {
   favoriteRecipes: [],
   publicRecipes: []
 };
+
 const userRequestFriendship = jest.fn();
+
 const initialProps = {
-  oneColumnATheme: "light",
-  message: "",
-  isAuthenticated: false,
   authname: "",
   dataMyFriendships: [],
+  isAuthenticated: false,
+  message: "",
+  oneColumnATheme: "light",
   userRequestFriendship
 };
-const mockHistoryPush = jest.fn();
 
+const mockHistoryPush = jest.fn();
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom');
   return {...originalModule, useHistory: () => ({push: mockHistoryPush})};
@@ -42,9 +44,9 @@ describe('Profile', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({})};
     });
-    mount(
-      <MemoryRouter><Profile {...initialProps} /></MemoryRouter>
-    );
+
+    mount(<MemoryRouter><Profile {...initialProps} /></MemoryRouter>);
+
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");
   });
 
@@ -55,9 +57,9 @@ describe('Profile', () => {
         const originalModule = jest.requireActual('react-router-dom');
         return {...originalModule, useParams: () => ({username: "Timmy"})};
       });
-      mount(
-        <MemoryRouter><Profile {...initialProps} /></MemoryRouter>
-      );
+
+      mount(<MemoryRouter><Profile {...initialProps} /></MemoryRouter>);
+
       expect(mockHistoryPush).toHaveBeenCalledWith("/home");
     }
   );
@@ -72,9 +74,9 @@ describe('Profile', () => {
           useParams: () => ({username: "Timmy Timmy Timmy Timmy"})
         };
       });
-      mount(
-        <MemoryRouter><Profile {...initialProps} /></MemoryRouter>
-      );
+
+      mount(<MemoryRouter><Profile {...initialProps} /></MemoryRouter>);
+
       expect(mockHistoryPush).toHaveBeenCalledWith("/home");
     }
   );
@@ -84,9 +86,10 @@ describe('Profile', () => {
       const originalModule = jest.requireActual('react-router-dom');
       return {...originalModule, useParams: () => ({username: "TimJim"})};
     });
-    const wrapper = mount(
-      <MemoryRouter><Profile {...initialProps} /></MemoryRouter>
-    );
+
+    const wrapper =
+      mount(<MemoryRouter><Profile {...initialProps} /></MemoryRouter>);
+
     await act(async () => {
       Promise.resolve(() => {
         setImmediate(() => wrapper.update());

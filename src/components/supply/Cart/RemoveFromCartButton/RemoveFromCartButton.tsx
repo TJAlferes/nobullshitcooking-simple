@@ -1,27 +1,33 @@
 import React from 'react';
-import { connect } from 'redux';
+import { connect, ConnectedProps } from 'react-redux';
 
+import { cartRemoveItem } from '../../../../store/cart/actions';
+import { ICartItem } from '../../../../store/cart/types';
 import './removeFromCartButton.css';
-import { cartRemoveItem } from '../../../../store/actions/index';
 
-const RemoveFromCartButton = ({
-  itemId,
-  cartRemoveItem
-}) => {
-  const handleClick = () => cartRemoveItem(itemId);
+export function RemoveFromCartButton({
+  cartRemoveItem,
+  item
+}: Props): JSX.Element {
+  const handleClick = () => cartRemoveItem(item);
 
   return (
-    <button
-      className="remove-from-cart-button"
-      onClick={handleClick}
-    >
+    <button className="remove-from-cart-button" onClick={handleClick}>
       Remove
     </button>
   );
 }
 
-const mapDispatchToProps = dispatch => ({
-  cartRemoveItem: (itemId) => dispatch(cartRemoveItem(itemId))
-});
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connect(null, mapDispatchToProps)(RemoveFromCartButton);
+type Props = PropsFromRedux & {
+  item: ICartItem;
+};
+
+const mapDispatchToProps = {
+  cartRemoveItem: (item: ICartItem) => cartRemoveItem(item)
+};
+
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(RemoveFromCartButton);

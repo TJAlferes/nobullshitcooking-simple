@@ -35,29 +35,28 @@ const recipe = {
     {amount: 1, measurement_name: "cup", subrecipe_title: "Beef Stock"}
   ]
 };
+
 const initialProps = {
-  twoColumnBTheme: "light",
-  //userIsAuthenticated,
-  feedback: "Some message.",
-  loading: false,
-  recipe,
+  dataMyFavoriteRecipes: [],
   dataMyPrivateRecipes: [],
   dataMyPublicRecipes: [],
-  dataMyFavoriteRecipes: [],
   dataMySavedRecipes: [],
-  //favoriteClicked: false,
+  feedback: "Some message.",
   handleFavoriteClick: jest.fn(),
-  //saveClicked: false,
-  handleSaveClick: jest.fn()
+  handleSaveClick: jest.fn(),
+  loading: false,
+  recipe,
+  twoColumnBTheme: "light"
 };
 
 describe('RecipeView', () => {
+
   describe('content', () => {
     const wrapper = shallow(
       <RecipeView
-        userIsAuthenticated={false}
         favoriteClicked={false}
         saveClicked={false}
+        userIsAuthenticated={false}
         {...initialProps}
       />
     );
@@ -110,12 +109,13 @@ describe('RecipeView', () => {
   //describe('author', () => {});
 
   describe('when user is authenticated', () => {
+
     describe ('when favorite not clicked', () => {
       const wrapper = shallow(
         <RecipeView
-          userIsAuthenticated={true}
           favoriteClicked={false}
           saveClicked={false}
+          userIsAuthenticated={true}
           {...initialProps}
         />
       );
@@ -129,9 +129,9 @@ describe('RecipeView', () => {
     describe ('when favorite clicked', () => {
       const wrapper = shallow(
         <RecipeView
-          userIsAuthenticated={true}
           favoriteClicked={true}
           saveClicked={false}
+          userIsAuthenticated={true}
           {...initialProps}
         />
       );
@@ -145,9 +145,9 @@ describe('RecipeView', () => {
     describe ('when save not clicked', () => {
       const wrapper = shallow(
         <RecipeView
-          userIsAuthenticated={true}
           favoriteClicked={false}
           saveClicked={false}
+          userIsAuthenticated={true}
           {...initialProps}
         />
       );
@@ -161,9 +161,9 @@ describe('RecipeView', () => {
     describe ('when save clicked', () => {
       const wrapper = shallow(
         <RecipeView
-          userIsAuthenticated={true}
           favoriteClicked={false}
           saveClicked={true}
+          userIsAuthenticated={true}
           {...initialProps}
         />
       );
@@ -173,5 +173,7 @@ describe('RecipeView', () => {
         .toEqual("Saved");
       });
     });
+
   });
+
 });

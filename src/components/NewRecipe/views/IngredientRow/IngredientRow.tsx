@@ -1,25 +1,27 @@
 import React from 'react';
 
 import {
-  IMeasurement,
   IIngredient,
-  IIngredientType
+  IIngredientType,
+  IMeasurement
 } from '../../../../store/data/types';
 
+// TO DO: Add ingredient_brand and ingredient_variety
+
 export function IngredientRow({
-  rowKey,
   amount,
-  unit,
-  type,
-  ingredient,
-  dataMeasurements,
-  dataIngredientTypes,
   dataIngredients,
+  dataIngredientTypes,
+  dataMeasurements,
   dataMyPrivateIngredients,
   handleIngredientRowChange,
-  removeIngredientRow
+  ingredient,
+  removeIngredientRow,
+  rowKey,
+  type,
+  unit
 }: Props): JSX.Element {
-  let availableIngredients = [
+  const availableIngredients = [
     ...dataIngredients,
     ...(dataMyPrivateIngredients.length ? dataMyPrivateIngredients : [])
   ];
@@ -29,28 +31,28 @@ export function IngredientRow({
       <label className="ingredient-row-label">Amount:</label>
       <input
         className="ingredient-row-manual-amount"
-        type="number"
-        name="amount"
-        step="any"
-        min="0.125"
         max="9999"
-        required
-        value={amount}
+        min="0.125"
+        name="amount"
         onChange={(e) => handleIngredientRowChange(e, rowKey)}
+        required
+        step="any"
+        type="number"
+        value={amount}
       />
 
       <label className="ingredient-row-label">Unit:</label>
       <select
         className="ingredient-row-select-unit"
         name="unit"
+        onChange={(e) => handleIngredientRowChange(e, rowKey)}
         required
         value={unit}
-        onChange={(e) => handleIngredientRowChange(e, rowKey)}
       >
         <option value=""></option>
-        {dataMeasurements.map((measurement, index) => (
-          <option key={index} value={measurement.measurement_id}>
-            {measurement.measurement_name}
+        {dataMeasurements.map((m, index) => (
+          <option key={index} value={m.measurement_id}>
+            {m.measurement_name}
           </option>
         ))}
       </select>
@@ -59,14 +61,14 @@ export function IngredientRow({
       <select
         className="ingredient-row-select-ingredient-type"
         name="type"
+        onChange={(e) => handleIngredientRowChange(e, rowKey)}
         required
         value={type}
-        onChange={(e) => handleIngredientRowChange(e, rowKey)}
       >
         <option value=""></option>
-        {dataIngredientTypes.map((ingredientType, index) => (
-          <option key={index} value={ingredientType.ingredient_type_id}>
-            {ingredientType.ingredient_type_name}
+        {dataIngredientTypes.map((i, index) => (
+          <option key={index} value={i.ingredient_type_id}>
+            {i.ingredient_type_name}
           </option>
         ))}
       </select>
@@ -75,17 +77,17 @@ export function IngredientRow({
       <select
         className="ingredient-row-select-ingredient"
         name="ingredient"
+        onChange={(e) => handleIngredientRowChange(e, rowKey)}
         required
         value={ingredient}
-        onChange={(e) => handleIngredientRowChange(e, rowKey)}
       >
         <option value=""></option>
         {
           availableIngredients
-          .filter((ing) => ing.ingredient_type_id == type)
-          .map((ingredient, index) => (
-            <option key={index} value={ingredient.ingredient_id}>
-              {ingredient.ingredient_name}
+          .filter(i => i.ingredient_type_id == type)
+          .map((i, index) => (
+            <option key={index} value={i.ingredient_id}>
+              {i.ingredient_name}
             </option>
           ))
         }
@@ -93,8 +95,8 @@ export function IngredientRow({
 
       <button
         className="ingredient-row-remove-row"
-        onClick={() => removeIngredientRow(rowKey)}
         data-test="ingredient-row-remove-row"
+        onClick={() => removeIngredientRow(rowKey)}
       >
         Remove
       </button>
@@ -104,18 +106,18 @@ export function IngredientRow({
 }
 
 type Props = {
-  rowKey: string;
-  amount: string|number;
-  unit: string|number;
-  type: string|number;
-  ingredient: string|number;
-  dataMeasurements: IMeasurement[];
-  dataIngredientTypes: IIngredientType[];
+  amount: string | number;
   dataIngredients: IIngredient[];
+  dataIngredientTypes: IIngredientType[];
+  dataMeasurements: IMeasurement[];
   dataMyPrivateIngredients: IIngredient[];
   handleIngredientRowChange(
     e: React.SyntheticEvent<EventTarget>,
     rowKey: string
   ): void;
+  ingredient: string | number;
   removeIngredientRow(rowKey: string): void;
+  rowKey: string;
+  type: string | number;
+  unit: string | number;
 };

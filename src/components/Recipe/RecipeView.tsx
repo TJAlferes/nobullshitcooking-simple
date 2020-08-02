@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';  // what is this for?
+import { Link } from 'react-router-dom';
 
 import { RecipeBreadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
 import { IWorkRecipe } from '../../store/data/types';
@@ -7,27 +7,24 @@ import { IRecipe } from './recipe';
 import './recipe.css';
 
 export function RecipeView({
-  twoColumnBTheme,
-  userIsAuthenticated,
-  feedback,
-  loading,
-  recipe,
+  dataMyFavoriteRecipes,
   dataMyPrivateRecipes,
   dataMyPublicRecipes,
-  dataMyFavoriteRecipes,
   dataMySavedRecipes,
   favoriteClicked,
+  feedback,
   handleFavoriteClick,
+  handleSaveClick,
+  loading,
+  recipe,
   saveClicked,
-  handleSaveClick
+  twoColumnBTheme,
+  userIsAuthenticated
 }: Props): JSX.Element {
   const recipeBy = () => {
     if (recipe.author === "Unknown") return "Unknown";
     return (
-      <Link
-        className="recipe__author-name"
-        to={`/profile/${recipe.author}`}
-      >
+      <Link className="recipe__author-name" to={`/profile/${recipe.author}`}>
         {recipe.author}
       </Link>
     );
@@ -51,13 +48,13 @@ export function RecipeView({
             <div className="recipe-favorite-save-outer">
               {(
                 userIsAuthenticated &&
-                !dataMyPrivateRecipes.find(rec => rec.recipe_id == recipe.recipe_id) &&
-                !dataMyPublicRecipes.find(rec => rec.recipe_id == recipe.recipe_id)
+                !dataMyPrivateRecipes.find(r => r.recipe_id == recipe.recipe_id) &&
+                !dataMyPublicRecipes.find(r => r.recipe_id == recipe.recipe_id)
               ) ? (
                 <>
                   {
                     dataMyFavoriteRecipes
-                    .find(rec => rec.recipe_id == recipe.recipe_id) ? (
+                    .find(r => r.recipe_id == recipe.recipe_id) ? (
                       <span className="recipe-favorited-saved">
                         Favorited
                       </span>
@@ -65,9 +62,9 @@ export function RecipeView({
                       !favoriteClicked ? (
                         <button
                           className="recipe-favorite-save"
+                          disabled={loading}
                           name="favorite-button"
                           onClick={handleFavoriteClick}
-                          disabled={loading}
                         >
                           Favorite
                         </button>
@@ -83,17 +80,15 @@ export function RecipeView({
                   }
                   {
                     dataMySavedRecipes
-                    .find(rec => rec.recipe_id == recipe.recipe_id) ? (
-                      <span className="recipe-favorited-saved">
-                        Saved
-                      </span>
-                    ) : (
+                    .find(r => r.recipe_id == recipe.recipe_id)
+                    ? <span className="recipe-favorited-saved">Saved</span>
+                    : (
                       !saveClicked ? (
                         <button
                           className="recipe-favorite-save"
+                          disabled={loading}
                           name="save-button"
                           onClick={handleSaveClick}
-                          disabled={loading}
                         >
                           Save
                         </button>
@@ -151,12 +146,9 @@ export function RecipeView({
             <div className="recipe-required-methods">
               {
                 recipe.required_methods &&
-                recipe.required_methods.map(met => (
-                  <div
-                    className="recipe-required-method"
-                    key={met.method_name}
-                  >
-                    {met.method_name}
+                recipe.required_methods.map(m => (
+                  <div className="recipe-required-method" key={m.method_name}>
+                    {m.method_name}
                   </div>
                 ))
               }
@@ -181,12 +173,12 @@ export function RecipeView({
             <div className="recipe-required-equipments">
               {
                 recipe.required_equipment &&
-                recipe.required_equipment.map(equ => (
+                recipe.required_equipment.map(e => (
                   <div
                     className="recipe-required-equipment"
-                    key={equ.equipment_name}
+                    key={e.equipment_name}
                   >
-                    {equ.amount}{' '}{equ.equipment_name}
+                    {e.amount}{' '}{e.equipment_name}
                   </div>
                 ))
               }
@@ -211,12 +203,12 @@ export function RecipeView({
             <div className="recipe-required-ingredients">
               {
                 recipe.required_ingredients &&
-                recipe.required_ingredients.map(ing => (
+                recipe.required_ingredients.map(i => (
                   <div
                     className="recipe-required-ingredient"
-                    key={ing.ingredient_name}
+                    key={i.ingredient_name}
                   >
-                    {ing.amount}{' '}{ing.measurement_name}{' '}{ing.ingredient_name}
+                    {i.amount}{' '}{i.measurement_name}{' '}{i.ingredient_name}
                   </div>
                 ))
               }
@@ -228,12 +220,12 @@ export function RecipeView({
             <div className="recipe-required-subrecipes">
               {
                 recipe.required_subrecipes
-                ? recipe.required_subrecipes.map(sub => (
+                ? recipe.required_subrecipes.map(s => (
                   <div
                     className="recipe-required-subrecipe"
-                    key={sub.subrecipe_title}
+                    key={s.subrecipe_title}
                   >
-                    {sub.amount}{' '}{sub.measurement_name}{' '}{sub.subrecipe_title}
+                    {s.amount}{' '}{s.measurement_name}{' '}{s.subrecipe_title}
                   </div>
                 ))
                 : "none"
@@ -274,17 +266,17 @@ export function RecipeView({
 }
 
 type Props = {
-  twoColumnBTheme: string;
-  userIsAuthenticated: boolean;
-  feedback: string;
-  loading: boolean;
-  recipe: IRecipe;
+  dataMyFavoriteRecipes: IWorkRecipe[];
   dataMyPrivateRecipes: IWorkRecipe[];
   dataMyPublicRecipes: IWorkRecipe[];
-  dataMyFavoriteRecipes: IWorkRecipe[];
   dataMySavedRecipes: IWorkRecipe[];
   favoriteClicked: boolean;
+  feedback: string;
   handleFavoriteClick(): void;
-  saveClicked: boolean;
   handleSaveClick(): void;
+  loading: boolean;
+  recipe: IRecipe;
+  saveClicked: boolean;
+  twoColumnBTheme: string;
+  userIsAuthenticated: boolean;
 };

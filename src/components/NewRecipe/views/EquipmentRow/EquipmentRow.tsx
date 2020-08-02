@@ -3,16 +3,16 @@ import React from 'react';
 import { IEquipment } from '../../../../store/data/types';
 
 export function EquipmentRow({
-  rowKey,
   amount,
-  type,
-  equipment,
   dataEquipment,
   dataMyPrivateEquipment,
+  equipment,
   handleEquipmentRowChange,
-  removeEquipmentRow
+  removeEquipmentRow,
+  rowKey,
+  type
 }: Props): JSX.Element {
-  let availableEquipment = [
+  const availableEquipment = [
     ...dataEquipment,
     ...(dataMyPrivateEquipment.length ? dataMyPrivateEquipment : [])
   ];
@@ -23,9 +23,9 @@ export function EquipmentRow({
       <select
         className="equipment-row-select-amount"
         name="amount"
+        onChange={(e) => handleEquipmentRowChange(e, rowKey)}
         required
         value={amount}
-        onChange={(e) => handleEquipmentRowChange(e, rowKey)}
       >
         <option value=""></option>
         <option value="1">1</option>
@@ -39,9 +39,9 @@ export function EquipmentRow({
       <select
         className="equipment-row-select-equipment-type"
         name="type"
+        onChange={(e) => handleEquipmentRowChange(e, rowKey)}
         required
         value={type}
-        onChange={(e) => handleEquipmentRowChange(e, rowKey)}
       >
         <option value=""></option>
         <option value="2">Preparing</option>
@@ -52,17 +52,17 @@ export function EquipmentRow({
       <select
         className="equipment-row-select-equipment"
         name="equipment"
+        onChange={(e) => handleEquipmentRowChange(e, rowKey)}
         required
         value={equipment}
-        onChange={(e) => handleEquipmentRowChange(e, rowKey)}
       >
         <option value=""></option>
         {
           availableEquipment
-          .filter((equ) => equ.equipment_type_id == type)
-          .map((equipment, index) => (
-            <option key={index} value={equipment.equipment_id}>
-              {equipment.equipment_name}
+          .filter(e => e.equipment_type_id == type)
+          .map((e, index) => (
+            <option key={index} value={e.equipment_id}>
+              {e.equipment_name}
             </option>
           ))
         }
@@ -70,8 +70,8 @@ export function EquipmentRow({
 
       <button
         className="equipment-row-remove-row"
-        onClick={() => removeEquipmentRow(rowKey)}
         data-test="equipment-row-remove-row"
+        onClick={() => removeEquipmentRow(rowKey)}
       >
         Remove
       </button>
@@ -80,15 +80,15 @@ export function EquipmentRow({
 }
 
 type Props = {
-  rowKey: string;
-  amount: string|number;
-  type: string|number;
-  equipment: string|number;
+  amount: string | number;
   dataEquipment: IEquipment[];
   dataMyPrivateEquipment: IEquipment[];
+  equipment: string | number;
   handleEquipmentRowChange(
     e: React.SyntheticEvent<EventTarget>,
     rowKey: string
   ): void;
   removeEquipmentRow(rowKey: string): void;
+  rowKey: string;
+  type: string | number;
 };

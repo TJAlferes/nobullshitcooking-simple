@@ -169,72 +169,58 @@ export function NewRecipe({
 
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
-      if (!id || (!staffIsAuthenticated && !ownership)) {
+      if (!id || (!staffIsAuthenticated && !ownership)) {  // change this
         history.push('/dashboard');
         return;
       }
 
-      window.scrollTo(0,0);
       setLoading(true);
+      window.scrollTo(0,0);
 
       const url = staffIsAuthenticated
         ? `${endpoint}/staff/recipe/edit`
         : `${endpoint}/user/recipe/edit/${ownership}`;
-
       const res =
         await axios.post(url, {recipeId: id}, {withCredentials: true});
 
       const recipe: IExistingRecipeToEdit = res.data.recipe;
-      const redirectPath = staffIsAuthenticated
-        ? '/staff-dashboard' : '/dashboard';
-
       if (!recipe) {
+        const redirectPath = staffIsAuthenticated
+          ? '/staff-dashboard' : '/dashboard';
         history.push(redirectPath);
         return;
       }
 
-      setEditingId(recipe.recipe_id);
-      setRecipeTypeId(recipe.recipe_type_id);
-      setCuisineId(recipe.cuisine_id);
-      setTitle(recipe.title);
-      setDescription(recipe.description);
-      setDirections(recipe.directions);
+      const {
+        recipe_id,
+        recipe_type_id,
+        cuisine_id,
+        title,
+        description,
+        directions,
+        required_equipment,
+        required_ingredients,
+        required_methods,
+        required_subrecipes,
+        recipe_image,
+        equipment_image,
+        ingredients_image,
+        cooking_image
+      } = recipe;
+
+      setEditingId(recipe_id);
+      setRecipeTypeId(recipe_type_id);
+      setCuisineId(cuisine_id);
+      setTitle(title);
+      setDescription(description);
+      setDirections(directions);
+      //
 
       let methodsToSet: number[] = [];
-      let equipmentToSet: IEquipmentRow[] = [];
-      let ingredientsToSet: IIngredientRow[] = [];
-      let subrecipesToSet: ISubrecipeRow[] = [];
 
       recipe.required_methods.length &&
       recipe.required_methods.map(m => methodsToSet.push(m.method_id));
-
-      recipe.required_equipment.length &&
-      recipe.required_equipment.map(e => equipmentToSet.push({
-        key: uuid(),
-        amount: e.amount,
-        type: e.equipment_type_id,
-        equipment: e.equipment_id
-      }));
-
-      recipe.required_ingredients.length &&
-      recipe.required_ingredients.map(i => ingredientsToSet.push({
-        key: uuid(),
-        amount: i.amount,
-        unit: i.measurement_id,
-        type: i.ingredient_type_id,
-        ingredient: i.ingredient_id
-      }));
-
-      recipe.required_subrecipes.length &&
-      recipe.required_subrecipes.map(s => subrecipesToSet.push({
-        key: uuid(),
-        amount: s.amount,
-        unit: s.measurement_id,
-        type: s.recipe_type_id,
-        cuisine: s.cuisine_id,
-        subrecipe: s.subrecipe_id
-      }))
-
+      
       setMethods(prevState => {
         const nextState = {...prevState};
 
@@ -244,14 +230,15 @@ export function NewRecipe({
 
         return nextState;
       });
-      setEquipmentRows(equipmentToSet);
-      setIngredientRows(ingredientsToSet);
-      setSubrecipeRows(subrecipesToSet);
 
-      setRecipePrevImage(recipe.recipe_image);
-      setEquipmentPrevImage(recipe.equipment_image);
-      setIngredientsPrevImage(recipe.ingredients_image);
-      setCookingPrevImage(recipe.cooking_image);
+      //
+      setRequiredEquipment(recipe.required_equipment);
+      setRequiredIngredients(recipe.required_ingredients);
+      setRequiredSubrecipes(recipe.required_subrecipes);
+      setRecipePrevImage(recipe_image);
+      setEquipmentPrevImage(equipment_image);
+      setIngredientsPrevImage(ingredients_image);
+      setCookingPrevImage(cooking_image);
 
       setLoading(false);
     };
@@ -286,25 +273,95 @@ export function NewRecipe({
     };
   }, [staffMessage, userMessage]);
 
-  const handleRecipeTypeChange = (e: React.SyntheticEvent<EventTarget>) =>
-    setRecipeTypeId(Number((e.target as HTMLInputElement).value));
+  const addEquipmentRow = () => {
+    const newEquipmentRows = equipmentRows
+      .concat({key: uuid(), amount: "", type: "", equipment: ""});
+    setEquipmentRows(newEquipmentRows);
+  };
+
+  const addIngredientRow = () => {
+    const newIngredientRows = ingredientRows
+      .concat({key: uuid(), amount: "", unit: "", type: "", ingredient: ""});
+    setIngredientRows(newIngredientRows);
+  };
+
+  const addSubrecipeRow = () => {
+    const newSubrecipeRows = subrecipeRows.concat({
+      key: uuid(), amount: "", unit: "", type: "", cuisine: "", subrecipe: ""
+    });
+    setSubrecipeRows(newSubrecipeRows);
+  };
+
+  const cancelCookingImage = () => {
+    setCookingFullCrop("");
+    setCookingImage(null);
+    setCookingFullImage(null);
+  };
+
+  const cancelEquipmentImage = () => {
+    setEquipmentFullCrop("");
+    setEquipmentImage(null);
+    setEquipmentFullImage(null);
+  };
+
+  const cancelIngredientsImage = () => {
+    setIngredientsFullCrop("");
+    setIngredientsImage(null);
+    setIngredientsFullImage(null);
+  };
+
+  const cancelRecipeImage = () => {
+    setRecipeFullCrop("");
+    setRecipeThumbCrop("");
+    setRecipeTinyCrop("");
+    setRecipeImage(null);
+    setRecipeFullImage(null);
+    setRecipeThumbImage(null);
+    setRecipeTinyImage(null);
+  };
+
+  const getRequiredEquipment = () => {
+    //if (!equipmentRows.length) return [];
+    return equipmentRows.map(e => ({
+      amount: Number(e.amount),
+      equipment: Number(e.equipment)
+    }));
+  };
+
+  const getRequiredIngredients = () => {
+    //if (!ingredientRows.length) return [];
+    return ingredientRows.map(i => ({
+      amount: Number(i.amount),
+      unit: Number(i.unit),
+      ingredient: Number(i.ingredient)
+    }));
+  };
+
+  const getCheckedMethods = () => {
+    let checkedMethods: IRequiredMethod[] = [];
+    Object.entries(methods).forEach(([key, value]) => {
+      if (value === true) checkedMethods.push({methodId: Number(key)});
+    });
+    return checkedMethods;
+  };
+
+  const getRequiredSubrecipes = () => {
+    //if (subrecipeRows.length) return [];
+    return subrecipeRows.map(s => ({
+      amount: Number(s.amount),
+      unit: Number(s.unit),
+      subrecipe: Number(s.subrecipe)
+    }));
+  };
 
   const handleCuisineChange = (e: React.SyntheticEvent<EventTarget>) =>
     setCuisineId(Number((e.target as HTMLInputElement).value));
-
-  const handleTitleChange = (e: React.SyntheticEvent<EventTarget>) =>
-    setTitle((e.target as HTMLInputElement).value);
 
   const handleDescriptionChange = (e: React.SyntheticEvent<EventTarget>) =>
     setDescription((e.target as HTMLInputElement).value);
 
   const handleDirectionsChange = (e: React.SyntheticEvent<EventTarget>) =>
     setDirections((e.target as HTMLInputElement).value);
-
-  const handleMethodsChange = (e: React.SyntheticEvent<EventTarget>) => {
-    const id = (e.target as HTMLInputElement).id;
-    setMethods(prevState => ({...prevState, [id]: !prevState[id]}));
-  };
 
   const handleEquipmentRowChange = (
     e: React.SyntheticEvent<EventTarget>,
@@ -330,268 +387,13 @@ export function NewRecipe({
     setIngredientRows(newIngredientRows);
   };
 
-  const handleSubrecipeRowChange = (
-    e: React.SyntheticEvent<EventTarget>,
-    rowKey: string
-  ) => {
-    const newSubrecipeRows = Array.from(subrecipeRows);
-    const elToUpdate = newSubrecipeRows.findIndex(el => el.key === rowKey);
-    const targetName = (e.target as HTMLInputElement).name;
-    const targetValue = (e.target as HTMLInputElement).value;
-    newSubrecipeRows[elToUpdate][targetName] = targetValue;
-    setSubrecipeRows(newSubrecipeRows);
+  const handleMethodsChange = (e: React.SyntheticEvent<EventTarget>) => {
+    const id = (e.target as HTMLInputElement).id;
+    setMethods(prevState => ({...prevState, [id]: !prevState[id]}));
   };
 
-  const addEquipmentRow = () => {
-    const newEquipmentRows = equipmentRows
-      .concat({key: uuid(), amount: "", type: "", equipment: ""});
-    setEquipmentRows(newEquipmentRows);
-  };
-
-  const addIngredientRow = () => {
-    const newIngredientRows = ingredientRows
-      .concat({key: uuid(), amount: "", unit: "", type: "", ingredient: ""});
-    setIngredientRows(newIngredientRows);
-  };
-
-  const addSubrecipeRow = () => {
-    const newSubrecipeRows = subrecipeRows.concat({
-      key: uuid(), amount: "", unit: "", type: "", cuisine: "", subrecipe: ""
-    });
-    setSubrecipeRows(newSubrecipeRows);
-  };
-
-  const removeEquipmentRow = (rowKey: string) => {
-    const newEquipmentRows = equipmentRows.filter(row => row.key !== rowKey);
-    setEquipmentRows(newEquipmentRows);
-  };
-
-  const removeIngredientRow = (rowKey: string) => {
-    const newIngredientRows = ingredientRows.filter(row => row.key !== rowKey);
-    setIngredientRows(newIngredientRows);
-  };
-
-  const removeSubrecipeRow = (rowKey: string) => {
-    const newSubrecipeRows = subrecipeRows.filter(row => row.key !== rowKey);
-    setSubrecipeRows(newSubrecipeRows);
-  };
-
-  const onSelectRecipeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (!(target.files && target.files.length > 0)) return;
-
-    const reader = new FileReader();
-
-    reader.addEventListener("load", () => setRecipeImage(reader.result));
-    reader.readAsDataURL(target.files[0]);
-  };
-
-  const onSelectEquipmentFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (!(target.files && target.files.length > 0)) return;
-
-    const reader = new FileReader();
-
-    reader
-      .addEventListener("load", () => setEquipmentImage(reader.result));
-    reader.readAsDataURL(target.files[0]);
-  };
-
-  const onSelectIngredientsFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (!(target.files && target.files.length > 0)) return;
-
-    const reader = new FileReader();
-
-    reader
-      .addEventListener("load", () => setIngredientsImage(reader.result));
-    reader.readAsDataURL(target.files[0]);
-  };
-
-  const onSelectCookingFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (!(target.files && target.files.length > 0)) return;
-
-    const reader = new FileReader();
-
-    reader.addEventListener("load", () => setCookingImage(reader.result));
-    reader.readAsDataURL(target.files[0]);
-  };
-
-  const onRecipeImageLoaded = (image: HTMLImageElement) =>
-    recipeImageRef.current = image;
-
-  const onEquipmentImageLoaded = (image: HTMLImageElement) =>
-    equipmentImageRef.current = image;
-
-  const onIngredientsImageLoaded = (image: HTMLImageElement) =>
-    ingredientsImageRef.current = image;
-
-  const onCookingImageLoaded = (image: HTMLImageElement) =>
-    cookingImageRef.current = image;
-
-  const onRecipeCropChange = (crop: Crop) => setRecipeCrop(crop);
-
-  const onEquipmentCropChange = (crop: Crop) => setEquipmentCrop(crop);
-
-  const onIngredientsCropChange = (crop: Crop) => setIngredientsCrop(crop);
-
-  const onCookingCropChange = (crop: Crop) => setCookingCrop(crop);
-
-  const onRecipeCropComplete = (crop: Crop) => makeRecipeCrops(crop);
-
-  const onEquipmentCropComplete = (crop: Crop) => makeEquipmentCrops(crop);
-
-  const onIngredientsCropComplete = (crop: Crop) => makeIngredientsCrops(crop);
-
-  const onCookingCropComplete = (crop: Crop) => makeCookingCrops(crop);
-
-  const makeRecipeCrops = async (crop: Crop) => {
-    if (!recipeImageRef || !recipeImageRef.current) return;
-    if (!crop.width) return;
-
-    const full = await getCroppedImage(
-      280, 172, recipeImageRef.current, crop, "newFile.jpeg"
-    );
-    const thumb = await getCroppedImage(
-      100, 62, recipeImageRef.current, crop, "newFile.jpeg"
-    );
-    const tiny = await getCroppedImage(
-      28, 18, recipeImageRef.current, crop, "newFile.jpeg"
-    );
-    if (!full || !thumb || !tiny) return;
-
-    setRecipeFullCrop(full.resizedPreview);
-    setRecipeThumbCrop(thumb.resizedPreview);
-    setRecipeTinyCrop(tiny.resizedPreview);
-    setRecipeFullImage(full.resizedFinal);
-    setRecipeThumbImage(thumb.resizedFinal);
-    setRecipeTinyImage(tiny.resizedFinal);
-  };
-
-  const makeEquipmentCrops = async (crop: Crop) => {
-    if (!equipmentImageRef || !equipmentImageRef.current) return;
-    if (!crop.width) return;
-    
-    const full = await getCroppedImage(
-      280, 172, equipmentImageRef.current, crop, "newFile.jpeg"
-    );
-    if (!full) return;
-
-    setEquipmentFullCrop(full.resizedPreview);
-    setEquipmentFullImage(full.resizedFinal);
-  };
-
-  const makeIngredientsCrops = async (crop: Crop) => {
-    if (!ingredientsImageRef || !ingredientsImageRef.current) return;
-    if (!crop.width) return;
-
-    const full = await getCroppedImage(
-      280, 172, ingredientsImageRef.current, crop, "newFile.jpeg"
-    );
-    if (!full) return;
-
-    setIngredientsFullCrop(full.resizedPreview);
-    setIngredientsFullImage(full.resizedFinal);
-  };
-
-  const makeCookingCrops = async (crop: Crop) => {
-    if (!cookingImageRef || !cookingImageRef.current) return;
-    if (!crop.width) return;
-
-    const full = await getCroppedImage(
-      280, 172, cookingImageRef.current, crop, "newFile.jpeg"
-    );
-    if (!full) return;
-
-    setCookingFullCrop(full.resizedPreview);
-    setCookingFullImage(full.resizedFinal);
-  };
-
-  const cancelRecipeImage = () => {
-    setRecipeFullCrop("");
-    setRecipeThumbCrop("");
-    setRecipeTinyCrop("");
-    setRecipeImage(null);
-    setRecipeFullImage(null);
-    setRecipeThumbImage(null);
-    setRecipeTinyImage(null);
-  };
-
-  const cancelEquipmentImage = () => {
-    setEquipmentFullCrop("");
-    setEquipmentImage(null);
-    setEquipmentFullImage(null);
-  };
-
-  const cancelIngredientsImage = () => {
-    setIngredientsFullCrop("");
-    setIngredientsImage(null);
-    setIngredientsFullImage(null);
-  };
-
-  const cancelCookingImage = () => {
-    setCookingFullCrop("");
-    setCookingImage(null);
-    setCookingFullImage(null);
-  };
-  
-  const getCheckedMethods = () => {
-    let checkedMethods: IRequiredMethod[] = [];
-
-    Object.entries(methods).forEach(([key, value]) => {
-      if (value === true) checkedMethods.push({methodId: Number(key)});
-    });
-
-    return checkedMethods;
-  };
-
-  const getRequiredEquipment = () => {
-    if (!equipmentRows.length) return [];
-
-    let requiredEquipment: IRequiredEquipment[] = [];
-
-    equipmentRows.map(e => {
-      requiredEquipment.push({
-        amount: Number(e.amount),
-        equipment: Number(e.equipment)
-      });
-    });
-
-    return requiredEquipment;
-  };
-
-  const getRequiredIngredients = () => {
-    if (!ingredientRows.length) return [];
-
-    let requiredIngredients: IRequiredIngredient[] = [];
-
-    ingredientRows.map(i => {
-      requiredIngredients.push({
-        amount: Number(i.amount),
-        unit: Number(i.unit),
-        ingredient: Number(i.ingredient)
-      });
-    });
-
-    return requiredIngredients;
-  };
-
-  const getRequiredSubrecipes = () => {
-    if (subrecipeRows.length) return [];
-
-    let requiredSubrecipes: IRequiredSubrecipe[] = [];
-
-    subrecipeRows.map(s => {
-      requiredSubrecipes.push({
-        amount: Number(s.amount),
-        unit: Number(s.unit),
-        subrecipe: Number(s.subrecipe)
-      });
-    });
-
-    return requiredSubrecipes;
-  };
+  const handleRecipeTypeChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setRecipeTypeId(Number((e.target as HTMLInputElement).value));
 
   const handleSubmit = () => {
     if (
@@ -686,93 +488,288 @@ export function NewRecipe({
     }
   };
 
+  const handleSubrecipeRowChange = (
+    e: React.SyntheticEvent<EventTarget>,
+    rowKey: string
+  ) => {
+    const newSubrecipeRows = Array.from(subrecipeRows);
+    const elToUpdate = newSubrecipeRows.findIndex(el => el.key === rowKey);
+    const targetName = (e.target as HTMLInputElement).name;
+    const targetValue = (e.target as HTMLInputElement).value;
+    newSubrecipeRows[elToUpdate][targetName] = targetValue;
+    setSubrecipeRows(newSubrecipeRows);
+  };
+
+  const handleTitleChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setTitle((e.target as HTMLInputElement).value);
+
+  const makeCookingCrops = async (crop: Crop) => {
+    if (!cookingImageRef || !cookingImageRef.current) return;
+    if (!crop.width) return;
+
+    const full = await getCroppedImage(
+      280, 172, cookingImageRef.current, crop, "newFile.jpeg"
+    );
+    if (!full) return;
+
+    setCookingFullCrop(full.resizedPreview);
+    setCookingFullImage(full.resizedFinal);
+  };
+
+  const makeEquipmentCrops = async (crop: Crop) => {
+    if (!equipmentImageRef || !equipmentImageRef.current) return;
+    if (!crop.width) return;
+    
+    const full = await getCroppedImage(
+      280, 172, equipmentImageRef.current, crop, "newFile.jpeg"
+    );
+    if (!full) return;
+
+    setEquipmentFullCrop(full.resizedPreview);
+    setEquipmentFullImage(full.resizedFinal);
+  };
+
+  const makeIngredientsCrops = async (crop: Crop) => {
+    if (!ingredientsImageRef || !ingredientsImageRef.current) return;
+    if (!crop.width) return;
+
+    const full = await getCroppedImage(
+      280, 172, ingredientsImageRef.current, crop, "newFile.jpeg"
+    );
+    if (!full) return;
+
+    setIngredientsFullCrop(full.resizedPreview);
+    setIngredientsFullImage(full.resizedFinal);
+  };
+
+  const makeRecipeCrops = async (crop: Crop) => {
+    if (!recipeImageRef || !recipeImageRef.current) return;
+    if (!crop.width) return;
+
+    const full = await getCroppedImage(
+      280, 172, recipeImageRef.current, crop, "newFile.jpeg"
+    );
+    const thumb = await getCroppedImage(
+      100, 62, recipeImageRef.current, crop, "newFile.jpeg"
+    );
+    const tiny = await getCroppedImage(
+      28, 18, recipeImageRef.current, crop, "newFile.jpeg"
+    );
+    if (!full || !thumb || !tiny) return;
+
+    setRecipeFullCrop(full.resizedPreview);
+    setRecipeThumbCrop(thumb.resizedPreview);
+    setRecipeTinyCrop(tiny.resizedPreview);
+    setRecipeFullImage(full.resizedFinal);
+    setRecipeThumbImage(thumb.resizedFinal);
+    setRecipeTinyImage(tiny.resizedFinal);
+  };
+
+  const onCookingCropChange = (crop: Crop) => setCookingCrop(crop);
+
+  const onCookingCropComplete = (crop: Crop) => makeCookingCrops(crop);
+
+  const onCookingImageLoaded = (image: HTMLImageElement) =>
+    cookingImageRef.current = image;
+
+  const onEquipmentCropChange = (crop: Crop) => setEquipmentCrop(crop);
+
+  const onEquipmentCropComplete = (crop: Crop) => makeEquipmentCrops(crop);
+
+  const onEquipmentImageLoaded = (image: HTMLImageElement) =>
+    equipmentImageRef.current = image;
+
+  const onIngredientsCropChange = (crop: Crop) => setIngredientsCrop(crop);
+
+  const onIngredientsCropComplete = (crop: Crop) => makeIngredientsCrops(crop);
+
+  const onIngredientsImageLoaded = (image: HTMLImageElement) =>
+    ingredientsImageRef.current = image;
+
+  const onRecipeCropChange = (crop: Crop) => setRecipeCrop(crop);
+  
+  const onRecipeCropComplete = (crop: Crop) => makeRecipeCrops(crop);
+
+  const onRecipeImageLoaded = (image: HTMLImageElement) =>
+    recipeImageRef.current = image;
+  
+  const onSelectCookingFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (!(target.files && target.files.length > 0)) return;
+
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => setCookingImage(reader.result));
+    reader.readAsDataURL(target.files[0]);
+  };
+
+  const onSelectEquipmentFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (!(target.files && target.files.length > 0)) return;
+
+    const reader = new FileReader();
+
+    reader
+      .addEventListener("load", () => setEquipmentImage(reader.result));
+    reader.readAsDataURL(target.files[0]);
+  };
+
+  const onSelectIngredientsFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (!(target.files && target.files.length > 0)) return;
+
+    const reader = new FileReader();
+
+    reader
+      .addEventListener("load", () => setIngredientsImage(reader.result));
+    reader.readAsDataURL(target.files[0]);
+  };
+
+  const onSelectRecipeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (!(target.files && target.files.length > 0)) return;
+
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => setRecipeImage(reader.result));
+    reader.readAsDataURL(target.files[0]);
+  };
+
+  const removeEquipmentRow = (rowKey: string) => {
+    const newEquipmentRows = equipmentRows.filter(row => row.key !== rowKey);
+    setEquipmentRows(newEquipmentRows);
+  };
+
+  const removeIngredientRow = (rowKey: string) => {
+    const newIngredientRows = ingredientRows.filter(row => row.key !== rowKey);
+    setIngredientRows(newIngredientRows);
+  };
+
+  const removeSubrecipeRow = (rowKey: string) => {
+    const newSubrecipeRows = subrecipeRows.filter(row => row.key !== rowKey);
+    setSubrecipeRows(newSubrecipeRows);
+  };
+
+  const setRequiredEquipment = (required: IExistingRequiredEquipment[]) => {
+    const rows = required.map(r => ({
+      key: uuid(),
+      amount: r.amount,
+      type: r.equipment_type_id,
+      equipment: r.equipment_id
+    }));
+    setEquipmentRows(rows);
+  };
+
+  const setRequiredIngredients = (required: IExistingRequiredIngredient[]) => {
+    const rows = required.map(r => ({
+      key: uuid(),
+      amount: r.amount,
+      unit: r.measurement_id,
+      type: r.ingredient_type_id,
+      ingredient: r.ingredient_id
+    }));
+    setIngredientRows(rows);
+  };
+
+  const setRequiredSubrecipes = (required: IExistingRequiredSubrecipe[]) => {
+    const rows = required.map(r => ({
+      key: uuid(),
+      amount: r.amount,
+      unit: r.measurement_id,
+      type: r.recipe_type_id,
+      cuisine: r.cuisine_id,
+      subrecipe: r.subrecipe_id
+    }));
+    setSubrecipeRows(rows);
+  };
+
   return (
     <NewRecipeView
-      authname={authname}
-      id={editingId}
-      oneColumnATheme={oneColumnATheme}
-      staffIsAuthenticated={staffIsAuthenticated}
-      feedback={feedback}
-      loading={loading}
-      editing={editing}
-      ownership={ownership}
-      recipeTypeId={recipeTypeId}
-      cuisineId={cuisineId}
-      title={title}
-      description={description}
-      directions={directions}
-      methods={methods}
-      equipmentRows={equipmentRows}
-      ingredientRows={ingredientRows}
-      subrecipeRows={subrecipeRows}
-      recipePrevImage={recipePrevImage}
-      equipmentPrevImage={equipmentPrevImage}
-      ingredientsPrevImage={ingredientsPrevImage}
-      cookingPrevImage={cookingPrevImage}
-      dataRecipeTypes={dataRecipeTypes}
-      dataCuisines={dataCuisines}
-      dataMethods={dataMethods}
-      dataEquipment={dataEquipment}
-      dataMyPrivateEquipment={dataMyPrivateEquipment}
-      dataMeasurements={dataMeasurements}
-      dataIngredientTypes={dataIngredientTypes}
-      dataIngredients={dataIngredients}
-      dataMyPrivateIngredients={dataMyPrivateIngredients}
-      dataRecipes={dataRecipes}
-      dataMyPrivateRecipes={dataMyPrivateRecipes}
-      dataMyPublicRecipes={dataMyPublicRecipes}
-      dataMyFavoriteRecipes={dataMyFavoriteRecipes}
-      dataMySavedRecipes={dataMySavedRecipes}
-      recipeImage={recipeImage}
-      equipmentImage={equipmentImage}
-      ingredientsImage={ingredientsImage}
-      cookingImage={cookingImage}
-      recipeCrop={recipeCrop}
-      recipeFullCrop={recipeFullCrop}
-      recipeThumbCrop={recipeThumbCrop}
-      recipeTinyCrop={recipeTinyCrop}
-      equipmentCrop={equipmentCrop}
-      equipmentFullCrop={equipmentFullCrop}
-      ingredientsCrop={ingredientsCrop}
-      ingredientsFullCrop={ingredientsFullCrop}
-      cookingCrop={cookingCrop}
-      cookingFullCrop={cookingFullCrop}
-      handleRecipeTypeChange={handleRecipeTypeChange}
-      handleCuisineChange={handleCuisineChange}
-      handleTitleChange={handleTitleChange}
-      handleDescriptionChange={handleDescriptionChange}
-      handleDirectionsChange={handleDirectionsChange}
-      handleMethodsChange={handleMethodsChange}
-      handleEquipmentRowChange={handleEquipmentRowChange}
-      handleIngredientRowChange={handleIngredientRowChange}
-      handleSubrecipeRowChange={handleSubrecipeRowChange}
-      addEquipmentRow={addEquipmentRow}
-      removeEquipmentRow={removeEquipmentRow}
-      addIngredientRow={addIngredientRow}
-      removeIngredientRow={removeIngredientRow}
-      addSubrecipeRow={addSubrecipeRow}
-      removeSubrecipeRow={removeSubrecipeRow}
-      onSelectRecipeFile={onSelectRecipeFile}
-      onSelectEquipmentFile={onSelectEquipmentFile}
-      onSelectIngredientsFile={onSelectIngredientsFile}
-      onSelectCookingFile={onSelectCookingFile}
-      onRecipeImageLoaded={onRecipeImageLoaded}
-      onEquipmentImageLoaded={onEquipmentImageLoaded}
-      onIngredientsImageLoaded={onIngredientsImageLoaded}
-      onCookingImageLoaded={onCookingImageLoaded}
-      onRecipeCropChange={onRecipeCropChange}
-      onEquipmentCropChange={onEquipmentCropChange}
-      onIngredientsCropChange={onIngredientsCropChange}
-      onCookingCropChange={onCookingCropChange}
-      onRecipeCropComplete={onRecipeCropComplete}
-      onEquipmentCropComplete={onEquipmentCropComplete}
-      onIngredientsCropComplete={onIngredientsCropComplete}
-      onCookingCropComplete={onCookingCropComplete}
-      cancelRecipeImage={cancelRecipeImage}
-      cancelEquipmentImage={cancelEquipmentImage}
-      cancelIngredientsImage={cancelIngredientsImage}
-      cancelCookingImage={cancelCookingImage}
-      handleSubmit={handleSubmit}
+    addEquipmentRow={addEquipmentRow}
+    addIngredientRow={addIngredientRow}
+    addSubrecipeRow={addSubrecipeRow}
+    authname={authname}
+    cancelCookingImage={cancelCookingImage}
+    cancelEquipmentImage={cancelEquipmentImage}
+    cancelIngredientsImage={cancelIngredientsImage}
+    cancelRecipeImage={cancelRecipeImage}
+    cookingCrop={cookingCrop}
+    cookingFullCrop={cookingFullCrop}
+    cookingImage={cookingImage}
+    cookingPrevImage={cookingPrevImage}
+    cuisineId={cuisineId}
+    dataCuisines={dataCuisines}
+    dataEquipment={dataEquipment}
+    dataIngredients={dataIngredients}
+    dataIngredientTypes={dataIngredientTypes}
+    dataMeasurements={dataMeasurements}
+    dataMethods={dataMethods}
+    dataMyFavoriteRecipes={dataMyFavoriteRecipes}
+    dataMyPrivateEquipment={dataMyPrivateEquipment}
+    dataMyPrivateIngredients={dataMyPrivateIngredients}
+    dataMyPrivateRecipes={dataMyPrivateRecipes}
+    dataMyPublicRecipes={dataMyPublicRecipes}
+    dataMySavedRecipes={dataMySavedRecipes}
+    dataRecipes={dataRecipes}
+    dataRecipeTypes={dataRecipeTypes}
+    description={description}
+    directions={directions}
+    editing={editing}
+    equipmentCrop={equipmentCrop}
+    equipmentFullCrop={equipmentFullCrop}
+    equipmentImage={equipmentImage}
+    equipmentPrevImage={equipmentPrevImage}
+    equipmentRows={equipmentRows}
+    feedback={feedback}
+    handleCuisineChange={handleCuisineChange}
+    handleDescriptionChange={handleDescriptionChange}
+    handleDirectionsChange={handleDirectionsChange}
+    handleEquipmentRowChange={handleEquipmentRowChange}
+    handleIngredientRowChange={handleIngredientRowChange}
+    handleMethodsChange={handleMethodsChange}
+    handleRecipeTypeChange={handleRecipeTypeChange}
+    handleSubmit={handleSubmit}
+    handleSubrecipeRowChange={handleSubrecipeRowChange}
+    handleTitleChange={handleTitleChange}
+    id={id}
+    ingredientsCrop={ingredientsCrop}
+    ingredientsFullCrop={ingredientsFullCrop}
+    ingredientsImage={ingredientsImage}
+    ingredientsPrevImage={ingredientsPrevImage}
+    ingredientRows={ingredientRows}
+    loading={loading}
+    methods={methods}
+    onCookingCropChange={onCookingCropChange}
+    onCookingCropComplete={onCookingCropComplete}
+    onCookingImageLoaded={onCookingImageLoaded}
+    oneColumnATheme={oneColumnATheme}
+    onEquipmentCropChange={onEquipmentCropChange}
+    onEquipmentCropComplete={onEquipmentCropComplete}
+    onEquipmentImageLoaded={onEquipmentImageLoaded}
+    onIngredientsCropChange={onIngredientsCropChange}
+    onIngredientsCropComplete={onIngredientsCropComplete}
+    onIngredientsImageLoaded={onIngredientsImageLoaded}
+    onRecipeCropChange={onRecipeCropChange}
+    onRecipeCropComplete={onRecipeCropComplete}
+    onRecipeImageLoaded={onRecipeImageLoaded}
+    onSelectCookingFile={onSelectCookingFile}
+    onSelectEquipmentFile={onSelectEquipmentFile}
+    onSelectIngredientsFile={onSelectIngredientsFile}
+    onSelectRecipeFile={onSelectRecipeFile}
+    ownership={ownership}
+    recipeCrop={recipeCrop}
+    recipeFullCrop={recipeFullCrop}
+    recipeImage={recipeImage}
+    recipePrevImage={recipePrevImage}
+    recipeThumbCrop={recipeThumbCrop}
+    recipeTinyCrop={recipeTinyCrop}
+    recipeTypeId={recipeTypeId}
+    removeEquipmentRow={removeEquipmentRow}
+    removeIngredientRow={removeIngredientRow}
+    removeSubrecipeRow={removeSubrecipeRow}
+    staffIsAuthenticated={staffIsAuthenticated}
+    subrecipeRows={subrecipeRows}
+    title={title}
     />
   );
 };

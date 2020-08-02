@@ -94,10 +94,10 @@ export function NewRecipeView({
   onRecipeCropChange,
   onRecipeCropComplete,
   onRecipeImageLoaded,
-  onSelectRecipeFile,
+  onSelectCookingFile,
   onSelectEquipmentFile,
   onSelectIngredientsFile,
-  onSelectCookingFile,
+  onSelectRecipeFile,
   ownership,
   recipeCrop,
   recipeFullCrop,
@@ -438,46 +438,46 @@ export function NewRecipeView({
         </div>
 
         <ImageUploads
-          recipeImage={recipeImage}
-          equipmentImage={equipmentImage}
-          ingredientsImage={ingredientsImage}
+          cancelCookingImage={cancelCookingImage}
+          cancelEquipmentImage={cancelEquipmentImage}
+          cancelIngredientsImage={cancelIngredientsImage}
+          cancelRecipeImage={cancelRecipeImage}
+          cookingCrop={cookingCrop}
+          cookingFullCrop={cookingFullCrop}
           cookingImage={cookingImage}
-          editing={editing}
-          recipePrevImage={recipePrevImage}
-          equipmentPrevImage={equipmentPrevImage}
-          ingredientsPrevImage={ingredientsPrevImage}
           cookingPrevImage={cookingPrevImage}
-          onSelectRecipeFile={onSelectRecipeFile}
+          editing={editing}
+          equipmentCrop={equipmentCrop}
+          equipmentFullCrop={equipmentFullCrop}
+          equipmentImage={equipmentImage}
+          equipmentPrevImage={equipmentPrevImage}
+          ingredientsCrop={ingredientsCrop}
+          ingredientsFullCrop={ingredientsFullCrop}
+          ingredientsImage={ingredientsImage}
+          ingredientsPrevImage={ingredientsPrevImage}
+          loading={loading}
+          onCookingCropChange={onCookingCropChange}
+          onCookingCropComplete={onCookingCropComplete}
+          onCookingImageLoaded={onCookingImageLoaded}
+          onEquipmentCropChange={onEquipmentCropChange}
+          onEquipmentCropComplete={onEquipmentCropComplete}
+          onEquipmentImageLoaded={onEquipmentImageLoaded}
+          onIngredientsCropChange={onIngredientsCropChange}
+          onIngredientsCropComplete={onIngredientsCropComplete}
+          onIngredientsImageLoaded={onIngredientsImageLoaded}
+          onRecipeCropChange={onRecipeCropChange}
+          onRecipeCropComplete={onRecipeCropComplete}
+          onRecipeImageLoaded={onRecipeImageLoaded}
+          onSelectCookingFile={onSelectCookingFile}
           onSelectEquipmentFile={onSelectEquipmentFile}
           onSelectIngredientsFile={onSelectIngredientsFile}
-          onSelectCookingFile={onSelectCookingFile}
+          onSelectRecipeFile={onSelectRecipeFile}
           recipeCrop={recipeCrop}
-          equipmentCrop={equipmentCrop}
-          ingredientsCrop={ingredientsCrop}
-          cookingCrop={cookingCrop}
-          onRecipeImageLoaded={onRecipeImageLoaded}
-          onEquipmentImageLoaded={onEquipmentImageLoaded}
-          onIngredientsImageLoaded={onIngredientsImageLoaded}
-          onCookingImageLoaded={onCookingImageLoaded}
-          onRecipeCropChange={onRecipeCropChange}
-          onEquipmentCropChange={onEquipmentCropChange}
-          onIngredientsCropChange={onIngredientsCropChange}
-          onCookingCropChange={onCookingCropChange}
-          onRecipeCropComplete={onRecipeCropComplete}
-          onEquipmentCropComplete={onEquipmentCropComplete}
-          onIngredientsCropComplete={onIngredientsCropComplete}
-          onCookingCropComplete={onCookingCropComplete}
-          cropFullCrop={cropFullCrop}
-          cropThumbCrop={cropThumbCrop}
-          cropTinyCrop={cropTinyCrop}
-          equipmentCropFullCrop={equipmentCropFullCrop}
-          ingredientsCropFullCrop={ingredientsCropFullCrop}
-          cookingCropFullCrop={cookingCropFullCrop}
-          loading={loading}
-          cancelRecipeImage={cancelRecipeImage}
-          cancelRecipeEquipmentImage={cancelRecipeEquipmentImage}
-          cancelRecipeIngredientsImage={cancelRecipeIngredientsImage}
-          cancelRecipeCookingImage={cancelRecipeCookingImage}
+          recipeFullCrop={recipeFullCrop}
+          recipeImage={recipeImage}
+          recipePrevImage={recipePrevImage}
+          recipeThumbCrop={recipeThumbCrop}
+          recipeTinyCrop={recipeTinyCrop}
         />
 
         <div className="new-recipe-finish-area">
@@ -491,11 +491,11 @@ export function NewRecipeView({
           <LoaderButton
             className="new-recipe-submit-button"
             id="user_submit_recipe_button"
-            name="submit"
-            text="Submit Recipe"
-            loadingText="Submitting Recipe..."
             isLoading={loading}
+            loadingText="Submitting Recipe..."
+            name="submit"
             onClick={handleSubmit}
+            text="Submit Recipe"
           />
         </div>
 
@@ -582,10 +582,10 @@ type Props = {
   onRecipeCropChange(crop: Crop): void;
   onRecipeCropComplete(crop: Crop): void;
   onRecipeImageLoaded(image: HTMLImageElement): void;
-  onSelectRecipeFile(e: React.ChangeEvent<HTMLInputElement>): void;
+  onSelectCookingFile(e: React.ChangeEvent<HTMLInputElement>): void;
   onSelectEquipmentFile(e: React.ChangeEvent<HTMLInputElement>): void;
   onSelectIngredientsFile(e: React.ChangeEvent<HTMLInputElement>): void;
-  onSelectCookingFile(e: React.ChangeEvent<HTMLInputElement>): void;
+  onSelectRecipeFile(e: React.ChangeEvent<HTMLInputElement>): void;
   ownership: string;
   recipeCrop: Crop;
   recipeFullCrop: string;

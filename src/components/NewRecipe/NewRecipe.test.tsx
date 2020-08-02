@@ -1,8 +1,8 @@
-import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
+import { mount } from 'enzyme';
+import React from 'react';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 
 import { NewRecipe } from './NewRecipe';
 
@@ -26,15 +26,18 @@ const data = {
   },
 };
 
-const beginProps = {
-  oneColumnATheme: "one-column-a-light",
-  staffIsAuthenticated: false,  // test for this
+const staffCreateNewRecipe = jest.fn();
+const staffEditRecipe = jest.fn();
+const userCreateNewPrivateRecipe = jest.fn();
+const userCreateNewPublicRecipe = jest.fn();
+const userEditPrivateRecipe = jest.fn();
+const userEditPublicRecipe = jest.fn();
+
+const initialProps = {
   authname: "Person",
-  staffMessage: "",
-  userMessage: "Some message.",
-  dataMeasurements: [
-    {measurement_id: 1, measurement_name: "teaspoon"},
-    {measurement_id: 2, measurement_name: "Tablespoon"}
+  dataCuisines: [
+    {cuisine_id: 1, cuisine_name: "American", cuisine_nation: "America"},
+    {cuisine_id: 2, cuisine_name: "Japanese", cuisine_nation: "Japan"},
   ],
   dataEquipment: [
     {
@@ -84,31 +87,35 @@ const beginProps = {
     {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
     {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
   ],
-  dataRecipes: [],
-  dataRecipeTypes: [
-    {recipe_type_id: 1, recipe_type_name: "Drink"},
-    {recipe_type_id: 2, recipe_type_name: "Appetizer"}
-  ],
-  dataCuisines: [
-    {cuisine_id: 1, cuisine_name: "American", cuisine_nation: "America"},
-    {cuisine_id: 2, cuisine_name: "Japanese", cuisine_nation: "Japan"},
+  dataMeasurements: [
+    {measurement_id: 1, measurement_name: "teaspoon"},
+    {measurement_id: 2, measurement_name: "Tablespoon"}
   ],
   dataMethods: [
     {method_id: 1, method_name: "Steam"},
     {method_id: 2, method_name: "Freeze"}
   ],
-  dataMyPublicRecipes: [],
+  dataMyFavoriteRecipes: [],
   dataMyPrivateEquipment: [],
   dataMyPrivateIngredients: [],
   dataMyPrivateRecipes: [],
-  dataMyFavoriteRecipes: [],
+  dataMyPublicRecipes: [],
   dataMySavedRecipes: [],
-  staffCreateNewRecipe: jest.fn(),
-  staffEditRecipe: jest.fn(),
-  userCreateNewPrivateRecipe: jest.fn(),
-  userCreateNewPublicRecipe: jest.fn(),
-  userEditPrivateRecipe: jest.fn(),
-  userEditPublicRecipe: jest.fn()
+  dataRecipes: [],
+  dataRecipeTypes: [
+    {recipe_type_id: 1, recipe_type_name: "Drink"},
+    {recipe_type_id: 2, recipe_type_name: "Appetizer"}
+  ],
+  oneColumnATheme: "one-column-a-light",
+  staffCreateNewRecipe,
+  staffEditRecipe,
+  staffIsAuthenticated: false,  // test for this
+  staffMessage: "",
+  userCreateNewPrivateRecipe,
+  userCreateNewPublicRecipe,
+  userEditPrivateRecipe,
+  userEditPublicRecipe,
+  userMessage: "Some message."
 };
 
 window.scrollTo = jest.fn();
@@ -127,7 +134,7 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-// this needs more thorough tests
+// TO DO: this needs more thorough tests
 describe('NewRecipe', () => {
 
   describe('when creating', () => {
@@ -138,11 +145,13 @@ describe('NewRecipe', () => {
           const originalModule = jest.requireActual('react-router-dom');
           return {...originalModule, useParams: () => ({})};
         });
+
         mount(
           <MemoryRouter>
-            <NewRecipe editing={false} ownership="private" {...beginProps} />
+            <NewRecipe editing={false} ownership="private" {...initialProps} />
           </MemoryRouter>
         );
+
         expect(mockHistoryPush).not.toHaveBeenCalled();
       });
     });
@@ -153,11 +162,13 @@ describe('NewRecipe', () => {
           const originalModule = jest.requireActual('react-router-dom');
           return {...originalModule, useParams: () => ({})};
         });
+
         mount(
           <MemoryRouter>
-            <NewRecipe editing={false} ownership="public" {...beginProps} />
+            <NewRecipe editing={false} ownership="public" {...initialProps} />
           </MemoryRouter>
         );
+
         expect(mockHistoryPush).not.toHaveBeenCalled();
       });
     });
@@ -172,11 +183,13 @@ describe('NewRecipe', () => {
           const originalModule = jest.requireActual('react-router-dom');
           return {...originalModule, useParams: () => ({})};
         });
+
         mount(
           <MemoryRouter>
-            <NewRecipe editing={true} ownership="private" {...beginProps} />
+            <NewRecipe editing={true} ownership="private" {...initialProps} />
           </MemoryRouter>
         );
+
         expect(mockHistoryPush).toHaveBeenCalledWith("/dashboard");
       });
     });
@@ -187,11 +200,13 @@ describe('NewRecipe', () => {
           const originalModule = jest.requireActual('react-router-dom');
           return {...originalModule, useParams: () => ({})};
         });
+
         const wrapper = mount(
           <MemoryRouter>
-            <NewRecipe editing={true} ownership="public" {...beginProps} />
+            <NewRecipe editing={true} ownership="public" {...initialProps} />
           </MemoryRouter>
         );
+
         await act(async () => {
           Promise.resolve(() => {
             setImmediate(() => wrapper.update());

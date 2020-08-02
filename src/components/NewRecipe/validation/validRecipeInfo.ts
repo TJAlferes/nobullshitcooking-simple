@@ -1,36 +1,24 @@
 import {
-  IMethods,
   IEquipmentRow,
   IIngredientRow,
+  IMethods,
   ISubrecipeRow
 } from '../NewRecipe';
 
 export function validRecipeInfo({
-  ownership,
-  recipeTypeId,
   cuisineId,
-  title,
   description,
-  methods,
+  directions,
   equipmentRows,
   ingredientRows,
+  methods,
+  ownership,
+  recipeTypeId,
+  setFeedback,
   subrecipeRows,
-  directions,
-  setFeedback
+  title
 }: RecipeInfo): boolean {
-  // bare minimum validation, finish up,
-  // but also finish up on back end, where it actually matters
-  let validOwnership = ownership === "private" || ownership === "public";
-  let validRecipeTypeId = recipeTypeId !== 0;
-  let validCuisineId = cuisineId !== 0;
-  let validTitle = title.trim() !== "";
-  let validDescription = description.trim() !== "";
-  let validMethods = Object.values(methods).filter(method => method === true);
-  let validEquipmentRows = true;
-  let validIngredientRows = true;
-  let validSubrecipeRows = true;
-  let validDirections = directions.trim() !== "";
-
+  const validOwnership = ownership === "private" || ownership === "public";
   if (!validOwnership) {
     window.scrollTo(0,0);
     setFeedback("You forgot to select the ownership...");
@@ -38,6 +26,7 @@ export function validRecipeInfo({
     return false;
   }
 
+  const validRecipeTypeId = recipeTypeId !== 0;
   if (!validRecipeTypeId) {
     window.scrollTo(0,0);
     setFeedback("You forgot to select the recipe type...");
@@ -45,6 +34,7 @@ export function validRecipeInfo({
     return false;
   }
 
+  const validCuisineId = cuisineId !== 0;
   if (!validCuisineId) {
     window.scrollTo(0,0);
     setFeedback("You forgot to select the cuisine...");
@@ -52,6 +42,7 @@ export function validRecipeInfo({
     return false;
   }
 
+  const validTitle = title.trim() !== "";
   if (!validTitle) {
     window.scrollTo(0,0);
     setFeedback("Umm, double check your title...");
@@ -59,6 +50,7 @@ export function validRecipeInfo({
     return false;
   }
 
+  const validDescription = description.trim() !== "";
   if (!validDescription) {
     window.scrollTo(0,0);
     setFeedback("Umm, double check your description...");
@@ -66,6 +58,15 @@ export function validRecipeInfo({
     return false;
   }
 
+  const validDirections = directions.trim() !== "";
+  if (!validDirections) {
+    window.scrollTo(0,0);
+    setFeedback("Umm, double check your directions...");
+    setTimeout(() => setFeedback(""), 3000);
+    return false;
+  }
+
+  const validMethods = Object.values(methods).filter(m => m === true);
   if (!validMethods) {  //validMethods.length < 1
     window.scrollTo(0,0);
     setFeedback("You forgot to select the method(s)...");
@@ -73,11 +74,10 @@ export function validRecipeInfo({
     return false;
   }
 
+  let validEquipmentRows = true;
   if (equipmentRows.length) {
-    equipmentRows.map(row => {
-      if (row.amount === "" || row.equipment === "")  {
-        validEquipmentRows = false;
-      }
+    equipmentRows.map(r => {
+      if (r.amount === "" || r.equipment === "") validEquipmentRows = false;
     });
     if (!validEquipmentRows) {
       window.scrollTo(0,0);
@@ -87,9 +87,10 @@ export function validRecipeInfo({
   }
   if (!validEquipmentRows) return false;
 
+  let validIngredientRows = true;
   if (ingredientRows.length) {
-    ingredientRows.map(row => {
-      if (row.amount === "" || row.unit === "" || row.ingredient === "") {
+    ingredientRows.map(r => {
+      if (r.amount === "" || r.unit === "" || r.ingredient === "") {
         validIngredientRows = false;
       }
     });
@@ -101,9 +102,10 @@ export function validRecipeInfo({
   }
   if (!validIngredientRows) return false;
 
+  let validSubrecipeRows = true;
   if (subrecipeRows.length) {
-    subrecipeRows.map(row => {
-      if (row.amount === "" || row.unit === "" || row.subrecipe === "") {
+    subrecipeRows.map(r => {
+      if (r.amount === "" || r.unit === "" || r.subrecipe === "") {
         validSubrecipeRows = false;
       }
     });
@@ -115,37 +117,30 @@ export function validRecipeInfo({
   }
   if (!validSubrecipeRows) return false;
 
-  if (!validDirections) {
-    window.scrollTo(0,0);
-    setFeedback("Umm, double check your directions...");
-    setTimeout(() => setFeedback(""), 3000);
-    return false;
-  }
-
   return (
     validOwnership &&
-    recipeTypeId !== 0 &&
-    cuisineId !== 0 &&
-    title.trim() !== "" &&
-    description.trim() !== "" &&
+    validRecipeTypeId &&
+    validCuisineId &&
+    validTitle &&
+    validDescription &&
+    validDirections &&
     validMethods &&
     validEquipmentRows &&
     validIngredientRows &&
-    validSubrecipeRows &&
-    directions.trim() !== ""
+    validSubrecipeRows
   );
 }
 
 type RecipeInfo = {
-  ownership: string;
-  recipeTypeId: number;
   cuisineId: number;
-  title: string;
   description: string;
-  methods: IMethods;
+  directions: string;
   equipmentRows: IEquipmentRow[];
   ingredientRows: IIngredientRow[];
-  subrecipeRows: ISubrecipeRow[];
-  directions: string;
+  methods: IMethods;
+  ownership: string;
+  recipeTypeId: number;
   setFeedback(feedback: string): void;
+  subrecipeRows: ISubrecipeRow[];
+  title: string;
 };

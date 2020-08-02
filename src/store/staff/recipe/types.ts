@@ -11,78 +11,76 @@ export const STAFF_DELETE_RECIPE_SUCCEEDED = 'STAFF_DELETE_RECIPE_SUCCEEDED' as 
 export const STAFF_DELETE_RECIPE_FAILED = 'STAFF_DELETE_RECIPE_FAILED' as const;
 
 export interface IStaffCreateNewRecipe {
-  type: typeof STAFF_CREATE_NEW_RECIPE
-  recipeInfo: ICreatingRecipeInfo
+  type: typeof STAFF_CREATE_NEW_RECIPE;
+  recipeInfo: ICreatingRecipeInfo;
 }
 
 export interface IStaffCreateNewRecipeSucceeded {
-  type: typeof STAFF_CREATE_NEW_RECIPE_SUCCEEDED
-  message: string
+  type: typeof STAFF_CREATE_NEW_RECIPE_SUCCEEDED;
+  message: string;
 }
 
 export interface IStaffCreateNewRecipeFailed {
-  type: typeof STAFF_CREATE_NEW_RECIPE_FAILED
-  message: string
+  type: typeof STAFF_CREATE_NEW_RECIPE_FAILED;
+  message: string;
 }
 
 export interface IStaffEditRecipe {
-  type: typeof STAFF_EDIT_RECIPE
-  recipeInfo: IEditingRecipeInfo
+  type: typeof STAFF_EDIT_RECIPE;
+  recipeInfo: IEditingRecipeInfo;
 }
 
 export interface IStaffEditRecipeSucceeded {
-  type: typeof STAFF_EDIT_RECIPE_SUCCEEDED
-  message: string
+  type: typeof STAFF_EDIT_RECIPE_SUCCEEDED;
+  message: string;
 }
 
 export interface IStaffEditRecipeFailed {
-  type: typeof STAFF_EDIT_RECIPE_FAILED
-  message: string
+  type: typeof STAFF_EDIT_RECIPE_FAILED;
+  message: string;
 }
 
 export interface IStaffDeleteRecipe {
-  type: typeof STAFF_DELETE_RECIPE
-  recipeId: number
+  type: typeof STAFF_DELETE_RECIPE;
+  recipeId: number;
 }
 
 export interface IStaffDeleteRecipeSucceeded {
-  type: typeof STAFF_DELETE_RECIPE_SUCCEEDED
-  message: string
+  type: typeof STAFF_DELETE_RECIPE_SUCCEEDED;
+  message: string;
 }
 
 export interface IStaffDeleteRecipeFailed {
-  type: typeof STAFF_DELETE_RECIPE_FAILED
-  message: string
+  type: typeof STAFF_DELETE_RECIPE_FAILED;
+  message: string;
 }
 
 export interface ICreatingRecipeInfo {
-  recipeTypeId: number
-  cuisineId: number
-  title: string
-  description: string
-  directions: string
-  requiredMethods: IRequiredMethod[]
-  requiredEquipment: IRequiredEquipment[]
-  requiredIngredients: IRequiredIngredient[]
-  requiredSubrecipes: IRequiredSubrecipe[]
-  recipeImage: string | ArrayBuffer | null
-  fullRecipeImage: File | null
-  thumbRecipeImage: File | null
-  tinyRecipeImage: File | null
-  recipeEquipmentImage: string | ArrayBuffer | null
-  fullRecipeEquipmentImage: File | null
-  recipeIngredientsImage: string | ArrayBuffer | null
-  fullRecipeIngredientsImage: File | null
-  recipeCookingImage: string | ArrayBuffer | null
-  fullRecipeCookingImage: File | null
+  ownership: string;
+  recipeTypeId: number;
+  cuisineId: number;
+  title: string;
+  description: string;
+  directions: string;
+  requiredMethods: IRequiredMethod[];
+  requiredEquipment: IRequiredEquipment[];
+  requiredIngredients: IRequiredIngredient[];
+  requiredSubrecipes: IRequiredSubrecipe[];
+  recipeImage: string | ArrayBuffer | null;
+  recipeFullImage: File | null;
+  recipeThumbImage: File | null;
+  recipeTinyImage: File | null;
+  equipmentImage: string | ArrayBuffer | null;
+  equipmentFullImage: File | null;
+  ingredientsImage: string | ArrayBuffer | null;
+  ingredientsFullImage: File | null;
+  cookingImage: string | ArrayBuffer | null;
+  cookingFullImage: File | null;
 }
 
 export interface IEditingRecipeInfo {
   recipeId: number
-  prevRecipeImage: string
-  prevEquipmentImage: string
-  prevIngredientsImage: string
-  prevCookingImage: string
+  ownership: string
   recipeTypeId: number
   cuisineId: number
   title: string
@@ -92,16 +90,20 @@ export interface IEditingRecipeInfo {
   requiredEquipment: IRequiredEquipment[]
   requiredIngredients: IRequiredIngredient[]
   requiredSubrecipes: IRequiredSubrecipe[]
-  recipeImage: string | ArrayBuffer | null
-  fullRecipeImage: File | null
-  thumbRecipeImage: File | null
-  tinyRecipeImage: File | null
-  recipeEquipmentImage: string | ArrayBuffer | null
-  fullRecipeEquipmentImage: File | null
-  recipeIngredientsImage: string | ArrayBuffer | null
-  fullRecipeIngredientsImage: File | null
-  recipeCookingImage: string | ArrayBuffer | null
-  fullRecipeCookingImage: File | null
+  recipeImage: string | ArrayBuffer | null;
+  recipeFullImage: File | null;
+  recipePrevImage: string;
+  recipeThumbImage: File | null;
+  recipeTinyImage: File | null;
+  equipmentImage: string | ArrayBuffer | null;
+  equipmentFullImage: File | null;
+  equipmentPrevImage: string;
+  ingredientsImage: string | ArrayBuffer | null;
+  ingredientsFullImage: File | null;
+  ingredientsPrevImage: string;
+  cookingImage: string | ArrayBuffer | null;
+  cookingFullImage: File | null;
+  cookingPrevImage: string;
 }
 
 export interface IRequiredMethod {

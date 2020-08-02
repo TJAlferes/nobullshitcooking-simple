@@ -9,70 +9,60 @@ import { IngredientRow } from './views/IngredientRow/IngredientRow';
 import { ImageUploads } from './views/ImageUploads';
 import { NewRecipeView } from './NewRecipeView';
 
+const addEquipmentRow = jest.fn();
+const addIngredientRow = jest.fn();
+const addSubrecipeRow = jest.fn();
+const cancelCookingImage = jest.fn();
+const cancelEquipmentImage = jest.fn();
+const cancelIngredientsImage = jest.fn();
+const cancelRecipeImage = jest.fn();
+const handleCuisineChange = jest.fn();
+const handleDescriptionChange = jest.fn();
+const handleDirectionsChange = jest.fn();
+const handleEquipmentRowChange = jest.fn();
+const handleIngredientRowChange = jest.fn();
+const handleMethodsChange = jest.fn();
+const handleRecipeTypeChange = jest.fn();
+const handleSubmit = jest.fn();
+const handleSubrecipeRowChange = jest.fn();
+const handleTitleChange = jest.fn();
+const onCookingCropChange = jest.fn();
+const onCookingCropComplete = jest.fn();
+const onCookingImageLoaded = jest.fn();
+const onEquipmentCropChange = jest.fn();
+const onEquipmentCropComplete = jest.fn();
+const onEquipmentImageLoaded = jest.fn();
+const onIngredientsCropChange = jest.fn();
+const onIngredientsCropComplete = jest.fn();
+const onIngredientsImageLoaded = jest.fn();
+const onRecipeCropChange = jest.fn();
+const onRecipeCropComplete = jest.fn();
+const onRecipeImageLoaded = jest.fn();
+const onSelectCookingFile = jest.fn();
+const onSelectEquipmentFile = jest.fn();
+const onSelectIngredientsFile = jest.fn();
+const onSelectRecipeFile = jest.fn();
+const removeEquipmentRow = jest.fn();
+const removeIngredientRow = jest.fn();
+const removeSubrecipeRow = jest.fn();
+
 const beginProps = {
-  id: 0,
-  oneColumnATheme: "one-column-a-light",
-  staffIsAuthenticated: false,  // test for this
+  addEquipmentRow,
+  addIngredientRow,
+  addSubrecipeRow,
   authname: "Person",
-  feedback: "Some message.",
-  loading: false,
-  editing: false,
-  ownership: "private",
-  recipeTypeId: 1,
+  cancelCookingImage,
+  cancelEquipmentImage,
+  cancelIngredientsImage,
+  cancelRecipeImage,
+  cookingCrop: {aspect: 280 / 172},
+  cookingFullCrop: "",
+  cookingImage: null,
+  cookingPrevImage: "nobsc-recipe-cooking-default",
   cuisineId: 1,
-  title: "Title",
-  description: "",
-  directions: "",
-  methods: {
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
-    7: false,
-    8: false,
-    9: false,
-    10: false,
-    11: false,
-    12: false,
-    13: false,
-    14: false,
-    15: false,
-    16: false,
-    17: false,
-    18: false,
-    19: false,
-    20: false,
-    21: false,
-    22: false,
-    23: false,
-    24: false
-  },
-  equipmentRows: [
-    {key: "XYZ1", amount: "", type: "", equipment: ""},
-    {key: "XYZ2", amount: "", type: "", equipment: ""}
-  ],
-  ingredientRows: [
-    {key: "XYZ3", amount: 1, unit: "", type: "", ingredient: ""},
-    {key: "XYZ4", amount: 1, unit: "", type: "", ingredient: ""}
-  ],
-  subrecipeRows: [],
-  prevRecipeImage: "nobsc-recipe-default",
-  prevEquipmentImage: "nobsc-recipe-equipment-default",
-  prevIngredientsImage: "nobsc-recipe-ingredients-default",
-  prevCookingImage: "nobsc-recipe-cooking-default",
-  dataRecipeTypes: [
-    {recipe_type_id: 1, recipe_type_name: "Drink"},
-    {recipe_type_id: 2, recipe_type_name: "Appetizer"}
-  ],
   dataCuisines: [
     {cuisine_id: 1, cuisine_name: "American", cuisine_nation: "America"},
     {cuisine_id: 2, cuisine_name: "Japanese", cuisine_nation: "Japan"}
-  ],
-  dataMethods: [
-    {method_id: 1, method_name: "Steam"},
-    {method_id: 2, method_name: "Freeze"}
   ],
   dataEquipment: [
     {
@@ -93,15 +83,6 @@ const beginProps = {
       equipment_description: "You need one.",
       equipment_image: "nobsc-metal-spatula"
     }
-  ],
-  dataMyPrivateEquipment: [],
-  dataMeasurements: [
-    {measurement_id: 1, measurement_name: "teaspoon"},
-    {measurement_id: 2, measurement_name: "Tablespoon"}
-  ],
-  dataIngredientTypes: [
-    {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
-    {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
   ],
   dataIngredients: [
     {
@@ -127,69 +108,105 @@ const beginProps = {
       ingredient_image: "nobsc-spinach"
     }
   ],
+  dataIngredientTypes: [
+    {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
+    {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
+  ],
+  dataMeasurements: [
+    {measurement_id: 1, measurement_name: "teaspoon"},
+    {measurement_id: 2, measurement_name: "Tablespoon"}
+  ],
+  dataMethods: [
+    {method_id: 1, method_name: "Steam"},
+    {method_id: 2, method_name: "Freeze"}
+  ],
+  dataMyFavoriteRecipes: [],
+  dataMyPrivateEquipment: [],
   dataMyPrivateIngredients: [],
-  dataRecipes: [],
   dataMyPrivateRecipes: [],
   dataMyPublicRecipes: [],
-  dataMyFavoriteRecipes: [],
   dataMySavedRecipes: [],
+  dataRecipes: [],
+  dataRecipeTypes: [
+    {recipe_type_id: 1, recipe_type_name: "Drink"},
+    {recipe_type_id: 2, recipe_type_name: "Appetizer"}
+  ],
+  description: "",
+  directions: "",
+  editing: false,
+  equipmentCrop: {aspect: 280 / 172},
+  equipmentFullCrop: "",
+  equipmentImage: null,
+  equipmentPrevImage: "nobsc-recipe-equipment-default",
+  equipmentRows: [
+    {key: "XYZ1", amount: "", type: "", equipment: ""},
+    {key: "XYZ2", amount: "", type: "", equipment: ""}
+  ],
+  feedback: "Some message.",
+  id: 0,
+  ingredientRows: [
+    {key: "XYZ3", amount: 1, unit: "", type: "", ingredient: ""},
+    {key: "XYZ4", amount: 1, unit: "", type: "", ingredient: ""}
+  ],
+  ingredientsCrop: {aspect: 280 / 172},
+  ingredientsFullCrop: "",
+  ingredientsImage: null,
+  ingredientsPrevImage: "nobsc-recipe-ingredients-default",
+  loading: false,
+  methods: {
+     1: false,  2: false,  3: false,  4: false,  5: false,  6: false,
+     7: false,  8: false,  9: false, 10: false, 11: false, 12: false,
+    13: false, 14: false, 15: false, 16: false, 17: false, 18: false,
+    19: false, 20: false, 21: false, 22: false, 23: false, 24: false
+  },
+  handleCuisineChange,
+  handleDescriptionChange,
+  handleDirectionsChange,
+  handleEquipmentRowChange,
+  handleIngredientRowChange,
+  handleMethodsChange,
+  handleRecipeTypeChange,
+  handleSubmit,
+  handleSubrecipeRowChange,
+  handleTitleChange,
+  oneColumnATheme: "one-column-a-light",
+  onCookingCropChange,
+  onCookingCropComplete,
+  onCookingImageLoaded,
+  onEquipmentCropChange,
+  onEquipmentCropComplete,
+  onEquipmentImageLoaded,
+  onIngredientsCropChange,
+  onIngredientsCropComplete,
+  onIngredientsImageLoaded,
+  onRecipeCropChange,
+  onRecipeCropComplete,
+  onRecipeImageLoaded,
+  onSelectCookingFile,
+  onSelectEquipmentFile,
+  onSelectIngredientsFile,
+  onSelectRecipeFile,
+  ownership: "private",
+  recipeCrop: {aspect: 280 / 172},
+  recipeFullCrop: "",
   recipeImage: null,
-  recipeEquipmentImage: null,
-  recipeIngredientsImage: null,
-  recipeCookingImage: null,
-  cropOne: {aspect: 280 / 172},
-  cropFullSizePreview: "",
-  cropThumbSizePreview: "",
-  cropTinySizePreview: "",
-  cropTwo: {aspect: 280 / 172},
-  equipmentCropFullSizePreview: "",
-  cropThree: {aspect: 280 / 172},
-  ingredientsCropFullSizePreview: "",
-  cropFour: {aspect: 280 / 172},
-  cookingCropFullSizePreview: "",
-  handleRecipeTypeChange: jest.fn(),
-  handleCuisineChange: jest.fn(),
-  handleTitleChange: jest.fn(),
-  handleDescriptionChange: jest.fn(),
-  handleDirectionsChange: jest.fn(),
-  handleMethodsChange: jest.fn(),
-  handleEquipmentRowChange: jest.fn(),
-  handleIngredientRowChange: jest.fn(),
-  handleSubrecipeRowChange: jest.fn(),
-  addEquipmentRow: jest.fn(),
-  removeEquipmentRow: jest.fn(),
-  addIngredientRow: jest.fn(),
-  removeIngredientRow: jest.fn(),
-  addSubrecipeRow: jest.fn(),
-  removeSubrecipeRow: jest.fn(),
-  onSelectFile: jest.fn(),
-  onSelectEquipmentFile: jest.fn(),
-  onSelectIngredientsFile: jest.fn(),
-  onSelectCookingFile: jest.fn(),
-  onImageLoaded: jest.fn(),
-  onEquipmentImageLoaded: jest.fn(),
-  onIngredientsImageLoaded: jest.fn(),
-  onCookingImageLoaded: jest.fn(),
-  onCropOneChange: jest.fn(),
-  onCropTwoChange: jest.fn(),
-  onCropThreeChange: jest.fn(),
-  onCropFourChange: jest.fn(),
-  onCropComplete: jest.fn(),
-  onEquipmentCropComplete: jest.fn(),
-  onIngredientsCropComplete: jest.fn(),
-  onCookingCropComplete: jest.fn(),
-  cancelRecipeImage: jest.fn(),
-  cancelRecipeEquipmentImage: jest.fn(),
-  cancelRecipeIngredientsImage: jest.fn(),
-  cancelRecipeCookingImage: jest.fn(),
-  handleSubmit: jest.fn()
+  recipePrevImage: "nobsc-recipe-default",
+  recipeThumbCrop: "",
+  recipeTinyCrop: "",
+  recipeTypeId: 1,
+  removeEquipmentRow,
+  removeIngredientRow,
+  removeSubrecipeRow,
+  staffIsAuthenticated: false,  // test for this
+  subrecipeRows: [],
+  title: "Title"
 };
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
-// this needs more thorough tests
+// TO DO: this needs more thorough tests
 describe('NewRecipeView', () => {
 
   describe('when creating', () => {

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
-import './product.css';
 import AddToCartButton from '../AddToCartButton/AddToCartButton';
+import './product.css';
 
 const endpoint = '';
 
-// use ElasticSearch
+// TO DO: use ElasticSearch
 
 const Product = ({ match }) => {
   const [ dataProduct, setDataProduct ] = useState({});

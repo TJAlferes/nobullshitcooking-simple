@@ -6,17 +6,13 @@ import { ICartItem } from '../../../store/cart/types';
 import './addToCartButton.css';
 
 export function AddToCartButton({
-  item,
-  cartAddItem
+  cartAddItem,
+  item
 }: Props): JSX.Element {
   const handleClick = () => cartAddItem(item);
+
   return (
-    <button
-      className="add-to-cart-button"
-      onClick={handleClick}
-    >
-      Add
-    </button>
+    <button className="add-to-cart-button" onClick={handleClick}>Add</button>
   );
 }
 
@@ -26,7 +22,6 @@ type Props = PropsFromRedux & {
   item: ICartItem;
 };
 
-// just move up?
 const mapDispatchToProps = {
   cartAddItem: (item: ICartItem) => cartAddItem(item)
 };

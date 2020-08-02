@@ -1,7 +1,7 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import axios from 'axios';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -14,19 +14,19 @@ import { ProfileView } from './ProfileView';
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function Profile({
-  oneColumnATheme,
-  message,
-  isAuthenticated,
   authname,
   dataMyFriendships,
+  isAuthenticated,
+  message,
+  oneColumnATheme,
   userRequestFriendship
 }: Props): JSX.Element {
   const history = useHistory();
   const { username } = useParams();
 
+  const [ clicked, setClicked ] = useState(false);
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [ clicked, setClicked ] = useState(false);
   const [ tab, setTab ] = useState("public");
   const [ userAvatar, setUserAvatar ] = useState("nobsc-user-default");
   const [ userFavoriteRecipes, setUserFavoriteRecipes ]= useState([]);
@@ -34,10 +34,12 @@ export function Profile({
 
   useEffect(() => {
     let isSubscribed = true;
+
     if (isSubscribed) {
       if (message !== "") window.scrollTo(0,0);
       setFeedback(message);
     }
+
     return () => {
       isSubscribed = false;
     };
@@ -54,12 +56,13 @@ export function Profile({
       return;
     }
 
-    // WHAT HAPPENS IF THE USER IS NOT FOUND?
+    // TO DO: WHAT HAPPENS IF THE USER IS NOT FOUND?
 
     const getUserProfile = async (username: string) => {
       const trimmed = username.trim();  // already done?
       const res = await axios.get(`${endpoint}/user/profile/${trimmed}`);
-      if (res.data.avatar !== "nobsc-user-default") setUserAvatar(trimmed);
+
+      if (res.data.avatar !== "nobsc-user-default") setUserAvatar(trimmed);  // change, use avatar from server
       setUserFavoriteRecipes(res.data.favoriteRecipes);
       setUserPublicRecipes(res.data.publicRecipes);
     };
@@ -80,20 +83,20 @@ export function Profile({
   ? <LoaderSpinner />
   : (
     <ProfileView
-      username={username}
-      oneColumnATheme={oneColumnATheme}
-      feedback={feedback}
-      loading={loading}
-      isAuthenticated={isAuthenticated}
       authname={authname}
-      dataMyFriendships={dataMyFriendships}
       clicked={clicked}
-      tab={tab}
-      userAvatar={userAvatar}
-      userPublicRecipes={userPublicRecipes}
-      userFavoriteRecipes={userFavoriteRecipes}
+      dataMyFriendships={dataMyFriendships}
+      feedback={feedback}
       handleFriendRequestClick={handleFriendRequestClick}
       handleTabChange={handleTabChange}
+      isAuthenticated={isAuthenticated}
+      loading={loading}
+      oneColumnATheme={oneColumnATheme}
+      tab={tab}
+      userAvatar={userAvatar}
+      username={username}
+      userPublicRecipes={userPublicRecipes}
+      userFavoriteRecipes={userFavoriteRecipes}
     />
   );
 };
@@ -119,8 +122,8 @@ type Props = PropsFromRedux & {
 
 const mapStateToProps = (state: RootState) => ({
   authname: state.auth.authname,
-  isAuthenticated: state.auth.isAuthenticated,
   dataMyFriendships: state.data.myFriendships,
+  isAuthenticated: state.auth.isAuthenticated,
   message: state.user.message
 });
 
