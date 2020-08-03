@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createMemoryHistory } from 'history';
-import { call, put, delay } from 'redux-saga/effects';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne

@@ -1,5 +1,5 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -24,45 +24,61 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 export function* userCreateNewPrivateIngredientSaga(
   action: IUserCreateNewPrivateIngredient
 ) {
+  let {
+    ingredientTypeId,
+    ingredientName,
+    ingredientDescription,
+    ingredientImage,
+    ingredientFullImage,
+    ingredientTinyImage
+  } = action.ingredientInfo;
   try {
-    if (
-      action.ingredientInfo.fullIngredientImage &&
-      action.ingredientInfo.tinyIngredientImage
-    ) {
+    if (ingredientFullImage && ingredientTinyImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/ingredient`,
-        {fileType: action.ingredientInfo.fullIngredientImage.type},
+        {fileType: ingredientFullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestFullSize,
-        action.ingredientInfo.fullIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
+        ingredientFullImage,
+        {headers: {'Content-Type': ingredientFullImage.type}}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestTinySize,
-        action.ingredientInfo.tinyIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
+        ingredientTinyImage,
+        {headers: {'Content-Type': ingredientTinyImage.type}}
       );
-      action.ingredientInfo.ingredientImage = res1.data.urlFullSize;
+      ingredientImage = res1.data.urlFullSize;
     } else {
-      action.ingredientInfo.ingredientImage = 'nobsc-ingredient-default';
+      ingredientImage = 'nobsc-ingredient-default';
     }
 
     const res = yield call(
       [axios, axios.post],
       `${endpoint}/user/ingredient/create`,
-      {ingredientInfo: action.ingredientInfo},
+      {
+        ingredientInfo: {
+          ingredientTypeId,
+          ingredientName,
+          ingredientDescription,
+          ingredientImage,
+          ingredientFullImage,
+          ingredientTinyImage
+        }
+      },
       {withCredentials: true}
     );
 
-    if (res.data.message == 'Ingredient created.') {
-      yield put(userCreateNewPrivateIngredientSucceeded(res.data.message));
+    const { message } = res.data;
+
+    if (message == 'Ingredient created.') {
+      yield put(userCreateNewPrivateIngredientSucceeded(message));
     } else {
-      yield put(userCreateNewPrivateIngredientFailed(res.data.message));
+      yield put(userCreateNewPrivateIngredientFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());
@@ -78,45 +94,65 @@ export function* userCreateNewPrivateIngredientSaga(
 export function* userEditPrivateIngredientSaga(
   action: IUserEditPrivateIngredient
 ) {
+  let {
+    ingredientId,
+    ingredientTypeId,
+    ingredientName,
+    ingredientDescription,
+    ingredientPrevImage,
+    ingredientImage,
+    ingredientFullImage,
+    ingredientTinyImage
+  } = action.ingredientInfo;
   try {
-    if (
-      action.ingredientInfo.fullIngredientImage &&
-      action.ingredientInfo.tinyIngredientImage
-    ) {
+    if (ingredientFullImage && ingredientTinyImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/ingredient`,
-        {fileType: action.ingredientInfo.fullIngredientImage.type},
+        {fileType: ingredientFullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestFullSize,
-        action.ingredientInfo.fullIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
+        ingredientFullImage,
+        {headers: {'Content-Type': ingredientFullImage.type}}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestTinySize,
-        action.ingredientInfo.tinyIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
+        ingredientTinyImage,
+        {headers: {'Content-Type': ingredientTinyImage.type}}
       );
-      action.ingredientInfo.ingredientImage = res1.data.urlFullSize;
+      ingredientImage = res1.data.urlFullSize;
     } else {
-      action.ingredientInfo.ingredientImage = action.ingredientInfo.prevIngredientImage;
+      ingredientImage = ingredientPrevImage;
     }
 
     const res = yield call(
       [axios, axios.put],
       `${endpoint}/user/ingredient/update`,
-      {ingredientInfo: action.ingredientInfo},
+      {
+        ingredientInfo: {
+          ingredientId,
+          ingredientTypeId,
+          ingredientName,
+          ingredientDescription,
+          ingredientPrevImage,
+          ingredientImage,
+          ingredientFullImage,
+          ingredientTinyImage
+        }
+      },
       {withCredentials: true}
     );
 
-    if (res.data.message == 'Ingredient updated.') {
-      yield put(userEditPrivateIngredientSucceeded(res.data.message));
+    const { message } = res.data;
+
+    if (message == 'Ingredient updated.') {
+      yield put(userEditPrivateIngredientSucceeded(message));
     } else {
-      yield put(userEditPrivateIngredientFailed(res.data.message));
+      yield put(userEditPrivateIngredientFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());
@@ -138,10 +174,11 @@ export function* userDeletePrivateIngredientSaga(
       `${endpoint}/user/ingredient/delete`,
       {withCredentials: true, data: {ingredientId: action.ingredientId}}
     );
-    if (res.data.message == 'Ingredient deleted.') {
-      yield put(userDeletePrivateIngredientSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Ingredient deleted.') {
+      yield put(userDeletePrivateIngredientSucceeded(message));
     } else {
-      yield put(userDeletePrivateIngredientFailed(res.data.message));
+      yield put(userDeletePrivateIngredientFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());

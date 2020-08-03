@@ -274,11 +274,9 @@ describe('userCreateNewRecipeSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userCreateNewPrivateRecipeFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userCreateNewPrivateRecipeFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
@@ -329,11 +327,9 @@ describe('userDeletePrivateRecipeSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userDeletePrivateRecipeFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userDeletePrivateRecipeFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
@@ -384,11 +380,9 @@ describe('userDisownPublicRecipeSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userDisownPublicRecipeFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userDisownPublicRecipeFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
@@ -569,11 +563,9 @@ describe('userEditRecipeSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userEditPrivateRecipeFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userEditPrivateRecipeFailed(
+      'An error occurred. Please try again.'
+    )));
     
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));

@@ -12,9 +12,9 @@ State
 */
 
 export interface IEditorState {
-  isLoading: boolean;
   creating: boolean;
   editingId: number | null;
+  isLoading: boolean;
   value: Node[];  // Note: this Node is from slate, not the one from the DOM
 }
 

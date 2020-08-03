@@ -64,11 +64,11 @@ export interface ICreatingContentInfo {
   title: string;
   contentItems: Node[];
   contentImage: string | ArrayBuffer | null;
-  fullContentImage: File | null;
-  thumbContentImage: File | null;
+  contentFullImage: File | null;
+  contentThumbImage: File | null;
 }
 
 export interface IEditingContentInfo extends ICreatingContentInfo {
   contentId: number;
-  prevContentImage: string;
+  contentPrevImage: string;
 }

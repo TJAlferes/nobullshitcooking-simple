@@ -40,7 +40,7 @@ State
 */
 
 export interface IStaffState {
-  message: string
+  message: string;
 }
 
 /*
@@ -77,5 +77,5 @@ IStaffDeleteRecipeSucceeded |
 IStaffDeleteRecipeFailed;
 
 export interface IStaffMessageClear {
-  type: typeof STAFF_MESSAGE_CLEAR
+  type: typeof STAFF_MESSAGE_CLEAR;
 }

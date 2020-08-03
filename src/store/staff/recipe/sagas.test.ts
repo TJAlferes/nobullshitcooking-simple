@@ -266,11 +266,9 @@ describe('staffCreateNewRecipeSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      staffCreateNewRecipeFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(staffCreateNewRecipeFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(staffMessageClear()));
@@ -319,11 +317,9 @@ describe('staffDeleteRecipeSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      staffDeleteRecipeFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(staffDeleteRecipeFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(staffMessageClear()));
@@ -502,9 +498,9 @@ describe('the staffEditRecipeSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      staffEditRecipeFailed('An error occurred. Please try again.')
-    ));
+    .toEqual(put(staffEditRecipeFailed(
+      'An error occurred. Please try again.'
+    )));
     
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(staffMessageClear()));

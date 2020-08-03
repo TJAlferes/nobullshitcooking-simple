@@ -1,5 +1,5 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -24,45 +24,61 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 export function* staffCreateNewIngredientSaga(
   action: IStaffCreateNewIngredient
 ) {
+  let {
+    ingredientTypeId,
+    ingredientName,
+    ingredientDescription,
+    ingredientImage,
+    ingredientFullImage,
+    ingredientTinyImage
+  } = action.ingredientInfo;
   try {
-    if (
-      action.ingredientInfo.fullIngredientImage &&
-      action.ingredientInfo.tinyIngredientImage
-    ) {
+    if (ingredientFullImage && ingredientTinyImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/staff/get-signed-url/ingredient`,
-        {fileType: action.ingredientInfo.fullIngredientImage.type},
+        {fileType: ingredientFullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestFullSize,
-        action.ingredientInfo.fullIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
+        ingredientFullImage,
+        {headers: {'Content-Type': ingredientFullImage.type}}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestTinySize,
-        action.ingredientInfo.tinyIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
+        ingredientTinyImage,
+        {headers: {'Content-Type': ingredientTinyImage.type}}
       );
-      action.ingredientInfo.ingredientImage = res1.data.urlFullSize;
+      ingredientImage = res1.data.urlFullSize;
     } else {
-      action.ingredientInfo.ingredientImage = 'nobsc-ingredient-default';
+      ingredientImage = 'nobsc-ingredient-default';
     }
 
     const res = yield call(
       [axios, axios.post],
       `${endpoint}/staff/ingredient/create`,
-      {ingredientInfo: action.ingredientInfo},
+      {
+        ingredientInfo: {
+          ingredientTypeId,
+          ingredientName,
+          ingredientDescription,
+          ingredientImage,
+          ingredientFullImage,
+          ingredientTinyImage
+        }
+      },
       {withCredentials: true}
     );
 
-    if (res.data.message == 'Ingredient created.') {
-      yield put(staffCreateNewIngredientSucceeded(res.data.message));
+    const { message } = res.data;
+
+    if (message == 'Ingredient created.') {
+      yield put(staffCreateNewIngredientSucceeded(message));
     } else {
-      yield put(staffCreateNewIngredientFailed(res.data.message));
+      yield put(staffCreateNewIngredientFailed(message));
     }
     yield delay(4000);
     yield put(staffMessageClear());
@@ -76,45 +92,65 @@ export function* staffCreateNewIngredientSaga(
 }
 
 export function* staffEditIngredientSaga(action: IStaffEditIngredient) {
+  let {
+    ingredientId,
+    ingredientTypeId,
+    ingredientName,
+    ingredientDescription,
+    ingredientPrevImage,
+    ingredientImage,
+    ingredientFullImage,
+    ingredientTinyImage
+  } = action.ingredientInfo;
   try {
-    if (
-      action.ingredientInfo.fullIngredientImage &&
-      action.ingredientInfo.tinyIngredientImage
-    ) {
+    if (ingredientFullImage && ingredientTinyImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/staff/get-signed-url/ingredient`,
-        {fileType: action.ingredientInfo.fullIngredientImage.type},
+        {fileType: ingredientFullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestFullSize,
-        action.ingredientInfo.fullIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
+        ingredientFullImage,
+        {headers: {'Content-Type': ingredientFullImage.type}}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestTinySize,
-        action.ingredientInfo.tinyIngredientImage,
-        {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
+        ingredientTinyImage,
+        {headers: {'Content-Type': ingredientTinyImage.type}}
       );
-      action.ingredientInfo.ingredientImage = res1.data.urlFullSize;
+      ingredientImage = res1.data.urlFullSize;
     } else {
-      action.ingredientInfo.ingredientImage = action.ingredientInfo.prevIngredientImage;
+      ingredientImage = ingredientPrevImage;
     }
 
     const res = yield call(
       [axios, axios.put],
       `${endpoint}/staff/ingredient/update`,
-      {ingredientInfo: action.ingredientInfo},
+      {
+        ingredientInfo: {
+          ingredientId,
+          ingredientTypeId,
+          ingredientName,
+          ingredientDescription,
+          ingredientPrevImage,
+          ingredientImage,
+          ingredientFullImage,
+          ingredientTinyImage
+        }
+      },
       {withCredentials: true}
     );
 
-    if (res.data.message == 'Ingredient updated.') {
-      yield put(staffEditIngredientSucceeded(res.data.message));
+    const { message } = res.data;
+
+    if (message == 'Ingredient updated.') {
+      yield put(staffEditIngredientSucceeded(message));
     } else {
-      yield put(staffEditIngredientFailed(res.data.message));
+      yield put(staffEditIngredientFailed(message));
     }
     yield delay(4000);
     yield put(staffMessageClear());
@@ -134,10 +170,11 @@ export function* staffDeleteIngredientSaga(action: IStaffDeleteIngredient) {
       `${endpoint}/staff/ingredient/delete`,
       {withCredentials: true, data: {ingredientId: action.ingredientId}}
     );
-    if (res.data.message == 'Ingredient deleted.') {
-      yield put(staffDeleteIngredientSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Ingredient deleted.') {
+      yield put(staffDeleteIngredientSucceeded(message));
     } else {
-      yield put(staffDeleteIngredientFailed(res.data.message));
+      yield put(staffDeleteIngredientFailed(message));
     }
     yield delay(4000);
     yield put(staffMessageClear());

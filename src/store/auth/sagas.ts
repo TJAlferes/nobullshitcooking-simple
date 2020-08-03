@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { call, put, delay } from 'redux-saga/effects';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -47,11 +47,12 @@ export function* authStaffLoginSaga(action: IAuthStaffLogin) {
       {staffInfo: {email: action.email, password: action.password}},
       {withCredentials: true}
     );
-    if (res.data.message == 'Signed in.') {
-      yield put(authStaffDisplay(res.data.staffname, res.data.avatar));
-      yield put(authStaffLoginSucceeded(res.data.message));
+    const { avatar, message, staffname } = res.data;
+    if (message == 'Signed in.') {
+      yield put(authStaffDisplay(staffname, avatar));
+      yield put(authStaffLoginSucceeded(message));
     } else {
-      yield put(authStaffLoginFailed(res.data.message));
+      yield put(authStaffLoginFailed(message));
     }
     yield delay(4000);
     yield put(authMessageClear());
@@ -70,12 +71,13 @@ export function* authStaffLogoutSaga(action: IAuthStaffLogout) {
       {},
       {withCredentials: true}
     );
-    if (res.data.message == 'Signed out.') {
+    const { message } = res.data;
+    if (message == 'Signed out.') {
       yield call(removeStorageItem, 'appState');
-      yield put(authStaffLogoutSucceeded(res.data.message));
+      yield put(authStaffLogoutSucceeded(message));
     } else {
       yield call(removeStorageItem, 'appState');  // clear their browser anyway
-      yield put(authStaffLogoutFailed(res.data.message));
+      yield put(authStaffLogoutFailed(message));
     }
     yield delay(4000);
     yield put(authMessageClear());
@@ -94,11 +96,12 @@ export function* authUserLoginSaga(action: IAuthUserLogin) {
       {userInfo: {email: action.email, password: action.password}},
       {withCredentials: true}
     );
-    if (res.data.message == 'Signed in.') {
-      yield put(authUserDisplay(res.data.username, res.data.avatar));
-      yield put(authUserLoginSucceeded(res.data.message));
+    const { avatar, message, username } = res.data;
+    if (message == 'Signed in.') {
+      yield put(authUserDisplay(username, avatar));
+      yield put(authUserLoginSucceeded(message));
     } else {
-      yield put(authUserLoginFailed(res.data.message));
+      yield put(authUserLoginFailed(message));
     }
     yield delay(4000);
     yield put(authMessageClear());
@@ -117,12 +120,13 @@ export function* authUserLogoutSaga(action: IAuthUserLogout) {
       {},
       {withCredentials: true}
     );
-    if (res.data.message == 'Signed out.') {
+    const { message } = res.data;
+    if (message == 'Signed out.') {
       yield call(removeStorageItem, 'appState');
-      yield put(authUserLogoutSucceeded(res.data.message));
+      yield put(authUserLogoutSucceeded(message));
     } else {
       yield call(removeStorageItem, 'appState');  // clear their browser anyway
-      yield put(authUserLogoutFailed(res.data.message));
+      yield put(authUserLogoutFailed(message));
     }
     yield delay(4000);
     yield put(authMessageClear());
@@ -147,13 +151,14 @@ export function* authUserRegisterSaga(action: IAuthUserRegister) {
         }
       }
     );
-    if (res.data.message == 'User account created.') {
-      yield put(authUserRegisterSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'User account created.') {
+      yield put(authUserRegisterSucceeded(message));
       yield delay(2000);
       yield put(authMessageClear());
       yield call(() => history.push('/verify'));
     } else {
-      yield put(authUserRegisterFailed(res.data.message));
+      yield put(authUserRegisterFailed(message));
       yield delay(4000);
       yield put(authMessageClear());
     }
@@ -178,14 +183,15 @@ export function* authUserVerifySaga(action: IAuthUserVerify) {
         }
       }
     );
-    if (res.data.message === "User account verified.") {
-      yield put(authUserVerifySucceeded(res.data.message));
+    const { message } = res.data;
+    if (message === "User account verified.") {
+      yield put(authUserVerifySucceeded(message));
       yield delay(2000);
       yield put(authMessageClear());
       //yield call([history, history.push], '/login');
       yield call(() => history.push('/login'));
     } else {
-      yield put(authUserVerifyFailed(res.data.message));
+      yield put(authUserVerifyFailed(message));
       yield delay(4000);
       yield put(authMessageClear());
     }

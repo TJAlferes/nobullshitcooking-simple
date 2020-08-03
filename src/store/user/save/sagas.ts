@@ -1,5 +1,5 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -23,10 +23,11 @@ export function* userSaveRecipeSaga(action: IUserSaveRecipe) {
       {recipeId: action.recipeId},
       {withCredentials: true}
     );
-    if (res.data.message == 'Saved.') {
-      yield put(userSaveRecipeSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Saved.') {
+      yield put(userSaveRecipeSucceeded(message));
     } else {
-      yield put(userSaveRecipeFailed(res.data.message));
+      yield put(userSaveRecipeFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());
@@ -44,10 +45,11 @@ export function* userUnsaveRecipeSaga(action: IUserUnsaveRecipe) {
       `${endpoint}/user/saved-recipe/delete`,
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
-    if (res.data.message == 'Unsaved.') {
-      yield put(userUnsaveRecipeSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Unsaved.') {
+      yield put(userUnsaveRecipeSucceeded(message));
     } else {
-      yield put(userUnsaveRecipeFailed(res.data.message));
+      yield put(userUnsaveRecipeFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());

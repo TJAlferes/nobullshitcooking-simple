@@ -8,9 +8,9 @@ import {
 } from './types';
 
 const initialState: IEditorState = {
-  isLoading: false,
   creating: false,
   editingId: null,
+  isLoading: false,
   value: [{type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}]
 };
 

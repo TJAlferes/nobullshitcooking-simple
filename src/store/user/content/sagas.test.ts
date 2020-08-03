@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { call, put, delay } from 'redux-saga/effects';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -25,25 +25,41 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-const fullContentImage =
+
+const contentFullImage =
   new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
-const thumbContentImage =
+const contentThumbImage =
   new File([(new Blob)], "resizedThumb", {type: "image/jpeg"});
+
+const creatingContentInfo = {
+  contentTypeId: 2,
+  published: null,
+  title: "My Content",
+  contentItems: [
+    {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
+  ],
+  contentImage: "my-content",
+  contentFullImage,
+  contentThumbImage
+};
+const editingContentInfo = {
+  contentId: 150,
+  contentTypeId: 2,
+  published: "2020-07-17",
+  title: "My Content",
+  contentItems: [
+    {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
+  ],
+  contentPrevImage: "nobsc-content-default",
+  contentImage: "my-content",
+  contentFullImage,
+  contentThumbImage
+};
 
 describe('userCreateNewContentSaga', () => {
   const action = {
     type: USER_CREATE_NEW_CONTENT,
-    contentInfo: {
-      contentTypeId: 2,
-      published: null,
-      title: "My Content",
-      contentItems: [
-        {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
-      ],
-      contentImage: "my-content",
-      fullContentImage,
-      thumbContentImage
-    }
+    contentInfo: creatingContentInfo
   };
   const res1 = {
     data: {
@@ -52,6 +68,7 @@ describe('userCreateNewContentSaga', () => {
       urlFullSize: "contentUrlString"
     }
   };
+  const { contentFullImage, contentThumbImage } = action.contentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = userCreateNewContentSaga(action);
@@ -61,7 +78,7 @@ describe('userCreateNewContentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/content`,
-      {fileType: action.contentInfo.fullContentImage.type},
+      {fileType: contentFullImage.type},
       {withCredentials: true}
     ));
 
@@ -69,16 +86,16 @@ describe('userCreateNewContentSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.contentInfo.fullContentImage,
-      {headers: {'Content-Type': action.contentInfo.fullContentImage.type}}
+      contentFullImage,
+      {headers: {'Content-Type': contentFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestThumbSize,
-      action.contentInfo.thumbContentImage,
-      {headers: {'Content-Type': action.contentInfo.thumbContentImage.type}}
+      contentThumbImage,
+      {headers: {'Content-Type': contentThumbImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -120,11 +137,9 @@ describe('userCreateNewContentSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userCreateNewContentFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userCreateNewContentFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
@@ -135,19 +150,7 @@ describe('userCreateNewContentSaga', () => {
 describe('userEditContentSaga', () => {
   const action = {
     type: USER_EDIT_CONTENT,
-    contentInfo: {
-      contentId: 150,
-      contentTypeId: 2,
-      published: "2020-07-17",
-      title: "My Content",
-      contentItems: [
-        {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
-      ],
-      prevContentImage: "nobsc-content-default",
-      contentImage: "my-content",
-      fullContentImage,
-      thumbContentImage
-    }
+    contentInfo: editingContentInfo
   };
   const res1 = {
     data: {
@@ -156,6 +159,7 @@ describe('userEditContentSaga', () => {
       urlFullSize: "contentUrlString"
     }
   };
+  const { contentFullImage, contentThumbImage } = action.contentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = userEditContentSaga(action);
@@ -165,7 +169,7 @@ describe('userEditContentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/content`,
-      {fileType: action.contentInfo.fullContentImage.type},
+      {fileType: contentFullImage.type},
       {withCredentials: true}
     ));
 
@@ -173,16 +177,16 @@ describe('userEditContentSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.contentInfo.fullContentImage,
-      {headers: {'Content-Type': action.contentInfo.fullContentImage.type}}
+      contentFullImage,
+      {headers: {'Content-Type': contentFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestThumbSize,
-      action.contentInfo.thumbContentImage,
-      {headers: {'Content-Type': action.contentInfo.thumbContentImage.type}}
+      contentThumbImage,
+      {headers: {'Content-Type': contentThumbImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -224,11 +228,9 @@ describe('userEditContentSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userEditContentFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userEditContentFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
@@ -277,11 +279,9 @@ describe('userDeleteContentSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userDeleteContentFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userDeleteContentFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { call, put, delay } from 'redux-saga/effects';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -25,20 +25,36 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-const fullEquipmentImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
-const tinyEquipmentImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+
+const equipmentFullImage =
+  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const equipmentTinyImage =
+  new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+
+const creatingEquipmentInfo = {
+  equipmentTypeId: 3,
+  equipmentName: "Metal Spatula",
+  equipmentDescription: "It works.",
+  equipmentImage: "nobsc-metal-spatula",
+  equipmentFullImage,
+  equipmentTinyImage
+};
+
+const editingEquipmentInfo = {
+  equipmentId: 1,
+  equipmentTypeId: 3,
+  equipmentName: "Metal Spatula",
+  equipmentDescription: "It works.",
+  equipmentPrevImage: "nobsc-metal-spatula",
+  equipmentImage: "nobsc-metal-spatula",
+  equipmentFullImage,
+  equipmentTinyImage
+};
 
 describe('userCreateNewEquipmentSaga', () => {
   const action = {
     type: STAFF_CREATE_NEW_EQUIPMENT,
-    equipmentInfo: {
-      equipmentTypeId: 3,
-      equipmentName: "My Teapot",
-      equipmentDescription: "From grandmother.",
-      equipmentImage: "my-teapot",
-      fullEquipmentImage,
-      tinyEquipmentImage
-    }
+    equipmentInfo: creatingEquipmentInfo
   };
   const res1 = {
     data: {
@@ -47,6 +63,7 @@ describe('userCreateNewEquipmentSaga', () => {
       urlFullSize: "equipmentUrlString"
     }
   };
+  const { equipmentFullImage, equipmentTinyImage } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = staffCreateNewEquipmentSaga(action);
@@ -56,7 +73,7 @@ describe('userCreateNewEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/get-signed-url/equipment`,
-      {fileType: action.equipmentInfo.fullEquipmentImage.type},
+      {fileType: equipmentFullImage.type},
       {withCredentials: true}
     ));
 
@@ -64,16 +81,16 @@ describe('userCreateNewEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.equipmentInfo.fullEquipmentImage,
-      {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
+      equipmentFullImage,
+      {headers: {'Content-Type': equipmentFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestTinySize,
-      action.equipmentInfo.tinyEquipmentImage,
-      {headers: {'Content-Type': action.equipmentInfo.tinyEquipmentImage.type}}
+      equipmentTinyImage,
+      {headers: {'Content-Type': equipmentTinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -130,16 +147,7 @@ describe('userCreateNewEquipmentSaga', () => {
 describe('staffEditEquipmentSaga', () => {
   const action = {
     type: STAFF_EDIT_EQUIPMENT,
-    equipmentInfo: {
-      equipmentTypeId: 3,
-      equipmentName: "My Teapot",
-      equipmentDescription: "From grandmother.",
-      equipmentImage: "my-teapot",
-      fullEquipmentImage,
-      tinyEquipmentImage,
-      equipmentId: 377,
-      prevEquipmentImage: "my-teapot"
-    }
+    equipmentInfo: editingEquipmentInfo
   };
   const res1 = {
     data: {
@@ -148,6 +156,7 @@ describe('staffEditEquipmentSaga', () => {
       urlFullSize: "equipmentUrlString"
     }
   };
+  const { equipmentFullImage, equipmentTinyImage } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = staffEditEquipmentSaga(action);
@@ -157,7 +166,7 @@ describe('staffEditEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/get-signed-url/equipment`,
-      {fileType: action.equipmentInfo.fullEquipmentImage.type},
+      {fileType: equipmentFullImage.type},
       {withCredentials: true}
     ));
 
@@ -165,16 +174,16 @@ describe('staffEditEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.equipmentInfo.fullEquipmentImage,
-      {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
+      equipmentFullImage,
+      {headers: {'Content-Type': equipmentFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestTinySize,
-      action.equipmentInfo.tinyEquipmentImage,
-      {headers: {'Content-Type': action.equipmentInfo.tinyEquipmentImage.type}}
+      equipmentTinyImage,
+      {headers: {'Content-Type': equipmentTinyImage.type}}
     ));
 
     expect(iterator.next().value)

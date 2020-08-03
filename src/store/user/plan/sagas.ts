@@ -1,5 +1,5 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -25,11 +25,12 @@ export function* userCreateNewPlanSaga(action: IUserCreatePlan) {
       {planInfo: action.planInfo},
       {withCredentials: true}
     );
-    if (res.data.message == 'Plan created.') {
-      yield put(userCreateNewPlanSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Plan created.') {
+      yield put(userCreateNewPlanSucceeded(message));
       yield delay(3000);
     } else {
-      yield put(userCreateNewPlanFailed(res.data.message));
+      yield put(userCreateNewPlanFailed(message));
       yield delay(4000);
     }
     yield put(userMessageClear());
@@ -48,11 +49,12 @@ export function* userEditPlanSaga(action: IUserEditPlan) {
       {planInfo: action.planInfo},
       {withCredentials: true}
     );
-    if (res.data.message == 'Plan updated.') {
-      yield put(userEditPlanSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Plan updated.') {
+      yield put(userEditPlanSucceeded(message));
       yield delay(3000);
     } else {
-      yield put(userEditPlanFailed(res.data.message));
+      yield put(userEditPlanFailed(message));
       yield delay(4000);
     }
     yield put(userMessageClear());
@@ -70,11 +72,12 @@ export function* userDeletePlanSaga(action: IUserDeletePlan) {
       `${endpoint}/user/plan/delete`,
       {withCredentials: true, data: {planId: action.planId}}
     );
-    if (res.data.message == 'Plan deleted.') {
-      yield put(userDeletePlanSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Plan deleted.') {
+      yield put(userDeletePlanSucceeded(message));
       yield delay(3000);
     } else {
-      yield put(userDeletePlanFailed(res.data.message));
+      yield put(userDeletePlanFailed(message));
       yield delay(4000);
     }
     yield put(userMessageClear());

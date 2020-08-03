@@ -29,8 +29,8 @@ const creatingContentInfo = {
     {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
   ],
   contentImage: null,
-  fullContentImage: null,
-  thumbContentImage: null
+  contentFullImage: null,
+  contentThumbImage: null
 };
 const editingContentInfo = {
   contentId: 888,
@@ -40,10 +40,10 @@ const editingContentInfo = {
   contentItems: [
     {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
   ],
-  prevContentImage: "nobsc-content-default",
+  contentPrevImage: "nobsc-content-default",
   contentImage: null,
-  fullContentImage: null,
-  thumbContentImage: null
+  contentFullImage: null,
+  contentThumbImage: null
 };
 
 describe('staffCreateNewContent action creator', () => {

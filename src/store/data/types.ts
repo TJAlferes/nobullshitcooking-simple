@@ -145,20 +145,20 @@ export interface IFriendship {
 }
 
 export interface IIngredient {
-  ingredient_id: number
-  ingredient_type_id: number
-  owner_id: number
-  ingredient_type_name: string
-  ingredient_brand: string|null
-  ingredient_variety: string|null
-  ingredient_name: string
-  ingredient_description: string
-  ingredient_image: string
+  ingredient_id: number;
+  ingredient_type_id: number;
+  owner_id: number;
+  ingredient_type_name: string;
+  ingredient_brand: string | null;
+  ingredient_variety: string | null;
+  ingredient_name: string;
+  ingredient_description: string;
+  ingredient_image: string;
 }
 
 export interface IIngredientType {
-  ingredient_type_id: number
-  ingredient_type_name: string
+  ingredient_type_id: number;
+  ingredient_type_name: string;
 }
 
 export interface IMeasurement {
@@ -167,28 +167,28 @@ export interface IMeasurement {
 }
 
 export interface IMethod {
-  method_id: number
-  method_name: string
+  method_id: number;
+  method_name: string;
 }
 
 export interface IPlan {
-  plan_id: number
-  plan_name: string
-  plan_data: IPlannerData
+  plan_id: number;
+  plan_name: string;
+  plan_data: IPlannerData;
 }
 
 export interface IWorkRecipe {
-  recipe_id: number
-  owner_id: number
-  recipe_type_id: number
-  cuisine_id: number
-  title: string
-  recipe_image: string
+  recipe_id: number;
+  owner_id: number;
+  recipe_type_id: number;
+  cuisine_id: number;
+  title: string;
+  recipe_image: string;
 }
 
 export interface IRecipeType {
-  recipe_type_id: number
-  recipe_type_name: string
+  recipe_type_id: number;
+  recipe_type_name: string;
 }
 
 /*

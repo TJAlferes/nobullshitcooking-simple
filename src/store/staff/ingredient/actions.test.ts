@@ -26,18 +26,19 @@ const creatingIngredientInfo = {
   ingredientName: "HOT Sauce",
   ingredientDescription: "From Uncle Bob.",
   ingredientImage: "hot-sauce",
-  fullIngredientImage: null,
-  tinyIngredientImage: null
+  ingredientFullImage: null,
+  ingredientTinyImage: null
 };
+
 const editingIngredientInfo = {
   ingredientTypeId: 3,
   ingredientName: "HOT Sauce",
   ingredientDescription: "From Uncle Bob.",
   ingredientImage: "hot-sauce",
-  fullIngredientImage: null,
-  tinyIngredientImage: null,
+  ingredientFullImage: null,
+  ingredientTinyImage: null,
   ingredientId: 377,
-  prevIngredientImage: "hot-sauce"
+  ingredientPrevImage: "hot-sauce"
 };
 
 describe('staffCreateNewIngredient action creator', () => {

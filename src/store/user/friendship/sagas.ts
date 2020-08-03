@@ -1,5 +1,5 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -38,11 +38,12 @@ export function* userRequestFriendshipSaga(action: IUserRequestFriendship) {
       {friendName: action.friendName},
       {withCredentials: true}
     );
-    if (res.data.message == 'Friendship request sent.') {
-      yield put(userRequestFriendshipSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Friendship request sent.') {
+      yield put(userRequestFriendshipSucceeded(message));
       yield delay(3000);
     } else {
-      yield put(userRequestFriendshipFailed(res.data.message));
+      yield put(userRequestFriendshipFailed(message));
       yield delay(4000);
     }
     yield put(userMessageClear());
@@ -61,11 +62,12 @@ export function* userAcceptFriendshipSaga(action: IUserAcceptFriendship) {
       {friendName: action.friendName},
       {withCredentials: true}
     );
-    if (res.data.message == 'Friendship request accepted.') {
-      yield put(userAcceptFriendshipSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Friendship request accepted.') {
+      yield put(userAcceptFriendshipSucceeded(message));
       yield delay(3000);
     } else {
-      yield put(userAcceptFriendshipFailed(res.data.message));
+      yield put(userAcceptFriendshipFailed(message));
       yield delay(4000);
     }
     yield put(userMessageClear());
@@ -84,11 +86,12 @@ export function* userRejectFriendshipSaga(action: IUserRejectFriendship) {
       {friendName: action.friendName},
       {withCredentials: true}
     );
-    if (res.data.message == 'Friendship request rejected.') {
-      yield put(userRejectFriendshipSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Friendship request rejected.') {
+      yield put(userRejectFriendshipSucceeded(message));
       yield delay(3000);
     } else {
-      yield put(userRejectFriendshipFailed(res.data.message));
+      yield put(userRejectFriendshipFailed(message));
       yield delay(4000);
     }
     yield put(userMessageClear());
@@ -106,11 +109,12 @@ export function* userDeleteFriendshipSaga(action: IUserDeleteFriendship) {
       `${endpoint}/user/friendship/delete`,
       {withCredentials: true, data: {friendName: action.friendName}}
     );
-    if (res.data.message == 'No longer friends. Maybe again later.') {
-      yield put(userDeleteFriendshipSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'No longer friends. Maybe again later.') {
+      yield put(userDeleteFriendshipSucceeded(message));
       yield delay(3000);
     } else {
-      yield put(userDeleteFriendshipFailed(res.data.message));
+      yield put(userDeleteFriendshipFailed(message));
       yield delay(4000);
     }
     yield put(userMessageClear());
@@ -129,11 +133,12 @@ export function* userBlockUserSaga(action: IUserBlockUser) {
       {friendName: action.friendName},
       {withCredentials: true}
     );
-    if (res.data.message == 'User blocked.') {
-      yield put(userBlockUserSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'User blocked.') {
+      yield put(userBlockUserSucceeded(message));
       yield delay(3000);
     } else {
-      yield put(userBlockUserFailed(res.data.message));
+      yield put(userBlockUserFailed(message));
       yield delay(4000);
     }
     yield put(userMessageClear());
@@ -151,11 +156,12 @@ export function* userUnblockUserSaga(action: IUserUnblockUser) {
       `${endpoint}/user/friendship/unblock`,
       {withCredentials: true, data: {friendName: action.friendName}}
     );
-    if (res.data.message == 'User unblocked.') {
-      yield put(userUnblockUserSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'User unblocked.') {
+      yield put(userUnblockUserSucceeded(message));
       yield delay(3000);
     } else {
-      yield put(userUnblockUserFailed(res.data.message));
+      yield put(userUnblockUserFailed(message));
       yield delay(4000);
     }
     yield put(userMessageClear());

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { call, put, delay } from 'redux-saga/effects';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -25,20 +25,36 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-const fullIngredientImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
-const tinyIngredientImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+
+const ingredientFullImage =
+  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const ingredientTinyImage =
+  new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+
+const creatingIngredientInfo = {
+  ingredientTypeId: 3,
+  ingredientName: "HOT Sauce",
+  ingredientDescription: "From Uncle Bob.",
+  ingredientImage: "hot-sauce",
+  ingredientFullImage,
+  ingredientTinyImage
+};
+
+const editingIngredientInfo = {
+  ingredientTypeId: 3,
+  ingredientName: "HOT Sauce",
+  ingredientDescription: "From Uncle Bob.",
+  ingredientImage: "hot-sauce",
+  ingredientFullImage,
+  ingredientTinyImage,
+  ingredientId: 377,
+  ingredientPrevImage: "hot-sauce"
+};
 
 describe('staffCreateNewIngredientSaga', () => {
   const action = {
     type: STAFF_CREATE_NEW_INGREDIENT,
-    ingredientInfo: {
-      ingredientTypeId: 3,
-      ingredientName: "HOT Sauce",
-      ingredientDescription: "From Uncle Bob.",
-      ingredientImage: "hot-sauce",
-      fullIngredientImage,
-      tinyIngredientImage
-    }
+    ingredientInfo: creatingIngredientInfo
   };
   const res1 = {
     data: {
@@ -47,6 +63,7 @@ describe('staffCreateNewIngredientSaga', () => {
       urlFullSize: "ingredientUrlString"
     }
   };
+  const { ingredientFullImage, ingredientTinyImage } = action.ingredientInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = staffCreateNewIngredientSaga(action);
@@ -56,7 +73,7 @@ describe('staffCreateNewIngredientSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/get-signed-url/ingredient`,
-      {fileType: action.ingredientInfo.fullIngredientImage.type},
+      {fileType: ingredientFullImage.type},
       {withCredentials: true}
     ));
 
@@ -64,16 +81,16 @@ describe('staffCreateNewIngredientSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.ingredientInfo.fullIngredientImage,
-      {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
+      ingredientFullImage,
+      {headers: {'Content-Type': ingredientFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestTinySize,
-      action.ingredientInfo.tinyIngredientImage,
-      {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
+      ingredientTinyImage,
+      {headers: {'Content-Type': ingredientTinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -115,11 +132,9 @@ describe('staffCreateNewIngredientSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      staffCreateNewIngredientFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(staffCreateNewIngredientFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(staffMessageClear()));
@@ -130,16 +145,7 @@ describe('staffCreateNewIngredientSaga', () => {
 describe('staffEditIngredientSaga', () => {
   const action = {
     type: STAFF_EDIT_INGREDIENT,
-    ingredientInfo: {
-      ingredientTypeId: 3,
-      ingredientName: "HOT Sauce",
-      ingredientDescription: "From Uncle Bob.",
-      ingredientImage: "hot-sauce",
-      fullIngredientImage,
-      tinyIngredientImage,
-      ingredientId: 377,
-      prevIngredientImage: "hot-sauce"
-    }
+    ingredientInfo: editingIngredientInfo
   };
   const res1 = {
     data: {
@@ -148,6 +154,7 @@ describe('staffEditIngredientSaga', () => {
       urlFullSize: "ingredientUrlString"
     }
   };
+  const { ingredientFullImage, ingredientTinyImage } = action.ingredientInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = staffEditIngredientSaga(action);
@@ -157,7 +164,7 @@ describe('staffEditIngredientSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/get-signed-url/ingredient`,
-      {fileType: action.ingredientInfo.fullIngredientImage.type},
+      {fileType: ingredientFullImage.type},
       {withCredentials: true}
     ));
 
@@ -165,16 +172,16 @@ describe('staffEditIngredientSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.ingredientInfo.fullIngredientImage,
-      {headers: {'Content-Type': action.ingredientInfo.fullIngredientImage.type}}
+      ingredientFullImage,
+      {headers: {'Content-Type': ingredientFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestTinySize,
-      action.ingredientInfo.tinyIngredientImage,
-      {headers: {'Content-Type': action.ingredientInfo.tinyIngredientImage.type}}
+      ingredientTinyImage,
+      {headers: {'Content-Type': ingredientTinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -216,11 +223,9 @@ describe('staffEditIngredientSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      staffEditIngredientFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(staffEditIngredientFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(staffMessageClear()));
@@ -269,11 +274,9 @@ describe('staffDeleteIngredientSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      staffDeleteIngredientFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(staffDeleteIngredientFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(staffMessageClear()));

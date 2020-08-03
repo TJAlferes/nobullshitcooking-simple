@@ -9,66 +9,66 @@ export const USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED = 'USER_DELETE_PRIVATE_EQUI
 export const USER_DELETE_PRIVATE_EQUIPMENT_FAILED = 'USER_DELETE_PRIVATE_EQUIPMENT_FAILED' as const;
 
 export interface IUserCreateNewPrivateEquipment {
-  type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT
-  equipmentInfo: ICreatingEquipmentInfo
+  type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT;
+  equipmentInfo: ICreatingEquipmentInfo;
 }
 
 export interface IUserCreateNewPrivateEquipmentSucceeded {
-  type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED
-  message: string
+  type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED;
+  message: string;
 }
 
 export interface IUserCreateNewPrivateEquipmentFailed {
-  type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED
-  message: string
+  type: typeof USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED;
+  message: string;
 }
 
 export interface IUserEditPrivateEquipment {
-  type: typeof USER_EDIT_PRIVATE_EQUIPMENT
-  equipmentInfo: IEditingEquipmentInfo
+  type: typeof USER_EDIT_PRIVATE_EQUIPMENT;
+  equipmentInfo: IEditingEquipmentInfo;
 }
 
 export interface IUserEditPrivateEquipmentSucceeded {
-  type: typeof USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED
-  message: string
+  type: typeof USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED;
+  message: string;
 }
 
 export interface IUserEditPrivateEquipmentFailed {
-  type: typeof USER_EDIT_PRIVATE_EQUIPMENT_FAILED
-  message: string
+  type: typeof USER_EDIT_PRIVATE_EQUIPMENT_FAILED;
+  message: string;
 }
 
 export interface IUserDeletePrivateEquipment {
-  type: typeof USER_DELETE_PRIVATE_EQUIPMENT
-  equipmentId: number
+  type: typeof USER_DELETE_PRIVATE_EQUIPMENT;
+  equipmentId: number;
 }
 
 export interface IUserDeletePrivateEquipmentSucceeded {
-  type: typeof USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED
-  message: string
+  type: typeof USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED;
+  message: string;
 }
 
 export interface IUserDeletePrivateEquipmentFailed {
-  type: typeof USER_DELETE_PRIVATE_EQUIPMENT_FAILED
-  message: string
+  type: typeof USER_DELETE_PRIVATE_EQUIPMENT_FAILED;
+  message: string;
 }
 
 export interface ICreatingEquipmentInfo {
-  equipmentTypeId: number
-  equipmentName: string
-  equipmentDescription: string
-  equipmentImage: string | ArrayBuffer | null
-  fullEquipmentImage: File | null
-  tinyEquipmentImage: File | null
+  equipmentTypeId: number;
+  equipmentName: string;
+  equipmentDescription: string;
+  equipmentImage: string | ArrayBuffer | null;
+  equipmentFullImage: File | null;
+  equipmentTinyImage: File | null;
 }
 
 export interface IEditingEquipmentInfo {
-  equipmentId: number
-  equipmentTypeId: number
-  equipmentName: string
-  equipmentDescription: string
-  prevEquipmentImage: string
-  equipmentImage: string | ArrayBuffer | null
-  fullEquipmentImage: File | null
-  tinyEquipmentImage: File | null
+  equipmentId: number;
+  equipmentTypeId: number;
+  equipmentName: string;
+  equipmentDescription: string;
+  equipmentPrevImage: string;
+  equipmentImage: string | ArrayBuffer | null;
+  equipmentFullImage: File | null;
+  equipmentTinyImage: File | null;
 }

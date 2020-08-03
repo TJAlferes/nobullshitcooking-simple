@@ -1,5 +1,5 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -23,10 +23,11 @@ export function* userFavoriteRecipeSaga(action: IUserFavoriteRecipe) {
       {recipeId: action.recipeId},
       {withCredentials: true}
     );
-    if (res.data.message == 'Favorited.') {
-      yield put(userFavoriteRecipeSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Favorited.') {
+      yield put(userFavoriteRecipeSucceeded(message));
     } else {
-      yield put(userFavoriteRecipeFailed(res.data.message));
+      yield put(userFavoriteRecipeFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());
@@ -44,10 +45,11 @@ export function* userUnfavoriteRecipeSaga(action: IUserUnfavoriteRecipe) {
       `${endpoint}/user/favorite-recipe/delete`,
       {withCredentials: true, data: {recipeId: action.recipeId}}
     );
-    if (res.data.message == 'Unfavorited.') {
-      yield put(userUnfavoriteRecipeSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Unfavorited.') {
+      yield put(userUnfavoriteRecipeSucceeded(message));
     } else {
-      yield put(userUnfavoriteRecipeFailed(res.data.message));
+      yield put(userUnfavoriteRecipeFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());

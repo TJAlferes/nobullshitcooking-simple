@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { call, put, delay } from 'redux-saga/effects';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -25,20 +25,36 @@ import {
 } from './types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
-const fullEquipmentImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
-const tinyEquipmentImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+
+const equipmentFullImage =
+  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const equipmentTinyImage =
+  new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+
+const creatingEquipmentInfo = {
+  equipmentTypeId: 3,
+  equipmentName: "My Teapot",
+  equipmentDescription: "From grandmother.",
+  equipmentImage: "my-teapot",
+  equipmentFullImage,
+  equipmentTinyImage
+};
+
+const editingEquipmentInfo = {
+  equipmentTypeId: 3,
+  equipmentName: "My Teapot",
+  equipmentDescription: "From grandmother.",
+  equipmentImage: "my-teapot",
+  equipmentFullImage,
+  equipmentTinyImage,
+  equipmentId: 377,
+  equipmentPrevImage: "my-teapot"
+};
 
 describe('userCreateNewPrivateEquipmentSaga', () => {
   const action = {
     type: USER_CREATE_NEW_PRIVATE_EQUIPMENT,
-    equipmentInfo: {
-      equipmentTypeId: 3,
-      equipmentName: "My Teapot",
-      equipmentDescription: "From grandmother.",
-      equipmentImage: "my-teapot",
-      fullEquipmentImage,
-      tinyEquipmentImage
-    }
+    equipmentInfo: creatingEquipmentInfo
   };
   const res1 = {
     data: {
@@ -47,6 +63,7 @@ describe('userCreateNewPrivateEquipmentSaga', () => {
       urlFullSize: "equipmentUrlString"
     }
   };
+  const { equipmentFullImage, equipmentTinyImage } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = userCreateNewPrivateEquipmentSaga(action);
@@ -56,7 +73,7 @@ describe('userCreateNewPrivateEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/equipment`,
-      {fileType: action.equipmentInfo.fullEquipmentImage.type},
+      {fileType: equipmentFullImage.type},
       {withCredentials: true}
     ));
 
@@ -64,16 +81,16 @@ describe('userCreateNewPrivateEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.equipmentInfo.fullEquipmentImage,
-      {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
+      equipmentFullImage,
+      {headers: {'Content-Type': equipmentFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestTinySize,
-      action.equipmentInfo.tinyEquipmentImage,
-      {headers: {'Content-Type': action.equipmentInfo.tinyEquipmentImage.type}}
+      equipmentTinyImage,
+      {headers: {'Content-Type': equipmentTinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -115,11 +132,9 @@ describe('userCreateNewPrivateEquipmentSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userCreateNewPrivateEquipmentFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userCreateNewPrivateEquipmentFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
@@ -132,16 +147,7 @@ describe('userCreateNewPrivateEquipmentSaga', () => {
 describe('userEditPrivateEquipmentSaga', () => {
   const action = {
     type: USER_EDIT_PRIVATE_EQUIPMENT,
-    equipmentInfo: {
-      equipmentTypeId: 3,
-      equipmentName: "My Teapot",
-      equipmentDescription: "From grandmother.",
-      equipmentImage: "my-teapot",
-      fullEquipmentImage,
-      tinyEquipmentImage,
-      equipmentId: 377,
-      prevEquipmentImage: "my-teapot"
-    }
+    equipmentInfo: editingEquipmentInfo
   };
   const res1 = {
     data: {
@@ -150,6 +156,7 @@ describe('userEditPrivateEquipmentSaga', () => {
       urlFullSize: "equipmentUrlString"
     }
   };
+  const { equipmentFullImage, equipmentTinyImage } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = userEditPrivateEquipmentSaga(action);
@@ -159,7 +166,7 @@ describe('userEditPrivateEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/equipment`,
-      {fileType: action.equipmentInfo.fullEquipmentImage.type},
+      {fileType: equipmentFullImage.type},
       {withCredentials: true}
     ));
 
@@ -167,16 +174,16 @@ describe('userEditPrivateEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestFullSize,
-      action.equipmentInfo.fullEquipmentImage,
-      {headers: {'Content-Type': action.equipmentInfo.fullEquipmentImage.type}}
+      equipmentFullImage,
+      {headers: {'Content-Type': equipmentFullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
       res1.data.signedRequestTinySize,
-      action.equipmentInfo.tinyEquipmentImage,
-      {headers: {'Content-Type': action.equipmentInfo.tinyEquipmentImage.type}}
+      equipmentTinyImage,
+      {headers: {'Content-Type': equipmentTinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -218,11 +225,9 @@ describe('userEditPrivateEquipmentSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userEditPrivateEquipmentFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userEditPrivateEquipmentFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));
@@ -273,11 +278,9 @@ describe('userDeletePrivateEquipmentSaga', () => {
     iterator.next();
 
     expect(iterator.throw('error').value)
-    .toEqual(put(
-      userDeletePrivateEquipmentFailed(
-        'An error occurred. Please try again.'
-      )
-    ));
+    .toEqual(put(userDeletePrivateEquipmentFailed(
+      'An error occurred. Please try again.'
+    )));
 
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(userMessageClear()));

@@ -29,34 +29,34 @@ export interface IPlannerState {
 
 export interface IPlannerData {
   [index: number]: any;
-  1: IPlannerRecipe[],
-  2: IPlannerRecipe[],
-  3: IPlannerRecipe[],
-  4: IPlannerRecipe[],
-  5: IPlannerRecipe[],
-  6: IPlannerRecipe[],
-  7: IPlannerRecipe[],
-  8: IPlannerRecipe[],
-  9: IPlannerRecipe[],
-  10: IPlannerRecipe[],
-  11: IPlannerRecipe[],
-  12: IPlannerRecipe[],
-  13: IPlannerRecipe[],
-  14: IPlannerRecipe[],
-  15: IPlannerRecipe[],
-  16: IPlannerRecipe[],
-  17: IPlannerRecipe[],
-  18: IPlannerRecipe[],
-  19: IPlannerRecipe[],
-  20: IPlannerRecipe[],
-  21: IPlannerRecipe[],
-  22: IPlannerRecipe[],
-  23: IPlannerRecipe[],
-  24: IPlannerRecipe[],
-  25: IPlannerRecipe[],
-  26: IPlannerRecipe[],
-  27: IPlannerRecipe[],
-  28: IPlannerRecipe[]
+  1: IPlannerRecipe[];
+  2: IPlannerRecipe[];
+  3: IPlannerRecipe[];
+  4: IPlannerRecipe[];
+  5: IPlannerRecipe[];
+  6: IPlannerRecipe[];
+  7: IPlannerRecipe[];
+  8: IPlannerRecipe[];
+  9: IPlannerRecipe[];
+  10: IPlannerRecipe[];
+  11: IPlannerRecipe[];
+  12: IPlannerRecipe[];
+  13: IPlannerRecipe[];
+  14: IPlannerRecipe[];
+  15: IPlannerRecipe[];
+  16: IPlannerRecipe[];
+  17: IPlannerRecipe[];
+  18: IPlannerRecipe[];
+  19: IPlannerRecipe[];
+  20: IPlannerRecipe[];
+  21: IPlannerRecipe[];
+  22: IPlannerRecipe[];
+  23: IPlannerRecipe[];
+  24: IPlannerRecipe[];
+  25: IPlannerRecipe[];
+  26: IPlannerRecipe[];
+  27: IPlannerRecipe[];
+  28: IPlannerRecipe[];
 }
 
 export interface IPlannerRecipe {
@@ -85,26 +85,26 @@ IPlannerSetPlanName |
 IPlannerSetPlanData;
 
 export interface IPlannerClickDay {
-  type: typeof PLANNER_CLICK_DAY
-  day: number
+  type: typeof PLANNER_CLICK_DAY;
+  day: number;
 }
 
 export interface IPlannerAddRecipeToDay {
-  type: typeof PLANNER_ADD_RECIPE_TO_DAY
-  day: number
-  recipe: IPlannerRecipe
+  type: typeof PLANNER_ADD_RECIPE_TO_DAY;
+  day: number;
+  recipe: IPlannerRecipe;
 }
 
 export interface IPlannerRemoveRecipeFromDay {
-  type: typeof PLANNER_REMOVE_RECIPE_FROM_DAY
-  day: number
-  index: number
+  type: typeof PLANNER_REMOVE_RECIPE_FROM_DAY;
+  day: number;
+  index: number;
 }
 
 export interface IPlannerReorderRecipeInDay {
-  type: typeof PLANNER_REORDER_RECIPE_IN_DAY
-  dragIndex: number
-  hoverIndex: number
+  type: typeof PLANNER_REORDER_RECIPE_IN_DAY;
+  dragIndex: number;
+  hoverIndex: number;
 }
 
 /*interface IPlanner {
@@ -116,24 +116,24 @@ export interface IPlannerReorderRecipeInDay {
 }*/
 
 interface IPlannerClearWork {
-  type: typeof PLANNER_CLEAR_WORK
+  type: typeof PLANNER_CLEAR_WORK;
 }
 
 interface IPlannerSetCreating {
-  type: typeof PLANNER_SET_CREATING
+  type: typeof PLANNER_SET_CREATING;
 }
 
 interface IPlannerSetEditingId {
-  type: typeof PLANNER_SET_EDITING_ID
-  id: number | null
+  type: typeof PLANNER_SET_EDITING_ID;
+  id: number | null;
 }
 
 interface IPlannerSetPlanName {
-  type: typeof PLANNER_SET_PLAN_NAME
-  name: string
+  type: typeof PLANNER_SET_PLAN_NAME;
+  name: string;
 }
 
 interface IPlannerSetPlanData {
-  type: typeof PLANNER_SET_PLAN_DATA
-  data: IPlannerData
+  type: typeof PLANNER_SET_PLAN_DATA;
+  data: IPlannerData;
 }

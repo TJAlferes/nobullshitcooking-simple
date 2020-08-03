@@ -1,5 +1,5 @@
-import { call, put, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
@@ -22,45 +22,66 @@ import {
 const endpoint = NOBSCBackendAPIEndpointOne;
 
 export function* userCreateNewContentSaga(action: IUserCreateNewContent) {
+  let {
+    contentTypeId,
+    published,
+    title,
+    contentItems,
+    contentImage,
+    contentFullImage,
+    contentThumbImage
+  } = action.contentInfo;
   try {
     if (
-      action.contentInfo.fullContentImage &&
-      action.contentInfo.thumbContentImage
+      contentFullImage &&
+      contentThumbImage
     ) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/content`,
-        {fileType: action.contentInfo.fullContentImage.type},
+        {fileType: contentFullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestFullSize,
-        action.contentInfo.fullContentImage,
-        {headers: {'Content-Type': action.contentInfo.fullContentImage.type}}
+        contentFullImage,
+        {headers: {'Content-Type': contentFullImage.type}}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestThumbSize,
-        action.contentInfo.thumbContentImage,
-        {headers: {'Content-Type': action.contentInfo.thumbContentImage.type}}
+        contentThumbImage,
+        {headers: {'Content-Type': contentThumbImage.type}}
       );
-      action.contentInfo.contentImage = res1.data.urlFullSize;
+      contentImage = res1.data.urlFullSize;
     } else {
-      action.contentInfo.contentImage = 'nobsc-content-default';
+      contentImage = 'nobsc-content-default';
     }
 
     const res = yield call(
       [axios, axios.post],
       `${endpoint}/user/content/create`,
-      {contentInfo: action.contentInfo},
+      {
+        contentInfo: {
+          contentTypeId,
+          published,
+          title,
+          contentItems,
+          contentImage,
+          contentFullImage,
+          contentThumbImage
+        }
+      },
       {withCredentials: true}
     );
 
-    if (res.data.message == 'Content created.') {
-      yield put(userCreateNewContentSucceeded(res.data.message));
+    const { message } = res.data;
+
+    if (message == 'Content created.') {
+      yield put(userCreateNewContentSucceeded(message));
     } else {
-      yield put(userCreateNewContentFailed(res.data.message));
+      yield put(userCreateNewContentFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());
@@ -74,45 +95,70 @@ export function* userCreateNewContentSaga(action: IUserCreateNewContent) {
 }
 
 export function* userEditContentSaga(action: IUserEditContent) {
+  let {
+    contentId,
+    contentTypeId,
+    published,
+    title,
+    contentItems,
+    contentImage,
+    contentFullImage,
+    contentThumbImage,
+    contentPrevImage
+  } = action.contentInfo;
   try {
     if (
-      action.contentInfo.fullContentImage &&
-      action.contentInfo.thumbContentImage
+      contentFullImage &&
+      contentThumbImage
     ) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/content`,
-        {fileType: action.contentInfo.fullContentImage.type},
+        {fileType: contentFullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestFullSize,
-        action.contentInfo.fullContentImage,
-        {headers: {'Content-Type': action.contentInfo.fullContentImage.type}}
+        contentFullImage,
+        {headers: {'Content-Type': contentFullImage.type}}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestThumbSize,
-        action.contentInfo.thumbContentImage,
-        {headers: {'Content-Type': action.contentInfo.thumbContentImage.type}}
+        contentThumbImage,
+        {headers: {'Content-Type': contentThumbImage.type}}
       );
-      action.contentInfo.contentImage = res1.data.urlFullSize;
+      contentImage = res1.data.urlFullSize;
     } else {
-      action.contentInfo.contentImage = action.contentInfo.prevContentImage;
+      contentImage = contentPrevImage;
     }
 
     const res = yield call(
       [axios, axios.put],
       `${endpoint}/user/content/update`,
-      {contentInfo: action.contentInfo},
+      {
+        contentInfo: {
+          contentId,
+          contentTypeId,
+          published,
+          title,
+          contentItems,
+          contentImage,
+          contentFullImage,
+          contentThumbImage,
+          contentPrevImage
+        }
+      },
       {withCredentials: true}
     );
 
-    if (res.data.message == 'Content updated.') {
-      yield put(userEditContentSucceeded(res.data.message));
+    const { message } = res.data;
+
+    if (message == 'Content updated.') {
+      yield put(userEditContentSucceeded(message));
     } else {
-      yield put(userEditContentFailed(res.data.message));
+      yield put(userEditContentFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());
@@ -130,10 +176,11 @@ export function* userDeleteContentSaga(action: IUserDeleteContent) {
       `${endpoint}/user/content/delete`,
       {withCredentials: true, data: {contentId: action.contentId}}
     );
-    if (res.data.message == 'Content deleted.') {
-      yield put(userDeleteContentSucceeded(res.data.message));
+    const { message } = res.data;
+    if (message == 'Content deleted.') {
+      yield put(userDeleteContentSucceeded(message));
     } else {
-      yield put(userDeleteContentFailed(res.data.message));
+      yield put(userDeleteContentFailed(message));
     }
     yield delay(4000);
     yield put(userMessageClear());

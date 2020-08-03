@@ -7,9 +7,9 @@ import {
 } from './types';
 
 const initialState = {
-  isLoading: false,
   creating: false,
   editingId: null,
+  isLoading: false,
   value: [{type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}]
 };
 

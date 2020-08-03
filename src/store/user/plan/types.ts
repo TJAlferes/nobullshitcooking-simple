@@ -9,59 +9,59 @@ export const USER_DELETE_PLAN_SUCCEEDED = 'USER_DELETE_PLAN_SUCCEEDED' as const;
 export const USER_DELETE_PLAN_FAILED = 'USER_DELETE_PLAN_FAILED' as const;
 
 export interface IUserCreatePlan {
-  type: typeof USER_CREATE_NEW_PLAN
-  planInfo: ICreatingPlanInfo
+  type: typeof USER_CREATE_NEW_PLAN;
+  planInfo: ICreatingPlanInfo;
 }
 
 export interface IUserCreatePlanSucceeded {
-  type: typeof USER_CREATE_NEW_PLAN_SUCCEEDED
-  message: string
+  type: typeof USER_CREATE_NEW_PLAN_SUCCEEDED;
+  message: string;
 }
 
 export interface IUserCreatePlanFailed {
-  type: typeof USER_CREATE_NEW_PLAN_FAILED
-  message: string
+  type: typeof USER_CREATE_NEW_PLAN_FAILED;
+  message: string;
 }
 
 export interface IUserEditPlan {
-  type: typeof USER_EDIT_PLAN
-  planInfo: IEditingPlanInfo
+  type: typeof USER_EDIT_PLAN;
+  planInfo: IEditingPlanInfo;
 }
 
 export interface IUserEditPlanSucceeded {
-  type: typeof USER_EDIT_PLAN_SUCCEEDED
-  message: string
+  type: typeof USER_EDIT_PLAN_SUCCEEDED;
+  message: string;
 }
 
 export interface IUserEditPlanFailed {
-  type: typeof USER_EDIT_PLAN_FAILED
-  message: string
+  type: typeof USER_EDIT_PLAN_FAILED;
+  message: string;
 }
 
 export interface IUserDeletePlan {
-  type: typeof USER_DELETE_PLAN
-  planId: number
+  type: typeof USER_DELETE_PLAN;
+  planId: number;
 }
 
 export interface IUserDeletePlanSucceeded {
-  type: typeof USER_DELETE_PLAN_SUCCEEDED
-  message: string
+  type: typeof USER_DELETE_PLAN_SUCCEEDED;
+  message: string;
 }
 
 export interface IUserDeletePlanFailed {
-  type: typeof USER_DELETE_PLAN_FAILED
-  message: string
+  type: typeof USER_DELETE_PLAN_FAILED;
+  message: string;
 }
 
 // yes, the planData is supposed to be string
 export interface ICreatingPlanInfo {
-  planName: string
-  planData: string
+  planName: string;
+  planData: string;
 }
 
 // yes, the planData is supposed to be string
 export interface IEditingPlanInfo {
-  planId: number
-  planName: string
-  planData: string
+  planId: number;
+  planName: string;
+  planData: string;
 }

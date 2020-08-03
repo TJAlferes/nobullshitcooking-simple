@@ -26,18 +26,18 @@ const creatingEquipmentInfo = {
   equipmentName: "Metal Spatula",
   equipmentDescription: "It works.",
   equipmentImage: "nobsc-metal-spatula",
-  fullEquipmentImage: null,
-  tinyEquipmentImage: null
+  equipmentFullImage: null,
+  equipmentTinyImage: null
 };
 const editingEquipmentInfo = {
   equipmentId: 1,
   equipmentTypeId: 3,
   equipmentName: "Metal Spatula",
   equipmentDescription: "It works.",
-  prevEquipmentImage: "nobsc-metal-spatula",
+  equipmentPrevImage: "nobsc-metal-spatula",
   equipmentImage: "nobsc-metal-spatula",
-  fullEquipmentImage: null,
-  tinyEquipmentImage: null
+  equipmentFullImage: null,
+  equipmentTinyImage: null
 };
 
 describe('userCreateNewPrivateEquipment action creator', () => {

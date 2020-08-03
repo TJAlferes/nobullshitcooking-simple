@@ -79,126 +79,126 @@ IAuthUserLogoutSucceeded |
 IAuthUserLogoutFailed;
 
 export interface IAuthCheckState {
-  type: typeof AUTH_CHECK_STATE
+  type: typeof AUTH_CHECK_STATE;
 }
 
 export interface IAuthMessageClear {
-  type: typeof AUTH_MESSAGE_CLEAR
+  type: typeof AUTH_MESSAGE_CLEAR;
 }
 
 export interface IAuthReset {
-  type: typeof AUTH_RESET
+  type: typeof AUTH_RESET;
 }
 
 export interface IAuthUpdateLocalAvatar {
-  type: typeof AUTH_UPDATE_LOCAL_AVATAR
+  type: typeof AUTH_UPDATE_LOCAL_AVATAR;
   avatar: string
 }
 
 export interface IAuthStaffDisplay {
-  type: typeof AUTH_STAFF_DISPLAY
-  authname: string
-  avatar: string
+  type: typeof AUTH_STAFF_DISPLAY;
+  authname: string;
+  avatar: string;
 }
 
 export interface IAuthStaffLogin {
-  type: typeof AUTH_STAFF_LOGIN
-  email: string
-  password: string
+  type: typeof AUTH_STAFF_LOGIN;
+  email: string;
+  password: string;
 }
 
 export interface IAuthStaffLoginSucceeded {
-  type: typeof AUTH_STAFF_LOGIN_SUCCEEDED
-  message: string
+  type: typeof AUTH_STAFF_LOGIN_SUCCEEDED;
+  message: string;
 }
 
 export interface IAuthStaffLoginFailed {
-  type: typeof AUTH_STAFF_LOGIN_FAILED
-  message: string
+  type: typeof AUTH_STAFF_LOGIN_FAILED;
+  message: string;
 }
 
 export interface IAuthStaffLogout {
-  type: typeof AUTH_STAFF_LOGOUT
+  type: typeof AUTH_STAFF_LOGOUT;
 }
 
 export interface IAuthStaffLogoutSucceeded {
-  type: typeof AUTH_STAFF_LOGOUT_SUCCEEDED
-  message: string
+  type: typeof AUTH_STAFF_LOGOUT_SUCCEEDED;
+  message: string;
 }
 
 export interface IAuthStaffLogoutFailed {
-  type: typeof AUTH_STAFF_LOGOUT_FAILED
-  message: string
+  type: typeof AUTH_STAFF_LOGOUT_FAILED;
+  message: string;
 }
 
 export interface IAuthUserDisplay {
-  type: typeof AUTH_USER_DISPLAY
-  authname: string
-  avatar: string
+  type: typeof AUTH_USER_DISPLAY;
+  authname: string;
+  avatar: string;
 }
 
 export interface IAuthUserLogin {
-  type: typeof AUTH_USER_LOGIN
-  email: string
-  password: string
+  type: typeof AUTH_USER_LOGIN;
+  email: string;
+  password: string;
 }
 
 export interface IAuthUserLoginSucceeded {
-  type: typeof AUTH_USER_LOGIN_SUCCEEDED
-  message: string
+  type: typeof AUTH_USER_LOGIN_SUCCEEDED;
+  message: string;
 }
 
 export interface IAuthUserLoginFailed {
-  type: typeof AUTH_USER_LOGIN_FAILED
-  message: string
+  type: typeof AUTH_USER_LOGIN_FAILED;
+  message: string;
 }
 
 export interface IAuthUserLogout {
-  type: typeof AUTH_USER_LOGOUT
+  type: typeof AUTH_USER_LOGOUT;
 }
 
 export interface IAuthUserLogoutSucceeded {
-  type: typeof AUTH_USER_LOGOUT_SUCCEEDED
-  message: string
+  type: typeof AUTH_USER_LOGOUT_SUCCEEDED;
+  message: string;
 }
 
 export interface IAuthUserLogoutFailed {
-  type: typeof AUTH_USER_LOGOUT_FAILED
-  message: string
+  type: typeof AUTH_USER_LOGOUT_FAILED;
+  message: string;
 }
 
 export interface IAuthUserRegister {
-  type: typeof AUTH_USER_REGISTER
-  email: string
-  password: string
-  username: string
-  history: History
+  type: typeof AUTH_USER_REGISTER;
+  email: string;
+  password: string;
+  username: string;
+  history: History;
 }
 
 export interface IAuthUserRegisterSucceeded {
-  type: typeof AUTH_USER_REGISTER_SUCCEEDED
-  message: string
+  type: typeof AUTH_USER_REGISTER_SUCCEEDED;
+  message: string;
 }
 
 export interface IAuthUserRegisterFailed {
-  type: typeof AUTH_USER_REGISTER_FAILED
-  message: string
+  type: typeof AUTH_USER_REGISTER_FAILED;
+  message: string;
 }
 
 export interface IAuthUserVerify {
-  type: typeof AUTH_USER_VERIFY
-  email: string
-  password: string
-  confirmationCode: string
-  history: History
+  type: typeof AUTH_USER_VERIFY;
+  email: string;
+  password: string;
+  confirmationCode: string;
+  history: History;
 }
 
 export interface IAuthUserVerifySucceeded {
-  type: typeof AUTH_USER_VERIFY_SUCCEEDED
-  message: string
+  type: typeof AUTH_USER_VERIFY_SUCCEEDED;
+  message: string;
 }
 
 export interface IAuthUserVerifyFailed {
-  type: typeof AUTH_USER_VERIFY_FAILED
-  message: string
+  type: typeof AUTH_USER_VERIFY_FAILED;
+  message: string;
 }
