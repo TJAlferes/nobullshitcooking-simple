@@ -107,6 +107,9 @@ export interface IInitialUserData {
 export interface IWorkContent {
   content_id: number;
   title: string;
+  author: string;
+  image: string;
+  //snippet: string;
 }
 
 export interface IContentType {

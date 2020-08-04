@@ -65,9 +65,7 @@ export function* staffCreateNewContentSaga(action: IStaffCreateNewContent) {
           published,
           title,
           contentItems,
-          contentImage,
-          contentFullImage,
-          contentThumbImage
+          contentImage
         }
       },
       {withCredentials: true}

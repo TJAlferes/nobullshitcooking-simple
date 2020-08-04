@@ -11,33 +11,31 @@ export function Feed({
 }: Props): JSX.Element {
   return (
     <div className={`feed ${theme}`}>
-      {officialContent && officialContent.map(c => (
-        <div className="post-preview" key={c.content_id}>
-
-          <h1 className="post-preview__title">{c.title}</h1>
-
-          <span className="post-preview__author">{c.title}</span>
-
-          <img
-            className="post-preview__thumbnail"
-            src={c.title}
-          />
-          
-          <p className="post-preview__snippet">{c.title}</p>
-
-        </div>
-      ))}
+      {
+        [...(myContent && myContent), ...(officialContent && officialContent)]
+        .map(c => (
+          <div className="feed-item" key={c.content_id}>
+            <h1 className="feed-item__title">{c.title}</h1>
+            <span className="feed-item__author">{c.author}</span>
+            <img
+              className="feed-item__thumbnail"
+              src={`https://s3.amazonaws.com/nobsc-user-equipment/${c.image}-thumb`}
+            />
+            {/*<p className="feed-item__snippet">{c.title}</p>*/}
+          </div>
+        ))
+      }
     </div>
   );
 };
 
 interface RootState {
-  theme: {
-    feedTheme: string;
-  };
   data: {
     myContent: IWorkContent[];
     officialContent: IWorkContent[];
+  };
+  theme: {
+    feedTheme: string;
   };
 }
 

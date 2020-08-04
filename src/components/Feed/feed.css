@@ -16,15 +16,15 @@
   color: #aaa;
 }
 
-.post-preview {
+.feed-item {
   padding: 10px;
 }
 
-.feed-light .post-preview {
+.feed-light .feed-item {
   border-bottom: 20px solid #eee;
 }
 
-.feed-dark .post-preview {
+.feed-dark .feed-item {
   border-bottom: 20px solid #111;
 }
 
