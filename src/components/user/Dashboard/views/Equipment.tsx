@@ -15,31 +15,26 @@ export function Equipment({
       </Link>
       {
         myPrivateEquipment.length
-        ? myPrivateEquipment.map(equipment => (
-          <div
-            className="dashboard-content-item"
-            key={equipment.equipment_id}
-          >
+        ? myPrivateEquipment.map(e => (
+          <div className="dashboard-content-item" key={e.equipment_id}>
             <span className="dashboard-content-item-tiny">
               {
-                equipment.equipment_image !== "nobsc-equipment-default"
-                ? <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${equipment.equipment_image}-tiny`} />
+                e.equipment_image !== "nobsc-equipment-default"
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${e.equipment_image}-tiny`} />
                 : <div className="image-default-28-18"></div>
               }
             </span>
             <span className="dashboard-content-item-name">
-              <Link to={`/user-equipment/${equipment.equipment_id}`}>
-                {equipment.equipment_name}
+              <Link to={`/user-equipment/${e.equipment_id}`}>
+                {e.equipment_name}
               </Link>
             </span>
             <span className="dashboard-content-item-action">
-              <Link to={`/user-equipment/edit/${equipment.equipment_id}`}>
-                Edit
-              </Link>
+              <Link to={`/user-equipment/edit/${e.equipment_id}`}>Edit</Link>
             </span>
             <span
               className="dashboard-content-item-delete"
-              onClick={() => handleDeletePrivateEquipment(equipment.equipment_id)}
+              onClick={() => handleDeletePrivateEquipment(e.equipment_id)}
             >
               Delete
             </span>

@@ -4,30 +4,10 @@ import React from 'react';
 import { FriendsView } from './FriendsView';
 
 const myFriendships = [
-  {
-    user_id: 2,
-    username: "Jack",
-    avatar: "Jack",
-    status: "accepted"
-  },
-  {
-    user_id: 3,
-    username: "Jill",
-    avatar: "Jill",
-    status: "accepted"
-  },
-  {
-    user_id: 4,
-    username: "John",
-    avatar: "John",
-    status: "pending-received"
-  },
-  {
-    user_id: 5,
-    username: "Jane",
-    avatar: "Jane",
-    status: "blocked"
-  }
+  {user_id: 2, username: "Jack", avatar: "Jack", status: "accepted"},
+  {user_id: 3, username: "Jill", avatar: "Jill", status: "accepted"},
+  {user_id: 4, username: "John", avatar: "John", status: "pending-received"},
+  {user_id: 5, username: "Jane", avatar: "Jane", status: "blocked"}
 ];
 
 const handleAcceptClick = jest.fn();

@@ -15,31 +15,26 @@ export function Ingredients({
       </Link>
       {
         myPrivateIngredients.length
-        ? myPrivateIngredients.map(ingredient => (
-          <div
-            className="dashboard-content-item"
-            key={ingredient.ingredient_id}
-          >
+        ? myPrivateIngredients.map(i => (
+          <div className="dashboard-content-item" key={i.ingredient_id}>
             <span className="dashboard-content-item-tiny">
               {
-                ingredient.ingredient_image !== "nobsc-ingredient-default"
-                ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${ingredient.ingredient_image}-tiny`} />
+                i.ingredient_image !== "nobsc-ingredient-default"
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${i.ingredient_image}-tiny`} />
                 : <div className="image-default-28-18"></div>
               }
             </span>
             <span className="dashboard-content-item-name">
-              <Link to={`/user-ingredient/${ingredient.ingredient_id}`}>
-                {ingredient.ingredient_name}
+              <Link to={`/user-ingredient/${i.ingredient_id}`}>
+                {i.ingredient_name}
               </Link>
             </span>
             <span className="dashboard-content-item-action">
-              <Link to={`/user-ingredient/edit/${ingredient.ingredient_id}`}>
-                Edit
-              </Link>
+              <Link to={`/user-ingredient/edit/${i.ingredient_id}`}>Edit</Link>
             </span>
             <span
               className="dashboard-content-item-delete"
-              onClick={() => handleDeletePrivateIngredient(ingredient.ingredient_id)}
+              onClick={() => handleDeletePrivateIngredient(i.ingredient_id)}
             >
               Delete
             </span>

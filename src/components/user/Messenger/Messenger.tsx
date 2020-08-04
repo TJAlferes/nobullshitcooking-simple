@@ -135,9 +135,8 @@ export function Messenger({
 
   const handleFriendClick = (friend: IUser) => setFocusedFriend(friend);
 
-  const handleMessageInputChange = (e: React.SyntheticEvent<EventTarget>) => {
+  const handleMessageInputChange = (e: React.SyntheticEvent<EventTarget>) =>
     setMessageToSend((e.target as HTMLInputElement).value.trim());
-  };
 
   const handleMessageSend = (e: React.KeyboardEvent) => {
     e.preventDefault();  // needed?
@@ -190,7 +189,7 @@ export function Messenger({
     setLoading(false);
   };
 
-  const handleMessageSendTouch = (e: React.TouchEvent) => {
+  /*const handleMessageSendTouch = (e: React.TouchEvent) => {
     e.preventDefault();  // needed?
     e.stopPropagation();  // needed?
 
@@ -231,15 +230,15 @@ export function Messenger({
     } else {
       messengerSendMessage(trimmedMessage);
     }
-    /*else if (currentFriend !== "") {
-      const trimmedFriend = currentFriend.trim();
-      messengerSendWhisper(trimmedMessage, trimmedFriend);
-    }*/
+    //else if (currentFriend !== "") {
+    //  const trimmedFriend = currentFriend.trim();
+    //  messengerSendWhisper(trimmedMessage, trimmedFriend);
+    //}
 
     setMessageToSend("");
     preventSpam();
     setLoading(false);
-  };
+  };*/
 
   //const handleMobileTabChange = (value: string) => setMobileTab(value);
 
@@ -365,8 +364,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
-  messengerChangeChannel: (channel: string) =>
-    messengerChangeChannel(channel),
+  messengerChangeChannel: (channel: string) => messengerChangeChannel(channel),
   messengerConnect: () => messengerConnect(),
   messengerDisconnect: () => messengerDisconnect(),
   messengerSendMessage: (message: string) => messengerSendMessage(message),

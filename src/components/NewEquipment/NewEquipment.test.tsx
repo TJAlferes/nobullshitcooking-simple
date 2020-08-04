@@ -4,11 +4,12 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { NewEquipment } from './NewEquipment';
 
-const beginProps = {
-  oneColumnATheme: "one-column-a-light",
-  staffIsAuthenticated: false,  // test for this
-  staffMessage: "",
-  userMessage: "Some message.",
+const staffCreateNewEquipment = jest.fn();
+const staffEditEquipment = jest.fn();
+const userCreateNewPrivateEquipment = jest.fn();
+const userEditPrivateEquipment = jest.fn();
+
+const intialProps = {
   dataEquipment: [],
   dataEquipmentTypes: [
     {equipment_type_id: 2, equipment_type_name: "Preparing"},
@@ -25,10 +26,14 @@ const beginProps = {
       equipment_image: "my-teapot"
     }
   ],
-  staffCreateNewEquipment: jest.fn(),
-  staffEditEquipment: jest.fn(),
-  userCreateNewPrivateEquipment: jest.fn(),
-  userEditPrivateEquipment: jest.fn()
+  oneColumnATheme: "one-column-a-light",
+  staffCreateNewEquipment,
+  staffEditEquipment,
+  staffIsAuthenticated: false,  // test for this
+  staffMessage: "",
+  userCreateNewPrivateEquipment,
+  userEditPrivateEquipment,
+  userMessage: "Some message."
 };
 
 window.scrollTo = jest.fn();
@@ -51,11 +56,13 @@ describe('NewEquipment', () => {
         const originalModule = jest.requireActual('react-router-dom');
         return {...originalModule, useParams: () => ({})};
       });
+
       mount(
         <MemoryRouter>
-          <NewEquipment editing={false} {...beginProps} />
+          <NewEquipment editing={false} {...intialProps} />
         </MemoryRouter>
       );
+
       expect(mockHistoryPush).not.toHaveBeenCalled();
     });
   });
@@ -66,11 +73,13 @@ describe('NewEquipment', () => {
         const originalModule = jest.requireActual('react-router-dom');
         return {...originalModule, useParams: () => ({})};
       });
+
       mount(
         <MemoryRouter>
-          <NewEquipment editing={true} {...beginProps} />
+          <NewEquipment editing={true} {...intialProps} />
         </MemoryRouter>
       );
+      
       expect(mockHistoryPush).toHaveBeenCalledWith("/dashboard");
     });
   });

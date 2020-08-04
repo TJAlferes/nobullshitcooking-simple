@@ -27,13 +27,12 @@ export function DashboardView({
   cancelAvatar,
   creatingPlan,
   crop,
-  cropFullSizePreview,
-  cropTinySizePreview,
   currentAvatar,
   deactivateModal,
   deleteName,
   editingId,
   feedback,
+  fullCrop,
   getApplicationNode,
   handleDeletePlan,
   handleDeletePrivateEquipment,
@@ -60,6 +59,7 @@ export function DashboardView({
   submitAvatar,
   subTab,
   tab,
+  tinyCrop,
   twoColumnATheme
 }: Props): JSX.Element {
   return (
@@ -89,13 +89,13 @@ export function DashboardView({
                 avatar={avatar}
                 cancelAvatar={cancelAvatar}
                 crop={crop}
-                cropFullSizePreview={cropFullSizePreview}
-                cropTinySizePreview={cropTinySizePreview}
+                fullCrop={fullCrop}
                 loading={loading}
                 onImageLoaded={onImageLoaded}
                 onCropChange={onCropChange}
                 onCropComplete={onCropComplete}
                 submitAvatar={submitAvatar}
+                tinyCrop={tinyCrop}
               />
             )}
           </div>
@@ -189,13 +189,12 @@ type Props = {
   cancelAvatar(): void;
   creatingPlan: boolean;
   crop: Crop;
-  cropFullSizePreview: string;
-  cropTinySizePreview: string;
   currentAvatar: string;
   deactivateModal(): void;
   deleteName: string;
   editingId: number | null;
   feedback: string;
+  fullCrop: string;
   getApplicationNode(): Element | Node;
   handleDeletePlan(): void;
   handleDeletePrivateEquipment(id: number): void;
@@ -222,5 +221,6 @@ type Props = {
   submitAvatar(): void;
   subTab: string;
   tab: string;
+  tinyCrop: string;
   twoColumnATheme: string;
 };

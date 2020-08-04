@@ -50,24 +50,24 @@ export function Dashboard({
   userDisownPublicRecipe,
   userSubmitAvatar,
   userUnfavoriteRecipe,
-  userUnsaveRecipe,
+  userUnsaveRecipe
 }: Props): JSX.Element {
   const [ feedback, setFeedback ] = useState("");
   const [ loading, setLoading ] = useState(false);
 
-  const [ crop, setCrop ] = useState<Crop>({aspect: 1 / 1});
-  const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
-  const [ cropTinySizePreview, setCropTinySizePreview ] = useState("");
+  const [ tab, setTab ] = useState("avatar");
+  const [ subTab, setSubTab ] = useState("private");
+  const [ deleteId, setDeleteId ] = useState<number | undefined>();
+  const [ deleteName, setDeleteName ] = useState("");
+  const [ modalActive, setModalActive ] = useState(false);
+
   const [ avatar, setAvatar ] = useState<string | ArrayBuffer | null>(null);
   const [ fullAvatar, setFullAvatar ] = useState<File | null>(null);
   const [ tinyAvatar, setTinyAvatar ] = useState<File | null>(null);
 
-  const [ tab, setTab ] = useState("avatar");
-  const [ subTab, setSubTab ] = useState("private");
-
-  const [ deleteId, setDeleteId ] = useState<number | undefined>();
-  const [ deleteName, setDeleteName ] = useState("");
-  const [ modalActive, setModalActive ] = useState(false);
+  const [ crop, setCrop ] = useState<Crop>({aspect: 1 / 1});
+  const [ fullCrop, setFullCrop ] = useState("");
+  const [ tinyCrop, setTinyCrop ] = useState("");
 
   const imageRef = useRef<HTMLImageElement | null>();
 
@@ -94,8 +94,8 @@ export function Dashboard({
   };
 
   const cancelAvatar = () => {
-    setCropFullSizePreview("");
-    setCropTinySizePreview("");
+    setFullCrop("");
+    setTinyCrop("");
     setAvatar(null)
     setFullAvatar(null);
     setTinyAvatar(null);
@@ -157,30 +157,26 @@ export function Dashboard({
     userUnsaveRecipe(id);
   };
 
-  const makeClientCrops = async (crop: Crop) => {
+  const makeCrops = async (crop: Crop) => {
     if (!imageRef || !imageRef.current) return;
-
     if (!crop.width) return;
 
-    const full = await getCroppedImage(
-      250, 250, imageRef.current, crop, "newFile.jpeg"
-    );
-
-    const tiny = await getCroppedImage(
-      25, 25, imageRef.current, crop, "newFile.jpeg"
-    );
+    const full =
+      await getCroppedImage(250, 250, imageRef.current, crop, "newFile.jpeg");
+    const tiny =
+      await getCroppedImage(25, 25, imageRef.current, crop, "newFile.jpeg");
 
     if (!full || !tiny) return;
 
-    setCropFullSizePreview(full.resizedPreview);
-    setCropTinySizePreview(tiny.resizedPreview);
+    setFullCrop(full.resizedPreview);
+    setTinyCrop(tiny.resizedPreview);
     setFullAvatar(full.resizedFinal);
     setTinyAvatar(tiny.resizedFinal);
   };
 
   const onCropChange = (crop: Crop) => setCrop(crop);
 
-  const onCropComplete = (crop: Crop) => makeClientCrops(crop);
+  const onCropComplete = (crop: Crop) => makeCrops(crop);
 
   const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
 
@@ -209,13 +205,12 @@ export function Dashboard({
       cancelAvatar={cancelAvatar}
       creatingPlan={creatingPlan}
       crop={crop}
-      cropFullSizePreview={cropFullSizePreview}
-      cropTinySizePreview={cropTinySizePreview}
       currentAvatar={currentAvatar}
       deactivateModal={deactivateModal}
       deleteName={deleteName}
       editingId={editingId}
       feedback={feedback}
+      fullCrop={fullCrop}
       getApplicationNode={getApplicationNode}
       handleDeletePlan={handleDeletePlan}
       handleDeletePrivateEquipment={handleDeletePrivateEquipment}
@@ -242,6 +237,7 @@ export function Dashboard({
       submitAvatar={submitAvatar}
       subTab={subTab}
       tab={tab}
+      tinyCrop={tinyCrop}
       twoColumnATheme={twoColumnATheme}
     />
   );

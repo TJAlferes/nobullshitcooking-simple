@@ -32,10 +32,7 @@ export function Plans({
       }
       {
         (!creatingPlan && editingId) &&
-        <Link
-          className="create-new-entity"
-          to={`/user-plan/edit/${editingId}`}
-        >
+        <Link className="create-new-entity" to={`/user-plan/edit/${editingId}`}>
           Finish Updating Plan
         </Link>
       }
@@ -60,10 +57,7 @@ export function Plans({
             >
               No
             </button>
-            <button
-              className="plan-delete-button"
-              onClick={handleDeletePlan}
-            >
+            <button className="plan-delete-button" onClick={handleDeletePlan}>
               Yes, Delete Plan
             </button>
           </AriaModal>
@@ -72,26 +66,22 @@ export function Plans({
       }
       {
         myPlans.length
-        ? myPlans.map(plan => (
-          <div className="dashboard-content-item" key={plan.plan_id}>
+        ? myPlans.map(p => (
+          <div className="dashboard-content-item" key={p.plan_id}>
             <span className="dashboard-content-item-name">
-              <Link to={`/user-plan/${plan.plan_id}`}>
-                {plan.plan_name}
-              </Link>
+              <Link to={`/user-plan/${p.plan_id}`}>{p.plan_name}</Link>
             </span>
             {
               (!creatingPlan && !editingId) &&
               <span className="dashboard-content-item-action">
-                <Link to={`/user-plan/edit/${plan.plan_id}`}>
-                  Edit
-                </Link>
+                <Link to={`/user-plan/edit/${p.plan_id}`}>Edit</Link>
               </span>
             }
             {
               (!creatingPlan && !editingId) &&
               <span
                 className="dashboard-content-item-delete"
-                onClick={() => activateModal(plan.plan_id, plan.plan_name)}
+                onClick={() => activateModal(p.plan_id, p.plan_name)}
               >
                 Delete
               </span>

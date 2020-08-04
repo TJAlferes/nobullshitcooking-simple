@@ -58,28 +58,24 @@ export function PublicRecipes({
 
       {
         myPublicRecipes.length
-        ? myPublicRecipes.map(recipe => (
-          <div className="dashboard-content-item" key={recipe.recipe_id}>
+        ? myPublicRecipes.map(r => (
+          <div className="dashboard-content-item" key={r.recipe_id}>
             <span className="dashboard-content-item-tiny">
               {
-                recipe.recipe_image !== "nobsc-recipe-default"
-                ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe${recipe.recipe_image}-tiny`} />
+                r.recipe_image !== "nobsc-recipe-default"
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe${r.recipe_image}-tiny`} />
                 : <div className="image-default-28-18"></div>
               }
             </span>
             <span className="dashboard-content-item-name">
-              <Link to={`/recipe/${recipe.recipe_id}`}>
-                {recipe.title}
-              </Link>
+              <Link to={`/recipe/${r.recipe_id}`}>{r.title}</Link>
             </span>
             <span className="dashboard-content-item-action">
-              <Link to={`/user-recipe/public/edit/${recipe.recipe_id}`}>
-                Edit
-              </Link>
+              <Link to={`/user-recipe/public/edit/${r.recipe_id}`}>Edit</Link>
             </span>
             <span
               className="dashboard-content-item-delete"
-              onClick={() => activateModal(recipe.recipe_id, recipe.title)}
+              onClick={() => activateModal(r.recipe_id, r.title)}
             >
               Disown
             </span>

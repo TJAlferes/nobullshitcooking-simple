@@ -5,18 +5,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { Friends } from './Friends';
 
 const dataMyFriendships = [
-  {
-    user_id: 1,
-    username: "Jack",
-    avatar: "Jack",
-    status: "accepted"
-  },
-  {
-    user_id: 2,
-    username: "Jill",
-    avatar: "Jill",
-    status: "accepted"
-  }
+  {user_id: 1, username: "Jack", avatar: "Jack", status: "accepted"},
+  {user_id: 2, username: "Jill", avatar: "Jill", status: "accepted"}
 ];
 
 const userAcceptFriendship = jest.fn();

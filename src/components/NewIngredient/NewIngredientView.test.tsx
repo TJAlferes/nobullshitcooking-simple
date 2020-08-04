@@ -4,40 +4,49 @@ import React from 'react';
 import { LoaderButton } from '../LoaderButton/LoaderButton';
 import { NewIngredientView } from './NewIngredientView';
 
-const beginProps = {
-  oneColumnATheme: "one-column-a-light",
-  staffIsAuthenticated: false,  // test for this
-  feedback: "Some message.",
-  loading: false,
-  ingredientTypeId: 1,
-  ingredientName: "",
-  ingredientDescription: "",
-  ingredientImage: null,
-  prevIngredientImage: "nobsc-ingredient-default",
+const cancelImage = jest.fn();
+const handleDescriptionChange = jest.fn();
+const handleNameChange = jest.fn();
+const handleSubmit = jest.fn();
+const handleTypeChange = jest.fn();
+const onCropChange = jest.fn();
+const onCropComplete = jest.fn();
+const onImageLoaded = jest.fn();
+const onSelectFile = jest.fn();
+
+const intialProps = {
+  cancelImage,
+  crop: {aspect: 280 / 172},
   dataIngredientTypes: [
     {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
     {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
   ],
-  handleIngredientTypeChange: jest.fn(),
-  handleIngredientNameChange: jest.fn(),
-  handleIngredientDescriptionChange: jest.fn(),
-  onSelectFile: jest.fn(),
-  onImageLoaded: jest.fn(),
-  crop: {aspect: 280 / 172},
-  cropFullSizePreview: "",
-  cropTinySizePreview: "",
-  onCropChange: jest.fn(),
-  onCropComplete: jest.fn(),
-  cancelIngredientImage: jest.fn(),
-  handleSubmit: jest.fn()
+  description: "",
+  feedback: "Some message.",
+  fullCrop: "",
+  handleDescriptionChange,
+  handleNameChange,
+  handleSubmit,
+  handleTypeChange,
+  image: null,
+  loading: false,
+  name: "",
+  oneColumnATheme: "one-column-a-light",
+  onCropChange,
+  onCropComplete,
+  onImageLoaded,
+  onSelectFile,
+  prevImage: "nobsc-ingredient-default",
+  staffIsAuthenticated: false,  // TO DO: test for this
+  tinyCrop: "",
+  typeId: 1,
 };
 
 describe('NewIngredientView', () => {
   describe('when creating', () => {
     it('displays a h1 element with text Create New Private Ingredient', () => {
-      const wrapper = shallow(
-        <NewIngredientView editing={false} {...beginProps} />
-      );
+      const wrapper =
+        shallow(<NewIngredientView editing={false} {...intialProps} />);
       expect(wrapper.find('h1').text())
       .toEqual("Create New Private Ingredient");
     });
@@ -45,17 +54,15 @@ describe('NewIngredientView', () => {
 
   describe('when editing', () => {
     it('displays a h1 element with text Edit Private Ingredient', () => {
-      const wrapper = shallow(
-        <NewIngredientView editing={true} {...beginProps} />
-      );
+      const wrapper =
+        shallow(<NewIngredientView editing={true} {...intialProps} />);
       expect(wrapper.find('h1').text()).toEqual("Edit Private Ingredient");
     });
   });
 
   describe('content', () => {
-    const wrapper = shallow(
-      <NewIngredientView editing={false} {...beginProps} />
-    );
+    const wrapper =
+      shallow(<NewIngredientView editing={false} {...intialProps} />);
 
     it('displays feedback', () => {
       expect(wrapper.find('p.new-ingredient__feedback').text())

@@ -4,57 +4,64 @@ import React from 'react';
 import { LoaderButton } from '../LoaderButton/LoaderButton';
 import { NewEquipmentView } from './NewEquipmentView';
 
-const beginProps = {
-  oneColumnATheme: "one-column-a-light",
-  staffIsAuthenticated: false,  // test for this
-  feedback: "Some message.",
-  loading: false,
-  equipmentTypeId: 1,
-  equipmentName: "",
-  equipmentDescription: "",
-  equipmentImage: null,
-  prevEquipmentImage: "nobsc-equipment-default",
+const cancelImage = jest.fn();
+const handleDescriptionChange = jest.fn();
+const handleNameChange = jest.fn();
+const handleSubmit = jest.fn();
+const handleTypeChange = jest.fn();
+const onCropChange = jest.fn();
+const onCropComplete = jest.fn();
+const onImageLoaded = jest.fn();
+const onSelectFile = jest.fn();
+
+const intialProps = {
+  cancelImage,
+  crop: {aspect: 280 / 172},
   dataEquipmentTypes: [
     {equipment_type_id: 2, equipment_type_name: "Preparing"},
     {equipment_type_id: 3, equipment_type_name: "Cooking"}
   ],
-  handleEquipmentTypeChange: jest.fn(),
-  handleEquipmentNameChange: jest.fn(),
-  handleEquipmentDescriptionChange: jest.fn(),
-  onSelectFile: jest.fn(),
-  onImageLoaded: jest.fn(),
-  crop: {aspect: 280 / 172},
-  cropFullSizePreview: "",
-  cropTinySizePreview: "",
-  onCropChange: jest.fn(),
-  onCropComplete: jest.fn(),
-  cancelEquipmentImage: jest.fn(),
-  handleSubmit: jest.fn()
+  description: "",
+  feedback: "Some message.",
+  fullCrop: "",
+  handleDescriptionChange,
+  handleNameChange,
+  handleSubmit,
+  handleTypeChange,
+  image: null,
+  loading: false,
+  name: "",
+  oneColumnATheme: "one-column-a-light",
+  onCropChange,
+  onCropComplete,
+  onImageLoaded,
+  onSelectFile,
+  prevImage: "nobsc-equipment-default",
+  staffIsAuthenticated: false,  // TO DO: test for this
+  tinyCrop: "",
+  typeId: 1,
 };
 
 describe('NewEquipmentView', () => {
   describe('when creating', () => {
     it('displays a h1 element with text Create New Private Equipment', () => {
-      const wrapper = shallow(
-        <NewEquipmentView editing={false} {...beginProps} />
-      );
+      const wrapper =
+        shallow(<NewEquipmentView editing={false} {...intialProps} />);
       expect(wrapper.find('h1').text()).toEqual("Create New Private Equipment");
     });
   });
 
   describe('when editing', () => {
     it('displays a h1 element with text Edit Private Equipment', () => {
-      const wrapper = shallow(
-        <NewEquipmentView editing={true} {...beginProps} />
-      );
+      const wrapper =
+        shallow(<NewEquipmentView editing={true} {...intialProps} />);
       expect(wrapper.find('h1').text()).toEqual("Edit Private Equipment");
     });
   });
 
   describe('content', () => {
-    const wrapper = shallow(
-      <NewEquipmentView editing={false} {...beginProps} />
-    );
+    const wrapper =
+      shallow(<NewEquipmentView editing={false} {...intialProps} />);
 
     it('displays feedback', () => {
       expect(wrapper.find('p.new-equipment__feedback').text())

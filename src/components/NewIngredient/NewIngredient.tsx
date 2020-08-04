@@ -1,16 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Crop } from 'react-image-crop';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { Crop } from 'react-image-crop';
 
 import {
   getCroppedImage
 } from '../../utils/imageCropPreviews/imageCropPreviews';
 import { IIngredient, IIngredientType } from '../../store/data/types';
-import {
-  ICreatingIngredientInfo,
-  IEditingIngredientInfo
-} from '../../store/user/ingredient/types';
 import {
   staffCreateNewIngredient,
   staffEditIngredient
@@ -19,21 +15,25 @@ import {
   userCreateNewPrivateIngredient,
   userEditPrivateIngredient
 } from '../../store/user/ingredient/actions';
+import {
+  ICreatingIngredientInfo,
+  IEditingIngredientInfo
+} from '../../store/user/ingredient/types';
 import { NewIngredientView } from './NewIngredientView';
 
 export function NewIngredient({
-  oneColumnATheme,
-  editing,
-  staffIsAuthenticated,
-  staffMessage,
-  userMessage,
   dataIngredients,
   dataIngredientTypes,
   dataMyPrivateIngredients,
+  editing,
+  oneColumnATheme,
   staffCreateNewIngredient,
   staffEditIngredient,
+  staffIsAuthenticated,
+  staffMessage,
   userCreateNewPrivateIngredient,
-  userEditPrivateIngredient
+  userEditPrivateIngredient,
+  userMessage
 }: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
@@ -42,54 +42,37 @@ export function NewIngredient({
   const [ loading, setLoading ] = useState(false);
 
   const [ editingId, setEditingId ] = useState<number>(0);
-  const [ ingredientTypeId, setIngredientTypeId ] = useState<number>(0);
-  const [ ingredientName, setIngredientName ] = useState("");
-  const [ ingredientDescription, setIngredientDescription ] = useState("");
-  const [
-    prevIngredientImage,
-    setPrevIngredientImage
-  ] = useState("nobsc-ingredient-default");
+  const [ typeId, setTypeId ] = useState<number>(0);
+  const [ name, setName ] = useState("");
+  const [ description, setDescription ] = useState("");
+  const [ prevImage, setPrevImage ] = useState("nobsc-ingredient-default");
+  const [ image, setImage ] = useState<string | ArrayBuffer | null>(null);
+  const [ fullImage, setFullImage ] = useState<File | null>(null);
+  const [ tinyImage, setTinyImage ] = useState<File | null>(null);
 
   const [ crop, setCrop ] = useState<Crop>({aspect: 280 / 172});
-  const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
-  const [ cropTinySizePreview, setCropTinySizePreview ] = useState("");
-  const [
-    ingredientImage,
-    setIngredientImage
-  ] = useState<string | ArrayBuffer | null>(null);
-  const [
-    fullIngredientImage,
-    setFullIngredientImage
-  ] = useState<File | null>(null);
-  const [
-    tinyIngredientImage,
-    setTinyIngredientImage
-  ] = useState<File | null>(null);
+  const [ fullCrop, setFullCrop ] = useState("");
+  const [ tinyCrop, setTinyCrop ] = useState("");
 
   const imageRef = useRef<HTMLImageElement>();
 
   useEffect(() => {
     const getExistingIngredientToEdit = () => {
-      window.scrollTo(0,0);
       setLoading(true);
+      window.scrollTo(0,0);
 
       const [ prev ] = staffIsAuthenticated
-      ? (
-        dataIngredients
-        .filter((ing) => ing.ingredient_id === Number(id))
-      )
-      : (
-        dataMyPrivateIngredients
-        .filter((ing) => ing.ingredient_id === Number(id))
-      );
+        ? dataIngredients.filter(i => i.ingredient_id === Number(id))
+        : dataMyPrivateIngredients.filter(i => i.ingredient_id === Number(id));
 
       setEditingId(prev.ingredient_id);
-      setIngredientTypeId(prev.ingredient_type_id);
-      setIngredientName(prev.ingredient_name);
-      setIngredientDescription(prev.ingredient_description);
-      setPrevIngredientImage(prev.ingredient_image);
+      setTypeId(prev.ingredient_type_id);
+      setName(prev.ingredient_name);
+      setDescription(prev.ingredient_description);
+      setPrevImage(prev.ingredient_image);
       setLoading(false);
     };
+
     if (editing) getExistingIngredientToEdit();
   }, []);
 
@@ -99,8 +82,7 @@ export function NewIngredient({
     if (isSubscribed) {
       const message = staffIsAuthenticated ? staffMessage : userMessage;
       const redirectPath = staffIsAuthenticated
-      ? '/staff-dashboard'
-      : '/dashboard';
+        ? '/staff-dashboard' : '/dashboard';
 
       if (message !== "") window.scrollTo(0,0);
 
@@ -115,155 +97,147 @@ export function NewIngredient({
 
       setLoading(false);
     }
+
     return () => {
       isSubscribed = false;
     };
   }, [staffMessage, userMessage]);
 
-  const handleIngredientTypeChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => {
-    setIngredientTypeId(Number((e.target as HTMLInputElement).value));
+  const cancelImage = () => {
+    setFullCrop("");
+    setTinyCrop("");
+    setImage(null);
+    setFullImage(null);
+    setTinyImage(null);
   };
 
-  const handleIngredientNameChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => {
-    setIngredientName((e.target as HTMLInputElement).value);
-  };
+  const handleDescriptionChange = (e: React.SyntheticEvent<EventTarget>) => 
+    setDescription((e.target as HTMLInputElement).value);
 
-  const handleIngredientDescriptionChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => {
-    setIngredientDescription((e.target as HTMLInputElement).value);
-  };
+  const handleNameChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setName((e.target as HTMLInputElement).value);
 
-  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (!(target.files && target.files.length > 0)) return;
-    const reader = new FileReader();
-    reader.addEventListener("load", () => setIngredientImage(reader.result));
-    reader.readAsDataURL(target.files[0]);
-  };
-
-  const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
-
-  const onCropChange = (crop: Crop) => setCrop(crop);
-
-  const onCropComplete = (crop: Crop) => makeClientCrops(crop);
-
-  const makeClientCrops = async (crop: Crop) => {
-    if (!imageRef || !imageRef.current) return;
-    if (!crop.width) return;
-    const full = await getCroppedImage(
-      280, 172, imageRef.current, crop, "newFile.jpeg"
-    );
-    const tiny = await getCroppedImage(
-      28, 18, imageRef.current, crop, "newFile.jpeg"
-    );
-    if (!full || !tiny) return;
-    setCropFullSizePreview(full.resizedPreview);
-    setCropTinySizePreview(tiny.resizedPreview);
-    setFullIngredientImage(full.resizedFinal);
-    setTinyIngredientImage(tiny.resizedFinal);
-  };
-
-  const cancelIngredientImage = () => {
-    setCropFullSizePreview("");
-    setCropTinySizePreview("");
-    setIngredientImage(null);
-    setFullIngredientImage(null);
-    setTinyIngredientImage(null);
-  };
-
-  const valid = () => {
-    let validIngredientTypeId = ingredientTypeId !== 0;
-    let validIngredientName = ingredientName.trim() !== "";
-    let validIngredientDescription = ingredientDescription.trim() !== "";
-
-    if (!validIngredientTypeId) {
-      window.scrollTo(0,0);
-      setFeedback("You forgot to select the ingredient type...");
-      setTimeout(() => setFeedback(""), 3000);
-      return false;
-    }
-
-    if (!validIngredientName) {
-      window.scrollTo(0,0);
-      setFeedback("Umm, double check your name...");
-      setTimeout(() => setFeedback(""), 3000);
-      return false;
-    }
-
-    if (!validIngredientDescription) {
-      window.scrollTo(0,0);
-      setFeedback("Umm, double check your description...");
-      setTimeout(() => setFeedback(""), 3000);
-      return false;
-    }
-
-    return (
-      ingredientTypeId !== 0 &&
-      ingredientName.trim() !== "" &&
-      ingredientDescription.trim() !== ""
-    );
-  };
-
+  // TO DO: remove inner prefixes
   const handleSubmit = () => {
     if (!valid()) return;
     setLoading(true);
     if (editing && editingId) {
-      const ingredientInfo: IEditingIngredientInfo = {
+      const ingredientInfo = {
         ingredientId: editingId,
-        ingredientTypeId,
-        ingredientName,
-        ingredientDescription,
-        ingredientImage,
-        fullIngredientImage,
-        tinyIngredientImage,
-        prevIngredientImage
+        ingredientTypeId: typeId,
+        ingredientName: name,
+        ingredientDescription: description,
+        ingredientImage: image,
+        ingredientFullImage: fullImage,
+        ingredientTinyImage: tinyImage,
+        ingredientPrevImage: prevImage
       };
       if (staffIsAuthenticated) staffEditIngredient(ingredientInfo);
       else userEditPrivateIngredient(ingredientInfo);
     } else {
-      const ingredientInfo: ICreatingIngredientInfo = {
-        ingredientTypeId,
-        ingredientName,
-        ingredientDescription,
-        ingredientImage,
-        fullIngredientImage,
-        tinyIngredientImage
+      const ingredientInfo = {
+        ingredientTypeId: typeId,
+        ingredientName: name,
+        ingredientDescription: description,
+        ingredientImage: image,
+        ingredientFullImage: fullImage,
+        ingredientTinyImage: tinyImage,
       };
       if (staffIsAuthenticated) staffCreateNewIngredient(ingredientInfo);
       else userCreateNewPrivateIngredient(ingredientInfo);
     }
   };
 
+  const handleTypeChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setTypeId(Number((e.target as HTMLInputElement).value));
+
+  const makeCrops = async (crop: Crop) => {
+    if (!imageRef || !imageRef.current) return;
+    if (!crop.width) return;
+
+    const full =
+      await getCroppedImage(280, 172, imageRef.current, crop, "newFile.jpeg");
+    const tiny =
+      await getCroppedImage(28, 18, imageRef.current, crop, "newFile.jpeg");
+
+    if (!full || !tiny) return;
+
+    setFullCrop(full.resizedPreview);
+    setTinyCrop(tiny.resizedPreview);
+    setFullImage(full.resizedFinal);
+    setTinyImage(tiny.resizedFinal);
+  };
+
+  const onCropChange = (crop: Crop) => setCrop(crop);
+
+  const onCropComplete = (crop: Crop) => makeCrops(crop);
+
+  const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
+
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+
+    if (!(target.files && target.files.length > 0)) return;
+
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => setImage(reader.result));
+    reader.readAsDataURL(target.files[0]);
+  };
+
+  const valid = () => {
+    const validTypeId = typeId !== 0;
+    if (!validTypeId) {
+      window.scrollTo(0,0);
+      setFeedback("You forgot to select the ingredient type...");
+      setTimeout(() => setFeedback(""), 3000);
+      return false;
+    }
+
+    const validName = name.trim() !== "";
+    if (!validName) {
+      window.scrollTo(0,0);
+      setFeedback("Umm, double check your name...");
+      setTimeout(() => setFeedback(""), 3000);
+      return false;
+    }
+
+    const validDescription = description.trim() !== "";
+    if (!validDescription) {
+      window.scrollTo(0,0);
+      setFeedback("Umm, double check your description...");
+      setTimeout(() => setFeedback(""), 3000);
+      return false;
+    }
+
+    return validTypeId && validName && validDescription;
+  };
+
   return (
     <NewIngredientView
-      oneColumnATheme={oneColumnATheme}
-      staffIsAuthenticated={staffIsAuthenticated}
-      feedback={feedback}
-      loading={loading}
-      editing={editing}
-      ingredientTypeId={ingredientTypeId}
-      ingredientName={ingredientName}
-      ingredientDescription={ingredientDescription}
-      ingredientImage={ingredientImage}
-      prevIngredientImage={prevIngredientImage}
-      dataIngredientTypes={dataIngredientTypes}
-      handleIngredientTypeChange={handleIngredientTypeChange}
-      handleIngredientNameChange={handleIngredientNameChange}
-      handleIngredientDescriptionChange={handleIngredientDescriptionChange}
-      onSelectFile={onSelectFile}
-      onImageLoaded={onImageLoaded}
+      cancelImage={cancelImage}
       crop={crop}
-      cropFullSizePreview={cropFullSizePreview}
-      cropTinySizePreview={cropTinySizePreview}
+      dataIngredientTypes={dataIngredientTypes}
+      description={description}
+      editing={editing}
+      feedback={feedback}
+      fullCrop={fullCrop}
+      handleDescriptionChange={handleDescriptionChange}
+      handleNameChange={handleNameChange}
+      handleSubmit={handleSubmit}
+      handleTypeChange={handleTypeChange}
+      image={image}
+      loading={loading}
+      name={name}
       onCropChange={onCropChange}
       onCropComplete={onCropComplete}
-      cancelIngredientImage={cancelIngredientImage}
-      handleSubmit={handleSubmit}
+      oneColumnATheme={oneColumnATheme}
+      onImageLoaded={onImageLoaded}
+      onSelectFile={onSelectFile}
+      prevImage={prevImage}
+      staffIsAuthenticated={staffIsAuthenticated}
+      tinyCrop={tinyCrop}
+      typeId={typeId}
     />
   );
 };
@@ -272,24 +246,24 @@ interface RootState {
   auth: {
     staffIsAuthenticated: boolean;
   };
+  data: {
+    ingredients: IIngredient[];
+    ingredientTypes: IIngredientType[];
+    myPrivateIngredients: IIngredient[];
+  };
   staff: {
     message: string;
   };
   user: {
     message: string;
   };
-  data: {
-    ingredients: IIngredient[];
-    ingredientTypes: IIngredientType[];
-    myPrivateIngredients: IIngredient[];
-  };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  oneColumnATheme: string;
   editing: boolean;
+  oneColumnATheme: string;
 };
 
 const mapStateToProps = (state: RootState) => ({

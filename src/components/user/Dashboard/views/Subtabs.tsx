@@ -3,7 +3,8 @@ import React from 'react';
 export function Subtabs({ handleSubTabClick, subTab }: Props): JSX.Element {
   const SubtabButton = ({ displayText, subTabName }: SubtabButtonProps) => (
     <button
-      className={(subTab === subTabName)
+      className={
+        subTab === subTabName
         ? "dashboard-menu-subtab active"
         : "dashboard-menu-subtab inactive"
       }

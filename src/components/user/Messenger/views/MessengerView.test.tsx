@@ -12,7 +12,6 @@ jest.mock('react', () => {
   return {...originalModule, useRef: mockUseRef};
 });
 
-const messagesRef = useRef<HTMLUListElement>(null);
 const handleConnect = jest.fn();
 const handleDisconnect = jest.fn();
 const handleRoomInputChange = jest.fn();
@@ -22,6 +21,7 @@ const handleMessageSend = jest.fn();
 const handlePeopleTabChange = jest.fn();
 const handleFriendClick = jest.fn();
 const handleUserClick = jest.fn();
+const messagesRef = useRef<HTMLUListElement>(null);
 const startWhisper = jest.fn();
 
 const initialProps = {

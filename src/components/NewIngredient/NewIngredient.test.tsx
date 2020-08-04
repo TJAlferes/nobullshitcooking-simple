@@ -4,11 +4,12 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { NewIngredient } from './NewIngredient';
 
-const beginProps = {
-  oneColumnATheme: "one-column-a-light",
-  staffIsAuthenticated: false,  // test for this
-  staffMessage: "",
-  userMessage: "Some message.",
+const staffCreateNewIngredient = jest.fn();
+const staffEditIngredient = jest.fn();
+const userCreateNewPrivateIngredient = jest.fn();
+const userEditPrivateIngredient = jest.fn();
+
+const initialProps = {
   dataIngredients: [],
   dataIngredientTypes: [
     {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
@@ -17,6 +18,8 @@ const beginProps = {
   dataMyPrivateIngredients: [
     {
       ingredient_id: 2,
+      ingredient_brand: null,
+      ingredient_variety: "Baby",
       ingredient_name: "Spinach",
       ingredient_type_id: 11,
       owner_id: 1,
@@ -25,10 +28,14 @@ const beginProps = {
       ingredient_image: "nobsc-spinach"
     }
   ],
-  staffCreateNewIngredient: jest.fn(),
-  staffEditIngredient: jest.fn(),
-  userCreateNewPrivateIngredient: jest.fn(),
-  userEditPrivateIngredient: jest.fn()
+  oneColumnATheme: "one-column-a-light",
+  staffCreateNewIngredient,
+  staffEditIngredient,
+  staffIsAuthenticated: false,  // test for this
+  staffMessage: "",
+  userCreateNewPrivateIngredient,
+  userEditPrivateIngredient,
+  userMessage: "Some message."
 };
 
 window.scrollTo = jest.fn();
@@ -51,11 +58,13 @@ describe('NewIngredient', () => {
         const originalModule = jest.requireActual('react-router-dom');
         return {...originalModule, useParams: () => ({})};
       });
+
       mount(
         <MemoryRouter>
-          <NewIngredient editing={false} {...beginProps} />
+          <NewIngredient editing={false} {...initialProps} />
         </MemoryRouter>
       );
+
       expect(mockHistoryPush).not.toHaveBeenCalled();
     });
   });
@@ -66,11 +75,13 @@ describe('NewIngredient', () => {
         const originalModule = jest.requireActual('react-router-dom');
         return {...originalModule, useParams: () => ({})};
       });
+
       mount(
         <MemoryRouter>
-          <NewIngredient editing={true} {...beginProps} />
+          <NewIngredient editing={true} {...initialProps} />
         </MemoryRouter>
       );
+      
       expect(mockHistoryPush).toHaveBeenCalledWith("/dashboard");
     });
   });

@@ -18,7 +18,8 @@ export function PeopleView({
       
       <div className="messenger-people-tabs">
         <button
-          className={(peopleTab === "Room")
+          className={
+            peopleTab === "Room"
             ? "messenger-people-tab chat-nav-current"
             : "messenger-people-tab"
           }
@@ -27,7 +28,8 @@ export function PeopleView({
           Room
         </button>
         <button
-          className={(peopleTab === "Friends")
+          className={
+            peopleTab === "Friends"
             ? "messenger-people-tab chat-nav-current"
             : "messenger-people-tab"
           }

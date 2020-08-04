@@ -65,7 +65,7 @@ export function FriendsView({
         <div className="friends-list-menu-tabs">
           <button
             className={
-              (tab === "accepted")
+              tab === "accepted"
               ? "friends-list-menu-tab active"
               : "friends-list-menu-tab inactive"
             }
@@ -76,7 +76,7 @@ export function FriendsView({
           </button>
           <button
             className={
-              (tab === "pending-received")
+              tab === "pending-received"
               ? "friends-list-menu-tab active"
               : "friends-list-menu-tab inactive"
             }
@@ -87,7 +87,7 @@ export function FriendsView({
           </button>
           <button
             className={
-              (tab === "blocked")
+              tab === "blocked"
               ? "friends-list-menu-tab active"
               : "friends-list-menu-tab inactive"
             }
@@ -101,59 +101,59 @@ export function FriendsView({
         <div className="friends-list">
           {
             dataMyFriendships
-            .filter((friend: IFriendship) => friend.status === tab)
-            .map((friend: IFriendship) => (
-              <div className="friends-list-item" key={friend.username}>
+            .filter(f => f.status === tab)
+            .map(f => (
+              <div className="friends-list-item" key={f.username}>
                 <span className="friends-list-item-avatar">
-                  <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${friend.avatar}-tiny`} />
+                  <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${f.avatar}-tiny`} />
                 </span>
                 <span className="friends-list-item-username">
-                  <Link to={`/profile/${friend.username}`}>{friend.username}</Link>
+                  <Link to={`/profile/${f.username}`}>{f.username}</Link>
                 </span>
                 {
-                  (friend.status === "pending-received") &&
+                  f.status === "pending-received" &&
                   <button
                     className="friends-list-item-action"
                     disabled={loading}
                     name="accept"
                     onClick={handleAcceptClick}
-                    value={friend.username}
+                    value={f.username}
                   >
                     Accept
                   </button>
                 }
                 {
-                  (friend.status === "pending-received") &&
+                  f.status === "pending-received" &&
                   <button
                     className="friends-list-item-delete"
                     disabled={loading}
                     name="reject"
                     onClick={handleRejectClick}
-                    value={friend.username}
+                    value={f.username}
                   >
                     Reject
                   </button>
                 }
                 {
-                  (friend.status === "accepted") &&
+                  f.status === "accepted" &&
                   <button
                     className="friends-list-item-delete"
                     disabled={loading}
                     name="unfriend"
                     onClick={handleDeleteClick}
-                    value={friend.username}
+                    value={f.username}
                   >
                     Unfriend
                   </button>
                 }
                 {
-                  (friend.status === "blocked") &&
+                  f.status === "blocked" &&
                   <button
                     className="friends-list-item-delete"
                     disabled={loading}
                     name="unblock"
                     onClick={handleUnblockClick}
-                    value={friend.username}
+                    value={f.username}
                   >
                     Unblock
                   </button>

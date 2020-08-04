@@ -6,13 +6,13 @@ export function AvatarEdit({
   avatar,
   cancelAvatar,
   crop,
-  cropFullSizePreview,
-  cropTinySizePreview,
+  fullCrop,
   loading,
   onImageLoaded,
   onCropChange,
   onCropComplete,
-  submitAvatar
+  submitAvatar,
+  tinyCrop,
 }: Props): JSX.Element {
   return (
     <div className="dashboard-avatar-edit">
@@ -31,10 +31,10 @@ export function AvatarEdit({
       </span>
       <div className="avatar-crop-previews">
         <div className="avatar-crop-full-preview">
-          <span>Full Size: </span><img src={cropFullSizePreview} />
+          <span>Full Size: </span><img src={fullCrop} />
         </div>
         <div className="avatar-crop-tiny-preview">
-          <span>Tiny Size: </span><img src={cropTinySizePreview} />
+          <span>Tiny Size: </span><img src={tinyCrop} />
         </div>
       </div>
       <button
@@ -61,11 +61,11 @@ type Props = {
   avatar: string | ArrayBuffer | null;
   cancelAvatar(): void;
   crop: Crop;
-  cropFullSizePreview: string;
-  cropTinySizePreview: string;
+  fullCrop: string;
   loading: boolean;
   onCropChange(crop: Crop): void;
   onCropComplete(crop: Crop): void;
   onImageLoaded(image: HTMLImageElement): void;
   submitAvatar(): void;
+  tinyCrop: string;
 };

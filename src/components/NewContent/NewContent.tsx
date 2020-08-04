@@ -175,9 +175,8 @@ export function NewContent({
 
   const handleChange = (value: Node[]) => editorSetValue(value);
 
-  const handleContentTypeChange = (e: React.SyntheticEvent<EventTarget>) => {
+  const handleContentTypeChange = (e: React.SyntheticEvent<EventTarget>) =>
     setContentTypeId(Number((e.target as HTMLInputElement).value));
-  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     for (const hotkey in HOTKEYS) {
@@ -198,10 +197,10 @@ export function NewContent({
         published,
         title,
         contentItems: value,
-        prevContentImage: prevImage,
+        contentPrevImage: prevImage,
         contentImage: image,
-        fullContentImage: fullImage,
-        thumbContentImage: thumbImage
+        contentFullImage: fullImage,
+        contentThumbImage: thumbImage
       };
 
       if (staffIsAuthenticated) staffEditContent(editingContentInfo);
@@ -215,8 +214,8 @@ export function NewContent({
         title,
         contentItems: value,
         contentImage: image,
-        fullContentImage: fullImage,
-        thumbContentImage: thumbImage
+        contentFullImage: fullImage,
+        contentThumbImage: thumbImage
       };
 
       if (staffIsAuthenticated) staffCreateNewContent(creatingContentInfo);
@@ -225,21 +224,18 @@ export function NewContent({
     }
   };
 
-  const handleSaveTypeChange = (e: React.SyntheticEvent<EventTarget>) => {
-    setSaveType((e.target as HTMLInputElement).name)
-  };
+  const handleSaveTypeChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setSaveType((e.target as HTMLInputElement).name);
 
-  const makeClientCrops = async (crop: Crop) => {
+  const makeCrops = async (crop: Crop) => {
     if (!imageRef || !imageRef.current) return;
     if (!crop.width) return;
 
-    const full = await getCroppedImage(
-      280, 172, imageRef.current, crop, "newFile.jpeg"
-    );
+    const full =
+      await getCroppedImage(280, 172, imageRef.current, crop, "newFile.jpeg");
 
-    const thumb = await getCroppedImage(
-      100, 62, imageRef.current, crop, "newFile.jpeg"
-    );
+    const thumb =
+      await getCroppedImage(100, 62, imageRef.current, crop, "newFile.jpeg");
 
     if (!full || !thumb) return;
 

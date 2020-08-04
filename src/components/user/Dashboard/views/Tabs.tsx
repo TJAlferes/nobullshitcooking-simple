@@ -3,7 +3,8 @@ import React from 'react';
 export function Tabs({ handleTabClick, tab }: Props): JSX.Element {
   const TabButton = ({ displayText, tabName }: TabButtonProps) => (
     <button
-      className={(tab === tabName)
+      className={
+        tab === tabName
         ? "dashboard-menu-tab active"
         : "dashboard-menu-tab inactive"
       }

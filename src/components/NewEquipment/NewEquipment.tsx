@@ -1,16 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Crop } from 'react-image-crop';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { Crop } from 'react-image-crop';
 
 import {
   getCroppedImage
 } from '../../utils/imageCropPreviews/imageCropPreviews';
 import { IEquipment, IEquipmentType } from '../../store/data/types';
-import {
-  ICreatingEquipmentInfo,
-  IEditingEquipmentInfo
-} from '../../store/user/equipment/types';
 import {
   staffCreateNewEquipment,
   staffEditEquipment
@@ -19,21 +15,25 @@ import {
   userCreateNewPrivateEquipment,
   userEditPrivateEquipment
 } from '../../store/user/equipment/actions';
+import {
+  ICreatingEquipmentInfo,
+  IEditingEquipmentInfo
+} from '../../store/user/equipment/types';
 import { NewEquipmentView } from './NewEquipmentView';
 
 export function NewEquipment({
-  oneColumnATheme,
-  editing,
-  staffIsAuthenticated,
-  staffMessage,
-  userMessage,
   dataEquipment,
   dataEquipmentTypes,
   dataMyPrivateEquipment,
+  editing,
+  oneColumnATheme,
   staffCreateNewEquipment,
   staffEditEquipment,
+  staffIsAuthenticated,
+  staffMessage,
   userCreateNewPrivateEquipment,
-  userEditPrivateEquipment
+  userEditPrivateEquipment,
+  userMessage
 }: Props): JSX.Element {
   const history = useHistory();
   const { id } = useParams();
@@ -42,29 +42,17 @@ export function NewEquipment({
   const [ loading, setLoading ] = useState(false);
 
   const [ editingId, setEditingId ] = useState<number>(0);  // null?
-  const [ equipmentTypeId, setEquipmentTypeId ] = useState<number>(0);  // null?
-  const [ equipmentName, setEquipmentName ] = useState("");
-  const [ equipmentDescription, setEquipmentDescription ] = useState("");
-  const [
-    prevEquipmentImage,
-    setPrevEquipmentImage
-  ] = useState("nobsc-equipment-default");
+  const [ typeId, setTypeId ] = useState<number>(0);  // null?
+  const [ name, setName ] = useState("");
+  const [ description, setDescription ] = useState("");
+  const [ prevImage, setPrevImage ] = useState("nobsc-equipment-default");
+  const [ image, setImage ] = useState<string | ArrayBuffer | null>(null);
+  const [ fullImage, setFullImage ] = useState<File | null>(null);
+  const [ tinyImage, setTinyImage ] = useState<File | null>(null);
 
   const [ crop, setCrop ] = useState<Crop>({aspect: 280 / 172});
-  const [ cropFullSizePreview, setCropFullSizePreview ] = useState("");
-  const [ cropTinySizePreview, setCropTinySizePreview ] = useState("");
-  const [
-    equipmentImage,
-    setEquipmentImage
-  ] = useState<string | ArrayBuffer | null>(null);
-  const [
-    fullEquipmentImage,
-    setFullEquipmentImage
-  ] = useState<File | null>(null);
-  const [
-    tinyEquipmentImage,
-    setTinyEquipmentImage
-  ] = useState<File | null>(null);
+  const [ fullCrop, setFullCrop ] = useState("");
+  const [ tinyCrop, setTinyCrop ] = useState("");
 
   const imageRef = useRef<HTMLImageElement>();
 
@@ -74,21 +62,17 @@ export function NewEquipment({
       setLoading(true);
 
       const [ prev ] = staffIsAuthenticated
-      ? (
-        dataEquipment
-        .filter((equ) => equ.equipment_id === Number(id))
-      ) : (
-        dataMyPrivateEquipment
-        .filter((equ) => equ.equipment_id === Number(id))
-      );
+        ? dataEquipment.filter(e => e.equipment_id === Number(id))
+        : dataMyPrivateEquipment.filter(e => e.equipment_id === Number(id));
 
       setEditingId(prev.equipment_id);
-      setEquipmentTypeId(prev.equipment_type_id);
-      setEquipmentName(prev.equipment_name);
-      setEquipmentDescription(prev.equipment_description);
-      setPrevEquipmentImage(prev.equipment_image);
+      setTypeId(prev.equipment_type_id);
+      setName(prev.equipment_name);
+      setDescription(prev.equipment_description);
+      setPrevImage(prev.equipment_image);
       setLoading(false);
     };
+
     if (editing) getExistingEquipmentToEdit();
   }, []);
 
@@ -98,8 +82,7 @@ export function NewEquipment({
     if (isSubscribed) {
       const message = staffIsAuthenticated ? staffMessage : userMessage;
       const redirectPath = staffIsAuthenticated
-      ? '/staff-dashboard'
-      : '/dashboard';
+        ? '/staff-dashboard' : '/dashboard';
 
       if (message !== "") window.scrollTo(0,0);
 
@@ -120,150 +103,141 @@ export function NewEquipment({
     };
   }, [staffMessage, userMessage]);
 
-  const handleEquipmentTypeChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => {
-    setEquipmentTypeId(Number((e.target as HTMLInputElement).value));
+  const cancelImage = () => {
+    setFullCrop("");
+    setTinyCrop("");
+    setImage(null);
+    setFullImage(null);
+    setTinyImage(null);
   };
 
-  const handleEquipmentNameChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => {
-    setEquipmentName((e.target as HTMLInputElement).value);
+  const handleDescriptionChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setDescription((e.target as HTMLInputElement).value);
+
+  const handleNameChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setName((e.target as HTMLInputElement).value);
+
+  // TO DO: remove inner prefixes
+  const handleSubmit = () => {
+    if (!valid()) return;
+    setLoading(true);
+    if (editing && editingId) {
+      const equipmentInfo = {
+        equipmentId: editingId,
+        equipmentTypeId: typeId,
+        equipmentName: name,
+        equipmentDescription: description,
+        equipmentImage: image,
+        equipmentFullImage: fullImage,
+        equipmentTinyImage: tinyImage,
+        equipmentPrevImage: prevImage
+      };
+      if (staffIsAuthenticated) staffEditEquipment(equipmentInfo);
+      else userEditPrivateEquipment(equipmentInfo);
+    } else {
+      const equipmentInfo = {
+        equipmentTypeId: typeId,
+        equipmentName: name,
+        equipmentDescription: description,
+        equipmentImage: image,
+        equipmentFullImage: fullImage,
+        equipmentTinyImage: tinyImage
+      };
+      if (staffIsAuthenticated) staffCreateNewEquipment(equipmentInfo);
+      else userCreateNewPrivateEquipment(equipmentInfo);
+    }
   };
 
-  const handleEquipmentDescriptionChange = (
-    e: React.SyntheticEvent<EventTarget>
-  ) => {
-    setEquipmentDescription((e.target as HTMLInputElement).value);
-  };
+  const handleTypeChange = (e: React.SyntheticEvent<EventTarget>) =>
+    setTypeId(Number((e.target as HTMLInputElement).value));
 
-  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (!(target.files && target.files.length > 0)) return;
-    const reader = new FileReader();
-    reader.addEventListener("load", () => setEquipmentImage(reader.result));
-    reader.readAsDataURL(target.files[0]);
-  };
+  const makeCrops = async (crop: Crop) => {
+    if (!imageRef || !imageRef.current) return;
+    if (!crop.width) return;
 
-  const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
+    const full =
+      await getCroppedImage(280, 172, imageRef.current, crop, "newFile.jpeg");
+    const tiny =
+      await getCroppedImage(28, 18, imageRef.current, crop, "newFile.jpeg");
+
+    if (!full || !tiny) return;
+
+    setFullCrop(full.resizedPreview);
+    setTinyCrop(tiny.resizedPreview);
+    setFullImage(full.resizedFinal);
+    setTinyImage(tiny.resizedFinal);
+  };
 
   const onCropChange = (crop: Crop) => setCrop(crop);
 
-  const onCropComplete = (crop: Crop) => makeClientCrops(crop);
+  const onCropComplete = (crop: Crop) => makeCrops(crop);
 
-  const makeClientCrops = async (crop: Crop) => {
-    if (!imageRef || !imageRef.current) return;
-    if (!crop.width) return;
-    const full = await getCroppedImage(
-      280, 172, imageRef.current, crop, "newFile.jpeg"
-    );
-    const tiny = await getCroppedImage(
-      28, 18, imageRef.current, crop, "newFile.jpeg"
-    );
-    if (!full || !tiny) return;
-    setCropFullSizePreview(full.resizedPreview);
-    setCropTinySizePreview(tiny.resizedPreview);
-    setFullEquipmentImage(full.resizedFinal);
-    setTinyEquipmentImage(tiny.resizedFinal);
-  };
+  const onImageLoaded = (image: HTMLImageElement) => imageRef.current = image;
 
-  const cancelEquipmentImage = () => {
-    setCropFullSizePreview("");
-    setCropTinySizePreview("");
-    setEquipmentImage(null);
-    setFullEquipmentImage(null);
-    setTinyEquipmentImage(null);
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+
+    if (!(target.files && target.files.length > 0)) return;
+
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => setImage(reader.result));
+    reader.readAsDataURL(target.files[0]);
   };
 
   const valid = () => {
-    let validEquipmentTypeId = equipmentTypeId !== 0;
-    let validEquipmentName = equipmentName.trim() !== "";
-    let validEquipmentDescription = equipmentDescription.trim() !== "";
-
-    if (!validEquipmentTypeId) {
+    const validTypeId = typeId !== 0;
+    if (!validTypeId) {
       window.scrollTo(0,0);
       setFeedback("You forgot to select the equipment type...");
       setTimeout(() => setFeedback(""), 3000);
       return false;
     }
 
-    if (!validEquipmentName) {
+    const validName = name.trim() !== "";
+    if (!validName) {
       window.scrollTo(0,0);
       setFeedback("Umm, double check your name...");
       setTimeout(() => setFeedback(""), 3000);
       return false;
     }
 
-    if (!validEquipmentDescription) {
+    const validDescription = description.trim() !== "";
+    if (!validDescription) {
       window.scrollTo(0,0);
       setFeedback("Umm, double check your description...");
       setTimeout(() => setFeedback(""), 3000);
       return false;
     }
 
-    return (
-      equipmentTypeId !== 0 &&
-      equipmentName.trim() !== "" &&
-      equipmentDescription.trim() !== ""
-    );
-  };
-
-  const handleSubmit = () => {
-    if (!valid()) return;
-    setLoading(true);
-    if (editing && editingId) {
-      const equipmentInfo: IEditingEquipmentInfo = {
-        equipmentId: editingId,
-        equipmentTypeId,
-        equipmentName,
-        equipmentDescription,
-        equipmentImage,
-        fullEquipmentImage,
-        tinyEquipmentImage,
-        prevEquipmentImage
-      };
-      if (staffIsAuthenticated) staffEditEquipment(equipmentInfo);
-      else userEditPrivateEquipment(equipmentInfo);
-    } else {
-      const equipmentInfo: ICreatingEquipmentInfo = {
-        equipmentTypeId,
-        equipmentName,
-        equipmentDescription,
-        equipmentImage,
-        fullEquipmentImage,
-        tinyEquipmentImage,
-      };
-      if (staffIsAuthenticated) staffCreateNewEquipment(equipmentInfo);
-      else userCreateNewPrivateEquipment(equipmentInfo);
-    }
+    return validTypeId && validName && validDescription;
   };
   
   return (
     <NewEquipmentView
-      oneColumnATheme={oneColumnATheme}
-      staffIsAuthenticated={staffIsAuthenticated}
-      feedback={feedback}
-      loading={loading}
-      editing={editing}
-      equipmentTypeId={equipmentTypeId}
-      equipmentName={equipmentName}
-      equipmentDescription={equipmentDescription}
-      equipmentImage={equipmentImage}
-      prevEquipmentImage={prevEquipmentImage}
-      dataEquipmentTypes={dataEquipmentTypes}
-      handleEquipmentTypeChange={handleEquipmentTypeChange}
-      handleEquipmentNameChange={handleEquipmentNameChange}
-      handleEquipmentDescriptionChange={handleEquipmentDescriptionChange}
-      onSelectFile={onSelectFile}
-      onImageLoaded={onImageLoaded}
+      cancelImage={cancelImage}
       crop={crop}
-      cropFullSizePreview={cropFullSizePreview}
-      cropTinySizePreview={cropTinySizePreview}
+      dataEquipmentTypes={dataEquipmentTypes}
+      description={description}
+      editing={editing}
+      feedback={feedback}
+      fullCrop={fullCrop}
+      handleDescriptionChange={handleDescriptionChange}
+      handleNameChange={handleNameChange}
+      handleSubmit={handleSubmit}
+      handleTypeChange={handleTypeChange}
+      image={image}
+      loading={loading}
+      name={name}
       onCropChange={onCropChange}
       onCropComplete={onCropComplete}
-      cancelEquipmentImage={cancelEquipmentImage}
-      handleSubmit={handleSubmit}
+      oneColumnATheme={oneColumnATheme}
+      onImageLoaded={onImageLoaded}
+      onSelectFile={onSelectFile}
+      prevImage={prevImage}
+      staffIsAuthenticated={staffIsAuthenticated}
+      tinyCrop={tinyCrop}
+      typeId={typeId}
     />
   );
 };
@@ -272,33 +246,33 @@ interface RootState {
   auth: {
     staffIsAuthenticated: boolean;
   };
+  data: {
+    equipment: IEquipment[];
+    equipmentTypes: IEquipmentType[];
+    myPrivateEquipment: IEquipment[];
+  };
   staff: {
     message: string;
   };
   user: {
     message: string;
   };
-  data: {
-    equipment: IEquipment[];
-    equipmentTypes: IEquipmentType[];
-    myPrivateEquipment: IEquipment[];
-  };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  oneColumnATheme: string;
   editing: boolean;
+  oneColumnATheme: string;
 };
 
 const mapStateToProps = (state: RootState) => ({
-  staffIsAuthenticated: state.auth.staffIsAuthenticated,
-  staffMessage: state.staff.message,
-  userMessage: state.user.message,
   dataEquipment: state.data.equipment,
   dataEquipmentTypes: state.data.equipmentTypes,
-  dataMyPrivateEquipment: state.data.myPrivateEquipment
+  dataMyPrivateEquipment: state.data.myPrivateEquipment,
+  staffIsAuthenticated: state.auth.staffIsAuthenticated,
+  staffMessage: state.staff.message,
+  userMessage: state.user.message
 });
 
 const mapDispatchToProps = {

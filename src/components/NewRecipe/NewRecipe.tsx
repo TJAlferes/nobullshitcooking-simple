@@ -31,11 +31,8 @@ import {
 import {
   ICreatingRecipeInfo,
   IEditingRecipeInfo,
-  IRequiredMethod,
-  IRequiredEquipment,
-  IRequiredIngredient,
-  IRequiredSubrecipe
-} from '../../store/user/recipe/types';  // ?
+  IRequiredMethod
+} from '../../store/user/recipe/types';
 import {
   getCroppedImage
 } from '../../utils/imageCropPreviews/imageCropPreviews';
@@ -169,7 +166,7 @@ export function NewRecipe({
 
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
-      if (!id || (!staffIsAuthenticated && !ownership)) {  // change this
+      if (!id || (!staffIsAuthenticated && !ownership)) {  // TO DO: change this
         history.push('/dashboard');
         return;
       }

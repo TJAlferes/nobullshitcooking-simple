@@ -1,62 +1,52 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ReactCrop, { Crop } from "react-image-crop";
 import "react-image-crop/lib/ReactCrop.scss";
+import { Link } from 'react-router-dom';
 
 import { IEquipmentType } from '../../store/data/types';
 import { LoaderButton } from '../LoaderButton/LoaderButton';
 import './newEquipment.css';
 
 export function NewEquipmentView({
-  oneColumnATheme,
-  staffIsAuthenticated,
-  feedback,
-  loading,
-  editing,
-  equipmentTypeId,
-  equipmentName,
-  equipmentDescription,
-  equipmentImage,
-  prevEquipmentImage,
-  dataEquipmentTypes,
-  handleEquipmentTypeChange,
-  handleEquipmentNameChange,
-  handleEquipmentDescriptionChange,
-  onSelectFile,
-  onImageLoaded,
+  cancelImage,
   crop,
-  cropFullSizePreview,
-  cropTinySizePreview,
+  dataEquipmentTypes,
+  description,
+  editing,
+  feedback,
+  fullCrop,
+  handleDescriptionChange,
+  handleNameChange,
+  handleSubmit,
+  handleTypeChange,
+  image,
+  loading,
+  name,
   onCropChange,
   onCropComplete,
-  cancelEquipmentImage,
-  handleSubmit
+  oneColumnATheme,
+  onImageLoaded,
+  onSelectFile,
+  prevImage,
+  staffIsAuthenticated,
+  tinyCrop,
+  typeId
 }: Props): JSX.Element {
   // move up into parent container NewEquipment component?
   const dir = staffIsAuthenticated
   ? 'https://s3.amazonaws.com/nobsc-images-01/equipment'
   : 'https://s3.amazonaws.com/nobsc-user-equipment';
   const page = staffIsAuthenticated
-    ? editing
-      ? 'Edit Equipment'
-      : 'Create New Equipment'
-    : editing
-      ? 'Edit Private Equipment'
-      : 'Create New Private Equipment';
+    ? editing ? 'Edit Equipment' : 'Create New Equipment'
+    : editing ? 'Edit Private Equipment' : 'Create New Private Equipment';
   const path = staffIsAuthenticated ? '/staff-dashboard' : '/dashboard';
 
   return (
     <div className="new-equipment-view">
 
       <div>
-        <span>
-          <Link to="/home">Home</Link>
-          <i>{`&gt;`}</i>
-        </span>
-        <span>
-          <Link to={path}>Dashboard</Link>
-          <i>{`&gt;`}</i>
-        </span>
+        <span><Link to="/home">Home</Link><i>{`&gt;`}</i></span>
+        <span><Link to={path}>Dashboard</Link><i>{`&gt;`}</i></span>
         <span>{page}</span>
       </div>
 
@@ -73,15 +63,15 @@ export function NewEquipmentView({
           Type of Equipment
         </h2>
         <select
-          required
           name="equipmentType"
-          onChange={handleEquipmentTypeChange}
-          value={equipmentTypeId}
+          onChange={handleTypeChange}
+          required
+          value={typeId}
         >
           <option value=""></option>
-          {dataEquipmentTypes.map((type: IEquipmentType) => (
-            <option key={type.equipment_type_id} value={type.equipment_type_id}>
-              {type.equipment_type_name}
+          {dataEquipmentTypes.map(t => (
+            <option key={t.equipment_type_id} value={t.equipment_type_id}>
+              {t.equipment_type_name}
             </option>
           ))}
         </select>
@@ -91,9 +81,9 @@ export function NewEquipmentView({
         </h2>
         <input
           className="new-equipment__name"
+          onChange={handleNameChange}
           type="text"
-          onChange={handleEquipmentNameChange}
-          value={equipmentName}
+          value={name}
         />
 
         <h2
@@ -104,20 +94,20 @@ export function NewEquipmentView({
         </h2>
         <textarea
           className="new-equipment__description"
-          onChange={handleEquipmentDescriptionChange}
-          value={equipmentDescription}
+          onChange={handleDescriptionChange}
+          value={description}
         />
 
         <div className="new-equipment__image">
           <h2 className="new-equipment__heading-two" data-test="image-heading">
             Image of Equipment
           </h2>
-          {!equipmentImage && (
+          {!image && (
             <div>
               {
                 !editing
                 ? <img src={`${dir}/nobsc-equipment-default`} />
-                : prevEquipmentImage && <img src={`${dir}/${prevEquipmentImage}`} />
+                : prevImage && <img src={`${dir}/${prevImage}`} />
               }
               <h4>Change</h4>
               <input
@@ -128,33 +118,33 @@ export function NewEquipmentView({
               />
             </div>
           )}
-          {equipmentImage && (
+          {image && (
             <div>
               <ReactCrop
                 className="new-equipment__image-crop-tool"
-                style={{minHeight: "300px"}}
-                imageStyle={{minHeight: "300px"}}
-                src={equipmentImage as string}
                 crop={crop}
-                onImageLoaded={onImageLoaded}
+                imageStyle={{minHeight: "300px"}}
                 onChange={onCropChange}
                 onComplete={onCropComplete}
+                onImageLoaded={onImageLoaded}
+                src={image as string}
+                style={{minHeight: "300px"}}
               />
               <span className="new-equipment__image-crop-tool-tip">
                 Move the crop to your desired position. These two images will be saved for you:
               </span>
               <div className="new-equipment__image-crop-previews">
                 <div className="new-equipment-image-crop-full-preview">
-                  <span>Full Size: </span><img src={cropFullSizePreview} />
+                  <span>Full Size: </span><img src={fullCrop} />
                 </div>
                 <div className="new-equipment__image-crop-tiny-preview">
-                  <span>Tiny Size: </span><img src={cropTinySizePreview} />
+                  <span>Tiny Size: </span><img src={tinyCrop} />
                 </div>
               </div>
               <button
                 className="new-equipment__image-cancel-button"
                 disabled={loading}
-                onClick={cancelEquipmentImage}
+                onClick={cancelImage}
               >
                 Cancel
               </button>
@@ -163,20 +153,17 @@ export function NewEquipmentView({
         </div>
 
         <div className="new-equipment__finish-area">
-          <Link
-            className="new-equipment__cancel-button"
-            to={path}
-          >
+          <Link className="new-equipment__cancel-button" to={path}>
             Cancel
           </Link>
           <LoaderButton
             className="new-equipment__submit-button"
-            name="submit"
             id="create_new_private_user_equipment_button"
-            text="Create"
-            loadingText="Creating..."
             isLoading={loading}
+            loadingText="Creating..."
+            name="submit"
             onClick={handleSubmit}
+            text="Create"
           />
         </div>
 
@@ -187,27 +174,27 @@ export function NewEquipmentView({
 }
 
 type Props = {
-  oneColumnATheme: string;
-  staffIsAuthenticated?: boolean;
-  feedback: string;
-  loading: boolean;
-  editing: boolean;
-  equipmentTypeId: number;
-  equipmentName: string;
-  equipmentDescription: string;
-  equipmentImage: string | ArrayBuffer | null;
-  prevEquipmentImage: string;
-  dataEquipmentTypes: IEquipmentType[];
-  handleEquipmentTypeChange(e: React.SyntheticEvent<EventTarget>): void;
-  handleEquipmentNameChange(e: React.SyntheticEvent<EventTarget>): void;
-  handleEquipmentDescriptionChange(e: React.SyntheticEvent<EventTarget>): void;
-  onSelectFile(e: React.ChangeEvent<HTMLInputElement>): void;
-  onImageLoaded(image: HTMLImageElement): void;
+  cancelImage(): void;
   crop: Crop;
-  cropFullSizePreview: string;
-  cropTinySizePreview: string;
+  dataEquipmentTypes: IEquipmentType[];
+  description: string;
+  editing: boolean;
+  feedback: string;
+  fullCrop: string;
+  handleDescriptionChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleNameChange(e: React.SyntheticEvent<EventTarget>): void;
+  handleSubmit(): void;
+  handleTypeChange(e: React.SyntheticEvent<EventTarget>): void;
+  image: string | ArrayBuffer | null;
+  loading: boolean;
+  name: string;
   onCropChange(crop: Crop): void;
   onCropComplete(crop: Crop): void;
-  cancelEquipmentImage(): void;
-  handleSubmit(): void;
+  oneColumnATheme: string;
+  onImageLoaded(image: HTMLImageElement): void;
+  onSelectFile(e: React.ChangeEvent<HTMLInputElement>): void;
+  prevImage: string;
+  staffIsAuthenticated?: boolean;
+  tinyCrop: string;
+  typeId: number;
 };

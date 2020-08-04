@@ -6,36 +6,36 @@ import { Dashboard } from './Dashboard';
 import { DashboardView } from './DashboardView';
 
 const authUpdateLocalAvatar = jest.fn();
-const userSubmitAvatar = jest.fn();
 const userDeletePlan = jest.fn();
-const userDeletePrivateRecipe = jest.fn();
-const userDisownPublicRecipe = jest.fn();
-const userUnfavoriteRecipe = jest.fn();
-const userUnsaveRecipe = jest.fn();
 const userDeletePrivateEquipment = jest.fn();
 const userDeletePrivateIngredient = jest.fn();
+const userDeletePrivateRecipe = jest.fn();
+const userDisownPublicRecipe = jest.fn();
+const userSubmitAvatar = jest.fn();
+const userUnfavoriteRecipe = jest.fn();
+const userUnsaveRecipe = jest.fn();
 
 const initialProps = {
-  twoColumnATheme: "light",
-  message: "Some message.",
   authname: "Person",
+  authUpdateLocalAvatar,
   currentAvatar: "Person",
+  message: "Some message.",
   myPlans: [],
-  myPublicRecipes: [],
+  myFavoriteRecipes: [],
   myPrivateEquipment: [],
   myPrivateIngredients: [],
   myPrivateRecipes: [],
-  myFavoriteRecipes: [],
+  myPublicRecipes: [],
   mySavedRecipes: [],
-  authUpdateLocalAvatar,
-  userSubmitAvatar,
+  twoColumnATheme: "light",
   userDeletePlan,
+  userDeletePrivateEquipment,
+  userDeletePrivateIngredient,
   userDeletePrivateRecipe,
   userDisownPublicRecipe,
+  userSubmitAvatar,
   userUnfavoriteRecipe,
-  userUnsaveRecipe,
-  userDeletePrivateEquipment,
-  userDeletePrivateIngredient
+  userUnsaveRecipe
 };
 
 window.scrollTo = jest.fn();
