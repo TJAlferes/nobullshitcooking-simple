@@ -63,7 +63,13 @@ describe('userCreateNewEquipmentSaga', () => {
       urlFullSize: "equipmentUrlString"
     }
   };
-  const { equipmentFullImage, equipmentTinyImage } = action.equipmentInfo;
+  const {
+    equipmentTypeId,
+    equipmentName,
+    equipmentDescription,
+    equipmentFullImage,
+    equipmentTinyImage
+  } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = staffCreateNewEquipmentSaga(action);
@@ -97,7 +103,14 @@ describe('userCreateNewEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/equipment/create`,
-      {equipmentInfo: action.equipmentInfo},
+      {
+        equipmentInfo: {
+          equipmentTypeId,
+          equipmentName,
+          equipmentDescription,
+          equipmentImage: "equipmentUrlString"
+        }
+      },
       {withCredentials: true}
     ));
 
@@ -156,7 +169,15 @@ describe('staffEditEquipmentSaga', () => {
       urlFullSize: "equipmentUrlString"
     }
   };
-  const { equipmentFullImage, equipmentTinyImage } = action.equipmentInfo;
+  const {
+    equipmentId,
+    equipmentTypeId,
+    equipmentName,
+    equipmentDescription,
+    equipmentPrevImage,
+    equipmentFullImage,
+    equipmentTinyImage
+  } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = staffEditEquipmentSaga(action);
@@ -190,7 +211,16 @@ describe('staffEditEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       `${endpoint}/staff/equipment/update`,
-      {equipmentInfo: action.equipmentInfo},
+      {
+        equipmentInfo: {
+          equipmentId,
+          equipmentTypeId,
+          equipmentName,
+          equipmentDescription,
+          equipmentPrevImage,
+          equipmentImage: "equipmentUrlString"
+        }
+      },
       {withCredentials: true}
     ));
 

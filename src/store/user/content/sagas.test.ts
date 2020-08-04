@@ -68,7 +68,14 @@ describe('userCreateNewContentSaga', () => {
       urlFullSize: "contentUrlString"
     }
   };
-  const { contentFullImage, contentThumbImage } = action.contentInfo;
+  const {
+    contentTypeId,
+    published,
+    title,
+    contentItems,
+    contentFullImage,
+    contentThumbImage
+  } = action.contentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = userCreateNewContentSaga(action);
@@ -102,7 +109,15 @@ describe('userCreateNewContentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/content/create`,
-      {contentInfo: action.contentInfo},
+      {
+        contentInfo: {
+          contentTypeId,
+          published,
+          title,
+          contentItems,
+          contentImage: "contentUrlString"
+        }
+      },
       {withCredentials: true}
     ));
 
@@ -159,7 +174,16 @@ describe('userEditContentSaga', () => {
       urlFullSize: "contentUrlString"
     }
   };
-  const { contentFullImage, contentThumbImage } = action.contentInfo;
+  const {
+    contentId,
+    contentTypeId,
+    published,
+    title,
+    contentItems,
+    contentFullImage,
+    contentThumbImage,
+    contentPrevImage
+  } = action.contentInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = userEditContentSaga(action);
@@ -193,7 +217,17 @@ describe('userEditContentSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       `${endpoint}/user/content/update`,
-      {contentInfo: action.contentInfo},
+      {
+        contentInfo: {
+          contentId,
+          contentTypeId,
+          published,
+          title,
+          contentItems,
+          contentImage: "contentUrlString",
+          contentPrevImage
+        }
+      },
       {withCredentials: true}
     ));
 

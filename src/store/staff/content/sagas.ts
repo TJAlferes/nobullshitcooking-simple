@@ -139,8 +139,6 @@ export function* staffEditContentSaga(action: IStaffEditContent) {
           title,
           contentItems,
           contentImage,
-          contentFullImage,
-          contentThumbImage,
           contentPrevImage
         }
       },

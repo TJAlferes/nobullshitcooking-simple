@@ -61,7 +61,7 @@ describe('Cuisine', () => {
 
     mount(<MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>);
 
-    expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
+    expect(mockHistoryPush).toHaveBeenCalledWith("/page/guide/food/cuisines");
   });
 
   it('should redirect to /food/cuisines if given an invalid cuisine', () => {
@@ -72,7 +72,7 @@ describe('Cuisine', () => {
 
     mount(<MemoryRouter><Cuisine {...initialProps} /></MemoryRouter>);
 
-    expect(mockHistoryPush).toHaveBeenCalledWith("/food/cuisines");
+    expect(mockHistoryPush).toHaveBeenCalledWith("/page/guide/food/cuisines");
   });
 
   it('should not redirect if given a valid cuisine', async () => {

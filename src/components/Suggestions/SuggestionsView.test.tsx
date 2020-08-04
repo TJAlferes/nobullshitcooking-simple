@@ -1,6 +1,6 @@
 import { SuggestionsView } from './SuggestionsView';
 
-describe('what needs testing', () => {
+describe('SuggestionsView', () => {
   it('needs testing', () => {
     expect(1).toEqual(1);
   });

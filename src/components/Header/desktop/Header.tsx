@@ -12,26 +12,15 @@ export function Header({ theme }: Props): JSX.Element {
     <header className={`header ${theme}`}>
 
       <div className="header-row-1">
-        <div className="header-row-1-col-1">
-          <Logo theme={theme} />
-        </div>
-        <div className="header-row-1-col-2">
-          <Search theme={theme} />
-        </div>
-        <div className="header-row-1-col-3">
-          <Promo />
-        </div>
+        <div className="header-row-1-col-1"><Logo theme={theme} /></div>
+        <div className="header-row-1-col-2"><Search theme={theme} /></div>
+        <div className="header-row-1-col-3"><Promo /></div>
       </div>
 
       <div className="header-row-2">
-        <div className="header-row-2-col-1">
-          <SiteNav />
-        </div>
-        <div className="header-row-2-col-2">
-        </div>
-        <div className="header-row-2-col-3">
-          <UserNav theme={theme} />
-        </div>
+        <div className="header-row-2-col-1"><SiteNav /></div>
+        <div className="header-row-2-col-2"></div>
+        <div className="header-row-2-col-3"><UserNav theme={theme} /></div>
       </div>
       
     </header>

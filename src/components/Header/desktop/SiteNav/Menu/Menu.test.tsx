@@ -16,7 +16,7 @@ afterEach(() => {
 });
 
 describe('Menu', () => {
-  it('needs testing', () => {
-    
+  it('needs tests', () => {
+    expect(1).toEqual(1);
   });
 });

@@ -10,7 +10,17 @@ const userCreateNewPrivateEquipment = jest.fn();
 const userEditPrivateEquipment = jest.fn();
 
 const intialProps = {
-  dataEquipment: [],
+  dataEquipment: [
+    {
+      equipment_id: 68,
+      equipment_name: "Teapot",
+      equipment_type_id: 3,
+      owner_id: 1,
+      equipment_type_name: "Cooking",
+      equipment_description: "From grandmother.",
+      equipment_image: "nobsc-teapot"
+    }
+  ],
   dataEquipmentTypes: [
     {equipment_type_id: 2, equipment_type_name: "Preparing"},
     {equipment_type_id: 3, equipment_type_name: "Cooking"}

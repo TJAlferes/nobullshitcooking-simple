@@ -117,6 +117,16 @@ describe('userCreateNewRecipeSaga', () => {
   const res4 = res1;
 
   const {
+    ownership,
+    recipeTypeId,
+    cuisineId,
+    title,
+    description,
+    directions,
+    requiredMethods,
+    requiredEquipment,
+    requiredIngredients,
+    requiredSubrecipes,
     recipeFullImage,
     recipeThumbImage,
     recipeTinyImage,
@@ -228,7 +238,24 @@ describe('userCreateNewRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/recipe/create`,
-      {recipeInfo: action.recipeInfo},
+      {
+        recipeInfo: {
+          ownership,
+          recipeTypeId,
+          cuisineId,
+          title,
+          description,
+          directions,
+          requiredMethods,
+          requiredEquipment,
+          requiredIngredients,
+          requiredSubrecipes,
+          recipeImage: "recipeUrlString",
+          equipmentImage: "recipeUrlString",
+          ingredientsImage: "recipeUrlString",
+          cookingImage: "recipeUrlString"
+        }
+      },
       {withCredentials: true}
     ));
 
@@ -411,12 +438,27 @@ describe('userEditRecipeSaga', () => {
   const res4 = res1;
 
   const {
+    recipeId,
+    ownership,
+    recipeTypeId,
+    cuisineId,
+    title,
+    description,
+    directions,
+    requiredMethods,
+    requiredEquipment,
+    requiredIngredients,
+    requiredSubrecipes,
     recipeFullImage,
+    recipePrevImage,
     recipeThumbImage,
     recipeTinyImage,
     equipmentFullImage,
+    equipmentPrevImage,
     ingredientsFullImage,
-    cookingFullImage
+    ingredientsPrevImage,
+    cookingFullImage,
+    cookingPrevImage
   } = action.recipeInfo;
 
   it('should dispatch succeeded', () => {
@@ -517,7 +559,29 @@ describe('userEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       `${endpoint}/user/recipe/update`,
-      {recipeInfo: action.recipeInfo},
+      {
+        recipeInfo: {
+          recipeId,
+          ownership,
+          recipeTypeId,
+          cuisineId,
+          title,
+          description,
+          directions,
+          requiredMethods,
+          requiredEquipment,
+          requiredIngredients,
+          requiredSubrecipes,
+          recipeImage: "recipeUrlString",
+          recipePrevImage,
+          equipmentImage: "recipeUrlString",
+          equipmentPrevImage,
+          ingredientsImage: "recipeUrlString",
+          ingredientsPrevImage,
+          cookingImage: "recipeUrlString",
+          cookingPrevImage
+        }
+      },
       {withCredentials: true}
     ));
 

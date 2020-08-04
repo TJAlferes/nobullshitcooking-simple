@@ -14,19 +14,14 @@ export function Ingredients({
         Create New Ingredient
       </Link>
       {ingredients.map(i => (
-        <div
-          className="staff-dashboard-content-item"
-          key={i.ingredient_id}
-        >
+        <div className="staff-dashboard-content-item" key={i.ingredient_id}>
           <span className="staff-dashboard-content-item-name">
             <Link to={`/ingredient/${i.ingredient_id}`}>
               {i.ingredient_name}
             </Link>
           </span>
           <span className="staff-dashboard-content-item-action">
-            <Link to={`/ingredient/edit/${i.ingredient_id}`}>
-              Edit
-            </Link>
+            <Link to={`/ingredient/edit/${i.ingredient_id}`}>Edit</Link>
           </span>
           <span
             className="staff-dashboard-content-item-delete"

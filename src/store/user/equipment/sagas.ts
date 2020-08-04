@@ -68,9 +68,7 @@ export function* userCreateNewPrivateEquipmentSaga(
           equipmentTypeId,
           equipmentName,
           equipmentDescription,
-          equipmentImage,
-          equipmentFullImage,
-          equipmentTinyImage
+          equipmentImage
         }
       },
       {withCredentials: true}
@@ -145,9 +143,7 @@ export function* userEditPrivateEquipmentSaga(
           equipmentName,
           equipmentDescription,
           equipmentPrevImage,
-          equipmentImage,
-          equipmentFullImage,
-          equipmentTinyImage
+          equipmentImage
         }
       },
       {withCredentials: true}

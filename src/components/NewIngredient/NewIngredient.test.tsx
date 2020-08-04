@@ -10,7 +10,19 @@ const userCreateNewPrivateIngredient = jest.fn();
 const userEditPrivateIngredient = jest.fn();
 
 const initialProps = {
-  dataIngredients: [],
+  dataIngredients: [
+    {
+      ingredient_id: 24,
+      ingredient_brand: null,
+      ingredient_variety: "Baby",
+      ingredient_name: "Spinach",
+      ingredient_type_id: 11,
+      owner_id: 1,
+      ingredient_type_name: "Vegetable",
+      ingredient_description: "Strengthening",
+      ingredient_image: "nobsc-spinach"
+    }
+  ],
   dataIngredientTypes: [
     {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
     {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
@@ -20,12 +32,12 @@ const initialProps = {
       ingredient_id: 2,
       ingredient_brand: null,
       ingredient_variety: "Baby",
-      ingredient_name: "Spinach",
+      ingredient_name: "My Spinach",
       ingredient_type_id: 11,
       owner_id: 1,
       ingredient_type_name: "Vegetable",
       ingredient_description: "Strengthening",
-      ingredient_image: "nobsc-spinach"
+      ingredient_image: "my-spinach"
     }
   ],
   oneColumnATheme: "one-column-a-light",

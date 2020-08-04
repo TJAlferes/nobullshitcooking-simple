@@ -32,10 +32,7 @@ export function* userCreateNewContentSaga(action: IUserCreateNewContent) {
     contentThumbImage
   } = action.contentInfo;
   try {
-    if (
-      contentFullImage &&
-      contentThumbImage
-    ) {
+    if (contentFullImage && contentThumbImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/content`,
@@ -68,9 +65,7 @@ export function* userCreateNewContentSaga(action: IUserCreateNewContent) {
           published,
           title,
           contentItems,
-          contentImage,
-          contentFullImage,
-          contentThumbImage
+          contentImage
         }
       },
       {withCredentials: true}
@@ -107,10 +102,7 @@ export function* userEditContentSaga(action: IUserEditContent) {
     contentPrevImage
   } = action.contentInfo;
   try {
-    if (
-      contentFullImage &&
-      contentThumbImage
-    ) {
+    if (contentFullImage && contentThumbImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/content`,
@@ -145,8 +137,6 @@ export function* userEditContentSaga(action: IUserEditContent) {
           title,
           contentItems,
           contentImage,
-          contentFullImage,
-          contentThumbImage,
           contentPrevImage
         }
       },

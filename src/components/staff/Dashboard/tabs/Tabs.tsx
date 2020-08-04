@@ -1,9 +1,10 @@
 import React from 'react';
 
-export function Tabs({ tab, handleTabClick }: Props): JSX.Element {
-  const TabButton = ({ tabName, displayText }: TabButtonProps) => (
+export function Tabs({ handleTabClick, tab }: Props): JSX.Element {
+  const TabButton = ({ displayText, tabName }: TabButtonProps) => (
     <button
-      className={(tab === tabName)
+      className={
+        tab === tabName
         ? "staff-dashboard-tab active"
         : "staff-dashboard-tab inactive"
       }
@@ -16,20 +17,20 @@ export function Tabs({ tab, handleTabClick }: Props): JSX.Element {
 
   return (
     <div className="staff-dashboard-tabs">
-      <TabButton tabName="content" displayText="Content" />
-      <TabButton tabName="recipes" displayText="Recipes" />
-      <TabButton tabName="ingredients" displayText="Ingredients" />
-      <TabButton tabName="equipment" displayText="Equipment" />
+      <TabButton displayText="Content" tabName="content" />
+      <TabButton displayText="Recipes" tabName="recipes" />
+      <TabButton displayText="Ingredients" tabName="ingredients" />
+      <TabButton displayText="Equipment" tabName="equipment" />
     </div>
   );
 }
 
 type Props = {
-  tab: string;
   handleTabClick(e: React.SyntheticEvent<EventTarget>): void;
+  tab: string;
 };
 
 type TabButtonProps = {
-  tabName: string;
   displayText: string;
+  tabName: string;
 };

@@ -160,15 +160,9 @@ export function* userCreateNewRecipeSaga(
           requiredIngredients,
           requiredSubrecipes,
           recipeImage,
-          recipeFullImage,
-          recipeThumbImage,
-          recipeTinyImage,
           equipmentImage,
-          equipmentFullImage,
           ingredientsImage,
-          ingredientsFullImage,
-          cookingImage,
-          cookingFullImage
+          cookingImage
         }
       },
       {withCredentials: true}
@@ -391,18 +385,12 @@ export function* userEditRecipeSaga(
           requiredIngredients,
           requiredSubrecipes,
           recipeImage,
-          recipeFullImage,
           recipePrevImage,
-          recipeThumbImage,
-          recipeTinyImage,
           equipmentImage,
-          equipmentFullImage,
           equipmentPrevImage,
           ingredientsImage,
-          ingredientsFullImage,
           ingredientsPrevImage,
           cookingImage,
-          cookingFullImage,
           cookingPrevImage
         }
       },

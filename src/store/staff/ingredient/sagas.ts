@@ -65,9 +65,7 @@ export function* staffCreateNewIngredientSaga(
           ingredientTypeId,
           ingredientName,
           ingredientDescription,
-          ingredientImage,
-          ingredientFullImage,
-          ingredientTinyImage
+          ingredientImage
         }
       },
       {withCredentials: true}
@@ -137,9 +135,7 @@ export function* staffEditIngredientSaga(action: IStaffEditIngredient) {
           ingredientName,
           ingredientDescription,
           ingredientPrevImage,
-          ingredientImage,
-          ingredientFullImage,
-          ingredientTinyImage
+          ingredientImage
         }
       },
       {withCredentials: true}

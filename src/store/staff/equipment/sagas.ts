@@ -63,9 +63,7 @@ export function* staffCreateNewEquipmentSaga(action: IStaffCreateNewEquipment) {
           equipmentTypeId,
           equipmentName,
           equipmentDescription,
-          equipmentImage,
-          equipmentFullImage,
-          equipmentTinyImage
+          equipmentImage
         }
       },
       {withCredentials: true}
@@ -135,9 +133,7 @@ export function* staffEditEquipmentSaga(action: IStaffEditEquipment) {
           equipmentName,
           equipmentDescription,
           equipmentPrevImage,
-          equipmentImage,
-          equipmentFullImage,
-          equipmentTinyImage
+          equipmentImage
         }
       },
       {withCredentials: true}

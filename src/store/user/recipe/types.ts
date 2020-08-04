@@ -132,17 +132,17 @@ export interface ICreatingRecipeInfo {
 }
 
 export interface IEditingRecipeInfo {
-  recipeId: number
-  ownership: string
-  recipeTypeId: number
-  cuisineId: number
-  title: string
-  description: string
-  directions: string
-  requiredMethods: IRequiredMethod[]
-  requiredEquipment: IRequiredEquipment[]
-  requiredIngredients: IRequiredIngredient[]
-  requiredSubrecipes: IRequiredSubrecipe[]
+  recipeId: number;
+  ownership: string;
+  recipeTypeId: number;
+  cuisineId: number;
+  title: string;
+  description: string;
+  directions: string;
+  requiredMethods: IRequiredMethod[];
+  requiredEquipment: IRequiredEquipment[];
+  requiredIngredients: IRequiredIngredient[];
+  requiredSubrecipes: IRequiredSubrecipe[];
   recipeImage: string | ArrayBuffer | null;
   recipeFullImage: File | null;
   recipePrevImage: string;

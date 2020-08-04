@@ -63,7 +63,13 @@ describe('userCreateNewPrivateIngredientSaga', () => {
       urlFullSize: "ingredientUrlString"
     }
   };
-  const { ingredientFullImage, ingredientTinyImage } = action.ingredientInfo;
+  const {
+    ingredientTypeId,
+    ingredientName,
+    ingredientDescription,
+    ingredientFullImage,
+    ingredientTinyImage
+  } = action.ingredientInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = userCreateNewPrivateIngredientSaga(action);
@@ -97,7 +103,14 @@ describe('userCreateNewPrivateIngredientSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/ingredient/create`,
-      {ingredientInfo: action.ingredientInfo},
+      {
+        ingredientInfo: {
+          ingredientTypeId,
+          ingredientName,
+          ingredientDescription,
+          ingredientImage: "ingredientUrlString"
+        }
+      },
       {withCredentials: true}
     ));
 
@@ -156,7 +169,15 @@ describe('userEditPrivateIngredientSaga', () => {
       urlFullSize: "ingredientUrlString"
     }
   };
-  const { ingredientFullImage, ingredientTinyImage } = action.ingredientInfo;
+  const {
+    ingredientId,
+    ingredientTypeId,
+    ingredientName,
+    ingredientDescription,
+    ingredientPrevImage,
+    ingredientFullImage,
+    ingredientTinyImage
+  } = action.ingredientInfo;
 
   it('should dispatch succeeded', () => {
     const iterator = userEditPrivateIngredientSaga(action);
@@ -190,7 +211,16 @@ describe('userEditPrivateIngredientSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       `${endpoint}/user/ingredient/update`,
-      {ingredientInfo: action.ingredientInfo},
+      {
+        ingredientInfo: {
+          ingredientId,
+          ingredientTypeId,
+          ingredientName,
+          ingredientDescription,
+          ingredientPrevImage,
+          ingredientImage: "ingredientUrlString"
+        }
+      },
       {withCredentials: true}
     ));
 

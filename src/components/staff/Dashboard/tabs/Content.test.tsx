@@ -7,16 +7,20 @@ const activateModal = jest.fn();
 const deactivateModal = jest.fn();
 const getApplicationNode = jest.fn();
 const handleDeleteContent = jest.fn();
+
 const initialProps = {
   activateModal,
-  content,
-  creatingContent,
+  content: [
+    {content_id: 1, title: "Some Title"},
+    {content_id: 2, title: "Some Other Title"}
+  ],
+  creatingContent: false,  // TO DO: test
   deactivateModal,
-  deleteName,
-  editingId,
+  deleteName: "",
+  editingId: null,
   getApplicationNode,
   handleDeleteContent,
-  modalActive
+  modalActive: false  // TO DO: test
 };
 
 describe('Content', () => {

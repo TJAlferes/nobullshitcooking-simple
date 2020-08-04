@@ -65,9 +65,7 @@ export function* userCreateNewPrivateIngredientSaga(
           ingredientTypeId,
           ingredientName,
           ingredientDescription,
-          ingredientImage,
-          ingredientFullImage,
-          ingredientTinyImage
+          ingredientImage
         }
       },
       {withCredentials: true}
@@ -139,9 +137,7 @@ export function* userEditPrivateIngredientSaga(
           ingredientName,
           ingredientDescription,
           ingredientPrevImage,
-          ingredientImage,
-          ingredientFullImage,
-          ingredientTinyImage
+          ingredientImage
         }
       },
       {withCredentials: true}

@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { MenuView } from './MenuView';

@@ -14,19 +14,12 @@ export function Equipment({
         Create New Equipment
       </Link>
       {equipment.map(e => (
-        <div
-          className="staff-dashboard-content-item"
-          key={e.equipment_id}
-        >
+        <div className="staff-dashboard-content-item" key={e.equipment_id}>
           <span className="staff-dashboard-content-item-name">
-            <Link to={`/equipment/${e.equipment_id}`}>
-              {e.equipment_name}
-            </Link>
+            <Link to={`/equipment/${e.equipment_id}`}>{e.equipment_name}</Link>
           </span>
           <span className="staff-dashboard-content-item-action">
-            <Link to={`/equipment/edit/${e.equipment_id}`}>
-              Edit
-            </Link>
+            <Link to={`/equipment/edit/${e.equipment_id}`}>Edit</Link>
           </span>
           <span
             className="staff-dashboard-content-item-delete"

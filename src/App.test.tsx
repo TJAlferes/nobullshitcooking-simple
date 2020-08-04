@@ -44,15 +44,15 @@ describe('App', () => {
     );
 
     it('does not display a Header component', () => {
-      expect(wrapper.find('.headerred')).toHaveLength(0);
+      expect(wrapper.find('.header')).toHaveLength(0);
     });
 
     it('does not display a Main component', () => {
-      expect(wrapper.find('.mainwhite')).toHaveLength(0);
+      expect(wrapper.find('.main')).toHaveLength(0);
     });
 
     it('does not display a Footer component', () => {
-      expect(wrapper.find('.footergray')).toHaveLength(0);
+      expect(wrapper.find('.footer')).toHaveLength(0);
     });
   });
 
@@ -68,15 +68,15 @@ describe('App', () => {
     );
 
     it('does not display a Header component', () => {
-      expect(wrapper.find('.headerred')).toHaveLength(0);
+      expect(wrapper.find('.header')).toHaveLength(0);
     });
 
     it('does not display a Main component', () => {
-      expect(wrapper.find('.mainwhite')).toHaveLength(0);
+      expect(wrapper.find('.main')).toHaveLength(0);
     });
 
     it('does not display a Footer component', () => {
-      expect(wrapper.find('.footergray')).toHaveLength(0);
+      expect(wrapper.find('.footer')).toHaveLength(0);
     });
   });
 
@@ -92,15 +92,15 @@ describe('App', () => {
     );
 
     it('does not display a Header component', () => {
-      expect(wrapper.find('.headerred')).toHaveLength(0);
+      expect(wrapper.find('.header')).toHaveLength(0);
     });
 
     it('does not display a Main component', () => {
-      expect(wrapper.find('.mainwhite')).toHaveLength(0);
+      expect(wrapper.find('.main')).toHaveLength(0);
     });
 
     it('does not display a Footer component', () => {
-      expect(wrapper.find('.footergray')).toHaveLength(0);
+      expect(wrapper.find('.footer')).toHaveLength(0);
     });
   });
 
@@ -116,15 +116,15 @@ describe('App', () => {
     );
 
     it('displays a Header component', () => {
-      expect(wrapper.find('.headerred')).toHaveLength(1);
+      expect(wrapper.find('.header')).toHaveLength(1);
     });
 
     it('displays a Main component', () => {
-      expect(wrapper.find('.mainwhite')).toHaveLength(1);
+      expect(wrapper.find('.main')).toHaveLength(1);
     });
 
     it('displays a Footer component', () => {
-      expect(wrapper.find('.footergray')).toHaveLength(1);
+      expect(wrapper.find('.footer')).toHaveLength(1);
     });
   });
 });

@@ -4,19 +4,7 @@ import React from 'react';
 import { Cuisines } from './Cuisines';
 
 describe('Cuisines', () => {
-  it('should ', () => {
-
-  });
-
-  it('should ', () => {
-
-  });
-
-  it('should ', () => {
-
-  });
-
-  it('should ', () => {
-
+  it('needs tests', () => {
+    expect(1).toEqual(1);
   });
 });

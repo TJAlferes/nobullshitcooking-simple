@@ -109,6 +109,16 @@ describe('staffCreateNewRecipeSaga', () => {
   const res4 = res1;
 
   const {
+    ownership,
+    recipeTypeId,
+    cuisineId,
+    title,
+    description,
+    directions,
+    requiredMethods,
+    requiredEquipment,
+    requiredIngredients,
+    requiredSubrecipes,
     recipeFullImage,
     recipeThumbImage,
     recipeTinyImage,
@@ -220,7 +230,24 @@ describe('staffCreateNewRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/recipe/create`,
-      {recipeInfo: action.recipeInfo},
+      {
+        recipeInfo: {
+          ownership,
+          recipeTypeId,
+          cuisineId,
+          title,
+          description,
+          directions,
+          requiredMethods,
+          requiredEquipment,
+          requiredIngredients,
+          requiredSubrecipes,
+          recipeImage: "recipeUrlString",
+          equipmentImage: "recipeUrlString",
+          ingredientsImage: "recipeUrlString",
+          cookingImage: "recipeUrlString"
+        }
+      },
       {withCredentials: true}
     ));
 
@@ -281,7 +308,7 @@ describe('staffDeleteRecipeSaga', () => {
 
   it('should dispatch succeeded', () => {
     const iterator = staffDeleteRecipeSaga(action);
-    const res = {data: {message: 'Recipe disowned.'}};
+    const res = {data: {message: 'Recipe deleted.'}};
 
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
@@ -346,12 +373,27 @@ describe('the staffEditRecipeSaga', () => {
   const res4 = res1;
 
   const {
+    recipeId,
+    ownership,
+    recipeTypeId,
+    cuisineId,
+    title,
+    description,
+    directions,
+    requiredMethods,
+    requiredEquipment,
+    requiredIngredients,
+    requiredSubrecipes,
     recipeFullImage,
+    recipePrevImage,
     recipeThumbImage,
     recipeTinyImage,
     equipmentFullImage,
+    equipmentPrevImage,
     ingredientsFullImage,
-    cookingFullImage
+    ingredientsPrevImage,
+    cookingFullImage,
+    cookingPrevImage
   } = action.recipeInfo;
 
   it('should dispatch succeeded', () => {
@@ -452,7 +494,29 @@ describe('the staffEditRecipeSaga', () => {
     .toEqual(call(
       [axios, axios.put],
       `${endpoint}/staff/recipe/update`,
-      {recipeInfo: action.recipeInfo},
+      {
+        recipeInfo: {
+          recipeId,
+          ownership,
+          recipeTypeId,
+          cuisineId,
+          title,
+          description,
+          directions,
+          requiredMethods,
+          requiredEquipment,
+          requiredIngredients,
+          requiredSubrecipes,
+          recipeImage: "recipeUrlString",
+          recipePrevImage,
+          equipmentImage: "recipeUrlString",
+          equipmentPrevImage,
+          ingredientsImage: "recipeUrlString",
+          ingredientsPrevImage,
+          cookingImage: "recipeUrlString",
+          cookingPrevImage
+        }
+      },
       {withCredentials: true}
     ));
 
