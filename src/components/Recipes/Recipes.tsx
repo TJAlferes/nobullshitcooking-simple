@@ -12,12 +12,12 @@ import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import './recipes.css';
 
 function listResults(results: any) {
-  if (results && results[0] && results[0].recipe_id) {
+  if (results && results[0] && results[0].id) {
     return results.map((rec: any) => (
-      <div className="search-result-recipe" key={rec.recipe_id.raw}>
+      <div className="search-result-recipe" key={rec.id.raw}>
         <Link
           className="search-result-recipe-link"
-          to={`/recipe/${rec.recipe_id.raw}`}
+          to={`/recipe/${rec.id.raw}`}
         >
           <div className="search-result-recipe-text">
             <div className="search-result-recipe-text__title">

@@ -154,54 +154,54 @@ describe ('dataGetInitialData action creator', () => {
     officialContent: [],
     contentTypes: [
       {
-        content_type_id: 1,
+        id: 1,
         parent_id: 0,
-        content_type_name: "Page",
-        content_type_path: "/page"
+        name: "Page",
+        path: "/page"
       }
     ],
     cuisines: [
-      {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"}
+      {"id": 1, "name": "Russian", "nation": "Russia"}
     ],
     officialEquipment: [
       {
-        equipment_id: 1,
+        id: 1,
         equipment_type_id: 4,
         owner_id: 1,
-        equipment_name: "Chopstick",
+        name: "Chopstick",
         equipment_type_name: "Dining",
-        equipment_description: "It works.",
-        equipment_image: "nobsc-chopstick"
+        description: "It works.",
+        image: "nobsc-chopstick"
       }
     ],
     equipmentTypes: [
-      {"equipment_type_id": 1, "equipment_type_name": "Cleaning"}
+      {"id": 1, "name": "Cleaning"}
     ],
     officialIngredients: [
       {
-        ingredient_id: 1,
+        id: 1,
         ingredient_type_id: 1,
         owner_id: 1,
         ingredient_type_name: "Fish",
-        ingredient_brand: null,
-        ingredient_variety: "Chilean",
-        ingredient_name: "Salmon",
-        ingredient_description: "Tasty.",
-        ingredient_image: "nobsc-salmon"
+        brand: null,
+        variety: "Chilean",
+        name: "Salmon",
+        description: "Tasty.",
+        image: "nobsc-salmon"
       }
     ],
     ingredientTypes: [
-      {"ingredient_type_id": 1, "ingredient_type_name": "Fish"}
+      {"id": 1, "name": "Fish"}
     ],
     measurements: [
-      {"measurement_id": 1, "measurement_name": "teaspoon"}
+      {"id": 1, "name": "teaspoon"}
     ],
     methods: [
-      {"method_id": 1, "method_name": "No-Cook"}
+      {"id": 1, "name": "No-Cook"}
     ],
     officialRecipes: [
       {
-        recipe_id: 1,
+        id: 1,
         owner_id: 1,
         recipe_type_id: 1,
         cuisine_id: 1,
@@ -210,7 +210,7 @@ describe ('dataGetInitialData action creator', () => {
       }
     ],
     recipeTypes: [
-      {"recipe_type_id": 1, "recipe_type_name": "Drink"}
+      {"id": 1, "name": "Drink"}
     ]
   };
   it('returns the correct action type', () => {
@@ -245,18 +245,8 @@ describe('dataGetInitialDataFailed action creator', () => {
 
 describe ('dataGetContentTypes action creator', () => {
   const contentTypes = [
-    {
-      content_type_id: 1,
-      parent_id: 0,
-      content_type_name: "Page",
-      content_type_path: "/page"
-    },
-    {
-      content_type_id: 2,
-      parent_id: 0,
-      content_type_name: "Post",
-      content_type_path: "/post"
-    }
+    {id: 1, parent_id: 0, name: "Page", path: "/page"},
+    {id: 2, parent_id: 0, name: "Post", path: "/post"}
   ];
   it('returns the correct action type', () => {
     const actual = dataGetContentTypes(contentTypes).type;
@@ -288,8 +278,8 @@ describe('dataGetContentTypesFailed action creator', () => {
 
 describe('dataGetCuisines action creator', () => {
   const cuisines = [
-    {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"},
-    {"cuisine_id": 2, "cuisine_name": "German", "cuisine_nation": "Germany"}
+    {"id": 1, "name": "Russian", "nation": "Russia"},
+    {"id": 2, "name": "German", "nation": "Germany"}
   ];
   it('returns the correct action type', () => {
     const actual = dataGetCuisines(cuisines).type;
@@ -322,13 +312,13 @@ describe('dataGetCuisinesFailed action creator', () => {
 describe('dataGetEquipments action creator', () => {
   const equipment = [
     {
-      equipment_id: 1,
+      id: 1,
       equipment_type_id: 4,
       owner_id: 1,
-      equipment_name: "Chopstick",
+      name: "Chopstick",
       equipment_type_name: "Dining",
-      equipment_description: "It works.",
-      equipment_image: "nobsc-chopstick"
+      description: "It works.",
+      image: "nobsc-chopstick"
     }
   ];
   it('returns the correct action type', () => {
@@ -361,8 +351,8 @@ describe('dataGetEquipmentsFailed action creator', () => {
 
 describe('dataGetEquipmentTypes action creator', () => {
   const equipmentTypes = [
-    {"equipment_type_id": 1, "equipment_type_name": "Cleaning"},
-    {"equipment_type_id": 2, "equipment_type_name": "Preparing"}
+    {"id": 1, "name": "Cleaning"},
+    {"id": 2, "name": "Preparing"}
   ];
   it('returns the correct action type', () => {
     const actual = dataGetEquipmentTypes(equipmentTypes).type;
@@ -395,15 +385,15 @@ describe('dataGetEquipmentTypesFailed action creator', () => {
 describe('dataGetIngredients action creator', () => {
   const ingredients = [
     {
-      ingredient_id: 1,
+      id: 1,
       ingredient_type_id: 1,
       owner_id: 1,
       ingredient_type_name: "Fish",
-      ingredient_brand: null,
-      ingredient_variety: "Chilean",
-      ingredient_name: "Salmon",
-      ingredient_description: "Tasty.",
-      ingredient_image: "nobsc-salmon"
+      brand: null,
+      variety: "Chilean",
+      name: "Salmon",
+      description: "Tasty.",
+      image: "nobsc-salmon"
     }
   ];
   it('returns the correct action type', () => {
@@ -436,8 +426,8 @@ describe('dataGetIngredientsFailed action creator', () => {
 
 describe('dataGetIngredientTypes action creator', () => {
   const ingredientTypes = [
-    {"ingredient_type_id": 1, "ingredient_type_name": "Fish"},
-    {"ingredient_type_id": 2, "ingredient_type_name": "Shellfish"}
+    {"id": 1, "name": "Fish"},
+    {"id": 2, "name": "Shellfish"}
   ];
   it('returns the correct action type', () => {
     const actual = dataGetIngredientTypes(ingredientTypes).type;
@@ -469,8 +459,8 @@ describe('dataGetIngredientTypesFailed action creator', () => {
 
 describe('dataGetMeasurements action creator', () => {
   const measurements = [
-    {"measurement_id": 1, "measurement_name": "teaspoon"},
-    {"measurement_id": 2, "measurement_name": "Tablespoon"}
+    {"id": 1, "name": "teaspoon"},
+    {"id": 2, "name": "Tablespoon"}
   ];
   it('returns the correct action type', () => {
     const actual = dataGetMeasurements(measurements).type;
@@ -502,8 +492,8 @@ describe('dataGetMeasurementsFailed action creator', () => {
 
 describe('dataGetMethods action creator', () => {
   const methods = [
-    {"method_id": 1, "method_name": "No-Cook"},
-    {"method_id": 2, "method_name": "Chill"}
+    {"id": 1, "name": "No-Cook"},
+    {"id": 2, "name": "Chill"}
   ];
   it('returns the correct action type', () => {
     const actual = dataGetMethods(methods).type;
@@ -536,7 +526,7 @@ describe('dataGetMethodsFailed action creator', () => {
 describe('dataGetRecipes action creator', () => {
   const recipes = [
     {
-      recipe_id: 1,
+      id: 1,
       owner_id: 1,
       recipe_type_id: 1,
       cuisine_id: 1,
@@ -574,8 +564,8 @@ describe('dataGetRecipesFailed action creator', () => {
 
 describe('dataGetRecipeTypes action creator', () => {
   const recipeTypes = [
-    {"recipe_type_id": 1, "recipe_type_name": "Drink"},
-    {"recipe_type_id": 2, "recipe_type_name": "Appetizer"}
+    {"id": 1, "name": "Drink"},
+    {"id": 2, "name": "Appetizer"}
   ];
   it('returns the correct action type', () => {
     const actual = dataGetRecipeTypes(recipeTypes).type;
@@ -614,7 +604,7 @@ describe('dataGetRecipeTypesFailed action creator', () => {
 describe('dataGetMyFavoriteRecipes action creator', () => {
   const myFavoriteRecipes = [
     {
-      recipe_id: 1,
+      id: 1,
       owner_id: 1,
       recipe_type_id: 1,
       cuisine_id: 1,
@@ -691,9 +681,9 @@ describe('dataGetMyFriendshipsFailed action creator', () => {
 describe('dataGetMyPlans action creator', () => {
   const myPlans = [
     {
-      plan_id: 98234,
-      plan_name: "Plan A",
-      plan_data: {
+      id: 98234,
+      name: "Plan A",
+      data: {
         1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
         8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
        15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
@@ -732,13 +722,13 @@ describe('dataGetMyPlansFailed action creator', () => {
 describe('dataGetMyPrivateEquipments action creator', () => {
   const myPrivateEquipment = [
     {
-      equipment_id: 1,
+      id: 1,
       equipment_type_id: 3,
       owner_id: 3908,
-      equipment_name: "My Teapot",
+      name: "My Teapot",
       equipment_type_name: "Dining",
-      equipment_description: "From grandmother.",
-      equipment_image: "my-teapot"
+      description: "From grandmother.",
+      image: "my-teapot"
     }
   ];
   it('returns the correct action type', () => {
@@ -773,15 +763,15 @@ describe('dataGetMyPrivateEquipmentsFailed action creator', () => {
 describe('dataGetMyPrivateIngredients action creator', () => {
   const myPrivateIngredients = [
     {
-      ingredient_id: 8927,
+      id: 8927,
       ingredient_type_id: 18,
       owner_id: 1,
       ingredient_type_name: "Product",
-      ingredient_brand: "Uncle Bob",
-      ingredient_variety: "DOUBLE HOT",
-      ingredient_name: "HOT Sauce",
-      ingredient_description: "From Uncle Bob.",
-      ingredient_image: "hot-sauce"
+      brand: "Uncle Bob",
+      variety: "DOUBLE HOT",
+      name: "HOT Sauce",
+      description: "From Uncle Bob.",
+      image: "hot-sauce"
     }
   ];
   it('returns the correct action type', () => {
@@ -816,7 +806,7 @@ describe('dataGetMyPrivateIngredientsFailed action creator', () => {
 describe('dataGetMyPrivateRecipes action creator', () => {
   const myPrivateRecipes = [
     {
-      recipe_id: 841,
+      id: 841,
       owner_id: 3908,
       recipe_type_id: 1,
       cuisine_id: 1,
@@ -855,7 +845,7 @@ describe('dataGetMyPrivateRecipesFailed action creator', () => {
 describe('dataGetMyPublicRecipes action creator', () => {
   const myPublicRecipes = [
     {
-      recipe_id: 841,
+      id: 841,
       owner_id: 3908,
       recipe_type_id: 1,
       cuisine_id: 1,
@@ -894,7 +884,7 @@ describe('dataGetMyPublicRecipesFailed action creator', () => {
 describe('dataGetMySavedRecipes action creator', () => {
   const mySavedRecipes = [
     {
-      recipe_id: 1,
+      id: 1,
       owner_id: 1,
       recipe_type_id: 1,
       cuisine_id: 1,

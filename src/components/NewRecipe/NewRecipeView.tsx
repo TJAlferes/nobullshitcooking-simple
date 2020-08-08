@@ -208,12 +208,8 @@ export function NewRecipeView({
           >
             <option value=""></option>
             {dataRecipeTypes.map(r => (
-              <option
-                key={r.recipe_type_id}
-                data-test={r.recipe_type_name}
-                value={r.recipe_type_id}
-              >
-                {r.recipe_type_name}
+              <option key={r.id} data-test={r.name} value={r.id}>
+                {r.name}
               </option>
             ))}
           </select>
@@ -235,12 +231,8 @@ export function NewRecipeView({
           >
             <option value=""></option>
             {dataCuisines.map(c => (
-              <option
-                key={c.cuisine_id}
-                value={c.cuisine_id}
-                data-test={c.cuisine_name}
-              >
-                {c.cuisine_name}
+              <option key={c.id} value={c.id} data-test={c.name}>
+                {c.name}
               </option>
             ))}
           </select>
@@ -289,20 +281,17 @@ export function NewRecipeView({
           </h2>
           <div className="method-spans">
             {dataMethods.map(m => (
-              <span className="method-span" key={m.method_id}>
+              <span className="method-span" key={m.id}>
                 <input
-                  checked={methods[m.method_id] === true ? true : false}
+                  checked={methods[m.id] === true ? true : false}
                   className="method-span-input"
-                  data-test={`${m.method_id}-${m.method_name}`}
-                  id={`${m.method_id}`}
+                  data-test={`${m.id}-${m.name}`}
+                  id={`${m.id}`}
                   onChange={e => handleMethodsChange(e)}
                   type="checkbox"
                 />
-                <label
-                  className="method-span-label"
-                  data-test={m.method_name}
-                >
-                  {m.method_name}
+                <label className="method-span-label" data-test={m.name}>
+                  {m.name}
                 </label>
               </span>
             ))}

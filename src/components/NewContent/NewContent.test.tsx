@@ -23,12 +23,7 @@ const initialProps = {
   staffMessage: "",
   userMessage: "",
   dataContentTypes: [
-    {
-      content_type_id: 1,
-      parent_id: 0,
-      content_type_name: "Page",
-      content_type_path: "/page"
-    }
+    {id: 1, parent_id: 0, name: "Page", path: "/page"}
   ],
   value: [{type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}],
   editorClearWork,

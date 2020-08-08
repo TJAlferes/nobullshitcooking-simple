@@ -42,7 +42,7 @@ export interface IStaffEditIngredientFailed {
 
 export interface IStaffDeleteIngredient {
   type: typeof STAFF_DELETE_INGREDIENT;
-  ingredientId: number;
+  id: number;
 }
 
 export interface IStaffDeleteIngredientSucceeded {
@@ -57,20 +57,20 @@ export interface IStaffDeleteIngredientFailed {
 
 export interface ICreatingIngredientInfo {
   ingredientTypeId: number;
-  ingredientName: string;
-  ingredientDescription: string;
-  ingredientImage: string | ArrayBuffer | null;
-  ingredientFullImage: File | null;
-  ingredientTinyImage: File | null;
+  name: string;
+  description: string;
+  image: string | ArrayBuffer | null;
+  fullImage: File | null;
+  tinyImage: File | null;
 }
 
 export interface IEditingIngredientInfo {
-  ingredientId: number;
+  id: number;
   ingredientTypeId: number;
-  ingredientName: string;
-  ingredientDescription: string;
-  ingredientPrevImage: string;
-  ingredientImage: string | ArrayBuffer | null;
-  ingredientFullImage: File | null;
-  ingredientTinyImage: File | null;
+  name: string;
+  description: string;
+  prevImage: string;
+  image: string | ArrayBuffer | null;
+  fullImage: File | null;
+  tinyImage: File | null;
 }

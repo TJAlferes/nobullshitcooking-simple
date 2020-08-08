@@ -26,29 +26,27 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const equipmentFullImage =
-  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
-const equipmentTinyImage =
-  new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+const fullImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const tinyImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
 const creatingEquipmentInfo = {
   equipmentTypeId: 3,
-  equipmentName: "Metal Spatula",
-  equipmentDescription: "It works.",
-  equipmentImage: "nobsc-metal-spatula",
-  equipmentFullImage,
-  equipmentTinyImage
+  name: "Metal Spatula",
+  description: "It works.",
+  image: "nobsc-metal-spatula",
+  fullImage,
+  tinyImage
 };
 
 const editingEquipmentInfo = {
-  equipmentId: 1,
+  id: 1,
   equipmentTypeId: 3,
-  equipmentName: "Metal Spatula",
-  equipmentDescription: "It works.",
-  equipmentPrevImage: "nobsc-metal-spatula",
-  equipmentImage: "nobsc-metal-spatula",
-  equipmentFullImage,
-  equipmentTinyImage
+  name: "Metal Spatula",
+  description: "It works.",
+  prevImage: "nobsc-metal-spatula",
+  image: "nobsc-metal-spatula",
+  fullImage,
+  tinyImage
 };
 
 describe('userCreateNewEquipmentSaga', () => {
@@ -58,17 +56,17 @@ describe('userCreateNewEquipmentSaga', () => {
   };
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "equipmentUrlString"
+      fullSignature: "signedUrlString",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "equipmentUrlString"
     }
   };
   const {
     equipmentTypeId,
-    equipmentName,
-    equipmentDescription,
-    equipmentFullImage,
-    equipmentTinyImage
+    name,
+    description,
+    fullImage,
+    tinyImage
   } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
@@ -79,24 +77,24 @@ describe('userCreateNewEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/get-signed-url/equipment`,
-      {fileType: equipmentFullImage.type},
+      {fileType: fullImage.type},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
-      equipmentFullImage,
-      {headers: {'Content-Type': equipmentFullImage.type}}
+      res1.data.fullSignature,
+      fullImage,
+      {headers: {'Content-Type': fullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
-      equipmentTinyImage,
-      {headers: {'Content-Type': equipmentTinyImage.type}}
+      res1.data.tinySignature,
+      tinyImage,
+      {headers: {'Content-Type': tinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -106,9 +104,9 @@ describe('userCreateNewEquipmentSaga', () => {
       {
         equipmentInfo: {
           equipmentTypeId,
-          equipmentName,
-          equipmentDescription,
-          equipmentImage: "equipmentUrlString"
+          name,
+          description,
+          image: "equipmentUrlString"
         }
       },
       {withCredentials: true}
@@ -146,9 +144,7 @@ describe('userCreateNewEquipmentSaga', () => {
 
     expect(iterator.throw('error').value)
     .toEqual(put(
-      staffCreateNewEquipmentFailed(
-        'An error occurred. Please try again.'
-      )
+      staffCreateNewEquipmentFailed('An error occurred. Please try again.')
     ));
 
     expect(iterator.next().value).toEqual(delay(4000));
@@ -164,19 +160,19 @@ describe('staffEditEquipmentSaga', () => {
   };
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "equipmentUrlString"
+      fullSignature: "signedUrlString",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "equipmentUrlString"
     }
   };
   const {
-    equipmentId,
+    id,
     equipmentTypeId,
-    equipmentName,
-    equipmentDescription,
-    equipmentPrevImage,
-    equipmentFullImage,
-    equipmentTinyImage
+    name,
+    description,
+    prevImage,
+    fullImage,
+    tinyImage
   } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
@@ -187,24 +183,24 @@ describe('staffEditEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/get-signed-url/equipment`,
-      {fileType: equipmentFullImage.type},
+      {fileType: fullImage.type},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
-      equipmentFullImage,
-      {headers: {'Content-Type': equipmentFullImage.type}}
+      res1.data.fullSignature,
+      fullImage,
+      {headers: {'Content-Type': fullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
-      equipmentTinyImage,
-      {headers: {'Content-Type': equipmentTinyImage.type}}
+      res1.data.tinySignature,
+      tinyImage,
+      {headers: {'Content-Type': tinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -213,12 +209,12 @@ describe('staffEditEquipmentSaga', () => {
       `${endpoint}/staff/equipment/update`,
       {
         equipmentInfo: {
-          equipmentId,
+          id,
           equipmentTypeId,
-          equipmentName,
-          equipmentDescription,
-          equipmentPrevImage,
-          equipmentImage: "equipmentUrlString"
+          name,
+          description,
+          prevImage,
+          image: "equipmentUrlString"
         }
       },
       {withCredentials: true}
@@ -256,9 +252,7 @@ describe('staffEditEquipmentSaga', () => {
 
     expect(iterator.throw('error').value)
     .toEqual(put(
-      staffEditEquipmentFailed(
-        'An error occurred. Please try again.'
-      )
+      staffEditEquipmentFailed('An error occurred. Please try again.')
     ));
 
     expect(iterator.next().value).toEqual(delay(4000));
@@ -268,7 +262,7 @@ describe('staffEditEquipmentSaga', () => {
 });
 
 describe('staffDeleteEquipmentSaga', () => {
-  const action = {type: STAFF_DELETE_EQUIPMENT, equipmentId: 4};
+  const action = {type: STAFF_DELETE_EQUIPMENT, id: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = staffDeleteEquipmentSaga(action);
@@ -277,7 +271,7 @@ describe('staffDeleteEquipmentSaga', () => {
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
       `${endpoint}/staff/equipment/delete`,
-      {withCredentials: true, data: {equipmentId: action.equipmentId}}
+      {withCredentials: true, data: {id: action.id}}
     ));
 
     expect(iterator.next(res).value)
@@ -309,9 +303,7 @@ describe('staffDeleteEquipmentSaga', () => {
 
     expect(iterator.throw('error').value)
     .toEqual(put(
-      staffDeleteEquipmentFailed(
-        'An error occurred. Please try again.'
-      )
+      staffDeleteEquipmentFailed('An error occurred. Please try again.')
     ));
 
     expect(iterator.next().value).toEqual(delay(4000));

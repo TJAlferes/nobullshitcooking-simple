@@ -17,16 +17,16 @@ describe('userSubmitAvatarSaga', () => {
   const action = {type: USER_SUBMIT_AVATAR, fullAvatar, tinyAvatar};
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "avatarUrlString"
+      fullSignature: "signedUrlString",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "avatarUrlString"
     }
   };
 
   it('should dispatch succeeded, then reload', () => {
     const iterator = userSubmitAvatarSaga(action);
     const res = {data: {message: 'Avatar set.'}};
-    const avatarUrl = res1.data.urlFullSize;
+    const avatarUrl = res1.data.fullName;
 
     expect(iterator.next().value)
     .toEqual(call(
@@ -39,7 +39,7 @@ describe('userSubmitAvatarSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
+      res1.data.fullSignature,
       action.fullAvatar,
       {headers: {'Content-Type': action.fullAvatar.type}}
     ));
@@ -47,7 +47,7 @@ describe('userSubmitAvatarSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
+      res1.data.tinySignature,
       action.tinyAvatar,
       {headers: {'Content-Type': action.tinyAvatar.type}}
     ));
@@ -73,7 +73,7 @@ describe('userSubmitAvatarSaga', () => {
   it('should dispatch failed', () => {
     const iterator = userSubmitAvatarSaga(action);
     const res = {data: {message: 'Oops.'}};
-    const avatarUrl = res1.data.urlFullSize;
+    const avatarUrl = res1.data.fullName;
 
     iterator.next();
     iterator.next(res1);

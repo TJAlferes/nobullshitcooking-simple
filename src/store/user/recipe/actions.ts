@@ -57,9 +57,9 @@ export const userEditPrivateRecipeFailed = (message: string) => ({
   message
 });
 
-export const userDeletePrivateRecipe = (recipeId: number) => ({
+export const userDeletePrivateRecipe = (id: number) => ({
   type: USER_DELETE_PRIVATE_RECIPE,
-  recipeId
+  id
 });
 
 export const userDeletePrivateRecipeSucceeded = (message: string) => ({
@@ -108,9 +108,9 @@ export const userEditPublicRecipeFailed = (message: string) => ({
   message
 });
 
-export const userDisownPublicRecipe = (recipeId: number) => ({
+export const userDisownPublicRecipe = (id: number) => ({
   type: USER_DISOWN_PUBLIC_RECIPE,
-  recipeId
+  id
 });
 
 export const userDisownPublicRecipeSucceeded = (message: string) => ({

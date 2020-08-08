@@ -178,7 +178,7 @@ export function NewRecipe({
         ? `${endpoint}/staff/recipe/edit`
         : `${endpoint}/user/recipe/edit/${ownership}`;
       const res =
-        await axios.post(url, {recipeId: id}, {withCredentials: true});
+        await axios.post(url, {id}, {withCredentials: true});
 
       const recipe: IExistingRecipeToEdit = res.data.recipe;
       if (!recipe) {
@@ -189,7 +189,6 @@ export function NewRecipe({
       }
 
       const {
-        recipe_id,
         recipe_type_id,
         cuisine_id,
         title,
@@ -205,7 +204,7 @@ export function NewRecipe({
         cooking_image
       } = recipe;
 
-      setEditingId(recipe_id);
+      setEditingId(recipe.id);
       setRecipeTypeId(recipe_type_id);
       setCuisineId(cuisine_id);
       setTitle(title);
@@ -215,8 +214,8 @@ export function NewRecipe({
 
       let methodsToSet: number[] = [];
 
-      recipe.required_methods.length &&
-      recipe.required_methods.map(m => methodsToSet.push(m.method_id));
+      required_methods.length &&
+      required_methods.map(m => methodsToSet.push(m.method_id));
       
       setMethods(prevState => {
         const nextState = {...prevState};
@@ -229,9 +228,9 @@ export function NewRecipe({
       });
 
       //
-      setRequiredEquipment(recipe.required_equipment);
-      setRequiredIngredients(recipe.required_ingredients);
-      setRequiredSubrecipes(recipe.required_subrecipes);
+      setRequiredEquipment(required_equipment);
+      setRequiredIngredients(required_ingredients);
+      setRequiredSubrecipes(required_subrecipes);
       setRecipePrevImage(recipe_image);
       setEquipmentPrevImage(equipment_image);
       setIngredientsPrevImage(ingredients_image);
@@ -415,8 +414,8 @@ export function NewRecipe({
 
     if (editing && editingId) {
 
-      const recipeInfo: IEditingRecipeInfo = {
-        recipeId: editingId,  // change?
+      const recipeInfo = {
+        id: editingId,  // change?
         ownership,
         recipeTypeId,
         cuisineId,
@@ -452,7 +451,7 @@ export function NewRecipe({
 
     } else {
 
-      const recipeInfo: ICreatingRecipeInfo = {
+      const recipeInfo = {
         ownership,
         recipeTypeId,
         cuisineId,
@@ -801,7 +800,7 @@ interface RootState {
 }
 
 export interface IExistingRecipeToEdit {
-  recipe_id: number;
+  id: number;
   recipe_type_id: number;
   cuisine_id: number;
   owner_id: number;

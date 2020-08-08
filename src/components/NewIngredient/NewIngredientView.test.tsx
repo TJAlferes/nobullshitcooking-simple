@@ -17,10 +17,7 @@ const onSelectFile = jest.fn();
 const intialProps = {
   cancelImage,
   crop: {aspect: 280 / 172},
-  dataIngredientTypes: [
-    {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
-    {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
-  ],
+  dataIngredientTypes: [{id: 11, name: "Vegetable"}, {id: 12, name: "Fruit"}],
   description: "",
   feedback: "Some message.",
   fullCrop: "",

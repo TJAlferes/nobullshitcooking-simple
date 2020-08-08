@@ -40,7 +40,7 @@ export interface IUserEditPlanFailed {
 
 export interface IUserDeletePlan {
   type: typeof USER_DELETE_PLAN;
-  planId: number;
+  id: number;
 }
 
 export interface IUserDeletePlanSucceeded {
@@ -53,15 +53,13 @@ export interface IUserDeletePlanFailed {
   message: string;
 }
 
-// yes, the planData is supposed to be string
 export interface ICreatingPlanInfo {
-  planName: string;
-  planData: string;
+  name: string;
+  data: string;
 }
 
-// yes, the planData is supposed to be string
 export interface IEditingPlanInfo {
-  planId: number;
-  planName: string;
-  planData: string;
+  id: number;
+  name: string;
+  data: string;
 }

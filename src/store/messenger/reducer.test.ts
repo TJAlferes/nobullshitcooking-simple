@@ -106,8 +106,8 @@ describe('messenger reducer', () => {
     const actual = messengerReducer(initialState, {
       type: MESSENGER_GET_ONLINE,
       online: [
-        {userId: 43, username: "MrClean", avatar: "MrClean"},
-        {userId: 52, username: "Shabsquash", avatar: "Shabsquash"}
+        {id: 43, username: "MrClean", avatar: "MrClean"},
+        {id: 52, username: "Shabsquash", avatar: "Shabsquash"}
       ]
     });
 
@@ -116,8 +116,8 @@ describe('messenger reducer', () => {
       messages: [],
       users: [],
       onlineFriends: [
-        {userId: 43, username: "MrClean", avatar: "MrClean"},
-        {userId: 52, username: "Shabsquash", avatar: "Shabsquash"}
+        {id: 43, username: "MrClean", avatar: "MrClean"},
+        {id: 52, username: "Shabsquash", avatar: "Shabsquash"}
       ],
       status: "Disconnected",
       connectButtonDisabled: false,
@@ -139,13 +139,13 @@ describe('messenger reducer', () => {
     };
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_SHOW_ONLINE,
-      user: {userId: "1", username: "Joe55", avatar: "Joe55"}
+      user: {id: "1", username: "Joe55", avatar: "Joe55"}
     });
     const expected = {
       channel: "",
       messages: [],
       users: [],
-      onlineFriends: [{userId: "1", username: "Joe55", avatar: "Joe55"}],
+      onlineFriends: [{id: "1", username: "Joe55", avatar: "Joe55"}],
       status: "Connected",
       connectButtonDisabled: true,
       disconnectButtonDisabled: false
@@ -158,14 +158,14 @@ describe('messenger reducer', () => {
       channel: "",
       messages: [],
       users: [],
-      onlineFriends: [{userId: "1", username: "Joe55", avatar: "Joe55"}],
+      onlineFriends: [{id: "1", username: "Joe55", avatar: "Joe55"}],
       status: "Connected",
       connectButtonDisabled: true,
       disconnectButtonDisabled: false
     };
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_SHOW_OFFLINE,
-      user: {userId: "1", username: "Joe55", avatar: "Joe55"}
+      user: {id: "1", username: "Joe55", avatar: "Joe55"}
     });
     const expected = {
       channel: "",
@@ -192,12 +192,12 @@ describe('messenger reducer', () => {
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_CHANGED_CHANNEL,
       channel: "autos101",
-      users: [{userId: 93, username: "CarEnthusiast", avatar: "CarEnthusiast"}]
+      users: [{id: 93, username: "CarEnthusiast", avatar: "CarEnthusiast"}]
     });
     const expected = {
       channel: "autos101",
       messages: [],
-      users: [{userId: 93, username: "CarEnthusiast", avatar: "CarEnthusiast"}],
+      users: [{id: 93, username: "CarEnthusiast", avatar: "CarEnthusiast"}],
       onlineFriends: [],
       status: "Connected",
       connectButtonDisabled: true,
@@ -214,24 +214,24 @@ describe('messenger reducer', () => {
       messages: [
         {
           kind: KMessage,
-          chatMessageId: 555 + clientTimeStr,
-          chatMessageText: "Hey! How are you?",
+          id: 555 + clientTimeStr,
+          text: "Hey! How are you?",
           room: "GrillNChill",
-          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          user: {id: 555, username: "Joe555", avatar: "Joe555"},
           ts: `${clientTimeStr}`
         },
         {
           kind: KMessage,
-          chatMessageId: 888 + clientTimeStr,
-          chatMessageText: "I'm good, thanks! You?",
+          id: 888 + clientTimeStr,
+          text: "I'm good, thanks! You?",
           room: "GrillNChill",
-          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          user: {id: 888, username: "Jane888", avatar: "Jane888"},
           ts: `${clientTimeStr}`
         }
       ],
       users: [
-        {userId: 555, username: "Joe555", avatar: "Joe555"},
-        {userId: 888, username: "Jane888", avatar: "Jane888"}
+        {id: 555, username: "Joe555", avatar: "Joe555"},
+        {id: 888, username: "Jane888", avatar: "Jane888"}
       ],
       onlineFriends: [],
       status: "Connected",
@@ -243,8 +243,8 @@ describe('messenger reducer', () => {
       type: MESSENGER_REJOINED_CHANNEL,
       channel: "GrillNChill",
       users: [
-        {userId: 555, username: "Joe555", avatar: "Joe555"},
-        {userId: 888, username: "Jane888", avatar: "Jane888"}
+        {id: 555, username: "Joe555", avatar: "Joe555"},
+        {id: 888, username: "Jane888", avatar: "Jane888"}
       ]
     });
 
@@ -261,24 +261,24 @@ describe('messenger reducer', () => {
       messages: [
         {
           kind: KMessage,
-          chatMessageId: 555 + clientTimeStr,
-          chatMessageText: "Hey! How are you?",
+          id: 555 + clientTimeStr,
+          text: "Hey! How are you?",
           room: "GrillNChill",
-          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          user: {id: 555, username: "Joe555", avatar: "Joe555"},
           ts: `${clientTimeStr}`
         },
         {
           kind: KMessage,
-          chatMessageId: 888 + clientTimeStr,
-          chatMessageText: "I'm good, thanks! You?",
+          id: 888 + clientTimeStr,
+          text: "I'm good, thanks! You?",
           room: "GrillNChill",
-          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          user: {id: 888, username: "Jane888", avatar: "Jane888"},
           ts: `${clientTimeStr}`
         }
       ],
       users: [
-        {userId: 555, username: "Joe555", avatar: "Joe555"},
-        {userId: 888, username: "Jane888", avatar: "Jane888"}
+        {id: 555, username: "Joe555", avatar: "Joe555"},
+        {id: 888, username: "Jane888", avatar: "Jane888"}
       ],
       onlineFriends: [],
       status: "Connected",
@@ -288,7 +288,7 @@ describe('messenger reducer', () => {
 
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_JOINED_USER,
-      user: {userId: 23, username: "Bubbles", avatar: "Bubbles"},
+      user: {id: 23, username: "Bubbles", avatar: "Bubbles"},
       ts: `${clientTimeStr}`
     });
 
@@ -297,27 +297,27 @@ describe('messenger reducer', () => {
       messages: [
         {
           kind: KMessage,
-          chatMessageId: 555 + clientTimeStr,
-          chatMessageText: "Hey! How are you?",
+          id: 555 + clientTimeStr,
+          text: "Hey! How are you?",
           room: "GrillNChill",
-          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          user: {id: 555, username: "Joe555", avatar: "Joe555"},
           ts: `${clientTimeStr}`
         },
         {
           kind: KMessage,
-          chatMessageId: 888 + clientTimeStr,
-          chatMessageText: "I'm good, thanks! You?",
+          id: 888 + clientTimeStr,
+          text: "I'm good, thanks! You?",
           room: "GrillNChill",
-          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          user: {id: 888, username: "Jane888", avatar: "Jane888"},
           ts: `${clientTimeStr}`
         },
         {
           kind: KMessage,
-          chatMessageId: 'admin' + clientTimeStr,
-          chatMessageText: "Bubbles has joined the room.",
+          id: 'admin' + clientTimeStr,
+          text: "Bubbles has joined the room.",
           room: "GrillNChill",
           user: {
-            userId: 'messengerstatus',
+            id: 'messengerstatus',
             username: "messengerstatus",
             avatar: 'messengerstatus'
           },
@@ -325,9 +325,9 @@ describe('messenger reducer', () => {
         }
       ],
       users: [
-        {userId: 555, username: "Joe555", avatar: "Joe555"},
-        {userId: 888, username: "Jane888", avatar: "Jane888"},
-        {userId: 23, username: "Bubbles", avatar: "Bubbles"}
+        {id: 555, username: "Joe555", avatar: "Joe555"},
+        {id: 888, username: "Jane888", avatar: "Jane888"},
+        {id: 23, username: "Bubbles", avatar: "Bubbles"}
       ],
       onlineFriends: [],
       status: "Connected",
@@ -346,24 +346,24 @@ describe('messenger reducer', () => {
       messages: [
         {
           kind: KMessage,
-          chatMessageId: 555 + clientTimeStr,
-          chatMessageText: "Hey! How are you?",
+          id: 555 + clientTimeStr,
+          text: "Hey! How are you?",
           room: "GrillNChill",
-          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          user: {id: 555, username: "Joe555", avatar: "Joe555"},
           ts: `${clientTimeStr}`
         },
         {
           kind: KMessage,
-          chatMessageId: 888 + clientTimeStr,
-          chatMessageText: "I'm good, thanks! You?",
+          id: 888 + clientTimeStr,
+          text: "I'm good, thanks! You?",
           room: "GrillNChill",
-          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          user: {id: 888, username: "Jane888", avatar: "Jane888"},
           ts: `${clientTimeStr}`
         }
       ],
       users: [
-        {userId: 555, username: "Joe555", avatar: "Joe555"},
-        {userId: 888, username: "Jane888", avatar: "Jane888"}
+        {id: 555, username: "Joe555", avatar: "Joe555"},
+        {id: 888, username: "Jane888", avatar: "Jane888"}
       ],
       onlineFriends: [],
       status: "Connected",
@@ -373,7 +373,7 @@ describe('messenger reducer', () => {
 
     const actual = messengerReducer(beforeState, {
       type: MESSENGER_LEFT_USER,
-      user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+      user: {id: 888, username: "Jane888", avatar: "Jane888"},
       ts: `${clientTimeStr}`
     });
 
@@ -382,27 +382,27 @@ describe('messenger reducer', () => {
       messages: [
         {
           kind: KMessage,
-          chatMessageId: 555 + clientTimeStr,
-          chatMessageText: "Hey! How are you?",
+          id: 555 + clientTimeStr,
+          text: "Hey! How are you?",
           room: "GrillNChill",
-          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          user: {id: 555, username: "Joe555", avatar: "Joe555"},
           ts: `${clientTimeStr}`
         },
         {
           kind: KMessage,
-          chatMessageId: 888 + clientTimeStr,
-          chatMessageText: "I'm good, thanks! You?",
+          id: 888 + clientTimeStr,
+          text: "I'm good, thanks! You?",
           room: "GrillNChill",
-          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          user: {id: 888, username: "Jane888", avatar: "Jane888"},
           ts: `${clientTimeStr}`
         },
         {
           kind: KMessage,
-          chatMessageId: 'admin' + clientTimeStr,
-          chatMessageText: `Jane888 has left the room.`,
+          id: 'admin' + clientTimeStr,
+          text: `Jane888 has left the room.`,
           room: "GrillNChill",
           user: {
-            userId: 'messengerstatus',
+            id: 'messengerstatus',
             username: "messengerstatus",
             avatar: 'messengerstatus'
           },
@@ -410,7 +410,7 @@ describe('messenger reducer', () => {
         }
       ],
       users: [
-        {userId: 555, username: "Joe555", avatar: "Joe555"}
+        {id: 555, username: "Joe555", avatar: "Joe555"}
       ],
       onlineFriends: [],
       status: "Connected",
@@ -429,16 +429,16 @@ describe('messenger reducer', () => {
       messages: [
         {
           kind: KMessage,
-          chatMessageId: 555 + clientTimeStr,
-          chatMessageText: "Hey! How are you?",
+          id: 555 + clientTimeStr,
+          text: "Hey! How are you?",
           room: "GrillNChill",
-          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          user: {id: 555, username: "Joe555", avatar: "Joe555"},
           ts: `${clientTimeStr}`
         }
       ],
       users: [
-        {userId: 555, username: "Joe555", avatar: "Joe555"},
-        {userId: 888, username: "Jane888", avatar: "Jane888"}
+        {id: 555, username: "Joe555", avatar: "Joe555"},
+        {id: 888, username: "Jane888", avatar: "Jane888"}
       ],
       onlineFriends: [],
       status: "Connected",
@@ -450,10 +450,10 @@ describe('messenger reducer', () => {
       type: MESSENGER_RECEIVED_MESSAGE,
       message: {
         kind: KMessage,
-        chatMessageId: 888 + clientTimeStr,
-        chatMessageText: "I'm good, thanks! You?",
+        id: 888 + clientTimeStr,
+        text: "I'm good, thanks! You?",
         room: "GrillNChill",
-        user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+        user: {id: 888, username: "Jane888", avatar: "Jane888"},
         ts: `${clientTimeStr}`
       }
     });
@@ -463,24 +463,24 @@ describe('messenger reducer', () => {
       messages: [
         {
           kind: KMessage,
-          chatMessageId: 555 + clientTimeStr,
-          chatMessageText: "Hey! How are you?",
+          id: 555 + clientTimeStr,
+          text: "Hey! How are you?",
           room: "GrillNChill",
-          user: {userId: 555, username: "Joe555", avatar: "Joe555"},
+          user: {id: 555, username: "Joe555", avatar: "Joe555"},
           ts: `${clientTimeStr}`
         },
         {
           kind: KMessage,
-          chatMessageId: 888 + clientTimeStr,
-          chatMessageText: "I'm good, thanks! You?",
+          id: 888 + clientTimeStr,
+          text: "I'm good, thanks! You?",
           room: "GrillNChill",
-          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          user: {id: 888, username: "Jane888", avatar: "Jane888"},
           ts: `${clientTimeStr}`
         }
       ],
       users: [
-        {userId: 555, username: "Joe555", avatar: "Joe555"},
-        {userId: 888, username: "Jane888", avatar: "Jane888"}
+        {id: 555, username: "Joe555", avatar: "Joe555"},
+        {id: 888, username: "Jane888", avatar: "Jane888"}
       ],
       onlineFriends: [],
       status: "Connected",
@@ -497,7 +497,7 @@ describe('messenger reducer', () => {
     const beforeState = {
       channel: "GrillNChill",
       messages: [],
-      users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],
+      users: [{id: 555, username: "Joe555", avatar: "Joe555"}],
       onlineFriends: [],
       status: "Connected",
       connectButtonDisabled: true,
@@ -508,10 +508,10 @@ describe('messenger reducer', () => {
       type: MESSENGER_RECEIVED_WHISPER,
       whisper: {
         kind: KWhisper,
-        whisperId: 888 + clientTimeStr,
-        whisperText: "Are you still moving next year?",
+        id: 888 + clientTimeStr,
+        text: "Are you still moving next year?",
         to: "Joe555",
-        user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+        user: {id: 888, username: "Jane888", avatar: "Jane888"},
         ts: `${clientTimeStr}`
       }
     });
@@ -521,14 +521,14 @@ describe('messenger reducer', () => {
       messages: [
         {
           kind: KWhisper,
-          whisperId: 888 + clientTimeStr,
-          whisperText: "Are you still moving next year?",
+          id: 888 + clientTimeStr,
+          text: "Are you still moving next year?",
           to: "Joe555",
-          user: {userId: 888, username: "Jane888", avatar: "Jane888"},
+          user: {id: 888, username: "Jane888", avatar: "Jane888"},
           ts: `${clientTimeStr}`
         }
       ],
-      users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],
+      users: [{id: 555, username: "Joe555", avatar: "Joe555"}],
       onlineFriends: [],
       status: "Connected",
       connectButtonDisabled: true,
@@ -544,7 +544,7 @@ describe('messenger reducer', () => {
     const beforeState = {
       channel: "GrillNChill",
       messages: [],
-      users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],
+      users: [{id: 555, username: "Joe555", avatar: "Joe555"}],
       onlineFriends: [],
       status: "Connected",
       connectButtonDisabled: true,
@@ -562,18 +562,18 @@ describe('messenger reducer', () => {
       messages: [
         {
           kind: KWhisper,
-          whisperId: 'admin' + clientTimeStr,
-          whisperText: 'User not found.',
+          id: 'admin' + clientTimeStr,
+          text: 'User not found.',
           to: '',
           user: {
-            userId: 'messengerstatus',
+            id: 'messengerstatus',
             username: "messengerstatus",
             avatar: 'messengerstatus'
           },
           ts: `${clientTimeStr}`,
         }
       ],
-      users: [{userId: 555, username: "Joe555", avatar: "Joe555"}],
+      users: [{id: 555, username: "Joe555", avatar: "Joe555"}],
       onlineFriends: [],
       status: "Connected",
       connectButtonDisabled: true,

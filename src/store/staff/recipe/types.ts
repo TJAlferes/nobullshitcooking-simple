@@ -42,7 +42,7 @@ export interface IStaffEditRecipeFailed {
 
 export interface IStaffDeleteRecipe {
   type: typeof STAFF_DELETE_RECIPE;
-  recipeId: number;
+  id: number;
 }
 
 export interface IStaffDeleteRecipeSucceeded {
@@ -78,31 +78,11 @@ export interface ICreatingRecipeInfo {
   cookingFullImage: File | null;
 }
 
-export interface IEditingRecipeInfo {
-  recipeId: number
-  ownership: string
-  recipeTypeId: number
-  cuisineId: number
-  title: string
-  description: string
-  directions: string
-  requiredMethods: IRequiredMethod[]
-  requiredEquipment: IRequiredEquipment[]
-  requiredIngredients: IRequiredIngredient[]
-  requiredSubrecipes: IRequiredSubrecipe[]
-  recipeImage: string | ArrayBuffer | null;
-  recipeFullImage: File | null;
+export interface IEditingRecipeInfo extends ICreatingRecipeInfo {
+  id: number
   recipePrevImage: string;
-  recipeThumbImage: File | null;
-  recipeTinyImage: File | null;
-  equipmentImage: string | ArrayBuffer | null;
-  equipmentFullImage: File | null;
   equipmentPrevImage: string;
-  ingredientsImage: string | ArrayBuffer | null;
-  ingredientsFullImage: File | null;
   ingredientsPrevImage: string;
-  cookingImage: string | ArrayBuffer | null;
-  cookingFullImage: File | null;
   cookingPrevImage: string;
 }
 

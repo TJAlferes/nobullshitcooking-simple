@@ -46,9 +46,9 @@ export const userEditPrivateIngredientFailed = (message: string) => ({
   message
 });
 
-export const userDeletePrivateIngredient = (ingredientId: number) => ({
+export const userDeletePrivateIngredient = (id: number) => ({
   type: USER_DELETE_PRIVATE_INGREDIENT,
-  ingredientId
+  id
 });
 
 export const userDeletePrivateIngredientSucceeded = (message: string) => ({

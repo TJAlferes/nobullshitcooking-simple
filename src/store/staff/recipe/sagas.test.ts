@@ -63,7 +63,7 @@ const creatingRecipeInfo = {
 };
 
 const editingRecipeInfo = {
-  recipeId: 888,
+  id: 888,
   recipePrevImage: "nobsc-recipe-default",
   equipmentPrevImage: "nobsc-recipe-equipment-default",
   ingredientsPrevImage: "nobsc-recipe-ingredients-default",
@@ -98,10 +98,10 @@ describe('staffCreateNewRecipeSaga', () => {
 
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestThumbSize: "signedUrlString-thumb",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "recipeUrlString"
+      fullSignature: "signedUrlString",
+      thumbSignature: "signedUrlString-thumb",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "recipeUrlString"
     }
   };
   const res2 = res1;
@@ -144,7 +144,7 @@ describe('staffCreateNewRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
+      res1.data.fullSignature,
       recipeFullImage,
       {headers: {'Content-Type': recipeFullImage.type}}
     ));
@@ -152,7 +152,7 @@ describe('staffCreateNewRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestThumbSize,
+      res1.data.thumbSignature,
       recipeThumbImage,
       {headers: {'Content-Type': recipeThumbImage.type}}
     ));
@@ -160,7 +160,7 @@ describe('staffCreateNewRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
+      res1.data.tinySignature,
       recipeTinyImage,
       {headers: {'Content-Type': recipeTinyImage.type}}
     ));
@@ -183,7 +183,7 @@ describe('staffCreateNewRecipeSaga', () => {
     expect(iterator.next(res2).value)
     .toEqual(call(
       [axios, axios.put],
-      res2.data.signedRequestFullSize,
+      res2.data.fullSignature,
       equipmentFullImage,
       {headers: {'Content-Type': equipmentFullImage.type}}
     ));
@@ -201,7 +201,7 @@ describe('staffCreateNewRecipeSaga', () => {
     expect(iterator.next(res3).value)
     .toEqual(call(
       [axios, axios.put],
-      res3.data.signedRequestFullSize,
+      res3.data.fullSignature,
       ingredientsFullImage,
       {headers: {'Content-Type': ingredientsFullImage.type}}
     ));
@@ -219,7 +219,7 @@ describe('staffCreateNewRecipeSaga', () => {
     expect(iterator.next(res4).value)
     .toEqual(call(
       [axios, axios.put],
-      res4.data.signedRequestFullSize,
+      res4.data.fullSignature,
       cookingFullImage,
       {headers: {'Content-Type': cookingFullImage.type}}
     ));
@@ -304,7 +304,7 @@ describe('staffCreateNewRecipeSaga', () => {
 });
 
 describe('staffDeleteRecipeSaga', () => {
-  const action = {type: STAFF_DELETE_RECIPE, recipeId: 4};
+  const action = {type: STAFF_DELETE_RECIPE, id: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = staffDeleteRecipeSaga(action);
@@ -313,7 +313,7 @@ describe('staffDeleteRecipeSaga', () => {
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
       `${endpoint}/staff/recipe/delete`,
-      {withCredentials: true, data: {recipeId: action.recipeId}}
+      {withCredentials: true, data: {id: action.id}}
     ));
 
     expect(iterator.next(res).value)
@@ -362,10 +362,10 @@ describe('the staffEditRecipeSaga', () => {
   
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestThumbSize: "signedUrlString-thumb",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "recipeUrlString"
+      fullSignature: "signedUrlString",
+      thumbSignature: "signedUrlString-thumb",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "recipeUrlString"
     }
   };
   const res2 = res1;
@@ -373,7 +373,7 @@ describe('the staffEditRecipeSaga', () => {
   const res4 = res1;
 
   const {
-    recipeId,
+    id,
     ownership,
     recipeTypeId,
     cuisineId,
@@ -413,7 +413,7 @@ describe('the staffEditRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
+      res1.data.fullSignature,
       recipeFullImage,
       {headers: {'Content-Type': recipeFullImage.type}}
     ));
@@ -421,7 +421,7 @@ describe('the staffEditRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestThumbSize,
+      res1.data.thumbSignature,
       recipeThumbImage,
       {headers: {'Content-Type': recipeThumbImage.type}}
     ));
@@ -429,7 +429,7 @@ describe('the staffEditRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
+      res1.data.tinySignature,
       recipeTinyImage,
       {headers: {'Content-Type': recipeTinyImage.type}}
     ));
@@ -447,7 +447,7 @@ describe('the staffEditRecipeSaga', () => {
     expect(iterator.next(res2).value)
     .toEqual(call(
       [axios, axios.put],
-      res2.data.signedRequestFullSize,
+      res2.data.fullSignature,
       equipmentFullImage,
       {headers: {'Content-Type': equipmentFullImage.type}}
     ));
@@ -465,7 +465,7 @@ describe('the staffEditRecipeSaga', () => {
     expect(iterator.next(res3).value)
     .toEqual(call(
       [axios, axios.put],
-      res3.data.signedRequestFullSize,
+      res3.data.fullSignature,
       ingredientsFullImage,
       {headers: {'Content-Type': ingredientsFullImage.type}}
     ));
@@ -483,7 +483,7 @@ describe('the staffEditRecipeSaga', () => {
     expect(iterator.next(res4).value)
     .toEqual(call(
       [axios, axios.put],
-      res4.data.signedRequestFullSize,
+      res4.data.fullSignature,
       cookingFullImage,
       {headers: {'Content-Type': cookingFullImage.type}}
     ));
@@ -496,7 +496,7 @@ describe('the staffEditRecipeSaga', () => {
       `${endpoint}/staff/recipe/update`,
       {
         recipeInfo: {
-          recipeId,
+          id,
           ownership,
           recipeTypeId,
           cuisineId,

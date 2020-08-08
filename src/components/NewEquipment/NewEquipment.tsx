@@ -62,14 +62,14 @@ export function NewEquipment({
       setLoading(true);
 
       const [ prev ] = staffIsAuthenticated
-        ? dataEquipment.filter(e => e.equipment_id === Number(id))
-        : dataMyPrivateEquipment.filter(e => e.equipment_id === Number(id));
+        ? dataEquipment.filter(e => e.id === Number(id))
+        : dataMyPrivateEquipment.filter(e => e.id === Number(id));
 
-      setEditingId(prev.equipment_id);
+      setEditingId(prev.id);
       setTypeId(prev.equipment_type_id);
-      setName(prev.equipment_name);
-      setDescription(prev.equipment_description);
-      setPrevImage(prev.equipment_image);
+      setName(prev.name);
+      setDescription(prev.description);
+      setPrevImage(prev.image);
       setLoading(false);
     };
 
@@ -123,25 +123,25 @@ export function NewEquipment({
     setLoading(true);
     if (editing && editingId) {
       const equipmentInfo = {
-        equipmentId: editingId,
+        id: editingId,
         equipmentTypeId: typeId,
-        equipmentName: name,
-        equipmentDescription: description,
-        equipmentImage: image,
-        equipmentFullImage: fullImage,
-        equipmentTinyImage: tinyImage,
-        equipmentPrevImage: prevImage
+        name,
+        description,
+        image,
+        fullImage,
+        tinyImage,
+        prevImage
       };
       if (staffIsAuthenticated) staffEditEquipment(equipmentInfo);
       else userEditPrivateEquipment(equipmentInfo);
     } else {
       const equipmentInfo = {
         equipmentTypeId: typeId,
-        equipmentName: name,
-        equipmentDescription: description,
-        equipmentImage: image,
-        equipmentFullImage: fullImage,
-        equipmentTinyImage: tinyImage
+        name,
+        description,
+        image,
+        fullImage,
+        tinyImage
       };
       if (staffIsAuthenticated) staffCreateNewEquipment(equipmentInfo);
       else userCreateNewPrivateEquipment(equipmentInfo);

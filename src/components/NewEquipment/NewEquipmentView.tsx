@@ -70,9 +70,7 @@ export function NewEquipmentView({
         >
           <option value=""></option>
           {dataEquipmentTypes.map(t => (
-            <option key={t.equipment_type_id} value={t.equipment_type_id}>
-              {t.equipment_type_name}
-            </option>
+            <option key={t.id} value={t.id}>{t.name}</option>
           ))}
         </select>
 

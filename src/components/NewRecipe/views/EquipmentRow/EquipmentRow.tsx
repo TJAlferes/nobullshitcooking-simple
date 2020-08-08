@@ -60,11 +60,7 @@ export function EquipmentRow({
         {
           availableEquipment
           .filter(e => e.equipment_type_id == type)
-          .map((e, index) => (
-            <option key={index} value={e.equipment_id}>
-              {e.equipment_name}
-            </option>
-          ))
+          .map((e, index) => <option key={index} value={e.id}>{e.name}</option>)
         }
       </select>
 

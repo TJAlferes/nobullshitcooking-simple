@@ -26,29 +26,27 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const ingredientFullImage =
-  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
-const ingredientTinyImage =
-  new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+const fullImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const tinyImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
 const creatingIngredientInfo = {
   ingredientTypeId: 3,
-  ingredientName: "HOT Sauce",
-  ingredientDescription: "From Uncle Bob.",
-  ingredientImage: "hot-sauce",
-  ingredientFullImage,
-  ingredientTinyImage
+  name: "HOT Sauce",
+  description: "From Uncle Bob.",
+  image: "hot-sauce",
+  fullImage,
+  tinyImage
 };
 
 const editingIngredientInfo = {
   ingredientTypeId: 3,
-  ingredientName: "HOT Sauce",
-  ingredientDescription: "From Uncle Bob.",
-  ingredientImage: "hot-sauce",
-  ingredientFullImage,
-  ingredientTinyImage,
-  ingredientId: 377,
-  ingredientPrevImage: "hot-sauce"
+  name: "HOT Sauce",
+  description: "From Uncle Bob.",
+  image: "hot-sauce",
+  fullImage,
+  tinyImage,
+  id: 377,
+  prevImage: "hot-sauce"
 };
 
 describe('userCreateNewPrivateIngredientSaga', () => {
@@ -58,17 +56,17 @@ describe('userCreateNewPrivateIngredientSaga', () => {
   };
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "ingredientUrlString"
+      fullSignature: "signedUrlString",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "ingredientUrlString"
     }
   };
   const {
     ingredientTypeId,
-    ingredientName,
-    ingredientDescription,
-    ingredientFullImage,
-    ingredientTinyImage
+    name,
+    description,
+    fullImage,
+    tinyImage
   } = action.ingredientInfo;
 
   it('should dispatch succeeded', () => {
@@ -79,24 +77,24 @@ describe('userCreateNewPrivateIngredientSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/ingredient`,
-      {fileType: ingredientFullImage.type},
+      {fileType: fullImage.type},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
-      ingredientFullImage,
-      {headers: {'Content-Type': ingredientFullImage.type}}
+      res1.data.fullSignature,
+      fullImage,
+      {headers: {'Content-Type': fullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
-      ingredientTinyImage,
-      {headers: {'Content-Type': ingredientTinyImage.type}}
+      res1.data.tinySignature,
+      tinyImage,
+      {headers: {'Content-Type': tinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -106,9 +104,9 @@ describe('userCreateNewPrivateIngredientSaga', () => {
       {
         ingredientInfo: {
           ingredientTypeId,
-          ingredientName,
-          ingredientDescription,
-          ingredientImage: "ingredientUrlString"
+          name,
+          description,
+          image: "ingredientUrlString"
         }
       },
       {withCredentials: true}
@@ -164,19 +162,19 @@ describe('userEditPrivateIngredientSaga', () => {
   };
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "ingredientUrlString"
+      fullSignature: "signedUrlString",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "ingredientUrlString"
     }
   };
   const {
-    ingredientId,
+    id,
     ingredientTypeId,
-    ingredientName,
-    ingredientDescription,
-    ingredientPrevImage,
-    ingredientFullImage,
-    ingredientTinyImage
+    name,
+    description,
+    prevImage,
+    fullImage,
+    tinyImage
   } = action.ingredientInfo;
 
   it('should dispatch succeeded', () => {
@@ -187,24 +185,24 @@ describe('userEditPrivateIngredientSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/ingredient`,
-      {fileType: ingredientFullImage.type},
+      {fileType: fullImage.type},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
-      ingredientFullImage,
-      {headers: {'Content-Type': ingredientFullImage.type}}
+      res1.data.fullSignature,
+      fullImage,
+      {headers: {'Content-Type': fullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
-      ingredientTinyImage,
-      {headers: {'Content-Type': ingredientTinyImage.type}}
+      res1.data.tinySignature,
+      tinyImage,
+      {headers: {'Content-Type': tinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -213,12 +211,12 @@ describe('userEditPrivateIngredientSaga', () => {
       `${endpoint}/user/ingredient/update`,
       {
         ingredientInfo: {
-          ingredientId,
+          id,
           ingredientTypeId,
-          ingredientName,
-          ingredientDescription,
-          ingredientPrevImage,
-          ingredientImage: "ingredientUrlString"
+          name,
+          description,
+          prevImage,
+          image: "ingredientUrlString"
         }
       },
       {withCredentials: true}
@@ -268,7 +266,7 @@ describe('userEditPrivateIngredientSaga', () => {
 
 
 describe('userDeletePrivateIngredientSaga', () => {
-  const action = {type: USER_DELETE_PRIVATE_INGREDIENT, ingredientId: 4};
+  const action = {type: USER_DELETE_PRIVATE_INGREDIENT, id: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = userDeletePrivateIngredientSaga(action);
@@ -277,7 +275,7 @@ describe('userDeletePrivateIngredientSaga', () => {
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
       `${endpoint}/user/ingredient/delete`,
-      {withCredentials: true, data: {ingredientId: action.ingredientId}}
+      {withCredentials: true, data: {id: action.id}}
     ));
 
     expect(iterator.next(res).value)

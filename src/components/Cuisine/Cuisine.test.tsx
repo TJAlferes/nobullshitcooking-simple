@@ -8,26 +8,23 @@ import { Cuisine } from './Cuisine';
 import { CuisineView } from './CuisineView';
 
 const cuisine = {
-  cuisine_id: 1,
-  cuisine_name: "Italian",
-  cuisine_nation: "Italy",
-  //cuisine_banner: "",  // AWS S3  cuisine/banner/${cuisine.cuisine_nation} don't put in here, just put in markup
-  //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation} don't put in here, just put in markup
-  cuisine_wiki: "Italian_cuisine",
-  cuisine_intro: "",
-  cuisine_equipment: [{equipment_id: 1, equipment_name: "Pot"}],
-  cuisine_ingredients: [{ingredient_id: 1, ingredient_name: "White Onion"}],
-  cuisine_recipes: [
-    {recipe_id: 1, title: "Something"},
-    {recipe_id: 2, title: "Something Else"}
-  ],
-  cuisine_suppliers: [{supplier_id: 14, supplier_name: "Amazing Italian Foods"}]
+  id: 1,
+  name: "Italian",
+  nation: "Italy",
+  //banner: "",  // AWS S3 cuisine/banner/${cuisine.nation} don't put in here, just put in markup
+  //flag: "",  // AWS S3 cuisine/flag/${cuisine.nation} don't put in here, just put in markup
+  wiki: "Italian_cuisine",
+  intro: "",
+  equipment: [{id: 1, name: "Pot"}],
+  ingredients: [{id: 1, name: "White Onion"}],
+  recipes: [{id: 1, title: "Something"}, {id: 2, title: "Something Else"}],
+  suppliers: [{id: 14, name: "Amazing Italian Foods"}]
 };
 
 const initialProps = {
   dataCuisines: [
-    {cuisine_id: 1, cuisine_name: "Chinese", cuisine_nation: "China"},
-    {cuisine_id: 2, cuisine_name: "Italian", cuisine_nation: "Italy"}
+    {id: 1, name: "Chinese", nation: "China"},
+    {id: 2, name: "Italian", nation: "Italy"}
   ],
   oneColumnATheme: "light"
 };
@@ -107,7 +104,7 @@ describe('Cuisine', () => {
       Promise.resolve(() => {
         setImmediate(() => wrapper.update());
         expect(wrapper.find('.cuisine-view')).toHaveLength(1);
-        expect(wrapper.find(CuisineView).props().cuisine.cuisine_id)
+        expect(wrapper.find(CuisineView).props().cuisine.id)
         .toEqual(1);
       });
     });

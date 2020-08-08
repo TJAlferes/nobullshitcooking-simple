@@ -44,9 +44,9 @@ export const staffEditEquipmentFailed = (message: string) => ({
   message
 });
 
-export const staffDeleteEquipment = (equipmentId: number) => ({
+export const staffDeleteEquipment = (id: number) => ({
   type: STAFF_DELETE_EQUIPMENT,
-  equipmentId
+  id
 });
 
 export const staffDeleteEquipmentSucceeded = (message: string) => ({

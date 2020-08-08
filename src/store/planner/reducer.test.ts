@@ -15,14 +15,14 @@ import {
 
 const recipeOne = {
   key: "ABC",
-  recipe_id: 503,
+  id: 503,
   owner_id: 1,
   title: "Pho",
   recipe_image: "nobsc-pho"
 };
 const recipeTwo = {
   key: "XYZ",
-  recipe_id: 821,
+  id: 821,
   owner_id: 1,
   title: "Coffee Cake",
   recipe_image: "nobsc-coffee-cake"

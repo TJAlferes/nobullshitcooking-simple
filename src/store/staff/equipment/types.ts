@@ -42,7 +42,7 @@ export interface IStaffEditEquipmentFailed {
 
 export interface IStaffDeleteEquipment {
   type: typeof STAFF_DELETE_EQUIPMENT;
-  equipmentId: number;
+  id: number;
 }
 
 export interface IStaffDeleteEquipmentSucceeded {
@@ -57,20 +57,20 @@ export interface IStaffDeleteEquipmentFailed {
 
 export interface ICreatingEquipmentInfo {
   equipmentTypeId: number;
-  equipmentName: string;
-  equipmentDescription: string;
-  equipmentImage: string | ArrayBuffer | null;
-  equipmentFullImage: File | null;
-  equipmentTinyImage: File | null;
+  name: string;
+  description: string;
+  image: string | ArrayBuffer | null;
+  fullImage: File | null;
+  tinyImage: File | null;
 }
 
 export interface IEditingEquipmentInfo {
-  equipmentId: number;
+  id: number;
   equipmentTypeId: number;
-  equipmentName: string;
-  equipmentDescription: string;
-  equipmentPrevImage: string;
-  equipmentImage: string | ArrayBuffer | null;
-  equipmentFullImage: File | null;
-  equipmentTinyImage: File | null;
+  name: string;
+  description: string;
+  prevImage: string;
+  image: string | ArrayBuffer | null;
+  fullImage: File | null;
+  tinyImage: File | null;
 }

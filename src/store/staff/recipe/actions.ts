@@ -42,9 +42,9 @@ export const staffEditRecipeFailed = (message: string) => ({
   message
 });
 
-export const staffDeleteRecipe = (recipeId: number) => ({
+export const staffDeleteRecipe = (id: number) => ({
   type: STAFF_DELETE_RECIPE,
-  recipeId
+  id
 });
 
 export const staffDeleteRecipeSucceeded = (message: string) => ({

@@ -4,7 +4,7 @@ import React from 'react';
 import { RecipeView } from './RecipeView';
 
 const recipe = {
-  recipe_id: 1,
+  id: 1,
   recipe_type_id: 1,
   cuisine_id: 1,
   author_id: 1,

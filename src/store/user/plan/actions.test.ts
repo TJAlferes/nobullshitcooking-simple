@@ -21,8 +21,8 @@ import {
   USER_DELETE_PLAN_FAILED
 } from './types';
 
-const creatingPlanInfo = {planName: "Plan B", planData: ""};
-const editingPlanInfo = {planId: 2, planName: "Plan B", planData: ""};
+const creatingPlanInfo = {name: "Plan B", data: ""};
+const editingPlanInfo = {id: 2, name: "Plan B", data: ""};
 
 describe('userCreateNewPlan action creator', () => {
   it('returns the correct action type', () => {
@@ -106,8 +106,8 @@ describe('userDeletePlan action creator', () => {
     const expected = USER_DELETE_PLAN;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct planId', () => {
-    const actual = userDeletePlan(7).planId;
+  it('returns the correct id', () => {
+    const actual = userDeletePlan(7).id;
     const expected = 7;
     expect(actual).toEqual(expected);
   });

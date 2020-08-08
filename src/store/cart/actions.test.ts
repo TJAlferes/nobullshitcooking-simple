@@ -1,7 +1,7 @@
 import { cartAddItem, cartRemoveItem, cartEmpty } from './actions';
 import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY_CART } from './types';
 
-const item = {itemId: 18, itemTypeId: 1, itemName: 'Item 18'}
+const item = {id: 18, itemTypeId: 1, name: 'Item 18'}
 
 describe('cartItemAdd action creator', () => {
   it('returns the correct action type', () => {
@@ -9,7 +9,7 @@ describe('cartItemAdd action creator', () => {
     const expected = CART_ADD_ITEM;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct itemId', () => {
+  it('returns the correct item', () => {
     const actual = cartAddItem(item).item;
     const expected = item;
     expect(actual).toEqual(expected);
@@ -22,7 +22,7 @@ describe('cartItemRemove action creator', () => {
     const expected = CART_REMOVE_ITEM;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct itemId', () => {
+  it('returns the correct item', () => {
     const actual = cartRemoveItem(item).item;
     const expected = item;
     expect(actual).toEqual(expected);

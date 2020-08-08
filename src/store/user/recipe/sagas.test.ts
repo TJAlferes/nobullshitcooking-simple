@@ -71,7 +71,7 @@ const creatingRecipeInfo = {
 };
 
 const editingRecipeInfo = {
-  recipeId: 888,
+  id: 888,
   recipePrevImage: "nobsc-recipe-default",
   equipmentPrevImage: "nobsc-recipe-equipment-default",
   ingredientsPrevImage: "nobsc-recipe-ingredients-default",
@@ -106,10 +106,10 @@ describe('userCreateNewRecipeSaga', () => {
 
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestThumbSize: "signedUrlString-thumb",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "recipeUrlString"
+      fullSignature: "signedUrlString",
+      thumbSignature: "signedUrlString-thumb",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "recipeUrlString"
     }
   };
   const res2 = res1;
@@ -152,7 +152,7 @@ describe('userCreateNewRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
+      res1.data.fullSignature,
       recipeFullImage,
       {headers: {'Content-Type': recipeFullImage.type}}
     ));
@@ -160,7 +160,7 @@ describe('userCreateNewRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestThumbSize,
+      res1.data.thumbSignature,
       recipeThumbImage,
       {headers: {'Content-Type': recipeThumbImage.type}}
     ));
@@ -168,7 +168,7 @@ describe('userCreateNewRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
+      res1.data.tinySignature,
       recipeTinyImage,
       {headers: {'Content-Type': recipeTinyImage.type}}
     ));
@@ -191,7 +191,7 @@ describe('userCreateNewRecipeSaga', () => {
     expect(iterator.next(res2).value)
     .toEqual(call(
       [axios, axios.put],
-      res2.data.signedRequestFullSize,
+      res2.data.fullSignature,
       equipmentFullImage,
       {headers: {'Content-Type': equipmentFullImage.type}}
     ));
@@ -209,7 +209,7 @@ describe('userCreateNewRecipeSaga', () => {
     expect(iterator.next(res3).value)
     .toEqual(call(
       [axios, axios.put],
-      res3.data.signedRequestFullSize,
+      res3.data.fullSignature,
       ingredientsFullImage,
       {headers: {'Content-Type': ingredientsFullImage.type}}
     ));
@@ -227,7 +227,7 @@ describe('userCreateNewRecipeSaga', () => {
     expect(iterator.next(res4).value)
     .toEqual(call(
       [axios, axios.put],
-      res4.data.signedRequestFullSize,
+      res4.data.fullSignature,
       cookingFullImage,
       {headers: {'Content-Type': cookingFullImage.type}}
     ));
@@ -314,7 +314,7 @@ describe('userCreateNewRecipeSaga', () => {
 
 
 describe('userDeletePrivateRecipeSaga', () => {
-  const action = {type: USER_DELETE_PRIVATE_RECIPE,recipeId: 4};
+  const action = {type: USER_DELETE_PRIVATE_RECIPE, id: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = userDeletePrivateRecipeSaga(action);
@@ -323,7 +323,7 @@ describe('userDeletePrivateRecipeSaga', () => {
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
       `${endpoint}/user/recipe/delete/private`,
-      {withCredentials: true, data: {recipeId: action.recipeId}}
+      {withCredentials: true, data: {id: action.id}}
     ));
 
     expect(iterator.next(res).value)
@@ -367,7 +367,7 @@ describe('userDeletePrivateRecipeSaga', () => {
 
 
 describe('userDisownPublicRecipeSaga', () => {
-  const action = {type: USER_DISOWN_PUBLIC_RECIPE, recipeId: 4};
+  const action = {type: USER_DISOWN_PUBLIC_RECIPE, id: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = userDisownPublicRecipeSaga(action);
@@ -376,7 +376,7 @@ describe('userDisownPublicRecipeSaga', () => {
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
       `${endpoint}/user/recipe/disown/public`,
-      {withCredentials: true, data: {recipeId: action.recipeId}}
+      {withCredentials: true, data: {id: action.id}}
     ));
 
     expect(iterator.next(res).value)
@@ -427,10 +427,10 @@ describe('userEditRecipeSaga', () => {
   
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestThumbSize: "signedUrlString-thumb",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "recipeUrlString"
+      fullSignature: "signedUrlString",
+      thumbSignature: "signedUrlString-thumb",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "recipeUrlString"
     }
   };
   const res2 = res1;
@@ -438,7 +438,7 @@ describe('userEditRecipeSaga', () => {
   const res4 = res1;
 
   const {
-    recipeId,
+    id,
     ownership,
     recipeTypeId,
     cuisineId,
@@ -478,7 +478,7 @@ describe('userEditRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
+      res1.data.fullSignature,
       recipeFullImage,
       {headers: {'Content-Type': recipeFullImage.type}}
     ));
@@ -486,7 +486,7 @@ describe('userEditRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestThumbSize,
+      res1.data.thumbSignature,
       recipeThumbImage,
       {headers: {'Content-Type': recipeThumbImage.type}}
     ));
@@ -494,7 +494,7 @@ describe('userEditRecipeSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
+      res1.data.tinySignature,
       recipeTinyImage,
       {headers: {'Content-Type': recipeTinyImage.type}}
     ));
@@ -512,7 +512,7 @@ describe('userEditRecipeSaga', () => {
     expect(iterator.next(res2).value)
     .toEqual(call(
       [axios, axios.put],
-      res2.data.signedRequestFullSize,
+      res2.data.fullSignature,
       equipmentFullImage,
       {headers: {'Content-Type': equipmentFullImage.type}}
     ));
@@ -530,7 +530,7 @@ describe('userEditRecipeSaga', () => {
     expect(iterator.next(res3).value)
     .toEqual(call(
       [axios, axios.put],
-      res3.data.signedRequestFullSize,
+      res3.data.fullSignature,
       ingredientsFullImage,
       {headers: {'Content-Type': ingredientsFullImage.type}}
     ));
@@ -548,7 +548,7 @@ describe('userEditRecipeSaga', () => {
     expect(iterator.next(res4).value)
     .toEqual(call(
       [axios, axios.put],
-      res4.data.signedRequestFullSize,
+      res4.data.fullSignature,
       cookingFullImage,
       {headers: {'Content-Type': cookingFullImage.type}}
     ));
@@ -561,7 +561,7 @@ describe('userEditRecipeSaga', () => {
       `${endpoint}/user/recipe/update`,
       {
         recipeInfo: {
-          recipeId,
+          id,
           ownership,
           recipeTypeId,
           cuisineId,

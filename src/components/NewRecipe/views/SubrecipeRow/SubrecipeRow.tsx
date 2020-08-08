@@ -33,7 +33,7 @@ export function SubrecipeRow({
       dataMyPrivateRecipes.length
       ? (
         editing && selfId !== 0
-        ? dataMyPrivateRecipes.filter(r => r.recipe_id != selfId)
+        ? dataMyPrivateRecipes.filter(r => r.id != selfId)
         : dataMyPrivateRecipes
       )
       : []
@@ -42,7 +42,7 @@ export function SubrecipeRow({
       dataMyPublicRecipes.length
       ? (
         editing && selfId !== 0
-        ? dataMyPublicRecipes.filter(r => r.recipe_id != selfId)
+        ? dataMyPublicRecipes.filter(r => r.id != selfId)
         : dataMyPublicRecipes
       )
       : []
@@ -77,9 +77,7 @@ export function SubrecipeRow({
       >
         <option value=""></option>
         {dataMeasurements.map((m, index) => (
-          <option key={index} value={m.measurement_id}>
-            {m.measurement_name}
-          </option>
+          <option key={index} value={m.id}>{m.name}</option>
         ))}
       </select>
 
@@ -93,9 +91,7 @@ export function SubrecipeRow({
       >
         <option value=""></option>
         {dataRecipeTypes.map((r, index) => (
-          <option key={index} value={r.recipe_type_id}>
-            {r.recipe_type_name}
-          </option>
+          <option key={index} value={r.id}>{r.name}</option>
         ))}
       </select>
 
@@ -109,7 +105,7 @@ export function SubrecipeRow({
       >
         <option value=""></option>
         {dataCuisines.map((c, index) => (
-          <option key={index} value={c.cuisine_id}>{c.cuisine_name}</option>
+          <option key={index} value={c.id}>{c.name}</option>
         ))}
       </select>
 
@@ -127,7 +123,7 @@ export function SubrecipeRow({
           .filter(r => r.recipe_type_id == type)
           .filter(r => r.cuisine_id == cuisine)
           .map((r, index) => (
-            <option key={index} value={r.recipe_id}>{r.title}</option>
+            <option key={index} value={r.id}>{r.title}</option>
           ))
         }
       </select>

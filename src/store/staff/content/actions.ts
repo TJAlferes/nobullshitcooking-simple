@@ -42,9 +42,9 @@ export const staffEditContentFailed = (message: string) => ({
   message
 });
 
-export const staffDeleteContent = (contentId: number) => ({
+export const staffDeleteContent = (id: number) => ({
   type: STAFF_DELETE_CONTENT,
-  contentId
+  id
 });
 
 export const staffDeleteContentSucceeded = (message: string) => ({

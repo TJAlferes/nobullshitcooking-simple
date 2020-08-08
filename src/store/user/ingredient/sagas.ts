@@ -26,35 +26,35 @@ export function* userCreateNewPrivateIngredientSaga(
 ) {
   let {
     ingredientTypeId,
-    ingredientName,
-    ingredientDescription,
-    ingredientImage,
-    ingredientFullImage,
-    ingredientTinyImage
+    name,
+    description,
+    image,
+    fullImage,
+    tinyImage
   } = action.ingredientInfo;
   try {
-    if (ingredientFullImage && ingredientTinyImage) {
+    if (fullImage && tinyImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/ingredient`,
-        {fileType: ingredientFullImage.type},
+        {fileType: fullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestFullSize,
-        ingredientFullImage,
-        {headers: {'Content-Type': ingredientFullImage.type}}
+        fullImage,
+        {headers: {'Content-Type': fullImage.type}}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestTinySize,
-        ingredientTinyImage,
-        {headers: {'Content-Type': ingredientTinyImage.type}}
+        tinyImage,
+        {headers: {'Content-Type': tinyImage.type}}
       );
-      ingredientImage = res1.data.urlFullSize;
+      image = res1.data.urlFullSize;
     } else {
-      ingredientImage = 'nobsc-ingredient-default';
+      image = 'nobsc-ingredient-default';
     }
 
     const res = yield call(
@@ -63,9 +63,9 @@ export function* userCreateNewPrivateIngredientSaga(
       {
         ingredientInfo: {
           ingredientTypeId,
-          ingredientName,
-          ingredientDescription,
-          ingredientImage
+          name,
+          description,
+          image
         }
       },
       {withCredentials: true}
@@ -93,38 +93,38 @@ export function* userEditPrivateIngredientSaga(
   action: IUserEditPrivateIngredient
 ) {
   let {
-    ingredientId,
+    id,
     ingredientTypeId,
-    ingredientName,
-    ingredientDescription,
-    ingredientPrevImage,
-    ingredientImage,
-    ingredientFullImage,
-    ingredientTinyImage
+    name,
+    description,
+    prevImage,
+    image,
+    fullImage,
+    tinyImage
   } = action.ingredientInfo;
   try {
-    if (ingredientFullImage && ingredientTinyImage) {
+    if (fullImage && tinyImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/ingredient`,
-        {fileType: ingredientFullImage.type},
+        {fileType: fullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestFullSize,
-        ingredientFullImage,
-        {headers: {'Content-Type': ingredientFullImage.type}}
+        fullImage,
+        {headers: {'Content-Type': fullImage.type}}
       );
       yield call(
         [axios, axios.put],
         res1.data.signedRequestTinySize,
-        ingredientTinyImage,
-        {headers: {'Content-Type': ingredientTinyImage.type}}
+        tinyImage,
+        {headers: {'Content-Type': tinyImage.type}}
       );
-      ingredientImage = res1.data.urlFullSize;
+      image = res1.data.urlFullSize;
     } else {
-      ingredientImage = ingredientPrevImage;
+      image = prevImage;
     }
 
     const res = yield call(
@@ -132,12 +132,12 @@ export function* userEditPrivateIngredientSaga(
       `${endpoint}/user/ingredient/update`,
       {
         ingredientInfo: {
-          ingredientId,
+          id,
           ingredientTypeId,
-          ingredientName,
-          ingredientDescription,
-          ingredientPrevImage,
-          ingredientImage
+          name,
+          description,
+          prevImage,
+          image
         }
       },
       {withCredentials: true}
@@ -168,7 +168,7 @@ export function* userDeletePrivateIngredientSaga(
     const res = yield call(
       [axios, axios.delete],
       `${endpoint}/user/ingredient/delete`,
-      {withCredentials: true, data: {ingredientId: action.ingredientId}}
+      {withCredentials: true, data: {id: action.id}}
     );
     const { message } = res.data;
     if (message == 'Ingredient deleted.') {

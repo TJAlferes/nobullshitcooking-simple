@@ -26,38 +26,35 @@ export function* userCreateNewPrivateEquipmentSaga(
 ) {
   let {
     equipmentTypeId,
-    equipmentName,
-    equipmentDescription,
-    equipmentImage,
-    equipmentFullImage,
-    equipmentTinyImage
+    name,
+    description,
+    image,
+    fullImage,
+    tinyImage
   } = action.equipmentInfo;
   try {
-    if (
-      equipmentFullImage &&
-      equipmentTinyImage
-    ) {
+    if (fullImage && tinyImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/equipment`,
-        {fileType: equipmentFullImage.type},
+        {fileType: fullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestFullSize,
-        equipmentFullImage,
-        {headers: {'Content-Type': equipmentFullImage.type}}
+        res1.data.fullSignature,
+        fullImage,
+        {headers: {'Content-Type': fullImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestTinySize,
-        equipmentTinyImage,
-        {headers: {'Content-Type': equipmentTinyImage.type}}
+        res1.data.tinySignature,
+        tinyImage,
+        {headers: {'Content-Type': tinyImage.type}}
       );
-      equipmentImage = res1.data.urlFullSize;
+      image = res1.data.fullName;
     } else {
-      equipmentImage = 'nobsc-equipment-default';
+      image = 'nobsc-equipment-default';
     }
 
     const res = yield call(
@@ -66,9 +63,9 @@ export function* userCreateNewPrivateEquipmentSaga(
       {
         equipmentInfo: {
           equipmentTypeId,
-          equipmentName,
-          equipmentDescription,
-          equipmentImage
+          name,
+          description,
+          image
         }
       },
       {withCredentials: true}
@@ -96,41 +93,38 @@ export function* userEditPrivateEquipmentSaga(
   action: IUserEditPrivateEquipment
 ) {
   let {
-    equipmentId,
+    id,
     equipmentTypeId,
-    equipmentName,
-    equipmentDescription,
-    equipmentPrevImage,
-    equipmentImage,
-    equipmentFullImage,
-    equipmentTinyImage
+    name,
+    description,
+    prevImage,
+    image,
+    fullImage,
+    tinyImage
   } = action.equipmentInfo;
   try {
-    if (
-      equipmentFullImage &&
-      equipmentTinyImage
-    ) {
+    if (fullImage && tinyImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/user/get-signed-url/equipment`,
-        {fileType: equipmentFullImage.type},
+        {fileType: fullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestFullSize,
-        equipmentFullImage,
-        {headers: {'Content-Type': equipmentFullImage.type}}
+        res1.data.fullSignature,
+        fullImage,
+        {headers: {'Content-Type': fullImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestTinySize,
-        equipmentTinyImage,
-        {headers: {'Content-Type': equipmentTinyImage.type}}
+        res1.data.tinySignature,
+        tinyImage,
+        {headers: {'Content-Type': tinyImage.type}}
       );
-      equipmentImage = res1.data.urlFullSize;
+      image = res1.data.fullName;
     } else {
-      equipmentImage = equipmentPrevImage;
+      image = prevImage;
     }
 
     const res = yield call(
@@ -138,12 +132,12 @@ export function* userEditPrivateEquipmentSaga(
       `${endpoint}/user/equipment/update`,
       {
         equipmentInfo: {
-          equipmentId,
+          id,
           equipmentTypeId,
-          equipmentName,
-          equipmentDescription,
-          equipmentPrevImage,
-          equipmentImage
+          name,
+          description,
+          prevImage,
+          image
         }
       },
       {withCredentials: true}
@@ -174,7 +168,7 @@ export function* userDeletePrivateEquipmentSaga(
     const res = yield call(
       [axios, axios.delete],
       `${endpoint}/user/equipment/delete`,
-      {withCredentials: true, data: {equipmentId: action.equipmentId}}
+      {withCredentials: true, data: {id: action.id}}
     );
     const { message } = res.data;
     if (message == 'Equipment deleted.') {

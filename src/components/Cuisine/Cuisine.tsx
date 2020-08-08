@@ -33,7 +33,7 @@ export function Cuisine({
       return;
     }
 
-    const isCuisine = dataCuisines.find(c => c.cuisine_id === Number(id));
+    const isCuisine = dataCuisines.find(c => c.id === Number(id));
 
     if (!isCuisine) {
       history.push('/page/guide/food/cuisines');
@@ -97,35 +97,35 @@ export function Cuisine({
 }
 
 export interface ICuisineDetail {
-  cuisine_id: number;
-  cuisine_name: string;
-  cuisine_nation: string;
-  cuisine_wiki: string;
-  cuisine_intro: string;
-  cuisine_equipment: ICuisineEquipment[];
-  cuisine_ingredients: ICuisineIngredient[];
-  cuisine_recipes: ICuisineRecipe[];
-  cuisine_suppliers: ICuisineSupplier[];
+  id: number;
+  name: string;
+  nation: string;
+  wiki: string;
+  intro: string;
+  equipment: ICuisineEquipment[];
+  ingredients: ICuisineIngredient[];
+  recipes: ICuisineRecipe[];
+  suppliers: ICuisineSupplier[];
 }
 
 interface ICuisineEquipment {
-  equipment_id: number;
-  equipment_name: string;
+  id: number;
+  name: string;
 }
 
 interface ICuisineIngredient {
-  ingredient_id: number;
-  ingredient_name: string;
+  id: number;
+  name: string;
 }
 
 interface ICuisineRecipe {
-  recipe_id: number;
+  id: number;
   title: string;
 }
 
 interface ICuisineSupplier {
-  supplier_id: number;
-  supplier_name: string;
+  id: number;
+  name: string;
 }
 
 interface RootState {

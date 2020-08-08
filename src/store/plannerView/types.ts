@@ -50,7 +50,7 @@ export interface IPlannerViewData {
 // url
 export interface IPlannerViewRecipe {
   key: string;
-  recipe_id: number;
+  id: number;
   owner_id: number;
   title: string;
   recipe_image: string;

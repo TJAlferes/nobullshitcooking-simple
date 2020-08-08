@@ -10,35 +10,35 @@ const unit = 1;
 const type = 11;
 const ingredient = "Spinach";
 const dataMeasurements = [
-  {measurement_id: 1, measurement_name: "teaspoon"},
-  {measurement_id: 2, measurement_name: "Tablespoon"}
+  {id: 1, name: "teaspoon"},
+  {id: 2, name: "Tablespoon"}
 ];
 const dataIngredientTypes = [
-  {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
-  {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
+  {id: 11, name: "Vegetable"},
+  {id: 12, name: "Fruit"}
 ];
 const dataIngredients = [
   {
-    ingredient_id: 1,
-    ingredient_brand: null,
-    ingredient_variety: "Granny Smith",
-    ingredient_name: "Apple",
+    id: 1,
+    brand: null,
+    variety: "Granny Smith",
+    name: "Apple",
     ingredient_type_id: 12,
     owner_id: 1,
     ingredient_type_name: "Fruit",
-    ingredient_description: "Energizing",
-    ingredient_image: "nobsc-apple"
+    description: "Energizing",
+    image: "nobsc-apple"
   },
   {
-    ingredient_id: 2,
-    ingredient_brand: null,
-    ingredient_variety: "Baby",
-    ingredient_name: "Spinach",
+    id: 2,
+    brand: null,
+    variety: "Baby",
+    name: "Spinach",
     ingredient_type_id: 11,
     owner_id: 1,
     ingredient_type_name: "Vegetable",
-    ingredient_description: "Strengthening",
-    ingredient_image: "nobsc-spinach"
+    description: "Strengthening",
+    image: "nobsc-spinach"
   }
 ];
 const dataMyPrivateIngredients: IIngredient[] = [];

@@ -160,9 +160,7 @@ export function* messengerSendWhisperSaga(action: IMessengerSendWhisper) {
 
 export function* messengerUpdateOnlineSaga() {
   const { messenger } = store.getState();
-  if (messenger.status === "Connected") {
-    socket.emit('GetOnline');
-  }
+  if (messenger.status === "Connected") socket.emit('GetOnline');
 }
 
 export function messengerRejoinRoomSaga() {

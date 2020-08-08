@@ -46,9 +46,9 @@ export const staffEditIngredientFailed = (message: string) => ({
   message
 });
 
-export const staffDeleteIngredient = (ingredientId: number) => ({
+export const staffDeleteIngredient = (id: number) => ({
   type: STAFF_DELETE_INGREDIENT,
-  ingredientId
+  id
 });
 
 export const staffDeleteIngredientSucceeded = (message: string) => ({

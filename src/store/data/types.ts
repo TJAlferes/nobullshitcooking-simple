@@ -105,7 +105,7 @@ export interface IInitialUserData {
 }
 
 export interface IWorkContent {
-  content_id: number;
+  id: number;
   title: string;
   author: string;
   image: string;
@@ -113,31 +113,31 @@ export interface IWorkContent {
 }
 
 export interface IContentType {
-  content_type_id: number;
+  id: number;
   parent_id: number;
-  content_type_name: string;
-  content_type_path: string;
+  name: string;
+  path: string;
 }
 
 export interface ICuisine {
-  cuisine_id: number
-  cuisine_name: string
-  cuisine_nation: string
+  id: number
+  name: string
+  nation: string
 }
 
 export interface IEquipment {
-  equipment_id: number;
+  id: number;
   equipment_type_id: number;
   owner_id: number;
   equipment_type_name: string;
-  equipment_name: string;
-  equipment_description: string;
-  equipment_image: string;
+  name: string;
+  description: string;
+  image: string;
 }
 
 export interface IEquipmentType {
-  equipment_type_id: number;
-  equipment_type_name: string;
+  id: number;
+  name: string;
 }
 
 export interface IFriendship {
@@ -148,40 +148,40 @@ export interface IFriendship {
 }
 
 export interface IIngredient {
-  ingredient_id: number;
+  id: number;
   ingredient_type_id: number;
   owner_id: number;
   ingredient_type_name: string;
-  ingredient_brand: string | null;
-  ingredient_variety: string | null;
-  ingredient_name: string;
-  ingredient_description: string;
-  ingredient_image: string;
+  brand: string | null;
+  variety: string | null;
+  name: string;
+  description: string;
+  image: string;
 }
 
 export interface IIngredientType {
-  ingredient_type_id: number;
-  ingredient_type_name: string;
+  id: number;
+  name: string;
 }
 
 export interface IMeasurement {
-  measurement_id: number;
-  measurement_name: string;
+  id: number;
+  name: string;
 }
 
 export interface IMethod {
-  method_id: number;
-  method_name: string;
+  id: number;
+  name: string;
 }
 
 export interface IPlan {
-  plan_id: number;
-  plan_name: string;
-  plan_data: IPlannerData;
+  id: number;
+  name: string;
+  data: IPlannerData;
 }
 
 export interface IWorkRecipe {
-  recipe_id: number;
+  id: number;
   owner_id: number;
   recipe_type_id: number;
   cuisine_id: number;
@@ -190,8 +190,8 @@ export interface IWorkRecipe {
 }
 
 export interface IRecipeType {
-  recipe_type_id: number;
-  recipe_type_name: string;
+  id: number;
+  name: string;
 }
 
 /*

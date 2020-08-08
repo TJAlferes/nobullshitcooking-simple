@@ -29,7 +29,7 @@ const endpoint = NOBSCBackendAPIEndpointOne;
 describe('userCreateNewPlanSaga', () => {
   const action = {
     type: USER_CREATE_NEW_PLAN,
-    planInfo: {planName: "Plan B", planData: ""}
+    planInfo: {name: "Plan B", data: ""}
   };
 
   it ('should dispatch succeeded', () => {
@@ -87,7 +87,7 @@ describe('userCreateNewPlanSaga', () => {
 describe('userEditPlanSaga', () => {
   const action = {
     type: USER_EDIT_PLAN,
-    planInfo: {planId: 2, planName: "Plan B", planData: ""}
+    planInfo: {id: 2, name: "Plan B", data: ""}
   };
 
   it ('should dispatch succeeded', () => {
@@ -143,7 +143,7 @@ describe('userEditPlanSaga', () => {
 
 
 describe('userDeletePlanSaga', () => {
-  const action = {type: USER_DELETE_PLAN, planId: 3};
+  const action = {type: USER_DELETE_PLAN, id: 3};
 
   it ('should dispatch succeeded', () => {
     const iterator = userDeletePlanSaga(action);
@@ -153,7 +153,7 @@ describe('userDeletePlanSaga', () => {
     .toEqual(call(
       [axios, axios.delete],
       `${endpoint}/user/plan/delete`,
-      {withCredentials: true, data: {planId: action.planId}}
+      {withCredentials: true, data: {id: action.id}}
     ));
 
     expect(iterator.next(res).value)

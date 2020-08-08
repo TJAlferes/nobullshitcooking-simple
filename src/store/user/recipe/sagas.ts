@@ -66,23 +66,23 @@ export function* userCreateNewRecipeSaga(
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestFullSize,
+        res1.data.fullSignature,
         recipeFullImage,
         {headers: {'Content-Type': recipeFullImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestThumbSize,
+        res1.data.thumbSignature,
         recipeThumbImage,
         {headers: {'Content-Type': recipeThumbImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestTinySize,
+        res1.data.tinySignature,
         recipeTinyImage,
         {headers: {'Content-Type': recipeTinyImage.type}}
       );
-      recipeImage = res1.data.urlFullSize;
+      recipeImage = res1.data.fullName;
     } else {
       recipeImage = "nobsc-recipe-default";
     }
@@ -97,11 +97,11 @@ export function* userCreateNewRecipeSaga(
       );
       yield call(
         [axios, axios.put],
-        res2.data.signedRequestFullSize,
+        res2.data.fullSignature,
         equipmentFullImage,
         {headers: {'Content-Type': equipmentFullImage.type}}
       );
-      equipmentImage = res2.data.urlFullSize;
+      equipmentImage = res2.data.fullName;
     } else {
       equipmentImage = "nobsc-recipe-equipment-default";
     }
@@ -116,11 +116,11 @@ export function* userCreateNewRecipeSaga(
       );
       yield call(
         [axios, axios.put],
-        res3.data.signedRequestFullSize,
+        res3.data.fullSignature,
         ingredientsFullImage,
         {headers: {'Content-Type': ingredientsFullImage.type}}
       );
-      ingredientsImage = res3.data.urlFullSize;
+      ingredientsImage = res3.data.fullName;
     } else {
       ingredientsImage = "nobsc-recipe-ingredients-default";
     }
@@ -135,11 +135,11 @@ export function* userCreateNewRecipeSaga(
       );
       yield call(
         [axios, axios.put],
-        res4.data.signedRequestFullSize,
+        res4.data.fullSignature,
         cookingFullImage,
         {headers: {'Content-Type': cookingFullImage.type}}
       );
-      cookingImage = res4.data.urlFullSize;
+      cookingImage = res4.data.fullName;
     } else {
       cookingImage = "nobsc-recipe-cooking-default";
     }
@@ -205,7 +205,7 @@ export function* userDeletePrivateRecipeSaga(action: IUserDeletePrivateRecipe) {
     const res = yield call(
       [axios, axios.delete],
       `${endpoint}/user/recipe/delete/private`,
-      {withCredentials: true, data: {recipeId: action.recipeId}}
+      {withCredentials: true, data: {id: action.id}}
     );
     const { message } = res.data;
     if (message == 'Recipe deleted.') {
@@ -229,7 +229,7 @@ export function* userDisownPublicRecipeSaga(action: IUserDisownPublicRecipe) {
     const res = yield call(
       [axios, axios.delete],
       `${endpoint}/user/recipe/disown/public`,
-      {withCredentials: true, data: {recipeId: action.recipeId}}
+      {withCredentials: true, data: {id: action.id}}
     );
     const { message } = res.data;
     if (message == 'Recipe disowned.') {
@@ -252,7 +252,7 @@ export function* userEditRecipeSaga(
   action: (IUserEditPrivateRecipe | IUserEditPublicRecipe)
 ) {
   let {
-    recipeId,
+    id,
     ownership,
     recipeTypeId,
     cuisineId,
@@ -290,23 +290,23 @@ export function* userEditRecipeSaga(
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestFullSize,
+        res1.data.fullSignature,
         recipeFullImage,
         {headers: {'Content-Type': recipeFullImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestThumbSize,
+        res1.data.thumbSignature,
         recipeThumbImage,
         {headers: {'Content-Type': recipeThumbImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestTinySize,
+        res1.data.tinySignature,
         recipeTinyImage,
         {headers: {'Content-Type': recipeTinyImage.type}}
       );
-      recipeImage = res1.data.urlFullSize;
+      recipeImage = res1.data.fullName;
     } else {
       recipeImage = recipePrevImage;
     }
@@ -321,11 +321,11 @@ export function* userEditRecipeSaga(
       );
       yield call(
         [axios, axios.put],
-        res2.data.signedRequestFullSize,
+        res2.data.fullSignature,
         equipmentFullImage,
         {headers: {'Content-Type': equipmentFullImage.type}}
       );
-      equipmentImage = res2.data.urlFullSize;
+      equipmentImage = res2.data.fullName;
     } else {
       equipmentImage = equipmentPrevImage;
     }
@@ -340,11 +340,11 @@ export function* userEditRecipeSaga(
       );
       yield call(
         [axios, axios.put],
-        res3.data.signedRequestFullSize,
+        res3.data.fullSignature,
         ingredientsFullImage,
         {headers: {'Content-Type': ingredientsFullImage.type}}
       );
-      ingredientsImage = res3.data.urlFullSize;
+      ingredientsImage = res3.data.fullName;
     } else {
       ingredientsImage = ingredientsPrevImage;
     }
@@ -359,11 +359,11 @@ export function* userEditRecipeSaga(
       );
       yield call(
         [axios, axios.put],
-        res4.data.signedRequestFullSize,
+        res4.data.fullSignature,
         cookingFullImage,
         {headers: {'Content-Type': cookingFullImage.type}}
       );
-      cookingImage = res4.data.urlFullSize;
+      cookingImage = res4.data.fullName;
     } else {
       cookingImage = cookingPrevImage;
     }
@@ -373,7 +373,7 @@ export function* userEditRecipeSaga(
       `${endpoint}/user/recipe/update`,
       {
         recipeInfo: {
-          recipeId,
+          id,
           ownership,
           recipeTypeId,
           cuisineId,

@@ -88,7 +88,7 @@ export function ProfileView({
               userFavoriteRecipes.length
               ? (
                 userFavoriteRecipes.map(r => (
-                  <div className="profile-list-item" key={r.recipe_id}>
+                  <div className="profile-list-item" key={r.id}>
                     <span className="profile-list-item-tiny">
                       {
                         r.recipe_image !== "nobsc-recipe-default"
@@ -97,7 +97,7 @@ export function ProfileView({
                       }
                     </span>
                     <span className="profile-list-item-name">
-                      <Link to={`/recipes/${r.recipe_id}`}>{r.title}</Link>
+                      <Link to={`/recipes/${r.id}`}>{r.title}</Link>
                     </span>
                   </div>
                 ))
@@ -114,7 +114,7 @@ export function ProfileView({
               userPublicRecipes.length
               ? (
                   userPublicRecipes.map(r => (
-                  <div className="profile-list-item" key={r.recipe_id}>
+                  <div className="profile-list-item" key={r.id}>
                     <span className="profile-list-item-tiny">
                       {
                         r.recipe_image !== "nobsc-recipe-default"
@@ -123,7 +123,7 @@ export function ProfileView({
                       }
                     </span>
                     <span className="profile-list-item-name">
-                      <Link to={`/recipes/${r.recipe_id}`}>{r.title}</Link>
+                      <Link to={`/recipes/${r.id}`}>{r.title}</Link>
                     </span>
                   </div>
                 ))

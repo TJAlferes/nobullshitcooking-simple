@@ -58,7 +58,7 @@ export function Recipe({
     const getPrivateRecipe = async (id: number) => {
       const res = await axios.post(
         `${endpoint}/user/recipe/private/one`,
-        {recipeId: id},
+        {id},
         {withCredentials: true}
       );
       if (res.data) setRecipe(res.data);
@@ -116,49 +116,49 @@ export function Recipe({
 };
 
 export interface IRecipe {
-  recipe_id: number
-  recipe_type_id: number
-  cuisine_id: number
-  author_id: number
-  owner_id: number
-  title: string
-  recipe_type_name: string
-  cuisine_name: string
-  author: string
-  author_avatar: string
-  description: string
-  active_time: string
-  total_time: string
-  directions: string
-  recipe_image: string
-  equipment_image: string
-  ingredients_image: string
-  cooking_image: string
-  required_methods: IRequiredMethod[]
-  required_equipment: IRequiredEquipment[]
-  required_ingredients: IRequiredIngredient[]
-  required_subrecipes: IRequiredSubrecipe[]
+  id: number;
+  recipe_type_id: number;
+  cuisine_id: number;
+  author_id: number;
+  owner_id: number;
+  title: string;
+  recipe_type_name: string;
+  cuisine_name: string;
+  author: string;
+  author_avatar: string;
+  description: string;
+  active_time: string;
+  total_time: string;
+  directions: string;
+  recipe_image: string;
+  equipment_image: string;
+  ingredients_image: string;
+  cooking_image: string;
+  required_methods: IRequiredMethod[];
+  required_equipment: IRequiredEquipment[];
+  required_ingredients: IRequiredIngredient[];
+  required_subrecipes: IRequiredSubrecipe[];
 }
 
 interface IRequiredMethod {
-  method_name: string
+  method_name: string;
 }
 
 interface IRequiredEquipment {
-  amount: number
-  equipment_name: string
+  amount: number;
+  equipment_name: string;
 }
 
 interface IRequiredIngredient {
-  amount: number
-  measurement_name: string
-  ingredient_name: string
+  amount: number;
+  measurement_name: string;
+  ingredient_name: string;
 }
 
 interface IRequiredSubrecipe {
-  amount: number
-  measurement_name: string
-  subrecipe_title: string
+  amount: number;
+  measurement_name: string;
+  subrecipe_title: string;
 }
 
 interface RootState {

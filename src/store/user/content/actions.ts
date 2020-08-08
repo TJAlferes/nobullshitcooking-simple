@@ -42,9 +42,9 @@ export const userEditContentFailed = (message: string) => ({
   message
 });
 
-export const userDeleteContent = (contentId: number) => ({
+export const userDeleteContent = (id: number) => ({
   type: USER_DELETE_CONTENT,
-  contentId
+  id
 });
 
 export const userDeleteContentSucceeded = (message: string) => ({

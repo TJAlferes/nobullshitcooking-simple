@@ -108,55 +108,50 @@ describe('dataGetInitialDataSaga', () => {
       data: {
         officialContent: [],
         contentTypes: [
-          {
-            content_type_id: 1,
-            parent_id: 0,
-            content_type_name: "Page",
-            content_type_path: "/page"
-          }
+          {id: 1, parent_id: 0, name: "Page", path: "/page"}
         ],
         cuisines: [
-          {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"}
+          {"id": 1, "name": "Russian", "nation": "Russia"}
         ],
         measurements: [
-          {"measurement_id": 1, "measurement_name": "teaspoon"}
+          {"id": 1, "name": "teaspoon"}
         ],
         methods: [
-          {"method_id": 1, "method_name": "No-Cook"}
+          {"id": 1, "name": "No-Cook"}
         ],
         officialEquipment: [
           {
-            equipment_id: 1,
+            id: 1,
             equipment_type_id: 4,
             owner_id: 1,
-            equipment_name: "Chopstick",
+            name: "Chopstick",
             equipment_type_name: "Dining",
-            equipment_description: "It works.",
-            equipment_image: "nobsc-chopstick"
+            description: "It works.",
+            image: "nobsc-chopstick"
           }
         ],
         equipmentTypes: [
-          {"equipment_type_id": 1, "equipment_type_name": "Cleaning"}
+          {"id": 1, "name": "Cleaning"}
         ],
         officialIngredients: [
           {
-            ingredient_id: 1,
+            id: 1,
             ingredient_type_id: 1,
             owner_id: 1,
             ingredient_type_name: "Fish",
-            ingredient_brand: null,
-            ingredient_variety: "Chilean",
-            ingredient_name: "Salmon",
-            ingredient_description: "Tasty.",
-            ingredient_image: "nobsc-salmon"
+            brand: null,
+            variety: "Chilean",
+            name: "Salmon",
+            description: "Tasty.",
+            image: "nobsc-salmon"
           }
         ],
         ingredientTypes: [
-          {"ingredient_type_id": 1, "ingredient_type_name": "Fish"}
+          {"id": 1, "name": "Fish"}
         ],
         officialRecipes: [
           {
-            recipe_id: 1,
+            id: 1,
             owner_id: 1,
             recipe_type_id: 1,
             cuisine_id: 1,
@@ -165,7 +160,7 @@ describe('dataGetInitialDataSaga', () => {
           }
         ],
         recipeTypes: [
-          {"recipe_type_id": 1, "recipe_type_name": "Drink"}
+          {"id": 1, "name": "Drink"}
         ]
       }
     };
@@ -200,18 +195,8 @@ describe('dataGetContentTypesSaga', () => {
     const iterator = dataGetContentTypesSaga();
     const res = {
       data: [
-        {
-          content_type_id: 1,
-          parent_id: 0,
-          content_type_name: "Page",
-          content_type_path: "/page"
-        },
-        {
-          content_type_id: 2,
-          parent_id: 0,
-          content_type_name: "Post",
-          content_type_path: "/post"
-        }
+        {id: 1, parent_id: 0, name: "Page", path: "/page"},
+        {id: 2, parent_id: 0, name: "Post", path: "/post"}
       ]
     };
 
@@ -242,7 +227,7 @@ describe('dataGetCuisinesSaga', () => {
   it('should dispatch cuisines and succeeded if data found', () => {
     const iterator = dataGetCuisinesSaga();
     const res = {
-      data: [{cuisine_id: 1, cuisine_name: "Russian", cuisine_nation: "Russia"}]
+      data: [{id: 1, name: "Russian", nation: "Russia"}]
     };
 
     expect(iterator.next().value)
@@ -272,13 +257,13 @@ describe('dataGetEquipmentsSaga', () => {
     const res = {
       data: [
         {
-          equipment_id: 1,
+          id: 1,
           equipment_type_id: 4,
           owner_id: 1,
-          equipment_name: "Chopstick",
+          name: "Chopstick",
           equipment_type_name: "Dining",
-          equipment_description: "It works.",
-          equipment_image: "nobsc-chopstick"
+          description: "It works.",
+          image: "nobsc-chopstick"
         }
       ]
     };
@@ -309,7 +294,7 @@ describe('dataGetEquipmentTypesSaga', () => {
     const iterator = dataGetEquipmentTypesSaga();
     const res = {
       data: [
-        {"equipment_type_id": 1, "equipment_type_name": "Cleaning"}
+        {"id": 1, "name": "Cleaning"}
       ]
     };
 
@@ -344,15 +329,15 @@ describe('dataGetIngredientsSaga', () => {
     const res = {
       data: [
         {
-          ingredient_id: 1,
+          id: 1,
           ingredient_type_id: 1,
           owner_id: 1,
           ingredient_type_name: "Fish",
-          ingredient_brand: null,
-          ingredient_variety: "Chilean",
-          ingredient_name: "Salmon",
-          ingredient_description: "Tasty.",
-          ingredient_image: "nobsc-salmon"
+          brand: null,
+          variety: "Chilean",
+          name: "Salmon",
+          description: "Tasty.",
+          image: "nobsc-salmon"
         }
       ]
     };
@@ -383,7 +368,7 @@ describe('dataGetIngredientTypesSaga', () => {
     const iterator = dataGetIngredientTypesSaga();
     const res = {
       data: [
-        {"ingredient_type_id": 1, "ingredient_type_name": "Fish"}
+        {"id": 1, "name": "Fish"}
       ]
     };
 
@@ -417,7 +402,7 @@ describe('dataGetMeasurementsSaga', () => {
     const iterator = dataGetMeasurementsSaga();
     const res = {
       data: [
-        {measurement_id: 1, measurement_name: "teaspoon"}
+        {id: 1, name: "teaspoon"}
       ]
     };
 
@@ -449,7 +434,7 @@ describe('dataGetMethodsSaga', () => {
     const iterator = dataGetMethodsSaga();
     const res = {
       data: [
-        {"method_id": 1, "method_name": "No-Cook"}
+        {"id": 1, "name": "No-Cook"}
       ]
     };
 
@@ -484,7 +469,7 @@ describe('dataGetRecipesSaga', () => {
     const res = {
       data: [
         {
-          recipe_id: 1,
+          id: 1,
           owner_id: 1,
           recipe_type_id: 1,
           cuisine_id: 1,
@@ -520,7 +505,7 @@ describe('dataGetRecipeTypesSaga', () => {
     const iterator = dataGetRecipeTypesSaga();
     const res = {
       data: [
-        {"recipe_type_id": 1, "recipe_type_name": "Drink"}
+        {"id": 1, "name": "Drink"}
       ]
     };
 
@@ -558,31 +543,31 @@ describe('dataGetInitialUserDataSaga', () => {
         myPlans: [],
         myPrivateEquipment: [
           {
-            equipment_id: 1,
+            id: 1,
             equipment_type_id: 4,
             owner_id: 1,
-            equipment_name: "Chopstick",
+            name: "Chopstick",
             equipment_type_name: "Dining",
-            equipment_description: "It works.",
-            equipment_image: "nobsc-chopstick"
+            description: "It works.",
+            image: "nobsc-chopstick"
           }
         ],
         myPrivateIngredients: [
           {
-            ingredient_id: 1,
+            id: 1,
             ingredient_type_id: 1,
             owner_id: 1,
             ingredient_type_name: "Fish",
-            ingredient_brand: null,
-            ingredient_variety: "Chilean",
-            ingredient_name: "Salmon",
-            ingredient_description: "Tasty.",
-            ingredient_image: "nobsc-salmon"
+            brand: null,
+            variety: "Chilean",
+            name: "Salmon",
+            description: "Tasty.",
+            image: "nobsc-salmon"
           }
         ],
         myPrivateRecipes: [
           {
-            recipe_id: 8,
+            id: 8,
             owner_id: 8,
             recipe_type_id: 4,
             cuisine_id: 4,
@@ -593,7 +578,7 @@ describe('dataGetInitialUserDataSaga', () => {
         myPublicRecipes: [],
         mySavedRecipes: [
           {
-            recipe_id: 1,
+            id: 1,
             owner_id: 1,
             recipe_type_id: 1,
             cuisine_id: 1,
@@ -644,7 +629,7 @@ describe('dataGetMyFavoriteRecipesSaga', () => {
     const res = {
       data: [
         {
-          recipe_id: 1,
+          id: 1,
           owner_id: 1,
           recipe_type_id: 1,
           cuisine_id: 1,
@@ -742,9 +727,9 @@ describe('dataGetMyPlansSaga', () => {
     const res = {
       data: [
         {
-          plan_id: 98234,
-          plan_name: "Plan A",
-          plan_data: {
+          id: 98234,
+          name: "Plan A",
+          data: {
             1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
             8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
            15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
@@ -789,13 +774,13 @@ describe('dataGetMyPrivateEquipmentsSaga', () => {
     const res = {
       data: [
         {
-          equipment_id: 1,
+          id: 1,
           equipment_type_id: 3,
           owner_id: 3908,
-          equipment_name: "My Teapot",
+          name: "My Teapot",
           equipment_type_name: "Dining",
-          equipment_description: "From grandmother.",
-          equipment_image: "my-teapot"
+          description: "From grandmother.",
+          image: "my-teapot"
         }
       ]
     };
@@ -841,15 +826,15 @@ describe('dataGetMyPrivateIngredientsSaga', () => {
     const res = {
       data: [
         {
-          ingredient_id: 8927,
+          id: 8927,
           ingredient_type_id: 18,
           owner_id: 1,
           ingredient_type_name: "Product",
-          ingredient_brand: "Uncle Bob",
-          ingredient_variety: "DOUBLE HOT",
-          ingredient_name: "HOT Sauce",
-          ingredient_description: "From Uncle Bob.",
-          ingredient_image: "hot-sauce"
+          brand: "Uncle Bob",
+          variety: "DOUBLE HOT",
+          name: "HOT Sauce",
+          description: "From Uncle Bob.",
+          image: "hot-sauce"
         }
       ]
     };
@@ -895,7 +880,7 @@ describe('dataGetMyPrivateRecipesSaga', () => {
     const res = {
       data: [
         {
-          recipe_id: 841,
+          id: 841,
           owner_id: 3908,
           recipe_type_id: 1,
           cuisine_id: 1,
@@ -946,7 +931,7 @@ describe('dataGetMyPublicRecipesSaga', () => {
     const res = {
       data: [
         {
-          recipe_id: 841,
+          id: 841,
           owner_id: 3908,
           recipe_type_id: 1,
           cuisine_id: 1,
@@ -997,7 +982,7 @@ describe('dataGetMySavedRecipesSaga', () => {
     const res = {
       data: [
         {
-          recipe_id: 1,
+          id: 1,
           owner_id: 1,
           recipe_type_id: 1,
           cuisine_id: 1,

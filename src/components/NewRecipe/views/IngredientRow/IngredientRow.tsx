@@ -51,9 +51,7 @@ export function IngredientRow({
       >
         <option value=""></option>
         {dataMeasurements.map((m, index) => (
-          <option key={index} value={m.measurement_id}>
-            {m.measurement_name}
-          </option>
+          <option key={index} value={m.id}>{m.name}</option>
         ))}
       </select>
 
@@ -67,9 +65,7 @@ export function IngredientRow({
       >
         <option value=""></option>
         {dataIngredientTypes.map((i, index) => (
-          <option key={index} value={i.ingredient_type_id}>
-            {i.ingredient_type_name}
-          </option>
+          <option key={index} value={i.id}>{i.name}</option>
         ))}
       </select>
 
@@ -85,11 +81,7 @@ export function IngredientRow({
         {
           availableIngredients
           .filter(i => i.ingredient_type_id == type)
-          .map((i, index) => (
-            <option key={index} value={i.ingredient_id}>
-              {i.ingredient_name}
-            </option>
-          ))
+          .map((i, index) => <option key={index} value={i.id}>{i.name}</option>)
         }
       </select>
 

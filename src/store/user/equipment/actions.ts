@@ -46,9 +46,9 @@ export const userEditPrivateEquipmentFailed = (message: string) => ({
   message
 });
 
-export const userDeletePrivateEquipment = (equipmentId: number) => ({
+export const userDeletePrivateEquipment = (id: number) => ({
   type: USER_DELETE_PRIVATE_EQUIPMENT,
-  equipmentId
+  id
 });
 
 export const userDeletePrivateEquipmentSucceeded = (message: string) => ({

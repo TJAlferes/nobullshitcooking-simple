@@ -47,16 +47,16 @@ export const KWhisper = "whisper" as const;
 
 export interface IMessageBeforeClientTimestamp {
   kind: typeof KMessage;
-  chatMessageId: string;
-  chatMessageText: string;
+  id: string;
+  text: string;
   room: string;
   user: IUser;
 }
 
 export interface IMessage {
   kind: typeof KMessage;
-  chatMessageId: string;
-  chatMessageText: string;
+  id: string;
+  text: string;
   room: string;
   user: IUser;
   ts: string;
@@ -64,23 +64,23 @@ export interface IMessage {
 
 export interface IWhisperBeforeClientTimestamp {
   kind: typeof KWhisper;
-  whisperId: string;
-  whisperText: string;
+  id: string;
+  text: string;
   to: string;
   user: IUser;
 }
 
 export interface IWhisper {
   kind: typeof KWhisper;
-  whisperId: string;
-  whisperText: string;
+  id: string;
+  text: string;
   to: string;
   user: IUser;
   ts: string;
 }
 
 export interface IUser {
-  userId: number | string;
+  id: number | string;
   username: string;
   avatar: string;
 }

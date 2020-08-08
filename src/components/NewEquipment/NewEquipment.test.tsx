@@ -12,28 +12,28 @@ const userEditPrivateEquipment = jest.fn();
 const intialProps = {
   dataEquipment: [
     {
-      equipment_id: 68,
-      equipment_name: "Teapot",
+      id: 68,
+      name: "Teapot",
       equipment_type_id: 3,
       owner_id: 1,
       equipment_type_name: "Cooking",
-      equipment_description: "From grandmother.",
-      equipment_image: "nobsc-teapot"
+      description: "From grandmother.",
+      image: "nobsc-teapot"
     }
   ],
   dataEquipmentTypes: [
-    {equipment_type_id: 2, equipment_type_name: "Preparing"},
-    {equipment_type_id: 3, equipment_type_name: "Cooking"}
+    {id: 2, name: "Preparing"},
+    {id: 3, name: "Cooking"}
   ],
   dataMyPrivateEquipment: [
     {
-      equipment_id: 1,
-      equipment_name: "My Teapot",
+      id: 1,
+      name: "My Teapot",
       equipment_type_id: 3,
       owner_id: 1,
       equipment_type_name: "Cooking",
-      equipment_description: "From grandmother.",
-      equipment_image: "my-teapot"
+      description: "From grandmother.",
+      image: "my-teapot"
     }
   ],
   oneColumnATheme: "one-column-a-light",

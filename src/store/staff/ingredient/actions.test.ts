@@ -23,22 +23,22 @@ import {
 
 const creatingIngredientInfo = {
   ingredientTypeId: 3,
-  ingredientName: "HOT Sauce",
-  ingredientDescription: "From Uncle Bob.",
-  ingredientImage: "hot-sauce",
-  ingredientFullImage: null,
-  ingredientTinyImage: null
+  name: "HOT Sauce",
+  description: "From Uncle Bob.",
+  image: "hot-sauce",
+  fullImage: null,
+  tinyImage: null
 };
 
 const editingIngredientInfo = {
   ingredientTypeId: 3,
-  ingredientName: "HOT Sauce",
-  ingredientDescription: "From Uncle Bob.",
-  ingredientImage: "hot-sauce",
-  ingredientFullImage: null,
-  ingredientTinyImage: null,
-  ingredientId: 377,
-  ingredientPrevImage: "hot-sauce"
+  name: "HOT Sauce",
+  description: "From Uncle Bob.",
+  image: "hot-sauce",
+  fullImage: null,
+  tinyImage: null,
+  id: 377,
+  prevImage: "hot-sauce"
 };
 
 describe('staffCreateNewIngredient action creator', () => {
@@ -126,7 +126,7 @@ describe('staffDeleteIngredient action creator', () => {
     expect(actual).toEqual(expected);
   });
   it('returns the correct ingredientId', () => {
-    const actual = staffDeleteIngredient(7).ingredientId;
+    const actual = staffDeleteIngredient(7).id;
     const expected = 7;
     expect(actual).toEqual(expected);
   });

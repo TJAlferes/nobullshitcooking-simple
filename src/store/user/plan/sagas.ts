@@ -70,7 +70,7 @@ export function* userDeletePlanSaga(action: IUserDeletePlan) {
     const res = yield call(
       [axios, axios.delete],
       `${endpoint}/user/plan/delete`,
-      {withCredentials: true, data: {planId: action.planId}}
+      {withCredentials: true, data: {id: action.id}}
     );
     const { message } = res.data;
     if (message == 'Plan deleted.') {

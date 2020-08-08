@@ -33,7 +33,7 @@ export function RecipeView({
   return (
     <div className="recipe">
 
-      <RecipeBreadcrumbs recipeId={recipe.recipe_id} title={recipe.title} />
+      <RecipeBreadcrumbs recipeId={recipe.id} title={recipe.title} />
 
       <div className={`recipe-view two-column-b ${twoColumnBTheme}`}>
 
@@ -48,13 +48,12 @@ export function RecipeView({
             <div className="recipe-favorite-save-outer">
               {(
                 userIsAuthenticated &&
-                !dataMyPrivateRecipes.find(r => r.recipe_id == recipe.recipe_id) &&
-                !dataMyPublicRecipes.find(r => r.recipe_id == recipe.recipe_id)
+                !dataMyPrivateRecipes.find(r => r.id == recipe.id) &&
+                !dataMyPublicRecipes.find(r => r.id == recipe.id)
               ) ? (
                 <>
                   {
-                    dataMyFavoriteRecipes
-                    .find(r => r.recipe_id == recipe.recipe_id) ? (
+                    dataMyFavoriteRecipes.find(r => r.id == recipe.id) ? (
                       <span className="recipe-favorited-saved">
                         Favorited
                       </span>
@@ -79,8 +78,7 @@ export function RecipeView({
                     )
                   }
                   {
-                    dataMySavedRecipes
-                    .find(r => r.recipe_id == recipe.recipe_id)
+                    dataMySavedRecipes.find(r => r.id == recipe.id)
                     ? <span className="recipe-favorited-saved">Saved</span>
                     : (
                       !saveClicked ? (

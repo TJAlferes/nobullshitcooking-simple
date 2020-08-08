@@ -45,7 +45,7 @@ const creatingRecipeInfo = {
 };
 
 const editingRecipeInfo = {
-  recipeId: 888,
+  id: 888,
   recipePrevImage: "nobsc-recipe-default",
   equipmentPrevImage: "nobsc-recipe-equipment-default",
   ingredientsPrevImage: "nobsc-recipe-ingredients-default",
@@ -160,8 +160,8 @@ describe('staffDeleteRecipe action creator', () => {
     const expected = STAFF_DELETE_RECIPE;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct ', () => {
-    const actual = staffDeleteRecipe(7).recipeId;
+  it('returns the correct id', () => {
+    const actual = staffDeleteRecipe(7).id;
     const expected = 7;
     expect(actual).toEqual(expected);
   });

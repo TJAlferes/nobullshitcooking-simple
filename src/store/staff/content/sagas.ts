@@ -26,34 +26,34 @@ export function* staffCreateNewContentSaga(action: IStaffCreateNewContent) {
     contentTypeId,
     published,
     title,
-    contentItems,
-    contentImage,
-    contentFullImage,
-    contentThumbImage
+    items,
+    image,
+    fullImage,
+    thumbImage
   } = action.contentInfo;
   try {
-    if (contentFullImage && contentThumbImage) {
+    if (fullImage && thumbImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/staff/get-signed-url/content`,
-        {fileType: contentFullImage.type},
+        {fileType: fullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestFullSize,
-        contentFullImage,
-        {headers: {'Content-Type': contentFullImage.type}}
+        res1.data.fullSignature,
+        fullImage,
+        {headers: {'Content-Type': fullImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestThumbSize,
-        contentThumbImage,
-        {headers: {'Content-Type': contentThumbImage.type}}
+        res1.data.thumbSignature,
+        thumbImage,
+        {headers: {'Content-Type': thumbImage.type}}
       );
-      contentImage = res1.data.urlFullSize;
+      image = res1.data.fullName;
     } else {
-      contentImage = 'nobsc-content-default';
+      image = 'nobsc-content-default';
     }
 
     const res = yield call(
@@ -64,8 +64,8 @@ export function* staffCreateNewContentSaga(action: IStaffCreateNewContent) {
           contentTypeId,
           published,
           title,
-          contentItems,
-          contentImage
+          items,
+          image
         }
       },
       {withCredentials: true}
@@ -91,39 +91,39 @@ export function* staffCreateNewContentSaga(action: IStaffCreateNewContent) {
 
 export function* staffEditContentSaga(action: IStaffEditContent) {
   let {
-    contentId,
+    id,
     contentTypeId,
     published,
     title,
-    contentItems,
-    contentImage,
-    contentFullImage,
-    contentThumbImage,
-    contentPrevImage
+    items,
+    image,
+    fullImage,
+    thumbImage,
+    prevImage
   } = action.contentInfo;
   try {
-    if (contentFullImage && contentThumbImage) {
+    if (fullImage && thumbImage) {
       const res1 = yield call(
         [axios, axios.post],
         `${endpoint}/staff/get-signed-url/content`,
-        {fileType: contentFullImage.type},
+        {fileType: fullImage.type},
         {withCredentials: true}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestFullSize,
-        contentFullImage,
-        {headers: {'Content-Type': contentFullImage.type}}
+        res1.data.fullSignature,
+        fullImage,
+        {headers: {'Content-Type': fullImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestThumbSize,
-        contentThumbImage,
-        {headers: {'Content-Type': contentThumbImage.type}}
+        res1.data.thumbSignature,
+        thumbImage,
+        {headers: {'Content-Type': thumbImage.type}}
       );
-      contentImage = res1.data.urlFullSize;
+      image = res1.data.fullName;
     } else {
-      contentImage = contentPrevImage;
+      image = prevImage;
     }
 
     const res = yield call(
@@ -131,13 +131,13 @@ export function* staffEditContentSaga(action: IStaffEditContent) {
       `${endpoint}/staff/content/update`,
       {
         contentInfo: {
-          contentId,
+          id,
           contentTypeId,
           published,
           title,
-          contentItems,
-          contentImage,
-          contentPrevImage
+          items,
+          image,
+          prevImage
         }
       },
       {withCredentials: true}
@@ -164,7 +164,7 @@ export function* staffDeleteContentSaga(action: IStaffDeleteContent) {
     const res = yield call(
       [axios, axios.delete],
       `${endpoint}/staff/content/delete`,
-      {withCredentials: true, data: {contentId: action.contentId}}
+      {withCredentials: true, data: {id: action.id}}
     );
     const { message } = res.data;
     if (message == 'Content deleted.') {

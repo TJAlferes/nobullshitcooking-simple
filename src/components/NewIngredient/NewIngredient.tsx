@@ -62,14 +62,14 @@ export function NewIngredient({
       window.scrollTo(0,0);
 
       const [ prev ] = staffIsAuthenticated
-        ? dataIngredients.filter(i => i.ingredient_id === Number(id))
-        : dataMyPrivateIngredients.filter(i => i.ingredient_id === Number(id));
+        ? dataIngredients.filter(i => i.id === Number(id))
+        : dataMyPrivateIngredients.filter(i => i.id === Number(id));
 
-      setEditingId(prev.ingredient_id);
+      setEditingId(prev.id);
       setTypeId(prev.ingredient_type_id);
-      setName(prev.ingredient_name);
-      setDescription(prev.ingredient_description);
-      setPrevImage(prev.ingredient_image);
+      setName(prev.name);
+      setDescription(prev.description);
+      setPrevImage(prev.image);
       setLoading(false);
     };
 
@@ -123,25 +123,25 @@ export function NewIngredient({
     setLoading(true);
     if (editing && editingId) {
       const ingredientInfo = {
-        ingredientId: editingId,
+        id: editingId,
         ingredientTypeId: typeId,
-        ingredientName: name,
-        ingredientDescription: description,
-        ingredientImage: image,
-        ingredientFullImage: fullImage,
-        ingredientTinyImage: tinyImage,
-        ingredientPrevImage: prevImage
+        name,
+        description,
+        image,
+        fullImage,
+        tinyImage,
+        prevImage
       };
       if (staffIsAuthenticated) staffEditIngredient(ingredientInfo);
       else userEditPrivateIngredient(ingredientInfo);
     } else {
       const ingredientInfo = {
         ingredientTypeId: typeId,
-        ingredientName: name,
-        ingredientDescription: description,
-        ingredientImage: image,
-        ingredientFullImage: fullImage,
-        ingredientTinyImage: tinyImage,
+        name,
+        description,
+        image,
+        fullImage,
+        tinyImage,
       };
       if (staffIsAuthenticated) staffCreateNewIngredient(ingredientInfo);
       else userCreateNewPrivateIngredient(ingredientInfo);

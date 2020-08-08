@@ -40,7 +40,7 @@ export interface IUserEditPrivateEquipmentFailed {
 
 export interface IUserDeletePrivateEquipment {
   type: typeof USER_DELETE_PRIVATE_EQUIPMENT;
-  equipmentId: number;
+  id: number;
 }
 
 export interface IUserDeletePrivateEquipmentSucceeded {
@@ -55,20 +55,20 @@ export interface IUserDeletePrivateEquipmentFailed {
 
 export interface ICreatingEquipmentInfo {
   equipmentTypeId: number;
-  equipmentName: string;
-  equipmentDescription: string;
-  equipmentImage: string | ArrayBuffer | null;
-  equipmentFullImage: File | null;
-  equipmentTinyImage: File | null;
+  name: string;
+  description: string;
+  image: string | ArrayBuffer | null;
+  fullImage: File | null;
+  tinyImage: File | null;
 }
 
 export interface IEditingEquipmentInfo {
-  equipmentId: number;
+  id: number;
   equipmentTypeId: number;
-  equipmentName: string;
-  equipmentDescription: string;
-  equipmentPrevImage: string;
-  equipmentImage: string | ArrayBuffer | null;
-  equipmentFullImage: File | null;
-  equipmentTinyImage: File | null;
+  name: string;
+  description: string;
+  prevImage: string;
+  image: string | ArrayBuffer | null;
+  fullImage: File | null;
+  tinyImage: File | null;
 }

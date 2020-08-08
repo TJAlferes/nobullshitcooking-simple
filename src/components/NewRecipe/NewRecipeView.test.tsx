@@ -61,65 +61,56 @@ const beginProps = {
   cookingPrevImage: "nobsc-recipe-cooking-default",
   cuisineId: 1,
   dataCuisines: [
-    {cuisine_id: 1, cuisine_name: "American", cuisine_nation: "America"},
-    {cuisine_id: 2, cuisine_name: "Japanese", cuisine_nation: "Japan"}
+    {id: 1, name: "American", nation: "America"},
+    {id: 2, name: "Japanese", nation: "Japan"}
   ],
   dataEquipment: [
     {
-      equipment_id: 1,
-      equipment_name: "Cutting Board",
+      id: 1,
+      name: "Cutting Board",
       equipment_type_id: 2,
       owner_id: 1,
       equipment_type_name: "Preparing",
-      equipment_description: "You need one.",
-      equipment_image: "nobsc-cutting-board"
+      description: "You need one.",
+      image: "nobsc-cutting-board"
     },
     {
-      equipment_id: 2,
-      equipment_name: "Metal Spatula",
+      id: 2,
+      name: "Metal Spatula",
       equipment_type_id: 3,
       owner_id: 1,
       equipment_type_name: "Cooking",
-      equipment_description: "You need one.",
-      equipment_image: "nobsc-metal-spatula"
+      description: "You need one.",
+      image: "nobsc-metal-spatula"
     }
   ],
   dataIngredients: [
     {
-      ingredient_id: 1,
-      ingredient_brand: null,
-      ingredient_variety: "Granny Smith",
-      ingredient_name: "Apple",
+      id: 1,
+      brand: null,
+      variety: "Granny Smith",
+      name: "Apple",
       ingredient_type_id: 12,
       owner_id: 1,
       ingredient_type_name: "Fruit",
-      ingredient_description: "Energizing",
-      ingredient_image: "nobsc-apple"
+      description: "Energizing",
+      image: "nobsc-apple"
     },
     {
-      ingredient_id: 2,
-      ingredient_brand: null,
-      ingredient_variety: "Baby",
-      ingredient_name: "Spinach",
+      id: 2,
+      brand: null,
+      variety: "Baby",
+      name: "Spinach",
       ingredient_type_id: 11,
       owner_id: 1,
       ingredient_type_name: "Vegetable",
-      ingredient_description: "Strengthening",
-      ingredient_image: "nobsc-spinach"
+      description: "Strengthening",
+      image: "nobsc-spinach"
     }
   ],
-  dataIngredientTypes: [
-    {ingredient_type_id: 11, ingredient_type_name: "Vegetable"},
-    {ingredient_type_id: 12, ingredient_type_name: "Fruit"}
-  ],
-  dataMeasurements: [
-    {measurement_id: 1, measurement_name: "teaspoon"},
-    {measurement_id: 2, measurement_name: "Tablespoon"}
-  ],
-  dataMethods: [
-    {method_id: 1, method_name: "Steam"},
-    {method_id: 2, method_name: "Freeze"}
-  ],
+  dataIngredientTypes: [{id: 11, name: "Vegetable"}, {id: 12, name: "Fruit"}],
+  dataMeasurements: [{id: 1, name: "teaspoon"}, {id: 2, name: "Tablespoon"}],
+  dataMethods: [{id: 1, name: "Steam"}, {id: 2, name: "Freeze"}],
   dataMyFavoriteRecipes: [],
   dataMyPrivateEquipment: [],
   dataMyPrivateIngredients: [],
@@ -127,10 +118,7 @@ const beginProps = {
   dataMyPublicRecipes: [],
   dataMySavedRecipes: [],
   dataRecipes: [],
-  dataRecipeTypes: [
-    {recipe_type_id: 1, recipe_type_name: "Drink"},
-    {recipe_type_id: 2, recipe_type_name: "Appetizer"}
-  ],
+  dataRecipeTypes: [{id: 1, name: "Drink"}, {id: 2, name: "Appetizer"}],
   description: "",
   directions: "",
   editing: false,

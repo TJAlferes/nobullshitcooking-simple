@@ -66,54 +66,54 @@ describe('data reducer', () => {
       officialContent: [],
       contentTypes: [
         {
-          content_type_id: 1,
+          id: 1,
           parent_id: 0,
-          content_type_name: "Page",
-          content_type_path: "/page"
+          name: "Page",
+          path: "/page"
         }
       ],
       cuisines: [
-        {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"}
+        {"id": 1, "name": "Russian", "nation": "Russia"}
       ],
       officialEquipment: [
         {
-          equipment_id: 1,
+          id: 1,
           equipment_type_id: 4,
           owner_id: 1,
-          equipment_name: "Chopstick",
+          name: "Chopstick",
           equipment_type_name: "Dining",
-          equipment_description: "It works.",
-          equipment_image: "nobsc-chopstick"
+          description: "It works.",
+          image: "nobsc-chopstick"
         }
       ],
       equipmentTypes: [
-        {"equipment_type_id": 1, "equipment_type_name": "Cleaning"}
+        {"id": 1, "name": "Cleaning"}
       ],
       officialIngredients: [
         {
-          ingredient_id: 1,
+          id: 1,
           ingredient_type_id: 1,
           owner_id: 1,
           ingredient_type_name: "Fish",
-          ingredient_brand: null,
-          ingredient_variety: "Chilean",
-          ingredient_name: "Salmon",
-          ingredient_description: "Tasty.",
-          ingredient_image: "nobsc-salmon"
+          brand: null,
+          variety: "Chilean",
+          name: "Salmon",
+          description: "Tasty.",
+          image: "nobsc-salmon"
         }
       ],
       ingredientTypes: [
-        {"ingredient_type_id": 1, "ingredient_type_name": "Fish"}
+        {"id": 1, "name": "Fish"}
       ],
       measurements: [
-        {"measurement_id": 1, "measurement_name": "teaspoon"}
+        {"id": 1, "name": "teaspoon"}
       ],
       methods: [
-        {"method_id": 1, "method_name": "No-Cook"}
+        {"id": 1, "name": "No-Cook"}
       ],
       officialRecipes: [
         {
-          recipe_id: 1,
+          id: 1,
           owner_id: 1,
           recipe_type_id: 1,
           cuisine_id: 1,
@@ -122,7 +122,7 @@ describe('data reducer', () => {
         }
       ],
       recipeTypes: [
-        {"recipe_type_id": 1, "recipe_type_name": "Drink"}
+        {"id": 1, "name": "Drink"}
       ]
     };
     const actual = dataReducer(initialState, {
@@ -143,7 +143,9 @@ describe('data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_CONTENT', () => {
-    const officialContent = [{content_id: 1, title: "Title"}];
+    const officialContent = [
+      {id: 1, title: "Title", author: "Person", image: "image"}
+    ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_CONTENT,
       officialContent
@@ -154,18 +156,8 @@ describe('data reducer', () => {
 
   it('handles actions of type DATA_GET_CONTENT_TYPES', () => {
     const contentTypes = [
-      {
-        content_type_id: 1,
-        parent_id: 0,
-        content_type_name: "Page",
-        content_type_path: "/page"
-      },
-      {
-        content_type_id: 2,
-        parent_id: 0,
-        content_type_name: "Post",
-        content_type_path: "/post"
-      }
+      {id: 1, parent_id: 0, name: "Page", path: "/page"},
+      {id: 2, parent_id: 0, name: "Post", path: "/post"}
     ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_CONTENT_TYPES,
@@ -177,8 +169,8 @@ describe('data reducer', () => {
 
   it('handles actions of type DATA_GET_CUISINES', () => {
     const cuisines = [
-      {"cuisine_id": 1, "cuisine_name": "Russian", "cuisine_nation": "Russia"},
-      {"cuisine_id": 2, "cuisine_name": "German", "cuisine_nation": "Germany"}
+      {"id": 1, "name": "Russian", "nation": "Russia"},
+      {"id": 2, "name": "German", "nation": "Germany"}
     ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_CUISINES,
@@ -191,13 +183,13 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_EQUIPMENTS', () => {
     const officialEquipment = [
       {
-        equipment_id: 1,
+        id: 1,
         equipment_type_id: 4,
         owner_id: 1,
-        equipment_name: "Chopstick",
+        name: "Chopstick",
         equipment_type_name: "Dining",
-        equipment_description: "It works.",
-        equipment_image: "nobsc-chopstick"
+        description: "It works.",
+        image: "nobsc-chopstick"
       }
     ];
     const actual = dataReducer(initialState, {
@@ -210,8 +202,8 @@ describe('data reducer', () => {
 
   it('handles actions of type DATA_GET_EQUIPMENT_TYPES', () => {
     const equipmentTypes = [
-      {"equipment_type_id": 1, "equipment_type_name": "Cleaning"},
-      {"equipment_type_id": 2, "equipment_type_name": "Preparing"}
+      {"id": 1, "name": "Cleaning"},
+      {"id": 2, "name": "Preparing"}
     ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_EQUIPMENT_TYPES,
@@ -224,15 +216,15 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_INGREDIENTS', () => {
     const officialIngredients = [
       {
-        ingredient_id: 1,
+        id: 1,
         ingredient_type_id: 1,
         owner_id: 1,
         ingredient_type_name: "Fish",
-        ingredient_brand: null,
-        ingredient_variety: "Chilean",
-        ingredient_name: "Salmon",
-        ingredient_description: "Tasty.",
-        ingredient_image: "nobsc-salmon"
+        brand: null,
+        variety: "Chilean",
+        name: "Salmon",
+        description: "Tasty.",
+        image: "nobsc-salmon"
       }
     ];
     const actual = dataReducer(initialState, {
@@ -245,14 +237,14 @@ describe('data reducer', () => {
 
   it('handles actions of type DATA_GET_INGREDIENT_TYPES', () => {
     const ingredientTypes = [
-      {"ingredient_type_id": 1, "ingredient_type_name": "Fish"},
-      {"ingredient_type_id": 2, "ingredient_type_name": "Shellfish"}
+      {"id": 1, "name": "Fish"},
+      {"id": 2, "name": "Shellfish"}
     ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_INGREDIENT_TYPES,
       ingredientTypes: [
-        {"ingredient_type_id": 1, "ingredient_type_name": "Fish"},
-        {"ingredient_type_id": 2, "ingredient_type_name": "Shellfish"}
+        {"id": 1, "name": "Fish"},
+        {"id": 2, "name": "Shellfish"}
       ]
     }).ingredientTypes;
     const expected = ingredientTypes;
@@ -261,8 +253,8 @@ describe('data reducer', () => {
 
   it('handles actions of type DATA_GET_MEASUREMENTS', () => {
     const measurements = [
-      {"measurement_id": 1, "measurement_name": "teaspoon"},
-      {"measurement_id": 2, "measurement_name": "Tablespoon"}
+      {"id": 1, "name": "teaspoon"},
+      {"id": 2, "name": "Tablespoon"}
     ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_MEASUREMENTS,
@@ -274,8 +266,8 @@ describe('data reducer', () => {
 
   it('handles actions of type DATA_GET_METHODS', () => {
     const methods = [
-      {"method_id": 1, "method_name": "No-Cook"},
-      {"method_id": 2, "method_name": "Chill"}
+      {"id": 1, "name": "No-Cook"},
+      {"id": 2, "name": "Chill"}
     ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_METHODS,
@@ -288,7 +280,7 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_RECIPES', () => {
     const officialRecipes = [
       {
-        recipe_id: 1,
+        id: 1,
         owner_id: 1,
         recipe_type_id: 1,
         cuisine_id: 1,
@@ -306,8 +298,8 @@ describe('data reducer', () => {
 
   it('handles actions of type DATA_GET_RECIPE_TYPES', () => {
     const recipeTypes = [
-      {"recipe_type_id": 1, "recipe_type_name": "Drink"},
-      {"recipe_type_id": 2, "recipe_type_name": "Appetizer"}
+      {"id": 1, "name": "Drink"},
+      {"id": 2, "name": "Appetizer"}
     ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_RECIPE_TYPES,
@@ -327,31 +319,31 @@ describe('data reducer', () => {
       myPlans: [],
       myPrivateEquipment: [
         {
-          equipment_id: 1988,
+          id: 1988,
           equipment_type_id: 4,
           owner_id: 150,
-          equipment_name: "My Chopstick",
+          name: "My Chopstick",
           equipment_type_name: "Dining",
-          equipment_description: "It works.",
-          equipment_image: "my-chopstick"
+          description: "It works.",
+          image: "my-chopstick"
         }
       ],
       myPrivateIngredients: [
         {
-          ingredient_id: 1,
+          id: 1,
           ingredient_type_id: 1,
           owner_id: 1,
           ingredient_type_name: "Fish",
-          ingredient_brand: null,
-          ingredient_variety: "Chilean",
-          ingredient_name: "Salmon",
-          ingredient_description: "Tasty.",
-          ingredient_image: "nobsc-salmon"
+          brand: null,
+          variety: "Chilean",
+          name: "Salmon",
+          description: "Tasty.",
+          image: "nobsc-salmon"
         }
       ],
       myPrivateRecipes: [
         {
-          recipe_id: 1,
+          id: 1,
           owner_id: 150,
           recipe_type_id: 1,
           cuisine_id: 1,
@@ -380,7 +372,9 @@ describe('data reducer', () => {
   });
 
   it('handles actions of type DATA_GET_MY_CONTENT', () => {
-    const myContent = [{content_id: 1, title: "Title"}];
+    const myContent = [
+      {id: 1, title: "Title", author: "Person", image: "image"}
+    ];
     const actual = dataReducer(initialState, {
       type: DATA_GET_MY_CONTENT,
       myContent
@@ -392,7 +386,7 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_MY_FAVORITE_RECIPES', () => {
     const myFavoriteRecipes = [
       {
-        recipe_id: 1,
+        id: 1,
         owner_id: 1,
         recipe_type_id: 1,
         cuisine_id: 1,
@@ -428,9 +422,9 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_MY_PLANS', () => {
     const myPlans = [
       {
-        plan_id: 98234,
-        plan_name: "Plan A",
-        plan_data: {
+        id: 98234,
+        name: "Plan A",
+        data: {
           1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
           8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
          15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
@@ -449,13 +443,13 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_MY_PRIVATE_EQUIPMENTS', () => {
     const myPrivateEquipment = [
       {
-        equipment_id: 1,
+        id: 1,
         equipment_type_id: 3,
         owner_id: 3908,
-        equipment_name: "My Teapot",
+        name: "My Teapot",
         equipment_type_name: "Dining",
-        equipment_description: "From grandmother.",
-        equipment_image: "my-teapot"
+        description: "From grandmother.",
+        image: "my-teapot"
       }
     ];
     const actual = dataReducer(initialState, {
@@ -469,15 +463,15 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_MY_PRIVATE_INGREDIENTS', () => {
     const myPrivateIngredients = [
       {
-        ingredient_id: 8927,
+        id: 8927,
         ingredient_type_id: 18,
         owner_id: 1,
         ingredient_type_name: "Product",
-        ingredient_brand: "Uncle Bob",
-        ingredient_variety: "DOUBLE HOT",
-        ingredient_name: "HOT Sauce",
-        ingredient_description: "From Uncle Bob.",
-        ingredient_image: "hot-sauce"
+        brand: "Uncle Bob",
+        variety: "DOUBLE HOT",
+        name: "HOT Sauce",
+        description: "From Uncle Bob.",
+        image: "hot-sauce"
       }
     ];
     const actual = dataReducer(initialState, {
@@ -491,7 +485,7 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_MY_PRIVATE_RECIPES', () => {
     const myPrivateRecipes = [
       {
-        recipe_id: 841,
+        id: 841,
         owner_id: 3908,
         recipe_type_id: 1,
         cuisine_id: 1,
@@ -510,7 +504,7 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_MY_PUBLIC_RECIPES', () => {
     const myPublicRecipes = [
       {
-        recipe_id: 841,
+        id: 841,
         owner_id: 3908,
         recipe_type_id: 1,
         cuisine_id: 1,
@@ -529,7 +523,7 @@ describe('data reducer', () => {
   it('handles actions of type DATA_GET_MY_SAVED_RECIPES', () => {
     const mySavedRecipes = [
       {
-        recipe_id: 1,
+        id: 1,
         owner_id: 1,
         recipe_type_id: 1,
         cuisine_id: 1,

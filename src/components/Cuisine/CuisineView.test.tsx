@@ -4,21 +4,21 @@ import React from 'react';
 import { CuisineView } from './CuisineView';
 
 const cuisine = {
-  cuisine_id: 1,
-  cuisine_name: "Italian",
-  cuisine_nation: "Italy",
+  id: 1,
+  name: "Italian",
+  nation: "Italy",
   //cuisine_banner: "",  // AWS S3  cuisine/banner/${cuisine.cuisine_nation}
   //cuisine_flag: "",  // AWS S3 cuisine/flag/${cuisine.cuisine_nation}
-  cuisine_wiki: "Italian_cuisine",
-  cuisine_intro: "",
-  cuisine_equipment: [{equipment_id: 1, equipment_name: "Pot"}],
-  cuisine_ingredients: [{ingredient_id: 1, ingredient_name: "White Onion"}],
-  cuisine_plans: [{plan_id: 3320, plan_name: "Italian Plan", author_id: 1}],
-  cuisine_recipes: [
-    {recipe_id: 1, title: "Something"},
-    {recipe_id: 2, title: "Something Else"}
+  wiki: "Italian_cuisine",
+  intro: "",
+  equipment: [{id: 1, name: "Pot"}],
+  ingredients: [{id: 1, name: "White Onion"}],
+  //plans: [{id: 3320, name: "Italian Plan", author_id: 1}],  // maybe...
+  recipes: [
+    {id: 1, title: "Something"},
+    {id: 2, title: "Something Else"}
   ],
-  cuisine_suppliers: [{supplier_id: 14, supplier_name: "Amazing Italian Foods"}]
+  suppliers: [{id: 14, name: "Amazing Italian Foods"}]
 };
 
 const handleShowNearbyStoresClick = jest.fn();

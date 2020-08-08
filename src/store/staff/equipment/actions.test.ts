@@ -23,21 +23,21 @@ import {
 
 const creatingEquipmentInfo = {
   equipmentTypeId: 3,
-  equipmentName: "Metal Spatula",
-  equipmentDescription: "It works.",
-  equipmentImage: "nobsc-metal-spatula",
-  equipmentFullImage: null,
-  equipmentTinyImage: null
+  name: "Metal Spatula",
+  description: "It works.",
+  image: "nobsc-metal-spatula",
+  fullImage: null,
+  tinyImage: null
 };
 const editingEquipmentInfo = {
-  equipmentId: 1,
+  id: 1,
   equipmentTypeId: 3,
-  equipmentName: "Metal Spatula",
-  equipmentDescription: "It works.",
-  equipmentPrevImage: "nobsc-metal-spatula",
-  equipmentImage: "nobsc-metal-spatula",
-  equipmentFullImage: null,
-  equipmentTinyImage: null
+  name: "Metal Spatula",
+  description: "It works.",
+  prevImage: "nobsc-metal-spatula",
+  image: "nobsc-metal-spatula",
+  fullImage: null,
+  tinyImage: null
 };
 
 describe('staffCreateNewEquipment action creator', () => {
@@ -125,7 +125,7 @@ describe('staffDeleteEquipment action creator', () => {
     expect(actual).toEqual(expected);
   });
   it('returns the correct equipmentId', () => {
-    const actual = staffDeleteEquipment(7).equipmentId;
+    const actual = staffDeleteEquipment(7).id;
     const expected = 7;
     expect(actual).toEqual(expected);
   });

@@ -13,9 +13,9 @@ export interface ICartState {
 }
 
 export interface ICartItem {
-  itemId: number;
+  id: number;
   itemTypeId: number;
-  itemName: string;
+  name: string;
 }
 
 /*

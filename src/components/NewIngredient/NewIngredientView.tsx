@@ -70,9 +70,7 @@ export function NewIngredientView({
         >
           <option value=""></option>
           {dataIngredientTypes.map(t => (
-            <option key={t.ingredient_type_id} value={t.ingredient_type_id}>
-              {t.ingredient_type_name}
-            </option>
+            <option key={t.id} value={t.id}>{t.name}</option>
           ))}
         </select>
 

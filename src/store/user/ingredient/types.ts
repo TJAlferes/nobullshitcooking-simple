@@ -40,7 +40,7 @@ export interface IUserEditPrivateIngredientFailed {
 
 export interface IUserDeletePrivateIngredient {
   type: typeof USER_DELETE_PRIVATE_INGREDIENT;
-  ingredientId: number;
+  id: number;
 }
 
 export interface IUserDeletePrivateIngredientSucceeded {
@@ -55,20 +55,14 @@ export interface IUserDeletePrivateIngredientFailed {
 
 export interface ICreatingIngredientInfo {
   ingredientTypeId: number;
-  ingredientName: string;
-  ingredientDescription: string;
-  ingredientImage: string | ArrayBuffer | null;
-  ingredientFullImage: File | null;
-  ingredientTinyImage: File | null;
+  name: string;
+  description: string;
+  image: string | ArrayBuffer | null;
+  fullImage: File | null;
+  tinyImage: File | null;
 }
 
-export interface IEditingIngredientInfo {
-  ingredientId: number;
-  ingredientTypeId: number;
-  ingredientName: string;
-  ingredientDescription: string;
-  ingredientPrevImage: string;
-  ingredientImage: string | ArrayBuffer | null;
-  ingredientFullImage: File | null;
-  ingredientTinyImage: File | null;
+export interface IEditingIngredientInfo extends ICreatingIngredientInfo {
+  id: number;
+  prevImage: string;
 }

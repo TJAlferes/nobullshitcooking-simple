@@ -26,34 +26,32 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const contentFullImage =
-  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
-const contentThumbImage =
-  new File([(new Blob)], "resizedThumb", {type: "image/jpeg"});
+const fullImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const thumbImage = new File([(new Blob)], "resizedThumb", {type: "image/jpeg"});
 
 const creatingContentInfo = {
   contentTypeId: 2,
   published: null,
   title: "My Content",
-  contentItems: [
+  items: [
     {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
   ],
-  contentImage: "my-content",
-  contentFullImage,
-  contentThumbImage
+  image: "my-content",
+  fullImage,
+  thumbImage
 };
 const editingContentInfo = {
-  contentId: 150,
+  id: 150,
   contentTypeId: 2,
   published: "2020-07-17",
   title: "My Content",
-  contentItems: [
+  items: [
     {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
   ],
-  contentPrevImage: "nobsc-content-default",
-  contentImage: "my-content",
-  contentFullImage,
-  contentThumbImage
+  prevImage: "nobsc-content-default",
+  image: "my-content",
+  fullImage,
+  thumbImage
 };
 
 describe('userCreateNewContentSaga', () => {
@@ -63,18 +61,18 @@ describe('userCreateNewContentSaga', () => {
   };
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestThumbSize: "signedUrlString-thumb",
-      urlFullSize: "contentUrlString"
+      fullSignature: "signedUrlString",
+      tinySignature: "signedUrlString-thumb",
+      fullName: "contentUrlString"
     }
   };
   const {
     contentTypeId,
     published,
     title,
-    contentItems,
-    contentFullImage,
-    contentThumbImage
+    items,
+    fullImage,
+    thumbImage
   } = action.contentInfo;
 
   it('should dispatch succeeded', () => {
@@ -85,24 +83,24 @@ describe('userCreateNewContentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/content`,
-      {fileType: contentFullImage.type},
+      {fileType: fullImage.type},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
-      contentFullImage,
-      {headers: {'Content-Type': contentFullImage.type}}
+      res1.data.fullSignature,
+      fullImage,
+      {headers: {'Content-Type': fullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestThumbSize,
-      contentThumbImage,
-      {headers: {'Content-Type': contentThumbImage.type}}
+      res1.data.tinySignature,
+      thumbImage,
+      {headers: {'Content-Type': thumbImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -114,8 +112,8 @@ describe('userCreateNewContentSaga', () => {
           contentTypeId,
           published,
           title,
-          contentItems,
-          contentImage: "contentUrlString"
+          items,
+          image: "contentUrlString"
         }
       },
       {withCredentials: true}
@@ -169,20 +167,20 @@ describe('userEditContentSaga', () => {
   };
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestThumbSize: "signedUrlString-thumb",
-      urlFullSize: "contentUrlString"
+      fullSignature: "signedUrlString",
+      tinySignature: "signedUrlString-thumb",
+      fullName: "contentUrlString"
     }
   };
   const {
-    contentId,
+    id,
     contentTypeId,
     published,
     title,
-    contentItems,
-    contentFullImage,
-    contentThumbImage,
-    contentPrevImage
+    items,
+    fullImage,
+    thumbImage,
+    prevImage
   } = action.contentInfo;
 
   it('should dispatch succeeded', () => {
@@ -193,24 +191,24 @@ describe('userEditContentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/content`,
-      {fileType: contentFullImage.type},
+      {fileType: fullImage.type},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
-      contentFullImage,
-      {headers: {'Content-Type': contentFullImage.type}}
+      res1.data.fullSignature,
+      fullImage,
+      {headers: {'Content-Type': fullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestThumbSize,
-      contentThumbImage,
-      {headers: {'Content-Type': contentThumbImage.type}}
+      res1.data.tinySignature,
+      thumbImage,
+      {headers: {'Content-Type': thumbImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -219,13 +217,13 @@ describe('userEditContentSaga', () => {
       `${endpoint}/user/content/update`,
       {
         contentInfo: {
-          contentId,
+          id,
           contentTypeId,
           published,
           title,
-          contentItems,
-          contentImage: "contentUrlString",
-          contentPrevImage
+          items,
+          image: "contentUrlString",
+          prevImage
         }
       },
       {withCredentials: true}
@@ -273,7 +271,7 @@ describe('userEditContentSaga', () => {
 });
 
 describe('userDeleteContentSaga', () => {
-  const action = {type: USER_DELETE_CONTENT, contentId: 4};
+  const action = {type: USER_DELETE_CONTENT, id: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = userDeleteContentSaga(action);
@@ -282,7 +280,7 @@ describe('userDeleteContentSaga', () => {
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
       `${endpoint}/user/content/delete`,
-      {withCredentials: true, data: {contentId: action.contentId}}
+      {withCredentials: true, data: {id: action.id}}
     ));
 
     expect(iterator.next(res).value)

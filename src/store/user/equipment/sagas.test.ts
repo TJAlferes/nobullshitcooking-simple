@@ -26,29 +26,27 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const equipmentFullImage =
-  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
-const equipmentTinyImage =
-  new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
+const fullImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const tinyImage = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
 const creatingEquipmentInfo = {
   equipmentTypeId: 3,
-  equipmentName: "My Teapot",
-  equipmentDescription: "From grandmother.",
-  equipmentImage: "my-teapot",
-  equipmentFullImage,
-  equipmentTinyImage
+  name: "My Teapot",
+  description: "From grandmother.",
+  image: "my-teapot",
+  fullImage,
+  tinyImage
 };
 
 const editingEquipmentInfo = {
   equipmentTypeId: 3,
-  equipmentName: "My Teapot",
-  equipmentDescription: "From grandmother.",
-  equipmentImage: "my-teapot",
-  equipmentFullImage,
-  equipmentTinyImage,
-  equipmentId: 377,
-  equipmentPrevImage: "my-teapot"
+  name: "My Teapot",
+  description: "From grandmother.",
+  image: "my-teapot",
+  fullImage,
+  tinyImage,
+  id: 377,
+  prevImage: "my-teapot"
 };
 
 describe('userCreateNewPrivateEquipmentSaga', () => {
@@ -58,17 +56,17 @@ describe('userCreateNewPrivateEquipmentSaga', () => {
   };
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "equipmentUrlString"
+      fullSignature: "signedUrlString",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "equipmentUrlString"
     }
   };
   const {
     equipmentTypeId,
-    equipmentName,
-    equipmentDescription,
-    equipmentFullImage,
-    equipmentTinyImage
+    name,
+    description,
+    fullImage,
+    tinyImage
   } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
@@ -79,24 +77,24 @@ describe('userCreateNewPrivateEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/equipment`,
-      {fileType: equipmentFullImage.type},
+      {fileType: fullImage.type},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
-      equipmentFullImage,
-      {headers: {'Content-Type': equipmentFullImage.type}}
+      res1.data.fullSignature,
+      fullImage,
+      {headers: {'Content-Type': fullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
-      equipmentTinyImage,
-      {headers: {'Content-Type': equipmentTinyImage.type}}
+      res1.data.tinySignature,
+      tinyImage,
+      {headers: {'Content-Type': tinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -106,9 +104,9 @@ describe('userCreateNewPrivateEquipmentSaga', () => {
       {
         equipmentInfo: {
           equipmentTypeId,
-          equipmentName,
-          equipmentDescription,
-          equipmentImage: "equipmentUrlString"
+          name,
+          description,
+          image: "equipmentUrlString"
         }
       },
       {withCredentials: true}
@@ -164,19 +162,19 @@ describe('userEditPrivateEquipmentSaga', () => {
   };
   const res1 = {
     data: {
-      signedRequestFullSize: "signedUrlString",
-      signedRequestTinySize: "signedUrlString-tiny",
-      urlFullSize: "equipmentUrlString"
+      fullSignature: "signedUrlString",
+      tinySignature: "signedUrlString-tiny",
+      fullName: "equipmentUrlString"
     }
   };
   const {
-    equipmentId,
+    id,
     equipmentTypeId,
-    equipmentName,
-    equipmentDescription,
-    equipmentPrevImage,
-    equipmentFullImage,
-    equipmentTinyImage
+    name,
+    description,
+    prevImage,
+    fullImage,
+    tinyImage
   } = action.equipmentInfo;
 
   it('should dispatch succeeded', () => {
@@ -187,24 +185,24 @@ describe('userEditPrivateEquipmentSaga', () => {
     .toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/get-signed-url/equipment`,
-      {fileType: equipmentFullImage.type},
+      {fileType: fullImage.type},
       {withCredentials: true}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestFullSize,
-      equipmentFullImage,
-      {headers: {'Content-Type': equipmentFullImage.type}}
+      res1.data.fullSignature,
+      fullImage,
+      {headers: {'Content-Type': fullImage.type}}
     ));
 
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.signedRequestTinySize,
-      equipmentTinyImage,
-      {headers: {'Content-Type': equipmentTinyImage.type}}
+      res1.data.tinySignature,
+      tinyImage,
+      {headers: {'Content-Type': tinyImage.type}}
     ));
 
     expect(iterator.next().value)
@@ -213,12 +211,12 @@ describe('userEditPrivateEquipmentSaga', () => {
       `${endpoint}/user/equipment/update`,
       {
         equipmentInfo: {
-          equipmentId,
+          id,
           equipmentTypeId,
-          equipmentName,
-          equipmentDescription,
-          equipmentPrevImage,
-          equipmentImage: "equipmentUrlString"
+          name,
+          description,
+          prevImage,
+          image: "equipmentUrlString"
         }
       },
       {withCredentials: true}
@@ -268,7 +266,7 @@ describe('userEditPrivateEquipmentSaga', () => {
 
 
 describe('userDeletePrivateEquipmentSaga', () => {
-  const action = {type: USER_DELETE_PRIVATE_EQUIPMENT, equipmentId: 4};
+  const action = {type: USER_DELETE_PRIVATE_EQUIPMENT, id: 4};
 
   it('should dispatch succeeded', () => {
     const iterator = userDeletePrivateEquipmentSaga(action);
@@ -277,7 +275,7 @@ describe('userDeletePrivateEquipmentSaga', () => {
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
       `${endpoint}/user/equipment/delete`,
-      {withCredentials: true, data: {equipmentId: action.equipmentId}}
+      {withCredentials: true, data: {id: action.id}}
     ));
 
     expect(iterator.next(res).value)

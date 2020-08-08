@@ -61,7 +61,7 @@ export interface IPlannerData {
 
 export interface IPlannerRecipe {
   key: string;
-  recipe_id: number;
+  id: number;
   title: string;
   recipe_image: string;
   owner_id: number;

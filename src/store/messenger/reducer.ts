@@ -74,7 +74,7 @@ export const messengerReducer = (
         ...state,
         ...{
           onlineFriends: state.onlineFriends.filter(
-            friend => friend.userId !== action.user.userId
+            f => f.id !== action.user.id
           )
         }
       };
@@ -104,11 +104,11 @@ export const messengerReducer = (
         ...{
           messages: state.messages.concat({
             kind: KMessage,
-            chatMessageId: 'admin' + action.ts,
-            chatMessageText: `${action.user.username} has joined the room.`,
+            id: 'admin' + action.ts,
+            text: `${action.user.username} has joined the room.`,
             room: state.channel,
             user: {
-              userId: 'messengerstatus',
+              id: 'messengerstatus',
               username: "messengerstatus",
               avatar: 'messengerstatus'
             },
@@ -124,17 +124,17 @@ export const messengerReducer = (
         ...{
           messages: state.messages.concat({
             kind: KMessage,
-            chatMessageId: 'admin' + action.ts,
-            chatMessageText: `${action.user.username} has left the room.`,
+            id: 'admin' + action.ts,
+            text: `${action.user.username} has left the room.`,
             room: state.channel,
             user: {
-              userId: 'messengerstatus',
+              id: 'messengerstatus',
               username: "messengerstatus",
               avatar: 'messengerstatus'
             },
             ts: action.ts,
           }),
-          users: state.users.filter(user => user.userId !== action.user.userId)
+          users: state.users.filter(u => u.id !== action.user.id)
         }
       };
     
@@ -156,11 +156,11 @@ export const messengerReducer = (
         ...{
           messages: state.messages.concat({
             kind: KWhisper,
-            whisperId: 'admin' + action.ts,
-            whisperText: action.feedback,
+            id: 'admin' + action.ts,
+            text: action.feedback,
             to: '',
             user: {
-              userId: 'messengerstatus',
+              id: 'messengerstatus',
               username: "messengerstatus",
               avatar: 'messengerstatus'
             },

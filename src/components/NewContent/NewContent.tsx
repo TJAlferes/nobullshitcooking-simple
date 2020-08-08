@@ -192,15 +192,15 @@ export function NewContent({
     if (editing && editingId) {
 
       const editingContentInfo = {
-        contentId: editingId,
+        id: editingId,
         contentTypeId,
         published,
         title,
-        contentItems: value,
-        contentPrevImage: prevImage,
-        contentImage: image,
-        contentFullImage: fullImage,
-        contentThumbImage: thumbImage
+        items: value,
+        prevImage,
+        image,
+        fullImage,
+        thumbImage
       };
 
       if (staffIsAuthenticated) staffEditContent(editingContentInfo);
@@ -212,10 +212,10 @@ export function NewContent({
         contentTypeId,
         published: saveType,
         title,
-        contentItems: value,
-        contentImage: image,
-        contentFullImage: fullImage,
-        contentThumbImage: thumbImage
+        items: value,
+        image,
+        fullImage,
+        thumbImage
       };
 
       if (staffIsAuthenticated) staffCreateNewContent(creatingContentInfo);
@@ -280,11 +280,11 @@ export function NewContent({
             <option value=""></option>
             {dataContentTypes.map(c => (
               <option
-                data-test={c.content_type_name}
-                key={c.content_type_id}
-                value={c.content_type_id}
+                data-test={c.name}
+                key={c.id}
+                value={c.id}
               >
-                {c.content_type_name}
+                {c.name}
               </option>
             ))}
           </select>
@@ -366,8 +366,8 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  oneColumnATheme: string;
   editing: boolean;
+  oneColumnATheme: string;
 };
 
 const mapStateToProps = (state: RootState) => ({

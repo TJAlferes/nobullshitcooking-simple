@@ -22,17 +22,17 @@ export function* userSubmitAvatarSaga(action: IUserSubmitAvatar) {
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestFullSize,
+        res1.data.fullSignature,
         action.fullAvatar,
         {headers: {'Content-Type': action.fullAvatar.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestTinySize,
+        res1.data.tinySignature,
         action.tinyAvatar,
         {headers: {'Content-Type': action.tinyAvatar.type}}
       );
-      avatarUrl = res1.data.urlFullSize;
+      avatarUrl = res1.data.fullName;
     } else {
       avatarUrl = "nobsc-user-default";
     }

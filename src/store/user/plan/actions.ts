@@ -42,9 +42,9 @@ export const userEditPlanFailed = (message: string) => ({
   message
 });
 
-export const userDeletePlan = (planId: number) => ({
+export const userDeletePlan = (id: number) => ({
   type: USER_DELETE_PLAN,
-  planId
+  id
 });
 
 export const userDeletePlanSucceeded = (message: string) => ({

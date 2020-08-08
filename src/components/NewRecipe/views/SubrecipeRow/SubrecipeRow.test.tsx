@@ -11,24 +11,24 @@ const type = 2;
 const cuisine = 2;
 const subrecipe = 2;
 const dataMeasurements = [
-  {measurement_id: 1, measurement_name: "teaspoon"},
-  {measurement_id: 2, measurement_name: "Tablespoon"}
+  {id: 1, name: "teaspoon"},
+  {id: 2, name: "Tablespoon"}
 ];
 const dataRecipeTypes = [
-  {recipe_type_id: 1, recipe_type_name: "Drink"},
-  {recipe_type_id: 2, recipe_type_name: "Appetizer"},
-  {recipe_type_id: 3, recipe_type_name: "Main"},
-  {recipe_type_id: 4, recipe_type_name: "Side"}
+  {id: 1, name: "Drink"},
+  {id: 2, name: "Appetizer"},
+  {id: 3, name: "Main"},
+  {id: 4, name: "Side"}
 ];
 const dataCuisines = [
-  {cuisine_id: 1, cuisine_name: "American", cuisine_nation: "America"},
-  {cuisine_id: 2, cuisine_name: "Japanese", cuisine_nation: "Japan"},
-  {cuisine_id: 3, cuisine_name: "Mexican", cuisine_nation: "Mexico"},
-  {cuisine_id: 4, cuisine_name: "Italian", cuisine_nation: "Italy"}
+  {id: 1, name: "American", nation: "America"},
+  {id: 2, name: "Japanese", nation: "Japan"},
+  {id: 3, name: "Mexican", nation: "Mexico"},
+  {id: 4, name: "Italian", nation: "Italy"}
 ];
 const dataRecipes = [
   {
-    recipe_id: 1,
+    id: 1,
     title: "Mixed Drink",
     recipe_type_id: 1,
     cuisine_id: 1,
@@ -36,7 +36,7 @@ const dataRecipes = [
     recipe_image: "nobsc-mixed-drink"
   },
   {
-    recipe_id: 2,
+    id: 2,
     title: "Zucchini Tempura",
     recipe_type_id: 2,
     cuisine_id: 2,
@@ -44,7 +44,7 @@ const dataRecipes = [
     recipe_image: "nobsc-zucchini-tempura"
   },
   {
-    recipe_id: 3,
+    id: 3,
     title: "Steak Tacos",
     recipe_type_id: 3,
     cuisine_id: 3,
@@ -52,7 +52,7 @@ const dataRecipes = [
     recipe_image: "nobsc-steak-tacos"
   },
   {
-    recipe_id: 4,
+    id: 4,
     title: "Green Beans",
     recipe_type_id: 4,
     cuisine_id: 4,

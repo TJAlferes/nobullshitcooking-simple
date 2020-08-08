@@ -11,7 +11,7 @@ import { RecipeView } from './RecipeView';
 //const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 const recipe = {
-  recipe_id: 1,
+  id: 1,
   recipe_type_id: 1,
   cuisine_id: 1,
   author_id: 1,
@@ -147,7 +147,7 @@ describe('Recipe', () => {
       Promise.resolve(() => {
         setImmediate(() => wrapper.update());
         expect(wrapper.find('.cuisine-view')).toHaveLength(1);
-        expect(wrapper.find(RecipeView).props().recipe.recipe_id)
+        expect(wrapper.find(RecipeView).props().recipe.id)
         .toEqual(1);
       });
     });

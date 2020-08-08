@@ -25,25 +25,25 @@ const creatingContentInfo = {
   contentTypeId: 13,
   published: null,
   title: "Some Title",
-  contentItems: [
+  items: [
     {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
   ],
-  contentImage: null,
-  contentFullImage: null,
-  contentThumbImage: null
+  image: null,
+  fullImage: null,
+  thumbImage: null
 };
 const editingContentInfo = {
-  contentId: 888,
+  id: 888,
   contentTypeId: 13,
   published: null,
   title: "Some Title",
-  contentItems: [
+  items: [
     {type: 'paragraph', children: [{text: 'COOK EAT WIN REPEAT'}]}
   ],
-  contentPrevImage: "nobsc-content-default",
-  contentImage: null,
-  contentFullImage: null,
-  contentThumbImage: null
+  prevImage: "nobsc-content-default",
+  image: null,
+  fullImage: null,
+  thumbImage: null
 };
 
 describe('userCreateNewContent action creator', () => {
@@ -134,8 +134,8 @@ describe('userDeleteContent action creator', () => {
     const expected = USER_DELETE_CONTENT;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct ', () => {
-    const actual = userDeleteContent(7).contentId;
+  it('returns the correct id', () => {
+    const actual = userDeleteContent(7).id;
     const expected = 7;
     expect(actual).toEqual(expected);
   });

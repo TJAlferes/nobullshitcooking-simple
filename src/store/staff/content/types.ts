@@ -44,7 +44,7 @@ export interface IStaffEditContentFailed {
 
 export interface IStaffDeleteContent {
   type: typeof STAFF_DELETE_CONTENT;
-  contentId: number;
+  id: number;
 }
 
 export interface IStaffDeleteContentSucceeded {
@@ -62,13 +62,13 @@ export interface ICreatingContentInfo {
   contentTypeId: number;
   published: string | null;
   title: string;
-  contentItems: Node[];
-  contentImage: string | ArrayBuffer | null;
-  contentFullImage: File | null;
-  contentThumbImage: File | null;
+  items: Node[];
+  image: string | ArrayBuffer | null;
+  fullImage: File | null;
+  thumbImage: File | null;
 }
 
 export interface IEditingContentInfo extends ICreatingContentInfo {
-  contentId: number;
-  contentPrevImage: string;
+  id: number;
+  prevImage: string;
 }
