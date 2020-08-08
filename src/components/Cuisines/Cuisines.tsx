@@ -11,10 +11,10 @@ export function Cuisines({
 }: Props): JSX.Element {
   const alphabetizedCuisines = dataCuisines
   .reduce((acc: AlphabetizedCuisines, cuisine) => {
-    const firstLetter = cuisine['cuisine_nation'][0].toLocaleUpperCase();
+    const firstLetter = cuisine['nation'][0].toLocaleUpperCase();
 
-    if (acc[firstLetter]) acc[firstLetter].push(cuisine['cuisine_nation']);
-    else acc[firstLetter] = [cuisine['cuisine_nation']];
+    if (acc[firstLetter]) acc[firstLetter].push(cuisine['nation']);
+    else acc[firstLetter] = [cuisine['nation']];
 
     return acc;
   }, {});
@@ -37,7 +37,7 @@ export function Cuisines({
               <div className="cuisine-nav-nation" key={nation}>
                 <Link
                   className="cuisine-nav-nation-link"
-                  to={`/food/cuisines/${dataCuisines[i - 1].cuisine_id}`}
+                  to={`/food/cuisines/${dataCuisines[i - 1].id}`}
                 >
                   {nation}
                 </Link>

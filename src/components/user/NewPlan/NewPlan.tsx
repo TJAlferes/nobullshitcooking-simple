@@ -59,12 +59,11 @@ export function NewPlan({
       window.scrollTo(0,0);
       setLoading(true);
 
-      const [ prev ] =
-        dataMyPlans.filter(plan => plan.plan_id === Number(id));
+      const [ prev ] = dataMyPlans.filter(p => p.id === Number(id));
 
-      plannerSetEditingId(Number(prev.plan_id));
-      plannerSetPlanName(prev.plan_name);
-      plannerSetPlanData(prev.plan_data);
+      plannerSetEditingId(Number(prev.id));
+      plannerSetPlanName(prev.name);
+      plannerSetPlanData(prev.data);
       setLoading(false);
     };
 
@@ -159,14 +158,10 @@ export function NewPlan({
     setLoading(true);
 
     if (editing) {
-      const planInfo = {
-        planId: editingId,
-        planName: planName,
-        planData: getPlanData()
-      };
+      const planInfo = {id: editingId, name: planName, data: getPlanData()};
       userEditPlan(planInfo);
     } else {
-      const planInfo = {planName: planName, planData: getPlanData()};
+      const planInfo = {name: planName, data: getPlanData()};
       userCreateNewPlan(planInfo);
     }
   }

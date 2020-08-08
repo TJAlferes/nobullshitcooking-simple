@@ -24,62 +24,42 @@ const initialProps = {
   messages: [
     {
       kind: KMessage,
-      chatMessageId: "1",
-      chatMessageText: "Some status.",
+      id: "1",
+      text: "Some status.",
       room: "5067",
-      user: {
-        userId: "1",
-        username: "messengerstatus",
-        avatar: "messengerstatus"
-      },
+      user: {id: "1", username: "messengerstatus", avatar: "messengerstatus"},
       ts: "sometime"
     },
     {
       kind: KMessage,
-      chatMessageId: "2",
-      chatMessageText: "Hey all!",
+      id: "2",
+      text: "Hey all!",
       room: "5067",
-      user: {
-        userId: "150",
-        username: "Person",
-        avatar: "Person"
-      },
+      user: {id: "150", username: "Person", avatar: "Person"},
       ts: "sometime"
     },
     {
       kind: KMessage,
-      chatMessageId: "3",
-      chatMessageText: "Hey there!",
+      id: "3",
+      text: "Hey there!",
       room: "5067",
-      user: {
-        userId: "149",
-        username: "Person2",
-        avatar: "Person2"
-      },
+      user: {id: "149", username: "Person2", avatar: "Person2"},
       ts: "sometime"
     },
     {
       kind: KWhisper,
-      whisperId: "4",
-      whisperText: "You good?",
+      id: "4",
+      text: "You good?",
       to: "Person2",
-      user: {
-        userId: "150",
-        username: "Person",
-        avatar: "Person"
-      },
+      user: {id: "150", username: "Person", avatar: "Person"},
       ts: "sometime"
     },
     {
       kind: KWhisper,
-      whisperId: "5",
-      whisperText: "Yes",
+      id: "5",
+      text: "Yes",
       to: "Person",
-      user: {
-        userId: "149",
-        username: "Person2",
-        avatar: "Person2"
-      },
+      user: {id: "149", username: "Person2", avatar: "Person2"},
       ts: "sometime"
     }
   ],

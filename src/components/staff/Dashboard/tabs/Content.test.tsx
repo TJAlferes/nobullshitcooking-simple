@@ -11,8 +11,8 @@ const handleDeleteContent = jest.fn();
 const initialProps = {
   activateModal,
   content: [
-    {content_id: 1, title: "Some Title"},
-    {content_id: 2, title: "Some Other Title"}
+    {id: 1, title: "Some Title", author: "Person", image: "some-image"},
+    {id: 2, title: "Some Other Title", author: "Person", image: "some-image"}
   ],
   creatingContent: false,  // TO DO: test
   deactivateModal,

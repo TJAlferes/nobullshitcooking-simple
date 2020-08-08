@@ -16,22 +16,22 @@ interface RootState {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type CuisineBreadcrumbsProps = PropsFromRedux & {
-  cuisineId: number;
-  cuisineName: string; 
+  id: number;
+  name: string; 
 };
 
 type EquipmentBreadcrumbsProps = PropsFromRedux & {
-  equipmentId: number;
-  equipmentName: string; 
+  id: number;
+  name: string; 
 };
 
 type IngredientBreadcrumbsProps = PropsFromRedux & {
-  ingredientId: number;
-  ingredientName: string; 
+  id: number;
+  name: string; 
 };
 
 type RecipeBreadcrumbsProps = PropsFromRedux & {
-  recipeId: number;
+  id: number;
   title: string; 
 };
 
@@ -72,8 +72,8 @@ function BreadcrumbsComponent({
 
 function CuisineBreadcrumbsComponent({
   breadCrumbsTheme,
-  cuisineId,
-  cuisineName
+  id,
+  name
 }: CuisineBreadcrumbsProps): JSX.Element {
   const CuisineBreadcrumbsDisplay = withBreadcrumbs()(
     ({ breadcrumbs }: any): JSX.Element => (
@@ -93,9 +93,9 @@ function CuisineBreadcrumbsComponent({
         )}
         <Link
           className="crumb_link"
-          to={`/page/guide/food/cuisine/${cuisineId}`}
+          to={`/page/guide/food/cuisine/${id}`}
         >
-          {cuisineName}
+          {name}
         </Link>
       </>
     )
@@ -110,8 +110,8 @@ function CuisineBreadcrumbsComponent({
 
 function EquipmentBreadcrumbsComponent({
   breadCrumbsTheme,
-  equipmentId,
-  equipmentName
+  id,
+  name
 }: EquipmentBreadcrumbsProps) {
   const EquipmentBreadcrumbsDisplay = withBreadcrumbs()(
     ({ breadcrumbs }: any): JSX.Element => {
@@ -133,9 +133,9 @@ function EquipmentBreadcrumbsComponent({
           )}
           <Link
             className="crumb_link"
-            to={`/equipment/${equipmentId}`}
+            to={`/equipment/${id}`}
           >
-            {equipmentName}
+            {name}
           </Link>
         </>
       );
@@ -151,8 +151,8 @@ function EquipmentBreadcrumbsComponent({
 
 function IngredientBreadcrumbsComponent({
   breadCrumbsTheme,
-  ingredientId,
-  ingredientName
+  id,
+  name
 }: IngredientBreadcrumbsProps) {
   const IngredientBreadcrumbsDisplay = withBreadcrumbs()(
     ({ breadcrumbs }: any): JSX.Element => {
@@ -174,9 +174,9 @@ function IngredientBreadcrumbsComponent({
           )}
           <Link
             className="crumb_link"
-            to={`/ingredients/${ingredientId}`}
+            to={`/ingredients/${id}`}
           >
-            {ingredientName}
+            {name}
           </Link>
         </>
       );
@@ -192,7 +192,7 @@ function IngredientBreadcrumbsComponent({
 
 function RecipeBreadcrumbsComponent({
   breadCrumbsTheme,
-  recipeId,
+  id,
   title
 }: RecipeBreadcrumbsProps) {
   const RecipeBreadcrumbsDisplay = withBreadcrumbs()(
@@ -215,7 +215,7 @@ function RecipeBreadcrumbsComponent({
           )}
           <Link
             className="crumb_link"
-            to={`/recipes/${recipeId}`}
+            to={`/recipes/${id}`}
           >
             {title}
           </Link>

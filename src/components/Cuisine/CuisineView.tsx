@@ -24,7 +24,7 @@ export function CuisineView({
   return (
     <div className="cuisine-view">
 
-      <CuisineBreadcrumbs cuisineId={cuisine.id} cuisineName={cuisine.name} />
+      <CuisineBreadcrumbs id={cuisine.id} name={cuisine.name} />
 
       <div className={`cuisine one-column-a ${oneColumnATheme}`}>
 

@@ -24,8 +24,8 @@ export function Plan({
   useEffect(() => {
     const getPlan = () => {
       window.scrollTo(0, 0);
-      const [ prev ] = dataMyPlans.filter(p => p.plan_id === Number(id));
-      plannerViewLoad(prev.plan_name, prev.plan_data);
+      const [ prev ] = dataMyPlans.filter(p => p.id === Number(id));
+      plannerViewLoad(prev.name, prev.data);
     };
 
     if (id) getPlan();

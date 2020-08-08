@@ -26,13 +26,13 @@ const initialProps = {
   messengerSendMessage,
   messengerSendWhisper,
   //messengerView,
-  onlineFriends: [{userId: "151", username: "Person2", avatar: "Person2"}],
+  onlineFriends: [{id: "151", username: "Person2", avatar: "Person2"}],
   status: "Connected",
   twoColumnATheme: "light",
   users: [
-    {userId: "150", username: "Person", avatar: "Person"},
-    {userId: "151", username: "Person2", avatar: "Person2"},
-    {userId: "152", username: "Person3", avatar: "Person3"}
+    {id: "150", username: "Person", avatar: "Person"},
+    {id: "151", username: "Person2", avatar: "Person2"},
+    {id: "152", username: "Person3", avatar: "Person3"}
   ],
   windowFocused: true,
 };

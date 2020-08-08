@@ -53,16 +53,16 @@ export function Content({
       ) : false}
 
       {content && content.map(c => (
-        <div className="staff-dashboard-content-item" key={c.content_id}>
+        <div className="staff-dashboard-content-item" key={c.id}>
           <span className="staff-dashboard-content-item-name">
-            <Link to={`/content/${c.content_id}`}>{c.title}</Link>
+            <Link to={`/content/${c.id}`}>{c.title}</Link>
           </span>
           <span className="staff-dashboard-content-item-action">
-            <Link to={`/staff-content/edit/${c.content_id}`}>Edit</Link>
+            <Link to={`/staff-content/edit/${c.id}`}>Edit</Link>
           </span>
           <span
             className="staff-dashboard-content-item-delete"
-            onClick={() => activateModal(c.content_id, c.title)}
+            onClick={() => activateModal(c.id, c.title)}
           >
             Delete
           </span>

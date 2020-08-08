@@ -23,8 +23,8 @@ export function Equipment({
     }
 
     const localEquipment = (
-      dataEquipment.find(e => e.equipment_id == Number(id)) ||
-      dataMyPrivateEquipment.find(e => e.equipment_id == Number(id))
+      dataEquipment.find(e => e.id == Number(id)) ||
+      dataMyPrivateEquipment.find(e => e.id == Number(id))
     );
 
     if (!localEquipment) {

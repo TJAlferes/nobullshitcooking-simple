@@ -16,7 +16,7 @@ function unflattenPageTypes(pageTypes: IContentType[]) {
   for (let i = 0; i < nodes.length; i += 1) {
     node = nodes[i];
     node.children = [];
-    map[node.content_type_id] = i;
+    map[node.id] = i;
 
     if (
       node.parent_id !== 0 &&
@@ -32,8 +32,7 @@ function unflattenPageTypes(pageTypes: IContentType[]) {
 }
 
 export function makeRoutesFromContentTypes(contentTypes: IContentType[]) {
-  const pageTypes = contentTypes
-  .filter(contentType => contentType.content_type_id !== 2);
+  const pageTypes = contentTypes.filter(t => t.id !== 2);
 
   const unflattenedPageTypes = unflattenPageTypes(pageTypes);
 
@@ -46,22 +45,15 @@ export function makeRoutesFromContentTypes(contentTypes: IContentType[]) {
     arr.unshift(...currentPageType.children);
 
     let path = currentPageType.path;
-    let name = currentPageType.content_type_name;
+    let name = currentPageType.name;
     let childProps: any = {name, path, links: []};
 
     while (currentPageType.children.length) {
       let current = currentPageType.children.shift();
-      
-      childProps.links.push({
-        name: current.content_type_name,
-        path: current.content_type_path
-      });
+      childProps.links.push({name: current.name, path: current.path});
     }
 
-    let route = {
-      path: currentPageType.content_type_path,
-      childProps
-    };
+    let route = {path: currentPageType.path, childProps};
     
     routes.push(route)
   }

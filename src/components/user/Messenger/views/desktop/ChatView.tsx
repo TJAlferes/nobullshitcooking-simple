@@ -19,11 +19,9 @@ export function ChatView({
     // status message
     if (message.user.username === "messengerstatus") {
       return (
-        <li className="messenger-chat-message" key={message.chatMessageId}>
+        <li className="messenger-chat-message" key={message.id}>
           <span className="chat-ts">{message.ts}{' '}</span>
-          <span className="chat-display-admin">
-            {message.chatMessageText}
-          </span>
+          <span className="chat-display-admin">{message.text}</span>
         </li>
       );
     }
@@ -31,24 +29,24 @@ export function ChatView({
     // sent message
     if (authname === message.user.username) {
       return (
-        <li className="messenger-chat-message" key={message.chatMessageId}>
+        <li className="messenger-chat-message" key={message.id}>
           <span className="chat-ts">{message.ts}{' '}</span>
           <span className="chat-display-username-self">
             {message.user.username}:{' '}
           </span>
-          {message.chatMessageText}
+          {message.text}
         </li>
       );
     }
 
     // received message
     return (
-      <li className="messenger-chat-message" key={message.chatMessageId}>
+      <li className="messenger-chat-message" key={message.id}>
         <span className="chat-ts">{message.ts}{' '}</span>
         <span className="chat-display-username-other">
           {message.user.username}:{' '}
         </span>
-        {message.chatMessageText}
+        {message.text}
       </li>
     );
   };
@@ -57,24 +55,24 @@ export function ChatView({
     // sent whisper
     if (authname === message.user.username) {
       return (
-        <li className="messenger-chat-message" key={message.whisperId}>
+        <li className="messenger-chat-message" key={message.id}>
           <span className="chat-ts">{message.ts}{' '}</span>
           <span className="chat-display-username-self">
             You whisper to{' '}{message.to}:{' '}
           </span>
-          <span className="chat-whisper">{message.whisperText}</span>
+          <span className="chat-whisper">{message.text}</span>
         </li>
       );
     }
 
     // received whisper
     return (
-      <li className="messenger-chat-message" key={message.whisperId}>
+      <li className="messenger-chat-message" key={message.id}>
         <span className="chat-ts">{message.ts}{' '}</span>
         <span className="chat-display-username-other">
           {message.user.username}{' '}whispers to you:{' '}
         </span>
-        <span className="chat-whisper">{message.whisperText}</span>
+        <span className="chat-whisper">{message.text}</span>
       </li>
     );
   };

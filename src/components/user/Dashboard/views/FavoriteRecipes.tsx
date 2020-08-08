@@ -19,7 +19,7 @@ export function FavoriteRecipes({
       {
         myFavoriteRecipes.length
         ? myFavoriteRecipes.map(r => (
-          <div className="dashboard-content-item" key={r.recipe_id}>
+          <div className="dashboard-content-item" key={r.id}>
             <span className="dashboard-content-item-tiny">
               {
                 r.recipe_image !== "nobsc-recipe-default"
@@ -28,11 +28,11 @@ export function FavoriteRecipes({
               }
             </span>
             <span className="dashboard-content-item-name">
-              <Link to={`/recipe/${r.recipe_id}`}>{r.title}</Link>
+              <Link to={`/recipe/${r.id}`}>{r.title}</Link>
             </span>
             <span
               className="dashboard-content-item-unfavorite"
-              onClick={() => handleUnfavoriteRecipe(r.recipe_id)}
+              onClick={() => handleUnfavoriteRecipe(r.id)}
             >
               Unfavorite
             </span>

@@ -12,10 +12,7 @@ export function EquipmentView({
   return (
     <div className="equipment">
 
-      <EquipmentBreadcrumbs
-        equipmentId={equipment.equipment_id}
-        equipmentName={equipment.equipment_name}
-      />
+      <EquipmentBreadcrumbs id={equipment.id} name={equipment.name} />
 
       <div
         className={`equipment-view two-column-b ${twoColumnBTheme}`}
@@ -26,15 +23,13 @@ export function EquipmentView({
 
           <div className="equipment-details">
 
-            <h1 className="equipment-name">{equipment.equipment_name}</h1>
+            <h1 className="equipment-name">{equipment.name}</h1>
 
             <div className="equipment-image">
               {
-                dataMyPrivateEquipment.find(
-                  equ => equ.equipment_id === equipment.equipment_id
-                )
-                ? <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${equipment.equipment_image}`} />
-                : <img src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.equipment_image}.jpg`} />
+                dataMyPrivateEquipment.find(e => e.id === equipment.id)
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${equipment.image}`} />
+                : <img src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.image}.jpg`} />
               }
             </div>
 
@@ -50,7 +45,7 @@ export function EquipmentView({
               <b>Equipment Description:</b>
               {' '}
               <div className="equipment-description">
-                {equipment.equipment_description}
+                {equipment.description}
               </div>
             </div>
 

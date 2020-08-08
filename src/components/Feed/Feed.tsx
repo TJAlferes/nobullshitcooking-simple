@@ -14,7 +14,7 @@ export function Feed({
       {
         [...(myContent && myContent), ...(officialContent && officialContent)]
         .map(c => (
-          <div className="feed-item" key={c.content_id}>
+          <div className="feed-item" key={c.id}>
             <h1 className="feed-item__title">{c.title}</h1>
             <span className="feed-item__author">{c.author}</span>
             <img

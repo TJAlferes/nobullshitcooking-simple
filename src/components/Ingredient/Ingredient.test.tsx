@@ -9,26 +9,26 @@ import { IngredientView } from './IngredientView';
 const initialProps = {
   dataIngredients: [
     {
-      ingredient_id: 1,
+      id: 1,
       owner_id: 1,
       ingredient_type_id: 12,
-      ingredient_brand: null,
-      ingredient_variety: "Granny Smith",
-      ingredient_name: "Apple",
+      brand: null,
+      variety: "Granny Smith",
+      name: "Apple",
       ingredient_type_name: "Fruit",
-      ingredient_description: "Some note.",
-      ingredient_image: "nobsc-apple"
+      description: "Some note.",
+      image: "nobsc-apple"
     },
     {
-      ingredient_id: 2,
+      id: 2,
       owner_id: 1,
       ingredient_type_id: 11,
-      ingredient_brand: null,
-      ingredient_variety: "Baby",
-      ingredient_name: "Spinach",
+      brand: null,
+      variety: "Baby",
+      name: "Spinach",
       ingredient_type_name: "Vegetable",
-      ingredient_description: "Some note.",
-      ingredient_image: "nobsc-spinach"
+      description: "Some note.",
+      image: "nobsc-spinach"
     }
   ],
   dataMyPrivateIngredients: [],
@@ -99,7 +99,7 @@ describe('Ingredient', () => {
       Promise.resolve(() => {
         setImmediate(() => wrapper.update());
         expect(wrapper.find('[data-test="ingredient-view"]')).toHaveLength(1);
-        expect(wrapper.find(IngredientView).props().ingredient.ingredient_id)
+        expect(wrapper.find(IngredientView).props().ingredient.id)
         .toEqual(1);
       });
     });

@@ -33,7 +33,7 @@ export function RecipeView({
   return (
     <div className="recipe">
 
-      <RecipeBreadcrumbs recipeId={recipe.id} title={recipe.title} />
+      <RecipeBreadcrumbs id={recipe.id} title={recipe.title} />
 
       <div className={`recipe-view two-column-b ${twoColumnBTheme}`}>
 

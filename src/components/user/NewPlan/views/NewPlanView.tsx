@@ -93,7 +93,7 @@ export function NewPlanView({
 
     /*
 
-    Note: even though recipe_id and owner_id
+    Note: even though recipe.id and recipe.owner_id
     are not used when creating/editing a plan (NewPlan-),
     they are set at this stage because
     they are used when viewing a plan (Plan-)
@@ -107,7 +107,7 @@ export function NewPlanView({
         expandedDay={expandedDay}
         list={list.map((recipe: IWorkRecipe) => ({
           key: uuidv4(),
-          recipe_id: recipe.recipe_id,
+          id: recipe.id,
           title: recipe.title,
           recipe_image: recipe.recipe_image,
           owner_id: recipe.owner_id

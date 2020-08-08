@@ -67,21 +67,21 @@ export function Plans({
       {
         myPlans.length
         ? myPlans.map(p => (
-          <div className="dashboard-content-item" key={p.plan_id}>
+          <div className="dashboard-content-item" key={p.id}>
             <span className="dashboard-content-item-name">
-              <Link to={`/user-plan/${p.plan_id}`}>{p.plan_name}</Link>
+              <Link to={`/user-plan/${p.id}`}>{p.name}</Link>
             </span>
             {
               (!creatingPlan && !editingId) &&
               <span className="dashboard-content-item-action">
-                <Link to={`/user-plan/edit/${p.plan_id}`}>Edit</Link>
+                <Link to={`/user-plan/edit/${p.id}`}>Edit</Link>
               </span>
             }
             {
               (!creatingPlan && !editingId) &&
               <span
                 className="dashboard-content-item-delete"
-                onClick={() => activateModal(p.plan_id, p.plan_name)}
+                onClick={() => activateModal(p.id, p.name)}
               >
                 Delete
               </span>

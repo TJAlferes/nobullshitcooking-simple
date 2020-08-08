@@ -7,13 +7,13 @@ function buildMatch(searchTerm: string, currentIndex: string) {
   
   if (currentIndex === "ingredients") {
     return searchTerm
-    ? {match: {ingredient_fullname: {query: searchTerm}}}
+    ? {match: {fullname: {query: searchTerm}}}
     : {match_all: {}};
   }
   
   if (currentIndex === "equipment") {
     return searchTerm
-    ? {match: {equipment_name: {query: searchTerm}}}
+    ? {match: {name: {query: searchTerm}}}
     : {match_all: {}};
   }
 }
@@ -21,7 +21,7 @@ function buildMatch(searchTerm: string, currentIndex: string) {
 /*
 {
   multi_match: {
-    fields: ["ingredient_brand", "ingredient_variety", "ingredient_name"],
+    fields: ["brand", "variety", "name"],
     query: searchTerm
   }
 }
@@ -122,12 +122,12 @@ export function buildSearchRequest(state: any, currentIndex: string) {
 
   if (currentIndex === "ingredients") {
     aggs = {ingredient_type_name: {terms: {field: "ingredient_type_name"}}};
-    highlightFields = {ingredient_fullname: {}};
+    highlightFields = {fullname: {}};
   }
 
   if (currentIndex === "equipment") {
     aggs = {equipment_type_name: {terms: {field: "equipment_type_name"}}};
-    highlightFields = {equipment_name: {}};
+    highlightFields = {name: {}};
   }
 
   const body = {

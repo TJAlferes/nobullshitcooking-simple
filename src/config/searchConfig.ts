@@ -31,7 +31,7 @@ function getFacetsConfig() {
 
 function getDisjunctiveFacetsConfig() {
   if (getSearchState().currentIndex === "recipes") {
-    return ["recipe_type_name", "cuisineName"];
+    return ["recipe_type_name", "cuisine_name"];
   } else if (getSearchState().currentIndex === "ingredients") {
     return ["ingredient_type_name"];
   }

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { AddToCartButton } from './AddToCartButton';
 
-const item = {itemId: 18, itemTypeId: 1, itemName: 'Item 18'};
+const item = {id: 18, itemTypeId: 1, name: 'Item 18'};
 
 const cartAddItem = jest.fn();
 

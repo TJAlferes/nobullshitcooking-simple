@@ -14,8 +14,8 @@ export function Recipe({ recipe }: Props): JSX.Element {
         <Link
           to={
             Number(recipe.owner_id) === 1
-            ? `/recipes/${recipe.recipe_id}`
-            : `/user-recipes/${recipe.recipe_id}`
+            ? `/recipes/${recipe.id}`
+            : `/user-recipes/${recipe.id}`
           }
         >
           {recipe.title}

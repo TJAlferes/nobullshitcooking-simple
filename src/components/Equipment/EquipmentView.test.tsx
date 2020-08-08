@@ -6,34 +6,34 @@ import { EquipmentView } from './EquipmentView';
 const initialProps = {
   dataMyPrivateEquipment: [
     {
-      equipment_id: 600,
+      id: 600,
       owner_id: 88,
       equipment_type_id: 3,
-      equipment_name: "My Spatula",
+      name: "My Spatula",
       equipment_type_name: "Cooking",
-      equipment_description: "Some note.",
-      equipment_image: "0123456789"
+      description: "Some note.",
+      image: "0123456789"
     },
     {
-      equipment_id: 605,
+      id: 605,
       owner_id: 88,
       equipment_type_id: 2,
-      equipment_name: "My Cutting Board",
+      name: "My Cutting Board",
       equipment_type_name: "Preparing",
-      equipment_description: "Some note.",
-      equipment_image: "0123456790"
+      description: "Some note.",
+      image: "0123456790"
     }
   ],
   twoColumnBTheme: "light",
 };
 const equipment = {
-  equipment_id: 1,
+  id: 1,
   owner_id: 1,
   equipment_type_id: 2,
-  equipment_name: "Cutting Board",
+  name: "Cutting Board",
   equipment_type_name: "Preparing",
-  equipment_description: "Some note.",
-  equipment_image: "nobsc-cutting-board"
+  description: "Some note.",
+  image: "nobsc-cutting-board"
 };
 
 describe('EquipmentView', () => {

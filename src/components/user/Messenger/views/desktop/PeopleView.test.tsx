@@ -12,12 +12,12 @@ const initialProps = {
   handleFriendClick,
   handlePeopleTabChange,
   handleUserClick,
-  onlineFriends: [{userId: "151", username: "Person2", avatar: "Person2"}],
+  onlineFriends: [{id: "151", username: "Person2", avatar: "Person2"}],
   startWhisper,
   users: [
-    {userId: "150", username: "Person", avatar: "Person"},
-    {userId: "151", username: "Person2", avatar: "Person2"},
-    {userId: "152", username: "Person3", avatar: "Person3"}
+    {id: "150", username: "Person", avatar: "Person"},
+    {id: "151", username: "Person2", avatar: "Person2"},
+    {id: "152", username: "Person3", avatar: "Person3"}
   ]
 };
 
@@ -83,7 +83,7 @@ describe('PeopleView', () => {
       const wrapper = shallow(
         <PeopleView
           focusedFriend={null}
-          focusedUser={{userId: "151", username: "Person2", avatar: "Person2"}}
+          focusedUser={{id: "151", username: "Person2", avatar: "Person2"}}
           peopleTab="Room"
           {...initialProps}
         />
@@ -138,7 +138,7 @@ describe('PeopleView', () => {
       const wrapper = shallow(
         <PeopleView
           focusedFriend={
-            {userId: "151", username: "Person2", avatar: "Person2"}
+            {id: "151", username: "Person2", avatar: "Person2"}
           }
           focusedUser={null}
           peopleTab="Friends"

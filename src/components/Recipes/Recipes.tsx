@@ -13,32 +13,32 @@ import './recipes.css';
 
 function listResults(results: any) {
   if (results && results[0] && results[0].id) {
-    return results.map((rec: any) => (
-      <div className="search-result-recipe" key={rec.id.raw}>
+    return results.map((r: any) => (
+      <div className="search-result-recipe" key={r.id.raw}>
         <Link
           className="search-result-recipe-link"
-          to={`/recipe/${rec.id.raw}`}
+          to={`/recipe/${r.id.raw}`}
         >
           <div className="search-result-recipe-text">
             <div className="search-result-recipe-text__title">
-              {rec.title.raw}
+              {r.title.raw}
             </div>
             <div className="search-result-recipe-text__author">
-              {rec.author.raw}
+              {r.author.raw}
             </div>
 
             <div className="search-result-recipe-text__types">
               <div className="search-result-recipe-text__types-cuisine">
-                {rec.cuisine_name.raw}
+                {r.cuisine_name.raw}
               </div>
               <div className="search-result-recipe-text__types-recipe-type">
-                {rec.recipe_type_name.raw}
+                {r.recipe_type_name.raw}
               </div>
             </div>
 
             <div className="search-result-recipe-text__tags">
               <div className="search-result-recipe-text__tags-methods">
-                {rec.method_names.raw.map((method: any) => (
+                {r.method_names.raw.map((method: any) => (
                   <span
                     className="search-result-recipe-text__tags-method"
                     key={method}
@@ -48,7 +48,7 @@ function listResults(results: any) {
                 ))}
               </div>
               <div className="search-result-recipe-text__tags-ingredients">
-                {rec.ingredient_names.raw.map((ingredient: any) => (
+                {r.ingredient_names.raw.map((ingredient: any) => (
                   <span
                     className="search-result-recipe-text__tags-ingredient"
                     key={ingredient}
@@ -60,11 +60,11 @@ function listResults(results: any) {
             </div>
           </div>
           {
-            (rec.recipe_image.raw !== "nobsc-recipe-default")
+            (r.recipe_image.raw !== "nobsc-recipe-default")
             ? (
               <img
                 className="search-result-recipe-image"
-                src={`https://s3.amazonaws.com/nobsc-user-recipe/${rec.recipe_image.raw}-thumb`}
+                src={`https://s3.amazonaws.com/nobsc-user-recipe/${r.recipe_image.raw}-thumb`}
               />
             )
             : <div className="image-default-100-62"></div>

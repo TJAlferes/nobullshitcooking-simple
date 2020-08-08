@@ -12,10 +12,7 @@ export function IngredientView({
   return (
     <div className="ingredient">
 
-      <IngredientBreadcrumbs
-        ingredientId={ingredient.ingredient_id}
-        ingredientName={ingredient.ingredient_name}
-      />
+      <IngredientBreadcrumbs id={ingredient.id} name={ingredient.name} />
 
       <div
         className={`ingredient-view two-column-b ${twoColumnBTheme}`}
@@ -27,18 +24,18 @@ export function IngredientView({
           <div className="ingredient-details">
 
             <h1 className="ingredient-name">
-              {ingredient.ingredient_brand && (ingredient.ingredient_brand + ' ')}
-              {ingredient.ingredient_variety && (ingredient.ingredient_variety + ' ')}
-              {ingredient.ingredient_name}
+              {ingredient.brand && (ingredient.brand + ' ')}
+              {ingredient.variety && (ingredient.variety + ' ')}
+              {ingredient.name}
             </h1>
 
             <div className="ingredient-image">
               {
                 dataMyPrivateIngredients.find(
-                  ing => ing.ingredient_id === ingredient.ingredient_id
+                  ing => ing.id === ingredient.id
                 )
-                ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${ingredient.ingredient_image}`} />
-                : <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.ingredient_image}.jpg`} />
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${ingredient.image}`} />
+                : <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.image}.jpg`} />
               }
             </div>
 
@@ -54,7 +51,7 @@ export function IngredientView({
               <b>Ingredient Description:</b>
               {' '}
               <div className="ingredient-description">
-                {ingredient.ingredient_description}
+                {ingredient.description}
               </div>
             </div>
 

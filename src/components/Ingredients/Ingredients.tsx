@@ -12,28 +12,28 @@ import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import './ingredients.css';
 
 function listResults(results: any) {
-  if (results && results[0] && results[0].ingredient_id) {
-    return results.map((ing: any) => (
-      <div className="search-result-ingredient" key={ing.ingredient_id.raw}>
+  if (results && results[0] && results[0].id) {
+    return results.map((i: any) => (
+      <div className="search-result-ingredient" key={i.id.raw}>
         <Link
           className="search-result-ingredient-link"
-          to={`/ingredient/${ing.ingredient_id.raw}`}
+          to={`/ingredient/${i.id.raw}`}
         >
           <div className="search-result-ingredient-text">
             <div className="search-result-ingredient-text__name">
-              {ing.ingredient_brand.raw && ing.ingredient_brand.raw}
+              {i.brand.raw && i.brand.raw}
               {' '}
-              {ing.ingredient_variety.raw && ing.ingredient_variety.raw}
+              {i.variety.raw && i.variety.raw}
               {' '}
-              {ing.ingredient_name.raw}
+              {i.name.raw}
             </div>
             <div className="search-result-ingredient-text__type">
-              {ing.ingredient_type_name.raw}
+              {i.ingredient_type_name.raw}
             </div>
           </div>
           <img
             className="search-result-ingredient-image"
-            src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ing.ingredient_image.raw}.jpg`}
+            src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${i.image.raw}.jpg`}
           />
         </Link>
       </div>

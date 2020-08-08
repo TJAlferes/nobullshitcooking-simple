@@ -15,9 +15,9 @@ export function Cart({ cartItems, oneColumnATheme }: Props) {
         ? 'Your cart is empty.'
         : cartItems.map(c => (
           <div className="cart-item">
-            <span><img src={`${endpoint}/${c.itemName}`} /></span>
-            <span>{c.itemName}</span>
-            <span><RemoveFromCartButton itemId={c.itemId}/></span>
+            <span><img src={`${endpoint}/${c.name}`} /></span>
+            <span>{c.name}</span>
+            <span><RemoveFromCartButton itemId={c.id}/></span>
           </div>
         ))
       }

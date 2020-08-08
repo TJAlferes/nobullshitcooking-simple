@@ -70,7 +70,7 @@ function buildStateFacets(aggregations: any, currentIndex: string) {
   } else if (currentIndex === "ingredients") {
 
     const ingredientTypeName =
-    getValueFacet(aggregations, "ingredient_type_name");
+      getValueFacet(aggregations, "ingredient_type_name");
     const facets = {
       ...(ingredientTypeName && {ingredient_type_name: ingredientTypeName})
     };
@@ -79,7 +79,7 @@ function buildStateFacets(aggregations: any, currentIndex: string) {
   } else if (currentIndex === "equipment") {
 
     const equipmentTypeName =
-    getValueFacet(aggregations, "equipment_type_name");
+      getValueFacet(aggregations, "equipment_type_name");
     const facets = {
       ...(equipmentTypeName && {equipment_type_name: equipmentTypeName})
     };

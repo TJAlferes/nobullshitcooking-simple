@@ -12,24 +12,24 @@ import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import './equipments.css';
 
 function listResults(results: any) {
-  if (results && results[0] && results[0].equipment_id) {
-    return results && results.map((equ: any) => (
-      <div className="search-result-equipment" key={equ.equipment_id.raw}>
+  if (results && results[0] && results[0].id) {
+    return results && results.map((e: any) => (
+      <div className="search-result-equipment" key={e.id.raw}>
         <Link
           className="search-result-equipment-link"
-          to={`/equipment/${equ.equipment_id.raw}`}
+          to={`/equipment/${e.id.raw}`}
         >
           <div className="search-result-equipment-text">
             <div className="search-result-equipment-text__name">
-              {equ.equipment_name.raw}
+              {e.equipment_name.raw}
             </div>
             <div className="search-result-equipment-text__type">
-              {equ.equipment_type_name.raw}
+              {e.equipment_type_name.raw}
             </div>
           </div>
           <img
             className="search-result-equipment-image"
-            src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equ.equipment_image.raw}.jpg`}
+            src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${e.equipment_image.raw}.jpg`}
           />
         </Link>
       </div>

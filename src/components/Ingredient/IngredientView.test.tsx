@@ -4,41 +4,41 @@ import React from 'react';
 import { IngredientView } from './IngredientView';
 
 const ingredient = {
-  ingredient_id: 1,
+  id: 1,
   owner_id: 1,
   ingredient_type_id: 1,
-  ingredient_brand: null,
-  ingredient_variety: "Chilean",
-  ingredient_name: "Salmon",
+  brand: null,
+  variety: "Chilean",
+  name: "Salmon",
   ingredient_type_name: "Fish",
-  ingredient_description: "Some note.",
-  ingredient_image: "nobsc-salmon"
+  description: "Some note.",
+  image: "nobsc-salmon"
 };
 
 const initialProps = {
   twoColumnBTheme: "light",
   dataMyPrivateIngredients: [
     {
-      ingredient_id: 600,
+      id: 600,
       owner_id: 88,
       ingredient_type_id: 12,
-      ingredient_brand: null,
-      ingredient_variety: null,
-      ingredient_name: "My Special Apple",
+      brand: null,
+      variety: null,
+      name: "My Special Apple",
       ingredient_type_name: "Fruit",
-      ingredient_description: "Some note.",
-      ingredient_image: "0123456789"
+      description: "Some note.",
+      image: "0123456789"
     },
     {
-      ingredient_id: 605,
+      id: 605,
       owner_id: 88,
       ingredient_type_id: 11,
-      ingredient_brand: null,
-      ingredient_variety: null,
-      ingredient_name: "My Special Spinach",
+      brand: null,
+      variety: null,
+      name: "My Special Spinach",
       ingredient_type_name: "Vegetable",
-      ingredient_description: "Some note.",
-      ingredient_image: "0123456790"
+      description: "Some note.",
+      image: "0123456790"
     }
   ]
 };

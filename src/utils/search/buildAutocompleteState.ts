@@ -23,9 +23,9 @@ function buildResults(hits: any, currentIndex: string) {
   };
 
   let idValue: string;
-  if (currentIndex === "recipes") idValue = "recipe_id";
-  if (currentIndex === "ingredients") idValue = "ingredient_id";
-  if (currentIndex === "equipment") idValue = "equipment_id";
+  if (currentIndex === "recipes") idValue = "id";
+  if (currentIndex === "ingredients") idValue = "id";
+  if (currentIndex === "equipment") idValue = "id";
 
   return hits.map((record: any) => ({
     id: {raw: record._source[idValue]},

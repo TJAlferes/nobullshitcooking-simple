@@ -59,7 +59,7 @@ export function PrivateRecipes({
       {
         myPrivateRecipes.length
         ? myPrivateRecipes.map(r => (
-          <div className="dashboard-content-item" key={r.recipe_id}>
+          <div className="dashboard-content-item" key={r.id}>
             <span className="dashboard-content-item-tiny">
               {
                 r.recipe_image !== "nobsc-recipe-default"
@@ -68,14 +68,14 @@ export function PrivateRecipes({
               }
             </span>
             <span className="dashboard-content-item-name">
-              <Link to={`/user-recipe/${r.recipe_id}`}>{r.title}</Link>
+              <Link to={`/user-recipe/${r.id}`}>{r.title}</Link>
             </span>
             <span className="dashboard-content-item-action">
-              <Link to={`/user-recipe/private/edit/${r.recipe_id}`}>Edit</Link>
+              <Link to={`/user-recipe/private/edit/${r.id}`}>Edit</Link>
             </span>
             <span
               className="dashboard-content-item-delete"
-              onClick={() => activateModal(r.recipe_id, r.title)}
+              onClick={() => activateModal(r.id, r.title)}
             >
               Delete
             </span>
