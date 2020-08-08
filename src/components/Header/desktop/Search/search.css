@@ -1,69 +1,62 @@
 .search {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  min-width: 320px;
-  height: 32px;
-  max-height: 32px;
-  margin-top: 7px;
+  border-color: #777 #aaa #aaa #777;
+  border-radius: 1px;
   border-style: solid;
   border-width: 1px;
-  border-radius: 1px;
-  border-top-color: #777;
-  border-right-color: #aaa;
-  border-bottom-color: #aaa;
-  border-left-color: #777;
+  display: flex;
+  flex-direction: row;
+  height: 32px;
+  margin-top: 7px;
+  max-height: 32px;
+  min-width: 320px;
   padding: 0;
+  width: 100%;
 }
 
 .search-category {
-  position: relative;
-  order: 1;
   display: block;
-  width: auto;
-  max-width: 100%;
   height: 30px;
+  max-width: 100%;
+  order: 1;
+  position: relative;
+  width: auto;
 }
 
 .search-facade {
-  position: relative;
-  float: left;
-  height: 30px;
+  background-image: linear-gradient(to bottom, #eee, #bbb);
+  border-color: #fff #888 #888 #fff;
+  border-radius: 1px;
   border-style: solid;
   border-width: 1px;
-  border-radius: 1px;
-  border-top-color: #fff;
-  border-right-color: #888;
-  border-bottom-color: #888;
-  border-left-color: #fff;
-  background-image: linear-gradient(to bottom, #eee, #bbb);
+  float: left;
+  height: 30px;
+  position: relative;
 }
 
 .facade-text {
-  margin-right: 21px;
-  margin-left: 8px;
-  line-height: 30px;
-  font-size: 1.3rem;
   color: #666;
+  font-size: 1.3rem;
+  line-height: 30px;
+  margin: 0 21px 0 8px;
 }
 
 .facade-arrow {
   position: absolute;
-  top: 12px;
   right: 7px;
+  top: 12px;
 }
 
 .search-prefilters {
-  position: absolute;
-  left: 0;
-  height: 30px;
-  width: 100%;
-  font-family: Arial, sans-serif;
-  margin: 0;
   border: 0;
-  padding: 0;
   cursor: pointer;
+  font-family: Arial, sans-serif;
+  height: 30px;
+  left: 0;
+  margin: 0;
   opacity: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
 }
 
 .search-prefilter {
@@ -102,16 +95,16 @@ We are overriding default values / setting new values to get the look we desire.
 }
 
 .sui-search-box__text-input {
-  width: 100%;
-  height: 30px;
-  margin: 0;
+  -webkit-appearance: none;
   border: 0;
   border-radius: 0;
-  padding: 3px 10px 3px 0;
-  -webkit-appearance: none;
   box-shadow: none;
-  text-indent: 5px;
   font-family: Arial, sans-serif;
+  height: 30px;
+  margin: 0;
+  padding: 3px 10px 3px 0;
+  text-indent: 5px;
+  width: 100%;
 }
 
 .header-light .sui-search-box__text-input {
@@ -133,26 +126,25 @@ We are overriding default values / setting new values to get the look we desire.
 }
 
 .sui-search-box__results-list {
-  overflow: hidden;
   list-style-type: none;
+  overflow: hidden;
 }
 
 .sui-search-box__results-list li,
 .sui-search-box__results-list li span {
-  width: 100%;
-  height: 30px;
-  line-height: 26px;
+  cursor: pointer;
   font-family: Arial, sans-serif;
   font-size: 1.3rem;
-  overflow: hidden;
-  font-weight: 100;
   font-style: normal;
-  cursor: pointer;
+  font-weight: 100;
+  height: 30px;
+  line-height: 26px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .sui-search-box__results-list li {
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 0 10px;
 }
 
 .header-light .sui-search-box__results-list li,
@@ -173,8 +165,8 @@ We are overriding default values / setting new values to get the look we desire.
 }
 
 .sui-search-box__results-list li em {
-  font-weight: 700;
   font-style: normal;
+  font-weight: 700;
 }
 
 .header-light .sui-search-box__results-list li em {
@@ -196,25 +188,21 @@ We are overriding default values / setting new values to get the look we desire.
 }
 
 .sui-search-box__submit {
-  order: 2;
-  width: auto;
-  max-width: 100%;
-  height: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
+  background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
+  border-color: #ddd #666 #666 #ddd;
+  border-radius: 1px;
   border-style: solid;
   border-width: 1px;
-  border-radius: 1px;
-  border-top-color: #ddd;
-  border-right-color: #666;
-  border-bottom-color: #666;
-  border-left-color: #ddd;
-  background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
-  line-height: 26px;
-  font-family: Arial, sans-serif;
-  font-size: 1.3rem;
   color: #222;
   cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 1.3rem;
+  height: 30px;
+  line-height: 26px;
+  max-width: 100%;
+  order: 2;
+  padding: 0 8px;
+  width: auto;
 }
 
 .sui-search-box__submit:hover {

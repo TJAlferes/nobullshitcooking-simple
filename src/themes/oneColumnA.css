@@ -1,8 +1,8 @@
 .one-column-a {
   display: block;
-  min-width: 300px;  /* ? */
-  max-width: 1200px;  /* ? */
   margin: 20px auto 0px auto;
+  max-width: 1200px;  /* ? */
+  min-width: 300px;  /* ? */
   padding: 10px 10px;
 }
 
@@ -27,11 +27,11 @@ light
   color: #777;
 }
 
-.one-column-a-light select,
 .one-column-a-light input,
+.one-column-a-light select,
 .one-column-a-light textarea {
-  border-color: #bbb;
   background-color: #fff;
+  border-color: #bbb;
   color: #000;
 }
 
@@ -77,9 +77,9 @@ dark
   background-color: #690004;
 }
 
-.one-column-a-dark .ownership-span-label,
+.one-column-a-dark label,
 .one-column-a-dark .method-span-label,
-.one-column-a-dark label {
+.one-column-a-dark .ownership-span-label {
   color: #999;
 }
 
@@ -89,11 +89,11 @@ dark
   background-color: #2d2d2d;
 }
 
-.one-column-a-dark select,
 .one-column-a-dark input,
+.one-column-a-dark select,
 .one-column-a-dark textarea {
-  border-color: #666;
   background-color: #1e1e1e;
+  border-color: #666;
   color: #bbb;
 }
 

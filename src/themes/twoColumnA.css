@@ -1,28 +1,25 @@
 .two-column-a {
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: flex-start;
   justify-content: center;
   /*width: 1200px;*/
-  min-width: 300px;
-  max-width: 1200px;
   margin: 0 auto;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  max-width: 1200px;
+  min-width: 300px;
+  padding: 10px 0 10px 0;
 }
 
 .two-column-a section {
-  order: 2;
-  /*flex: 1 1 auto;*/
-  min-width: 300px;
-  max-width: 960px;  /*980? 970?*/
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  padding: 10px 10px;
-  overflow: auto;
   background-color: #fff;
+  /*flex: 1 1 auto;*/
+  margin: 10px 0 10px 10px;
+  max-width: 960px;  /*980? 970?*/
+  min-width: 300px;
+  order: 2;
+  overflow: auto;
+  padding: 10px 10px;
 }
 
 @media (max-width: 1209px) {
@@ -60,8 +57,8 @@ light
 }
 
 .two-column-a-light .user-new-plan__name-input {
-  border-color: #bbb;
   background-color: #fff;
+  border-color: #bbb;
   color: #000;
 }
 
@@ -72,8 +69,8 @@ light
 }
 
 .two-column-a-light .monthly-plan__body {
-  border: 1px solid #b1d7f9;
   background-color: #b1d7f9;
+  border: 1px solid #b1d7f9;
 }
 
 .two-column-a-light .planner_day_white {
@@ -127,20 +124,20 @@ light
   background-color: #eee;
 }
 
-.two-column-a-light.supplements td a:hover,
+.two-column-a-light .dashboard-content-item-action a:hover,
 .two-column-a-light .dashboard-content-item-name a:hover,
 .two-column-a-light .friends-list-item-username a:hover,
-.two-column-a-light .dashboard-content-item-action a:hover {
+.two-column-a-light .supplements td a:hover {
   color: #c10006;
 }
 
-.two-column-a-light .messenger-room,
-.two-column-a-light .messenger-channel-switch,
-.two-column-a-light .messenger-channel-label,
 .two-column-a-light .messenger-channel-current,
+.two-column-a-light .messenger-channel-label,
+.two-column-a-light .messenger-channel-switch,
 .two-column-a-light .messenger-chat,
 .two-column-a-light .messenger-chat-input,
-.two-column-a-light .messenger-people {
+.two-column-a-light .messenger-people,
+.two-column-a-light .messenger-room {
   border-color: #ddd;
 }
 
@@ -148,12 +145,12 @@ light
   color: #bbb;
 }
 
-.two-column-a-light .messenger-room,
+.two-column-a-light .messenger-channel-switch,
+.two-column-a-light .messenger-channel-label,
 .two-column-a-light .messenger-connect-disconnect-mobile-spacer,
 .two-column-a-light .messenger-current-container,
 .two-column-a-light .messenger-go-container,
-.two-column-a-light .messenger-channel-switch,
-.two-column-a-light .messenger-channel-label,
+.two-column-a-light .messenger-room,
 .two-column-a-light .messenger-spacer-one,
 .two-column-a-light .messenger-spacer-two {
   background-color: #ddd;
@@ -163,13 +160,10 @@ light
   background-color: #fff;
 }
 
-.two-column-a-light .messenger-user-in-room,
-.two-column-a-light .messenger-friend  {
-  border-top-color: #fff;
-  border-right-color: #b3b3b3;
-  border-bottom-color: #b3b3b3;
-  border-left-color: #fff;
+.two-column-a-light .messenger-friend,
+.two-column-a-light .messenger-user-in-room {
   background-color: #eaeaea;
+  border-color: #fff #b3b3b3 #b3b3b3 #fff;
   color: #292929;
 }
 
@@ -203,8 +197,8 @@ dark
 }
 
 .two-column-a-dark .user-new-plan__name-input {
-  border-color: #666;
   background-color: #1e1e1e;
+  border-color: #666;
   color: #bbb;
 }
 
@@ -215,8 +209,8 @@ dark
 }
 
 .two-column-a-dark .monthly-plan__body {
-  border: 1px solid #507ea7;
   background-color: #507ea7;
+  border: 1px solid #507ea7;
 }
 
 .two-column-a-dark .planner_day_white {
@@ -275,20 +269,20 @@ dark
   background-color: #2d2d2d;
 }
 
-.two-column-a-dark.supplements td a:hover,
+.two-column-a-dark .dashboard-content-item-action a:hover,
 .two-column-a-dark .dashboard-content-item-name a:hover,
 .two-column-a-dark .friends-list-item-username a:hover,
-.two-column-a-dark .dashboard-content-item-action a:hover {
+.two-column-a-dark .supplements td a:hover {
   color: #690004;
 }
 
-.two-column-a-dark .messenger-room,
-.two-column-a-dark .messenger-channel-switch,
-.two-column-a-dark .messenger-channel-label,
 .two-column-a-dark .messenger-channel-current,
+.two-column-a-dark .messenger-channel-label,
+.two-column-a-dark .messenger-channel-switch,
 .two-column-a-dark .messenger-chat,
 .two-column-a-dark .messenger-chat-input,
-.two-column-a-dark .messenger-people {
+.two-column-a-dark .messenger-people,
+.two-column-a-dark .messenger-room {
   border-color: #444
 }
 
@@ -296,36 +290,34 @@ dark
   color: #666;
 }
 
-.two-column-a-dark .messenger-room,
+.two-column-a-dark .messenger-channel-label,
+.two-column-a-dark .messenger-channel-switch,
 .two-column-a-dark .messenger-connect-disconnect-mobile-spacer,
 .two-column-a-dark .messenger-current-container,
 .two-column-a-dark .messenger-go-container,
-.two-column-a-dark .messenger-channel-switch,
-.two-column-a-dark .messenger-channel-label,
-.two-column-a-dark .messenger-spacer-one,
-.two-column-a-dark .messenger-spacer-two {
+.two-column-a-dark .messenger-room,
+.two-column-a-dark .messenger-spacer-two,
+.two-column-a-dark .messenger-spacer-one {
   background-color: #444;
 }
 
-.two-column-a-dark .messenger-room input,
+
 .two-column-a-dark .messenger-channel-current,
 .two-column-a-dark .messenger-chat,
-.two-column-a-dark .messenger-chat-messages,
-.two-column-a-dark .messenger-chat-message,
 .two-column-a-dark .messenger-chat-input input,
+.two-column-a-dark .messenger-chat-message,
+.two-column-a-dark .messenger-chat-messages,
+.two-column-a-dark .messenger-friends,
 .two-column-a-dark .messenger-people,
-.two-column-a-dark .messenger-users-in-room,
-.two-column-a-dark .messenger-friends  {
+.two-column-a-dark .messenger-room input,
+.two-column-a-dark .messenger-users-in-room {
   background-color: #1e1e1e;
   color: #bbb;
 }
 
-.two-column-a-dark .messenger-user-in-room,
-.two-column-a-dark .messenger-friend  {
-  border-top-color: #222;
-  border-right-color: #000;
-  border-bottom-color: #000;
-  border-left-color: #222;
+.two-column-a-dark .messenger-friend,
+.two-column-a-dark .messenger-user-in-room {
+  border-color: #222 #000 #000 #222;
   background-color: #2c2c2c;
   color: #bbb;
 }

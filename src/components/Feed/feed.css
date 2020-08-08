@@ -1,9 +1,9 @@
 .feed {
   display: block;
-  order: 2;
-  min-width: 280px;
-  max-width: 620px;
   margin: 10px;
+  max-width: 620px;
+  min-width: 280px;
+  order: 2;
 }
 
 .feed-light {

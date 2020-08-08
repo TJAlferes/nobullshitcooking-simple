@@ -1,38 +1,31 @@
 .cuisines {
-  min-width: 300px;
   max-width: 1200px;
+  min-width: 300px;
 }
 
+.cuisine-nav-group,
 .cuisine-nav-title {
   margin-bottom: 18px;
 }
 
-.cuisine-nav-group {
-  margin-bottom: 18px;
-}
-
 .cuisine-nav-letter {
-  margin-bottom: 10px;
   font-size: 16px;
   font-weight: 900;
-}
-
-.cuisine-nav-nation {
-  display: block;
   margin-bottom: 10px;
-  font-size: 13px;
 }
 
 .cuisine-nav-nation {
   display: block;
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 
 .cuisine-nav-nation-link {
-  text-decoration: none;
   color: #000;
+  text-decoration: none;
 }
 
-.cuisine-nav-nation-link:hover,
-.cuisine-nav-nation-link:active {
+.cuisine-nav-nation-link:active,
+.cuisine-nav-nation-link:hover {
   color: #c10006;
 }
