@@ -4,8 +4,8 @@
   left: 50%;
   margin: -5px;
   position: absolute;
-  width: 10px;
   top: 50%;
+  width: 10px;
 }
 
 @keyframes spin {

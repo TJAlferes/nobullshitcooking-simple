@@ -1,8 +1,7 @@
 .search {
+  border: 1px solid;
   border-color: #777 #aaa #aaa #777;
   border-radius: 1px;
-  border-style: solid;
-  border-width: 1px;
   display: flex;
   flex-direction: row;
   height: 32px;
@@ -24,10 +23,9 @@
 
 .search-facade {
   background-image: linear-gradient(to bottom, #eee, #bbb);
+  border: 1px solid;
   border-color: #fff #888 #888 #fff;
   border-radius: 1px;
-  border-style: solid;
-  border-width: 1px;
   float: left;
   height: 30px;
   position: relative;
@@ -189,10 +187,9 @@ We are overriding default values / setting new values to get the look we desire.
 
 .sui-search-box__submit {
   background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
+  border: 1px solid;
   border-color: #ddd #666 #666 #ddd;
   border-radius: 1px;
-  border-style: solid;
-  border-width: 1px;
   color: #222;
   cursor: pointer;
   font-family: Arial, sans-serif;

@@ -1,22 +1,21 @@
 .plan_recipe {
+  align-content: center;
+  background-color: #FFF3CC;
+  border: 1px solid #FFDEC3;
+  box-shadow: 1px 1px 1px #999;
+  cursor: move;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-content: center;
-  background-color: #FFF3CC;
-  width: 90%;
-  min-width: 100px;
-  max-width: 200px;
-  height: 27px;
-  /*padding: 3px auto 3px auto;*/
-  border: 1px solid #FFDEC3;
-  margin: 6px 1px;
-  text-align: center;
   font-family: Arial, sans-serif;
   font-size: 11px;
+  height: 27px;
+  margin: 6px 1px;
+  max-width: 200px;
+  min-width: 100px;
   overflow: hidden;
-  box-shadow: 1px 1px 1px #999;
-  cursor: pointer;
+  text-align: center;
+  width: 90%;
 }
 
 /*.planner_recipe image {
@@ -24,8 +23,8 @@
 }*/
 
 .planner_recipe_text {
-  width: 100%;
-  text-align: center;
   font-family: Arial, sans-serif;
   font-size: 11px;
+  text-align: center;
+  width: 100%;
 }

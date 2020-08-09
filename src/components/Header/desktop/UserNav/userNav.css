@@ -12,9 +12,11 @@
   margin: 0 9px;
 }
 
-.user-nav-link {
-  display: block;
+.user-nav-link,
+.user-nav .signed-in-nav-span,
+.user-nav .mode-button {
   color: #fff;
+  display: block;
   font-size: 14px;
   font-weight: 900;
   height: 24px;
@@ -26,23 +28,8 @@
   text-decoration: underline;
 }
 
-.user-nav .signed-in-nav-span {
-  color: #fff;
-  display: block;
-  font-size: 14px;
-  font-weight: 900;
-  height: 24px;
-  text-decoration: none;
-}
-
 .user-nav .mode-button {
-  color: #fff;
-  display: block;
-  font-size: 14px;
-  font-weight: 900;
-  height: 24px;
   line-height: 16px;
-  text-decoration: none;
 }
 
 .signed-in-nav-span:hover {

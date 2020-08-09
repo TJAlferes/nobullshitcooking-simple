@@ -3,44 +3,41 @@
 }*/
 
 .user-plan__hr {
-  width: 100%;
-  height: 1px;
   border: 0 none;
+  height: 1px;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .user-plan__name {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  width: 100%;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .user-plan__name-label {
-  order: 1;
   display: block;
-  margin-right: 5px;
-  line-height: 30px;
   font-size: 1.3rem;
   font-weight: 900;
+  line-height: 30px;
+  margin-right: 5px;
+  order: 1;
 }
 
 .user-plan__name-value {
-  order: 2;
   display: block;
-  line-height: 30px;
   font-size: 1.3rem;
   font-weight: 900;
-  /*width: 685px;
-  height: 31px;
-  padding: 3px 7px 3px 7px;*/
+  line-height: 30px;
+  order: 2;
 }
 
 .user-plan__calendar-container {
-  width: 100%;
   height: 328px;
-  margin: 0 auto 0 auto;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .user-plan__monthly-plan {
@@ -51,70 +48,69 @@
 }
 
 .monthly-plan {
-  order: 1;
-  width: 756px;
   height: 321px;
   max-height: 321px;
+  order: 1;
+  width: 756px;
 }
 
+.monthly-plan__body,
 .monthly-plan__header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1px;
   width: 100%;
+}
+
+.monthly-plan__header {
   height: 20px;
 }
 
 .monthly-plan__header-day {
   height: 20px;
-  text-align: center;
   line-height: 20px;
+  text-align: center;
 }
 
 .monthly-plan__body {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 1px;
-  width: 100%;
-  min-height: 300px;
   height: 300px;
   max-height: 300px;
+  min-height: 300px;
 }
 
 .monthly-plan__body-day {
+  overflow: hidden;
   position: relative;
   width: 100%;
-  overflow: hidden;
 }
 
 /* :after? */
 .monthly-plan__body-day:before {
   content: "";
-  height: 0;
   display: inline-block;
+  height: 0;
   padding-top: 100%;
-  width: 1px;
   position: relative;
+  width: 1px;
 }
 
 .body-day__content {
-  position: absolute;
-  top: 0;
-  left: 0;
+  align-items: end;
   bottom: 0;
-  width: 100%;
   display: grid;
   justify-items: start;
-  align-items: end;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .expanded-day-container {
+  border: 1px solid #fff;
+  height: 319px;
+  margin: 1px 0 0 10px;
   order: 2;
   width: 150px;
-  height: 319px;
-  margin-top: 1px;
-  margin-left: 10px;
-  border: 1px solid #fff;
 }
 
 
@@ -122,46 +118,40 @@
 
 
 .the_date {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: content;
-  height: content;
-  padding-top: 1px;
-  padding-right: 3px;
-  user-select: none;
   color: #afafaf;
+  height: content;
+  padding: 1px 3px 0 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  user-select: none;
+  width: content;
+}
+
+.planner_day_collapsed,
+.planner_expanded_day {
+  background: #fff;
+  cursor: hand;
+  cursor: pointer;
+  max-height: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  overflow: hidden;
+  padding-top: 18px;
+  position: relative;
+  transform: none;
 }
 
 .planner_day_collapsed {
-  position: relative;
-  min-width: 100%;
-  min-height: 100%;
-  max-height: 100%;
-  max-width: 100%;
-  padding-top: 18px;
   padding-left: 3px;
-  background: #fff;
-  overflow: hidden;
-  cursor: hand;
-  cursor: pointer;
   transform: none;
 }
 
 .planner_expanded_day {
-  position: relative;
-  min-width: 100%;
-  min-height: 100%;
-  max-height: 100%;
-  max-width: 100%;
-  padding-top: 18px;
-  padding-left: 6px;
-  background: #fff;
   border: 1px solid #bfbfbf;
-  overflow: hidden;
-  cursor: hand;
-  cursor: pointer;
   box-shadow: 1px 1px 1px #555;
+  padding-left: 6px;
 }
 
 .planner_day_white {

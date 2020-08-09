@@ -4,7 +4,6 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
-  /*width: 1200px;*/
   margin: 0 auto;
   max-width: 1200px;
   min-width: 300px;
@@ -13,9 +12,8 @@
 
 .two-column-a section {
   background-color: #fff;
-  /*flex: 1 1 auto;*/
   margin: 10px 0 10px 10px;
-  max-width: 960px;  /*980? 970?*/
+  max-width: 960px;
   min-width: 300px;
   order: 2;
   overflow: auto;

@@ -1,9 +1,9 @@
 #app {
   display: grid;
-  grid-template-rows: 92px auto 92px;
   grid-template-areas: none;
-  min-width: calc(100vw - (100vw - 100%));
+  grid-template-rows: 92px auto 92px;
   max-width: calc(100vw - (100vw - 100%));
+  min-width: calc(100vw - (100vw - 100%));
   min-height: 100vh;
 }
 
@@ -16,18 +16,18 @@
 }
 
 .image-default-280-172 {
-  min-width: 280px;
   min-height: 172px;
+  min-width: 280px;
 }
 
 .image-default-100-62 {
-  min-width: 100px;
   min-height: 62px;
+  min-width: 100px;
 }
 
 .image-default-28-18 {
-  min-width: 28px;
   min-height: 18px;
+  min-width: 28px;
 }
 
 /*
@@ -39,8 +39,6 @@ mobile
 @media (max-width: 899px) {
   #app {
     grid-template-rows: 92px auto 237px;
-    min-width: calc(100vw - (100vw - 100%));
-    max-width: calc(100vw - (100vw - 100%));
   }
 
   .mobile_display {

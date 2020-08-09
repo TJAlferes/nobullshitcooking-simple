@@ -10,8 +10,8 @@
 
 @media (max-width: 899px) {
   .plan-page {
-    min-width: 300px;
     max-width: 100%;
+    min-width: 300px;
   }
 
   .mobile_display {

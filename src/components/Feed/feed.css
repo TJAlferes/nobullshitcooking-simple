@@ -6,26 +6,39 @@
   order: 2;
 }
 
+.feed-item {
+  border-bottom: 20px solid;
+  padding: 10px;
+}
+
+/*
+
+light
+
+*/
+
 .feed-light {
   background-color: #fff;
   color: #000;
 }
+
+.feed-light .feed-item {
+  border-bottom-color: #eee;
+}
+
+/*
+
+dark
+
+*/
 
 .feed-dark {
   background-color: #222;
   color: #aaa;
 }
 
-.feed-item {
-  padding: 10px;
-}
-
-.feed-light .feed-item {
-  border-bottom: 20px solid #eee;
-}
-
 .feed-dark .feed-item {
-  border-bottom: 20px solid #111;
+  border-bottom-color: #111;
 }
 
 @media (max-width: 899px) {

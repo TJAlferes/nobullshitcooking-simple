@@ -11,8 +11,7 @@
 }
 
 .table-a td {
-  border-style: solid;
-  border-width: 1px;
+  border: 1px solid;
   padding: 1px 2px 2px 2px;
 }
 

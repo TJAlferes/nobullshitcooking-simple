@@ -41,9 +41,9 @@ import App from './App';
 import './global.css';
 import './themes/navGridA.css';
 import './themes/oneColumnA.css';
+import './themes/tableA.css';
 import './themes/twoColumnA.css';
 import './themes/twoColumnB.css';
-import './themes/tableA.css';
 import './nobsc-alert-favicon.png';
 import './nobsc-normal-favicon.png';
 

@@ -9,10 +9,9 @@
 }
 
 .cuisine-tab {
+  border: 1px solid;
   border-color: #ddd #666 #666 #ddd;
   border-radius: 1px;
-  border-style: solid;
-  border-width: 1px;
   color: #222;
   cursor: pointer;
   font-family: 'Play', sans-serif;
@@ -45,9 +44,8 @@
 
 .cuisine-nearby-stores-button {
   background-image: linear-gradient(to bottom, #eee, #bbb);
+  border: 1px solid;
   border-color: #fff #888 #888 #fff;
   border-radius: 1px;
-  border-style: solid;
-  border-width: 1px;
   cursor: pointer;
 }

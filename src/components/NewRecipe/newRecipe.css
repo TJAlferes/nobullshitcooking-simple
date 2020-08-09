@@ -123,9 +123,8 @@
 
 .new-recipe-title,
 .new-recipe-description {
+  border: 1px solid;
   border-radius: 1px;
-  border-style: solid;
-  border-width: 1px;
   display: block;
   height: 31px;
   margin: 0 auto 0 auto;
@@ -146,12 +145,11 @@
 .equipment-row-label,
 .ingredient-row-label,
 .subrecipe-row-label {
-  height: 23px;
-  margin-right: 4px;
-  margin-left: 18px;
-  padding-top: 3px;
   font-size: 1.3rem;
   font-weight: 700;
+  height: 23px;
+  margin: 0 4px 0 18px;
+  padding-top: 3px;
 }
 
 .equipment-row-select-amount {
@@ -180,9 +178,8 @@
 
 .ingredient-row-manual-amount,
 .subrecipe-row-manual-amount {
+  border: 1px solid;
   border-radius: 1px;
-  border-style: solid;
-  border-width: 1px;
   height: 25px;
   max-width: 70px;
   min-width: 70px;

@@ -1,7 +1,6 @@
 .menu-container {
-	border-style: solid;
+	border: 1px solid;
 	border-radius: 3px;
-	border-width: 1px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -14,29 +13,11 @@
   z-index: 4;
 }
 
-.menu-container.drop-down-menu-light {
-  background-color: #fff;
-  border-color: #bfbfbf;
-}
-
-.menu-container.drop-down-menu-dark {
-  background-color: #999;
-  border-color: #888;
-}
-
 .menu {
   margin: 0;
   padding: 12px 6px 9px 9px;
   order: 1;
   width: 250px;
-}
-
-.menu.drop-down-menu-light {
-  border-right: 1px solid #eee;
-}
-
-.menu.drop-down-menu-dark {
-  border-right: 1px solid #888;
 }
 
 .menu-items,
@@ -54,14 +35,6 @@
   text-decoration: none;
 }
 
-.menu-item.active .menu-item-link.drop-down-menu-light {
-  color: #c10006;
-}
-
-.menu-item.active .menu-item-link.drop-down-menu-dark {
-  color: #690004;
-}
-
 .sub-menu {
   margin: 0;
   padding: 12px 6px 9px 9px;
@@ -75,14 +48,6 @@
   font-size: 1.6rem;
   margin-bottom: 6px;
   text-decoration: none;
-}
-
-.sub-menu-heading-link.drop-down-menu-light {
-  color: #c10006;
-}
-
-.sub-menu-heading-link.drop-down-menu-dark {
-  color: #690004;
 }
 
 .sub-menu-items {
@@ -106,17 +71,51 @@
   text-decoration: underline;
 }
 
-.sub-menu-item-link:hover.drop-down-menu-light {
-  color: #c10006;
-}
-
-.sub-menu-item-link:hover.drop-down-menu-dark {
-  color: #690004;
-}
-
 .sub-menu-images,
 .sub-menu-image {
   bottom: 0px;
   position: absolute;
   right: 0px;
+}
+
+/*
+
+light
+
+*/
+
+.menu-container.drop-down-menu-light {
+  background-color: #fff;
+  border-color: #bfbfbf;
+}
+
+.menu.drop-down-menu-light {
+  border-right: 1px solid #eee;
+}
+
+.menu-item.active .menu-item-link.drop-down-menu-light,
+.sub-menu-heading-link.drop-down-menu-light,
+.sub-menu-item-link:hover.drop-down-menu-light {
+  color: #c10006;
+}
+
+/*
+
+dark
+
+*/
+
+.menu-container.drop-down-menu-dark {
+  background-color: #999;
+  border-color: #888;
+}
+
+.menu.drop-down-menu-dark {
+  border-right: 1px solid #888;
+}
+
+.menu-item.active .menu-item-link.drop-down-menu-dark,
+.sub-menu-heading-link.drop-down-menu-dark,
+.sub-menu-item-link:hover.drop-down-menu-dark {
+  color: #690004;
 }

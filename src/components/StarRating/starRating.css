@@ -1,6 +1,6 @@
 .star-rating .star {
-  padding: .15em;
   cursor: pointer;
+  padding: .15em;
 }
 
 .star-rating .star.read-only {

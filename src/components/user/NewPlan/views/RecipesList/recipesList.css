@@ -1,13 +1,13 @@
 .planner-recipes-list {
+  border: 1px solid #bfbfbf;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
-  width: 756px;
   height: 125px;
-  border: 1px solid #bfbfbf;
-  padding: 6px;
+  justify-content: space-around;
   overflow-y: scroll;
+  padding: 6px;
+  width: 756px;
 }
 
 .planner-recipes-list #planner_recipe {

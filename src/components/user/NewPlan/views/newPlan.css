@@ -3,54 +3,53 @@
 }*/
 
 .new-plan__feedback {
-  display: block;
-  width: 100%;
-  height: 31px;
   color: #c10006;
-  text-align: center;
+  display: block;
   font-family: Arial;
   font-size: 14px;
+  height: 31px;
+  text-align: center;
+  width: 100%;
 }
 
 .new-plan__hr {
-  width: 100%;
-  height: 1px;
   border: 0 none;
+  height: 1px;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .new-plan__name {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  width: 100%;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .new-plan__name-label {
-  order: 1;
   display: block;
-  margin-right: 5px;
-  line-height: 30px;
   font-size: 1.3rem;
   font-weight: 900;
+  line-height: 30px;
+  margin-right: 5px;
+  order: 1;
 }
 
 .new-plan__name-input {
-  order: 2;
-  display: block;
-  width: 685px;
-  height: 31px;
-  border-style: solid;
-  border-width: 1px;
+  border: 1px solid;
   border-radius: 1px;
+  display: block;
+  height: 31px;
+  order: 2;
   padding: 3px 7px 3px 7px;
+  width: 685px;
 }
 
 .new-plan__calendar-container {
-  width: 100%;
   height: 480px;
-  margin: 0 auto 0 auto;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .new-plan__monthly-plan {
@@ -61,61 +60,61 @@
 }
 
 .monthly-plan {
-  order: 1;
-  width: 756px;
   height: 321px;
   max-height: 321px;
+  order: 1;
+  width: 756px;
 }
 
+.monthly-plan__body,
 .monthly-plan__header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1px;
   width: 100%;
+}
+
+.monthly-plan__header {
   height: 20px;
 }
 
 .monthly-plan__header-day {
   height: 20px;
-  text-align: center;
   line-height: 20px;
+  text-align: center;
 }
 
 .monthly-plan__body {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 1px;
-  width: 100%;
-  min-height: 300px;
   height: 300px;
   max-height: 300px;
+  min-height: 300px;
 }
 
 .monthly-plan__body-day {
+  overflow: hidden;
   position: relative;
   width: 100%;
-  overflow: hidden;
 }
 
 /* :after? */
 .monthly-plan__body-day:before {
   content: "";
-  height: 0;
   display: inline-block;
+  height: 0;
   padding-top: 100%;
-  width: 1px;
   position: relative;
+  width: 1px;
 }
 
 .body-day__content {
-  position: absolute;
-  top: 0;
-  left: 0;
+  align-items: end;
   bottom: 0;
-  width: 100%;
   display: grid;
   justify-items: start;
-  align-items: end;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 
@@ -123,46 +122,40 @@
 
 
 .the_date {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: content;
-  height: content;
-  padding-top: 1px;
-  padding-right: 3px;
-  user-select: none;
   color: #afafaf;
+  height: content;
+  padding: 1px 3px 0 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  user-select: none;
+  width: content;
+}
+
+.planner_day_collapsed,
+.planner_expanded_day {
+  background: #fff;
+  cursor: hand;
+  cursor: pointer;
+  max-height: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  overflow: hidden;
+  padding-top: 18px;
+  position: relative;
+  transform: none;
 }
 
 .planner_day_collapsed {
-  position: relative;
-  min-width: 100%;
-  min-height: 100%;
-  max-height: 100%;
-  max-width: 100%;
-  padding-top: 18px;
   padding-left: 3px;
-  background: #fff;
-  overflow: hidden;
-  cursor: hand;
-  cursor: pointer;
   transform: none;
 }
 
 .planner_expanded_day {
-  position: relative;
-  min-width: 100%;
-  min-height: 100%;
-  max-height: 100%;
-  max-width: 100%;
-  padding-top: 18px;
-  padding-left: 6px;
-  background: #fff;
   border: 1px solid #bfbfbf;
-  overflow: hidden;
-  cursor: hand;
-  cursor: pointer;
   box-shadow: 1px 1px 1px #555;
+  padding-left: 6px;
 }
 
 .planner_day_green {
@@ -178,37 +171,30 @@
 
 
 .expanded-day-container {
+  border: 1px solid #fff;
+  height: 319px;
+  margin: 1px 0 0 10px;
   order: 2;
   width: 150px;
-  height: 319px;
-  margin-top: 1px;
-  margin-left: 10px;
-  border: 1px solid #fff;
 }
 
 .planner-recipes-list-tabs {
-  width: 755px;
-  margin-top: 10px;
   border-bottom: 2px solid #6cabe4;
+  margin-top: 10px;
+  width: 755px;
 }
 
 .planner-recipes-list-tab {
-  width: 151px;
-  height: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
-  border-style: solid;
-  border-width: 1px;
+  border: 1px solid;
+  border-color: #ddd #666 #666 #ddd;
   border-radius: 1px;
-  border-top-color: #ddd;
-  border-right-color: #666;
-  border-bottom-color: #666;
-  border-left-color: #ddd;
-  /*line-height: 26px;*/
-  font-family: 'Play', sans-serif;
-  font-size: 1.3rem;
   color: #222;
   cursor: pointer;
+  font-family: 'Play', sans-serif;
+  font-size: 1.3rem;
+  height: 30px;
+  padding: 0 8px;
+  width: 151px;
 }
 
 .planner-recipes-list-tab.active {
@@ -228,19 +214,19 @@
 .planner-cancel-button,
 .planner-cancel-cancel-button,
 .planner-submit-button {
-  display: block;
-  width: 235px;
-  height: 30px;
-  margin-right: 30px;
   border: 1px solid #aaa;
   border-radius: 2px;
-  padding: 1px 5px;
-  line-height: 26px;
-  text-align: center;
-  text-decoration: none;
-  font-family: 'Play', sans-serif;
   color: black;
   cursor: pointer;
+  display: block;
+  font-family: 'Play', sans-serif;
+  height: 30px;
+  line-height: 26px;
+  margin-right: 30px;
+  padding: 1px 5px;
+  text-align: center;
+  text-decoration: none;
+  width: 235px;
 }
 
 .planner-cancel-button {
@@ -252,14 +238,13 @@
 }
 
 .planner-cancel-modal {
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /*align-self: center;*/
-  width: 280px;
   margin: 0 auto;
   padding: 10px;
-  background-color: #fff;
+  width: 280px;
 }
 
 .planner-cancel-modal .planner-cancel-cancel-button,
@@ -276,15 +261,14 @@
 
 @media (max-width: 1209px) {
   .planner-finish-area {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 0;
   }
 
   .planner-cancel-button,
   .planner-submit-button {
     display: block;
-    width: 235px;
     margin: 15px auto 0 auto;
+    width: 235px;
   }
 
 

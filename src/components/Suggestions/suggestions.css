@@ -1,9 +1,8 @@
 .suggestions {
-  order: 3;
-  min-width: 280px;
+  margin: 10px 0 0 10px;
   max-width: 340px;
-  margin-top: 10px;
-  margin-left: 10px;
+  min-width: 280px;
+  order: 3;
   padding: 10px;
 }
 
@@ -13,15 +12,15 @@
 
 .suggestions-light .suggestions-header {
   display: block;
-  margin-bottom: 5px;
   color: #000;
+  margin-bottom: 5px;
 }
 
 .suggestions-light .suggestions-line {
+  background-color: #bfbfbf;
+  border: 0 none;
   height: 1px;
   margin-bottom: 5px;
-  border: 0 none;
-  background-color: #bfbfbf;
 }
 
 .suggestions-dark {
@@ -29,39 +28,35 @@
 }
 
 .suggestions-dark .suggestions-header {
+  color: #aaa;
   display: block;
   margin-bottom: 5px;
-  color: #aaa;
 }
 
 .suggestions-dark .suggestions-line {
+  background-color: #444;
+  border: 0 none;
   height: 1px;
   margin-bottom: 5px;
-  border: 0 none;
-  background-color: #444;
 }
 
 .suggestions-nearby-stores {
-  width: 260px;
   height: 260px;
+  width: 260px;
 }
 
 .suggestions-nearby-stores-iframe,
 .suggestions-nearby-stores-button {
-  width: 100%;
   height: 100%;
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .suggestions-nearby-stores-button {
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 1px;
-  border-top-color: #fff;
-  border-right-color: #888;
-  border-bottom-color: #888;
-  border-left-color: #fff;
   background-image: linear-gradient(to bottom, #eee, #bbb);
+  border: 1px solid;
+  border-color: #fff #888 #888 #fff;
+  border-radius: 1px;
   cursor: pointer;
 }
 

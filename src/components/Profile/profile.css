@@ -9,10 +9,9 @@
 }
 
 .profile-list-menu-tab {
+  border: 1px solid;
   border-color: #ddd #666 #666 #ddd;
   border-radius: 1px;
-  border-style: solid;
-  border-width: 1px;
   color: #222;
   cursor: pointer;
   font-family: 'Play', sans-serif;
@@ -37,12 +36,9 @@
 
 .profile-list-item {
   align-items: center;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-left-style: solid;
-  border-left-width: 1px;
-  border-right-style: solid;
-  border-right-width: 1px;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -52,8 +48,7 @@
 }
 
 .profile-list-item:first-of-type {
-  border-top-style: solid;
-  border-top-width: 1px;
+  border-top: 1px solid;
 }
 
 .profile-list-item-tiny {

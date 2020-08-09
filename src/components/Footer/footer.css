@@ -44,6 +44,12 @@
   text-decoration: underline;
 }
 
+/*
+
+light
+
+*/
+
 .footer-light {
   background-color: #666;
 }
@@ -51,6 +57,12 @@
 .footer-light a:hover {
   color: #c10006;
 }
+
+/*
+
+dark
+
+*/
 
 .footer-dark {
   background-color: #333;
