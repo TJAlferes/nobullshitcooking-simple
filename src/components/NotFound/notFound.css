@@ -5,8 +5,8 @@
 
 .not-found-heading {
   display: block;
-  width: 262px;
-  margin: 0 auto;
   font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: 36px;
+  margin: 0 auto;
+  width: 262px;
 }

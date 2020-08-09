@@ -1,7 +1,6 @@
 .main {
-  min-width: 300px;
   max-width: calc(100vw - (100vw - 100%));
-  /*padding-top: 25px;*/
+  min-width: 300px;
   padding-bottom: 25px;
 }
 
@@ -14,26 +13,26 @@
 }
 
 .show-shadow {
-  position: absolute;
-  bottom: 1;
-  top: 92px;
-  left: -42px;
-  display: block;
-  width: 3000px;
-  height: 3000px;
   background: rgba(0, 0, 0, .5);
+  bottom: 1;
+  display: block;
+  height: 3000px;
+  left: -42px;
+  position: absolute;
+  top: 92px;
+  width: 3000px;
   z-index: 2;
 }
 
 .hide-shadow {
-  position: absolute;
-  bottom: 1;
-  top: 92px;
-  left: -42px;
-  display: none;
-  width: 3000px;
-  height: 3000px;
   background: rgba(0, 0, 0, .5);
+  bottom: 1;
+  display: none;
+  height: 3000px;
+  left: -42px;
+  position: absolute;
+  top: 92px;
+  width: 3000px;
   z-index: 2;
 }
 
@@ -45,7 +44,7 @@ mobile
 
 @media (max-width: 899px) {
   .main {
-    min-width: 300px;
     max-width: 100vw;
+    min-width: 300px;
   }
 }

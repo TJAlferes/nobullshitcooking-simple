@@ -6,8 +6,7 @@
   display: block;
   font-size: 1.6rem;
   font-weight: 900;
-  margin-bottom: 12px;
-  margin-left: 5px;
+  margin: 0 12px 0 5px;
 }
 
 .sui-facet {
@@ -15,13 +14,12 @@
 }
 
 .sui-facet__title {
-  margin-left: 5px;
-  padding-top: 3px;
-  padding-bottom: 8px;
-  text-align: left;
+  font-family: 'Play', sans-serif;
   font-size: 1.4rem;
   font-weight: 900;
-  font-family: 'Play', sans-serif;
+  margin-left: 5px;
+  padding: 3px 0 8px 0;
+  text-align: left;
 }
 
 .sui-multi-checkbox-facet {
@@ -30,12 +28,12 @@
 
 .sui-multi-checkbox-facet__option-label {
   display: inline-block;
-  width: 92px;
-  min-width: 92px;
-  max-width: 92px;
   height: 32px;
-  min-height: 32px;
   max-height: 32px;
+  max-width: 92px;
+  min-height: 32px;
+  min-width: 92px;
+  width: 92px;
 }
 
 .sui-multi-checkbox-facet__checkbox {
@@ -53,9 +51,8 @@
 }
 
 .sui-paging {
-  margin-bottom: 20px;
-  margin-top: 20px;
   list-style-type: none;
+  margin: 20px 0;
 }
 
 .rc-pagination {
@@ -64,9 +61,8 @@
 }
 
 .rc-pagination-item {
-  margin-right: 12px;
-  margin-left: 12px;
   font-weight: 900;
+  margin: 0 12px;
 }
 
 .rc-pagination-item a {
@@ -79,8 +75,8 @@
 }
 
 .sui-paging-info {
-  margin-left: 12px;
   font-size: 12px;
+  margin-left: 12px;
 }
 
 .sui-results-per-page {
@@ -98,27 +94,27 @@
 }
 
 .sui-results-per-page__label {
-  padding-top: 4px;
   font-size: 12px;
+  padding-top: 4px;
 }
 
-.sui-results-per-page .sui-select .sui-select--inline {
+/*.sui-results-per-page .sui-select .sui-select--inline {
 
-}
+}*/
 
 .search-result-recipe {
   padding: 10px;
 }
 
 .search-result-recipe-link {
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
   height: 100%;
+  justify-content: space-between;
   padding: 10px;
   text-decoration: none;
+  width: 100%;
 }
 
 .search-result-recipe-text__title {
@@ -139,16 +135,16 @@
 }
 
 .search-result-recipe-text__tags {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
 }
 
 .search-result-recipe-text__tags-methods,
 .search-result-recipe-text__tags-ingredients {
-  max-width: fit-content;
   margin-top: 1px;
+  max-width: fit-content;
 }
 
 /*.search-result-recipe-text__tags-methods {
@@ -161,9 +157,8 @@
 
 .search-result-recipe-text__tags-method,
 .search-result-recipe-text__tags-ingredient {
-  max-width: fit-content;
-  margin-right: 4px;
-  margin-bottom: 4px;
-  padding: 1px 3px;
   font-size: 13px;
+  margin: 0 4px 4px 0;
+  max-width: fit-content;
+  padding: 1px 3px;
 }

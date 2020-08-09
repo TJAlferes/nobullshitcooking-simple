@@ -1,25 +1,24 @@
 .user-nav {
   display: flex;
-  flex-flow: row;
-  justify-content: center;
   flex-direction: row;
+  flex-flow: row;
   flex-wrap: nowrap;
   float: right;
+  justify-content: center;
   list-style-type: none;
 }
 
 .user-nav li {
-  margin-left: 9px;
-  margin-right: 9px;
+  margin: 0 9px;
 }
 
 .user-nav-link {
   display: block;
+  color: #fff;
   font-size: 14px;
   font-weight: 900;
-  color: #fff;
-  text-decoration: none;
   height: 24px;
+  text-decoration: none;
 }
 
 .user-nav-link:hover,
@@ -28,32 +27,32 @@
 }
 
 .user-nav .signed-in-nav-span {
+  color: #fff;
   display: block;
   font-size: 14px;
   font-weight: 900;
-  color: #fff;
-  text-decoration: none;
   height: 24px;
+  text-decoration: none;
 }
 
 .user-nav .mode-button {
+  color: #fff;
   display: block;
-  height: 24px;
   font-size: 14px;
   font-weight: 900;
+  height: 24px;
   line-height: 16px;
   text-decoration: none;
-  color: #fff;
 }
 
 .signed-in-nav-span:hover {
-  text-decoration: underline;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .mode-button:hover {
-  text-decoration: none;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .signed-in-nav-span:active,

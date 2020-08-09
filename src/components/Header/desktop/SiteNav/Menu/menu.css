@@ -1,17 +1,16 @@
 .menu-container {
-  position: absolute;
-	top: 18px;
-	left: -12px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-	height: 306px;
-	/*width: 550px;*/
-	padding: 0;
 	border-style: solid;
 	border-radius: 3px;
 	border-width: 1px;
-	cursor: pointer;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 306px;
+  left: -12px;
+  padding: 0;
+  position: absolute;
+  top: 18px;
   z-index: 4;
 }
 
@@ -26,13 +25,10 @@
 }
 
 .menu {
+  margin: 0;
+  padding: 12px 6px 9px 9px;
   order: 1;
   width: 250px;
-  margin: 0;
-  padding-top: 12px;
-	padding-right: 6px;
-	padding-bottom: 9px;
-	padding-left: 9px;
 }
 
 .menu.drop-down-menu-light {
@@ -47,8 +43,8 @@
 .menu-item,
 .menu-item-link {
   display: block;
-  margin: 0 0 6px 0;
   color: #000;
+  margin: 0 0 6px 0;
   text-decoration: none;
 }
 
@@ -67,20 +63,17 @@
 }
 
 .sub-menu {
+  margin: 0;
+  padding: 12px 6px 9px 9px;
   order: 2;
   width: 400px;
-  margin: 0;
-  padding-top: 12px;
-	padding-right: 6px;
-	padding-bottom: 9px;
-	padding-left: 9px;
 }
 
 .sub-menu-heading,
 .sub-menu-heading-link {
   display: block;
-  margin-bottom: 6px;
   font-size: 1.6rem;
+  margin-bottom: 6px;
   text-decoration: none;
 }
 
@@ -123,7 +116,7 @@
 
 .sub-menu-images,
 .sub-menu-image {
+  bottom: 0px;
   position: absolute;
   right: 0px;
-  bottom: 0px;
 }

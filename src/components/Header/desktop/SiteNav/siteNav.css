@@ -1,27 +1,26 @@
 .site-nav {
   display: flex;
-  flex-flow: row;
-  justify-content: center;
   flex-direction: row;
+  flex-flow: row;
   flex-wrap: nowrap;
   float: left;
-  list-style-type: none;
   height: 25px;
+  justify-content: center;
+  list-style-type: none;
 }
 
 .site-nav li {
+  margin: 0 10px;
   position: relative;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 .site-nav-link {
+  color: #fff;
   display: block;
-  height: 24px;
   font-size: 14px;
   font-weight: 900;
+  height: 24px;
   text-decoration: none;
-  color: #fff;
 }
 
 .site-nav-link:hover {
