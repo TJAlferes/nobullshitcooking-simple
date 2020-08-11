@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
 import { connect, ConnectedProps } from 'react-redux';
+import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
+import { Link } from 'react-router-dom';
 
 import './breadcrumbs.css';
-
-// TO DO: split this file up
 
 interface RootState {
   theme: {
@@ -52,10 +50,10 @@ function BreadcrumbsComponent({
           index: number
         ) => (
           <span className="crumb" key={match.url}>
-            <Link className="crumb_link" to={match.url}>{breadcrumb}</Link>
+            <Link className="crumb-link" to={match.url}>{breadcrumb}</Link>
             {
               (index < breadcrumbs.length - 1) &&
-              <i className="crumb_pointer">&gt;</i>
+              <i className="crumb-pointer">&gt;</i>
             }
           </span>
         ))}
@@ -81,18 +79,18 @@ function CuisineBreadcrumbsComponent({
         {breadcrumbs.pop().map(
           ({ breadcrumb, match }: any, index: number) => (
             <span className="crumb" key={match.url}>
-              <Link className="crumb_link" to={match.url}>
+              <Link className="crumb-link" to={match.url}>
                 {breadcrumb}
               </Link>
               {
                 (index < breadcrumbs.length) &&
-                <i className="crumb_pointer">{`&gt;`}</i>
+                <i className="crumb-pointer">{`&gt;`}</i>
               }
             </span>
           )
         )}
         <Link
-          className="crumb_link"
+          className="crumb-link"
           to={`/page/guide/food/cuisine/${id}`}
         >
           {name}
@@ -121,18 +119,18 @@ function EquipmentBreadcrumbsComponent({
           {breadcrumbs.map(
             ({ breadcrumb, match }: any, index: number) => (
               <span className="crumb" key={match.url}>
-                <Link className="crumb_link" to={match.url}>
+                <Link className="crumb-link" to={match.url}>
                   {breadcrumb}
                 </Link>
                 {
                   (index < breadcrumbs.length) &&
-                  <i className="crumb_pointer">{`&gt;`}</i>
+                  <i className="crumb-pointer">{`&gt;`}</i>
                 }
               </span>
             )
           )}
           <Link
-            className="crumb_link"
+            className="crumb-link"
             to={`/equipment/${id}`}
           >
             {name}
@@ -162,18 +160,18 @@ function IngredientBreadcrumbsComponent({
           {breadcrumbs.map(
             ({ breadcrumb, match }: any, index: number) => (
               <span className="crumb" key={match.url}>
-                <Link className="crumb_link" to={match.url}>
+                <Link className="crumb-link" to={match.url}>
                   {breadcrumb}
                 </Link>
                 {
                   (index < breadcrumbs.length) &&
-                  <i className="crumb_pointer">{`&gt;`}</i>
+                  <i className="crumb-pointer">{`&gt;`}</i>
                 }
               </span>
             )
           )}
           <Link
-            className="crumb_link"
+            className="crumb-link"
             to={`/ingredients/${id}`}
           >
             {name}
@@ -203,18 +201,18 @@ function RecipeBreadcrumbsComponent({
           {breadcrumbs.map(
             ({ breadcrumb, match }: any, index: number) => (
               <span className="crumb" key={match.url}>
-                <Link className="crumb_link" to={match.url}>
+                <Link className="crumb-link" to={match.url}>
                   {breadcrumb}
                 </Link>
                 {
                   (index < breadcrumbs.length) &&
-                  <i className="crumb_pointer">{`&gt;`}</i>
+                  <i className="crumb-pointer">{`&gt;`}</i>
                 }
               </span>
             )
           )}
           <Link
-            className="crumb_link"
+            className="crumb-link"
             to={`/recipes/${id}`}
           >
             {title}

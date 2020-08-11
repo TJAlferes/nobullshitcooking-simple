@@ -14,9 +14,9 @@ const initialProps = {
   breadCrumbsTheme: "light",
   navGridATheme: "light",
   oneColumnATheme: "light",
+  tableATheme: "light",
   twoColumnATheme: "light",
-  twoColumnBTheme: "light",
-  tableATheme: "light"
+  twoColumnBTheme: "light"
 };
 
 describe('UnauthenticatedStaffRoute', () => {

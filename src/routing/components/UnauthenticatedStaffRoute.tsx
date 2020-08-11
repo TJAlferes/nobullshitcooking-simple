@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 
 export function UnauthenticatedStaffRoute({
   staffIsAuthenticated,
@@ -31,9 +31,9 @@ interface RootState {
     breadCrumbsTheme: string;
     navGridATheme: string;
     oneColumnATheme: string;
+    tableATheme: string;
     twoColumnATheme: string;
     twoColumnBTheme: string;
-    tableATheme: string;
   };
 }
 
@@ -50,9 +50,9 @@ const mapStateToProps = (state: RootState) => ({
   breadCrumbsTheme: state.theme.breadCrumbsTheme,
   navGridATheme: state.theme.navGridATheme,
   oneColumnATheme: state.theme.oneColumnATheme,
+  tableATheme: state.theme.tableATheme,
   twoColumnATheme: state.theme.twoColumnATheme,
-  twoColumnBTheme: state.theme.twoColumnBTheme,
-  tableATheme: state.theme.tableATheme
+  twoColumnBTheme: state.theme.twoColumnBTheme
 });
 
 const connector = connect(mapStateToProps, {});

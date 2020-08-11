@@ -1,13 +1,13 @@
-.crumbs,
-.crumb {
+.crumb,
+.crumbs {
   display: flex;
   flex-direction: row;
 }
 
 .crumbs {
-  width: max-content;
-  margin: 6px auto 0px auto;
   font-family: Arial, Helvetica, sans-serif;
+  margin: 6px auto 0px auto;
+  width: max-content;
 }
 
 .crumbs a {
@@ -18,23 +18,34 @@
   color: #68abe6;
 }
 
-.crumb_pointer {
-  padding-left: 12px;
-  padding-right: 12px;
+.crumb-pointer {
+  padding: 0 12px;
 }
+
+/*
+
+light
+
+*/
 
 .bread-crumbs-light a:hover {
   color: #c10006;
 }
 
-.bread-crumbs-light .crumb_pointer {
+.bread-crumbs-light .crumb-pointer {
   color: #000;
 }
+
+/*
+
+dark
+
+*/
 
 .bread-crumbs-dark a:hover {
   color: #690004;
 }
 
-.bread-crumbs-dark .crumb_pointer {
+.bread-crumbs-dark .crumb-pointer {
   color: #aaa;
 }
