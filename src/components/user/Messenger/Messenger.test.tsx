@@ -1,8 +1,8 @@
 import { mount } from 'enzyme';
 import React from 'react';
 
-import { ChatView } from './views/desktop/ChatView';
-import { PeopleView } from './views/desktop/PeopleView';
+import { ChatView } from './views/desktop/ChatView/ChatView';
+import { PeopleView } from './views/desktop/PeopleView/PeopleView';
 import { Messenger } from './Messenger';
 
 window.scrollTo = jest.fn();
@@ -45,28 +45,28 @@ describe('Messenger', () => {
   const wrapper = mount(<Messenger {...initialProps} />);
 
   it('should record and display changes to roomToEnter', () => {
-    wrapper.find('input[name="channel-input"]')
-    .simulate('change', {target: {name: "channel-input", value: "5068"}});
+    wrapper.find('input[name="change-room-input"]')
+    .simulate('change', {target: {name: "change-room-input", value: "5068"}});
 
-    expect(wrapper.find('input[name="channel-input"]').props().value)
+    expect(wrapper.find('input[name="change-room-input"]').props().value)
     .toEqual("5068");
   });
 
   it('should submit roomToEnter', () => {
-    wrapper.find('input[name="channel-input"]')
-    .simulate('change', {target: {name: "channel-input", value: "5068"}});
+    wrapper.find('input[name="change-room-input"]')
+    .simulate('change', {target: {name: "change-room-input", value: "5068"}});
 
-    wrapper.find('button.messenger-channel-button').simulate('click');
+    wrapper.find('button.change-room-button').simulate('click');
 
     expect(messengerChangeChannel).toHaveBeenCalledTimes(1);
     expect(messengerChangeChannel).toHaveBeenCalledWith("5068");
   });
 
   it('should not submit roomToEnter when no room provided', () => {
-    wrapper.find('input[name="channel-input"]')
-    .simulate('change', {target: {name: "channel-input", value: ""}});
+    wrapper.find('input[name="change-room-input"]')
+    .simulate('change', {target: {name: "change-room-input", value: ""}});
 
-    wrapper.find('button.messenger-channel-button').simulate('click');
+    wrapper.find('button.change-room-button').simulate('click');
 
     expect(messengerChangeChannel).not.toHaveBeenCalled();
   });
@@ -115,39 +115,39 @@ describe('Messenger', () => {
   it('should change peopleTab when clicked', () => {
     expect(wrapper.find(PeopleView).prop("peopleTab")).toEqual("Room");
 
-    wrapper.find('button.messenger-people-tab').at(1).simulate('click');
+    wrapper.find('button.people__tab').at(1).simulate('click');
 
     expect(wrapper.find(PeopleView).prop("peopleTab")).toEqual("Friends");
 
-    wrapper.find('button.messenger-people-tab').at(0).simulate('click');
+    wrapper.find('button.people__tab').at(0).simulate('click');
 
     expect(wrapper.find(PeopleView).prop("peopleTab")).toEqual("Room");
   });
 
   it('should not focus user in room if self', () => {
-    wrapper.find('li.messenger-user-in-room').at(0).simulate('click');
+    wrapper.find('li.messenger__person').at(0).simulate('click');
 
     expect(wrapper.find(PeopleView).prop("focusedUser")).toEqual(null);
   });
 
   it('should focus user in room', () => {
-    wrapper.find('li.messenger-user-in-room').at(1).simulate('click');
+    wrapper.find('li.messenger__person').at(1).simulate('click');
 
     expect(wrapper.find(PeopleView).prop("focusedUser"))
     .toEqual({userId: "151", username: "Person2", avatar: "Person2"});
   });
 
   it('should focus online friend', () => {
-    wrapper.find('button.messenger-people-tab').at(1).simulate('click');
+    wrapper.find('button.people__tab').at(1).simulate('click');
     
-    wrapper.find('li.messenger-friend').simulate('click');
+    wrapper.find('li.messenger__person').simulate('click');
 
     expect(wrapper.find(PeopleView).prop("focusedFriend"))
     .toEqual({userId: "151", username: "Person2", avatar: "Person2"});
   });
 
   it('should unfocus person and start whisper with their username', () => {
-    wrapper.find('button.messenger-start-whisper').simulate('click');
+    wrapper.find('button.person-tooltip__start-whisper').simulate('click');
 
     expect(wrapper.find(ChatView).prop("messageToSend")).toEqual("/w Person2");
   });

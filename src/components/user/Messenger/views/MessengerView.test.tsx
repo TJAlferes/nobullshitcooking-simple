@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme';
 import React, { useRef } from 'react';
 
-import { ChatView } from './desktop/ChatView';
-import { OptionsView } from './desktop/OptionsView';
-import { PeopleView } from './desktop/PeopleView';
+import { ChatView } from './desktop/ChatView/ChatView';
+import { OptionsView } from './desktop/OptionsView/OptionsView';
+import { PeopleView } from './desktop/PeopleView/PeopleView';
 import { MessengerView } from './MessengerView';
 
 jest.mock('react', () => {
@@ -60,7 +60,7 @@ describe('MessengerView', () => {
   const wrapper = shallow(<MessengerView {...initialProps} />);
 
   it('displays feedback', () => {
-    expect(wrapper.find('p.messenger-feedback').text())
+    expect(wrapper.find('p.messenger__feedback').text())
     .toEqual("Some message.");
   });
 

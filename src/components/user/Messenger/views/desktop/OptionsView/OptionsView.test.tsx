@@ -29,50 +29,50 @@ describe('OptionsView', () => {
 
   it(`
       displays a span element
-      with className messenger-channel-switch and
-      with text '5067'
+      with className current-room-label and
+      with text 'Current Room:'
   `, () => {
-    expect(wrapper.find('span.messenger-channel-switch').text())
+    expect(wrapper.find('span.current-room-label').text())
     .toEqual('Current Room:');
   });
 
   it(`
       displays a span element
-      with className messenger-channel-current and
+      with className current-room and
       with text '5067'
   `, () => {
-    expect(wrapper.find('span.messenger-channel-current').text())
+    expect(wrapper.find('span.current-room').text())
     .toEqual('5067');
   });
 
   it(`
       displays an input element
-      with className messenger-channel-input and
+      with className change-room-input and
       with value '5068'
   `, () => {
-    expect(wrapper.find('input.messenger-channel-input').prop('value'))
+    expect(wrapper.find('input.change-room-input').prop('value'))
     .toEqual('5068');
   });
 
   it(`
       displays a button element
-      with className messenger-channel-button and
+      with className change-room-button and
       with text 'Enter'
   `, () => {
-    expect(wrapper.find('button.messenger-channel-button').text())
+    expect(wrapper.find('button.change-room-button').text())
     .toEqual('Enter');
   });
 
   describe('when status is Connected', () => {
     it(`
       displays a button element
-      with className messenger-connect-disconnect and
+      with className connection-button and
       with text 'Disconnect'
     `, () => {
       const wrapper = shallow(
         <OptionsView status="Connected" {...initialProps} />
       );
-      expect(wrapper.find('button.messenger-connect-disconnect').text())
+      expect(wrapper.find('button.connection-button').text())
       .toEqual('Disconnect');
     });
   });
@@ -80,13 +80,13 @@ describe('OptionsView', () => {
   describe('when status is Disconnected', () => {
     it(`
       displays a button element
-      with className messenger-connect-disconnect and
+      with className connection-button and
       with text 'Connect'
     `, () => {
       const wrapper = shallow(
         <OptionsView status="Disconnected" {...initialProps} />
       );
-      expect(wrapper.find('button.messenger-connect-disconnect').text())
+      expect(wrapper.find('button.connection-button').text())
       .toEqual('Connect');
     });
   });

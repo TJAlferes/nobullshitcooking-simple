@@ -39,43 +39,44 @@ describe('PeopleView', () => {
 
     it(`
       displays a button element
-      with className chat-nav-current and
+      with className people__tab--current and
       with text 'Room'
     `, () => {
-      expect(wrapper.find('button.chat-nav-current').text()).toEqual('Room');
+      expect(wrapper.find('button.people__tab--current').text())
+      .toEqual('Room');
     });
 
     it(`
       displays a ul element
-      with className messenger-users-in-room and
+      with className messenger__persons and
     `, () => {
-      expect(wrapper.find('ul.messenger-users-in-room')).toHaveLength(1);
+      expect(wrapper.find('ul.messenger__persons')).toHaveLength(1);
     });
 
     it(`
       displays a li element
-      with className messenger-user-in-room and
+      with className messenger__person and
       with key 'Person'
     `, () => {
-      expect(wrapper.find('li.messenger-user-in-room').at(0).key())
+      expect(wrapper.find('li.messenger__person').at(0).key())
       .toEqual('Person');
     });
 
     it(`
       displays a li element
-      with className messenger-user-in-room and
+      with className messenger__person and
       with key 'Person2'
     `, () => {
-      expect(wrapper.find('li.messenger-user-in-room').at(1).key())
+      expect(wrapper.find('li.messenger__person').at(1).key())
       .toEqual('Person2');
     });
 
     it(`
       displays a li element
-      with className messenger-user-in-room and
+      with className messenger__person and
       with key 'Person3'
     `, () => {
-      expect(wrapper.find('li.messenger-user-in-room').at(2).key())
+      expect(wrapper.find('li.messenger__person').at(2).key())
       .toEqual('Person3');
     });
 
@@ -91,10 +92,10 @@ describe('PeopleView', () => {
 
       it(`
         displays a button element
-        with className messenger-start-whisper and
+        with className person-tooltip__start-whisper and
         with text 'Whisper'
       `, () => {
-        expect(wrapper.find('button.messenger-start-whisper').text())
+        expect(wrapper.find('button.person-tooltip__start-whisper').text())
         .toEqual('Whisper');
       });
     });
@@ -113,25 +114,25 @@ describe('PeopleView', () => {
 
     it(`
       displays a button element
-      with className chat-nav-current and
+      with className people__tab--current and
       with text 'Friends'
     `, () => {
-      expect(wrapper.find('button.chat-nav-current').text()).toEqual('Friends');
+      expect(wrapper.find('button.people__tab--current').text()).toEqual('Friends');
     });
 
     it(`
       displays a ul element
-      with className messenger-friends and
+      with className messenger__persons and
     `, () => {
-      expect(wrapper.find('ul.messenger-friends')).toHaveLength(1);
+      expect(wrapper.find('ul.messenger__persons')).toHaveLength(1);
     });
 
     it(`
       displays a li element
-      with className messenger-friend and
+      with className messenger__person and
       with key 'Person2'
     `, () => {
-      expect(wrapper.find('li.messenger-friend').key()).toEqual('Person2');
+      expect(wrapper.find('li.messenger__person').key()).toEqual('Person2');
     });
 
     describe('when online friend is focused', () => {
@@ -148,10 +149,10 @@ describe('PeopleView', () => {
 
       it(`
         displays a button element
-        with className messenger-start-whisper and
+        with className person-tooltip__start-whisper and
         with text 'Whisper'
       `, () => {
-        expect(wrapper.find('button.messenger-start-whisper').text())
+        expect(wrapper.find('button.person-tooltip__start-whisper').text())
         .toEqual('Whisper');
       });
     });

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Message, IUser } from '../../../../store/messenger/types';
 import LeftNav from '../../../LeftNav/LeftNav';
-import { ChatView } from './desktop/ChatView';
-import { OptionsView } from './desktop/OptionsView';
-import { PeopleView } from './desktop/PeopleView';
+import { ChatView } from './desktop/ChatView/ChatView';
+import { OptionsView } from './desktop/OptionsView/OptionsView';
+import { PeopleView } from './desktop/PeopleView/PeopleView';
 import './messenger.css';
 
 export function MessengerView({
@@ -43,7 +43,7 @@ export function MessengerView({
 
         <h1>Messenger</h1>
 
-        <p className="messenger-feedback">{feedback}</p>
+        <p className="messenger__feedback">{feedback}</p>
 
         <OptionsView
           channel={channel}
@@ -56,7 +56,7 @@ export function MessengerView({
           status={status}
         />
 
-        <div className="messenger-main">
+        <div className="messenger__main">
 
           <ChatView
             authname={authname}

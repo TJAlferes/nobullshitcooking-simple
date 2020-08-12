@@ -47,7 +47,7 @@ describe('FriendsView', () => {
   });
 
   it('displays a username input element', () => {
-    expect(wrapper.find('input[name="friends-find-user"]')).toHaveLength(1);
+    expect(wrapper.find('input[name="friends-find-input"]')).toHaveLength(1);
   });
 
   it('displays a button element with text Send Friend Request', () => {

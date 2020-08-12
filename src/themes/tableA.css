@@ -27,7 +27,7 @@
   margin: 0 auto;
 }
 
-/* TO DO: change all this to flex */
+/* TO DO: change all this to flex (or use a table lib) */
 
 tbody td:nth-child(1),
 thead th:nth-child(1) {

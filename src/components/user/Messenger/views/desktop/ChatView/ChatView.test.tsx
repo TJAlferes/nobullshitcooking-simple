@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import {
   KMessage,
   KWhisper
-} from '../../../../../store/messenger/types';
+} from '../../../../../../store/messenger/types';
 import { ChatView } from './ChatView';
 
 jest.mock('react', () => {
@@ -77,29 +77,28 @@ describe('MessengerView', () => {
 
   it(`
     displays a ul element
-    with className messenger-chat-messages and
+    with className chat__messages and
     with messagesRef as ref
   `, () => {
-    expect(wrapper.find('ul.messenger-chat-messages').prop('ref'))
-    .toEqual(messagesRef);
+    expect(wrapper.find('ul.chat__messages').prop('ref')).toEqual(messagesRef);
   });
 
   it (`
     displays a starting message: a span element
-    with className chat-display-admin and
+    with className message__admin and
     with text 'COOK EAT WIN REPEAT'
   `, () => {
-    expect(wrapper.find('span.chat-display-admin').at(0).text())
+    expect(wrapper.find('span.message__admin').at(0).text())
     .toEqual('COOK EAT WIN REPEAT');
   });
 
   describe('when messages contain a status message', () => {
     it(`
       displays a span element
-      with className chat-display-admin and
+      with className message__admin and
       with text 'Some status.'
     `, () => {
-      expect(wrapper.find('span.chat-display-admin').at(1).text())
+      expect(wrapper.find('span.message__admin').at(1).text())
       .toEqual('Some status.');
     });
   });
@@ -107,19 +106,19 @@ describe('MessengerView', () => {
   describe('when messages contain a sent message', () => {
     it(`
       displays a span element
-      with className chat-display-username-self and
+      with className message__self and
       with text 'Person: '
     `, () => {
-      expect(wrapper.find('span.chat-display-username-self').at(0).text())
+      expect(wrapper.find('span.message__self').at(0).text())
       .toEqual('Person: ');
     });
 
     it(`
       displays an li element
-      with className messenger-chat-message
+      with className chat__message
       with text 'sometime Person: Hey all!'
     `, () => {
-      expect(wrapper.find('li.messenger-chat-message').at(2).text())
+      expect(wrapper.find('li.chat__message').at(2).text())
       .toEqual('sometime Person: Hey all!');
     });
   });
@@ -127,19 +126,19 @@ describe('MessengerView', () => {
   describe('when messages contain a received message', () => {
     it(`
       displays a span element
-      with className chat-display-username-other and
+      with className message__other and
       with text 'Person2: '
     `, () => {
-      expect(wrapper.find('span.chat-display-username-other').at(0).text())
+      expect(wrapper.find('span.message__other').at(0).text())
       .toEqual('Person2: ');
     });
 
     it(`
       displays an li element
-      with className messenger-chat-message
+      with className chat__message
       with text 'sometime Person2: Hey there!'
     `, () => {
-      expect(wrapper.find('li.messenger-chat-message').at(3).text())
+      expect(wrapper.find('li.chat__message').at(3).text())
       .toEqual('sometime Person2: Hey there!');
     });
   });
@@ -147,15 +146,19 @@ describe('MessengerView', () => {
   describe('when messages contain a sent whisper', () => {
     it(`
       displays a span element
-      with className chat-display-username-self
+      with className message__self
       and text 'You whisper to Person2: '
     `, () => {
-      expect(wrapper.find('span.chat-display-username-self').at(1).text())
+      expect(wrapper.find('span.message__self').at(1).text())
       .toEqual('You whisper to Person2: ');
     });
 
-    it('displays a span with className chat-whisper and text You good?', () => {
-      expect(wrapper.find('span.chat-whisper').at(0).text())
+    it(`
+      displays a span
+      with className message__whisper
+      and text You good?
+    `, () => {
+      expect(wrapper.find('span.message__whisper').at(0).text())
       .toEqual('You good?');
     });
   });
@@ -163,15 +166,15 @@ describe('MessengerView', () => {
   describe('when messages contain a received whisper', () => {
     it(`
       displays a span element
-      with className chat-display-username-other
+      with className message__other
       with text 'Person2 whispers to you: '
     `, () => {
-      expect(wrapper.find('span.chat-display-username-other').at(1).text())
+      expect(wrapper.find('span.message__other').at(1).text())
       .toEqual('Person2 whispers to you: ');
     });
 
-    it('displays a span with className chat-whisper and text Yes', () => {
-      expect(wrapper.find('span.chat-whisper').at(1).text()).toEqual('Yes');
+    it('displays a span with className message__whisper and text Yes', () => {
+      expect(wrapper.find('span.message__whisper').at(1).text()).toEqual('Yes');
     });
   });
 

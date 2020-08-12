@@ -1,0 +1,58 @@
+.messenger__chat {
+  border: 10px solid;
+  height: 450px;
+  order: 1;
+  padding: 10px;
+  position: relative;  /* ? */
+  width: 750px;
+}
+
+.chat__messages {
+  display: block;
+  height: calc(100% - 40px);
+  list-style-type: none;
+  overflow-y: scroll;
+}
+
+.chat__input {
+  border-top: 10px solid;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.chat__input input {
+  border: 2px solid #68abe6;
+  height: 30px;
+  padding-left: 7px;
+  width: 100%;
+}
+
+.chat__input input:focus {
+  border: 2px solid #87c6fd;
+  outline: none;
+}
+
+.message__admin {
+  color: #c10006;
+  font-style: italic;
+}
+
+.message__self {
+  color: #009fff;
+}
+
+.message__other {
+  color: #326fff;
+}
+
+.message__whisper {
+  color: #a100ff;
+}
+
+@media (max-width: 1279px) {
+  .messenger__chat {
+    width: 450px;
+  }
+}

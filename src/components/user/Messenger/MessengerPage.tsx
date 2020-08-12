@@ -6,16 +6,16 @@ import './messengerPage.css'
 
 export default function MessengerPage({ twoColumnATheme }: Props): JSX.Element {
   return (
-    <div id="messenger_page">
+    <div id="messenger-page">
       {/* just do responsive design instead of adaptive design? */}
 
-      {/*<div className="mobile_display">
+      {/*<div className="mobile">
         <Suspense fallback={<div>Loading...</div>} >
           <MobileMessengerToggle twoColumnATheme={twoColumnATheme} />
         </Suspense>
       </div>*/}
 
-      <div className="desktop_display">
+      <div className="desktop">
         <Suspense fallback={<div>Loading...</div>} >
           <Messenger
             //messengerView="desktop"

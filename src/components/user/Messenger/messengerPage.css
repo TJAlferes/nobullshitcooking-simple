@@ -5,17 +5,17 @@ desktop
 */
 
 @media (min-width: 900px) {
-  /*#messenger_page {
+  /*#messenger-page {
     width: 1200px;
     min-height: fit-content;
   }*/
 
-  .mobile_display {
+  .mobile {
     /* ??? */
     display: none;
   }
 
-  .desktop_display {
+  .desktop {
     display: block;
   }
 }
@@ -27,16 +27,16 @@ mobile
 */
 
 @media (max-width: 899px) {
-  #messenger_page {
+  #messenger-page {
     max-width: 100%;
     min-width: 300px;
   }
 
-  .mobile_display {
+  .mobile {
     display: block;
   }
   
-  .desktop_display {
+  .desktop {
     display: none;
   }
 }

@@ -45,16 +45,16 @@ afterEach(() => {
 
 describe('Friends', () => {
   it('should record and display changes to the user to find', () => {
-    wrapper.find('input[name="friends-find-user"]')
-    .simulate('change', {target: {name: "friends-find-user", value: "Person2"}});
+    wrapper.find('input[name="friends-find-input"]')
+    .simulate('change', {target: {name: "friends-find-input", value: "Person2"}});
 
-    expect(wrapper.find('input[name="friends-find-user"]').props().value)
+    expect(wrapper.find('input[name="friends-find-input"]').props().value)
     .toEqual("Person2");
   });
 
   it('should submit user to request', () => {
-    wrapper.find('input[name="friends-find-user"]')
-    .simulate('change', {target: {name: "friends-find-user", value: "Person2"}});
+    wrapper.find('input[name="friends-find-input"]')
+    .simulate('change', {target: {name: "friends-find-input", value: "Person2"}});
 
     wrapper.find('button[name="friends-find-request"]').simulate('click');
 
@@ -62,8 +62,8 @@ describe('Friends', () => {
   });
 
   it ('should not send request when no user is given', () => {
-    wrapper.find('input[name="friends-find-user"]')
-    .simulate('change', {target: {name: "friends-find-user", value: ""}});
+    wrapper.find('input[name="friends-find-input"]')
+    .simulate('change', {target: {name: "friends-find-input", value: ""}});
 
     wrapper.find('button[name="friends-find-request"]').simulate('click');
 
@@ -71,8 +71,8 @@ describe('Friends', () => {
   });
 
   it ('should not send request when user given is self', () => {
-    wrapper.find('input[name="friends-find-user"]')
-    .simulate('change', {target: {name: "friends-find-user", value: "Person"}});
+    wrapper.find('input[name="friends-find-input"]')
+    .simulate('change', {target: {name: "friends-find-input", value: "Person"}});
 
     wrapper.find('button[name="friends-find-request"]').simulate('click');
 
@@ -80,8 +80,8 @@ describe('Friends', () => {
   });
 
   it('should submit user to block', () => {
-    wrapper.find('input[name="friends-find-user"]')
-    .simulate('change', {target: {name: "friends-find-user", value: "Person2"}});
+    wrapper.find('input[name="friends-find-input"]')
+    .simulate('change', {target: {name: "friends-find-input", value: "Person2"}});
 
     wrapper.find('button[name="friends-find-block"]').simulate('click');
 
@@ -89,8 +89,8 @@ describe('Friends', () => {
   });
 
   it ('should not block when no user is given', () => {
-    wrapper.find('input[name="friends-find-user"]')
-    .simulate('change', {target: {name: "friends-find-user", value: ""}});
+    wrapper.find('input[name="friends-find-input"]')
+    .simulate('change', {target: {name: "friends-find-input", value: ""}});
 
     wrapper.find('button[name="friends-find-block"]').simulate('click');
 
@@ -98,8 +98,8 @@ describe('Friends', () => {
   });
 
   it ('should not block when user given is self', () => {
-    wrapper.find('input[name="friends-find-user"]')
-    .simulate('change', {target: {name: "friends-find-user", value: "Person"}});
+    wrapper.find('input[name="friends-find-input"]')
+    .simulate('change', {target: {name: "friends-find-input", value: "Person"}});
 
     wrapper.find('button[name="friends-find-block"]').simulate('click');
 

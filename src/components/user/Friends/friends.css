@@ -2,7 +2,7 @@
 
 }*/
 
-.friends-feedback {
+.friends__feedback {
   color: #c10006;
   font-family: Arial;
   font-size: 14px;
@@ -11,38 +11,39 @@
   width: 100%;
 }
 
-.friends-find {
+.friends__find {
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;
   width: 100%;
 }
 
-.friends-find-label {
+.friends__find-label {
   font-size: 1.3rem;
   font-weight: 900;
   margin: 7px 3px 10px 0;
 }
 
-.friends-find-user {
+.friends__find-input {
   height: 30px;
   margin: 0 30px 10px 0;
 }
 
-.friends-hr {
+.friends__hr {
   border: 0 none;
   height: 1px;
   margin-bottom: 10px;
   width: 100%;
 }
 
-.friends-list-menu-tabs {
+.friends__tabs {
   border-bottom: 2px solid #6cabe4;
   margin-bottom: 10px;
   width: 100%;
 }
 
-.friends-list-menu-tab {
+.friends__tab {
+  background-image: linear-gradient(to bottom, #eee, #bbb);
   border: 1px solid;
   border-color: #ddd #666 #666 #ddd;
   border-radius: 1px;
@@ -56,20 +57,16 @@
   width: 33.33%;
 }
 
-.friends-list-menu-tab.active {
+.friends__tab--active {
   background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
 }
 
-.friends-list-menu-tab.inactive {
-  background-image: linear-gradient(to bottom, #eee, #bbb);
-}
-
-.friends-list {
+.friends__list {
   width: 100%;
 }
 
-.friends-find-request,
-.friends-find-block {
+.friends__find-request-button,
+.friends__find-block-button {
   border: 1px solid #aaa;
   border-radius: 2px;
   color: #000;
@@ -84,19 +81,19 @@
   width: 235px;
 }
 
-.friends-find-request {
+.friends__find-request-button {
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
 }
 
-.friends-find-block {
+.friends__find-block-button {
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
 
-.friends-list-none {
+.friends__list-none {
   font-size: 13px;
 }
 
-.friends-list-item {
+.friends__list-item {
   align-items: center;
   border-bottom: 1px solid;
   border-left: 1px solid;
@@ -109,32 +106,32 @@
   width: 100%;
 }
 
-.friends-list-item:first-of-type {
+.friends__list-item:first-of-type {
   border-top: 1px solid;
 }
 
-.friends-list-item-avatar {
+.friends__list-item-avatar {
   height: 25px;
   margin-left: 1px;
   width: 25px;
 }
 
-.friends-list-item-username {
+.friends__list-item-username {
   padding-left: 10px;
   padding-right: 10px;
   width: 760px;
 }
 
-.friends-list-item-username a {
+.friends__list-item-username a {
   color: #68abe6;
 }
 
-.friends-list-item-username a:visited {
+.friends__list-item-username a:visited {
   color: #68abe6;
 }
 
-.friends-list-item-action,
-.friends-list-item-delete {
+.friends__list-item-action,
+.friends__list-item-delete {
   border: 1px solid #aaa;
   border-radius: 2px;
   color: #000;
@@ -146,33 +143,33 @@
   width: 75px;
 }
 
-.friends-list-item-action {
+.friends__list-item-action {
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
 }
 
-.friends-list-item-delete {
+.friends__list-item-delete {
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
 
 @media (max-width: 1209px) {
-  .friends-list-menu-tab {
-    padding: 0;
-  }
-
-  .friends-find {
+  .friends__find {
     flex-direction: column;
   }
 
-  .friends-find-label,
-  .friends-find-user,
-  .friends-find-request,
-  .friends-find-block {
+  .friends__find-label,
+  .friends__find-input,
+  .friends__find-request-button,
+  .friends__find-block-button {
     display: block;
     margin: 0 auto 10px auto;
   }
 
-  .friends-list-item-action,
-  .dashboard-content-item-delete {
+  .friends__tab {
+    padding: 0;
+  }
+
+  .friends__list-item-action,
+  .friends__list-item-delete {
     padding-left: 2px;
     padding-right: 2px;
     width: 44px;
