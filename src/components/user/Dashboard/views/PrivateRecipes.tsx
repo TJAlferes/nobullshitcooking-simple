@@ -18,15 +18,15 @@ export function PrivateRecipes({
 }: Props): JSX.Element {
   return (
     <div className="dashboard-content">
-      <h2 className="dashboard-content-heading">Private Recipes</h2>
-      <Link className="create-new-entity" to="/user-recipes/private/submit">
+      <h2 className="dashboard-content__heading">Private Recipes</h2>
+      <Link className="new-entity" to="/user-recipes/private/submit">
         Create New Private Recipe
       </Link>
       {
         modalActive
         ? (
           <AriaModal
-            dialogClass="recipe-delete-modal"
+            dialogClass="dashboard-content__modal"
             focusDialog={true}
             focusTrapOptions={{returnFocusOnDeactivate: false}}
             getApplicationNode={getApplicationNode}
@@ -34,17 +34,19 @@ export function PrivateRecipes({
             titleText="Cancel?"
             underlayClickExits={false}
           >
-            <p className="recipe-delete-prompt">
+            <p className="dashboard-content__prompt">
               {'Delete Recipe: '}{deleteName}{' ?'}
             </p>
+
             <button
-              className="recipe-delete-cancel-button"
+              className="dashboard-content__modal-cancel-button"
               onClick={deactivateModal}
             >
               No
             </button>
+
             <button
-              className="recipe-delete-button"
+              className="dashboard-content__modal-action-button"
               onClick={handleDeletePrivateRecipe}
             >
               Yes, Delete Recipe
@@ -59,22 +61,25 @@ export function PrivateRecipes({
       {
         myPrivateRecipes.length
         ? myPrivateRecipes.map(r => (
-          <div className="dashboard-content-item" key={r.id}>
-            <span className="dashboard-content-item-tiny">
+          <div className="dashboard-content__item" key={r.id}>
+            <span className="dashboard-content__item-tiny">
               {
                 r.recipe_image !== "nobsc-recipe-default"
                 ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${r.recipe_image}-tiny`} />
                 : <div className="image-default-28-18"></div>
               }
             </span>
-            <span className="dashboard-content-item-name">
+
+            <span className="dashboard-content__item-name">
               <Link to={`/user-recipe/${r.id}`}>{r.title}</Link>
             </span>
-            <span className="dashboard-content-item-action">
+
+            <span className="dashboard-content__item-action">
               <Link to={`/user-recipe/private/edit/${r.id}`}>Edit</Link>
             </span>
+
             <span
-              className="dashboard-content-item-delete"
+              className="dashboard-content__item-delete"
               onClick={() => activateModal(r.id, r.title)}
             >
               Delete
@@ -82,7 +87,7 @@ export function PrivateRecipes({
           </div>
         ))
         : (
-          <div className="dashboard-content-none">
+          <div className="dashboard-content__none">
             You haven't created any private recipes yet.
           </div>
         )

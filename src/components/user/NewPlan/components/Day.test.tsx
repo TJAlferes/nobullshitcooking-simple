@@ -5,7 +5,7 @@ import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
 import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
 
-import { rootReducer } from '../../../../../store/rootReducer';
+import { rootReducer } from '../../../../store/rootReducer';
 import { Day } from './Day';
 
 const storeFactory = (initialState = undefined): Store =>

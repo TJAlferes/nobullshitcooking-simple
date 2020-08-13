@@ -10,7 +10,7 @@ export default function NewPlanPage({
 }: Props): JSX.Element {
   return (
     <div className="new-plan-page">
-      {/*<div className="mobile_display">
+      {/*<div className="mobile">
         <Suspense fallback={<div>Loading...</div>} >
           <MobileNewPlanToggle
             editing={editing}
@@ -18,7 +18,7 @@ export default function NewPlanPage({
           />
         </Suspense>
       </div>*/}
-      <div className="desktop_display">
+      <div className="desktop">
         <Suspense fallback={<div>Loading...</div>} >
           <NewPlan
             editing={editing}

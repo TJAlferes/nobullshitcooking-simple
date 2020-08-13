@@ -117,11 +117,7 @@
   width: 100%;
 }
 
-
-
-
-
-.the_date {
+.planner__date {
   color: #afafaf;
   height: content;
   padding: 1px 3px 0 0;
@@ -132,8 +128,8 @@
   width: content;
 }
 
-.planner_day_collapsed,
-.planner_expanded_day {
+.planner__day,
+.planner__expanded-day {
   background: #fff;
   cursor: hand;
   cursor: pointer;
@@ -147,28 +143,26 @@
   transform: none;
 }
 
-.planner_day_collapsed {
+.planner__day {
   padding-left: 3px;
   transform: none;
 }
 
-.planner_expanded_day {
+.planner__expanded-day {
   border: 1px solid #bfbfbf;
   box-shadow: 1px 1px 1px #555;
   padding-left: 6px;
 }
 
-.planner_day_green {
+.planner__day--green,
+.planner__expanded-day--green {
   background: #d6ffd6;
 }
 
-.planner_day_white {
+.planner__day--white,
+.planner__expanded-day--white {
   background: #fff;
 }
-
-
-
-
 
 .expanded-day-container {
   border: 1px solid #fff;
@@ -178,13 +172,31 @@
   width: 150px;
 }
 
-.planner-recipes-list-tabs {
+.planner__recipes {
+  border: 1px solid #bfbfbf;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 125px;
+  justify-content: space-around;
+  overflow-y: scroll;
+  padding: 6px;
+  width: 756px;
+}
+
+.planner__recipes .planner__recipe {
+  display: inline-block;
+  margin: 6px 1px;
+}
+
+.planner__recipes-tabs {
   border-bottom: 2px solid #6cabe4;
   margin-top: 10px;
   width: 755px;
 }
 
-.planner-recipes-list-tab {
+.planner__recipes-tab {
+  background-image: linear-gradient(to bottom, #eee, #bbb);
   border: 1px solid;
   border-color: #ddd #666 #666 #ddd;
   border-radius: 1px;
@@ -197,13 +209,44 @@
   width: 151px;
 }
 
-.planner-recipes-list-tab.active {
+.planner__recipes-tab--active {
   background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
 }
 
-.planner-recipes-list-tab.inactive {
-  background-image: linear-gradient(to bottom, #eee, #bbb);
+.planner__recipe {
+  align-content: center;
+  background-color: #FFF3CC;
+  border: 1px solid #FFDEC3;
+  box-shadow: 1px 1px 1px #999;
+  cursor: move;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  height: 27px;
+  margin: 6px 1px;
+  max-width: 200px;
+  min-width: 100px;
+  overflow: hidden;
+  text-align: center;
+  width: 90%;
 }
+
+.planner__recipe-image {
+  margin: 1px 0 0 1px;
+}
+
+.planner__recipe-text {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  text-align: center;
+  width: 100%;
+}
+
+
+
+
 
 .planner-finish-area {
   display: flex;
@@ -256,8 +299,6 @@
   margin-bottom: 10px;
   text-align: center;
 }
-
-
 
 @media (max-width: 1209px) {
   .planner-finish-area {

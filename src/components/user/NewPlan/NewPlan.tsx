@@ -20,7 +20,7 @@ import {
   IEditingPlanInfo
 } from '../../../store/user/plan/types';
 //import { MobileNewPlanView } from './views/MobileNewPlanView';
-import { NewPlanView } from './views/NewPlanView';
+import { NewPlanView } from './NewPlanView';
 
 export function NewPlan({
   dataMyFavoriteRecipes,

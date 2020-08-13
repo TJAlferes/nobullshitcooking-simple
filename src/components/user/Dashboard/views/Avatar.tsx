@@ -7,28 +7,33 @@ export function Avatar({
   onSelectFile
 }: Props): JSX.Element {
   return (
-    <div>
+    <div className="dashboard__avatar">
       <Link
-        className="view-own-profile"
+        className="dashboard__avatar-profile-link"
         to={`/user/profile/${authname}`}
       >
         View Profile
       </Link>
+
       <h2>Profile Picture</h2>
-      <div className="avatar-crop-previews">
-        <div className="avatar-crop-full-preview">
+
+      <div className="dashboard__avatar-crops">
+        <div className="dashboard__avatar-crop-full">
           <span>Full Size: </span>
           <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${currentAvatar}`} />
         </div>
-        <div className="avatar-crop-tiny-preview">
+
+        <div className="dashboard__avatar-crop-tiny">
           <span>Tiny Size: </span>
           <img src={`https://s3.amazonaws.com/nobsc-user-avatars/${currentAvatar}-tiny`} />
         </div>
       </div>
-      <label className="dashboard-avatar-label">Change</label>
+
+      <label className="dashboard__avatar-label">Change</label>
+
       <input
         accept="image/*"
-        className="avatar-input"
+        className="dashboard__avatar-input"
         name="set-avatar"
         onChange={onSelectFile}
         type="file"

@@ -4,9 +4,7 @@ export function Tabs({ handleTabClick, tab }: Props): JSX.Element {
   const TabButton = ({ displayText, tabName }: TabButtonProps) => (
     <button
       className={
-        tab === tabName
-        ? "dashboard-menu-tab active"
-        : "dashboard-menu-tab inactive"
+        tab === tabName ? "dashboard__tab--active" : "dashboard__tab"
       }
       name={tabName}
       onClick={e => handleTabClick(e)}
@@ -16,7 +14,7 @@ export function Tabs({ handleTabClick, tab }: Props): JSX.Element {
   );
 
   return (
-    <div className="dashboard-menu-tabs">
+    <div className="dashboard__tabs">
       <TabButton displayText="Avatar" tabName="avatar" />
       <TabButton displayText="Plans" tabName="plans" />
       <TabButton displayText="Recipes" tabName="recipes" />

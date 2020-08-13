@@ -2,25 +2,25 @@ import React from 'react';
 import { DropTarget, DropTargetConnector, DropTargetMonitor } from 'react-dnd';
 import { connect, ConnectedProps } from 'react-redux';
 
+import { IPlannerRecipe } from '../../../../store/planner/types';
 import {
-  plannerAddRecipeToDay,
-  plannerClickDay
-} from '../../../../../store/planner/actions';
-import { IPlannerRecipe } from '../../../../../store/planner/types';
-import Recipe from '../Recipe/Recipe';
+  plannerClickDay,
+  plannerAddRecipeToDay
+} from '../../../../store/planner/actions';
+import Recipe from './Recipe';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
-const plannerExpandedDayTarget = {
+const plannerDayTarget = {
   drop(props: Props, monitor: DropTargetMonitor) {
-    const { day, expandedDay } = props;
+    const { day } = props;
     const draggedRecipe = monitor.getItem();
 
-    if (expandedDay !== draggedRecipe.day) {
+    if (day !== draggedRecipe.day) {
       props.plannerAddRecipeToDay(day, draggedRecipe.recipe);
     }
-
-    return {listId: day};  // WTF is this?
+    
+    return {listId: day};
   }
 };
 
@@ -32,28 +32,28 @@ function collect(connect: DropTargetConnector, monitor: DropTargetMonitor) {
   };
 }
 
-const ExpandedDay = ({
+export function Day({
   canDrop,
   day,
   expanded,
   expandedDay,
   isOver,
-  list,
-  plannerClickDay
-}: Props): JSX.Element | null => {
-  const color = (isOver && canDrop) ? "planner_day_green" : "planner_day_white";
+  recipes,
+  plannerClickDay,
+}: Props): JSX.Element | null {
+  const color = (isOver && canDrop) ? "--green" : "--white";
 
   const handleClickDay = () => plannerClickDay(day);
 
-  return expanded
+  return (!expanded || (day !== expandedDay))
   ? (
     <div
-      className={`planner_expanded_day ${color}`}
+      className={`planner__day${color}`}
       onClick={handleClickDay}
       //ref={connectDropTarget}
     >
-      <span className="the_date">{day}</span>
-      {list.map((recipe, i) => (
+      <span className="planner__date">{day}</span>
+      {recipes.map((recipe, i) => (
         <Recipe
           day={day}
           expanded={expanded}
@@ -68,7 +68,7 @@ const ExpandedDay = ({
     </div>
   )
   : null;
-};
+}
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -78,7 +78,7 @@ type Props = PropsFromRedux & {
   expanded: boolean;
   expandedDay: number | null;
   isOver: boolean;
-  list: IPlannerRecipe[];
+  recipes: IPlannerRecipe[];
 };
 
 const mapDispatchToProps = {
@@ -92,7 +92,7 @@ const connector = connect(null, mapDispatchToProps);
 export default connector(
   DropTarget(
     Types.PLANNER_RECIPE,
-    plannerExpandedDayTarget,
+    plannerDayTarget,
     collect
-  )(ExpandedDay)
+  )(Day)
 );

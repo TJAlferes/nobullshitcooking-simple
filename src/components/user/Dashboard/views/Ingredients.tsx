@@ -9,29 +9,34 @@ export function Ingredients({
 }: Props): JSX.Element {
   return (
     <div className="dashboard-content">
-      <h2 className="dashboard-content-heading">Private Ingredients</h2>
-      <Link className="create-new-entity" to="/user-ingredients/submit">
+      <h2 className="dashboard-content__heading">Private Ingredients</h2>
+
+      <Link className="new-entity" to="/user-ingredients/submit">
         Create New Ingredient
       </Link>
+
       {
         myPrivateIngredients.length
         ? myPrivateIngredients.map(i => (
-          <div className="dashboard-content-item" key={i.id}>
-            <span className="dashboard-content-item-tiny">
+          <div className="dashboard-content__item" key={i.id}>
+            <span className="dashboard-content__item-tiny">
               {
                 i.image !== "nobsc-ingredient-default"
                 ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${i.image}-tiny`} />
                 : <div className="image-default-28-18"></div>
               }
             </span>
-            <span className="dashboard-content-item-name">
+
+            <span className="dashboard-content__item-name">
               <Link to={`/user-ingredient/${i.id}`}>{i.name}</Link>
             </span>
-            <span className="dashboard-content-item-action">
+
+            <span className="dashboard-content__item-action">
               <Link to={`/user-ingredient/edit/${i.id}`}>Edit</Link>
             </span>
+
             <span
-              className="dashboard-content-item-delete"
+              className="dashboard-content__item-delete"
               onClick={() => handleDeletePrivateIngredient(i.id)}
             >
               Delete
@@ -39,7 +44,7 @@ export function Ingredients({
           </div>
         ))
         : (
-          <div className="dashboard-content-none">
+          <div className="dashboard-content__none">
             You haven't created any private ingredients yet.
           </div>
         )

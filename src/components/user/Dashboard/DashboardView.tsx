@@ -71,12 +71,12 @@ export function DashboardView({
 
         <h1>{authname}</h1>
 
-        <p className="dashboard-feedback">{feedback}</p>
+        <p className="dashboard__feedback">{feedback}</p>
 
         {!avatar && <Tabs tab={tab} handleTabClick={handleTabClick} />}
 
         {(tab === "avatar") && (
-          <div className="dashboard-avatar">
+          <>
             {!avatar && (
               <Avatar
                 authname={authname}
@@ -98,7 +98,7 @@ export function DashboardView({
                 tinyCrop={tinyCrop}
               />
             )}
-          </div>
+          </>
         )}
 
         {(!avatar && tab == "plans") && (

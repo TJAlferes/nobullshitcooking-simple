@@ -11,9 +11,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import {
   plannerRemoveRecipeFromDay,
   plannerReorderRecipeInDay
-} from '../../../../../store/planner/actions';
-import { IPlannerRecipe } from '../../../../../store/planner/types';
-import './recipe.css';
+} from '../../../../store/planner/actions';
+import { IPlannerRecipe } from '../../../../store/planner/types';
 
 const Types = {PLANNER_RECIPE: 'PLANNER_RECIPE'};
 
@@ -86,11 +85,11 @@ const Recipe: FC<Props> = ({
   drag(drop(ref));
 
   return (
-    <div className="planner_recipe" ref={ref}>
-      <div className="planner_recipe_image">
+    <div className="planner__recipe" ref={ref}>
+      <div className="planner__recipe-image">
         <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
       </div>
-      <div className="planner_recipe_text">{recipe.title}</div>
+      <div className="planner__recipe-text">{recipe.title}</div>
     </div>
   );
 };

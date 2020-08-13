@@ -3,14 +3,14 @@ import AriaModal from 'react-aria-modal';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import { IWorkRecipe } from '../../../../store/data/types';
-import { IPlannerData } from '../../../../store/planner/types';
-import { ExpandCollapse } from '../../../ExpandCollapse/ExpandCollapse';
-import LeftNav from '../../../LeftNav/LeftNav';
-import { LoaderButton } from '../../../LoaderButton/LoaderButton';
-import Day from './Day/Day';
-import ExpandedDay from './ExpandedDay/ExpandedDay';
-import RecipesList from './RecipesList/RecipesList';
+import { IWorkRecipe } from '../../../store/data/types';
+import { IPlannerData } from '../../../store/planner/types';
+import { ExpandCollapse } from '../../ExpandCollapse/ExpandCollapse';
+import LeftNav from '../../LeftNav/LeftNav';
+import { LoaderButton } from '../../LoaderButton/LoaderButton';
+import Day from './components/Day';
+import ExpandedDay from './components/ExpandedDay';
+import Recipes from './components/Recipes';
 import './newPlan.css';
 
 export function NewPlanView({
@@ -50,6 +50,7 @@ export function NewPlanView({
             <span className="monthly-plan__header-day">Friday</span>
             <span className="monthly-plan__header-day">Saturday</span>
           </div>
+
           <div className="monthly-plan__body">
             {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
               <div className="monthly-plan__body-day" key={i} >
@@ -58,7 +59,7 @@ export function NewPlanView({
                     day={i + 1}
                     expanded={expanded}
                     expandedDay={expandedDay}
-                    list={recipeListsInsideDays[Number(recipeList)]}
+                    recipes={recipeListsInsideDays[Number(recipeList)]}
                   />
                 </div>
               </div>
@@ -71,17 +72,14 @@ export function NewPlanView({
             day={expandedDay}
             expanded={expanded}
             expandedDay={expandedDay}
-            list={(expanded)
-              ? recipeListsInsideDays[expandedDay]
-              : []
-            }
+            recipes={(expanded) ? recipeListsInsideDays[expandedDay] : []}
           />}
         </div>
       </div>
     );
   }, [recipeListsInsideDays, expanded, expandedDay]);
 
-  const memoizedRecipesLists = useMemo(() => {
+  const memoizedRecipes = useMemo(() => {
     const tabToList: ITabToList = {
       "official": dataRecipes,
       "private": dataMyPrivateRecipes,
@@ -89,7 +87,7 @@ export function NewPlanView({
       "favorite": dataMyFavoriteRecipes,
       "saved": dataMySavedRecipes
     };
-    const list = tabToList[tab];
+    const recipes: IWorkRecipe[] = tabToList[tab];
 
     /*
 
@@ -101,16 +99,16 @@ export function NewPlanView({
     */
 
     return (
-      <RecipesList
+      <Recipes
         day={0}
         expanded={expanded}
         expandedDay={expandedDay}
-        list={list.map((recipe: IWorkRecipe) => ({
+        recipes={recipes.map(r => ({
           key: uuidv4(),
-          id: recipe.id,
-          title: recipe.title,
-          recipe_image: recipe.recipe_image,
-          owner_id: recipe.owner_id
+          id: r.id,
+          title: r.title,
+          recipe_image: r.recipe_image,
+          owner_id: r.owner_id
         }))}
       />
     );
@@ -118,9 +116,10 @@ export function NewPlanView({
 
   const TabButton = ({ displayText, tabName }: TabButtonProps) => (
     <button
-      className={(tab === tabName)
-        ? "planner-recipes-list-tab active"
-        : "planner-recipes-list-tab inactive"
+      className={
+        (tab === tabName)
+        ? "planner__recipes-tab--active"
+        : "planner__recipes-tab"
       }
       name={tabName}
       onClick={e => handleTabClick(e)}
@@ -133,14 +132,8 @@ export function NewPlanView({
     <div className="new-plan-view">
 
       <div>
-        <span>
-          <Link to="/home">Home</Link>
-          <i>{`&gt;`}</i>
-        </span>
-        <span>
-          <Link to="/dashboard">Dashboard</Link>
-          <i>{`&gt;`}</i>
-        </span>
+        <span><Link to="/home">Home</Link><i>{`&gt;`}</i></span>
+        <span><Link to="/dashboard">Dashboard</Link><i>{`&gt;`}</i></span>
         <span>{editing ? 'Edit Plan' : 'Create New Plan'}</span>
       </div>
 
@@ -152,9 +145,12 @@ export function NewPlanView({
 
           <div className="new-plan__heading">
             <h1>{editing ? 'Edit Plan' : 'Create New Plan'}</h1>
+
             <p className="new-plan__feedback">{feedback}</p>
+
             <div className="new-plan__name">
               <label className="new-plan__name-label">Plan Name:</label>
+
               <input
                 className="new-plan__name-input"
                 onChange={handlePlanNameChange}
@@ -170,7 +166,7 @@ export function NewPlanView({
 
             {memoizedMonthlyPlan}
 
-            <div className="planner-recipes-list-tabs">
+            <div className="planner__recipes-tabs">
               <TabButton displayText="All Official" tabName="official" />
               <TabButton displayText="My Private" tabName="private" />
               <TabButton displayText="My Public" tabName="public" />
@@ -178,7 +174,7 @@ export function NewPlanView({
               <TabButton displayText="My Saved" tabName="saved" />
             </div>
 
-            {memoizedRecipesLists}
+            {memoizedRecipes}
 
           </div>
 
@@ -220,12 +216,14 @@ export function NewPlanView({
                   <p className="planner-cancel-prompt">
                     Cancel new plan? Changes will not be saved.
                   </p>
+
                   <button
                     className="planner-cancel-cancel-button"
                     onClick={deactivateModal}
                   >
                     No, Keep Working
                   </button>
+                  
                   <button
                     className="planner-cancel-button"
                     onClick={discardChanges}

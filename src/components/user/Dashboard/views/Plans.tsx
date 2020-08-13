@@ -17,22 +17,22 @@ export function Plans({
 }: Props): JSX.Element {
   return (
     <div className="dashboard-content">
-      <h2 className="dashboard-content-heading">Plans</h2>
+      <h2 className="dashboard-content__heading">Plans</h2>
       {
         (!creatingPlan && !editingId) &&
-        <Link className="create-new-entity" to="/user-plan/submit">
+        <Link className="new-entity" to="/user-plan/submit">
           Create New Plan
         </Link>
       }
       {
         (creatingPlan && !editingId) &&
-        <Link className="create-new-entity" to="/user-plan/submit">
+        <Link className="new-entity" to="/user-plan/submit">
           Finish Creating Plan
         </Link>
       }
       {
         (!creatingPlan && editingId) &&
-        <Link className="create-new-entity" to={`/user-plan/edit/${editingId}`}>
+        <Link className="new-entity" to={`/user-plan/edit/${editingId}`}>
           Finish Updating Plan
         </Link>
       }
@@ -40,7 +40,7 @@ export function Plans({
         modalActive
         ? (
           <AriaModal
-            dialogClass="plan-delete-modal"
+            dialogClass="dashboard-content__modal"
             focusDialog={true}
             focusTrapOptions={{returnFocusOnDeactivate: false}}
             getApplicationNode={getApplicationNode}
@@ -48,16 +48,21 @@ export function Plans({
             titleText="Cancel?"
             underlayClickExits={false}
           >
-            <p className="plan-delete-prompt">
+            <p className="dashboard-content__prompt">
               {'Delete Plan: '}{deleteName}{' ?'}
             </p>
+
             <button
-              className="plan-delete-cancel-button"
+              className="dashboard-content__modal-cancel-button"
               onClick={deactivateModal}
             >
               No
             </button>
-            <button className="plan-delete-button" onClick={handleDeletePlan}>
+
+            <button
+              className="dashboard-content__modal-action-button"
+              onClick={handleDeletePlan}
+            >
               Yes, Delete Plan
             </button>
           </AriaModal>
@@ -67,20 +72,20 @@ export function Plans({
       {
         myPlans.length
         ? myPlans.map(p => (
-          <div className="dashboard-content-item" key={p.id}>
-            <span className="dashboard-content-item-name">
+          <div className="dashboard-content__item" key={p.id}>
+            <span className="dashboard-content__item-name">
               <Link to={`/user-plan/${p.id}`}>{p.name}</Link>
             </span>
             {
               (!creatingPlan && !editingId) &&
-              <span className="dashboard-content-item-action">
+              <span className="dashboard-content__item-action">
                 <Link to={`/user-plan/edit/${p.id}`}>Edit</Link>
               </span>
             }
             {
               (!creatingPlan && !editingId) &&
               <span
-                className="dashboard-content-item-delete"
+                className="dashboard-content__item-delete"
                 onClick={() => activateModal(p.id, p.name)}
               >
                 Delete
@@ -89,7 +94,7 @@ export function Plans({
           </div>
         ))
         : (
-          <div className="dashboard-content-none">
+          <div className="dashboard-content__none">
             You haven't created any plans yet.
           </div>
         )

@@ -5,8 +5,8 @@ export function Subtabs({ handleSubTabClick, subTab }: Props): JSX.Element {
     <button
       className={
         subTab === subTabName
-        ? "dashboard-menu-subtab active"
-        : "dashboard-menu-subtab inactive"
+        ? "dashboard__subtab--active"
+        : "dashboard__subtab"
       }
       name={subTabName}
       onClick={e => handleSubTabClick(e)}
@@ -16,7 +16,7 @@ export function Subtabs({ handleSubTabClick, subTab }: Props): JSX.Element {
   );
 
   return (
-    <div className="dashboard-menu-subtabs">
+    <div className="dashboard__subtabs">
       <SubtabButton displayText="Private" subTabName="private" />
       <SubtabButton displayText="Public" subTabName="public" />
       <SubtabButton displayText="Favorite" subTabName="favorite" />

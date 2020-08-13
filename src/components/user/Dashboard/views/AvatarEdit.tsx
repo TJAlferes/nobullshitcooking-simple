@@ -15,38 +15,43 @@ export function AvatarEdit({
   tinyCrop,
 }: Props): JSX.Element {
   return (
-    <div className="dashboard-avatar-edit">
+    <div className="dashboard__avatar-edit">
       <ReactCrop
-        className="avatar-crop-tool"
+        className="avatar-edit__tool"
         crop={crop}
         imageStyle={{minHeight: "300px"}}
-        onImageLoaded={onImageLoaded}
         onChange={onCropChange}
         onComplete={onCropComplete}
+        onImageLoaded={onImageLoaded}
         src={avatar as string}
         style={{minHeight: "300px"}}
       />
-      <span className="avatar-crop-tool-tip">
+
+      <span className="avatar-edit__tool-tip">
         Move the crop to your desired position, then click "Complete". These two images will be saved for you:
       </span>
-      <div className="avatar-crop-previews">
-        <div className="avatar-crop-full-preview">
+
+      <div className="avatar-crops">
+        <div className="avatar-crop-full">
           <span>Full Size: </span><img src={fullCrop} />
         </div>
-        <div className="avatar-crop-tiny-preview">
+
+        <div className="avatar-crop-tiny">
           <span>Tiny Size: </span><img src={tinyCrop} />
         </div>
       </div>
+
       <button
-        className="avatar-cancel-button"
+        className="avatar-edit__cancel-button"
         disabled={loading}
         name="cancel-avatar"
         onClick={cancelAvatar}
       >
         Cancel
       </button>
+
       <button
-        className="avatar-submit-button"
+        className="avatar-edit__submit-button"
         disabled={loading}
         name="submit-avatar"
         onClick={submitAvatar}
