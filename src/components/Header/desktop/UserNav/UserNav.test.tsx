@@ -161,15 +161,15 @@ describe('UserNav', () => {
 
     it (`
       displays a span element
-      with className "signed-in-nav-span" and
+      with className "user-nav__link--authenticated" and
       with text "Sign Out"
     `, () => {
-      expect(wrapper.find('span.signed-in-nav-span').text())
+      expect(wrapper.find('span.user-nav__link--authenticated').text())
       .toEqual("Sign Out");
     });
 
     it('logs staff out and redirects home', () => {
-      wrapper.find('span.signed-in-nav-span').simulate('click');
+      wrapper.find('span.user-nav__link--authenticated').simulate('click');
       expect(authStaffLogout).toHaveBeenCalledTimes(1);
       expect(mockHistoryPush).toHaveBeenCalledWith("/home");
     });
@@ -198,15 +198,15 @@ describe('UserNav', () => {
 
     it (`
       displays a span element
-      with className "signed-in-nav-span" and
+      with className "user-nav__link--authenticated" and
       with text "Sign Out"
     `, () => {
-      expect(wrapper.find('span.signed-in-nav-span').text())
+      expect(wrapper.find('span.user-nav__link--authenticated').text())
       .toEqual("Sign Out");
     });
 
     it('logs user out and redirects home', () => {
-      wrapper.find('span.signed-in-nav-span').simulate('click');
+      wrapper.find('span.user-nav__link--authenticated').simulate('click');
       expect(authUserLogout).toHaveBeenCalledTimes(1);
       expect(mockHistoryPush).toHaveBeenCalledWith("/home");
     });

@@ -27,36 +27,33 @@
   font-style: normal;
 }
 
-
-
-
-
-.user-nav li {
-  margin: 0 9px;
-}
-
-.user-nav-link,
-.user-nav .signed-in-nav-span,
-.user-nav .mode-button {
+.mode-button,
+.user-nav__link,
+.user-nav__link--authenticated {
   color: #fff;
   display: block;
   font-size: 14px;
   font-weight: 900;
   height: 24px;
+  margin: 0 9px;
   text-decoration: none;
 }
 
-.user-nav-link:hover,
-.user-nav-link:active {
+
+
+/* fix these... */
+
+.user-nav__link:hover,
+.user-nav__link:active {
   text-decoration: underline;
 }
 
-.signed-in-nav-span:hover {
+.user-nav__link--authenticated:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-.signed-in-nav-span:active,
-.mode-button:active {
+.mode-button:active
+.user-nav__link--authenticated:active {
   cursor: pointer;
 }

@@ -32,80 +32,69 @@ export function UserNav({
 
   return (
     <div className="user-nav">
-      <li>
-        {theme === 'header-light' ? (
-          <span className="mode-button" onClick={() => themeDarkTrigger()}>
-            <i className="moon-symbol">☾</i> Night
-          </span>
-        ) : (
-          <span className="mode-button" onClick={() => themeLightTrigger()}>
-            <i className="sun-symbol">☀︎</i> Day
-          </span>
-        )}
-      </li>
+      {theme === 'header-light' ? (
+        <span className="mode-button" onClick={() => themeDarkTrigger()}>
+          <i className="moon-symbol">☾</i> Night
+        </span>
+      ) : (
+        <span className="mode-button" onClick={() => themeLightTrigger()}>
+          <i className="sun-symbol">☀︎</i> Day
+        </span>
+      )}
 
-      <li>
-        <Link className="user-nav-link" data-test="help" to="/help">Help</Link>
-      </li>
+      <Link className="user-nav__link" data-test="help" to="/help">Help</Link>
 
       {(!staffIsAuthenticated && !userIsAuthenticated) && (
         <>
-          <li>
-            <Link className="user-nav-link" data-test="register" to="/register">
-              Create Account
-            </Link>
-          </li>
-          <li>
-            <Link className="user-nav-link" data-test="login" to="/login">
-              Sign In
-            </Link>
-          </li>
+          <Link className="user-nav__link" data-test="register" to="/register">
+            Create Account
+          </Link>
+
+          <Link className="user-nav__link" data-test="login" to="/login">
+            Sign In
+          </Link>
         </>
       )}
 
       {staffIsAuthenticated && (
         <>
-          <li>
-            <Link
-              className="signed-in-nav-span"
-              data-test="staff-dashboard"
-              to="/staff-dashboard"
-            >
-              {`Hello, ${authname}`}
-            </Link>
-          </li>
-          <li>
-            <span className="signed-in-nav-span" onClick={handleLogout}>
-              Sign Out
-            </span>
-          </li>
+          <Link
+            className="user-nav__link--authenticated"
+            data-test="staff-dashboard"
+            to="/staff-dashboard"
+          >
+            {`Hello, ${authname}`}
+          </Link>
+
+          <span
+            className="user-nav__link--authenticated"
+            onClick={handleLogout}
+          >
+            Sign Out
+          </span>
         </>
       )}
 
       {userIsAuthenticated && (
         <>
-          <li>
-            <Link
-              className="signed-in-nav-span"
-              data-test="dashboard"
-              to="/dashboard"
-            >
-              {`Hello, ${authname}`}
-            </Link>
-          </li>
-          <li>
-            <span className="signed-in-nav-span" onClick={handleLogout}>
-              Sign Out
-            </span>
-          </li>
+          <Link
+            className="user-nav__link--authenticated"
+            data-test="dashboard"
+            to="/dashboard"
+          >
+            {`Hello, ${authname}`}
+          </Link>
+
+          <span
+            className="user-nav__link--authenticated"
+            onClick={handleLogout}
+          >
+            Sign Out
+          </span>
         </>
       )}
 
-      {/*
-      <li>
-        <Link className="user-nav-link" to="/store/view_cart">Cart</Link>
-      </li>
-      */}
+      {/*<Link className="user-nav__link" to="/store/view_cart">Cart</Link>*/}
     </div>
   );
 }

@@ -9,12 +9,12 @@
   list-style-type: none;
 }
 
-.site-nav li {
+.site-nav__anchor {
   margin: 0 10px;
   position: relative;
 }
 
-.site-nav-link {
+.site-nav__link {
   color: #fff;
   display: block;
   font-size: 14px;
@@ -23,6 +23,6 @@
   text-decoration: none;
 }
 
-.site-nav-link:hover {
+.site-nav__link:hover {
   text-decoration: underline;
 }

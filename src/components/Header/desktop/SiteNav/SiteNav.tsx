@@ -33,42 +33,45 @@ export function SiteNav({
   return (
     <div className="site-nav">
 
-      <li
+      <span
+        className="site-nav__anchor"
         data-test="food-area"
         onMouseEnter={() => handleMouseEnter('Food')}
         onMouseLeave={handleMouseLeave}
       >
-        <Link className="site-nav-link" to="/page/guide/food">Food</Link>
+        <Link className="site-nav__link" to="/page/guide/food">Food</Link>
         {
           (expanded && expandedDropdown === 'Food')
           ? <Menu menuItems={foodMenuData} /> : false
         }
-      </li>
+      </span>
 
-      <li
+      <span
+        className="site-nav__anchor"
         data-test="fitness-area"
         onMouseEnter={() => handleMouseEnter('Fitness')}
         onMouseLeave={handleMouseLeave}
       >
-        <Link className="site-nav-link" to="/page/guide/fitness">Fitness</Link>
+        <Link className="site-nav__link" to="/page/guide/fitness">Fitness</Link>
         {
           (expanded && expandedDropdown === 'Fitness')
           ? <Menu menuItems={fitnessMenuData} /> : false
         }
-      </li>
+      </span>
 
       {/*
-      <li
+      <span
+        className="site-nav__anchor"
         data-test="supply-area"
         onMouseEnter={() => handleMouseEnter('Supply')}
         onMouseLeave={handleMouseLeave}
       >
-        <Link className="site-nav-link" to="/store/storefront">Supply</Link>
+        <Link className="site-nav__link" to="/store/storefront">Supply</Link>
         {
           (expanded && expandedDropdown === 'Supply')
           ? <Menu menuItems={supplyMenuData} /> : false
         }
-      </li>
+      </span>
       */}
       
     </div>

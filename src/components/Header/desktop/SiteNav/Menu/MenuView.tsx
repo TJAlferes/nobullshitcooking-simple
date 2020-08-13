@@ -4,22 +4,22 @@ import { Link } from 'react-router-dom';
 import { IMenuItem } from './Menu';
 import './menu.css';
 
-const s3Path = 'https://s3.amazonaws.com/nobsc-images-01/header/dropdowns/';
+const url = 'https://s3.amazonaws.com/nobsc-images-01/header/dropdowns/';
 
-const NutritionSlideImage = `${s3Path}steve-reeves-nutrition-slide.png`;
-const NutritionSlideImageDark = `${s3Path}steve-reeves-nutrition-slide-dark.png`;
-const MethodsSlideImage = `${s3Path}fire-methods-slide.png`;
-const MethodsSlideImageDark = `${s3Path}fire-methods-slide-dark.png`;
-const IngredientsSlideImage = `${s3Path}abundance-ingredients-slide.png`;
-const IngredientsSlideImageDark = `${s3Path}abundance-ingredients-slide-dark.png`;
-const CuisinesSlideImage = `${s3Path}world-map-cuisines-slide.png`;
-const CuisinesSlideImageDark = `${s3Path}world-map-cuisines-slide-dark.png`;
-const PrinciplesSlideImage = `${s3Path}vitruvian-man-principles-slide.png`;
-const PrinciplesSlideImageDark = `${s3Path}vitruvian-man-principles-slide-dark.png`;
-const ExercisesSlideImage = `${s3Path}pushups-exercises-slide.png`;
-const ExercisesSlideImageDark = `${s3Path}pushups-exercises-slide-dark.png`;
-const KitchenEquipmentSlideImage = `${s3Path}kitchen-equipment-slide.png`;
-const KitchenEquipmentSlideImageDark = `${s3Path}kitchen-equipment-slide-dark.png`;
+const NutritionImage = `${url}steve-reeves-nutrition-slide.png`;
+const NutritionImageDark = `${url}steve-reeves-nutrition-slide-dark.png`;
+const MethodsImage = `${url}fire-methods-slide.png`;
+const MethodsImageDark = `${url}fire-methods-slide-dark.png`;
+const IngredientsImage = `${url}abundance-ingredients-slide.png`;
+const IngredientsImageDark = `${url}abundance-ingredients-slide-dark.png`;
+const CuisinesImage = `${url}world-map-cuisines-slide.png`;
+const CuisinesImageDark = `${url}world-map-cuisines-slide-dark.png`;
+const PrinciplesImage = `${url}vitruvian-man-principles-slide.png`;
+const PrinciplesImageDark = `${url}vitruvian-man-principles-slide-dark.png`;
+const ExercisesImage = `${url}pushups-exercises-slide.png`;
+const ExercisesImageDark = `${url}pushups-exercises-slide-dark.png`;
+const KitchenEquipmentImage = `${url}kitchen-equipment-slide.png`;
+const KitchenEquipmentImageDark = `${url}kitchen-equipment-slide-dark.png`;
 
 export function MenuView({
   activeMenuRow,
@@ -40,10 +40,7 @@ export function MenuView({
           {menuItems.map((menu: IMenuItem, index) => (
             <li
               className={`menu-item ${
-                (
-                  (activeMenuRow !== undefined) &&
-                  (index === activeMenuRow)
-                ) &&
+                ((activeMenuRow !== undefined) && (index === activeMenuRow)) &&
                 'active'
               }`}
               data-test="menu-item"
@@ -86,56 +83,56 @@ export function MenuView({
           <div className="sub-menu-images">
             {menuItems[activeMenuRow].image === 'recipes' && (
               theme === "drop-down-menu-light"
-              ? <img className="sub-menu-image" src={IngredientsSlideImage} />
-              : <img className="sub-menu-image" src={IngredientsSlideImageDark} />
+              ? <img className="sub-menu-image" src={IngredientsImage} />
+              : <img className="sub-menu-image" src={IngredientsImageDark} />
             )}
 
             {menuItems[activeMenuRow].image === 'cuisines' && (
               theme === "drop-down-menu-light"
-              ? <img className="sub-menu-image" src={CuisinesSlideImage} />
-              : <img className="sub-menu-image" src={CuisinesSlideImageDark} />
+              ? <img className="sub-menu-image" src={CuisinesImage} />
+              : <img className="sub-menu-image" src={CuisinesImageDark} />
             )}
 
             {menuItems[activeMenuRow].image === 'ingredients' && (
               theme === "drop-down-menu-light"
-              ? <img className="sub-menu-image" src={IngredientsSlideImage} />
-              : <img className="sub-menu-image" src={IngredientsSlideImageDark} />
+              ? <img className="sub-menu-image" src={IngredientsImage} />
+              : <img className="sub-menu-image" src={IngredientsImageDark} />
             )}
 
             {menuItems[activeMenuRow].image === 'nutrition' && (
               theme === "drop-down-menu-light"
-              ? <img className="sub-menu-image" src={NutritionSlideImage} />
-              : <img className="sub-menu-image" src={NutritionSlideImageDark} />
+              ? <img className="sub-menu-image" src={NutritionImage} />
+              : <img className="sub-menu-image" src={NutritionImageDark} />
             )}
 
             {menuItems[activeMenuRow].image === 'equipment' && (
               theme === "drop-down-menu-light"
-              ? <img className="sub-menu-image" src={IngredientsSlideImage} />
-              : <img className="sub-menu-image" src={IngredientsSlideImageDark} />
+              ? <img className="sub-menu-image" src={IngredientsImage} />
+              : <img className="sub-menu-image" src={IngredientsImageDark} />
             )}
 
             {menuItems[activeMenuRow].image === 'methods' && (
               theme === "drop-down-menu-light"
-              ? <img className="sub-menu-image" src={MethodsSlideImage} />
-              : <img className="sub-menu-image" src={MethodsSlideImageDark} />
+              ? <img className="sub-menu-image" src={MethodsImage} />
+              : <img className="sub-menu-image" src={MethodsImageDark} />
             )}
 
             {menuItems[activeMenuRow].image === 'principles' && (
               theme === "drop-down-menu-light"
-              ? <img className="sub-menu-image" src={PrinciplesSlideImage} />
-              : <img className="sub-menu-image" src={PrinciplesSlideImageDark} />
+              ? <img className="sub-menu-image" src={PrinciplesImage} />
+              : <img className="sub-menu-image" src={PrinciplesImageDark} />
             )}
 
             {menuItems[activeMenuRow].image === 'exercises' && (
               theme === "drop-down-menu-light"
-              ? <img className="sub-menu-image" src={ExercisesSlideImage} />
-              : <img className="sub-menu-image" src={ExercisesSlideImageDark} />
+              ? <img className="sub-menu-image" src={ExercisesImage} />
+              : <img className="sub-menu-image" src={ExercisesImageDark} />
             )}
             
             {menuItems[activeMenuRow].image === 'kitchen-equipment' && (
               theme === "drop-down-menu-light"
-              ? <img className="sub-menu-image" src={KitchenEquipmentSlideImage} />
-              : <img className="sub-menu-image" src={KitchenEquipmentSlideImageDark} />
+              ? <img className="sub-menu-image" src={KitchenEquipmentImage} />
+              : <img className="sub-menu-image" src={KitchenEquipmentImageDark} />
             )}
           </div>
 
@@ -147,7 +144,7 @@ export function MenuView({
 }
 
 type Props = {
-  activeMenuRow: undefined|number;
+  activeMenuRow: undefined | number;
   handleMouseEnterRow(row: number): void;
   handleMouseLeaveMenu(): void;
   menuItems: IMenuItem[];
