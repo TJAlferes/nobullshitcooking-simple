@@ -9,10 +9,12 @@ export function EquipmentView({
   equipment,
   twoColumnBTheme
 }: Props): JSX.Element {
+  const { id, name, image, equipment_type_name, description } = equipment;
+
   return (
     <div className="equipment">
 
-      <EquipmentBreadcrumbs id={equipment.id} name={equipment.name} />
+      <EquipmentBreadcrumbs id={id} name={name} />
 
       <div
         className={`equipment-view two-column-b ${twoColumnBTheme}`}
@@ -23,30 +25,26 @@ export function EquipmentView({
 
           <div className="equipment-details">
 
-            <h1 className="equipment-name">{equipment.name}</h1>
+            <h1 className="equipment__name">{name}</h1>
 
-            <div className="equipment-image">
+            <div className="equipment__image">
               {
-                dataMyPrivateEquipment.find(e => e.id === equipment.id)
-                ? <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${equipment.image}`} />
-                : <img src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${equipment.image}.jpg`} />
+                dataMyPrivateEquipment.find(e => e.id === id)
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-equipment/${image}`} />
+                : <img src={`https://s3.amazonaws.com/nobsc-images-01/equipment/${image}.jpg`} />
               }
             </div>
 
-            <div className="equipment-type-outer">
+            <div className="equipment__type-outer">
               <b>Equipment Type:</b>
               {' '}
-              <span className="equipment-type">
-                {equipment.equipment_type_name}
-              </span>
+              <span className="equipment__type">{equipment_type_name}</span>
             </div>
             
-            <div className="equipment-description-outer">
+            <div className="equipment__description-outer">
               <b>Equipment Description:</b>
               {' '}
-              <div className="equipment-description">
-                {equipment.description}
-              </div>
+              <div className="equipment__description">{description}</div>
             </div>
 
           </div>

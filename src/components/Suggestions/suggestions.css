@@ -6,59 +6,73 @@
   padding: 10px;
 }
 
-.suggestions-light {
-  background-color: #fff;
-}
-
-.suggestions-light .suggestions-header {
-  display: block;
-  color: #000;
-  margin-bottom: 5px;
-}
-
-.suggestions-light .suggestions-line {
-  background-color: #bfbfbf;
-  border: 0 none;
-  height: 1px;
-  margin-bottom: 5px;
-}
-
-.suggestions-dark {
-  background-color: #222;
-}
-
-.suggestions-dark .suggestions-header {
-  color: #aaa;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.suggestions-dark .suggestions-line {
-  background-color: #444;
-  border: 0 none;
-  height: 1px;
-  margin-bottom: 5px;
-}
-
-.suggestions-nearby-stores {
+.nearby-stores {
   height: 260px;
   width: 260px;
 }
 
-.suggestions-nearby-stores-iframe,
-.suggestions-nearby-stores-button {
+.nearby-stores__iframe,
+.nearby-stores__button {
   height: 100%;
   margin-bottom: 5px;
   width: 100%;
 }
 
-.suggestions-nearby-stores-button {
+.nearby-stores__button {
   background-image: linear-gradient(to bottom, #eee, #bbb);
   border: 1px solid;
   border-color: #fff #888 #888 #fff;
   border-radius: 1px;
   cursor: pointer;
 }
+
+/*
+
+light
+
+*/
+
+.suggestions-light {
+  background-color: #fff;
+}
+
+.suggestions-light .suggestions__header {
+  display: block;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.suggestions-light .suggestions__line {
+  background-color: #bfbfbf;
+  border: 0 none;
+  height: 1px;
+  margin-bottom: 5px;
+}
+
+/*
+
+dark
+
+*/
+
+.suggestions-dark {
+  background-color: #222;
+}
+
+.suggestions-dark .suggestions__header {
+  color: #aaa;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.suggestions-dark .suggestions__line {
+  background-color: #444;
+  border: 0 none;
+  height: 1px;
+  margin-bottom: 5px;
+}
+
+
 
 @media (max-width: 899px) {
   .suggestions {

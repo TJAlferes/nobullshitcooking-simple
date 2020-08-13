@@ -193,15 +193,15 @@ export function NewPlanView({
             </ExpandCollapse>
           </div>
 
-          <div className="planner-finish-area">
-            <button className="planner-cancel-button" onClick={activateModal}>
+          <div className="planner__finish-area">
+            <button className="planner__cancel-button" onClick={activateModal}>
               Cancel
             </button>
             {
               modalActive
               ? (
                 <AriaModal
-                  dialogClass="planner-cancel-modal"
+                  dialogClass="planner__cancel-modal"
                   focusDialog={true}
                   focusTrapOptions={{returnFocusOnDeactivate: false}}
                   getApplicationNode={getApplicationNode}
@@ -209,19 +209,19 @@ export function NewPlanView({
                   titleText="Cancel?"
                   underlayClickExits={false}
                 >
-                  <p className="planner-cancel-prompt">
+                  <p className="planner__cancel-prompt">
                     Cancel new plan? Changes will not be saved.
                   </p>
 
                   <button
-                    className="planner-cancel-cancel-button"
+                    className="planner__cancel-cancel-button"
                     onClick={deactivateModal}
                   >
                     No, Keep Working
                   </button>
 
                   <button
-                    className="planner-cancel-button"
+                    className="planner__cancel-button"
                     onClick={discardChanges}
                   >
                     Yes, Discard Changes
@@ -231,7 +231,7 @@ export function NewPlanView({
               : false
             }
             <LoaderButton
-              className="planner-submit-button"
+              className="planner__submit-button"
               id="planner-submit-button"
               isLoading={loading}
               loadingText="Saving Plan..."

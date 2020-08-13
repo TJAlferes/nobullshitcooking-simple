@@ -244,19 +244,15 @@
   width: 100%;
 }
 
-
-
-
-
-.planner-finish-area {
+.planner__finish-area {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
 
-.planner-cancel-button,
-.planner-cancel-cancel-button,
-.planner-submit-button {
+.planner__cancel-button,
+.planner__cancel-cancel-button,
+.planner__submit-button {
   border: 1px solid #aaa;
   border-radius: 2px;
   color: black;
@@ -272,15 +268,15 @@
   width: 235px;
 }
 
-.planner-cancel-button {
+.planner__cancel-button {
   background-image: linear-gradient(to bottom, #ffd6d6, #ffb7b7);
 }
 
-.planner-submit-button {
+.planner__submit-button {
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
 }
 
-.planner-cancel-modal {
+.planner__cancel-modal {
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -290,28 +286,25 @@
   width: 280px;
 }
 
-.planner-cancel-modal .planner-cancel-cancel-button,
-.planner-cancel-modal .planner-cancel-button {
+.planner__cancel-modal .planner__cancel-cancel-button,
+.planner__cancel-modal .planner__cancel-button {
   margin: 0 auto;
 }
 
-.planner-cancel-prompt {
+.planner__cancel-prompt {
   margin-bottom: 10px;
   text-align: center;
 }
 
 @media (max-width: 1209px) {
-  .planner-finish-area {
+  .planner__finish-area {
     padding: 10px 0;
   }
 
-  .planner-cancel-button,
-  .planner-submit-button {
+  .planner__cancel-button,
+  .planner__submit-button {
     display: block;
     margin: 15px auto 0 auto;
     width: 235px;
   }
-
-
 }
-

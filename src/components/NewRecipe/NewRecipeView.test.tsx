@@ -277,7 +277,7 @@ describe('NewRecipeView', () => {
     const wrapper = shallow(<NewRecipeView {...beginProps} />);
 
     it('displays feedback', () => {
-      expect(wrapper.find('p.new-recipe-feedback').text())
+      expect(wrapper.find('p.new-recipe__feedback').text())
       .toEqual("Some message.");
     });
 

@@ -2,7 +2,7 @@
 
 }*/
 
-.recipe-feedback {
+.recipe__feedback {
   color: #c10006;
   height: 31px;
   font-family: Arial;
@@ -15,14 +15,14 @@
   font-size: 13px;
 }
 
-.recipe-favorite-save-outer {
+.recipe__favorite-save-outer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 5px;
 }
 
-.recipe-favorite-save {
+.recipe__favorite-save {
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
   border: 1px solid #aaa;
   border-radius: 2px;
@@ -31,31 +31,31 @@
   padding: 1px 2px;
 }
 
-.recipe-favorited-saved {
+.recipe__favorited-saved {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   margin-right: 10px;
   padding: 2px 3px;
 }
 
-.recipe-heading-two {
+.recipe__h2 {
   font-size: 1.7rem;
   padding-top: 18px;
 }
 
-.recipe__author-name {
+.recipe__author {
   color: #68abe6;
   font-weight: 900;
   text-decoration: none;
 }
 
-.recipe-required-methods {
+.recipe__required-methods {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.recipe-required-method {
+.recipe__required-method {
   margin: 0 4px 4px 0;
   max-width: fit-content;
   padding: 1px 3px;

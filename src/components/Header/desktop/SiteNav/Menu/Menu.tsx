@@ -52,7 +52,6 @@ function getActivateDelay() {
   const menuOffset = offset(menu);
   const menuOuterHeight = outerHeight(menu);
   const menuOuterWidth = outerWidth(menu);
-
   if (!menuOuterWidth || !menuOuterHeight) return 0;
 
   const upperLeft = {

@@ -53,7 +53,7 @@ describe('IngredientView', () => {
     );
 
     it('displays a h1 element with text My Special Apple', () => {
-      expect(wrapper.find('.ingredient-name').text())
+      expect(wrapper.find('.ingredient__name').text())
       .toEqual("My Special Apple");
     });
 
@@ -64,11 +64,11 @@ describe('IngredientView', () => {
     });
 
     it('displays a span element with text Fruit', () => {
-      expect(wrapper.find('.ingredient-type').text()).toEqual("Fruit");
+      expect(wrapper.find('.ingredient__type').text()).toEqual("Fruit");
     });
 
     it('displays a div element with text Some note.', () => {
-      expect(wrapper.find('.ingredient-description').text())
+      expect(wrapper.find('.ingredient__description').text())
       .toEqual("Some note.");
     });
   });
@@ -79,7 +79,7 @@ describe('IngredientView', () => {
     );
 
     it('displays a h1 element with text Chilean Salmon', () => {
-      expect(wrapper.find('.ingredient-name').text()).toEqual("Chilean Salmon");
+      expect(wrapper.find('.ingredient__name').text()).toEqual("Chilean Salmon");
     });
 
     it('displays the correct ingredient image', () => {
@@ -89,11 +89,11 @@ describe('IngredientView', () => {
     });
 
     it('displays a span element with text Fish', () => {
-      expect(wrapper.find('.ingredient-type').text()).toEqual("Fish");
+      expect(wrapper.find('.ingredient__type').text()).toEqual("Fish");
     });
 
     it('displays a div element with text Some note.', () => {
-      expect(wrapper.find('.ingredient-description').text())
+      expect(wrapper.find('.ingredient__description').text())
       .toEqual("Some note.");
     });
   });

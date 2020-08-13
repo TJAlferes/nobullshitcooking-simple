@@ -121,7 +121,7 @@ export function NewRecipeView({
       ? ownership === "private"
         ? 'Edit Private Recipe' : 'Edit Public Recipe'
       : ownership === "private"
-        ? 'Submit New Private Recipe' : 'Submit New Public Recipe'
+        ? 'Submit New Private Recipe' : 'Submit New Public Recipe';
   const path = staffIsAuthenticated ? '/staff-dashboard' : '/dashboard';
 
   return (
@@ -135,174 +135,144 @@ export function NewRecipeView({
 
       <div className={`new-recipe one-column-a ${oneColumnATheme}`}>
 
-        <h1 className="new-recipe-heading">{page}</h1>
+        <h1 className="new-recipe__h1">{page}</h1>
 
-        <p className="new-recipe-feedback">{feedback}</p>
+        <p className="new-recipe__feedback">{feedback}</p>
 
-        <div className="new-recipe-section-ownership">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="ownership-heading"
-          >
-            Ownership
-          </h2>
-          <ExpandCollapse>
-            <div>
-              <p>Once submitted, a recipe's ownership can't be changed.</p>
-              <br />
-              <p>Public:</p>
-              <p>- Anyone can view</p>
-              <p>- May only use official NOBSC equipment, ingredients, and recipes, and public recipes submitted by other users</p>
-              <p>- Can't be deleted, but can be disowned (author will be changed from "{authname}" to "Unknown")</p>
-              <br />
-              <p>Tip: If you're setting your recipe to public, please be sure to include all four images below.</p>
-              <br />
-              <p>Private:</p>
-              <p>- Only you can view</p>
-              <p>- May also use private equipment, ingredients, and recipes submitted by you</p>
-              <p>- Can be deleted</p>
-              <br />
-              <p>Tip: If you're still improving your recipe, make it private for now, then make a public version later.</p>
-              <br />
-            </div>
-          </ExpandCollapse>
-          <div className="ownership-spans">
-            <span className="ownership-span">
-              <input
-                checked={ownership === "private"}
-                className="ownership-span-input"
-                disabled={true}
-                name="private"
-                type="radio"
-                value="private"
-              />
-              <label className="ownership-span-label">Private</label>
-            </span>
-            <span className="ownership-span">
-              <input
-                checked={ownership === "public"}
-                className="ownership-span-input"
-                disabled={true}
-                name="public"
-                type="radio"
-                value="public"
-              />
-              <label className="ownership-span-label">Public</label>
-            </span>
+        <h2 className="new-recipe__h2" data-test="ownership-heading">
+          Ownership
+        </h2>
+        <ExpandCollapse>
+          <div>
+            <p>Once submitted, a recipe's ownership can't be changed.</p>
+            <br />
+            <p>Public:</p>
+            <p>- Anyone can view</p>
+            <p>- May only use official NOBSC equipment, ingredients, and recipes, and public recipes submitted by other users</p>
+            <p>- Can't be deleted, but can be disowned (author will be changed from "{authname}" to "Unknown")</p>
+            <br />
+            <p>Tip: If you're setting your recipe to public, please be sure to include all four images below.</p>
+            <br />
+            <p>Private:</p>
+            <p>- Only you can view</p>
+            <p>- May also use private equipment, ingredients, and recipes submitted by you</p>
+            <p>- Can be deleted</p>
+            <br />
+            <p>Tip: If you're still improving your recipe, make it private for now, then make a public version later.</p>
+            <br />
           </div>
+        </ExpandCollapse>
+        <div className="ownership-spans">
+          <span className="ownership-span">
+            <input
+              checked={ownership === "private"}
+              className="ownership-span-input"
+              disabled={true}
+              name="private"
+              type="radio"
+              value="private"
+            />
+
+            <label className="ownership-span-label">Private</label>
+          </span>
+
+          <span className="ownership-span">
+            <input
+              checked={ownership === "public"}
+              className="ownership-span-input"
+              disabled={true}
+              name="public"
+              type="radio"
+              value="public"
+            />
+
+            <label className="ownership-span-label">Public</label>
+          </span>
         </div>
 
-        <div className="new-recipe-section-recipe-type">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="recipe-type-heading"
-          >
-            Type of Recipe
-          </h2>
-          <select
-            id="recipe_type_id"
-            name="recipeType"
-            onChange={handleRecipeTypeChange}
-            required
-            value={recipeTypeId}
-          >
-            <option value=""></option>
-            {dataRecipeTypes.map(r => (
-              <option key={r.id} data-test={r.name} value={r.id}>
-                {r.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <h2 className="new-recipe__h2" data-test="recipe-type-heading">
+          Type of Recipe
+        </h2>
+        <select
+          id="recipe_type_id"
+          name="recipeType"
+          onChange={handleRecipeTypeChange}
+          required
+          value={recipeTypeId}
+        >
+          <option value=""></option>
+          {dataRecipeTypes.map(r => (
+            <option key={r.id} data-test={r.name} value={r.id}>
+              {r.name}
+            </option>
+          ))}
+        </select>
 
-        <div className="new-recipe-section-cuisine">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="cuisine-heading"
-          >
-            Cuisine
-          </h2>
-          <select
-            id="cuisine_id"
-            name="cuisine"
-            onChange={handleCuisineChange}
-            required
-            value={cuisineId}
-          >
-            <option value=""></option>
-            {dataCuisines.map(c => (
-              <option key={c.id} value={c.id} data-test={c.name}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <h2 className="new-recipe__h2" data-test="cuisine-heading">
+          Cuisine
+        </h2>
+        <select
+          id="cuisine_id"
+          name="cuisine"
+          onChange={handleCuisineChange}
+          required
+          value={cuisineId}
+        >
+          <option value=""></option>
+          {dataCuisines.map(c => (
+            <option key={c.id} value={c.id} data-test={c.name}>
+              {c.name}
+            </option>
+          ))}
+        </select>
 
-        <div className="new-recipe-section-title">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="title-heading"
-          >
-            Title
-          </h2>
-          <input
-            className="new-recipe-title"
-            id="recipe_title"
-            name="title"
-            onChange={handleTitleChange}
-            type="text"
-            value={title}
-          />
-        </div>
+        <h2 className="new-recipe__h2" data-test="title-heading">
+          Title
+        </h2>
+        <input
+          className="new-recipe-title"
+          id="recipe_title"
+          name="title"
+          onChange={handleTitleChange}
+          type="text"
+          value={title}
+        />
 
-        <div className="new-recipe-section-description">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="description-heading"
-          >
-            Description / Author Note
-          </h2>
-          <input
-            className="new-recipe-description"
-            id="recipe_description"
-            name="description"
-            onChange={handleDescriptionChange}
-            type="text"
-            value={description}
-          />
-        </div>
+        <h2 className="new-recipe__h2" data-test="description-heading">
+          Description / Author Note
+        </h2>
+        <input
+          className="new-recipe-description"
+          id="recipe_description"
+          name="description"
+          onChange={handleDescriptionChange}
+          type="text"
+          value={description}
+        />
 
-        <div className="new-recipe-section-required-methods">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="methods-heading"
-          >
-            Methods
-          </h2>
-          <div className="method-spans">
-            {dataMethods.map(m => (
-              <span className="method-span" key={m.id}>
-                <input
-                  checked={methods[m.id] === true ? true : false}
-                  className="method-span-input"
-                  data-test={`${m.id}-${m.name}`}
-                  id={`${m.id}`}
-                  onChange={e => handleMethodsChange(e)}
-                  type="checkbox"
-                />
-                <label className="method-span-label" data-test={m.name}>
-                  {m.name}
-                </label>
-              </span>
-            ))}
-          </div>
+        <h2 className="new-recipe__h2" data-test="methods-heading">
+          Methods
+        </h2>
+        <div className="method-spans">
+          {dataMethods.map(m => (
+            <span className="method-span" key={m.id}>
+              <input
+                checked={methods[m.id] === true ? true : false}
+                className="method-span-input"
+                data-test={`${m.id}-${m.name}`}
+                id={`${m.id}`}
+                onChange={e => handleMethodsChange(e)}
+                type="checkbox"
+              />
+              <label className="method-span-label" data-test={m.name}>
+                {m.name}
+              </label>
+            </span>
+          ))}
         </div>
 
         <div className="new-recipe-section-required-equipment">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="equipment-heading"
-          >
+          <h2 className="new-recipe__h2" data-test="equipment-heading">
             Equipment
           </h2>
           <div id="equipment_rows_container">
@@ -332,10 +302,7 @@ export function NewRecipeView({
         </div>
 
         <div className="new-recipe-section-required-ingredients">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="ingredients-heading"
-          >
+          <h2 className="new-recipe__h2" data-test="ingredients-heading">
             Ingredients
           </h2>
           <div id="ingredient_rows_container">
@@ -368,10 +335,7 @@ export function NewRecipeView({
         </div>
 
         <div className="new-recipe-section-required-subrecipes">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="subrecipes-heading"
-          >
+          <h2 className="new-recipe__h2" data-test="subrecipes-heading">
             Subrecipes
           </h2>
           <div id="subrecipe_rows_container">
@@ -410,21 +374,16 @@ export function NewRecipeView({
           </button>
         </div>
 
-        <div className="new-recipe-section-directions">
-          <h2
-            className="new-recipe-heading-two"
-            data-test="directions-heading"
-          >
-            Directions
-          </h2>
-          <textarea
-            className="new-recipe-directions"
-            id="recipe_directions"
-            name="directions"
-            onChange={handleDirectionsChange}
-            value={directions}
-          />
-        </div>
+        <h2 className="new-recipe__h2" data-test="directions-heading">
+          Directions
+        </h2>
+        <textarea
+          className="new-recipe-directions"
+          id="recipe_directions"
+          name="directions"
+          onChange={handleDirectionsChange}
+          value={directions}
+        />
 
         <ImageUploads
           cancelCookingImage={cancelCookingImage}
@@ -469,7 +428,7 @@ export function NewRecipeView({
           recipeTinyCrop={recipeTinyCrop}
         />
 
-        <div className="new-recipe-finish-area">
+        <div className="new-recipe__finish-area">
           <Link
             className="new-recipe-cancel-button"
             data-test="cancel-link"

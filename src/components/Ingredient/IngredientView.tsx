@@ -9,10 +9,13 @@ export function IngredientView({
   ingredient,
   twoColumnBTheme
 }: Props): JSX.Element {
+  const { id, brand, variety, name, image, ingredient_type_name, description } =
+    ingredient;
+
   return (
     <div className="ingredient">
 
-      <IngredientBreadcrumbs id={ingredient.id} name={ingredient.name} />
+      <IngredientBreadcrumbs id={id} name={name} />
 
       <div
         className={`ingredient-view two-column-b ${twoColumnBTheme}`}
@@ -23,36 +26,30 @@ export function IngredientView({
 
           <div className="ingredient-details">
 
-            <h1 className="ingredient-name">
-              {ingredient.brand && (ingredient.brand + ' ')}
-              {ingredient.variety && (ingredient.variety + ' ')}
-              {ingredient.name}
+            <h1 className="ingredient__name">
+              {brand && (brand + ' ')}
+              {variety && (variety + ' ')}
+              {name}
             </h1>
 
-            <div className="ingredient-image">
+            <div className="ingredient__image">
               {
-                dataMyPrivateIngredients.find(
-                  ing => ing.id === ingredient.id
-                )
-                ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${ingredient.image}`} />
-                : <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${ingredient.image}.jpg`} />
+                dataMyPrivateIngredients.find(ing => ing.id === id)
+                ? <img src={`https://s3.amazonaws.com/nobsc-user-ingredients/${image}`} />
+                : <img src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${image}.jpg`} />
               }
             </div>
 
-            <div className="ingredient-type-outer">
+            <div className="ingredient__type-outer">
               <b>Ingredient Type:</b>
               {' '}
-              <span className="ingredient-type">
-                {ingredient.ingredient_type_name}
-              </span>
+              <span className="ingredient__type">{ingredient_type_name}</span>
             </div>
 
-            <div className="equipment-description-outer">
+            <div className="equipment__description-outer">
               <b>Ingredient Description:</b>
               {' '}
-              <div className="ingredient-description">
-                {ingredient.description}
-              </div>
+              <div className="ingredient__description">{description}</div>
             </div>
 
           </div>

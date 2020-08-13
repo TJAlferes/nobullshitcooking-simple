@@ -44,27 +44,27 @@ describe('MenuView', () => {
     );
     expect(
       wrapperWithActiveMenuRow
-      .find('[data-test="menu-item"]').at(0).hasClass('menu-item active')
+      .find('[data-test="menu-item"]').at(0).hasClass('menu__item active')
     ).toBeTruthy();
     expect(
       wrapperWithActiveMenuRow
-      .find('[data-test="menu-item"]').at(1).hasClass('menu-item active')
+      .find('[data-test="menu-item"]').at(1).hasClass('menu__item active')
     ).toBeFalsy();
     expect(
       wrapperWithActiveMenuRow
-      .find('[data-test="menu-item"]').at(2).hasClass('menu-item active')
+      .find('[data-test="menu-item"]').at(2).hasClass('menu__item active')
     ).toBeFalsy();
     expect(
       wrapperWithActiveMenuRow
-      .find('[data-test="menu-item"]').at(3).hasClass('menu-item active')
+      .find('[data-test="menu-item"]').at(3).hasClass('menu__item active')
     ).toBeFalsy();
     expect(
       wrapperWithActiveMenuRow
-      .find('[data-test="menu-item"]').at(4).hasClass('menu-item active')
+      .find('[data-test="menu-item"]').at(4).hasClass('menu__item active')
     ).toBeFalsy();
     expect(
       wrapperWithActiveMenuRow
-      .find('[data-test="menu-item"]').at(5).hasClass('menu-item active')
+      .find('[data-test="menu-item"]').at(5).hasClass('menu__item active')
     ).toBeFalsy();
   });
 });

@@ -2,7 +2,7 @@
 
 }*/
 
-.new-recipe-feedback {
+.new-recipe__feedback {
   color: #c10006;
   font-family: Arial;
   font-size: 14px;
@@ -11,16 +11,9 @@
   width: 100%;
 }
 
-.new-recipe-section-ownership
-.new-recipe-section-recipe-type,
-.new-recipe-section-cuisine,
-.new-recipe-section-title,
-.new-recipe-section-description,
-.new-recipe-section-required-methods,
 .new-recipe-section-required-equipment,
 .new-recipe-section-required-ingredients,
 .new-recipe-section-required-subrecipes,
-.new-recipe-section-directions,
 .new-recipe-section-recipe-image,
 .new-recipe-section-equipment-image,
 .new-recipe-section-ingredients-image,
@@ -28,8 +21,10 @@
   padding-top: 18px;
 }
 
-.new-recipe-heading-two {
+.new-recipe__h2 {
+  display: block;
   font-size: 1.7rem;
+  padding-top: 18px;
 }
 
 .new-recipe select:required {
@@ -240,7 +235,7 @@
   padding: 0 6px;
 }
 
-.new-recipe-finish-area {
+.new-recipe__finish-area {
   display: flex;
   flex-direction: row;
   padding: 10px 0;
@@ -270,8 +265,6 @@
   background-image: linear-gradient(to bottom, #d5fdd5, #acfbac);
 }
 
-
-
 @media (max-width: 1000px) {
   .equipment-row,
   .ingredient-row,
@@ -292,10 +285,8 @@
   }
 }
 
-
-
 @media (max-width: 899px) {
-  .new-recipe-finish-area {
+  .new-recipe__finish-area {
     flex-direction: column;
   }
 

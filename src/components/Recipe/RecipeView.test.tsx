@@ -62,24 +62,24 @@ describe('RecipeView', () => {
     );
 
     it('displays an h1 element with text Some Title', () => {
-      expect(wrapper.find('h1.recipe-title').text()).toEqual("Some Title");
+      expect(wrapper.find('h1.recipe__title').text()).toEqual("Some Title");
     });
 
     it('displays a p element with text Some message.', () => {
-      expect(wrapper.find('p.recipe-feedback').text()).toEqual("Some message.");
+      expect(wrapper.find('p.recipe__feedback').text()).toEqual("Some message.");
     });
 
     it('displays an em element with text A descriptive description.', () => {
-      expect(wrapper.find('em.recipe-description').text())
+      expect(wrapper.find('em.recipe__description').text())
       .toEqual("A descriptive description.");
     });
 
     it('displays a span element with text Afghan', () => {
-      expect(wrapper.find('span.recipe-cuisine').text()).toEqual("Afghan");
+      expect(wrapper.find('span.recipe__cuisine').text()).toEqual("Afghan");
     });
 
     it('displays a span element with text Appetizer', () => {
-      expect(wrapper.find('span.recipe-type').text()).toEqual("Appetizer");
+      expect(wrapper.find('span.recipe__type').text()).toEqual("Appetizer");
     });
 
     // move
