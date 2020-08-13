@@ -14,10 +14,10 @@ import {
 } from '../../store/data/types';
 import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import { LoaderButton } from '../LoaderButton/LoaderButton';
-import { EquipmentRow } from './views/EquipmentRow/EquipmentRow';
-import { IngredientRow } from './views/IngredientRow/IngredientRow';
-import { SubrecipeRow } from './views/SubrecipeRow/SubrecipeRow';
-import { ImageUploads } from './views/ImageUploads';
+import { EquipmentRow } from './components/EquipmentRow';
+import { IngredientRow } from './components/IngredientRow';
+import { SubrecipeRow } from './components/SubrecipeRow';
+import { ImageUploads } from './components/ImageUploads';
 import {
   IMethods,
   IEquipmentRow,
@@ -162,31 +162,31 @@ export function NewRecipeView({
             <br />
           </div>
         </ExpandCollapse>
-        <div className="ownership-spans">
-          <span className="ownership-span">
+        <div className="new-recipe__ownerships">
+          <span className="new-recipe__ownership">
             <input
               checked={ownership === "private"}
-              className="ownership-span-input"
+              className="new-recipe__ownership-input"
               disabled={true}
               name="private"
               type="radio"
               value="private"
             />
 
-            <label className="ownership-span-label">Private</label>
+            <label className="new-recipe__ownership-label">Private</label>
           </span>
 
-          <span className="ownership-span">
+          <span className="new-recipe__ownership">
             <input
               checked={ownership === "public"}
-              className="ownership-span-input"
+              className="new-recipe__ownership-input"
               disabled={true}
               name="public"
               type="radio"
               value="public"
             />
 
-            <label className="ownership-span-label">Public</label>
+            <label className="new-recipe__ownership-label">Public</label>
           </span>
         </div>
 
@@ -253,29 +253,29 @@ export function NewRecipeView({
         <h2 className="new-recipe__h2" data-test="methods-heading">
           Methods
         </h2>
-        <div className="method-spans">
+        <div className="new-recipe__methods">
           {dataMethods.map(m => (
-            <span className="method-span" key={m.id}>
+            <span className="new-recipe__method" key={m.id}>
               <input
                 checked={methods[m.id] === true ? true : false}
-                className="method-span-input"
+                className="new-recipe__method-input"
                 data-test={`${m.id}-${m.name}`}
                 id={`${m.id}`}
                 onChange={e => handleMethodsChange(e)}
                 type="checkbox"
               />
-              <label className="method-span-label" data-test={m.name}>
+              <label className="new-recipe__method-label" data-test={m.name}>
                 {m.name}
               </label>
             </span>
           ))}
         </div>
 
-        <div className="new-recipe-section-required-equipment">
+        <div className="new-recipe__required-equipment">
           <h2 className="new-recipe__h2" data-test="equipment-heading">
             Equipment
           </h2>
-          <div id="equipment_rows_container">
+          <div className="new-recipe__equipment-rows">
             {equipmentRows.map(e => (
               <EquipmentRow
                 amount={e.amount}
@@ -293,7 +293,7 @@ export function NewRecipeView({
             ))}
           </div>
           <button
-            className="add-row"
+            className="new-recipe__add-row-button"
             data-test="add-equipment"
             onClick={addEquipmentRow}
           >
@@ -301,11 +301,11 @@ export function NewRecipeView({
           </button>
         </div>
 
-        <div className="new-recipe-section-required-ingredients">
+        <div className="new-recipe__required-ingredients">
           <h2 className="new-recipe__h2" data-test="ingredients-heading">
             Ingredients
           </h2>
-          <div id="ingredient_rows_container">
+          <div className="new-recipe__ingredient-rows">
             {ingredientRows.map(i => (
               <IngredientRow
                 amount={i.amount}
@@ -326,7 +326,7 @@ export function NewRecipeView({
             ))}
           </div>
           <button
-            className="add-row"
+            className="new-recipe__add-row-button"
             data-test="add-ingredient"
             onClick={addIngredientRow}
           >
@@ -334,11 +334,11 @@ export function NewRecipeView({
           </button>
         </div>
 
-        <div className="new-recipe-section-required-subrecipes">
+        <div className="new-recipe__required-subrecipes">
           <h2 className="new-recipe__h2" data-test="subrecipes-heading">
             Subrecipes
           </h2>
-          <div id="subrecipe_rows_container">
+          <div className="new-recipe__subrecipe-rows">
             {subrecipeRows.map(s => (
               <SubrecipeRow
                 amount={s.amount}
@@ -366,7 +366,7 @@ export function NewRecipeView({
             ))}
           </div>
           <button
-            className="add-row"
+            className="new-recipe__add-row-button"
             data-test="add-subrecipe"
             onClick={addSubrecipeRow}
           >
@@ -430,14 +430,14 @@ export function NewRecipeView({
 
         <div className="new-recipe__finish-area">
           <Link
-            className="new-recipe-cancel-button"
+            className="new-recipe__cancel-button"
             data-test="cancel-link"
             to={path}
           >
             Cancel
           </Link>
           <LoaderButton
-            className="new-recipe-submit-button"
+            className="new-recipe__submit-button"
             id="user_submit_recipe_button"
             isLoading={loading}
             loadingText="Submitting Recipe..."

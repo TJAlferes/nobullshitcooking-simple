@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IEquipment } from '../../../../store/data/types';
+import { IEquipment } from '../../../store/data/types';
 
 export function EquipmentRow({
   amount,
@@ -65,7 +65,7 @@ export function EquipmentRow({
       </select>
 
       <button
-        className="equipment-row-remove-row"
+        className="new-recipe__remove-row-button"
         data-test="equipment-row-remove-row"
         onClick={() => removeEquipmentRow(rowKey)}
       >

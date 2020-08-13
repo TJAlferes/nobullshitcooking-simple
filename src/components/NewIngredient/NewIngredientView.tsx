@@ -56,10 +56,7 @@ export function NewIngredientView({
 
         <p className="new-ingredient__feedback">{feedback}</p>
 
-        <h2
-          className="new-ingredient__heading-two"
-          data-test="ingredient-type-heading"
-        >
+        <h2 className="new-ingredient__h2" data-test="ingredient-type-heading">
           Type of Ingredient
         </h2>
         <select
@@ -74,7 +71,7 @@ export function NewIngredientView({
           ))}
         </select>
 
-        <h2 className="new-ingredient__heading-two" data-test="name-heading">
+        <h2 className="new-ingredient__h2" data-test="name-heading">
           Name
         </h2>
         <input
@@ -84,10 +81,7 @@ export function NewIngredientView({
           value={name}
         />
 
-        <h2
-          className="new-ingredient__heading-two"
-          data-test="description-heading"
-        >
+        <h2 className="new-ingredient__h2" data-test="description-heading">
           Description
         </h2>
         <textarea
@@ -97,7 +91,7 @@ export function NewIngredientView({
         />
 
         <div className="new-ingredient__image">
-          <h2 className="new-ingredient__heading-two" data-test="image-heading">
+          <h2 className="new-ingredient__h2" data-test="image-heading">
             Image of Ingredient
           </h2>
           {!image && (
@@ -107,9 +101,9 @@ export function NewIngredientView({
                 ? <img src={`${dir}/nobsc-ingredient-default`} />
                 : prevImage && <img src={`${dir}/${prevImage}`} />
               }
-              <h4 className="change-default">Change</h4>
+              <h4 className="new-ingredient__h4">Change</h4>
               <input
-                className="new-ingredient-image-input"
+                className="new-ingredient__image-input"
                 type="file"
                 accept="image/*"
                 onChange={onSelectFile}
@@ -119,7 +113,7 @@ export function NewIngredientView({
           {image && (
             <div>
               <ReactCrop
-                className="new-ingredient__image-crop-tool"
+                className="new-ingredient__crop-tool"
                 crop={crop}
                 imageStyle={{minHeight: "300px"}}
                 onChange={onCropChange}
@@ -128,15 +122,17 @@ export function NewIngredientView({
                 src={image as string}
                 style={{minHeight: "300px"}}
               />
-              <span className="new-ingredient__image-crop-tool-tip">
+              <span className="new-ingredient__crop-tool-tip">
                 Move the crop to your desired position. These two images will be saved for you:
               </span>
-              <div className="new-ingredient__image-crop-previews">
-                <div className="new-ingredient__image-crop-full-preview">
-                  <span>Full Size: </span><img src={fullCrop} />
+              <div className="new-ingredient__crops">
+                <div className="new-ingredient__crop-full-outer">
+                  <span>Full Size: </span>
+                  <img className="new-ingredient__crop-full" src={fullCrop} />
                 </div>
-                <div className="new-ingredient__image-crop-tiny-preview">
-                  <span>Tiny Size: </span><img src={tinyCrop} />
+                <div className="new-ingredient__crop-tiny-outer">
+                  <span>Tiny Size: </span>
+                  <img className="new-ingredient__crop-tiny" src={tinyCrop} />
                 </div>
               </div>
               <button

@@ -5,7 +5,7 @@ import {
   IMeasurement,
   IRecipeType,
   IWorkRecipe
-} from '../../../../store/data/types';
+} from '../../../store/data/types';
 
 export function SubrecipeRow({
   amount,
@@ -129,7 +129,7 @@ export function SubrecipeRow({
       </select>
 
       <button
-        className="subrecipe-row-remove-row"
+        className="new-recipe__remove-row-button"
         data-test="subrecipe-row-remove-row"
         onClick={() => removeSubrecipeRow(rowKey)}
       >

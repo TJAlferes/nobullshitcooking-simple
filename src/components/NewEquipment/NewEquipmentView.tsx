@@ -56,10 +56,7 @@ export function NewEquipmentView({
 
         <p className="new-equipment__feedback">{feedback}</p>
 
-        <h2
-          className="new-equipment__heading-two"
-          data-test="equipment-type-heading"
-        >
+        <h2 className="new-equipment__h2" data-test="equipment-type-heading">
           Type of Equipment
         </h2>
         <select
@@ -74,7 +71,7 @@ export function NewEquipmentView({
           ))}
         </select>
 
-        <h2 className="new-equipment__heading-two" data-test="name-heading">
+        <h2 className="new-equipment__h2" data-test="name-heading">
           Name
         </h2>
         <input
@@ -84,10 +81,7 @@ export function NewEquipmentView({
           value={name}
         />
 
-        <h2
-          className="new-equipment__heading-two"
-          data-test="description-heading"
-        >
+        <h2 className="new-equipment__h2" data-test="description-heading">
           Description
         </h2>
         <textarea
@@ -97,7 +91,7 @@ export function NewEquipmentView({
         />
 
         <div className="new-equipment__image">
-          <h2 className="new-equipment__heading-two" data-test="image-heading">
+          <h2 className="new-equipment__h2" data-test="image-heading">
             Image of Equipment
           </h2>
           {!image && (
@@ -107,9 +101,9 @@ export function NewEquipmentView({
                 ? <img src={`${dir}/nobsc-equipment-default`} />
                 : prevImage && <img src={`${dir}/${prevImage}`} />
               }
-              <h4>Change</h4>
+              <h4 className="new-equipment__h4">Change</h4>
               <input
-                className="new-equipment-image-input"
+                className="new-equipment__image-input"
                 type="file"
                 accept="image/*"
                 onChange={onSelectFile}
@@ -119,7 +113,7 @@ export function NewEquipmentView({
           {image && (
             <div>
               <ReactCrop
-                className="new-equipment__image-crop-tool"
+                className="new-equipment__crop-tool"
                 crop={crop}
                 imageStyle={{minHeight: "300px"}}
                 onChange={onCropChange}
@@ -128,15 +122,17 @@ export function NewEquipmentView({
                 src={image as string}
                 style={{minHeight: "300px"}}
               />
-              <span className="new-equipment__image-crop-tool-tip">
+              <span className="new-equipment__crop-tool-tip">
                 Move the crop to your desired position. These two images will be saved for you:
               </span>
-              <div className="new-equipment__image-crop-previews">
-                <div className="new-equipment-image-crop-full-preview">
-                  <span>Full Size: </span><img src={fullCrop} />
+              <div className="new-equipment__crops">
+                <div className="new-equipment__crop-full-outer">
+                  <span>Full Size: </span>
+                  <img className="new-equipment__crop-full" src={fullCrop} />
                 </div>
-                <div className="new-equipment__image-crop-tiny-preview">
-                  <span>Tiny Size: </span><img src={tinyCrop} />
+                <div className="new-equipment__crop-tiny-outer">
+                  <span>Tiny Size: </span>
+                  <img className="new-equipment__crop-tiny" src={tinyCrop} />
                 </div>
               </div>
               <button

@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-.new-ingredient__heading-two {
+.new-ingredient__h2 {
   font-size: 1.7rem;
   padding-top: 18px;
 }
@@ -30,18 +30,18 @@
   width: 100%;
 }
 
-.new-ingredient__image-crop-tool-tip {
+.new-ingredient__crop-tool-tip {
   display: block;
 }
 
-.new-ingredient__image-crop-previews {
+.new-ingredient__crops {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.new-ingredient__image-crop-full-preview,
-.new-ingredient__image-crop-tiny-preview {
+.new-ingredient__crop-full-outer,
+.new-ingredient__crop-tiny-outer {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -49,12 +49,12 @@
   padding: 10px;
 }
 
-.new-ingredient__image-crop-full-preview img,
-.new-ingredient__image-crop-tiny-preview img {
+.new-ingredient__crop-full,
+.new-ingredient__crop-tiny {
   margin-left: 5px;
 }
 
-.submit-recipe .change-default {
+.new-ingredient__h4 {
   padding-bottom: 3px;
 }
 

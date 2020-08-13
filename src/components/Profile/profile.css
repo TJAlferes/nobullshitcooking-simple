@@ -2,13 +2,23 @@
   width: 1000px;
 }
 
-.profile-list-menu-tabs {
+.profile__feedback {
+  color: #c10006;
+  font-family: Arial;
+  font-size: 14px;
+  height: 31px;
+  text-align: center;
+  width: 100%;
+}
+
+.profile__tabs {
   border-bottom: 2px solid #6cabe4;
   margin-bottom: 10px;
   width: 470px;
 }
 
-.profile-list-menu-tab {
+.profile__tab {
+  background-image: linear-gradient(to bottom, #eee, #bbb);
   border: 1px solid;
   border-color: #ddd #666 #666 #ddd;
   border-radius: 1px;
@@ -22,19 +32,15 @@
   width: 235px;
 }
 
-.profile-list-menu-tab.active {
+.profile__tab--active {
   background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
 }
 
-.profile-list-menu-tab.inactive {
-  background-image: linear-gradient(to bottom, #eee, #bbb);
-}
-
-.profile-content-none {
+.profile__none {
   font-size: 13px;
 }
 
-.profile-list-item {
+.profile__item {
   align-items: center;
   border-bottom: 1px solid;
   border-left: 1px solid;
@@ -47,26 +53,23 @@
   width: 100%;
 }
 
-.profile-list-item:first-of-type {
+.profile__item:first-of-type {
   border-top: 1px solid;
 }
 
-.profile-list-item-tiny {
+.profile__item-tiny {
   height: 18px;
   padding-left: 1px;
   width: 28px;
 }
 
-.profile-list-item-name {
+.profile__item-name {
   padding: 0 10px;
   width: 760px;
 }
 
-.profile-list-item-name a {
-  color: #68abe6;
-}
-
-.profile-list-item-name a:visited {
+.profile__item-name a,
+.profile__item-name a:visited {
   color: #68abe6;
 }
 
@@ -77,15 +80,15 @@
 }
 
 @media (max-width: 509px) {
-  .profile-list-menu-tabs {
+  .profile__tabs {
     width: 100%;
   }
 
-  .profile-list-menu-tab {
+  .profile__tab {
     width: 50%;
   }
 
-  .profile-list-item-name {
+  .profile__item-name {
     width: 100%;
   }
 }

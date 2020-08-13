@@ -3,10 +3,10 @@ import React from 'react';
 
 import { ExpandCollapse } from '../ExpandCollapse/ExpandCollapse';
 import { LoaderButton } from '../LoaderButton/LoaderButton';
-import { EquipmentRow } from './views/EquipmentRow/EquipmentRow';
-import { IngredientRow } from './views/IngredientRow/IngredientRow';
-//import { SubrecipeRow } from './views/SubrecipeRow/SubrecipeRow';
-import { ImageUploads } from './views/ImageUploads';
+import { EquipmentRow } from './components/EquipmentRow';
+import { IngredientRow } from './components/IngredientRow';
+//import { SubrecipeRow } from './components/SubrecipeRow';
+import { ImageUploads } from './components/ImageUploads';
 import { NewRecipeView } from './NewRecipeView';
 
 const addEquipmentRow = jest.fn();

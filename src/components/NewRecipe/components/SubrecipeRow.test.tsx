@@ -1,7 +1,7 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 
-import { IWorkRecipe } from '../../../../store/data/types';
+import { IWorkRecipe } from '../../../store/data/types';
 import { SubrecipeRow } from './SubrecipeRow';
 
 const rowKey = "XYZ";

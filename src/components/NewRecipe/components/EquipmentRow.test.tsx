@@ -1,7 +1,7 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 
-import { IEquipment } from '../../../../store/data/types';
+import { IEquipment } from '../../../store/data/types';
 import { EquipmentRow } from './EquipmentRow';
 
 const rowKey = "XYZ";

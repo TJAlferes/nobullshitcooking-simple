@@ -4,9 +4,9 @@ import {
   IIngredient,
   IIngredientType,
   IMeasurement
-} from '../../../../store/data/types';
+} from '../../../store/data/types';
 
-// TO DO: Add ingredient_brand and ingredient_variety
+// TO DO: Add brand and variety
 
 export function IngredientRow({
   amount,
@@ -86,7 +86,7 @@ export function IngredientRow({
       </select>
 
       <button
-        className="ingredient-row-remove-row"
+        className="new-recipe__remove-row-button"
         data-test="ingredient-row-remove-row"
         onClick={() => removeIngredientRow(rowKey)}
       >

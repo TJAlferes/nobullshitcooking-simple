@@ -31,7 +31,7 @@ export function ProfileView({
       <div className={`profile one-column-a ${oneColumnATheme}`}>
         <h1>{username}</h1>
 
-        <p className="profile-feedback">{feedback}</p>
+        <p className="profile__feedback">{feedback}</p>
 
         {
           userAvatar !== "nobsc-user-default" &&
@@ -59,12 +59,10 @@ export function ProfileView({
 
         <h2>Recipes</h2>
         
-        <div className="profile-list-menu-tabs">
+        <div className="profile__tabs">
           <button
             className={
-              (tab === "public")
-              ? "profile-list-menu-tab active"
-              : "profile-list-menu-tab inactive"
+              (tab === "public") ? "profile__tab--active" : "profile__tab"
             }
             onClick={() => handleTabChange("public")}
           >
@@ -72,9 +70,7 @@ export function ProfileView({
           </button>
           <button
             className={
-              (tab === "favorite")
-              ? "profile-list-menu-tab active"
-              : "profile-list-menu-tab inactive"
+              (tab === "public") ? "profile__tab--active" : "profile__tab"
             }
             onClick={() => handleTabChange("favorite")}
           >
@@ -82,28 +78,28 @@ export function ProfileView({
           </button>
         </div>
 
-        <div className="profile-list">
+        <div className="profile__items">
           {
             tab === "favorite" && (
               userFavoriteRecipes.length
               ? (
                 userFavoriteRecipes.map(r => (
-                  <div className="profile-list-item" key={r.id}>
-                    <span className="profile-list-item-tiny">
+                  <div className="profile__item" key={r.id}>
+                    <span className="profile__item-tiny">
                       {
                         r.recipe_image !== "nobsc-recipe-default"
                         ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${r.recipe_image}-tiny`} />
                         : <div className="image-default-28-18"></div>
                       }
                     </span>
-                    <span className="profile-list-item-name">
+                    <span className="profile__item-name">
                       <Link to={`/recipes/${r.id}`}>{r.title}</Link>
                     </span>
                   </div>
                 ))
               )
               : (
-                <div className="profile-content-none">
+                <div className="profile__none">
                   {username} hasn't favorited any recipes yet.
                 </div>
               )
@@ -114,22 +110,22 @@ export function ProfileView({
               userPublicRecipes.length
               ? (
                   userPublicRecipes.map(r => (
-                  <div className="profile-list-item" key={r.id}>
-                    <span className="profile-list-item-tiny">
+                  <div className="profile__item" key={r.id}>
+                    <span className="profile__item-tiny">
                       {
                         r.recipe_image !== "nobsc-recipe-default"
                         ? <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${r.recipe_image}-tiny`} />
                         : <div className="image-default-28-18"></div>
                       }
                     </span>
-                    <span className="profile-list-item-name">
+                    <span className="profile__item-name">
                       <Link to={`/recipes/${r.id}`}>{r.title}</Link>
                     </span>
                   </div>
                 ))
               )
               : (
-                <div className="profile-content-none">
+                <div className="profile__none">
                   {username} hasn't published any recipes yet.
                 </div>
               )
