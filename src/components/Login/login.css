@@ -3,23 +3,23 @@
   font-size: 13px;
 }
 
-.login .auth-img-link {
+.login__home-links {
   display: block;
   margin: 0 auto;
   max-width: content;
 }
 
-.login .auth-img-desktop {
+.login__home-link--desktop {
   display: block;
   margin: 0 auto;
 }
 
-.login .auth-img-mobile {
+.login__home-link--mobile {
   display: none;
   margin: 0 auto;
 }
 
-.login-form {
+.login__form {
   border: 1px solid #ddd;
   border-radius: 4px;
   display: block;
@@ -28,7 +28,7 @@
   width: 320px;
 }
 
-.login-heading {
+.login__heading {
   display: block;
   font-size: 28px;
   font-weight: 400;
@@ -36,7 +36,7 @@
   margin-bottom: 14px;
 }
 
-.login-feedback {
+.login__feedback {
   color: #c10006;
   font-family: Arial;
   font-size: 14px;
@@ -45,14 +45,14 @@
   width: 100%;
 }
 
-.login-label {
+.login__label {
   display: block;
   margin: 14px auto 4px auto;
   font-size: 13px;
   font-weight: 700;
 }
 
-.login-input {
+.login__input {
   border: 1px solid #aaa;
   border-radius: 2px;
   display: block;
@@ -62,13 +62,13 @@
   width: 100%;
 }
 
-.login-distinction-line {
+/*.login__separator {
   border-top: 1px solid #ccc;
-}
+}*/
 
-.login-button,
-.login-button__facebook,
-.login-button__google {
+.login__button,
+.login__button--facebook,
+.login__button--google {
   border: 1px solid;
   border-color: #999 #777 #555 #777;
   border-radius: 2px;
@@ -80,54 +80,54 @@
   width: 100%;
 }
 
-.login-button {
+.login__button {
   background-image: linear-gradient(to bottom, #b8dbfb, #68abe6);
   color: black;
   font-family: 'Play', sans-serif;
   font-size: 14px;
 }
 
-.login-button:hover,
-.login-button:active {
+.login__button:hover,
+.login__button:active {
   background-image: linear-gradient(to bottom, #8cbeec, #4493d8);
 }
 
-.login-button__facebook {
+/*.login__button--facebook {
   background-image: linear-gradient(#4e69a2, #3b5998 50%);
   color: #fff;
   font-family: Arial;
   font-size: 12px;
 }
 
-.login-button__facebook:hover,
-.login-button__facebook:active {
+.login__button--facebook:hover,
+.login__button--facebook:active {
   background-image: linear-gradient(#425886, #314879 50%);
 }
 
-.login-button__google {
+.login__button--google {
   background: #dd5347;
   color: #fff;
   font-family: Arial;
   font-size: 12px;
 }
 
-.login-button__google:hover,
-.login-button__google:active {
+.login__button--google:hover,
+.login__button--google:active {
   background: #bd453b;
-}
+}*/
 
 @media (max-width: 899px) {
-  .login .auth-img-desktop {
+  .home-link--desktop {
     display: none;
     margin: 0 auto;
   }
 
-  .login .auth-img-mobile {
+  .home-link--mobile {
     display: block;
     margin: 0 auto;
   }
 
-  .login .login-form {
+  .login__form {
     width: 280px;
   }
 }

@@ -52,7 +52,8 @@ describe('RegisterView account creation / registration', () => {
   );
 
   it('displays feedback', () => {
-    expect(wrapper.find('p.register-feedback').text()).toEqual("Some message.");
+    expect(wrapper.find('p.register__feedback').text())
+    .toEqual("Some message.");
   });
 
   it('displays a username input element', () => {
@@ -92,7 +93,8 @@ describe('RegisterView account confirmation / verification', () => {
   );
 
   it('displays feedback', () => {
-    expect(wrapper.find('p.register-feedback').text()).toEqual("Some message.");
+    expect(wrapper.find('p.register__feedback').text())
+    .toEqual("Some message.");
   });
 
   it('displays a password again input element', () => {

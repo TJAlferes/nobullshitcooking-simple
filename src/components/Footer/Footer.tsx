@@ -6,14 +6,27 @@ import './footer.css';
 export function Footer({ theme }: Props): JSX.Element {
   return (
     <footer className={`footer ${theme}`}>
-      <ul>
-        <li><Link to="/page/site/sitemap">Sitemap</Link></li>
-        <li><Link to="/page/site/disclaimer">Disclaimer</Link></li>
-        <li><Link to="/page/site/terms">Terms of Use</Link></li>
-        <li><Link to="/page/site/privacy">Privacy Policy</Link></li>
-        <li><Link to="/page/site/help">Help</Link></li>
-      </ul>
-      <p>Copyright 2015-2020 NoBullshitCooking. All rights reserved.</p>
+      <div className="footer__links">
+        <Link className="footer__link" to="/page/site/sitemap">
+          Sitemap
+        </Link>
+        <Link className="footer__link" to="/page/site/disclaimer">
+          Disclaimer
+        </Link>
+        <Link className="footer__link" to="/page/site/terms">
+          Terms of Use
+        </Link>
+        <Link className="footer__link" to="/page/site/privacy">
+          Privacy Policy
+        </Link>
+        <Link className="footer__link" to="/page/site/help">
+          Help
+        </Link>
+      </div>
+
+      <p className="footer__copyright">
+        Copyright 2015-2020 NoBullshitCooking. All rights reserved.
+      </p>
     </footer>
   );
 }

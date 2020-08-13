@@ -1,33 +1,29 @@
 .logo,
-.logo-link {
+.logo__home-links {
   display: block;
   width: 450px;
 }
 
-.logo-img {
+.home-link--large {
   display: block;
 }
 
-.logo-img-desktop {
-  display: block;
-}
-
-.logo-img-tablet {
+.home-link--small {
   display: none;
 }
 
 @media (max-width: 1279px) {
   .logo,
-  .logo-link {
+  .logo__home-links {
     display: block;
     width: 110px;
   }
 
-  .logo-img-desktop {
+  .home-link--large {
     display: none;
   }
 
-  .logo-img-tablet {
+  .home-link--small {
     display: block;
     padding-top: 5px 0 0 8px;
   }

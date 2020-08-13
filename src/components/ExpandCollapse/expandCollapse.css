@@ -4,7 +4,7 @@
   padding: 5px;
 }
 
-.expand-collapse-heading {
+.expand-collapse__heading {
   cursor: pointer;
   font-size: 1.1rem;
 }

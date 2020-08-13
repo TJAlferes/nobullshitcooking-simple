@@ -8,12 +8,12 @@ import './home.css';
 export function Home(): JSX.Element {
   return (
     <div className="home">
-      <div className="home-desktop-tablet">
+      <div className="home--desktop">
         <LeftNav />
         <Feed />
         <Suggestions />
       </div>
-      <div className="home-mobile">
+      <div className="home--mobile">
         <Feed />
         <Suggestions />
       </div>

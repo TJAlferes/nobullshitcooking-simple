@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { LoaderButton } from '../LoaderButton/LoaderButton';
 import './login.css';
 
+const url = "https://s3.amazonaws.com/nobsc-images-01/auth/";
+
 export function LoginView({
   email,
   feedback,
@@ -17,25 +19,22 @@ export function LoginView({
 }: Props): JSX.Element {
   return (
     <div className="login" onKeyUp={e => handleLoginKeyUp(e)}>
-      <Link className="auth-img-link" to="/">
-        <img
-          className="auth-img-desktop"
-          src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-large-white.png"
-        />
-        <img
-          className="auth-img-mobile"
-          src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-small-white.png"
-        />
+      <Link className="login__home-links" to="/">
+        <img className="home-link--desktop" src={`${url}logo-large-white.png`} />
+        <img className="home-link--mobile" src={`${url}logo-small-white.png`} />
       </Link>
 
-      <form className="login-form">
-        <h1 className="login-heading">Sign In</h1>
-        <p className="login-feedback">{feedback}</p>
-        <label className="login-label">Email</label>
+      <form className="login__form">
+        <h1 className="login__heading">Sign In</h1>
+
+        <p className="login__feedback">{feedback}</p>
+
+        <label className="login__label">Email</label>
+
         <input
           autoComplete="email"
           autoFocus
-          className="login-input"
+          className="login__input"
           disabled={loading}
           id="email"
           maxLength={50}
@@ -45,10 +44,12 @@ export function LoginView({
           type="text"
           value={email}
         />
-        <label className="login-label">Password</label>
+
+        <label className="login__label">Password</label>
+
         <input
           autoComplete="current-password"
-          className="login-input"
+          className="login__input"
           disabled={loading}
           id="password"
           maxLength={20}
@@ -58,8 +59,9 @@ export function LoginView({
           type="password"
           value={password}
         />
+
         <LoaderButton
-          className="login-button"
+          className="login__button"
           disabled={!validateLoginInfo()}
           id="login-button"
           isLoading={loading}

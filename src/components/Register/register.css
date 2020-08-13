@@ -6,23 +6,23 @@
   min-width: 300px;
 }
 
-.auth-img-link {
+.register__home-links {
   display: block;
   margin: 0 auto;
   max-width: content;
 }
 
-.auth-img-desktop {
+.register__home-link--desktop {
   display: block;
   margin: 0 auto;
 }
 
-.auth-img-mobile {
+.register__home-link--mobile {
   display: none;
   margin: 0 auto;
 }
 
-.register-form {
+.register__form {
   display: block;
   border: 1px solid #444;
   border-radius: 4px;
@@ -31,7 +31,7 @@
   width: 320px;
 }
 
-.register-heading {
+.register__heading {
   display: block;
   font-size: 28px;
   font-weight: 400;
@@ -39,7 +39,7 @@
   margin-bottom: 14px;
 }
 
-.register-feedback {
+.register__feedback {
   color: #c10006;
   font-family: Arial;
   font-size: 14px;
@@ -48,14 +48,14 @@
   width: 100%;
 }
 
-.register-label {
+.register__label {
   display: block;
   margin: 14px auto 4px auto;
   font-size: 13px;
   font-weight: 700;
 }
 
-.register-input {
+.register__input {
   border: 1px solid #aaa;
   border-radius: 2px;
   display: block;
@@ -89,7 +89,7 @@
   background-image: linear-gradient(to bottom, #8cbeec, #4493d8);
 }
 
-.register-links {
+.register__links {
   display: table;
   list-style-type: none;
   margin: 18px auto 0 auto;
@@ -97,29 +97,26 @@
   text-align: center;
 }
 
-.register-link {
+.register__link {
   display: inline-block;
-  margin: 2px 6px;
-}
-
-.register-link a {
   font-family: Arial, sans-serif;
   font-size: 12px;
+  margin: 2px 6px;
   text-decoration: none;
 }
 
-.register-link a:link,
-.register-link a:visited {
+.register__link:link,
+.register__link:visited {
   color: #68abe6;
 }
 
-.register-link a:hover,
-.register-link a:active {
+.register__link:hover,
+.register__link:active {
   color: #c10006;
   text-decoration: underline;
 }
 
-.register-copyright {
+.register__copyright {
   font-family: Arial, sans-serif;
   font-size: 11px;
   margin: 12px 0 18px 0;
@@ -127,17 +124,17 @@
 }
 
 @media (max-width: 899px) {
-  .auth-img-desktop {
+  .home-link--desktop {
     display: none;
     margin: 0 auto;
   }
 
-  .auth-img-mobile {
+  .home-link--mobile {
     display: block;
     margin: 0 auto;
   }
 
-  .register-form {
+  .register__form {
     width: 280px;
   }
 }

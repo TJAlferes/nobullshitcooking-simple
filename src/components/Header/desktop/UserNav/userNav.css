@@ -8,6 +8,29 @@
   list-style-type: none;
 }
 
+.mode-button {
+  line-height: 16px;
+}
+
+.mode-button:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.sun-symbol {
+  color: #fffdb1;
+  font-style: normal;
+}
+
+.moon-symbol {
+  color: #183a39;
+  font-style: normal;
+}
+
+
+
+
+
 .user-nav li {
   margin: 0 9px;
 }
@@ -28,34 +51,12 @@
   text-decoration: underline;
 }
 
-.user-nav .mode-button {
-  line-height: 16px;
-}
-
 .signed-in-nav-span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-.mode-button:hover {
-  cursor: pointer;
-  text-decoration: none;
-}
-
 .signed-in-nav-span:active,
 .mode-button:active {
   cursor: pointer;
-}
-
-.sun-symbol,
-.moon-symbol {
-  font-style: normal;
-}
-
-.sun-symbol {
-  color: #fffdb1;
-}
-
-.moon-symbol {
-  color: #183a39;
 }

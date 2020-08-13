@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { LoaderButton } from '../LoaderButton/LoaderButton';
 import './register.css';
 
+const url = "https://s3.amazonaws.com/nobsc-images-01/auth/";
+
 export function RegisterView({
   confirmationCode,
   confirmingUser,
@@ -26,14 +28,17 @@ export function RegisterView({
   validateRegistrationInfo
 }: Props): JSX.Element {
   const registerForm = () => (
-    <form className="register-form">
-      <h1 className="register-heading">Create Account</h1>
-      <p className="register-feedback">{feedback}</p>
-      <label className="register-label">Username</label>
+    <form className="register__form">
+      <h1 className="register__heading">Create Account</h1>
+
+      <p className="register__feedback">{feedback}</p>
+
+      <label className="register__label">Username</label>
+
       <input
         autoComplete="username"
         autoFocus
-        className="register-input"
+        className="register__input"
         disabled={loading}
         id="username"
         maxLength={20}
@@ -43,10 +48,12 @@ export function RegisterView({
         type="text"
         value={username}
       />
+
       <label className="register-label">Email</label>
+      
       <input
         autoComplete="email"
-        className="register-input"
+        className="register__input"
         disabled={loading}
         id="email"
         maxLength={60}
@@ -56,10 +63,12 @@ export function RegisterView({
         type="email"
         value={email}
       />
+
       <label className="register-label">Password</label>
+
       <input
         autoComplete="current-password"
-        className="register-input"
+        className="register__input"
         disabled={loading}
         id="password"
         maxLength={20}
@@ -69,10 +78,12 @@ export function RegisterView({
         type="password"
         value={password}
       />
+
       <label className="register-label">Password Again</label>
+
       <input
         autoComplete="current-password"
-        className="register-input"
+        className="register__input"
         disabled={loading}
         id="passwordAgain"
         maxLength={20}
@@ -82,6 +93,7 @@ export function RegisterView({
         type="password"
         value={passwordAgain}
       />
+
       <LoaderButton
         className="create-account-button"
         disabled={!validateRegistrationInfo()}
@@ -98,13 +110,15 @@ export function RegisterView({
 
   const verifyForm = () => (
     <form className="register-confirm-form">
-      <h1 className="register-heading">Verify</h1>
-      <p className="register-feedback">{feedback}</p>
-      <label className="register-label">Code</label>
+      <h1 className="register__heading">Verify</h1>
+
+      <p className="register__feedback">{feedback}</p>
+
+      <label className="register__label">Code</label>
       <input
         autoComplete="confirmation-code"
         autoFocus
-        className="register-input"
+        className="register__input"
         disabled={loading}
         id="confirmationCode"
         maxLength={20}
@@ -114,7 +128,9 @@ export function RegisterView({
         type="text"
         value={confirmationCode}
       />
+
       <p>Please check your email for the confirmation code.</p>
+
       <LoaderButton
         className="verify-confirmation-code-button"
         disabled={!validateConfirmationCode()}
@@ -131,32 +147,26 @@ export function RegisterView({
 
   return (
     <div className="register" onKeyUp={e => handleRegisterKeyUp(e)}>
-      <Link className="auth-img-link" to="/">
-        <img
-          className="auth-img-desktop"
-          src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-large-white.png"
-        />
-        <img
-          className="auth-img-mobile"
-          src="https://s3.amazonaws.com/nobsc-images-01/auth/logo-small-white.png"
-        />
+      <Link className="register__home-links" to="/">
+        <img className="home-link--desktop" src={`${url}logo-large-white.png`} />
+        <img className="home-link--mobile" src={`${url}logo-small-white.png`} />
       </Link>
 
       {confirmingUser === true ? verifyForm() : registerForm()}
 
-      <ul className="register-links">
-        <li className="register-link">
-          <Link to="/site/terms-of-use">Terms of Use</Link>
-        </li>
-        <li className="register-link">
-          <Link to="/site/privacy-policy">Privacy Policy</Link>
-        </li>
-        <li className="register-link">
-          <Link to="/site/help">Help</Link>
-        </li>
-      </ul>
+      <div className="register__links">
+        <Link className="register__link" to="/page/site/terms">
+          Terms of Use
+        </Link>
+        <Link className="register__link" to="/page/site/privacy">
+          Privacy Policy
+        </Link>
+        <Link className="register__link" to="/page/site/help">
+          Help
+        </Link>
+      </div>
 
-      <p className="register-copyright">
+      <p className="register__copyright">
         Copyright 2015-2020 NoBullshitCooking. All Rights Reserved.
       </p>
 

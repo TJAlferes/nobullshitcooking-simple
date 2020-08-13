@@ -13,7 +13,7 @@ export const ExpandCollapseView: FC<Props> = ({
         !expanded
         ? (
           <div
-            className="expand-collapse-heading"
+            className="expand-collapse__heading"
             data-test="expand"
             onClick={toggle}
           >
@@ -21,9 +21,9 @@ export const ExpandCollapseView: FC<Props> = ({
           </div>
         )
         : (
-          <div>
+          <>
             <div
-              className="expand-collapse-heading"
+              className="expand-collapse__heading"
               data-test="collapse"
               onClick={toggle}
             >
@@ -31,7 +31,7 @@ export const ExpandCollapseView: FC<Props> = ({
             </div>
             <br />
             {children}
-          </div>
+          </>
         )
       }
     </div>

@@ -1,4 +1,4 @@
-.home-desktop-tablet {
+.home--desktop {
   align-items: flex-start;
   display: flex;
   flex-direction: row;
@@ -9,7 +9,7 @@
   min-width: 300px;
 }
 
-.home-mobile {
+.home--mobile {
   display: none;
 }
 
@@ -18,11 +18,11 @@
 }
 
 @media (max-width: 899px) {
-  .home-desktop-tablet {
+  .home--desktop {
     display: none;
   }
   
-  .home-mobile {
+  .home--mobile {
     display: block;
   }
 }

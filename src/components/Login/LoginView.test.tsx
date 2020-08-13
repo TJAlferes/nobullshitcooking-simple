@@ -26,7 +26,7 @@ describe('LoginView', () => {
   const wrapper = shallow(<LoginView {...initialProps} />);
 
   it('displays feedback', () => {
-    expect(wrapper.find('p.login-feedback').text()).toEqual("Some message.");
+    expect(wrapper.find('p.login__feedback').text()).toEqual("Some message.");
   });
 
   it('displays an email input element', () => {
