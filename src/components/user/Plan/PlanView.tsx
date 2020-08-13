@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { IPlannerViewData } from '../../../../store/plannerView/types';
-import LeftNav from '../../../LeftNav/LeftNav';
-import Day from './Day/Day';
-import ExpandedDay from './ExpandedDay/ExpandedDay';
+import { IPlannerViewData } from '../../../store/plannerView/types';
+import LeftNav from '../../LeftNav/LeftNav';
+import Day from './components/Day';
+import ExpandedDay from './components/ExpandedDay';
 import './plan.css';
 
 export function PlanView({
@@ -14,27 +14,27 @@ export function PlanView({
   twoColumnATheme
 }: Props): JSX.Element {
   return (
-    <div className="user-plan-view">
+    <div className="plan-view">
 
-      <div className={`user-plan two-column-a ${twoColumnATheme}`}>
+      <div className={`plan two-column-a ${twoColumnATheme}`}>
 
         <LeftNav />
 
         <section>
 
-          <div className="user-plan__header">
+          <div className="plan__header">
             <h1>Plan</h1>
-            <div className="user-plan__name">
-              <label className="user-plan__name-label">Plan Name:</label>
-              <span className="user-plan__name-value">{planName}</span>
+            <div className="plan__name">
+              <label className="plan__name-label">Plan Name:</label>
+              <span className="plan__name-value">{planName}</span>
             </div>
           </div>
 
-          <hr className="user-plan__hr" />
+          <hr className="plan__hr" />
 
-          <div className="user-plan__calendar-container">
+          <div className="plan__calendar-container">
 
-            <div className="user-plan__monthly-plan">
+            <div className="plan__monthly-plan">
               <div className="monthly-plan">
                 <div className="monthly-plan__header">
                   <span className="monthly-plan__header-day">Sunday</span>
@@ -45,6 +45,7 @@ export function PlanView({
                   <span className="monthly-plan__header-day">Friday</span>
                   <span className="monthly-plan__header-day">Saturday</span>
                 </div>
+
                 <div className="monthly-plan__body">
                   {Object.keys(recipeListsInsideDays).map((recipeList, i) => (
                     <div className="monthly-plan__body-day" key={i}>
@@ -53,7 +54,7 @@ export function PlanView({
                           day={i + 1}
                           expanded={expanded}
                           expandedDay={expandedDay}
-                          list={recipeListsInsideDays[Number(recipeList)]}
+                          recipes={recipeListsInsideDays[Number(recipeList)]}
                         />
                       </div>
                     </div>
@@ -65,10 +66,7 @@ export function PlanView({
                 {expandedDay && <ExpandedDay
                   day={expandedDay}
                   expanded={expanded}
-                  list={(expanded)
-                    ? recipeListsInsideDays[expandedDay]
-                    : []
-                  }
+                  recipes={(expanded) ? recipeListsInsideDays[expandedDay] : []}
                 />}
               </div>
             </div>

@@ -1,15 +1,15 @@
-/*.user-plan {
+/*.plan {
 
 }*/
 
-.user-plan__hr {
+.plan__hr {
   border: 0 none;
   height: 1px;
   margin-bottom: 10px;
   width: 100%;
 }
 
-.user-plan__name {
+.plan__name {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -17,30 +17,30 @@
   width: 100%;
 }
 
-.user-plan__name-label {
+.plan__name-label,
+.plan__name-value {
   display: block;
   font-size: 1.3rem;
   font-weight: 900;
   line-height: 30px;
+}
+
+.plan__name-label {
   margin-right: 5px;
   order: 1;
 }
 
-.user-plan__name-value {
-  display: block;
-  font-size: 1.3rem;
-  font-weight: 900;
-  line-height: 30px;
+.plan__name-value {
   order: 2;
 }
 
-.user-plan__calendar-container {
+.plan__calendar-container {
   height: 328px;
   margin: 0 auto;
   width: 100%;
 }
 
-.user-plan__monthly-plan {
+.plan__monthly-plan {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -113,11 +113,7 @@
   width: 150px;
 }
 
-
-
-
-
-.the_date {
+.plan__date {
   color: #afafaf;
   height: content;
   padding: 1px 3px 0 0;
@@ -128,8 +124,8 @@
   width: content;
 }
 
-.planner_day_collapsed,
-.planner_expanded_day {
+.plan__day,
+.plan__expanded-day {
   background: #fff;
   cursor: hand;
   cursor: pointer;
@@ -143,17 +139,44 @@
   transform: none;
 }
 
-.planner_day_collapsed {
+.plan__day {
   padding-left: 3px;
   transform: none;
 }
 
-.planner_expanded_day {
+.plan__expanded-day {
   border: 1px solid #bfbfbf;
   box-shadow: 1px 1px 1px #555;
   padding-left: 6px;
 }
 
-.planner_day_white {
-  background: #fff;
+.plan__recipe {
+  align-content: center;
+  background-color: #FFF3CC;
+  border: 1px solid #FFDEC3;
+  box-shadow: 1px 1px 1px #999;
+  cursor: move;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  height: 27px;
+  margin: 6px 1px;
+  max-width: 200px;
+  min-width: 100px;
+  overflow: hidden;
+  text-align: center;
+  width: 90%;
+}
+
+/*.plan__recipe-image {
+
+}*/
+
+.plan__recipe-text {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  text-align: center;
+  width: 100%;
 }

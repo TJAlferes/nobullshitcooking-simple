@@ -103,12 +103,8 @@ export function NewPlanView({
         day={0}
         expanded={expanded}
         expandedDay={expandedDay}
-        recipes={recipes.map(r => ({
-          key: uuidv4(),
-          id: r.id,
-          title: r.title,
-          recipe_image: r.recipe_image,
-          owner_id: r.owner_id
+        recipes={recipes.map(({ id, title, recipe_image, owner_id }) => ({
+          key: uuidv4(), id, title, recipe_image, owner_id
         }))}
       />
     );
@@ -223,7 +219,7 @@ export function NewPlanView({
                   >
                     No, Keep Working
                   </button>
-                  
+
                   <button
                     className="planner-cancel-button"
                     onClick={discardChanges}

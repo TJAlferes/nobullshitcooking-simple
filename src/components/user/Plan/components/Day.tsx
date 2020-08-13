@@ -1,27 +1,24 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { plannerViewClickDay } from '../../../../../store/plannerView/actions';
-import { IPlannerViewRecipe } from '../../../../../store/plannerView/types';
-import { Recipe } from '../Recipe/Recipe';
+import { plannerViewClickDay } from '../../../../store/plannerView/actions';
+import { IPlannerViewRecipe } from '../../../../store/plannerView/types';
+import { Recipe } from './Recipe';
 
 export function Day({
   day,
   expanded,
   expandedDay,
-  list,
+  recipes,
   plannerViewClickDay
 }: Props): JSX.Element|null {
   const handleClickDay = () => plannerViewClickDay(day);
 
   return (!expanded || (day !== expandedDay))
   ? (
-    <div
-      className="planner_day_collapsed planner_day_white"
-      onClick={handleClickDay}
-    >
-      <span className="the_date">{day}</span>
-      {list.map(recipe => <Recipe recipe={recipe} />)}
+    <div className="plan__day" onClick={handleClickDay}>
+      <span className="plan__date">{day}</span>
+      {recipes.map(recipe => <Recipe recipe={recipe} />)}
     </div>
   )
   : null;
@@ -33,7 +30,7 @@ type Props = PropsFromRedux & {
   day: number;
   expanded: boolean;
   expandedDay: number | null;
-  list: IPlannerViewRecipe[];
+  recipes: IPlannerViewRecipe[];
 };
 
 const mapDispatchToProps = {

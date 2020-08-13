@@ -30,7 +30,7 @@ const beginProps = {
   expanded: false,
   expandedDay: null,
   isOver: false,
-  list: [],
+  recipes: [],
   plannerAddRecipeToDay,
   plannerClickDay
 };

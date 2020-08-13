@@ -6,7 +6,7 @@ import { IPlan } from '../../../store/data/types';
 import { plannerViewLoad } from '../../../store/plannerView/actions';
 import { IPlannerViewData } from '../../../store/plannerView/types';
 //import MobilePlanView from './views/MobilePlanView';
-import { PlanView } from './views/PlanView';
+import { PlanView } from './PlanView';
 
 export function Plan({
   dataMyPlans,

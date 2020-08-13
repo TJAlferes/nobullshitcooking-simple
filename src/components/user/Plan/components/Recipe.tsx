@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { IPlannerViewRecipe } from '../../../../../store/plannerView/types';
-import './recipe.css';
+import { IPlannerViewRecipe } from '../../../../store/plannerView/types';
 
 export function Recipe({ recipe }: Props): JSX.Element {
   return (
-    <div className="plan_recipe">
-      <div className="planner_recipe_image">
+    <div className="plan__recipe">
+      <div className="plan__recipe-image">
         <img src={`https://s3.amazonaws.com/nobsc-user-recipe/${recipe.recipe_image}-tiny`} />
       </div>
-      <div className="planner_recipe_text">
+      <div className="plan__recipe-text">
         <Link
           to={
             Number(recipe.owner_id) === 1

@@ -8,12 +8,12 @@ import './planPage.css'
 export default function PlanPage({ twoColumnATheme }: Props): JSX.Element {
   return (
     <div className="plan-page">
-      {/*<div className="mobile_display">
+      {/*<div className="mobile">
         <Suspense fallback={<LoaderSpinner />} >
           <MobilePlanToggle twoColumnATheme={twoColumnATheme} />
         </Suspense>
       </div>*/}
-      <div className="desktop_display">
+      <div className="desktop">
         <Suspense fallback={<LoaderSpinner />} >
           <Plan planView="desktop" twoColumnATheme={twoColumnATheme} />
         </Suspense>
