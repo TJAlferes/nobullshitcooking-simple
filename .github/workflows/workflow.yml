@@ -1,20 +1,15 @@
 name: CI/CD
-
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [14.x]
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -23,4 +18,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run test -- --coverage --watchAll=false
-    - run: codecov/codecov-action@v1
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        #token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./lcov.info
+        directory: ./test-coverage/lcov-report/
+        name: codecov-umbrella
+        #fail_ci_if_error: true
+        #path_to_write_report: ./test-coverage/codecov_report.gz
