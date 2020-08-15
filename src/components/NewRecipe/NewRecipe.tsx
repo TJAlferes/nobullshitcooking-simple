@@ -166,8 +166,10 @@ export function NewRecipe({
 
   useEffect(() => {
     const getExistingRecipeToEdit = async () => {
-      if (!id || (!staffIsAuthenticated && !ownership)) {  // TO DO: change this
-        history.push('/dashboard');
+      if (!id || (!staffIsAuthenticated && !ownership)) {
+        const redirectPath = staffIsAuthenticated
+          ? '/staff-dashboard' : '/dashboard';
+        history.push(redirectPath);
         return;
       }
 

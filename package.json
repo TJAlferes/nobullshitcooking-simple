@@ -10,13 +10,24 @@
     "test": "jest --color"
   },
   "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "test-coverage",
+    "coverageReporters": ["lcov"],
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 0,
+        "lines": 0,
+        "statements": 0
+      }
+    },
     "globals": {
       "ts-jest": {
         "babelConfig": true
       }
     },
     "globalSetup": "./global-setup.js",
-    "preset": "ts-jest/presets/js-with-babel",
+    "moduleDirectories": ["node_modules", "src"],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|scss|sass|less)$": "identity-obj-proxy",
@@ -28,17 +39,16 @@
       "^react-dnd-test-backend$": "react-dnd-test-backend/dist/cjs",
       "^react-dnd-test-utils$": "react-dnd-test-utils/dist/cjs"
     },
-    "setupFilesAfterEnv": [
-      "jest-enzyme"
-    ],
+    "preset": "ts-jest/presets/js-with-babel",
+    "setupFiles": ["<rootDir>/src/setupTests.ts"],
+    "setupFilesAfterEnv": ["jest-enzyme"],
     "transform": {
       "^.+\\.[t]sx?$": "ts-jest",
       "^.+\\.[j]sx?$": "babel-jest"
     },
     "testEnvironment": "enzyme",
-    "testEnvironmentOptions": {
-      "enzymeAdapter": "react16"
-    }
+    "testEnvironmentOptions": {"enzymeAdapter": "react16"},
+    "testRegex": "/*.test.tsx?$"
   },
   "author": "",
   "license": "ISC",

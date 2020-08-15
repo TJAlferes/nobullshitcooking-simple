@@ -58,7 +58,7 @@ export function MenuView({
                 ((activeMenuRow !== undefined) && (index === activeMenuRow)) &&
                 'active'
               }`}
-              data-test="menu__item"
+              data-test="menu-item"
               key={index}
               onMouseEnter={() => handleMouseEnterRow(index)}
             >

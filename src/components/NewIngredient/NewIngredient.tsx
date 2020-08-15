@@ -58,6 +58,13 @@ export function NewIngredient({
 
   useEffect(() => {
     const getExistingIngredientToEdit = () => {
+      if (!id) {
+        const redirectPath = staffIsAuthenticated
+          ? '/staff-dashboard' : '/dashboard';
+        history.push(redirectPath);
+        return;
+      }
+
       setLoading(true);
       window.scrollTo(0,0);
 

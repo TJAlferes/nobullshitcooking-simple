@@ -58,6 +58,13 @@ export function NewEquipment({
 
   useEffect(() => {
     const getExistingEquipmentToEdit = () => {
+      if (!id) {
+        const redirectPath = staffIsAuthenticated
+          ? '/staff-dashboard' : '/dashboard';
+        history.push(redirectPath);
+        return;
+      }
+      
       window.scrollTo(0,0);
       setLoading(true);
 
