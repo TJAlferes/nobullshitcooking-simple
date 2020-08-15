@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { RecipeBreadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
 import { IWorkRecipe } from '../../store/data/types';
-import { IRecipe } from './recipe';
+import { IRecipe } from './Recipe';
 import './recipe.css';
 
 export function RecipeView({
