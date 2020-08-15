@@ -37,8 +37,8 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
         #token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./index.html
-        directory: ./test-coverage/lcov-report/src/
+        file: ./lcov.info
+        directory: ./test-coverage/
         name: codecov-umbrella
         #fail_ci_if_error: true
         #path_to_write_report: ./test-coverage/codecov_report.gz
