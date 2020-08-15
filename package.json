@@ -12,15 +12,6 @@
   "jest": {
     "collectCoverage": true,
     "coverageDirectory": "test-coverage",
-    "coverageReporters": ["lcov"],
-    "coverageThreshold": {
-      "global": {
-        "branches": 0,
-        "functions": 0,
-        "lines": 0,
-        "statements": 0
-      }
-    },
     "globals": {
       "ts-jest": {
         "babelConfig": true
