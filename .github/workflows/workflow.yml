@@ -1,29 +1,44 @@
 name: CI/CD
+
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [14.x]
+
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          **/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
     - run: npm install
+
     - run: npm run test -- --coverage --watchAll=false
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
         #token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./lcov.info
-        directory: ./test-coverage/lcov-report/
+        file: ./index.html
+        directory: ./test-coverage/lcov-report/src/
         name: codecov-umbrella
         #fail_ci_if_error: true
         #path_to_write_report: ./test-coverage/codecov_report.gz
