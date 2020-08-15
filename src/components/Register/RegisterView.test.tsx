@@ -1,4 +1,4 @@
-import { shallow, ShallowWrapper } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 import { LoaderButton } from '../LoaderButton/LoaderButton';
@@ -30,14 +30,12 @@ const initialProps = {
   validateRegistrationInfo
 };
 
-let wrapper: ShallowWrapper;
-
 afterEach(() => {
   jest.clearAllMocks();
 });
 
 describe('RegisterView account creation / registration', () => {
-  wrapper = shallow(
+  const wrapper = shallow(
     <RegisterView
       confirmationCode=""
       confirmingUser={false}
@@ -78,7 +76,7 @@ describe('RegisterView account creation / registration', () => {
 });
 
 describe('RegisterView account confirmation / verification', () => {
-  wrapper = shallow(
+  const wrapper = shallow(
     <RegisterView
       confirmationCode=""
       confirmingUser={true}

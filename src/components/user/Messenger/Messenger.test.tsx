@@ -115,7 +115,7 @@ describe('Messenger', () => {
   it('should change peopleTab when clicked', () => {
     expect(wrapper.find(PeopleView).prop("peopleTab")).toEqual("Room");
 
-    wrapper.find('button.people__tab').at(1).simulate('click');
+    wrapper.find('button.people__tab').simulate('click');
 
     expect(wrapper.find(PeopleView).prop("peopleTab")).toEqual("Friends");
 
@@ -134,16 +134,16 @@ describe('Messenger', () => {
     wrapper.find('li.messenger__person').at(1).simulate('click');
 
     expect(wrapper.find(PeopleView).prop("focusedUser"))
-    .toEqual({userId: "151", username: "Person2", avatar: "Person2"});
+    .toEqual({id: "151", username: "Person2", avatar: "Person2"});
   });
 
   it('should focus online friend', () => {
-    wrapper.find('button.people__tab').at(1).simulate('click');
+    wrapper.find('button.people__tab').simulate('click');
     
     wrapper.find('li.messenger__person').simulate('click');
 
     expect(wrapper.find(PeopleView).prop("focusedFriend"))
-    .toEqual({userId: "151", username: "Person2", avatar: "Person2"});
+    .toEqual({id: "151", username: "Person2", avatar: "Person2"});
   });
 
   it('should unfocus person and start whisper with their username', () => {

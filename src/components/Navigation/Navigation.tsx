@@ -23,16 +23,15 @@ export default function Navigation({
   useEffect(() => {
     const getContentLinksByTypeName = async (name: string) => {
       const res = await axios.get(`${endpoint}/content/links/${name}`);
-
       if (res.data) setContentLinks(res.data);
     };
-
     if (!links) getContentLinksByTypeName(name);  // if it was a leaf node
   }, []);
 
   return (
     <div className={`cms-navigation one-column-a ${oneColumnATheme}`}>
       <h1>{name}</h1>
+
       <div className={`nav-grid-a ${navGridATheme}`}>
         {links && links.map((link: any) => (
           <div className="nav-grid-a-item" key={link.path}>
@@ -45,6 +44,7 @@ export default function Navigation({
             </Link>
           </div>
         ))}
+
         {contentLinks && contentLinks.map((link: any) => (
           <div className="nav-grid-a-item" key={link.path}>
             <Link to={`${link.path}`}>

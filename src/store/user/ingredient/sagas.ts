@@ -42,17 +42,17 @@ export function* userCreateNewPrivateIngredientSaga(
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestFullSize,
+        res1.data.fullSignature,
         fullImage,
         {headers: {'Content-Type': fullImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestTinySize,
+        res1.data.tinySignature,
         tinyImage,
         {headers: {'Content-Type': tinyImage.type}}
       );
-      image = res1.data.urlFullSize;
+      image = res1.data.fullName;
     } else {
       image = 'nobsc-ingredient-default';
     }
@@ -112,17 +112,17 @@ export function* userEditPrivateIngredientSaga(
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestFullSize,
+        res1.data.fullSignature,
         fullImage,
         {headers: {'Content-Type': fullImage.type}}
       );
       yield call(
         [axios, axios.put],
-        res1.data.signedRequestTinySize,
+        res1.data.tinySignature,
         tinyImage,
         {headers: {'Content-Type': tinyImage.type}}
       );
-      image = res1.data.urlFullSize;
+      image = res1.data.fullName;
     } else {
       image = prevImage;
     }

@@ -43,7 +43,7 @@ describe('FriendsView', () => {
   const wrapper = shallow(<FriendsView tab="accepted" {...initialProps} />);
 
   it('displays feedback', () => {
-    expect(wrapper.find('p.friends-feedback').text()).toEqual("Some message.");
+    expect(wrapper.find('p.friends__feedback').text()).toEqual("Some message.");
   });
 
   it('displays a username input element', () => {

@@ -62,7 +62,7 @@ describe('userCreateNewContentSaga', () => {
   const res1 = {
     data: {
       fullSignature: "signedUrlString",
-      tinySignature: "signedUrlString-thumb",
+      thumbSignature: "signedUrlString-thumb",
       fullName: "contentUrlString"
     }
   };
@@ -98,7 +98,7 @@ describe('userCreateNewContentSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.tinySignature,
+      res1.data.thumbSignature,
       thumbImage,
       {headers: {'Content-Type': thumbImage.type}}
     ));
@@ -168,7 +168,7 @@ describe('userEditContentSaga', () => {
   const res1 = {
     data: {
       fullSignature: "signedUrlString",
-      tinySignature: "signedUrlString-thumb",
+      thumbSignature: "signedUrlString-thumb",
       fullName: "contentUrlString"
     }
   };
@@ -206,7 +206,7 @@ describe('userEditContentSaga', () => {
     expect(iterator.next(res1).value)
     .toEqual(call(
       [axios, axios.put],
-      res1.data.tinySignature,
+      res1.data.thumbSignature,
       thumbImage,
       {headers: {'Content-Type': thumbImage.type}}
     ));

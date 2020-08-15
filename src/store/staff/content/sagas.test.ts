@@ -26,10 +26,8 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
-const fullImage =
-  new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
-const thumbImage =
-  new File([(new Blob)], "resizedthumb", {type: "image/jpeg"});
+const fullImage = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});
+const thumbImage = new File([(new Blob)], "resizedthumb", {type: "image/jpeg"});
 
 const creatingContentInfo = {
   id: 150,
@@ -116,7 +114,7 @@ describe('userCreateNewContentSaga', () => {
           published,
           title,
           items,
-          contentImage: "contentUrlString"
+          image: "contentUrlString"
         }
       },
       {withCredentials: true}
@@ -225,7 +223,7 @@ describe('staffEditContentSaga', () => {
           published,
           title,
           items,
-          contentImage: "contentUrlString",
+          image: "contentUrlString",
           prevImage
         }
       },
@@ -283,7 +281,7 @@ describe('staffDeleteContentSaga', () => {
     expect(iterator.next().value).toEqual(call(
       [axios, axios.delete],
       `${endpoint}/staff/content/delete`,
-      {withCredentials: true, data: {contentId: action.id}}
+      {withCredentials: true, data: {id: action.id}}
     ));
 
     expect(iterator.next(res).value)

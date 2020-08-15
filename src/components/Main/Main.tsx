@@ -37,7 +37,7 @@ export const Main: FC<Props> = ({
 
   return (
     <main className={`main ${theme}`}>
-      <div className={shadow ? 'show-shadow' : 'hide-shadow'}>
+      <div className={shadow ? 'shadow--show' : 'shadow--hide'}>
       </div>
       {
         !isHome &&
