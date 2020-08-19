@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-import AddToCartButton from '../AddToCartButton/AddToCartButton';
+import AddToCartButton from './AddToCartButton/AddToCartButton';
 import './product.css';
 
 const endpoint = '';

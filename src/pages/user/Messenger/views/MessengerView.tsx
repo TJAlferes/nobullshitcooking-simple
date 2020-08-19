@@ -1,7 +1,7 @@
 import React from 'react';
 
+import LeftNav from '../../../../components/LeftNav/LeftNav';
 import { Message, IUser } from '../../../../store/messenger/types';
-import LeftNav from '../../../LeftNav/LeftNav';
 import { ChatView } from './desktop/ChatView/ChatView';
 import { OptionsView } from './desktop/OptionsView/OptionsView';
 import { PeopleView } from './desktop/PeopleView/PeopleView';

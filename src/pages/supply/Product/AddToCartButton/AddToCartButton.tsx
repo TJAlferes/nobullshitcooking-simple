@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
-import { cartAddItem } from '../../../store/cart/actions';
-import { ICartItem } from '../../../store/cart/types';
+import { cartAddItem } from '../../../../store/cart/actions';
+import { ICartItem } from '../../../../store/cart/types';
 import './addToCartButton.css';
 
 export function AddToCartButton({

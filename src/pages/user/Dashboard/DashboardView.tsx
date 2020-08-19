@@ -1,13 +1,13 @@
 import React from 'react';
 import { Crop } from 'react-image-crop';
 
+import LeftNav from '../../../components/LeftNav/LeftNav';
 import {
   IEquipment,
   IIngredient,
   IPlan,
   IWorkRecipe
 } from '../../../store/data/types';
-import LeftNav from '../../LeftNav/LeftNav';
 import { Avatar } from './views/Avatar';
 import { AvatarEdit } from './views/AvatarEdit';
 import { Equipment } from './views/Equipment';

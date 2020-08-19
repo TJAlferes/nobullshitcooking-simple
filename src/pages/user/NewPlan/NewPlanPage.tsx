@@ -1,4 +1,5 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
+import { lazy, LazyBoundary } from 'react-imported-component';
 
 //const MobileNewPlanToggle = lazy(() => import('./MobileNewPlanToggle'));
 const NewPlan = lazy(() => import('./NewPlan'));
@@ -11,21 +12,21 @@ export default function NewPlanPage({
   return (
     <div className="new-plan-page">
       {/*<div className="mobile">
-        <Suspense fallback={<div>Loading...</div>} >
+        <LazyBoundary fallback={<div>Loading...</div>} >
           <MobileNewPlanToggle
             editing={editing}
             twoColumnATheme={twoColumnATheme}
           />
-        </Suspense>
+        </LazyBoundary>
       </div>*/}
       <div className="desktop">
-        <Suspense fallback={<div>Loading...</div>} >
+        <LazyBoundary fallback={<div>Loading...</div>} >
           <NewPlan
             editing={editing}
             planView="desktop"
             twoColumnATheme={twoColumnATheme}
           />
-        </Suspense>
+        </LazyBoundary>
       </div>
     </div>
   );

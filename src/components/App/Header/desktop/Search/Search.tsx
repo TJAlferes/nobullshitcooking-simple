@@ -3,7 +3,7 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import DownArrowGray from '../../../../assets/images/header/down-arrow-gray.png';
+import DownArrowGray from '../../../../../assets/images/header/down-arrow-gray.png';
 import { searchSetIndex } from '../../../../../store/search/actions';
 import { AutocompleteView } from './views/AutocompleteView';
 import './search.css';

@@ -1,4 +1,5 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
+import { lazy, LazyBoundary } from 'react-imported-component';
 
 //const MobileMessengerToggle = lazy(() => import('./MobileMessengerToggle'));
 const Messenger = lazy(() => import('./Messenger'));
@@ -10,18 +11,18 @@ export default function MessengerPage({ twoColumnATheme }: Props): JSX.Element {
       {/* just do responsive design instead of adaptive design? */}
 
       {/*<div className="mobile">
-        <Suspense fallback={<div>Loading...</div>} >
+        <LazyBoundary fallback={<div>Loading...</div>} >
           <MobileMessengerToggle twoColumnATheme={twoColumnATheme} />
-        </Suspense>
+        </LazyBoundary>
       </div>*/}
 
       <div className="desktop">
-        <Suspense fallback={<div>Loading...</div>} >
+        <LazyBoundary fallback={<div>Loading...</div>} >
           <Messenger
             //messengerView="desktop"
             twoColumnATheme={twoColumnATheme}
           />
-        </Suspense>
+        </LazyBoundary>
       </div>
     </div>
   );

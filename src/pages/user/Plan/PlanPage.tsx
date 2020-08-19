@@ -1,6 +1,7 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
+import { lazy, LazyBoundary } from 'react-imported-component';
 
-import { LoaderSpinner } from '../../LoaderSpinner/LoaderSpinner';
+import { LoaderSpinner } from '../../../components/LoaderSpinner/LoaderSpinner';
 //const MobilePlanToggle = lazy(() => import('./MobilePlanToggle'));
 const Plan = lazy(() => import('./Plan'));
 import './planPage.css'
@@ -9,14 +10,14 @@ export default function PlanPage({ twoColumnATheme }: Props): JSX.Element {
   return (
     <div className="plan-page">
       {/*<div className="mobile">
-        <Suspense fallback={<LoaderSpinner />} >
+        <LazyBoundary fallback={<LoaderSpinner />} >
           <MobilePlanToggle twoColumnATheme={twoColumnATheme} />
-        </Suspense>
+        </LazyBoundary>
       </div>*/}
       <div className="desktop">
-        <Suspense fallback={<LoaderSpinner />} >
+        <LazyBoundary fallback={<LoaderSpinner />} >
           <Plan planView="desktop" twoColumnATheme={twoColumnATheme} />
-        </Suspense>
+        </LazyBoundary>
       </div>
     </div>
   );

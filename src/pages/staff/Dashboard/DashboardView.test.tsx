@@ -40,7 +40,7 @@ describe('DashboardView', () => {
   const wrapper = shallow(<DashboardView {...initialProps} />);
 
   it ('displays a h1 element with text COOK EAT WIN REPEAT', () => {
-    expect(wrapper.find('h1.staff-dashboard-heading-one').text())
+    expect(wrapper.find('h1.staff-dashboard__h1').text())
     .toEqual("COOK EAT WIN REPEAT");
   });
 });

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LogoLargeLight from '../../../../assets/images/header/logo-slim-red.png';
-import LogoLargeDark from '../../../../assets/images/header/logo-slim-dark-red.png';
-import LogoSmallLight from '../../../../assets/images/header/logo-mobile-red.png';
-import LogoSmallDark from '../../../../assets/images/header/logo-mobile-dark-red.png';
+import LogoLargeLight from '../../../../../assets/images/header/logo-slim-red.png';
+import LogoLargeDark from '../../../../../assets/images/header/logo-slim-dark-red.png';
+import LogoSmallLight from '../../../../../assets/images/header/logo-mobile-red.png';
+import LogoSmallDark from '../../../../../assets/images/header/logo-mobile-dark-red.png';
 import './logo.css';
 
 export function Logo({ theme }: Props): JSX.Element {

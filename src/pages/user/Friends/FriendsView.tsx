@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import LeftNav from '../../../components/LeftNav/LeftNav';
 import { IFriendship } from '../../../store/data/types';
-import LeftNav from '../../LeftNav/LeftNav';
 import './friends.css';
 
 export function FriendsView({

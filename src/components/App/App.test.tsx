@@ -23,7 +23,7 @@ const initialProps = {
 };
 
 const mockBreadcrumbs = jest.fn();
-jest.mock('./routing/breadcrumbs/Breadcrumbs', () => ({
+jest.mock('../../routing/breadcrumbs/Breadcrumbs', () => ({
   Breadcrumbs: mockBreadcrumbs
 }));
 

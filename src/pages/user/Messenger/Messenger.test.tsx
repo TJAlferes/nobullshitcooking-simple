@@ -7,7 +7,7 @@ import { Messenger } from './Messenger';
 
 window.scrollTo = jest.fn();
 
-jest.mock('../../LeftNav/LeftNav');
+jest.mock('../../../components/LeftNav/LeftNav');
 
 const messengerChangeChannel = jest.fn();
 const messengerConnect = jest.fn();

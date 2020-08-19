@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
+import { LoaderSpinner } from '../../components/LoaderSpinner/LoaderSpinner';
 import {
   NOBSCBackendAPIEndpointOne
 } from '../../config/NOBSCBackendAPIEndpointOne';
 import { IWorkRecipe } from '../../store/data/types';
 import { userFavoriteRecipe } from '../../store/user/favorite/actions';
 import { userSaveRecipe } from '../../store/user/save/actions';
-import { LoaderSpinner } from '../LoaderSpinner/LoaderSpinner';
 import { RecipeView } from './RecipeView';
 
 const endpoint = NOBSCBackendAPIEndpointOne;

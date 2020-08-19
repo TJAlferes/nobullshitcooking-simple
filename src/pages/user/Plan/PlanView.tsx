@@ -1,7 +1,7 @@
 import React from 'react';
 
+import LeftNav from '../../../components/LeftNav/LeftNav';
 import { IPlannerViewData } from '../../../store/plannerView/types';
-import LeftNav from '../../LeftNav/LeftNav';
 import Day from './components/Day';
 import ExpandedDay from './components/ExpandedDay';
 import './plan.css';
