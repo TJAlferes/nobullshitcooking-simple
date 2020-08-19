@@ -1,6 +1,6 @@
 'use strict';
 const path = require('path');
-const autoprefixer = require('autoprefixer');
+//const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
@@ -8,7 +8,7 @@ const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -26,7 +26,21 @@ module.exports = {
       {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        loader: "ts-loader"
+        use: {
+          loader: "ts-loader",
+          options: {
+            silent: process.argv.indexOf("--json") !== -1,
+            useBabel: true,
+            babelOptions: {
+              plugins: node
+                ? [
+                  "react-imported-component/babel",
+                  "babel-plugin-dynamic-import-node"
+                ]
+                : ["react-imported-component/babel"]
+            }
+          }
+        }
       },
       {
         enforce: "pre",

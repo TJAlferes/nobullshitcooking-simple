@@ -74,7 +74,7 @@ module.exports = {
       filename: 'index.html',
       inject: 'body'
     }),
-    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 7}),
+    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 12}),
     //new BundleAnalyzerPlugin({generateStatsFile: true})
   ]
 };

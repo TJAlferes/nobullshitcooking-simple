@@ -10,6 +10,7 @@ function getSnippet(result: IResult, value: string) {
   return result[value].snippet;
 }
 
+// why use dangerouslySetInnerHTML?
 export function AutocompleteView({
   autocompleteResults,
   autocompletedResults,
@@ -29,26 +30,20 @@ export function AutocompleteView({
         !!autocompletedResults &&
         autocompletedResults.length > 0 && (
           <ul className="sui-search-box__results-list">
-            {autocompletedResults.map(result => {
-              const titleRaw = getRaw(result, autocompleteResults.titleField);
-              const titleSnippet = getSnippet(
-                result,
-                autocompleteResults.titleField
-              );
+            {autocompletedResults.map(r => {
+              const titleRaw = getRaw(r, autocompleteResults.titleField);
+              const titleSnippet =
+                getSnippet(r, autocompleteResults.titleField);
               index++;
               return (
                 <li
-                  {...getItemProps({
-                    key: result.id.raw,
-                    index: index - 1,
-                    item: result
-                  })}
+                  {...getItemProps({key: r.id.raw, index: index - 1, item: r})}
                 >
-                  {titleSnippet ? (
-                    <span dangerouslySetInnerHTML={{__html: titleSnippet}} />
-                  ) : (
-                    <span>{titleRaw}</span>
-                  )}
+                  {
+                    titleSnippet
+                    ? <span dangerouslySetInnerHTML={{__html: titleSnippet}} />
+                    : <span>{titleRaw}</span>
+                  }
                 </li>
               );
             })}

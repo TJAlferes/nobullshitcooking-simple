@@ -6,7 +6,7 @@
   "proxy": "http://localhost:3003",
   "scripts": {
     "build": "rimraf dist && webpack --config webpack.prod.js --progress --profile --color",
-    "generate-imported-component": "imported-components src src/imported.js",
+    "generate-imported-component": "imported-components src src/imported.ts",
     "start": "webpack-dev-server --config webpack.dev.js",
     "test": "jest --color"
   },

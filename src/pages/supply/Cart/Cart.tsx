@@ -13,11 +13,11 @@ export function Cart({ cartItems, oneColumnATheme }: Props) {
       {
         !cartItems
         ? 'Your cart is empty.'
-        : cartItems.map(c => (
+        : cartItems.map(i => (
           <div className="cart-item">
-            <span><img src={`${endpoint}/${c.name}`} /></span>
-            <span>{c.name}</span>
-            <span><RemoveFromCartButton itemId={c.id}/></span>
+            <span><img src={`${endpoint}/${i.name}`} /></span>
+            <span>{i.name}</span>
+            <span><RemoveFromCartButton item={i}/></span>
           </div>
         ))
       }
@@ -27,15 +27,12 @@ export function Cart({ cartItems, oneColumnATheme }: Props) {
 
 interface RootState {
   cart: {
-    items: ICartItem[]
+    items: ICartItem[];  // IWorkProduct?
   };
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-/*type Props = RouteComponentProps & PropsFromRedux & {
-  twoColumnBTheme: string;
-};*/
 type Props = PropsFromRedux & {
   oneColumnATheme: string;
 };

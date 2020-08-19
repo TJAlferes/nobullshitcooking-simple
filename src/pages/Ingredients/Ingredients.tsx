@@ -11,29 +11,30 @@ import { Link } from 'react-router-dom';
 import { ExpandCollapse } from '../../components/ExpandCollapse/ExpandCollapse';
 import './ingredients.css';
 
+const url = "https://s3.amazonaws.com/nobsc-images-01/ingredients/";
+
 function listResults(results: any) {
   if (results && results[0] && results[0].id) {
     return results.map((i: any) => (
-      <div className="search-result-ingredient" key={i.id.raw}>
-        <Link
-          className="search-result-ingredient-link"
-          to={`/ingredient/${i.id.raw}`}
-        >
-          <div className="search-result-ingredient-text">
-            <div className="search-result-ingredient-text__name">
+      <div className="ingredients" key={i.id.raw}>
+        <Link className="ingredients__link" to={`/ingredient/${i.id.raw}`}>
+          <div className="ingredients__text">
+            <div className="ingredients__fullname">
               {i.brand.raw && i.brand.raw}
               {' '}
               {i.variety.raw && i.variety.raw}
               {' '}
               {i.name.raw}
             </div>
-            <div className="search-result-ingredient-text__type">
+
+            <div className="ingredients__type">
               {i.ingredient_type_name.raw}
             </div>
           </div>
+
           <img
-            className="search-result-ingredient-image"
-            src={`https://s3.amazonaws.com/nobsc-images-01/ingredients/${i.image.raw}.jpg`}
+            className="ingredients__image"
+            src={`${url}${i.image.raw}.jpg`}
           />
         </Link>
       </div>
@@ -43,7 +44,7 @@ function listResults(results: any) {
   }
 }
 
-export function SearchResultsIngredients({
+export function Ingredients({
   facets,  // ?
   filters,  // ?
   results,
@@ -60,15 +61,11 @@ export function SearchResultsIngredients({
         <ExpandCollapse
           headingWhileCollapsed="Filter Results (Click here to expand)"
         >
-          <div className="search-results-filters">
-            <span className="search-results-filter-title">
+          <div className="search-results__filters">
+            <span className="search-results__filter-title">
               Filter ingredients by:
             </span>
             <Facet
-              field="ingredient_type_name"
-              label="Ingredient Types"
-              filterType="any"
-              show={18}
               facets={{
                 ingredient_type_name: [
                   {
@@ -97,6 +94,10 @@ export function SearchResultsIngredients({
                   }
                 ]
               }}
+              field="ingredient_type_name"
+              filterType="any"
+              label="Ingredient Types"
+              show={18}
             />
           </div>
         </ExpandCollapse>
@@ -105,9 +106,7 @@ export function SearchResultsIngredients({
         {wasSearched && <PagingInfo />}
         <Paging />
 
-        <div className="search-results-list">
-          {listResults(results)}
-        </div>
+        <div className="search-results__list">{listResults(results)}</div>
 
         {wasSearched && <PagingInfo />}
         <Paging />
@@ -139,4 +138,4 @@ const mapContextToProps = ({
   wasSearched
 }: PropsFromContext) => ({facets, filters, results, wasSearched});
 
-export default withSearch(mapContextToProps)(SearchResultsIngredients);
+export default withSearch(mapContextToProps)(Ingredients);

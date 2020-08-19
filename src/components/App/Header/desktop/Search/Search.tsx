@@ -49,31 +49,36 @@ export function Search({
   let field: string | undefined;
 
   if (currentIndex === "recipes") field = "title";
-  if (currentIndex === "ingredients") field = "ingredient_fullname";
-  if (currentIndex === "equipment") field = "equipment_name";
+  if (currentIndex === "ingredients") field = "fullname";
+  if (currentIndex === "equipment") field = "name";
+  if (currentIndex === "products") field = "fullname";
 
   return (
     <div className={`search ${theme}`}>
 
-      <div className="search-category">
-        <div className="search-facade">
-          <span className="facade-text">{facadeText}</span>
-          <img className="facade-arrow" src={DownArrowGray} />
+      <div className="search__category">
+        <div className="search__facade">
+          <span className="search__facade-text">{facadeText}</span>
+          <img className="search__facade-arrow" src={DownArrowGray} />
         </div>
-        <select className="search-prefilters" onChange={changeSearchIndex}>
-          <option className="search-prefilter" value="recipes">
+
+        <select className="search__prefilters" onChange={changeSearchIndex}>
+          <option className="search__prefilter" value="recipes">
             Recipes
           </option>
-          <option className="search-prefilter" value="ingredients">
+          <option className="search__prefilter" value="ingredients">
             Ingredients
           </option>
-          <option className="search-prefilter" value="equipment">
+          <option className="search__prefilter" value="equipment">
             Equipment
+          </option>
+          <option className="search__prefilter" value="products">
+            Products
           </option>
         </select>
       </div>
 
-      <div className="search-insert">
+      <div className="search__insert">
         <SearchBox
           autocompleteMinimumCharacters={2}
           autocompleteResults={{
