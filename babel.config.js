@@ -12,6 +12,7 @@ module.exports = function(api) {
     "@babel/preset-react"
   ];
   const plugins = [
+    ["react-imported-component/babel"],
     [
       "@babel/plugin-transform-runtime",
       {"regenerator": true}

@@ -1,31 +1,17 @@
 function buildMatch(searchTerm: string, currentIndex: string) {
   if (currentIndex === "recipes") {
-    return searchTerm
-    ? {match: {title: {query: searchTerm}}}
-    : {match_all: {}};
+    return searchTerm ? {match: {title: {query: searchTerm}}} : {match_all: {}};
   }
   
   if (currentIndex === "ingredients") {
     return searchTerm
-    ? {match: {fullname: {query: searchTerm}}}
-    : {match_all: {}};
+      ? {match: {fullname: {query: searchTerm}}} : {match_all: {}};
   }
   
   if (currentIndex === "equipment") {
-    return searchTerm
-    ? {match: {name: {query: searchTerm}}}
-    : {match_all: {}};
+    return searchTerm ? {match: {name: {query: searchTerm}}} : {match_all: {}};
   }
 }
-
-/*
-{
-  multi_match: {
-    fields: ["brand", "variety", "name"],
-    query: searchTerm
-  }
-}
-*/
 
 function buildFrom(current: number, resultsPerPage: number) {
   if (!current || !resultsPerPage) return;
@@ -33,9 +19,6 @@ function buildFrom(current: number, resultsPerPage: number) {
 }
 
 function getTermFilterValue(field: any, fieldValue: any) {
-  //if (fieldValue === "false" || fieldValue === "true") {
-  //  return {[field]: fieldValue === "true"};
-  //}
   return {[`${field}`]: fieldValue};
 }
 
@@ -44,8 +27,8 @@ function getTermFilter(filter: any) {
     return {
       bool: {
         filter: [
-          filter.values.map((filterValue: any) => ({
-            term: getTermFilterValue(filter.field, filterValue)
+          filter.values.map((v: any) => ({
+            term: getTermFilterValue(filter.field, v)
           }))
         ]
       }
@@ -56,8 +39,8 @@ function getTermFilter(filter: any) {
     return {
       bool: {
         should: [
-          filter.values.map((filterValue: any) => ({
-            term: getTermFilterValue(filter.field, filterValue)
+          filter.values.map((v: any) => ({
+            term: getTermFilterValue(filter.field, v)
           }))
         ],
         minimum_should_match: 1

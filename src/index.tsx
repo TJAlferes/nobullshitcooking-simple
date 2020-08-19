@@ -4,10 +4,11 @@ require("regenerator-runtime/runtime");
 import { SearchProvider } from '@elastic/react-search-ui';
 import React from 'react';
 import { DndProvider } from 'react-dnd-multi-backend';
+import { rehydrateMarks } from 'react-imported-component';
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
-import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import createSagaMiddleware from 'redux-saga';
@@ -37,7 +38,7 @@ import {
   watchRecipe,
   watchSave
 } from './store/watchers/index';
-import App from './App';
+import App from './components/App/App';
 import './global.css';
 import './themes/navGridA.css';
 import './themes/oneColumnA.css';
@@ -47,11 +48,8 @@ import './themes/twoColumnB.css';
 import './nobsc-alert-favicon.png';
 import './nobsc-normal-favicon.png';
 
-// TO DO: code split redux store?
-
 const persistedState = loadFromLocalStorage();
 const sagaMiddleware = createSagaMiddleware();
-
 export const store = createStore(
   rootReducer,
   persistedState,
@@ -89,4 +87,7 @@ const app = (
   </Provider>
 );
 
-render(app, document.getElementById('root'));
+rehydrateMarks().then(() => {
+  hydrate(app, document.getElementById('root'));
+});
+//render(app, document.getElementById('root'));

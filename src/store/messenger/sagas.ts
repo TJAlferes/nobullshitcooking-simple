@@ -62,7 +62,7 @@ Messages
 
 */
 
-socket.on('AddChat', (message: IMessage) => {
+socket.on('AddMessage', (message: IMessage) => {
   if (!message) return;
   store.dispatch(messengerReceivedMessage(message));
 });
@@ -84,16 +84,12 @@ Rooms
 */
 
 socket.on('GetUser', (users: [], roomToAdd: string) => {
-  if (!users) return;
-  if (!roomToAdd) return;
-  //if (typeof users === "roomToAdd") return;  // ?
+  if (!users || !roomToAdd) return;
   store.dispatch(messengerChangedChannel(users, roomToAdd));
 });
 
 socket.on('RegetUser', (users: [], roomToRejoin: string) => {
-  if (!users) return;
-  if (!roomToRejoin) return;
-  //if (typeof users === "roomToRejoin") return;  // ?
+  if (!users || !roomToRejoin) return;
   store.dispatch(messengerRejoinedChannel(users, roomToRejoin));
 });
 
@@ -124,8 +120,6 @@ socket.on('disconnect', () => {
 
 socket.on('reconnect', () => {
   messengerRejoinRoomSaga();
-  // dispatches?
-  //socket.emit('GetOnline');  Call here again?
 });
 
 /*
@@ -135,7 +129,7 @@ Sagas
 */
 
 // use call([socket, socket.method(), ...args])
-// do these even need to be sagas?
+// these probably don't even need to be sagas
 // channels?
 
 export function* messengerConnectSaga() {
@@ -151,11 +145,11 @@ export function* messengerChangeChannelSaga(action: IMessengerChangeChannel) {
 }
 
 export function* messengerSendMessageSaga(action: IMessengerSendMessage) {
-  socket.emit('AddChat', action.message);
+  socket.emit('AddMessage', action.text);
 }
 
 export function* messengerSendWhisperSaga(action: IMessengerSendWhisper) {
-  socket.emit('AddWhisper', action.whisper, action.to);
+  socket.emit('AddWhisper', action.text, action.to);
 }
 
 export function* messengerUpdateOnlineSaga() {

@@ -259,8 +259,8 @@ describe('messengerSendMessage action creator', () => {
     const expected = MESSENGER_SEND_MESSAGE;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct message', () => {
-    const actual = messengerSendMessage('howdy').message;
+  it('returns the correct text', () => {
+    const actual = messengerSendMessage('howdy').text;
     const expected = 'howdy';
     expect(actual).toEqual(expected);
   });
@@ -307,8 +307,8 @@ describe('messengerSendWhisper action creator', () => {
     const expected = MESSENGER_SEND_WHISPER;
     expect(actual).toEqual(expected);
   });
-  it('returns the correct whisper', () => {
-    const actual = messengerSendWhisper('How are you?', 'John').whisper;
+  it('returns the correct text', () => {
+    const actual = messengerSendWhisper('How are you?', 'John').text;
     const expected = 'How are you?';
     expect(actual).toEqual(expected);
   });

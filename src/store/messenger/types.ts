@@ -173,7 +173,7 @@ interface IMessengerLeftUser {
 
 export interface IMessengerSendMessage {
   type: typeof MESSENGER_SEND_MESSAGE;
-  message: string;
+  text: string;
 }
 
 export interface IMessengerReceivedMessage {
@@ -183,7 +183,7 @@ export interface IMessengerReceivedMessage {
 
 export interface IMessengerSendWhisper {
   type: typeof MESSENGER_SEND_WHISPER;
-  whisper: string;
+  text: string;
   to: string;
 }
 

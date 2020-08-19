@@ -13,14 +13,10 @@ function buildResults(hits: any) {
   const addEachKeyValueToObject = (
     acc: any,
     [key, value]: (Default|string)[]
-  ) => ({
-    ...acc,
-    [key as string]: value
-  });
+  ) => ({...acc, [key as string]: value});
 
-  const toObject = (value: any, snippet: any) => {
-    return {raw: value, ...(snippet && {snippet})};
-  };
+  const toObject = (value: any, snippet: any) =>
+    ({raw: value, ...(snippet && {snippet})});
 
   return hits.map((record: any) =>
     Object.entries(record._source).map(([fieldName, fieldValue]) => [
@@ -58,33 +54,32 @@ function getValueFacet(aggregations: any, fieldName: string) {
 
 function buildStateFacets(aggregations: any, currentIndex: string) {
   if (currentIndex === "recipes") {
-
     const recipeTypeName = getValueFacet(aggregations, "recipe_type_name");
     const cuisineName = getValueFacet(aggregations, "cuisine_name");
     const facets = {
       ...(recipeTypeName && {recipe_type_name: recipeTypeName}),
       ...(cuisineName && {cuisine_name: cuisineName})
     };
+
     if (Object.keys(facets).length > 0) return facets;
-
-  } else if (currentIndex === "ingredients") {
-
+  }
+  
+  if (currentIndex === "ingredients") {
     const ingredientTypeName =
       getValueFacet(aggregations, "ingredient_type_name");
-    const facets = {
-      ...(ingredientTypeName && {ingredient_type_name: ingredientTypeName})
-    };
+    const facets =
+      {...(ingredientTypeName && {ingredient_type_name: ingredientTypeName})};
+
     if (Object.keys(facets).length > 0) return facets;
-
-  } else if (currentIndex === "equipment") {
-
+  }
+  
+  if (currentIndex === "equipment") {
     const equipmentTypeName =
       getValueFacet(aggregations, "equipment_type_name");
-    const facets = {
-      ...(equipmentTypeName && {equipment_type_name: equipmentTypeName})
-    };
-    if (Object.keys(facets).length > 0) return facets;
+    const facets =
+      {...(equipmentTypeName && {equipment_type_name: equipmentTypeName})};
 
+    if (Object.keys(facets).length > 0) return facets;
   }
 }
 
@@ -97,12 +92,7 @@ export function buildSearchState(
   const totalResults = response.hits.total.value;
   const totalPages = buildTotalPages(resultsPerPage, totalResults);
   const facets = buildStateFacets(response.aggregations, currentIndex);
-  return {
-    results,
-    totalPages,
-    totalResults,
-    ...(facets && {facets})
-  };
+  return {results, totalPages, totalResults, ...(facets && {facets})};
 }
 
 type Default = {

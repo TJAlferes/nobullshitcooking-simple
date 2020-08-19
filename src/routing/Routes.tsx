@@ -1,4 +1,5 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
+import { lazy, LazyBoundary } from 'react-imported-component';
 import { Switch } from 'react-router-dom';
 
 import { LoaderSpinner } from '../components/LoaderSpinner/LoaderSpinner';
@@ -12,36 +13,35 @@ import {
   makeRoutesFromContentTypes
 } from './helpers';
 
-const Content = lazy(() => import('../components/Content/Content'));
-import Cuisine from '../components/Cuisine/Cuisine';
-import Cuisines from '../components/Cuisines/Cuisines';
-const Equipment = lazy(() => import('../components/Equipment/Equipment'));
-const Equipments = lazy(() => import('../components/Equipments/Equipments'));
-import { Home } from '../components/Home/Home';
-const Ingredient = lazy(() => import('../components/Ingredient/Ingredient'));
-const Ingredients = lazy(() => import('../components/Ingredients/Ingredients'));
-const Login = lazy(() => import('../components/Login/Login'));
-const Navigation = lazy(() => import('../components/Navigation/Navigation'));
-const NewContent = lazy(() => import('../components/NewContent/NewContent'));
-const NewEquipment = lazy(() => import('../components/NewEquipment/NewEquipment'));
-const NewIngredient = lazy(() => import('../components/NewIngredient/NewIngredient'));
-const NewRecipe = lazy(() => import('../components/NewRecipe/NewRecipe'));
-import { NotFound } from '../components/NotFound/NotFound';
-const Profile = lazy(() => import('../components/Profile/Profile'));
-const Recipe = lazy(() => import('../components/Recipe/Recipe'));
-const Recipes = lazy(() => import('../components/Recipes/Recipes'));
-const Register = lazy(() => import('../components/Register/Register'));
+const Content = lazy(() => import('../pages/Content/Content'));
+import Cuisine from '../pages/Cuisine/Cuisine';
+import Cuisines from '../pages/Cuisines/Cuisines';
+const Equipment = lazy(() => import('../pages/Equipment/Equipment'));
+const Equipments = lazy(() => import('../pages/Equipments/Equipments'));
+import { Home } from '../pages/Home/Home';
+const Ingredient = lazy(() => import('../pages/Ingredient/Ingredient'));
+const Ingredients = lazy(() => import('../pages/Ingredients/Ingredients'));
+const Login = lazy(() => import('../pages/Login/Login'));
+const Navigation = lazy(() => import('../pages/Navigation/Navigation'));
+const NewContent = lazy(() => import('../pages/NewContent/NewContent'));
+const NewEquipment = lazy(() => import('../pages/NewEquipment/NewEquipment'));
+const NewIngredient = lazy(() => import('../pages/NewIngredient/NewIngredient'));
+const NewRecipe = lazy(() => import('../pages/NewRecipe/NewRecipe'));
+import { NotFound } from '../pages/NotFound/NotFound';
+const Profile = lazy(() => import('../pages/Profile/Profile'));
+const Recipe = lazy(() => import('../pages/Recipe/Recipe'));
+const Recipes = lazy(() => import('../pages/Recipes/Recipes'));
+const Register = lazy(() => import('../pages/Register/Register'));
 
-const ContentTypes = lazy(() => import('../components/staff/ContentTypes/ContentTypes'));
-const StaffDashboard = lazy(() => import('../components/staff/Dashboard/Dashboard'));
+const StaffDashboard = lazy(() => import('../pages/staff/Dashboard/Dashboard'));
 
-//import Supply from '../components/supply/Supply';
+//import Supply from '../pages/supply/Supply';
 
-const Dashboard = lazy(() => import('../components/user/Dashboard/Dashboard'));
-const Friends = lazy(() => import('../components/user/Friends/Friends'));
-const MessengerPage = lazy(() => import('../components/user/Messenger/MessengerPage'));
-const NewPlanPage = lazy(() => import('../components/user/NewPlan/NewPlanPage'));
-const PlanPage = lazy(() => import('../components/user/Plan/PlanPage'));
+const Dashboard = lazy(() => import('../pages/user/Dashboard/Dashboard'));
+const Friends = lazy(() => import('../pages/user/Friends/Friends'));
+const MessengerPage = lazy(() => import('../pages/user/Messenger/MessengerPage'));
+const NewPlanPage = lazy(() => import('../pages/user/NewPlan/NewPlanPage'));
+const PlanPage = lazy(() => import('../pages/user/Plan/PlanPage'));
 
 export function RoutesList({ contentTypes }: Props) {
   //useEffect?
@@ -50,7 +50,7 @@ export function RoutesList({ contentTypes }: Props) {
   : null;
 
   return (
-    <Suspense fallback={<LoaderSpinner />}>
+    <LazyBoundary fallback={<LoaderSpinner />}>
       <Switch>
 
         {/*
@@ -61,7 +61,6 @@ export function RoutesList({ contentTypes }: Props) {
 
         {unauthStaffRoute("/staff-login", Login)}
         {authStaffRoute("/staff-dashboard", StaffDashboard)}
-        {authStaffRoute("/staff-content-types", ContentTypes, {contentTypes})}
         {authStaffRoute("/staff-content/submit", NewContent, {editing: false})}
         {authStaffRoute("/staff-content/edit/:id", NewContent, {editing: true})}
         {authStaffRoute("/staff-equipment/submit", NewEquipment)}
@@ -124,7 +123,7 @@ export function RoutesList({ contentTypes }: Props) {
         {appRoute("*", NotFound)}
 
       </Switch>
-    </Suspense>
+    </LazyBoundary>
   );
 }
 

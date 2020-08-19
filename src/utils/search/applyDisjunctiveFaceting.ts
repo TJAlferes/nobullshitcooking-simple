@@ -22,12 +22,7 @@ function removeFilterByName(state: any, facetName: string) {
 }
 
 function removeAllFacetsExcept(body: any, facetName: string) {
-  return {
-    ...body,
-    aggs: {
-      [facetName]: body.aggs[facetName]
-    }
-  };
+  return {...body, aggs: {[facetName]: body.aggs[facetName]}};
 }
 
 function changeSizeToZero(body: any) {
@@ -44,8 +39,8 @@ async function getDisjunctiveFacetCounts(
   // TO DO: don't make request if "not" filter is currently applied
   // TO DO: await Promise.all([])
   disjunctiveFacetNames.map(async (facetName: string) => {
-    let newState = removeFilterByName(state, facetName);
-    let body = buildSearchRequest(newState, currentIndex);
+    let newState = removeFilterByName(state, facetName);  // const?
+    let body = buildSearchRequest(newState, currentIndex);  // const?
     body = changeSizeToZero(body);
     body = removeAllFacetsExcept(body, facetName);
 
@@ -67,11 +62,8 @@ export async function applyDisjunctiveFaceting(
   disjunctiveFacetNames: any,
   currentIndex: string
 ) {
-  const disjunctiveFacetCounts = await getDisjunctiveFacetCounts(
-    state,
-    disjunctiveFacetNames,
-    currentIndex
-  );
+  const disjunctiveFacetCounts =
+    await getDisjunctiveFacetCounts(state, disjunctiveFacetNames, currentIndex);
 
   return {
     ...json,

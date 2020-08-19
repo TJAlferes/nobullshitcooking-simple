@@ -13,14 +13,10 @@ function buildResults(hits: any, currentIndex: string) {
   const addEachKeyValueToObject = (
     acc: any,
     [key, value]: (Default|string)[]
-  ) => ({
-    ...acc,
-    [key as string]: value
-  });
+  ) => ({...acc, [key as string]: value});
 
-  const toObject = (value: any, snippet: any) => {
-    return {raw: value, ...(snippet && {snippet})};
-  };
+  const toObject = (value: any, snippet: any) =>
+    ({raw: value, ...(snippet && {snippet})});
 
   let idValue: string;
   if (currentIndex === "recipes") idValue = "id";
