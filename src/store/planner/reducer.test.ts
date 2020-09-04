@@ -27,6 +27,21 @@ const recipeTwo = {
   title: "Coffee Cake",
   recipe_image: "nobsc-coffee-cake"
 };
+const empty = {
+  1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
+  8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
+ 15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
+ 22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
+};
+const lists1 = {
+  1: [],
+  2: [recipeOne],
+  3: [],  4: [],  5: [],  6: [],  7: [],
+  8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
+ 15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
+ 22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
+};
+
 const initialState = {
   isLoading: false,
   creating: false,
@@ -35,42 +50,27 @@ const initialState = {
   expanded: false,
   expandedDay: null,
   planName: "",
-  recipeListsInsideDays: {
-     1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
-     8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-    15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-    22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-  }
+  recipeListsInsideDays: empty
 };
 
 describe('planner reducer', () => {
   it('returns initial state', () => {
-    const actual = plannerReducer(undefined, {type: PLANNER_CLEAR_WORK});
-    const expected = initialState;
-    expect(actual).toEqual(expected);
+    expect(plannerReducer(undefined, {type: PLANNER_CLEAR_WORK}))
+      .toEqual(initialState);
   });
 
   it('handles actions of type PLANNER_CLICK_DAY on a day', () => {
-    const actual = plannerReducer(initialState, {
-      type: PLANNER_CLICK_DAY,
-      day: 1
-    });
-    const expected = {
-      isLoading: false,
-      creating: false,
-      editingId: null,
-      publicUrl: "",
-      expanded: true,
-      expandedDay: 1,
-      planName: "",
-      recipeListsInsideDays: {
-        1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
-        8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-       15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-       22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
-    };
-    expect(actual).toEqual(expected);
+    expect(plannerReducer(initialState, {type: PLANNER_CLICK_DAY, day: 1}))
+      .toEqual({
+        isLoading: false,
+        creating: false,
+        editingId: null,
+        publicUrl: "",
+        expanded: true,
+        expandedDay: 1,
+        planName: "",
+        recipeListsInsideDays: empty
+      });
   });
 
   it('handles actions of type PLANNER_CLICK_DAY on the expanded day', () => {
@@ -82,28 +82,19 @@ describe('planner reducer', () => {
       expanded: true,
       expandedDay: 1,
       planName: "",
-      recipeListsInsideDays: {
-        1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
-        8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-       15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-       22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
+      recipeListsInsideDays: empty
     };
-    const actual = plannerReducer(beforeState, {
-      type: PLANNER_CLICK_DAY,
-      day: 1
-    });
-    const expected = initialState;
-    expect(actual).toEqual(expected);
+
+    expect(plannerReducer(beforeState, {type: PLANNER_CLICK_DAY, day: 1}))
+      .toEqual(initialState);
   });
 
   it('handles actions of type PLANNER_ADD_RECIPE_TO_DAY', () => {
-    const actual = plannerReducer(initialState, {
+    expect(plannerReducer(initialState, {
       type: PLANNER_ADD_RECIPE_TO_DAY,
       day: 2,
       recipe: recipeOne
-    });
-    const expected = {
+    })).toEqual({
       isLoading: false,
       creating: false,
       editingId: null,
@@ -111,16 +102,8 @@ describe('planner reducer', () => {
       expanded: false,
       expandedDay: null,
       planName: "",
-      recipeListsInsideDays: {
-         1: [],
-         2: [recipeOne],
-         3: [],  4: [],  5: [],  6: [],  7: [],
-         8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-        15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-        22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
-    };
-    expect(actual).toEqual(expected);
+      recipeListsInsideDays: lists1
+    });
   });
 
   it('handles actions of type PLANNER_REMOVE_RECIPE_FROM_DAY', () => {
@@ -132,22 +115,14 @@ describe('planner reducer', () => {
       expanded: false,
       expandedDay: null,
       planName: "",
-      recipeListsInsideDays: {
-         1: [],
-         2: [recipeOne],
-         3: [],  4: [],  5: [],  6: [],  7: [],
-         8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-        15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-        22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
+      recipeListsInsideDays: lists1
     };
-    const actual = plannerReducer(beforeState, {
+
+    expect(plannerReducer(beforeState, {
       type: PLANNER_REMOVE_RECIPE_FROM_DAY,
       day: 2,
       index: 0
-    });
-    const expected = initialState;
-    expect(actual).toEqual(expected);
+    })).toEqual(initialState);
   });
 
   it('handles actions of type PLANNER_REORDER_RECIPE_IN_DAY', () => {
@@ -168,12 +143,12 @@ describe('planner reducer', () => {
         22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
       }
     };
-    const actual = plannerReducer(beforeState, {
+
+    expect(plannerReducer(beforeState, {
       type: PLANNER_REORDER_RECIPE_IN_DAY,
       dragIndex: 0,
       hoverIndex: 1
-    });
-    const expected = {
+    })).toEqual({
       isLoading: false,
       creating: false,
       editingId: null,
@@ -189,8 +164,7 @@ describe('planner reducer', () => {
         15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
         22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
       }
-    };
-    expect(actual).toEqual(expected);
+    });
   });
 
   /*it('handles actions of type PLANNER_PUBLIC_LOAD_FROM_URL', () => {
@@ -218,23 +192,15 @@ describe('planner reducer', () => {
       expanded: true,
       expandedDay: 2,
       planName: "",
-      recipeListsInsideDays: {
-         1: [],
-         2: [recipeOne, recipeTwo],
-         3: [],  4: [],  5: [],  6: [],  7: [],
-         8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-        15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-        22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
+      recipeListsInsideDays: lists1
     };
-    const actual = plannerReducer(beforeState, {type: PLANNER_CLEAR_WORK});
-    const expected = initialState;
-    expect(actual).toEqual(expected);
+
+    expect(plannerReducer(beforeState, {type: PLANNER_CLEAR_WORK}))
+      .toEqual(initialState);
   });
 
   it('handles actions of type PLANNER_SET_CREATING', () => {
-    const actual = plannerReducer(initialState, {type: PLANNER_SET_CREATING});
-    const expected = {
+    expect(plannerReducer(initialState, {type: PLANNER_SET_CREATING})).toEqual({
       isLoading: false,
       creating: true,
       editingId: null,
@@ -242,45 +208,29 @@ describe('planner reducer', () => {
       expanded: false,
       expandedDay: null,
       planName: "",
-      recipeListsInsideDays: {
-         1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
-         8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-        15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-        22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
-    };
-    expect(actual).toEqual(expected);
+      recipeListsInsideDays: empty
+    });
   });
 
   it('handles actions of type PLANNER_SET_EDITING_ID', () => {
-    const actual = plannerReducer(initialState, {
-      type: PLANNER_SET_EDITING_ID,
-      id: 1
-    });
-    const expected = {
-      isLoading: false,
-      creating: false,
-      editingId: 1,
-      publicUrl: "",
-      expanded: false,
-      expandedDay: null,
-      planName: "",
-      recipeListsInsideDays: {
-         1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
-         8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-        15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-        22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
-    };
-    expect(actual).toEqual(expected);
+    expect(plannerReducer(initialState, {type: PLANNER_SET_EDITING_ID, id: 1}))
+      .toEqual({
+        isLoading: false,
+        creating: false,
+        editingId: 1,
+        publicUrl: "",
+        expanded: false,
+        expandedDay: null,
+        planName: "",
+        recipeListsInsideDays: empty
+      });
   });
 
   it('handles actions of type PLANNER_SET_PLAN_NAME', () => {
-    const actual = plannerReducer(initialState, {
+    expect(plannerReducer(initialState, {
       type: PLANNER_SET_PLAN_NAME,
       name: "Plan B"
-    });
-    const expected = {
+    })).toEqual({
       isLoading: false,
       creating: false,
       editingId: null,
@@ -288,28 +238,15 @@ describe('planner reducer', () => {
       expanded: false,
       expandedDay: null,
       planName: "Plan B",
-      recipeListsInsideDays: {
-         1: [],  2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
-         8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-        15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-        22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
-    };
-    expect(actual).toEqual(expected);
+      recipeListsInsideDays: empty
+    });
   });
 
   it('handles actions of type PLANNER_SET_PLAN_DATA', () => {
-    const actual = plannerReducer(initialState, {
+    expect(plannerReducer(initialState, {
       type: PLANNER_SET_PLAN_DATA,
-      data: {
-        1: [recipeOne],
-        2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
-        8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-       15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-       22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
-    });
-    const expected = {
+      data: lists1
+    })).toEqual({
       isLoading: false,
       creating: false,
       editingId: null,
@@ -317,14 +254,7 @@ describe('planner reducer', () => {
       expanded: false,
       expandedDay: null,
       planName: "",
-      recipeListsInsideDays: {
-        1: [recipeOne],
-        2: [],  3: [],  4: [],  5: [],  6: [],  7: [],
-        8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
-       15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
-       22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
-      }
-    };
-    expect(actual).toEqual(expected);
+      recipeListsInsideDays: lists1
+    });
   });
 });

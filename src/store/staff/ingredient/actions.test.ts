@@ -29,7 +29,6 @@ const creatingIngredientInfo = {
   fullImage: null,
   tinyImage: null
 };
-
 const editingIngredientInfo = {
   ingredientTypeId: 3,
   name: "HOT Sauce",
@@ -43,117 +42,103 @@ const editingIngredientInfo = {
 
 describe('staffCreateNewIngredient action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewIngredient(creatingIngredientInfo).type;
-    const expected = STAFF_CREATE_NEW_INGREDIENT;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewIngredient(creatingIngredientInfo).type)
+      .toEqual(STAFF_CREATE_NEW_INGREDIENT);
   });
+
   it('returns the correct ingredientInfo', () => {
-    const actual = staffCreateNewIngredient(creatingIngredientInfo).ingredientInfo;
-    const expected = creatingIngredientInfo;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewIngredient(creatingIngredientInfo).ingredientInfo)
+      .toEqual(creatingIngredientInfo);
   });
 });
 
 describe('staffCreateNewIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewIngredientSucceeded('OK.').type;
-    const expected = STAFF_CREATE_NEW_INGREDIENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewIngredientSucceeded('OK.').type)
+      .toEqual(STAFF_CREATE_NEW_INGREDIENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffCreateNewIngredientSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewIngredientSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffCreateNewIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewIngredientFailed('Try again.').type;
-    const expected = STAFF_CREATE_NEW_INGREDIENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewIngredientFailed('Try again.').type)
+      .toEqual(STAFF_CREATE_NEW_INGREDIENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffCreateNewIngredientFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewIngredientFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });
 
 describe('staffEditIngredient action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditIngredient(editingIngredientInfo).type;
-    const expected = STAFF_EDIT_INGREDIENT;
-    expect(actual).toEqual(expected);
+    expect(staffEditIngredient(editingIngredientInfo).type)
+      .toEqual(STAFF_EDIT_INGREDIENT);
   });
+
   it('returns the correct ingredientInfo', () => {
-    const actual = staffEditIngredient(editingIngredientInfo).ingredientInfo;
-    const expected = editingIngredientInfo;
-    expect(actual).toEqual(expected);
+    expect(staffEditIngredient(editingIngredientInfo).ingredientInfo)
+      .toEqual(editingIngredientInfo);
   });
 });
 
 describe('staffEditIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditIngredientSucceeded('OK.').type;
-    const expected = STAFF_EDIT_INGREDIENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffEditIngredientSucceeded('OK.').type)
+      .toEqual(STAFF_EDIT_INGREDIENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffEditIngredientSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffEditIngredientSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffEditIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditIngredientFailed('Try again.').type;
-    const expected = STAFF_EDIT_INGREDIENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffEditIngredientFailed('Try again.').type)
+      .toEqual(STAFF_EDIT_INGREDIENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffEditIngredientFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffEditIngredientFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });
 
 describe('staffDeleteIngredient action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteIngredient(7).type;
-    const expected = STAFF_DELETE_INGREDIENT;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteIngredient(7).type).toEqual(STAFF_DELETE_INGREDIENT);
   });
+
   it('returns the correct ingredientId', () => {
-    const actual = staffDeleteIngredient(7).id;
-    const expected = 7;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteIngredient(7).id).toEqual(7);
   });
 });
 
 describe('staffDeleteIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteIngredientSucceeded('OK.').type;
-    const expected = STAFF_DELETE_INGREDIENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteIngredientSucceeded('OK.').type)
+      .toEqual(STAFF_DELETE_INGREDIENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffDeleteIngredientSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffDeleteIngredientSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffDeleteIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteIngredientFailed('Try again.').type;
-    const expected = STAFF_DELETE_INGREDIENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteIngredientFailed('Try again.').type)
+      .toEqual(STAFF_DELETE_INGREDIENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffDeleteIngredientFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffDeleteIngredientFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });

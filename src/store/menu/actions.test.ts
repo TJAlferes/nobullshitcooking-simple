@@ -3,16 +3,12 @@ import { MENU_SHADOW_SHOW, MENU_SHADOW_HIDE } from './types';
 
 describe('menuShadowShow action creator', () => {
   it('returns the correct action type', () => {
-    const actual = menuShadowShow().type;
-    const expected = MENU_SHADOW_SHOW;
-    expect(actual).toEqual(expected);
+    expect(menuShadowShow().type).toEqual(MENU_SHADOW_SHOW);
   });
 });
 
 describe('menuShadowHide action creator', () => {
   it('returns the correct action type', () => {
-    const actual = menuShadowHide().type;
-    const expected = MENU_SHADOW_HIDE;
-    expect(actual).toEqual(expected);
+    expect(menuShadowHide().type).toEqual(MENU_SHADOW_HIDE);
   });
 });

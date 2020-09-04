@@ -26,113 +26,97 @@ const editingPlanInfo = {id: 2, name: "Plan B", data: ""};
 
 describe('userCreateNewPlan action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPlan(creatingPlanInfo).type;
-    const expected = USER_CREATE_NEW_PLAN;
-    expect(actual).toEqual(expected);
+    expect(userCreateNewPlan(creatingPlanInfo).type)
+      .toEqual(USER_CREATE_NEW_PLAN);
   });
+
   it('returns the correct planInfo', () => {
-    const actual = userCreateNewPlan(creatingPlanInfo).planInfo;
-    const expected = creatingPlanInfo;
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userCreateNewPlanSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userCreateNewPlanSucceeded('OK.').type;
-    const expected = USER_CREATE_NEW_PLAN_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userCreateNewPlanSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userCreateNewPlanFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userCreateNewPlanFailed('Try again.').type;
-    const expected = USER_CREATE_NEW_PLAN_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userCreateNewPlanFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userCreateNewPlan(creatingPlanInfo).planInfo)
+      .toEqual(creatingPlanInfo);
   });
 });
 
+describe('userCreateNewPlanSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userCreateNewPlanSucceeded('OK.').type)
+      .toEqual(USER_CREATE_NEW_PLAN_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userCreateNewPlanSucceeded('OK.').message).toEqual('OK.');
+  });
+});
+
+describe('userCreateNewPlanFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userCreateNewPlanFailed('Try again.').type)
+      .toEqual(USER_CREATE_NEW_PLAN_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userCreateNewPlanFailed('Try again.').message).toEqual('Try again.');
+  });
+});
 
 describe('userEditPlan action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPlan(editingPlanInfo).type;
-    const expected = USER_EDIT_PLAN;
-    expect(actual).toEqual(expected);
+    expect(userEditPlan(editingPlanInfo).type).toEqual(USER_EDIT_PLAN);
   });
+
   it('returns the correct planInfo', () => {
-    const actual = userEditPlan(editingPlanInfo).planInfo;
-    const expected = editingPlanInfo;
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userEditPlanSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userEditPlanSucceeded('OK.').type;
-    const expected = USER_EDIT_PLAN_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userEditPlanSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userEditPlanFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userEditPlanFailed('Try again.').type;
-    const expected = USER_EDIT_PLAN_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userEditPlanFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userEditPlan(editingPlanInfo).planInfo).toEqual(editingPlanInfo);
   });
 });
 
+describe('userEditPlanSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userEditPlanSucceeded('OK.').type).toEqual(USER_EDIT_PLAN_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userEditPlanSucceeded('OK.').message).toEqual('OK.');
+  });
+});
+
+describe('userEditPlanFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userEditPlanFailed('Try again.').type)
+      .toEqual(USER_EDIT_PLAN_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userEditPlanFailed('Try again.').message).toEqual('Try again.');
+  });
+});
 
 describe('userDeletePlan action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeletePlan(7).type;
-    const expected = USER_DELETE_PLAN;
-    expect(actual).toEqual(expected);
+    expect(userDeletePlan(7).type).toEqual(USER_DELETE_PLAN);
   });
+
   it('returns the correct id', () => {
-    const actual = userDeletePlan(7).id;
-    const expected = 7;
-    expect(actual).toEqual(expected);
+    expect(userDeletePlan(7).id).toEqual(7);
   });
 });
+
 describe('userDeletePlanSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeletePlanSucceeded('OK.').type;
-    const expected = USER_DELETE_PLAN_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(userDeletePlanSucceeded('OK.').type)
+      .toEqual(USER_DELETE_PLAN_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = userDeletePlanSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(userDeletePlanSucceeded('OK.').message).toEqual('OK.');
   });
 });
+
 describe('userDeletePlanFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeletePlanFailed('Try again.').type;
-    const expected = USER_DELETE_PLAN_FAILED;
-    expect(actual).toEqual(expected);
+    expect(userDeletePlanFailed('Try again.').type)
+      .toEqual(USER_DELETE_PLAN_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = userDeletePlanFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userDeletePlanFailed('Try again.').message).toEqual('Try again.');
   });
 });

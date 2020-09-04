@@ -42,117 +42,103 @@ const editingEquipmentInfo = {
 
 describe('staffCreateNewEquipment action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewEquipment(creatingEquipmentInfo).type;
-    const expected = STAFF_CREATE_NEW_EQUIPMENT;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewEquipment(creatingEquipmentInfo).type)
+      .toEqual(STAFF_CREATE_NEW_EQUIPMENT);
   });
+
   it('returns the correct equipmentInfo', () => {
-    const actual = staffCreateNewEquipment(creatingEquipmentInfo).equipmentInfo;
-    const expected = creatingEquipmentInfo;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewEquipment(creatingEquipmentInfo).equipmentInfo)
+      .toEqual(creatingEquipmentInfo);
   });
 });
 
 describe('staffCreateNewEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewEquipmentSucceeded('OK.').type;
-    const expected = STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewEquipmentSucceeded('OK.').type)
+      .toEqual(STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffCreateNewEquipmentSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewEquipmentSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffCreateNewEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewEquipmentFailed('Try again.').type;
-    const expected = STAFF_CREATE_NEW_EQUIPMENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewEquipmentFailed('Try again.').type)
+      .toEqual(STAFF_CREATE_NEW_EQUIPMENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffCreateNewEquipmentFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewEquipmentFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });
 
 describe('staffEditEquipment action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditEquipment(editingEquipmentInfo).type;
-    const expected = STAFF_EDIT_EQUIPMENT;
-    expect(actual).toEqual(expected);
+    expect(staffEditEquipment(editingEquipmentInfo).type)
+      .toEqual(STAFF_EDIT_EQUIPMENT);
   });
+
   it('returns the correct equipmentInfo', () => {
-    const actual = staffEditEquipment(editingEquipmentInfo).equipmentInfo;
-    const expected = editingEquipmentInfo;
-    expect(actual).toEqual(expected);
+    expect(staffEditEquipment(editingEquipmentInfo).equipmentInfo)
+      .toEqual(editingEquipmentInfo);
   });
 });
 
 describe('staffEditEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditEquipmentSucceeded('OK.').type;
-    const expected = STAFF_EDIT_EQUIPMENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffEditEquipmentSucceeded('OK.').type)
+      .toEqual(STAFF_EDIT_EQUIPMENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffEditEquipmentSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffEditEquipmentSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffEditEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditEquipmentFailed('Try again.').type;
-    const expected = STAFF_EDIT_EQUIPMENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffEditEquipmentFailed('Try again.').type)
+      .toEqual(STAFF_EDIT_EQUIPMENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffEditEquipmentFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffEditEquipmentFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });
 
 describe('staffDeleteEquipment action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteEquipment(7).type;
-    const expected = STAFF_DELETE_EQUIPMENT;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteEquipment(7).type).toEqual(STAFF_DELETE_EQUIPMENT);
   });
+
   it('returns the correct equipmentId', () => {
-    const actual = staffDeleteEquipment(7).id;
-    const expected = 7;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteEquipment(7).id).toEqual(7);
   });
 });
 
 describe('staffDeleteEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteEquipmentSucceeded('OK.').type;
-    const expected = STAFF_DELETE_EQUIPMENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteEquipmentSucceeded('OK.').type)
+      .toEqual(STAFF_DELETE_EQUIPMENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffDeleteEquipmentSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffDeleteEquipmentSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffDeleteEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteEquipmentFailed('Try again.').type;
-    const expected = STAFF_DELETE_EQUIPMENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteEquipmentFailed('Try again.').type)
+      .toEqual(STAFF_DELETE_EQUIPMENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffDeleteEquipmentFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffDeleteEquipmentFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });

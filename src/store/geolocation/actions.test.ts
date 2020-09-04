@@ -13,55 +13,45 @@ import {
 
 const latitude = "48.51";
 const longitude = "115.43";
+const address = "123 Pleasant Street, Pleasantville, NP";
 
 describe('geoLatitude action creator', () => {
   it('returns the correct action type', () => {
-    const actual = geoLatitude(latitude).type;
-    const expected = GEO_LATITUDE;
-    expect(actual).toEqual(expected);
+    expect(geoLatitude(latitude).type).toEqual(GEO_LATITUDE);
   });
+
   it('returns the correct latitude', () => {
-    const actual = geoLatitude(latitude).latitude;
-    const expected = latitude;
-    expect(actual).toEqual(expected);
+    expect(geoLatitude(latitude).latitude).toEqual(latitude);
   });
 });
 
 describe('geoLongitude action creator', () => {
   it('returns the correct action type', () => {
-    const actual = geoLongitude(longitude).type;
-    const expected = GEO_LONGITUDE;
-    expect(actual).toEqual(expected);
+    expect(geoLongitude(longitude).type).toEqual(GEO_LONGITUDE);
   });
+
   it('returns the correct longitude', () => {
-    const actual = geoLongitude(longitude).longitude;
-    const expected = longitude;
-    expect(actual).toEqual(expected);
+    expect(geoLongitude(longitude).longitude).toEqual(longitude);
   });
 });
 
 describe('geoAddress action creator', () => {
   it('returns the correct action type', () => {
-    const actual = geoAddress('123 Pleasant Street, Pleasantville, NP').type;
-    const expected = GEO_ADDRESS;
-    expect(actual).toEqual(expected);
+    expect(geoAddress(address).type).toEqual(GEO_ADDRESS);
   });
+
   it('returns the correct address', () => {
-    const actual = geoAddress('123 Pleasant Street, Pleasantville, NP').address;
-    const expected = '123 Pleasant Street, Pleasantville, NP';
-    expect(actual).toEqual(expected);
+    expect(geoAddress(address).address).toEqual(address);
   });
 });
 
 describe('geoNearbyStoresClicked action creator', () => {
   it('returns the correct action type', () => {
-    const actual = geoNearbyStoresClicked(true).type;
-    const expected = GEO_NEARBY_STORES_CLICKED;
-    expect(actual).toEqual(expected);
+    expect(geoNearbyStoresClicked(true).type)
+      .toEqual(GEO_NEARBY_STORES_CLICKED);
   });
+
   it('returns the correct clicked', () => {
-    const actual = geoNearbyStoresClicked(true).clicked;
-    const expected = true;
-    expect(actual).toEqual(expected);
+    expect(geoNearbyStoresClicked(true).clicked).toEqual(true);
   });
 });

@@ -42,113 +42,105 @@ const editingEquipmentInfo = {
 
 describe('userCreateNewPrivateEquipment action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPrivateEquipment(creatingEquipmentInfo).type;
-    const expected = USER_CREATE_NEW_PRIVATE_EQUIPMENT;
-    expect(actual).toEqual(expected);
+    expect(userCreateNewPrivateEquipment(creatingEquipmentInfo).type)
+      .toEqual(USER_CREATE_NEW_PRIVATE_EQUIPMENT);
   });
+
   it('returns the correct equipmentInfo', () => {
-    const actual = userCreateNewPrivateEquipment(creatingEquipmentInfo).equipmentInfo;
-    const expected = creatingEquipmentInfo;
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userCreateNewPrivateEquipmentSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userCreateNewPrivateEquipmentSucceeded('OK.').type;
-    const expected = USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userCreateNewPrivateEquipmentSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userCreateNewPrivateEquipmentFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userCreateNewPrivateEquipmentFailed('Try again.').type;
-    const expected = USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userCreateNewPrivateEquipmentFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userCreateNewPrivateEquipment(creatingEquipmentInfo).equipmentInfo)
+      .toEqual(creatingEquipmentInfo);
   });
 });
 
+describe('userCreateNewPrivateEquipmentSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userCreateNewPrivateEquipmentSucceeded('OK.').type)
+      .toEqual(USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userCreateNewPrivateEquipmentSucceeded('OK.').message)
+      .toEqual('OK.');
+  });
+});
+
+describe('userCreateNewPrivateEquipmentFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userCreateNewPrivateEquipmentFailed('Try again.').type)
+      .toEqual(USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userCreateNewPrivateEquipmentFailed('Try again.').message)
+      .toEqual('Try again.');
+  });
+});
 
 describe('userEditPrivateEquipment action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPrivateEquipment(editingEquipmentInfo).type;
-    const expected = USER_EDIT_PRIVATE_EQUIPMENT;
-    expect(actual).toEqual(expected);
+    expect(userEditPrivateEquipment(editingEquipmentInfo).type)
+      .toEqual(USER_EDIT_PRIVATE_EQUIPMENT);
   });
+
   it('returns the correct equipmentInfo', () => {
-    const actual = userEditPrivateEquipment(editingEquipmentInfo).equipmentInfo;
-    const expected = editingEquipmentInfo;
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userEditPrivateEquipmentSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userEditPrivateEquipmentSucceeded('OK.').type;
-    const expected = USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userEditPrivateEquipmentSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userEditPrivateEquipmentFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userEditPrivateEquipmentFailed('Try again.').type;
-    const expected = USER_EDIT_PRIVATE_EQUIPMENT_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userEditPrivateEquipmentFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userEditPrivateEquipment(editingEquipmentInfo).equipmentInfo)
+      .toEqual(editingEquipmentInfo);
   });
 });
 
+describe('userEditPrivateEquipmentSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userEditPrivateEquipmentSucceeded('OK.').type)
+      .toEqual(USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userEditPrivateEquipmentSucceeded('OK.').message).toEqual('OK.');
+  });
+});
+
+describe('userEditPrivateEquipmentFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userEditPrivateEquipmentFailed('Try again.').type)
+      .toEqual(USER_EDIT_PRIVATE_EQUIPMENT_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userEditPrivateEquipmentFailed('Try again.').message)
+      .toEqual('Try again.');
+  });
+});
 
 describe('userDeletePrivateEquipment action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeletePrivateEquipment(7).type;
-    const expected = USER_DELETE_PRIVATE_EQUIPMENT;
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateEquipment(7).type)
+      .toEqual(USER_DELETE_PRIVATE_EQUIPMENT);
   });
+
   it('returns the correct id', () => {
-    const actual = userDeletePrivateEquipment(7).id;
-    const expected = 7;
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateEquipment(7).id).toEqual(7);
   });
 });
+
 describe('userDeletePrivateEquipmentSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeletePrivateEquipmentSucceeded('OK.').type;
-    const expected = USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateEquipmentSucceeded('OK.').type)
+      .toEqual(USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = userDeletePrivateEquipmentSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateEquipmentSucceeded('OK.').message).toEqual('OK.');
   });
 });
+
 describe('userDeletePrivateEquipmentFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeletePrivateEquipmentFailed('Try again.').type;
-    const expected = USER_DELETE_PRIVATE_EQUIPMENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateEquipmentFailed('Try again.').type)
+      .toEqual(USER_DELETE_PRIVATE_EQUIPMENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = userDeletePrivateEquipmentFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateEquipmentFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });

@@ -35,6 +35,15 @@ import {
   dataGetMethods,
   dataGetMethodsSucceeded,
   dataGetMethodsFailed,
+  dataGetProducts,
+  dataGetProductsSucceeded,
+  dataGetProductsFailed,
+  dataGetProductCategories,
+  dataGetProductCategoriesSucceeded,
+  dataGetProductCategoriesFailed,
+  dataGetProductTypes,
+  dataGetProductTypesSucceeded,
+  dataGetProductTypesFailed,
   dataGetRecipes,
   dataGetRecipesSucceeded,
   dataGetRecipesFailed,
@@ -76,6 +85,7 @@ import {
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 
+// TO DO: just do on ssr server now
 export function* dataGetInitialDataSaga() {
   try {
     const res = yield call([axios, axios.get], `${endpoint}/data-init`);
@@ -179,6 +189,37 @@ export function* dataGetMethodsSaga() {
     yield put(dataGetMethodsSucceeded());
   } catch (err) {
     yield put(dataGetMethodsFailed());
+  }
+}
+
+export function* dataGetProductsSaga() {
+  try {
+    const res = yield call([axios, axios.get], `${endpoint}/product`);
+    yield put(dataGetProducts(res.data));
+    yield put(dataGetProductsSucceeded());
+  } catch (err) {
+    yield put(dataGetProductsFailed());
+  }
+}
+
+export function* dataGetProductCategoriesSaga() {
+  try {
+    const res =
+      yield call([axios, axios.get], `${endpoint}/product-category`);
+    yield put(dataGetProductCategories(res.data));
+    yield put(dataGetProductCategoriesSucceeded());
+  } catch (err) {
+    yield put(dataGetProductCategoriesFailed());
+  }
+}
+
+export function* dataGetProductTypesSaga() {
+  try {
+    const res = yield call([axios, axios.get], `${endpoint}/product-type`);
+    yield put(dataGetProductTypes(res.data));
+    yield put(dataGetProductTypesSucceeded());
+  } catch (err) {
+    yield put(dataGetProductTypesFailed());
   }
 }
 

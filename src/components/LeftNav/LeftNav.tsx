@@ -46,7 +46,7 @@ export function LeftNav({
       <LeftNavLink text="Coffee" to="/page/promo/coffee" />
       <hr />
 
-      <LeftNavLink text="Outdoors"to="/page/promo/outdoors" />
+      <LeftNavLink text="Outdoors" to="/page/promo/outdoors" />
       <LeftNavLink text="Garden" to="/page/promo/garden" />
       <LeftNavLink text="Tools" to="/page/promo/tools" />
       <hr />

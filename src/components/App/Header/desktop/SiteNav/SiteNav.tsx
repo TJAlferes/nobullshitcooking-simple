@@ -9,7 +9,7 @@ import {
 // TO DO: this menu data needs to also come dynamically from content types
 import fitnessMenuData from './data/fitnessMenuData';
 import foodMenuData from './data/foodMenuData';
-//import supplyMenuData from './data/supplyMenuData';
+import supplyMenuData from './data/supplyMenuData';
 import Menu from './Menu/Menu';
 import './siteNav.css';
 
@@ -62,7 +62,6 @@ export function SiteNav({
         }
       </span>
 
-      {/*
       <span
         className="site-nav__anchor"
         data-test="supply-area"
@@ -75,7 +74,6 @@ export function SiteNav({
           ? <Menu menuItems={supplyMenuData} /> : false
         }
       </span>
-      */}
       
     </div>
   );

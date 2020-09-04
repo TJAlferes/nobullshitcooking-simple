@@ -61,8 +61,7 @@ describe('authStaffLoginSaga', () => {
       }
     };
 
-    expect(iterator.next().value)
-    .toEqual(call(
+    expect(iterator.next().value).toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/auth/login`,
       {staffInfo: {email: action.email, password: action.password}},
@@ -70,11 +69,9 @@ describe('authStaffLoginSaga', () => {
     ));
 
     expect(iterator.next(res).value)
-    .toEqual(put(authStaffDisplay(res.data.staffname, res.data.avatar)));
-
+      .toEqual(put(authStaffDisplay(res.data.staffname, res.data.avatar)));
     expect(iterator.next(res).value)
-    .toEqual(put(authStaffLoginSucceeded(res.data.message)));
-
+      .toEqual(put(authStaffLoginSucceeded(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -87,8 +84,7 @@ describe('authStaffLoginSaga', () => {
     iterator.next();
 
     expect(iterator.next(res).value)
-    .toEqual(put(authStaffLoginFailed(res.data.message)));
-
+      .toEqual(put(authStaffLoginFailed(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});    
@@ -99,9 +95,9 @@ describe('authStaffLoginSaga', () => {
 
     iterator.next();
 
-    expect(iterator.throw('error').value)
-    .toEqual(put(authStaffLoginFailed('An error occurred. Please try again.')));
-    
+    expect(iterator.throw('error').value).toEqual(
+      put(authStaffLoginFailed('An error occurred. Please try again.'))
+    );
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -115,8 +111,7 @@ describe('authStaffLogoutSaga', () => {
     const iterator = authStaffLogoutSaga(action);
     const res = {data: {message: 'Signed out.'}};
 
-    expect(iterator.next().value)
-    .toEqual(call(
+    expect(iterator.next().value).toEqual(call(
       [axios, axios.post],
       `${endpoint}/staff/auth/logout`,
       {},
@@ -124,11 +119,9 @@ describe('authStaffLogoutSaga', () => {
     ));
 
     expect(iterator.next(res).value)
-    .toEqual(call(removeStorageItem, 'appState'));
-
+      .toEqual(call(removeStorageItem, 'appState'));
     expect(iterator.next(res).value)
-    .toEqual(put(authStaffLogoutSucceeded(res.data.message)));
-
+      .toEqual(put(authStaffLogoutSucceeded(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -141,11 +134,9 @@ describe('authStaffLogoutSaga', () => {
     iterator.next();
 
     expect(iterator.next(res).value)
-    .toEqual(call(removeStorageItem, 'appState'));
-
+      .toEqual(call(removeStorageItem, 'appState'));
     expect(iterator.next(res).value)
-    .toEqual(put(authStaffLogoutFailed(res.data.message)));
-
+      .toEqual(put(authStaffLogoutFailed(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -156,9 +147,9 @@ describe('authStaffLogoutSaga', () => {
     
     iterator.next();
 
-    expect(iterator.throw('error').value)
-    .toEqual(put(authStaffLogoutFailed('An error occurred. Please try again.')));
-
+    expect(iterator.throw('error').value).toEqual(
+      put(authStaffLogoutFailed('An error occurred. Please try again.'))
+    );
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -182,20 +173,16 @@ describe('authUserLoginSaga', () => {
       }
     };
 
-    expect(iterator.next().value)
-    .toEqual(call(
+    expect(iterator.next().value).toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/auth/login`,
       {userInfo: {email: action.email, password: action.password}},
       {withCredentials: true}
     ));
-
     expect(iterator.next(res).value)
-    .toEqual(put(authUserDisplay(res.data.username, res.data.avatar)));
-
+      .toEqual(put(authUserDisplay(res.data.username, res.data.avatar)));
     expect(iterator.next(res).value)
-    .toEqual(put(authUserLoginSucceeded(res.data.message)));
-
+      .toEqual(put(authUserLoginSucceeded(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -208,8 +195,7 @@ describe('authUserLoginSaga', () => {
     iterator.next();
 
     expect(iterator.next(res).value)
-    .toEqual(put(authUserLoginFailed(res.data.message)));
-
+      .toEqual(put(authUserLoginFailed(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});    
@@ -220,9 +206,9 @@ describe('authUserLoginSaga', () => {
 
     iterator.next();
 
-    expect(iterator.throw('error').value)
-    .toEqual(put(authUserLoginFailed('An error occurred. Please try again.')));
-    
+    expect(iterator.throw('error').value).toEqual(
+      put(authUserLoginFailed('An error occurred. Please try again.'))
+    );
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -236,20 +222,16 @@ describe('authUserLogoutSaga', () => {
     const iterator = authUserLogoutSaga(action);
     const res = {data: {message: 'Signed out.'}};
 
-    expect(iterator.next().value)
-    .toEqual(call(
+    expect(iterator.next().value).toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/auth/logout`,
       {},
       {withCredentials: true}
     ));
-
     expect(iterator.next(res).value)
-    .toEqual(call(removeStorageItem, 'appState'));
-
+      .toEqual(call(removeStorageItem, 'appState'));
     expect(iterator.next(res).value)
-    .toEqual(put(authUserLogoutSucceeded(res.data.message)));
-
+      .toEqual(put(authUserLogoutSucceeded(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -262,11 +244,9 @@ describe('authUserLogoutSaga', () => {
     iterator.next();
 
     expect(iterator.next(res).value)
-    .toEqual(call(removeStorageItem, 'appState'));
-
+      .toEqual(call(removeStorageItem, 'appState'));
     expect(iterator.next(res).value)
-    .toEqual(put(authUserLogoutFailed(res.data.message)));
-
+      .toEqual(put(authUserLogoutFailed(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -277,9 +257,9 @@ describe('authUserLogoutSaga', () => {
     
     iterator.next();
 
-    expect(iterator.throw('error').value)
-    .toEqual(put(authUserLogoutFailed('An error occurred. Please try again.')));
-
+    expect(iterator.throw('error').value).toEqual(
+      put(authUserLogoutFailed('An error occurred. Please try again.'))
+    );
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -300,8 +280,7 @@ describe('authUserRegisterSaga', () => {
     const { history } = action;
     const res = {data: {message: 'User account created.'}};
 
-    expect(iterator.next().value)
-    .toEqual(call(
+    expect(iterator.next().value).toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/auth/register`,
       {
@@ -312,16 +291,12 @@ describe('authUserRegisterSaga', () => {
         }
       }
     ));
-
     expect(iterator.next(res).value)
-    .toEqual(put(authUserRegisterSucceeded(res.data.message)));
-
+      .toEqual(put(authUserRegisterSucceeded(res.data.message)));
     expect(iterator.next().value).toEqual(delay(2000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
-
     expect(JSON.stringify(iterator.next().value))
-    .toEqual(JSON.stringify(call(() => history.push('/verify'))));
-
+      .toEqual(JSON.stringify(call(() => history.push('/verify'))));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -332,8 +307,7 @@ describe('authUserRegisterSaga', () => {
     iterator.next();
 
     expect(iterator.next(res).value)
-    .toEqual(put(authUserRegisterFailed(res.data.message)));
-
+      .toEqual(put(authUserRegisterFailed(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -344,11 +318,9 @@ describe('authUserRegisterSaga', () => {
 
     iterator.next();
 
-    expect(iterator.throw('error').value)
-    .toEqual(
+    expect(iterator.throw('error').value).toEqual(
       put(authUserRegisterFailed('An error occurred. Please try again.'))
     );
-
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -369,8 +341,7 @@ describe('authUserVerifySaga', () => {
     const { history } = action;
     const res = {data: {message: 'User account verified.'}};
 
-    expect(iterator.next().value)
-    .toEqual(call(
+    expect(iterator.next().value).toEqual(call(
       [axios, axios.post],
       `${endpoint}/user/auth/verify`,
       {
@@ -381,16 +352,12 @@ describe('authUserVerifySaga', () => {
         }
       }
     ));
-
     expect(iterator.next(res).value)
-    .toEqual(put(authUserVerifySucceeded(res.data.message)));
-
+      .toEqual(put(authUserVerifySucceeded(res.data.message)));
     expect(iterator.next().value).toEqual(delay(2000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
-
     expect(JSON.stringify(iterator.next().value))
-    .toEqual(JSON.stringify(call(() => history.push('/login'))));
-
+      .toEqual(JSON.stringify(call(() => history.push('/login'))));
     expect(iterator.next()).toEqual({done: true, value: undefined});
   });
 
@@ -401,8 +368,7 @@ describe('authUserVerifySaga', () => {
     iterator.next();
 
     expect(iterator.next(res).value)
-    .toEqual(put(authUserVerifyFailed(res.data.message)));
-
+      .toEqual(put(authUserVerifyFailed(res.data.message)));
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});
@@ -413,11 +379,9 @@ describe('authUserVerifySaga', () => {
 
     iterator.next();
 
-    expect(iterator.throw('error').value)
-    .toEqual(
+    expect(iterator.throw('error').value).toEqual(
       put(authUserVerifyFailed('An error occurred. Please try again.'))
     );
-
     expect(iterator.next().value).toEqual(delay(4000));
     expect(iterator.next().value).toEqual(put(authMessageClear()));
     expect(iterator.next()).toEqual({done: true, value: undefined});

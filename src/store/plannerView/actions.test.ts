@@ -30,31 +30,24 @@ const planData = {
 
 describe('plannerViewClickDay action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerViewClickDay(4).type;
-    const expected = PLANNER_VIEW_CLICK_DAY;
-    expect(actual).toEqual(expected);
+    expect(plannerViewClickDay(4).type).toEqual(PLANNER_VIEW_CLICK_DAY);
   });
+
   it('returns the correct day', () => {
-    const actual = plannerViewClickDay(4).day;
-    const expected = 4;
-    expect(actual).toEqual(expected);
+    expect(plannerViewClickDay(4).day).toEqual(4);
   });
 });
 
 describe('plannerViewLoad action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerViewLoad(planName, planData).type;
-    const expected = PLANNER_VIEW_LOAD;
-    expect(actual).toEqual(expected);
+    expect(plannerViewLoad(planName, planData).type).toEqual(PLANNER_VIEW_LOAD);
   });
+
   it('returns the correct planName', () => {
-    const actual = plannerViewLoad(planName, planData).planName;
-    const expected = planName;
-    expect(actual).toEqual(expected);
+    expect(plannerViewLoad(planName, planData).planName).toEqual(planName);
   });
+
   it('returns the correct planData', () => {
-    const actual = plannerViewLoad(planName, planData).planData;
-    const expected = planData;
-    expect(actual).toEqual(expected);
+    expect(plannerViewLoad(planName, planData).planData).toEqual(planData);
   });
 });

@@ -32,6 +32,15 @@ export const DATA_GET_MEASUREMENTS_FAILED = 'DATA_GET_MEASUREMENTS_FAILED' as co
 export const DATA_GET_METHODS = 'DATA_GET_METHODS' as const;
 export const DATA_GET_METHODS_SUCCEEDED = 'DATA_GET_METHODS_SUCCEEDED' as const;
 export const DATA_GET_METHODS_FAILED = 'DATA_GET_METHODS_FAILED' as const;
+export const DATA_GET_PRODUCTS = 'DATA_GET_PRODUCTS' as const;
+export const DATA_GET_PRODUCTS_SUCCEEDED = 'DATA_GET_PRODUCTS_SUCCEEDED' as const;
+export const DATA_GET_PRODUCTS_FAILED = 'DATA_GET_PRODUCTS_FAILED' as const;
+export const DATA_GET_PRODUCT_CATEGORIES = 'DATA_GET_PRODUCT_CATEGORIES' as const;
+export const DATA_GET_PRODUCT_CATEGORIES_SUCCEEDED = 'DATA_GET_PRODUCT_CATEGORIES_SUCCEEDED' as const;
+export const DATA_GET_PRODUCT_CATEGORIES_FAILED = 'DATA_GET_PRODUCT_CATEGORIES_FAILED' as const;
+export const DATA_GET_PRODUCT_TYPES = 'DATA_GET_PRODUCT_TYPES' as const;
+export const DATA_GET_PRODUCT_TYPES_SUCCEEDED = 'DATA_GET_PRODUCT_TYPES_SUCCEEDED' as const;
+export const DATA_GET_PRODUCT_TYPES_FAILED = 'DATA_GET_PRODUCT_TYPES_FAILED' as const;
 export const DATA_GET_RECIPES = 'DATA_GET_RECIPES' as const;
 export const DATA_GET_RECIPES_SUCCEEDED = 'DATA_GET_RECIPES_SUCCEEDED' as const;
 export const DATA_GET_RECIPES_FAILED = 'DATA_GET_RECIPES_FAILED' as const;
@@ -90,6 +99,9 @@ export interface IInitialData {
   ingredientTypes: IIngredientType[];
   officialRecipes: IWorkRecipe[];
   recipeTypes: IRecipeType[];
+  products: IWorkProduct[];
+  productCategories: IProductCategory[];
+  productTypes: IProductType[];
 }
 
 export interface IInitialUserData {
@@ -194,6 +206,26 @@ export interface IRecipeType {
   name: string;
 }
 
+export interface IWorkProduct {
+  id: number;
+  product_category_id: number;
+  product_type_id: number;
+  brand: string | null;
+  variety: string | null;
+  name: string;
+  fullname: string;
+}
+
+export interface IProductCategory {
+  id: number;
+  name: string;
+}
+
+export interface IProductType {
+  id: number;
+  name: string;
+}
+
 /*
 
 Actions
@@ -214,6 +246,9 @@ IDataGetMeasurements |
 IDataGetMethods |
 IDataGetRecipes |
 IDataGetRecipeTypes |
+IDataGetProducts |
+IDataGetProductCategories |
+IDataGetProductTypes |
 IDataGetInitialUserData |
 IDataGetMyContent |
 IDataGetMyFavoriteRecipes |
@@ -289,6 +324,21 @@ export interface IDataGetRecipes {
 export interface IDataGetRecipeTypes {
   type: typeof DATA_GET_RECIPE_TYPES;
   recipeTypes: IRecipeType[];
+}
+
+export interface IDataGetProducts {
+  type: typeof DATA_GET_PRODUCTS;
+  products: IWorkProduct[];
+}
+
+export interface IDataGetProductCategories {
+  type: typeof DATA_GET_PRODUCT_CATEGORIES;
+  productCategories: IProductCategory[];
+}
+
+export interface IDataGetProductTypes {
+  type: typeof DATA_GET_PRODUCT_TYPES;
+  productTypes: IProductType[];
 }
 
 

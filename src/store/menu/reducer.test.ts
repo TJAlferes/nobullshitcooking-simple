@@ -5,21 +5,17 @@ const initialState = {shadow: false};
 
 describe('menu reducer', () => {
   it('returns initial state', () => {
-    const actual = menuReducer(undefined, {type: MENU_SHADOW_SHOW});
-    const expected = {shadow: true};
-    expect(actual).toEqual(expected);
+    expect(menuReducer(undefined, {type: MENU_SHADOW_SHOW}))
+      .toEqual({shadow: true});
   });
 
   it('handles actions of type MENU_SHADOW_SHOW', () => {
-    const actual = menuReducer(initialState, {type: MENU_SHADOW_SHOW});
-    const expected = {shadow: true};
-    expect(actual).toEqual(expected);
+    expect(menuReducer(initialState, {type: MENU_SHADOW_SHOW}))
+      .toEqual({shadow: true});
   });
 
   it('handles actions of type MENU_SHADOW_HIDE', () => {
-    const beforeState = {shadow: true};
-    const actual = menuReducer(beforeState, {type: MENU_SHADOW_HIDE});
-    const expected = {shadow: false};
-    expect(actual).toEqual(expected);
+    expect(menuReducer({shadow: true}, {type: MENU_SHADOW_HIDE}))
+      .toEqual({shadow: false});
   });
 });

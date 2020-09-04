@@ -24,24 +24,20 @@ describe('editorSetCreating action creator', () => {
 });
 
 describe('editorSetEditingId action creator', () => {
-  const type = EDITOR_SET_EDITING_ID;
-  const id = 5;
-
   it('returns the correct action type', () => {
-    expect(editorSetEditingId(id).type).toEqual(type);
+    expect(editorSetEditingId(5).type).toEqual(EDITOR_SET_EDITING_ID);
   });
 
   it('returns the correct id', () => {
-    expect(editorSetEditingId(id).id).toEqual(id);
+    expect(editorSetEditingId(5).id).toEqual(5);
   });
 });
 
 describe('editorSetValue action creator', () => {
-  const type = EDITOR_SET_VALUE;
   const value = [{type: 'paragraph', children: [{text: 'Some text.'}]}];
 
   it('returns the correct action type', () => {
-    expect(editorSetValue(value).type).toEqual(type);
+    expect(editorSetValue(value).type).toEqual(EDITOR_SET_VALUE);
   });
 
   it('returns the correct value', () => {

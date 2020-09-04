@@ -16,6 +16,7 @@ export interface ICartItem {
   id: number;
   itemTypeId: number;
   name: string;
+  quantity: number;
 }
 
 /*

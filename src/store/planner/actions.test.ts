@@ -35,110 +35,89 @@ const recipeOne = {
 
 describe('plannerClickDay action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerClickDay(4).type;
-    const expected = PLANNER_CLICK_DAY;
-    expect(actual).toEqual(expected);
+    expect(plannerClickDay(4).type).toEqual(PLANNER_CLICK_DAY);
   });
+
   it('returns the correct day', () => {
-    const actual = plannerClickDay(4).day;
-    const expected = 4;
-    expect(actual).toEqual(expected);
+    expect(plannerClickDay(4).day).toEqual(4);
   });
 });
 
 describe('plannerAddRecipeToDay action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerAddRecipeToDay(5, recipeOne).type;
-    const expected = PLANNER_ADD_RECIPE_TO_DAY;
-    expect(actual).toEqual(expected);
+    expect(plannerAddRecipeToDay(5, recipeOne).type)
+      .toEqual(PLANNER_ADD_RECIPE_TO_DAY);
   });
+
   it('returns the correct day', () => {
-    const actual = plannerAddRecipeToDay(5, recipeOne).day;
-    const expected = 5;
-    expect(actual).toEqual(expected);
+    expect(plannerAddRecipeToDay(5, recipeOne).day).toEqual(5);
   });
+
   it('returns the correct recipe', () => {
-    const actual = plannerAddRecipeToDay(5, recipeOne).recipe;
-    const expected = recipeOne;
-    expect(actual).toEqual(expected);
+    expect(plannerAddRecipeToDay(5, recipeOne).recipe).toEqual(recipeOne);
   });
 });
 
 describe('plannerRemoveRecipeFromDay action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerRemoveRecipeFromDay(5, 0).type;
-    const expected = PLANNER_REMOVE_RECIPE_FROM_DAY;
-    expect(actual).toEqual(expected);
+    expect(plannerRemoveRecipeFromDay(5, 0).type)
+      .toEqual(PLANNER_REMOVE_RECIPE_FROM_DAY);
   });
+
   it('returns the correct day', () => {
-    const actual = plannerRemoveRecipeFromDay(5, 0).day;
-    const expected = 5;
-    expect(actual).toEqual(expected);
+    expect(plannerRemoveRecipeFromDay(5, 0).day).toEqual(5);
   });
+
   it('returns the correct index', () => {
-    const actual = plannerRemoveRecipeFromDay(5, 0).index;
-    const expected = 0;
-    expect(actual).toEqual(expected);
+    expect(plannerRemoveRecipeFromDay(5, 0).index).toEqual(0);
   });
 });
 
 describe('plannerReorderRecipeInDay action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerReorderRecipeInDay(0, 2).type;
-    const expected = PLANNER_REORDER_RECIPE_IN_DAY;
-    expect(actual).toEqual(expected);
+    expect(plannerReorderRecipeInDay(0, 2).type)
+      .toEqual(PLANNER_REORDER_RECIPE_IN_DAY);
   });
+
   it('returns the correct dragIndex', () => {
-    const actual = plannerReorderRecipeInDay(0, 2).dragIndex;
-    const expected = 0;
-    expect(actual).toEqual(expected);
+    expect(plannerReorderRecipeInDay(0, 2).dragIndex).toEqual(0);
   });
+
   it('returns the correct hoverIndex', () => {
-    const actual = plannerReorderRecipeInDay(0, 2).hoverIndex;
-    const expected = 2;
-    expect(actual).toEqual(expected);
+    expect(plannerReorderRecipeInDay(0, 2).hoverIndex).toEqual(2);
   });
 });
 
 describe('plannerClearWork action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerClearWork().type;
-    const expected = PLANNER_CLEAR_WORK;
-    expect(actual).toEqual(expected);
+    expect(plannerClearWork().type).toEqual(PLANNER_CLEAR_WORK);
   });
 });
 
 describe('plannerSetCreating action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerSetCreating().type;
-    const expected = PLANNER_SET_CREATING;
-    expect(actual).toEqual(expected);
+    expect(plannerSetCreating().type).toEqual(PLANNER_SET_CREATING);
   });
 });
 
 describe('plannerSetEditingId action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerSetEditingId(7544).type;
-    const expected = PLANNER_SET_EDITING_ID;
-    expect(actual).toEqual(expected);
+    expect(plannerSetEditingId(7544).type).toEqual(PLANNER_SET_EDITING_ID);
   });
+
   it('returns the correct id', () => {
-    const actual = plannerSetEditingId(7544).id;
-    const expected = 7544;
-    expect(actual).toEqual(expected);
+    expect(plannerSetEditingId(7544).id).toEqual(7544);
   });
 });
 
 describe('plannerSetPlanName action creator', () => {
   it('returns the correct action type', () => {
-    const actual = plannerSetPlanName("A Great Plan").type;
-    const expected = PLANNER_SET_PLAN_NAME;
-    expect(actual).toEqual(expected);
+    expect(plannerSetPlanName("A Great Plan").type)
+      .toEqual(PLANNER_SET_PLAN_NAME);
   });
+
   it('returns the correct name', () => {
-    const actual = plannerSetPlanName("A Great Plan").name;
-    const expected = "A Great Plan";
-    expect(actual).toEqual(expected);
+    expect(plannerSetPlanName("A Great Plan").name).toEqual("A Great Plan");
   });
 });
 
@@ -150,15 +129,13 @@ describe('plannerSetPlanData action creator', () => {
     8: [],  9: [], 10: [], 11: [], 12: [], 13: [], 14: [],
    15: [], 16: [], 17: [], 18: [], 19: [], 20: [], 21: [],
    22: [], 23: [], 24: [], 25: [], 26: [], 27: [], 28: []
- };
+  };
+
   it('returns the correct action type', () => {
-    const actual = plannerSetPlanData(dataToSet).type;
-    const expected = PLANNER_SET_PLAN_DATA;
-    expect(actual).toEqual(expected);
+    expect(plannerSetPlanData(dataToSet).type).toEqual(PLANNER_SET_PLAN_DATA);
   });
+
   it('returns the correct data', () => {
-    const actual = plannerSetPlanData(dataToSet).data;
-    const expected = dataToSet;
-    expect(actual).toEqual(expected);
+    expect(plannerSetPlanData(dataToSet).data).toEqual(dataToSet);
   });
 });

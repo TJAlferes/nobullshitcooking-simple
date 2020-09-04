@@ -37,6 +37,9 @@ const initialState: IDataState = {
   ingredientTypes: [],
   measurements: [],
   methods: [],
+  products: [],
+  productCategories: [],
+  productTypes: [],
   officialRecipes: [],
   recipeTypes: [],
 
@@ -53,28 +56,16 @@ const initialState: IDataState = {
 
 describe('data reducer', () => {
   it('returns initial state', () => {
-    const actual = dataReducer(undefined, {
-      type: DATA_GET_MEASUREMENTS,
-      measurements: []
-    });
-    const expected = initialState;
-    expect(actual).toEqual(expected);
+    expect(
+      dataReducer(undefined, {type: DATA_GET_MEASUREMENTS,measurements: []})
+    ).toEqual(initialState);
   });
 
   it('handles actions of type DATA_GET_INITIAL_DATA', () => {
     const initialData = {
       officialContent: [],
-      contentTypes: [
-        {
-          id: 1,
-          parent_id: 0,
-          name: "Page",
-          path: "/page"
-        }
-      ],
-      cuisines: [
-        {"id": 1, "name": "Russian", "nation": "Russia"}
-      ],
+      contentTypes: [{id: 1, parent_id: 0, name: "Page", path: "/page"}],
+      cuisines: [{"id": 1, "name": "Russian", "nation": "Russia"}],
       officialEquipment: [
         {
           id: 1,
@@ -86,9 +77,7 @@ describe('data reducer', () => {
           image: "nobsc-chopstick"
         }
       ],
-      equipmentTypes: [
-        {"id": 1, "name": "Cleaning"}
-      ],
+      equipmentTypes: [{"id": 1, "name": "Cleaning"}],
       officialIngredients: [
         {
           id: 1,
@@ -102,15 +91,12 @@ describe('data reducer', () => {
           image: "nobsc-salmon"
         }
       ],
-      ingredientTypes: [
-        {"id": 1, "name": "Fish"}
-      ],
-      measurements: [
-        {"id": 1, "name": "teaspoon"}
-      ],
-      methods: [
-        {"id": 1, "name": "No-Cook"}
-      ],
+      ingredientTypes: [{"id": 1, "name": "Fish"}],
+      measurements: [{"id": 1, "name": "teaspoon"}],
+      methods: [{"id": 1, "name": "No-Cook"}],
+      products: [],
+      productCategories: [],
+      productTypes: [],
       officialRecipes: [
         {
           id: 1,
@@ -121,14 +107,14 @@ describe('data reducer', () => {
           recipe_image: "nobsc-tasty"
         }
       ],
-      recipeTypes: [
-        {"id": 1, "name": "Drink"}
-      ]
+      recipeTypes: [{"id": 1, "name": "Drink"}]
     };
+
     const actual = dataReducer(initialState, {
       type: DATA_GET_INITIAL_DATA,
       initialData
     });
+
     expect(actual.officialContent).toEqual(initialData.officialContent);
     expect(actual.contentTypes).toEqual(initialData.contentTypes);
     expect(actual.cuisines).toEqual(initialData.cuisines);
@@ -138,6 +124,9 @@ describe('data reducer', () => {
     expect(actual.ingredientTypes).toEqual(initialData.ingredientTypes);
     expect(actual.measurements).toEqual(initialData.measurements);
     expect(actual.methods).toEqual(initialData.methods);
+    expect(actual.products).toEqual(initialData.products);
+    expect(actual.productCategories).toEqual(initialData.productCategories);
+    expect(actual.productTypes).toEqual(initialData.productTypes);
     expect(actual.officialRecipes).toEqual(initialData.officialRecipes);
     expect(actual.recipeTypes).toEqual(initialData.recipeTypes);
   });
@@ -146,12 +135,11 @@ describe('data reducer', () => {
     const officialContent = [
       {id: 1, title: "Title", author: "Person", image: "image"}
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_CONTENT,
       officialContent
-    }).officialContent;
-    const expected = officialContent;
-    expect(actual).toEqual(expected);
+    }).officialContent).toEqual(officialContent);
   });
 
   it('handles actions of type DATA_GET_CONTENT_TYPES', () => {
@@ -159,12 +147,11 @@ describe('data reducer', () => {
       {id: 1, parent_id: 0, name: "Page", path: "/page"},
       {id: 2, parent_id: 0, name: "Post", path: "/post"}
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_CONTENT_TYPES,
       contentTypes
-    }).contentTypes;
-    const expected = contentTypes;
-    expect(actual).toEqual(expected);
+    }).contentTypes).toEqual(contentTypes);
   });
 
   it('handles actions of type DATA_GET_CUISINES', () => {
@@ -172,12 +159,11 @@ describe('data reducer', () => {
       {"id": 1, "name": "Russian", "nation": "Russia"},
       {"id": 2, "name": "German", "nation": "Germany"}
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_CUISINES,
       cuisines
-    }).cuisines;
-    const expected = cuisines;
-    expect(actual).toEqual(expected);
+    }).cuisines).toEqual(cuisines);
   });
 
   it('handles actions of type DATA_GET_EQUIPMENTS', () => {
@@ -192,12 +178,11 @@ describe('data reducer', () => {
         image: "nobsc-chopstick"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_EQUIPMENTS,
       officialEquipment
-    }).officialEquipment;
-    const expected = officialEquipment;
-    expect(actual).toEqual(expected);
+    }).officialEquipment).toEqual(officialEquipment);
   });
 
   it('handles actions of type DATA_GET_EQUIPMENT_TYPES', () => {
@@ -205,12 +190,11 @@ describe('data reducer', () => {
       {"id": 1, "name": "Cleaning"},
       {"id": 2, "name": "Preparing"}
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_EQUIPMENT_TYPES,
       equipmentTypes
-    }).equipmentTypes;
-    const expected = equipmentTypes;
-    expect(actual).toEqual(expected);
+    }).equipmentTypes).toEqual(equipmentTypes);
   });
 
   it('handles actions of type DATA_GET_INGREDIENTS', () => {
@@ -227,12 +211,11 @@ describe('data reducer', () => {
         image: "nobsc-salmon"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_INGREDIENTS,
       officialIngredients
-    }).officialIngredients;
-    const expected = officialIngredients;
-    expect(actual).toEqual(expected);
+    }).officialIngredients).toEqual(officialIngredients);
   });
 
   it('handles actions of type DATA_GET_INGREDIENT_TYPES', () => {
@@ -240,15 +223,11 @@ describe('data reducer', () => {
       {"id": 1, "name": "Fish"},
       {"id": 2, "name": "Shellfish"}
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_INGREDIENT_TYPES,
-      ingredientTypes: [
-        {"id": 1, "name": "Fish"},
-        {"id": 2, "name": "Shellfish"}
-      ]
-    }).ingredientTypes;
-    const expected = ingredientTypes;
-    expect(actual).toEqual(expected);
+      ingredientTypes
+    }).ingredientTypes).toEqual(ingredientTypes);
   });
 
   it('handles actions of type DATA_GET_MEASUREMENTS', () => {
@@ -256,12 +235,11 @@ describe('data reducer', () => {
       {"id": 1, "name": "teaspoon"},
       {"id": 2, "name": "Tablespoon"}
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MEASUREMENTS,
       measurements
-    }).measurements;
-    const expected = measurements;
-    expect(actual).toEqual(expected);
+    }).measurements).toEqual(measurements);
   });
 
   it('handles actions of type DATA_GET_METHODS', () => {
@@ -269,12 +247,11 @@ describe('data reducer', () => {
       {"id": 1, "name": "No-Cook"},
       {"id": 2, "name": "Chill"}
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_METHODS,
       methods
-    }).methods;
-    const expected = methods;
-    expect(actual).toEqual(expected);
+    }).methods).toEqual(methods);
   });
 
   it('handles actions of type DATA_GET_RECIPES', () => {
@@ -288,12 +265,11 @@ describe('data reducer', () => {
         recipe_image: "nobsc-tasty"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_RECIPES,
       officialRecipes
-    }).officialRecipes;
-    const expected = officialRecipes;
-    expect(actual).toEqual(expected);
+    }).officialRecipes).toEqual(officialRecipes);
   });
 
   it('handles actions of type DATA_GET_RECIPE_TYPES', () => {
@@ -301,12 +277,11 @@ describe('data reducer', () => {
       {"id": 1, "name": "Drink"},
       {"id": 2, "name": "Appetizer"}
     ];
-    const actual = dataReducer(initialState, {
+    
+    expect(dataReducer(initialState, {
       type: DATA_GET_RECIPE_TYPES,
       recipeTypes
-    }).recipeTypes;
-    const expected = recipeTypes;
-    expect(actual).toEqual(expected);
+    }).recipeTypes).toEqual(recipeTypes);
   });
 
 
@@ -354,18 +329,20 @@ describe('data reducer', () => {
       myPublicRecipes: [],
       mySavedRecipes: []
     };
+
     const actual = dataReducer(initialState, {
       type: DATA_GET_INITIAL_USER_DATA,
       initialUserData
     });
+
     expect(actual.myContent).toEqual(initialUserData.myContent);
     expect(actual.myFavoriteRecipes).toEqual(initialUserData.myFavoriteRecipes);
     expect(actual.myFriendships).toEqual(initialUserData.myFriendships);
     expect(actual.myPlans).toEqual(initialUserData.myPlans);
     expect(actual.myPrivateEquipment)
-    .toEqual(initialUserData.myPrivateEquipment);
+      .toEqual(initialUserData.myPrivateEquipment);
     expect(actual.myPrivateIngredients)
-    .toEqual(initialUserData.myPrivateIngredients);
+      .toEqual(initialUserData.myPrivateIngredients);
     expect(actual.myPrivateRecipes).toEqual(initialUserData.myPrivateRecipes);
     expect(actual.myPublicRecipes).toEqual(initialUserData.myPublicRecipes);
     expect(actual.mySavedRecipes).toEqual(initialUserData.mySavedRecipes);
@@ -375,12 +352,11 @@ describe('data reducer', () => {
     const myContent = [
       {id: 1, title: "Title", author: "Person", image: "image"}
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MY_CONTENT,
       myContent
-    }).myContent;
-    const expected = myContent;
-    expect(actual).toEqual(expected);
+    }).myContent).toEqual(myContent);
   });
 
   it('handles actions of type DATA_GET_MY_FAVORITE_RECIPES', () => {
@@ -394,12 +370,11 @@ describe('data reducer', () => {
         recipe_image: "nobsc-tasty"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MY_FAVORITE_RECIPES,
       myFavoriteRecipes
-    }).myFavoriteRecipes;
-    const expected = myFavoriteRecipes;
-    expect(actual).toEqual(expected);
+    }).myFavoriteRecipes).toEqual(myFavoriteRecipes);
   });
 
   it('handles actions of type DATA_GET_MY_FRIENDSHIPS', () => {
@@ -411,12 +386,11 @@ describe('data reducer', () => {
         status: "accepted"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MY_FRIENDSHIPS,
       myFriendships
-    }).myFriendships;
-    const expected = myFriendships;
-    expect(actual).toEqual(expected);
+    }).myFriendships).toEqual(myFriendships);
   });
 
   it('handles actions of type DATA_GET_MY_PLANS', () => {
@@ -432,12 +406,11 @@ describe('data reducer', () => {
         }
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MY_PLANS,
       myPlans
-    }).myPlans;
-    const expected = myPlans;
-    expect(actual).toEqual(expected);
+    }).myPlans).toEqual(myPlans);
   });
 
   it('handles actions of type DATA_GET_MY_PRIVATE_EQUIPMENTS', () => {
@@ -452,12 +425,11 @@ describe('data reducer', () => {
         image: "my-teapot"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MY_PRIVATE_EQUIPMENTS,
       myPrivateEquipment
-    }).myPrivateEquipment;
-    const expected = myPrivateEquipment;
-    expect(actual).toEqual(expected);
+    }).myPrivateEquipment).toEqual(myPrivateEquipment);
   });
 
   it('handles actions of type DATA_GET_MY_PRIVATE_INGREDIENTS', () => {
@@ -474,12 +446,11 @@ describe('data reducer', () => {
         image: "hot-sauce"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MY_PRIVATE_INGREDIENTS,
       myPrivateIngredients
-    }).myPrivateIngredients;
-    const expected = myPrivateIngredients;
-    expect(actual).toEqual(expected);
+    }).myPrivateIngredients).toEqual(myPrivateIngredients);
   });
 
   it('handles actions of type DATA_GET_MY_PRIVATE_RECIPES', () => {
@@ -493,12 +464,11 @@ describe('data reducer', () => {
         recipe_image: "nobsc-tasty"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MY_PRIVATE_RECIPES,
       myPrivateRecipes
-    }).myPrivateRecipes;
-    const expected = myPrivateRecipes;
-    expect(actual).toEqual(expected);
+    }).myPrivateRecipes).toEqual(myPrivateRecipes);
   });
 
   it('handles actions of type DATA_GET_MY_PUBLIC_RECIPES', () => {
@@ -512,12 +482,11 @@ describe('data reducer', () => {
         recipe_image: "nobsc-tasty"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MY_PUBLIC_RECIPES,
       myPublicRecipes
-    }).myPublicRecipes;
-    const expected = myPublicRecipes;
-    expect(actual).toEqual(expected);
+    }).myPublicRecipes).toEqual(myPublicRecipes);
   });
 
   it('handles actions of type DATA_GET_MY_SAVED_RECIPES', () => {
@@ -531,11 +500,10 @@ describe('data reducer', () => {
         recipe_image: "nobsc-tasty"
       }
     ];
-    const actual = dataReducer(initialState, {
+
+    expect(dataReducer(initialState, {
       type: DATA_GET_MY_SAVED_RECIPES,
       mySavedRecipes
-    }).mySavedRecipes;
-    const expected = mySavedRecipes;
-    expect(actual).toEqual(expected);
+    }).mySavedRecipes).toEqual(mySavedRecipes);
   });
 });

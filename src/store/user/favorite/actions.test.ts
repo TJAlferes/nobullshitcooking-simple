@@ -17,75 +17,66 @@ import {
 
 describe('userFavoriteRecipe action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userFavoriteRecipe(4).type;
-    const expected = USER_FAVORITE_RECIPE;
-    expect(actual).toEqual(expected);
+    expect(userFavoriteRecipe(4).type).toEqual(USER_FAVORITE_RECIPE);
   });
+
   it('returns the correct recipeId', () => {
-    const actual = userFavoriteRecipe(4).recipeId;
-    const expected = 4;
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userFavoriteRecipeSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userFavoriteRecipeSucceeded('OK.').type;
-    const expected = USER_FAVORITE_RECIPE_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userFavoriteRecipeSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userFavoriteRecipeFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userFavoriteRecipeFailed('Try again.').type;
-    const expected = USER_FAVORITE_RECIPE_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userFavoriteRecipeFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userFavoriteRecipe(4).recipeId).toEqual(4);
   });
 });
 
+describe('userFavoriteRecipeSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userFavoriteRecipeSucceeded('OK.').type)
+      .toEqual(USER_FAVORITE_RECIPE_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userFavoriteRecipeSucceeded('OK.').message).toEqual('OK.');
+  });
+});
+
+describe('userFavoriteRecipeFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userFavoriteRecipeFailed('Try again.').type)
+      .toEqual(USER_FAVORITE_RECIPE_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userFavoriteRecipeFailed('Try again.').message)
+      .toEqual('Try again.');
+  });
+});
 
 describe('userUnfavoriteRecipe action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userUnfavoriteRecipe(4).type;
-    const expected = USER_UNFAVORITE_RECIPE;
-    expect(actual).toEqual(expected);
+    expect(userUnfavoriteRecipe(4).type).toEqual(USER_UNFAVORITE_RECIPE);
   });
+
   it('returns the correct recipeId', () => {
-    const actual = userUnfavoriteRecipe(4).recipeId;
-    const expected = 4;
-    expect(actual).toEqual(expected);
+    expect(userUnfavoriteRecipe(4).recipeId).toEqual(4);
   });
 });
+
 describe('userUnfavoriteRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userUnfavoriteRecipeSucceeded('OK.').type;
-    const expected = USER_UNFAVORITE_RECIPE_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(userUnfavoriteRecipeSucceeded('OK.').type)
+      .toEqual(USER_UNFAVORITE_RECIPE_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = userUnfavoriteRecipeSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(userUnfavoriteRecipeSucceeded('OK.').message).toEqual('OK.');
   });
 });
+
 describe('userUnfavoriteRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userUnfavoriteRecipeFailed('Try again.').type;
-    const expected = USER_UNFAVORITE_RECIPE_FAILED;
-    expect(actual).toEqual(expected);
+    expect(userUnfavoriteRecipeFailed('Try again.').type)
+      .toEqual(USER_UNFAVORITE_RECIPE_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = userUnfavoriteRecipeFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userUnfavoriteRecipeFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });

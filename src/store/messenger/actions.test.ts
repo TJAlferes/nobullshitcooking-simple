@@ -39,260 +39,162 @@ import {
   KWhisper
 } from './types';
 
+const aaron = {id: '4', username: 'Aaron', avatar: 'Aaron'};
+const alex = {id: '5', username: 'Alex', avatar: 'Alex'};
+const message = {
+  kind: KMessage,
+  id: '555' + (new Date).getTime().toString(),
+  text: "Hey! How are you?",
+  room: "GrillNChill",
+  user: {id: '555', username: "Joe555", avatar: "Joe555"}
+};
+const whisper = {
+  kind: KWhisper,
+  id: '32873443823428384923',
+  text: 'How are you?',
+  to: '0923849323432',
+  user: {id: '90', username: 'Jill', avatar: 'Jill'}
+};
+
 describe('messengerConnect action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerConnect().type;
-    const expected = MESSENGER_CONNECT;
-    expect(actual).toEqual(expected);
+    expect(messengerConnect().type).toEqual(MESSENGER_CONNECT);
   });
 });
 
 describe('messengerConnected action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerConnected().type;
-    const expected = MESSENGER_CONNECTED;
-    expect(actual).toEqual(expected);
+    expect(messengerConnected().type).toEqual(MESSENGER_CONNECTED);
   });
 });
 
 describe('messengerDisconnect action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerDisconnect().type;
-    const expected = MESSENGER_DISCONNECT;
-    expect(actual).toEqual(expected);
+    expect(messengerDisconnect().type).toEqual(MESSENGER_DISCONNECT);
   });
 });
 
 describe('messengerDisconnected action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerDisconnected().type;
-    const expected = MESSENGER_DISCONNECTED;
-    expect(actual).toEqual(expected);
+    expect(messengerDisconnected().type).toEqual(MESSENGER_DISCONNECTED);
   });
 });
 
 describe('messengerGetOnline action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerGetOnline([
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ]).type;
-    const expected = MESSENGER_GET_ONLINE;
-    expect(actual).toEqual(expected);
+    expect(messengerGetOnline([alex]).type).toEqual(MESSENGER_GET_ONLINE);
   });
+
   it('returns the correct online', () => {
-    const actual = messengerGetOnline([
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ]).online;
-    const expected = [
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ];
-    expect(actual).toEqual(expected);  // deep?
+    expect(messengerGetOnline([alex]).online).toEqual([alex]);
   });
 });
 
 describe('messengerShowOnline action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerShowOnline(
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ).type;
-    const expected = MESSENGER_SHOW_ONLINE;
-    expect(actual).toEqual(expected);
+    expect(messengerShowOnline(alex).type).toEqual(MESSENGER_SHOW_ONLINE);
   });
+
   it('returns the correct user', () => {
-    const actual = messengerShowOnline(
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ).user;
-    const expected = {id: '5', username: 'Alex', avatar: 'Alex'};
-    expect(actual).toEqual(expected);
+    expect(messengerShowOnline(alex).user).toEqual(alex);
   });
 });
 
 describe('messengerShowOffline action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerShowOffline(
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ).type;
-    const expected = MESSENGER_SHOW_OFFLINE;
-    expect(actual).toEqual(expected);
+    expect(messengerShowOffline(alex).type).toEqual(MESSENGER_SHOW_OFFLINE);
   });
+
   it('returns the correct user', () => {
-    const actual = messengerShowOffline(
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ).user;
-    const expected = {id: '5', username: 'Alex', avatar: 'Alex'};
-    expect(actual).toEqual(expected);
+    expect(messengerShowOffline(alex).user).toEqual(alex);
   });
 });
 
 describe('messengerChangeChannel action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerChangeChannel('5067').type;
-    const expected = MESSENGER_CHANGE_CHANNEL;
-    expect(actual).toEqual(expected);
+    expect(messengerChangeChannel('5067').type)
+      .toEqual(MESSENGER_CHANGE_CHANNEL);
   });
+
   it('returns the correct channel', () => {
-    const actual = messengerChangeChannel('5067').channel;
-    const expected = '5067';
-    expect(actual).toEqual(expected);
+    expect(messengerChangeChannel('5067').channel).toEqual('5067');
   });
 });
 
 describe('messengerChangedChannel action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerChangedChannel(
-      [
-        {id: '4', username: 'Aaron', avatar: 'Aaron'},
-        {id: '5', username: 'Alex', avatar: 'Alex'}
-      ],
-      '5067'
-    ).type;
-    const expected = MESSENGER_CHANGED_CHANNEL;
-    expect(actual).toEqual(expected);
+    expect(messengerChangedChannel([aaron, alex], '5067').type)
+      .toEqual(MESSENGER_CHANGED_CHANNEL);
   });
 
   it('returns the correct users', () => {
-    const actual = messengerChangedChannel(
-      [
-        {id: '4', username: 'Aaron', avatar: 'Aaron'},
-        {id: '5', username: 'Alex', avatar: 'Alex'}
-      ],
-      '5067'
-    ).users;
-    const expected = [
-      {id: '4', username: 'Aaron', avatar: 'Aaron'},
-      {id: '5', username: 'Alex', avatar: 'Alex'},
-    ];
-    expect(actual).toEqual(expected);
+    expect(messengerChangedChannel([aaron, alex], '5067').users)
+      .toEqual([aaron, alex]);
   });
 
   it('returns the correct channel', () => {
-    const actual = messengerChangedChannel(
-      [
-        {id: '4', username: 'Aaron', avatar: 'Aaron'},
-        {id: '5', username: 'Alex', avatar: 'Alex'}
-      ],
-      '5067'
-    ).channel;
-    const expected = '5067';
-    expect(actual).toEqual(expected);
+    expect(messengerChangedChannel([aaron, alex], '5067').channel)
+      .toEqual('5067');
   });
 });
 
 describe('messengerRejoinedChannel action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerRejoinedChannel(
-      [
-        {id: '4', username: 'Aaron', avatar: 'Aaron'},
-        {id: '5', username: 'Alex', avatar: 'Alex'},
-      ],
-      '5067'
-    ).type;
-    const expected = MESSENGER_REJOINED_CHANNEL;
-    expect(actual).toEqual(expected);
+    expect(messengerRejoinedChannel([aaron, alex], '5067').type)
+      .toEqual(MESSENGER_REJOINED_CHANNEL);
   });
 
   it('returns the correct users', () => {
-    const actual = messengerRejoinedChannel(
-      [
-        {id: '4', username: 'Aaron', avatar: 'Aaron'},
-        {id: '5', username: 'Alex', avatar: 'Alex'},
-      ],
-      '5067'
-    ).users;
-    const expected = [
-      {id: '4', username: 'Aaron', avatar: 'Aaron'},
-      {id: '5', username: 'Alex', avatar: 'Alex'},
-    ];
-    expect(actual).toEqual(expected);
+    expect(messengerRejoinedChannel([aaron, alex], '5067').users)
+      .toEqual([aaron, alex]);
   });
   
   it('returns the correct channel', () => {
-    const actual = messengerRejoinedChannel(
-      [
-        {id: '4', username: 'Aaron', avatar: 'Aaron'},
-        {id: '5', username: 'Alex', avatar: 'Alex'},
-      ],
-      '5067'
-    ).channel;
-    const expected = '5067';
-    expect(actual).toEqual(expected);
+    expect(messengerRejoinedChannel([aaron, alex], '5067').channel)
+      .toEqual('5067');
   });
 });
 
 describe('messengerJoinedUser action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerJoinedUser(
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ).type;
-    const expected = MESSENGER_JOINED_USER;
-    expect(actual).toEqual(expected);
+    expect(messengerJoinedUser(alex).type).toEqual(MESSENGER_JOINED_USER);
   });
+
   it('returns the correct user', () => {
-    const actual = messengerJoinedUser(
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ).user;
-    const expected = {id: '5', username: 'Alex', avatar: 'Alex'};
-    expect(actual).toEqual(expected);
+    expect(messengerJoinedUser(alex).user).toEqual(alex);
   });
 });
 
 describe('messengerLeftUser action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerLeftUser(
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ).type;
-    const expected = MESSENGER_LEFT_USER;
-    expect(actual).toEqual(expected);
+    expect(messengerLeftUser(alex).type).toEqual(MESSENGER_LEFT_USER);
   });
+
   it('returns the correct user', () => {
-    const actual = messengerLeftUser(
-      {id: '5', username: 'Alex', avatar: 'Alex'}
-    ).user;
-    const expected = {id: '5', username: 'Alex', avatar: 'Alex'};
-    expect(actual).toEqual(expected);
+    expect(messengerLeftUser(alex).user).toEqual(alex);
   });
 });
 
 describe('messengerSendMessage action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerSendMessage('howdy').type;
-    const expected = MESSENGER_SEND_MESSAGE;
-    expect(actual).toEqual(expected);
+    expect(messengerSendMessage('howdy').type).toEqual(MESSENGER_SEND_MESSAGE);
   });
+
   it('returns the correct text', () => {
-    const actual = messengerSendMessage('howdy').text;
-    const expected = 'howdy';
-    expect(actual).toEqual(expected);
+    expect(messengerSendMessage('howdy').text).toEqual('howdy');
   });
 });
 
 describe('messengerReceivedMessage action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerReceivedMessage({
-      kind: KMessage,
-      id: '555' + (new Date).getTime().toString(),
-      text: "Hey! How are you?",
-      room: "GrillNChill",
-      user: {id: '555', username: "Joe555", avatar: "Joe555"}
-    }).type;
-    const expected = MESSENGER_RECEIVED_MESSAGE;
-    expect(actual).toEqual(expected);
+    expect(messengerReceivedMessage(message).type)
+      .toEqual(MESSENGER_RECEIVED_MESSAGE);
   });
+
   it('returns the correct message', () => {
-    const actual = messengerReceivedMessage({
-      kind: KMessage,
-      id: '555' + (new Date).getTime().toString(),
-      text: "Hey! How are you?",
-      room: "GrillNChill",
-      user: {id: '555', username: "Joe555", avatar: "Joe555"}
-    }).message;
-    const expected = {
-      kind: KMessage,
-      id: '555' + (new Date).getTime().toString(),
-      text: "Hey! How are you?",
-      room: "GrillNChill",
-      user: {id: '555', username: "Joe555", avatar: "Joe555"}
-    };
+    const actual = messengerReceivedMessage(message).message;
+    const expected = message;
+
     expect(actual.kind).toEqual(expected.kind);
     expect(actual.id).toEqual(expected.id);
     expect(actual.text).toEqual(expected.text);
@@ -303,49 +205,30 @@ describe('messengerReceivedMessage action creator', () => {
 
 describe('messengerSendWhisper action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerSendWhisper('How are you?', 'John').type;
-    const expected = MESSENGER_SEND_WHISPER;
-    expect(actual).toEqual(expected);
+    expect(messengerSendWhisper('How are you?', 'John').type)
+      .toEqual(MESSENGER_SEND_WHISPER);
   });
+
   it('returns the correct text', () => {
-    const actual = messengerSendWhisper('How are you?', 'John').text;
-    const expected = 'How are you?';
-    expect(actual).toEqual(expected);
+    expect(messengerSendWhisper('How are you?', 'John').text)
+      .toEqual('How are you?');
   });
+
   it('returns the correct to', () => {
-    const actual = messengerSendWhisper('How are you?', 'John').to;
-    const expected = 'John';
-    expect(actual).toEqual(expected);
+    expect(messengerSendWhisper('How are you?', 'John').to).toEqual('John');
   });
 });
 
 describe('messengerReceivedWhisper action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerReceivedWhisper({
-      kind: KWhisper,
-      id: '32873443823428384923',
-      text: 'How are you?',
-      to: '0923849323432',
-      user: {id: '90', username: 'Jill', avatar: 'Jill'}
-    }).type;
-    const expected = MESSENGER_RECEIVED_WHISPER;
-    expect(actual).toEqual(expected);
+    expect(messengerReceivedWhisper(whisper).type)
+      .toEqual(MESSENGER_RECEIVED_WHISPER);
   });
+
   it('returns the correct ', () => {
-    const actual = messengerReceivedWhisper({
-      kind: KWhisper,
-      id: '32873443823428384923',
-      text: 'How are you?',
-      to: '0923849323432',
-      user: {id: '90', username: 'Jill', avatar: 'Jill'}
-    }).whisper;
-    const expected = {
-      kind: KWhisper,
-      id: '32873443823428384923',
-      text: 'How are you?',
-      to: '0923849323432',
-      user: {id: '90', username: 'Jill', avatar: 'Jill'}
-    };
+    const actual = messengerReceivedWhisper(whisper).whisper;
+    const expected = whisper;
+
     expect(actual.kind).toEqual(expected.kind);
     expect(actual.id).toEqual(expected.id);
     expect(actual.text).toEqual(expected.text);
@@ -356,13 +239,12 @@ describe('messengerReceivedWhisper action creator', () => {
 
 describe('messengerFailedWhisper action creator', () => {
   it('returns the correct action type', () => {
-    const actual = messengerFailedWhisper("User not found.").type;
-    const expected = MESSENGER_FAILED_WHISPER;
-    expect(actual).toEqual(expected);
+    expect(messengerFailedWhisper("User not found.").type)
+      .toEqual(MESSENGER_FAILED_WHISPER);
   });
+
   it('returns the correct feedback', () => {
-    const actual = messengerFailedWhisper("User not found.").feedback;
-    const expected = "User not found.";
-    expect(actual).toEqual(expected);
+    expect(messengerFailedWhisper("User not found.").feedback)
+      .toEqual("User not found.");
   });
 });

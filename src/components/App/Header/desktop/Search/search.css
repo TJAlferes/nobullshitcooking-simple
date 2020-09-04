@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-.search-category {
+.search__category {
   display: block;
   height: 30px;
   max-width: 100%;
@@ -21,7 +21,7 @@
   width: auto;
 }
 
-.search-facade {
+.search__facade {
   background-image: linear-gradient(to bottom, #eee, #bbb);
   border: 1px solid;
   border-color: #fff #888 #888 #fff;
@@ -31,20 +31,20 @@
   position: relative;
 }
 
-.facade-text {
+.search__facade-text {
   color: #666;
   font-size: 1.3rem;
   line-height: 30px;
   margin: 0 21px 0 8px;
 }
 
-.facade-arrow {
+.search__facade-arrow {
   position: absolute;
   right: 7px;
   top: 12px;
 }
 
-.search-prefilters {
+.search__prefilters {
   border: 0;
   cursor: pointer;
   font-family: Arial, sans-serif;
@@ -57,16 +57,16 @@
   width: 100%;
 }
 
-.search-prefilter {
+.search__prefilter {
   font-family: Arial, sans-serif;
 }
 
-.search-insert {
+.search__insert {
+  flex: 1;
+  height: 30px;
   position: relative;
   order: 2;
-  flex: 1;
   width: 100%;
-  height: 30px;
 }
 
 /*

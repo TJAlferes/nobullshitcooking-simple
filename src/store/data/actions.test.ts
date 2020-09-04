@@ -31,6 +31,15 @@ import {
   dataGetMethods,
   dataGetMethodsSucceeded,
   dataGetMethodsFailed,
+  dataGetProducts,
+  dataGetProductsSucceeded,
+  dataGetProductsFailed,
+  dataGetProductCategories,
+  dataGetProductCategoriesSucceeded,
+  dataGetProductCategoriesFailed,
+  dataGetProductTypes,
+  dataGetProductTypesSucceeded,
+  dataGetProductTypesFailed,
   dataGetRecipes,
   dataGetRecipesSucceeded,
   dataGetRecipesFailed,
@@ -102,6 +111,15 @@ import {
   DATA_GET_METHODS,
   DATA_GET_METHODS_SUCCEEDED,
   DATA_GET_METHODS_FAILED,
+  DATA_GET_PRODUCTS,
+  DATA_GET_PRODUCTS_SUCCEEDED,
+  DATA_GET_PRODUCTS_FAILED,
+  DATA_GET_PRODUCT_CATEGORIES,
+  DATA_GET_PRODUCT_CATEGORIES_SUCCEEDED,
+  DATA_GET_PRODUCT_CATEGORIES_FAILED,
+  DATA_GET_PRODUCT_TYPES,
+  DATA_GET_PRODUCT_TYPES_SUCCEEDED,
+  DATA_GET_PRODUCT_TYPES_FAILED,
   DATA_GET_RECIPES,
   DATA_GET_RECIPES_SUCCEEDED,
   DATA_GET_RECIPES_FAILED,
@@ -143,26 +161,15 @@ import {
 
 describe('dataInit action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataInit().type;
-    const expected = DATA_INIT;
-    expect(actual).toEqual(expected);
+    expect(dataInit().type).toEqual(DATA_INIT);
   });
 });
 
 describe ('dataGetInitialData action creator', () => {
   const initialData = {
     officialContent: [],
-    contentTypes: [
-      {
-        id: 1,
-        parent_id: 0,
-        name: "Page",
-        path: "/page"
-      }
-    ],
-    cuisines: [
-      {"id": 1, "name": "Russian", "nation": "Russia"}
-    ],
+    contentTypes: [{id: 1, parent_id: 0, name: "Page", path: "/page"}],
+    cuisines: [{"id": 1, "name": "Russian", "nation": "Russia"}],
     officialEquipment: [
       {
         id: 1,
@@ -174,9 +181,7 @@ describe ('dataGetInitialData action creator', () => {
         image: "nobsc-chopstick"
       }
     ],
-    equipmentTypes: [
-      {"id": 1, "name": "Cleaning"}
-    ],
+    equipmentTypes: [{"id": 1, "name": "Cleaning"}],
     officialIngredients: [
       {
         id: 1,
@@ -190,15 +195,12 @@ describe ('dataGetInitialData action creator', () => {
         image: "nobsc-salmon"
       }
     ],
-    ingredientTypes: [
-      {"id": 1, "name": "Fish"}
-    ],
-    measurements: [
-      {"id": 1, "name": "teaspoon"}
-    ],
-    methods: [
-      {"id": 1, "name": "No-Cook"}
-    ],
+    ingredientTypes: [{"id": 1, "name": "Fish"}],
+    measurements: [{"id": 1, "name": "teaspoon"}],
+    methods: [{"id": 1, "name": "No-Cook"}],
+    products: [],
+    productCategories: [],
+    productTypes: [],
     officialRecipes: [
       {
         id: 1,
@@ -209,70 +211,92 @@ describe ('dataGetInitialData action creator', () => {
         recipe_image: "nobsc-tasty"
       }
     ],
-    recipeTypes: [
-      {"id": 1, "name": "Drink"}
-    ]
+    recipeTypes: [{"id": 1, "name": "Drink"}]
   };
+
   it('returns the correct action type', () => {
-    const actual = dataGetInitialData(initialData).type;
-    const expected = DATA_GET_INITIAL_DATA;
-    expect(actual).toEqual(expected);
+    expect(dataGetInitialData(initialData).type).toEqual(DATA_GET_INITIAL_DATA);
   });
+
   it('returns the correct initialData', () => {
-    const actual = dataGetInitialData(initialData).initialData;
-    const expected = initialData;
-    expect(actual).toEqual(expected);
+    expect(dataGetInitialData(initialData).initialData).toEqual(initialData);
   });
 });
 
 describe('dataGetInitialDataSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetInitialDataSucceeded().type;
-    const expected = DATA_GET_INITIAL_DATA_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetInitialDataSucceeded().type)
+      .toEqual(DATA_GET_INITIAL_DATA_SUCCEEDED);
   });
 });
 
 describe('dataGetInitialDataFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetInitialDataFailed().type;
-    const expected = DATA_GET_INITIAL_DATA_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetInitialDataFailed().type)
+      .toEqual(DATA_GET_INITIAL_DATA_FAILED);
   });
 });
 
-//describe('dataGetContent action creator', () => {});
+describe('dataGetContent action creator', () => {
+  const content = [
+    {
+      id: 1,
+      title: "How To",
+      author: "NOBSC",
+      image: "nobsc-grilling",
+      //snippet: "Blah..."
+    }
+  ];
+
+  it('returns the correct action type', () => {
+    expect(dataGetContent(content).type).toEqual(DATA_GET_CONTENT);
+  });
+
+  it('returns the correct equipment', () => {
+    expect(dataGetContent(content).content).toEqual(content);
+  });
+});
+
+describe('dataGetContentSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetContentSucceeded().type).toEqual(DATA_GET_CONTENT_SUCCEEDED);
+  });
+});
+
+describe('dataGetContentFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetContentFailed().type).toEqual(DATA_GET_CONTENT_FAILED);
+  });
+});
 
 describe ('dataGetContentTypes action creator', () => {
   const contentTypes = [
     {id: 1, parent_id: 0, name: "Page", path: "/page"},
     {id: 2, parent_id: 0, name: "Post", path: "/post"}
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetContentTypes(contentTypes).type;
-    const expected = DATA_GET_CONTENT_TYPES;
-    expect(actual).toEqual(expected);
+    expect(dataGetContentTypes(contentTypes).type)
+      .toEqual(DATA_GET_CONTENT_TYPES);
   });
+
   it('returns the correct contentTypes', () => {
-    const actual = dataGetContentTypes(contentTypes).contentTypes;
-    const expected = contentTypes;
-    expect(actual).toEqual(expected);
+    expect(dataGetContentTypes(contentTypes).contentTypes)
+      .toEqual(contentTypes);
   });
 });
 
 describe('dataGetContentTypesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetContentTypesSucceeded().type;
-    const expected = DATA_GET_CONTENT_TYPES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetContentTypesSucceeded().type)
+      .toEqual(DATA_GET_CONTENT_TYPES_SUCCEEDED);
   });
 });
 
 describe('dataGetContentTypesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetContentTypesFailed().type;
-    const expected = DATA_GET_CONTENT_TYPES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetContentTypesFailed().type)
+      .toEqual(DATA_GET_CONTENT_TYPES_FAILED);
   });
 });
 
@@ -281,31 +305,26 @@ describe('dataGetCuisines action creator', () => {
     {"id": 1, "name": "Russian", "nation": "Russia"},
     {"id": 2, "name": "German", "nation": "Germany"}
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetCuisines(cuisines).type;
-    const expected = DATA_GET_CUISINES;
-    expect(actual).toEqual(expected);
+    expect(dataGetCuisines(cuisines).type).toEqual(DATA_GET_CUISINES);
   });
+
   it('returns the correct cuisines', () => {
-    const actual = dataGetCuisines(cuisines).cuisines;
-    const expected = cuisines;
-    expect(actual).toEqual(expected);
+    expect(dataGetCuisines(cuisines).cuisines).toEqual(cuisines);
   });
 });
 
 describe('dataGetCuisinesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetCuisinesSucceeded().type;
-    const expected = DATA_GET_CUISINES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetCuisinesSucceeded().type)
+      .toEqual(DATA_GET_CUISINES_SUCCEEDED);
   });
 });
 
 describe('dataGetCuisinesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetCuisinesFailed().type;
-    const expected = DATA_GET_CUISINES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetCuisinesFailed().type).toEqual(DATA_GET_CUISINES_FAILED);
   });
 });
 
@@ -321,31 +340,26 @@ describe('dataGetEquipments action creator', () => {
       image: "nobsc-chopstick"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetEquipments(equipment).type;
-    const expected = DATA_GET_EQUIPMENTS;
-    expect(actual).toEqual(expected);
+    expect(dataGetEquipments(equipment).type).toEqual(DATA_GET_EQUIPMENTS);
   });
+
   it('returns the correct equipment', () => {
-    const actual = dataGetEquipments(equipment).equipment;
-    const expected = equipment;
-    expect(actual).toEqual(expected);
+    expect(dataGetEquipments(equipment).equipment).toEqual(equipment);
   });
 });
 
 describe('dataGetEquipmentsSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetEquipmentsSucceeded().type;
-    const expected = DATA_GET_EQUIPMENTS_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetEquipmentsSucceeded().type)
+      .toEqual(DATA_GET_EQUIPMENTS_SUCCEEDED);
   });
 });
 
 describe('dataGetEquipmentsFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetEquipmentsFailed().type;
-    const expected = DATA_GET_EQUIPMENTS_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetEquipmentsFailed().type).toEqual(DATA_GET_EQUIPMENTS_FAILED);
   });
 });
 
@@ -354,31 +368,29 @@ describe('dataGetEquipmentTypes action creator', () => {
     {"id": 1, "name": "Cleaning"},
     {"id": 2, "name": "Preparing"}
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetEquipmentTypes(equipmentTypes).type;
-    const expected = DATA_GET_EQUIPMENT_TYPES;
-    expect(actual).toEqual(expected);
+    expect(dataGetEquipmentTypes(equipmentTypes).type)
+      .toEqual(DATA_GET_EQUIPMENT_TYPES);
   });
+
   it('returns the correct equipmentTypes', () => {
-    const actual = dataGetEquipmentTypes(equipmentTypes).equipmentTypes;
-    const expected = equipmentTypes;
-    expect(actual).toEqual(expected);
+    expect(dataGetEquipmentTypes(equipmentTypes).equipmentTypes)
+      .toEqual(equipmentTypes);
   });
 });
 
 describe('dataGetEquipmentTypesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetEquipmentTypesSucceeded().type;
-    const expected = DATA_GET_EQUIPMENT_TYPES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetEquipmentTypesSucceeded().type)
+      .toEqual(DATA_GET_EQUIPMENT_TYPES_SUCCEEDED);
   });
 });
 
 describe('dataGetEquipmentTypesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetEquipmentTypesFailed().type;
-    const expected = DATA_GET_EQUIPMENT_TYPES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetEquipmentTypesFailed().type)
+      .toEqual(DATA_GET_EQUIPMENT_TYPES_FAILED);
   });
 });
 
@@ -396,31 +408,27 @@ describe('dataGetIngredients action creator', () => {
       image: "nobsc-salmon"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetIngredients(ingredients).type;
-    const expected = DATA_GET_INGREDIENTS;
-    expect(actual).toEqual(expected);
+    expect(dataGetIngredients(ingredients).type).toEqual(DATA_GET_INGREDIENTS);
   });
+
   it('returns the correct ingredients', () => {
-    const actual = dataGetIngredients(ingredients).ingredients;
-    const expected = ingredients;
-    expect(actual).toEqual(expected);
+    expect(dataGetIngredients(ingredients).ingredients).toEqual(ingredients);
   });
 });
 
 describe('dataGetIngredientsSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetIngredientsSucceeded().type;
-    const expected = DATA_GET_INGREDIENTS_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetIngredientsSucceeded().type)
+      .toEqual(DATA_GET_INGREDIENTS_SUCCEEDED);
   });
 });
 
 describe('dataGetIngredientsFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetIngredientsFailed().type;
-    const expected = DATA_GET_INGREDIENTS_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetIngredientsFailed().type)
+      .toEqual(DATA_GET_INGREDIENTS_FAILED);
   });
 });
 
@@ -429,31 +437,29 @@ describe('dataGetIngredientTypes action creator', () => {
     {"id": 1, "name": "Fish"},
     {"id": 2, "name": "Shellfish"}
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetIngredientTypes(ingredientTypes).type;
-    const expected = DATA_GET_INGREDIENT_TYPES;
-    expect(actual).toEqual(expected);
+    expect(dataGetIngredientTypes(ingredientTypes).type)
+      .toEqual(DATA_GET_INGREDIENT_TYPES);
   });
+
   it('returns the correct ingredientTypes', () => {
-    const actual = dataGetIngredientTypes(ingredientTypes).ingredientTypes;
-    const expected = ingredientTypes;
-    expect(actual).toEqual(expected);
+    expect(dataGetIngredientTypes(ingredientTypes).ingredientTypes)
+      .toEqual(ingredientTypes);
   });
 });
 
 describe('dataGetIngredientTypesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetIngredientTypesSucceeded().type;
-    const expected = DATA_GET_INGREDIENT_TYPES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetIngredientTypesSucceeded().type)
+      .toEqual(DATA_GET_INGREDIENT_TYPES_SUCCEEDED);
   });
 });
 
 describe('dataGetIngredientTypesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetIngredientTypesFailed().type;
-    const expected = DATA_GET_INGREDIENT_TYPES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetIngredientTypesFailed().type)
+      .toEqual(DATA_GET_INGREDIENT_TYPES_FAILED);
   });
 });
 
@@ -462,31 +468,29 @@ describe('dataGetMeasurements action creator', () => {
     {"id": 1, "name": "teaspoon"},
     {"id": 2, "name": "Tablespoon"}
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMeasurements(measurements).type;
-    const expected = DATA_GET_MEASUREMENTS;
-    expect(actual).toEqual(expected);
+    expect(dataGetMeasurements(measurements).type)
+      .toEqual(DATA_GET_MEASUREMENTS);
   });
+
   it('returns the correct measurements', () => {
-    const actual = dataGetMeasurements(measurements).measurements;
-    const expected = measurements;
-    expect(actual).toEqual(expected);
+    expect(dataGetMeasurements(measurements).measurements)
+      .toEqual(measurements);
   });
 });
 
 describe('dataGetMeasurementsSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMeasurementsSucceeded().type;
-    const expected = DATA_GET_MEASUREMENTS_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMeasurementsSucceeded().type)
+      .toEqual(DATA_GET_MEASUREMENTS_SUCCEEDED);
   });
 });
 
 describe('dataGetMeasurementsFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMeasurementsFailed().type;
-    const expected = DATA_GET_MEASUREMENTS_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMeasurementsFailed().type)
+      .toEqual(DATA_GET_MEASUREMENTS_FAILED);
   });
 });
 
@@ -495,31 +499,125 @@ describe('dataGetMethods action creator', () => {
     {"id": 1, "name": "No-Cook"},
     {"id": 2, "name": "Chill"}
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMethods(methods).type;
-    const expected = DATA_GET_METHODS;
-    expect(actual).toEqual(expected);
+    expect(dataGetMethods(methods).type).toEqual(DATA_GET_METHODS);
   });
+
   it('returns the correct methods', () => {
-    const actual = dataGetMethods(methods).methods;
-    const expected = methods;
-    expect(actual).toEqual(expected);
+    expect(dataGetMethods(methods).methods).toEqual(methods);
   });
 });
 
 describe('dataGetMethodsSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMethodsSucceeded().type;
-    const expected = DATA_GET_METHODS_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMethodsSucceeded().type).toEqual(DATA_GET_METHODS_SUCCEEDED);
   });
 });
 
 describe('dataGetMethodsFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMethodsFailed().type;
-    const expected = DATA_GET_METHODS_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMethodsFailed().type).toEqual(DATA_GET_METHODS_FAILED);
+  });
+});
+
+describe('dataGetProducts action creator', () => {
+  const products = [
+    {
+      id: 1,
+      product_category_id: 1,
+      product_type_id: 1,
+      brand: null,
+      variety: "Chilean",
+      name: "Salmon",
+      fullname: "Chilean Salmon",
+      description: "Tasty.",
+      specs: {},
+      image: "nobsc-salmon"
+    }
+  ];
+
+  it('returns the correct action type', () => {
+    expect(dataGetProducts(products).type).toEqual(DATA_GET_PRODUCTS);
+  });
+
+  it('returns the correct products', () => {
+    expect(dataGetProducts(products).products).toEqual(products);
+  });
+});
+
+describe('dataGetProductsSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetProductsSucceeded().type)
+      .toEqual(DATA_GET_PRODUCTS_SUCCEEDED);
+  });
+});
+
+describe('dataGetProductsFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetProductsFailed().type).toEqual(DATA_GET_PRODUCTS_FAILED);
+  });
+});
+
+describe('dataGetProductCategories action creator', () => {
+  const productCategories = [
+    {"id": 1, "name": "Men"},
+    {"id": 2, "name": "Women"}
+  ];
+
+  it('returns the correct action type', () => {
+    expect(dataGetProductCategories(productCategories).type)
+      .toEqual(DATA_GET_PRODUCT_CATEGORIES);
+  });
+
+  it('returns the correct productCategories', () => {
+    expect(dataGetProductCategories(productCategories).productCategories)
+      .toEqual(productCategories);
+  });
+});
+
+describe('dataGetProductCategoriesSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetProductCategoriesSucceeded().type)
+      .toEqual(DATA_GET_PRODUCT_CATEGORIES_SUCCEEDED);
+  });
+});
+
+describe('dataGetProductCategoriesFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetProductCategoriesFailed().type)
+      .toEqual(DATA_GET_PRODUCT_CATEGORIES_FAILED);
+  });
+});
+
+describe('dataGetProductTypes action creator', () => {
+  const productTypes = [
+    {"id": 1, "name": "Long Sleeve"},
+    {"id": 2, "name": "Short Sleeve"}
+  ];
+
+  it('returns the correct action type', () => {
+    expect(dataGetProductTypes(productTypes).type)
+      .toEqual(DATA_GET_PRODUCT_TYPES);
+  });
+
+  it('returns the correct productTypes', () => {
+    expect(dataGetProductTypes(productTypes).productTypes)
+      .toEqual(productTypes);
+  });
+});
+
+describe('dataGetProductTypesSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetProductTypesSucceeded().type)
+      .toEqual(DATA_GET_PRODUCT_TYPES_SUCCEEDED);
+  });
+});
+
+describe('dataGetProductTypesFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetProductTypesFailed().type)
+      .toEqual(DATA_GET_PRODUCT_TYPES_FAILED);
   });
 });
 
@@ -534,31 +632,25 @@ describe('dataGetRecipes action creator', () => {
       recipe_image: "nobsc-tasty"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetRecipes(recipes).type;
-    const expected = DATA_GET_RECIPES;
-    expect(actual).toEqual(expected);
+    expect(dataGetRecipes(recipes).type).toEqual(DATA_GET_RECIPES);
   });
+
   it('returns the correct recipes', () => {
-    const actual = dataGetRecipes(recipes).recipes;
-    const expected = recipes;
-    expect(actual).toEqual(expected);
+    expect(dataGetRecipes(recipes).recipes).toEqual(recipes);
   });
 });
 
 describe('dataGetRecipesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetRecipesSucceeded().type;
-    const expected = DATA_GET_RECIPES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetRecipesSucceeded().type).toEqual(DATA_GET_RECIPES_SUCCEEDED);
   });
 });
 
 describe('dataGetRecipesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetRecipesFailed().type;
-    const expected = DATA_GET_RECIPES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetRecipesFailed().type).toEqual(DATA_GET_RECIPES_FAILED);
   });
 });
 
@@ -567,31 +659,27 @@ describe('dataGetRecipeTypes action creator', () => {
     {"id": 1, "name": "Drink"},
     {"id": 2, "name": "Appetizer"}
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetRecipeTypes(recipeTypes).type;
-    const expected = DATA_GET_RECIPE_TYPES;
-    expect(actual).toEqual(expected);
+    expect(dataGetRecipeTypes(recipeTypes).type).toEqual(DATA_GET_RECIPE_TYPES);
   });
+
   it('returns the correct recipeTypes', () => {
-    const actual = dataGetRecipeTypes(recipeTypes).recipeTypes;
-    const expected = recipeTypes;
-    expect(actual).toEqual(expected);
+    expect(dataGetRecipeTypes(recipeTypes).recipeTypes).toEqual(recipeTypes);
   });
 });
 
 describe('dataGetRecipeTypesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetRecipeTypesSucceeded().type;
-    const expected = DATA_GET_RECIPE_TYPES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetRecipeTypesSucceeded().type)
+      .toEqual(DATA_GET_RECIPE_TYPES_SUCCEEDED);
   });
 });
 
 describe('dataGetRecipeTypesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetRecipeTypesFailed().type;
-    const expected = DATA_GET_RECIPE_TYPES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetRecipeTypesFailed().type)
+      .toEqual(DATA_GET_RECIPE_TYPES_FAILED);
   });
 });
 
@@ -599,7 +687,31 @@ describe('dataGetRecipeTypesFailed action creator', () => {
 
 //describe('dataGetInitialUserData action creator', () => {});
 
-//describe('dataGetMyContent action creator', () => {});
+describe('dataGetMyContent action creator', () => {
+  const myContent =
+    [{id: 1, title: "Title", author: "Person", image: "image"}];
+
+  it('returns the correct action type', () => {
+    expect(dataGetMyContent(myContent).type).toEqual(DATA_GET_MY_CONTENT);
+  });
+
+  it('returns the correct equipment', () => {
+    expect(dataGetMyContent(myContent).myContent).toEqual(myContent);
+  });
+});
+
+describe('dataGetMyContentSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetMyContentSucceeded().type)
+      .toEqual(DATA_GET_MY_CONTENT_SUCCEEDED);
+  });
+});
+
+describe('dataGetMyContentFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(dataGetMyContentFailed().type).toEqual(DATA_GET_MY_CONTENT_FAILED);
+  });
+});
 
 describe('dataGetMyFavoriteRecipes action creator', () => {
   const myFavoriteRecipes = [
@@ -612,32 +724,29 @@ describe('dataGetMyFavoriteRecipes action creator', () => {
       recipe_image: "nobsc-tasty"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMyFavoriteRecipes(myFavoriteRecipes).type;
-    const expected = DATA_GET_MY_FAVORITE_RECIPES;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyFavoriteRecipes(myFavoriteRecipes).type)
+      .toEqual(DATA_GET_MY_FAVORITE_RECIPES);
   });
+
   it('returns the correct myFavoriteRecipes', () => {
-    const actual = dataGetMyFavoriteRecipes(myFavoriteRecipes)
-    .myFavoriteRecipes;
-    const expected = myFavoriteRecipes;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyFavoriteRecipes(myFavoriteRecipes).myFavoriteRecipes)
+      .toEqual(myFavoriteRecipes);
   });
 });
 
 describe('dataGetMyFavoriteRecipesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyFavoriteRecipesSucceeded().type;
-    const expected = DATA_GET_MY_FAVORITE_RECIPES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyFavoriteRecipesSucceeded().type)
+      .toEqual(DATA_GET_MY_FAVORITE_RECIPES_SUCCEEDED);
   });
 });
 
 describe('dataGetMyFavoriteRecipesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyFavoriteRecipesFailed().type;
-    const expected = DATA_GET_MY_FAVORITE_RECIPES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyFavoriteRecipesFailed().type)
+      .toEqual(DATA_GET_MY_FAVORITE_RECIPES_FAILED);
   });
 });
 
@@ -650,31 +759,29 @@ describe('dataGetMyFriendships action creator', () => {
       status: "accepted"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMyFriendships(myFriendships).type;
-    const expected = DATA_GET_MY_FRIENDSHIPS;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyFriendships(myFriendships).type)
+      .toEqual(DATA_GET_MY_FRIENDSHIPS);
   });
+
   it('returns the correct ', () => {
-    const actual = dataGetMyFriendships(myFriendships).myFriendships;
-    const expected = myFriendships;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyFriendships(myFriendships).myFriendships)
+      .toEqual(myFriendships);
   });
 });
 
 describe('dataGetMyFriendshipsSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyFriendshipsSucceeded().type;
-    const expected = DATA_GET_MY_FRIENDSHIPS_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyFriendshipsSucceeded().type)
+      .toEqual(DATA_GET_MY_FRIENDSHIPS_SUCCEEDED);
   });
 });
 
 describe('dataGetMyFriendshipsFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyFriendshipsFailed().type;
-    const expected = DATA_GET_MY_FRIENDSHIPS_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyFriendshipsFailed().type)
+      .toEqual(DATA_GET_MY_FRIENDSHIPS_FAILED);
   });
 });
 
@@ -691,31 +798,25 @@ describe('dataGetMyPlans action creator', () => {
       }
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMyPlans(myPlans).type;
-    const expected = DATA_GET_MY_PLANS;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPlans(myPlans).type).toEqual(DATA_GET_MY_PLANS);
   });
+
   it('returns the correct ', () => {
-    const actual = dataGetMyPlans(myPlans).myPlans;
-    const expected = myPlans;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPlans(myPlans).myPlans).toEqual(myPlans);
   });
 });
 
 describe('dataGetMyPlansSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPlansSucceeded().type;
-    const expected = DATA_GET_MY_PLANS_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPlansSucceeded().type).toEqual(DATA_GET_MY_PLANS_SUCCEEDED);
   });
 });
 
 describe('dataGetMyPlansFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPlansFailed().type;
-    const expected = DATA_GET_MY_PLANS_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPlansFailed().type).toEqual(DATA_GET_MY_PLANS_FAILED);
   });
 });
 
@@ -731,32 +832,30 @@ describe('dataGetMyPrivateEquipments action creator', () => {
       image: "my-teapot"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMyPrivateEquipments(myPrivateEquipment).type;
-    const expected = DATA_GET_MY_PRIVATE_EQUIPMENTS;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateEquipments(myPrivateEquipment).type)
+      .toEqual(DATA_GET_MY_PRIVATE_EQUIPMENTS);
   });
+
   it('returns the correct myPrivateEquipment', () => {
-    const actual = dataGetMyPrivateEquipments(myPrivateEquipment)
-    .myPrivateEquipment;
-    const expected = myPrivateEquipment;
-    expect(actual).toEqual(expected);
+    expect(
+      dataGetMyPrivateEquipments(myPrivateEquipment).myPrivateEquipment
+    ).toEqual(myPrivateEquipment);
   });
 });
 
 describe('dataGetMyPrivateEquipmentsSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPrivateEquipmentsSucceeded().type;
-    const expected = DATA_GET_MY_PRIVATE_EQUIPMENTS_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateEquipmentsSucceeded().type)
+      .toEqual(DATA_GET_MY_PRIVATE_EQUIPMENTS_SUCCEEDED);
   });
 });
 
 describe('dataGetMyPrivateEquipmentsFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPrivateEquipmentsFailed().type;
-    const expected = DATA_GET_MY_PRIVATE_EQUIPMENTS_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateEquipmentsFailed().type)
+      .toEqual(DATA_GET_MY_PRIVATE_EQUIPMENTS_FAILED);
   });
 });
 
@@ -774,32 +873,30 @@ describe('dataGetMyPrivateIngredients action creator', () => {
       image: "hot-sauce"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMyPrivateIngredients(myPrivateIngredients).type;
-    const expected = DATA_GET_MY_PRIVATE_INGREDIENTS;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateIngredients(myPrivateIngredients).type)
+      .toEqual(DATA_GET_MY_PRIVATE_INGREDIENTS);
   });
+
   it('returns the correct myPrivateIngredients', () => {
-    const actual = dataGetMyPrivateIngredients(myPrivateIngredients)
-    .myPrivateIngredients;
-    const expected = myPrivateIngredients;
-    expect(actual).toEqual(expected);
+    expect(
+      dataGetMyPrivateIngredients(myPrivateIngredients).myPrivateIngredients
+    ).toEqual(myPrivateIngredients);
   });
 });
 
 describe('dataGetMyPrivateIngredientsSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPrivateIngredientsSucceeded().type;
-    const expected = DATA_GET_MY_PRIVATE_INGREDIENTS_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateIngredientsSucceeded().type)
+      .toEqual(DATA_GET_MY_PRIVATE_INGREDIENTS_SUCCEEDED);
   });
 });
 
 describe('dataGetMyPrivateIngredientsFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPrivateIngredientsFailed().type;
-    const expected = DATA_GET_MY_PRIVATE_INGREDIENTS_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateIngredientsFailed().type)
+      .toEqual(DATA_GET_MY_PRIVATE_INGREDIENTS_FAILED);
   });
 });
 
@@ -814,31 +911,29 @@ describe('dataGetMyPrivateRecipes action creator', () => {
       recipe_image: "nobsc-tasty"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMyPrivateRecipes(myPrivateRecipes).type;
-    const expected = DATA_GET_MY_PRIVATE_RECIPES;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateRecipes(myPrivateRecipes).type)
+      .toEqual(DATA_GET_MY_PRIVATE_RECIPES);
   });
+
   it('returns the correct myPrivateRecipes', () => {
-    const actual = dataGetMyPrivateRecipes(myPrivateRecipes).myPrivateRecipes;
-    const expected = myPrivateRecipes;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateRecipes(myPrivateRecipes).myPrivateRecipes)
+      .toEqual(myPrivateRecipes);
   });
 });
 
 describe('dataGetMyPrivateRecipesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPrivateRecipesSucceeded().type;
-    const expected = DATA_GET_MY_PRIVATE_RECIPES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateRecipesSucceeded().type)
+      .toEqual(DATA_GET_MY_PRIVATE_RECIPES_SUCCEEDED);
   });
 });
 
 describe('dataGetMyPrivateRecipesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPrivateRecipesFailed().type;
-    const expected = DATA_GET_MY_PRIVATE_RECIPES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPrivateRecipesFailed().type)
+      .toEqual(DATA_GET_MY_PRIVATE_RECIPES_FAILED);
   });
 });
 
@@ -853,31 +948,29 @@ describe('dataGetMyPublicRecipes action creator', () => {
       recipe_image: "nobsc-tasty"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMyPublicRecipes(myPublicRecipes).type;
-    const expected = DATA_GET_MY_PUBLIC_RECIPES;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPublicRecipes(myPublicRecipes).type)
+      .toEqual(DATA_GET_MY_PUBLIC_RECIPES);
   });
+
   it('returns the correct myPublicRecipes', () => {
-    const actual = dataGetMyPublicRecipes(myPublicRecipes).myPublicRecipes;
-    const expected = myPublicRecipes;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPublicRecipes(myPublicRecipes).myPublicRecipes)
+      .toEqual(myPublicRecipes);
   });
 });
 
 describe('dataGetMyPublicRecipesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPublicRecipesSucceeded().type;
-    const expected = DATA_GET_MY_PUBLIC_RECIPES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPublicRecipesSucceeded().type)
+      .toEqual(DATA_GET_MY_PUBLIC_RECIPES_SUCCEEDED);
   });
 });
 
 describe('dataGetMyPublicRecipesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMyPublicRecipesFailed().type;
-    const expected = DATA_GET_MY_PUBLIC_RECIPES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMyPublicRecipesFailed().type)
+      .toEqual(DATA_GET_MY_PUBLIC_RECIPES_FAILED);
   });
 });
 
@@ -892,30 +985,28 @@ describe('dataGetMySavedRecipes action creator', () => {
       recipe_image: "nobsc-tasty"
     }
   ];
+
   it('returns the correct action type', () => {
-    const actual = dataGetMySavedRecipes(mySavedRecipes).type;
-    const expected = DATA_GET_MY_SAVED_RECIPES;
-    expect(actual).toEqual(expected);
+    expect(dataGetMySavedRecipes(mySavedRecipes).type)
+      .toEqual(DATA_GET_MY_SAVED_RECIPES);
   });
+
   it('returns the correct mySavedRecipes', () => {
-    const actual = dataGetMySavedRecipes(mySavedRecipes).mySavedRecipes;
-    const expected = mySavedRecipes;
-    expect(actual).toEqual(expected);
+    expect(dataGetMySavedRecipes(mySavedRecipes).mySavedRecipes)
+      .toEqual(mySavedRecipes);
   });
 });
 
 describe('dataGetMySavedRecipesSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMySavedRecipesSucceeded().type;
-    const expected = DATA_GET_MY_SAVED_RECIPES_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMySavedRecipesSucceeded().type)
+      .toEqual(DATA_GET_MY_SAVED_RECIPES_SUCCEEDED);
   });
 });
 
 describe('dataGetMySavedRecipesFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = dataGetMySavedRecipesFailed().type;
-    const expected = DATA_GET_MY_SAVED_RECIPES_FAILED;
-    expect(actual).toEqual(expected);
+    expect(dataGetMySavedRecipesFailed().type)
+      .toEqual(DATA_GET_MY_SAVED_RECIPES_FAILED);
   });
 });

@@ -41,227 +41,196 @@ import {
 
 describe('userRequestFriendship action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userRequestFriendship('Juan').type;
-    const expected = USER_REQUEST_FRIENDSHIP;
-    expect(actual).toEqual(expected);
+    expect(userRequestFriendship('Juan').type).toEqual(USER_REQUEST_FRIENDSHIP);
   });
+
   it('returns the correct friendName', () => {
-    const actual = userRequestFriendship('Juan').friendName;
-    const expected = 'Juan';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userRequestFriendshipSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userRequestFriendshipSucceeded('OK.').type;
-    const expected = USER_REQUEST_FRIENDSHIP_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userRequestFriendshipSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userRequestFriendshipFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userRequestFriendshipFailed('Try again.').type;
-    const expected = USER_REQUEST_FRIENDSHIP_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userRequestFriendshipFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userRequestFriendship('Juan').friendName).toEqual('Juan');
   });
 });
 
+describe('userRequestFriendshipSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userRequestFriendshipSucceeded('OK.').type)
+      .toEqual(USER_REQUEST_FRIENDSHIP_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userRequestFriendshipSucceeded('OK.').message).toEqual('OK.');
+  });
+});
+
+describe('userRequestFriendshipFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userRequestFriendshipFailed('Try again.').type)
+      .toEqual(USER_REQUEST_FRIENDSHIP_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userRequestFriendshipFailed('Try again.').message)
+      .toEqual('Try again.');
+  });
+});
 
 describe('userAcceptFriendship action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userAcceptFriendship('Juan').type;
-    const expected = USER_ACCEPT_FRIENDSHIP;
-    expect(actual).toEqual(expected);
+    expect(userAcceptFriendship('Juan').type).toEqual(USER_ACCEPT_FRIENDSHIP);
   });
+
   it('returns the correct friendName', () => {
-    const actual = userAcceptFriendship('Juan').friendName;
-    const expected = 'Juan';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userAcceptFriendshipSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userAcceptFriendshipSucceeded('OK.').type;
-    const expected = USER_ACCEPT_FRIENDSHIP_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userAcceptFriendshipSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userAcceptFriendshipFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userAcceptFriendshipFailed('Try again.').type;
-    const expected = USER_ACCEPT_FRIENDSHIP_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userAcceptFriendshipFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userAcceptFriendship('Juan').friendName).toEqual('Juan');
   });
 });
 
+describe('userAcceptFriendshipSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userAcceptFriendshipSucceeded('OK.').type)
+      .toEqual(USER_ACCEPT_FRIENDSHIP_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userAcceptFriendshipSucceeded('OK.').message).toEqual('OK.');
+  });
+});
+
+describe('userAcceptFriendshipFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userAcceptFriendshipFailed('Try again.').type)
+      .toEqual(USER_ACCEPT_FRIENDSHIP_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userAcceptFriendshipFailed('Try again.').message)
+      .toEqual('Try again.');
+  });
+});
 
 describe('userRejectFriendship action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userRejectFriendship('Juan').type;
-    const expected = USER_REJECT_FRIENDSHIP;
-    expect(actual).toEqual(expected);
+    expect(userRejectFriendship('Juan').type).toEqual(USER_REJECT_FRIENDSHIP);
   });
+
   it('returns the correct friendName', () => {
-    const actual = userRejectFriendship('Juan').friendName;
-    const expected = 'Juan';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userRejectFriendshipSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userRejectFriendshipSucceeded('OK.').type;
-    const expected = USER_REJECT_FRIENDSHIP_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userRejectFriendshipSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userRejectFriendshipFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userRejectFriendshipFailed('Try again.').type;
-    const expected = USER_REJECT_FRIENDSHIP_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userRejectFriendshipFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userRejectFriendship('Juan').friendName).toEqual('Juan');
   });
 });
 
+describe('userRejectFriendshipSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userRejectFriendshipSucceeded('OK.').type)
+      .toEqual(USER_REJECT_FRIENDSHIP_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userRejectFriendshipSucceeded('OK.').message).toEqual('OK.');
+  });
+});
+
+describe('userRejectFriendshipFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userRejectFriendshipFailed('Try again.').type)
+      .toEqual(USER_REJECT_FRIENDSHIP_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userRejectFriendshipFailed('Try again.').message)
+      .toEqual('Try again.');
+  });
+});
 
 describe('userDeleteFriendship action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeleteFriendship('Juan').type;
-    const expected = USER_DELETE_FRIENDSHIP;
-    expect(actual).toEqual(expected);
+    expect(userDeleteFriendship('Juan').type).toEqual(USER_DELETE_FRIENDSHIP);
   });
+
   it('returns the correct friendName', () => {
-    const actual = userDeleteFriendship('Juan').friendName;
-    const expected = 'Juan';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userDeleteFriendshipSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userDeleteFriendshipSucceeded('OK.').type;
-    const expected = USER_DELETE_FRIENDSHIP_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userDeleteFriendshipSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userDeleteFriendshipFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userDeleteFriendshipFailed('Try again.').type;
-    const expected = USER_DELETE_FRIENDSHIP_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userDeleteFriendshipFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userDeleteFriendship('Juan').friendName).toEqual('Juan');
   });
 });
 
+describe('userDeleteFriendshipSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userDeleteFriendshipSucceeded('OK.').type)
+      .toEqual(USER_DELETE_FRIENDSHIP_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userDeleteFriendshipSucceeded('OK.').message).toEqual('OK.');
+  });
+});
+
+describe('userDeleteFriendshipFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userDeleteFriendshipFailed('Try again.').type)
+      .toEqual(USER_DELETE_FRIENDSHIP_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userDeleteFriendshipFailed('Try again.').message)
+      .toEqual('Try again.');
+  });
+});
 
 describe('userBlockUser action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userBlockUser('Juan').type;
-    const expected = USER_BLOCK_USER;
-    expect(actual).toEqual(expected);
+    expect(userBlockUser('Juan').type).toEqual(USER_BLOCK_USER);
   });
+
   it('returns the correct friendName', () => {
-    const actual = userBlockUser('Juan').friendName;
-    const expected = 'Juan';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userBlockUserSucceeded action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userBlockUserSucceeded('OK.').type;
-    const expected = USER_BLOCK_USER_SUCCEEDED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userBlockUserSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
-  });
-});
-describe('userBlockUserFailed action creator', () => {
-  it('returns the correct action type', () => {
-    const actual = userBlockUserFailed('Try again.').type;
-    const expected = USER_BLOCK_USER_FAILED;
-    expect(actual).toEqual(expected);
-  });
-  it('returns the correct message', () => {
-    const actual = userBlockUserFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userBlockUser('Juan').friendName).toEqual('Juan');
   });
 });
 
+describe('userBlockUserSucceeded action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userBlockUserSucceeded('OK.').type)
+      .toEqual(USER_BLOCK_USER_SUCCEEDED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userBlockUserSucceeded('OK.').message).toEqual('OK.');
+  });
+});
+
+describe('userBlockUserFailed action creator', () => {
+  it('returns the correct action type', () => {
+    expect(userBlockUserFailed('Try again.').type)
+      .toEqual(USER_BLOCK_USER_FAILED);
+  });
+
+  it('returns the correct message', () => {
+    expect(userBlockUserFailed('Try again.').message).toEqual('Try again.');
+  });
+});
 
 describe('userUnblockUser action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userUnblockUser('Juan').type;
-    const expected = USER_UNBLOCK_USER;
-    expect(actual).toEqual(expected);
+    expect(userUnblockUser('Juan').type).toEqual(USER_UNBLOCK_USER);
   });
+
   it('returns the correct friendName', () => {
-    const actual = userUnblockUser('Juan').friendName;
-    const expected = 'Juan';
-    expect(actual).toEqual(expected);
+    expect(userUnblockUser('Juan').friendName).toEqual('Juan');
   });
 });
+
 describe('userUnblockUserSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userUnblockUserSucceeded('OK.').type;
-    const expected = USER_UNBLOCK_USER_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(userUnblockUserSucceeded('OK.').type)
+      .toEqual(USER_UNBLOCK_USER_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = userUnblockUserSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(userUnblockUserSucceeded('OK.').message).toEqual('OK.');
   });
 });
+
 describe('userUnblockUserFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userUnblockUserFailed('Try again.').type;
-    const expected = USER_UNBLOCK_USER_FAILED;
-    expect(actual).toEqual(expected);
+    expect(userUnblockUserFailed('Try again.').type)
+      .toEqual(USER_UNBLOCK_USER_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = userUnblockUserFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userUnblockUserFailed('Try again.').message).toEqual('Try again.');
   });
 });

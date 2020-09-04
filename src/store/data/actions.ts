@@ -31,6 +31,15 @@ import {
   DATA_GET_METHODS,
   DATA_GET_METHODS_SUCCEEDED,
   DATA_GET_METHODS_FAILED,
+  DATA_GET_PRODUCTS,
+  DATA_GET_PRODUCTS_SUCCEEDED,
+  DATA_GET_PRODUCTS_FAILED,
+  DATA_GET_PRODUCT_CATEGORIES,
+  DATA_GET_PRODUCT_CATEGORIES_SUCCEEDED,
+  DATA_GET_PRODUCT_CATEGORIES_FAILED,
+  DATA_GET_PRODUCT_TYPES,
+  DATA_GET_PRODUCT_TYPES_SUCCEEDED,
+  DATA_GET_PRODUCT_TYPES_FAILED,
   DATA_GET_RECIPES,
   DATA_GET_RECIPES_SUCCEEDED,
   DATA_GET_RECIPES_FAILED,
@@ -82,6 +91,9 @@ import {
   IIngredient,
   IIngredientType,
   IPlan,
+  IProductCategory,
+  IProductType,
+  IWorkProduct,
   IWorkRecipe,
   IRecipeType
 } from './types';
@@ -213,6 +225,42 @@ export const dataGetMethodsSucceeded = () => ({
 });
 
 export const dataGetMethodsFailed = () => ({type: DATA_GET_METHODS_FAILED});
+
+export const dataGetProducts = (products: IWorkProduct[]) => ({
+  type: DATA_GET_PRODUCTS,
+  products
+});
+
+export const dataGetProductsSucceeded = () => ({
+  type: DATA_GET_PRODUCTS_SUCCEEDED
+});
+
+export const dataGetProductsFailed = () => ({type: DATA_GET_PRODUCTS_FAILED});
+
+export const dataGetProductCategories =
+  (productCategories: IProductCategory[]) =>
+    ({type: DATA_GET_PRODUCT_CATEGORIES, productCategories});
+
+export const dataGetProductCategoriesSucceeded = () => ({
+  type: DATA_GET_PRODUCT_CATEGORIES_SUCCEEDED
+});
+
+export const dataGetProductCategoriesFailed = () => ({
+  type: DATA_GET_PRODUCT_CATEGORIES_FAILED
+});
+
+export const dataGetProductTypes = (productTypes: IProductType[]) => ({
+  type: DATA_GET_PRODUCT_TYPES,
+  productTypes
+});
+
+export const dataGetProductTypesSucceeded = () => ({
+  type: DATA_GET_PRODUCT_TYPES_SUCCEEDED
+});
+
+export const dataGetProductTypesFailed = () => ({
+  type: DATA_GET_PRODUCT_TYPES_FAILED
+});
 
 export const dataGetRecipes = (recipes: IWorkRecipe[]) => ({
   type: DATA_GET_RECIPES,

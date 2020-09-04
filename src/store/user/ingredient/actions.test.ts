@@ -29,7 +29,6 @@ const creatingIngredientInfo = {
   fullImage: null,
   tinyImage: null
 };
-
 const editingIngredientInfo = {
   ingredientTypeId: 3,
   name: "HOT Sauce",
@@ -43,117 +42,106 @@ const editingIngredientInfo = {
 
 describe('userCreateNewPrivateIngredient action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPrivateIngredient(creatingIngredientInfo).type;
-    const expected = USER_CREATE_NEW_PRIVATE_INGREDIENT;
-    expect(actual).toEqual(expected);
+    expect(userCreateNewPrivateIngredient(creatingIngredientInfo).type)
+      .toEqual(USER_CREATE_NEW_PRIVATE_INGREDIENT);
   });
+
   it('returns the correct ingredientInfo', () => {
-    const actual = userCreateNewPrivateIngredient(creatingIngredientInfo).ingredientInfo;
-    const expected = creatingIngredientInfo;
-    expect(actual).toEqual(expected);
+    expect(
+      userCreateNewPrivateIngredient(creatingIngredientInfo).ingredientInfo
+    ).toEqual(creatingIngredientInfo);
   });
 });
 
 describe('userCreateNewPrivateIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPrivateIngredientSucceeded('OK.').type;
-    const expected = USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(userCreateNewPrivateIngredientSucceeded('OK.').type)
+      .toEqual(USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = userCreateNewPrivateIngredientSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(userCreateNewPrivateIngredientSucceeded('OK.').message)
+      .toEqual('OK.');
   });
 });
 
 describe('userCreateNewPrivateIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userCreateNewPrivateIngredientFailed('Try again.').type;
-    const expected = USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(userCreateNewPrivateIngredientFailed('Try again.').type)
+      .toEqual(USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = userCreateNewPrivateIngredientFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userCreateNewPrivateIngredientFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });
 
 describe('userEditPrivateIngredient action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPrivateIngredient(editingIngredientInfo).type;
-    const expected = USER_EDIT_PRIVATE_INGREDIENT;
-    expect(actual).toEqual(expected);
+    expect(userEditPrivateIngredient(editingIngredientInfo).type)
+      .toEqual(USER_EDIT_PRIVATE_INGREDIENT);
   });
+
   it('returns the correct ingredientInfo', () => {
-    const actual = userEditPrivateIngredient(editingIngredientInfo).ingredientInfo;
-    const expected = editingIngredientInfo;
-    expect(actual).toEqual(expected);
+    expect(userEditPrivateIngredient(editingIngredientInfo).ingredientInfo)
+      .toEqual(editingIngredientInfo);
   });
 });
 
 describe('userEditPrivateIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPrivateIngredientSucceeded('OK.').type;
-    const expected = USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(userEditPrivateIngredientSucceeded('OK.').type)
+      .toEqual(USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = userEditPrivateIngredientSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(userEditPrivateIngredientSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('userEditPrivateIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userEditPrivateIngredientFailed('Try again.').type;
-    const expected = USER_EDIT_PRIVATE_INGREDIENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(userEditPrivateIngredientFailed('Try again.').type)
+      .toEqual(USER_EDIT_PRIVATE_INGREDIENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = userEditPrivateIngredientFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userEditPrivateIngredientFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });
 
 describe('userDeletePrivateIngredient action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeletePrivateIngredient(7).type;
-    const expected = USER_DELETE_PRIVATE_INGREDIENT;
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateIngredient(7).type)
+      .toEqual(USER_DELETE_PRIVATE_INGREDIENT);
   });
+
   it('returns the correct id', () => {
-    const actual = userDeletePrivateIngredient(7).id;
-    const expected = 7;
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateIngredient(7).id).toEqual(7);
   });
 });
 
 describe('userDeletePrivateIngredientSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeletePrivateIngredientSucceeded('OK.').type;
-    const expected = USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateIngredientSucceeded('OK.').type)
+      .toEqual(USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = userDeletePrivateIngredientSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateIngredientSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('userDeletePrivateIngredientFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userDeletePrivateIngredientFailed('Try again.').type;
-    const expected = USER_DELETE_PRIVATE_INGREDIENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateIngredientFailed('Try again.').type)
+      .toEqual(USER_DELETE_PRIVATE_INGREDIENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = userDeletePrivateIngredientFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userDeletePrivateIngredientFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });

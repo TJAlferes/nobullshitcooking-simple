@@ -1,4 +1,3 @@
-import { userReducer } from './reducer';
 import {
   USER_SUBMIT_AVATAR_SUCCEEDED,
   USER_SUBMIT_AVATAR_FAILED
@@ -76,18 +75,19 @@ import {
   USER_UNSAVE_RECIPE_SUCCEEDED,
   USER_UNSAVE_RECIPE_FAILED
 } from './save/types';
+import { userReducer } from './reducer';
 import { USER_MESSAGE_CLEAR } from './types';
+
+const message = 'Message.';
 
 const initialState = {message: ''};
 
 describe('user reducer', () => {
   it('returns initial state', () => {
-    const actual = userReducer(undefined, {
+    expect(userReducer(undefined, {
       type: USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -97,21 +97,17 @@ describe('user reducer', () => {
   */
 
   it('handles actions of type USER_SUBMIT_AVATAR_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_SUBMIT_AVATAR_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_SUBMIT_AVATAR_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_SUBMIT_AVATAR_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -121,57 +117,45 @@ describe('user reducer', () => {
   */
 
   it('handles actions of type USER_CREATE_NEW_CONTENT_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_CONTENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_CREATE_NEW_CONTENT_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_CONTENT_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_CONTENT_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_CONTENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_CONTENT_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_CONTENT_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_CONTENT_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_CONTENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_CONTENT_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_CONTENT_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -181,57 +165,45 @@ describe('user reducer', () => {
   */
 
   it('handles actions of type USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PRIVATE_EQUIPMENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PRIVATE_EQUIPMENT_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PRIVATE_EQUIPMENT_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_PRIVATE_EQUIPMENT_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_PRIVATE_EQUIPMENT_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -241,39 +213,31 @@ describe('user reducer', () => {
   */
   
   it('handles actions of type USER_FAVORITE_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_FAVORITE_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_FAVORITE_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_FAVORITE_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_UNFAVORITE_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_UNFAVORITE_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_UNFAVORITE_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_UNFAVORITE_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -283,111 +247,87 @@ describe('user reducer', () => {
   */
 
   it('handles actions of type USER_REQUEST_FRIENDSHIP_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_REQUEST_FRIENDSHIP_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_REQUEST_FRIENDSHIP_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_REQUEST_FRIENDSHIP_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_ACCEPT_FRIENDSHIP_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_ACCEPT_FRIENDSHIP_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_ACCEPT_FRIENDSHIP_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_ACCEPT_FRIENDSHIP_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_REJECT_FRIENDSHIP_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_REJECT_FRIENDSHIP_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_REJECT_FRIENDSHIP_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_REJECT_FRIENDSHIP_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_FRIENDSHIP_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_FRIENDSHIP_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_FRIENDSHIP_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_FRIENDSHIP_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_BLOCK_USER_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_BLOCK_USER_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_BLOCK_USER_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_BLOCK_USER_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_UNBLOCK_USER_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_UNBLOCK_USER_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_UNBLOCK_USER_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_UNBLOCK_USER_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -397,57 +337,45 @@ describe('user reducer', () => {
   */
 
   it('handles actions of type USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PRIVATE_INGREDIENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PRIVATE_INGREDIENT_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PRIVATE_INGREDIENT_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_PRIVATE_INGREDIENT_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_PRIVATE_INGREDIENT_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -457,57 +385,45 @@ describe('user reducer', () => {
   */
 
   it('handles actions of type USER_CREATE_NEW_PLAN_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PLAN_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_CREATE_NEW_PLAN_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PLAN_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PLAN_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PLAN_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PLAN_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PLAN_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_PLAN_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_PLAN_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_PLAN_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_PLAN_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -517,113 +433,89 @@ describe('user reducer', () => {
   */
 
   it('handles actions of type USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_CREATE_NEW_PRIVATE_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PRIVATE_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PRIVATE_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PRIVATE_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PRIVATE_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PRIVATE_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_PRIVATE_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_PRIVATE_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DELETE_PRIVATE_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DELETE_PRIVATE_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   
 
   it('handles actions of type USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PUBLIC_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_CREATE_NEW_PUBLIC_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_CREATE_NEW_PUBLIC_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PUBLIC_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PUBLIC_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_EDIT_PUBLIC_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_EDIT_PUBLIC_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_DISOWN_PUBLIC_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_DISOWN_PUBLIC_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -633,39 +525,31 @@ describe('user reducer', () => {
   */
 
   it('handles actions of type USER_SAVE_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_SAVE_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_SAVE_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_SAVE_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_UNSAVE_RECIPE_SUCCEEDED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_UNSAVE_RECIPE_SUCCEEDED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   it('handles actions of type USER_UNSAVE_RECIPE_FAILED', () => {
-    const actual = userReducer(initialState, {
+    expect(userReducer(initialState, {
       type: USER_UNSAVE_RECIPE_FAILED,
-      message: 'Message.'
-    });
-    const expected = {message: 'Message.'};
-    expect(actual).toEqual(expected);
+      message
+    })).toEqual({message});
   });
 
   /*
@@ -675,9 +559,9 @@ describe('user reducer', () => {
   */
 
   it('handles action of type USER_MESSAGE_CLEAR', () => {
-    const beforeState = {message: 'Message.'}
-    const actual = userReducer(beforeState, {type: USER_MESSAGE_CLEAR});
-    const expected = initialState;
-    expect(actual).toEqual(expected);
+    const beforeState = {message};
+
+    expect(userReducer(beforeState, {type: USER_MESSAGE_CLEAR}))
+      .toEqual(initialState);
   });
 });

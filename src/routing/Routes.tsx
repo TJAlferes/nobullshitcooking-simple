@@ -13,35 +13,36 @@ import {
   makeRoutesFromContentTypes
 } from './helpers';
 
+//const Cart = lazy(() => import('../pages/Cart/Cart'));
+//const Checkout = lazy(() => import('../pages/Checkout/Checkout'));
 const Content = lazy(() => import('../pages/Content/Content'));
-import Cuisine from '../pages/Cuisine/Cuisine';
-import Cuisines from '../pages/Cuisines/Cuisines';
+import Cuisine from '../pages/Cuisine/Cuisine';  // lazy?
+import Cuisines from '../pages/Cuisines/Cuisines';  // lazy?
 const Equipment = lazy(() => import('../pages/Equipment/Equipment'));
 const Equipments = lazy(() => import('../pages/Equipments/Equipments'));
+const Friends = lazy(() => import('../pages/Friends/Friends'));
 import { Home } from '../pages/Home/Home';
 const Ingredient = lazy(() => import('../pages/Ingredient/Ingredient'));
 const Ingredients = lazy(() => import('../pages/Ingredients/Ingredients'));
 const Login = lazy(() => import('../pages/Login/Login'));
+const Messenger = lazy(() => import('../pages/Messenger/MessengerPage'));
 const Navigation = lazy(() => import('../pages/Navigation/Navigation'));
 const NewContent = lazy(() => import('../pages/NewContent/NewContent'));
 const NewEquipment = lazy(() => import('../pages/NewEquipment/NewEquipment'));
 const NewIngredient = lazy(() => import('../pages/NewIngredient/NewIngredient'));
+const NewPlan = lazy(() => import('../pages/NewPlan/NewPlanPage'));
 const NewRecipe = lazy(() => import('../pages/NewRecipe/NewRecipe'));
 import { NotFound } from '../pages/NotFound/NotFound';
+const Plan = lazy(() => import('../pages/Plan/PlanPage'));
+const Product = lazy(() => import('../pages/Product/Product'));
+const Products = lazy(() => import('../pages/Products/Products'));
 const Profile = lazy(() => import('../pages/Profile/Profile'));
 const Recipe = lazy(() => import('../pages/Recipe/Recipe'));
 const Recipes = lazy(() => import('../pages/Recipes/Recipes'));
 const Register = lazy(() => import('../pages/Register/Register'));
-
-const StaffDashboard = lazy(() => import('../pages/staff/Dashboard/Dashboard'));
-
-//import Supply from '../pages/supply/Supply';
-
-const Dashboard = lazy(() => import('../pages/user/Dashboard/Dashboard'));
-const Friends = lazy(() => import('../pages/user/Friends/Friends'));
-const MessengerPage = lazy(() => import('../pages/user/Messenger/MessengerPage'));
-const NewPlanPage = lazy(() => import('../pages/user/NewPlan/NewPlanPage'));
-const PlanPage = lazy(() => import('../pages/user/Plan/PlanPage'));
+const StaffDashboard = lazy(() => import('../pages/StaffDashboard/Dashboard'));
+//import Supply from '../pages/supply/Supply';  // just make a CMS page?
+const UserDashboard = lazy(() => import('../pages/UserDashboard/Dashboard'));
 
 export function RoutesList({ contentTypes }: Props) {
   //useEffect?
@@ -79,18 +80,18 @@ export function RoutesList({ contentTypes }: Props) {
         {unauthUserRoute("/register", Register, {confirmingUser: false})}
         {unauthUserRoute("/verify", Register, {confirmingUser: true})}
         {unauthUserRoute("/login", Login)}
-        {authUserRoute("/dashboard", Dashboard)}
+        {authUserRoute("/dashboard", UserDashboard)}
         {authUserRoute("/friends", Friends)}
-        {authUserRoute("/messenger", MessengerPage)}
+        {authUserRoute("/messenger", Messenger)}
         {authUserRoute("/user-equipment/submit", NewEquipment)}
         {authUserRoute("/user-equipment/edit/:id", NewEquipment, {editing: true})}
         {authUserRoute("/user-equipment/:id", Equipment)}
         {authUserRoute("/user-ingredient/submit", NewIngredient)}
         {authUserRoute("/user-ingredient/edit/:id", NewIngredient, {editing: true})}
         {authUserRoute("/user-ingredient/:id", Ingredient)}
-        {authUserRoute("/user-plan/submit", NewPlanPage)}
-        {authUserRoute("/user-plan/edit/:id", NewPlanPage, {editing: true})}
-        {authUserRoute("/user-plan/:id", PlanPage)}
+        {authUserRoute("/user-plan/submit", NewPlan)}
+        {authUserRoute("/user-plan/edit/:id", NewPlan, {editing: true})}
+        {authUserRoute("/user-plan/:id", Plan)}
         {authUserRoute("/user-post/submit", NewContent)}
         {authUserRoute("/user-post/edit/:id", NewContent, {editing: true})}
         {authUserRoute("/user-recipe/private/submit", NewRecipe, {editing: false, ownership: "private"})}
@@ -105,11 +106,15 @@ export function RoutesList({ contentTypes }: Props) {
           
         */}
 
+        {/*appRoute("/cart", Cart)*/}
+        {/*appRoute("/checkout", Checkout)*/}
         {appRoute("/profile/:username", Profile)}
         {appRoute("/equipment/:id", Equipment)}
         {appRoute("/equipment", Equipments)}
         {appRoute("/ingredient/:id", Ingredient)}
         {appRoute("/ingredients", Ingredients)}
+        {appRoute("/product/:id", Product)}
+        {appRoute("/products", Products)}
         {appRoute("/recipe/:id", Recipe)}
         {appRoute("/recipes", Recipes)}
         {appRoute("/page/guide/food/cuisine/:id", Cuisine)}

@@ -48,121 +48,102 @@ const editingContentInfo = {
 
 describe('staffCreateNewContent action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewContent(creatingContentInfo).type;
-    const expected = STAFF_CREATE_NEW_CONTENT;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewContent(creatingContentInfo).type)
+      .toEqual(STAFF_CREATE_NEW_CONTENT);
   });
+
   it('returns the correct contentInfo', () => {
-    const actual = staffCreateNewContent(creatingContentInfo).contentInfo;
-    const expected = creatingContentInfo;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewContent(creatingContentInfo).contentInfo)
+      .toEqual(creatingContentInfo);
   });
 });
 
 describe('staffCreateNewContentSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewContentSucceeded('OK.').type;
-    const expected = STAFF_CREATE_NEW_CONTENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewContentSucceeded('OK.').type)
+      .toEqual(STAFF_CREATE_NEW_CONTENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffCreateNewContentSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewContentSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffCreateNewContentFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewContentFailed('Try again.').type;
-    const expected = STAFF_CREATE_NEW_CONTENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewContentFailed('Try again.').type)
+      .toEqual(STAFF_CREATE_NEW_CONTENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffCreateNewContentFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewContentFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });
 
-
-
 describe('staffEditContent action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditContent(editingContentInfo).type;
-    const expected = STAFF_EDIT_CONTENT;
-    expect(actual).toEqual(expected);
+    expect(staffEditContent(editingContentInfo).type)
+      .toEqual(STAFF_EDIT_CONTENT);
   });
+
   it('returns the correct contentInfo', () => {
-    const actual = staffEditContent(editingContentInfo).contentInfo;
-    const expected = editingContentInfo;
-    expect(actual).toEqual(expected);
+    expect(staffEditContent(editingContentInfo).contentInfo)
+      .toEqual(editingContentInfo);
   });
 });
 
 describe('staffEditContentSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditContentSucceeded('OK.').type;
-    const expected = STAFF_EDIT_CONTENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffEditContentSucceeded('OK.').type)
+      .toEqual(STAFF_EDIT_CONTENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffEditContentSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffEditContentSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffEditContentFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditContentFailed('Try again.').type;
-    const expected = STAFF_EDIT_CONTENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffEditContentFailed('Try again.').type)
+      .toEqual(STAFF_EDIT_CONTENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffEditContentFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffEditContentFailed('Try again.').message).toEqual('Try again.');
   });
 });
 
-
-
 describe('staffDeleteContent action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteContent(7).type;
-    const expected = STAFF_DELETE_CONTENT;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteContent(7).type).toEqual(STAFF_DELETE_CONTENT);
   });
+
   it('returns the correct id', () => {
-    const actual = staffDeleteContent(7).id;
-    const expected = 7;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteContent(7).id).toEqual(7);
   });
 });
 
 describe('staffDeleteContentSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteContentSucceeded('OK.').type;
-    const expected = STAFF_DELETE_CONTENT_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteContentSucceeded('OK.').type)
+      .toEqual(STAFF_DELETE_CONTENT_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffDeleteContentSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffDeleteContentSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffDeleteContentFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteContentFailed('Try again.').type;
-    const expected = STAFF_DELETE_CONTENT_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteContentFailed('Try again.').type)
+      .toEqual(STAFF_DELETE_CONTENT_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffDeleteContentFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffDeleteContentFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });

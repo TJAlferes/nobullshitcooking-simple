@@ -43,7 +43,6 @@ const creatingRecipeInfo = {
   cookingImage: null,
   cookingFullImage: null
 };
-
 const editingRecipeInfo = {
   id: 888,
   recipePrevImage: "nobsc-recipe-default",
@@ -74,121 +73,100 @@ const editingRecipeInfo = {
 
 describe('staffCreateNewRecipe action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewRecipe(creatingRecipeInfo).type;
-    const expected = STAFF_CREATE_NEW_RECIPE;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewRecipe(creatingRecipeInfo).type)
+      .toEqual(STAFF_CREATE_NEW_RECIPE);
   });
+
   it('returns the correct recipeInfo', () => {
-    const actual = staffCreateNewRecipe(creatingRecipeInfo).recipeInfo;
-    const expected = creatingRecipeInfo;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewRecipe(creatingRecipeInfo).recipeInfo)
+      .toEqual(creatingRecipeInfo);
   });
 });
 
 describe('staffCreateNewRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewRecipeSucceeded('OK.').type;
-    const expected = STAFF_CREATE_NEW_RECIPE_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewRecipeSucceeded('OK.').type)
+      .toEqual(STAFF_CREATE_NEW_RECIPE_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffCreateNewRecipeSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewRecipeSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffCreateNewRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffCreateNewRecipeFailed('Try again.').type;
-    const expected = STAFF_CREATE_NEW_RECIPE_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewRecipeFailed('Try again.').type)
+      .toEqual(STAFF_CREATE_NEW_RECIPE_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffCreateNewRecipeFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffCreateNewRecipeFailed('Try again.').message)
+      .toEqual('Try again.');
   });
 });
 
-
-
 describe('staffEditRecipe action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditRecipe(editingRecipeInfo).type;
-    const expected = STAFF_EDIT_RECIPE;
-    expect(actual).toEqual(expected);
+    expect(staffEditRecipe(editingRecipeInfo).type).toEqual(STAFF_EDIT_RECIPE);
   });
+
   it('returns the correct recipeInfo', () => {
-    const actual = staffEditRecipe(editingRecipeInfo).recipeInfo;
-    const expected = editingRecipeInfo;
-    expect(actual).toEqual(expected);
+    expect(staffEditRecipe(editingRecipeInfo).recipeInfo)
+      .toEqual(editingRecipeInfo);
   });
 });
 
 describe('staffEditRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditRecipeSucceeded('OK.').type;
-    const expected = STAFF_EDIT_RECIPE_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffEditRecipeSucceeded('OK.').type)
+      .toEqual(STAFF_EDIT_RECIPE_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffEditRecipeSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffEditRecipeSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffEditRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffEditRecipeFailed('Try again.').type;
-    const expected = STAFF_EDIT_RECIPE_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffEditRecipeFailed('Try again.').type)
+      .toEqual(STAFF_EDIT_RECIPE_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffEditRecipeFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffEditRecipeFailed('Try again.').message).toEqual('Try again.');
   });
 });
 
-
-
 describe('staffDeleteRecipe action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteRecipe(7).type;
-    const expected = STAFF_DELETE_RECIPE;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteRecipe(7).type).toEqual(STAFF_DELETE_RECIPE);
   });
+
   it('returns the correct id', () => {
-    const actual = staffDeleteRecipe(7).id;
-    const expected = 7;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteRecipe(7).id).toEqual(7);
   });
 });
 
 describe('staffDeleteRecipeSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteRecipeSucceeded('OK.').type;
-    const expected = STAFF_DELETE_RECIPE_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteRecipeSucceeded('OK.').type)
+      .toEqual(STAFF_DELETE_RECIPE_SUCCEEDED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffDeleteRecipeSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(staffDeleteRecipeSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('staffDeleteRecipeFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = staffDeleteRecipeFailed('Try again.').type;
-    const expected = STAFF_DELETE_RECIPE_FAILED;
-    expect(actual).toEqual(expected);
+    expect(staffDeleteRecipeFailed('Try again.').type)
+      .toEqual(STAFF_DELETE_RECIPE_FAILED);
   });
+
   it('returns the correct message', () => {
-    const actual = staffDeleteRecipeFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(staffDeleteRecipeFailed('Try again.').message).toEqual('Try again.');
   });
 });

@@ -14,48 +14,39 @@ const tinyAvatar = new File([(new Blob)], "resizedTiny", {type: "image/jpeg"});
 
 describe('userSubmitAvatar action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userSubmitAvatar(fullAvatar, tinyAvatar).type;
-    const expected = USER_SUBMIT_AVATAR;
-    expect(actual).toEqual(expected);
+    expect(userSubmitAvatar(fullAvatar, tinyAvatar).type)
+      .toEqual(USER_SUBMIT_AVATAR);
   });
 
   it('returns the correct fullAvatar', () => {
-    const actual = userSubmitAvatar(fullAvatar, tinyAvatar).fullAvatar;
-    const expected = fullAvatar;
-    expect(actual).toEqual(expected);
+    expect(userSubmitAvatar(fullAvatar, tinyAvatar).fullAvatar)
+      .toEqual(fullAvatar);
   });
   
   it('returns the correct tinyAvatar', () => {
-    const actual = userSubmitAvatar(fullAvatar, tinyAvatar).tinyAvatar;
-    const expected = tinyAvatar;
-    expect(actual).toEqual(expected);
+    expect(userSubmitAvatar(fullAvatar, tinyAvatar).tinyAvatar)
+      .toEqual(tinyAvatar);
   });
 });
 
 describe('userSubmitAvatarSucceeded action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userSubmitAvatarSucceeded('OK.').type;
-    const expected = USER_SUBMIT_AVATAR_SUCCEEDED;
-    expect(actual).toEqual(expected);
+    expect(userSubmitAvatarSucceeded('OK.').type)
+      .toEqual(USER_SUBMIT_AVATAR_SUCCEEDED);
   });
 
   it('returns the correct message', () => {
-    const actual = userSubmitAvatarSucceeded('OK.').message;
-    const expected = 'OK.';
-    expect(actual).toEqual(expected);
+    expect(userSubmitAvatarSucceeded('OK.').message).toEqual('OK.');
   });
 });
 
 describe('userSubmitAvatarFailed action creator', () => {
   it('returns the correct action type', () => {
-    const actual = userSubmitAvatarFailed('Try again.').type;
-    const expected = USER_SUBMIT_AVATAR_FAILED;
-    expect(actual).toEqual(expected);
+    expect(userSubmitAvatarFailed('Try again.').type)
+      .toEqual(USER_SUBMIT_AVATAR_FAILED);
   });
 
   it('returns the correct message', () => {
-    const actual = userSubmitAvatarFailed('Try again.').message;
-    const expected = 'Try again.';
-    expect(actual).toEqual(expected);
+    expect(userSubmitAvatarFailed('Try again.').message).toEqual('Try again.');
   });
 });

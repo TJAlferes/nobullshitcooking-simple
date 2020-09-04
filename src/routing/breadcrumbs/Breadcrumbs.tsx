@@ -25,7 +25,12 @@ type EquipmentBreadcrumbsProps = PropsFromRedux & {
 
 type IngredientBreadcrumbsProps = PropsFromRedux & {
   id: number;
-  name: string; 
+  name: string;  // fullname?
+};
+
+type ProductBreadcrumbsProps = PropsFromRedux & {
+  id: number;
+  name: string;  // fullname?
 };
 
 type RecipeBreadcrumbsProps = PropsFromRedux & {
@@ -147,6 +152,7 @@ function EquipmentBreadcrumbsComponent({
   );
 }
 
+// fullname?
 function IngredientBreadcrumbsComponent({
   breadCrumbsTheme,
   id,
@@ -172,7 +178,7 @@ function IngredientBreadcrumbsComponent({
           )}
           <Link
             className="crumb-link"
-            to={`/ingredients/${id}`}
+            to={`/ingredient/${id}`}
           >
             {name}
           </Link>
@@ -184,6 +190,48 @@ function IngredientBreadcrumbsComponent({
   return (
     <div className={`crumbs ${breadCrumbsTheme}`}>
       <IngredientBreadcrumbsDisplay />
+    </div>
+  );
+}
+
+// fullname?
+function ProductBreadcrumbsComponent({
+  breadCrumbsTheme,
+  id,
+  name
+}: ProductBreadcrumbsProps) {
+  const ProductBreadcrumbsDisplay = withBreadcrumbs()(
+    ({ breadcrumbs }: any): JSX.Element => {
+      breadcrumbs.pop();
+      return (
+        <>
+          {breadcrumbs.map(
+            ({ breadcrumb, match }: any, index: number) => (
+              <span className="crumb" key={match.url}>
+                <Link className="crumb-link" to={match.url}>
+                  {breadcrumb}
+                </Link>
+                {
+                  (index < breadcrumbs.length) &&
+                  <i className="crumb-pointer">{`&gt;`}</i>
+                }
+              </span>
+            )
+          )}
+          <Link
+            className="crumb-link"
+            to={`/product/${id}`}
+          >
+            {name}
+          </Link>
+        </>
+      );
+    }
+  );
+
+  return (
+    <div className={`crumbs ${breadCrumbsTheme}`}>
+      <ProductBreadcrumbsDisplay />
     </div>
   );
 }
@@ -213,7 +261,7 @@ function RecipeBreadcrumbsComponent({
           )}
           <Link
             className="crumb-link"
-            to={`/recipes/${id}`}
+            to={`/recipe/${id}`}
           >
             {title}
           </Link>
@@ -233,4 +281,5 @@ export const Breadcrumbs = connector(BreadcrumbsComponent);
 export const CuisineBreadcrumbs = connector(CuisineBreadcrumbsComponent);
 export const EquipmentBreadcrumbs = connector(EquipmentBreadcrumbsComponent);
 export const IngredientBreadcrumbs = connector(IngredientBreadcrumbsComponent);
+export const ProductBreadcrumbs = connector(ProductBreadcrumbsComponent);
 export const RecipeBreadcrumbs = connector(RecipeBreadcrumbsComponent);

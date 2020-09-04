@@ -9,6 +9,9 @@ import {
   DATA_GET_INGREDIENT_TYPES,
   DATA_GET_MEASUREMENTS,
   DATA_GET_METHODS,
+  DATA_GET_PRODUCTS,
+  DATA_GET_PRODUCT_CATEGORIES,
+  DATA_GET_PRODUCT_TYPES,
   DATA_GET_RECIPES,  // official
   DATA_GET_RECIPE_TYPES,
 
@@ -39,6 +42,9 @@ const initialState: IDataState = {
   methods: [],
   officialRecipes: [],
   recipeTypes: [],
+  products: [],
+  productCategories: [],
+  productTypes: [],
   
   myContent: [],
   myFavoriteRecipes: [],
@@ -70,7 +76,10 @@ export const dataReducer = (
           measurements: action.initialData.measurements,
           methods: action.initialData.methods,
           officialRecipes: action.initialData.officialRecipes,
-          recipeTypes: action.initialData.recipeTypes
+          recipeTypes: action.initialData.recipeTypes,
+          products: action.initialData.products,
+          productCategories: action.initialData.productCategories,
+          productTypes: action.initialData.productTypes
         }
       };
     
@@ -98,15 +107,24 @@ export const dataReducer = (
     case DATA_GET_MEASUREMENTS:
       return {...state, ...{measurements: action.measurements}};
 
-      case DATA_GET_METHODS:
-        return {...state, ...{methods: action.methods}};
-
+    case DATA_GET_METHODS:
+      return {...state, ...{methods: action.methods}};
+    
+    case DATA_GET_PRODUCTS:
+      return {...state, ...{productTypes: action.products}};
+    
+    case DATA_GET_PRODUCT_CATEGORIES:
+      return {...state, ...{productTypes: action.productCategories}};
+    
+    case DATA_GET_PRODUCT_TYPES:
+      return {...state, ...{productTypes: action.productTypes}};
+    
     case DATA_GET_RECIPES:
       return {...state, ...{officialRecipes: action.officialRecipes}};
 
     case DATA_GET_RECIPE_TYPES:
       return {...state, ...{recipeTypes: action.recipeTypes}};
-
+      
 
     
     case DATA_GET_INITIAL_USER_DATA:

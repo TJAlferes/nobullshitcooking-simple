@@ -40,7 +40,7 @@ export function MenuView({
     if (!activeMenuRow) return;
     const img = menuItems[activeMenuRow].image;
     const src = theme === "drop-down-menu-light" ? light[img] : dark[img];
-    return <img className="submenu__image" src={src()} />;
+    return <img className="submenu__image" src={src} />;
   };
 
   return (
