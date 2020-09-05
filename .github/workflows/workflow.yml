@@ -36,9 +36,6 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
-        #token: ${{ secrets.CODECOV_TOKEN }}
-        #file: ./lcov.info
-        directory: ./test-coverage/
+        directory: ./coverage/
         name: codecov-umbrella
         #fail_ci_if_error: true
-        #path_to_write_report: ./test-coverage/codecov_report.gz
