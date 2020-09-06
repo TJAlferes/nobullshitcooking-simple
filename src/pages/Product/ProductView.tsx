@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { ProductBreadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
+import { ProductBreadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { IWorkProduct } from '../../store/data/types';
 import AddToCartButton from './AddToCartButton/AddToCartButton';
 import { IProduct } from './Product';

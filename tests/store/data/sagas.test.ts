@@ -3,7 +3,7 @@ import { call, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../config/NOBSCBackendAPIEndpointOne';
+} from '../../../src/config/NOBSCBackendAPIEndpointOne';
 import {
   dataGetInitialData,
   dataGetInitialDataSucceeded,
@@ -81,7 +81,7 @@ import {
   dataGetMySavedRecipes,
   dataGetMySavedRecipesSucceeded,
   dataGetMySavedRecipesFailed
-} from './actions';
+} from '../../../src/store/data/actions';
 import {
   dataGetInitialDataSaga,
   dataGetContentSaga,
@@ -109,7 +109,7 @@ import {
   dataGetMyPrivateRecipesSaga,
   dataGetMyPublicRecipesSaga,
   dataGetMySavedRecipesSaga
-} from './sagas';
+} from '../../../src/store/data/sagas';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 

@@ -1,10 +1,10 @@
-import { geolocationReducer } from './reducer';
+import { geolocationReducer } from '../../../src/store/geolocation/reducer';
 import {
   GEO_ADDRESS,
   GEO_LATITUDE,
   GEO_LONGITUDE,
   GEO_NEARBY_STORES_CLICKED
-} from './types';
+} from '../../../src/store/geolocation/types';
 
 const initialState = {
   latitude: "",

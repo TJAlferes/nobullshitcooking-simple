@@ -8,7 +8,7 @@ import {
   staffDeleteRecipe,
   staffDeleteRecipeSucceeded,
   staffDeleteRecipeFailed
-} from './actions';
+} from '../../../../src/store/staff/recipe/actions';
 import {
   STAFF_CREATE_NEW_RECIPE,
   STAFF_CREATE_NEW_RECIPE_SUCCEEDED,
@@ -19,7 +19,7 @@ import {
   STAFF_DELETE_RECIPE,
   STAFF_DELETE_RECIPE_SUCCEEDED,
   STAFF_DELETE_RECIPE_FAILED
-} from './types';
+} from '../../../../src/store/staff/recipe/types';
 
 const creatingRecipeInfo = {
   ownership: "private",

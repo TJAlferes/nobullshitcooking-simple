@@ -3,8 +3,8 @@ import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
-import { userMessageClear } from '../actions';
+} from '../../../../src/config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../../../../src/store/user/actions';
 import {
   userRequestFriendshipSucceeded,
   userRequestFriendshipFailed,
@@ -18,7 +18,7 @@ import {
   userBlockUserFailed,
   userUnblockUserSucceeded,
   userUnblockUserFailed
-} from './actions';
+} from '../../../../src/store/user/friendship/actions';
 import {
   userRequestFriendshipSaga,
   userAcceptFriendshipSaga,
@@ -26,7 +26,7 @@ import {
   userDeleteFriendshipSaga,
   userBlockUserSaga,
   userUnblockUserSaga
-} from './sagas';
+} from '../../../../src/store/user/friendship/sagas';
 import {
   USER_REQUEST_FRIENDSHIP,
   USER_ACCEPT_FRIENDSHIP,
@@ -34,7 +34,7 @@ import {
   USER_DELETE_FRIENDSHIP,
   USER_BLOCK_USER,
   USER_UNBLOCK_USER
-} from './types';
+} from '../../../../src/store/user/friendship/types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 

@@ -8,7 +8,7 @@ import {
   userDeleteContent,
   userDeleteContentSucceeded,
   userDeleteContentFailed
-} from './actions';
+} from '../../../../src/store/user/content/actions';
 import {
   USER_CREATE_NEW_CONTENT,
   USER_CREATE_NEW_CONTENT_SUCCEEDED,
@@ -19,7 +19,7 @@ import {
   USER_DELETE_CONTENT,
   USER_DELETE_CONTENT_SUCCEEDED,
   USER_DELETE_CONTENT_FAILED
-} from './types';
+} from '../../../../src/store/user/content/types';
 
 const creatingContentInfo = {
   contentTypeId: 13,

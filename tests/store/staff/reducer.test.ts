@@ -5,7 +5,7 @@ import {
   STAFF_EDIT_CONTENT_FAILED,
   STAFF_DELETE_CONTENT_SUCCEEDED,
   STAFF_DELETE_CONTENT_FAILED
-} from './content/types';
+} from '../../../src/store/staff/content/types';
 import {
   STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED,
   STAFF_CREATE_NEW_EQUIPMENT_FAILED,
@@ -13,7 +13,7 @@ import {
   STAFF_EDIT_EQUIPMENT_FAILED,
   STAFF_DELETE_EQUIPMENT_SUCCEEDED,
   STAFF_DELETE_EQUIPMENT_FAILED
-} from './equipment/types';
+} from '../../../src/store/staff/equipment/types';
 import {
   STAFF_CREATE_NEW_INGREDIENT_SUCCEEDED,
   STAFF_CREATE_NEW_INGREDIENT_FAILED,
@@ -21,7 +21,7 @@ import {
   STAFF_EDIT_INGREDIENT_FAILED,
   STAFF_DELETE_INGREDIENT_SUCCEEDED,
   STAFF_DELETE_INGREDIENT_FAILED,
-} from './ingredient/types';
+} from '../../../src/store/staff/ingredient/types';
 import {
   STAFF_CREATE_NEW_RECIPE_SUCCEEDED,
   STAFF_CREATE_NEW_RECIPE_FAILED,
@@ -29,9 +29,9 @@ import {
   STAFF_EDIT_RECIPE_FAILED,
   STAFF_DELETE_RECIPE_SUCCEEDED,
   STAFF_DELETE_RECIPE_FAILED,
-} from './recipe/types';
-import { staffReducer } from './reducer';
-import { STAFF_MESSAGE_CLEAR } from './types';
+} from '../../../src/store/staff/recipe/types';
+import { staffReducer } from '../../../src/store/staff/reducer';
+import { STAFF_MESSAGE_CLEAR } from '../../../src/store/staff/types';
 
 const message = 'Message.';
 

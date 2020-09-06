@@ -18,7 +18,7 @@ import {
   userDisownPublicRecipe,
   userDisownPublicRecipeSucceeded,
   userDisownPublicRecipeFailed
-} from './actions';
+} from '../../../../src/store/user/recipe/actions';
 import {
   USER_CREATE_NEW_PRIVATE_RECIPE,
   USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
@@ -39,7 +39,7 @@ import {
   USER_DISOWN_PUBLIC_RECIPE,
   USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED,
   USER_DISOWN_PUBLIC_RECIPE_FAILED,
-} from './types';
+} from '../../../../src/store/user/recipe/types';
 
 const creatingRecipeInfo = {
   ownership: "private",

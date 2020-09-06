@@ -1,5 +1,5 @@
-import { menuReducer } from './reducer';
-import { MENU_SHADOW_SHOW, MENU_SHADOW_HIDE } from './types';
+import { menuReducer } from '../../../src/store/menu/reducer';
+import { MENU_SHADOW_SHOW, MENU_SHADOW_HIDE } from '../../../src/store/menu/types';
 
 const initialState = {shadow: false};
 

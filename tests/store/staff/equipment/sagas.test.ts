@@ -3,8 +3,8 @@ import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
-import { staffMessageClear } from '../actions';
+} from '../../../../src/config/NOBSCBackendAPIEndpointOne';
+import { staffMessageClear } from '../../../../src/store/staff/actions';
 import {
   staffCreateNewEquipmentSucceeded,
   staffCreateNewEquipmentFailed,
@@ -12,17 +12,17 @@ import {
   staffEditEquipmentFailed,
   staffDeleteEquipmentSucceeded,
   staffDeleteEquipmentFailed
-} from './actions';
+} from '../../../../src/store/staff/equipment/actions';
 import {
   staffCreateNewEquipmentSaga,
   staffEditEquipmentSaga,
   staffDeleteEquipmentSaga
-} from './sagas';
+} from '../../../../src/store/staff/equipment/sagas';
 import {
   STAFF_CREATE_NEW_EQUIPMENT,
   STAFF_EDIT_EQUIPMENT,
   STAFF_DELETE_EQUIPMENT
-} from './types';
+} from '../../../../src/store/staff/equipment/types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 

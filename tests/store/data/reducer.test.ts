@@ -1,4 +1,4 @@
-import { dataReducer } from './reducer';
+import { dataReducer } from '../../../src/store/data/reducer';
 import {
   DATA_GET_INITIAL_DATA,
   DATA_GET_CONTENT,  // official
@@ -25,7 +25,7 @@ import {
   DATA_GET_MY_SAVED_RECIPES,
 
   IDataState
-} from './types';
+} from '../../../src/store/data/types';
 
 const initialState: IDataState = {
   officialContent: [],

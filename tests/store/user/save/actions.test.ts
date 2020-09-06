@@ -5,7 +5,7 @@ import {
   userUnsaveRecipe,
   userUnsaveRecipeSucceeded,
   userUnsaveRecipeFailed
-} from './actions';
+} from '../../../../src/store/user/save/actions';
 import {
   USER_SAVE_RECIPE,
   USER_SAVE_RECIPE_SUCCEEDED,
@@ -13,7 +13,7 @@ import {
   USER_UNSAVE_RECIPE,
   USER_UNSAVE_RECIPE_SUCCEEDED,
   USER_UNSAVE_RECIPE_FAILED
-} from './types';
+} from '../../../../src/store/user/save/types';
 
 describe('userSaveRecipe action creator', () => {
   it('returns the correct action type', () => {

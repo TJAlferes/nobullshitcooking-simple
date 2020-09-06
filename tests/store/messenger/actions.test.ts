@@ -16,7 +16,7 @@ import {
   messengerSendWhisper,
   messengerReceivedWhisper,
   messengerFailedWhisper
-} from './actions';
+} from '../../../src/store/messenger/actions';
 import {
   MESSENGER_CONNECT,
   MESSENGER_CONNECTED,
@@ -37,7 +37,7 @@ import {
   MESSENGER_FAILED_WHISPER,
   KMessage,
   KWhisper
-} from './types';
+} from '../../../src/store/messenger/types';
 
 const aaron = {id: '4', username: 'Aaron', avatar: 'Aaron'};
 const alex = {id: '5', username: 'Alex', avatar: 'Alex'};

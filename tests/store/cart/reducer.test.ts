@@ -1,5 +1,5 @@
-import { cartReducer } from './reducer';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY_CART } from './types';
+import { cartReducer } from '../../../src/store/cart/reducer';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_EMPTY_CART } from '../../../src/store/cart/types';
 
 const initialState = {items: []};
 

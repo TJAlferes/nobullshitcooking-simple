@@ -8,7 +8,7 @@ import {
   staffDeleteContent,
   staffDeleteContentSucceeded,
   staffDeleteContentFailed
-} from './actions';
+} from '../../../../src/store/staff/content/actions';
 import {
   STAFF_CREATE_NEW_CONTENT,
   STAFF_CREATE_NEW_CONTENT_SUCCEEDED,
@@ -19,7 +19,7 @@ import {
   STAFF_DELETE_CONTENT,
   STAFF_DELETE_CONTENT_SUCCEEDED,
   STAFF_DELETE_CONTENT_FAILED
-} from './types';
+} from '../../../../src/store/staff/content/types';
 
 const creatingContentInfo = {
   contentTypeId: 13,

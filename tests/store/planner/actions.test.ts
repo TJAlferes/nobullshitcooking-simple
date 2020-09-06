@@ -10,7 +10,7 @@ import {
   plannerSetEditingId,
   plannerSetPlanName,
   plannerSetPlanData
-} from './actions';
+} from '../../../src/store/planner/actions';
 import {
   PLANNER_CLICK_DAY,
   PLANNER_ADD_RECIPE_TO_DAY,
@@ -23,7 +23,7 @@ import {
   PLANNER_SET_EDITING_ID,
   PLANNER_SET_PLAN_NAME,
   PLANNER_SET_PLAN_DATA
-} from './types';
+} from '../../../src/store/planner/types';
 
 const recipeOne = {
   key: "ABC",

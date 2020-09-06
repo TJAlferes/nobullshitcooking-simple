@@ -1,5 +1,5 @@
-import { AUTH_USER_LOGOUT } from '../auth/types';
-import { messengerReducer } from './reducer';
+import { AUTH_USER_LOGOUT } from '../../../src/store/auth/types';
+import { messengerReducer } from '../../../src/store/messenger/reducer';
 import {
   MESSENGER_CONNECTED,
   MESSENGER_DISCONNECTED,
@@ -15,7 +15,7 @@ import {
   MESSENGER_GET_ONLINE,
   KMessage,
   KWhisper
-} from './types';
+} from '../../../src/store/messenger/types';
 
 const jane = {id: 888, username: "Jane888", avatar: "Jane888"};
 const joe = {id: 555, username: "Joe555", avatar: "Joe555"};

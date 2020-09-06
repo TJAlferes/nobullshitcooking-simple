@@ -8,7 +8,7 @@ import {
   userDeletePlan,
   userDeletePlanSucceeded,
   userDeletePlanFailed
-} from './actions';
+} from '../../../../src/store/user/plan/actions';
 import {
   USER_CREATE_NEW_PLAN,
   USER_CREATE_NEW_PLAN_SUCCEEDED,
@@ -19,7 +19,7 @@ import {
   USER_DELETE_PLAN,
   USER_DELETE_PLAN_SUCCEEDED,
   USER_DELETE_PLAN_FAILED
-} from './types';
+} from '../../../../src/store/user/plan/types';
 
 const creatingPlanInfo = {name: "Plan B", data: ""};
 const editingPlanInfo = {id: 2, name: "Plan B", data: ""};

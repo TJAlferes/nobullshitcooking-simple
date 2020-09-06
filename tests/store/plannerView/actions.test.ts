@@ -1,5 +1,5 @@
-import { plannerViewClickDay, plannerViewLoad } from './actions'
-import { PLANNER_VIEW_CLICK_DAY, PLANNER_VIEW_LOAD } from './types';
+import { plannerViewClickDay, plannerViewLoad } from '../../../src/store/plannerView/actions'
+import { PLANNER_VIEW_CLICK_DAY, PLANNER_VIEW_LOAD } from '../../../src/store/plannerView/types';
 
 const recipeOne = {
   key: "ABC",

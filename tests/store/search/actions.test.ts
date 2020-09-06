@@ -1,5 +1,5 @@
-import { searchSetIndex } from './actions';
-import { SEARCH_SET_INDEX } from './types';
+import { searchSetIndex } from '../../../src/store/search/actions';
+import { SEARCH_SET_INDEX } from '../../../src/store/search/types';
 
 describe('searchSetIndex action creator', () => {
   it('returns the correct action type', () => {

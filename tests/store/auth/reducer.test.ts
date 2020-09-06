@@ -18,8 +18,8 @@ import {
   AUTH_USER_REGISTER_FAILED,
   //AUTH_USER_VERIFY_SUCCEEDED,
   //AUTH_USER_VERIFY_FAILED
-} from './types';
-import { authReducer } from './reducer';
+} from '../../../src/store/auth/types';
+import { authReducer } from '../../../src/store/auth/reducer';
 
 const initialState = {
   authname: '',

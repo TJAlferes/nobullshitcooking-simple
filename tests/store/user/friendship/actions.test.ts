@@ -17,7 +17,7 @@ import {
   userUnblockUser,
   userUnblockUserSucceeded,
   userUnblockUserFailed
-} from './actions';
+} from '../../../../src/store/user/friendship/actions';
 import {
   USER_REQUEST_FRIENDSHIP,
   USER_REQUEST_FRIENDSHIP_SUCCEEDED,
@@ -37,7 +37,7 @@ import {
   USER_UNBLOCK_USER,
   USER_UNBLOCK_USER_SUCCEEDED,
   USER_UNBLOCK_USER_FAILED
-} from './types';
+} from '../../../../src/store/user/friendship/types';
 
 describe('userRequestFriendship action creator', () => {
   it('returns the correct action type', () => {

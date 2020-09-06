@@ -40,7 +40,7 @@ const initialProps = {
 
 window.scrollTo = jest.fn();
 
-jest.mock('../../components/LeftNav/LeftNav');
+jest.mock('../../../src/components/LeftNav/LeftNav');
 
 let wrapper: ReactWrapper;
 

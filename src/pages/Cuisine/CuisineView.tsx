@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CuisineBreadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
+import { CuisineBreadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { ICuisineDetail } from './Cuisine';
 import './cuisine.css';
 

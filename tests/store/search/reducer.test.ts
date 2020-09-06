@@ -1,5 +1,5 @@
-import { searchReducer } from './reducer';
-import { SEARCH_SET_INDEX } from './types';
+import { searchReducer } from '../../../src/store/search/reducer';
+import { SEARCH_SET_INDEX } from '../../../src/store/search/types';
 
 describe('search reducer', () => {
   it('returns initial state', () => {

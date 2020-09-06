@@ -1,10 +1,10 @@
-import { editorReducer } from './reducer';
+import { editorReducer } from '../../../src/store/editor/reducer';
 import {
   EDITOR_CLEAR_WORK,
   EDITOR_SET_CREATING,
   EDITOR_SET_EDITING_ID,
   EDITOR_SET_VALUE
-} from './types';
+} from '../../../src/store/editor/types';
 
 const initialState = {
   creating: false,

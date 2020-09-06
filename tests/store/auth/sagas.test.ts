@@ -4,8 +4,8 @@ import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../config/NOBSCBackendAPIEndpointOne';
-import { removeStorageItem } from '../../utils/storageHelpers';
+} from '../../../src/config/NOBSCBackendAPIEndpointOne';
+import { removeStorageItem } from '../../../src/utils/storageHelpers';
 import {
   authMessageClear,
   authStaffDisplay,
@@ -22,7 +22,7 @@ import {
   authUserRegisterFailed,
   authUserVerifySucceeded,
   authUserVerifyFailed
-} from './actions';
+} from '../../../src/store/auth/actions';
 import {
   authStaffLoginSaga,
   authStaffLogoutSaga,
@@ -30,7 +30,7 @@ import {
   authUserLogoutSaga,
   authUserRegisterSaga,
   authUserVerifySaga
-} from './sagas';
+} from '../../../src/store/auth/sagas';
 import {
   AUTH_STAFF_LOGIN,
   AUTH_STAFF_LOGOUT,
@@ -38,7 +38,7 @@ import {
   AUTH_USER_LOGOUT,
   AUTH_USER_REGISTER,
   AUTH_USER_VERIFY
-} from './types';
+} from '../../../src/store/auth/types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 //const history = useHistory();

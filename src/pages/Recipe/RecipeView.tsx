@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { RecipeBreadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
+import { RecipeBreadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { IWorkRecipe } from '../../store/data/types';
 import { IRecipe } from './Recipe';
 import './recipe.css';

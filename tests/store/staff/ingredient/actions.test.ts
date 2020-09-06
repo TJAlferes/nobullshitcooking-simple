@@ -8,7 +8,7 @@ import {
   staffDeleteIngredient,
   staffDeleteIngredientSucceeded,
   staffDeleteIngredientFailed
-} from './actions';
+} from '../../../../src/store/staff/ingredient/actions';
 import {
   STAFF_CREATE_NEW_INGREDIENT,
   STAFF_CREATE_NEW_INGREDIENT_SUCCEEDED,
@@ -19,7 +19,7 @@ import {
   STAFF_DELETE_INGREDIENT,
   STAFF_DELETE_INGREDIENT_SUCCEEDED,
   STAFF_DELETE_INGREDIENT_FAILED
-} from './types';
+} from '../../../../src/store/staff/ingredient/types';
 
 const creatingIngredientInfo = {
   ingredientTypeId: 3,

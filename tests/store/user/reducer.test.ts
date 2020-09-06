@@ -1,7 +1,7 @@
 import {
   USER_SUBMIT_AVATAR_SUCCEEDED,
   USER_SUBMIT_AVATAR_FAILED
-} from './avatar/types';
+} from '../../../src/store/user/avatar/types';
 import {
   USER_CREATE_NEW_CONTENT_SUCCEEDED,
   USER_CREATE_NEW_CONTENT_FAILED,
@@ -9,7 +9,7 @@ import {
   USER_EDIT_CONTENT_FAILED,
   USER_DELETE_CONTENT_SUCCEEDED,
   USER_DELETE_CONTENT_FAILED,
-} from './content/types';
+} from '../../../src/store/user/content/types';
 import {
   USER_CREATE_NEW_PRIVATE_EQUIPMENT_SUCCEEDED,
   USER_CREATE_NEW_PRIVATE_EQUIPMENT_FAILED,
@@ -17,13 +17,13 @@ import {
   USER_EDIT_PRIVATE_EQUIPMENT_FAILED,
   USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
   USER_DELETE_PRIVATE_EQUIPMENT_FAILED
-} from './equipment/types';
+} from '../../../src/store/user/equipment/types';
 import {
   USER_FAVORITE_RECIPE_SUCCEEDED,
   USER_FAVORITE_RECIPE_FAILED,
   USER_UNFAVORITE_RECIPE_SUCCEEDED,
   USER_UNFAVORITE_RECIPE_FAILED
-} from './favorite/types';
+} from '../../../src/store/user/favorite/types';
 import {
   USER_REQUEST_FRIENDSHIP_SUCCEEDED,
   USER_REQUEST_FRIENDSHIP_FAILED,
@@ -37,7 +37,7 @@ import {
   USER_BLOCK_USER_FAILED,
   USER_UNBLOCK_USER_SUCCEEDED,
   USER_UNBLOCK_USER_FAILED
-} from './friendship/types';
+} from '../../../src/store/user/friendship/types';
 import {
   USER_CREATE_NEW_PRIVATE_INGREDIENT_SUCCEEDED,
   USER_CREATE_NEW_PRIVATE_INGREDIENT_FAILED,
@@ -45,7 +45,7 @@ import {
   USER_EDIT_PRIVATE_INGREDIENT_FAILED,
   USER_DELETE_PRIVATE_INGREDIENT_SUCCEEDED,
   USER_DELETE_PRIVATE_INGREDIENT_FAILED
-} from './ingredient/types';
+} from '../../../src/store/user/ingredient/types';
 import {
   USER_CREATE_NEW_PLAN_SUCCEEDED,
   USER_CREATE_NEW_PLAN_FAILED,
@@ -53,7 +53,7 @@ import {
   USER_EDIT_PLAN_FAILED,
   USER_DELETE_PLAN_SUCCEEDED,
   USER_DELETE_PLAN_FAILED
-} from './plan/types';
+} from '../../../src/store/user/plan/types';
 import {
   USER_CREATE_NEW_PRIVATE_RECIPE_SUCCEEDED,
   USER_CREATE_NEW_PRIVATE_RECIPE_FAILED,
@@ -68,15 +68,15 @@ import {
   USER_EDIT_PUBLIC_RECIPE_FAILED,
   USER_DISOWN_PUBLIC_RECIPE_SUCCEEDED,
   USER_DISOWN_PUBLIC_RECIPE_FAILED
-} from './recipe/types';
+} from '../../../src/store/user/recipe/types';
 import {
   USER_SAVE_RECIPE_SUCCEEDED,
   USER_SAVE_RECIPE_FAILED,
   USER_UNSAVE_RECIPE_SUCCEEDED,
   USER_UNSAVE_RECIPE_FAILED
-} from './save/types';
-import { userReducer } from './reducer';
-import { USER_MESSAGE_CLEAR } from './types';
+} from '../../../src/store/user/save/types';
+import { userReducer } from '../../../src/store/user/reducer';
+import { USER_MESSAGE_CLEAR } from '../../../src/store/user/types';
 
 const message = 'Message.';
 

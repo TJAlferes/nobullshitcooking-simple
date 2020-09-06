@@ -3,13 +3,13 @@ import {
   geoLongitude,
   geoAddress,
   geoNearbyStoresClicked
-} from './actions';
+} from '../../../src/store/geolocation/actions';
 import {
   GEO_LATITUDE,
   GEO_LONGITUDE,
   GEO_ADDRESS,
   GEO_NEARBY_STORES_CLICKED
-} from './types';
+} from '../../../src/store/geolocation/types';
 
 const latitude = "48.51";
 const longitude = "115.43";

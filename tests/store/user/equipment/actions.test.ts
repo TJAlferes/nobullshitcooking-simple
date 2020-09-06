@@ -8,7 +8,7 @@ import {
   USER_DELETE_PRIVATE_EQUIPMENT,
   USER_DELETE_PRIVATE_EQUIPMENT_SUCCEEDED,
   USER_DELETE_PRIVATE_EQUIPMENT_FAILED
-} from './types';
+} from '../../../../src/store/user/equipment/types';
 import {
   userCreateNewPrivateEquipment,
   userCreateNewPrivateEquipmentSucceeded,
@@ -19,7 +19,7 @@ import {
   userDeletePrivateEquipment,
   userDeletePrivateEquipmentSucceeded,
   userDeletePrivateEquipmentFailed
-} from './actions';
+} from '../../../../src/store/user/equipment/actions';
 
 const creatingEquipmentInfo = {
   equipmentTypeId: 3,

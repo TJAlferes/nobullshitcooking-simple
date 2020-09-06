@@ -3,11 +3,11 @@ import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
-import { userMessageClear } from '../actions';
-import { userSubmitAvatarSucceeded, userSubmitAvatarFailed } from './actions';
-import { userSubmitAvatarSaga } from './sagas';
-import { USER_SUBMIT_AVATAR } from './types';
+} from '../../../../src/config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../../../../src/store/user/actions';
+import { userSubmitAvatarSucceeded, userSubmitAvatarFailed } from '../../../../src/store/user/avatar/actions';
+import { userSubmitAvatarSaga } from '../../../../src/store/user/avatar/sagas';
+import { USER_SUBMIT_AVATAR } from '../../../../src/store/user/avatar/types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 const fullAvatar = new File([(new Blob)], "resizedFinal", {type: "image/jpeg"});

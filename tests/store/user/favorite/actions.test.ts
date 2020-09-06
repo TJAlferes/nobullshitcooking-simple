@@ -5,7 +5,7 @@ import {
   userUnfavoriteRecipe,
   userUnfavoriteRecipeSucceeded,
   userUnfavoriteRecipeFailed
-} from './actions';
+} from '../../../../src/store/user/favorite/actions';
 import {
   USER_FAVORITE_RECIPE,
   USER_FAVORITE_RECIPE_SUCCEEDED,
@@ -13,7 +13,7 @@ import {
   USER_UNFAVORITE_RECIPE,
   USER_UNFAVORITE_RECIPE_SUCCEEDED,
   USER_UNFAVORITE_RECIPE_FAILED
-} from './types';
+} from '../../../../src/store/user/favorite/types';
 
 describe('userFavoriteRecipe action creator', () => {
   it('returns the correct action type', () => {

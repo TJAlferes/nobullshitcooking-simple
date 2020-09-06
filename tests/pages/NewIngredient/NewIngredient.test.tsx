@@ -2,7 +2,7 @@ import { mount } from 'enzyme';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { NewIngredient } from './NewIngredient';
+import { NewIngredient } from '../../../src/pages/NewIngredient/NewIngredient';
 
 const staffCreateNewIngredient = jest.fn();
 const staffEditIngredient = jest.fn();

@@ -3,8 +3,8 @@ import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
-import { userMessageClear } from '../actions';
+} from '../../../../src/config/NOBSCBackendAPIEndpointOne';
+import { userMessageClear } from '../../../../src/store/user/actions';
 import {
   userCreateNewPrivateRecipeSucceeded,
   userCreateNewPrivateRecipeFailed,
@@ -18,19 +18,19 @@ import {
   //userEditPublicRecipeFailed,  // TO DO: write tests
   userDisownPublicRecipeSucceeded,
   userDisownPublicRecipeFailed
-} from './actions';
+} from '../../../../src/store/user/recipe/actions';
 import {
   userCreateNewRecipeSaga,
   userDeletePrivateRecipeSaga,
   userDisownPublicRecipeSaga,
   userEditRecipeSaga
-} from './sagas';
+} from '../../../../src/store/user/recipe/sagas';
 import {
   USER_CREATE_NEW_PRIVATE_RECIPE,
   USER_DELETE_PRIVATE_RECIPE,
   USER_DISOWN_PUBLIC_RECIPE,
   USER_EDIT_PRIVATE_RECIPE
-} from './types';
+} from '../../../../src/store/user/recipe/types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 

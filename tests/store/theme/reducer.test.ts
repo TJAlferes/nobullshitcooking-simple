@@ -1,5 +1,5 @@
-import { themeReducer } from './reducer';
-import { THEME_DARK_TRIGGER, THEME_LIGHT_TRIGGER } from './types';
+import { themeReducer } from '../../../src/store/theme/reducer';
+import { THEME_DARK_TRIGGER, THEME_LIGHT_TRIGGER } from '../../../src/store/theme/types';
 
 const dark = {
   headerTheme: "header-dark",

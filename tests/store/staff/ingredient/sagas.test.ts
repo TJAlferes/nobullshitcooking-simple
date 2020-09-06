@@ -3,8 +3,8 @@ import { call, delay, put } from 'redux-saga/effects';
 
 import {
   NOBSCBackendAPIEndpointOne
-} from '../../../config/NOBSCBackendAPIEndpointOne';
-import { staffMessageClear } from '../actions';
+} from '../../../../src/config/NOBSCBackendAPIEndpointOne';
+import { staffMessageClear } from '../../../../src/store/staff/actions';
 import {
   staffCreateNewIngredientSucceeded,
   staffCreateNewIngredientFailed,
@@ -12,17 +12,17 @@ import {
   staffEditIngredientFailed,
   staffDeleteIngredientSucceeded,
   staffDeleteIngredientFailed
-} from './actions';
+} from '../../../../src/store/staff/ingredient/actions';
 import {
   staffCreateNewIngredientSaga,
   staffEditIngredientSaga,
   staffDeleteIngredientSaga,
-} from './sagas';
+} from '../../../../src/store/staff/ingredient/sagas';
 import {
   STAFF_CREATE_NEW_INGREDIENT,
   STAFF_EDIT_INGREDIENT,
   STAFF_DELETE_INGREDIENT
-} from './types';
+} from '../../../../src/store/staff/ingredient/types';
 
 const endpoint = NOBSCBackendAPIEndpointOne;
 

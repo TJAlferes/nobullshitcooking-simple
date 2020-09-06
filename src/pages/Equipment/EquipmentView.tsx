@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EquipmentBreadcrumbs } from '../../routing/breadcrumbs/Breadcrumbs';
+import { EquipmentBreadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { IEquipment } from '../../store/data/types';
 import './equipment.css';
 

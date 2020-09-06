@@ -8,7 +8,7 @@ import {
   staffDeleteEquipment,
   staffDeleteEquipmentSucceeded,
   staffDeleteEquipmentFailed
-} from './actions';
+} from '../../../../src/store/staff/equipment/actions';
 import {
   STAFF_CREATE_NEW_EQUIPMENT,
   STAFF_CREATE_NEW_EQUIPMENT_SUCCEEDED,
@@ -19,7 +19,7 @@ import {
   STAFF_DELETE_EQUIPMENT,
   STAFF_DELETE_EQUIPMENT_SUCCEEDED,
   STAFF_DELETE_EQUIPMENT_FAILED
-} from './types';
+} from '../../../../src/store/staff/equipment/types';
 
 const creatingEquipmentInfo = {
   equipmentTypeId: 3,

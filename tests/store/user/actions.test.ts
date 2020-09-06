@@ -1,5 +1,5 @@
-import { userMessageClear } from './actions';
-import { USER_MESSAGE_CLEAR } from './types';
+import { userMessageClear } from '../../../src/store/user/actions';
+import { USER_MESSAGE_CLEAR } from '../../../src/store/user/types';
 
 describe('userMessageClear action creator', () => {
   it('returns the correct action type', () => {

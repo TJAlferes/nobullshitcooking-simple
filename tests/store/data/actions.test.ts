@@ -77,7 +77,7 @@ import {
   dataGetMySavedRecipes,
   dataGetMySavedRecipesSucceeded,
   dataGetMySavedRecipesFailed
-} from './actions';
+} from '../../../src/store/data/actions';
 import {
   DATA_INIT,
 
@@ -157,7 +157,7 @@ import {
   DATA_GET_MY_SAVED_RECIPES,
   DATA_GET_MY_SAVED_RECIPES_SUCCEEDED,
   DATA_GET_MY_SAVED_RECIPES_FAILED
-} from './types';
+} from '../../../src/store/data/types';
 
 describe('dataInit action creator', () => {
   it('returns the correct action type', () => {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useLocation } from 'react-router';
 
-import { Breadcrumbs } from '../../../routing/breadcrumbs/Breadcrumbs';
+import { Breadcrumbs } from '../../Breadcrumbs/Breadcrumbs';
 import './main.css';
 
 export const Main: FC<Props> = ({

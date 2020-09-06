@@ -44,7 +44,7 @@ jest.mock('react-router-dom', () => {
 });
 
 jest.mock(
-  '../../routing/breadcrumbs/Breadcrumbs',
+  '../../../src/components/Breadcrumbs/Breadcrumbs',
   () => ({IngredientBreadcrumbs: mockIngredientBreadcrumbs})
 );
 
