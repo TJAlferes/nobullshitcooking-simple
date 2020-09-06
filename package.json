@@ -36,7 +36,7 @@
     },
     "preset": "ts-jest/presets/js-with-babel",
     "setupFiles": [
-      "<rootDir>/src/setupTests.ts"
+      "<rootDir>/tests/setupTests.ts"
     ],
     "setupFilesAfterEnv": [
       "jest-enzyme"
