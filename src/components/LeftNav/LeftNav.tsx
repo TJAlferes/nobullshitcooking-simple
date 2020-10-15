@@ -11,12 +11,12 @@ export function LeftNav({
 }: Props): JSX.Element {
   const backgroundColor = theme === "left-nav-light" ? "#ddd" : "#444";
 
-  function LeftNavLink({ text, to }: LeftNavLinkProps): JSX.Element {
+  function LeftNavLink({ dataTest, text, to }: LeftNavLinkProps): JSX.Element {
     return (
       <NavLink
         activeStyle={{backgroundColor}}
         className="left-nav-link"
-        data-test={to}
+        data-test={dataTest}
         to={to}
       >
         {`${text}`}
@@ -26,35 +26,61 @@ export function LeftNav({
 
   return (
     <nav className={`left-nav ${theme}`}>
-      {userIsAuthenticated && <LeftNavLink text={authname} to="/dashboard" />}
+      {
+        userIsAuthenticated &&
+        <LeftNavLink dataTest="dashboard" text={authname} to="/dashboard" />
+      }
       {userIsAuthenticated && <hr />}
 
-      <LeftNavLink text="News" to="/home" />
-      {userIsAuthenticated && <LeftNavLink text="Messenger" to="/messenger" />}
-      {userIsAuthenticated && <LeftNavLink text="Friends" to="/friends" />}
+      <LeftNavLink dataTest="home" text="News" to="/home" />
+      {
+        userIsAuthenticated &&
+        <LeftNavLink dataTest="messenger" text="Messenger" to="/messenger" />
+      }
+      {
+        userIsAuthenticated &&
+        <LeftNavLink dataTest="friends" text="Friends" to="/friends" />
+      }
       <hr />
 
       <LeftNavLink
+        dataTest="supplements"
         text="Supplements"
         to="/page/guide/food/nutrition/supplements"
       />
-      <LeftNavLink text="Equipment" to="/supply/kitchen-equipment" />
+      <LeftNavLink
+        dataTest="equipment"
+        text="Equipment"
+        to="/supply/kitchen-equipment"
+      />
       <hr />
 
-      <LeftNavLink text="Water Filtration" to="/page/promo/water-filtration" />
-      <LeftNavLink text="Tea" to="/page/promo/tea" />
-      <LeftNavLink text="Coffee" to="/page/promo/coffee" />
+      <LeftNavLink
+        dataTest="filtration"
+        text="Water Filtration"
+        to="/page/promo/water-filtration"
+      />
+      <LeftNavLink dataTest="tea" text="Tea" to="/page/promo/tea" />
+      <LeftNavLink dataTest="coffee" text="Coffee" to="/page/promo/coffee" />
       <hr />
 
-      <LeftNavLink text="Outdoors" to="/page/promo/outdoors" />
-      <LeftNavLink text="Garden" to="/page/promo/garden" />
-      <LeftNavLink text="Tools" to="/page/promo/tools" />
+      <LeftNavLink
+        dataTest="outdoors"
+        text="Outdoors"
+        to="/page/promo/outdoors"
+      />
+      <LeftNavLink dataTest="garden" text="Garden" to="/page/promo/garden" />
+      <LeftNavLink dataTest="tools" text="Tools" to="/page/promo/tools" />
       <hr />
 
-      <LeftNavLink text="Seasonal" to="/page/promo/seasonal" />
+      <LeftNavLink
+        dataTest="seasonal"
+        text="Seasonal"
+        to="/page/promo/seasonal"
+      />
       <hr />
 
-      <LeftNavLink text="Charity" to="/page/site/charity" />
+      <LeftNavLink dataTest="charity" text="Charity" to="/page/site/charity" />
     </nav>
   );
 }
@@ -74,6 +100,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 type LeftNavLinkProps = {
+  dataTest: string;
   to: string;
   text: string;
 };

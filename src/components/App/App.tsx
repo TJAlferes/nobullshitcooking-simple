@@ -20,9 +20,9 @@ export function App({
   const { pathname } = useLocation();
 
   const atAuthPage =
-  pathname.match(/\/login/) ||
-  pathname.match(/\/register/) ||
-  pathname.match(/\/verify/);
+    pathname.match(/\/login/) ||
+    pathname.match(/\/register/) ||
+    pathname.match(/\/verify/);
 
   return atAuthPage
   ? (

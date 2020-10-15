@@ -7,7 +7,7 @@ import { StaticRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
-import '../app/imported';
+import '../src/imported';
 import App from '../src/components/App/App';
 import { rootReducer } from '../src/store/rootReducer';
 import { generateHtml } from './generateHtml';

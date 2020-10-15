@@ -10,17 +10,13 @@ const endpoint = '';
 export function Cart({ cartItems, oneColumnATheme }: Props) {
   return (
     <div className={`cart one-column-a ${oneColumnATheme}`}>
-      {
-        !cartItems
-        ? 'Your cart is empty.'
-        : cartItems.map(i => (
-          <div className="cart-item">
-            <span><img src={`${endpoint}/${i.name}`} /></span>
-            <span>{i.name}</span>
-            <span><RemoveFromCartButton item={i}/></span>
-          </div>
-        ))
-      }
+      {!cartItems ? 'Your cart is empty.' : cartItems.map(i => (
+        <div className="cart-item">
+          <span><img src={`${endpoint}/${i.name}`} /></span>
+          <span>{i.name}</span>
+          <span><RemoveFromCartButton item={i}/></span>
+        </div>
+      ))}
     </div>
   );
 }
