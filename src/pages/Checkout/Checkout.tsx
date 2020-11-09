@@ -8,7 +8,25 @@ import {
   useStripe
 } from '@stripe/react-stripe-js';
 
-// TO DO: finish
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+
 export default function Checkout(): JSX.Element {
-  return <div />;
+  const elements = useElements();
+  const stripe = useStripe();
+
+  const handleSubmit = async () => {
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements?.getElement(CardElement)
+    });
+  };
+
+  return (
+    <Elements stripe={stripePromise}>
+      <div onSubmit={handleSubmit}>
+        <CardElement />
+        <button type="submit" disabled={!stripe}>Pay</button>
+      </div>
+    </Elements>
+  );
 }
