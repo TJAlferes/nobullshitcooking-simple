@@ -60,7 +60,7 @@
     "@elastic/react-search-ui": "^1.5.0",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "compression": "^1.7.4",
     "fibers": "^5.0.0",
     "focus-trap-react": "^8.1.1",
